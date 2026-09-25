@@ -302,3 +302,22 @@ Use the system to test whether a supervised bot team can discover, build, valida
 6. **Agents should sleep when there is no work.**
 7. **Every important action should be attributable.**
 8. **The simplest architecture that proves the workflow wins.**
+
+
+## Planned Prompt 03 — Ubuntu headquarters
+
+The next major platform milestone moves BotSquad toward an always-on Ubuntu headquarters that can be installed from a fresh supported server through a checked-in Codex bootstrap prompt.
+
+The intended onboarding contract is deliberately small:
+
+1. the user creates a fresh Ubuntu server;
+2. configures local SSH so an alias such as `ssh my-botsquad-server` succeeds;
+3. runs the repository's bootstrap Codex prompt;
+4. Codex installs, configures and validates BotSquad on the remote host;
+5. the user opens the loopback-only BotSquad UI through an SSH tunnel.
+
+Prompt 03 must also add per-worker AI profiles—model selection, reasoning effort, dispatcher priority and human locking—using models/settings actually advertised by the active Codex runtime. Human-visible Codex thread names should use friendly BotSquad/worker context rather than opaque worker IDs.
+
+Nix is reserved as the future ongoing DevOps worker after BotSquad is operational. The one-time bootstrap prompt solves initial installation before Nix exists.
+
+See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
