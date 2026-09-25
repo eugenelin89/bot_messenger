@@ -242,6 +242,33 @@ Examples:
 - artifact submitted;
 - protected action attempted.
 
+
+## Organizational hierarchy and worker provisioning
+
+Workers may form a reporting hierarchy. A manager such as a CEO can request creation of subordinate workers through the control plane when its capability profile permits it.
+
+Creating a worker creates persistent organizational state; it does not itself invoke a model. Runtime execution begins only when the dispatcher has valid queued work for that worker.
+
+Suggested additional Worker fields include:
+
+- `manager_worker_id`;
+- `capability_profile`;
+- `delegatable_capabilities`;
+- `lifecycle`: persistent or temporary/task-scoped;
+- `created_by_worker_id` when applicable.
+
+Worker provisioning must enforce the authority ceiling from [Decision 004](../decisions/decision_004_delegated_worker_creation.md):
+
+```text
+child_effective_permissions
+    ⊆ parent_delegatable_permissions
+    ⊆ company_policy_ceiling
+```
+
+A manager may propose role, mission, runtime, workspace scope, and lifetime, but trusted application code decides whether that worker can actually be provisioned with the requested capabilities.
+
+See [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md) for the CEO/startup workflow, persistent employees, temporary specialists, engineering-worker worktrees, and the organization milestone.
+
 ## Worker lifecycle
 
 Suggested states:
