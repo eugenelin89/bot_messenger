@@ -19,3 +19,4 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [003](decision_003_codex_first_runtime.md) | Codex is the first executable runtime adapter | Accepted | 2026-09-24 |
 | [004](decision_004_delegated_worker_creation.md) | Delegated worker creation with an authority ceiling | Accepted | 2026-09-24 |
 | [005](decision_005_rename_to_botsquad.md) | Rename product from Bot Messenger to BotSquad | Accepted | 2026-09-24 |
+| [006](decision_006_bounded_computer_use.md) | Computer Use is a bounded, preferably sandboxed capability | Accepted | 2026-09-24 |
