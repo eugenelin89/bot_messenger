@@ -284,9 +284,12 @@ Perform an explicit security-focused review when changing any of:
 - financial/spending controls;
 - audit-log integrity;
 - runtime command execution;
+- computer/browser control or GUI automation;
 - message parsing that can cause actions.
 
 Pay particular attention to prompt injection: bot and human messages can contain instructions, but the receiving worker must still be constrained by trusted permissions and task scope.
+
+Computer Use must remain an explicit bounded capability. Prefer isolated/sandboxed environments for autonomous GUI work. Local desktop access must never be treated as unrestricted authority over the user's machine, accounts, files, credentials, payments, or other protected actions. Apply Decision 006 and `docs/product/COMPUTER_USE_MODEL.md` when this surface changes.
 
 ## Execution Plans
 
