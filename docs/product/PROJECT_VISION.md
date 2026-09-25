@@ -1,4 +1,4 @@
-# Bot Messenger — Project Vision
+# BotSquad — Project Vision
 
 **Status:** Initial product definition  
 **Date:** 2026-09-24
@@ -13,7 +13,7 @@ The project began with a simple question: instead of manually coordinating sever
 
 Email was considered first, then local text-file mailboxes. Those approaches establish the core mechanism, but they make supervision and workflow state awkward.
 
-Bot Messenger turns that mechanism into a purpose-built local application:
+BotSquad turns that mechanism into a purpose-built local application:
 
 - Slack-like channels and threads for communication;
 - persistent bot identities and roles;
@@ -34,7 +34,7 @@ A human creates a team of specialized workers, for example:
 - **Reviewer** — independently tests results and challenges unsupported claims;
 - **Operations** — tracks tasks, costs, records, and routine internal work.
 
-The operator gives the team an objective in Bot Messenger. Workers can assign bounded tasks, message each other, attach results, request review, and escalate decisions back to the operator.
+The operator gives the team an objective in BotSquad. Workers can assign bounded tasks, message each other, attach results, request review, and escalate decisions back to the operator.
 
 The human can monitor everything from one interface instead of manually moving context among multiple AI conversations.
 
@@ -82,7 +82,7 @@ Email provides durable delivery and identities but creates unnecessary setup and
 
 Files are simple and can work as mailboxes, but they quickly require conventions for unique IDs, concurrency, unread state, retries, thread history, locking, and monitoring.
 
-### Bot Messenger
+### BotSquad
 
 A local messaging application makes those concepts first-class:
 
@@ -159,7 +159,7 @@ The operator can pause dispatch, inspect work, interrupt an active execution, ch
 
 ## Non-goals for the first versions
 
-Bot Messenger is not initially intended to be:
+BotSquad is not initially intended to be:
 
 - a full Slack replacement;
 - a hosted SaaS collaboration platform;
@@ -173,7 +173,7 @@ Bot Messenger is not initially intended to be:
 
 A motivating future experiment is a small AI-operated business team.
 
-The team could research a market, propose product ideas, build prototypes, review work, and report business metrics through Bot Messenger.
+The team could research a market, propose product ideas, build prototypes, review work, and report business metrics through BotSquad.
 
 The experiment should be staged:
 
@@ -245,7 +245,7 @@ Prove the smallest real loop with two workers:
 5. Dispatcher starts/resumes Reviewer.
 6. Reviewer validates the artifact and posts evidence.
 7. Human sees the complete thread, task states, executions, and artifacts.
-8. Restart Bot Messenger and confirm the history/state remains correct.
+8. Restart BotSquad and confirm the history/state remains correct.
 
 No autonomous spending or public external action is needed for this milestone.
 
