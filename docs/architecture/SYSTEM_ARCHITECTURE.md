@@ -218,3 +218,28 @@ Decision 006 remains authoritative: Computer Use is disabled in Prompt 01 and 02
 Engineering tools grant no GUI/desktop authority. Trusted approval grants, generalized
 external products, revision loops, stronger OS isolation, cleanup, scalable history,
 payments, outreach, deployment and distributed orchestration remain deferred.
+
+
+## Planned Ubuntu headquarters boundary
+
+Prompt 03 will add a supported Ubuntu deployment/bootstrap path without changing the core rule that BotSquad owns organizational truth and Codex threads remain replaceable runtime bindings.
+
+The initial remote-host architecture is:
+
+```text
+Human local machine
+  -> checked-in bootstrap Codex prompt
+  -> existing SSH alias
+  -> fresh supported Ubuntu host
+  -> non-root BotSquad systemd service
+  -> SQLite / dispatcher / Codex App Server
+  -> loopback-only web UI accessed through SSH tunnel
+```
+
+The Ubuntu migration is not complete until Linux isolation is validated. Prompt 02's macOS Seatbelt evidence cannot be relabeled as Linux evidence.
+
+Prompt 03 will also move model selection from one global runtime default toward a persisted per-worker AI profile containing model, reasoning effort, dispatcher priority and human-lock state. Every execution should record the actual effective profile/runtime used.
+
+Nix is a future ongoing DevOps worker after the Ubuntu HQ exists; the bootstrap prompt is the installer and does not depend on Nix.
+
+See [Ubuntu HQ and Bootstrap Model](../product/UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
