@@ -9,7 +9,7 @@ The project needs a communication and coordination layer for multiple AI workers
 
 ## Decision
 
-Bot Messenger's coordination state will be local-first.
+BotSquad's coordination state will be local-first.
 
 Messages, tasks, worker state, execution metadata, approvals, and audit history should be stored locally by default. The initial user interface should connect to a local service.
 
