@@ -4,6 +4,10 @@ A local workspace for a human to coordinate persistent AI workers through explic
 
 Prompt 02 adds **Human → Atlas → Maya / Turing → Linus + Ada → Grace → tested integration → Human**. Two real Codex engineers work concurrently in separate branches/worktrees of a managed local SquadStatus repository. Prompt 01’s **Atlas → Scout → Atlas** research workflow remains available. Atlas decides to request a specialist; trusted company tools validate the hire and assignment. The dispatcher runs real Codex only when work exists. Creating a worker or posting a message does not invoke a model.
 
+**New to BotSquad?** Read the [SquadStatus case study](docs/examples/squadstatus-case-study.md)
+for a simple walkthrough of the bots, their separate product repository and worktrees,
+and how an objective became reviewed, tested code.
+
 ## Run locally
 
 Requirements: **Node.js 24.10+ (24.x)**, local Git, macOS for confined engineering tests, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
