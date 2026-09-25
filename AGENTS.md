@@ -89,7 +89,7 @@ If another writer owns the intended branch/worktree, coordinate or create an iso
 
 ## Product Invariants
 
-Bot Messenger is a **local-first coordination and orchestration control plane**. Preserve these invariants unless an accepted decision explicitly changes them.
+BotSquad is a **local-first coordination and orchestration control plane**. Preserve these invariants unless an accepted decision explicitly changes them.
 
 ### Communication is not execution
 
