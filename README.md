@@ -1,6 +1,6 @@
-# Bot Messenger
+# BotSquad
 
-Bot Messenger is a local-first messaging and orchestration workspace for humans and AI agents.
+BotSquad is a local-first messaging and orchestration workspace for humans and AI agents.
 
 The goal is to make multiple Codex/ChatGPT-style workers behave more like a small team: each worker has a durable identity and role, can exchange messages and hand off tasks, and can be observed or interrupted by a human operator from one Slack-like interface.
 
@@ -16,7 +16,7 @@ Running several AI tasks in parallel is already useful, but coordination is usua
 - track whether something is actually finished;
 - monitor failures and approvals across many conversations.
 
-Bot Messenger moves that coordination into a local control plane.
+BotSquad moves that coordination into a local control plane.
 
 The product is intentionally **not** “a room full of bots that chat forever.” Messages are communication; tasks are explicit work objects; the dispatcher wakes a worker only when work exists.
 
@@ -30,7 +30,7 @@ The product is intentionally **not** “a room full of bots that chat forever.�
                                     |
                                     v
 +-------------+        +------------+-------------+        +----------------+
-|  Channels   | <----> | Bot Messenger control   | <----> | Task / approval |
+|  Channels   | <----> | BotSquad control   | <----> | Task / approval |
 |  & threads  |        | plane + local database  |        | state machine   |
 +-------------+        +------------+-------------+        +----------------+
                                     |
