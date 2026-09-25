@@ -5,6 +5,8 @@
 **Branch:** <branch>  
 **Worktree:** <path>  
 **Started:** <date>
+**Initial ETA:** <best-effort duration / expected completion>
+**Current ETA:** <update when materially changed>
 
 ## Objective
 
