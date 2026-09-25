@@ -500,6 +500,19 @@ Future support should distinguish:
 
 Do not equate “Finance bot” with a secure wallet/account boundary.
 
+
+## Computer Use capability
+
+Computer Use is an optional worker capability, not a default runtime property.
+
+Prefer sandboxed browser/desktop environments for autonomous GUI tasks. Local desktop control is higher risk because workers may share an OS account, files, browser sessions, and credentials.
+
+Computer sessions must remain subject to the normal authority ceiling and trusted approval model. GUI access does not imply authority to spend money, create accounts, send external messages, publish publicly, change credentials, upload private files, or perform destructive actions.
+
+Runtime-specific computer/browser control belongs behind environment/runtime adapters. The control plane should own the durable session/task/approval/audit records.
+
+See [Computer Use Model](../product/COMPUTER_USE_MODEL.md) and [Decision 006](../decisions/decision_006_bounded_computer_use.md).
+
 ## Observability
 
 The human should see both the conversation and operational truth.
