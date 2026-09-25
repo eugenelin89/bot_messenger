@@ -1,48 +1,63 @@
-Reviewed Scout’s saved report (`artifact_b62ee206-5a01-4257-9c6d-2fc97e1bfe7d`). I agree with the evidence: the top risks are control-plane authority leakage, unreliable dispatch/recovery semantics, and weak evidence integrity across handoffs.
+I reviewed Scout’s saved report (`artifact_fff76a3a-7942-46d8-8887-5d7e9bc67e84`). The evidence is sufficient and aligned with the requested documents. My assessment: the three largest reliability risks are real control-plane risks, not just prompt-quality issues.
 
-## Three largest risks and recommendations
+## Top 3 risks and recommendations
 
-### 1. Authority leakage through delegation or messages
-**Why it matters:** Bot Messenger relies on a strict distinction between communication and authorization. Messages must not grant powers; only trusted control-plane task and worker operations should.
+### 1. Authority drift through prompts, messages, or delegated workers
 
-**Likely failure:** A manager or prompt implies extra authority—spending, publishing, filesystem access, tool access, approval, or delegation beyond limits—and an incomplete enforcement layer lets a child worker act outside its intended ceiling.
+**Why it matters:** BotSquad depends on a hard distinction between communication and authorization. Messages and prompts can describe work, but only trusted control-plane operations should grant authority.
 
-**Recommendation:** Treat this as the highest-priority validation area. Enforce and test:
-- Child capabilities must be a subset of parent delegatable capabilities.
-- Messages and documents are never permission grants.
-- Tool calls must be bound to active worker, task, execution, runtime thread, and workspace.
-- Unknown or extra tool fields should be rejected.
-- Privilege-escalation attempts should be part of required acceptance tests.
+**Likely failure:** A worker interprets text instructions, messages, or delegated role descriptions as permission to perform actions outside its actual capability ceiling.
 
-### 2. Duplicate, lost, or replayed work during dispatch/recovery
-**Why it matters:** Reliable multi-agent coordination depends on durable, exactly-once-ish task handling. If work can run twice, disappear, or wake the wrong parent, conclusions and artifacts become untrustworthy.
+**Recommendation:** Treat this as the highest-priority safety invariant.
 
-**Likely failure:** A crash or restart leaves an execution ambiguous; the dispatcher reclaims already-completed work, misses a child-result wakeup, or retries side-effecting work automatically.
+- Enforce capability checks only in trusted code.
+- Reject unknown or extra tool fields.
+- Test that messages, task text, and worker mission text cannot expand authority.
+- Keep the invariant:
+  `child effective capabilities ⊆ manager delegatable capabilities ⊆ company ceiling`.
+- Make human-only approvals impossible to manufacture through text.
 
-**Recommendation:** Preserve strong dispatcher invariants:
-- Transactional task claims.
-- Unique active execution per worker/task.
-- Durable task, execution, message, and artifact records.
-- Idempotency keys for tools and child-result linkage.
-- Startup reconciliation of orphaned executions into inspectable blocked states.
-- No automatic retry after failure without human inspection.
+---
 
-### 3. Weak context, evidence, and artifact integrity in handoffs
-**Why it matters:** The product’s value comes from inspectable delegation, not just generated prose. If managers cannot verify child evidence, the system may produce confident but unsupported coordination outputs.
+### 2. Duplicate, lost, or incorrectly replayed work across dispatcher/runtime boundaries
 
-**Likely failure:** Workers act on vague history; managers summarize child work without reading artifacts; artifacts are misattributed, stale, corrupted, or detached from their producing task/execution.
+**Why it matters:** Multi-agent coordination is only reliable if tasks, executions, child results, and restarts are durable and idempotent. The handoff between the control plane and runtime is a central failure point.
 
-**Recommendation:** Keep handoffs bounded and auditable:
-- Pass only objective, acceptance criteria, constraints, relevant messages, child results, and approved artifact/document references.
-- Store artifacts with task/execution metadata and SHA-256 integrity.
-- Serve artifacts read-only after confinement checks.
-- Require reviewers to inspect artifact content before final conclusions.
-- Add escalation limits before expanding to deeper worker hierarchies.
+**Likely failure:** A crash or duplicate event causes a parent to wait forever, starts the same task twice, replays completed work, or produces conflicting artifacts.
 
-## Limitations
+**Recommendation:** Prioritize execution-state correctness before adding more agent behaviors.
 
-This assessment used only the supplied local documentation evidence via Scout’s report. It did not include live code review, runtime testing, threat-model exercises, or external comparison. The conclusions are therefore strongest as product/architecture risk priorities, not as proof that current implementation satisfies them.
+- Use transactional task/execution state transitions.
+- Enforce unique active execution per worker/task where appropriate.
+- Add idempotency keys for tool receipts, child-result delivery, and artifact linkage.
+- Build startup reconciliation for orphaned or incomplete executions.
+- Prefer explicit inspected retry over automatic replay when state is ambiguous.
+- Maintain end-to-end restart tests for flows like: Human → Atlas → Scout → Atlas.
+
+---
+
+### 3. Evidence and artifact trust gaps
+
+**Why it matters:** BotSquad’s managers make decisions from subordinate reports and artifacts. If artifact provenance, integrity, or context delivery is weak, the system can make confident decisions from stale, incomplete, or tampered evidence.
+
+**Likely failure:** A manager receives an artifact without reliable task/execution linkage, misses a corrupt artifact, or proceeds with incomplete child evidence after a crash.
+
+**Recommendation:** Make artifact provenance a first-class reliability boundary.
+
+- Require controlled artifact submission only.
+- Bind every artifact to task ID, execution ID, hash, creator, and timestamp.
+- Surface missing, corrupt, or ambiguous artifact state instead of silently proceeding.
+- Include bounded artifact references and child-result summaries in parent review context.
+- Add tests for artifact integrity, missing artifact recovery, and stale evidence prevention.
+
+## Overall conclusion
+
+The biggest reliability risk is not model reasoning quality; it is whether BotSquad’s control plane consistently enforces authority, task lifecycle correctness, and evidence integrity despite crashes, restarts, delegation, and ambiguous text.
 
 ## Recommended next step
 
-Create a reliability validation checklist or test plan focused on these three invariants: **capability enforcement**, **idempotent dispatch/recovery**, and **artifact-backed handoffs**. These should become release gates before scaling beyond the current CEO → Researcher coordination pattern.
+Create a small reliability test suite focused on these three invariants:
+
+1. **No text can grant authority.**
+2. **No task is lost, duplicated, or replayed incorrectly across restart.**
+3. **No manager decision proceeds from missing, corrupt, or unlinked evidence.**

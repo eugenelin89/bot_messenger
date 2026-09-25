@@ -1,4 +1,4 @@
-# Bot Messenger
+# BotSquad
 
 A local workspace for a human to coordinate persistent AI workers through explicit tasks, durable messages and inspectable evidence.
 
@@ -15,7 +15,7 @@ npm run codex:preflight
 npm run dev
 ```
 
-Open [Bot Messenger](http://127.0.0.1:4310). After the first build, `npm start` is sufficient.
+Open [BotSquad](http://127.0.0.1:4310). After the first build, `npm start` is sufficient.
 
 1. Click **Initialize Atlas** (or assign an objective, which initializes Atlas automatically).
 2. Use the prefilled harmless local research objective, or enter your own bounded company objective.
@@ -39,7 +39,7 @@ State lives in `.data/company.sqlite`, with reports in `.data/artifacts/` and wo
 
 `npm` scripts resolve the pinned local CLI. A global/desktop CLI can differ. Preflight prints the effective version, authentication mode and model without credentials. This environment's advertised model is `gpt-5.5`; the adapter deliberately does not inherit an incompatible model name from a desktop configuration.
 
-Codex owns authentication and credential refresh. Bot Messenger does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains local.
+Codex owns authentication and credential refresh. BotSquad does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains local.
 
 ## Validate
 

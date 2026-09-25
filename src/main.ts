@@ -29,7 +29,7 @@ http.server.on('error', (error: NodeJS.ErrnoException) => {
 });
 http.server.listen(port, '127.0.0.1', () => {
   dispatcher.start();
-  console.log(`Bot Messenger: http://127.0.0.1:${port}`);
+  console.log(`BotSquad: http://127.0.0.1:${port}`);
   console.log(`Local data: ${dataDir}`);
 });
 process.on('SIGINT', () => void shutdown());

@@ -14,7 +14,7 @@ import {createInterface} from 'node:readline';
 if(process.argv.includes('--version')){console.log('codex-cli 0.142.4');process.exit(0)}
 const mode=${JSON.stringify(mode)}, cwd=process.cwd(), features=${JSON.stringify(Object.fromEntries(DISABLED_FEATURES.map(f => [f, false])))};
 const send=x=>console.log(JSON.stringify(x));let turnActive=false;
-const thread={id:'thread-owned',cwd,name:'Bot Messenger: ${claim.worker.worker_id}',status:{type:'notLoaded'}};
+const thread={id:'thread-owned',cwd,name:(mode==='legacy-name'?'Bot Messenger: ':'BotSquad: ')+'${claim.worker.worker_id}',status:{type:'notLoaded'}};
 createInterface({input:process.stdin}).on('line',line=>{
  const m=JSON.parse(line), p=m.params??{};
  if(m.method==='initialize')send({id:m.id,result:{}});
@@ -61,6 +61,12 @@ test('App Server rejects cross-thread tool identity before invoking the control 
   const f = protocolFixture('forged-thread'); t.after(() => f.close());
   await new CodexRuntime({ command: f.command }).run(f.input, new AbortController().signal);
   assert.equal(f.callCount(), 0); assert.ok(f.events.includes('tool_rejected'));
+});
+test('App Server preserves exact worker bindings created before the product rename', async t => {
+  const f = protocolFixture('legacy-name'); t.after(() => f.close());
+  f.input.binding = { worker_id: f.input.worker.worker_id, runtime_type: 'codex-app-server', workspace_path: f.input.worker.workspace_path, runtime_reference: 'thread-owned', created_at: 'now' };
+  assert.equal((await new CodexRuntime({ command: f.command }).run(f.input, new AbortController().signal)).status, 'completed');
+  assert.ok(f.events.includes('worker_resumed'));
 });
 test('App Server refuses a stored thread from a different workspace', async t => {
   const f = protocolFixture('wrong-workspace'); t.after(() => f.close());

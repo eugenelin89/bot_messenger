@@ -13,7 +13,7 @@ export const REFERENCE_DOCUMENTS = [
   'README.md', 'docs/product/PROJECT_VISION.md', 'docs/product/AI_ORGANIZATION_MODEL.md',
   'docs/architecture/SYSTEM_ARCHITECTURE.md', 'docs/decisions/decision_004_delegated_worker_creation.md',
 ] as const;
-export const DEFAULT_OBJECTIVE = 'Assess the three largest risks to building a reliable Bot Messenger multi-agent coordination system. Arrange bounded local research of the product and architecture documentation, then evaluate the evidence and report your recommendations to me. No spending, external accounts, outreach, or publishing.';
+export const DEFAULT_OBJECTIVE = 'Assess the three largest risks to building a reliable BotSquad multi-agent coordination system. Arrange bounded local research of the product and architecture documentation, then evaluate the evidence and report your recommendations to me. No spending, external accounts, outreach, or publishing.';
 const now = () => new Date().toISOString();
 const id = (kind: string) => `${kind}_${randomUUID()}`;
 const digest = (text: string) => createHash('sha256').update(text).digest('hex');

@@ -201,7 +201,7 @@ test('artifact/document paths are bounded and tampering or symlink workspace sub
 
 test('service lock rejects a second writer and can be cleanly reacquired', async t => {
   const f = fixture(); t.after(() => f.close()); const release = acquireDataLock(f.dir);
-  assert.throws(() => acquireDataLock(f.dir), /Another Bot Messenger/); release(); acquireDataLock(f.dir)();
+  assert.throws(() => acquireDataLock(f.dir), /Another BotSquad/); release(); acquireDataLock(f.dir)();
 });
 
 test('temporary worker has one lifetime assignment and retires without losing history', async t => {

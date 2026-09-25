@@ -11,7 +11,7 @@ const principal = id => state.principals.find(p => p.principal_id === id);
 const artifacts = taskId => state.artifacts.filter(a => a.task_id === taskId);
 function showError(error) { $('#error').textContent = error.message; $('#error').hidden = false; }
 async function request(path, data) {
-  const response = await fetch(`/api/${path}`, data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Bot-Messenger-Token': token }, body: JSON.stringify(data) });
+  const response = await fetch(`/api/${path}`, data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) });
   const body = await response.json(); if (!response.ok) throw new Error(body.error ?? 'Request failed'); return body;
 }
 async function mutate(path, body) { $('#error').hidden = true; try { const result = await request(path, body); await refresh(); return result; } catch (error) { showError(error); throw error; } }

@@ -46,7 +46,7 @@ export class FakeRuntime implements RuntimeAdapter {
   }
 }
 export function fixture() {
-  const dir = mkdtempSync(join(tmpdir(), 'bot-messenger-test-'));
+  const dir = mkdtempSync(join(tmpdir(), 'botsquad-test-'));
   const store = new Store(join(dir, 'company.sqlite')); const runtime = new FakeRuntime();
   const company = new Company(store, dir, process.cwd(), runtime.type); const dispatcher = new Dispatcher(company, runtime);
   return { dir, store, runtime, company, dispatcher, async close() { await dispatcher.stop(); store.close(); } };

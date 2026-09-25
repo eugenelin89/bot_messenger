@@ -7,7 +7,7 @@
 **Started:** 2026-09-25 06:11 UTC
 **Starting commit:** 9f1d07c421b5f16b6a0adc908a869c2d1d1f17a0
 **Initial ETA:** 3–5 hours (09:11–11:11 UTC)
-**Current ETA:** 10–15 minutes remaining at 07:00 UTC; substantially ahead of the initial estimate
+**Current ETA:** 10–15 minutes remaining at 07:10 UTC, including integration of the concurrent rename and repeated real validation
 
 ## Objective
 
@@ -111,8 +111,8 @@ runtime thread/worker/workspace swaps, artifact path confinement, local API boun
 | --- | --- | --- | --- |
 | Git preflight | 9f1d07c | Pass | Clean synchronized main; scoped branch created |
 | Codex availability | installed CLI 0.142.4 | Pass | App Server + ChatGPT auth available |
-| Deterministic suite | `npm test` | Pass | 30 tests; strict TypeScript build |
-| Real workflow + restart | 2026-09-25 06:53:24–06:54:36 UTC | Pass | Persistent Scout, three real workflow turns, resume after restart, real interrupt |
+| Deterministic suite | `npm test` | Pass | 31 tests; strict TypeScript build |
+| Real workflow + restart | 2026-09-25 07:09:01–07:10:04 UTC | Pass | Persistent Scout, three real workflow turns, resume after restart, real interrupt |
 | Browser UI | local app, 1280×720 | Pass | Organization, task/execution/audit views, report dialog, pause, message, queued/cancel, reconnect |
 | Static checks | `npm run check`, JS syntax, diff check | Pass | Final scoped diff review before commit |
 
@@ -120,7 +120,7 @@ runtime thread/worker/workspace swaps, artifact path confinement, local API boun
 
 Decision 006 records App Server stdio, experimental version pin, model selection,
 managed authentication, small capabilities, transactional claims and conservative
-recovery. Decisions 001–004 are unchanged. No future engineering teams implemented.
+recovery. Accepted Decisions 001–005 are preserved from current main. No future engineering teams implemented.
 
 ## Documentation freshness
 
@@ -130,7 +130,7 @@ validation evidence, actual Scout report and Atlas evaluation. Accepted history 
 
 ## Remaining work / blockers
 
-Only final Git review/commit/push remains. No hard blocker. Validation details and
+The implementation commit is complete. Integration of the concurrent rename, refreshed validation evidence and final push remain. No hard blocker. Validation details and
 known limits are in `docs/validation/prompt-01.md`. Network operations and loopback tests
 required environment escalation; they succeeded without changing application policy.
 
@@ -164,3 +164,5 @@ and a reviewer, coordinated by Atlas/CTO/Product Manager. It was not implemented
 - 07:07 UTC: pre-push fetch found ten documentation commits on main, including the
   accepted BotSquad rename and Decision 005. Preserve those changes through a merge
   into this feature branch, renumber runtime decision to 006, and verify updated naming.
+- 07:10 UTC: integrated BotSquad code passes 31 deterministic tests and a fresh
+  63-second real workflow, process restart/resume and acknowledged interruption.

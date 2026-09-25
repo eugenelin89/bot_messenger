@@ -54,7 +54,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         json(404, { error: 'Not found' }); return;
       }
       if (req.method !== 'POST') { json(405, { error: 'Method not allowed' }); return; }
-      const supplied = req.headers['x-bot-messenger-token'];
+      const supplied = req.headers['x-botsquad-token'];
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req);
       if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }

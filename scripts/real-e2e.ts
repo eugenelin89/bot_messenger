@@ -18,7 +18,7 @@ async function freePort() {
   const port = (server.address() as { port: number }).port; await new Promise<void>(resolve => server.close(() => resolve())); return port;
 }
 async function api<T>(path: string, data?: unknown): Promise<T> {
-  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Bot-Messenger-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(5000) });
+  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(5000) });
   const result = await response.json() as T & { error?: string }; if (!response.ok) throw new Error(result.error ?? `HTTP ${response.status}`); return result;
 }
 async function launch() {
@@ -26,7 +26,7 @@ async function launch() {
   child = spawn(process.execPath, [join(root, 'dist/src/main.js')], { cwd: root, env: { ...process.env, BOT_DATA_DIR: dataDir, PORT: String(port) }, stdio: ['ignore', 'ignore', 'inherit'] });
   const deadline = Date.now() + 15000;
   while (Date.now() < deadline) {
-    if (child.exitCode !== null) throw new Error('Bot Messenger failed to start');
+    if (child.exitCode !== null) throw new Error('BotSquad failed to start');
     try { token = (await api<{ csrfToken: string }>('session')).csrfToken; console.log(`Started local application: ${base}`); return; }
     catch { await sleep(100); }
   }

@@ -1,10 +1,10 @@
 {
-  "started": "2026-09-25T06:53:24.209Z",
-  "finished": "2026-09-25T06:54:36.323Z",
+  "started": "2026-09-25T07:09:01.533Z",
+  "finished": "2026-09-25T07:10:04.543Z",
   "result": "PASS",
-  "workflow_task_id": "task_b8d0120b-d9a5-43ee-8957-1cc4c9d54ec4",
-  "atlas_id": "worker_b987a4da-28af-4adc-8cad-7077c90bc659",
-  "scout_id": "worker_ab6ca022-4754-48db-8b01-5051ce4e7624",
+  "workflow_task_id": "task_5b50ba99-f480-444f-ad49-7dac18c4802c",
+  "atlas_id": "worker_5ac66070-64a4-4679-a09d-f8bcb5f62557",
+  "scout_id": "worker_3d842c8a-7ca7-46ac-a7ec-6ee729b35d96",
   "checks": [
     "real dynamic hire",
     "real Scout execution and artifact",
@@ -23,51 +23,51 @@
   },
   "initial_workflow_executions": [
     {
-      "execution_id": "execution_2426b743-1af3-4a6b-882b-9330175b571d",
-      "task_id": "task_b8d0120b-d9a5-43ee-8957-1cc4c9d54ec4",
-      "worker_id": "worker_b987a4da-28af-4adc-8cad-7077c90bc659",
-      "runtime_reference": "01a0d757-1c24-7ea3-941c-b5c538e9db6b",
+      "execution_id": "execution_fa1368c5-ac6c-4125-be38-5cad0b70180f",
+      "task_id": "task_5b50ba99-f480-444f-ad49-7dac18c4802c",
+      "worker_id": "worker_5ac66070-64a4-4679-a09d-f8bcb5f62557",
+      "runtime_reference": "01a0d765-6aaf-7c63-9c4b-f6c0e7a02ea4",
       "status": "completed",
-      "started_at": "2026-09-25T06:53:24.550Z",
-      "finished_at": "2026-09-25T06:53:43.447Z",
+      "started_at": "2026-09-25T07:09:01.874Z",
+      "finished_at": "2026-09-25T07:09:19.035Z",
       "error": null,
       "interruption_reason": null
     },
     {
-      "execution_id": "execution_935596a9-2e7c-4e1d-89a2-e52ccfb21cb4",
-      "task_id": "task_5ae45b84-ac89-4a7e-b709-31b15f5c495f",
-      "worker_id": "worker_ab6ca022-4754-48db-8b01-5051ce4e7624",
-      "runtime_reference": "01a0d757-57ab-7612-8dcf-105fde07218e",
+      "execution_id": "execution_7bbdc472-ee0c-41ad-bf6a-4b1ae504d1a0",
+      "task_id": "task_1a9d7783-d65b-4756-bd33-3a6df39a6b50",
+      "worker_id": "worker_3d842c8a-7ca7-46ac-a7ec-6ee729b35d96",
+      "runtime_reference": "01a0d765-a41d-79e0-ad4b-52ac074f06d7",
       "status": "completed",
-      "started_at": "2026-09-25T06:53:40.092Z",
-      "finished_at": "2026-09-25T06:54:13.448Z",
+      "started_at": "2026-09-25T07:09:17.519Z",
+      "finished_at": "2026-09-25T07:09:41.867Z",
       "error": null,
       "interruption_reason": null
     },
     {
-      "execution_id": "execution_945b41f2-7951-46b9-8f40-ddcf81277539",
-      "task_id": "task_b8d0120b-d9a5-43ee-8957-1cc4c9d54ec4",
-      "worker_id": "worker_b987a4da-28af-4adc-8cad-7077c90bc659",
-      "runtime_reference": "01a0d757-1c24-7ea3-941c-b5c538e9db6b",
+      "execution_id": "execution_4303e1eb-998b-4cc5-8e54-cdfd11402270",
+      "task_id": "task_5b50ba99-f480-444f-ad49-7dac18c4802c",
+      "worker_id": "worker_5ac66070-64a4-4679-a09d-f8bcb5f62557",
+      "runtime_reference": "01a0d765-6aaf-7c63-9c4b-f6c0e7a02ea4",
       "status": "completed",
-      "started_at": "2026-09-25T06:54:13.452Z",
-      "finished_at": "2026-09-25T06:54:29.067Z",
+      "started_at": "2026-09-25T07:09:41.870Z",
+      "finished_at": "2026-09-25T07:09:58.800Z",
       "error": null,
       "interruption_reason": null
     }
   ],
   "artifact": {
-    "artifact_id": "artifact_b62ee206-5a01-4257-9c6d-2fc97e1bfe7d",
-    "task_id": "task_5ae45b84-ac89-4a7e-b709-31b15f5c495f",
-    "execution_id": "execution_935596a9-2e7c-4e1d-89a2-e52ccfb21cb4",
+    "artifact_id": "artifact_fff76a3a-7942-46d8-8887-5d7e9bc67e84",
+    "task_id": "task_1a9d7783-d65b-4756-bd33-3a6df39a6b50",
+    "execution_id": "execution_7bbdc472-ee0c-41ad-bf6a-4b1ae504d1a0",
     "type": "report",
-    "description": "Three largest risks to reliable Bot Messenger multi-agent coordination",
-    "sha256": "992e9816fbadf4af4e7564bffb17b65a9b74503dce3dac3ae74aa0f9ab3c2a33",
-    "created_at": "2026-09-25T06:54:05.102Z"
+    "description": "Three largest risks to reliable multi-agent coordination in BotSquad",
+    "sha256": "f9137ff843d4c8809d80db18cdfa2c5cae259e9e5d17abca21b9cd37a3eb3dcb",
+    "created_at": "2026-09-25T07:09:37.370Z"
   },
   "workers": [
     {
-      "worker_id": "worker_b987a4da-28af-4adc-8cad-7077c90bc659",
+      "worker_id": "worker_5ac66070-64a4-4679-a09d-f8bcb5f62557",
       "display_name": "Atlas",
       "title": "CEO",
       "manager_worker_id": null,
@@ -87,12 +87,13 @@
       "enabled": 1
     },
     {
-      "worker_id": "worker_ab6ca022-4754-48db-8b01-5051ce4e7624",
+      "worker_id": "worker_3d842c8a-7ca7-46ac-a7ec-6ee729b35d96",
       "display_name": "Scout",
       "title": "Market Researcher",
-      "manager_worker_id": "worker_b987a4da-28af-4adc-8cad-7077c90bc659",
+      "manager_worker_id": "worker_5ac66070-64a4-4679-a09d-f8bcb5f62557",
       "lifecycle": "persistent",
       "capability_profile": [
+        "internal_message",
         "read_workspace",
         "write_workspace"
       ],

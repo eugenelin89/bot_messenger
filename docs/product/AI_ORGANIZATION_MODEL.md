@@ -5,7 +5,7 @@
 
 ## Purpose
 
-Bot Messenger should support more than a flat set of bots. It should be able to represent a small AI organization in which a human owner creates an initial executive worker, and that executive can create and manage subordinate workers within a bounded authority envelope.
+BotSquad should support more than a flat set of bots. It should be able to represent a small AI organization in which a human owner creates an initial executive worker, and that executive can create and manage subordinate workers within a bounded authority envelope.
 
 The motivating example is a virtual software startup:
 
@@ -120,7 +120,7 @@ title, mission, capabilities, lifecycle and justification. The service derives t
 manager, runtime and workspace from trusted execution/company context; the worker
 does not choose them freely.
 
-The requesting manager proposes the worker. Bot Messenger performs policy checks and provisions it.
+The requesting manager proposes the worker. BotSquad performs policy checks and provisions it.
 
 Example:
 
@@ -185,7 +185,7 @@ This is a product invariant, not merely prompt guidance.
 
 ## Persistent employees and temporary specialists
 
-Bot Messenger should support both.
+BotSquad should support both.
 
 ### Persistent employees
 

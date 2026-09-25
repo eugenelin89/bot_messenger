@@ -18,7 +18,7 @@ export function acquireDataLock(dataDir: string): () => void {
       try { previous = JSON.parse(readFileSync(path, 'utf8')) as { pid: number }; }
       catch { throw new Error('Unreadable service.lock; inspect the data directory before recovery'); }
       requireThat(Number.isSafeInteger(previous.pid) && previous.pid > 0, 'Invalid service.lock; manual inspection required');
-      try { process.kill(previous.pid, 0); throw new Error('Another Bot Messenger process owns this data directory'); }
+      try { process.kill(previous.pid, 0); throw new Error('Another BotSquad process owns this data directory'); }
       catch (error) {
         if ((error as NodeJS.ErrnoException).code !== 'ESRCH') throw error;
         unlinkSync(path);

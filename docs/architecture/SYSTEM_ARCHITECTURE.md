@@ -1,4 +1,4 @@
-# Bot Messenger — System Architecture
+# BotSquad — System Architecture
 
 **Status:** Prompt 01 implementation
 **Updated:** 2026-09-25
@@ -105,7 +105,7 @@ Completion stores outcome/message/events, resolves child wakeups and updates ava
 - Official managed ChatGPT login is reused; the company never reads/copies tokens. Preflight reports only auth mode.
 - The adapter validates CLI version `0.142.4`, opts into experimental dynamic tools, checks feature controls, disables inherited MCP servers, and uses the default advertised by `model/list` unless `BOT_MODEL` selects another advertised model.
 - Shell, browser, computer use, apps, plugins, hooks, subagents, image generation, code execution and workspace dependencies are disabled. Threads/turns receive `environments: []`, read-only sandbox and no sandbox network; approval policy is `never`. Approved reads/writes occur only through company tools.
-- A first execution creates a thread, gives it a Worker-specific name and persists the binding before starting a turn. Resume reads and checks the exact thread ID, name and canonical workspace before loading it. Existing bindings are not silently replaced.
+- A first execution creates a thread, gives it a Worker-specific name and persists the binding before starting a turn. Resume reads and checks the exact thread ID, name and canonical workspace before loading it. Existing bindings are not silently replaced. Exact worker-specific thread names from before the BotSquad rename remain accepted for retained data.
 - Context includes role, authority, current assignment, up to eight task-linked messages, direct child results and prior artifact references. Approved documents are retrieved individually. Entire company history is not dumped into prompts. Codex separately retains/compacts its worker conversation history.
 - Turn/item notifications become sanitized audit events; final text becomes a durable result message. Raw runtime stderr, credentials, reasoning and arbitrary transport payloads are not logged.
 - A four-minute execution deadline bounds a turn. Runtime permission requests are denied and preserved as `awaiting_approval`; Prompt 01 has no permission-granting approval UI.
