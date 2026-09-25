@@ -181,11 +181,57 @@ is an attributable, scoped approval grant with expiry/replay protection and audi
 That should precede external repositories/deployment or Computer Use. Neither is implemented
 here; Decision 006 remains in force.
 
+## Architecture delivered
+
+| Boundary | Implemented model |
+| --- | --- |
+| Repository/product | One fixed dependency-free SquadStatus template in a separate service-generated local Git repository; no remote or arbitrary root |
+| Allocation | Durable worker/task/repository/base/branch/worktree/module ownership; two independently owned branches and worktrees |
+| Capabilities/hierarchy | Fixed profiles, child effective authority within parent delegatable ceiling, two manager edges, eight workers and three direct children maximum |
+| Codex sandbox | Pinned readonly runtime, no sandbox network, empty environments, disabled broad tools and inherited MCP; narrow current-execution company operations |
+| Product process | macOS Seatbelt + Node permissions, no filesystem writes/network/fork/host signals, bounded runtime/output and no unsandboxed fallback |
+| Review | Independent read-only exact-commit packet; immutable structured approved/changes_required artifact |
+| Integration | Trusted candidate combines exactly two reviewed commits, full tests/output before clean default-branch fast-forward |
+| Recovery | SQLite intent before Git side effects, immutable results, unique receipts/wakes, completed work not replayed; ambiguous Git work blocked for inspection |
+
+See [Decision 008](../decisions/decision_008_managed_engineering.md) and
+[system architecture](../architecture/SYSTEM_ARCHITECTURE.md) for enforcement details.
+
 ## Git delivery and closeout
 
-Feature validation is complete. Authorized feature push, current-main integration,
-post-integration checks and normal main push are the remaining delivery gates.
-Starting main: `aa889f7dde7283bf92fbf3acab223c399b246419`.
-Feature: `codex/prompt-02-engineering-org`; sole worktree:
-`/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger`.
-Remote: `https://github.com/eugenelin89/bot_messenger.git`.
+- Repository: `https://github.com/eugenelin89/bot_messenger.git`.
+- Sole Prompt 02 worktree: `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger`.
+- Feature branch: `codex/prompt-02-engineering-org`, pushed and preserved.
+- Starting main and fresh pre-integration origin/main:
+  `aa889f7dde7283bf92fbf3acab223c399b246419`.
+- Validated implementation/feature commit:
+  `582c6ea5794547bd0fd63eb2a806b068e1272d17`
+  (`feat: add bounded concurrent engineering and reviewed product integration`).
+- Main integration: fast-forward, no conflicts, no force push or rewritten history.
+- Post-integration `npm test`: **49/49 pass**, 25.391 seconds.
+- Post-integration `npm run codex:preflight`: **PASS**, Codex 0.142.4,
+  ChatGPT managed auth, gpt-5.5, stdio, interrupt support.
+- Source comparison against the feature: identical executable files and accepted
+  source digest `431e5db9c6e7e6e39fb40ab425af4405b305f5a835b6eea3524dffbc446a8fb4`.
+  The 09:57:47–10:01:16 real run is **reused evidence**, not a new run on main.
+- At 10:05 UTC, normal main push and subsequent fetch verified local main and
+  origin/main both exactly `582c6ea5794547bd0fd63eb2a806b068e1272d17`.
+- Prompt 01 implementation, validation/history, branding and Decisions 006/007 are
+  ancestors of this commit. Prompt 02 implementation, Decision 008 and evidence are
+  included. Both `codex/prompt-01-control-plane` and the Prompt 02 branch are retained.
+- This closeout is a documentation-only child of that verified delivery commit.
+  The final task handoff identifies the resulting tip after its normal feature/main
+  push; the executable digest remains identical and the required main checks repeat.
+- `git diff --check`, changed Markdown links, JS syntax, artifact hash and sanitized
+  evidence checks passed. No ignored raw databases, product worktrees or credentials
+  were committed.
+
+## ETA record
+
+Started 09:01 UTC. Initial estimate was 3–5 hours. At 09:26–09:31, the estimate became
+60–100 minutes remaining because core implementation and deterministic validation
+progressed faster than expected. At 09:55 it became 40–60 minutes remaining while the
+final real/regression/delivery gates remained. Implementation reached verified remote
+main at 10:05 UTC, **64 minutes elapsed**; documentation closeout follows immediately.
+The first stalled trial was retained and diagnosed without expanding scope or authority.
+No next milestone was implemented.
