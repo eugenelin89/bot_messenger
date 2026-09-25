@@ -1,0 +1,19 @@
+# Decision Records
+
+Durable product, architecture, security, data, and workflow decisions belong here.
+
+## Rules
+
+- Use filenames `decision_NNN_<slug>.md`.
+- Decisions are append-preserving history.
+- If a later decision changes an earlier one, mark the old decision as superseded/partially superseded and link both directions.
+- Do not create a decision record for every implementation detail.
+- Record a decision when future agents would otherwise be likely to reopen or accidentally violate an important choice.
+
+## Current decisions
+
+| ID | Decision | Status | Date |
+| --- | --- | --- | --- |
+| [001](decision_001_local_first_control_plane.md) | Local-first control plane | Accepted | 2026-09-24 |
+| [002](decision_002_messages_do_not_grant_authority.md) | Messages do not grant authority | Accepted | 2026-09-24 |
+| [003](decision_003_codex_first_runtime.md) | Codex is the first executable runtime adapter | Accepted | 2026-09-24 |
