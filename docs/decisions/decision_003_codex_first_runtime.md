@@ -11,7 +11,7 @@ The project owner already uses Codex extensively for repository work.
 
 ## Decision
 
-Codex will be the first executable agent runtime integrated with Bot Messenger.
+Codex will be the first executable agent runtime integrated with BotSquad.
 
 The core message/task/approval model remains runtime-neutral. Codex-specific thread/session identifiers, transport details, events, and controls belong behind a runtime adapter.
 
