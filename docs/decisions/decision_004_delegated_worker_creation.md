@@ -11,7 +11,7 @@ Allowing a manager to create arbitrary worker definitions without trusted enforc
 
 ## Decision
 
-Authorized manager workers may request creation and retirement of subordinate workers through the Bot Messenger control plane.
+Authorized manager workers may request creation and retirement of subordinate workers through the BotSquad control plane.
 
 Worker creation is a trusted control-plane operation, not a free-form prompt convention.
 
