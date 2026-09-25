@@ -1,7 +1,7 @@
 # AI Organization Model
 
-**Status:** Initial product model  
-**Date:** 2026-09-24
+**Status:** Product model; initial CEO/Researcher slice implemented
+**Updated:** 2026-09-25
 
 ## Purpose
 
@@ -115,7 +115,10 @@ hire_worker(
 )
 ```
 
-This is a conceptual product API, not yet a committed implementation signature.
+This is a conceptual product API. Prompt 01's narrower `hire_worker` accepts name,
+title, mission, capabilities, lifecycle and justification. The service derives the
+manager, runtime and workspace from trusted execution/company context; the worker
+does not choose them freely.
 
 The requesting manager proposes the worker. Bot Messenger performs policy checks and provisions it.
 
@@ -395,7 +398,8 @@ Worker
   +-- Runtime: future adapter
 ```
 
-Codex is the initial runtime because engineering is the first end-to-end target.
+Codex is the initial runtime. Prompt 01 proves local research and executive evaluation;
+engineering workers are the next target. The adapter uses the official App Server.
 
 A later implementation may choose different runtime types for different roles, for example:
 
@@ -411,7 +415,8 @@ That choice should be based on supported interfaces, cost, reliability, and meas
 
 ## Initial organization milestone
 
-After the two-worker Builder -> Reviewer loop works reliably, the next organization milestone should prove:
+Prompt 01 makes the organization loop the first executable milestone, before the
+earlier proposed Builder/Reviewer expansion:
 
 1. Human creates one CEO.
 2. Human assigns a company-level objective.
@@ -425,3 +430,23 @@ After the two-worker Builder -> Reviewer loop works reliably, the next organizat
 10. A test verifies that the CEO cannot create a child with authority above its delegatable ceiling.
 
 Only after this works should the project expand into larger autonomous company structures.
+
+## Current implementation boundary
+
+Atlas is seeded as a persistent CEO reporting to the Human owner. It may hire direct
+research workers, assign one child task per objective, inspect company state and post
+messages. Its initial delegatable capabilities are internal messaging, approved
+document reads and controlled report writes. Workers do not have arbitrary shell,
+filesystem, account, policy or financial authority.
+
+Scout is requested dynamically by Atlas; the reference workflow uses a persistent
+Market Researcher. Temporary workers are also represented and retire after a terminal
+task. Retirement retains identity and history. The suggested `retire_worker` and
+`request_human_approval` tools, departments and reassignment are deferred. Runtime
+approval requests are denied and surfaced for inspection; ordinary text never grants
+the rejected permission.
+
+The company can hold eight worker records, executes at most one run per worker and
+two globally, and bounds delegation/review to prevent runaway loops. See
+[system architecture](../architecture/SYSTEM_ARCHITECTURE.md) for the implemented
+capability meanings, recovery and future Git ownership extension point.

@@ -1,550 +1,143 @@
 # Bot Messenger — System Architecture
 
-**Status:** Initial architecture  
-**Date:** 2026-09-24
+**Status:** Prompt 01 implementation
+**Updated:** 2026-09-25
 
-## Architectural objective
-
-Provide a local-first control plane that lets humans and AI workers communicate and coordinate work without coupling message/task semantics to a specific model runtime.
-
-The first executable backend is Codex.
-
-## System context
+## Boundaries
 
 ```text
-                         Human operator
-                              |
-                              v
-                    +-------------------+
-                    | Local web UI      |
-                    +---------+---------+
-                              |
-                              v
-+----------------------------------------------------------------+
-|                  Bot Messenger local service                   |
-|                                                                |
-|  Messaging  Tasks  Approvals  Artifacts  Audit  Worker state  |
-|      |        |       |          |        |         |          |
-|      +--------+-------+----------+--------+---------+          |
-|                              |                                 |
-|                         Dispatcher                             |
-|                              |                                 |
-+------------------------------+---------------------------------+
-                               |
-                  runtime adapter interface
-                               |
-                    +----------+----------+
-                    |                     |
-                    v                     v
-              Codex adapter        future adapter
-                    |
-                    v
-         Codex SDK / App Server / CLI
-                    |
-                    v
-              worker workspace
+Human browser
+  → loopback HTTP + server-sent events
+  → Company control plane + SQLite
+  → event-driven dispatcher
+  → RuntimeAdapter
+  → Codex App Server (private stdio)
+  → model service
 ```
 
-## Core distinction: control plane vs worker runtime
+The company owns organizational truth. Codex threads are replaceable runtime bindings, not Tasks. A worker persists while its model is idle. Creating, messaging, assigning and executing are separate operations.
 
-The control plane owns durable coordination truth:
+## Implemented stack and source map
 
-- identities;
-- channels;
-- messages;
-- tasks;
-- assignments;
-- approvals;
-- execution metadata;
-- artifacts;
-- audit events.
+| Concern | Implementation |
+| --- | --- |
+| Domain types, validation, authority | `src/domain/model.ts` |
+| Persistent operations and narrow worker tools | `src/control/company.ts` |
+| Atomic claim and execution lifecycle | `src/control/dispatcher.ts` |
+| SQLite migration and constraints | `src/persistence/store.ts` |
+| Single service ownership | `src/persistence/lock.ts` |
+| Runtime contract and tool descriptions | `src/runtime/adapter.ts` |
+| Codex protocol and transport | `src/runtime/codex.ts`, `src/runtime/rpc.ts` |
+| Local HTTP and human session boundary | `src/http/server.ts` |
+| Browser interface | `public/` |
+| Application lifecycle | `src/main.ts` |
+| Deterministic and real validation | `test/`, `scripts/real-e2e.ts` |
 
-The worker runtime performs AI work.
+Node 24.x supplies HTTP, SQLite, process control and tests. TypeScript supplies static checking. The only runtime package is the pinned official Codex CLI. No distributed queue or web framework is needed.
 
-A runtime can disappear, restart, or eventually be replaced without destroying the meaning of a task or message.
+## Persistent domain
 
-## Proposed initial technology stack
+- **Principal:** human, bot or system identity. Human/System seed once; a Worker has a distinct bot Principal.
+- **Worker:** name, title, mission, role, manager Worker FK, lifecycle, runtime type, canonical workspace, effective/delegatable capability arrays, enabled flag, creator and timestamps.
+- **Runtime binding:** separate unique Worker ↔ runtime reference ↔ workspace association. Codex owns the referenced thread; tasks never use its ID as their domain identity.
+- **Channel/Message:** one executive channel with immutable messages, trusted sender, optional recipient/reply/task/execution linkage. Messages never dispatch work.
+- **Task:** requester Principal, assignee Worker, objective, acceptance criteria, constraints, optional parent, validated status, blocking reason and result.
+- **Execution:** independent attempt ID, task, worker, runtime reference, status, start/end, error and interruption reason. Retrying creates an additional row.
+- **Artifact:** producing task/execution, type, generated filesystem reference, description, timestamp and SHA-256. UI serves Markdown as plain text after verifying confinement and integrity.
+- **Audit:** append-oriented event ID, actor, task/worker/execution and bounded details. SQLite triggers reject ordinary update/delete operations.
+- **Tool receipt / wake event:** persisted idempotency keys for tool replay and child-result linkage.
+- **Settings:** application pause state survives restart.
 
-This is an implementation starting point, not a permanent product requirement.
+The schema has an explicit `schema_migrations` ledger. Startup applies missing migrations transactionally; it does not reset retained data. Foreign keys, `BEGIN IMMEDIATE`, WAL, full synchronization and unique indexes enforce relational and claim invariants.
 
-- **Local service:** TypeScript + Node.js
-- **Persistence:** SQLite
-- **Human UI:** browser-based local web application
-- **Bot tool surface:** local HTTP and/or MCP adapter
-- **Codex integration:** Codex SDK for the first narrow worker loop; evaluate App Server when richer streaming/approval/steering is needed
-- **Artifacts:** filesystem paths plus database metadata
-- **Repository work:** one branch/worktree per active writer when concurrent code changes occur
+## Authority and tool identity
 
-A different stack is acceptable if it preserves the domain and security boundaries below.
-
-## Domain entities
-
-### Principal
-
-Represents an actor identity.
-
-Examples:
-
-- human operator;
-- Manager bot;
-- Researcher bot;
-- Builder bot.
-
-Important fields:
-
-- `principal_id`
-- `type`: `human | bot | system`
-- `display_name`
-- status/enabled state
-
-The server assigns sender identity from the authenticated/local connection. Clients do not choose arbitrary sender IDs.
-
-### Channel
-
-Container for conversation.
-
-Fields may include:
-
-- `channel_id`
-- name
-- topic
-- membership/visibility policy
-
-Initial implementation can keep permissions simple.
-
-### Message
-
-Immutable communication record.
-
-Suggested fields:
-
-- `message_id`
-- `channel_id`
-- `sender_principal_id`
-- `reply_to_message_id`
-- body
-- created timestamp
-- related task/artifact IDs where applicable
-
-Editing may be added later, but original/audit history should remain recoverable for consequential workflow messages.
-
-### Worker
-
-Logical AI employee identity.
-
-Suggested fields:
-
-- `worker_id`
-- principal ID
-- role/instructions reference
-- runtime adapter type
-- runtime/thread/session ID
-- workspace/worktree path
-- status
-- concurrency limit
-- enabled state
-
-A worker identity survives a runtime process restart.
-
-### Task
-
-Explicit unit of work.
-
-Suggested fields:
-
-- `task_id`
-- title/objective
-- creator/requester
-- assigned worker
-- parent task
-- acceptance criteria
-- constraints
-- priority
-- status
-- created/updated timestamps
-- current execution
-- blocking reason
-
-A message can discuss work without being a task.
-
-### Execution
-
-One attempt to perform a task.
-
-Suggested fields:
-
-- `execution_id`
-- `task_id`
-- `worker_id`
-- runtime identifier
-- started/finished timestamps
-- outcome/status
-- input/context digest
-- output summary
-- error information
-- interruption reason
-
-Separate Task from Execution so retries do not erase the history of earlier attempts.
-
-### Artifact
-
-Inspectable output.
-
-Examples:
-
-- repository commit;
-- patch;
-- report;
-- test log;
-- generated file;
-- screenshot;
-- URL;
-- structured data result.
-
-Suggested fields:
-
-- `artifact_id`
-- producing task/execution
-- type
-- local path or external locator
-- description
-- integrity hash when useful
-
-### Approval
-
-Trusted record that a protected action was authorized.
-
-Suggested fields:
-
-- `approval_id`
-- requesting task/execution
-- requested action
-- requested scope/limits
-- requesting worker
-- human approver identity
-- decision
-- timestamps
-- expiration or single-use semantics where applicable
-
-A message containing “approved” is not an Approval entity.
-
-### Audit event
-
-Append-oriented record of important transitions.
-
-Examples:
-
-- task assigned;
-- execution started;
-- worker interrupted;
-- approval requested/decided;
-- task completed;
-- artifact submitted;
-- protected action attempted.
-
-
-## Organizational hierarchy and worker provisioning
-
-Workers may form a reporting hierarchy. A manager such as a CEO can request creation of subordinate workers through the control plane when its capability profile permits it.
-
-Creating a worker creates persistent organizational state; it does not itself invoke a model. Runtime execution begins only when the dispatcher has valid queued work for that worker.
-
-Suggested additional Worker fields include:
-
-- `manager_worker_id`;
-- `capability_profile`;
-- `delegatable_capabilities`;
-- `lifecycle`: persistent or temporary/task-scoped;
-- `created_by_worker_id` when applicable.
-
-Worker provisioning must enforce the authority ceiling from [Decision 004](../decisions/decision_004_delegated_worker_creation.md):
+Decision 004 is enforced in trusted code:
 
 ```text
-child_effective_permissions
-    ⊆ parent_delegatable_permissions
-    ⊆ company_policy_ceiling
+child effective capabilities ⊆ manager delegatable capabilities ⊆ company ceiling
 ```
 
-A manager may propose role, mission, runtime, workspace scope, and lifetime, but trusted application code decides whether that worker can actually be provisioned with the requested capabilities.
+| Capability | Atlas | Atlas may delegate | Concrete Prompt 01 authority |
+| --- | --- | --- | --- |
+| `internal_message` | yes | yes | Durable executive-channel messages |
+| `create_worker` | yes | no | Bounded direct research worker provisioning |
+| `create_task` | yes | no | One direct child research assignment per objective |
+| `read_workspace` | yes | yes | Read allowlisted document snapshots, max 40,000 characters each |
+| `write_workspace` | yes | yes | Submit bounded report content; service chooses path |
+| `run_local_tools` | no | no | Recognized but excluded from company ceiling |
 
-See [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md) for the CEO/startup workflow, persistent employees, temporary specialists, engineering-worker worktrees, and the organization milestone.
+Capabilities are explicit string sets. A child receives no onward delegation. Hiring always derives `reports_to` and creator from the active manager; workers cannot supply arbitrary manager, workspace, runtime, sender, principal or execution fields. Runtime type inherits the company adapter; workspace paths are generated and canonicalized by the service.
 
-## Worker lifecycle
+The dispatcher constructs an execution context; the adapter closes over it. Every tool call verifies the running execution, assigned worker, working task, enabled identity and exact workspace. The payload is strictly validated, with unknown fields rejected. Runtime requests must also match the current Codex thread and turn. Bots have no HTTP endpoint for unrestricted database/policy access.
 
-Suggested states:
+Each execution permits 32 successful company tool calls and each task four reports of at most 20,000 characters. A hire does not create a runtime binding or start work. Tool-call receipts reject replay with different payloads. Ordinary messages and task text cannot create trusted approval, mutate capability sets or alter history.
+
+## Task and worker lifecycle
 
 ```text
-offline / disabled
-
-idle
-  |
-  | assignment available
-  v
-queued
-  |
-  | dispatcher claims
-  v
-working
-  |   |  +--> awaiting_approval --> working
-  |
-  +-----> blocked
-  |
-  +-----> failed
-  |
-  +-----> completed
+queued → working → completed
+            ├→ failed → queued (human inspected retry)
+            ├→ blocked → queued (result event or inspected retry)
+            ├→ awaiting_approval → queued (same-authority inspected retry)
+            └→ cancelled
 ```
 
-Worker status and task status are related but not identical. A worker may become idle after finishing a task even though another task remains blocked.
+Completed/cancelled tasks are immutable terminal states. Non-running work can be cancelled. Working tasks must be interrupted first. Unresolved child tasks must be dealt with before a parent is cancelled/retried.
 
-## Task lifecycle
+Atlas's initial execution can hire and assign Scout, then end. Its **execution** completes, but its objective **task** becomes blocked with `waiting_children`. When the direct child reaches a terminal state, the company records a unique result event and queues the same parent task with reason `child_results`. This also works if Scout finishes before Atlas's initial execution ends. Atlas's next execution receives the child's status, summary and artifact content, evaluates it and completes the objective. The review phase cannot delegate again, bounding the loop.
 
-Preferred happy path:
+Worker runtime activity is separate from task outcome. A worker returns to idle after a run if it has no queued assignment, even when a task needs inspection. Task and execution views retain the blocked/failed state. Temporary workers accept one lifetime assignment and are disabled after it becomes terminal; history is retained. Persistent workers remain available.
 
-```text
-queued -> working -> completed
-```
+## Event-driven dispatcher
 
-Supported terminal/intermediate states:
+The company emits local state-change events after operations. The dispatcher coalesces notifications with `setImmediate`; there is no timer that invokes idle models. Startup checks existing queued work once. Assignment, result completion and resume-dispatch events trigger further checks.
 
-- `blocked`
-- `awaiting_approval`
-- `failed`
-- `cancelled`
+A claim transaction verifies pause, worker enablement and absence of a running execution, then changes queued → working, inserts the Execution and appends events. Partial unique indexes permit one running execution per Worker and Task across database connections. Each dispatcher additionally limits global concurrency to two. Extra assignments queue behind a busy worker.
 
-Transitions should be validated centrally.
+Completion stores outcome/message/events, resolves child wakeups and updates availability in a transaction. Failure does not auto-retry. Pause is durable and prevents future claims; it does not abort existing turns. Interrupt uses an AbortSignal to request `turn/interrupt`, waits for acknowledgement, and retains a blocked task for review. If a runtime fails to acknowledge, it is closed and the ambiguous state stays inspectable.
 
-## Message delivery vs dispatch
+## Codex adapter
 
-Posting a message should be cheap and durable.
+[Decision 006](../decisions/decision_006_prompt_01_runtime_and_recovery.md) selects App Server over SDK/CLI fallback because direct tool callbacks, events, durable resume and interruption are needed together.
 
-It does **not** inherently invoke a model.
+- Private newline-delimited stdio JSON-RPC, one App Server process per execution.
+- Official managed ChatGPT login is reused; the company never reads/copies tokens. Preflight reports only auth mode.
+- The adapter validates CLI version `0.142.4`, opts into experimental dynamic tools, checks feature controls, disables inherited MCP servers, and uses the default advertised by `model/list` unless `BOT_MODEL` selects another advertised model.
+- Shell, browser, computer use, apps, plugins, hooks, subagents, image generation, code execution and workspace dependencies are disabled. Threads/turns receive `environments: []`, read-only sandbox and no sandbox network; approval policy is `never`. Approved reads/writes occur only through company tools.
+- A first execution creates a thread, gives it a Worker-specific name and persists the binding before starting a turn. Resume reads and checks the exact thread ID, name and canonical workspace before loading it. Existing bindings are not silently replaced.
+- Context includes role, authority, current assignment, up to eight task-linked messages, direct child results and prior artifact references. Approved documents are retrieved individually. Entire company history is not dumped into prompts. Codex separately retains/compacts its worker conversation history.
+- Turn/item notifications become sanitized audit events; final text becomes a durable result message. Raw runtime stderr, credentials, reasoning and arbitrary transport payloads are not logged.
+- A four-minute execution deadline bounds a turn. Runtime permission requests are denied and preserved as `awaiting_approval`; Prompt 01 has no permission-granting approval UI.
 
-Dispatch occurs only for configured events, for example:
+The control plane sends task/document content to an external model service. It remains local in its storage and coordination. Different worker names and threads do not create separate OS users or credentials. Confinement depends on this validated official runtime configuration; a different runtime version requires verification, not bypassing the guard.
 
-- explicit task assignment;
-- human “run now” command;
-- worker assignment of a child task;
-- approved scheduled job;
-- explicitly configured mention trigger.
+## Restart, ownership and recovery
 
-A plain conversational message should not necessarily wake a bot.
+An exclusive per-data-directory process lock prevents a second service from running startup recovery over live work. Stale service locks are reclaimed only after the recorded process no longer exists; malformed or ambiguous locks fail for inspection. An exclusive startup gate serializes reclamation. If startup itself crashes while holding that gate, inspect its recorded PID before manually removing `startup.lock`.
 
-## Dispatcher
+Startup converts orphaned running executions to interrupted, marks their tasks blocked, and records existing artifacts. Completed work and durable messages are untouched. Valid queued work can dispatch; already finished tasks cannot be reclaimed. A pending child result is reconciled locally and queues the parent once.
 
-The dispatcher is ordinary application logic.
+Human retry requires an explicit inspection acknowledgement. It keeps earlier executions, artifacts and children. A parent with terminal children resumes in review mode; it does not blindly reassign the work. Retired workers cannot be retried, and child results cannot reopen once the manager's review is queued or the parent is terminal. Further research needs a new objective. Retrying never grants an approval or permission. Missing/unavailable Codex history fails visibly; there is no automatic rebinding that might attach the worker to another conversation.
 
-Responsibilities:
+Artifact content is written exclusively before its metadata transaction commits. A process crash in that narrow window can leave an unreferenced file; it cannot create a false committed artifact. There is no automatic orphan cleanup. Backups should include the database and artifact/workspace directories while stopped, plus normal Codex history backup where resumability is required.
 
-1. observe queued tasks;
-2. check whether the assigned worker is enabled and available;
-3. enforce concurrency and policy;
-4. atomically claim the task;
-5. create an execution record;
-6. invoke the runtime adapter;
-7. stream/store relevant events;
-8. finalize or pause the execution based on the outcome;
-9. recover after restart without duplicate side effects.
+## Human UI and local security
 
-The dispatcher should not need a model to decide that an inbox is empty.
+The UI shows workers, dynamic hierarchy, messages, tasks, executions, reports and audit events. Task/worker detail dialogs expose full IDs and policy/bindings. Human controls initialize Atlas, post communication, assign objectives, pause/resume dispatch, interrupt active work, cancel tasks and retry inspected work.
 
-## Runtime adapter interface
+The server binds only `127.0.0.1`, checks exact Host/Origin, rejects cross-site requests and requires an unguessable in-memory local session token on JSON mutations. Static files are allowlisted. Content security policy and text escaping prevent message HTML from executing; artifact downloads use `text/plain` and `nosniff`. SSE signals changes; browser refreshes state without an AI invocation.
 
-A conceptual adapter should provide capabilities similar to:
+This is a single local owner trust boundary, not a hosted multi-user authentication design. A hostile process with the same OS file/account access can tamper with storage or credentials; audit triggers are application integrity controls, not cryptographic tamper-proofing. No secrets should be placed in objectives/reports.
 
-```ts
-interface AgentRuntime {
-  start(input: StartTaskInput): Promise<RuntimeHandle>
-  resume(input: ResumeTaskInput): Promise<RuntimeHandle>
-  interrupt(handle: RuntimeHandle): Promise<void>
-  events(handle: RuntimeHandle): AsyncIterable<RuntimeEvent>
-  getStatus(handle: RuntimeHandle): Promise<RuntimeStatus>
-}
-```
+## Acceptance and validation
 
-Exact APIs should follow the chosen runtime's supported interfaces.
+The executable acceptance path is Human → real Atlas → validated Scout hire → explicit Scout assignment → real Scout report → completion event → resumed Atlas evaluation → Human. SQLite organization, messages, tasks, attempts, artifacts and bindings survive a stopped/restarted service without repeating completion.
 
-Keep runtime-specific thread IDs, transports, approval messages, and event formats inside the adapter.
+Use `npm test` for deterministic domain, dispatcher, HTTP and transport tests. Use `npm run validate:real` for the bounded actual runtime/process-restart/interruption gates. See [the validation record](../validation/prompt-01.md) for actual evidence and limits.
 
-## Bot-facing tool surface
+## Deferred extension points
 
-Running workers should interact with Bot Messenger through narrow tools instead of controlling the human UI.
+Future engineering workers should add a validated workspace allocation containing repository, worktree, branch and runtime ownership. That allocation belongs beside the Worker/runtime binding, independently of Tasks. A future adapter can provide shell/Git capability only after exclusive worktree and permission enforcement. This milestone does not allocate repositories or worktrees to workers.
 
-Candidate operations:
-
-- `list_channels()`
-- `read_messages(channel_id, after_message_id?)`
-- `send_message(channel_id, body, reply_to?)`
-- `get_task(task_id)`
-- `create_task(assignee, objective, acceptance_criteria, constraints)`
-- `update_task_status(task_id, status, evidence?)`
-- `submit_artifact(task_id, path_or_ref, description)`
-- `request_approval(task_id, proposed_action, scope)`
-
-These are product concepts, not a committed API.
-
-The service derives the caller's worker identity from its connection/token; workers should not pass arbitrary `sender_id`.
-
-## Human UI
-
-The first useful UI should emphasize operations rather than Slack feature parity.
-
-### Left rail
-
-- channels;
-- workers;
-- worker status badges.
-
-### Main conversation pane
-
-- channel/thread messages;
-- task cards inline;
-- artifacts/results;
-- approval requests.
-
-### Operations pane
-
-- active executions;
-- queued work;
-- blocked tasks;
-- pending approvals;
-- recent failures.
-
-### Operator controls
-
-- send message;
-- assign task;
-- pause new dispatch;
-- cancel queued task;
-- interrupt supported active execution;
-- approve/deny a protected action;
-- inspect artifact/evidence.
-
-## Concurrency
-
-The system is specifically intended for multiple AI workers, so concurrency rules are foundational.
-
-### Worker execution
-
-Initial default: one active execution per worker.
-
-Queue additional work instead of starting overlapping runs against the same worker state.
-
-### Repository writing
-
-When multiple workers modify the same Git repository:
-
-- each writer owns a branch/worktree;
-- the assignment records that branch/worktree;
-- one writer owns a branch/worktree at a time;
-- review can be read-only;
-- integration is explicit.
-
-### Database writes
-
-Use transactions/constraints so two dispatchers cannot claim the same task.
-
-### Message/event IDs
-
-Generate durable unique IDs. Delivery/retry logic must tolerate seeing the same event more than once.
-
-## Idempotency and recovery
-
-Assume processes crash.
-
-Before performing retryable work:
-
-- inspect the task's prior execution records;
-- inspect existing artifacts;
-- determine whether an external side effect already happened;
-- resume when safe rather than blindly repeating.
-
-For consequential side effects, use explicit idempotency keys or equivalent provider mechanisms when available.
-
-## Security and authority model
-
-### Principle 1 — text is data
-
-Incoming text, including bot-to-bot messages, may contain malicious or mistaken instructions.
-
-The agent may interpret the text, but trusted code determines what tools and permissions are available.
-
-### Principle 2 — bots cannot self-authorize
-
-A worker cannot create trusted human approval through normal messaging or task tools.
-
-### Principle 3 — least privilege
-
-A worker receives only the filesystem, repository, tools, credentials, and external capabilities necessary for its role/task.
-
-### Principle 4 — shared machine is not isolation
-
-Separate bot names do not imply OS-level isolation.
-
-If two workers share an OS user, credentials, filesystem permissions, or browser session, document that fact accurately.
-
-### Principle 5 — audit consequential actions
-
-Protected actions should record who requested them, who approved them, what scope was approved, and what actually executed.
-
-## Financial actions
-
-A future virtual-startup experiment may track a budget, but financial authority is deliberately outside the initial implementation.
-
-Future support should distinguish:
-
-- budget planning;
-- spending request;
-- trusted approval;
-- payment execution;
-- reconciliation.
-
-Do not equate “Finance bot” with a secure wallet/account boundary.
-
-## Observability
-
-The human should see both the conversation and operational truth.
-
-Events worth surfacing include:
-
-- task queued/claimed;
-- worker started/resumed;
-- tool/action request;
-- artifact produced;
-- approval requested;
-- blocked/error;
-- retry/resume;
-- interruption;
-- completion.
-
-A polished bot message should never hide a failed execution.
-
-## Initial end-to-end acceptance scenario
-
-The first architecture milestone is successful when:
-
-1. Two logical workers exist: Builder and Reviewer.
-2. Human assigns Builder an explicit local task.
-3. Dispatcher launches/resumes Builder through a real Codex adapter.
-4. Builder produces an inspectable artifact and sends a result.
-5. Builder or human assigns Reviewer.
-6. Reviewer runs independently and reports evidence.
-7. All messages/tasks/executions/artifacts remain visible after application restart.
-8. No model is invoked while both workers are idle.
-9. Duplicate dispatch/restart does not repeat an already-recorded completion.
-10. Human can pause new dispatch.
-
-Approval/payment functionality is not required for this milestone.
-
-## Open design questions
-
-Resolve with implementation evidence rather than speculation:
-
-- Codex SDK vs App Server as the first production adapter surface;
-- MCP vs local HTTP for bot-facing tools;
-- precise local authentication mechanism for worker identities;
-- whether the UI and local service live in one process/package or separate packages;
-- artifact retention/cleanup policy;
-- context-pack construction for resumed workers;
-- safe semantics for task cancellation and runtime interruption.
-
-Record durable resolutions in `docs/decisions/`.
+Further work includes trusted scoped human approval, manager retirement, larger organizations, artifact retention, history pagination and stronger OS isolation. None is implied by current worker capabilities. Payments, outreach, public deployment and distributed orchestration remain out of scope.

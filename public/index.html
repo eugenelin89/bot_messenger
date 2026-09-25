@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bot Messenger · Company workspace</title>
+  <link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script>
+</head>
+<body>
+  <aside class="rail">
+    <a href="/" class="brand"><span class="brand-mark">b<span>m</span></span><span>Bot Messenger<small>LOCAL COMPANY WORKSPACE</small></span></a>
+    <div class="company-label"><span class="company-icon">B</span><div>Your company<small>Human-owned · locally coordinated</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav aria-label="Workspace views">
+      <button data-tab="conversation" class="nav-item selected"><span>◈</span> Executive channel</button>
+      <button data-tab="organization" class="nav-item"><span>⌘</span> Organization</button>
+      <button data-tab="tasks" class="nav-item"><span>▤</span> Tasks <b id="task-count">0</b></button>
+      <button data-tab="executions" class="nav-item"><span>▷</span> Executions</button>
+      <button data-tab="audit" class="nav-item"><span>◷</span> Audit history</button>
+    </nav>
+    <div class="nav-label team-label">YOUR TEAM <span id="worker-count">0</span></div>
+    <div id="workers" class="workers"></div>
+    <div class="rail-footer"><span class="presence" id="connection-dot"></span><span id="connection">Connecting…</span><small>Idle workers stay asleep.</small></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="view-title">Executive channel</strong></div><div class="top-actions"><span class="local-badge">◉ Local</span><button id="pause" class="button secondary">Pause new dispatch</button></div></header>
+    <div id="error" class="error" role="alert" hidden></div>
+    <div id="pause-banner" class="pause-banner" hidden>New dispatch is paused. Active executions continue; queued tasks will wait.</div>
+    <main>
+      <section class="heading"><div><div class="eyebrow">YOUR ORGANIZATION, IN MOTION</div><h1 id="heading">The executive channel</h1><p id="subtitle">Give Atlas a direction. Follow the work from assignment to evidence.</p></div><button id="initialize" class="button primary">Initialize Atlas</button></section>
+      <section class="metrics" id="metrics" aria-label="Company overview"></section>
+      <div class="content-grid"><section id="view" class="view" aria-live="polite"></section><aside class="context-panel" id="context-panel"></aside></div>
+    </main>
+  </div>
+  <dialog id="inspect"><div class="dialog-heading"><h2 id="inspect-title">Details</h2><button class="icon-button" id="close-inspect" aria-label="Close details">×</button></div><div id="inspect-content"></div></dialog>
+</body>
+</html>

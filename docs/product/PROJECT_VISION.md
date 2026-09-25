@@ -1,7 +1,7 @@
 # Bot Messenger — Project Vision
 
-**Status:** Initial product definition  
-**Date:** 2026-09-24
+**Status:** Product vision; Prompt 01 local organization slice implemented
+**Updated:** 2026-09-25
 
 ## One-sentence vision
 
@@ -236,20 +236,31 @@ Early success is technical and operational rather than financial.
 
 ## First milestone
 
-Prove the smallest real loop with two workers:
+Prompt 01 proves the smallest real organization loop:
 
-1. Human creates an assignment for **Builder**.
-2. Dispatcher starts/resumes the Builder Codex worker.
-3. Builder creates a small artifact and posts a result.
-4. Builder assigns **Reviewer**.
-5. Dispatcher starts/resumes Reviewer.
-6. Reviewer validates the artifact and posts evidence.
-7. Human sees the complete thread, task states, executions, and artifacts.
-8. Restart Bot Messenger and confirm the history/state remains correct.
+1. Human initializes **Atlas — CEO** and assigns a company objective.
+2. Atlas decides whether research is needed and requests **Scout — Market Researcher** through a trusted hiring tool.
+3. The control plane enforces the delegation ceiling and persists Scout under Atlas, initially idle.
+4. Atlas explicitly assigns a bounded local documentation research task.
+5. Dispatcher runs Scout through Codex; Scout submits an inspectable report.
+6. Completion queues Atlas for a new execution on the same objective and runtime binding.
+7. Atlas evaluates the evidence and reports to the Human.
+8. Human inspects hierarchy, communication, tasks, attempts, artifacts and audit history in the local UI.
+9. Restart preserves state and does not replay completed work.
+
+The earlier Builder/Reviewer proposal is deferred to engineering-worker validation.
+The current implementation uses a single owner, one executive channel and bounded
+research tools. Trusted approval grants, priority changes, departments, engineering
+tools and broader external actions described in the long-term vision remain future work.
 
 No autonomous spending or public external action is needed for this milestone.
 
-## Follow-on milestones
+## Capability roadmap
+
+Prompt 01 combines the local messaging/task/runtime/dispatcher foundations below.
+The next implementation milestone should add Product Manager/CTO coordination and
+two engineers plus a reviewer with explicit repository, worktree, branch and runtime
+ownership. It must prove concurrent Git work without cross-worker corruption.
 
 ### M1 — Local messaging core
 

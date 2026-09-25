@@ -1,0 +1,25 @@
+{
+  "name": "bot-messenger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.10.0 <25"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "start": "node dist/src/main.js",
+    "dev": "npm run build && npm start",
+    "codex:preflight": "npm run build && node dist/scripts/codex-preflight.js",
+    "validate:real": "npm run build && node dist/scripts/real-e2e.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  },
+  "dependencies": {
+    "@openai/codex": "0.142.4"
+  }
+}
