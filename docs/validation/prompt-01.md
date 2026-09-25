@@ -117,6 +117,12 @@ pinned App Server experimental controls require version-aware maintenance.
 
 During final Git delivery, `origin/main` advanced to `bfb5efc` with the accepted
 BotSquad rename (Decision 005). Those changes were merged into the feature branch;
-UI, package, prompts and protocol naming now use BotSquad. Runtime Decision 006
+UI, package, prompts and protocol naming now use BotSquad. Runtime Decision 007
 avoids the concurrent decision-number collision. The 31-test suite and the complete
 real workflow/restart/interruption gate were rerun successfully after integration.
+
+A later documentation-only merge preserves `origin/main` at `319fbf5`, including
+future Computer Use policy in Decision 006. Runtime policy is now Decision 007.
+Executable source, UI, scripts and dependencies remain identical to the validated
+`471be07` revision; the final documentation-only merge did not require another model
+run. Computer Use is explicitly deferred beyond Prompt 01.

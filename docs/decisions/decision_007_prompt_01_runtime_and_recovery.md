@@ -1,4 +1,4 @@
-# Decision 006 — Prompt 01 runtime, authority and recovery
+# Decision 007 — Prompt 01 runtime, authority and recovery
 
 **Date:** 2026-09-25
 **Status:** Accepted

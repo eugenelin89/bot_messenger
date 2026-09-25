@@ -99,7 +99,7 @@ Completion stores outcome/message/events, resolves child wakeups and updates ava
 
 ## Codex adapter
 
-[Decision 006](../decisions/decision_006_prompt_01_runtime_and_recovery.md) selects App Server over SDK/CLI fallback because direct tool callbacks, events, durable resume and interruption are needed together.
+[Decision 007](../decisions/decision_007_prompt_01_runtime_and_recovery.md) selects App Server over SDK/CLI fallback because direct tool callbacks, events, durable resume and interruption are needed together.
 
 - Private newline-delimited stdio JSON-RPC, one App Server process per execution.
 - Official managed ChatGPT login is reused; the company never reads/copies tokens. Preflight reports only auth mode.
@@ -135,6 +135,20 @@ This is a single local owner trust boundary, not a hosted multi-user authenticat
 The executable acceptance path is Human → real Atlas → validated Scout hire → explicit Scout assignment → real Scout report → completion event → resumed Atlas evaluation → Human. SQLite organization, messages, tasks, attempts, artifacts and bindings survive a stopped/restarted service without repeating completion.
 
 Use `npm test` for deterministic domain, dispatcher, HTTP and transport tests. Use `npm run validate:real` for the bounded actual runtime/process-restart/interruption gates. See [the validation record](../validation/prompt-01.md) for actual evidence and limits.
+
+## Computer Use capability (deferred)
+
+Prompt 01 supplies no Computer Use capability or GUI sessions to workers.
+
+Computer Use is an optional worker capability, not a default runtime property.
+
+Prefer sandboxed browser/desktop environments for autonomous GUI tasks. Local desktop control is higher risk because workers may share an OS account, files, browser sessions, and credentials.
+
+Computer sessions must remain subject to the normal authority ceiling and trusted approval model. GUI access does not imply authority to spend money, create accounts, send external messages, publish publicly, change credentials, upload private files, or perform destructive actions.
+
+Runtime-specific computer/browser control belongs behind environment/runtime adapters. The control plane should own the durable session/task/approval/audit records.
+
+See [Computer Use Model](../product/COMPUTER_USE_MODEL.md) and [Decision 006](../decisions/decision_006_bounded_computer_use.md).
 
 ## Deferred extension points
 

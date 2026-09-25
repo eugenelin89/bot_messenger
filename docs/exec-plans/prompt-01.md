@@ -7,7 +7,7 @@
 **Started:** 2026-09-25 06:11 UTC
 **Starting commit:** 9f1d07c421b5f16b6a0adc908a869c2d1d1f17a0
 **Initial ETA:** 3–5 hours (09:11–11:11 UTC)
-**Completed:** 2026-09-25 07:13 UTC (approximately 62 minutes elapsed)
+**Completed:** 2026-09-25 07:15 UTC (approximately 65 minutes elapsed)
 **Current ETA:** Complete; initial estimate materially shortened because the small stack and supported App Server interface allowed faster implementation
 
 ## Objective
@@ -119,14 +119,14 @@ runtime thread/worker/workspace swaps, artifact path confinement, local API boun
 
 ## Decisions made during execution
 
-Decision 006 records App Server stdio, experimental version pin, model selection,
+Decision 007 records App Server stdio, experimental version pin, model selection,
 managed authentication, small capabilities, transactional claims and conservative
-recovery. Accepted Decisions 001–005 are preserved from current main. No future engineering teams implemented.
+recovery. Accepted Decisions 001–006 are preserved from current main. No future engineering teams implemented.
 
 ## Documentation freshness
 
 Updated README, PROJECT_VISION, AI_ORGANIZATION_MODEL, SYSTEM_ARCHITECTURE and decision
-index to describe the actual CEO/researcher slice. Added Decision 006 and reproducible
+index to describe the actual CEO/researcher slice. Added Decision 007 and reproducible
 validation evidence, actual Scout report and Atlas evaluation. Accepted history preserved.
 
 ## Remaining work / blockers
@@ -143,6 +143,9 @@ Implementation and validation are complete. Delivery commits:
 - `471be07`: merge current main (`bfb5efc`) into this branch, preserve the accepted
   BotSquad rename, and revalidate the final implementation.
 - Both commits pushed to `origin/codex/prompt-01-control-plane` without force.
+- `14273e2`: closeout documentation; final documentation merge also incorporates
+  main at `319fbf5`, preserves future Computer Use policy and moves runtime record
+  to Decision 007. Executable code is unchanged from validated `471be07`.
 - Main was not changed. The original outer workspace and retained validation data
   were preserved. Origin remains `https://github.com/eugenelin89/bot_messenger.git`;
   the administrative GitHub rename had not taken effect at delivery.
@@ -179,3 +182,7 @@ and a reviewer, coordinated by Atlas/CTO/Product Manager. It was not implemented
 - 07:13 UTC: feature branch pushed successfully; full source/diff review, 31 tests,
   final real gate, browser verification, report hash, local documentation links and
   whitespace checks passed. Main unchanged. Local validated preview remains running.
+- 07:15 UTC: final remote check found future Computer Use policy on main.
+  Read and preserved it in a documentation-only merge; no capability or runtime
+  expansion. Runtime decision renumbered to 007. Links/diff checked; executable code
+  remains identical to the 31-test and real-runtime validated revision.

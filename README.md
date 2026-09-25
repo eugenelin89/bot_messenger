@@ -62,7 +62,7 @@ Deterministic tests use a fake worker runtime and a simulated App Server transpo
 - **Tools:** `hire_worker`, `assign_task`, `message_worker`, `list_company_status`, `read_document`, `submit_artifact`. Identity is bound to the active execution, never supplied by tool payloads.
 - **UI:** static browser JavaScript/CSS, Node HTTP and server-sent state-change events. No frontend framework or hosted service.
 
-[System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md) describes lifecycle, enforcement, recovery and extension boundaries. [Decision 006](docs/decisions/decision_006_prompt_01_runtime_and_recovery.md) records the implementation choices.
+[System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md) describes lifecycle, enforcement, recovery and extension boundaries. [Decision 007](docs/decisions/decision_007_prompt_01_runtime_and_recovery.md) records the implementation choices.
 
 ## Current limits
 
@@ -78,6 +78,7 @@ Temporary researchers accept one lifetime assignment and retire when it becomes 
 
 - [Project vision](docs/product/PROJECT_VISION.md)
 - [AI organization model](docs/product/AI_ORGANIZATION_MODEL.md)
+- [Computer Use model](docs/product/COMPUTER_USE_MODEL.md)
 - [Decision index](docs/decisions/README.md)
 - [Agent instructions](AGENTS.md)
 - [Prompt 01 execution plan](docs/exec-plans/prompt-01.md)
