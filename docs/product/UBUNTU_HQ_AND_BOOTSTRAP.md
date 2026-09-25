@@ -3,6 +3,8 @@
 **Status:** Planned Prompt 03 architecture  
 **Date:** 2026-09-25
 
+Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
+
 ## Goal
 
 Make BotSquad easy to install for a real user:
