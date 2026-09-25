@@ -26,6 +26,29 @@ Before substantive editing:
 
 Do not load unrelated historical material by default.
 
+## Progress Reporting And ETA
+
+For substantial, multi-step, or long-running work, keep the human operator informed without waiting for the task to finish.
+
+- At the beginning of the task, provide a **best-effort ETA** before or alongside the first substantive work update.
+- The initial ETA should include the expected overall duration and, when useful, the major phases or gates that drive it.
+- While work remains active, provide a progress update approximately **every 30 minutes of wall-clock work**.
+- Every 30-minute update should include:
+  - what has completed since the previous update;
+  - what is currently in progress;
+  - important findings, failures, or blockers;
+  - the **revised best-effort ETA**;
+  - any meaningful change in scope or validation status.
+- If the task finishes before 30 minutes, no periodic update is required beyond the initial ETA and final handoff.
+- ETA values are estimates, not commitments. Revise them when evidence changes rather than preserving an obsolete estimate.
+- Do not stop productive work merely to manufacture an update. Send the update at the nearest safe interruption point.
+- If a long-running build/test/tool call prevents an update exactly at 30 minutes, send the update as soon as control returns and explain what was running.
+- Do not spam low-level logs. Summarize material progress and decisions.
+- A task that is blocked should report the blocker promptly rather than waiting for the next 30-minute interval.
+- The final handoff should state whether the initial ETA materially changed and why when that information is useful for planning later work.
+
+For execution plans, record the initial ETA and update it when the estimate changes materially.
+
 ## Scope And Safety
 
 - Keep changes bounded to the requested task. Do not implement future milestones, speculative abstractions, external services, or new dependencies unless they solve a current requirement.
