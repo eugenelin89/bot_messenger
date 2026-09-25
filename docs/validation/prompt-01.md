@@ -32,7 +32,7 @@
 
 ## Real Codex execution
 
-Command: `npm run validate:real`.
+Original command: `npm run validate:real`. After Prompt 02, reproduce this research regression with `npm run validate:prompt01`; `validate:real` now runs engineering.
 
 Final accepted run after integrating the BotSquad rename: **07:09:01–07:10:04 UTC (63 seconds)**. Both Atlas and Scout are
 persistent, enabled workers. Scout's title is **Market Researcher**, reporting to Atlas.
@@ -72,7 +72,7 @@ on port 4310 and run:
 BOT_DATA_DIR=.validation/real-2026-09-25T07-09-01-532Z npm start
 ```
 
-On another checkout, `npm run validate:real` creates its own evidence directory and
+On another checkout, `npm run validate:prompt01` creates its own evidence directory and
 fresh IDs; the local retained directory is intentionally not distributed with Git.
 
 ## Browser verification

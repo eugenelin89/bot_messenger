@@ -2,7 +2,7 @@ import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const migration1 = `
+export const migration1 = `
 CREATE TABLE principals (
  principal_id TEXT PRIMARY KEY, type TEXT NOT NULL CHECK(type IN ('human','bot','system')),
  display_name TEXT NOT NULL, enabled INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL
@@ -65,6 +65,55 @@ CREATE TABLE wake_events (
 );
 `;
 
+const migration2 = `
+CREATE TABLE legacy_runtime_bindings (worker_id TEXT PRIMARY KEY REFERENCES workers);
+INSERT INTO legacy_runtime_bindings SELECT worker_id FROM runtime_bindings;
+ALTER TABLE tasks ADD COLUMN kind TEXT NOT NULL DEFAULT 'research';
+ALTER TABLE tasks ADD COLUMN created_execution_id TEXT REFERENCES executions;
+CREATE TABLE repositories (
+ repository_id TEXT PRIMARY KEY, product_name TEXT NOT NULL, canonical_root TEXT NOT NULL UNIQUE,
+ default_branch TEXT NOT NULL, base_commit TEXT, current_commit TEXT, created_by TEXT NOT NULL REFERENCES workers,
+ workflow_task_id TEXT NOT NULL UNIQUE REFERENCES tasks, spec_artifact_id TEXT NOT NULL REFERENCES artifacts,
+ status TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+);
+CREATE TABLE allocations (
+ allocation_id TEXT PRIMARY KEY, repository_id TEXT NOT NULL REFERENCES repositories,
+ worker_id TEXT NOT NULL REFERENCES workers, task_id TEXT NOT NULL UNIQUE REFERENCES tasks,
+ branch_name TEXT NOT NULL UNIQUE, worktree_path TEXT NOT NULL UNIQUE, base_commit TEXT NOT NULL,
+ module TEXT NOT NULL CHECK(module IN ('calculate','format')), status TEXT NOT NULL,
+ created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+ UNIQUE(repository_id,module)
+);
+CREATE UNIQUE INDEX one_writer_allocation ON allocations(worker_id) WHERE status IN ('allocating','active','submitting','blocked');
+CREATE TABLE submissions (
+ submission_id TEXT PRIMARY KEY, repository_id TEXT NOT NULL REFERENCES repositories,
+ task_id TEXT NOT NULL UNIQUE REFERENCES tasks, worker_id TEXT NOT NULL REFERENCES workers,
+ execution_id TEXT NOT NULL REFERENCES executions, allocation_id TEXT NOT NULL UNIQUE REFERENCES allocations,
+ base_commit TEXT NOT NULL, branch_name TEXT NOT NULL, commit_sha TEXT NOT NULL,
+ changed_paths TEXT NOT NULL, validation TEXT NOT NULL, summary TEXT NOT NULL, created_at TEXT NOT NULL
+);
+CREATE TABLE reviews (
+ review_id TEXT PRIMARY KEY, repository_id TEXT NOT NULL REFERENCES repositories,
+ task_id TEXT NOT NULL UNIQUE REFERENCES tasks, worker_id TEXT NOT NULL REFERENCES workers,
+ execution_id TEXT NOT NULL REFERENCES executions, source_commits TEXT NOT NULL,
+ status TEXT NOT NULL CHECK(status IN ('approved','changes_required')),
+ artifact_id TEXT NOT NULL REFERENCES artifacts, created_at TEXT NOT NULL
+);
+CREATE TABLE integrations (
+ integration_id TEXT PRIMARY KEY, repository_id TEXT NOT NULL UNIQUE REFERENCES repositories,
+ review_id TEXT NOT NULL UNIQUE REFERENCES reviews, base_commit TEXT NOT NULL,
+ source_commits TEXT NOT NULL, candidate_commit TEXT, final_commit TEXT,
+ strategy TEXT NOT NULL, validation TEXT, status TEXT NOT NULL, error TEXT,
+ requested_by TEXT NOT NULL REFERENCES workers, execution_id TEXT NOT NULL REFERENCES executions,
+ created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+);
+CREATE TABLE task_scopes (task_id TEXT PRIMARY KEY REFERENCES tasks, repository_id TEXT NOT NULL REFERENCES repositories);
+CREATE TRIGGER submissions_no_update BEFORE UPDATE ON submissions BEGIN SELECT RAISE(ABORT,'Submissions are immutable'); END;
+CREATE TRIGGER submissions_no_delete BEFORE DELETE ON submissions BEGIN SELECT RAISE(ABORT,'Submissions are immutable'); END;
+CREATE TRIGGER reviews_no_update BEFORE UPDATE ON reviews BEGIN SELECT RAISE(ABORT,'Reviews are immutable'); END;
+CREATE TRIGGER reviews_no_delete BEFORE DELETE ON reviews BEGIN SELECT RAISE(ABORT,'Reviews are immutable'); END;
+`;
+
 export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
@@ -77,6 +126,10 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=1')) {
         this.db.exec(migration1);
         this.run('INSERT INTO schema_migrations VALUES (1,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=2')) {
+        this.db.exec(migration2);
+        this.run('INSERT INTO schema_migrations VALUES (2,?)', new Date().toISOString());
       }
     });
   }

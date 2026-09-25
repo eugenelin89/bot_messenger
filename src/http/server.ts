@@ -63,7 +63,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         const a = strictObject(body, ['objective']);
         json(201, company.assignObjective({ objective: textField(a, 'objective'),
           acceptance_criteria: 'Evaluate the evidence and report concrete recommendations to the Human. If delegating research, require a saved report and review it before your final conclusion.',
-          constraints: 'Local approved documents only. No spending, external accounts, outreach or publishing. One bounded research assignment; no recursive delegation.' }));
+          constraints: 'Approved local tools only. Research: one subordinate. SquadStatus: Product Manager then CTO with two engineers and one reviewer. No spending, external accounts, outreach, publishing, Computer Use or arbitrary shell/network.' }));
       } else if (path === '/api/pause') {
         const a = strictObject(body, ['paused']); requireThat(typeof a.paused === 'boolean', 'Invalid pause value'); company.pause(a.paused); json(200, { paused: company.paused });
       } else if (path === '/api/interrupt') {

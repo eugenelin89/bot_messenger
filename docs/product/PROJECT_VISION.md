@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 01 local organization slice implemented
+**Status:** Product vision; Prompt 02 managed engineering organization implemented
 **Updated:** 2026-09-25
 
 ## One-sentence vision
@@ -248,19 +248,21 @@ Prompt 01 proves the smallest real organization loop:
 8. Human inspects hierarchy, communication, tasks, attempts, artifacts and audit history in the local UI.
 9. Restart preserves state and does not replay completed work.
 
-The earlier Builder/Reviewer proposal is deferred to engineering-worker validation.
-The current implementation uses a single owner, one executive channel and bounded
-research tools. Trusted approval grants, priority changes, departments, engineering
-tools and broader external actions described in the long-term vision remain future work.
+Prompt 02 extends this loop with Maya Product Manager, Turing CTO, two concurrent
+engineers in separate managed worktrees, Grace's independent exact-commit review,
+and trusted integration gated by full local tests. The validation product remains
+local and dependency-free. Trusted approval grants, priority changes, departments,
+external repositories and external actions remain future work.
 
 No autonomous spending or public external action is needed for this milestone.
 
 ## Capability roadmap
 
 Prompt 01 combines the local messaging/task/runtime/dispatcher foundations below.
-The next implementation milestone should add Product Manager/CTO coordination and
-two engineers plus a reviewer with explicit repository, worktree, branch and runtime
-ownership. It must prove concurrent Git work without cross-worker corruption.
+Prompt 02 adds Product Manager/CTO coordination and two engineers plus a reviewer
+with durable repository, worktree, branch and runtime ownership. Its acceptance
+requires real concurrent Codex work, reviewed commits, safe integration and restart
+without duplicate work. Broader operating authority requires a later milestone.
 
 ### M1 — Local messaging core
 

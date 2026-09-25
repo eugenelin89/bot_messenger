@@ -75,3 +75,10 @@ unreferenced files on crash; metadata never references a partially written repor
 - Installed 0.142.4 generated protocol schemas: thread start/resume, dynamic tools,
   turn start/interrupt, sandbox and environment parameters.
 - [Execution plan](../exec-plans/prompt-01.md) and [validation record](../validation/prompt-01.md).
+
+## Prompt 02 extension
+
+[Decision 008](decision_008_managed_engineering.md) extends the initial capability and
+one-child delegation limits for managed engineering. The original Prompt 01 rationale
+and evidence above are preserved; runtime confinement, authentication and identity
+checks remain in force.

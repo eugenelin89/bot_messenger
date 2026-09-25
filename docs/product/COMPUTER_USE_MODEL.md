@@ -353,7 +353,7 @@ computer session ends
 
 ## Initial implementation sequencing
 
-Computer Use is **not part of Prompt 01**.
+Computer Use is **not part of Prompt 01 or Prompt 02**. Narrow engineering file/test/Git tools do not grant GUI or browser authority.
 
 Recommended sequence:
 
@@ -371,7 +371,7 @@ Prove workers, hierarchy, tasks, dispatch, persistence, and Codex runtime execut
 CEO -> CTO -> engineering workers
 ```
 
-Add repositories, branches, worktrees, and multi-engineer coordination.
+Implemented: managed local repositories, separate branches/worktrees, concurrent engineers, independent read-only review and tested trusted integration. Computer Use remains disabled.
 
 ### Later milestone
 

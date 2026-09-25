@@ -1,6 +1,6 @@
 # AI Organization Model
 
-**Status:** Product model; initial CEO/Researcher slice implemented
+**Status:** Product model; bounded research and engineering organization implemented
 **Updated:** 2026-09-25
 
 ## Purpose
@@ -398,8 +398,8 @@ Worker
   +-- Runtime: future adapter
 ```
 
-Codex is the initial runtime. Prompt 01 proves local research and executive evaluation;
-engineering workers are the next target. The adapter uses the official App Server.
+Codex is the initial runtime. Prompt 01 proves research and executive evaluation;
+Prompt 02 proves managed engineering and independent review using the same App Server.
 
 A later implementation may choose different runtime types for different roles, for example:
 
@@ -433,20 +433,42 @@ Only after this works should the project expand into larger autonomous company s
 
 ## Current implementation boundary
 
-Atlas is seeded as a persistent CEO reporting to the Human owner. It may hire direct
-research workers, assign one child task per objective, inspect company state and post
-messages. Its initial delegatable capabilities are internal messaging, approved
-document reads and controlled report writes. Workers do not have arbitrary shell,
-filesystem, account, policy or financial authority.
+```text
+Human
+└── Atlas — CEO
+    ├── Maya — Product Manager
+    ├── Turing — CTO
+    │   ├── Linus — Engineer
+    │   ├── Ada — Engineer
+    │   └── Grace — Reviewer
+    └── Scout — Researcher (optional compatible research workflow)
+```
 
-Scout is requested dynamically by Atlas; the reference workflow uses a persistent
-Market Researcher. Temporary workers are also represented and retire after a terminal
-task. Retirement retains identity and history. The suggested `retire_worker` and
-`request_human_approval` tools, departments and reassignment are deferred. Runtime
-approval requests are denied and surfaced for inspection; ordinary text never grants
-the rejected permission.
+Atlas creates the approved Product Manager and CTO profiles; CTO creates at most two
+engineers and one reviewer. There are eight workers maximum, three direct children
+per manager, two hierarchy edges and two simultaneous executions. Leaf roles receive
+no onward delegation. Effective and delegatable capabilities are separate; profile
+checks enforce the company ceiling outside model text.
 
-The company can hold eight worker records, executes at most one run per worker and
-two globally, and bounds delegation/review to prevent runaway loops. See
-[system architecture](../architecture/SYSTEM_ARCHITECTURE.md) for the implemented
-capability meanings, recovery and future Git ownership extension point.
+Maya produces the spec before engineering. Turing creates a managed local SquadStatus
+repository and assigns both engineers as a batch. Each owns one branch/worktree/task
+allocation and can edit only its module and optional extra tests. Source editing,
+fixed confined tests and commit submission use narrow trusted tools; no worker gets
+an unrestricted shell or filesystem. Grace receives a read-only exact-commit packet
+and records an immutable approved/changes_required review. Only Turing may request
+trusted integration, which tests a candidate before fast-forwarding product main.
+
+Managers end their turns while children work. Durable child-result events wake Atlas
+for spec evaluation/delivery and Turing for review/integration. No model polls an
+inbox. Creating a worker and sending messages remain distinct from assigning work.
+
+The real reference organization is persistent; temporary researchers remain supported
+and retire after one terminal assignment. Runtime bindings keep their original private
+workspace; engineering allocations are separately bound to current tasks. No implicit
+thread replacement is permitted. Restart retains completed ownership and results;
+ambiguous source/Git work is blocked for inspection rather than automatically replayed.
+
+The fixed product, two modules, one review and one integration attempt keep this
+milestone bounded. Automatic revision cycles, generalized product repositories,
+manager retirement, trusted approval grants, cleanup and Computer Use are deferred.
+See [Decision 008](../decisions/decision_008_managed_engineering.md).

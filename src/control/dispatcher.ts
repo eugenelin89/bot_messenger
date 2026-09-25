@@ -44,7 +44,7 @@ export class Dispatcher {
             event: (type, detail) => this.company.audit(type, 'system', detail, worker.worker_id, task.task_id, execution.execution_id),
           }, controller.signal);
           // Researchers must supply evidence, not only status prose.
-          if (result.status === 'completed' && worker.role === 'researcher' && !this.company.artifacts(task.task_id).length) {
+          if (result.status === 'completed' && ['researcher', 'product_manager'].includes(worker.role) && !this.company.artifacts(task.task_id).length) {
             throw new Error('Research finished without an artifact');
           }
           this.company.finish(execution.execution_id, result);

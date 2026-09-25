@@ -13,7 +13,8 @@
     "start": "node dist/src/main.js",
     "dev": "npm run build && npm start",
     "codex:preflight": "npm run build && node dist/scripts/codex-preflight.js",
-    "validate:real": "npm run build && node dist/scripts/real-e2e.js"
+    "validate:real": "npm run build && node dist/scripts/real-engineering.js",
+    "validate:prompt01": "npm run build && node dist/scripts/real-e2e.js"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

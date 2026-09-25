@@ -1,0 +1,61 @@
+{
+  "started": "2026-09-25T09:55:58.182Z",
+  "finished": "2026-09-25T09:57:17.837Z",
+  "data_directory": ".validation/real-2026-09-25T09-55-58-179Z",
+  "result": "PASS",
+  "workflow_task_id": "task_ee18766e-c0e5-4e01-b224-2cbfb312ce5d",
+  "atlas_id": "worker_daed30e5-10fe-401f-b5ed-e841935676a3",
+  "scout_id": "worker_2e418748-e838-4c7a-b5c8-d99b2eb0cb94",
+  "checks": [
+    "real dynamic hire",
+    "real Scout execution and artifact",
+    "real Atlas resume/evaluation",
+    "pause",
+    "process restart persistence",
+    "no replay of completed work",
+    "persisted binding resumes after restart",
+    "real turn interruption"
+  ],
+  "counts": {
+    "workers": 2,
+    "tasks": 4,
+    "executions": 5,
+    "artifacts": 1
+  },
+  "initial_workflow_executions": [
+    {
+      "execution_id": "execution_60f3c3ae-2576-44da-aac1-3a2b393727f7",
+      "task_id": "task_ee18766e-c0e5-4e01-b224-2cbfb312ce5d",
+      "worker_id": "worker_daed30e5-10fe-401f-b5ed-e841935676a3",
+      "runtime_reference": "01a0d7fe-4b5e-7092-a119-95857f9f4b53",
+      "status": "completed",
+      "started_at": "2026-09-25T09:55:58.977Z",
+      "finished_at": "2026-09-25T09:56:18.824Z",
+      "error": null,
+      "interruption_reason": null
+    },
+    {
+      "execution_id": "execution_cefa6e4b-432f-4174-9c03-3f979f925e3e",
+      "task_id": "task_fb8368fc-4e4c-4283-95a1-b58b96e0975c",
+      "worker_id": "worker_2e418748-e838-4c7a-b5c8-d99b2eb0cb94",
+      "runtime_reference": "01a0d7fe-932e-75e1-8ce9-672a255d6fde",
+      "status": "completed",
+      "started_at": "2026-09-25T09:56:17.211Z",
+      "finished_at": "2026-09-25T09:56:52.553Z",
+      "error": null,
+      "interruption_reason": null
+    },
+    {
+      "execution_id": "execution_18852383-833e-4a02-b3e3-7956f82b124e",
+      "task_id": "task_ee18766e-c0e5-4e01-b224-2cbfb312ce5d",
+      "worker_id": "worker_daed30e5-10fe-401f-b5ed-e841935676a3",
+      "runtime_reference": "01a0d7fe-4b5e-7092-a119-95857f9f4b53",
+      "status": "completed",
+      "started_at": "2026-09-25T09:56:52.587Z",
+      "finished_at": "2026-09-25T09:57:06.919Z",
+      "error": null,
+      "interruption_reason": null
+    }
+  ],
+  "final_report": "Reviewed Scout\u2019s saved report (`artifact_7bca204e-d09b-4b25-a905-bdbfb5123374`). I agree with the three largest reliability risks and recommend prioritizing them in this order:\n\n1. **Authority boundary drift**\n   - **Risk:** Workers may treat prompt text, messages, or artifacts as authorization instead of relying only on trusted control-plane state.\n   - **Why it matters:** BotSquad\u2019s safety model depends on the rule that messages communicate but do not grant permission.\n   - **Likely failure:** Unauthorized delegation, incorrect approvals, or workers attempting actions outside their capability profile.\n   - **Recommendation:** Keep authority checks entirely in trusted tool/runtime enforcement. Add explicit tests for message-based privilege escalation, invalid delegation, broad worker creation, and resumed-task authority confusion.\n\n2. **Duplicate or lost work during dispatch, retry, and restart**\n   - **Risk:** Crashes or ambiguous tool/runtime results could cause repeated work, missed manager wakeups, or stuck tasks.\n   - **Why it matters:** Reliable multi-agent coordination requires durable state, idempotent wakeups, and clear execution ownership.\n   - **Likely failure:** A child completes but the manager is not resumed; a task is retried and duplicates side effects; an artifact or execution becomes unattributable.\n   - **Recommendation:** Expand validation around crash windows: task assignment, execution creation, terminal state changes, artifact submission, child-result wake records, and engineering/integration side effects.\n\n3. **Context and handoff degradation**\n   - **Risk:** As workflows grow, workers may receive stale, incomplete, excessive, or poorly structured context.\n   - **Why it matters:** BotSquad\u2019s coordination value depends on bounded, inspectable handoffs with clear objectives, constraints, evidence, and acceptance criteria.\n   - **Likely failure:** Managers decide from incomplete summaries, reviewers validate the wrong artifact/commit, or revision loops continue without escalation.\n   - **Recommendation:** Treat task packets as structured contracts. Require artifact IDs, exact source references, constraints, limitations, and acceptance criteria in cross-worker handoffs. Add stale-context checks and escalation rules before expanding workflow complexity.\n\n**Limitations:** This assessment is based on approved product and architecture documentation only. It did not inspect source code, runtime logs, tests, or live validation behavior.\n\n**Next step:** Run a focused reliability validation pass covering these three areas, starting with authority-boundary and dispatch/restart tests because failures there could compromise both safety and correctness."
+}

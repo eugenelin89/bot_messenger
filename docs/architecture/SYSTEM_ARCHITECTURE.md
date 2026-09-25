@@ -1,157 +1,220 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 01 implementation
+**Status:** Prompt 02 managed engineering implementation
 **Updated:** 2026-09-25
 
 ## Boundaries
 
 ```text
-Human browser
-  → loopback HTTP + server-sent events
-  → Company control plane + SQLite
-  → event-driven dispatcher
-  → RuntimeAdapter
-  → Codex App Server (private stdio)
-  → model service
+Human browser → loopback HTTP / SSE → Company + SQLite → event dispatcher
+                                                     → RuntimeAdapter → Codex App Server
+                                                     → managed Git / confined product tests
 ```
 
-The company owns organizational truth. Codex threads are replaceable runtime bindings, not Tasks. A worker persists while its model is idle. Creating, messaging, assigning and executing are separate operations.
-
-## Implemented stack and source map
+The company owns organizational truth. Workers persist while idle, runtime threads
+are bindings, Tasks own execution attempts, and messages do not dispatch work.
+Creating, messaging, assigning and executing remain separate operations.
 
 | Concern | Implementation |
 | --- | --- |
-| Domain types, validation, authority | `src/domain/model.ts` |
-| Persistent operations and narrow worker tools | `src/control/company.ts` |
-| Atomic claim and execution lifecycle | `src/control/dispatcher.ts` |
-| SQLite migration and constraints | `src/persistence/store.ts` |
+| Domain, profiles and validation | `src/domain/model.ts`, `src/domain/engineering.ts` |
+| Trusted operations and staged tasks | `src/control/company.ts` |
+| Managed repositories, allocations, review, integration | `src/control/engineering.ts` |
+| Immutable product scaffold and contract | `src/control/product-scaffold.ts` |
+| Confined Node test process | `src/control/product-runner.ts` |
+| Atomic claims / execution lifecycle | `src/control/dispatcher.ts` |
+| SQLite migration / constraints | `src/persistence/store.ts` |
 | Single service ownership | `src/persistence/lock.ts` |
-| Runtime contract and tool descriptions | `src/runtime/adapter.ts` |
-| Codex protocol and transport | `src/runtime/codex.ts`, `src/runtime/rpc.ts` |
-| Local HTTP and human session boundary | `src/http/server.ts` |
-| Browser interface | `public/` |
-| Application lifecycle | `src/main.ts` |
-| Deterministic and real validation | `test/`, `scripts/real-e2e.ts` |
+| Runtime contract and tool schemas | `src/runtime/adapter.ts` |
+| Codex protocol / transport | `src/runtime/codex.ts`, `src/runtime/rpc.ts` |
+| Loopback API / browser UI | `src/http/server.ts`, `public/` |
+| Startup / shutdown | `src/main.ts` |
+| Deterministic and real validation | `test/`, `scripts/real-e2e.ts`, `scripts/real-engineering.ts` |
 
-Node 24.x supplies HTTP, SQLite, process control and tests. TypeScript supplies static checking. The only runtime package is the pinned official Codex CLI. No distributed queue or web framework is needed.
+Node 24 supplies HTTP, SQLite, process control and tests. TypeScript checks the code.
+The only runtime dependency is the pinned official Codex CLI. No distributed queue
+or frontend framework is needed.
 
 ## Persistent domain
 
-- **Principal:** human, bot or system identity. Human/System seed once; a Worker has a distinct bot Principal.
-- **Worker:** name, title, mission, role, manager Worker FK, lifecycle, runtime type, canonical workspace, effective/delegatable capability arrays, enabled flag, creator and timestamps.
-- **Runtime binding:** separate unique Worker ↔ runtime reference ↔ workspace association. Codex owns the referenced thread; tasks never use its ID as their domain identity.
-- **Channel/Message:** one executive channel with immutable messages, trusted sender, optional recipient/reply/task/execution linkage. Messages never dispatch work.
-- **Task:** requester Principal, assignee Worker, objective, acceptance criteria, constraints, optional parent, validated status, blocking reason and result.
-- **Execution:** independent attempt ID, task, worker, runtime reference, status, start/end, error and interruption reason. Retrying creates an additional row.
-- **Artifact:** producing task/execution, type, generated filesystem reference, description, timestamp and SHA-256. UI serves Markdown as plain text after verifying confinement and integrity.
-- **Audit:** append-oriented event ID, actor, task/worker/execution and bounded details. SQLite triggers reject ordinary update/delete operations.
-- **Tool receipt / wake event:** persisted idempotency keys for tool replay and child-result linkage.
-- **Settings:** application pause state survives restart.
+Prompt 01 retains Principals, Workers, runtime bindings, channels/messages, Tasks,
+Executions, Artifacts, append-oriented Audit, Settings, tool receipts and wake events.
+Worker identity, manager, lifecycle, capabilities and private runtime workspace remain
+separate from Task and runtime-thread identity. Artifacts have generated paths and
+SHA-256 integrity checks; messages and audit reject ordinary update/delete operations.
 
-The schema has an explicit `schema_migrations` ledger. Startup applies missing migrations transactionally; it does not reset retained data. Foreign keys, `BEGIN IMMEDIATE`, WAL, full synchronization and unique indexes enforce relational and claim invariants.
+Migration 2 adds:
 
-## Authority and tool identity
+- **Repository:** product, canonical local root, default branch, base/current commit,
+  creator CTO, workflow task, spec artifact and lifecycle timestamps/status.
+- **Allocation:** repository, worker, task, branch, worktree, base, module and lifecycle.
+  Task/path/branch uniqueness and a partial unique active-worker index protect ownership.
+- **Submission:** immutable producing execution/allocation, commit, changed paths,
+  focused validation and summary. One submission per allocation/task.
+- **Review:** immutable reviewer/task/execution, exact source commits, disposition and
+  structured artifact. One review per review task.
+- **Integration:** repository/review, base/source/candidate/final commits, strategy,
+  full tests/output, status/error, requester/execution and timestamps. Unique per product.
+- **Task scope and provenance:** product/research/spec/delivery/engineering/review kind,
+  repository scope and creating execution to support bounded sequential handoffs.
 
-Decision 004 is enforced in trusted code:
+The schema ledger, foreign keys, WAL, full synchronization and `BEGIN IMMEDIATE`
+transactions preserve prior data. Migrations do not reset retained Prompt 01 history.
 
-```text
-child effective capabilities ⊆ manager delegatable capabilities ⊆ company ceiling
-```
-
-| Capability | Atlas | Atlas may delegate | Concrete Prompt 01 authority |
-| --- | --- | --- | --- |
-| `internal_message` | yes | yes | Durable executive-channel messages |
-| `create_worker` | yes | no | Bounded direct research worker provisioning |
-| `create_task` | yes | no | One direct child research assignment per objective |
-| `read_workspace` | yes | yes | Read allowlisted document snapshots, max 40,000 characters each |
-| `write_workspace` | yes | yes | Submit bounded report content; service chooses path |
-| `run_local_tools` | no | no | Recognized but excluded from company ceiling |
-
-Capabilities are explicit string sets. A child receives no onward delegation. Hiring always derives `reports_to` and creator from the active manager; workers cannot supply arbitrary manager, workspace, runtime, sender, principal or execution fields. Runtime type inherits the company adapter; workspace paths are generated and canonicalized by the service.
-
-The dispatcher constructs an execution context; the adapter closes over it. Every tool call verifies the running execution, assigned worker, working task, enabled identity and exact workspace. The payload is strictly validated, with unknown fields rejected. Runtime requests must also match the current Codex thread and turn. Bots have no HTTP endpoint for unrestricted database/policy access.
-
-Each execution permits 32 successful company tool calls and each task four reports of at most 20,000 characters. A hire does not create a runtime binding or start work. Tool-call receipts reject replay with different payloads. Ordinary messages and task text cannot create trusted approval, mutate capability sets or alter history.
-
-## Task and worker lifecycle
+## Authority and runtime identity
 
 ```text
-queued → working → completed
-            ├→ failed → queued (human inspected retry)
-            ├→ blocked → queued (result event or inspected retry)
-            ├→ awaiting_approval → queued (same-authority inspected retry)
-            └→ cancelled
+child effective capabilities ⊆ parent delegatable capabilities ⊆ company ceiling
 ```
 
-Completed/cancelled tasks are immutable terminal states. Non-running work can be cancelled. Working tasks must be interrupted first. Unresolved child tasks must be dealt with before a parent is cancelled/retried.
+Fixed profiles enforce depth and role constraints in addition to the capability sets:
 
-Atlas's initial execution can hire and assign Scout, then end. Its **execution** completes, but its objective **task** becomes blocked with `waiting_children`. When the direct child reaches a terminal state, the company records a unique result event and queues the same parent task with reason `child_results`. This also works if Scout finishes before Atlas's initial execution ends. Atlas's next execution receives the child's status, summary and artifact content, evaluates it and completes the objective. The review phase cannot delegate again, bounding the loop.
+| Role | May exercise | May create |
+| --- | --- | --- |
+| Atlas / CEO | messages, reports, approved docs, direct assignments | Researcher; Product Manager and CTO for product tasks |
+| Maya / Product Manager | approved context, specification artifacts, messages | none |
+| Turing / CTO | managed product creation/allocation, review assignment, integration request | two Engineers and one Reviewer |
+| Engineer | owned source read/write, fixed tests, own Git inspection, verified submission | none |
+| Reviewer | exact-commit read-only packet, structured review, artifacts/messages | none |
 
-Worker runtime activity is separate from task outcome. A worker returns to idle after a run if it has no queued assignment, even when a task needs inspection. Task and execution views retain the blocked/failed state. Temporary workers accept one lifetime assignment and are disabled after it becomes terminal; history is retained. Persistent workers remain available.
+There are eight workers maximum, three direct children per manager and two hierarchy
+edges. CTO cannot create another CTO. Leaf roles have no delegatable authority.
+Managers do not acquire source-writing authority merely by being able to delegate it.
+No role may alter company policy, supply a sender identity, grant human approval,
+choose an arbitrary product path, modify remotes, force Git, browse or use Computer Use.
 
-## Event-driven dispatcher
+The dispatcher creates the execution context. Every tool rechecks active execution,
+worker, task, enabled state and exact canonical private runtime workspace. The Codex
+callback must also match the current thread and turn. Unknown input fields fail closed.
+Worker-authored text never changes capabilities or approval state.
 
-The company emits local state-change events after operations. The dispatcher coalesces notifications with `setImmediate`; there is no timer that invokes idle models. Startup checks existing queued work once. Assignment, result completion and resume-dispatch events trigger further checks.
+Each research execution allows 32 successful calls; engineering workflow executions
+allow 64. Tasks allow four artifacts, each up to 20,000 characters. Source files are
+bounded to 16 KB. There are no raw database or bot-authority HTTP endpoints.
 
-A claim transaction verifies pause, worker enablement and absence of a running execution, then changes queued → working, inserts the Execution and appends events. Partial unique indexes permit one running execution per Worker and Task across database connections. Each dispatcher additionally limits global concurrency to two. Extra assignments queue behind a busy worker.
+## Task stages, dispatch and recovery
 
-Completion stores outcome/message/events, resolves child wakeups and updates availability in a transaction. Failure does not auto-retry. Pause is durable and prevents future claims; it does not abort existing turns. Interrupt uses an AbortSignal to request `turn/interrupt`, waits for acknowledgement, and retains a blocked task for review. If a runtime fails to acknowledge, it is closed and the ambiguous state stays inspectable.
+Task transitions remain explicit: queued → working → completed, with blocked, failed,
+awaiting_approval and cancelled paths. Completed/cancelled tasks remain terminal.
+Human retry requires acknowledgement that prior evidence was inspected and never
+grants new authority. Temporary researchers accept one lifetime assignment and retire
+when it becomes terminal; persistent workers retain their identity and history.
+
+A manager's execution can complete while its task waits for children. Newly created
+child tasks carry the creating execution ID. This lets a resumed Atlas delegate CTO
+after evaluating Maya, and a resumed CTO delegate Grace after both engineers finish.
+The service records each child-result wake once and queues a blocked manager only
+when all required children are terminal. Final product/delivery completion also requires
+a successful trusted integration record. No model polls for status.
+
+The event-driven dispatcher coalesces changes with `setImmediate`. Transactional claims
+and partial unique indexes enforce one running execution per worker/task; the sole
+service dispatcher permits two globally. Engineering assignments are one batch and
+wait until the CTO turn ends, making both execution slots available concurrently.
+Pause holds queued tasks without interrupting running work. Interrupt uses the adapter's
+AbortSignal path and preserves execution evidence.
+
+One exclusive service lock owns a data directory. An exclusive startup gate serializes
+stale-lock reclamation; ambiguous/live owners fail closed. Restart interrupts orphaned
+running executions and blocks their tasks for inspection. Completed tasks are not
+replayed. Queued safe work and pending completed-child wakes are reconciled locally.
+
+## Managed engineering
+
+A completed Maya spec is required before CTO delivery. The only template is the small
+local SquadStatus product. Trusted code creates `products/<repository-id>/main`, a
+separate Git repository with `main`, a clean base commit and no remote. Workers pass
+a logical name, never a filesystem root. Product development never targets BotSquad.
+
+Linus and Ada receive separate branches, worktrees and task allocations. Canonical
+paths, regular files, symlinks/hardlinks, `.git` pointers/backlinks, registered repository,
+branch/base and worker/task identity are checked on access. Engineers can edit only
+`src/<module>.mjs` and optional `test/<module>.extra.test.mjs`. Scaffold acceptance tests,
+composition and Git metadata are unavailable to write tools.
+
+Fixed-argv Git operations use a clean environment, ignore global/system configuration
+and disable hooks, fsmonitor, signing and external diff/attributes configuration. Local
+repository configuration is allowlisted; remotes and replacement refs are rejected.
+Engineers have no general Git command or shell tool.
+
+Product code runs in a separate Node process with permissions restricting reads to
+the worktree, no addons/worker/child-process permission, an empty environment, a
+96 MB old-space limit, ten-second timeout and 64 KB captured-output limit (16 KB retained).
+On macOS, Seatbelt additionally denies network, writes, process signals, child processes and regular-file
+reads outside product/runtime locations. Inherited pipes remain usable. There is no
+unsandboxed fallback; other platforms need an equivalent validated confinement adapter.
+
+Submission verifies a real module change, allowed paths, the expected base HEAD,
+passing focused tests and a clean trusted commit. It freezes the worktree and persists
+immutable evidence. Grace receives the spec, base files, exact submitted diffs, immutable
+tests and focused evidence through a read-only packet. Its structured review binds
+approval/changes_required to exactly those two commits. It cannot mutate source or
+request integration.
+
+CTO integration checks completed approval and re-verifies the submissions. A retained
+candidate worktree cherry-picks the exact two commits, runs all acceptance/extra tests
+and checks deterministic CLI output. The clean default branch advances by fast-forward
+only after success. Conflict/test failure leaves default unchanged. Repeated requests
+return the recorded completed integration; failed/ambiguous attempts require inspection.
+
+Git/filesystem side effects and SQLite cannot form one atomic transaction. Durable
+creating/allocating/submitting/integrating intent is recorded first. Restart blocks
+unfinished intent instead of replaying it. Completed branches and worktrees stay
+retained; automatic repair, revision cycles and cleanup are deferred.
 
 ## Codex adapter
 
-[Decision 007](../decisions/decision_007_prompt_01_runtime_and_recovery.md) selects App Server over SDK/CLI fallback because direct tool callbacks, events, durable resume and interruption are needed together.
+Decision 007's official App Server stdio architecture and pin `0.142.4` remain. Each
+execution owns a short-lived process and one turn. Codex owns managed authentication;
+BotSquad never copies credentials. Preflight reports version/auth mode/advertised model.
+The default advertised model is selected unless `BOT_MODEL` names another advertised model.
 
-- Private newline-delimited stdio JSON-RPC, one App Server process per execution.
-- Official managed ChatGPT login is reused; the company never reads/copies tokens. Preflight reports only auth mode.
-- The adapter validates CLI version `0.142.4`, opts into experimental dynamic tools, checks feature controls, disables inherited MCP servers, and uses the default advertised by `model/list` unless `BOT_MODEL` selects another advertised model.
-- Shell, browser, computer use, apps, plugins, hooks, subagents, image generation, code execution and workspace dependencies are disabled. Threads/turns receive `environments: []`, read-only sandbox and no sandbox network; approval policy is `never`. Approved reads/writes occur only through company tools.
-- A first execution creates a thread, gives it a Worker-specific name and persists the binding before starting a turn. Resume reads and checks the exact thread ID, name and canonical workspace before loading it. Existing bindings are not silently replaced. Exact worker-specific thread names from before the BotSquad rename remain accepted for retained data.
-- Context includes role, authority, current assignment, up to eight task-linked messages, direct child results and prior artifact references. Approved documents are retrieved individually. Entire company history is not dumped into prompts. Codex separately retains/compacts its worker conversation history.
-- Turn/item notifications become sanitized audit events; final text becomes a durable result message. Raw runtime stderr, credentials, reasoning and arbitrary transport payloads are not logged.
-- A four-minute execution deadline bounds a turn. Runtime permission requests are denied and preserved as `awaiting_approval`; Prompt 01 has no permission-granting approval UI.
+All roles keep read-only sandbox, no sandbox network, empty environments, approval
+policy `never`, disabled inherited MCP servers and disabled shell/browser/computer,
+apps/plugins/hooks/subagents and other unrelated runtime tools. Role-specific dynamic
+company tools supply engineering access without broadening the runtime sandbox.
 
-The control plane sends task/document content to an external model service. It remains local in its storage and coordination. Different worker names and threads do not create separate OS users or credentials. Confinement depends on this validated official runtime configuration; a different runtime version requires verification, not bypassing the guard.
+A new thread is named with its worker ID and bound before the turn. Resume verifies
+exact thread ID, name and canonical private workspace, including compatible pre-rename
+names. Existing bindings are never silently replaced. Migration records pre-Prompt-02 bindings:
+the pinned resume protocol cannot change their dynamic tool schemas, so they retain
+research support and fail explicitly on engineering objectives. Use fresh company
+data for engineering until an explicit binding-migration workflow exists. Runtime permission requests are
+denied and retained as awaiting_approval. Four-minute deadlines and acknowledged
+interruption remain. Raw credentials, reasoning and arbitrary transport data are not logged.
 
-## Restart, ownership and recovery
-
-An exclusive per-data-directory process lock prevents a second service from running startup recovery over live work. Stale service locks are reclaimed only after the recorded process no longer exists; malformed or ambiguous locks fail for inspection. An exclusive startup gate serializes reclamation. If startup itself crashes while holding that gate, inspect its recorded PID before manually removing `startup.lock`.
-
-Startup converts orphaned running executions to interrupted, marks their tasks blocked, and records existing artifacts. Completed work and durable messages are untouched. Valid queued work can dispatch; already finished tasks cannot be reclaimed. A pending child result is reconciled locally and queues the parent once.
-
-Human retry requires an explicit inspection acknowledgement. It keeps earlier executions, artifacts and children. A parent with terminal children resumes in review mode; it does not blindly reassign the work. Retired workers cannot be retried, and child results cannot reopen once the manager's review is queued or the parent is terminal. Further research needs a new objective. Retrying never grants an approval or permission. Missing/unavailable Codex history fails visibly; there is no automatic rebinding that might attach the worker to another conversation.
-
-Artifact content is written exclusively before its metadata transaction commits. A process crash in that narrow window can leave an unreferenced file; it cannot create a false committed artifact. There is no automatic orphan cleanup. Backups should include the database and artifact/workspace directories while stopped, plus normal Codex history backup where resumability is required.
+Context is limited to the current assignment/profile, direct child evidence, recent
+task messages, selected documents and relevant product/spec/allocation/review records.
+The entire database is not sent to a worker. Task content and selected evidence are
+sent to the external model service; local-first describes coordination and storage.
 
 ## Human UI and local security
 
-The UI shows workers, dynamic hierarchy, messages, tasks, executions, reports and audit events. Task/worker detail dialogs expose full IDs and policy/bindings. Human controls initialize Atlas, post communication, assign objectives, pause/resume dispatch, interrupt active work, cancel tasks and retry inspected work.
+The browser shows organization, durable messages, tasks, executions, artifacts, audit,
+products, allocations, submitted commits, reviews and integration test evidence. Active
+engineers are visibly identified together. Friendly managed paths replace absolute
+paths in product summaries. Controls preserve initialization, explicit assignment,
+message-only posting, pause/resume, interruption, inspected retry and cancellation.
 
-The server binds only `127.0.0.1`, checks exact Host/Origin, rejects cross-site requests and requires an unguessable in-memory local session token on JSON mutations. Static files are allowlisted. Content security policy and text escaping prevent message HTML from executing; artifact downloads use `text/plain` and `nosniff`. SSE signals changes; browser refreshes state without an AI invocation.
+HTTP binds `127.0.0.1`, checks exact Host/Origin/cross-site state and requires an
+unguessable session token for JSON writes. Static files are allowlisted. CSP, text
+escaping and plain-text artifact delivery prevent report/message HTML execution.
+SSE signals local state changes without model calls.
 
-This is a single local owner trust boundary, not a hosted multi-user authentication design. A hostile process with the same OS file/account access can tamper with storage or credentials; audit triggers are application integrity controls, not cryptographic tamper-proofing. No secrets should be placed in objectives/reports.
+These are single-owner application boundaries, not protection against a hostile process
+sharing the owner's OS account. Git/SQLite files can be changed by their owner. Audit
+triggers preserve normal application integrity, not cryptographic tamper-proofing.
 
-## Acceptance and validation
+## Validation and deferred work
 
-The executable acceptance path is Human → real Atlas → validated Scout hire → explicit Scout assignment → real Scout report → completion event → resumed Atlas evaluation → Human. SQLite organization, messages, tasks, attempts, artifacts and bindings survive a stopped/restarted service without repeating completion.
+`npm test` covers both milestones, real local Git, migration, authority, ownership,
+confinement, concurrency, exact-commit review, conflicts, failed acceptance, idempotency
+and recovery. `npm run validate:prompt01` exercises actual research/restart/resume/
+interruption. `npm run validate:real` exercises the actual six-worker engineering flow,
+positive execution/turn overlap, denied boundary probes, independent review, product
+acceptance and restart without replay. See the milestone validation records.
 
-Use `npm test` for deterministic domain, dispatcher, HTTP and transport tests. Use `npm run validate:real` for the bounded actual runtime/process-restart/interruption gates. See [the validation record](../validation/prompt-01.md) for actual evidence and limits.
-
-## Computer Use capability (deferred)
-
-Prompt 01 supplies no Computer Use capability or GUI sessions to workers.
-
-Computer Use is an optional worker capability, not a default runtime property.
-
-Prefer sandboxed browser/desktop environments for autonomous GUI tasks. Local desktop control is higher risk because workers may share an OS account, files, browser sessions, and credentials.
-
-Computer sessions must remain subject to the normal authority ceiling and trusted approval model. GUI access does not imply authority to spend money, create accounts, send external messages, publish publicly, change credentials, upload private files, or perform destructive actions.
-
-Runtime-specific computer/browser control belongs behind environment/runtime adapters. The control plane should own the durable session/task/approval/audit records.
-
-See [Computer Use Model](../product/COMPUTER_USE_MODEL.md) and [Decision 006](../decisions/decision_006_bounded_computer_use.md).
-
-## Deferred extension points
-
-Future engineering workers should add a validated workspace allocation containing repository, worktree, branch and runtime ownership. That allocation belongs beside the Worker/runtime binding, independently of Tasks. A future adapter can provide shell/Git capability only after exclusive worktree and permission enforcement. This milestone does not allocate repositories or worktrees to workers.
-
-Further work includes trusted scoped human approval, manager retirement, larger organizations, artifact retention, history pagination and stronger OS isolation. None is implied by current worker capabilities. Payments, outreach, public deployment and distributed orchestration remain out of scope.
+Decision 006 remains authoritative: Computer Use is disabled in Prompt 01 and 02.
+Engineering tools grant no GUI/desktop authority. Trusted approval grants, generalized
+external products, revision loops, stronger OS isolation, cleanup, scalable history,
+payments, outreach, deployment and distributed orchestration remain deferred.

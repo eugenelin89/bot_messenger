@@ -21,3 +21,4 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [005](decision_005_rename_to_botsquad.md) | Rename product from Bot Messenger to BotSquad | Accepted | 2026-09-24 |
 | [006](decision_006_bounded_computer_use.md) | Computer Use is a bounded, preferably sandboxed capability | Accepted | 2026-09-24 |
 | [007](decision_007_prompt_01_runtime_and_recovery.md) | Prompt 01 App Server, bounded authority and recovery | Accepted | 2026-09-25 |
+| [008](decision_008_managed_engineering.md) | Managed engineering, independent review and tested integration | Accepted | 2026-09-25 |

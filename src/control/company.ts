@@ -2,9 +2,10 @@ import { EventEmitter } from 'node:events';
 import { createHash, randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
+import { Engineering, ENGINEERING_TOOLS } from './engineering.js';
 import { Store } from '../persistence/store.js';
 import {
-  COMPANY_CEILING, RESEARCH_CAPABILITIES, assertCapabilities, assertTransition, requireThat, strictObject, textField,
+  COMPANY_CEILING, CEO_CAPABILITIES, CTO_DELEGATABLE, PROFILES, type Profile, assertCapabilities, assertTransition, requireThat, strictObject, textField,
   type Artifact, type AuditEvent, type Capability, type Execution, type Message, type Principal,
   type RuntimeBinding, type Task, type TaskStatus, type Worker,
 } from '../domain/model.js';
@@ -28,6 +29,7 @@ interface HireInput {
 
 export class Company extends EventEmitter {
   readonly dataDir: string;
+  readonly engineering: Engineering;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server') {
     super();
@@ -35,10 +37,15 @@ export class Company extends EventEmitter {
     this.dataDir = realpathSync(dataDir);
     mkdirSync(join(this.dataDir, 'workspaces'), { recursive: true, mode: 0o700 });
     mkdirSync(join(this.dataDir, 'artifacts'), { recursive: true, mode: 0o700 });
+    this.engineering = new Engineering(this, realpathSync(repoRoot));
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
+      }
+      if (!this.store.get("SELECT 1 FROM settings WHERE key='prompt02_profiles'")) {
+        this.store.run("UPDATE workers SET capability_profile=?,delegatable_capabilities=? WHERE role='ceo'", JSON.stringify(CEO_CAPABILITIES), JSON.stringify(COMPANY_CEILING));
+        this.store.run("INSERT INTO settings VALUES ('prompt02_profiles','1')");
       }
       this.store.run("INSERT OR IGNORE INTO channels VALUES ('executive','executive','Company objectives, results and decisions')");
     });
@@ -64,13 +71,13 @@ export class Company extends EventEmitter {
       if (existing) return existing;
       const atlas = this.provision({ display_name: 'Atlas', title: 'CEO', role: 'ceo',
         mission: 'Build and coordinate useful software/product work through bounded subordinate workers. Create specialists when needed. Assign and evaluate work. Report important outcomes and blockers to the human owner.',
-        capabilities: [...COMPANY_CEILING], delegatable_capabilities: [...RESEARCH_CAPABILITIES], lifecycle: 'persistent', justification: 'Human initialized CEO' }, null);
+        capabilities: [...CEO_CAPABILITIES], delegatable_capabilities: [...COMPANY_CEILING], lifecycle: 'persistent', justification: 'Human initialized CEO' }, null);
       this.audit('ceo_initialized', 'human', { name: 'Atlas' }, atlas.worker_id);
       return atlas;
     });
   }
   private provision(input: HireInput, manager: Worker | null): Worker {
-    requireThat(this.workers().length < 8, 'Prompt 01 worker limit reached');
+    requireThat(this.workers().length < 8, 'Company worker limit reached');
     const workerId = id('worker'); const principalId = id('principal'); const timestamp = now();
     const workspace = join(this.dataDir, 'workspaces', workerId);
     mkdirSync(workspace, { recursive: false, mode: 0o700 });
@@ -120,18 +127,18 @@ export class Company extends EventEmitter {
   assignObjective(input: TaskInput): Task {
     return this.store.transaction(() => {
       const atlas = this.initializeCEO();
-      const task = this.createTask('human', atlas, input, null);
+      const task = this.createTask('human', atlas, input, null, /\bSquadStatus\b/i.test(input.objective) ? 'product' : 'research');
       this.message('human', input.objective, task.task_id, null, atlas.worker_id);
       return task;
     });
   }
-  private createTask(requester: string, worker: Worker, input: TaskInput, parent: string | null): Task {
+  createTask(requester: string, worker: Worker, input: TaskInput, parent: string | null, kind: Task['kind'] = 'research', createdExecution: string | null = null): Task {
     requireThat(worker.enabled, 'Worker is disabled');
     requireThat(worker.lifecycle !== 'temporary' || !this.store.get('SELECT task_id FROM tasks WHERE assignee_worker_id=?', worker.worker_id), 'Temporary workers accept one lifetime assignment; use a persistent worker for a queue');
     const validated = strictObject(input, ['objective', 'acceptance_criteria', 'constraints']);
     const taskId = id('task'); const timestamp = now();
-    this.store.run("INSERT INTO tasks VALUES (?,?,?,?,?,?,?,'queued',NULL,NULL,'assignment',?,?)", taskId, requester, worker.worker_id,
-      textField(validated, 'objective'), textField(validated, 'acceptance_criteria'), textField(validated, 'constraints'), parent, timestamp, timestamp);
+    this.store.run("INSERT INTO tasks (task_id,requester,assignee_worker_id,objective,acceptance_criteria,constraints,parent_task_id,status,blocking_reason,result_summary,dispatch_reason,created_at,updated_at,kind,created_execution_id) VALUES (?,?,?,?,?,?,?,'queued',NULL,NULL,'assignment',?,?,?,?)", taskId, requester, worker.worker_id,
+      textField(validated, 'objective'), textField(validated, 'acceptance_criteria'), textField(validated, 'constraints'), parent, timestamp, timestamp, kind, createdExecution);
     this.audit('task_created', requester, {}, worker.worker_id, taskId);
     this.audit('task_assigned', requester, { parent_task_id: parent }, worker.worker_id, taskId);
     this.refreshWorker(worker.worker_id); this.changed();
@@ -157,7 +164,8 @@ export class Company extends EventEmitter {
     return this.store.transaction(() => {
       if (this.paused) return;
       const task = this.store.get<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
-        WHERE t.status='queued' AND w.enabled=1 AND NOT EXISTS
+        WHERE t.status='queued' AND w.enabled=1
+        AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
         (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY t.created_at,t.task_id LIMIT 1`);
       if (!task) return;
       const worker = this.worker(task.assignee_worker_id);
@@ -183,7 +191,8 @@ export class Company extends EventEmitter {
       if (outcome.status === 'completed') {
         requireThat(summary.trim(), 'Runtime returned no final result');
         // An objective that delegated work remains open until a later execution evaluates it.
-        const waiting = children.length > 0 && task.dispatch_reason !== 'child_results';
+        const waiting = children.some(c => c.created_execution_id === executionId) || (task.kind === 'research' && children.length > 0 && task.dispatch_reason !== 'child_results');
+        if (!waiting) this.engineering.assertDeliverable(task);
         this.transition(task, waiting ? 'blocked' : 'completed', waiting ? 'waiting_children' : null);
         this.store.run('UPDATE tasks SET result_summary=? WHERE task_id=?', summary, task.task_id);
         this.message(worker.principal_id, summary, task.task_id, executionId, worker.manager_worker_id);
@@ -227,6 +236,7 @@ export class Company extends EventEmitter {
         if (task.status === 'working') this.transition(task, 'blocked', 'Interrupted by restart. Inspect existing executions, artifacts and child tasks before retry.');
         this.audit('execution_recovered', 'system', { action: 'blocked_for_inspection', artifacts: this.artifacts(task.task_id).map(a => a.artifact_id) }, e.worker_id, e.task_id, e.execution_id);
       }
+      this.engineering.recover();
       this.settleParents();
       for (const w of this.workers()) this.refreshWorker(w.worker_id);
     });
@@ -236,6 +246,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       const task = this.task(taskId);
       requireThat(['blocked', 'failed', 'awaiting_approval'].includes(task.status) && task.blocking_reason !== 'waiting_children', 'Task cannot be retried');
+      requireThat(!this.store.get("SELECT 1 FROM allocations WHERE task_id=? AND status='blocked'", taskId), 'Allocation requires Git inspection; automatic reactivation is unavailable');
       requireThat(this.worker(task.assignee_worker_id).enabled, 'Worker is retired; create a new objective with an enabled worker');
       if (task.parent_task_id) {
         const parent = this.task(task.parent_task_id);
@@ -267,7 +278,8 @@ export class Company extends EventEmitter {
   }
   context(context: ExecutionContext) {
     const { worker, task } = this.verifyContext(context);
-    return { worker: { worker_id: worker.worker_id, display_name: worker.display_name, role: worker.role, mission: worker.mission,
+    requireThat(task.kind === 'research' || !this.store.get('SELECT 1 FROM legacy_runtime_bindings WHERE worker_id=?', worker.worker_id), 'Retained Prompt 01 runtime binding has a research-only tool schema. Use a fresh BOT_DATA_DIR for engineering; implicit thread replacement is forbidden.');
+    return { engineering: this.engineering.context(task), worker: { worker_id: worker.worker_id, display_name: worker.display_name, role: worker.role, mission: worker.mission,
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
@@ -277,26 +289,39 @@ export class Company extends EventEmitter {
   callTool(context: ExecutionContext, callId: string, name: string, input: unknown): unknown {
     requireThat(typeof callId === 'string' && callId.length > 0 && callId.length <= 256, 'Invalid tool call ID');
     const hash = digest(JSON.stringify([name, input]));
-    return this.store.transaction(() => {
+    const perform = () => {
       const { worker, task, execution } = this.verifyContext(context);
       const receipt = this.store.get<{ request_hash: string; result: string }>('SELECT * FROM tool_receipts WHERE execution_id=? AND call_id=?', context.executionId, callId);
       if (receipt) { requireThat(receipt.request_hash === hash, 'Tool replay payload mismatch'); return JSON.parse(receipt.result); }
       const count = this.store.get<{ n: number }>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?', execution.execution_id)!.n;
-      requireThat(count < 32, 'Execution tool budget exceeded');
+      requireThat(count < (task.kind === 'research' ? 32 : 64), 'Execution tool budget exceeded');
       let result: unknown;
       switch (name) {
         case 'hire_worker': {
           this.capability(worker, 'create_worker');
-          const a = strictObject(input, ['display_name', 'title', 'mission', 'capabilities', 'lifecycle', 'justification']);
+          const a = strictObject(input, ['display_name', 'title', 'mission', 'capabilities', 'lifecycle', 'justification', 'profile']);
           requireThat(Array.isArray(a.capabilities) && a.capabilities.every(c => typeof c === 'string'), 'Invalid capabilities');
           const capabilities = a.capabilities as Capability[];
           assertCapabilities(worker.delegatable_capabilities, COMPANY_CEILING); assertCapabilities(capabilities, worker.delegatable_capabilities);
+          const profile = (a.profile ?? 'researcher') as Profile;
+          requireThat(Object.hasOwn(PROFILES, profile), 'Unknown role profile');
+          const allowed = worker.role === 'ceo' ? (task.kind === 'product' ? ['product_manager', 'cto'] : ['researcher']) : worker.role === 'cto' && task.kind === 'delivery' ? ['engineer', 'reviewer'] : [];
+          requireThat(allowed.includes(profile), 'Disallowed role creation');
+          assertCapabilities(capabilities, PROFILES[profile]);
+          if (profile !== 'researcher') requireThat(PROFILES[profile].every(c => capabilities.includes(c)), 'Profile requires its complete explicit capability set');
+          let depth = 0; let ancestor: Worker | undefined = worker;
+          while (ancestor?.manager_worker_id) { depth++; requireThat(depth < 2, 'Hierarchy depth limit exceeded'); ancestor = this.worker(ancestor.manager_worker_id); }
+          const direct = this.workers().filter(w => w.manager_worker_id === worker.worker_id);
+          requireThat(direct.length < 3, 'Manager child limit exceeded');
+          if (profile !== 'researcher') requireThat(direct.filter(w => w.role === profile).length < (profile === 'engineer' ? 2 : 1), 'Role profile count limit reached');
+          const delegatable = profile === 'cto' ? [...CTO_DELEGATABLE] : [];
+          assertCapabilities(delegatable, worker.delegatable_capabilities);
           requireThat(a.lifecycle === 'persistent' || a.lifecycle === 'temporary', 'Invalid lifecycle');
           const displayName = textField(a, 'display_name', 60);
           requireThat(!['human', 'system', 'atlas'].includes(displayName.toLowerCase()), 'Reserved worker name');
           this.audit('worker_creation_requested', worker.principal_id, { name: displayName, capabilities }, worker.worker_id, task.task_id, execution.execution_id);
-          result = this.provision({ display_name: displayName, title: textField(a, 'title', 100), role: 'researcher', mission: textField(a, 'mission', 2000),
-            capabilities, delegatable_capabilities: [], lifecycle: a.lifecycle, justification: textField(a, 'justification', 2000) }, worker);
+          result = this.provision({ display_name: displayName, title: textField(a, 'title', 100), role: profile, mission: textField(a, 'mission', 2000),
+            capabilities, delegatable_capabilities: delegatable, lifecycle: a.lifecycle, justification: textField(a, 'justification', 2000) }, worker);
           break;
         }
         case 'assign_task': {
@@ -304,9 +329,18 @@ export class Company extends EventEmitter {
           const a = strictObject(input, ['worker_id', 'objective', 'acceptance_criteria', 'constraints']);
           const child = this.worker(textField(a, 'worker_id', 100));
           requireThat(child.manager_worker_id === worker.worker_id, 'Can only assign a direct subordinate');
-          requireThat(!task.parent_task_id && task.dispatch_reason !== 'child_results', 'Prompt 01 delegation depth/review limit reached');
-          requireThat(this.children(task.task_id).length < 1, 'Prompt 01 permits one research assignment per objective');
-          result = this.createTask(worker.principal_id, child, { objective: textField(a, 'objective'), acceptance_criteria: textField(a, 'acceptance_criteria'), constraints: textField(a, 'constraints') }, task.task_id);
+          let kind: Task['kind'] = 'research';
+          if (task.kind === 'product' && worker.role === 'ceo') {
+            const children = this.children(task.task_id);
+            requireThat(children.every(c => c.status === 'completed'), 'Complete previous product stage first');
+            requireThat(!children.some(c => c.assignee_worker_id === child.worker_id), 'Product stage already assigned');
+            if (child.role === 'product_manager') { requireThat(children.length === 0, 'Product specification must be first'); kind = 'spec'; }
+            else { requireThat(child.role === 'cto' && children.length === 1 && children[0]?.kind === 'spec' && this.artifacts(children[0].task_id).length > 0, 'Completed product spec required before CTO assignment'); kind = 'delivery'; }
+          } else {
+            requireThat(task.kind === 'research' && !task.parent_task_id && task.dispatch_reason !== 'child_results', 'Prompt 01 delegation depth/review limit reached');
+            requireThat(child.role === 'researcher' && this.children(task.task_id).length < 1, 'Prompt 01 permits one research assignment per objective');
+          }
+          result = this.createTask(worker.principal_id, child, { objective: textField(a, 'objective'), acceptance_criteria: textField(a, 'acceptance_criteria'), constraints: textField(a, 'constraints') }, task.task_id, kind, execution.execution_id);
           break;
         }
         case 'message_worker': {
@@ -332,23 +366,39 @@ export class Company extends EventEmitter {
         case 'submit_artifact': {
           this.capability(worker, 'write_workspace');
           const a = strictObject(input, ['description', 'content']); const content = textField(a, 'content', 20000);
-          requireThat(this.artifacts(task.task_id).length < 4, 'Task artifact limit reached');
-          const artifactId = id('artifact'); const path = join(this.dataDir, 'artifacts', `${artifactId}.md`);
-          requireThat(realpathSync(dirname(path)) === join(this.dataDir, 'artifacts'), 'Artifact directory mismatch');
-          writeFileSync(path, content, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
-          this.store.run("INSERT INTO artifacts VALUES (?,?,?,'report',?,?,?,?)", artifactId, task.task_id, execution.execution_id, path, textField(a, 'description', 500), digest(content), now());
-          this.audit('artifact_submitted', worker.principal_id, { artifact_id: artifactId }, worker.worker_id, task.task_id, execution.execution_id);
-          result = this.store.get<Artifact>('SELECT * FROM artifacts WHERE artifact_id=?', artifactId); break;
+          result = this.saveArtifact({ worker, task, execution }, textField(a, 'description', 500), content, task.kind === 'spec' ? 'specification' : 'report'); break;
         }
-        default: throw new Error('Unknown or unavailable company tool');
+        default:
+          requireThat(Object.hasOwn(ENGINEERING_TOOLS, name), 'Unknown or unavailable company tool');
+          result = this.engineering.execute(name as keyof typeof ENGINEERING_TOOLS, input, { worker, task, execution });
       }
       this.store.run('INSERT INTO tool_receipts VALUES (?,?,?,?)', execution.execution_id, callId, hash, JSON.stringify(result));
       this.audit('tool_completed', worker.principal_id, { tool: name, call_id: callId }, worker.worker_id, task.task_id, execution.execution_id);
       return result;
-    });
+    };
+    // Git/filesystem operations have durable intent rows before side effects. Never wrap
+    // them in the outer receipt transaction, which could erase crash evidence.
+    try { return Object.hasOwn(ENGINEERING_TOOLS, name) ? perform() : this.store.transaction(perform); }
+    catch (error) {
+      if (name === 'read_source' || name === 'write_source') {
+        // Attribute valid sessions only; never retain rejected source content or raw paths.
+        try { this.engineering.recordAccessDenied(this.verifyContext(context), name, input); } catch {}
+      }
+      throw error;
+    }
+  }
+  saveArtifact(actor: { worker: Worker; task: Task; execution: Execution }, description: string, content: string, type = 'report'): Artifact {
+    const { worker, task, execution } = actor;
+    requireThat(content.length <= 20000 && this.artifacts(task.task_id).length < 4, 'Task artifact limit reached');
+    const artifactId = id('artifact'); const path = join(this.dataDir, 'artifacts', `${artifactId}.md`);
+    requireThat(realpathSync(dirname(path)) === join(this.dataDir, 'artifacts'), 'Artifact directory mismatch');
+    writeFileSync(path, content, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
+    this.store.run('INSERT INTO artifacts VALUES (?,?,?,?,?,?,?,?)', artifactId, task.task_id, execution.execution_id, type, path, description, digest(content), now());
+    this.audit('artifact_submitted', worker.principal_id, { artifact_id: artifactId }, worker.worker_id, task.task_id, execution.execution_id);
+    return this.store.get<Artifact>('SELECT * FROM artifacts WHERE artifact_id=?', artifactId)!;
   }
   snapshot() {
-    return { paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
+    return { wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
       principals: this.store.all<Principal>('SELECT * FROM principals'),
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),
