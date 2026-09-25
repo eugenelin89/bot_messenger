@@ -1,0 +1,23 @@
+# Decision 001 — Local-first control plane
+
+**Date:** 2026-09-24  
+**Status:** Accepted
+
+## Context
+
+The project needs a communication and coordination layer for multiple AI workers that can be monitored by one human. Email and external collaboration services introduce account setup and unnecessary external dependencies for the initial experiment.
+
+## Decision
+
+Bot Messenger's coordination state will be local-first.
+
+Messages, tasks, worker state, execution metadata, approvals, and audit history should be stored locally by default. The initial user interface should connect to a local service.
+
+Using an external AI/model service does not make the control plane itself non-local; however, documentation must accurately state when message/file content is transmitted to an external model runtime.
+
+## Consequences
+
+- A local database such as SQLite is the preferred starting point.
+- The system must survive local application restart without losing coordination state.
+- Hosted/multi-user deployment is future scope.
+- External runtime integrations remain adapters rather than becoming the source of product truth.
