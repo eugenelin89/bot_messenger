@@ -1,4 +1,4 @@
-# Bot Messenger — System Architecture
+# BotSquad — System Architecture
 
 **Status:** Initial architecture  
 **Date:** 2026-09-24
@@ -21,7 +21,7 @@ The first executable backend is Codex.
                               |
                               v
 +----------------------------------------------------------------+
-|                  Bot Messenger local service                   |
+|                  BotSquad local service                   |
 |                                                                |
 |  Messaging  Tasks  Approvals  Artifacts  Audit  Worker state  |
 |      |        |       |          |        |         |          |
@@ -367,7 +367,7 @@ Keep runtime-specific thread IDs, transports, approval messages, and event forma
 
 ## Bot-facing tool surface
 
-Running workers should interact with Bot Messenger through narrow tools instead of controlling the human UI.
+Running workers should interact with BotSquad through narrow tools instead of controlling the human UI.
 
 Candidate operations:
 
