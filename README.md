@@ -123,6 +123,7 @@ The operator can watch this exchange in one place and can interrupt or redirect 
 ## Documentation
 
 - [Project vision](docs/product/PROJECT_VISION.md)
+- [AI organization model](docs/product/AI_ORGANIZATION_MODEL.md)
 - [System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Decision index](docs/decisions/README.md)
 - [Agent instructions](AGENTS.md)
