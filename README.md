@@ -121,6 +121,7 @@ No old worker thread is silently replaced. Keep the original directory for inspe
 - [AI organization model](docs/product/AI_ORGANIZATION_MODEL.md)
 - [Computer Use model](docs/product/COMPUTER_USE_MODEL.md)
 - [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
+- [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md)
 - [Decision index](docs/decisions/README.md)
 - [Agent instructions](AGENTS.md)
 - [Prompt 01 execution plan](docs/exec-plans/prompt-01.md)
