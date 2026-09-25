@@ -1,13 +1,14 @@
 # Execution Plan — Prompt 01: Atlas → Scout → Atlas
 
-**Status:** Validated — Git delivery pending
+**Status:** Complete — validated feature branch pushed
 **Owner:** Codex task 01a0d730-98d4-7a93-b17c-049bea185f48 (sole implementation writer)
 **Branch:** codex/prompt-01-control-plane
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger
 **Started:** 2026-09-25 06:11 UTC
 **Starting commit:** 9f1d07c421b5f16b6a0adc908a869c2d1d1f17a0
 **Initial ETA:** 3–5 hours (09:11–11:11 UTC)
-**Current ETA:** 10–15 minutes remaining at 07:10 UTC, including integration of the concurrent rename and repeated real validation
+**Completed:** 2026-09-25 07:13 UTC (approximately 62 minutes elapsed)
+**Current ETA:** Complete; initial estimate materially shortened because the small stack and supported App Server interface allowed faster implementation
 
 ## Objective
 
@@ -130,14 +131,23 @@ validation evidence, actual Scout report and Atlas evaluation. Accepted history 
 
 ## Remaining work / blockers
 
-The implementation commit is complete. Integration of the concurrent rename, refreshed validation evidence and final push remain. No hard blocker. Validation details and
-known limits are in `docs/validation/prompt-01.md`. Network operations and loopback tests
-required environment escalation; they succeeded without changing application policy.
+No required work remains. Known limits and checks outside this milestone are recorded
+in `docs/validation/prompt-01.md`. Network operations and loopback tests required
+environment escalation; they succeeded without changing application policy.
 
 ## Completion handoff
 
-Implementation and validation complete; final commit/push IDs will be recorded after
-delivery. Local launch: `npm ci`, `npm run codex:preflight`, `npm run dev`. Human initializes
+Implementation and validation are complete. Delivery commits:
+
+- `5e7f468`: durable control plane, UI, runtime, tests and evidence.
+- `471be07`: merge current main (`bfb5efc`) into this branch, preserve the accepted
+  BotSquad rename, and revalidate the final implementation.
+- Both commits pushed to `origin/codex/prompt-01-control-plane` without force.
+- Main was not changed. The original outer workspace and retained validation data
+  were preserved. Origin remains `https://github.com/eugenelin89/bot_messenger.git`;
+  the administrative GitHub rename had not taken effect at delivery.
+
+Local launch: `npm ci`, `npm run codex:preflight`, `npm run dev`. Human initializes
 Atlas and assigns the prefilled objective. Tests: `npm test`; real gate: `npm run validate:real`.
 Next milestone: explicit repository/worktree/branch/runtime ownership for two engineers
 and a reviewer, coordinated by Atlas/CTO/Product Manager. It was not implemented here.
@@ -166,3 +176,6 @@ and a reviewer, coordinated by Atlas/CTO/Product Manager. It was not implemented
   into this feature branch, renumber runtime decision to 006, and verify updated naming.
 - 07:10 UTC: integrated BotSquad code passes 31 deterministic tests and a fresh
   63-second real workflow, process restart/resume and acknowledged interruption.
+- 07:13 UTC: feature branch pushed successfully; full source/diff review, 31 tests,
+  final real gate, browser verification, report hash, local documentation links and
+  whitespace checks passed. Main unchanged. Local validated preview remains running.
