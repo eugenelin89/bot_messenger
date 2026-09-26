@@ -17,6 +17,7 @@ Environment=CODEX_HOME=/var/lib/botsquad/.codex
 Environment=CODEX_BIN=/opt/botsquad/node_modules/.bin/codex
 Environment=PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin
 Environment=PORT=4310
+EnvironmentFile=/etc/botsquad/deployment
 EnvironmentFile=-/etc/botsquad/environment
 ExecStart=/opt/botsquad-runtime/node/bin/node /opt/botsquad/dist/src/main.js
 Restart=on-failure

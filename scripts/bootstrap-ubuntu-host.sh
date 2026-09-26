@@ -94,12 +94,16 @@ install -m 644 deploy/apparmor/botsquad-bwrap /etc/apparmor.d/botsquad-bwrap
 apparmor_parser -r /etc/apparmor.d/botsquad-bwrap
 install -m 600 /dev/null /etc/botsquad/apparmor-managed
 runuser -u botsquad -- /opt/botsquad-runtime/bwrap --unshare-all --ro-bind / / -- /usr/bin/true
+# Tests execute as the service user, without granting write access to source/build.
+runuser -u botsquad -- env HOME=/var/lib/botsquad CODEX_HOME=/var/lib/botsquad/.codex PATH="$PATH" node --test dist/test/*.test.js
 install -m 644 deploy/systemd/botsquad.service /etc/systemd/system/botsquad.service
 # Preserve operator overrides on update. Default file contains no secrets.
 if [[ ! -e /etc/botsquad/environment ]]; then
   printf '# Optional BOT_MODEL runtime default; UI per-worker settings take precedence.\n' > /etc/botsquad/environment
   chmod 600 /etc/botsquad/environment
 fi
+printf 'BOT_DEPLOYED_SHA=%s\n' "$revision" > /etc/botsquad/deployment
+chmod 600 /etc/botsquad/deployment
 systemctl daemon-reload
 systemctl enable botsquad.service
 systemctl restart botsquad.service

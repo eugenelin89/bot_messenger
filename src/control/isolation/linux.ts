@@ -1,4 +1,4 @@
-import { closeSync, existsSync, mkdtempSync, openSync, realpathSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, mkdtempSync, openSync, realpathSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { requireThat } from '../../domain/model.js';
@@ -39,7 +39,7 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
   const temporary = mkdtempSync(join(tmpdir(), 'botsquad-seccomp-'));
   const filter = join(temporary, 'filter.bpf');
   writeFileSync(filter, linuxFilter(), { mode: 0o600 });
-  const filterFd = openSync(filter, 'r'); unlinkSync(filter); rmSync(temporary);
+  const filterFd = openSync(filter, 'r'); unlinkSync(filter); rmdirSync(temporary);
   const args = ['--unshare-all', '--die-with-parent', '--new-session', '--cap-drop', 'ALL', '--clearenv',
     '--ro-bind', root, '/work', '--ro-bind', executable, '/runtime/node',
     '--proc', '/proc', '--dev', '/dev'];
