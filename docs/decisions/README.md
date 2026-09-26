@@ -25,6 +25,7 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
 | [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted (future architecture) | 2026-09-25 |
 | [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Accepted and validated | 2026-09-26 |
+| [012](decision_012_ios_remote_client.md) | Native clients use a stable authenticated API and private remote-access layer | Accepted (future architecture) | 2026-09-25 |
 
 
 ## Current deployment interpretation
@@ -39,3 +40,8 @@ Decision 010 defines deferred multi-company/federation boundaries. Prompt 03 rem
 one company per data directory and does not implement those boundaries, Telegram or
 external identities. Decision 011 records the implemented Ubuntu/service/profile
 choices and their real-runtime acceptance evidence.
+
+
+Decision 012 defines the future native-client direction: an iOS app is a first-class
+BotSquad client, the HQ remains private by default, and remote transport/authentication
+are explicit layers rather than public exposure of the current loopback web service.
