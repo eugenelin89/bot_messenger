@@ -11,7 +11,7 @@ function protocolFixture(mode: string) {
   const command = join(f.dir, 'mock-codex.mjs');
   writeFileSync(command, `#!${process.execPath}
 import {createInterface} from 'node:readline';
-if(process.argv.includes('--version')){console.log('codex-cli 0.142.4');process.exit(0)}
+if(process.argv.includes('--version')){console.log('codex-cli 0.157.0');process.exit(0)}
 const mode=${JSON.stringify(mode)}, cwd=process.cwd(), features=${JSON.stringify(Object.fromEntries(DISABLED_FEATURES.map(f => [f, false])))};
 const send=x=>console.log(JSON.stringify(x));let turnActive=false;
 const thread={id:'thread-owned',cwd,name:(mode==='legacy-name'?'Bot Messenger: ':'BotSquad: ')+'${claim.worker.worker_id}',status:{type:'notLoaded'}};
@@ -19,7 +19,7 @@ createInterface({input:process.stdin}).on('line',line=>{
  const m=JSON.parse(line), p=m.params??{};
  if(m.method==='initialize')send({id:m.id,result:{}});
  else if(m.method==='account/read')send({id:m.id,result:{account:{type:'chatgpt'},requiresOpenaiAuth:true}});
- else if(m.method==='model/list')send({id:m.id,result:{data:[{id:'test-model',model:'test-model',isDefault:true}]}});
+ else if(m.method==='model/list')send({id:m.id,result:{data:[{id:'test-model',model:'test-model',isDefault:true,displayName:'Test Model',defaultReasoningEffort:'medium',supportedReasoningEfforts:[{reasoningEffort:'low'},{reasoningEffort:'medium'}]}]}});
  else if(m.method==='config/read')send({id:m.id,result:{config:{features:mode==='unsafe-config'?{}:features,mcp_servers:{inherited:{}}}}});
  else if(m.method==='thread/read')send({id:m.id,result:{thread:{...thread,cwd:mode==='wrong-workspace'?'/tmp/wrong':cwd}}});
  else if(m.method==='thread/start'||m.method==='thread/resume'){
@@ -44,7 +44,7 @@ createInterface({input:process.stdin}).on('line',line=>{
 });`, { mode: 0o700 });
   let calls = 0; const events: string[] = [];
   const input: RuntimeInput = { ...claim, worker: { ...claim.worker, runtime_type: 'codex-app-server' }, context: f.company.context(claim.context), tools: companyTools(claim.worker),
-    bind: () => {}, callTool: () => { calls++; return { ok: true }; }, event: type => events.push(type) };
+    configured: () => {}, bind: () => {}, callTool: () => { calls++; return { ok: true }; }, event: type => events.push(type) };
   return { ...f, input, command, events, callCount: () => calls };
 }
 

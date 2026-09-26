@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -20,6 +21,8 @@ async function readBody(req: IncomingMessage): Promise<unknown> {
   catch { throw new DomainError('Malformed JSON'); }
 }
 export function createHttpServer(company: Company, dispatcher: Dispatcher, publicDir: string) {
+  let deployedCommit = process.env.BOT_DEPLOYED_SHA ?? 'unknown';
+  if (deployedCommit === 'unknown') { try { deployedCommit = execFileSync('/usr/bin/git', ['rev-parse', 'HEAD'], { cwd: join(publicDir, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 1000 }).trim(); } catch {} }
   const token = randomBytes(32).toString('hex'); const clients = new Set<ServerResponse>();
   let changedTimer: NodeJS.Timeout | undefined;
   const changed = () => {
@@ -38,6 +41,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (req.headers['sec-fetch-site'] === 'cross-site') { json(403, { error: 'Cross-site request denied' }); return; }
       const path = new URL(req.url ?? '/', expectedOrigin).pathname;
       if (req.method === 'GET') {
+        if (path === '/api/health') { json(200, { alive: true, database: !!company.store.get('SELECT 1'), dispatcher: dispatcher.initialized, runtime: dispatcher.runtimeState, version: '0.1.0', commit: deployedCommit }); return; }
+        if (path === '/api/runtime') { json(200, await dispatcher.runtimeCatalog()); return; }
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
         if (path === '/api/events') {
@@ -58,6 +63,10 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req);
       if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }
+      else if (path === '/api/worker-profile') {
+        const a = strictObject(body, ['worker_id', 'profile']);
+        json(200, company.updateWorkerAIProfile(textField(a, 'worker_id', 100), a.profile, await dispatcher.runtimeCatalog()));
+      }
       else if (path === '/api/messages') { const a = strictObject(body, ['body']); json(201, company.sendHumanMessage(textField(a, 'body'))); }
       else if (path === '/api/objectives') {
         const a = strictObject(body, ['objective']);

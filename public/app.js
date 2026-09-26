@@ -60,7 +60,7 @@ function renderTasks() {
 }
 function renderExecutions() {
   const running = state.executions.filter(e => e.status === 'running');
-  return `${running.length ? `<div class="concurrency-banner">${running.length} running together · ${running.map(e => escape(worker(e.worker_id)?.display_name)).join(' + ')}</div>` : ''}<div class="panel"><div class="panel-title">Execution history <span>${state.executions.length} attempts</span></div><div class="table-wrap"><table><thead><tr><th>EXECUTION / TASK</th><th>WORKER</th><th>RUNTIME STATE</th><th>START / END</th><th>ACTION</th></tr></thead><tbody>${[...state.executions].reverse().map(e => `<tr><td>${short(e.execution_id)}<small><button class="task-link" data-task="${escape(e.task_id)}">${short(e.task_id)}</button></small></td><td>${escape(worker(e.worker_id)?.display_name)}</td><td>${status(e.status)}${e.error || e.interruption_reason ? `<small>${escape(e.error ?? e.interruption_reason)}</small>` : ''}</td><td>${time(e.started_at)}<small>${time(e.finished_at)}</small></td><td>${e.status === 'running' && state.supportsInterrupt ? `<button class="button danger small" data-interrupt="${escape(e.execution_id)}">Interrupt</button>` : '—'}</td></tr>`).join('')}</tbody></table></div>${!state.executions.length ? '<div class="empty">No runtime executions. Idle workers consume no model calls.</div>' : ''}</div>`;
+  return `${running.length ? `<div class="concurrency-banner">${running.length} running together · ${running.map(e => escape(worker(e.worker_id)?.display_name)).join(' + ')}</div>` : ''}<div class="panel"><div class="panel-title">Execution history <span>${state.executions.length} attempts</span></div><div class="table-wrap"><table><thead><tr><th>EXECUTION / TASK</th><th>WORKER</th><th>RUNTIME STATE / AI PROFILE</th><th>START / END</th><th>ACTION</th></tr></thead><tbody>${[...state.executions].reverse().map(e => `<tr><td>${short(e.execution_id)}<small><button class="task-link" data-task="${escape(e.task_id)}">${short(e.task_id)}</button></small></td><td>${escape(worker(e.worker_id)?.display_name)}</td><td>${status(e.status)}<small>${escape(e.model ?? e.provenance_status ?? 'legacy / unknown')} · ${escape(e.reasoning_effort ?? 'unknown')}<br>${escape(e.execution_priority ?? 'unknown')} · ${escape(e.runtime_version ?? 'unknown')}</small>${e.error || e.interruption_reason ? `<small>${escape(e.error ?? e.interruption_reason)}</small>` : ''}</td><td>${time(e.started_at)}<small>${time(e.finished_at)}</small></td><td>${e.status === 'running' && state.supportsInterrupt ? `<button class="button danger small" data-interrupt="${escape(e.execution_id)}">Interrupt</button>` : '—'}</td></tr>`).join('')}</tbody></table></div>${!state.executions.length ? '<div class="empty">No runtime executions. Idle workers consume no model calls.</div>' : ''}</div>`;
 }
 const managedPath = path => path?.includes('/products/') ? `products/${path.split('/products/')[1]}` : 'Managed workspace';
 function renderProducts() {
@@ -98,6 +98,30 @@ function inspectTask(id) {
   if ($('#reviewed')) $('#reviewed').onchange = () => { $('#retry').disabled = !$('#reviewed').checked; };
   if ($('#retry')) $('#retry').onclick = async () => { try { await mutate('retry', { task_id: id, inspected: $('#reviewed').checked }); $('#inspect').close(); } catch {} };
 }
+async function inspectWorker(id) {
+  const w = worker(id);
+  const binding = state.bindings.find(r => r.worker_id === id);
+  const last = [...state.executions].reverse().find(e => e.worker_id === id && e.provenance_status === 'recorded');
+  inspect(`${w.display_name} — ${w.title}`, '<p>Loading runtime model choices…</p>');
+  let catalog;
+  try { catalog = await request('runtime'); } catch (error) { inspect(`${w.display_name} — ${w.title}`, `${details(w)}<p>Runtime discovery failed. Check Codex authentication and preflight before changing the AI profile.</p>`); showError(error); return; }
+  if (!$('#inspect').open) return;
+  const option = (value, label, selected) => `<option value="${escape(value)}"${selected ? ' selected' : ''}>${escape(label)}</option>`;
+  const models = [option('', `Inherit (${catalog.defaultModel})`, w.ai_model === null), ...catalog.models.map(m => option(m.model, m.displayName, m.model === w.ai_model))];
+  if (w.ai_model && !catalog.models.some(m => m.model === w.ai_model)) models.push(option(w.ai_model, `${w.ai_model} — unavailable`, true));
+  inspect(`${w.display_name} — ${w.title}`, `<form id="ai-profile" class="profile-form"><label>Model<select id="ai-model">${models.join('')}</select></label><label>Reasoning effort<select id="ai-reasoning"></select></label><label>Execution priority<select id="ai-priority">${['low','normal','high','critical'].map(p => option(p, p, p === w.execution_priority)).join('')}</select></label><label class="check-review"><input id="ai-lock" type="checkbox" ${w.ai_profile_locked ? 'checked' : ''}> Human lock</label><p class="muted">Changes apply to future executions. The human can always edit a locked profile. Manager profile changes are not enabled in this milestone.</p><button class="button primary" type="submit">Save AI profile</button><p id="profile-error" role="alert"></p></form><h3>Current worker</h3>${details({ state:w.status, role:w.role, model:w.ai_model ?? 'inherit', reasoning:w.reasoning_effort ?? 'inherit', priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? 'Not run', last_effective_reasoning:last?.reasoning_effort ?? 'Not run', runtime:last?.runtime_version ?? catalog.version, thread_name:binding?.thread_name ?? 'Not named', runtime_binding:binding?.runtime_reference ?? 'Not started' })}`);
+  const reasons = (selected = '') => {
+    const model = catalog.models.find(m => m.model === ($('#ai-model').value || catalog.defaultModel));
+    const efforts = model?.supportedReasoningEfforts ?? [];
+    $('#ai-reasoning').innerHTML = option('', `Inherit (${model?.defaultReasoningEffort ?? 'unavailable'})`, !selected) + efforts.map(e => option(e.reasoningEffort,e.reasoningEffort,e.reasoningEffort === selected)).join('') + (selected && !efforts.some(e => e.reasoningEffort === selected) ? option(selected, `${selected} — unavailable`, true) : '');
+  };
+  reasons(w.reasoning_effort); $('#ai-model').onchange = () => reasons();
+  $('#ai-profile').onsubmit = async event => {
+    event.preventDefault(); const button = $('#ai-profile button'); button.disabled = true;
+    try { await mutate('worker-profile', { worker_id:id, profile:{ ai_model:$('#ai-model').value || null, reasoning_effort:$('#ai-reasoning').value || null, execution_priority:$('#ai-priority').value, ai_profile_locked:$('#ai-lock').checked } }); $('#inspect').close(); }
+    catch (error) { $('#profile-error').textContent = error.message; button.disabled = false; }
+  };
+}
 function wireActions(root) {
   root.querySelectorAll('[data-evidence]').forEach(b => b.onclick = () => {
     const category = b.dataset.evidence;
@@ -116,7 +140,7 @@ function wireActions(root) {
       inspect(artifact.description, `${details(artifact)}<h3>Report</h3><pre>${escape(content)}</pre>`);
     } catch (error) { showError(error); }
   });
-  root.querySelectorAll('[data-worker]').forEach(b => b.onclick = () => { const w = worker(b.dataset.worker); inspect(`${w.display_name} — ${w.title}`, details({ ...w, runtime_binding: state.bindings.find(r => r.worker_id === w.worker_id)?.runtime_reference ?? 'Not started' })); });
+  root.querySelectorAll('[data-worker]').forEach(b => b.onclick = () => void inspectWorker(b.dataset.worker));
   root.querySelectorAll('[data-task]').forEach(b => b.onclick = () => inspectTask(b.dataset.task));
   root.querySelectorAll('[data-interrupt]').forEach(b => b.onclick = async () => { b.disabled = true; try { await mutate('interrupt', { execution_id: b.dataset.interrupt }); } catch { b.disabled = false; } });
   root.querySelectorAll('[data-cancel]').forEach(b => b.onclick = async () => { try { await mutate('cancel', { task_id: b.dataset.cancel }); $('#inspect').close(); } catch {} });

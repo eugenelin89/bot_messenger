@@ -21,6 +21,6 @@
     "typescript": "^5.9.0"
   },
   "dependencies": {
-    "@openai/codex": "0.142.4"
+    "@openai/codex": "0.157.0"
   }
 }

@@ -16,7 +16,7 @@ test('migration is non-destructive and initializes stable principal/channel/CEO 
   assert.equal(atlas.lifecycle, 'persistent'); assert.equal(atlas.manager_worker_id, null); assert.equal(atlas.status, 'idle');
   assert.equal(f.company.snapshot().principals.length, 3);
   const second = new Store(join(f.dir, 'company.sqlite'));
-  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 2);
+  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 3);
   assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM workers')?.n, 1); second.close();
 });
 
@@ -80,7 +80,7 @@ test('atomic claim across database connections and one active execution per work
   const company2 = new Company(second, f.dir, process.cwd(), 'fake');
   const claim = f.company.claimNext()!; assert.ok(claim); assert.equal(company2.claimNext(), undefined);
   assert.equal(f.company.snapshot().executions.length, 1); assert.equal(f.company.snapshot().tasks.filter(t => t.status === 'queued').length, 1);
-  assert.throws(() => second.run("INSERT INTO executions VALUES ('duplicate',?,?,NULL,'running','now',NULL,NULL,NULL)", claim.task.task_id, claim.worker.worker_id), /UNIQUE/);
+  assert.throws(() => second.run("INSERT INTO executions (execution_id,task_id,worker_id,runtime_reference,status,started_at,finished_at,error,interruption_reason) VALUES ('duplicate',?,?,NULL,'running','now',NULL,NULL,NULL)", claim.task.task_id, claim.worker.worker_id), /UNIQUE/);
   f.company.finish(claim.execution.execution_id, { status: 'completed', summary: 'Bounded task done' });
   assert.ok(company2.claimNext());
 });

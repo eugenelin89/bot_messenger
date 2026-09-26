@@ -1,3 +1,4 @@
+import type { AIProfile, Priority } from './ai-profile.js';
 export const CAPABILITIES = ['internal_message', 'create_task', 'create_worker', 'read_workspace', 'write_workspace', 'run_local_tools', 'manage_repository', 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result', 'review_repository_change', 'request_integration'] as const;
 export type Capability = typeof CAPABILITIES[number];
 // Prompt 01 deliberately grants no arbitrary local process execution.
@@ -19,7 +20,7 @@ export type WorkerStatus = 'idle' | 'queued' | 'working' | 'blocked' | 'failed' 
 export type ExecutionStatus = 'running' | 'completed' | 'failed' | 'interrupted' | 'awaiting_approval';
 
 export interface Principal { principal_id: string; type: 'human' | 'bot' | 'system'; display_name: string; enabled: number; created_at: string }
-export interface Worker {
+export interface Worker extends AIProfile {
   worker_id: string; principal_id: string; display_name: string; title: string; role: string; mission: string;
   manager_worker_id: string | null; runtime_type: string; workspace_path: string;
   lifecycle: 'persistent' | 'temporary'; status: WorkerStatus; capability_profile: Capability[];
@@ -37,9 +38,11 @@ export interface Execution {
   execution_id: string; task_id: string; worker_id: string; runtime_reference: string | null;
   status: ExecutionStatus; started_at: string; finished_at: string | null; error: string | null;
   interruption_reason: string | null;
+  model: string | null; reasoning_effort: string | null; execution_priority: Priority | null;
+  runtime_version: string | null; runtime_adapter: string | null; provenance_status: 'legacy' | 'unresolved' | 'recorded';
 }
 export interface RuntimeBinding {
-  worker_id: string; runtime_type: string; runtime_reference: string; workspace_path: string; created_at: string;
+  worker_id: string; runtime_type: string; runtime_reference: string; workspace_path: string; created_at: string; thread_name?: string | null;
 }
 export interface Artifact {
   artifact_id: string; task_id: string; execution_id: string; type: string; path_or_reference: string;

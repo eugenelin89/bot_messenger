@@ -1,3 +1,4 @@
+import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js';
 import { PROFILES } from '../domain/model.js';
 import type { Worker, Task, Execution, RuntimeBinding } from '../domain/model.js';
 
@@ -7,12 +8,14 @@ export interface RuntimeInput {
   context: unknown; tools: ToolDefinition[];
   callTool(callId: string, name: string, args: unknown): unknown;
   bind(binding: RuntimeBinding): void;
+  configured(config: EffectiveAIConfig): void;
   event(type: string, detail: Record<string, unknown>): void;
 }
 export interface RuntimeResult { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string }
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
+  catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
 }
 

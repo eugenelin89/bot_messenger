@@ -1,3 +1,4 @@
+import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
 import { createHash, randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
@@ -82,7 +83,7 @@ export class Company extends EventEmitter {
     const workspace = join(this.dataDir, 'workspaces', workerId);
     mkdirSync(workspace, { recursive: false, mode: 0o700 });
     this.store.run('INSERT INTO principals VALUES (?,?,?,1,?)', principalId, 'bot', input.display_name, timestamp);
-    this.store.run(`INSERT INTO workers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,?,?)`,
+    this.store.run(`INSERT INTO workers (worker_id,principal_id,display_name,title,role,mission,manager_worker_id,runtime_type,workspace_path,lifecycle,status,capability_profile,delegatable_capabilities,enabled,created_by_worker_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,?,?)`,
       workerId, principalId, input.display_name, input.title, input.role, input.mission, manager?.worker_id ?? null,
       this.runtimeType, realpathSync(workspace), input.lifecycle, 'idle', JSON.stringify(input.capabilities),
       JSON.stringify(input.delegatable_capabilities), manager?.worker_id ?? null, timestamp, timestamp);
@@ -107,12 +108,31 @@ export class Company extends EventEmitter {
     requireThat(binding.worker_id === worker.worker_id && binding.runtime_type === worker.runtime_type, 'Runtime binding identity mismatch');
     this.verifyWorkspace(worker, binding.workspace_path);
     const old = this.binding(worker.worker_id);
-    requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type), 'Cannot replace an existing runtime binding implicitly');
+    requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type && (old.thread_name ?? null) === (binding.thread_name ?? null)), 'Cannot replace an existing runtime binding implicitly');
     this.store.transaction(() => {
-      this.store.run('INSERT OR IGNORE INTO runtime_bindings VALUES (?,?,?,?,?)', binding.worker_id, binding.runtime_type, binding.runtime_reference, binding.workspace_path, binding.created_at);
+      this.store.run('INSERT OR IGNORE INTO runtime_bindings (worker_id,runtime_type,runtime_reference,workspace_path,created_at,thread_name) VALUES (?,?,?,?,?,?)', binding.worker_id, binding.runtime_type, binding.runtime_reference, binding.workspace_path, binding.created_at, binding.thread_name ?? null);
       requireThat(this.binding(worker.worker_id)?.runtime_reference === binding.runtime_reference, 'Runtime reference already belongs to another worker');
       this.store.run('UPDATE executions SET runtime_reference=? WHERE execution_id=?', binding.runtime_reference, context.executionId);
     });
+  }
+  // Only trusted operator entrypoints call this. No bot tool or actor supplied by a payload.
+  updateWorkerAIProfile(workerId: string, value: unknown, catalog: RuntimeCatalog): Worker {
+    const profile = parseAIProfile(value); resolveAIProfile(profile, catalog);
+    return this.store.transaction(() => {
+      this.worker(workerId);
+      this.store.run('UPDATE workers SET ai_model=?,reasoning_effort=?,execution_priority=?,ai_profile_locked=?,updated_at=? WHERE worker_id=?',
+        profile.ai_model, profile.reasoning_effort, profile.execution_priority, profile.ai_profile_locked, now(), workerId);
+      this.audit('worker_ai_profile_updated', 'human', profile, workerId);
+      return this.worker(workerId);
+    });
+  }
+  recordRuntimeConfig(context: ExecutionContext, config: EffectiveAIConfig) {
+    const { execution } = this.verifyContext(context);
+    requireThat(execution.provenance_status === 'unresolved', 'Execution provenance already recorded');
+    requireThat(config.execution_priority === execution.execution_priority, 'Execution priority changed after claim');
+    for (const value of [config.model, config.reasoning_effort, config.runtime_version, config.runtime_adapter]) requireThat(typeof value === 'string' && value.length > 0 && value.length <= 150, 'Invalid runtime provenance');
+    this.store.run("UPDATE executions SET model=?,reasoning_effort=?,runtime_version=?,runtime_adapter=?,provenance_status='recorded' WHERE execution_id=?", config.model, config.reasoning_effort, config.runtime_version, config.runtime_adapter, execution.execution_id);
+    this.audit('runtime_configuration', 'system', config, context.workerId, execution.task_id, execution.execution_id);
   }
   sendHumanMessage(body: string): Message {
     requireThat(typeof body === 'string' && body.trim().length > 0 && body.length <= 8000, 'Invalid message');
@@ -160,18 +180,19 @@ export class Company extends EventEmitter {
       this.audit(paused ? 'dispatch_paused' : 'dispatch_resumed', 'human', {});
     }); this.changed();
   }
-  claimNext(): { task: Task; worker: Worker; execution: Execution; context: ExecutionContext } | undefined {
+  claimNext(maxActive = 2): { task: Task; worker: Worker; execution: Execution; context: ExecutionContext } | undefined {
     return this.store.transaction(() => {
       if (this.paused) return;
+      if (this.store.get<{ n: number }>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
       const task = this.store.get<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY t.created_at,t.task_id LIMIT 1`);
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid LIMIT 1`);
       if (!task) return;
       const worker = this.worker(task.assignee_worker_id);
       this.transition(task, 'working');
       const executionId = id('execution');
-      this.store.run("INSERT INTO executions VALUES (?,?,?,NULL,'running',?,NULL,NULL,NULL)", executionId, task.task_id, worker.worker_id, now());
+      this.store.run("INSERT INTO executions (execution_id,task_id,worker_id,runtime_reference,status,started_at,finished_at,error,interruption_reason,execution_priority,provenance_status) VALUES (?,?,?,NULL,'running',?,NULL,NULL,NULL,?,'unresolved')", executionId, task.task_id, worker.worker_id, now(), worker.execution_priority);
       this.audit('task_claimed', 'system', { dispatch_reason: task.dispatch_reason }, worker.worker_id, task.task_id, executionId);
       this.audit('execution_started', 'system', {}, worker.worker_id, task.task_id, executionId);
       this.refreshWorker(worker.worker_id);

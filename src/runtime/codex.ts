@@ -1,3 +1,4 @@
+import { resolveAIProfile, type RuntimeCatalog, type RuntimeModel } from '../domain/ai-profile.js';
 import { execFileSync } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { requireThat } from '../domain/model.js';
@@ -5,7 +6,7 @@ import { AppServerRpc, type RpcMessage } from './rpc.js';
 import type { RuntimeAdapter, RuntimeInput, RuntimeResult } from './adapter.js';
 
 // Dynamic tools/environment controls are experimental: fail closed on unvalidated versions.
-export const SUPPORTED_CODEX_VERSION = '0.142.4';
+export const SUPPORTED_CODEX_VERSION = '0.157.0';
 export const DISABLED_FEATURES = [
   'apps', 'plugins', 'hooks', 'shell_tool', 'unified_exec', 'shell_snapshot', 'multi_agent',
   'browser_use', 'browser_use_external', 'computer_use', 'in_app_browser', 'image_generation',
@@ -105,16 +106,32 @@ export class CodexRuntime implements RuntimeAdapter {
     requireThat(DISABLED_FEATURES.every(f => config.features?.[f] === false), 'Codex tool confinement configuration was not applied');
     // Disable every inherited MCP server individually: an empty table may merge with user config.
     const overrides = Object.fromEntries(Object.keys(config.mcp_servers ?? {}).map(name => [`mcp_servers.${name}.enabled`, false]));
-    const models = await rpc.request<{ data: { id: string; model: string; isDefault: boolean }[] }>('model/list', {});
-    const selected = this.model ? models.data.find(m => m.model === this.model || m.id === this.model) : models.data.find(m => m.isDefault);
-    requireThat(selected, 'Requested model is not advertised by this Codex runtime. Check BOT_MODEL with codex:preflight.');
-    return { overrides, authMode: account.account?.type ?? 'provider', model: selected.model };
+    const models: RuntimeModel[] = []; let cursor: string | null = null;
+    const cursors = new Set<string>();
+    do {
+      const page: { data: RuntimeModel[]; nextCursor?: string | null } = await rpc.request('model/list', { limit: 100, includeHidden: false, ...(cursor ? { cursor } : {}) });
+      requireThat(Array.isArray(page.data) && models.length + page.data.length <= 1000, 'Invalid model catalog');
+      models.push(...page.data); cursor = page.nextCursor ?? null;
+      if (cursor) { requireThat(!cursors.has(cursor), 'Repeated model catalog cursor'); cursors.add(cursor); }
+    } while (cursor);
+    requireThat(models.every(m => typeof m.model === 'string' && Array.isArray(m.supportedReasoningEfforts) && typeof m.defaultReasoningEffort === 'string'), 'Runtime did not advertise reasoning capabilities');
+    const selected = this.model ? models.find(m => m.model === this.model || m.id === this.model) : models.find(m => m.isDefault);
+    requireThat(selected, 'Requested default model is not advertised by this Codex runtime. Check BOT_MODEL with codex:preflight.');
+    const catalog: RuntimeCatalog = { version: `codex-cli ${SUPPORTED_CODEX_VERSION}`, adapter: this.type,
+      authMode: account.account?.type ?? 'provider', defaultModel: selected.model,
+      models: models.map(m => ({ id: m.id, model: m.model, displayName: m.displayName ?? m.model,
+        isDefault: m.isDefault, defaultReasoningEffort: m.defaultReasoningEffort, supportedReasoningEfforts: m.supportedReasoningEfforts })) };
+    return { overrides, catalog };
+  }
+  async catalog(workspace: string): Promise<RuntimeCatalog> {
+    this.checkVersion(); const rpc = this.connect(workspace);
+    rpc.on('request', (m: RpcMessage) => rpc.send({ id: m.id, error: { code: -32601, message: 'Unavailable during preflight' } }));
+    try { return (await this.initialize(rpc)).catalog; }
+    finally { rpc.close(); }
   }
   async preflight(workspace: string) {
-    const version = this.checkVersion(); const rpc = this.connect(workspace);
-    rpc.on('request', (m: RpcMessage) => rpc.send({ id: m.id, error: { code: -32601, message: 'Unavailable during preflight' } }));
-    try { const { authMode, model } = await this.initialize(rpc); return { version, authMode, transport: 'stdio', supportsInterrupt: true, dynamicTools: 'experimental', model }; }
-    finally { rpc.close(); }
+    const catalog = await this.catalog(workspace);
+    return { ...catalog, model: catalog.defaultModel, transport: 'stdio', supportsInterrupt: true, dynamicTools: 'experimental' };
   }
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {
     requireThat(input.worker.runtime_type === this.type, 'Worker/runtime adapter mismatch');
@@ -193,18 +210,20 @@ export class CodexRuntime implements RuntimeAdapter {
       }
     });
     try {
-      const { overrides, model } = await this.initialize(rpc);
+      const { overrides, catalog } = await this.initialize(rpc);
+      const effective = resolveAIProfile(input.worker, catalog);
+      const model = effective.model;
       if (signal.aborted || finished) return await result;
       input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
         approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
         developerInstructions: `Trusted BotSquad worker identity: ${input.worker.worker_id}. Use only the supplied task context.`,
-        model };
+        model, allowProviderModelFallback: false };
       let thread: ThreadResponse;
       if (input.binding) {
         const stored = await rpc.request<ThreadResponse>('thread/read', { threadId: input.binding.runtime_reference, includeTurns: false });
         // Preserve verified bindings created before the accepted BotSquad rename.
-        const ownedNames = [`BotSquad: ${input.worker.worker_id}`, `Bot Messenger: ${input.worker.worker_id}`];
+        const ownedNames = input.binding.thread_name ? [input.binding.thread_name] : [`BotSquad: ${input.worker.worker_id}`, `Bot Messenger: ${input.worker.worker_id}`];
         requireThat(stored.thread.id === input.binding.runtime_reference && stored.thread.cwd === input.worker.workspace_path && ownedNames.includes(stored.thread.name ?? ''), 'Stored Codex thread identity/workspace mismatch');
         requireThat(stored.thread.status?.type !== 'active', 'Stored Codex thread is still active; inspect before resuming');
         thread = await rpc.request<ThreadResponse>('thread/resume', { ...common, threadId: input.binding.runtime_reference, excludeTurns: true });
@@ -215,12 +234,15 @@ export class CodexRuntime implements RuntimeAdapter {
       requireThat(thread.thread.cwd === input.worker.workspace_path && thread.approvalPolicy === 'never' && thread.sandbox?.type === 'readOnly' && thread.sandbox.networkAccess === false, 'Codex thread safety configuration mismatch');
       if (input.binding) requireThat(thread.thread.id === input.binding.runtime_reference, 'Resumed wrong Codex thread');
       threadId = thread.thread.id;
-      if (!input.binding) await rpc.request('thread/name/set', { threadId, name: `BotSquad: ${input.worker.worker_id}` });
-      input.bind({ worker_id: input.worker.worker_id, runtime_type: this.type, runtime_reference: threadId, workspace_path: input.worker.workspace_path, created_at: new Date().toISOString() });
+      const threadName = input.binding?.thread_name ?? (input.binding ? null : `BotSquad · ${input.worker.display_name} · ${input.worker.title}`);
+      if (!input.binding) await rpc.request('thread/name/set', { threadId, name: threadName });
+      requireThat(thread.model === effective.model, 'Runtime selected a different model; refusing silent fallback');
+      input.configured(effective);
+      input.bind({ worker_id: input.worker.worker_id, runtime_type: this.type, runtime_reference: threadId, workspace_path: input.worker.workspace_path, created_at: input.binding?.created_at ?? new Date().toISOString(), thread_name: threadName });
       input.event(input.binding ? 'worker_resumed' : 'runtime_started', { runtime_reference: threadId, model: thread.model ?? 'configured' });
       if (signal.aborted || finished) return { status: 'interrupted', error: 'Interrupted before turn start' };
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
-        input: [{ type: 'text', text: `Perform this assigned BotSquad task.\n${JSON.stringify(input.context)}` }], effort: 'low',
+        input: [{ type: 'text', text: `Perform this assigned BotSquad task.\n${JSON.stringify(input.context)}` }], effort: effective.reasoning_effort, model: effective.model,
         approvalPolicy: 'never', sandboxPolicy: { type: 'readOnly', networkAccess: false } });
       turnId = started.turn.id;
       if (signal.aborted) interrupt();

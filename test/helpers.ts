@@ -1,3 +1,4 @@
+import { resolveAIProfile, type RuntimeCatalog } from '../src/domain/ai-profile.js';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -19,7 +20,9 @@ export class FakeRuntime implements RuntimeAdapter {
   readonly type = 'fake'; readonly supportsInterrupt = true; calls: RuntimeInput[] = [];
   active = new Map<string, number>(); maxByWorker = new Map<string, number>();
   gate?: (input: RuntimeInput, signal: AbortSignal) => Promise<RuntimeResult | undefined>;
+  async catalog(): Promise<RuntimeCatalog> { return { version: 'fake-1', adapter: this.type, authMode: 'test', defaultModel: 'fake-model', models: [{ id: 'fake-model', model: 'fake-model', displayName: 'Fake model', isDefault: true, defaultReasoningEffort: 'medium', supportedReasoningEfforts: [{ reasoningEffort: 'medium', description: 'Test' }, { reasoningEffort: 'low', description: 'Test' }] }] }; }
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {
+    input.configured(resolveAIProfile(input.worker, await this.catalog()));
     this.calls.push(input);
     const count = (this.active.get(input.worker.worker_id) ?? 0) + 1; this.active.set(input.worker.worker_id, count);
     this.maxByWorker.set(input.worker.worker_id, Math.max(count, this.maxByWorker.get(input.worker.worker_id) ?? 0));

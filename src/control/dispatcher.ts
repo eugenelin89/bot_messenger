@@ -1,3 +1,5 @@
+import type { RuntimeCatalog } from '../domain/ai-profile.js';
+import { requireThat } from '../domain/model.js';
 import { Company } from './company.js';
 import { companyTools, type RuntimeAdapter } from '../runtime/adapter.js';
 
@@ -6,7 +8,20 @@ export class Dispatcher {
   private scheduled = false;
   private stopped = true;
   private readonly onChange = () => this.kick();
-  constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2) {}
+  runtimeState: 'unknown' | 'ready' | 'degraded' = 'unknown';
+  private catalogRequest?: Promise<RuntimeCatalog>;
+  constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2) {
+    requireThat(Number.isInteger(maxActive) && maxActive >= 1 && maxActive <= 2, 'Global concurrency must be one or two');
+  }
+  async runtimeCatalog(): Promise<RuntimeCatalog> {
+    requireThat(this.adapter.catalog, 'Runtime discovery is unavailable');
+    if (!this.catalogRequest) this.catalogRequest = this.adapter.catalog(this.company.dataDir)
+      .then(catalog => { this.runtimeState = 'ready'; return catalog; })
+      .catch(error => { this.runtimeState = 'degraded'; throw error; })
+      .finally(() => { this.catalogRequest = undefined; });
+    return this.catalogRequest;
+  }
+  get initialized() { return !this.stopped; }
   start() {
     if (!this.stopped) return;
     this.stopped = false;
@@ -29,7 +44,7 @@ export class Dispatcher {
   }
   private drain() {
     while (!this.stopped && this.running.size < this.maxActive) {
-      const claim = this.company.claimNext();
+      const claim = this.company.claimNext(this.maxActive);
       if (!claim) break;
       const { task, worker, execution, context } = claim;
       const controller = new AbortController();
@@ -39,6 +54,7 @@ export class Dispatcher {
           if (worker.runtime_type !== this.adapter.type) throw new Error('Worker/runtime adapter mismatch');
           const result = await this.adapter.run({ worker, task, execution, context: this.company.context(context),
             binding: this.company.binding(worker.worker_id), tools: companyTools(worker),
+            configured: config => this.company.recordRuntimeConfig(context, config),
             bind: binding => this.company.setBinding(context, binding),
             callTool: (callId, name, args) => this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.audit(type, 'system', detail, worker.worker_id, task.task_id, execution.execution_id),

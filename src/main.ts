@@ -29,6 +29,7 @@ http.server.on('error', (error: NodeJS.ErrnoException) => {
 });
 http.server.listen(port, '127.0.0.1', () => {
   dispatcher.start();
+  void dispatcher.runtimeCatalog().catch(() => console.error('Codex runtime degraded: run codex:preflight as the service account.'));
   console.log(`BotSquad: http://127.0.0.1:${port}`);
   console.log(`Local data: ${dataDir}`);
 });

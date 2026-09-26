@@ -114,6 +114,23 @@ CREATE TRIGGER reviews_no_update BEFORE UPDATE ON reviews BEGIN SELECT RAISE(ABO
 CREATE TRIGGER reviews_no_delete BEFORE DELETE ON reviews BEGIN SELECT RAISE(ABORT,'Reviews are immutable'); END;
 `;
 
+export const migration3 = `
+ALTER TABLE workers ADD COLUMN ai_model TEXT;
+ALTER TABLE workers ADD COLUMN reasoning_effort TEXT;
+ALTER TABLE workers ADD COLUMN execution_priority TEXT NOT NULL DEFAULT 'normal' CHECK(execution_priority IN ('low','normal','high','critical'));
+ALTER TABLE workers ADD COLUMN ai_profile_locked INTEGER NOT NULL DEFAULT 1 CHECK(ai_profile_locked IN (0,1));
+ALTER TABLE executions ADD COLUMN model TEXT;
+ALTER TABLE executions ADD COLUMN reasoning_effort TEXT;
+ALTER TABLE executions ADD COLUMN execution_priority TEXT CHECK(execution_priority IN ('low','normal','high','critical'));
+ALTER TABLE executions ADD COLUMN runtime_version TEXT;
+ALTER TABLE executions ADD COLUMN runtime_adapter TEXT;
+ALTER TABLE executions ADD COLUMN provenance_status TEXT NOT NULL DEFAULT 'legacy' CHECK(provenance_status IN ('legacy','unresolved','recorded'));
+ALTER TABLE runtime_bindings ADD COLUMN thread_name TEXT;
+CREATE TRIGGER provenance_immutable BEFORE UPDATE OF model,reasoning_effort,execution_priority,runtime_version,runtime_adapter,provenance_status ON executions
+WHEN OLD.provenance_status != 'unresolved' OR OLD.status != 'running'
+BEGIN SELECT RAISE(ABORT,'Execution provenance is immutable'); END;
+`;
+
 export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
@@ -130,6 +147,10 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=2')) {
         this.db.exec(migration2);
         this.run('INSERT INTO schema_migrations VALUES (2,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=3')) {
+        this.db.exec(migration3);
+        this.run('INSERT INTO schema_migrations VALUES (3,?)', new Date().toISOString());
       }
     });
   }
