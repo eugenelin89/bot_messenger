@@ -345,6 +345,9 @@ def worker_main():
         projects = home / 'projects'
         projects.mkdir(mode=0o700, exist_ok=True)
         check(projects.resolve() == projects and projects.stat().st_uid == os.getuid(), 'Unsafe project parent')
+        # mkdir(0700) masks inherited named ACL entries; explicitly restore only
+        # trusted service traversal before reporting any child clone as ready.
+        subprocess.run(['/usr/bin/setfacl', '-m', 'u:botsquad:r-x', str(projects)], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         bundle = home / ('seed-' + req['operation_id'] + '.bundle')
         data = base64.b64decode(req['bundle'], validate=True)
         if not bundle.exists():

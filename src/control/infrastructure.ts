@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { accessSync, constants, realpathSync } from 'node:fs';
 import { join } from 'node:path';
 import { requireThat, strictObject, textField, type Task, type Worker, type Execution } from '../domain/model.js';
 import { canonical, hash, identityName, parseDecision, type Approval, type OSIdentity, type ProjectBinding, type ProtectedOperation, type ProtectedType } from '../domain/infrastructure.js';
@@ -193,6 +194,11 @@ export class Infrastructure {
           const params = JSON.parse(op.parameters); const project = this.project(params.allocation_id);
           requireThat(project && result.worker_id === op.target_worker_id && result.allocation_id === project.allocation_id && result.path === project.path, 'Project receipt mismatch');
           const state = op.operation_type === 'prepare_worker_project_clone' ? 'ready' : 'revoked';
+          if (state === 'ready' && this.linux) {
+            requireThat(realpathSync(project.path) === project.path, 'Project path is not canonical');
+            accessSync(project.path, constants.R_OK | constants.X_OK);
+            accessSync(join(project.path, '.git/config'), constants.R_OK);
+          }
           this.store.run('UPDATE worker_project_bindings SET state=?,operation_id=? WHERE allocation_id=?', state, operationId, project.allocation_id);
           if (state === 'ready') this.store.run("UPDATE allocations SET status='active',updated_at=? WHERE allocation_id=? AND status='pending_infrastructure'", now(), project.allocation_id);
           this.event(state === 'ready' ? 'worker_project_access_granted' : 'worker_project_access_revoked', op);

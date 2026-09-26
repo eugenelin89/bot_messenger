@@ -241,6 +241,7 @@ export class Engineering {
           this.store.run("INSERT INTO allocations VALUES (?,?,?,?,?,?,?,?,'allocating',?,?)", allocationId, repo.repository_id, worker.worker_id, task.task_id, branch, path, repo.base_commit, module, now(), now());
           if (this.company.infrastructure.linux) {
             this.store.run("UPDATE allocations SET status='pending_infrastructure' WHERE allocation_id=?", allocationId);
+            this.store.run("UPDATE tasks SET blocking_reason='Waiting for approved Linux identity and project clone' WHERE task_id=?", task.task_id);
             this.store.run("INSERT INTO worker_project_bindings VALUES (?,?,?,?,'pending',NULL)", allocationId, worker.worker_id, repo.repository_id, path);
           }
           return this.store.get<Allocation>('SELECT * FROM allocations WHERE allocation_id=?', allocationId)!;
