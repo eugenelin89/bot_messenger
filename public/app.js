@@ -169,9 +169,9 @@ try {
   const session = await request('session'); token = session.csrfToken; draft = session.defaultObjective; await refresh();
   const events = new EventSource('/api/events');
   events.addEventListener('ready', async () => {
-    try { token = (await request('session')).csrfToken; $('#connection').textContent = 'Connected to local service'; $('#connection-dot').classList.add('online'); await refresh(); }
+    try { token = (await request('session')).csrfToken; $('#connection').textContent = 'Connected to headquarters'; $('#connection-dot').classList.add('online'); await refresh(); }
     catch (error) { showError(error); }
   });
   events.addEventListener('changed', () => void refresh());
-  events.onerror = () => { $('#connection').textContent = 'Reconnecting to local service…'; $('#connection-dot').classList.remove('online'); };
+  events.onerror = () => { $('#connection').textContent = 'Reconnecting to headquarters…'; $('#connection-dot').classList.remove('online'); };
 } catch (error) { showError(error); }

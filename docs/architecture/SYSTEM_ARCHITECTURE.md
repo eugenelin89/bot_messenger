@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 02 implementation plus accepted Ubuntu HQ target architecture
+**Status:** Prompt 03 implementation; final Ubuntu acceptance pending
 **Updated:** 2026-09-25
 
 ## Runtime topology: implemented baseline and accepted target
@@ -31,7 +31,7 @@ operator-controlled Ubuntu HQ
 
 “Self-hosted” is the architectural property that matters. The Ubuntu host may be in a cloud provider, VPS, private VM or physical machine. It is not equivalent to a multi-tenant hosted SaaS control plane.
 
-Until Prompt 03 validation lands, Prompt 02 macOS behavior remains the current implemented baseline. Do not describe Ubuntu-specific confinement or service behavior as implemented without evidence.
+Prompt 03 now implements this service topology and Linux confinement. Deterministic Ubuntu acceptance passes; real model/resource/recovery evidence is tracked separately in the Prompt 03 validation record.
 
 ## Boundaries
 
@@ -171,8 +171,10 @@ Product code runs in a separate Node process with permissions restricting reads 
 the worktree, no addons/worker/child-process permission, an empty environment, a
 96 MB old-space limit, ten-second timeout and 64 KB captured-output limit (16 KB retained).
 On macOS, Seatbelt additionally denies network, writes, process signals, child processes and regular-file
-reads outside product/runtime locations. Inherited pipes remain usable. There is no
-unsandboxed fallback; other platforms need an equivalent validated confinement adapter.
+reads outside product/runtime locations. Inherited pipes remain usable. On Ubuntu x86_64, bubblewrap instead supplies user/mount/PID/network namespaces,
+read-only product/runtime mounts and seccomp denial of network sockets, non-thread
+clones, host signals and namespace/mount escape. A dedicated service-only AppArmor
+userns grant preserves global Ubuntu restrictions. No unsandboxed fallback exists.
 
 Submission verifies a real module change, allowed paths, the expected base HEAD,
 passing focused tests and a clean trusted commit. It freezes the worktree and persists
@@ -194,19 +196,17 @@ retained; automatic repair, revision cycles and cleanup are deferred.
 
 ## Codex adapter
 
-Decision 007's official App Server stdio architecture and pin `0.142.4` remain. Each
+Decision 010 retains Decision 007's private App Server stdio architecture and upgrades the validated pin to `0.157.0`. Each
 execution owns a short-lived process and one turn. Codex owns managed authentication;
 BotSquad never copies credentials. Preflight reports version/auth mode/advertised model.
-The default advertised model is selected unless `BOT_MODEL` names another advertised model.
+Persisted worker model/reasoning settings override inherited company/runtime defaults. The runtime discovers model-specific reasoning choices; unsupported combinations fail before a turn. `BOT_MODEL` is only the inherited default.
 
 All roles keep read-only sandbox, no sandbox network, empty environments, approval
 policy `never`, disabled inherited MCP servers and disabled shell/browser/computer,
 apps/plugins/hooks/subagents and other unrelated runtime tools. Role-specific dynamic
 company tools supply engineering access without broadening the runtime sandbox.
 
-A new thread is named with its worker ID and bound before the turn. Resume verifies
-exact thread ID, name and canonical private workspace, including compatible pre-rename
-names. Existing bindings are never silently replaced. Migration records pre-Prompt-02 bindings:
+A new thread is named `BotSquad · <name> · <title>` and its exact name is persisted in the binding. Resume verifies exact thread ID, stored name and canonical UUID workspace, including compatible pre-rename names on legacy bindings. Existing bindings are never silently replaced. Migration records pre-Prompt-02 bindings:
 the pinned resume protocol cannot change their dynamic tool schemas, so they retain
 research support and fail explicitly on engineering objectives. Use fresh company
 data for engineering until an explicit binding-migration workflow exists. Runtime permission requests are
@@ -250,6 +250,23 @@ external products, revision loops, stronger OS isolation, cleanup, scalable hist
 payments, outreach, deployment and distributed orchestration remain deferred.
 
 
+## Worker configuration, migration and dispatch
+
+Migration 3 adds inherited model/reasoning, normal priority and a human lock to existing
+workers, without replacing bindings. Historical executions remain NULL/legacy. Each
+new claim snapshots priority; before the turn the adapter records effective model,
+reasoning, version and adapter once. SQL triggers prevent rewriting provenance.
+Startup failures without a configured runtime remain unresolved.
+
+Authenticated human profile updates use a narrow HTTP/control-plane method. Neither
+bot tools nor payload-supplied actor names can mutate profiles. Manager-requested
+profiles are deferred; unlocked profiles still have only human updates today.
+
+Eligible queue order is priority then creation time/insertion FIFO. Global capacity
+is checked inside the claim transaction, with unique active worker/task constraints.
+Pause, enabled-state, task/engineering eligibility and capabilities remain authoritative.
+Strict priority has no aging and can starve low-priority work under continuous load.
+
 ## Accepted Ubuntu headquarters boundary
 
 Prompt 03 implements the accepted supported Ubuntu deployment/bootstrap path without changing the core rule that BotSquad owns organizational truth and Codex threads remain replaceable runtime bindings.
@@ -268,8 +285,13 @@ Human workstation
 
 The Ubuntu migration is not complete until Linux isolation is validated. Prompt 02's macOS Seatbelt evidence cannot be relabeled as Linux evidence.
 
-Prompt 03 will also move model selection from one global runtime default toward a persisted per-worker AI profile containing model, reasoning effort, dispatcher priority and human-lock state. Every execution should record the actual effective profile/runtime used.
+Prompt 03 persists per-worker AI profiles and effective execution provenance. Worker inspectors load model/reasoning options from the active runtime. A narrow health endpoint exposes liveness, database/dispatcher readiness, cached runtime status and deployed commit without company state or credentials.
 
 Nix is a future ongoing DevOps worker after the Ubuntu HQ exists; the bootstrap prompt is the installer and does not depend on Nix.
 
 See [Ubuntu HQ and Bootstrap Model](../product/UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
+
+The installer, service account, root-owned source, persistent swap and systemd hardening
+are specified in [Decision 010](../decisions/decision_010_ubuntu_hq_profiles.md) and the
+[operator guide](../bootstrap/UBUNTU_BOOTSTRAP.md). Nix, per-worker Unix accounts,
+privileged provisioning, broad approval grants and Computer Use remain deferred.

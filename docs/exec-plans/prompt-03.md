@@ -7,7 +7,7 @@
 **Started:** 2026-09-26 00:47 UTC  
 **Starting origin/main:** 2239be6304495d583053f4ffabd8e900d4fb63f6  
 **Initial ETA:** 45–90 minutes before reading the attachment; revised to 5–8 hours after full scope review.  
-**Current ETA:** 2–4 hours remaining at 01:03 UTC, excluding human authorization wait.
+**Current ETA:** 1.5–3 hours remaining at 01:26 UTC, excluding human authorization wait.
 
 ## Objective and scope
 
@@ -67,9 +67,10 @@ Record all unexercised gates honestly; incomplete acceptance must not merge to m
 
 ## Remaining work / blockers
 
-Implementation and acceptance phases above remain. No host conflict found so far.
-Codex login under the new service account may require the operator; finish all
-noninteractive setup before requesting that step. Do not transfer local auth files.
+Implementation, initial bootstrap and deterministic Linux/macOS checks are complete.
+Service-account Codex login was requested after setup; human authorization is pending.
+Live Ubuntu workflow/resource, restart/reboot/idempotency and final integration gates remain.
+Do not transfer local auth files or merge incomplete acceptance to main.
 
 ## Documentation freshness and handoff
 
@@ -90,3 +91,8 @@ restart/reboot/idempotency and final deployed/main equality.
   on missing AppArmor userns admission. No global restriction disabled. Implemented
   a root-owned group-only bwrap copy and path-specific AppArmor admission policy.
 - PR #1 fully merged at 4e8711e; no historical milestone plan/evidence modified.
+
+- 01:26 UTC: 60/60 deterministic tests pass on macOS and Ubuntu; active enabled
+  non-root service reports exact b99f2a0 deployment with private loopback UI.
+  Mac real CEO → Scout → CEO, persisted resume and interruption pass on Codex 0.157.0.
+  Human service-account login pending; preparing validation under production systemd restrictions.

@@ -489,3 +489,22 @@ The fixed product, two modules, one review and one integration attempt keep this
 milestone bounded. Automatic revision cycles, generalized product repositories,
 manager retirement, trusted approval grants, cleanup and Computer Use are deferred.
 See [Decision 008](../decisions/decision_008_managed_engineering.md).
+
+
+## Prompt 03 worker AI configuration
+
+Each logical worker has a persisted model and reasoning setting (or inherit), bounded
+execution priority and human lock. The human inspector discovers the active runtime's
+choices and rejects unavailable combinations. Global BOT_MODEL is only a default.
+A running execution retains the profile it claimed; later profile changes never rewrite
+its effective model/reasoning/priority/runtime evidence. Legacy evidence stays unknown.
+
+Human-locked profiles cannot be changed by bot prose or tools. Manager-requested
+profile mutation is deferred, so even unlocked profiles currently have only trusted
+human updates. Priority reorders eligible work; it never grants capabilities, bypasses
+pause or expands the two-execution global limit. New Codex threads use friendly names
+while UUID/workspace/thread bindings remain the identity boundary.
+
+Ubuntu HQ now runs one botsquad service account. Nix, per-worker Unix identities,
+separate clones, privileged provisioning and human infrastructure approval grants are
+the next milestone, not part of Prompt 03. See Decision 010 and its validation record.

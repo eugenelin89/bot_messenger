@@ -1,6 +1,6 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Accepted deployment direction; Prompt 03 implementation/validation milestone  
+**Status:** Prompt 03 implementation; final real Ubuntu acceptance pending
 **Date:** 2026-09-25
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
@@ -140,7 +140,7 @@ Ubuntu host
     └── botsquad-grace
 ```
 
-Prompt 03 may stage worker-account support incrementally, but the Linux design must not assume all bots permanently share one Unix identity.
+Prompt 03 creates only the botsquad service account. Worker Unix accounts and a privileged provisioner are deferred; logical identities remain compatible with future bindings.
 
 ## BotSquad service model
 
@@ -357,7 +357,7 @@ It must not bypass capability, approval or concurrency rules.
 
 The human operator must be able to lock a worker's AI profile so managers cannot change it.
 
-A manager can request an allowed profile for a child, but the control plane enforces:
+A future manager profile-request interface must enforce:
 
 - company model allowlist;
 - supported model/reasoning combinations;
@@ -501,5 +501,7 @@ A successful Prompt 03 demonstration should start from a fresh supported Ubuntu 
 15. execution provenance records actual AI profile/runtime;
 16. thread names are human-readable;
 17. installation evidence contains no secrets.
+
+The concrete installer/service/Linux/profile choices are in [Decision 010](../decisions/decision_010_ubuntu_hq_profiles.md); operational steps are in [Ubuntu bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md). Manager-requested AI profiles are deferred; trusted human configuration is implemented.
 
 Nix and dynamic worker Unix-account lifecycle are deferred to the next infrastructure milestone. Prompt 03 should establish the Ubuntu HQ, Linux runtime/confinement, reproducible bootstrap and per-worker AI profiles without weakening those acceptance gates.

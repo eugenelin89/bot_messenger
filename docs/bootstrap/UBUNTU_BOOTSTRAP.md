@@ -108,3 +108,26 @@ metadata are denied. Tests remain bounded to 10 seconds and captured output.
 Nix, separate worker Unix identities/clones, trusted privileged provisioning, human
 approval grants, general remote fleets, financial authority, customer deployment and
 Computer Use are future milestones.
+
+## Acceptance under the production service restrictions
+
+After authentication, run the checked-in host validation launcher as root. It creates
+an ephemeral systemd unit using the installed service's User, filesystem, capability
+and namespace restrictions; the production company continues to use its own data.
+Each run writes a fresh private directory under `/var/lib/botsquad/validation`.
+
+```sh
+ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh deterministic'
+ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh prompt01'
+ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh engineering'
+```
+
+Run these sequentially. The latter two invoke real Codex work and use the discovered
+`gpt-6-sol` profile only if advertised (otherwise they fail visibly). Inspect the
+printed unit and evidence directory for completion: `exit-code` must be 0 and real
+runs must produce `evidence.json` with PASS. `console.log` retains failure context;
+`resources.jsonl` samples host memory/swap/load and service-user process RSS every
+two seconds without capturing process arguments or environment. Summed RSS includes
+shared pages more than once; process CPU percentages are lifetime averages, not
+instantaneous utilization. Every unit has a 30-minute upper bound and no retry loop.
+Never treat unit startup alone as a passing validation.

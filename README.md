@@ -26,13 +26,29 @@ SQLite + dispatcher + Codex runtime + managed work
 
 The Ubuntu host may be a DigitalOcean Droplet, another cloud/VPS provider, a VM or a physical Ubuntu machine. BotSquad is **self-hosted**, not a hosted multi-tenant SaaS: coordination state stays on the operator-controlled BotSquad host while assigned task/model content may be sent to the configured external model runtime.
 
-Prompt 03 is the migration/bootstrap milestone. Until that implementation lands, the instructions below describe the validated Prompt 02 local development/demo path.
+Prompt 03 adds the reproducible Ubuntu installer, non-root systemd service, Linux
+engineering confinement and per-worker AI profiles. Final real Ubuntu acceptance is
+tracked in the [validation record](docs/validation/prompt-03-ubuntu.md).
+
+## Set up Ubuntu HQ
+
+1. Create a supported **Ubuntu 24.04 x86_64** host.
+2. Add your SSH public key and configure an alias; verify `ssh botsquad` works.
+3. Open [the bootstrap prompt](prompts/bootstrap-ubuntu.md), set `SSH_TARGET`, and run it in Codex.
+4. Complete Codex device login under the `botsquad` service account when requested.
+5. Open the provided tunnel: `ssh -N -L 4310:127.0.0.1:4310 botsquad`.
+6. Open [BotSquad](http://127.0.0.1:4310), initialize Atlas and assign an objective.
+
+The installer owns Node, Codex, systemd, swap and Linux confinement. Source/build
+lives at `/opt/botsquad`; company state and runtime authentication stay in
+`/var/lib/botsquad`. Normal work runs non-root. The UI remains private to the host
+and your SSH tunnel. [Operator guide](docs/bootstrap/UBUNTU_BOOTSTRAP.md).
 
 See [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md) and [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md).
 
 ## Local development and Prompt 02 demo
 
-Requirements for the currently validated Prompt 02 development/demo path: **Node.js 24.10+ (24.x)**, local Git, macOS for confined engineering tests, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
+Requirements: **Node.js 24.10+ (24.x)**, Git, macOS Seatbelt or the bootstrapped Ubuntu Linux confinement adapter, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
 
 ```sh
 npm ci
@@ -65,13 +81,24 @@ State lives in `.data/company.sqlite`, with reports in `.data/artifacts/`, worke
 | --- | --- | --- |
 | `PORT` | `4310` | Loopback-only HTTP port |
 | `BOT_DATA_DIR` | `.data` in this repository | Persistent company database, workspaces and artifacts |
-| `CODEX_BIN` | `codex` on npm's PATH | Optional explicit binary; must be the validated version `0.142.4` |
+| `CODEX_BIN` | `codex` on npm's PATH | Optional explicit binary; must be the validated version `0.157.0` |
 | `BOT_MODEL` | Default advertised by Codex `model/list` | Optional advertised model ID; unavailable IDs fail closed |
 | `BOT_VALIDATION_DIR` | New timestamped directory under `.validation/` | Retained real-validation evidence; must be fresh |
 
-`npm` scripts resolve the pinned local CLI. A global/desktop CLI can differ. Preflight prints the effective version, authentication mode and model without credentials. This environment's advertised model is `gpt-5.5`; the adapter deliberately does not inherit an incompatible model name from a desktop configuration.
+`npm` scripts resolve the pinned local CLI. A global/desktop CLI can differ. Preflight prints the effective version, authentication mode and model without credentials. Model and reasoning choices come from the active runtime/account. No authoritative model list is hard-coded.
 
 Codex owns authentication and credential refresh. BotSquad does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains on the operator-controlled BotSquad host.
+
+## Worker AI settings
+
+Open a worker's inspector to choose its model, reasoning effort, scheduling priority
+and human lock. Inherit uses the company/runtime default; explicit unavailable
+choices fail visibly. The UI loads choices from Codex. Human settings override locks;
+bots cannot change profiles in this milestone. Changes apply to future executions.
+Execution history shows actual model, reasoning, priority and runtime version; legacy
+attempts remain unknown. Priority uses critical → high → normal → low, then FIFO.
+It cannot bypass authority, pause or concurrency limits. Continuous high-priority
+work can starve lower-priority tasks; adjust priorities when needed.
 
 ## Validate
 
@@ -106,7 +133,7 @@ observation deadline. Artifacts, SQLite/Git state and evidence remain under igno
 
 ## Current limits
 
-The currently implemented Prompt 02 surface is a single-owner local research and engineering milestone. Eight workers,
+The current surface is a single-owner self-hosted research and engineering milestone. Eight workers,
 three direct children per manager, two hierarchy edges, and two active executions
 globally. Atlas may delegate Product Manager/CTO profiles; CTO may delegate two
 engineers and one reviewer. Leaf roles cannot hire. One fixed SquadStatus template,
@@ -115,10 +142,11 @@ repository registration, shell, browser, Computer Use, network, remotes or publi
 
 Engineers use task-bound source/test/Git tools; their Codex runtime remains read-only.
 Source writes are limited to the assigned module and optional extra tests, 16 KB each.
-Test processes use macOS Seatbelt plus Node permissions, empty environment, ten-second
-timeout and bounded output. Tests cannot write files, spawn processes, signal host processes or use network.
-Unsupported test environments fail closed. This runner was validated with Homebrew
-Node on macOS ARM64; other platforms require a validated isolation adapter.
+Test processes use macOS Seatbelt or Linux bubblewrap namespaces/seccomp plus Node
+permissions, an empty environment, a ten-second timeout and bounded output. Tests
+cannot write files, spawn processes, signal host processes or use network. Linux
+reads expose only the product and required runtime libraries. Unsupported or missing
+confinement fails closed. Ubuntu bootstrap keeps global AppArmor protections enabled.
 
 Submission freezes the engineer's worktree. Grace can inspect exact diffs and focused
 evidence but cannot edit or integrate. Full tests run on a retained candidate before
@@ -127,7 +155,7 @@ advancement. Completed branches/worktrees stay retained; cleanup is manual futur
 
 Runtime approval requests are denied and preserved as `awaiting_approval`. There is no permission-granting approval workflow yet. **Retry inspected task** reruns the same authority envelope after you inspect prior attempts, artifacts and child tasks; it does not grant the rejected permission. Interrupted/ambiguous work is never automatically replayed. Missing/corrupt runtime sessions fail visibly rather than silently binding to another worker.
 
-Dynamic tools and environment controls are experimental and tied to Codex 0.142.4. Node's SQLite API emits an experimental warning in Node 24.10. HTTP checks Host/Origin and requires a session token for writes, but Prompt 02's local deployment is not isolation from a malicious process running as the same OS user. The Ubuntu HQ direction adds an OS/service boundary, with per-worker Unix identities deferred to a later milestone. There is no multi-user login, audit tamper-proofing against the file owner, artifact retention automation or large-history pagination.
+Dynamic tools and environment controls are experimental and tied to Codex 0.157.0. Node's SQLite API emits an experimental warning in Node 24.10. HTTP checks Host/Origin and requires a session token for writes, but this does not isolate malicious arbitrary processes sharing the service UID. Ubuntu adds a non-root service boundary; per-worker Unix identities remain deferred. There is no multi-user login, audit tamper-proofing against the file owner, artifact retention automation or large-history pagination.
 
 Temporary researchers accept one lifetime assignment and retire when it becomes terminal; persistent workers remain available. Retired workers cannot be retried. A child result already handed back to its manager cannot be reopened; assign a new objective for further work. Optional manager retirement and approval-request tools are not implemented. Ambiguous engineering/Git operations are blocked for inspection; this milestone does not automatically repair or replay them. General revision loops and trusted human approval grants remain future work.
 
@@ -148,3 +176,5 @@ No old worker thread is silently replaced. Keep the original directory for inspe
 - [Agent instructions](AGENTS.md)
 - [Prompt 01 execution plan](docs/exec-plans/prompt-01.md)
 - [Prompt 02 execution plan](docs/exec-plans/prompt-02.md)
+- [Prompt 03 execution plan](docs/exec-plans/prompt-03.md)
+- [Ubuntu implementation decision](docs/decisions/decision_010_ubuntu_hq_profiles.md)

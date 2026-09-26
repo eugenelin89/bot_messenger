@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 02 implemented; Ubuntu HQ is the accepted primary deployment direction
+**Status:** Product vision; Ubuntu HQ and worker AI profiles implemented, final Prompt 03 acceptance pending
 **Updated:** 2026-09-25
 
 ## One-sentence vision
@@ -261,7 +261,7 @@ Prompt 01 proves the smallest real organization loop:
 Prompt 02 extends this loop with Maya Product Manager, Turing CTO, two concurrent
 engineers in separate managed worktrees, Grace's independent exact-commit review,
 and trusted integration gated by full local tests. The validation product remains
-local and dependency-free. Trusted approval grants, priority changes, departments,
+local and dependency-free. Trusted approval grants, departments,
 external repositories and external actions remain future work.
 
 No autonomous spending or public external action is needed for this milestone.
@@ -328,7 +328,7 @@ The intended onboarding contract is deliberately small:
 
 Prompt 01/02's local macOS topology remains a development/regression path and historical validation source, not the intended permanent headquarters.
 
-Prompt 03 must also add per-worker AI profiles—model selection, reasoning effort, dispatcher priority and human locking—using models/settings actually advertised by the active Codex runtime. Human-visible Codex thread names should use friendly BotSquad/worker context rather than opaque worker IDs.
+Prompt 03 implements persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service and Linux deterministic tests pass; real Ubuntu acceptance remains tracked in the milestone validation record.
 
 Nix is reserved as the future ongoing DevOps worker after BotSquad is operational. The one-time bootstrap prompt solves initial installation before Nix exists.
 
