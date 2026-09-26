@@ -1167,30 +1167,30 @@ while authority, evidence, security boundaries, and human control remain explici
 
 Primary current-state references:
 
-- README
-- Current State
-- Access and Operations
-- System Architecture
-- Project Vision
-- AI Organization Model
-- Ubuntu HQ and Bootstrap Model
-- Prompt 03 Ubuntu Validation
-- Decision index
+- [README](../README.md)
+- [Current State](operations/CURRENT_STATE.md)
+- [Access and Operations](operations/ACCESS_AND_OPERATIONS.md)
+- [System Architecture](architecture/SYSTEM_ARCHITECTURE.md)
+- [Project Vision](product/PROJECT_VISION.md)
+- [AI Organization Model](product/AI_ORGANIZATION_MODEL.md)
+- [Ubuntu HQ and Bootstrap Model](product/UBUNTU_HQ_AND_BOOTSTRAP.md)
+- [Prompt 03 Ubuntu Validation](validation/prompt-03-ubuntu.md)
+- [Decision index](decisions/README.md)
 
 Future architecture references:
 
-- Roadmap
-- Native iOS Remote Client and Secure Remote Access
-- Computer Use Model
-- Multi-Company and Federation Model
-- External Identities and Telegram Integration
+- [Roadmap](product/ROADMAP.md)
+- [Native iOS Remote Client and Secure Remote Access](product/IOS_REMOTE_CLIENT.md)
+- [Computer Use Model](product/COMPUTER_USE_MODEL.md)
+- [Multi-Company and Federation Model](product/MULTI_COMPANY_AND_FEDERATION.md)
+- [External Identities and Telegram Integration](product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 
 Historical evidence:
 
-- Prompt 01 plan/validation
-- Prompt 02 plan/validation
-- Prompt 03 plan/validation
-- SquadStatus case study
+- [Prompt 01 plan](exec-plans/prompt-01.md) / [validation](validation/prompt-01.md)
+- [Prompt 02 plan](exec-plans/prompt-02.md) / [validation](validation/prompt-02.md)
+- [Prompt 03 plan](exec-plans/prompt-03.md) / [validation](validation/prompt-03-ubuntu.md)
+- [SquadStatus case study](examples/squadstatus-case-study.md)
 
 ---
 
