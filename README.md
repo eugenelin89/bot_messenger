@@ -368,6 +368,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 
 - [Current State](docs/operations/CURRENT_STATE.md)
 - [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md)
+- [Running Multiple BotSquad Instances](docs/operations/MULTIPLE_INSTANCES.md)
 - [Set Up a Minimal Ubuntu Host](docs/bootstrap/SETUP_UBUNTU_HOST.md)
 - [Ubuntu HQ Bootstrap](docs/bootstrap/UBUNTU_BOOTSTRAP.md)
 - [Prompt 03 Ubuntu Validation](docs/validation/prompt-03-ubuntu.md)
@@ -392,6 +393,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
 - [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md)
+- [Demo Operator and Guided Tutorials](docs/product/DEMO_OPERATOR.md)
 
 ### Examples and history
 
