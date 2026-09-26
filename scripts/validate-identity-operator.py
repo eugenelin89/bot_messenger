@@ -19,8 +19,8 @@ result = subprocess.run(['/usr/bin/python3', '/opt/botsquad/scripts/validate-wor
 assert result.returncode == 0, result.stderr
 isolation = json.loads(result.stdout)
 (report / 'isolation.json').write_text(json.dumps(isolation, indent=2))
-grace = next(w for w in state['workers'] if w['display_name'] == 'Grace')
-identity = next(i for i in state['infrastructure']['identities'] if i['worker_id'] == grace['worker_id'])
+worker = next(w for w in state['workers'] if w['display_name'] == 'Linus')
+identity = next(i for i in state['infrastructure']['identities'] if i['worker_id'] == worker['worker_id'])
 process = subprocess.Popen(['/usr/bin/sleep', '240'], user=identity['uid'], group=identity['gid'], extra_groups=[], env={'PATH':'/usr/bin:/bin'}, cwd='/', stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 try:
     assert Path('/proc/' + str(process.pid)).stat().st_uid == identity['uid']
@@ -33,7 +33,11 @@ try:
     retired = json.loads((report / 'retired-state.json').read_text())
     operation = next(o for o in retired['infrastructure']['operations'] if o['operation_type'] == 'disable_worker_identity')
     assert json.loads(operation['result'])['processes_signalled'] >= 1
-    evidence = dict(result='PASS',worker_id=grace['worker_id'],uid=identity['uid'],probe_pid=process.pid,exit_signal=9,operation_id=operation['operation_id'],history_preserved=True)
+    assert all(p['state'] == 'revoked' for p in retired['infrastructure']['projects'] if p['worker_id'] == worker['worker_id'])
+    assert Path(identity['home_path']).stat().st_uid == 0
+    denied = subprocess.run(['/usr/sbin/runuser','-u',identity['unix_username'],'--','/usr/bin/python3','-I','-c','import os,sys;os.listdir(sys.argv[1])',identity['home_path']],capture_output=True,text=True)
+    assert denied.returncode != 0 and 'PermissionError' in denied.stderr
+    evidence = dict(result='PASS',worker_id=worker['worker_id'],uid=identity['uid'],probe_pid=process.pid,exit_signal=9,operation_id=operation['operation_id'],history_preserved=True,project_access_revoked=True,home_preserved=True,retired_home_access_denied=True)
     (report / 'retirement-process.json').write_text(json.dumps(evidence, indent=2))
     print(json.dumps(dict(result='PASS',isolation_checks=len(isolation['checks']),retirement=evidence)))
 finally:

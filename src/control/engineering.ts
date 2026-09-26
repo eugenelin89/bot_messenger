@@ -221,6 +221,7 @@ export class Engineering {
       }
       case 'assign_engineering': {
         const args = strictObject(input, ['repository_id', 'calculate_worker_id', 'format_worker_id']);
+        if (this.company.infrastructure.linux) this.company.infrastructure.requireReadyNix();
         const repo = this.ownedRepository(actor, textField(args, 'repository_id', 100));
         const existing = this.allocations().filter(a => a.repository_id === repo.repository_id);
         requireThat(textField(args, 'calculate_worker_id', 100) !== textField(args, 'format_worker_id', 100), 'Engineering workers must differ');

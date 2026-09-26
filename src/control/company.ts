@@ -165,6 +165,7 @@ export class Company extends EventEmitter {
     return this.store.get<Message>('SELECT * FROM messages WHERE message_id=?', messageId)!;
   }
   assignObjective(input: TaskInput): Task {
+    if (this.infrastructure.linux && /\bSquadStatus\b/i.test(input.objective)) this.infrastructure.requireReadyNix();
     return this.store.transaction(() => {
       const atlas = this.initializeCEO();
       const task = this.createTask('human', atlas, input, null, /\bSquadStatus\b/i.test(input.objective) ? 'product' : 'research');

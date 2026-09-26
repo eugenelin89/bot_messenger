@@ -7,7 +7,9 @@ import { createServer } from 'node:net';
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { type Company } from '../src/control/company.js';
+import { Company } from '../src/control/company.js';
+import { Store } from '../src/persistence/store.js';
+import { acquireDataLock } from '../src/persistence/lock.js';
 import type { Task } from '../src/domain/model.js';
 
 type Snapshot = ReturnType<Company['snapshot']>;
@@ -184,14 +186,22 @@ try {
       while (!existsSync(join(dataDir,'operator-probes-complete')) && Date.now() < deadline) await sleep(300);
       assert.ok(existsSync(join(dataDir,'operator-probes-complete')), 'Operator probes did not finish before retirement');
     }
-    await api('infrastructure/request',{worker_id:team.Grace!.worker_id,operation_type:'disable_worker_identity',allocation_id:null});
-    const retired=await observe(s=>s.infrastructure.identities.find(i=>i.worker_id===team.Grace!.worker_id)?.state==='disabled' && s.tasks.every(t=>t.status==='completed'));
-    assert.equal(retired.workers.find(w=>w.worker_id===team.Grace!.worker_id)!.enabled,0);
+    await api('infrastructure/request',{worker_id:team.Linus!.worker_id,operation_type:'disable_worker_identity',allocation_id:null});
+    const retired=await observe(s=>s.infrastructure.identities.find(i=>i.worker_id===team.Linus!.worker_id)?.state==='disabled' && s.tasks.every(t=>t.status==='completed'));
+    assert.equal(retired.workers.find(w=>w.worker_id===team.Linus!.worker_id)!.enabled,0);
     assert.deepEqual(retired.reviews,complete.reviews); assert.deepEqual(retired.submissions,complete.submissions);
-    Object.assign(evidence,{retirement:{worker_id:team.Grace!.worker_id,identity:retired.infrastructure.identities.find(i=>i.worker_id===team.Grace!.worker_id),operations:retired.infrastructure.operations.filter(op=>op.operation_type==='disable_worker_identity'),history_preserved:true}});
+    Object.assign(evidence,{retirement:{worker_id:team.Linus!.worker_id,identity:retired.infrastructure.identities.find(i=>i.worker_id===team.Linus!.worker_id),operations:retired.infrastructure.operations.filter(op=>op.operation_type==='disable_worker_identity'),history_preserved:true}});
     writeFileSync(join(dataDir,'retired-state.json'),JSON.stringify(retired,null,2));
     await stop(); await launch(); await sleep(500); const afterRetirement=await api<Snapshot>('state');
     assert.deepEqual(afterRetirement.infrastructure,retired.infrastructure); assert.deepEqual(afterRetirement.executions,retired.executions);
+    await stop();
+    const unlock=acquireDataLock(dataDir); const store=new Store(join(dataDir,'company.sqlite'));
+    try {
+      const inspection=new Company(store,dataDir,root);
+      assert.throws(()=>inspection.createTask('human',inspection.worker(team.Linus!.worker_id),{objective:'Retired-worker denial probe',acceptance_criteria:'Must reject before persistence',constraints:'No execution'},null,'engineering'),/Worker is disabled/);
+      assert.deepEqual(inspection.snapshot().tasks,retired.tasks);
+      Object.assign(evidence.retirement,{new_assignment_rejected:true});
+    } finally { store.close();unlock(); }
   }
   writeFileSync(join(dataDir,'evidence.json'),JSON.stringify(evidence,null,2));writeFileSync(join(dataDir,'final-state.json'),JSON.stringify(restarted,null,2));
   console.log(`PASS: real engineering/review/integration/restart. Execution overlap ${overlap} ms; runtime-turn overlap ${turnOverlap} ms. Evidence: ${join(dataDir,'evidence.json')}`);

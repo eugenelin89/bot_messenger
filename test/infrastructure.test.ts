@@ -234,3 +234,14 @@ test('temporary-worker revocation reduces authority without erasing history and 
   assert.equal(f.company.infrastructure.identity(r.scout.worker_id).state, 'disabled'); assert.equal(f.company.artifacts(task.task_id).length, 1);
   f.company.infrastructure.processRevocations(); assert.equal(f.store.all('SELECT * FROM retirement_revocations').length, 1);
 });
+
+test('Linux product objectives require ready Nix before creating work; retained research remains available', async t => {
+  const f = fixture(); t.after(() => f.close());
+  const company = new Company(f.store, f.dir, process.cwd(), 'fake', {backend:'linux', request(){throw new Error('No host action expected');}});
+  assert.throws(() => company.assignObjective({...objective,objective:'Build SquadStatus'}), /Initialize and approve Nix/);
+  assert.equal(company.snapshot().tasks.length,0); assert.equal(company.workers().length,0);
+  assert.equal(company.assignObjective(objective).kind,'research');
+  f.company.initializeNix(); f.company.infrastructure.decide(decision(f.company.infrastructure.operations()[0]!));
+  assert.throws(() => company.assignObjective({...objective,objective:'Build SquadStatus'}), /Initialize and approve Nix/);
+  assert.equal(company.snapshot().tasks.length,1,'Development identities must not masquerade as Linux readiness');
+});

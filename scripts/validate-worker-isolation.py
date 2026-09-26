@@ -37,6 +37,7 @@ try:
         'provisioner_receipt_canary': canary(Path('/var/lib/botsquad-provisioner/receipts') / probe),
         'etc_botsquad_canary': canary(Path('/etc/botsquad') / probe),
         'botsquad_source_canary': canary(Path('/opt/botsquad') / probe),
+        'canonical_product_main': str(Path(state['repositories'][0]['canonical_root']) / 'src/calculate.mjs'),
     }
     homes = {}
     for name in ['Linus', 'Ada', 'Nix', 'Grace']:
@@ -71,9 +72,10 @@ try:
         evidence['checks'].append(dict(worker=name,scope='root_uid',denied=True))
         result = subprocess.run(['/usr/sbin/runuser','-u',identity['unix_username'],'--','/usr/bin/sudo','-n','/usr/bin/true'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         assert result.returncode != 0; evidence['checks'].append(dict(worker=name,scope='sudo',denied=True))
-        for path, label in [('/opt/botsquad/src/main.ts','botsquad_source'),('/etc/passwd','etc_write')]:
-            result = run_as(identity, 'import os,sys;sys.exit(0 if os.access(sys.argv[1],os.W_OK) else 1)',path)
-            assert result.returncode != 0; evidence['checks'].append(dict(worker=name,scope=label,denied=True))
+        for path, label in [('/opt/botsquad/src/main.ts','botsquad_source'),('/opt/botsquad-provisioner/provisioner.py','provisioner_code'),('/etc/passwd','etc_write')]:
+            result = run_as(identity, 'import sys;open(sys.argv[1],"r+").close()',path)
+            assert result.returncode != 0 and 'PermissionError' in result.stderr
+            evidence['checks'].append(dict(worker=name,scope=label,action='write_open',denied=True))
         assert not (Path(identity['home_path']) / '.ssh').exists()
         assert not (Path(identity['home_path']) / '.codex').exists()
     for name, other in [('Linus','Ada'),('Ada','Linus')]:

@@ -16,6 +16,10 @@ export class Infrastructure {
   constructor(readonly company: Company, readonly host: HostClient = defaultHost()) {}
   private get store() { return this.company.store; }
   get linux() { return this.host.backend === 'linux'; }
+  private identityReady(workerId: string) { const identity = this.identity(workerId); return identity.state === 'ready' && identity.backend === this.host.backend; }
+  requireReadyNix() {
+    requireThat(this.company.workers().some(w => w.role === 'devops' && w.enabled && this.identityReady(w.worker_id)), 'Initialize and approve Nix before starting Linux engineering');
+  }
   identity(workerId: string): OSIdentity {
     this.company.worker(workerId);
     return this.store.get<OSIdentity>('SELECT * FROM worker_os_identities WHERE worker_id=?', workerId) ?? {
@@ -64,7 +68,7 @@ export class Infrastructure {
     requireThat(reason.trim().length > 0 && reason.length <= 2000, 'Invalid infrastructure reason');
     if (actor) {
       requireThat(actor.worker.role === 'devops' && actor.task.kind === 'infrastructure' && actor.worker.enabled, 'Only Nix infrastructure tasks may request protected operations');
-      requireThat(this.identity(actor.worker.worker_id).state === 'ready', 'Nix requires a ready identity');
+      requireThat(this.identityReady(actor.worker.worker_id), 'Nix requires a ready identity on this backend');
       const task = this.store.get<InfraTask>('SELECT * FROM infrastructure_tasks WHERE task_id=?', actor.task.task_id);
       requireThat(task && task.target_worker_id === workerId && task.operation_type === type && (task.allocation_id ?? undefined) === allocationId, 'Infrastructure request differs from trusted task scope');
     } else requireThat(type === 'create_worker_identity' && this.company.worker(workerId).role === 'devops', 'Only initial Nix bootstrap may bypass Nix coordination');
@@ -91,7 +95,7 @@ export class Infrastructure {
   enqueue(workerId: string, type: ProtectedType = 'create_worker_identity', allocationId?: string) {
     const target = this.company.worker(workerId); requireThat(target.enabled, 'Worker is disabled');
     const nix = this.company.workers().find(w => w.role === 'devops' && w.enabled);
-    requireThat(nix && this.identity(nix.worker_id).state === 'ready', 'Initialize and approve Nix before requesting infrastructure');
+    requireThat(nix && this.identityReady(nix.worker_id), 'Initialize and approve Nix before requesting infrastructure');
     if (type === 'create_worker_identity' && this.identity(workerId).state !== 'unprovisioned') return;
     if (type === 'disable_worker_identity') this.assertRetirable(workerId);
     const existing = this.store.get<{ task_id: string }>("SELECT i.task_id FROM infrastructure_tasks i JOIN tasks t USING(task_id) WHERE i.target_worker_id=? AND i.operation_type=? AND i.allocation_id IS ? AND t.status NOT IN ('completed','failed','cancelled')", workerId, type, allocationId ?? null);
@@ -102,23 +106,23 @@ export class Infrastructure {
     return task;
   }
   onWorkerCreated(worker: Worker) {
-    if (this.linux && worker.role !== 'devops' && this.company.workers().some(w => w.role === 'devops' && this.identity(w.worker_id).state === 'ready')) this.enqueue(worker.worker_id);
+    if (this.linux && worker.role !== 'devops' && this.company.workers().some(w => w.role === 'devops' && this.identityReady(w.worker_id))) this.enqueue(worker.worker_id);
   }
   eligible(task: Task) {
     if (this.identity(task.assignee_worker_id).state === 'disabled') return false;
     if (task.kind === 'infrastructure') {
-      if (this.identity(task.assignee_worker_id).state !== 'ready') return false;
+      if (!this.identityReady(task.assignee_worker_id)) return false;
       const infra = this.store.get<InfraTask>('SELECT * FROM infrastructure_tasks WHERE task_id=?', task.task_id);
       if (!infra) return false;
-      if (infra.operation_type === 'prepare_worker_project_clone' && this.identity(infra.target_worker_id).state !== 'ready') return false;
+      if (infra.operation_type === 'prepare_worker_project_clone' && !this.identityReady(infra.target_worker_id)) return false;
     }
     if (!this.linux) return true;
-    if (['engineering','review'].includes(task.kind) && this.identity(task.assignee_worker_id).state !== 'ready') {
+    if (['engineering','review'].includes(task.kind) && !this.identityReady(task.assignee_worker_id)) {
       this.store.run("UPDATE tasks SET blocking_reason='Waiting for approved Linux identity' WHERE task_id=? AND status='queued'", task.task_id); return false;
     }
     if (task.kind === 'engineering') {
       const allocation = this.store.get<Allocation>('SELECT * FROM allocations WHERE task_id=?', task.task_id);
-      return !!allocation && this.project(allocation.allocation_id)?.state === 'ready' && this.company.engineering.allocations().filter(a => a.repository_id === allocation.repository_id).every(a => this.project(a.allocation_id)?.state === 'ready' && this.identity(a.worker_id).state === 'ready');
+      return !!allocation && this.project(allocation.allocation_id)?.state === 'ready' && this.company.engineering.allocations().filter(a => a.repository_id === allocation.repository_id).every(a => this.project(a.allocation_id)?.state === 'ready' && this.identityReady(a.worker_id));
     }
     return true;
   }
@@ -127,7 +131,7 @@ export class Infrastructure {
     return infra ? { ...infra, target: this.company.worker(infra.target_worker_id), identity: this.identity(infra.target_worker_id), operations: this.operations().filter(op => op.task_id === task.task_id).map(op => ({ ...op, parameters: JSON.parse(op.parameters) })) } : undefined;
   }
   execute(name: string, input: unknown, actor: Actor): unknown {
-    requireThat(actor.worker.role === 'devops' && actor.task.kind === 'infrastructure' && this.identity(actor.worker.worker_id).state === 'ready', 'Only ready Nix may use infrastructure tools');
+    requireThat(actor.worker.role === 'devops' && actor.task.kind === 'infrastructure' && this.identityReady(actor.worker.worker_id), 'Only ready Nix may use infrastructure tools');
     if (name === 'inspect_host_health') { strictObject(input, []); requireThat(actor.worker.capability_profile.includes('inspect_host_health'), 'Missing DevOps capability'); return this.host.request({ type: 'inspect_host_health' }); }
     const a = strictObject(input, name === 'inspect_worker_identity' ? [] : ['reason']);
     const infra = this.store.get<InfraTask>('SELECT * FROM infrastructure_tasks WHERE task_id=?', actor.task.task_id); requireThat(infra, 'Infrastructure scope missing');
@@ -143,7 +147,7 @@ export class Infrastructure {
     requireThat(op.preconditions === this.preconditions(op.operation_type, op.target_worker_id, parameters.allocation_id), 'Operation preconditions changed; request a new approval');
     if (op.requester_worker_id) {
       const requester = this.company.worker(op.requester_worker_id); const execution = this.company.execution(op.requesting_execution_id!); const task = this.company.task(op.task_id!);
-      requireThat(requester.enabled && requester.role === 'devops' && requester.principal_id === op.requester_principal_id && this.identity(requester.worker_id).state === 'ready', 'Requester is no longer authorized');
+      requireThat(requester.enabled && requester.role === 'devops' && requester.principal_id === op.requester_principal_id && this.identityReady(requester.worker_id), 'Requester is no longer authorized');
       requireThat(execution.worker_id === requester.worker_id && execution.task_id === task.task_id && task.assignee_worker_id === requester.worker_id && execution.status === 'completed' && task.status === 'awaiting_approval', 'Wait for Nix to finish requesting, or inspect changed task/execution');
       requireThat(!this.store.get('SELECT 1 FROM executions WHERE task_id=? AND rowid>(SELECT rowid FROM executions WHERE execution_id=?)', task.task_id, execution.execution_id), 'Requesting execution is stale');
       const infra = this.store.get<InfraTask>('SELECT * FROM infrastructure_tasks WHERE task_id=?', task.task_id);
