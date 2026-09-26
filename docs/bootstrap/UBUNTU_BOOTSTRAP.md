@@ -129,7 +129,7 @@ permissions. Only the read-only product and runtime libraries are visible; write
 network sockets, process clones, host signals, namespace escape and protected Git
 metadata are denied. Tests remain bounded to 10 seconds and captured output.
 
-Prompt 04 adds Nix, worker Unix identities/clones and exact-scope infrastructure
+Prompt 04 added Nix, worker Unix identities/clones and exact-scope infrastructure
 approvals. General remote fleets, financial authority, customer deployment and
 Computer Use remain future milestones. Development identities are simulated and
 make no Linux isolation claim.
