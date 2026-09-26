@@ -398,3 +398,34 @@ authenticated app connection.
 
 See [Native iOS Remote Client and Secure Remote Access](IOS_REMOTE_CLIENT.md) and
 [Decision 012](../decisions/decision_012_ios_remote_client.md).
+
+
+## Canonical prompt roadmap
+
+The earlier M1–M7 capability list above is the project's original capability framing.
+The current implementation plan is now tracked by numbered prompts in the
+[BotSquad Roadmap](ROADMAP.md).
+
+Current canonical sequence:
+
+| Prompt | Milestone | Status |
+| --- | --- | --- |
+| 01 | Persistent workers, tasks, Codex runtime, research loop | Complete |
+| 02 | Managed engineering organization and independent review | Complete |
+| 03 | Ubuntu HQ, Linux confinement, worker AI profiles | Complete |
+| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Next |
+| 05 | Generalized projects and repository lifecycle | Planned |
+| 06 | Stable authenticated remote-client API and device identity | Planned |
+| 07 | Native iOS Remote MVP | Planned |
+| 08 | Bounded Computer Use | Planned |
+| 09 | Multi-company support on one HQ | Planned |
+| 10 | Company-to-company collaboration | Planned |
+| 11 | External identities and Telegram integration | Planned |
+| 12 | Cross-HQ federation | Planned |
+| 13+ | Broader operating capabilities | Later |
+
+Prompt numbering should remain stable unless a later explicit roadmap update changes it.
+
+The sequence is intentionally dependency-driven: stronger approval, operating-system,
+and project boundaries are established before broader remote access, Computer Use,
+multi-company communication, or external identities.
