@@ -1,8 +1,12 @@
 # Ubuntu HQ bootstrap
 
-Prompt 03 is implemented and validated. Real acceptance results are recorded in
-[the validation record](../validation/prompt-03-ubuntu.md). Ubuntu HQ is the primary
-self-hosted deployment. The workstation provides SSH, administration and development.
+Prompt 03 established and validated the Ubuntu HQ. Prompt 04 extended that deployment
+with Nix, exact-scope trusted approvals, a narrow root provisioner, private per-worker
+Unix identities and independent engineering clones. See the
+[Prompt 04 validation record](../validation/prompt-04-linux-identity.md) for the current
+acceptance baseline and the [Prompt 03 record](../validation/prompt-03-ubuntu.md) for the
+historical Ubuntu baseline. Ubuntu HQ remains the primary self-hosted deployment; the
+workstation provides SSH, administration and development.
 
 ## Operator quick links
 
@@ -15,8 +19,9 @@ self-hosted deployment. The workstation provides SSH, administration and develop
 
 Dedicated Ubuntu 24.04 x86_64, working SSH alias, Internet access for Ubuntu packages,
 GitHub, Node and npm, and root or passwordless sudo. A 1-vCPU/2-GB/50-GB host with
-2 GiB swap passed the bounded Prompt 03 light-duty workload at two active executions;
-see the validation record before applying that sizing to larger work. No provider API
+2 GiB swap has passed both the bounded Prompt 03 workload and the Prompt 04
+worker-identity/engineering acceptance at two active executions; see the validation
+records before applying that sizing to larger work. No provider API
 or hard-coded address is used. Existing conflicting paths/accounts fail clearly.
 
 Run [the bootstrap prompt](../../prompts/bootstrap-ubuntu.md), or inspect and invoke:
