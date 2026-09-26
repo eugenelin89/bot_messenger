@@ -79,6 +79,9 @@ if [[ ! -d /opt/botsquad/.git ]]; then git clone https://github.com/eugenelin89/
 git -C /opt/botsquad fetch origin
 git -C /opt/botsquad cat-file -e "${revision}^{commit}"
 git -C /opt/botsquad merge-base --is-ancestor HEAD "$revision" || { echo 'Requested update does not preserve deployed history' >&2; exit 1; }
+# Never replace dependencies or build files beneath a running dispatcher.
+# Graceful shutdown retains interrupted work for inspection; it does not replay it.
+if systemctl is-active --quiet botsquad.service; then systemctl stop botsquad.service; fi
 git -C /opt/botsquad checkout --detach "$revision"
 cd /opt/botsquad
 npm ci --ignore-scripts --no-audit --no-fund

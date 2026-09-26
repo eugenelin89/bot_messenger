@@ -1,13 +1,13 @@
 # Execution Plan — Prompt 03: Ubuntu HQ and worker AI profiles
 
-**Status:** Active  
+**Status:** Awaiting human service-account authorization; independent setup/validation complete
 **Owner:** Codex task 01a0db2e-25ef-7d21-9950-0a35ef034ff4, sole writer  
 **Branch:** feature/prompt-03-ubuntu-hq  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-26 00:47 UTC  
 **Starting origin/main:** 2239be6304495d583053f4ffabd8e900d4fb63f6  
 **Initial ETA:** 45–90 minutes before reading the attachment; revised to 5–8 hours after full scope review.  
-**Current ETA:** 1.5–3 hours remaining at 01:26 UTC, excluding human authorization wait.
+**Current ETA:** 1–2 hours after service-account authorization, plus 10–20 minutes of independent recovery work at 01:41 UTC, excluding human authorization wait.
 
 ## Objective and scope
 
@@ -69,7 +69,8 @@ Record all unexercised gates honestly; incomplete acceptance must not merge to m
 
 Implementation, initial bootstrap and deterministic Linux/macOS checks are complete.
 Service-account Codex login was requested after setup; human authorization is pending.
-Live Ubuntu workflow/resource, restart/reboot/idempotency and final integration gates remain.
+Live Ubuntu workflow/resource/completed-work replay and final integration gates remain.
+Non-model reboot, service persistence and same-revision bootstrap preservation pass.
 Do not transfer local auth files or merge incomplete acceptance to main.
 
 ## Documentation freshness and handoff
@@ -96,3 +97,19 @@ restart/reboot/idempotency and final deployed/main equality.
   non-root service reports exact b99f2a0 deployment with private loopback UI.
   Mac real CEO → Scout → CEO, persisted resume and interruption pass on Codex 0.157.0.
   Human service-account login pending; preparing validation under production systemd restrictions.
+
+- 01:36 UTC: full systemd-restricted validation exposed a procfs mount conflict.
+  Resolved by omitting procfs, retaining PID isolation and all kernel protections.
+  Hardened suite passed 60/60; bootstrap now gates startup on the same unit restrictions.
+  Retained failed runs document the AppArmor, temporary-directory and procfs findings.
+- 01:41 UTC: bounded reboot activated kernel 6.8.0-142-generic. New boot ID confirmed;
+  service auto-started as UID 997; Atlas/message/pause and the single swap entry survived.
+  Model authentication is still pending, so no real Ubuntu execution is claimed.
+- Security review also requires stopping the dispatcher before replacing source/build
+  or dependencies during an update. Interrupted work remains inspectable and is not replayed.
+
+- 01:45 UTC: same-SHA bootstrap after reboot passed the hardened 60-test suite;
+  comparison preserved company records, identity, permissions, pause and single swap.
+  Human service-account Codex authorization remains the sole external blocker.
+  All available noninteractive setup, security review and deterministic checks are complete.
+  Do not merge to main or certify sizing until real Ubuntu model acceptance passes.

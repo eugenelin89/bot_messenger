@@ -1,0 +1,101 @@
+{
+  "status": "partial acceptance; Ubuntu Codex authorization pending",
+  "tested_feature_commit": "1352d8f4068fc4855f44be5e7083a4be634ebfd7",
+  "codex_version": "0.157.0",
+  "node_version": "24.21.0",
+  "bootstrap_repeat_pass": true,
+  "reboot_pass": true,
+  "production_tasks": 0,
+  "production_executions": 0,
+  "atlas_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+  "message_id": "message_e7afeba9-3042-48d5-b79d-b944cb5d522b",
+  "preserved_pause": true,
+  "host": {
+    "kernel": {
+      "exit": 0,
+      "output": "6.8.0-142-generic"
+    },
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "degraded",
+      "version": "0.1.0",
+      "commit": "1352d8f4068fc4855f44be5e7083a4be634ebfd7"
+    },
+    "account": {
+      "exit": 0,
+      "output": "uid=997(botsquad) gid=987(botsquad) groups=987(botsquad)"
+    },
+    "paths": {
+      "/opt/botsquad": {
+        "uid": 0,
+        "gid": 0,
+        "mode": "0o755"
+      },
+      "/var/lib/botsquad": {
+        "uid": 997,
+        "gid": 987,
+        "mode": "0o700"
+      },
+      "/var/lib/botsquad/.codex": {
+        "uid": 997,
+        "gid": 987,
+        "mode": "0o700"
+      },
+      "/opt/botsquad-runtime/bwrap": {
+        "uid": 0,
+        "gid": 987,
+        "mode": "0o750"
+      },
+      "/swapfile-botsquad": {
+        "uid": 0,
+        "gid": 0,
+        "mode": "0o600"
+      }
+    },
+    "memory": {
+      "exit": 0,
+      "output": "total        used        free      shared  buff/cache   available\nMem:         2015212      354104      558656        4116     1268436     1661108\nSwap:        2097148           0     2097148"
+    },
+    "load": "0.34 0.32 0.15 1/139 4367",
+    "disk": {
+      "exit": 0,
+      "output": "Filesystem     1024-blocks    Used Available Capacity Mounted on\n/dev/vda1         49691512 5291592  44383536      11% /"
+    },
+    "swap": {
+      "exit": 0,
+      "output": "NAME               TYPE       SIZE USED PRIO\n/swapfile-botsquad file 2147479552    0   -2"
+    },
+    "swap_fstab_lines": [
+      "/swapfile-botsquad none swap sw 0 0"
+    ],
+    "service": {
+      "exit": 0,
+      "output": "MainPID=4163\nNRestarts=0\nMemoryCurrent=19771392\nUser=botsquad\nActiveState=active"
+    },
+    "service_enabled": {
+      "exit": 0,
+      "output": "enabled"
+    },
+    "live_process": {
+      "exit": 0,
+      "output": "4163   997   987 65884  0.3 MainThread"
+    },
+    "listener": {
+      "exit": 0,
+      "output": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nLISTEN 0      511        127.0.0.1:4310      0.0.0.0:*    users:((\"MainThread\",pid=4163,fd=24))"
+    },
+    "global_userns_restriction": "1",
+    "dpkg_audit": {
+      "exit": 0,
+      "output": ""
+    }
+  },
+  "pending": [
+    "service-account Codex authentication",
+    "Ubuntu catalog and real Prompt 01/02 workflows",
+    "real concurrent worker resource and replay evidence",
+    "main integration and final-main deployment"
+  ]
+}

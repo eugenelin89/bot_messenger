@@ -93,6 +93,10 @@ model task. A missing login leaves the UI usable with degraded runtime status.
 
 Rerun the installer with the exact desired descendant commit to update. It preserves
 operator environment overrides, credentials, company state and the single swap entry.
+Updates stop the service before changing source/dependencies and restart it only after
+the hardened validation gate passes. Schedule updates while idle: interrupted work is
+retained for inspection, never automatically replayed. A failed update remains visibly
+stopped until repaired; automatic rollback across database migrations is not attempted.
 Back up the full `/var/lib/botsquad` while stopped; it includes sensitive Codex state,
 so use operator-controlled protected backup storage. Do not commit backups.
 
