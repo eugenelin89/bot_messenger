@@ -1,6 +1,6 @@
 # Set Up a Minimal Ubuntu Host for BotSquad
 
-**Status:** Pre-bootstrap operator guide  
+**Status:** Validated Prompt 03 host-preparation guide  
 **Audience:** Anyone preparing a machine for the BotSquad Ubuntu bootstrap prompt
 
 ## Goal
@@ -67,9 +67,9 @@ Idle workers do not continuously consume model execution or CPU, so do not buy a
 
 ## 2. Use a supported Ubuntu release
 
-Choose a current Ubuntu LTS image unless BotSquad documentation explicitly lists another validated release.
+BotSquad's currently certified Linux deployment is **Ubuntu 24.04 LTS on x86_64**.
 
-For the first Prompt 03 acceptance host, use the Ubuntu LTS version selected by that implementation and record its exact version.
+Use Ubuntu 24.04 x86_64 for a new BotSquad HQ unless newer project documentation explicitly expands the supported contract.
 
 Prefer a fresh VM.
 
@@ -145,7 +145,7 @@ For initial BotSquad setup, inbound access normally needs only:
 
 Do not expose BotSquad port 4310 publicly.
 
-The planned BotSquad Ubuntu architecture keeps the UI on:
+The validated BotSquad Ubuntu deployment keeps the UI on:
 
     127.0.0.1:4310
 
@@ -180,7 +180,7 @@ Some providers create a non-root administrative account instead. That is also fi
 
 ## 6. Create a friendly local SSH alias
 
-The alias is the only server identifier the future BotSquad bootstrap prompt should need.
+The alias is the only server identifier the BotSquad bootstrap prompt should need.
 
 Open or create:
 
@@ -261,7 +261,7 @@ This makes installations reproducible and supportable.
 
 ## 9. Run the BotSquad bootstrap prompt
 
-After Prompt 03 implements it, open:
+From your local BotSquad checkout, open:
 
     prompts/bootstrap-ubuntu.md
 
@@ -411,7 +411,10 @@ The expected BotSquad service should listen on loopback rather than a public add
 8. Installation should be reproducible and idempotent.
 9. BotSquad-specific setup belongs to the bootstrap, not undocumented manual steps.
 
-For the planned architecture and acceptance requirements, see:
+For the implemented architecture, operations, and acceptance evidence, see:
 
 - [Ubuntu HQ and Bootstrap Model](../product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md)
+- [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
+- [Current State](../operations/CURRENT_STATE.md)
+- [Prompt 03 validation](../validation/prompt-03-ubuntu.md)
