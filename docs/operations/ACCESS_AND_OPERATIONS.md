@@ -99,7 +99,7 @@ Expected binding:
 127.0.0.1:4310
 ```
 
-A public `0.0.0.0:4310` listener is not the intended Prompt 03 configuration.
+A public `0.0.0.0:4310` listener is not the supported current configuration; Prompt 03 established and Prompt 04 retained the loopback-only UI boundary.
 
 ## View recent logs
 
@@ -177,8 +177,8 @@ These are not equivalent.
 
 Pausing does not undo actions that already happened.
 
-The Prompt 03 acceptance HQ was intentionally handed off with production dispatch
-paused. That is an operator handoff choice, not a requirement for every fresh install.
+The current accepted HQ remains intentionally handed off with production dispatch
+paused after Prompt 04. That is an operator handoff choice, not a requirement for every fresh install.
 
 Before resuming an existing HQ, inspect queued/blocked/awaiting-approval work in the UI.
 
@@ -315,7 +315,7 @@ After the machine returns:
 ssh botsquad 'systemctl is-active botsquad && curl -fsS http://127.0.0.1:4310/api/health'
 ```
 
-Prompt 03 acceptance validated reboot recovery on Ubuntu 24.04 x86_64.
+Prompt 03 established reboot recovery on Ubuntu 24.04 x86_64, and Prompt 04 revalidated reboot recovery with the provisioner, worker identities, approvals and revoked access preserved.
 
 ## Troubleshooting
 
@@ -371,5 +371,7 @@ Run the real-model scenarios only when you intentionally want to consume Codex u
 - [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md)
 - [Set Up a Minimal Ubuntu Host](../bootstrap/SETUP_UBUNTU_HOST.md)
 - [System Architecture](../architecture/SYSTEM_ARCHITECTURE.md)
-- [Prompt 03 Validation](../validation/prompt-03-ubuntu.md)
-- [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md)
+- [Prompt 04 Validation](../validation/prompt-04-linux-identity.md)
+- [Decision 013 — Trusted worker infrastructure](../decisions/decision_013_trusted_worker_infrastructure.md)
+- [Prompt 03 Historical Validation](../validation/prompt-03-ubuntu.md)
+- [Decision 011 — Ubuntu HQ and worker AI profiles](../decisions/decision_011_ubuntu_hq_profiles.md)
