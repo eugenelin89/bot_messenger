@@ -36,7 +36,7 @@ All service children are terminated on stop. Journald owns service logs.
 
 Preserve the macOS Seatbelt adapter. Linux x86_64 uses a root-owned, service-group-only
 bubblewrap binary with mount/user/PID/network/IPC/UTS namespaces, dropped capabilities,
-read-only product/runtime mounts, hidden Git metadata, an empty environment, seccomp
+read-only product/runtime mounts, hidden Git metadata, an empty `/proc`, an empty environment, seccomp
 and Node permissions. Ubuntu 24.04 AppArmor grants userns admission only to that
 specific executable. Global `apparmor_restrict_unprivileged_userns=1` remains enabled.
 
@@ -46,7 +46,10 @@ and other escape mechanisms. clone3 returns ENOSYS so libc can create permitted 
 threads with clone. Node denies arbitrary filesystem reads, addons, workers and child
 process APIs. Ten-second deadlines and output limits remain. Missing or failed
 confinement never falls back to ordinary execution. Other Linux architectures are
-not yet certified.
+not yet certified. A fresh procfs mount failed under the service kernel protections;
+the bounded Node runner needs no procfs, so it omits that mount while retaining PID
+isolation. Production kernel protections stay enabled. Bootstrap gates startup on
+the full deterministic suite under the installed systemd restrictions.
 
 The AppArmor admission policy is not itself the product sandbox. The executable is
 not setuid, grants no sudo, and is writable only by root. OS namespaces/mounts/seccomp

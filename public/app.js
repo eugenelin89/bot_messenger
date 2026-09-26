@@ -104,7 +104,7 @@ async function inspectWorker(id) {
   const last = [...state.executions].reverse().find(e => e.worker_id === id && e.provenance_status === 'recorded');
   inspect(`${w.display_name} — ${w.title}`, '<p>Loading runtime model choices…</p>');
   let catalog;
-  try { catalog = await request('runtime'); } catch (error) { inspect(`${w.display_name} — ${w.title}`, `${details(w)}<p>Runtime discovery failed. Check Codex authentication and preflight before changing the AI profile.</p>`); showError(error); return; }
+  try { catalog = await request('runtime'); } catch (error) { inspect(`${w.display_name} — ${w.title}`, `<p role="alert">Runtime discovery failed. Complete Codex sign-in on the headquarters host, then reopen these settings.</p>${details({ state:w.status, role:w.role, model:w.ai_model ?? "inherit", reasoning:w.reasoning_effort ?? "inherit", priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? "Not run", last_effective_reasoning:last?.reasoning_effort ?? "Not run", thread_name:binding?.thread_name ?? "Not started" })}`); showError(error); return; }
   if (!$('#inspect').open) return;
   const option = (value, label, selected) => `<option value="${escape(value)}"${selected ? ' selected' : ''}>${escape(label)}</option>`;
   const models = [option('', `Inherit (${catalog.defaultModel})`, w.ai_model === null), ...catalog.models.map(m => option(m.model, m.displayName, m.model === w.ai_model))];

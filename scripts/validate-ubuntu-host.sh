@@ -3,6 +3,8 @@
 set -euo pipefail
 [[ $EUID -eq 0 ]] || { echo 'Run as root on the Ubuntu acceptance host' >&2; exit 1; }
 mode=${1:?Usage: validate-ubuntu-host.sh deterministic|prompt01|engineering}
+wait_mode=${2:-}
+[[ -z $wait_mode || $wait_mode == --wait ]] || exit 2
 case "$mode" in
   deterministic) command='node --test dist/test/*.test.js' ;;
   prompt01) command='node dist/scripts/real-e2e.js' ;;
@@ -14,6 +16,7 @@ if systemctl is-active --quiet "$unit"; then echo 'This validation is already ac
 stamp=$(date -u +%Y%m%dT%H%M%SZ)
 report=/var/lib/botsquad/validation/${mode}-${stamp}
 runner=/run/botsquad-validation-${mode}
+[[ ! -e $report ]] || { echo 'Validation directory already exists; preserve prior evidence' >&2; exit 1; }
 install -d -o botsquad -g botsquad -m 700 "$report"
 install -d -o root -g root -m 755 "$runner"
 cat > "$runner/run" <<EOF
@@ -40,3 +43,8 @@ printf 'RuntimeMaxSec=30min\n' >> "/run/systemd/system/$unit.service"
 systemctl daemon-reload
 systemctl start "$unit"
 printf 'Unit: %s\nEvidence: %s\n' "$unit" "$report"
+if [[ $wait_mode == --wait ]]; then
+  while systemctl is-active --quiet "$unit"; do sleep 1; done
+  tail -n 12 "$report/console.log"
+  [[ -f $report/exit-code && $(cat "$report/exit-code") == 0 ]]
+fi
