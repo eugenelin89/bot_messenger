@@ -208,11 +208,9 @@ A future authenticated/public or VPN-based access model is separate work.
 
 ## Linux isolation
 
-Prompt 02's engineering test confinement is macOS-specific. Prompt 03 must not claim Ubuntu support merely because Node and Codex start successfully.
+Prompt 02's original engineering test confinement was macOS-specific. Prompt 03 therefore required—and implemented—a separately validated Linux isolation path before engineering could be considered supported on Ubuntu.
 
-Prompt 03 must implement and validate a Linux isolation path before engineering is considered supported on Ubuntu.
-
-The implementation should evaluate the supported Codex/Linux sandbox facilities and OS primitives actually available on the target, for example:
+The current Ubuntu implementation uses the supported Codex/Linux sandbox facilities and OS primitives actually available on the target, including:
 
 - Unix user isolation;
 - filesystem ownership/permissions;
@@ -223,7 +221,7 @@ The implementation should evaluate the supported Codex/Linux sandbox facilities 
 - bounded process execution;
 - per-worker/project scope.
 
-Do not reproduce macOS Seatbelt semantics by name. Establish equivalent requirements and validate them on Ubuntu.
+The Linux path establishes equivalent security requirements rather than pretending to reproduce macOS Seatbelt semantics by name.
 
 There must be no unsandboxed fallback silently used when a required engineering isolation gate fails.
 
@@ -329,9 +327,9 @@ Privileged actions should be implemented through trusted typed operations.
 
 ## AI profile per worker
 
-Prompt 03 must make model/runtime policy first-class per worker.
+Prompt 03 made model/runtime policy first-class per worker.
 
-Each worker should have an AI profile with at least:
+Each worker now has an AI profile with at least:
 
 ```text
 model
@@ -423,14 +421,14 @@ Worker ID remains the durable identity key.
 
 Current BotSquad was validated with a pinned Codex CLI/App Server version.
 
-Prompt 03 is a platform/runtime migration and must explicitly:
+Prompt 03 was the platform/runtime migration and explicitly:
 
-1. inspect the current supported Codex runtime on Ubuntu;
-2. determine whether the existing pin should remain or be upgraded;
-3. verify App Server protocol/tool compatibility;
-4. discover advertised models and reasoning options;
-5. rerun runtime identity, sandbox, tool confinement, resume, interrupt and real-worker tests;
-6. update the pin only with evidence.
+1. inspected the supported Codex runtime on Ubuntu;
+2. determined whether the existing pin should remain or be upgraded;
+3. verified App Server protocol/tool compatibility;
+4. discovered advertised models and reasoning options;
+5. reran runtime identity, sandbox, tool confinement, resume, interrupt and real-worker tests;
+6. updated the pin only with evidence.
 
 Do not simply install an arbitrary latest version and assume compatibility.
 
@@ -438,7 +436,7 @@ Do not blindly preserve the old pin if it blocks supported Ubuntu/current-model 
 
 ## Bootstrap artifacts
 
-Prompt 03 should leave a reproducible installation path in the repository.
+Prompt 03 left a reproducible installation path in the repository, and Prompt 04 extends that installer with the trusted provisioner and worker-identity infrastructure.
 
 Expected artifacts may include:
 
@@ -502,9 +500,9 @@ The prompt and implementation must:
 - report unsupported/ambiguous host state instead of guessing;
 - never disable security controls merely to make validation pass.
 
-## Acceptance target for Prompt 03
+## Historical acceptance target for Prompt 03
 
-A successful Prompt 03 demonstration should start from a fresh supported Ubuntu target reachable through an SSH alias and prove:
+The successful Prompt 03 demonstration started from a fresh supported Ubuntu target reachable through an SSH alias and proved:
 
 1. the bootstrap prompt can connect without receiving raw SSH private-key material;
 2. target compatibility is checked;
@@ -527,5 +525,6 @@ A successful Prompt 03 demonstration should start from a fresh supported Ubuntu 
 The concrete installer/service/Linux/profile choices are in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md); operational steps are in [Ubuntu bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md). Manager-requested AI profiles are deferred; trusted human configuration is implemented.
 
 Prompt 03 established Ubuntu HQ, confinement, reproducible bootstrap and per-worker
-AI profiles. Prompt 04 adds Nix and worker Unix-account lifecycle while preserving
-those boundaries. The canonical roadmap tracks final acceptance separately.
+AI profiles. Prompt 04 added and validated Nix, exact-scope approvals, the narrow root
+provisioner and worker Unix-account/clone lifecycle while preserving those boundaries.
+Prompt 05 is the next canonical milestone.
