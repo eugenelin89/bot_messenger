@@ -37,6 +37,12 @@ The Prompt 03 runtime acceptance baseline is
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
 
+For the numbered implementation sequence, see the
+[BotSquad Roadmap](docs/product/ROADMAP.md).
+
+For the architecture and design rationale in one place, see the
+[BotSquad Technical White Paper](docs/WHITEPAPER.md).
+
 ## Architecture at a glance
 
 ```text
@@ -355,6 +361,9 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Prompt 03 Ubuntu Validation](docs/validation/prompt-03-ubuntu.md)
 
 ### Architecture and product
+
+- [BotSquad Roadmap](docs/product/ROADMAP.md)
+- [Technical White Paper](docs/WHITEPAPER.md)
 
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Project Vision](docs/product/PROJECT_VISION.md)
