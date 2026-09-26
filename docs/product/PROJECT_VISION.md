@@ -355,3 +355,46 @@ Prompt 03 implements persisted per-worker model, reasoning, priority and human l
 Nix is reserved as the future ongoing DevOps worker after BotSquad is operational. The one-time bootstrap prompt solves initial installation before Nix exists.
 
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
+
+
+## Native mobile operator client
+
+BotSquad should eventually support a native iPhone/iPad application as a first-class
+operator client.
+
+The native app should provide mobile access to company status, workers, tasks,
+executions, messages, model/reasoning/priority settings, and trusted approvals without
+requiring the operator to manually establish an SSH tunnel for ordinary use.
+
+The architectural model is:
+
+~~~text
+BotSquad Core
+   |
+   +-- stable authenticated client API
+   |      +-- Web UI
+   |      +-- iOS app
+   |      +-- future clients
+   |
+   +-- secure remote-access transport
+~~~
+
+The native app does not scrape or wrap the existing web UI. It uses the same trusted
+control-plane operations as the web client.
+
+Remote connectivity should preserve the private-HQ model. Supported/future transports
+may include private VPN/LAN access, the existing SSH tunnel for administration/recovery,
+and a future outbound relay that avoids opening the BotSquad application port to the
+public Internet.
+
+A future relay should route traffic rather than become the source of company truth or
+authorization. End-to-end encryption through the relay is a design goal that requires a
+separate reviewed protocol before it can be claimed.
+
+Mobile devices must be explicitly paired, independently revocable, attributable to a
+human principal, and protected with device-specific credentials. Push notifications
+should carry minimal non-sensitive metadata and fetch authoritative detail only after
+authenticated app connection.
+
+See [Native iOS Remote Client and Secure Remote Access](IOS_REMOTE_CLIENT.md) and
+[Decision 012](../decisions/decision_012_ios_remote_client.md).
