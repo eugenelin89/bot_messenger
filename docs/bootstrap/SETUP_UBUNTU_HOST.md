@@ -20,7 +20,7 @@ The finish line for this guide is simply:
 
 opens a shell on the Ubuntu machine.
 
-After that, the checked-in BotSquad bootstrap prompt should perform the BotSquad-specific setup.
+After that, the checked-in BotSquad bootstrap prompt performs the BotSquad-specific setup.
 
 ## This can be any Ubuntu machine
 
@@ -259,7 +259,19 @@ The bootstrap process should own these steps.
 
 This makes installations reproducible and supportable.
 
-## 9. Run the BotSquad bootstrap prompt
+## 9. Clone BotSquad on your workstation
+
+You need a local checkout because the checked-in Codex prompt and reproducible installer
+live in the repository:
+
+    git clone https://github.com/eugenelin89/bot_messenger.git
+    cd bot_messenger
+    git fetch origin
+
+The checkout stays on your workstation during initial bootstrap. Codex uses your normal
+SSH configuration to configure the remote Ubuntu machine.
+
+## 10. Run the BotSquad bootstrap prompt
 
 From your local BotSquad checkout, open:
 
@@ -294,7 +306,28 @@ The bootstrap should:
 
 If official Codex login/device authorization requires human interaction, complete that one-time login when prompted.
 
-## 10. Open the BotSquad UI
+## 11. Complete the one-time Codex login
+
+The bootstrap will tell you when the Ubuntu `botsquad` service account needs its
+ChatGPT/Codex authorization.
+
+Generic command:
+
+    ssh -t botsquad-hq 'sudo -u botsquad env HOME=/var/lib/botsquad CODEX_HOME=/var/lib/botsquad/.codex PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin /opt/botsquad/node_modules/.bin/codex login --device-auth'
+
+Replace `botsquad-hq` with your SSH alias.
+
+Complete the browser authorization privately.
+
+If ChatGPT rejects device-code sign-in, enable the available device-code authentication
+setting in ChatGPT Security settings, or ask the relevant workspace administrator to
+enable device-code authentication.
+
+Never share a device code or paste it into an issue/chat; device codes can be phished.
+
+Then continue the bootstrap/validation instructions.
+
+## 12. Open the BotSquad UI
 
 BotSquad should not initially expose its UI directly to the Internet.
 
@@ -314,7 +347,7 @@ Then browse to:
 
 The browser connection is forwarded securely to BotSquad on the Ubuntu host.
 
-## 11. Minimum readiness checklist
+## 13. Minimum readiness checklist
 
 Before starting the bootstrap prompt:
 
@@ -418,3 +451,10 @@ For the implemented architecture, operations, and acceptance evidence, see:
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Current State](../operations/CURRENT_STATE.md)
 - [Prompt 03 validation](../validation/prompt-03-ubuntu.md)
+
+
+## Next documents
+
+- [Ubuntu HQ Bootstrap](UBUNTU_BOOTSTRAP.md)
+- [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
+- [Current State](../operations/CURRENT_STATE.md)
