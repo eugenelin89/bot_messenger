@@ -529,7 +529,7 @@ human updates. Priority reorders eligible work; it never grants capabilities, by
 pause or expands the two-execution global limit. New Codex threads use friendly names
 while UUID/workspace/thread bindings remain the identity boundary.
 
-Ubuntu HQ retains one trusted botsquad control-plane/Codex account. Prompt 04 adds
+Ubuntu HQ retains one trusted botsquad control-plane/Codex account. Prompt 04 added
 private Unix identities for worker-owned actions; credentials remain central. See
 Decision 013 for the exact implemented boundary. The CEO may have Nix as a fourth
 child; all other manager, hierarchy, concurrency and company limits stay unchanged.
