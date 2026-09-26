@@ -353,7 +353,7 @@ def worker_main():
                 stream.write(data)
         check(bundle.is_file() and not bundle.is_symlink() and bundle.stat().st_nlink == 1 and bundle.read_bytes() == data, 'Seed bundle changed')
         if not root.exists():
-            git(home, ['clone', '--no-hardlinks', '--no-checkout', '--', str(bundle), str(root)])
+            git(home, ['clone', '--no-hardlinks', '--no-checkout', '--branch', 'main', '--', str(bundle), str(root)])
         config_path = root / '.git/config'
         check(config_path.is_file() and not config_path.is_symlink() and config_path.stat().st_nlink == 1, 'Unsafe clone config')
         config = config_path.read_text()
