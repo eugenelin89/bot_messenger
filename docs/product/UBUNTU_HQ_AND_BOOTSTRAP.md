@@ -157,7 +157,7 @@ Ubuntu host
     └── botsquad-grace
 ```
 
-Prompt 03 creates the botsquad service account. Prompt 04 adds the root provisioner
+Prompt 03 created the botsquad service account. Prompt 04 added the root provisioner
 and individually approved worker bindings. Display names in this diagram are
 conceptual: actual usernames are `bsw-` plus a stable UUID-derived hash, recorded in
 SQLite/root ledgers. Homes use `/var/lib/botsquad-workers/<username>`.
