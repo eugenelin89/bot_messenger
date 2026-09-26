@@ -51,15 +51,15 @@ DigitalOcean is only the worked example in this guide.
 
 BotSquad itself is small, but real Codex workers, Git repositories, builds, and tests need CPU and RAM.
 
-A practical starting guide:
+Pre-Prompt-03 sizing guidance:
 
 | Use | Suggested starting size |
 | --- | --- |
-| Bootstrap/testing only | 2 vCPU, 4 GB RAM, 40+ GB SSD |
-| Small real BotSquad team | 4 vCPU, 8 GB RAM, 80+ GB SSD |
-| More concurrent engineering/build work | 8+ vCPU, 16+ GB RAM |
+| Prompt 03 acceptance candidate (currently being validated) | 1 vCPU, 2 GB RAM, 50 GB SSD |
+| Comfortable small-team starting point | 2 vCPU, 4 GB RAM, 40+ GB SSD |
+| More concurrent engineering/build work | 4+ vCPU, 8+ GB RAM |
 
-These are BotSquad planning recommendations, not hard provider requirements.
+These are planning guidelines, not hard provider requirements. The 1-vCPU / 2-GB row is the first real Prompt 03 acceptance target and must not be called a validated minimum until the Prompt 03 evidence says it passed.
 
 Prompt 03 should inspect the actual host and record the configuration it validates.
 
@@ -193,9 +193,9 @@ Example:
         User root
         IdentityFile ~/.ssh/id_ed25519
 
-For the original BotSquad development host, an alias could instead be:
+Another equally valid alias is simply:
 
-    Host asymmetri
+    Host botsquad
         HostName 203.0.113.10
         User root
         IdentityFile ~/.ssh/id_ed25519
@@ -217,7 +217,7 @@ Run:
 
 or:
 
-    ssh asymmetri
+    ssh botsquad
 
 You should get a shell without providing BotSquad or Codex the private key.
 
@@ -271,7 +271,7 @@ Set the SSH target near the top, for example:
 
 or:
 
-    SSH_TARGET=asymmetri
+    SSH_TARGET=botsquad
 
 Then run that prompt in Codex.
 
@@ -304,7 +304,7 @@ From your local computer:
 
 or:
 
-    ssh -L 4310:127.0.0.1:4310 asymmetri
+    ssh -L 4310:127.0.0.1:4310 botsquad
 
 Leave that SSH connection open.
 
