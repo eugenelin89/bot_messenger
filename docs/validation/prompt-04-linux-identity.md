@@ -290,3 +290,12 @@ Automatic approval review initially rejected pushing the larger host evidence in
 The publication was reduced to requested acceptance facts, bounded validation identities,
 service state, measured resources and preservation results. Raw account/receipt inventories,
 process/listener listings and boot identifiers remain private.
+
+The accepted main integration and deployment matched at
+`849bf0b235fcdfa0fc22f036f441362522b1c7ff` (local main = origin/main = Ubuntu).
+It was a fast-forward with no conflict or force push. Hardened run
+`deterministic-20260926T093414Z` passed 81/81 in 22.614 seconds. A fresh comparison
+verified the same accounts, receipts, validation databases and original production
+history, with runtime ready, service/socket enabled and production still paused.
+The subsequent documentation closure changes no accepted runtime code; its final
+matching SHA is recorded in the delivery handoff.

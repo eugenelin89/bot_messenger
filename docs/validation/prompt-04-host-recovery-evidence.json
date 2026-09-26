@@ -274,5 +274,28 @@
     "account": "botsquad",
     "status": "Logged in using ChatGPT",
     "credential_contents_read": false
+  },
+  "accepted_main_delivery": {
+    "result": "PASS",
+    "local_main": "849bf0b235fcdfa0fc22f036f441362522b1c7ff",
+    "origin_main": "849bf0b235fcdfa0fc22f036f441362522b1c7ff",
+    "deployed_sha": "849bf0b235fcdfa0fc22f036f441362522b1c7ff",
+    "integration": "fast-forward",
+    "force_push": false,
+    "conflicts": false,
+    "accepted_source_revision": "9af2db810b71ec9ca1097767a61ae0aa2edb43d8",
+    "hardened_tests": {
+      "passed": 81,
+      "failed": 0,
+      "duration_ms": 22614.090453,
+      "report": "deterministic-20260926T093414Z"
+    },
+    "production_preserved": true,
+    "account_receipt_validation_database_hashes_preserved": true,
+    "runtime": "ready",
+    "ui": "127.0.0.1:4310",
+    "service": "active/enabled",
+    "provisioner": "socket active/enabled; service active",
+    "paused": true
   }
 }

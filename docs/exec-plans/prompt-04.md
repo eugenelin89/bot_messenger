@@ -1,13 +1,13 @@
 # Execution Plan — Prompt 04: Nix, approvals and worker Linux identity
 
-**Status:** Runtime/host acceptance complete; final main delivery tracked in handoff
+**Status:** Complete
 **Owner:** Codex task 01a0dcb8-a9f0-73e3-b41c-a1832f5b4727; sole implementation writer  
 **Branch:** feature/prompt-04-nix-worker-identity  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-26 07:58 UTC  
 **Starting synchronized main:** a81dc576473196a3b1634fb4fbb49a0cd07d32d3  
 **Initial ETA:** 6–10 hours including real Ubuntu acceptance and delivery  
-**Current ETA:** 20–40 minutes remaining as of 09:28 UTC; documentation and final main delivery
+**Completed:** 09:36 UTC on 2026-09-26; runtime, host acceptance and main delivery passed
 
 ## Objective and scope
 
@@ -90,10 +90,11 @@ deployment. Do not expose session tokens or credentials in evidence.
 - 08:00 UTC: initial ETA 6–10 hours; current-main feature branch created.
 - 08:02 UTC: read-only Ubuntu preflight passed; production unchanged.
 
-## Remaining work
+## Outcome
 
-Runtime and all real host gates passed; finish evidence/documentation, integrate main,
-run the final bootstrap and verify local/origin/deployed equality.
+All implementation, security, runtime, host recovery and deployment gates passed.
+The final documentation closure preserves the accepted source and privileged-code
+hashes. Exact final Git/deployment equality is also recorded in the delivery handoff.
 
 - 08:25 UTC: implementation covers Nix/bootstrap, durable approvals, provisioner and
   UID helper, clone allocation/import, infrastructure UI and retirement revocation.
@@ -151,3 +152,10 @@ run the final bootstrap and verify local/origin/deployed equality.
 - 09:33 UTC: automatic review rejected publication of the full collected host/account
   inventory. Reduced repository evidence to the prompt's requested sanitized acceptance
   facts and bounded validation identities; raw inventories stay in private operator data.
+
+- 09:36 UTC: accepted feature fast-forwarded normally to main without conflicts/force.
+  Main/origin/deployed `849bf0b235fcdfa0fc22f036f441362522b1c7ff` matched;
+  final hardened bootstrap passed 81/81 in 22.614 seconds. Original production
+  history/profile/workspace, all accounts, root receipts and validation DB hashes
+  remained unchanged. Runtime ready, service/socket enabled, loopback UI and pause
+  preserved. This final documentation closure is deployed through the same gate.
