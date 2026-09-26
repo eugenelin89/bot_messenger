@@ -1,11 +1,21 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 02 managed engineering organization implemented
+**Status:** Product vision; Prompt 02 implemented; Ubuntu HQ is the accepted primary deployment direction
 **Updated:** 2026-09-25
 
 ## One-sentence vision
 
-Build a local-first team workspace where a human can supervise multiple AI workers that message one another, receive explicit assignments, hand off work, and produce inspectable results.
+Build a self-hosted team workspace where a human can supervise persistent AI workers that message one another, receive explicit assignments, hand off work, and produce inspectable results from an always-on operator-controlled headquarters.
+
+## Deployment model
+
+BotSquad's primary operating direction is an **always-on Ubuntu headquarters**. The Ubuntu host may be a cloud VPS such as DigitalOcean, another provider, a private VM or a physical Ubuntu machine.
+
+The human's Mac/PC is not intended to remain the permanent BotSquad runtime. It is primarily used to bootstrap, administer and access the headquarters. The first remote UI model keeps BotSquad bound to loopback on the Ubuntu host and reaches it through an SSH tunnel.
+
+This is still a self-hosted product model: the operator controls the BotSquad host and durable company state. External model services receive the bounded task/context required for execution, but they are not the source of organizational truth.
+
+The phrase **local-first** in early decisions should therefore be read as **operator-controlled/self-hosted state**, not “must execute on the user's laptop.” See [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
 
 ## Origin of the idea
 
@@ -13,14 +23,14 @@ The project began with a simple question: instead of manually coordinating sever
 
 Email was considered first, then local text-file mailboxes. Those approaches establish the core mechanism, but they make supervision and workflow state awkward.
 
-BotSquad turns that mechanism into a purpose-built local application:
+BotSquad turns that mechanism into a purpose-built self-hosted application:
 
 - Slack-like channels and threads for communication;
 - persistent bot identities and roles;
 - explicit task assignment and handoff;
 - a dispatcher that wakes a worker only when work exists;
 - live status, artifacts, failures, and approval requests visible to the human operator;
-- a durable local history that survives agent and application restarts.
+- durable operator-controlled history that survives worker, application and host-service restarts.
 
 The intended result is not merely “bots chatting.” It is an observable coordination layer for a small AI team.
 
@@ -76,7 +86,7 @@ One defect remains.
 
 ### Email
 
-Email provides durable delivery and identities but creates unnecessary setup and security complexity for a local experiment. Each worker may need an account or carefully configured access, and mail is an external system even when the agents and repositories are local.
+Email provides durable delivery and identities but creates unnecessary setup and security complexity for the experiment. Each worker may need an account or carefully configured access, and mail is an external collaboration system even when BotSquad itself is self-hosted.
 
 ### Shared text files
 
@@ -84,7 +94,7 @@ Files are simple and can work as mailboxes, but they quickly require conventions
 
 ### BotSquad
 
-A local messaging application makes those concepts first-class:
+A dedicated self-hosted control plane makes those concepts first-class:
 
 - messages;
 - channels;
@@ -96,7 +106,7 @@ A local messaging application makes those concepts first-class:
 - approvals;
 - audit events.
 
-The underlying implementation can still be simple: a local service, local database, browser UI, and agent runtime adapter.
+The underlying implementation can still be simple: one self-hosted service, SQLite, a browser UI, and runtime adapters. The service may run on a remote Ubuntu host while remaining single-owner and operator-controlled.
 
 ## What a “bot” means
 
@@ -304,9 +314,9 @@ Use the system to test whether a supervised bot team can discover, build, valida
 8. **The simplest architecture that proves the workflow wins.**
 
 
-## Planned Prompt 03 — Ubuntu headquarters
+## Current deployment direction — Ubuntu headquarters (Prompt 03)
 
-The next major platform milestone moves BotSquad toward an always-on Ubuntu headquarters that can be installed from a fresh supported server through a checked-in Codex bootstrap prompt.
+Prompt 03 is the platform migration that implements the accepted direction: an always-on Ubuntu headquarters installed from a fresh supported server through a checked-in Codex bootstrap prompt.
 
 The intended onboarding contract is deliberately small:
 
@@ -315,6 +325,8 @@ The intended onboarding contract is deliberately small:
 3. runs the repository's bootstrap Codex prompt;
 4. Codex installs, configures and validates BotSquad on the remote host;
 5. the user opens the loopback-only BotSquad UI through an SSH tunnel.
+
+Prompt 01/02's local macOS topology remains a development/regression path and historical validation source, not the intended permanent headquarters.
 
 Prompt 03 must also add per-worker AI profiles—model selection, reasoning effort, dispatcher priority and human locking—using models/settings actually advertised by the active Codex runtime. Human-visible Codex thread names should use friendly BotSquad/worker context rather than opaque worker IDs.
 
