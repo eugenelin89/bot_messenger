@@ -162,11 +162,11 @@ def create_identity(req):
         command(['/usr/sbin/groupadd', '--gid', str(record['gid']), name])
     try:
         account = pwd.getpwnam(name)
-        check(account.pw_uid == record['uid'] and account.pw_gid == record['gid'] and account.pw_gecos == 'BotSquad:' + worker_id, 'Account collision')
+        check(account.pw_uid == record['uid'] and account.pw_gid == record['gid'] and account.pw_gecos == 'BotSquad ' + worker_id, 'Account collision')
     except KeyError:
         command(['/usr/sbin/useradd', '--uid', str(record['uid']), '--gid', str(record['gid']), '--no-create-home',
                  '--no-log-init', '--home-dir', str(home), '--shell', '/usr/sbin/nologin', '--password', '!',
-                 '--comment', 'BotSquad:' + worker_id, name])
+                 '--comment', 'BotSquad ' + worker_id, name])
     if not home.exists():
         home.mkdir(mode=0o700)
     check(not home.is_symlink() and home.is_dir() and home.stat().st_uid in (0, record['uid']), 'Unsafe home')

@@ -7,7 +7,7 @@
 **Started:** 2026-09-26 07:58 UTC  
 **Starting synchronized main:** a81dc576473196a3b1634fb4fbb49a0cd07d32d3  
 **Initial ETA:** 6–10 hours including real Ubuntu acceptance and delivery  
-**Current ETA:** Unchanged; implementation and acceptance pending
+**Current ETA:** 2–4 hours remaining as of 08:28 UTC; real host acceptance and delivery pending
 
 ## Objective and scope
 
@@ -92,7 +92,7 @@ deployment. Do not expose session tokens or credentials in evidence.
 
 ## Remaining work
 
-Implementation, all Prompt 04 tests/acceptance and delivery remain in progress.
+Real host acceptance, final documentation and main delivery remain in progress.
 
 - 08:25 UTC: implementation covers Nix/bootstrap, durable approvals, provisioner and
   UID helper, clone allocation/import, infrastructure UI and retirement revocation.
@@ -100,3 +100,12 @@ Implementation, all Prompt 04 tests/acceptance and delivery remain in progress.
   Security review tightened clone configuration checks, no-follow revocation and
   immutable approval envelopes. Real Linux acceptance is still pending; no isolation
   or milestone completion claim yet.
+- 08:28 UTC: protected production backup at `/var/backups/botsquad/prompt04-20260926T082822Z`;
+  paused production had one Atlas worker and one completed execution. ETA revised
+  to 2–4 hours remaining after implementation and local regression checks.
+- 08:31 UTC: feature `378940296adc09b73810b10b0ce5c81af1ffff4f` deployed;
+  all 80 deterministic tests passed under the production service restrictions.
+- 08:37 UTC: first real bootstrap exposed a colon-invalid GECOS comment. Approval
+  remained consumed with recoverable operation and reserved UID; no user was created.
+  Corrected comment and added real lost-response, canary and process-retirement gates.
+  Development UI smoke verified exact approval scope and simulated completion.

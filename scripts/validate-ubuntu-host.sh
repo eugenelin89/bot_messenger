@@ -2,14 +2,15 @@
 # Run on the bootstrapped host as root. Uses the installed service's restrictions.
 set -euo pipefail
 [[ $EUID -eq 0 ]] || { echo 'Run as root on the Ubuntu acceptance host' >&2; exit 1; }
-mode=${1:?Usage: validate-ubuntu-host.sh deterministic|prompt01|engineering}
+mode=${1:?Usage: validate-ubuntu-host.sh deterministic|prompt01|engineering|identity|recovery}
 wait_mode=${2:-}
 [[ -z $wait_mode || $wait_mode == --wait ]] || exit 2
 case "$mode" in
   deterministic) command='BOT_IDENTITY_BACKEND=development node --test dist/test/*.test.js' ;;
   prompt01) command='node dist/scripts/real-e2e.js' ;;
-  engineering) command='node dist/scripts/real-engineering.js' ;;
-  identity) command='BOT_VALIDATE_IDENTITIES=1 node dist/scripts/real-engineering.js' ;;
+  engineering) command='BOT_IDENTITY_BACKEND=development node dist/scripts/real-engineering.js' ;;
+  identity) command='BOT_VALIDATE_IDENTITIES=1 BOT_VALIDATE_IDENTITY_PROBES=1 node dist/scripts/real-engineering.js' ;;
+  recovery) command='node dist/scripts/real-identity-recovery.js' ;;
   *) echo 'Unknown validation mode' >&2; exit 2 ;;
 esac
 unit=botsquad-validation-${mode}

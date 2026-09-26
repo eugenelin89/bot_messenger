@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { localGit } from '../src/control/engineering.js';
 import { spawn, type ChildProcess } from 'node:child_process';
 import { createServer } from 'node:net';
-import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { type Company } from '../src/control/company.js';
@@ -178,6 +178,12 @@ try {
     for(const file of ownership) assert.equal(file.uid,complete.infrastructure.identities.find(i=>i.worker_id===file.worker_id)!.uid);
     assert.equal(complete.audit.filter(e=>e.type==='worker_uid_commit').length,2);
     Object.assign(evidence,{infrastructure:complete.infrastructure,ownership,pending_approval_restart:true,approval_boundary:'Trusted loopback HTTP, operator-authorized fixed validation scenario; no worker approval tool',test_execution_identity:'Trusted botsquad service inside unchanged product sandbox'});
+    if (process.env.BOT_VALIDATE_IDENTITY_PROBES === '1') {
+      writeFileSync(join(dataDir,'operator-probes-ready'), 'Ready for harmless UID canaries and retirement process probe\n');
+      const deadline = Date.now() + 180000;
+      while (!existsSync(join(dataDir,'operator-probes-complete')) && Date.now() < deadline) await sleep(300);
+      assert.ok(existsSync(join(dataDir,'operator-probes-complete')), 'Operator probes did not finish before retirement');
+    }
     await api('infrastructure/request',{worker_id:team.Grace!.worker_id,operation_type:'disable_worker_identity',allocation_id:null});
     const retired=await observe(s=>s.infrastructure.identities.find(i=>i.worker_id===team.Grace!.worker_id)?.state==='disabled' && s.tasks.every(t=>t.status==='completed'));
     assert.equal(retired.workers.find(w=>w.worker_id===team.Grace!.worker_id)!.enabled,0);

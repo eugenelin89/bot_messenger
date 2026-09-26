@@ -36,16 +36,17 @@ try:
         'company_db_canary': canary(Path('/var/lib/botsquad') / probe, service.pw_uid, service.pw_gid),
         'provisioner_receipt_canary': canary(Path('/var/lib/botsquad-provisioner/receipts') / probe),
         'etc_botsquad_canary': canary(Path('/etc/botsquad') / probe),
+        'botsquad_source_canary': canary(Path('/opt/botsquad') / probe),
     }
     homes = {}
-    for name in ['Linus', 'Ada', 'Nix']:
+    for name in ['Linus', 'Ada', 'Nix', 'Grace']:
         identity = identities[workers[name]['worker_id']]
         assert identity['state'] == 'ready'
         account = pwd.getpwnam(identity['unix_username'])
         assert account.pw_uid == identity['uid'] and account.pw_gid == identity['gid'] and account.pw_shell == '/usr/sbin/nologin'
         homes[name] = canary(Path(identity['home_path']) / probe, identity['uid'], identity['gid'])
     evidence = {'result': 'PASS', 'canary_contents_recorded': False, 'workers': [], 'checks': []}
-    for name in ['Linus','Ada','Nix']:
+    for name in ['Linus','Ada','Nix','Grace']:
         identity = identities[workers[name]['worker_id']]
         code = 'import os,json;print(json.dumps(dict(uid=os.getuid(),gid=os.getgid(),groups=os.getgroups())))'
         result = run_as(identity, code); assert result.returncode == 0
