@@ -4,7 +4,8 @@
 **Version:** 0.1  
 **Date:** 2026-09-25  
 **Project:** BotSquad  
-**Repository:** eugenelin89/bot_messenger
+**Repository:** eugenelin89/bot_messenger  
+**Traditional Chinese (Taiwan):** [台灣繁體中文版](WHITEPAPER_ZH_TW.md)
 
 ## Abstract
 
