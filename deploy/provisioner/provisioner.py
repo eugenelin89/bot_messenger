@@ -188,11 +188,14 @@ def drop_privileges():
 
 def worker_action(req, record, project=None):
     payload = {'request': req, 'identity': record, 'project': project}
-    result = subprocess.run(['/usr/bin/python3', '-I', CODE, '--worker'], input=canonical(payload).encode(),
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=18,
-                            cwd='/', env={'PATH': '/usr/bin:/bin', 'LANG': 'C', 'HOME': record['home_path']},
-                            user=record['uid'], group=record['gid'], extra_groups=[], preexec_fn=drop_privileges,
-                            start_new_session=True)
+    try:
+        result = subprocess.run(['/usr/bin/python3', '-I', CODE, '--worker'], input=canonical(payload).encode(),
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=18,
+                                cwd='/', env={'PATH': '/usr/bin:/bin', 'LANG': 'C', 'HOME': record['home_path']},
+                                user=record['uid'], group=record['gid'], extra_groups=[],
+                                start_new_session=True)
+    except (OSError, subprocess.SubprocessError) as error:
+        raise Rejected('Worker launch failed (' + type(error).__name__ + ')') from None
     check(len(result.stdout) <= LIMIT, 'Worker response exceeds limit')
     response = json.loads(result.stdout) if result.stdout else {}
     check(result.returncode == 0, response.get('error', 'Bounded worker action failed'))
@@ -325,6 +328,9 @@ def git(root, args):
     return result.stdout.decode().strip()
 
 def worker_main():
+    # UID/GID and supplementary groups were dropped by exec's fixed subprocess
+    # credentials. Apply additional restrictions after exec, before reading input.
+    drop_privileges()
     payload = json.loads(sys.stdin.buffer.read(LIMIT + 10000))
     req, record, project = payload['request'], payload['identity'], payload['project']
     check(os.getuid() == record['uid'] and os.getgid() == record['gid'] and not os.getgroups(), 'Worker credentials not dropped')
@@ -437,7 +443,7 @@ def serve():
                 response = {'ok': True, 'result': result}
             except Exception as error:
                 # Never log raw input, paths, command output or traceback from privileged code.
-                response = {'ok': False, 'error': str(error) if isinstance(error, Rejected) else 'Provisioner operation failed closed'}
+                response = {'ok': False, 'error': str(error) if isinstance(error, Rejected) else 'Provisioner operation failed closed (' + type(error).__name__ + ')'}
             try:
                 connection.sendall(canonical(response).encode())
             except (BrokenPipeError, TimeoutError):
@@ -448,7 +454,7 @@ if __name__ == '__main__':
         try:
             print(canonical(worker_main()))
         except Exception as error:
-            print(canonical({'error': str(error) if isinstance(error, Rejected) else 'Worker operation failed closed'}))
+            print(canonical({'error': str(error) if isinstance(error, Rejected) else 'Worker operation failed closed (' + type(error).__name__ + ')'}))
             raise SystemExit(1) from None
     elif sys.argv[1:]:
         raise SystemExit('Unknown provisioner mode')
