@@ -1,113 +1,321 @@
 # BotSquad
 
-A self-hosted workspace for a human to coordinate persistent AI workers through explicit tasks, durable messages and inspectable evidence. BotSquad's primary operating direction is an always-on Ubuntu headquarters under the operator's control; a local Mac or other workstation is the bootstrap, administration and development client.
+BotSquad is a self-hosted workspace for coordinating persistent AI workers through
+explicit tasks, durable messages, bounded authority, inspectable artifacts, and real
+Codex execution.
 
-Prompt 02 adds **Human → Atlas → Maya / Turing → Linus + Ada → Grace → tested integration → Human**. Two real Codex engineers work concurrently in separate branches/worktrees of a managed local SquadStatus repository. Prompt 01’s **Atlas → Scout → Atlas** research workflow remains available. Atlas decides to request a specialist; trusted company tools validate the hire and assignment. The dispatcher runs real Codex only when work exists. Creating a worker or posting a message does not invoke a model.
+The primary deployment is now an **always-on Ubuntu headquarters** under the operator's
+control. Your Mac/PC is the bootstrap, administration, development, and browser client.
 
-**New to BotSquad?** Read the [SquadStatus case study](docs/examples/squadstatus-case-study.md)
-for a simple walkthrough of the bots, their separate product repository and worktrees,
-and how an objective became reviewed, tested code.
+## Current state
 
-## Deployment direction
+**Prompt 03 is complete and validated.**
 
-Prompt 01 and Prompt 02 were implemented and validated as a local macOS application. That history remains useful, but it is no longer the intended long-term operating topology.
+BotSquad currently supports:
 
-The accepted direction in [Decision 009](docs/decisions/decision_009_ubuntu_bootstrap.md) is:
+- a non-root, boot-enabled Ubuntu `botsquad.service`;
+- durable SQLite company/task/message/execution state;
+- persistent logical workers with resumable Codex threads;
+- real Atlas → Scout → Atlas research;
+- Atlas → Maya/Turing → Linus + Ada → Grace engineering coordination;
+- two concurrent real Codex executions;
+- managed Git work, exact-commit review, and trusted tested integration;
+- per-worker model selection;
+- per-worker reasoning effort;
+- per-worker scheduling priority;
+- human-locked AI profiles;
+- immutable execution provenance for effective model/reasoning/priority/runtime;
+- runtime-discovered Codex model/reasoning choices;
+- friendly Codex thread names;
+- hardened Ubuntu engineering confinement;
+- restart, reboot, and repeat-bootstrap recovery.
+
+The Prompt 03 runtime acceptance baseline is
+`630cb0a9bfe0ded02d99ef1b595dcfa4bf1ce058`. Later documentation commits may move
+`main` without changing that accepted runtime baseline.
+
+For the detailed snapshot, measured resource evidence, and deferred features, see
+[Current State](docs/operations/CURRENT_STATE.md).
+
+## Architecture at a glance
 
 ```text
-operator workstation
-    ↓ SSH / SSH tunnel
-operator-controlled Ubuntu host
-    ↓
-BotSquad non-root system service
-    ↓
-SQLite + dispatcher + Codex runtime + managed work
+Human workstation
+      |
+      | SSH / SSH tunnel
+      v
+operator-controlled Ubuntu HQ
+      |
+      +-- botsquad.service           non-root systemd service
+      +-- SQLite/company state
+      +-- dispatcher
+      +-- Codex App Server
+      +-- managed Git/engineering
+      +-- Linux confinement
+      +-- 127.0.0.1:4310 web UI
 ```
 
-The Ubuntu host may be a DigitalOcean Droplet, another cloud/VPS provider, a VM or a physical Ubuntu machine. BotSquad is **self-hosted**, not a hosted multi-tenant SaaS: coordination state stays on the operator-controlled BotSquad host while assigned task/model content may be sent to the configured external model runtime.
+BotSquad is **self-hosted**, not a hosted multi-tenant SaaS. Assigned model/task context
+may be sent to the configured external model runtime, but BotSquad coordination state
+remains on the operator-controlled host.
 
-Prompt 03 adds the reproducible Ubuntu installer, non-root systemd service, Linux
-engineering confinement and per-worker AI profiles. Real Ubuntu research and six-worker
-engineering acceptance passed on a 1-vCPU/2-GB host with two overlapping Codex workers.
-See the [validation record](docs/validation/prompt-03-ubuntu.md) for evidence and limits.
+## Open an existing BotSquad HQ
 
-## Set up Ubuntu HQ
+If your SSH alias is `botsquad`:
 
-1. Create a supported **Ubuntu 24.04 x86_64** host.
-2. Add your SSH public key and configure an alias; verify `ssh botsquad` works.
-3. Open [the bootstrap prompt](prompts/bootstrap-ubuntu.md), set `SSH_TARGET`, and run it in Codex.
-4. Complete Codex device login under the `botsquad` service account when requested.
-5. Open the provided tunnel: `ssh -N -L 4310:127.0.0.1:4310 botsquad`.
-6. Open [BotSquad](http://127.0.0.1:4310), initialize Atlas and assign an objective.
+```sh
+ssh -N -L 4310:127.0.0.1:4310 botsquad
+```
 
-The installer owns Node, Codex, systemd, swap and Linux confinement. Source/build
-lives at `/opt/botsquad`; company state and runtime authentication stay in
-`/var/lib/botsquad`. Normal work runs non-root. The UI remains private to the host
-and your SSH tunnel. [Operator guide](docs/bootstrap/UBUNTU_BOOTSTRAP.md).
+Leave that terminal open, then browse to:
 
-See [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md) and [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md).
+```text
+http://127.0.0.1:4310
+```
 
-## Future multi-company direction
+The browser URL looks local, but the application is running on the Ubuntu server.
 
-BotSquad should eventually support multiple independent companies under one owner/HQ, while keeping company state isolated by default. Companies may collaborate only through explicit, audited company connections. A runtime account such as Codex is a separate resource and must not be treated as equivalent to one company or one BotSquad instance.
+The UI is intentionally **not exposed directly to the public Internet**.
 
-Workers may also gain optional external identities. Telegram bot identities are a concrete future candidate; BotSquad's trusted integration layer should hold provider credentials while workers request bounded messaging operations.
+Useful checks:
 
-These capabilities are future architecture, not Prompt 03 scope. See [Multi-company and federation](docs/product/MULTI_COMPANY_AND_FEDERATION.md) and [External identities and Telegram](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
+```sh
+ssh botsquad 'systemctl status botsquad --no-pager'
+ssh botsquad 'curl -fsS http://127.0.0.1:4310/api/health'
+ssh botsquad 'journalctl -u botsquad --since "15 minutes ago" --no-pager'
+```
 
-## Local development and Prompt 02 demo
+For restart, runtime login, updates, backups, troubleshooting, and deeper validation,
+see [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md).
 
-Requirements: **Node.js 24.10+ (24.x)**, Git, macOS Seatbelt or the bootstrapped Ubuntu Linux confinement adapter, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
+## Set up a brand-new BotSquad server
+
+BotSquad is provider-neutral. The Ubuntu machine may be:
+
+- a DigitalOcean Droplet;
+- AWS EC2;
+- Hetzner;
+- Azure;
+- Google Cloud;
+- another VPS;
+- your own VM;
+- a physical Ubuntu computer.
+
+### 1. Create the Ubuntu host
+
+The currently certified Linux contract is:
+
+```text
+Ubuntu 24.04 LTS
+x86_64
+SSH access
+Internet access for packages/GitHub/Codex
+root or usable sudo for bootstrap
+```
+
+The smallest configuration actually validated for the bounded Prompt 03 workload is:
+
+```text
+1 vCPU
+2 GB RAM
+~50 GB disk
+2 GiB swap
+```
+
+A 2-vCPU / 4-GB host is a more comfortable starting point for heavier work.
+
+See [Set Up a Minimal Ubuntu Host](docs/bootstrap/SETUP_UBUNTU_HOST.md) for a
+DigitalOcean example and provider-neutral SSH setup.
+
+### 2. Create an SSH alias
+
+Your workstation should be able to run:
+
+```sh
+ssh my-botsquad
+```
+
+without giving BotSquad or Codex your private-key contents.
+
+Example `~/.ssh/config`:
+
+```text
+Host my-botsquad
+    HostName 203.0.113.10
+    User root
+    IdentityFile ~/.ssh/id_ed25519
+```
+
+Root is acceptable for the initial fresh-server bootstrap. BotSquad itself is installed
+to run continuously as the separate non-root `botsquad` service account.
+
+### 3. Clone BotSquad on your workstation
+
+```sh
+git clone https://github.com/eugenelin89/bot_messenger.git
+cd bot_messenger
+git fetch origin
+```
+
+You do **not** need to manually install Node, Codex, BotSquad, systemd units, swap, or
+Linux sandboxing on the server.
+
+### 4. Run the checked-in bootstrap prompt
+
+Open:
+
+```text
+prompts/bootstrap-ubuntu.md
+```
+
+Set:
+
+```text
+SSH_TARGET=my-botsquad
+```
+
+Run that prompt from Codex against your local BotSquad checkout.
+
+Codex will inspect the host first, then use the checked-in reproducible installer to
+configure the Ubuntu headquarters.
+
+Experienced operators can inspect and invoke the installer directly:
+
+```sh
+./scripts/bootstrap-ubuntu.sh my-botsquad "$(git rev-parse origin/main)" --preflight-only
+./scripts/bootstrap-ubuntu.sh my-botsquad "$(git rev-parse origin/main)"
+```
+
+### 5. Sign the Ubuntu service account into Codex
+
+The bootstrap will tell you when this interactive step is required.
+
+Generic form:
+
+```sh
+ssh -t my-botsquad 'sudo -u botsquad env HOME=/var/lib/botsquad CODEX_HOME=/var/lib/botsquad/.codex PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin /opt/botsquad/node_modules/.bin/codex login --device-auth'
+```
+
+Complete the browser authorization privately.
+
+If ChatGPT blocks device-code login, enable the available device-code authentication
+setting in ChatGPT Security settings (or ask the relevant workspace administrator to
+enable it). **Never share a device code.**
+
+### 6. Open BotSquad
+
+```sh
+ssh -N -L 4310:127.0.0.1:4310 my-botsquad
+```
+
+Then open:
+
+```text
+http://127.0.0.1:4310
+```
+
+The full bootstrap, service layout, update policy, login procedure, and validation
+commands are documented in [Ubuntu HQ Bootstrap](docs/bootstrap/UBUNTU_BOOTSTRAP.md).
+
+## Validated Ubuntu deployment
+
+The accepted Prompt 03 host used:
+
+- Ubuntu 24.04.4 x86_64;
+- kernel 6.8.0-142 after reboot;
+- Node.js 24.21.0;
+- Codex CLI/App Server 0.157.0;
+- 1 vCPU;
+- 2 GB RAM;
+- approximately 50 GB disk;
+- 2 GiB persistent swap.
+
+Real acceptance proved:
+
+- 60/60 hardened deterministic tests;
+- real Ubuntu research/restart/resume/interruption;
+- real six-worker engineering;
+- 146-second engineering completion;
+- about 24.96 seconds of overlapping Linus/Ada model turns;
+- exact-commit Grace review;
+- 8/8 integrated product tests;
+- no completed-work replay;
+- service restart;
+- host reboot;
+- repeat bootstrap;
+- private tunnel UI;
+- no swap use during real workflows.
+
+See [Prompt 03 Ubuntu validation](docs/validation/prompt-03-ubuntu.md).
+
+## Worker AI settings
+
+Open a worker inspector in the UI to configure:
+
+- **Model** — inherit or choose a model advertised by the active Codex runtime;
+- **Reasoning** — inherit or choose a supported effort for that model;
+- **Priority** — critical, high, normal, or low;
+- **Human lock** — prevents bot/manager profile mutation.
+
+Profile changes apply to future executions.
+
+Execution history records the actual effective model, reasoning, priority, and runtime
+used for that execution.
+
+Priority controls scheduling among otherwise eligible tasks. It does not bypass pause,
+authority, capability, or concurrency limits.
+
+## Current limits
+
+BotSquad is not yet a general autonomous company platform.
+
+Current important limits include:
+
+- one company per data directory;
+- eight workers maximum;
+- three direct children per manager;
+- two hierarchy edges;
+- two active executions globally;
+- one fixed SquadStatus engineering template/workflow;
+- no arbitrary external repository registration/deployment;
+- no per-worker Unix account yet;
+- no Nix DevOps worker yet;
+- no broad permission-granting human approval workflow;
+- no Computer Use/browser automation;
+- no public Internet UI/login;
+- no multi-company runtime implementation yet;
+- no cross-HQ federation;
+- no Telegram/external-identity implementation;
+- no autonomous financial authority.
+
+The next infrastructure milestone is expected to add Nix, trusted human grants, a narrow
+privileged provisioner, and separate Unix identities/project access for workers.
+
+## Local development
+
+Ubuntu HQ is the primary deployment, but local development/regression remains supported.
+
+Requirements:
+
+- Node.js 24.x;
+- Git;
+- Codex login;
+- macOS Seatbelt or the bootstrapped Ubuntu confinement adapter for engineering tests.
 
 ```sh
 npm ci
-npx --no-install codex login        # only if not already signed in
 npm run codex:preflight
 npm run dev
 ```
 
-For local development, open [BotSquad](http://127.0.0.1:4310). After the first build, `npm start` is sufficient. The Ubuntu HQ target also keeps the service loopback-only by default, but the human reaches that loopback endpoint through an SSH tunnel.
+Open:
 
-1. Click **Initialize Atlas**.
-2. Select **Build SquadStatus** in the executive channel, then **Assign objective**.
-3. Maya produces a specification; Atlas hands delivery to Turing.
-4. Linus and Ada implement separate modules in distinct managed branches/worktrees.
-5. Grace reviews the exact submitted commits. Trusted integration runs full tests
-   before advancing the product's local `main`.
-6. Inspect **Products & engineering**, organization, tasks, executions and artifacts;
-   Atlas reports the actual product commit, tests and remaining limits.
+```text
+http://127.0.0.1:4310
+```
 
-**Research coordination risks** selects the compatible Scout research workflow.
-The engineering workflow is intentionally a fixed, local validation product.
-
-**Send message only** persists communication without creating a task. **Pause new dispatch** holds queued work; active runs continue. Use **Interrupt** in Executions to stop an active Codex turn. Stopping a run never erases its history or artifacts.
-
-State lives in `.data/company.sqlite`, with reports in `.data/artifacts/`, worker runtime workspace bindings in `.data/workspaces/`, and separate product Git repositories/worktrees in `.data/products/`. Restarting with the same data directory preserves the organization and does not repeat completed work. Back up the whole data directory while the application is stopped; Codex session history is separately managed by the official runtime.
-
-## Configuration
-
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `PORT` | `4310` | Loopback-only HTTP port |
-| `BOT_DATA_DIR` | `.data` in this repository | Persistent company database, workspaces and artifacts |
-| `CODEX_BIN` | `codex` on npm's PATH | Optional explicit binary; must be the validated version `0.157.0` |
-| `BOT_MODEL` | Default advertised by Codex `model/list` | Optional advertised model ID; unavailable IDs fail closed |
-| `BOT_VALIDATION_DIR` | New timestamped directory under `.validation/` | Retained real-validation evidence; must be fresh |
-
-`npm` scripts resolve the pinned local CLI. A global/desktop CLI can differ. Preflight prints the effective version, authentication mode and model without credentials. Model and reasoning choices come from the active runtime/account. No authoritative model list is hard-coded.
-
-Codex owns authentication and credential refresh. BotSquad does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains on the operator-controlled BotSquad host.
-
-## Worker AI settings
-
-Open a worker's inspector to choose its model, reasoning effort, scheduling priority
-and human lock. Inherit uses the company/runtime default; explicit unavailable
-choices fail visibly. The UI loads choices from Codex. Human settings override locks;
-bots cannot change profiles in this milestone. Changes apply to future executions.
-Execution history shows actual model, reasoning, priority and runtime version; legacy
-attempts remain unknown. Priority uses critical → high → normal → low, then FIFO.
-It cannot bypass authority, pause or concurrency limits. Continuous high-priority
-work can starve lower-priority tasks; adjust priorities when needed.
+Local development state defaults to `.data/`; production-style Ubuntu state uses
+`/var/lib/botsquad`.
 
 ## Validate
 
@@ -118,74 +326,46 @@ npm run validate:prompt01
 npm run validate:real
 ```
 
-Deterministic tests use a fake worker runtime and a simulated App Server transport. They cover authority, identity, task transitions, claims, duplicate delivery, crash recovery, retained evidence, pause/interrupt, the complete handoff, HTTP protections and live events. Engineering tests also use real local Git repositories and the actual confined product runner for scope, review, integration, failure and recovery checks. Tests need permission to bind loopback ports.
+The real validation commands consume Codex usage.
 
-`validate:prompt01` runs the real research/restart/resume/interruption regression.
-`validate:real` runs the real six-worker engineering organization in fresh data,
-asserts actual engineer/runtime-turn overlap, exact-commit review, tested integration,
-deterministic product output and restart without replay. Both consume Codex usage.
-Each turn has a four-minute deadline; the engineering scenario has a fifteen-minute
-observation deadline. Artifacts, SQLite/Git state and evidence remain under ignored
-`.validation/` directories. See [Prompt 01](docs/validation/prompt-01.md) and
-[Prompt 02 evidence](docs/validation/prompt-02.md).
+Ubuntu HQ also includes the production-restriction validation launcher:
 
-## Architecture
+```sh
+ssh my-botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh deterministic'
+ssh my-botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh prompt01'
+ssh my-botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh engineering'
+```
 
-- **Domain/control plane:** TypeScript, trusted operations and centrally validated task transitions.
-- **Persistence:** Node SQLite, versioned migrations, foreign keys, WAL, transactions and unique active-execution constraints.
-- **Dispatch:** control-plane events and transactional claims; maximum one execution per worker, two globally. No model polling or interval dispatch loop.
-- **Runtime:** official Codex App Server over private stdio. Dedicated persistent thread binding per logical worker; a separate execution record per attempt.
-- **Tools:** explicit profile hiring, staged assignment, messages/reports, managed repository allocation, owned source editing, fixed confined tests, verified submissions, read-only review and trusted integration. Identity and allocation scope come from the active execution.
-- **UI:** static browser JavaScript/CSS, Node HTTP and server-sent state-change events. No frontend framework or third-party hosted coordination service.
+Run real-model scenarios only when you intentionally want to consume Codex usage.
 
-[System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md) describes lifecycle, enforcement, recovery and extension boundaries. [Decision 007](docs/decisions/decision_007_prompt_01_runtime_and_recovery.md) records the original runtime choices; [Decision 008](docs/decisions/decision_008_managed_engineering.md) records the engineering extension.
+## Documentation
 
-## Current limits
+### Start here
 
-The current surface is a single-owner self-hosted research and engineering milestone. Eight workers,
-three direct children per manager, two hierarchy edges, and two active executions
-globally. Atlas may delegate Product Manager/CTO profiles; CTO may delegate two
-engineers and one reviewer. Leaf roles cannot hire. One fixed SquadStatus template,
-two editable modules, one review and one integration attempt per product; no external
-repository registration, shell, browser, Computer Use, network, remotes or publishing.
+- [Current State](docs/operations/CURRENT_STATE.md)
+- [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md)
+- [Set Up a Minimal Ubuntu Host](docs/bootstrap/SETUP_UBUNTU_HOST.md)
+- [Ubuntu HQ Bootstrap](docs/bootstrap/UBUNTU_BOOTSTRAP.md)
+- [Prompt 03 Ubuntu Validation](docs/validation/prompt-03-ubuntu.md)
 
-Engineers use task-bound source/test/Git tools; their Codex runtime remains read-only.
-Source writes are limited to the assigned module and optional extra tests, 16 KB each.
-Test processes use macOS Seatbelt or Linux bubblewrap namespaces/seccomp plus Node
-permissions, an empty environment, a ten-second timeout and bounded output. Tests
-cannot write files, spawn processes, signal host processes or use network. Linux
-reads expose only the product and required runtime libraries. Unsupported or missing
-confinement fails closed. Ubuntu bootstrap keeps global AppArmor protections enabled.
+### Architecture and product
 
-Submission freezes the engineer's worktree. Grace can inspect exact diffs and focused
-evidence but cannot edit or integrate. Full tests run on a retained candidate before
-fast-forwarding product `main`. A rejected review, conflict or failed test prevents
-advancement. Completed branches/worktrees stay retained; cleanup is manual future work.
+- [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
+- [Project Vision](docs/product/PROJECT_VISION.md)
+- [AI Organization Model](docs/product/AI_ORGANIZATION_MODEL.md)
+- [Ubuntu HQ and Bootstrap Model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
+- [Decision 011 — Ubuntu service, confinement and worker AI profiles](docs/decisions/decision_011_ubuntu_hq_profiles.md)
+- [Decision Index](docs/decisions/README.md)
 
-Runtime approval requests are denied and preserved as `awaiting_approval`. There is no permission-granting approval workflow yet. **Retry inspected task** reruns the same authority envelope after you inspect prior attempts, artifacts and child tasks; it does not grant the rejected permission. Interrupted/ambiguous work is never automatically replayed. Missing/corrupt runtime sessions fail visibly rather than silently binding to another worker.
+### Future architecture
 
-Dynamic tools and environment controls are experimental and tied to Codex 0.157.0. Node's SQLite API emits an experimental warning in Node 24.10. HTTP checks Host/Origin and requires a session token for writes, but this does not isolate malicious arbitrary processes sharing the service UID. Ubuntu adds a non-root service boundary; per-worker Unix identities remain deferred. There is no multi-user login, audit tamper-proofing against the file owner, artifact retention automation or large-history pagination.
+- [Multi-Company and Federation Model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
+- [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
+- [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
 
-Temporary researchers accept one lifetime assignment and retire when it becomes terminal; persistent workers remain available. Retired workers cannot be retried. A child result already handed back to its manager cannot be reopened; assign a new objective for further work. Optional manager retirement and approval-request tools are not implemented. Ambiguous engineering/Git operations are blocked for inspection; this milestone does not automatically repair or replay them. General revision loops and trusted human approval grants remain future work.
+### Examples and history
 
-Retained Prompt 01 databases migrate without losing history. An existing Codex thread
-retains its original dynamic tool schema, which this pinned runtime cannot replace on
-resume. Such bindings continue to support research; engineering fails visibly with
-guidance to use a fresh `BOT_DATA_DIR` (for example `BOT_DATA_DIR=.data/prompt02 npm run dev`).
-No old worker thread is silently replaced. Keep the original directory for inspection.
-
-## Project references
-
-- [Project vision](docs/product/PROJECT_VISION.md)
-- [AI organization model](docs/product/AI_ORGANIZATION_MODEL.md)
-- [Multi-company and federation model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
-- [External identities and Telegram integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
-- [Computer Use model](docs/product/COMPUTER_USE_MODEL.md)
-- [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
-- [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md)
-- [Decision index](docs/decisions/README.md)
-- [Agent instructions](AGENTS.md)
-- [Prompt 01 execution plan](docs/exec-plans/prompt-01.md)
-- [Prompt 02 execution plan](docs/exec-plans/prompt-02.md)
-- [Prompt 03 execution plan](docs/exec-plans/prompt-03.md)
-- [Ubuntu implementation decision](docs/decisions/decision_011_ubuntu_hq_profiles.md)
+- [SquadStatus Case Study](docs/examples/squadstatus-case-study.md)
+- [Prompt 01 Plan](docs/exec-plans/prompt-01.md)
+- [Prompt 02 Plan](docs/exec-plans/prompt-02.md)
+- [Prompt 03 Plan](docs/exec-plans/prompt-03.md)
