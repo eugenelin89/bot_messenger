@@ -179,6 +179,28 @@ BotSquad is not initially intended to be:
 - a security boundary between agents that actually share the same OS account, machine, or credentials;
 - a system that lets agents manufacture their own authorization.
 
+## Multi-company direction
+
+BotSquad should eventually support several independent companies at once.
+
+One self-hosted HQ may contain:
+
+```text
+Human owner
+└── BotSquad HQ
+    ├── Company A
+    ├── Company B
+    └── Company C
+```
+
+Each company keeps separate workers, tasks, messages, repositories, artifacts, policies and audit history. A runtime account such as Codex is a separate resource that may be referenced by more than one company, subject to provider/account policy and shared usage limits.
+
+Companies may collaborate through explicit, permissioned CompanyConnections rather than direct access to each other's internal state. Longer term, the same model can federate companies hosted on different BotSquad HQs.
+
+Workers may also have optional external identities such as Telegram bots. External communication remains an adapter/capability; it does not replace BotSquad's internal messaging, task or authority model.
+
+See [Multi-Company and Federation Model](MULTI_COMPANY_AND_FEDERATION.md), [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEGRAM.md), and [Decision 010](../decisions/decision_010_multi_company_federation.md).
+
 ## “Virtual startup” experiment
 
 A motivating future experiment is a small AI-operated business team.
