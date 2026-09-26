@@ -313,3 +313,47 @@ inbound content; they never replace internal records or grant authority.
 See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
 [External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
 These requirements constrain future work; they add no Prompt 03 implementation scope.
+
+
+## Future native-client boundary
+
+The current Prompt 03 HTTP/SSE surface is validated for a private browser session through
+an SSH tunnel. A future native-client milestone should extract/define a stable,
+versioned, authenticated client API above the existing control-plane operations.
+
+Target shape:
+
+~~~text
+                     BotSquad Core
+                   /      |       \
+                  /       |        \
+             Web UI    iOS app   future clients
+                  \       |        /
+                   \      |       /
+                 trusted control plane
+                         |
+                 company/runtime state
+~~~
+
+Transport is independent:
+
+~~~text
+client
+  -> private LAN/VPN
+  -> SSH tunnel
+  -> future outbound relay
+  -> authenticated BotSquad API
+~~~
+
+Do not expose the current loopback service publicly merely to support a mobile client.
+
+Remote devices require explicit pairing, revocable device identity, human-principal
+authorization, idempotent mutations, reconnect-safe event delivery and server-side
+audit.
+
+A future relay may assist NAT traversal, session routing and push connectivity, but it
+must not become the authority boundary or canonical company-state store. End-to-end
+encryption is a design goal pending an explicit protocol/security review.
+
+See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CLIENT.md)
+and [Decision 012](../decisions/decision_012_ios_remote_client.md).
