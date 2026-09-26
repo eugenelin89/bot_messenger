@@ -1,6 +1,6 @@
 # BotSquad — Computer Use Model
 
-**Status:** Initial product model
+**Status:** Product model; Computer Use deferred until after Ubuntu infrastructure/authority foundations
 **Date:** 2026-09-24
 
 ## Purpose
@@ -31,6 +31,14 @@ Session stopped/destroyed
 ```
 
 The human operator remains able to observe, approve, pause, or deny protected actions.
+
+## Deployment context
+
+BotSquad's primary runtime direction is an always-on Ubuntu headquarters. Therefore the preferred autonomous Computer Use environment should normally be provisioned **on or from the BotSquad infrastructure side** as an isolated browser/desktop/VM/container, not by default on the human operator's Mac or PC.
+
+A local-desktop worker remains a valid special mode when a task genuinely requires software or state that exists only on the human workstation, but it is the higher-risk exception rather than the normal BotSquad execution topology.
+
+The Ubuntu HQ itself is not a license for unrestricted desktop/shell authority. Computer Use remains a separate explicit capability governed by Decision 006.
 
 ## Core principle
 
@@ -70,9 +78,9 @@ The exact schema is future implementation work.
 
 ## Two execution modes
 
-### 1. Local desktop worker
+### 1. Human-workstation desktop worker
 
-A worker may operate an approved application on the human operator's local machine when a supported runtime makes that possible.
+A worker may operate an approved application on the human operator's workstation when a supported runtime makes that possible.
 
 Example:
 
@@ -99,7 +107,7 @@ It should not be the default for autonomous workers.
 
 ### 2. Sandboxed computer worker
 
-Preferred long-term model:
+Preferred autonomous/default model:
 
 ```text
 BotSquad
@@ -306,7 +314,7 @@ Conceptually:
 Worker
   |
   +-- Runtime: Codex
-  |      +-- optional local computer capability
+  |      +-- optional bounded computer environment
   |
   +-- Runtime: API agent
          +-- optional sandboxed computer capability
@@ -371,15 +379,15 @@ Prove workers, hierarchy, tasks, dispatch, persistence, and Codex runtime execut
 CEO -> CTO -> engineering workers
 ```
 
-Implemented: managed local repositories, separate branches/worktrees, concurrent engineers, independent read-only review and tested trusted integration. Computer Use remains disabled.
+Implemented in Prompt 02: managed local repositories, separate branches/worktrees, concurrent engineers, independent read-only review and tested trusted integration. Prompt 03 moves the headquarters/runtime toward Ubuntu. Computer Use remains disabled.
 
-### Later milestone
+### Post-Ubuntu infrastructure milestone
 
 ```text
 Computer Operator + bounded Computer Use
 ```
 
-Add GUI/browser environments only after the underlying task, authority, audit, and approval systems are reliable.
+Add GUI/browser environments only after the Ubuntu runtime, task, authority, audit, Linux isolation and approval boundaries are reliable. Prefer isolated remote environments; use the human workstation only when the task specifically requires it.
 
 ## Acceptance criteria for a future Computer Use milestone
 
