@@ -1,6 +1,6 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Planned Prompt 03 architecture  
+**Status:** Accepted deployment direction; Prompt 03 implementation/validation milestone  
 **Date:** 2026-09-25
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
@@ -12,6 +12,8 @@ Make BotSquad easy to install for a real user:
 > Give Codex a fresh supported Ubuntu machine that is reachable through an existing SSH alias, and let the checked-in BotSquad bootstrap prompt turn that machine into a working BotSquad headquarters.
 
 The user should not need to manually configure Node.js, Codex, systemd, BotSquad directories, Linux sandboxing, service startup, or the BotSquad web UI.
+
+The primary deployment model is therefore self-hosted rather than workstation-local. A cloud provider is convenient, but not required; the host may also be a private VM or physical Ubuntu machine.
 
 The desired onboarding experience is:
 
@@ -36,7 +38,7 @@ The desired onboarding experience is:
 For the project owner, the SSH alias may be something like:
 
 ```text
-ssh asymmetri
+ssh botsquad
 ```
 
 The product and bootstrap design must never depend on that particular alias.
@@ -444,7 +446,7 @@ SSH_TARGET=<alias>
 Example:
 
 ```text
-SSH_TARGET=asymmetri
+SSH_TARGET=botsquad
 ```
 
 It must:
@@ -500,4 +502,4 @@ A successful Prompt 03 demonstration should start from a fresh supported Ubuntu 
 16. thread names are human-readable;
 17. installation evidence contains no secrets.
 
-Nix and dynamic worker Unix-account lifecycle may be implemented in Prompt 03 if the foundation is ready, or may be the immediate next milestone. Do not weaken the bootstrap/Linux acceptance gates merely to fit both into one prompt.
+Nix and dynamic worker Unix-account lifecycle are deferred to the next infrastructure milestone. Prompt 03 should establish the Ubuntu HQ, Linux runtime/confinement, reproducible bootstrap and per-worker AI profiles without weakening those acceptance gates.

@@ -1,7 +1,37 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 02 managed engineering implementation
+**Status:** Prompt 02 implementation plus accepted Ubuntu HQ target architecture
 **Updated:** 2026-09-25
+
+## Runtime topology: implemented baseline and accepted target
+
+Prompt 02 was implemented and validated on one macOS workstation:
+
+```text
+Human browser → local loopback HTTP/SSE → BotSquad + SQLite
+                                      → Codex App Server
+                                      → managed local Git / confined tests
+```
+
+The accepted primary operating topology for Prompt 03 and later is:
+
+```text
+Human workstation
+    |
+    | SSH / SSH tunnel
+    v
+operator-controlled Ubuntu HQ
+    |
+    +-- loopback BotSquad HTTP/SSE
+    +-- SQLite / durable company state
+    +-- dispatcher
+    +-- Codex App Server
+    +-- managed engineering/runtime isolation
+```
+
+“Self-hosted” is the architectural property that matters. The Ubuntu host may be in a cloud provider, VPS, private VM or physical machine. It is not equivalent to a multi-tenant hosted SaaS control plane.
+
+Until Prompt 03 validation lands, Prompt 02 macOS behavior remains the current implemented baseline. Do not describe Ubuntu-specific confinement or service behavior as implemented without evidence.
 
 ## Boundaries
 
@@ -186,9 +216,9 @@ interruption remain. Raw credentials, reasoning and arbitrary transport data are
 Context is limited to the current assignment/profile, direct child evidence, recent
 task messages, selected documents and relevant product/spec/allocation/review records.
 The entire database is not sent to a worker. Task content and selected evidence are
-sent to the external model service; local-first describes coordination and storage.
+sent to the external model service; self-hosted/operator-controlled describes the control plane and durable coordination state.
 
-## Human UI and local security
+## Human UI and host security
 
 The browser shows organization, durable messages, tasks, executions, artifacts, audit,
 products, allocations, submitted commits, reviews and integration test evidence. Active
@@ -199,10 +229,10 @@ message-only posting, pause/resume, interruption, inspected retry and cancellati
 HTTP binds `127.0.0.1`, checks exact Host/Origin/cross-site state and requires an
 unguessable session token for JSON writes. Static files are allowlisted. CSP, text
 escaping and plain-text artifact delivery prevent report/message HTML execution.
-SSE signals local state changes without model calls.
+SSE signals control-plane state changes without model calls.
 
-These are single-owner application boundaries, not protection against a hostile process
-sharing the owner's OS account. Git/SQLite files can be changed by their owner. Audit
+In the Prompt 02 macOS implementation these are single-owner application boundaries, not protection against a hostile process
+sharing the owner's OS account. The Ubuntu HQ direction adds a distinct service/host boundary; per-worker Unix identities remain a later milestone. Git/SQLite files can be changed by their owner. Audit
 triggers preserve normal application integrity, not cryptographic tamper-proofing.
 
 ## Validation and deferred work
@@ -220,14 +250,14 @@ external products, revision loops, stronger OS isolation, cleanup, scalable hist
 payments, outreach, deployment and distributed orchestration remain deferred.
 
 
-## Planned Ubuntu headquarters boundary
+## Accepted Ubuntu headquarters boundary
 
-Prompt 03 will add a supported Ubuntu deployment/bootstrap path without changing the core rule that BotSquad owns organizational truth and Codex threads remain replaceable runtime bindings.
+Prompt 03 implements the accepted supported Ubuntu deployment/bootstrap path without changing the core rule that BotSquad owns organizational truth and Codex threads remain replaceable runtime bindings.
 
 The initial remote-host architecture is:
 
 ```text
-Human local machine
+Human workstation
   -> checked-in bootstrap Codex prompt
   -> existing SSH alias
   -> fresh supported Ubuntu host

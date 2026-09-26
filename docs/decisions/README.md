@@ -14,7 +14,7 @@ Durable product, architecture, security, data, and workflow decisions belong her
 
 | ID | Decision | Status | Date |
 | --- | --- | --- | --- |
-| [001](decision_001_local_first_control_plane.md) | Local-first control plane | Accepted | 2026-09-24 |
+| [001](decision_001_local_first_control_plane.md) | Local-first control plane | Partially superseded / clarified by 009 | 2026-09-24 |
 | [002](decision_002_messages_do_not_grant_authority.md) | Messages do not grant authority | Accepted | 2026-09-24 |
 | [003](decision_003_codex_first_runtime.md) | Codex is the first executable runtime adapter | Accepted | 2026-09-24 |
 | [004](decision_004_delegated_worker_creation.md) | Delegated worker creation with an authority ceiling | Accepted | 2026-09-24 |
@@ -23,3 +23,12 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [007](decision_007_prompt_01_runtime_and_recovery.md) | Prompt 01 App Server, bounded authority and recovery | Accepted | 2026-09-25 |
 | [008](decision_008_managed_engineering.md) | Managed engineering, independent review and tested integration | Accepted | 2026-09-25 |
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
+
+
+## Current deployment interpretation
+
+Decision 009 is the current deployment-direction authority: BotSquad is moving from the Prompt 01/02 workstation-local topology to an always-on, self-hosted Ubuntu headquarters.
+
+Decision 001 remains important for control-plane ownership and persistence, but its term **local-first** now means operator-controlled/self-hosted state rather than “must run on the operator's laptop.”
+
+Historical Prompt 01/02 decisions and validation records should remain unchanged unless a later decision explicitly supersedes their architectural lesson. They describe what was actually validated at those milestones.

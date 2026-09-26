@@ -1,5 +1,7 @@
 # Case study: a bot team builds SquadStatus
 
+> **Historical context:** This case study records the Prompt 02 macOS-local validation architecture. BotSquad's accepted operating direction is now an always-on self-hosted Ubuntu headquarters. The local worktrees described here remain valid evidence of Prompt 02; they are not the final deployment model.
+
 SquadStatus is a small working program built by a six-bot team coordinated through
 BotSquad. This real demonstration tested the path from a human objective to a
 specification, concurrent coding, independent review and a tested product.
@@ -161,7 +163,7 @@ failing combined tests. Those failure cases leave the product's default branch u
 - [Product test output and commit evidence](../validation/artifacts/prompt-02-acceptance.json)
 - [Complete run record](../validation/prompt-02.md) and [machine-readable evidence](../validation/prompt-02-evidence.json)
 
-To run a new example, follow the [README setup and requirements](../../README.md#run-locally),
+To run a new example, follow the [README setup and requirements](../../README.md#local-development-and-prompt-02-demo),
 then select **Build SquadStatus** and **Assign objective**. Watch **Organization**,
 **Products & engineering**, **Tasks** and **Executions**; open the specification,
 submission evidence, review and integration results as they appear.
@@ -170,10 +172,10 @@ submission evidence, review and integration results as they appear.
 real Codex workers and consumes model usage. Each run creates new IDs and commits.
 Existing Prompt 01 runtime bindings need fresh company data for engineering; see the README.
 
-This case study demonstrates a fixed local workflow. General existing repositories,
+This case study demonstrates the fixed local Prompt 02 workflow. General existing repositories,
 external pushes/deployment, Computer Use and automatic revision loops remain future
 work. Permissions are enforced by BotSquad's trusted code; passing tests and review
-do not establish protection against a malicious process sharing the same OS account.
+did not establish protection against a malicious process sharing the same OS account. Prompt 03's Ubuntu migration introduces a separate host/service boundary; per-worker Unix-user isolation remains later work.
 
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md)
 and [Decision 008](../decisions/decision_008_managed_engineering.md).
