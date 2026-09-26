@@ -1,13 +1,13 @@
 # Execution Plan — Prompt 03: Ubuntu HQ and worker AI profiles
 
-**Status:** Real Ubuntu acceptance passed; final evidence, integration and deployment in progress
+**Status:** Complete — acceptance passed, main integrated and Ubuntu deployment verified
 **Owner:** Codex task 01a0db2e-25ef-7d21-9950-0a35ef034ff4, sole writer  
 **Branch:** feature/prompt-03-ubuntu-hq  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-26 00:47 UTC  
 **Starting origin/main:** 2239be6304495d583053f4ffabd8e900d4fb63f6  
 **Initial ETA:** 45–90 minutes before reading the attachment; revised to 5–8 hours after full scope review.  
-**Current ETA:** 25–40 minutes from 02:28 UTC for evidence review, documentation, integration and final deployment.
+**Completion:** First integrated main delivery verified at 02:36 UTC; 1 hour 49 minutes elapsed from start, including the authorization handoff. The final documentation follow-up is deployed and checked before user handoff.
 
 ## Objective and scope
 
@@ -65,14 +65,20 @@ Record all unexercised gates honestly; incomplete acceptance must not merge to m
 | 00:52 | Clean current-main feature branch; host identity/resources match expectation. |
 | 00:55 | 15-minute ETA heartbeat created; full documentation and code review underway. |
 
-## Remaining work / blockers
+## Completion and remaining limitations
 
-Implementation, initial bootstrap and deterministic Linux/macOS checks are complete.
-Service-account Codex login was verified as ChatGPT authentication at 02:17 UTC.
-Real Ubuntu research, engineering and completed-work replay checks passed. Resource
-review, final evidence/docs, main integration and final deployment remain.
-Non-model reboot, service persistence and same-revision bootstrap preservation pass.
-Do not transfer local auth files or merge incomplete acceptance to main.
+All Prompt 03 acceptance gates passed. Main fast-forwarded to cc581a3 with no conflicts
+or force push, and the exact main SHA was deployed and verified at 02:36 UTC. The
+runtime is ready, completed production work and AI profiles survived the bootstrap
+update, the service is non-root/active/enabled, and the only UI listener is loopback.
+The final delivery-record-only follow-up retains the validated source digest and is
+also deployed before handoff; exact final local/remote/host equality is in the handoff.
+
+Production dispatch is paused for the human; the six-worker acceptance company is
+retained separately under the host validation directory. No repeated paid workflow
+is needed. Hardware capacity beyond the measured bounded workload, per-worker Unix
+identity, Nix, broader approval grants, Computer Use, federation and external identities
+remain explicit future scope. No unresolved Prompt 03 blocker remains.
 
 ## Documentation freshness and handoff
 
@@ -137,3 +143,8 @@ restart/reboot/idempotency and final deployed/main equality.
   and acknowledged interruption. Six-worker engineering includes 24.958 seconds of
   real engineer turn overlap, exact-commit review, trusted integration and no replay.
   Actual production systemd restart also preserves a completed Atlas execution.
+
+- 02:36 UTC: accepted feature fast-forwarded into main at cc581a3; bootstrap passed
+  60/60 hardened tests. Verified source/health/main SHA equality, runtime readiness,
+  complete production-state preservation, UID 997, active/enabled service, loopback-only
+  listener and exactly one swap entry. Final record follow-up contains documentation only.

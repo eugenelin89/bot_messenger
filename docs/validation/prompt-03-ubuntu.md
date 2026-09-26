@@ -152,7 +152,8 @@ Every shown execution records `codex-cli 0.157.0`, `codex-app-server` and immuta
 An early idle service cgroup sample was about 25 MiB and Node RSS about 65 MiB.
 After reboot/startup discovery, cgroup memory was about 169 MiB including charged
 file cache, Node RSS about 63 MiB and host available memory about 1.6 GiB. Swap used
-0–12 KiB during deterministic checks. After the real service restart, idle Node RSS
+0–12 KiB during early deterministic checks; the final main bootstrap used 268 KiB.
+The real workflows used no swap. After the real service restart, idle Node RSS
 was about 65 MiB and cgroup memory about 19 MiB.
 
 During real engineering, 75 samples covered 146 seconds: host available memory stayed
@@ -247,11 +248,18 @@ Main integration carries both documentation merge parents with the implementatio
 
 ## Delivery and limitations
 
-Feature acceptance is complete. Delivery uses normal fast-forward integration into
-freshly fetched main, then the deterministic bootstrap/test gate and final runtime,
-state, UID, listener and deployed-commit checks. No force push or separate PR #1
-merge is used. The final handoff records the exact main/remote/deployed SHA equality;
-local final-deployment snapshots are retained under `.validation/prompt03-host`.
+Feature acceptance and first main delivery are complete. Main fast-forwarded from
+`2239be6` to `cc581a3d0495772aaef1c4c2bce2aac5cbbf2a41`; no integration conflict, force
+push or separate PR #1 merge occurred. The exact revision was deployed through the
+installer, passed 60/60 hardened tests in 27.45 seconds, and was verified at 02:36 UTC.
+Every production company collection survived except normal worker timestamp refresh;
+the completed execution was not replayed, runtime returned ready, UID remained 997,
+and the service remained active/enabled with only the loopback UI listener. Login,
+permissions and the single swap entry survived the update.
+
+This delivery-record-only follow-up does not change the validated source digest.
+The final handoff records the exact final main/remote/deployed SHA equality after its
+deployment. Local final-deployment snapshots are retained under `.validation/prompt03-host`.
 
 Only Ubuntu 24.04 x86_64 is certified for this Linux runner. The observed hardware
 floor applies to the bounded workload above. Strict priority can starve lower queues;

@@ -1,5 +1,5 @@
 {
-  "status": "Ubuntu feature acceptance PASS; final main deployment recorded in handoff",
+  "status": "PASS: Ubuntu acceptance and main delivery complete",
   "validated_feature_commit": "99e856d676ae497b76889b982c7ccd0422c2abfe",
   "source_digest": "00635a7d0bb94773c552dd6b1d5bb36c73d22dc617ff7530994373c881621cc5",
   "starting_main_commit": "2239be6304495d583053f4ffabd8e900d4fb63f6",
@@ -330,5 +330,17 @@
     "federation",
     "external identities",
     "Telegram"
-  ]
+  ],
+  "main_delivery_before_documentation_followup": {
+    "commit": "cc581a3d0495772aaef1c4c2bce2aac5cbbf2a41",
+    "verified_at": "2026-09-26T02:36:02Z",
+    "integration": "fast-forward",
+    "hardened_tests": "60/60 PASS in 27.45 seconds",
+    "runtime": "ready",
+    "production_state_preserved": true,
+    "listener": "127.0.0.1:4310",
+    "service_uid": 997,
+    "swap_used_kib": 268,
+    "note": "The final delivery-record-only commit is deployed and its exact SHA equality reported in the final handoff."
+  }
 }
