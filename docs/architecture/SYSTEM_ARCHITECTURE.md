@@ -196,7 +196,7 @@ retained; automatic repair, revision cycles and cleanup are deferred.
 
 ## Codex adapter
 
-Decision 010 retains Decision 007's private App Server stdio architecture and upgrades the validated pin to `0.157.0`. Each
+Decision 011 retains Decision 007's private App Server stdio architecture and upgrades the validated pin to `0.157.0`. Each
 execution owns a short-lived process and one turn. Codex owns managed authentication;
 BotSquad never copies credentials. Preflight reports version/auth mode/advertised model.
 Persisted worker model/reasoning settings override inherited company/runtime defaults. The runtime discovers model-specific reasoning choices; unsupported combinations fail before a turn. `BOT_MODEL` is only the inherited default.
@@ -292,6 +292,24 @@ Nix is a future ongoing DevOps worker after the Ubuntu HQ exists; the bootstrap 
 See [Ubuntu HQ and Bootstrap Model](../product/UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
 
 The installer, service account, root-owned source, persistent swap and systemd hardening
-are specified in [Decision 010](../decisions/decision_010_ubuntu_hq_profiles.md) and the
+are specified in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md) and the
 [operator guide](../bootstrap/UBUNTU_BOOTSTRAP.md). Nix, per-worker Unix accounts,
 privileged provisioning, broad approval grants and Computer Use remain deferred.
+
+## Future company and external-identity boundaries
+
+Prompt 03 still has one company per configured data directory. The service UID, Codex
+account, logical worker and thread remain distinct; current worker priority is local
+to this control plane. No multi-company isolation or cross-HQ quota coordinator is
+implemented or implied by the Ubuntu deployment.
+
+[Decision 010](../decisions/decision_010_multi_company_federation.md) sets future company
+isolation and explicit connection policy. A future migration must scope company data
+and authority before enabling cross-company communication. Same-HQ collaboration
+precedes authenticated/replay-resistant federation. Optional external identities and
+Telegram remain trusted integration adapters with protected credentials and untrusted
+inbound content; they never replace internal records or grant authority.
+
+See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
+[External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
+These requirements constrain future work; they add no Prompt 03 implementation scope.

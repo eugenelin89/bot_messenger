@@ -1,4 +1,4 @@
-# Decision 010 — Ubuntu service, Linux confinement and worker AI profiles
+# Decision 011 — Ubuntu service, Linux confinement and worker AI profiles
 
 **Date:** 2026-09-26  
 **Status:** Implemented; final real Ubuntu acceptance pending

@@ -23,7 +23,8 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [007](decision_007_prompt_01_runtime_and_recovery.md) | Prompt 01 App Server, bounded authority and recovery | Accepted | 2026-09-25 |
 | [008](decision_008_managed_engineering.md) | Managed engineering, independent review and tested integration | Accepted | 2026-09-25 |
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
-| [010](decision_010_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Implemented; final acceptance pending | 2026-09-26 |
+| [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted (future architecture) | 2026-09-25 |
+| [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Implemented; final acceptance pending | 2026-09-26 |
 
 
 ## Current deployment interpretation
@@ -33,3 +34,8 @@ Decision 009 is the current deployment-direction authority: BotSquad is moving f
 Decision 001 remains important for control-plane ownership and persistence, but its term **local-first** now means operator-controlled/self-hosted state rather than “must run on the operator's laptop.”
 
 Historical Prompt 01/02 decisions and validation records should remain unchanged unless a later decision explicitly supersedes their architectural lesson. They describe what was actually validated at those milestones.
+
+Decision 010 defines deferred multi-company/federation boundaries. Prompt 03 remains
+one company per data directory and does not implement those boundaries, Telegram or
+external identities. Decision 011 records the implemented Ubuntu/service/profile
+choices and their remaining real-runtime acceptance gates.

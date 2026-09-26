@@ -42,6 +42,26 @@ Prompt 03 moves the control plane/runtime to Ubuntu and adds per-worker AI profi
 
 Historical Prompt 01/02 examples below describe the local validation architecture that proved the organization model.
 
+## Companies above workers
+
+The organization model should eventually support a company boundary above the worker hierarchy.
+
+```text
+Human owner
+├── Company A
+│   └── Atlas -> workers...
+└── Company B
+    └── Atlas -> workers...
+```
+
+Workers belong to a company and cannot cross that boundary merely because both companies run on the same BotSquad HQ or use the same runtime account.
+
+Cross-company collaboration is a separate operation governed by a trusted CompanyConnection. The sending company should share only the explicit request/artifact/result envelope; the receiving company retains its own internal task hierarchy and audit trail.
+
+A worker may later have optional external identities such as a Telegram bot. That external identity is attached to the worker and company; it is not the worker's durable identity and does not grant authority by itself.
+
+See [Multi-Company and Federation Model](MULTI_COMPANY_AND_FEDERATION.md) and [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
+
 ## Core distinction: create, start, message, assign
 
 These are four separate operations and should remain separate in the product.
@@ -507,4 +527,4 @@ while UUID/workspace/thread bindings remain the identity boundary.
 
 Ubuntu HQ now runs one botsquad service account. Nix, per-worker Unix identities,
 separate clones, privileged provisioning and human infrastructure approval grants are
-the next milestone, not part of Prompt 03. See Decision 010 and its validation record.
+the next milestone, not part of Prompt 03. See Decision 011 and its validation record.

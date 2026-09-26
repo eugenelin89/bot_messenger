@@ -7,7 +7,7 @@
 **Started:** 2026-09-26 00:47 UTC  
 **Starting origin/main:** 2239be6304495d583053f4ffabd8e900d4fb63f6  
 **Initial ETA:** 45–90 minutes before reading the attachment; revised to 5–8 hours after full scope review.  
-**Current ETA:** 1–2 hours after service-account authorization, plus 10–20 minutes of independent recovery work at 01:41 UTC, excluding human authorization wait.
+**Current ETA:** 1–2 hours after service-account authorization, plus 10–15 minutes to finish and deploy the expanded documentation reconciliation at 01:57 UTC, excluding human authorization wait.
 
 ## Objective and scope
 
@@ -76,7 +76,7 @@ Do not transfer local auth files or merge incomplete acceptance to main.
 ## Documentation freshness and handoff
 
 Update README, setup/bootstrap, vision/organization/Ubuntu model, architecture,
-decision index and a new Decision 010. Preserve historical Decision 009 rationale.
+decision index and implementation Decision 011. Preserve historical Decision 009 rationale.
 Record sanitized evidence in docs/validation/prompt-03-ubuntu.md and JSON, including
 Git identity, host/runtime, actual AI profiles/executions, security, resource,
 restart/reboot/idempotency and final deployed/main equality.
@@ -119,3 +119,12 @@ restart/reboot/idempotency and final deployed/main equality.
   contribution is fully incorporated; the current expanded PR is partially incorporated.
   Leave later out-of-scope topics on their branch and reconcile their duplicate Decision
   010 number when adopted. Do not merge this expanded PR separately to main.
+
+- 01:51 UTC: new explicit handoff requests the later future-architecture documents
+  too. Reviewed the complete latest PR at 9a21999 and verified its provider references.
+  Incorporate these as documentation only, retaining one-company Prompt 03 scope.
+  Resolve the sole merge conflict in the decision index by preserving future Decision
+  010 and renumbering the Prompt 03 implementation decision to 011 with all links fixed.
+  This supersedes the earlier partial-incorporation handoff; do not implement future scope.
+- Local browser smoke verified actual discovered model/reasoning menus and saved
+  gpt-6-sol / low / high / human-locked through the human UI, with zero model executions.

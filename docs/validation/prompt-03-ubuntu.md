@@ -38,6 +38,8 @@ service-account login. That is an honest partial-readiness state, not real accep
 - Latest local complete suite passed 60/60 in 20.49 seconds. A focused actual macOS
   symlink/proc confinement probe passed after further strengthening the test.
 - Static TypeScript, JavaScript syntax, shell syntax and whitespace checks pass.
+- Local browser smoke verified discovered model/reasoning choices and persisted an
+  explicit gpt-6-sol / low / high / human-locked profile via the UI with zero executions.
 - Models/reasoning come from Codex model/list. Local actual 0.157.0 discovery succeeded;
   the Ubuntu account-specific catalog remains unverified until sign-in.
 - Real Mac CEO → Scout → CEO, same-binding resume after process restart and a real
@@ -134,30 +136,35 @@ can write `/var/lib/botsquad` but cannot write `/opt/botsquad`, its compiled mai
 or `/etc`. The final installer also stops the service before replacing build files;
 failed updates stay stopped and retain evidence rather than running a partial build.
 
-## Concurrent documentation PR #1
+## Concurrent documentation PR
 
 [PR #1](https://github.com/eugenelin89/bot_messenger/pull/1), branch
-`docs/ubuntu-hq-direction` at `eed63536571d010894ba5f238af80e9620ff8000`, was **fully
-incorporated through that Ubuntu-direction revision** into this feature branch by merge `4e8711e12085452fca6a5e5be67c58e3bf13826e`.
-It was not separately merged to main. No merge conflicts occurred. Its Ubuntu-first,
-operator-controlled state, workstation administration, provider neutrality and deferred
-infrastructure/Computer Use direction are retained.
+`docs/ubuntu-hq-direction`, is **fully incorporated through latest reviewed revision
+`9a219990e1bbbdce192a31e93c9cb1d589e1a552`** into the Prompt 03 feature branch.
+Integration uses normal non-fast-forward merges: the original Ubuntu contribution
+at `eed6353` entered through `4e8711e`, followed by a reviewed merge of the seven later
+future-architecture commits after the user's expanded handoff. No force push or
+separate merge to main occurred.
 
-At the final fetch, this PR branch had advanced to
-`9a21999` with seven additional commits about future multi-company isolation,
-federation and Telegram external identities. Those later topics are outside the
-requested Prompt 03 Ubuntu/profile scope and remain on the docs branch. They were
-inspected, not silently incorporated or discarded. Thus **the latest PR is partially
-incorporated; its entire originally supplied Ubuntu HQ contribution is incorporated**.
-The later future-architecture decision also uses number 010, which already belongs
-to this implementation decision and will need reconciliation when that work is adopted.
-No separate merge of either part into main was performed.
+The sole merge conflict was the decision index: both branches assigned 010. Keep
+[Decision 010](../decisions/decision_010_multi_company_federation.md) for the accepted
+future company/federation direction, and renumber the implementation record to
+[Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md), updating every link.
+This preserves both decisions and all current Prompt 03 implementation work.
 
-Intentional refinements replace prospective wording with actual implemented paths,
-Codex pin, Linux confinement, human profile controls and explicit pending acceptance.
-Manager profile requests are deferred. Hardware sizing remains a candidate until real
-proof. Historical Prompt 01/02 execution plans and validation records are unchanged;
-Decision 001 retains its original rationale with the PR's appended clarification.
+Intentional wording changes distinguish implemented Ubuntu paths, Codex 0.157.0,
+validated bubblewrap/seccomp/empty-proc confinement, human profile controls and pending
+real acceptance from future intentions. Optional manager profile requests remain
+deferred; hardware sizing remains a candidate until real concurrent workload proof.
+The future documents explicitly state the current one-company-per-data-directory
+limit. Multi-company persistence, CompanyConnection, federation, Telegram, external
+identities, Nix, worker Unix accounts and Computer Use remain unimplemented future
+scope. Provider references were checked against official Telegram and OpenAI sources.
+
+Historical Prompt 01/02 execution plans and validation records are unchanged.
+Decision 001 retains its historical rationale and appended Decision 009 clarification.
+PR #1 needs no separate merge; it can be closed as incorporated into the feature
+branch, preferably when Prompt 03's remaining acceptance gates permit main integration.
 
 ## Remaining acceptance gates
 

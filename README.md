@@ -46,6 +46,14 @@ and your SSH tunnel. [Operator guide](docs/bootstrap/UBUNTU_BOOTSTRAP.md).
 
 See [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md) and [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md).
 
+## Future multi-company direction
+
+BotSquad should eventually support multiple independent companies under one owner/HQ, while keeping company state isolated by default. Companies may collaborate only through explicit, audited company connections. A runtime account such as Codex is a separate resource and must not be treated as equivalent to one company or one BotSquad instance.
+
+Workers may also gain optional external identities. Telegram bot identities are a concrete future candidate; BotSquad's trusted integration layer should hold provider credentials while workers request bounded messaging operations.
+
+These capabilities are future architecture, not Prompt 03 scope. See [Multi-company and federation](docs/product/MULTI_COMPANY_AND_FEDERATION.md) and [External identities and Telegram](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
+
 ## Local development and Prompt 02 demo
 
 Requirements: **Node.js 24.10+ (24.x)**, Git, macOS Seatbelt or the bootstrapped Ubuntu Linux confinement adapter, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
@@ -169,6 +177,8 @@ No old worker thread is silently replaced. Keep the original directory for inspe
 
 - [Project vision](docs/product/PROJECT_VISION.md)
 - [AI organization model](docs/product/AI_ORGANIZATION_MODEL.md)
+- [Multi-company and federation model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
+- [External identities and Telegram integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use model](docs/product/COMPUTER_USE_MODEL.md)
 - [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md)
@@ -177,4 +187,4 @@ No old worker thread is silently replaced. Keep the original directory for inspe
 - [Prompt 01 execution plan](docs/exec-plans/prompt-01.md)
 - [Prompt 02 execution plan](docs/exec-plans/prompt-02.md)
 - [Prompt 03 execution plan](docs/exec-plans/prompt-03.md)
-- [Ubuntu implementation decision](docs/decisions/decision_010_ubuntu_hq_profiles.md)
+- [Ubuntu implementation decision](docs/decisions/decision_011_ubuntu_hq_profiles.md)

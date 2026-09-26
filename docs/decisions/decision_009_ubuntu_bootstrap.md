@@ -51,3 +51,11 @@ The existing global model selection becomes a default/fallback, not the only wor
 - Runtime upgrades during the Ubuntu migration require App Server/security revalidation.
 - Human-visible Codex thread names should use BotSquad/worker role context rather than opaque IDs.
 - Future Nix/worker-account provisioning builds on the installed Ubuntu foundation instead of solving initial installation.
+
+## Implementation follow-up
+
+[Decision 011](decision_011_ubuntu_hq_profiles.md) records the concrete Prompt 03
+service, confinement, runtime and AI-profile choices. The implementation is present;
+its [validation record](../validation/prompt-03-ubuntu.md) distinguishes completed
+noninteractive Ubuntu checks from the pending real-runtime acceptance gates. This
+follow-up preserves the original target decision and its rationale.

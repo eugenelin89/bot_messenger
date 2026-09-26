@@ -502,6 +502,6 @@ A successful Prompt 03 demonstration should start from a fresh supported Ubuntu 
 16. thread names are human-readable;
 17. installation evidence contains no secrets.
 
-The concrete installer/service/Linux/profile choices are in [Decision 010](../decisions/decision_010_ubuntu_hq_profiles.md); operational steps are in [Ubuntu bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md). Manager-requested AI profiles are deferred; trusted human configuration is implemented.
+The concrete installer/service/Linux/profile choices are in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md); operational steps are in [Ubuntu bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md). Manager-requested AI profiles are deferred; trusted human configuration is implemented.
 
 Nix and dynamic worker Unix-account lifecycle are deferred to the next infrastructure milestone. Prompt 03 should establish the Ubuntu HQ, Linux runtime/confinement, reproducible bootstrap and per-worker AI profiles without weakening those acceptance gates.
