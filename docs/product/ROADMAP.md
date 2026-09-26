@@ -726,7 +726,8 @@ are proven, later prompts may add capabilities such as:
 - billing;
 - customer-facing deployment;
 - specialized GPU/compute workers;
-- portfolio-level company supervision.
+- portfolio-level company supervision;
+- automated Demo Operator / guided tutorial generation and release walkthrough capture.
 
 These should not be assigned fixed prompt numbers until their dependencies and scope are
 better understood.
@@ -831,3 +832,5 @@ numbers above are the canonical planning order.
 - External Identities and Telegram Integration
 - Computer Use Model
 - Decision index
+- Demo Operator and Guided Tutorials
+- Running Multiple BotSquad Instances
