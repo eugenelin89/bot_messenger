@@ -350,7 +350,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-Prompt 03 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 04 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.
@@ -364,12 +364,12 @@ inbound content; they never replace internal records or grant authority.
 
 See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
 [External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
-These requirements constrain future work; they add no Prompt 03 implementation scope.
+These requirements constrain future work; they are not implemented by Prompt 04.
 
 
 ## Future native-client boundary
 
-The current Prompt 03 HTTP/SSE surface is validated for a private browser session through
+The private HTTP/SSE surface established in Prompt 03 and retained through Prompt 04 is validated for a browser session through
 an SSH tunnel. A future native-client milestone should extract/define a stable,
 versioned, authenticated client API above the existing control-plane operations.
 
