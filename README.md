@@ -291,6 +291,12 @@ Current important limits include:
 The next infrastructure milestone is expected to add Nix, trusted human grants, a narrow
 privileged provisioner, and separate Unix identities/project access for workers.
 
+A later native-client milestone will add a secure iPhone/iPad dashboard that connects
+to BotSquad without requiring a manual SSH tunnel for normal mobile use. The HQ remains
+private by default; the mobile architecture uses a stable authenticated client API and
+a separate secure transport layer rather than exposing port 4310 publicly. See
+[Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md).
+
 ## Local development
 
 Ubuntu HQ is the primary deployment, but local development/regression remains supported.
@@ -362,6 +368,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Multi-Company and Federation Model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
+- [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md)
 
 ### Examples and history
 
