@@ -36,10 +36,11 @@ Decision 001 remains important for control-plane ownership and persistence, but 
 
 Historical Prompt 01/02 decisions and validation records should remain unchanged unless a later decision explicitly supersedes their architectural lesson. They describe what was actually validated at those milestones.
 
-Decision 010 defines deferred multi-company/federation boundaries. Prompt 03 remains
-one company per data directory and does not implement those boundaries, Telegram or
-external identities. Decision 011 records the implemented Ubuntu/service/profile
-choices and their real-runtime acceptance evidence.
+Decision 010 defines deferred multi-company/federation boundaries. The implementation
+through Prompt 04 remains one company per data directory and does not implement those
+boundaries, Telegram or external identities. Decision 011 records the Ubuntu/service/profile
+choices and their real-runtime acceptance evidence; Decision 013 records the trusted
+approval, Nix, provisioner and isolated worker-infrastructure boundary.
 
 
 Decision 012 defines the future native-client direction: an iOS app is a first-class
