@@ -1,6 +1,6 @@
 # BotSquad
 
-A local workspace for a human to coordinate persistent AI workers through explicit tasks, durable messages and inspectable evidence.
+A self-hosted workspace for a human to coordinate persistent AI workers through explicit tasks, durable messages and inspectable evidence. BotSquad's primary operating direction is an always-on Ubuntu headquarters under the operator's control; a local Mac or other workstation is the bootstrap, administration and development client.
 
 Prompt 02 adds **Human → Atlas → Maya / Turing → Linus + Ada → Grace → tested integration → Human**. Two real Codex engineers work concurrently in separate branches/worktrees of a managed local SquadStatus repository. Prompt 01’s **Atlas → Scout → Atlas** research workflow remains available. Atlas decides to request a specialist; trusted company tools validate the hire and assignment. The dispatcher runs real Codex only when work exists. Creating a worker or posting a message does not invoke a model.
 
@@ -8,9 +8,31 @@ Prompt 02 adds **Human → Atlas → Maya / Turing → Linus + Ada → Grace →
 for a simple walkthrough of the bots, their separate product repository and worktrees,
 and how an objective became reviewed, tested code.
 
-## Run locally
+## Deployment direction
 
-Requirements: **Node.js 24.10+ (24.x)**, local Git, macOS for confined engineering tests, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
+Prompt 01 and Prompt 02 were implemented and validated as a local macOS application. That history remains useful, but it is no longer the intended long-term operating topology.
+
+The accepted direction in [Decision 009](docs/decisions/decision_009_ubuntu_bootstrap.md) is:
+
+```text
+operator workstation
+    ↓ SSH / SSH tunnel
+operator-controlled Ubuntu host
+    ↓
+BotSquad non-root system service
+    ↓
+SQLite + dispatcher + Codex runtime + managed work
+```
+
+The Ubuntu host may be a DigitalOcean Droplet, another cloud/VPS provider, a VM or a physical Ubuntu machine. BotSquad is **self-hosted**, not a hosted multi-tenant SaaS: coordination state stays on the operator-controlled BotSquad host while assigned task/model content may be sent to the configured external model runtime.
+
+Prompt 03 is the migration/bootstrap milestone. Until that implementation lands, the instructions below describe the validated Prompt 02 local development/demo path.
+
+See [Set up a minimal Ubuntu host](docs/bootstrap/SETUP_UBUNTU_HOST.md) and [Ubuntu HQ and bootstrap model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md).
+
+## Local development and Prompt 02 demo
+
+Requirements for the currently validated Prompt 02 development/demo path: **Node.js 24.10+ (24.x)**, local Git, macOS for confined engineering tests, and a Codex login with model access. The official Codex CLI is pinned as a project dependency because this adapter uses version-specific experimental App Server fields.
 
 ```sh
 npm ci
@@ -19,7 +41,7 @@ npm run codex:preflight
 npm run dev
 ```
 
-Open [BotSquad](http://127.0.0.1:4310). After the first build, `npm start` is sufficient.
+For local development, open [BotSquad](http://127.0.0.1:4310). After the first build, `npm start` is sufficient. The Ubuntu HQ target also keeps the service loopback-only by default, but the human reaches that loopback endpoint through an SSH tunnel.
 
 1. Click **Initialize Atlas**.
 2. Select **Build SquadStatus** in the executive channel, then **Assign objective**.
@@ -84,7 +106,7 @@ observation deadline. Artifacts, SQLite/Git state and evidence remain under igno
 
 ## Current limits
 
-This is a single-owner local research and engineering milestone. Eight workers,
+The currently implemented Prompt 02 surface is a single-owner local research and engineering milestone. Eight workers,
 three direct children per manager, two hierarchy edges, and two active executions
 globally. Atlas may delegate Product Manager/CTO profiles; CTO may delegate two
 engineers and one reviewer. Leaf roles cannot hire. One fixed SquadStatus template,
@@ -105,7 +127,7 @@ advancement. Completed branches/worktrees stay retained; cleanup is manual futur
 
 Runtime approval requests are denied and preserved as `awaiting_approval`. There is no permission-granting approval workflow yet. **Retry inspected task** reruns the same authority envelope after you inspect prior attempts, artifacts and child tasks; it does not grant the rejected permission. Interrupted/ambiguous work is never automatically replayed. Missing/corrupt runtime sessions fail visibly rather than silently binding to another worker.
 
-Dynamic tools and environment controls are experimental and tied to Codex 0.142.4. Node's SQLite API emits an experimental warning in Node 24.10. Local HTTP checks Host/Origin and requires a session token for writes, but this is not isolation from a malicious process running as the same OS user. There is no multi-user login, audit tamper-proofing against the file owner, artifact retention automation or large-history pagination.
+Dynamic tools and environment controls are experimental and tied to Codex 0.142.4. Node's SQLite API emits an experimental warning in Node 24.10. HTTP checks Host/Origin and requires a session token for writes, but Prompt 02's local deployment is not isolation from a malicious process running as the same OS user. The Ubuntu HQ direction adds an OS/service boundary, with per-worker Unix identities deferred to a later milestone. There is no multi-user login, audit tamper-proofing against the file owner, artifact retention automation or large-history pagination.
 
 Temporary researchers accept one lifetime assignment and retire when it becomes terminal; persistent workers remain available. Retired workers cannot be retried. A child result already handed back to its manager cannot be reopened; assign a new objective for further work. Optional manager retirement and approval-request tools are not implemented. Ambiguous engineering/Git operations are blocked for inspection; this milestone does not automatically repair or replay them. General revision loops and trusted human approval grants remain future work.
 
