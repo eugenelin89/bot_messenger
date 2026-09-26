@@ -1,6 +1,6 @@
 # AI Organization Model
 
-**Status:** Product model; bounded research and engineering organization implemented
+**Status:** Product model; bounded research and engineering organization implemented; Ubuntu HQ is the accepted runtime direction
 **Updated:** 2026-09-25
 
 ## Purpose
@@ -26,6 +26,21 @@ The motivating example is a virtual software startup:
 ```
 
 The organizational hierarchy is a coordination model. It is not, by itself, a security boundary.
+
+## Deployment context
+
+The organizational model is independent of where BotSquad runs. The accepted primary topology is an always-on, operator-controlled Ubuntu headquarters. The human workstation connects for bootstrap, administration and UI access rather than hosting the company permanently.
+
+A logical worker remains a durable BotSquad identity. It is not the same thing as:
+
+- a Codex thread;
+- a process;
+- a Git worktree;
+- a future Unix user.
+
+Prompt 03 moves the control plane/runtime to Ubuntu and adds per-worker AI profiles. A later Nix/infrastructure milestone may bind workers to separate Unix accounts and project clones without changing their logical organizational identity.
+
+Historical Prompt 01/02 examples below describe the local validation architecture that proved the organization model.
 
 ## Core distinction: create, start, message, assign
 
@@ -399,7 +414,7 @@ Worker
 ```
 
 Codex is the initial runtime. Prompt 01 proves research and executive evaluation;
-Prompt 02 proves managed engineering and independent review using the same App Server.
+Prompt 02 proves managed engineering and independent review using the same App Server. Prompt 03 moves that runtime/control plane toward the Ubuntu HQ and makes model, reasoning effort and scheduler priority configurable per worker.
 
 A later implementation may choose different runtime types for different roles, for example:
 
@@ -450,7 +465,7 @@ per manager, two hierarchy edges and two simultaneous executions. Leaf roles rec
 no onward delegation. Effective and delegatable capabilities are separate; profile
 checks enforce the company ceiling outside model text.
 
-Maya produces the spec before engineering. Turing creates a managed local SquadStatus
+In the Prompt 02 reference flow, Maya produces the spec before engineering. Turing creates a managed local SquadStatus
 repository and assigns both engineers as a batch. Each owns one branch/worktree/task
 allocation and can edit only its module and optional extra tests. Source editing,
 fixed confined tests and commit submission use narrow trusted tools; no worker gets
@@ -467,6 +482,8 @@ and retire after one terminal assignment. Runtime bindings keep their original p
 workspace; engineering allocations are separately bound to current tasks. No implicit
 thread replacement is permitted. Restart retains completed ownership and results;
 ambiguous source/Git work is blocked for inspection rather than automatically replayed.
+
+The fixed Prompt 02 Git/worktree layout is validation history, not the final Ubuntu worker-isolation architecture. A later infrastructure milestone may use per-worker Unix identities and independent clones.
 
 The fixed product, two modules, one review and one integration attempt keep this
 milestone bounded. Automatic revision cycles, generalized product repositories,
