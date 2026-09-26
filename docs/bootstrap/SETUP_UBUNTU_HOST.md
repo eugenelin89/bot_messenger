@@ -1,6 +1,6 @@
 # Set Up a Minimal Ubuntu Host for BotSquad
 
-**Status:** Validated Prompt 03 host-preparation guide  
+**Status:** Current Ubuntu host-preparation guide; validated through Prompt 04  
 **Audience:** Anyone preparing a machine for the BotSquad Ubuntu bootstrap prompt
 
 ## Goal
@@ -51,7 +51,7 @@ DigitalOcean is only the worked example in this guide.
 
 BotSquad itself is small, but real Codex workers, Git repositories, builds, and tests need CPU and RAM.
 
-Sizing based on Prompt 03 acceptance:
+Sizing based on the current Prompt 03/04 acceptance evidence:
 
 | Use | Suggested starting size |
 | --- | --- |
@@ -59,7 +59,7 @@ Sizing based on Prompt 03 acceptance:
 | Comfortable small-team starting point | 2 vCPU, 4 GB RAM, 40+ GB SSD |
 | More concurrent engineering/build work | 4+ vCPU, 8+ GB RAM |
 
-The first row passed real Prompt 03 research and six-worker SquadStatus engineering with the normal two-execution limit: 146 seconds for engineering, 24.96 seconds of overlapping engineer turns, at least 1.42 GiB available RAM and no swap use. It is the smallest configuration actually validated, not a guarantee for larger repositories/builds or sustained workloads. Larger rows remain planning recommendations. See [measured evidence](../validation/prompt-03-ubuntu.md).
+The first row passed the real Prompt 03 research/six-worker engineering workload and remained viable through Prompt 04's Nix, approval, worker-identity, independent-clone, retirement and reboot acceptance. Prompt 04 still observed at least about 1.39 GiB available memory during the bounded validation window, while the provisioner added only modest idle overhead. It remains the smallest configuration actually validated, not a guarantee for larger repositories/builds or sustained workloads. Larger rows remain planning recommendations. See the [Prompt 03 measurements](../validation/prompt-03-ubuntu.md) and [Prompt 04 validation](../validation/prompt-04-linux-identity.md).
 
 Bootstrap still inspects each actual host; provider branding does not establish compatibility.
 
@@ -450,7 +450,8 @@ For the implemented architecture, operations, and acceptance evidence, see:
 - [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Current State](../operations/CURRENT_STATE.md)
-- [Prompt 03 validation](../validation/prompt-03-ubuntu.md)
+- [Prompt 04 validation](../validation/prompt-04-linux-identity.md)
+- [Prompt 03 historical Ubuntu validation](../validation/prompt-03-ubuntu.md)
 
 
 ## Next documents
