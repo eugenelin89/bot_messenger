@@ -24,7 +24,7 @@ Before substantive editing:
 6. For substantial, interruption-prone, or multi-step work, create and maintain an execution plan using `docs/exec-plans/TEMPLATE.md`.
 7. Verify documentation claims against the current implementation. Current code/configuration wins over stale prose unless the task explicitly changes the implementation to match an accepted requirement.
 
-Do not load unrelated historical material by default.
+Do not load unrelated historical material by default. For future milestone planning or prompt numbering, treat `docs/product/ROADMAP.md` as the canonical roadmap unless the user's current instruction explicitly changes it.
 
 ## Progress Reporting And ETA
 
@@ -351,6 +351,8 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 - Front door: `README.md`
 - Agent instructions: `AGENTS.md`
 - Product vision: `docs/product/PROJECT_VISION.md`
+- Canonical prompt roadmap: `docs/product/ROADMAP.md`
+- Technical white paper: `docs/WHITEPAPER.md`
 - Architecture: `docs/architecture/SYSTEM_ARCHITECTURE.md`
 - Current operational state: `docs/operations/CURRENT_STATE.md`
 - HQ access/operations: `docs/operations/ACCESS_AND_OPERATIONS.md`
