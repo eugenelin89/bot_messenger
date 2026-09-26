@@ -199,7 +199,7 @@ try {
     try {
       const inspection=new Company(store,dataDir,root);
       assert.throws(()=>inspection.createTask('human',inspection.worker(team.Linus!.worker_id),{objective:'Retired-worker denial probe',acceptance_criteria:'Must reject before persistence',constraints:'No execution'},null,'engineering'),/Worker is disabled/);
-      assert.deepEqual(inspection.snapshot().tasks,retired.tasks);
+      assert.deepEqual(JSON.parse(JSON.stringify(inspection.snapshot().tasks)),retired.tasks);
       Object.assign(evidence.retirement,{new_assignment_rejected:true});
     } finally { store.close();unlock(); }
   }
