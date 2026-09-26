@@ -34,7 +34,7 @@ export function linuxFilter(): Buffer {
 
 export function linuxProductCommand(root: string, executable: string, nodeArgs: string[]) {
   requireThat(process.platform === 'linux' && process.arch === 'x64', 'Unsupported Linux confinement platform');
-  requireThat(existsSync('/usr/bin/bwrap'), 'Linux confinement requires bubblewrap; run the Ubuntu bootstrap');
+  requireThat(existsSync('/opt/botsquad-runtime/bwrap'), 'Linux confinement requires bubblewrap; run the Ubuntu bootstrap');
   requireThat(executable.startsWith('/opt/') || executable.startsWith('/usr/'), 'Linux Node must be installed in a trusted system runtime directory');
   const temporary = mkdtempSync(join(tmpdir(), 'botsquad-seccomp-'));
   const filter = join(temporary, 'filter.bpf');
@@ -55,5 +55,5 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
   if (existsSync(join(root, '.git'))) args.push('--ro-bind', '/dev/null', '/work/.git');
   args.push('--remount-ro', '/', '--chdir', '/work', '--setenv', 'LANG', 'C', '--setenv', 'TZ', 'UTC',
     '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a));
-  return { command: '/usr/bin/bwrap', args, filterFd, close: () => closeSync(filterFd) };
+  return { command: '/opt/botsquad-runtime/bwrap', args, filterFd, close: () => closeSync(filterFd) };
 }

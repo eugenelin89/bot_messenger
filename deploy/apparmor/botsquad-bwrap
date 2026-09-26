@@ -1,0 +1,10 @@
+abi <abi/4.0>,
+include <tunables/global>
+
+# Ubuntu 24.04 requires an explicit userns grant for namespace-aware launchers.
+# This root-owned executable is mode 0750, group botsquad. It is not a setuid helper.
+# Product restrictions are enforced by the launcher's namespaces, read-only mounts,
+# seccomp and Node permissions, not by this userns admission profile.
+profile botsquad-bwrap /opt/botsquad-runtime/bwrap flags=(unconfined) {
+  userns,
+}

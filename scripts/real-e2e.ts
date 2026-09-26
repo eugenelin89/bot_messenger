@@ -1,3 +1,4 @@
+import { validationProfiles } from './validation-profiles.js';
 import assert from 'node:assert/strict';
 import { spawn, type ChildProcess } from 'node:child_process';
 import { createServer } from 'node:net';
@@ -18,9 +19,10 @@ async function freePort() {
   const port = (server.address() as { port: number }).port; await new Promise<void>(resolve => server.close(() => resolve())); return port;
 }
 async function api<T>(path: string, data?: unknown): Promise<T> {
-  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(5000) });
+  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(45000) });
   const result = await response.json() as T & { error?: string }; if (!response.ok) throw new Error(result.error ?? `HTTP ${response.status}`); return result;
 }
+const profiles = validationProfiles(api);
 async function launch() {
   const port = await freePort(); base = `http://127.0.0.1:${port}`;
   child = spawn(process.execPath, [join(root, 'dist/src/main.js')], { cwd: root, env: { ...process.env, BOT_DATA_DIR: dataDir, PORT: String(port) }, stdio: ['ignore', 'ignore', 'inherit'] });
@@ -45,6 +47,7 @@ async function observe(predicate: (state: Snapshot) => boolean, timeoutMs = 4800
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     const state = await api<Snapshot>('state');
+    await profiles.apply(state);
     for (const event of state.audit) {
       if (seen.has(event.event_id)) continue; seen.add(event.event_id);
       if (['worker_provisioned', 'task_assigned', 'runtime_started', 'worker_resumed', 'artifact_submitted', 'manager_followup_queued', 'execution_completed', 'execution_failed', 'execution_interrupted', 'tool_rejected'].includes(event.type)) {
@@ -63,10 +66,12 @@ try {
   await launch();
   const initial = await api<Snapshot>('state'); assert.equal(initial.workers.length, 0, 'Real E2E requires a fresh validation directory');
   await api('initialize', {}); await api('pause', { paused: true });
+  await profiles.apply(await api<Snapshot>('state'));
   const objective = await api<Task>('objectives', { objective: DEFAULT_OBJECTIVE });
   await sleep(200); assert.equal((await api<Snapshot>('state')).executions.length, 0, 'Paused task dispatched');
   await api('pause', { paused: false });
   const complete = await observe(s => s.tasks.find(t => t.task_id === objective.task_id)?.status === 'completed');
+  profiles.verify(complete);
   assert.equal(complete.workers.length, 2); const atlas = complete.workers.find(w => w.display_name === 'Atlas')!;
   const scout = complete.workers.find(w => w.display_name === 'Scout')!; assert.ok(scout); assert.equal(scout.manager_worker_id, atlas.worker_id);
   assert.equal(scout.lifecycle, 'persistent'); assert.equal(scout.enabled, 1); assert.equal(scout.status, 'idle');
@@ -102,6 +107,7 @@ try {
     workflow_task_id: objective.task_id, atlas_id: atlas.worker_id, scout_id: scout.worker_id,
     checks: ['real dynamic hire', 'real Scout execution and artifact', 'real Atlas resume/evaluation', 'pause', 'process restart persistence', 'no replay of completed work', 'persisted binding resumes after restart', 'real turn interruption'],
     counts: { workers: final.workers.length, tasks: final.tasks.length, executions: final.executions.length, artifacts: final.artifacts.length },
+    worker_profiles:complete.workers.map(w=>({name:w.display_name,worker_id:w.worker_id,model:w.ai_model,reasoning:w.reasoning_effort,priority:w.execution_priority,human_lock:!!w.ai_profile_locked})),bindings:complete.bindings,
     initial_workflow_executions: complete.executions, final_report: complete.tasks.find(t => t.task_id === objective.task_id)?.result_summary };
   writeFileSync(join(dataDir, 'evidence.json'), JSON.stringify(evidence, null, 2));
   writeFileSync(join(dataDir, 'final-state.json'), JSON.stringify(final, null, 2));

@@ -26,9 +26,10 @@ createInterface({input:process.stdin}).on('line',line=>{
   if(p.config['mcp_servers.inherited.enabled']!==false)throw new Error('MCP not disabled');
   if(p.sandbox!=='read-only'||p.approvalPolicy!=='never')throw new Error('Unsafe settings');
   send({id:m.id,result:{thread,model:'test-model',approvalPolicy:'never',sandbox:{type:'readOnly',networkAccess:false}}});
- } else if(m.method==='thread/name/set')send({id:m.id,result:{}});
+ } else if(m.method==='thread/name/set'){if(!p.name.startsWith('BotSquad · Atlas · CEO'))throw new Error('Missing friendly name');send({id:m.id,result:{}});}
  else if(m.method==='turn/start'){
   if(p.environments.length!==0)throw new Error('Environment enabled');
+  if(p.model!=='test-model'||p.effort!==(mode==='explicit-effort'?'low':'medium'))throw new Error('Wrong effective AI config');
   turnActive=true;send({method:'turn/started',params:{threadId:thread.id,turn:{id:'turn-1'}}});
   send({id:m.id,result:{turn:{id:'turn-1'}}});
   if(mode==='interrupt'||mode==='timeout')return;
@@ -95,4 +96,27 @@ test('App Server unexpected exit and execution deadline terminate without hangin
   const timeout = protocolFixture('timeout'); t.after(() => timeout.close());
   const result = await new CodexRuntime({ command: timeout.command, timeoutMs: 300 }).run(timeout.input, new AbortController().signal);
   assert.equal(result.status, 'failed'); assert.match(result.error!, /deadline/);
+});
+
+
+test('runtime resolves effective worker reasoning and records actual provenance before turn start', async t => {
+  const f=protocolFixture('explicit-effort');t.after(()=>f.close());
+  f.input.worker.ai_model='test-model';f.input.worker.reasoning_effort='low';f.input.worker.execution_priority='high';
+  let actual: unknown;f.input.configured=value=>{actual=value;};
+  assert.equal((await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal)).status,'completed');
+  assert.deepEqual(actual,{model:'test-model',reasoning_effort:'low',execution_priority:'high',runtime_version:'codex-cli 0.157.0',runtime_adapter:'codex-app-server'});
+});
+
+test('runtime refuses unavailable model and effort instead of substituting defaults', async t => {
+  const f=protocolFixture('success');t.after(()=>f.close());const adapter=new CodexRuntime({command:f.command});
+  f.input.worker.ai_model='not-advertised';await assert.rejects(()=>adapter.run(f.input,new AbortController().signal),/not advertised/);
+  f.input.worker.ai_model=null;f.input.worker.reasoning_effort='impossible';await assert.rejects(()=>adapter.run(f.input,new AbortController().signal),/not supported/);
+  assert.equal(f.callCount(),0);
+});
+
+
+test('an explicit worker model overrides an unavailable global default without silent inheritance', async t => {
+  const f=protocolFixture('success');t.after(()=>f.close());const adapter=new CodexRuntime({command:f.command,model:'removed-default'});
+  f.input.worker.ai_model='test-model';assert.equal((await adapter.run(f.input,new AbortController().signal)).status,'completed');
+  f.input.worker.ai_model=null;await assert.rejects(()=>adapter.run(f.input,new AbortController().signal),/not advertised/);
 });

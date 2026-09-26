@@ -116,9 +116,9 @@ export class CodexRuntime implements RuntimeAdapter {
     } while (cursor);
     requireThat(models.every(m => typeof m.model === 'string' && Array.isArray(m.supportedReasoningEfforts) && typeof m.defaultReasoningEffort === 'string'), 'Runtime did not advertise reasoning capabilities');
     const selected = this.model ? models.find(m => m.model === this.model || m.id === this.model) : models.find(m => m.isDefault);
-    requireThat(selected, 'Requested default model is not advertised by this Codex runtime. Check BOT_MODEL with codex:preflight.');
+    requireThat(selected || this.model, 'No default model advertised by this Codex runtime.');
     const catalog: RuntimeCatalog = { version: `codex-cli ${SUPPORTED_CODEX_VERSION}`, adapter: this.type,
-      authMode: account.account?.type ?? 'provider', defaultModel: selected.model,
+      authMode: account.account?.type ?? 'provider', defaultModel: selected?.model ?? this.model!,
       models: models.map(m => ({ id: m.id, model: m.model, displayName: m.displayName ?? m.model,
         isDefault: m.isDefault, defaultReasoningEffort: m.defaultReasoningEffort, supportedReasoningEfforts: m.supportedReasoningEfforts })) };
     return { overrides, catalog };
@@ -131,6 +131,7 @@ export class CodexRuntime implements RuntimeAdapter {
   }
   async preflight(workspace: string) {
     const catalog = await this.catalog(workspace);
+    resolveAIProfile({ ai_model: null, reasoning_effort: null, execution_priority: 'normal', ai_profile_locked: 1 }, catalog);
     return { ...catalog, model: catalog.defaultModel, transport: 'stdio', supportsInterrupt: true, dynamicTools: 'experimental' };
   }
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {

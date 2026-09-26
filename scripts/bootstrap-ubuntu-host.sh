@@ -84,9 +84,16 @@ cd /opt/botsquad
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 chmod -R go-w /opt/botsquad
-# Never disable AppArmor/user namespace restrictions globally. Ubuntu's package
-# ships its supported bwrap policy; a real non-root probe is the acceptance gate.
-runuser -u botsquad -- /usr/bin/bwrap --unshare-all --ro-bind / / -- /usr/bin/true
+# A service-only copy receives userns admission; global Ubuntu restrictions stay on.
+# Never overwrite a separately administered policy with this name.
+if [[ -e /etc/apparmor.d/botsquad-bwrap && ! -f /etc/botsquad/apparmor-managed ]]; then
+  echo 'Existing unmanaged BotSquad AppArmor profile; inspect before replacing' >&2; exit 1
+fi
+install -o root -g botsquad -m 750 /usr/bin/bwrap /opt/botsquad-runtime/bwrap
+install -m 644 deploy/apparmor/botsquad-bwrap /etc/apparmor.d/botsquad-bwrap
+apparmor_parser -r /etc/apparmor.d/botsquad-bwrap
+install -m 600 /dev/null /etc/botsquad/apparmor-managed
+runuser -u botsquad -- /opt/botsquad-runtime/bwrap --unshare-all --ro-bind / / -- /usr/bin/true
 install -m 644 deploy/systemd/botsquad.service /etc/systemd/system/botsquad.service
 # Preserve operator overrides on update. Default file contains no secrets.
 if [[ ! -e /etc/botsquad/environment ]]; then

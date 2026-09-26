@@ -47,3 +47,22 @@ test('SSE emits durable-state changes without model polling', async t => {
   f.company.initializeCEO(); const next = await reader.read(); assert.match(new TextDecoder().decode(next.value), /changed/);
   controller.abort(); assert.equal(f.runtime.calls.length, 0);
 });
+
+test('health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles', async t => {
+  const f=fixture();const http=createHttpServer(f.company,f.dispatcher,join(process.cwd(),'public'));
+  await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await f.close();});
+  const url=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`;
+  const health=await (await fetch(url+'/api/health')).json() as Record<string,unknown>;
+  assert.deepEqual(Object.keys(health).sort(),['alive','commit','database','dispatcher','runtime','version']);
+  assert.equal(health.alive,true);assert.equal(health.database,true);
+  const catalog=await (await fetch(url+'/api/runtime')).json() as {models:{model:string}[]};assert.equal(catalog.models[0]?.model,'fake-model');assert.equal(f.runtime.calls.length,0);
+  const worker=f.company.initializeCEO();
+  const payload={worker_id:worker.worker_id,profile:{ai_model:'fake-model',reasoning_effort:'low',execution_priority:'high',ai_profile_locked:true}};
+  const {csrfToken}=await (await fetch(url+'/api/session')).json() as {csrfToken:string};
+  const post=(value:unknown,token=csrfToken)=>fetch(url+'/api/worker-profile',{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':token},body:JSON.stringify(value)});
+  assert.equal((await post(payload,'wrong')).status,403);
+  assert.equal((await post({...payload,actor:'human'})).status,400);
+  assert.equal((await post({...payload,profile:{...payload.profile,ai_model:'unavailable'}})).status,400);
+  assert.equal((await post(payload)).status,200);assert.equal(f.company.worker(worker.worker_id).reasoning_effort,'low');assert.equal(f.company.worker(worker.worker_id).ai_profile_locked,1);
+  assert.equal(f.runtime.calls.length,0);
+});

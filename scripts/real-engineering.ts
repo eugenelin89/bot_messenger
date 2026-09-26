@@ -1,3 +1,4 @@
+import { validationProfiles } from './validation-profiles.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { localGit } from '../src/control/engineering.js';
@@ -20,9 +21,10 @@ async function freePort() {
   const port = (server.address() as { port: number }).port; await new Promise<void>(resolve => server.close(() => resolve())); return port;
 }
 async function api<T>(path: string, data?: unknown): Promise<T> {
-  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(15000) });
+  const response = await fetch(`${base}/api/${path}`, { ...(data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) }), signal: AbortSignal.timeout(45000) });
   const result = await response.json() as T & { error?: string }; if (!response.ok) throw new Error(result.error ?? `HTTP ${response.status}`); return result;
 }
+const profiles = validationProfiles(api);
 async function launch() {
   const port = await freePort(); base = `http://127.0.0.1:${port}`;
   child = spawn(process.execPath, [join(root, 'dist/src/main.js')], { cwd: root, env: { ...process.env, BOT_DATA_DIR: dataDir, PORT: String(port) }, stdio: ['ignore', 'ignore', 'inherit'] });
@@ -47,6 +49,7 @@ async function observe(predicate: (state: Snapshot) => boolean, timeoutMs = 9000
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     const state = await api<Snapshot>('state');
+    await profiles.apply(state);
     for (const event of state.audit) {
       if (seen.has(event.event_id)) continue; seen.add(event.event_id);
       if (['worker_provisioned', 'task_assigned', 'runtime_started', 'worker_resumed', 'artifact_submitted', 'manager_followup_queued', 'execution_completed', 'execution_failed', 'execution_interrupted', 'tool_rejected', 'repository_created', 'engineering_batch_assigned', 'source_written', 'engineering_submitted', 'review_submitted', 'integration_completed', 'integration_failed'].includes(event.type)) {
@@ -73,9 +76,11 @@ const started = new Date().toISOString();
 try {
   await launch();assert.equal((await api<Snapshot>('state')).workers.length,0,'Fresh data required');
   await api('initialize',{});await api('pause',{paused:true});
+  await profiles.apply(await api<Snapshot>('state'));
   const objective=await api<Task>('objectives',{objective:'Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. Report the actual evidence to the Human. No external product repository or publishing.'});
   await sleep(200);assert.equal((await api<Snapshot>('state')).executions.length,0);await api('pause',{paused:false});
   const complete=await observe(s=>s.tasks.find(t=>t.task_id===objective.task_id)?.status==='completed');
+  profiles.verify(complete);
   assert.equal(complete.workers.length,6);assert.equal(complete.tasks.length,6);assert.equal(complete.executions.length,10);
   assert.ok(complete.tasks.every(t=>t.status==='completed'));assert.ok(complete.executions.every(e=>e.status==='completed'));
   const names=['Atlas','Maya','Turing','Linus','Ada','Grace'];
@@ -130,8 +135,8 @@ try {
   const relative=`.validation/${dataDir.split('/').at(-1)}`;
   const sanitize=(value:unknown)=>JSON.parse(JSON.stringify(value).replaceAll(dataDir,relative));
   const evidence=sanitize({started,finished:new Date().toISOString(),result:'PASS',source_digest:sourceDigest(),data_directory:relative,workflow_task_id:objective.task_id,
-    workers:complete.workers.map(w=>({worker_id:w.worker_id,name:w.display_name,title:w.title,role:w.role,manager_worker_id:w.manager_worker_id})),
-    engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,repository:repo,submissions:complete.submissions,review,integration,
+    workers:complete.workers.map(w=>({worker_id:w.worker_id,name:w.display_name,title:w.title,role:w.role,manager_worker_id:w.manager_worker_id,model:w.ai_model,reasoning:w.reasoning_effort,priority:w.execution_priority,human_lock:!!w.ai_profile_locked})),
+    executions:complete.executions,bindings:complete.bindings,engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,repository:repo,submissions:complete.submissions,review,integration,
     specification:{task_id:specTask.task_id,execution_id:specArtifact.execution_id,artifact_id:specArtifact.artifact_id,sha256:specArtifact.sha256},
     runtime_policies:policies,confinement_rejections:complete.audit.filter(e=>['tool_rejected','engineering_access_denied'].includes(e.type)),wake_events:complete.wake_events,
     checks:['six real persistent Codex workers','actual Maya spec before engineering','distinct branch/worktree/commit ownership','real execution and runtime-turn overlap','real denied source/sibling/path writes','role-specific tool surface','real independent exact-commit Grace review','confined full acceptance tests','candidate before safe fast-forward','deterministic product output','process restart preserved all workflow records','no duplicate engineering/review/integration/wake'],

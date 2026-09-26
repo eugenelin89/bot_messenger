@@ -35,8 +35,9 @@ updates only to a descendant commit. It never resets or deletes retained company
 
 APT update/upgrade installs available system/security updates without removing packages
 or changing release. Existing configuration files are retained. Phased/held packages
-are reported; bootstrap never disables security globally. It uses Ubuntu's supported
-bubblewrap/AppArmor configuration and requires a successful non-root namespace probe.
+are reported; bootstrap never disables security globally. It grants user-namespace admission to a root-owned, service-group-only copy of
+bubblewrap through a dedicated AppArmor profile and requires a successful non-root
+namespace probe. The global Ubuntu unprivileged-userns restriction remains enabled.
 A host that cannot provide confinement is unsupported; there is no fallback.
 
 The service uses a read-only system filesystem, private temporary/device mounts,

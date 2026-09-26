@@ -84,3 +84,9 @@ restart/reboot/idempotency and final deployed/main equality.
 - Concurrent PR #1 (`docs/ubuntu-hq-direction`, eed6353) inspected; all direction
   changes will be merged into the feature branch and reconciled against evidence.
   Prompt 01/02 execution plans and validation records remain untouched.
+
+- 01:10 UTC: first bootstrap installed 152 system updates plus six dependencies/kernel
+  packages, Node 24.21.0, Codex 0.157.0, service identity and 2 GiB swap; stopped safely
+  on missing AppArmor userns admission. No global restriction disabled. Implemented
+  a root-owned group-only bwrap copy and path-specific AppArmor admission policy.
+- PR #1 fully merged at 4e8711e; no historical milestone plan/evidence modified.
