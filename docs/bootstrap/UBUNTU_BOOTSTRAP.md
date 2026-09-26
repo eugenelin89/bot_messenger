@@ -1,8 +1,15 @@
 # Ubuntu HQ bootstrap
 
-Prompt 03 implementation; real acceptance results are recorded in
+Prompt 03 is implemented and validated. Real acceptance results are recorded in
 [the validation record](../validation/prompt-03-ubuntu.md). Ubuntu HQ is the primary
 self-hosted deployment. The workstation provides SSH, administration and development.
+
+## Operator quick links
+
+- [Current State](../operations/CURRENT_STATE.md)
+- [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
+- [Prepare a New Ubuntu Host](SETUP_UBUNTU_HOST.md)
+- [Bootstrap Prompt](../../prompts/bootstrap-ubuntu.md)
 
 ## Starting contract
 
@@ -56,7 +63,7 @@ ssh -t botsquad 'sudo -u botsquad env HOME=/var/lib/botsquad CODEX_HOME=/var/lib
 ```
 
 Complete the browser step privately. Never paste the code/tokens into repository
-evidence. Device login may need to be enabled in ChatGPT security/workspace settings.
+evidence. If ChatGPT rejects device-code login, enable the available device-code authentication setting in ChatGPT Security settings, or have the relevant workspace administrator enable device-code authentication. Device codes can be phished; never share one.
 If device auth is unavailable, use the official browser callback flow with an SSH
 forward of port 1455 under the same service identity. Workstation auth files are not
 part of the installer. [Official authentication documentation](https://learn.chatgpt.com/docs/auth).
