@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Ubuntu HQ and worker AI profiles implemented and validated in Prompt 03
+**Status:** Product vision; Ubuntu HQ and trusted worker infrastructure implemented through Prompt 04; Prompt 05 is next
 **Updated:** 2026-09-26
 
 ## One-sentence vision
@@ -336,9 +336,9 @@ Use the system to test whether a supervised bot team can discover, build, valida
 8. **The simplest architecture that proves the workflow wins.**
 
 
-## Current deployment direction — Ubuntu headquarters (Prompt 03)
+## Current deployment foundation — Ubuntu headquarters (Prompt 03, extended in Prompt 04)
 
-Prompt 03 is the platform migration that implements the accepted direction: an always-on Ubuntu headquarters installed from a fresh supported server through a checked-in Codex bootstrap prompt.
+Prompt 03 established the accepted deployment direction: an always-on Ubuntu headquarters installed from a fresh supported server through a checked-in Codex bootstrap prompt. Prompt 04 kept that topology and added trusted worker infrastructure on top of it.
 
 The intended onboarding contract is deliberately small:
 
@@ -350,14 +350,15 @@ The intended onboarding contract is deliberately small:
 
 Prompt 01/02's local macOS topology remains a development/regression path and historical validation source, not the intended permanent headquarters.
 
-Prompt 03 implements persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service, Linux confinement, real research and concurrent engineering, and recovery checks pass; the milestone validation record documents the evidence and workload limits.
+Prompt 03 implemented persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service, Linux confinement, real research and concurrent engineering, and recovery checks passed at that milestone.
 
-Prompt 04 implements Nix as the ongoing DevOps worker for bounded worker identity
-and clone lifecycle, with exact-scope trusted human approvals. The one-time bootstrap
-installs BotSquad and the root provisioner before Nix exists. General host administration
-and arbitrary repository lifecycle remain outside Nix's current authority.
+Prompt 04 then implemented and validated Nix as the ongoing DevOps worker for bounded worker identity
+and clone lifecycle, exact-scope trusted human approvals, private per-worker Unix identities,
+and the narrow root provisioner. The one-time bootstrap installs BotSquad and the root
+provisioner before Nix exists. General host administration and arbitrary repository
+lifecycle remain outside Nix's current authority; Prompt 05 is the next milestone.
 
-See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
+See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md), and [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 
 ## Native mobile operator client
