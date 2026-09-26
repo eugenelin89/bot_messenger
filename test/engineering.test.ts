@@ -178,7 +178,7 @@ test('confined product code cannot read host/sibling files, write, spawn, signal
   symlinkSync(sentinel,join(a.worktree_path,'escape-link'));
   const probe=`import assert from 'node:assert/strict'; import fs from 'node:fs'; import cp from 'node:child_process'; import net from 'node:net';
     for (const path of ${JSON.stringify([sentinel,'escape-link',join(b.worktree_path,'README.md'),join(process.cwd(),'src/main.ts'),'/proc/self/environ','/proc/1/root/etc/passwd'])}) assert.throws(()=>fs.readFileSync(path));
-    if(process.platform==='linux') assert.equal(fs.readFileSync('.git','utf8'),'');
+    if(process.platform==='linux') { assert.equal(fs.statSync('.git').isCharacterDevice(),true); assert.throws(()=>fs.writeFileSync('.git','corrupt')); }
     assert.throws(()=>fs.writeFileSync('escaped.txt','no')); assert.throws(()=>cp.execFileSync('/bin/echo',['no']));
     assert.throws(()=>process.kill(process.ppid,0));
     await new Promise((resolve,reject)=>{const socket=net.connect(9,'127.0.0.1');socket.once('error',resolve);socket.once('connect',()=>reject(new Error('Network escaped')));setTimeout(()=>{socket.destroy();reject(new Error('Expected immediate sandbox network denial'));},1000).unref();});
