@@ -1,7 +1,7 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Ubuntu HQ and worker AI profiles implemented, final Prompt 03 acceptance pending
-**Updated:** 2026-09-25
+**Status:** Product vision; Ubuntu HQ and worker AI profiles implemented and validated in Prompt 03
+**Updated:** 2026-09-26
 
 ## One-sentence vision
 
@@ -350,7 +350,7 @@ The intended onboarding contract is deliberately small:
 
 Prompt 01/02's local macOS topology remains a development/regression path and historical validation source, not the intended permanent headquarters.
 
-Prompt 03 implements persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service and Linux deterministic tests pass; real Ubuntu acceptance remains tracked in the milestone validation record.
+Prompt 03 implements persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service, Linux confinement, real research and concurrent engineering, and recovery checks pass; the milestone validation record documents the evidence and workload limits.
 
 Nix is reserved as the future ongoing DevOps worker after BotSquad is operational. The one-time bootstrap prompt solves initial installation before Nix exists.
 

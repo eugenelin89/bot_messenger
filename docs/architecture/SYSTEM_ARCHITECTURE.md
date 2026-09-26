@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 03 implementation; final Ubuntu acceptance pending
-**Updated:** 2026-09-25
+**Status:** Prompt 03 implemented and validated on Ubuntu HQ
+**Updated:** 2026-09-26
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -31,7 +31,7 @@ operator-controlled Ubuntu HQ
 
 “Self-hosted” is the architectural property that matters. The Ubuntu host may be in a cloud provider, VPS, private VM or physical machine. It is not equivalent to a multi-tenant hosted SaaS control plane.
 
-Prompt 03 now implements this service topology and Linux confinement. Deterministic Ubuntu acceptance passes; real model/resource/recovery evidence is tracked separately in the Prompt 03 validation record.
+Prompt 03 implements and validates this topology: 60 deterministic Ubuntu tests, real research and six-worker engineering, concurrent Codex turns, exact-commit review, confined integration and recovery checks pass. The [Prompt 03 validation record](../validation/prompt-03-ubuntu.md) contains model, resource and recovery evidence.
 
 ## Boundaries
 
@@ -283,7 +283,7 @@ Human workstation
   -> loopback-only web UI accessed through SSH tunnel
 ```
 
-The Ubuntu migration is not complete until Linux isolation is validated. Prompt 02's macOS Seatbelt evidence cannot be relabeled as Linux evidence.
+Linux isolation is validated directly on Ubuntu under the production systemd restrictions. Prompt 02's macOS Seatbelt evidence remains separate historical evidence.
 
 Prompt 03 persists per-worker AI profiles and effective execution provenance. Worker inspectors load model/reasoning options from the active runtime. A narrow health endpoint exposes liveness, database/dispatcher readiness, cached runtime status and deployed commit without company state or credentials.
 

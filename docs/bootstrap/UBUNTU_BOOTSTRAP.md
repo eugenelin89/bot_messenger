@@ -7,9 +7,10 @@ self-hosted deployment. The workstation provides SSH, administration and develop
 ## Starting contract
 
 Dedicated Ubuntu 24.04 x86_64, working SSH alias, Internet access for Ubuntu packages,
-GitHub, Node and npm, and root or passwordless sudo. The current 1-vCPU/2-GB host is
-an acceptance candidate until real resource/recovery evidence is complete. No provider
-API or hard-coded address is used. Existing conflicting paths/accounts fail clearly.
+GitHub, Node and npm, and root or passwordless sudo. A 1-vCPU/2-GB/50-GB host with
+2 GiB swap passed the bounded Prompt 03 light-duty workload at two active executions;
+see the validation record before applying that sizing to larger work. No provider API
+or hard-coded address is used. Existing conflicting paths/accounts fail clearly.
 
 Run [the bootstrap prompt](../../prompts/bootstrap-ubuntu.md), or inspect and invoke:
 

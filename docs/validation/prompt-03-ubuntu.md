@@ -1,10 +1,17 @@
 # Prompt 03 Ubuntu validation
 
-**Status: In progress — service-account Codex authorization pending; not accepted for main.**
+**Status: Ubuntu feature acceptance PASS — real workflows, confinement and recovery validated.**
 
 Starting origin/main: `2239be6304495d583053f4ffabd8e900d4fb63f6`.
 Feature branch: `feature/prompt-03-ubuntu-hq`. SSH alias: `botsquad`.
-All work is committed/deployed from pushed feature history, never a random server copy.
+Runtime acceptance was executed at `99e856d676ae497b76889b982c7ccd0422c2abfe`.
+Subsequent acceptance documentation changes do not change the validated source digest
+`00635a7d0bb94773c552dd6b1d5bb36c73d22dc617ff7530994373c881621cc5`.
+All deployed work comes from pushed Git history; final main/deployed equality is checked
+after integration and recorded in the final handoff.
+
+[Consolidated machine-readable evidence](prompt-03-ubuntu-evidence.json) links the
+research, engineering, service recovery and historical bootstrap/reboot records.
 
 ## Host and installation evidence
 
@@ -24,8 +31,10 @@ remains empty. Kernel 6.8.0-142-generic was installed for the bounded reboot che
 The live service runs as UID 997/GID 987 (`botsquad` only, no sudo membership), with
 root-owned `/opt/botsquad` and private botsquad-owned `/var/lib/botsquad`. It is enabled
 at boot and listens solely on 127.0.0.1:4310. The SSH tunnel was tested in the browser.
-The health endpoint reports database/dispatcher ready and runtime degraded until
-service-account login. That is an honest partial-readiness state, not real acceptance.
+Before human authorization, health correctly reported a degraded runtime. At 02:17 UTC
+the service account was verified signed in using ChatGPT, without reading credentials.
+Database, dispatcher and runtime now report ready. The actual service restart after
+a real completed Atlas task preserved all records, profile and friendly thread binding.
 
 ## Deterministic and runtime evidence
 
@@ -41,7 +50,7 @@ service-account login. That is an honest partial-readiness state, not real accep
 - Local browser smoke verified discovered model/reasoning choices and persisted an
   explicit gpt-6-sol / low / high / human-locked profile via the UI with zero executions.
 - Models/reasoning come from Codex model/list. Local actual 0.157.0 discovery succeeded;
-  the Ubuntu account-specific catalog remains unverified until sign-in.
+  Ubuntu discovery also succeeds under the service restrictions with ChatGPT authentication.
 - Real Mac CEO → Scout → CEO, same-binding resume after process restart and a real
   acknowledged interruption passed. See [sanitized evidence](prompt-03-macos-evidence.json).
   This is Mac regression evidence and is not counted as Ubuntu real-model acceptance.
@@ -97,14 +106,68 @@ The shared service UID remains a documented limitation against arbitrary malicio
 processes with that UID. Per-worker Unix accounts, Nix, privileged provisioning,
 broad approval grants, Computer Use and public UI access remain deferred.
 
+## Real Ubuntu workflows and profiles
+
+Both runs used fresh validation directories, the real botsquad account, Codex 0.157.0
+and systemd units derived from the production unit without weakening its restrictions.
+
+- **Research: PASS**, 02:18:08–02:19:12 UTC (64 seconds), two workers, five total
+  executions including a persisted follow-up and acknowledged interruption. The main
+  Atlas → Scout → Atlas workflow used three successful executions and produced a
+  report. Restart preserved records and reused Atlas's exact thread/workspace/name.
+  [Full research evidence](prompt-03-ubuntu-research-evidence.json).
+- **Engineering: PASS**, 02:20:30–02:22:56 UTC (146.154 seconds), six persistent real
+  workers, six tasks and ten completed executions. Linus/Ada execution overlap was
+  26.440 seconds; actual model-turn overlap was **24.958 seconds**. Their real source,
+  sibling and traversal probes were rejected. Grace independently read the exact-commit
+  review packet and approved both submissions. Trusted integration passed **8/8 tests**
+  and the expected CLI output before advancing product main to
+  `68d72258e1d7cd7d15ef95e922a51e6441606daf`. Restart preserved all engineering records,
+  completed executions and wake history without duplicate work.
+  [Full engineering evidence](prompt-03-ubuntu-engineering-evidence.json),
+  [Maya specification](artifacts/prompt-03-maya-specification.md),
+  [Grace review](artifacts/prompt-03-grace-review.json).
+
+The actual Ubuntu catalog advertises gpt-6-astra (default), gpt-6-sol, gpt-6-luna,
+gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna and gpt-5.5. All expose low/medium/high/xhigh;
+all except gpt-5.5 expose max; Astra/Sol/5.6-Sol/5.6-Terra expose ultra. Choices are
+runtime/account observations, never a hard-coded UI promise. The bounded real runs
+used gpt-6-sol: low for normal work and medium for Grace's independent review.
+Friendly names are `BotSquad · <name> · <title>`; identity still uses exact durable
+worker, thread and canonical workspace bindings.
+
+Actual engineering profiles and one execution proving each configuration follow.
+Every shown execution records `codex-cli 0.157.0`, `codex-app-server` and immutable
+`recorded` provenance. Full worker/thread IDs are in the evidence JSON.
+
+| Worker | Model | Reasoning | Priority / human lock | Execution |
+| --- | --- | --- | --- | --- |
+| Atlas | gpt-6-sol | low | critical / locked | `execution_62f6a76b-872a-4636-a825-f24d04411229` |
+| Turing | gpt-6-sol | low | high / locked | `execution_83971a1f-31e4-42dd-a9f2-81ce3d0d3c18` |
+| Linus | gpt-6-sol | low | normal / locked | `execution_1e7455f5-e545-4e12-bf96-bd59eb40c0f1` |
+| Grace | gpt-6-sol | medium | high / locked | `execution_605f5892-97ca-42df-aaee-ebd44a089f2f` |
+
 ## Resource interpretation
 
 An early idle service cgroup sample was about 25 MiB and Node RSS about 65 MiB.
-After reboot/startup discovery, cgroup memory was about 169 MiB (including charged
-file cache), Node RSS about 63 MiB and host available memory about 1.6 GiB. Swap used 0–12 KiB
-in deterministic checks. These are preliminary idle/test observations only. The
-1-vCPU/2-GB/50-GB host remains an **acceptance candidate**, not a proven light-duty
-minimum until real concurrent model workloads and recovery gates pass.
+After reboot/startup discovery, cgroup memory was about 169 MiB including charged
+file cache, Node RSS about 63 MiB and host available memory about 1.6 GiB. Swap used
+0–12 KiB during deterministic checks. After the real service restart, idle Node RSS
+was about 65 MiB and cgroup memory about 19 MiB.
+
+During real engineering, 75 samples covered 146 seconds: host available memory stayed
+at or above **1,455.59 MiB**, validation cgroup peak was **187.12 MiB**, summed service-user
+RSS peaked at **765.22 MiB**, and summed Codex RSS at **290.68 MiB** with two Codex
+processes. Swap use was **zero**. Host CPU busy samples averaged **19.04%** and peaked
+at **73.89%**; one-minute load peaked at **0.34**. The root disk was approximately
+48 GiB, with about 5 GiB used including the 2-GiB swap file; exact `df` observations
+are in the consolidated evidence.
+
+This is the **smallest validated light-duty configuration** for the bounded SquadStatus
+workload at the unchanged two-execution limit: 1 vCPU, 2 GB RAM, approximately 50 GB
+nominal disk and 2 GiB configured swap. It does not establish capacity for large
+repositories, heavy builds, longer contexts or sustained queues. Two vCPUs/4 GB RAM
+remains a comfortable planning recommendation for more headroom.
 
 The bounded acceptance launcher records host memory/swap/load, two-second CPU tick
 deltas, cgroup current/peak memory and service-user per-process RSS without arguments
@@ -136,6 +199,21 @@ can write `/var/lib/botsquad` but cannot write `/opt/botsquad`, its compiled mai
 or `/etc`. The final installer also stops the service before replacing build files;
 failed updates stay stopped and retain evidence rather than running a partial build.
 
+## Actual production service recovery
+
+After sign-in, a single bounded Atlas acknowledgement ran through `botsquad.service`
+in the retained production company. It completed as
+`execution_03a33a7a-61c3-413c-b6f4-a89a920add54` with gpt-6-sol / low / critical /
+human-locked settings. The service was then restarted through systemd. Comparison
+preserved every company collection apart from normal worker `updated_at`, including
+the completed task/execution, messages and exact friendly thread binding; no replay
+occurred and runtime readiness returned. Dispatch remains paused for human handoff.
+[Service recovery evidence](prompt-03-service-recovery-evidence.json).
+
+The earlier reboot ran before account authorization, and is not relabeled as a
+post-model-work reboot. The real workflows above subsequently ran on the rebooted
+6.8.0-142 kernel with the enabled production service and retained confinement policy.
+
 ## Concurrent documentation PR
 
 [PR #1](https://github.com/eugenelin89/bot_messenger/pull/1), branch
@@ -153,9 +231,10 @@ future company/federation direction, and renumber the implementation record to
 This preserves both decisions and all current Prompt 03 implementation work.
 
 Intentional wording changes distinguish implemented Ubuntu paths, Codex 0.157.0,
-validated bubblewrap/seccomp/empty-proc confinement, human profile controls and pending
+validated bubblewrap/seccomp/empty-proc confinement, human profile controls and measured
 real acceptance from future intentions. Optional manager profile requests remain
-deferred; hardware sizing remains a candidate until real concurrent workload proof.
+deferred. The original candidate sizing now becomes a validated light-duty floor
+only because the real concurrent run supplied the evidence above.
 The future documents explicitly state the current one-company-per-data-directory
 limit. Multi-company persistence, CompanyConnection, federation, Telegram, external
 identities, Nix, worker Unix accounts and Computer Use remain unimplemented future
@@ -163,18 +242,25 @@ scope. Provider references were checked against official Telegram and OpenAI sou
 
 Historical Prompt 01/02 execution plans and validation records are unchanged.
 Decision 001 retains its historical rationale and appended Decision 009 clarification.
-PR #1 needs no separate merge; it can be closed as incorporated into the feature
-branch, preferably when Prompt 03's remaining acceptance gates permit main integration.
+PR #1 needs no separate merge; it can be closed as incorporated into Prompt 03.
+Main integration carries both documentation merge parents with the implementation.
 
-## Remaining acceptance gates
+## Delivery and limitations
 
-1. Human performs official Codex device authorization under the botsquad service account.
-2. Verify Ubuntu runtime catalog and run bounded real Prompt 01/02 workflows under the
-   installed systemd restrictions, including Linus/Ada overlap, exact-commit Grace review,
-   trusted integration, friendly names and immutable effective profiles.
-3. Measure real worker resources and prove completed real Ubuntu work is not replayed.
-   Non-model service reboot and same-SHA bootstrap preservation already pass.
-4. Final security/diff/document review; integrate into current main only after acceptance.
-5. Deploy exact integrated main SHA and verify remote/local/main equality and health.
+Feature acceptance is complete. Delivery uses normal fast-forward integration into
+freshly fetched main, then the deterministic bootstrap/test gate and final runtime,
+state, UID, listener and deployed-commit checks. No force push or separate PR #1
+merge is used. The final handoff records the exact main/remote/deployed SHA equality;
+local final-deployment snapshots are retained under `.validation/prompt03-host`.
 
-Do not interpret this provisional record as completed acceptance.
+Only Ubuntu 24.04 x86_64 is certified for this Linux runner. The observed hardware
+floor applies to the bounded workload above. Strict priority can starve lower queues;
+there is no aging policy. Shared service UID isolation from arbitrary same-UID
+malicious processes remains future work. Invalid runtime profiles fail visibly and
+interrupted work requires inspection; no broad approval grants or automatic repair
+are claimed. Provider catalog and usage allowances can change.
+
+The next implementation milestone is Nix/Linux worker identity: trusted human grants,
+a narrow privileged provisioner, separate worker Unix accounts and controlled project
+access. Computer Use follows a reliable infrastructure/authority boundary. Future
+multi-company, federation and external-identity documentation remains unimplemented.

@@ -56,6 +56,6 @@ The existing global model selection becomes a default/fallback, not the only wor
 
 [Decision 011](decision_011_ubuntu_hq_profiles.md) records the concrete Prompt 03
 service, confinement, runtime and AI-profile choices. The implementation is present;
-its [validation record](../validation/prompt-03-ubuntu.md) distinguishes completed
-noninteractive Ubuntu checks from the pending real-runtime acceptance gates. This
+its [validation record](../validation/prompt-03-ubuntu.md) distinguishes deterministic
+checks from real Ubuntu runtime, resource and recovery evidence. This
 follow-up preserves the original target decision and its rationale.

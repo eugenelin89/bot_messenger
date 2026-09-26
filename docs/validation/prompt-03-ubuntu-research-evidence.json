@@ -1,0 +1,141 @@
+{
+  "started": "2026-09-26T02:18:08.209Z",
+  "finished": "2026-09-26T02:19:12.271Z",
+  "data_directory": ".validation/prompt01-20260926T021807Z",
+  "result": "PASS",
+  "workflow_task_id": "task_de794d11-fb43-4753-8d77-7ce56d1aac5d",
+  "atlas_id": "worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+  "scout_id": "worker_1947369f-2047-481f-b444-7a3cfaf0226a",
+  "checks": [
+    "real dynamic hire",
+    "real Scout execution and artifact",
+    "real Atlas resume/evaluation",
+    "pause",
+    "process restart persistence",
+    "no replay of completed work",
+    "persisted binding resumes after restart",
+    "real turn interruption"
+  ],
+  "counts": {
+    "workers": 2,
+    "tasks": 4,
+    "executions": 5,
+    "artifacts": 1
+  },
+  "worker_profiles": [
+    {
+      "name": "Atlas",
+      "worker_id": "worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical",
+      "human_lock": true
+    },
+    {
+      "name": "Scout",
+      "worker_id": "worker_1947369f-2047-481f-b444-7a3cfaf0226a",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0db81-7d50-7fa3-92fa-9f4ec88a1301",
+      "workspace_path": ".validation/prompt01-20260926T021807Z/workspaces/worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+      "created_at": "2026-09-26T02:18:12.210Z",
+      "thread_name": "BotSquad \u00b7 Atlas \u00b7 CEO"
+    },
+    {
+      "worker_id": "worker_1947369f-2047-481f-b444-7a3cfaf0226a",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0db81-ab1a-71f2-99c9-79920c6db71a",
+      "workspace_path": ".validation/prompt01-20260926T021807Z/workspaces/worker_1947369f-2047-481f-b444-7a3cfaf0226a",
+      "created_at": "2026-09-26T02:18:23.925Z",
+      "thread_name": "BotSquad \u00b7 Scout \u00b7 Market Researcher"
+    }
+  ],
+  "initial_workflow_executions": [
+    {
+      "execution_id": "execution_f98cde9b-3764-437d-9b5f-7155afa02600",
+      "task_id": "task_de794d11-fb43-4753-8d77-7ce56d1aac5d",
+      "worker_id": "worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+      "runtime_reference": "01a0db81-7d50-7fa3-92fa-9f4ec88a1301",
+      "status": "completed",
+      "started_at": "2026-09-26T02:18:11.044Z",
+      "finished_at": "2026-09-26T02:18:23.654Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_c6ab0101-fe5c-4913-a41a-27a796c810e4",
+      "task_id": "task_2d657ef3-e1e3-4dee-ae36-2bf3f2af839e",
+      "worker_id": "worker_1947369f-2047-481f-b444-7a3cfaf0226a",
+      "runtime_reference": "01a0db81-ab1a-71f2-99c9-79920c6db71a",
+      "status": "completed",
+      "started_at": "2026-09-26T02:18:21.910Z",
+      "finished_at": "2026-09-26T02:18:51.317Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_ba10f6a8-e648-4046-b7f0-8fd5aac9ffb1",
+      "task_id": "task_de794d11-fb43-4753-8d77-7ce56d1aac5d",
+      "worker_id": "worker_4c2c59d2-f54c-466e-a6fb-18c189cfca4e",
+      "runtime_reference": "01a0db81-7d50-7fa3-92fa-9f4ec88a1301",
+      "status": "completed",
+      "started_at": "2026-09-26T02:18:51.330Z",
+      "finished_at": "2026-09-26T02:19:04.709Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    }
+  ],
+  "final_report": "I reviewed Scout\u2019s saved report (`artifact_0960809b-14ee-4465-9ea9-e7d7d53cef37`) against the approved organization, architecture, and delegated-creation documents. Its three risks are well supported and correctly prioritize control-plane trust over model behavior:\n\n1. **Authority leakage.** A worker could treat a message as an assignment or appear to grant a child capabilities it does not possess. Keep creation, messaging, assignment, and execution separate; enforce the delegation ceiling and active execution scope in trusted code. Test attempted escalation through worker creation and messages.\n\n2. **Duplicate or stranded work after failure.** A crash during a Git or integration side effect can leave the outcome uncertain. Retain transactional execution claims and durable intent records; reconcile only demonstrably safe queued work. Block ambiguous attempts for inspection rather than replaying them automatically.\n\n3. **Evidence-poor handoffs.** A plausible summary could conceal an unmet requirement or a review of the wrong revision. Require explicit acceptance criteria, attributable artifacts, exact-commit review, and full tests on the integration candidate before reporting delivery complete.\n\n**Next step:** make these three failure modes release gates in a bounded local validation run: escalation-denial tests, interruption/restart recovery tests, and exact-commit review-to-integration checks. Scout\u2019s report is a document-based assessment, not fresh runtime validation; it does not establish that the current deployment passes those gates.",
+  "validated_source_commit": "99e856d676ae497b76889b982c7ccd0422c2abfe",
+  "host": "Ubuntu 24.04.4 x86_64; botsquad service identity; production systemd restrictions",
+  "resources": {
+    "samples": 34,
+    "started": "2026-09-26T02:18:08.186Z",
+    "finished": "2026-09-26T02:19:12.324Z",
+    "sampling_interval_seconds": 2,
+    "host_total_mib": 1967.98046875,
+    "host_min_available_mib": 1506.15234375,
+    "host_max_observed_nonavailable_mib": 461.828125,
+    "host_max_swap_used_kib": 0,
+    "validation_cgroup_peak_mib": 139.1796875,
+    "validation_cgroup_max_sampled_current_mib": 120.1640625,
+    "service_user_max_summed_rss_mib": 536.5078125,
+    "codex_max_summed_rss_mib": 146.234375,
+    "max_simultaneous_codex_processes": 1,
+    "host_cpu_busy_sample_mean_percent": 19.72924835927443,
+    "host_cpu_busy_sample_peak_percent": 99.02912621359224,
+    "host_load_1m_peak": 0.24,
+    "notes": [
+      "Host measurements include the idle production service and validation harness.",
+      "Cgroup memory includes charged file cache. Summed RSS double-counts shared pages.",
+      "CPU busy is sampled from /proc/stat deltas; process ps CPU is a lifetime average.",
+      "Two-second samples can miss short peaks; cgroup memory.peak also captures intervening cgroup peaks."
+    ]
+  }
+}

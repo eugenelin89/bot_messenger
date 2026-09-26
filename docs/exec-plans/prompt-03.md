@@ -1,13 +1,13 @@
 # Execution Plan — Prompt 03: Ubuntu HQ and worker AI profiles
 
-**Status:** Awaiting human service-account authorization; independent setup/validation complete
+**Status:** Real Ubuntu acceptance passed; final evidence, integration and deployment in progress
 **Owner:** Codex task 01a0db2e-25ef-7d21-9950-0a35ef034ff4, sole writer  
 **Branch:** feature/prompt-03-ubuntu-hq  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-26 00:47 UTC  
 **Starting origin/main:** 2239be6304495d583053f4ffabd8e900d4fb63f6  
 **Initial ETA:** 45–90 minutes before reading the attachment; revised to 5–8 hours after full scope review.  
-**Current ETA:** 1–2 hours after service-account authorization, plus 10–15 minutes to finish and deploy the expanded documentation reconciliation at 01:57 UTC, excluding human authorization wait.
+**Current ETA:** 25–40 minutes from 02:28 UTC for evidence review, documentation, integration and final deployment.
 
 ## Objective and scope
 
@@ -68,8 +68,9 @@ Record all unexercised gates honestly; incomplete acceptance must not merge to m
 ## Remaining work / blockers
 
 Implementation, initial bootstrap and deterministic Linux/macOS checks are complete.
-Service-account Codex login was requested after setup; human authorization is pending.
-Live Ubuntu workflow/resource/completed-work replay and final integration gates remain.
+Service-account Codex login was verified as ChatGPT authentication at 02:17 UTC.
+Real Ubuntu research, engineering and completed-work replay checks passed. Resource
+review, final evidence/docs, main integration and final deployment remain.
 Non-model reboot, service persistence and same-revision bootstrap preservation pass.
 Do not transfer local auth files or merge incomplete acceptance to main.
 
@@ -128,3 +129,11 @@ restart/reboot/idempotency and final deployed/main equality.
   This supersedes the earlier partial-incorporation handoff; do not implement future scope.
 - Local browser smoke verified actual discovered model/reasoning menus and saved
   gpt-6-sol / low / high / human-locked through the human UI, with zero model executions.
+- 02:00 UTC: reconciled PR merge 99e856d pushed and deployed; hardened Ubuntu 60/60
+  tests and production-state preservation passed. Main remains unchanged.
+- 02:17 UTC: user completed official service-account login; verified ChatGPT auth.
+  Resumed real Ubuntu acceptance under production systemd restrictions and resource sampling.
+- 02:28 UTC: both real Ubuntu regressions passed. Research includes restart/resume
+  and acknowledged interruption. Six-worker engineering includes 24.958 seconds of
+  real engineer turn overlap, exact-commit review, trusted integration and no replay.
+  Actual production systemd restart also preserves a completed Atlas execution.

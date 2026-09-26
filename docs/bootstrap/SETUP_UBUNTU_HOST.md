@@ -51,17 +51,17 @@ DigitalOcean is only the worked example in this guide.
 
 BotSquad itself is small, but real Codex workers, Git repositories, builds, and tests need CPU and RAM.
 
-Pre-Prompt-03 sizing guidance:
+Sizing based on Prompt 03 acceptance:
 
 | Use | Suggested starting size |
 | --- | --- |
-| Prompt 03 acceptance candidate (currently being validated) | 1 vCPU, 2 GB RAM, 50 GB SSD |
+| Smallest validated light-duty configuration | 1 vCPU, 2 GB RAM, 50 GB SSD + 2 GB swap |
 | Comfortable small-team starting point | 2 vCPU, 4 GB RAM, 40+ GB SSD |
 | More concurrent engineering/build work | 4+ vCPU, 8+ GB RAM |
 
-These are planning guidelines, not hard provider requirements. The 1-vCPU / 2-GB row is the first real Prompt 03 acceptance target and must not be called a validated minimum until the Prompt 03 evidence says it passed.
+The first row passed real Prompt 03 research and six-worker SquadStatus engineering with the normal two-execution limit: 146 seconds for engineering, 24.96 seconds of overlapping engineer turns, at least 1.42 GiB available RAM and no swap use. It is the smallest configuration actually validated, not a guarantee for larger repositories/builds or sustained workloads. Larger rows remain planning recommendations. See [measured evidence](../validation/prompt-03-ubuntu.md).
 
-Prompt 03 should inspect the actual host and record the configuration it validates.
+Bootstrap still inspects each actual host; provider branding does not establish compatibility.
 
 Idle workers do not continuously consume model execution or CPU, so do not buy a large machine merely because BotSquad can remember many workers.
 

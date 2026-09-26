@@ -24,7 +24,7 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [008](decision_008_managed_engineering.md) | Managed engineering, independent review and tested integration | Accepted | 2026-09-25 |
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
 | [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted (future architecture) | 2026-09-25 |
-| [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Implemented; final acceptance pending | 2026-09-26 |
+| [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Accepted and validated | 2026-09-26 |
 
 
 ## Current deployment interpretation
@@ -38,4 +38,4 @@ Historical Prompt 01/02 decisions and validation records should remain unchanged
 Decision 010 defines deferred multi-company/federation boundaries. Prompt 03 remains
 one company per data directory and does not implement those boundaries, Telegram or
 external identities. Decision 011 records the implemented Ubuntu/service/profile
-choices and their remaining real-runtime acceptance gates.
+choices and their real-runtime acceptance evidence.

@@ -1,6 +1,6 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 03 implementation; final real Ubuntu acceptance pending
+**Status:** Prompt 03 implemented and validated on Ubuntu 24.04 x86_64
 **Date:** 2026-09-25
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).

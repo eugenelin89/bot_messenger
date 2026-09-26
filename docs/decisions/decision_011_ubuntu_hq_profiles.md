@@ -1,7 +1,7 @@
 # Decision 011 — Ubuntu service, Linux confinement and worker AI profiles
 
 **Date:** 2026-09-26  
-**Status:** Implemented; final real Ubuntu acceptance pending
+**Status:** Accepted and validated
 
 ## Context
 
@@ -9,7 +9,9 @@ Decision 009 establishes operator-controlled Ubuntu HQ as the primary topology.
 Prompt 03 implements that contract and incorporates PR #1's clarification of
 “local-first” as self-hosted state. Historical Prompt 01/02 execution plans, reports
 and macOS results remain unchanged. The 1-vCPU/2-GB DigitalOcean host is the real
-acceptance candidate, not a reason to add a provider API or reduce concurrency.
+acceptance host, not a reason to add a provider API or reduce concurrency. It passed
+the bounded real workload at two active executions with no swap use; larger workloads
+remain uncharacterized.
 
 ## Decision
 
@@ -104,13 +106,17 @@ tokens, company state, transcripts, credentials or private environment variables
 Worker controls display configured settings and recent effective execution settings;
 execution records retain immutable historical provenance.
 
-## Evidence and remaining gates
+## Acceptance evidence
 
-See [Prompt 03 validation](../validation/prompt-03-ubuntu.md). At implementation time,
-60 deterministic tests pass on both macOS and Ubuntu, including actual Linux denial
-probes. The real Mac research/restart/resume/interruption regression also passes.
-Ubuntu service-account login, real workflows/resources and recovery acceptance must
-finish before main integration or declaring the hardware a validated minimum.
+See [Prompt 03 validation](../validation/prompt-03-ubuntu.md). All 60 deterministic
+tests pass on macOS and hardened Ubuntu, including actual denial probes. Real Mac
+and Ubuntu research/restart/resume/interruption pass. Six real Ubuntu workers completed
+engineering in 146 seconds, including 24.958 seconds of overlapping engineer turns,
+exact-commit Grace review, eight integrated tests and no completed-work replay.
+Actual service restart preserves a completed execution; reboot and repeat bootstrap
+preserve state, identity, private access and runtime configuration. The observed
+1-vCPU/2-GB host is a validated light-duty floor for this bounded workload, not a
+general capacity guarantee. Final main/deployment identity is recorded in the handoff.
 
 ## Deferred scope
 

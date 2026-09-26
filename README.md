@@ -27,8 +27,9 @@ SQLite + dispatcher + Codex runtime + managed work
 The Ubuntu host may be a DigitalOcean Droplet, another cloud/VPS provider, a VM or a physical Ubuntu machine. BotSquad is **self-hosted**, not a hosted multi-tenant SaaS: coordination state stays on the operator-controlled BotSquad host while assigned task/model content may be sent to the configured external model runtime.
 
 Prompt 03 adds the reproducible Ubuntu installer, non-root systemd service, Linux
-engineering confinement and per-worker AI profiles. Final real Ubuntu acceptance is
-tracked in the [validation record](docs/validation/prompt-03-ubuntu.md).
+engineering confinement and per-worker AI profiles. Real Ubuntu research and six-worker
+engineering acceptance passed on a 1-vCPU/2-GB host with two overlapping Codex workers.
+See the [validation record](docs/validation/prompt-03-ubuntu.md) for evidence and limits.
 
 ## Set up Ubuntu HQ
 

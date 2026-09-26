@@ -1,7 +1,7 @@
 # AI Organization Model
 
-**Status:** Product model; bounded research and engineering organization implemented; Ubuntu HQ is the accepted runtime direction
-**Updated:** 2026-09-25
+**Status:** Product model; bounded research and engineering organization validated on Ubuntu HQ
+**Updated:** 2026-09-26
 
 ## Purpose
 
@@ -434,7 +434,7 @@ Worker
 ```
 
 Codex is the initial runtime. Prompt 01 proves research and executive evaluation;
-Prompt 02 proves managed engineering and independent review using the same App Server. Prompt 03 moves that runtime/control plane toward the Ubuntu HQ and makes model, reasoning effort and scheduler priority configurable per worker.
+Prompt 02 proves managed engineering and independent review using the same App Server. Prompt 03 validates that runtime/control plane on Ubuntu HQ and makes model, reasoning effort and scheduler priority configurable per worker.
 
 A later implementation may choose different runtime types for different roles, for example:
 

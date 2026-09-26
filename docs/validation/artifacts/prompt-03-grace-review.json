@@ -1,0 +1,12 @@
+{
+  "status": "approved",
+  "source_commits": [
+    "15da04d941c70a7515b5cb471e8237f1bb08e3a2",
+    "865360a3923b2feb7a01d8508c1e0caec325e7ea"
+  ],
+  "linus_findings": "Commit 865360a3923b2feb7a01d8508c1e0caec325e7ea changes only src/calculate.mjs and the permitted extra test. It rejects non-arrays, null/non-object/array entries, holes, and statuses outside the four exact strings with TypeError; counts into exactly the five required keys without mutating input. Empty input yields zeros. Immutable focused tests cover frozen input, each status, invalid values; the extra test covers sparse arrays and nested arrays. Focused run: 3/3 pass.",
+  "ada_findings": "Commit 15da04d941c70a7515b5cb471e8237f1bb08e3a2 changes only src/format.mjs and the permitted extra test. It validates the object and every required field as a nonnegative safe integer, rejects mismatched totals with TypeError, and renders the exact five lines with no trailing newline. The extra test covers unsafe total and status-sum overflow. Immutable and extra focused tests: 3/3 pass.",
+  "integration_risks": "Both commits share the same base and edit disjoint source/test paths, so conflict risk is low. Full integrated tests and deterministic CLI output still must be executed by trusted integration before delivery. Exotic accessor/proxy inputs are not specifically tested; ordinary data-object contract behavior is covered.",
+  "acceptance_assessment": "Both exact submitted diffs align with the specification, remain dependency-free Node ESM, respect module ownership, and have passing focused tests. The trusted immutable tests also define composition and CLI expectations, but their integrated execution is not evidenced yet; approval is for source review only, not product acceptance.",
+  "recommended_disposition": "Approve these exact two source commits for trusted integration; require successful full integrated and CLI validation before advancing the product branch or claiming delivery."
+}
