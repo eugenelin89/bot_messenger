@@ -42,7 +42,9 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
   const filterFd = openSync(filter, 'r'); unlinkSync(filter); rmdirSync(temporary);
   const args = ['--unshare-all', '--die-with-parent', '--new-session', '--cap-drop', 'ALL', '--clearenv',
     '--ro-bind', root, '/work', '--ro-bind', executable, '/runtime/node',
-    '--proc', '/proc', '--dev', '/dev'];
+    // A fresh proc mount is forbidden beneath systemd's protected proc submounts.
+    // The bounded Node tests need no procfs; retain PID isolation with an empty /proc.
+    '--dir', '/proc', '--dev', '/dev'];
   // Only the dynamic loader/libraries are mounted, never /home, /etc, /opt or /var.
   const libraryRoots = new Set<string>();
   for (const path of ['/lib', '/lib64', '/usr/lib', '/usr/lib64']) {
