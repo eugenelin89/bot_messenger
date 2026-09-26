@@ -4,7 +4,8 @@
 **版本：** 0.1  
 **日期：** 2026-09-25  
 **專案：** BotSquad  
-**程式庫：** eugenelin89/bot_messenger
+**程式庫：** eugenelin89/bot_messenger  
+**英文版：** [English Technical White Paper](WHITEPAPER.md)
 
 > 本文為英文版技術白皮書的台灣繁體中文版。內容與章節結構忠於原文，但在措辭、語序與技術用語上，依台灣讀者的閱讀習慣做了適度轉譯，而非逐字直譯。
 
