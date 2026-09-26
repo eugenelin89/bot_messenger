@@ -66,3 +66,24 @@ test('health is narrow, runtime discovery is dynamic, and only token-authenticat
   assert.equal((await post(payload)).status,200);assert.equal(f.company.worker(worker.worker_id).reasoning_effort,'low');assert.equal(f.company.worker(worker.worker_id).ai_profile_locked,1);
   assert.equal(f.runtime.calls.length,0);
 });
+
+test('trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once', async t => {
+  const f = fixture(); const http = createHttpServer(f.company, f.dispatcher, join(process.cwd(), 'public'));
+  await new Promise<void>(resolve => http.server.listen(0, '127.0.0.1', resolve));
+  t.after(async () => { await http.close(); await f.close(); });
+  const url = `http://127.0.0.1:${(http.server.address() as { port: number }).port}`;
+  const { csrfToken } = await (await fetch(url + '/api/session')).json() as { csrfToken: string };
+  const post = (path: string, body: unknown, headers: Record<string,string> = {}) => fetch(url + '/api/' + path, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': csrfToken, ...headers }, body: JSON.stringify(body) });
+  assert.equal((await post('initialize-nix', {})).status, 200);
+  const op = f.company.infrastructure.operations()[0]!;
+  const body = { approval_id: op.approval_id, operation_id: op.operation_id, decision: 'approve' };
+  assert.equal((await post('approvals/decide', body, { 'X-BotSquad-Token': 'forged' })).status, 403);
+  assert.equal((await post('approvals/decide', body, { Origin: 'https://attacker.example' })).status, 403);
+  assert.equal((await post('approvals/decide', { ...body, actor: 'human' })).status, 400);
+  assert.equal((await post('approvals/decide', { ...body, approved_by: 'Eugene' })).status, 400);
+  assert.equal(f.company.infrastructure.approvals()[0]!.status, 'pending');
+  assert.equal((await post('approvals/decide', body)).status, 200);
+  assert.equal(f.company.infrastructure.approvals()[0]!.status, 'consumed');
+  assert.equal((await post('approvals/decide', body)).status, 400);
+  assert.equal(f.company.infrastructure.operations()[0]!.status, 'completed');
+});

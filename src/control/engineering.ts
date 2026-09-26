@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { closeSync, constants, existsSync, lstatSync, mkdirSync, openSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
+import { closeSync, constants, existsSync, lstatSync, mkdirSync, openSync, readFileSync, realpathSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { requireThat, strictObject, textField, type Execution, type Task, type Worker } from '../domain/model.js';
 import type { Allocation, Integration, Repository, Review, Submission, Validation } from '../domain/engineering.js';
@@ -21,11 +21,11 @@ export const ENGINEERING_TOOLS = {
 
 // Fixed argv and an empty Git environment prevent hooks, filters, credentials and inherited configuration.
 export function localGit(cwd: string, args: string[]): string {
-  return execFileSync('/usr/bin/git', ['-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
+  return execFileSync('/usr/bin/git', ['-c', `safe.directory=${cwd}`, '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
     '-c', 'commit.gpgsign=false', '-c', 'core.attributesFile=/dev/null', '-c', 'diff.external=',
     '-c', 'user.name=BotSquad', '-c', 'user.email=botsquad@localhost', ...args], {
     cwd, env: { PATH: '/usr/bin:/bin', GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null',
-      GIT_TERMINAL_PROMPT: '0', GIT_LFS_SKIP_SMUDGE: '1', LANG: 'C' },
+      GIT_TERMINAL_PROMPT: '0', GIT_OPTIONAL_LOCKS: '0', GIT_NO_REPLACE_OBJECTS: '1', GIT_LFS_SKIP_SMUDGE: '1', LANG: 'C' },
     encoding: 'utf8', timeout: 10000, maxBuffer: 128000, stdio: ['ignore', 'pipe', 'pipe'],
   }).trim();
 }
@@ -85,6 +85,27 @@ export class Engineering {
   }
   verifyAllocation(a: Allocation) {
     const repo = this.repository(a.repository_id);
+    if (this.company.infrastructure.linux) {
+      const identity = this.company.infrastructure.identity(a.worker_id); const binding = this.company.infrastructure.project(a.allocation_id);
+      requireThat(identity.state === 'ready' && binding?.state === 'ready' && binding.worker_id === a.worker_id && binding.repository_id === a.repository_id && binding.path === a.worktree_path && a.worktree_path === this.company.infrastructure.clonePath(a.worker_id, a.allocation_id), 'Worker project identity is not ready');
+      this.canonical(a.worktree_path);
+      requireThat(lstatSync(a.worktree_path).uid === identity.uid && lstatSync(a.worktree_path).gid === identity.gid, 'Clone UID/GID mismatch');
+      let entries = 0;
+      const inspect = (path: string) => {
+        for (const name of readdirSync(path)) {
+          const entry = join(path, name); const stat = lstatSync(entry);
+          requireThat(++entries < 2000 && !stat.isSymbolicLink() && (stat.isDirectory() || stat.isFile()) && (stat.isDirectory() || stat.nlink === 1) && stat.uid === identity.uid, 'Unsafe clone entry');
+          if (stat.isDirectory()) inspect(entry);
+        }
+      };
+      inspect(a.worktree_path);
+      const gitDir = join(a.worktree_path, '.git'); requireThat(lstatSync(gitDir).isDirectory(), 'Clone must have independent Git metadata');
+      const config = readFileSync(join(gitDir, 'config'), 'utf8');
+      requireThat(config.split('\n').map(s => s.trim()).filter(Boolean).every(line => line === '[core]' || /^(repositoryformatversion|filemode|bare|logallrefupdates|ignorecase|precomposeunicode) = (0|true|false)$/.test(line)), 'Clone config outside managed policy');
+      requireThat(['objects/info/alternates','info/grafts','shallow','refs/replace'].every(path => !existsSync(join(gitDir, path))), 'Clone Git indirection denied');
+      requireThat(this.git(a.worktree_path, ['branch','--show-current']) === a.branch_name && a.branch_name === `botsquad/${a.module}/${a.task_id}` && a.base_commit === repo.base_commit && this.company.task(a.task_id).assignee_worker_id === a.worker_id, 'Clone allocation mismatch');
+      return repo;
+    }
     requireThat(a.worktree_path === join(this.root, repo.repository_id, 'worktrees', a.allocation_id), 'Allocation path outside managed root');
     requireThat(a.branch_name === `botsquad/${a.module}/${a.task_id}` && a.base_commit === repo.base_commit, 'Allocation branch/base mismatch');
     this.canonical(a.worktree_path);
@@ -96,6 +117,32 @@ export class Engineering {
     requireThat(this.git(a.worktree_path, ['rev-parse', '--show-toplevel']) === a.worktree_path && this.git(a.worktree_path, ['branch', '--show-current']) === a.branch_name, 'Worktree branch/identity mismatch');
     requireThat(this.company.task(a.task_id).assignee_worker_id === a.worker_id, 'Allocation assignment mismatch');
     return repo;
+  }
+  projectProvisionParameters(allocationId: string, prepare: boolean) {
+    const a = this.store.get<Allocation>('SELECT * FROM allocations WHERE allocation_id=?', allocationId); requireThat(a, 'Allocation missing');
+    if (!prepare) return { allocation_id: allocationId };
+    const repo = this.repository(a.repository_id);
+    const path = join(this.root, repo.repository_id, `${allocationId}.seed.bundle`);
+    if (!existsSync(path)) this.git(repo.canonical_root, ['bundle', 'create', path, 'main']);
+    requireThat(!lstatSync(path).isSymbolicLink() && lstatSync(path).nlink === 1 && lstatSync(path).size < 500000, 'Invalid seed bundle');
+    return { allocation_id: allocationId, repository_id: a.repository_id, task_id: a.task_id, module: a.module, base_commit: a.base_commit, bundle: readFileSync(path).toString('base64') };
+  }
+  private workerAction(a: Allocation, type: string, fields: object = {}) {
+    const identity = this.company.infrastructure.identity(a.worker_id); requireThat(identity.state === 'ready', 'Worker identity is unavailable');
+    const result = this.company.infrastructure.host.request({ type, operation_id: id('operation'), worker_id: a.worker_id, allocation_id: a.allocation_id, ...fields });
+    requireThat(result.uid === identity.uid && result.gid === identity.gid, 'Worker action ran under incorrect UID');
+    return result;
+  }
+  private importSubmission(a: Allocation, result: Record<string, unknown>) {
+    requireThat(typeof result.commit === 'string' && sha(result.commit) && typeof result.bundle === 'string', 'Invalid submission receipt');
+    const repo = this.repository(a.repository_id); const path = join(this.root, repo.repository_id, `${a.allocation_id}.submitted.bundle`);
+    writeFileSync(path, Buffer.from(result.bundle, 'base64'), { flag: 'wx', mode: 0o600 });
+    this.git(repo.canonical_root, ['bundle', 'verify', path]);
+    this.git(repo.canonical_root, ['fetch', '--no-tags', '--no-write-fetch-head', path, `${result.commit}:refs/botsquad/submissions/${a.allocation_id}`]);
+    requireThat(this.git(repo.canonical_root, ['rev-parse', `${result.commit}^`]) === a.base_commit, 'Imported commit has unrelated parent');
+    const paths = this.paths(repo.canonical_root, a.base_commit, result.commit);
+    requireThat(paths.includes(`src/${a.module}.mjs`) && paths.every(p => this.allowedPaths(a).includes(p)), 'Imported commit exceeds owned source scope');
+    requireThat(this.git(repo.canonical_root, ['rev-parse','HEAD']) === repo.current_commit, 'Import changed canonical main');
   }
   private allowedPaths(a: Allocation) { return [`src/${a.module}.mjs`, `test/${a.module}.extra.test.mjs`]; }
   private sourcePath(a: Allocation, path: string, write = false) {
@@ -179,21 +226,30 @@ export class Engineering {
         requireThat(textField(args, 'calculate_worker_id', 100) !== textField(args, 'format_worker_id', 100), 'Engineering workers must differ');
         if (existing.length) {
           requireThat(existing.length === 2 && existing.every(a => a.worker_id === args[`${a.module}_worker_id`] && a.status !== 'allocating' && a.status !== 'blocked'), 'Allocation already exists or requires inspection');
-          existing.forEach(a => this.verifyAllocation(a)); return existing;
+          existing.filter(a => a.status !== 'pending_infrastructure').forEach(a => this.verifyAllocation(a)); return existing;
         }
         const workers = (['calculate', 'format'] as const).map(module => {
           const worker = this.company.worker(textField(args, `${module}_worker_id`, 100));
           requireThat(worker.role === 'engineer' && worker.manager_worker_id === actor.worker.worker_id && worker.enabled, 'Engineer manager/profile mismatch');
-          requireThat(!this.store.get("SELECT 1 FROM allocations WHERE worker_id=? AND status IN ('allocating','active','submitting','blocked')", worker.worker_id), 'Worker already owns an active allocation');
+          requireThat(!this.store.get("SELECT 1 FROM allocations WHERE worker_id=? AND status IN ('pending_infrastructure','allocating','active','submitting','blocked')", worker.worker_id), 'Worker already owns an active allocation');
           return { worker, module };
         });
         const allocated = this.store.transaction(() => workers.map(({ worker, module }) => {
           const task = this.company.createTask(actor.worker.principal_id, worker, { objective: `Implement ${module === 'calculate' ? 'calculateStatusSummary(workers)' : 'formatStatusSummary(summary)'} for SquadStatus. Read the specification and immutable focused tests. Edit only your module and optional extra test. Run focused tests, inspect diff, submit a verified commit.`, acceptance_criteria: PRODUCT_CONTRACT, constraints: 'Own allocation only; no shell/network/remote/force, no worker creation; at most one submission.' }, actor.task.task_id, 'engineering', actor.execution.execution_id);
           const allocationId = id('allocation'); const branch = `botsquad/${module}/${task.task_id}`;
-          const path = join(this.root, repo.repository_id, 'worktrees', allocationId);
+          const path = this.company.infrastructure.linux ? this.company.infrastructure.clonePath(worker.worker_id, allocationId) : join(this.root, repo.repository_id, 'worktrees', allocationId);
           this.store.run("INSERT INTO allocations VALUES (?,?,?,?,?,?,?,?,'allocating',?,?)", allocationId, repo.repository_id, worker.worker_id, task.task_id, branch, path, repo.base_commit, module, now(), now());
+          if (this.company.infrastructure.linux) {
+            this.store.run("UPDATE allocations SET status='pending_infrastructure' WHERE allocation_id=?", allocationId);
+            this.store.run("INSERT INTO worker_project_bindings VALUES (?,?,?,?,'pending',NULL)", allocationId, worker.worker_id, repo.repository_id, path);
+          }
           return this.store.get<Allocation>('SELECT * FROM allocations WHERE allocation_id=?', allocationId)!;
         }));
+        if (this.company.infrastructure.linux) {
+          for (const a of allocated) { this.company.infrastructure.enqueue(a.worker_id); this.company.infrastructure.enqueue(a.worker_id, 'prepare_worker_project_clone', a.allocation_id); }
+          this.event('engineering_batch_awaiting_infrastructure', actor, { allocations: allocated.map(a => a.allocation_id) });
+          return allocated;
+        }
         try {
           for (const a of allocated) {
             mkdirSync(dirname(a.worktree_path), { recursive: true, mode: 0o700 }); this.canonical(dirname(a.worktree_path));
@@ -210,8 +266,9 @@ export class Engineering {
         if (name === 'write_source') {
           const path = textField(args, 'path', 200); const content = textField(args, 'content', 16000) + '\n'; const absolute = this.sourcePath(a, path, true);
           requireThat(Buffer.byteLength(content) <= 16000, 'Source exceeds byte limit');
-          const fd = openSync(absolute, constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW, 0o600);
-          try { writeFileSync(fd, content); } finally { closeSync(fd); }
+          if (this.company.infrastructure.linux) this.workerAction(a, 'write_project_source', { path, content });
+          else { const fd = openSync(absolute, constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW, 0o600);
+          try { writeFileSync(fd, content); } finally { closeSync(fd); } }
           this.event('source_written', actor, { allocation_id: a.allocation_id, path, bytes: Buffer.byteLength(content) }); return { path, bytes: Buffer.byteLength(content) };
         }
         if (name === 'inspect_git') return { status: this.git(a.worktree_path, ['status', '--short']), diff: this.git(a.worktree_path, ['diff', '--no-ext-diff', a.base_commit, '--', ...this.allowedPaths(a)]), head: this.git(a.worktree_path, ['rev-parse', 'HEAD']) };
@@ -227,7 +284,10 @@ export class Engineering {
         const summary = textField(args, 'summary', 2000);
         this.store.run("UPDATE allocations SET status='submitting',updated_at=? WHERE allocation_id=?", now(), a.allocation_id);
         try {
-          this.git(a.worktree_path, ['add', '--', ...paths]); this.git(a.worktree_path, ['commit', '-m', `Implement ${a.module} for ${a.task_id}`]);
+          if (this.company.infrastructure.linux) {
+            const result = this.workerAction(a, 'commit_project'); this.importSubmission(a, result);
+            this.event('worker_uid_commit', actor, { allocation_id: a.allocation_id, uid: result.uid, gid: result.gid, commit: result.commit });
+          } else { this.git(a.worktree_path, ['add', '--', ...paths]); this.git(a.worktree_path, ['commit', '-m', `Implement ${a.module} for ${a.task_id}`]); }
           requireThat(!this.git(a.worktree_path, ['status', '--porcelain']), 'Commit left a dirty worktree');
           const commit = this.git(a.worktree_path, ['rev-parse', 'HEAD']); const submissionId = id('submission');
           this.store.transaction(() => {

@@ -35,10 +35,11 @@ export DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a
 apt-get -o DPkg::Lock::Timeout=180 update
 # No removals, no release upgrade, preserve existing operator configuration (including SSH).
 apt-get -o DPkg::Lock::Timeout=180 -o Dpkg::Options::=--force-confold --no-remove -y upgrade --with-new-pkgs
-apt-get -o DPkg::Lock::Timeout=180 -y install --no-install-recommends ca-certificates curl xz-utils git bubblewrap apparmor util-linux
+apt-get -o DPkg::Lock::Timeout=180 -y install --no-install-recommends ca-certificates curl xz-utils git bubblewrap apparmor util-linux acl python3
 [[ -z $(dpkg --audit) ]] || { echo 'Package health check failed' >&2; exit 1; }
 
-install -d -m 755 /opt/botsquad-runtime /etc/botsquad
+install -d -m 755 /opt/botsquad-runtime
+install -d -o root -g root -m 700 /etc/botsquad
 node_version=24.21.0
 node_sha=fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6
 node_dir=/opt/botsquad-runtime/node-v${node_version}-linux-x64
@@ -97,6 +98,17 @@ install -m 644 deploy/apparmor/botsquad-bwrap /etc/apparmor.d/botsquad-bwrap
 apparmor_parser -r /etc/apparmor.d/botsquad-bwrap
 install -m 600 /dev/null /etc/botsquad/apparmor-managed
 runuser -u botsquad -- /opt/botsquad-runtime/bwrap --unshare-all --ro-bind / / -- /usr/bin/true
+# Privileged code is installed only by this root/admin deployment path from the exact Git revision.
+install -d -o root -g root -m 755 /opt/botsquad-provisioner
+install -o root -g root -m 644 deploy/provisioner/provisioner.py /opt/botsquad-provisioner/provisioner.py
+install -o root -g root -m 644 deploy/provisioner/client.py /opt/botsquad-provisioner/client.py
+install -d -o root -g root -m 700 /var/lib/botsquad-provisioner
+install -d -o root -g root -m 711 /var/lib/botsquad-workers
+install -d -o root -g botsquad -m 750 /run/botsquad-provisioner
+install -m 644 deploy/systemd/botsquad-provisioner.service /etc/systemd/system/botsquad-provisioner.service
+install -m 644 deploy/systemd/botsquad-provisioner.socket /etc/systemd/system/botsquad-provisioner.socket
+install -d -m 755 /etc/tmpfiles.d
+printf 'd /run/botsquad-provisioner 0750 root botsquad -\n' > /etc/tmpfiles.d/botsquad-provisioner.conf
 install -m 644 deploy/systemd/botsquad.service /etc/systemd/system/botsquad.service
 # Preserve operator overrides on update. Default file contains no secrets.
 if [[ ! -e /etc/botsquad/environment ]]; then
@@ -106,6 +118,8 @@ fi
 printf 'BOT_DEPLOYED_SHA=%s\n' "$revision" > /etc/botsquad/deployment
 chmod 600 /etc/botsquad/deployment
 systemctl daemon-reload
+systemctl enable --now botsquad-provisioner.socket
+if systemctl is-active --quiet botsquad-provisioner.service; then systemctl restart botsquad-provisioner.service; fi
 # Gate startup on the actual service restrictions, not only a runuser shell.
 bash scripts/validate-ubuntu-host.sh deterministic --wait
 systemctl enable botsquad.service

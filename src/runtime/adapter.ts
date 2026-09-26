@@ -62,5 +62,12 @@ export function companyTools(worker: Worker): ToolDefinition[] {
     engineering('review_repository_change', 'read_review_packet', 'Read the exact assigned product spec/base, both submitted commits/diffs, focused test evidence and immutable acceptance tests. Read-only; no source write/Git capabilities.', {});
     engineering('review_repository_change', 'submit_review', 'Save an immutable structured review of the exact submitted source commits. approved allows CTO integration only after this review task completes; changes_required blocks integration.', { status: { type: 'string', enum: ['approved', 'changes_required'] }, source_commits: { type: 'array', items: string }, linus_findings: string, ada_findings: string, integration_risks: string, acceptance_assessment: string, recommended_disposition: string });
   }
+  if (worker.role === 'devops') {
+    tools.push(tool('inspect_worker_identity', 'Inspect the exact target, identity and protected operation receipts of your trusted infrastructure assignment.', {}));
+    tools.push(tool('inspect_host_health', 'Inspect bounded provisioner readiness. No commands or paths accepted.', {}));
+    for (const name of ['request_create_worker_identity','request_disable_worker_identity','request_project_access','request_project_revocation']) {
+      tools.push(tool(name, 'Request only the matching operation in your trusted infrastructure task. Target and parameters are derived by the service. Human approval is required. End the turn after requesting; never poll or claim approval.', { reason: string }));
+    }
+  }
   return tools;
 }

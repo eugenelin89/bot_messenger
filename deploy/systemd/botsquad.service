@@ -1,7 +1,7 @@
 [Unit]
 Description=BotSquad local AI headquarters
 After=network-online.target
-Wants=network-online.target
+Wants=network-online.target botsquad-provisioner.socket
 StartLimitIntervalSec=120
 StartLimitBurst=3
 
@@ -11,6 +11,7 @@ User=botsquad
 Group=botsquad
 WorkingDirectory=/opt/botsquad
 Environment=NODE_ENV=production
+Environment=BOT_IDENTITY_BACKEND=linux
 Environment=BOT_DATA_DIR=/var/lib/botsquad
 Environment=HOME=/var/lib/botsquad
 Environment=CODEX_HOME=/var/lib/botsquad/.codex

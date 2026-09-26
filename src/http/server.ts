@@ -63,6 +63,16 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req);
       if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }
+      else if (path === '/api/initialize-nix') { strictObject(body, []); json(200, company.initializeNix()); }
+      else if (path === '/api/approvals/decide') { json(200, company.infrastructure.decide(body)); }
+      else if (path === '/api/infrastructure/request') {
+        const a = strictObject(body, ['worker_id','operation_type','allocation_id']);
+        requireThat(['create_worker_identity','disable_worker_identity','revoke_worker_project_access'].includes(a.operation_type as string), 'Unsupported human infrastructure request');
+        requireThat(a.allocation_id === null || typeof a.allocation_id === 'string', 'Invalid allocation ID');
+        json(200, company.infrastructure.enqueue(textField(a, 'worker_id', 100), a.operation_type as 'create_worker_identity' | 'disable_worker_identity' | 'revoke_worker_project_access', a.allocation_id as string | undefined ?? undefined) ?? { already_bound: true });
+      }
+      else if (path === '/api/infrastructure/reconcile') { strictObject(body, []); company.infrastructure.reconcile(); json(200, { reconciled: true }); }
+      else if (path === '/api/infrastructure/health') { strictObject(body, []); json(200, company.infrastructure.host.request({ type: 'inspect_host_health' })); }
       else if (path === '/api/worker-profile') {
         const a = strictObject(body, ['worker_id', 'profile']);
         json(200, company.updateWorkerAIProfile(textField(a, 'worker_id', 100), a.profile, await dispatcher.runtimeCatalog()));

@@ -1,0 +1,35 @@
+[Unit]
+Description=Bounded BotSquad privileged worker provisioner
+Requires=botsquad-provisioner.socket
+After=botsquad-provisioner.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -I /opt/botsquad-provisioner/provisioner.py
+User=root
+Group=root
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+# shadow-utils atomically replaces passwd/group files and their locks in /etc.
+ReadWritePaths=/etc /var/lib/botsquad-provisioner /var/lib/botsquad-workers
+ProtectHome=true
+PrivateTmp=true
+PrivateNetwork=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_CHOWN CAP_DAC_OVERRIDE CAP_FOWNER CAP_SETUID CAP_SETGID CAP_KILL CAP_AUDIT_WRITE
+TasksMax=32
+MemoryMax=192M
+LimitNOFILE=256
+TimeoutStopSec=20
+KillMode=control-group
+Restart=on-failure
+RestartSec=5

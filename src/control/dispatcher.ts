@@ -43,6 +43,7 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.infrastructure.processRevocations();
     while (!this.stopped && this.running.size < this.maxActive) {
       const claim = this.company.claimNext(this.maxActive);
       if (!claim) break;

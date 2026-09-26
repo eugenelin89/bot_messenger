@@ -106,7 +106,7 @@ test('legacy migrations preserve bindings and historical unknown provenance with
   old.prepare("INSERT INTO tasks VALUES ('old-task','human',?,'objective','criteria','constraints',NULL,'completed',NULL,'result','assignment','old','old')").run(atlas.worker_id);
   old.prepare("INSERT INTO executions VALUES ('old-execution','old-task',?,'old-thread','completed','old','old',NULL,NULL)").run(atlas.worker_id);old.close();
   for(let i=0;i<2;i++) { const migrated=new Store(file);const e=migrated.get<{model:null;provenance_status:string}>("SELECT * FROM executions WHERE execution_id='old-execution'")!;
-    assert.equal(e.model,null);assert.equal(e.provenance_status,'legacy');assert.equal(migrated.all('SELECT * FROM schema_migrations').length,3);
+    assert.equal(e.model,null);assert.equal(e.provenance_status,'legacy');assert.equal(migrated.all('SELECT * FROM schema_migrations').length,4);
     assert.equal(migrated.get<{runtime_reference:string}>('SELECT * FROM runtime_bindings')!.runtime_reference,'old-thread');
     assert.throws(()=>migrated.run("UPDATE executions SET model='invented'"),/immutable/);migrated.close(); }
 });

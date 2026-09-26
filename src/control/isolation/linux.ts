@@ -1,4 +1,4 @@
-import { closeSync, existsSync, mkdtempSync, openSync, realpathSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, mkdtempSync, openSync, lstatSync, realpathSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { requireThat } from '../../domain/model.js';
@@ -54,7 +54,10 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
     if (path !== canonical) args.push('--symlink', canonical, path);
   }
   // Hide Git metadata even in the immutable product mount.
-  if (existsSync(join(root, '.git'))) args.push('--ro-bind', '/dev/null', '/work/.git');
+  if (existsSync(join(root, '.git'))) {
+    if (lstatSync(join(root, '.git')).isDirectory()) args.push('--tmpfs', '/work/.git', '--remount-ro', '/work/.git');
+    else args.push('--ro-bind', '/dev/null', '/work/.git');
+  }
   args.push('--remount-ro', '/', '--chdir', '/work', '--setenv', 'LANG', 'C', '--setenv', 'TZ', 'UTC',
     '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a));
   return { command: '/opt/botsquad-runtime/bwrap', args, filterFd, close: () => closeSync(filterFd) };

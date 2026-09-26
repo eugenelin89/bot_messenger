@@ -25,7 +25,7 @@ test('Prompt 01 schema migrates without losing retained data and only trusted CE
   old.close();
   const migrated = new Store(path); t.after(() => migrated.close());
   assert.equal(migrated.get<{display_name:string}>("SELECT * FROM principals WHERE principal_id='human'")?.display_name, 'Retained Human');
-  assert.equal(migrated.all('SELECT * FROM schema_migrations').length, 3); assert.equal(migrated.all('SELECT * FROM repositories').length, 0);
+  assert.equal(migrated.all('SELECT * FROM schema_migrations').length, 4); assert.equal(migrated.all('SELECT * FROM repositories').length, 0);
   const company=new Company(migrated,f.dir,process.cwd(),'fake');
   assert.equal(company.task('old-task').result_summary,'Retained result');assert.equal(company.task('old-task').kind,'research');
   assert.equal(company.binding(atlas.worker_id)?.runtime_reference,'retained-thread');

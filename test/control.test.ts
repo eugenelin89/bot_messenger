@@ -16,7 +16,7 @@ test('migration is non-destructive and initializes stable principal/channel/CEO 
   assert.equal(atlas.lifecycle, 'persistent'); assert.equal(atlas.manager_worker_id, null); assert.equal(atlas.status, 'idle');
   assert.equal(f.company.snapshot().principals.length, 3);
   const second = new Store(join(f.dir, 'company.sqlite'));
-  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 3);
+  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 4);
   assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM workers')?.n, 1); second.close();
 });
 

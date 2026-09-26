@@ -6,9 +6,10 @@ mode=${1:?Usage: validate-ubuntu-host.sh deterministic|prompt01|engineering}
 wait_mode=${2:-}
 [[ -z $wait_mode || $wait_mode == --wait ]] || exit 2
 case "$mode" in
-  deterministic) command='node --test dist/test/*.test.js' ;;
+  deterministic) command='BOT_IDENTITY_BACKEND=development node --test dist/test/*.test.js' ;;
   prompt01) command='node dist/scripts/real-e2e.js' ;;
   engineering) command='node dist/scripts/real-engineering.js' ;;
+  identity) command='BOT_VALIDATE_IDENTITIES=1 node dist/scripts/real-engineering.js' ;;
   *) echo 'Unknown validation mode' >&2; exit 2 ;;
 esac
 unit=botsquad-validation-${mode}

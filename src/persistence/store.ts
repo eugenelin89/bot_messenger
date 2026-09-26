@@ -131,6 +131,62 @@ WHEN OLD.provenance_status != 'unresolved' OR OLD.status != 'running'
 BEGIN SELECT RAISE(ABORT,'Execution provenance is immutable'); END;
 `;
 
+export const migration4 = `
+CREATE TABLE worker_os_identities (
+ worker_id TEXT PRIMARY KEY REFERENCES workers, backend TEXT NOT NULL CHECK(backend IN ('linux','development')),
+ state TEXT NOT NULL CHECK(state IN ('unprovisioned','ready','disabled')), unix_username TEXT UNIQUE,
+ uid INTEGER UNIQUE, gid INTEGER UNIQUE, home_path TEXT UNIQUE, created_at TEXT, disabled_at TEXT, provision_operation_id TEXT
+);
+CREATE TABLE infrastructure_tasks (
+ task_id TEXT PRIMARY KEY REFERENCES tasks, target_worker_id TEXT NOT NULL REFERENCES workers,
+ operation_type TEXT NOT NULL, allocation_id TEXT REFERENCES allocations
+);
+CREATE TABLE protected_operations (
+ operation_id TEXT PRIMARY KEY, approval_id TEXT NOT NULL UNIQUE, operation_type TEXT NOT NULL,
+ target_worker_id TEXT NOT NULL REFERENCES workers, requester_principal_id TEXT NOT NULL REFERENCES principals,
+ requester_worker_id TEXT REFERENCES workers, requesting_execution_id TEXT REFERENCES executions, task_id TEXT REFERENCES tasks,
+ parameters TEXT NOT NULL, parameter_hash TEXT NOT NULL, preconditions TEXT NOT NULL, reason TEXT NOT NULL,
+ status TEXT NOT NULL CHECK(status IN ('pending','running','completed','failed','denied','expired')),
+ requested_at TEXT NOT NULL, result TEXT, error TEXT
+);
+CREATE TABLE approvals (
+ approval_id TEXT PRIMARY KEY, operation_id TEXT NOT NULL UNIQUE REFERENCES protected_operations,
+ envelope_hash TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('pending','approved','denied','expired','consumed')),
+ requested_at TEXT NOT NULL, expires_at TEXT NOT NULL, decided_at TEXT, decided_by TEXT REFERENCES principals, consumed_at TEXT
+);
+CREATE TABLE host_operation_receipts (
+ operation_id TEXT PRIMARY KEY REFERENCES protected_operations, parameter_hash TEXT NOT NULL, result TEXT NOT NULL, recorded_at TEXT NOT NULL
+);
+CREATE TABLE retirement_revocations (
+ operation_id TEXT PRIMARY KEY, worker_id TEXT NOT NULL UNIQUE REFERENCES workers,
+ state TEXT NOT NULL CHECK(state IN ('pending','completed')), result TEXT, requested_at TEXT NOT NULL
+);
+CREATE TABLE worker_project_bindings (
+ allocation_id TEXT PRIMARY KEY REFERENCES allocations, worker_id TEXT NOT NULL REFERENCES workers,
+ repository_id TEXT NOT NULL REFERENCES repositories, path TEXT NOT NULL UNIQUE,
+ state TEXT NOT NULL CHECK(state IN ('pending','ready','revoked')), operation_id TEXT REFERENCES protected_operations
+);
+CREATE TRIGGER operation_envelope_immutable BEFORE UPDATE OF approval_id,operation_type,target_worker_id,requester_principal_id,requester_worker_id,requesting_execution_id,task_id,parameters,parameter_hash,preconditions,reason,requested_at ON protected_operations
+BEGIN SELECT RAISE(ABORT,'Protected operation envelope is immutable'); END;
+CREATE TRIGGER operation_terminal_immutable BEFORE UPDATE ON protected_operations WHEN OLD.status IN ('completed','denied','expired')
+BEGIN SELECT RAISE(ABORT,'Protected operation is terminal'); END;
+CREATE TRIGGER approval_envelope_immutable BEFORE UPDATE OF operation_id,envelope_hash,requested_at,expires_at ON approvals
+BEGIN SELECT RAISE(ABORT,'Approval envelope is immutable'); END;
+CREATE TRIGGER approval_decision_guard BEFORE UPDATE ON approvals
+WHEN NOT ((OLD.status='pending' AND NEW.status IN ('approved','denied','expired')) OR (OLD.status='approved' AND NEW.status IN ('consumed','expired')))
+OR (NEW.status IN ('approved','denied') AND (NEW.decided_by IS NOT 'human' OR NEW.decided_at IS NULL))
+OR (NEW.status='consumed' AND (NEW.decided_by IS NOT 'human' OR NEW.consumed_at IS NULL))
+BEGIN SELECT RAISE(ABORT,'Invalid trusted approval transition'); END;
+CREATE TRIGGER approvals_no_delete BEFORE DELETE ON approvals BEGIN SELECT RAISE(ABORT,'Approval history is retained'); END;
+CREATE TRIGGER operations_no_delete BEFORE DELETE ON protected_operations BEGIN SELECT RAISE(ABORT,'Operation history is retained'); END;
+CREATE TRIGGER receipts_no_update BEFORE UPDATE ON host_operation_receipts BEGIN SELECT RAISE(ABORT,'Receipt is immutable'); END;
+CREATE TRIGGER receipts_no_delete BEFORE DELETE ON host_operation_receipts BEGIN SELECT RAISE(ABORT,'Receipt is retained'); END;
+CREATE TRIGGER identity_binding_immutable BEFORE UPDATE OF unix_username,uid,gid,home_path,backend ON worker_os_identities WHEN OLD.state!='unprovisioned'
+BEGIN SELECT RAISE(ABORT,'Provisioned Unix binding is immutable'); END;
+DROP INDEX one_writer_allocation;
+CREATE UNIQUE INDEX one_writer_allocation ON allocations(worker_id) WHERE status IN ('pending_infrastructure','allocating','active','submitting','blocked');
+`;
+
 export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
@@ -151,6 +207,10 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=3')) {
         this.db.exec(migration3);
         this.run('INSERT INTO schema_migrations VALUES (3,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=4')) {
+        this.db.exec(migration4);
+        this.run('INSERT INTO schema_migrations VALUES (4,?)', new Date().toISOString());
       }
     });
   }

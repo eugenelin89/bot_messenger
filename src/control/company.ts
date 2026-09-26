@@ -1,3 +1,5 @@
+import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
+import type { HostClient } from '../infrastructure/client.js';
 import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
 import { createHash, randomUUID } from 'node:crypto';
@@ -6,7 +8,7 @@ import { join, resolve, dirname } from 'node:path';
 import { Engineering, ENGINEERING_TOOLS } from './engineering.js';
 import { Store } from '../persistence/store.js';
 import {
-  COMPANY_CEILING, CEO_CAPABILITIES, CTO_DELEGATABLE, PROFILES, type Profile, assertCapabilities, assertTransition, requireThat, strictObject, textField,
+  COMPANY_CEILING, CEO_CAPABILITIES, DEVOPS_CAPABILITIES, CTO_DELEGATABLE, PROFILES, type Profile, assertCapabilities, assertTransition, requireThat, strictObject, textField,
   type Artifact, type AuditEvent, type Capability, type Execution, type Message, type Principal,
   type RuntimeBinding, type Task, type TaskStatus, type Worker,
 } from '../domain/model.js';
@@ -31,13 +33,15 @@ interface HireInput {
 export class Company extends EventEmitter {
   readonly dataDir: string;
   readonly engineering: Engineering;
+  readonly infrastructure: Infrastructure;
   readonly referenceDocs: ReadonlyMap<string, string>;
-  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server') {
+  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient) {
     super();
     mkdirSync(dataDir, { recursive: true, mode: 0o700 });
     this.dataDir = realpathSync(dataDir);
     mkdirSync(join(this.dataDir, 'workspaces'), { recursive: true, mode: 0o700 });
     mkdirSync(join(this.dataDir, 'artifacts'), { recursive: true, mode: 0o700 });
+    this.infrastructure = new Infrastructure(this, host);
     this.engineering = new Engineering(this, realpathSync(repoRoot));
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.store.transaction(() => {
@@ -47,6 +51,10 @@ export class Company extends EventEmitter {
       if (!this.store.get("SELECT 1 FROM settings WHERE key='prompt02_profiles'")) {
         this.store.run("UPDATE workers SET capability_profile=?,delegatable_capabilities=? WHERE role='ceo'", JSON.stringify(CEO_CAPABILITIES), JSON.stringify(COMPANY_CEILING));
         this.store.run("INSERT INTO settings VALUES ('prompt02_profiles','1')");
+      }
+      if (!this.store.get("SELECT 1 FROM settings WHERE key='prompt04_profiles'")) {
+        this.store.run("UPDATE workers SET delegatable_capabilities=? WHERE role='ceo'", JSON.stringify(COMPANY_CEILING));
+        this.store.run("INSERT INTO settings VALUES ('prompt04_profiles','1')");
       }
       this.store.run("INSERT OR IGNORE INTO channels VALUES ('executive','executive','Company objectives, results and decisions')");
     });
@@ -77,6 +85,18 @@ export class Company extends EventEmitter {
       return atlas;
     });
   }
+  initializeNix() {
+    const nix = this.store.transaction(() => {
+      const atlas = this.initializeCEO();
+      const existing = this.workers().find(w => w.role === 'devops');
+      if (existing) return existing;
+      requireThat(this.workers().filter(w => w.manager_worker_id === atlas.worker_id).length < 4, 'CEO child limit reached');
+      const worker = this.provision({ display_name: 'Nix', title: 'DevOps', role: 'devops', mission: 'Coordinate exact scoped worker infrastructure through trusted human approvals. No root or arbitrary shell.', capabilities: [...DEVOPS_CAPABILITIES], delegatable_capabilities: [], lifecycle: 'persistent', justification: 'Trusted human initialized Nix bootstrap' }, atlas);
+      this.audit('nix_initialized', 'human', { bootstrap_exception: true }, worker.worker_id);
+      return worker;
+    });
+    return { worker: nix, request: this.infrastructure.initializeNixRequest(nix) };
+  }
   private provision(input: HireInput, manager: Worker | null): Worker {
     requireThat(this.workers().length < 8, 'Company worker limit reached');
     const workerId = id('worker'); const principalId = id('principal'); const timestamp = now();
@@ -88,7 +108,7 @@ export class Company extends EventEmitter {
       this.runtimeType, realpathSync(workspace), input.lifecycle, 'idle', JSON.stringify(input.capabilities),
       JSON.stringify(input.delegatable_capabilities), manager?.worker_id ?? null, timestamp, timestamp);
     this.audit('worker_provisioned', manager?.principal_id ?? 'human', { justification: input.justification, capabilities: input.capabilities, lifecycle: input.lifecycle }, workerId);
-    return this.worker(workerId);
+    const worker = this.worker(workerId); this.infrastructure.onWorkerCreated(worker); return worker;
   }
   verifyWorkspace(worker: Worker, path = worker.workspace_path): void {
     requireThat(path === worker.workspace_path, 'Workspace identity mismatch');
@@ -184,10 +204,10 @@ export class Company extends EventEmitter {
     return this.store.transaction(() => {
       if (this.paused) return;
       if (this.store.get<{ n: number }>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
-      const task = this.store.get<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
+      const task = this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid LIMIT 1`);
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
       if (!task) return;
       const worker = this.worker(task.assignee_worker_id);
       this.transition(task, 'working');
@@ -214,7 +234,7 @@ export class Company extends EventEmitter {
         // An objective that delegated work remains open until a later execution evaluates it.
         const waiting = children.some(c => c.created_execution_id === executionId) || (task.kind === 'research' && children.length > 0 && task.dispatch_reason !== 'child_results');
         if (!waiting) this.engineering.assertDeliverable(task);
-        this.transition(task, waiting ? 'blocked' : 'completed', waiting ? 'waiting_children' : null);
+        if (!this.infrastructure.finishTask(task, execution)) this.transition(task, waiting ? 'blocked' : 'completed', waiting ? 'waiting_children' : null);
         this.store.run('UPDATE tasks SET result_summary=? WHERE task_id=?', summary, task.task_id);
         this.message(worker.principal_id, summary, task.task_id, executionId, worker.manager_worker_id);
       } else {
@@ -232,6 +252,7 @@ export class Company extends EventEmitter {
   private retireTemporary(worker: Worker, taskId: string) {
     if (worker.lifecycle !== 'temporary') return;
     this.store.run('UPDATE workers SET enabled=0,updated_at=? WHERE worker_id=?', now(), worker.worker_id);
+    this.infrastructure.temporaryRetirement(worker);
     this.audit('worker_retired', 'system', { reason: 'temporary_assignment_terminal' }, worker.worker_id, taskId);
   }
   private recordWake(task: Task) {
@@ -250,6 +271,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
         this.store.run("UPDATE executions SET status='interrupted',finished_at=?,interruption_reason='application_restart' WHERE execution_id=?", now(), e.execution_id);
@@ -266,6 +288,7 @@ export class Company extends EventEmitter {
     requireThat(inspected === true, 'Inspect prior attempts and artifacts before retry');
     this.store.transaction(() => {
       const task = this.task(taskId);
+      requireThat(task.kind !== 'infrastructure', 'Infrastructure tasks require exact operation reconciliation, not runtime retry');
       requireThat(['blocked', 'failed', 'awaiting_approval'].includes(task.status) && task.blocking_reason !== 'waiting_children', 'Task cannot be retried');
       requireThat(!this.store.get("SELECT 1 FROM allocations WHERE task_id=? AND status='blocked'", taskId), 'Allocation requires Git inspection; automatic reactivation is unavailable');
       requireThat(this.worker(task.assignee_worker_id).enabled, 'Worker is retired; create a new objective with an enabled worker');
@@ -300,7 +323,7 @@ export class Company extends EventEmitter {
   context(context: ExecutionContext) {
     const { worker, task } = this.verifyContext(context);
     requireThat(task.kind === 'research' || !this.store.get('SELECT 1 FROM legacy_runtime_bindings WHERE worker_id=?', worker.worker_id), 'Retained Prompt 01 runtime binding has a research-only tool schema. Use a fresh BOT_DATA_DIR for engineering; implicit thread replacement is forbidden.');
-    return { engineering: this.engineering.context(task), worker: { worker_id: worker.worker_id, display_name: worker.display_name, role: worker.role, mission: worker.mission,
+    return { infrastructure: this.infrastructure.context(task), engineering: this.engineering.context(task), worker: { worker_id: worker.worker_id, display_name: worker.display_name, role: worker.role, mission: worker.mission,
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
@@ -333,13 +356,13 @@ export class Company extends EventEmitter {
           let depth = 0; let ancestor: Worker | undefined = worker;
           while (ancestor?.manager_worker_id) { depth++; requireThat(depth < 2, 'Hierarchy depth limit exceeded'); ancestor = this.worker(ancestor.manager_worker_id); }
           const direct = this.workers().filter(w => w.manager_worker_id === worker.worker_id);
-          requireThat(direct.length < 3, 'Manager child limit exceeded');
+          requireThat(direct.filter(w => w.role !== 'devops').length < 3 && direct.length < (worker.role === 'ceo' ? 4 : 3), 'Manager child limit exceeded');
           if (profile !== 'researcher') requireThat(direct.filter(w => w.role === profile).length < (profile === 'engineer' ? 2 : 1), 'Role profile count limit reached');
           const delegatable = profile === 'cto' ? [...CTO_DELEGATABLE] : [];
           assertCapabilities(delegatable, worker.delegatable_capabilities);
           requireThat(a.lifecycle === 'persistent' || a.lifecycle === 'temporary', 'Invalid lifecycle');
           const displayName = textField(a, 'display_name', 60);
-          requireThat(!['human', 'system', 'atlas'].includes(displayName.toLowerCase()), 'Reserved worker name');
+          requireThat(!['human', 'system', 'atlas', 'nix'].includes(displayName.toLowerCase()), 'Reserved worker name');
           this.audit('worker_creation_requested', worker.principal_id, { name: displayName, capabilities }, worker.worker_id, task.task_id, execution.execution_id);
           result = this.provision({ display_name: displayName, title: textField(a, 'title', 100), role: profile, mission: textField(a, 'mission', 2000),
             capabilities, delegatable_capabilities: delegatable, lifecycle: a.lifecycle, justification: textField(a, 'justification', 2000) }, worker);
@@ -390,6 +413,7 @@ export class Company extends EventEmitter {
           result = this.saveArtifact({ worker, task, execution }, textField(a, 'description', 500), content, task.kind === 'spec' ? 'specification' : 'report'); break;
         }
         default:
+          if ((INFRASTRUCTURE_TOOLS as readonly string[]).includes(name)) { result = this.infrastructure.execute(name, input, { worker, task, execution }); break; }
           requireThat(Object.hasOwn(ENGINEERING_TOOLS, name), 'Unknown or unavailable company tool');
           result = this.engineering.execute(name as keyof typeof ENGINEERING_TOOLS, input, { worker, task, execution });
       }
@@ -399,7 +423,7 @@ export class Company extends EventEmitter {
     };
     // Git/filesystem operations have durable intent rows before side effects. Never wrap
     // them in the outer receipt transaction, which could erase crash evidence.
-    try { return Object.hasOwn(ENGINEERING_TOOLS, name) ? perform() : this.store.transaction(perform); }
+    try { return Object.hasOwn(ENGINEERING_TOOLS, name) || (INFRASTRUCTURE_TOOLS as readonly string[]).includes(name) ? perform() : this.store.transaction(perform); }
     catch (error) {
       if (name === 'read_source' || name === 'write_source') {
         // Attribute valid sessions only; never retain rejected source content or raw paths.
@@ -419,7 +443,7 @@ export class Company extends EventEmitter {
     return this.store.get<Artifact>('SELECT * FROM artifacts WHERE artifact_id=?', artifactId)!;
   }
   snapshot() {
-    return { wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
+    return { infrastructure: this.infrastructure.snapshot(), wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
       principals: this.store.all<Principal>('SELECT * FROM principals'),
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),

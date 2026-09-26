@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { localGit } from '../src/control/engineering.js';
 import { spawn, type ChildProcess } from 'node:child_process';
 import { createServer } from 'node:net';
-import { mkdirSync, writeFileSync, readFileSync, readdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { type Company } from '../src/control/company.js';
@@ -50,6 +50,19 @@ async function observe(predicate: (state: Snapshot) => boolean, timeoutMs = 9000
   while (Date.now() < deadline) {
     const state = await api<Snapshot>('state');
     await profiles.apply(state);
+    if (identities) {
+      // Explicit operator-authorized acceptance policy, restricted to this fresh validation company.
+      // Use the real trusted human HTTP boundary; never set an approval in SQLite.
+      for (const approval of state.infrastructure.approvals.filter(a => a.status === 'pending')) {
+        const op = state.infrastructure.operations.find(op => op.operation_id === approval.operation_id)!;
+        assert.ok(state.workers.some(w => w.worker_id === op.target_worker_id));
+        assert.ok(['create_worker_identity','prepare_worker_project_clone','disable_worker_identity'].includes(op.operation_type));
+        if (op.requesting_execution_id && state.executions.find(e => e.execution_id === op.requesting_execution_id)?.status !== 'completed') continue;
+        const result = await api<{status:string}>('approvals/decide', { approval_id: approval.approval_id, operation_id: op.operation_id, decision: 'approve' });
+        assert.equal(result.status, 'completed', `Host operation incomplete: ${op.operation_id}`);
+        console.log(JSON.stringify({event:'trusted_validation_approval', operation_id:op.operation_id, approval_id:approval.approval_id, type:op.operation_type}));
+      }
+    }
     for (const event of state.audit) {
       if (seen.has(event.event_id)) continue; seen.add(event.event_id);
       if (['worker_provisioned', 'task_assigned', 'runtime_started', 'worker_resumed', 'artifact_submitted', 'manager_followup_queued', 'execution_completed', 'execution_failed', 'execution_interrupted', 'tool_rejected', 'repository_created', 'engineering_batch_assigned', 'source_written', 'engineering_submitted', 'review_submitted', 'integration_completed', 'integration_failed'].includes(event.type)) {
@@ -57,7 +70,7 @@ async function observe(predicate: (state: Snapshot) => boolean, timeoutMs = 9000
       }
     }
     if (predicate(state)) return state;
-    const failure = state.tasks.find(t => t.status === 'failed' || t.status === 'awaiting_approval' || (t.status === 'blocked' && t.blocking_reason !== 'waiting_children'));
+    const failure = state.tasks.find(t => t.status === 'failed' || (t.status === 'awaiting_approval' && !(identities && t.kind === 'infrastructure')) || (t.status === 'blocked' && t.blocking_reason !== 'waiting_children'));
     if (failure) throw new Error(`Real workflow stopped: ${failure.task_id}: ${failure.blocking_reason}`);
     await sleep(300);
   }
@@ -72,23 +85,40 @@ function sourceDigest() {
   const hash=createHash('sha256'); for(const path of files.sort()) hash.update(path).update('\0').update(readFileSync(join(root,path)));
   return hash.digest('hex');
 }
+const identities = process.env.BOT_VALIDATE_IDENTITIES === '1';
 const started = new Date().toISOString();
 try {
   await launch();assert.equal((await api<Snapshot>('state')).workers.length,0,'Fresh data required');
   await api('initialize',{});await api('pause',{paused:true});
+  if (identities) {
+    await api('initialize-nix',{});
+    const before = await api<Snapshot>('state');
+    assert.equal(before.infrastructure.backend, 'linux');
+    assert.equal(before.infrastructure.approvals.length, 1);
+    assert.equal(before.infrastructure.approvals[0]!.status, 'pending');
+    await stop(); await launch();
+    const after = await api<Snapshot>('state');
+    assert.deepEqual(after.infrastructure.approvals, before.infrastructure.approvals);
+    assert.deepEqual(after.infrastructure.identities, before.infrastructure.identities);
+    const op = after.infrastructure.operations[0]!;
+    const result = await api<{status:string}>('approvals/decide', {approval_id:op.approval_id,operation_id:op.operation_id,decision:'approve'});
+    assert.equal(result.status,'completed');
+    await api('infrastructure/request',{worker_id:after.workers.find(w=>w.role==='ceo')!.worker_id,operation_type:'create_worker_identity',allocation_id:null});
+    writeFileSync(join(dataDir,'pending-approval-restart.json'),JSON.stringify({approval:before.infrastructure.approvals[0],preserved:true,no_host_operation_before_approval:true},null,2));
+  }
   await profiles.apply(await api<Snapshot>('state'));
   const objective=await api<Task>('objectives',{objective:'Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. Report the actual evidence to the Human. No external product repository or publishing.'});
   await sleep(200);assert.equal((await api<Snapshot>('state')).executions.length,0);await api('pause',{paused:false});
-  const complete=await observe(s=>s.tasks.find(t=>t.task_id===objective.task_id)?.status==='completed');
+  const complete=await observe(s=>s.tasks.find(t=>t.task_id===objective.task_id)?.status==='completed' && (!identities || s.tasks.every(t=>t.status==='completed')));
   profiles.verify(complete);
-  assert.equal(complete.workers.length,6);assert.equal(complete.tasks.length,6);assert.equal(complete.executions.length,10);
+  assert.equal(complete.workers.length,identities?7:6);assert.equal(complete.tasks.filter(t=>t.kind!=='infrastructure').length,6);assert.equal(complete.executions.filter(e=>complete.tasks.find(t=>t.task_id===e.task_id)?.kind!=='infrastructure').length,10);
   assert.ok(complete.tasks.every(t=>t.status==='completed'));assert.ok(complete.executions.every(e=>e.status==='completed'));
   const names=['Atlas','Maya','Turing','Linus','Ada','Grace'];
   const team=Object.fromEntries(names.map(name=>{const w=complete.workers.find(w=>w.display_name===name);assert.ok(w,`Missing ${name}`);assert.equal(w.lifecycle,'persistent');assert.equal(w.enabled,1);return [name,w];}));
   assert.equal(team.Atlas!.manager_worker_id,null);
   for(const name of ['Maya','Turing'])assert.equal(team[name]!.manager_worker_id,team.Atlas!.worker_id);
   for(const name of ['Linus','Ada','Grace'])assert.equal(team[name]!.manager_worker_id,team.Turing!.worker_id);
-  assert.equal(complete.bindings.length,6);assert.equal(new Set(complete.bindings.map(b=>b.runtime_reference)).size,6);
+  assert.equal(complete.bindings.length,identities?7:6);assert.equal(new Set(complete.bindings.map(b=>b.runtime_reference)).size,identities?7:6);
   assert.equal(complete.repositories.length,1);assert.equal(complete.allocations.length,2);assert.equal(complete.submissions.length,2);assert.equal(complete.reviews.length,1);assert.equal(complete.integrations.length,1);
   const repo=complete.repositories[0]!, review=complete.reviews[0]!, integration=complete.integrations[0]!;
   assert.equal(repo.product_name,'SquadStatus');assert.equal(repo.status,'ready');assert.notEqual(repo.canonical_root,root);
@@ -117,7 +147,7 @@ try {
   const turnOverlap=Math.min(...engineers.map(e=>Date.parse(e.finished_at!)))-Math.max(...engineers.map(e=>Date.parse(e.runtime_turn_started_at)));
   assert.ok(overlap>0&&turnOverlap>0,`Engineering did not overlap: ${overlap}/${turnOverlap}`);
   const policies=complete.audit.filter(e=>e.type==='runtime_policy_applied').map(e=>({worker_id:e.worker_id,execution_id:e.execution_id,...JSON.parse(e.detail)}));
-  assert.equal(policies.length,10);assert.ok(policies.every(p=>p.network===false&&p.sandbox==='read-only'&&p.environments.length===0));
+  assert.equal(policies.length,complete.executions.length);assert.ok(policies.every(p=>p.network===false&&p.sandbox==='read-only'&&p.environments.length===0));
   for(const name of ['Linus','Ada','Grace']){
     const p=policies.find(p=>p.worker_id===team[name]!.worker_id)!;
     for(const forbidden of ['hire_worker','assign_task','integrate_repository','create_repository','shell','browser','computer_use','git_reset','git_push','git_remote'])assert.ok(!p.tools.includes(forbidden));
@@ -140,7 +170,23 @@ try {
     specification:{task_id:specTask.task_id,execution_id:specArtifact.execution_id,artifact_id:specArtifact.artifact_id,sha256:specArtifact.sha256},
     runtime_policies:policies,confinement_rejections:complete.audit.filter(e=>['tool_rejected','engineering_access_denied'].includes(e.type)),wake_events:complete.wake_events,
     checks:['six real persistent Codex workers','actual Maya spec before engineering','distinct branch/worktree/commit ownership','real execution and runtime-turn overlap','real denied source/sibling/path writes','role-specific tool surface','real independent exact-commit Grace review','confined full acceptance tests','candidate before safe fast-forward','deterministic product output','process restart preserved all workflow records','no duplicate engineering/review/integration/wake'],
-    counts:{workers:6,tasks:6,executions:10},final_report:complete.tasks.find(t=>t.task_id===objective.task_id)!.result_summary});
+    counts:{workers:complete.workers.length,tasks:complete.tasks.length,executions:complete.executions.length},final_report:complete.tasks.find(t=>t.task_id===objective.task_id)!.result_summary});
+  if (identities) {
+    assert.ok(complete.infrastructure.identities.every(i=>i.state==='ready' && i.backend==='linux'));
+    const uids=complete.infrastructure.identities.map(i=>i.uid); assert.equal(new Set(uids).size,7);
+    const ownership=complete.allocations.map(a=>({worker_id:a.worker_id,allocation_id:a.allocation_id,path:a.worktree_path,uid:statSync(join(a.worktree_path,`src/${a.module}.mjs`)).uid,gid:statSync(join(a.worktree_path,`src/${a.module}.mjs`)).gid}));
+    for(const file of ownership) assert.equal(file.uid,complete.infrastructure.identities.find(i=>i.worker_id===file.worker_id)!.uid);
+    assert.equal(complete.audit.filter(e=>e.type==='worker_uid_commit').length,2);
+    Object.assign(evidence,{infrastructure:complete.infrastructure,ownership,pending_approval_restart:true,approval_boundary:'Trusted loopback HTTP, operator-authorized fixed validation scenario; no worker approval tool',test_execution_identity:'Trusted botsquad service inside unchanged product sandbox'});
+    await api('infrastructure/request',{worker_id:team.Grace!.worker_id,operation_type:'disable_worker_identity',allocation_id:null});
+    const retired=await observe(s=>s.infrastructure.identities.find(i=>i.worker_id===team.Grace!.worker_id)?.state==='disabled' && s.tasks.every(t=>t.status==='completed'));
+    assert.equal(retired.workers.find(w=>w.worker_id===team.Grace!.worker_id)!.enabled,0);
+    assert.deepEqual(retired.reviews,complete.reviews); assert.deepEqual(retired.submissions,complete.submissions);
+    Object.assign(evidence,{retirement:{worker_id:team.Grace!.worker_id,identity:retired.infrastructure.identities.find(i=>i.worker_id===team.Grace!.worker_id),operations:retired.infrastructure.operations.filter(op=>op.operation_type==='disable_worker_identity'),history_preserved:true}});
+    writeFileSync(join(dataDir,'retired-state.json'),JSON.stringify(retired,null,2));
+    await stop(); await launch(); await sleep(500); const afterRetirement=await api<Snapshot>('state');
+    assert.deepEqual(afterRetirement.infrastructure,retired.infrastructure); assert.deepEqual(afterRetirement.executions,retired.executions);
+  }
   writeFileSync(join(dataDir,'evidence.json'),JSON.stringify(evidence,null,2));writeFileSync(join(dataDir,'final-state.json'),JSON.stringify(restarted,null,2));
   console.log(`PASS: real engineering/review/integration/restart. Execution overlap ${overlap} ms; runtime-turn overlap ${turnOverlap} ms. Evidence: ${join(dataDir,'evidence.json')}`);
 }catch(error){

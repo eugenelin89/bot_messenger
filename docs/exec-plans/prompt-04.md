@@ -1,0 +1,102 @@
+# Execution Plan — Prompt 04: Nix, approvals and worker Linux identity
+
+**Status:** Active  
+**Owner:** Codex task 01a0dcb8-a9f0-73e3-b41c-a1832f5b4727; sole implementation writer  
+**Branch:** feature/prompt-04-nix-worker-identity  
+**Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
+**Started:** 2026-09-26 07:58 UTC  
+**Starting synchronized main:** a81dc576473196a3b1634fb4fbb49a0cd07d32d3  
+**Initial ETA:** 6–10 hours including real Ubuntu acceptance and delivery  
+**Current ETA:** Unchanged; implementation and acceptance pending
+
+## Objective and scope
+
+Bind logical workers to isolated non-root Linux identities, introduce Nix with typed
+infrastructure tasks, durable exact-scope human approvals and a small root provisioner,
+and run worker-owned engineering mutations under their UID in independent clones.
+Keep central Codex authentication, existing runtime workspaces, histories and all
+Prompt 03 confinement controls. Preserve the macOS development regression path.
+
+Prompt 05+ repository generalization, remote/mobile APIs, external identities,
+Computer Use, general host administration and multi-company persistence are excluded.
+
+## Preflight and ownership
+
+- Fetched origin and inspected branch, status, worktrees and newer commits. Clean local
+  main was 26 documentation commits behind; fast-forwarded before creating the branch.
+- One worktree, no conflicting local changes or active ownership plan discovered.
+  No delegated implementation writers. Preserve all prior branches and validation data.
+- SSH target: `botsquad`; existing operator SSH authentication only.
+- Observed host: Ubuntu 24.04.5 LTS x86_64, kernel 6.8.0-142-generic, 1 vCPU,
+  1967 MiB RAM, 2047 MiB swap (unused), 48 GiB root disk with 43 GiB available.
+- Deployed SHA: `630cb0a9bfe0ded02d99ef1b595dcfa4bf1ce058`, clean detached checkout.
+- `botsquad.service` active/enabled, User/Group botsquad, NoNewPrivileges=yes,
+  runtime ready, UI only 127.0.0.1:4310. Source root-owned 0755; data/auth 0700;
+  company SQLite 0600. No production mutation performed during preflight.
+
+## Implementation phases
+
+1. Read required docs and inspect domain, persistence, runtime, engineering, HTTP and deployment.
+2. Design immutable approval envelope, OS/project bindings and explicit migrations.
+3. Add narrow provisioner protocol, durable root receipts, Linux UID execution and dev backend.
+4. Add Nix initialization/infrastructure tasks, dispatch readiness and safe retirement.
+5. Integrate independent clones, worker-owned writes/Git and trusted review/import.
+6. Add trusted approval and infrastructure UI; update reproducible bootstrap/systemd.
+7. Expand deterministic migration, authority, stale/replay, parser and regression tests;
+   perform explicit security review before privileged deployment.
+8. Back up production safely; push and deploy exact feature SHA; use a separate validation company.
+9. Run actual Nix/approval/UID/canary/engineering/retirement/recovery/resource gates,
+   plus bounded reboot and research regression. Fix and repeat affected gates.
+10. Record Decision 013 (if still unused), validation evidence and current documentation.
+11. Fetch/inspect current main, integrate accepted work normally, push without force,
+    deploy final main and verify local/origin/deployed equality and production preservation.
+
+## Security and persistence boundaries
+
+- Worker, Unix user, runtime binding and execution remain distinct durable concepts.
+- Schema migrations preserve IDs/history/profiles/workspaces and perform no OS operations.
+  Existing workers begin unprovisioned. Provisioning requires explicit trusted action.
+- Codex auth stays private to botsquad; worker homes have no copied authentication.
+- Approval binds operation, exact parameters/hash, target, requester, task/execution,
+  expiry and preconditions; trusted human decisions are one-time and auditable.
+- Messages and Codex permission requests never grant infrastructure authority.
+- Provisioner is local Unix socket only, root-owned code/state, fixed typed operations,
+  strict bounds and ID-derived paths, no arbitrary command/path API, durable receipts.
+- Worker accounts are locked, nologin, private UID/GID/home, no privileged groups.
+- UID helper performs only bounded worker actions; trusted integration controls canonical main.
+- Retirement reduces authority, checks active/unmerged work and preserves evidence.
+- Unknown or ambiguous state fails closed; restart reconciles receipts without reapproval/replay.
+
+## Validation and evidence
+
+Run TypeScript, full deterministic tests, JS/shell syntax and git diff --check. Test
+retained migration, forged authority, exact payload/target/requester, expiry/denial/
+consumption, stale preconditions, root parser/bounds/symlinks/idempotency, dispatch,
+retirement, clone ownership and existing scheduling/runtime/security regressions.
+
+Real Ubuntu acceptance must establish kernel access denials using harmless canaries,
+real Nix execution/thread/profile and approval through trusted HTTP, real distinct
+engineer UIDs with overlap, exact review/tests/integration, preserved retirement data,
+pending approval restart, completed receipt reconciliation, provisioner restart,
+bounded reboot and measurements. Mock tests are never Linux isolation evidence.
+
+Roadmap remains Prompt 04 Next until all applicable gates pass. Production is not
+used as the test company. Check pause/active work and take a protected backup before
+deployment. Do not expose session tokens or credentials in evidence.
+
+## Progress / ETA ledger
+
+- 07:58 UTC: started preflight and required reading.
+- 08:00 UTC: initial ETA 6–10 hours; current-main feature branch created.
+- 08:02 UTC: read-only Ubuntu preflight passed; production unchanged.
+
+## Remaining work
+
+Implementation, all Prompt 04 tests/acceptance and delivery remain in progress.
+
+- 08:25 UTC: implementation covers Nix/bootstrap, durable approvals, provisioner and
+  UID helper, clone allocation/import, infrastructure UI and retirement revocation.
+  Expanded suite passes 80/80 on macOS plus eight Python protocol/receipt cases.
+  Security review tightened clone configuration checks, no-follow revocation and
+  immutable approval envelopes. Real Linux acceptance is still pending; no isolation
+  or milestone completion claim yet.

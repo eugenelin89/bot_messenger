@@ -1,5 +1,5 @@
 import type { AIProfile, Priority } from './ai-profile.js';
-export const CAPABILITIES = ['internal_message', 'create_task', 'create_worker', 'read_workspace', 'write_workspace', 'run_local_tools', 'manage_repository', 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result', 'review_repository_change', 'request_integration'] as const;
+export const CAPABILITIES = ['internal_message', 'create_task', 'create_worker', 'read_workspace', 'write_workspace', 'run_local_tools', 'manage_repository', 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result', 'review_repository_change', 'request_integration', 'inspect_host_health', 'request_worker_identity', 'request_project_access'] as const;
 export type Capability = typeof CAPABILITIES[number];
 // Prompt 01 deliberately grants no arbitrary local process execution.
 export const COMPANY_CEILING: readonly Capability[] = CAPABILITIES.filter(c => c !== 'run_local_tools');
@@ -8,7 +8,9 @@ export const ENGINEER_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABIL
 export const REVIEWER_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABILITIES, 'review_repository_change'];
 export const CTO_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABILITIES, 'create_worker', 'create_task', 'manage_repository', 'request_integration'];
 export const CEO_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABILITIES, 'create_worker', 'create_task'];
+export const DEVOPS_CAPABILITIES: readonly Capability[] = ['internal_message', 'read_workspace', 'inspect_host_health', 'request_worker_identity', 'request_project_access'];
 export const PROFILES = {
+  devops: DEVOPS_CAPABILITIES,
   researcher: RESEARCH_CAPABILITIES, product_manager: RESEARCH_CAPABILITIES,
   cto: CTO_CAPABILITIES, engineer: ENGINEER_CAPABILITIES, reviewer: REVIEWER_CAPABILITIES,
 } as const;
@@ -31,7 +33,7 @@ export interface Task {
   task_id: string; requester: string; assignee_worker_id: string; objective: string;
   acceptance_criteria: string; constraints: string; parent_task_id: string | null;
   status: TaskStatus; blocking_reason: string | null; result_summary: string | null;
-  kind: 'research' | 'product' | 'spec' | 'delivery' | 'engineering' | 'review'; created_execution_id: string | null;
+  kind: 'research' | 'product' | 'spec' | 'delivery' | 'engineering' | 'review' | 'infrastructure'; created_execution_id: string | null;
   dispatch_reason: string; created_at: string; updated_at: string;
 }
 export interface Execution {
