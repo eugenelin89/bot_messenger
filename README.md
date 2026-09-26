@@ -364,6 +364,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 
 - [BotSquad Roadmap](docs/product/ROADMAP.md)
 - [Technical White Paper](docs/WHITEPAPER.md)
+- [技術白皮書｜台灣繁體中文版](docs/WHITEPAPER_ZH_TW.md)
 
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Project Vision](docs/product/PROJECT_VISION.md)
