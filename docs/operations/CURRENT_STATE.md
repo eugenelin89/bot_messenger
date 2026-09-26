@@ -294,3 +294,33 @@ private-network path or a future outbound relay. SSH remains the administrative 
 recovery path.
 
 See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CLIENT.md).
+
+
+## Canonical roadmap
+
+The numbered implementation roadmap is maintained in
+[BotSquad Roadmap](../product/ROADMAP.md).
+
+Current next step:
+
+~~~text
+Prompt 04
+Nix + trusted approvals
++ narrow privileged provisioner
++ per-worker Unix identity
+~~~
+
+Subsequent planned prompts are:
+
+~~~text
+05 Generalized projects
+06 Authenticated remote-client API
+07 Native iOS Remote MVP
+08 Bounded Computer Use
+09 Multi-company
+10 Company-to-company collaboration
+11 Telegram / external identities
+12 Cross-HQ federation
+~~~
+
+See the roadmap for dependencies and acceptance themes.
