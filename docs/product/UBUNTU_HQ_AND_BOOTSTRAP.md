@@ -5,6 +5,18 @@
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
 
+## Current implementation truth
+
+Prompt 03 is complete. For operational truth, use:
+
+- [Current State](../operations/CURRENT_STATE.md)
+- [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
+- [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md)
+- [Prompt 03 validation](../validation/prompt-03-ubuntu.md)
+- [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md)
+
+This document also retains longer-term design rationale (for example future Nix and per-worker Unix identities). Those future sections should not be read as already implemented.
+
 ## Goal
 
 Make BotSquad easy to install for a real user:
@@ -101,9 +113,9 @@ and uses normal SSH commands.
 
 ## Supported starting state
 
-Prompt 03 should define and validate the exact starting contract.
+Prompt 03 validated the initial Ubuntu starting contract.
 
-The intended first supported target is approximately:
+The current supported starting contract is:
 
 - fresh supported Ubuntu LTS;
 - reachable through an SSH alias;
@@ -111,13 +123,13 @@ The intended first supported target is approximately:
 - normal Internet access for package/runtime installation;
 - enough CPU, memory and disk for BotSquad and concurrent Codex workers.
 
-The bootstrap must inspect and fail clearly if the host does not meet the supported contract.
+The bootstrap inspects and fails clearly if the host does not meet the supported contract.
 
 Do not silently weaken security or continue on an unknown distribution/platform.
 
 ## Desired installed layout
 
-Exact paths may change after implementation evidence, but the intended architecture is:
+The implemented service layout uses the paths below; future per-worker identities remain conceptual:
 
 ```text
 Ubuntu host
@@ -144,7 +156,7 @@ Prompt 03 creates only the botsquad service account. Worker Unix accounts and a 
 
 ## BotSquad service model
 
-BotSquad should run continuously under systemd:
+BotSquad runs continuously under systemd:
 
 ```text
 Ubuntu boot
@@ -158,7 +170,7 @@ BotSquad control plane
 SQLite + dispatcher + Codex runtime
 ```
 
-The service should:
+The service is designed and validated to:
 
 - run as a non-root service user;
 - restart after host reboot;
