@@ -71,7 +71,7 @@ State lives in `.data/company.sqlite`, with reports in `.data/artifacts/`, worke
 
 `npm` scripts resolve the pinned local CLI. A global/desktop CLI can differ. Preflight prints the effective version, authentication mode and model without credentials. This environment's advertised model is `gpt-5.5`; the adapter deliberately does not inherit an incompatible model name from a desktop configuration.
 
-Codex owns authentication and credential refresh. BotSquad does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains local.
+Codex owns authentication and credential refresh. BotSquad does not copy credentials or control unrelated ChatGPT/Codex conversations. Assigned task content, selected local documents and report evidence are sent to the external Codex model service. Coordination state remains on the operator-controlled BotSquad host.
 
 ## Validate
 
@@ -97,10 +97,10 @@ observation deadline. Artifacts, SQLite/Git state and evidence remain under igno
 
 - **Domain/control plane:** TypeScript, trusted operations and centrally validated task transitions.
 - **Persistence:** Node SQLite, versioned migrations, foreign keys, WAL, transactions and unique active-execution constraints.
-- **Dispatch:** local events and transactional claims; maximum one execution per worker, two globally. No model polling or interval dispatch loop.
+- **Dispatch:** control-plane events and transactional claims; maximum one execution per worker, two globally. No model polling or interval dispatch loop.
 - **Runtime:** official Codex App Server over private stdio. Dedicated persistent thread binding per logical worker; a separate execution record per attempt.
 - **Tools:** explicit profile hiring, staged assignment, messages/reports, managed repository allocation, owned source editing, fixed confined tests, verified submissions, read-only review and trusted integration. Identity and allocation scope come from the active execution.
-- **UI:** static browser JavaScript/CSS, Node HTTP and server-sent state-change events. No frontend framework or hosted service.
+- **UI:** static browser JavaScript/CSS, Node HTTP and server-sent state-change events. No frontend framework or third-party hosted coordination service.
 
 [System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md) describes lifecycle, enforcement, recovery and extension boundaries. [Decision 007](docs/decisions/decision_007_prompt_01_runtime_and_recovery.md) records the original runtime choices; [Decision 008](docs/decisions/decision_008_managed_engineering.md) records the engineering extension.
 
