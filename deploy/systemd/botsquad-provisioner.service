@@ -6,8 +6,9 @@ After=botsquad-provisioner.socket
 [Service]
 Type=simple
 ExecStart=/usr/bin/python3 -I /opt/botsquad-provisioner/provisioner.py
-User=root
-Group=root
+# System services default to root. Do not set User=root: systemd 255's explicit
+# user/seccomp setup drops CAP_SETUID even when included in the bounding set.
+# Retain it solely to drop child credentials; children verify zero capabilities.
 UMask=0077
 NoNewPrivileges=true
 ProtectSystem=strict

@@ -331,6 +331,8 @@ def worker_main():
     # UID/GID and supplementary groups were dropped by exec's fixed subprocess
     # credentials. Apply additional restrictions after exec, before reading input.
     drop_privileges()
+    status = dict(line.split(':', 1) for line in Path('/proc/self/status').read_text().splitlines() if ':' in line)
+    check(os.getuid() >= 20000 and int(status['CapEff'], 16) == 0 and int(status['CapPrm'], 16) == 0 and status['NoNewPrivs'].strip() == '1', 'Worker process retains authority')
     payload = json.loads(sys.stdin.buffer.read(LIMIT + 10000))
     req, record, project = payload['request'], payload['identity'], payload['project']
     check(os.getuid() == record['uid'] and os.getgid() == record['gid'] and not os.getgroups(), 'Worker credentials not dropped')
@@ -416,6 +418,8 @@ def worker_main():
 
 def serve():
     check(os.geteuid() == 0, 'Provisioner must run as root')
+    status = dict(line.split(':', 1) for line in Path('/proc/self/status').read_text().splitlines() if ':' in line)
+    check(int(status['CapEff'], 16) & (1 << 7) and status['NoNewPrivs'].strip() == '1', 'Provisioner requires bounded UID-drop capability and NoNewPrivileges')
     service_uid = pwd.getpwnam('botsquad').pw_uid
     for name in ('receipts', 'identities', 'projects'):
         (STATE / name).mkdir(mode=0o700, parents=True, exist_ok=True)
