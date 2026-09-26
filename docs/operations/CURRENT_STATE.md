@@ -246,6 +246,7 @@ The following are documented future directions, not current capabilities:
 - multi-company persistence and CompanyConnection;
 - cross-HQ federation;
 - Telegram/external identities;
+- native iOS remote client / secure relay access;
 - autonomous financial authority.
 
 See:
@@ -276,3 +277,20 @@ narrow privileged provisioner
 
 That creates a stronger worker security boundary before Computer Use or broader
 external authority is added.
+
+
+## Future native mobile access
+
+A native iPhone/iPad client is now an accepted future architecture direction.
+
+It is not implemented yet.
+
+The intended design keeps the Ubuntu HQ private and makes the iOS app another
+authenticated BotSquad client rather than a WebView or SSH wrapper. The app should use a
+stable versioned API and an explicit device-pairing/authorization model.
+
+Normal mobile operation should eventually avoid manual SSH tunnelling through either a
+private-network path or a future outbound relay. SSH remains the administrative and
+recovery path.
+
+See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CLIENT.md).
