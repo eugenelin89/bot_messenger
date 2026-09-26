@@ -352,6 +352,10 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 - Agent instructions: `AGENTS.md`
 - Product vision: `docs/product/PROJECT_VISION.md`
 - Architecture: `docs/architecture/SYSTEM_ARCHITECTURE.md`
+- Current operational state: `docs/operations/CURRENT_STATE.md`
+- HQ access/operations: `docs/operations/ACCESS_AND_OPERATIONS.md`
+- New Ubuntu host preparation: `docs/bootstrap/SETUP_UBUNTU_HOST.md`
+- Ubuntu bootstrap/operator details: `docs/bootstrap/UBUNTU_BOOTSTRAP.md`
 - Decision index: `docs/decisions/README.md`
 - Execution plans: `docs/exec-plans/`
 
