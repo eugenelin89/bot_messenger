@@ -89,7 +89,15 @@ If another writer owns the intended branch/worktree, coordinate or create an iso
 
 ## Product Invariants
 
-BotSquad is a **local-first coordination and orchestration control plane**. Preserve these invariants unless an accepted decision explicitly changes them.
+BotSquad is an **operator-controlled, self-hosted coordination and orchestration control plane**. The primary operating direction is an always-on Ubuntu headquarters under the operator's control; the human workstation is primarily a bootstrap, administration and development client. Decision 009 clarifies the older `local-first` wording. Preserve these invariants unless an accepted decision explicitly changes them.
+
+### Self-hosted deployment is distinct from SaaS
+
+- The primary deployment target is an operator-controlled Ubuntu host, which may live in a cloud provider, VPS, VM or physical machine.
+- Cloud-hosted does not mean BotSquad becomes a third-party multi-tenant SaaS control plane.
+- Coordination state remains on the operator-controlled BotSquad host unless an accepted decision explicitly changes persistence.
+- The UI should remain private by default; the initial Ubuntu path uses loopback binding plus an SSH tunnel.
+- Historical Prompt 01/02 macOS-local evidence remains historical evidence, not the future deployment contract.
 
 ### Communication is not execution
 
@@ -101,7 +109,7 @@ BotSquad is a **local-first coordination and orchestration control plane**. Pres
 ### Idle agents do not poll models
 
 - Do not repeatedly invoke an AI model just to discover an empty inbox.
-- Use local events, queues, file/database changes, or a lightweight dispatcher to determine when work exists.
+- Use control-plane events, queues, file/database changes, or a lightweight dispatcher to determine when work exists.
 - Model execution begins only when there is a real assignment, scheduled job, explicit trigger, or operator request.
 
 ### Messages do not grant authority
@@ -129,7 +137,7 @@ BotSquad is a **local-first coordination and orchestration control plane**. Pres
 Keep these concerns separable:
 
 1. **Domain/control plane** — users/bots, channels, messages, tasks, approvals, artifacts, executions, audit events.
-2. **Persistence** — durable local storage, schema migrations, recovery.
+2. **Persistence** — durable operator-controlled storage on the BotSquad host, schema migrations, recovery.
 3. **Dispatcher** — decides when a queued task can start and which worker/runtime receives it.
 4. **Runtime adapters** — start/resume/interrupt Codex or another agent backend.
 5. **Bot tool interface** — APIs/MCP tools used by a running worker to read/send messages, update task state, submit artifacts, or request approval.
@@ -174,7 +182,7 @@ Do not make acknowledgements recursively trigger acknowledgements. Bound bot-to-
 
 ## Identity And Auditability
 
-- Sender identity comes from the authenticated/local runtime connection, not free-form message text.
+- Sender identity comes from the authenticated runtime/control-plane execution context, not free-form message text.
 - Record which logical worker and which execution produced a message or artifact.
 - Preserve an append-oriented audit trail for important state transitions and approvals.
 - Do not let workers rewrite historical approval/audit records through ordinary messaging tools.
@@ -199,7 +207,7 @@ Do not assume an arbitrary existing ChatGPT Work conversation can be programmati
 
 ## Persistence
 
-For the first local implementation, prefer a small durable database such as SQLite unless evidence justifies another store.
+For the current self-hosted implementation, prefer a small durable database such as SQLite unless evidence justifies another store. On Ubuntu HQ, persistent state belongs on the BotSquad host rather than the operator workstation.
 
 - Use explicit schema migrations once persistent state exists.
 - Preserve user/bot/message/task IDs across restart.
@@ -218,7 +226,7 @@ Before adding a dependency, establish:
 - maintenance/security implications;
 - whether the dependency belongs in the core or an adapter.
 
-Do not add frameworks merely because a future distributed or hosted architecture might use them.
+Do not add frameworks merely because a future distributed, multi-host, or hosted-SaaS architecture might use them.
 
 ## Validation
 
