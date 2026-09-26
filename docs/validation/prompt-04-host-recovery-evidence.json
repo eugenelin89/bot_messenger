@@ -1,0 +1,278 @@
+{
+  "result": "PASS",
+  "accepted_revision": "9af2db810b71ec9ca1097767a61ae0aa2edb43d8",
+  "sanitization": "Raw host inventory, account manifest, per-receipt paths/hashes, process listings, listener inventory and boot IDs are retained privately and excluded here. Worker bindings in the separate identity evidence refer only to the requested bounded validation company.",
+  "host": {
+    "ubuntu_release": "24.04.5 LTS",
+    "architecture": "x86_64",
+    "kernel": "6.8.0-142-generic",
+    "vcpus": 1,
+    "memory_total_kib": 2015216,
+    "root_disk_nominal_gib": 48,
+    "swap_configured_gib": 2
+  },
+  "services": {
+    "botsquad.service": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "UnitFileState": "enabled",
+      "User": "botsquad",
+      "Group": "botsquad",
+      "NoNewPrivileges": "yes",
+      "CapabilityBoundingSet": "",
+      "NRestarts": "0"
+    },
+    "botsquad-provisioner.socket": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "UnitFileState": "enabled"
+    },
+    "botsquad-provisioner.service": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "UnitFileState": "static",
+      "User": "",
+      "Group": "",
+      "NoNewPrivileges": "yes",
+      "CapabilityBoundingSet": "cap_chown cap_dac_override cap_fowner cap_kill cap_setgid cap_setuid cap_audit_write",
+      "NRestarts": "0"
+    }
+  },
+  "ui": "127.0.0.1:4310",
+  "socket_parent": "root:botsquad 750",
+  "root_code_hashes": {
+    "/opt/botsquad-provisioner/provisioner.py": "c0473497890c4260090de627cd46a8b0561268f63cceaa8af88127829ed0642d",
+    "/opt/botsquad-provisioner/client.py": "6092527b8c13737f7c3cce3183207fccdeb5f57fada7e7ccc5a8be100c3c639b",
+    "/etc/systemd/system/botsquad-provisioner.service": "7fa878c97aaf3c57bd0ea3de5b9d76e5f02d1ca9f227310cd0945f5a8338042d",
+    "/etc/systemd/system/botsquad-provisioner.socket": "bf14c78589a9be2df5f052b36df25a1452f79477ef1a329173464f945651081a"
+  },
+  "backup": {
+    "verified": true,
+    "owner": "root:root",
+    "mode": "0600",
+    "scope": [
+      "company state and central authentication",
+      "worker homes with UID/GID/ACLs",
+      "provisioner ledgers and receipts",
+      "host account mapping and service configuration"
+    ],
+    "contents_exported": false
+  },
+  "protocol_denials": {
+    "result": "PASS",
+    "peer_uid": 997,
+    "checks": [
+      {
+        "request_type": "run_root_command",
+        "rejected": true,
+        "error": "Unknown operation"
+      },
+      {
+        "request_type": "inspect_host_health",
+        "rejected": true,
+        "error": "Unknown or missing request fields"
+      },
+      {
+        "request_type": "create_worker_identity",
+        "rejected": true,
+        "error": "Invalid identifier"
+      },
+      {
+        "request_type": "restart_service",
+        "rejected": true,
+        "error": "Unknown operation"
+      }
+    ]
+  },
+  "lost_response_recovery": {
+    "result": "PASS",
+    "operation_id": "operation_0ce0acab-dc0a-4cb2-8242-6d01520d520c",
+    "approval_id": "approval_7e1331ca-1056-4e8a-8765-d295a0bae942",
+    "worker_id": "worker_66bd9501-39bd-498d-a325-7e548b937008",
+    "uid": 20037,
+    "real_host_completed_before_response_loss": true,
+    "consumed_approval_recovered_on_restart": true,
+    "same_receipt_replayed": true,
+    "changed_payload_rejected": true
+  },
+  "provisioner_restart": {
+    "result": "PASS",
+    "operation_id": "operation_0ce0acab-dc0a-4cb2-8242-6d01520d520c",
+    "worker_id": "worker_66bd9501-39bd-498d-a325-7e548b937008",
+    "uid": 20037,
+    "old_pid": "67968",
+    "new_pid": "75819",
+    "exact_receipt_preserved": true,
+    "all_ledgers_and_receipts_unchanged": true,
+    "health": {
+      "backend": "linux",
+      "network": false,
+      "protocol": 1,
+      "ready": true
+    },
+    "service_code_write_checks": [
+      {
+        "path": "/opt/botsquad-provisioner/provisioner.py",
+        "service_write_denied": true
+      },
+      {
+        "path": "/opt/botsquad-provisioner/client.py",
+        "service_write_denied": true
+      },
+      {
+        "path": "/etc/systemd/system/botsquad-provisioner.service",
+        "service_write_denied": true
+      },
+      {
+        "path": "/opt/botsquad/dist/src/main.js",
+        "service_write_denied": true
+      }
+    ]
+  },
+  "reboot": {
+    "result": "PASS",
+    "checks": {
+      "accounts": true,
+      "ledger_hashes": true,
+      "validation_database_hashes": true,
+      "root_code_hashes": true,
+      "production_counts": true,
+      "production_identity": true
+    },
+    "production_preserved": {
+      "tasks": true,
+      "executions": true,
+      "messages": true,
+      "artifacts": true,
+      "bindings": true,
+      "repositories": true,
+      "allocations": true,
+      "submissions": true,
+      "reviews": true,
+      "integrations": true,
+      "wake_events": true,
+      "principals": true,
+      "channels": true
+    },
+    "paused": true,
+    "runtime_ready": true,
+    "services_auto_started": true,
+    "provisioner_socket_activation": true,
+    "boot_id_changed": true
+  },
+  "production_preservation": {
+    "tasks": true,
+    "executions": true,
+    "messages": true,
+    "artifacts": true,
+    "bindings": true,
+    "repositories": true,
+    "allocations": true,
+    "submissions": true,
+    "reviews": true,
+    "integrations": true,
+    "wake_events": true,
+    "principals": true,
+    "channels": true
+  },
+  "production_counts": {
+    "tasks": 1,
+    "executions": 1,
+    "messages": 3,
+    "artifacts": 0,
+    "bindings": 1,
+    "repositories": 0,
+    "allocations": 0,
+    "submissions": 0,
+    "reviews": 0,
+    "integrations": 0,
+    "wake_events": 0,
+    "principals": 3,
+    "channels": 1
+  },
+  "production_paused": true,
+  "original_profile_workspace_and_binding_preserved": true,
+  "retained_validation_accounts": {
+    "privately_mapped_to_validation_directories": true,
+    "account_metadata_preserved_across_reboot": true,
+    "no_evidence_deleted": true
+  },
+  "resources": {
+    "sampling": "2-second host CPU deltas and validation cgroup; RSS sums may double-count shared pages; phase windows may overlap",
+    "full_identity_workflow": {
+      "samples": 131,
+      "first": "2026-09-26T09:13:22.389Z",
+      "last": "2026-09-26T09:17:41.088Z",
+      "min_host_available_mib": 1425.16,
+      "max_validation_cgroup_current_mib": 205.86,
+      "max_validation_cgroup_peak_mib": 219.36,
+      "max_service_user_rss_mib": 840.95,
+      "max_codex_rss_mib": 373.66,
+      "max_codex_processes": 3,
+      "swap_used_kib_min": 268,
+      "swap_used_kib_max": 268,
+      "cpu_busy_percent_mean": 28.25,
+      "cpu_busy_percent_max": 100,
+      "one_minute_load_max": 0.6
+    },
+    "during_nix_executions": {
+      "samples": 71,
+      "first": "2026-09-26T09:13:26.439Z",
+      "last": "2026-09-26T09:17:38.466Z",
+      "min_host_available_mib": 1430.05,
+      "max_validation_cgroup_current_mib": 201.44,
+      "max_validation_cgroup_peak_mib": 219.36,
+      "max_service_user_rss_mib": 840.95,
+      "max_codex_rss_mib": 373.66,
+      "max_codex_processes": 3,
+      "swap_used_kib_min": 268,
+      "swap_used_kib_max": 268,
+      "cpu_busy_percent_mean": 23.14,
+      "cpu_busy_percent_max": 83,
+      "one_minute_load_max": 0.6
+    },
+    "during_engineer_executions": {
+      "samples": 13,
+      "first": "2026-09-26T09:15:46.465Z",
+      "last": "2026-09-26T09:16:10.446Z",
+      "min_host_available_mib": 1425.16,
+      "max_validation_cgroup_current_mib": 205.86,
+      "max_validation_cgroup_peak_mib": 219.36,
+      "max_service_user_rss_mib": 769.01,
+      "max_codex_rss_mib": 288.14,
+      "max_codex_processes": 2,
+      "swap_used_kib_min": 268,
+      "swap_used_kib_max": 268,
+      "cpu_busy_percent_mean": 29.75,
+      "cpu_busy_percent_max": 55.56,
+      "one_minute_load_max": 0.43
+    }
+  },
+  "idle_measurements": {
+    "before_reboot": {
+      "service_rss_mib": 65.42,
+      "service_cgroup_mib": 19.96,
+      "provisioner_rss_mib": 18.68,
+      "provisioner_cgroup_mib": 8.9
+    },
+    "after_reboot": {
+      "service_rss_mib": 63.7,
+      "service_cgroup_mib": 180.17,
+      "provisioner_rss_mib": 18.64,
+      "provisioner_cgroup_mib": 8.87
+    },
+    "provisioner_task_count": 1,
+    "cgroup_includes_cache": true,
+    "isolated_provisioner_worker_action_peak_measured": false
+  },
+  "post_reboot_exact_receipt_replay": {
+    "result": "PASS",
+    "operation_id": "operation_0ce0acab-dc0a-4cb2-8242-6d01520d520c",
+    "uid": 20037
+  },
+  "central_codex_auth_after_reboot": {
+    "account": "botsquad",
+    "status": "Logged in using ChatGPT",
+    "credential_contents_read": false
+  }
+}

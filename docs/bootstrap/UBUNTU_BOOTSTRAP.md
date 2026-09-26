@@ -39,6 +39,11 @@ updates only to a descendant commit. It never resets or deletes retained company
 - `/var/lib/botsquad/.codex`: service-account runtime auth/history, mode 0700.
 - `/etc/botsquad/environment`: optional operator overrides, root mode 0600.
 - `botsquad.service`: non-root, boot-enabled, bounded restarts and journal logs.
+- `/opt/botsquad-provisioner`: root-owned fixed Python protocol and client.
+- `/var/lib/botsquad-provisioner`: root-private identity/project ledger and receipts.
+- `/var/lib/botsquad-workers`: private UID-owned homes, with trusted service read ACLs.
+- `botsquad-provisioner.socket`: root:botsquad 0660 Unix socket, enabled at boot.
+- `botsquad-provisioner.service`: socket-activated root service with fixed operation scope.
 - `/swapfile-botsquad`: 2 GiB mode 0600 when existing useful swap is absent.
 
 APT update/upgrade installs available system/security updates without removing packages
@@ -52,7 +57,9 @@ The service uses a read-only system filesystem, private temporary/device mounts,
 no new privileges, no ambient capabilities and a 256-task bound. User namespaces
 remain enabled for bubblewrap. V8 JIT executable memory and Codex HTTPS are required,
 so MemoryDenyWriteExecute and blanket service-network denial are intentionally absent.
-Logical worker authority still comes from narrow tools, not the shared service UID.
+Logical authority comes from narrow tools. Production Linux worker-owned source and
+Git mutations run under the bound private UID; central Codex and confined product
+tests retain the trusted service identity. Worker accounts receive no Codex credentials.
 
 ## One-time Codex login
 
@@ -117,9 +124,10 @@ permissions. Only the read-only product and runtime libraries are visible; write
 network sockets, process clones, host signals, namespace escape and protected Git
 metadata are denied. Tests remain bounded to 10 seconds and captured output.
 
-Nix, separate worker Unix identities/clones, trusted privileged provisioning, human
-approval grants, general remote fleets, financial authority, customer deployment and
-Computer Use are future milestones.
+Prompt 04 adds Nix, worker Unix identities/clones and exact-scope infrastructure
+approvals. General remote fleets, financial authority, customer deployment and
+Computer Use remain future milestones. Development identities are simulated and
+make no Linux isolation claim.
 
 ## Acceptance under the production service restrictions
 
@@ -132,9 +140,11 @@ Each run writes a fresh private directory under `/var/lib/botsquad/validation`.
 ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh deterministic'
 ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh prompt01'
 ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh engineering'
+ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh recovery --wait'
+ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh identity'
 ```
 
-Run these sequentially. The latter two invoke real Codex work and use the discovered
+Run these sequentially. Research, engineering and identity invoke real Codex work and use the discovered
 `gpt-6-sol` profile only if advertised (otherwise they fail visibly). Inspect the
 printed unit and evidence directory for completion: `exit-code` must be 0 and real
 runs must produce `evidence.json` with PASS. `console.log` retains failure context;
@@ -143,3 +153,19 @@ two seconds without capturing process arguments or environment. Summed RSS inclu
 shared pages more than once; process CPU percentages are lifetime averages, not
 instantaneous utilization. Every unit has a 30-minute upper bound and no retry loop.
 Never treat unit startup alone as a passing validation.
+
+`engineering` explicitly uses the simulated development identity backend to retain
+the Prompt 02/03 worktree regression. It is not Linux UID acceptance. `identity`
+requires the real socket backend, creates fresh accounts through Nix and exact human
+HTTP decisions, and waits before retirement for its operator companion. Using the
+exact report directory printed by the launcher, run in a second SSH invocation:
+
+```sh
+ssh botsquad 'python3 /opt/botsquad/scripts/validate-identity-operator.py /var/lib/botsquad/validation/identity-<printed-timestamp>'
+```
+
+The companion runs harmless per-UID canaries and starts a bounded sleep under the
+integrated engineer's UID, then lets the application retire it and verifies SIGKILL/history
+preservation. It never edits approvals or SQLite. `recovery` uses an acceptance-only
+transport wrapper to lose one real completed host response, then proves consumed
+intent reconciles on restart. The production code has no fault-injection switch.

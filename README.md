@@ -9,7 +9,7 @@ control. Your Mac/PC is the bootstrap, administration, development, and browser 
 
 ## Current state
 
-**Prompt 03 is complete and validated.**
+**Prompt 04 is complete and validated on Ubuntu.**
 
 BotSquad currently supports:
 
@@ -28,11 +28,15 @@ BotSquad currently supports:
 - runtime-discovered Codex model/reasoning choices;
 - friendly Codex thread names;
 - hardened Ubuntu engineering confinement;
-- restart, reboot, and repeat-bootstrap recovery.
+- restart, reboot, and repeat-bootstrap recovery;
+- Nix infrastructure tasks and exact-scope trusted human approvals;
+- a narrow root provisioner with durable operation receipts;
+- private worker Unix identities and independent Linux engineering clones;
+- worker-UID source writes/commits and evidence-preserving retirement.
 
-The Prompt 03 runtime acceptance baseline is
-`630cb0a9bfe0ded02d99ef1b595dcfa4bf1ce058`. Later documentation commits may move
-`main` without changing that accepted runtime baseline.
+The Prompt 04 runtime acceptance revision is
+`9af2db810b71ec9ca1097767a61ae0aa2edb43d8`. Later documentation commits preserve its
+accepted source digest. See the [Linux identity validation record](docs/validation/prompt-04-linux-identity.md).
 
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
@@ -58,6 +62,8 @@ operator-controlled Ubuntu HQ
       +-- Codex App Server
       +-- managed Git/engineering
       +-- Linux confinement
+      +-- root Unix-socket provisioner
+      +-- private worker homes/UIDs
       +-- 127.0.0.1:4310 web UI
 ```
 
@@ -82,6 +88,12 @@ http://127.0.0.1:4310
 The browser URL looks local, but the application is running on the Ubuntu server.
 
 The UI is intentionally **not exposed directly to the public Internet**.
+
+Before starting Linux engineering, open **Infrastructure → Initialize Nix**, then
+review and approve its bootstrap identity in **Approvals**. Nix coordinates subsequent
+worker/clone requests; approve each exact operation there. Existing workers remain
+unprovisioned after migration until explicitly requested. Research remains available
+without worker-local filesystem actions. See [Decision 013](docs/decisions/decision_013_trusted_worker_infrastructure.md).
 
 Useful checks:
 
@@ -371,6 +383,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [AI Organization Model](docs/product/AI_ORGANIZATION_MODEL.md)
 - [Ubuntu HQ and Bootstrap Model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Decision 011 — Ubuntu service, confinement and worker AI profiles](docs/decisions/decision_011_ubuntu_hq_profiles.md)
+- [Decision 013 — Trusted worker infrastructure](docs/decisions/decision_013_trusted_worker_infrastructure.md)
 - [Decision Index](docs/decisions/README.md)
 
 ### Future architecture
@@ -386,3 +399,4 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Prompt 01 Plan](docs/exec-plans/prompt-01.md)
 - [Prompt 02 Plan](docs/exec-plans/prompt-02.md)
 - [Prompt 03 Plan](docs/exec-plans/prompt-03.md)
+- [Prompt 04 Plan](docs/exec-plans/prompt-04.md)

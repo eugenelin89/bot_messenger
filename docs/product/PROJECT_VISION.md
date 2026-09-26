@@ -283,7 +283,7 @@ Prompt 01 proves the smallest real organization loop:
 Prompt 02 extends this loop with Maya Product Manager, Turing CTO, two concurrent
 engineers in separate managed worktrees, Grace's independent exact-commit review,
 and trusted integration gated by full local tests. The validation product remains
-local and dependency-free. Trusted approval grants, departments,
+local and dependency-free. Broader approval grants, departments,
 external repositories and external actions remain future work.
 
 No autonomous spending or public external action is needed for this milestone.
@@ -352,7 +352,10 @@ Prompt 01/02's local macOS topology remains a development/regression path and hi
 
 Prompt 03 implements persisted per-worker model, reasoning, priority and human locks with runtime-discovered choices, immutable execution provenance and friendly thread names. Ubuntu service, Linux confinement, real research and concurrent engineering, and recovery checks pass; the milestone validation record documents the evidence and workload limits.
 
-Nix is reserved as the future ongoing DevOps worker after BotSquad is operational. The one-time bootstrap prompt solves initial installation before Nix exists.
+Prompt 04 implements Nix as the ongoing DevOps worker for bounded worker identity
+and clone lifecycle, with exact-scope trusted human approvals. The one-time bootstrap
+installs BotSquad and the root provisioner before Nix exists. General host administration
+and arbitrary repository lifecycle remain outside Nix's current authority.
 
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
 

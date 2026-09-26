@@ -36,9 +36,11 @@ A logical worker remains a durable BotSquad identity. It is not the same thing a
 - a Codex thread;
 - a process;
 - a Git worktree;
-- a future Unix user.
+- a bound Unix user.
 
-Prompt 03 moves the control plane/runtime to Ubuntu and adds per-worker AI profiles. A later Nix/infrastructure milestone may bind workers to separate Unix accounts and project clones without changing their logical organizational identity.
+Prompt 03 moves the control plane/runtime to Ubuntu and adds per-worker AI profiles.
+Prompt 04 binds workers to separate Unix accounts and independent project clones
+without changing their logical identity, original runtime workspace or Codex thread.
 
 Historical Prompt 01/02 examples below describe the local validation architecture that proved the organization model.
 
@@ -480,8 +482,9 @@ Human
 ```
 
 Atlas creates the approved Product Manager and CTO profiles; CTO creates at most two
-engineers and one reviewer. There are eight workers maximum, three direct children
-per manager, two hierarchy edges and two simultaneous executions. Leaf roles receive
+engineers and one reviewer. There are eight workers maximum, three ordinary direct
+children per manager (the CEO may additionally have Nix), two hierarchy edges and two
+simultaneous executions. Leaf roles receive
 no onward delegation. Effective and delegatable capabilities are separate; profile
 checks enforce the company ceiling outside model text.
 
@@ -503,11 +506,12 @@ workspace; engineering allocations are separately bound to current tasks. No imp
 thread replacement is permitted. Restart retains completed ownership and results;
 ambiguous source/Git work is blocked for inspection rather than automatically replayed.
 
-The fixed Prompt 02 Git/worktree layout is validation history, not the final Ubuntu worker-isolation architecture. A later infrastructure milestone may use per-worker Unix identities and independent clones.
+The fixed Prompt 02 Git/worktree layout remains the development regression path.
+Prompt 04 uses private Unix identities and independent clones on production Linux.
 
 The fixed product, two modules, one review and one integration attempt keep this
 milestone bounded. Automatic revision cycles, generalized product repositories,
-manager retirement, trusted approval grants, cleanup and Computer Use are deferred.
+manager retirement, broad approval grants, cleanup and Computer Use are deferred.
 See [Decision 008](../decisions/decision_008_managed_engineering.md).
 
 
@@ -525,6 +529,7 @@ human updates. Priority reorders eligible work; it never grants capabilities, by
 pause or expands the two-execution global limit. New Codex threads use friendly names
 while UUID/workspace/thread bindings remain the identity boundary.
 
-Ubuntu HQ now runs one botsquad service account. Nix, per-worker Unix identities,
-separate clones, privileged provisioning and human infrastructure approval grants are
-the next milestone, not part of Prompt 03. See Decision 011 and its validation record.
+Ubuntu HQ retains one trusted botsquad control-plane/Codex account. Prompt 04 adds
+private Unix identities for worker-owned actions; credentials remain central. See
+Decision 013 for the exact implemented boundary. The CEO may have Nix as a fourth
+child; all other manager, hierarchy, concurrency and company limits stay unchanged.

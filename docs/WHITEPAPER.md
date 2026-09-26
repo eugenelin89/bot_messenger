@@ -1,8 +1,8 @@
 # BotSquad: A Self-Hosted Control Plane for Persistent AI Organizations
 
 **Technical White Paper**  
-**Version:** 0.1  
-**Date:** 2026-09-25  
+**Version:** 0.2
+**Date:** 2026-09-26
 **Project:** BotSquad  
 **Repository:** eugenelin89/bot_messenger  
 **Traditional Chinese (Taiwan):** [台灣繁體中文版](WHITEPAPER_ZH_TW.md)
@@ -26,10 +26,10 @@ The system began as a workstation-local experiment and has progressed to an alwa
 self-hosted Ubuntu headquarters. The current implementation demonstrates a real
 hierarchical AI organization performing research and concurrent software engineering
 with independent review, trusted integration, Linux confinement, per-worker model and
-reasoning settings, restart recovery, and a private web interface.
+reasoning settings, restart recovery, a private web interface, and Prompt 04 worker
+Unix identities with Nix-coordinated exact approvals.
 
-The long-term architecture extends this foundation toward stronger per-worker operating
-system isolation, generalized projects, secure native mobile access, bounded Computer
+The long-term architecture extends this foundation toward generalized projects, secure native mobile access, bounded Computer
 Use, multiple isolated companies, inter-company collaboration, external identities such
 as Telegram bots, and federation between independent BotSquad headquarters.
 
@@ -524,13 +524,17 @@ The remaining limitation is important:
 > arbitrary malicious processes already sharing the botsquad service UID are not yet
 > isolated from one another.
 
-This motivates Prompt 04.
+Prompt 04 separates bounded worker-owned file/Git actions into per-worker UIDs.
+The trusted control plane and central Codex runtime/authentication still use the service
+UID; arbitrary compromise of that trusted account remains outside the isolation claim.
 
 ---
 
-## 12. Current validation evidence
+## 12. Validation evidence
 
-Prompt 03 completed real Ubuntu acceptance.
+Prompt 03 completed real Ubuntu acceptance. The following measurements are its historical
+baseline; [Prompt 04 acceptance](validation/prompt-04-linux-identity.md) records the
+current identity, approval, retirement and resource evidence.
 
 Validated host:
 
@@ -581,9 +585,10 @@ The current system supports:
 - human locks;
 - inspectable execution history.
 
-A broader trusted approval system is intentionally deferred to Prompt 04.
+Prompt 04 implements durable, exact-scope approvals for worker identity and project
+access operations. General protected-action grants remain deferred.
 
-The future rule is:
+The enforced lifecycle is:
 
 ~~~text
 bot requests protected action
@@ -606,11 +611,11 @@ A message saying "approved" is not approval.
 
 ---
 
-## 14. Next security boundary: per-worker Unix identity
+## 14. Worker Unix identity boundary
 
-Prompt 04 will strengthen the current shared-service-UID architecture.
+Prompt 04 implements independent worker identities for bounded local operations.
 
-Target:
+Implemented topology:
 
 ~~~text
 root
@@ -619,15 +624,11 @@ root
 botsquad
 └── control plane
 
-botsquad-atlas
-botsquad-nix
-botsquad-turing
-botsquad-linus
-botsquad-ada
-botsquad-grace
+bsw-<stable worker UUID hash>
+└── private home and approved independent project clones
 ~~~
 
-Nix becomes the ongoing DevOps worker.
+Nix is the ongoing nondelegating DevOps worker, with explicit infrastructure tasks.
 
 Nix remains non-root and requests typed privileged operations through a minimal trusted
 provisioner.
@@ -635,7 +636,7 @@ provisioner.
 This enables:
 
 - separate worker homes;
-- separate worker processes;
+- worker UID execution for bounded source writes and Git;
 - separate project clones;
 - access revocation;
 - retirement lifecycle;
@@ -1090,8 +1091,6 @@ See the full Roadmap document for dependencies and acceptance themes.
 
 The current validated system does not yet provide:
 
-- per-worker Unix accounts;
-- Nix DevOps;
 - general trusted approval grants;
 - arbitrary repository/project lifecycle;
 - native remote API;

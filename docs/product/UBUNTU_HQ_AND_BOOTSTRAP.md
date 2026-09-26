@@ -1,21 +1,24 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 03 implemented and validated on Ubuntu 24.04 x86_64
-**Date:** 2026-09-25
+**Status:** Prompt 04 implemented and validated on Ubuntu 24.04 x86_64
+**Date:** 2026-09-26
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
 
 ## Current implementation truth
 
-Prompt 03 is complete. For operational truth, use:
+Prompt 04 is complete. For operational truth, use:
 
 - [Current State](../operations/CURRENT_STATE.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md)
-- [Prompt 03 validation](../validation/prompt-03-ubuntu.md)
+- [Prompt 04 validation](../validation/prompt-04-linux-identity.md)
+- [Prompt 03 historical baseline](../validation/prompt-03-ubuntu.md)
 - [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md)
 
-This document also retains longer-term design rationale (for example future Nix and per-worker Unix identities). Those future sections should not be read as already implemented.
+Prompt 04 implements and validates the bounded Nix/worker identity portion below.
+Broader upgrades, service administration and fleet management
+remain design rationale, not current capabilities. See Decision 013.
 
 ## Goal
 
@@ -79,7 +82,9 @@ Its job is to:
 
 Nix is created **after BotSquad is running**.
 
-Nix is the future ongoing infrastructure worker responsible for bounded host operations, worker-account provisioning, project access, health checks, upgrades and related DevOps tasks through trusted controls.
+Nix coordinates worker-account provisioning, project access and health inspection
+through typed requests and trusted human approval. Upgrades and general host/service
+administration remain future work.
 
 Nix is not required to solve the initial installation chicken-and-egg problem.
 
@@ -129,7 +134,7 @@ Do not silently weaken security or continue on an unknown distribution/platform.
 
 ## Desired installed layout
 
-The implemented service layout uses the paths below; future per-worker identities remain conceptual:
+The current service and worker-infrastructure layout is:
 
 ```text
 Ubuntu host
@@ -141,9 +146,9 @@ Ubuntu host
 ├── botsquad service account      # runs the control plane, not root
 ├── botsquad.service              # systemd unit
 │
-├── privileged provisioner        # future narrow root boundary
+├── privileged provisioner        # bounded root socket service
 │
-└── worker Unix accounts          # future/Prompt 03+ managed identities
+└── worker Unix accounts          # Prompt 04 approved bindings
     ├── botsquad-atlas
     ├── botsquad-nix
     ├── botsquad-turing
@@ -152,7 +157,10 @@ Ubuntu host
     └── botsquad-grace
 ```
 
-Prompt 03 creates only the botsquad service account. Worker Unix accounts and a privileged provisioner are deferred; logical identities remain compatible with future bindings.
+Prompt 03 creates the botsquad service account. Prompt 04 adds the root provisioner
+and individually approved worker bindings. Display names in this diagram are
+conceptual: actual usernames are `bsw-` plus a stable UUID-derived hash, recorded in
+SQLite/root ledgers. Homes use `/var/lib/botsquad-workers/<username>`.
 
 ## BotSquad service model
 
@@ -291,27 +299,29 @@ Linus clone    Ada clone
 /home/...      /home/...
 ```
 
-A future Prompt 03/04 implementation should validate this model before replacing Prompt 02's local worktree model for general engineering.
+Prompt 04 implements independent private clones for the fixed SquadStatus product.
+The development backend retains Prompt 02 worktrees; generalized repositories remain
+Prompt 05. Trusted integration imports exact commits by bundle, and Grace receives
+a read-only review packet rather than a mutable clone.
 
-## Nix — future DevOps worker
+## Nix — bounded DevOps worker
 
-Reserved worker identity:
+Implemented logical worker identity:
 
 ```text
 Name: Nix
 Title: DevOps
-Linux account: botsquad-nix
+Linux account: bsw-<stable UUID-derived hash>
 ```
 
-Nix should eventually manage bounded infrastructure operations such as:
+Nix currently coordinates:
 
 - request worker account creation/disablement;
 - prepare worker project clones;
 - grant/revoke approved project access;
 - check host health;
-- rotate approved worker credentials;
-- perform approved BotSquad upgrades;
-- manage approved services.
+
+Credential rotation, BotSquad upgrades and service administration remain deferred.
 
 Nix should not receive an unrestricted root shell.
 
@@ -516,4 +526,6 @@ A successful Prompt 03 demonstration should start from a fresh supported Ubuntu 
 
 The concrete installer/service/Linux/profile choices are in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md); operational steps are in [Ubuntu bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md). Manager-requested AI profiles are deferred; trusted human configuration is implemented.
 
-Nix and dynamic worker Unix-account lifecycle are deferred to the next infrastructure milestone. Prompt 03 should establish the Ubuntu HQ, Linux runtime/confinement, reproducible bootstrap and per-worker AI profiles without weakening those acceptance gates.
+Prompt 03 established Ubuntu HQ, confinement, reproducible bootstrap and per-worker
+AI profiles. Prompt 04 adds Nix and worker Unix-account lifecycle while preserving
+those boundaries. The canonical roadmap tracks final acceptance separately.

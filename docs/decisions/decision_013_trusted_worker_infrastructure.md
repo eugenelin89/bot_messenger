@@ -1,7 +1,7 @@
 # Decision 013 — Trusted approvals and isolated worker infrastructure
 
 **Date:** 2026-09-26  
-**Status:** Implemented on the Prompt 04 feature branch; real Linux acceptance pending
+**Status:** Implemented and validated on Ubuntu
 
 ## Decision
 
@@ -76,6 +76,13 @@ Other writes are confined to the managed worker and root receipt directories. Th
 ordinary BotSquad service retains NoNewPrivileges, an empty capability set and its
 existing state-only write scope. `/etc/botsquad` is root-private.
 
+The provisioner unit uses systemd's default root identity instead of explicit
+`User=root`: systemd 255's user/seccomp setup otherwise drops effective CAP_SETUID
+even when the bounding set includes it. NoNewPrivileges and the exact capability
+bound remain. Startup verifies the required UID-drop capability; each worker child
+verifies zero permitted/effective capabilities after exec. This behavior was confirmed
+on the host and against [systemd 255 source](https://github.com/systemd/systemd/blob/v255/src/core/exec-invoke.c#L4477).
+
 ## Development and limits
 
 The explicit development backend simulates bindings without creating Unix users.
@@ -90,6 +97,8 @@ SQLite/root receipts are durable application evidence, not cryptographic tamper-
 
 ## Evidence
 
-See [execution plan](../exec-plans/prompt-04.md). Deterministic tests and actual Ubuntu
-acceptance are recorded separately in the forthcoming Prompt 04 validation report;
-this decision does not claim kernel isolation from mocks.
+See the [Prompt 04 validation report](../validation/prompt-04-linux-identity.md) and
+[execution plan](../exec-plans/prompt-04.md). All 81 deterministic tests pass on macOS
+and hardened Ubuntu. Real Nix/approval/UID engineering, 100 isolation checks, engineer
+retirement, exact receipt recovery, research regression and bounded reboot passed.
+The development backend remains explicitly simulated.

@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 03 implemented and validated on Ubuntu HQ
+**Status:** Prompt 04 complete; real Ubuntu acceptance validated
 **Updated:** 2026-09-26
 
 ## Runtime topology: implemented baseline and accepted target
@@ -156,7 +156,8 @@ local SquadStatus product. Trusted code creates `products/<repository-id>/main`,
 separate Git repository with `main`, a clean base commit and no remote. Workers pass
 a logical name, never a filesystem root. Product development never targets BotSquad.
 
-Linus and Ada receive separate branches, worktrees and task allocations. Canonical
+Linus and Ada receive separate branches and task allocations. Linux production uses
+independent clones in private worker homes; the development backend retains worktrees. Canonical
 paths, regular files, symlinks/hardlinks, `.git` pointers/backlinks, registered repository,
 branch/base and worker/task identity are checked on access. Engineers can edit only
 `src/<module>.mjs` and optional `test/<module>.extra.test.mjs`. Scaffold acceptance tests,
@@ -232,7 +233,9 @@ escaping and plain-text artifact delivery prevent report/message HTML execution.
 SSE signals control-plane state changes without model calls.
 
 In the Prompt 02 macOS implementation these are single-owner application boundaries, not protection against a hostile process
-sharing the owner's OS account. The Ubuntu HQ direction adds a distinct service/host boundary; per-worker Unix identities remain a later milestone. Git/SQLite files can be changed by their owner. Audit
+sharing the owner's OS account. Ubuntu binds worker-owned mutations to private Unix
+identities through a narrow provisioner. The service/root remain trusted. Git/SQLite
+files can be changed by their owner. Audit
 triggers preserve normal application integrity, not cryptographic tamper-proofing.
 
 ## Validation and deferred work
@@ -245,8 +248,9 @@ positive execution/turn overlap, denied boundary probes, independent review, pro
 acceptance and restart without replay. See the milestone validation records.
 
 Decision 006 remains authoritative: Computer Use is disabled in Prompt 01 and 02.
-Engineering tools grant no GUI/desktop authority. Trusted approval grants, generalized
-external products, revision loops, stronger OS isolation, cleanup, scalable history,
+Engineering tools grant no GUI/desktop authority. Approval grants are limited to the
+implemented worker infrastructure operations. Generalized external products, revision
+loops, cleanup, scalable history,
 payments, outreach, deployment and distributed orchestration remain deferred.
 
 
@@ -287,14 +291,62 @@ Linux isolation is validated directly on Ubuntu under the production systemd res
 
 Prompt 03 persists per-worker AI profiles and effective execution provenance. Worker inspectors load model/reasoning options from the active runtime. A narrow health endpoint exposes liveness, database/dispatcher readiness, cached runtime status and deployed commit without company state or credentials.
 
-Nix is a future ongoing DevOps worker after the Ubuntu HQ exists; the bootstrap prompt is the installer and does not depend on Nix.
+Nix coordinates bounded worker infrastructure after the Ubuntu HQ exists; the bootstrap
+prompt installs the root-owned provisioner and does not depend on Nix.
 
 See [Ubuntu HQ and Bootstrap Model](../product/UBUNTU_HQ_AND_BOOTSTRAP.md) and [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md).
 
 The installer, service account, root-owned source, persistent swap and systemd hardening
 are specified in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md) and the
-[operator guide](../bootstrap/UBUNTU_BOOTSTRAP.md). Nix, per-worker Unix accounts,
-privileged provisioning, broad approval grants and Computer Use remain deferred.
+[operator guide](../bootstrap/UBUNTU_BOOTSTRAP.md). [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md)
+defines worker Unix accounts, infrastructure approvals and provisioning. Broad approval
+grants and Computer Use remain deferred.
+
+## Worker infrastructure and trusted approvals
+
+Migration 4 adds OS bindings, project bindings, infrastructure tasks, immutable
+protected-operation envelopes, approvals, host receipts and retirement revocations.
+Existing workers honestly remain unprovisioned; migrations never create Unix users.
+The worker UUID, private Codex workspace/thread, Unix binding and execution are
+independent. Neither migration nor provisioning moves retained runtime workspaces.
+
+The human initializes Nix once, then approves its bootstrap identity. Ready Nix
+receives explicit infrastructure tasks, inspects their trusted scope and requests
+create/disable identity or prepare/revoke project access. Nix has no arbitrary shell,
+root, sudo, approval-decision or delegation tool. Task completion waits for the
+requesting turn to finish, human approval and a durable host receipt, then resumes
+Nix on the existing thread to evaluate the result.
+
+Each one-hour approval binds target, requester principal/worker, task/execution,
+canonical parameters/hash and current preconditions. Only the token-authenticated
+human HTTP endpoint decides. Approval consumption and running intent commit before
+host mutation; pending grants, denial, expiry and exact consumed intent survive restart.
+Messages, artifacts and unsupported Codex approval requests confer no authority.
+
+The root-owned socket provisioner admits only the trusted botsquad UID and root,
+rejects unknown fields/operations and accepts IDs instead of arbitrary names/paths.
+Root receipts bind a unique operation ID to its exact request. Same-ID retry returns
+the durable result; changed payload fails. Root handles account lifecycle, ownership,
+ACLs and recorded-UID termination. A separate child drops UID/GID/groups before fixed
+source/Git actions, uses a clean environment and cannot regain privilege.
+
+Worker accounts have locked passwords, nologin shells, private groups and homes.
+The service alone has named read/traverse ACLs; sibling workers and Nix do not.
+Each engineer gets an independent clone with no shared Git metadata, seeded through
+a bounded bundle. Canonical product main stays service-owned. Trusted import verifies
+the submitted parent, paths and exact commit before independent review and integration.
+Product tests remain under the service UID inside the existing hardened sandbox.
+Engineering/review dispatch fails closed until the required real identity and clone
+bindings are ready. Managers with no local worker-owned actions may coordinate first.
+
+Ordinary retirement requires safe outstanding-work checks, a Nix request and human
+approval. It disables dispatch before revocation, locks/expires the account, signals
+only its recorded UID, revokes home/project traversal and preserves history/home data.
+Temporary terminal retirement may reduce authority automatically through a durable
+revocation intent; it waits for unfinished integration and reconciles on restart.
+
+The development backend creates no accounts and retains prior worktree regressions.
+See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 

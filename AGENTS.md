@@ -139,6 +139,17 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Runtime-specific behavior belongs behind adapters.
 - Codex is the first supported execution backend; additional runtimes are later adapters, not reasons to contaminate the core domain model.
 
+### Worker infrastructure
+
+- Decision 013 defines the implemented narrow worker infrastructure boundary.
+- Preserve logical worker, Unix binding, original Codex workspace/thread and execution as distinct identities.
+- Migrations never perform account-management actions. Unbound workers remain explicitly unprovisioned.
+- Central Codex credentials belong only to the botsquad service account; never copy them into worker homes.
+- Protected grants require exact immutable human approvals. Nix may request; it cannot decide.
+- Root code accepts only the fixed socket protocol. Keep worker source/Git actions after UID/group drop.
+- Preserve private homes, independent clones, root receipts and evidence during retirement/recovery.
+- Development-backend test success is not evidence of Linux UID isolation; use actual harmless host probes.
+
 ## Architecture Boundaries
 
 Keep these concerns separable:

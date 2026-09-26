@@ -1,12 +1,12 @@
 # BotSquad — Current State
 
-**Status:** Prompt 03 complete and validated  
-**Updated:** 2026-09-25
+**Status:** Prompt 04 complete; real Ubuntu acceptance validated
+**Updated:** 2026-09-26
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
 [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md), and the
-[Prompt 03 Ubuntu validation record](../validation/prompt-03-ubuntu.md).
+[Prompt 04 Linux identity validation record](../validation/prompt-04-linux-identity.md).
 
 ## Primary deployment
 
@@ -41,7 +41,24 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
-## Prompt 03 acceptance baseline
+## Prompt 04 acceptance
+
+Runtime acceptance: `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`.
+
+- 81/81 deterministic tests on macOS and hardened Ubuntu;
+- seven real worker accounts, real Nix tasks and trusted approvals;
+- independent engineer clones and worker-UID file/Git operations;
+- 20.285 seconds of real engineer model-turn overlap, exact Grace review and 8/8 product tests;
+- 100 real UID checks (98 denials, two allowed own-clone writes);
+- engineer retirement with process termination, project revocation and preserved history;
+- pending approval/reconciliation, provisioner restart and bounded reboot;
+- retained research/resume/interruption workflow and original production history.
+
+Production remains paused with its original Atlas, completed task/execution, profile and
+thread binding. Its OS binding remains unprovisioned until explicitly requested. The
+validation companies and Linux accounts are separate retained evidence.
+
+## Prompt 03 historical baseline
 
 Prompt 03 runtime acceptance and delivery completed at:
 
@@ -82,11 +99,13 @@ The smallest configuration actually validated is:
 2 GiB configured swap
 ```
 
-For the bounded Prompt 03 workload:
+For the bounded Prompt 04 identity/engineering workload:
 
-- real workflows used no swap;
-- available host memory stayed above roughly 1.42 GiB during the engineering sample;
-- sampled CPU peaked around 74%.
+- swap remained at the pre-existing 268 KiB with no increase;
+- available host memory stayed at or above 1425.16 MiB;
+- validation cgroup peak was 219.36 MiB;
+- mean host CPU busy was 28.25%, with a 100% sampled peak and 0.60 peak one-minute load;
+- idle provisioner overhead was about 8.9 MiB cgroup / 18.7 MiB RSS.
 
 This is a **light-duty validated floor**, not a capacity promise for large repositories,
 heavy builds, long contexts, or sustained queues.
@@ -105,7 +124,8 @@ Human
     │   ├── Linus — Engineer
     │   ├── Ada — Engineer
     │   └── Grace — Reviewer
-    └── Scout — Researcher
+    ├── Scout — Researcher
+    └── Nix — DevOps
 ```
 
 Workers are persistent logical identities. They are not continuously running processes.
@@ -114,7 +134,7 @@ They wake only when actual work is queued.
 Current hard bounds include:
 
 - eight workers maximum;
-- three direct children per manager;
+- three ordinary direct children per manager; the CEO may additionally have Nix;
 - two hierarchy edges;
 - two active executions globally;
 - one active execution per worker/task.
@@ -194,8 +214,11 @@ Acceptance probes denied:
 - BotSquad source mutation;
 - path/symlink escape.
 
-This does **not** yet isolate arbitrary malicious processes that already share the
-`botsquad` service UID. Per-worker Unix identities are the next infrastructure milestone.
+Worker-owned source writes and commits now run under private Linux UIDs in independent
+clones. Sibling homes and central state/auth are inaccessible to those UIDs. Product
+tests remain inside the existing sandbox under the trusted botsquad account. The
+control plane and root administrator remain trusted; arbitrary code under that service
+UID is outside this boundary. The development backend simulates identities.
 
 ## Private access model
 
@@ -222,6 +245,9 @@ Production-style Ubuntu data is separate from source code:
 ```text
 /opt/botsquad          application checkout/build
 /var/lib/botsquad      company state, artifacts, runtime state and service Codex auth
+/opt/botsquad-provisioner        root-owned fixed protocol implementation
+/var/lib/botsquad-provisioner    root-private ledgers and idempotency receipts
+/var/lib/botsquad-workers        private worker homes and independent clones
 ```
 
 The BotSquad service may read the application but does not own the root-managed source.
@@ -233,10 +259,6 @@ company state and Codex service-account authentication/history.
 
 The following are documented future directions, not current capabilities:
 
-- Nix as the active DevOps worker;
-- separate Unix account per worker;
-- privileged worker provisioner;
-- independent per-worker project clones;
 - broad trusted human approval grants;
 - Computer Use/browser automation;
 - public Internet UI/login;
@@ -255,29 +277,27 @@ See:
 - [External Identities and Telegram Integration](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use Model](../product/COMPUTER_USE_MODEL.md)
 
-## Next milestone
+## Prompt 04 infrastructure
 
-The next recommended infrastructure milestone is:
+Nix is a persistent DevOps leaf under Atlas. Initialize Nix through the UI, review
+its bootstrap request in Approvals, then let explicit infrastructure tasks coordinate
+other workers. Protected operations bind the exact target, requester, task/execution,
+parameters, expiry and preconditions; only the trusted human HTTP boundary can decide.
+Consumption precedes host mutation and durable root receipts permit exact retry.
 
-```text
-Nix — DevOps
-        |
-        v
-trusted human grants
-        |
-        v
-narrow privileged provisioner
-        |
-        +-- create/disable worker Unix users
-        +-- prepare worker homes
-        +-- provision project clones
-        +-- grant/revoke project access
-        +-- perform bounded host operations
-```
+Linux accounts are locked/nologin, have private UID/GID/home and no privileged groups.
+Only the trusted service receives read/traverse ACLs. Nix has no root/sudo/socket
+access and workers receive no Codex credentials. Existing workers stay honestly
+unprovisioned until explicitly requested; migration preserves all previous bindings.
 
-That creates a stronger worker security boundary before Computer Use or broader
-external authority is added.
+Engineering waits for approved identities and clone bindings. Ordinary retirement
+uses Nix plus approval, disables new dispatch, terminates the recorded UID's processes,
+revokes access and retains homes/history. Temporary terminal retirement can reduce
+authority automatically through a durable, safely deferred revocation intent.
 
+See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md) and
+[the validation record](../validation/prompt-04-linux-identity.md). Real Ubuntu acceptance passed.
+The next planned product milestone is generalized projects and repository lifecycle.
 
 ## Future native mobile access
 
@@ -304,16 +324,13 @@ The numbered implementation roadmap is maintained in
 Current next step:
 
 ~~~text
-Prompt 04
-Nix + trusted approvals
-+ narrow privileged provisioner
-+ per-worker Unix identity
+Prompt 05
+Generalized projects and repository lifecycle
 ~~~
 
 Subsequent planned prompts are:
 
 ~~~text
-05 Generalized projects
 06 Authenticated remote-client API
 07 Native iOS Remote MVP
 08 Bounded Computer Use

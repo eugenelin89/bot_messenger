@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-09-25
+**Updated:** 2026-09-26
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -16,8 +16,8 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 01 | Persistent workers, tasks, Codex runtime, research loop | Complete |
 | 02 | Managed engineering organization and independent review | Complete |
 | 03 | Ubuntu HQ, reproducible bootstrap, Linux confinement, worker AI profiles | Complete |
-| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Next |
-| 05 | Generalized projects and repository lifecycle | Planned |
+| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
+| 05 | Generalized projects and repository lifecycle | Next |
 | 06 | Stable authenticated remote-client API and device identity | Planned |
 | 07 | Native iOS Remote MVP | Planned |
 | 08 | Bounded Computer Use | Planned |
@@ -169,138 +169,47 @@ See Current State, Decision 011, and the Prompt 03 Ubuntu validation record.
 
 ---
 
-# Next implementation phase
-
 ## Prompt 04 — Nix, trusted approvals, and per-worker Linux identity
 
-**Status:** Next
+**Status:** Complete
 
-This is the next highest-priority milestone.
+[Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md) and
+[real Ubuntu acceptance](../validation/prompt-04-linux-identity.md) record the implementation.
 
-Prompt 03 still runs the BotSquad control plane and worker-side execution under one
-service UID. Prompt 04 should create a stronger operating-system security boundary.
+- Nix is a persistent DevOps leaf under Atlas, with explicit tasks and no root/sudo.
+- Human approvals bind exact immutable operation, requester, target, parameters,
+  expiry and preconditions; one-time consumption precedes mutation.
+- A root-owned Unix-socket provisioner admits trusted service/admin peers and supports
+  fixed identity create/disable, approved clone preparation/revocation, and health.
+  Internal bounded source/Git helpers run after worker UID/GID drop. No shell,
+  arbitrary path, package installation or service administration API exists.
+- Stable UUID-derived `bsw-<hash>` accounts have private UID/GID, locked passwords,
+  nologin shells and private homes under `/var/lib/botsquad-workers`. Central Codex
+  authentication and existing runtime workspaces remain under the service account.
+- Linux engineers use independent worker-owned clones; Grace reviews a trusted
+  read-only exact-commit packet; trusted integration owns canonical product main.
+- Retirement blocks unsafe active/unmerged work, disables dispatch, terminates the
+  recorded UID's processes, revokes access and preserves homes/history.
+- Root receipts and consumed intent recover across app/provisioner restart and reboot.
 
-Target topology:
+Acceptance passed 81 deterministic tests on macOS/hardened Ubuntu, real Nix tasks and
+approvals, seven real identities, 100 UID probes, concurrent engineer turns, exact
+review/integration, 8/8 product tests, safe engineer retirement, real lost-response
+recovery, research regression and a bounded reboot with production history preserved.
 
-~~~text
-root
-└── narrow trusted provisioner
-
-botsquad
-└── BotSquad control plane
-
-botsquad-atlas
-botsquad-nix
-botsquad-turing
-botsquad-linus
-botsquad-ada
-botsquad-grace
-~~~
-
-### Nix
-
-Introduce:
-
-~~~text
-Nix — DevOps
-~~~
-
-Nix is a normal logical worker and normal Unix user.
-
-Nix must not receive unrestricted root or sudo.
-
-Nix requests privileged operations through trusted BotSquad code.
-
-### Trusted privileged provisioner
-
-Create a minimal root-level service/interface with typed operations such as:
-
-~~~text
-create_worker_user
-disable_worker_user
-create_worker_home
-prepare_project_clone
-grant_project_access
-revoke_project_access
-install_approved_service
-restart_approved_service
-inspect_host_health
-~~~
-
-The provisioner must not expose arbitrary root shell execution.
-
-### Human approvals
-
-Prompt 04 should implement trusted approval objects for protected operations.
-
-Required lifecycle:
-
-~~~text
-request
-  -> waiting for human
-  -> approve or deny
-  -> exact scope validation
-  -> one-time consumption
-  -> audit
-~~~
-
-Bot-authored text cannot manufacture approval.
-
-Approvals should support:
-
-- exact operation scope;
-- requester;
-- target;
-- expiry;
-- current-state validation;
-- denial;
-- one-time consumption;
-- audit provenance.
-
-### Worker Unix identities
-
-Each worker should be able to bind to a Unix account independently of its logical worker
-identity.
-
-The binding should be replaceable/recoverable without changing worker history.
-
-### Git/project model
-
-Move toward independent per-worker project clones instead of shared cross-user Git
-metadata.
-
-Example:
-
-~~~text
-/srv/botsquad/repos/product.git
-        |
-        +-- Linus clone
-        +-- Ada clone
-        +-- Grace read-only clone
-~~~
-
-### Acceptance themes
-
-Prompt 04 should prove:
-
-- Nix is not root;
-- workers have separate Unix identities;
-- worker A cannot read/write worker B private scope;
-- trusted provisioner performs only allowlisted operations;
-- human approval cannot be forged;
-- approval survives restart;
-- expired/consumed approval cannot be reused;
-- worker retirement disables operating-system access safely;
-- active/unmerged work is preserved before retirement;
-- existing Prompt 03 workflows continue to operate.
+The development backend remains simulated. This milestone does not move central
+Codex processes/auth into worker homes or implement general projects, service upgrades,
+remote/mobile APIs, Computer Use or multi-company persistence.
 
 ---
 
+# Next implementation phase
+
 ## Prompt 05 — Generalized projects and repository lifecycle
 
-**Status:** Planned
+**Status:** Next
 
-Prompt 02/03 still use a bounded fixed engineering product.
+Prompt 02–04 use a bounded fixed engineering product.
 
 Prompt 05 should make BotSquad useful for real repositories.
 

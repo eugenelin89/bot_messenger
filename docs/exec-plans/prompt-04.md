@@ -1,13 +1,13 @@
 # Execution Plan — Prompt 04: Nix, approvals and worker Linux identity
 
-**Status:** Active  
+**Status:** Runtime/host acceptance complete; final main delivery tracked in handoff
 **Owner:** Codex task 01a0dcb8-a9f0-73e3-b41c-a1832f5b4727; sole implementation writer  
 **Branch:** feature/prompt-04-nix-worker-identity  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-26 07:58 UTC  
 **Starting synchronized main:** a81dc576473196a3b1634fb4fbb49a0cd07d32d3  
 **Initial ETA:** 6–10 hours including real Ubuntu acceptance and delivery  
-**Current ETA:** 2–4 hours remaining as of 08:28 UTC; real host acceptance and delivery pending
+**Current ETA:** 20–40 minutes remaining as of 09:28 UTC; documentation and final main delivery
 
 ## Objective and scope
 
@@ -92,7 +92,8 @@ deployment. Do not expose session tokens or credentials in evidence.
 
 ## Remaining work
 
-Real host acceptance, final documentation and main delivery remain in progress.
+Runtime and all real host gates passed; finish evidence/documentation, integrate main,
+run the final bootstrap and verify local/origin/deployed equality.
 
 - 08:25 UTC: implementation covers Nix/bootstrap, durable approvals, provisioner and
   UID helper, clone allocation/import, infrastructure UI and retirement revocation.
@@ -109,3 +110,44 @@ Real host acceptance, final documentation and main delivery remain in progress.
   remained consumed with recoverable operation and reserved UID; no user was created.
   Corrected comment and added real lost-response, canary and process-retirement gates.
   Development UI smoke verified exact approval scope and simulated completion.
+- 08:40 UTC: real lost-response acceptance passed: completed Linux account operation,
+  withheld client response, consumed-intent restart reconciliation, same receipt and
+  changed-payload rejection. Production task/message/execution/binding histories match
+  backup exactly; Atlas remains unprovisioned and dispatch paused.
+- 08:49 UTC: real Nix turns created all validation identities. Clone launch exposed
+  systemd 255's explicit User=root/seccomp capability drop. Confirmed effective caps
+  and upstream source; default-root unit retains the same bound and NoNewPrivileges,
+  with startup/child capability assertions. A temporary bypass diagnostic was rejected
+  by automatic review; diagnosis continued through normal socket and read-only state.
+  Clone bundle then exposed Git's default master selection; now pins main explicitly.
+  Every deployment continued to pass 80 hardened deterministic tests.
+- 08:56 UTC: fresh run created both independent clones but control-plane traversal
+  failed because mkdir(0700) masked the inherited named service ACL on their parent.
+  Explicitly restored only service read/traverse; readiness now verifies actual service
+  access before activating a clone. No worker fallback or broader group access added.
+- 08:58 UTC: 30-minute update; ETA 90 minutes–3 hours remaining. Local 80/80 passes;
+  deploying the ACL correction for fresh complete workflow, isolation/retirement,
+  research regression, reboot and main delivery. Production history remains preserved.
+- 09:04 UTC: full real identity run on `a8c7b9055d6e60c8109a9dcab0b59a7d55f5f2a3`
+  passed: seven accounts/workers, exact review/integration, 25.012 seconds of actual
+  engineer-turn overlap, 88 root/operator UID canary checks, Grace retirement killed
+  the recorded sleep process, and process restarts preserved durable state. Final
+  readiness guard adds an 81st test and rejects development bindings as Linux readiness.
+  Final run will retire integrated Linus to additionally prove clone access revocation.
+
+- 09:18 UTC: final gate on `9af2db810b71ec9ca1097767a61ae0aa2edb43d8` passed:
+  100 isolation checks, 20.285 seconds of real engineer-turn overlap, 8/8 product tests,
+  exact review/integration and Linus retirement with clone revocation/process kill.
+  The preceding run passed host checks but failed a SQLite-vs-JSON prototype assertion;
+  correcting JSON normalization changed only the harness. Evidence retains that failure.
+- 09:20 UTC: actual lost-response recovery and provisioner restart passed with identical
+  receipts/UIDs; real research, same-thread resume and interruption regression passed.
+- 09:25 UTC: bounded reboot passed after a complete root-private backup; all root
+  ledgers, receipts, accounts, disabled state, closed validation databases and original
+  production history match. Service/socket auto-started; runtime is ready and UI private.
+- 09:28 UTC: ETA 20–40 minutes remaining. All runtime/security/recovery gates passed;
+  final evidence review, normal main integration and exact final deployment remain.
+
+- 09:33 UTC: automatic review rejected publication of the full collected host/account
+  inventory. Reduced repository evidence to the prompt's requested sanitized acceptance
+  facts and bounded validation identities; raw inventories stay in private operator data.

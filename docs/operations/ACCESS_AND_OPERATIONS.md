@@ -1,6 +1,6 @@
 # Access and Operate a BotSquad Ubuntu HQ
 
-**Status:** Current Prompt 03 operator guide  
+**Status:** Current operator guide, including Prompt 04 infrastructure
 **Supported host:** Ubuntu 24.04 x86_64
 
 This guide assumes BotSquad has already been bootstrapped on a server and that your
@@ -231,6 +231,39 @@ rather than automatically running a partially updated build.
 
 Database migrations do not currently have an automatic rollback mechanism.
 
+## Initialize and operate worker infrastructure
+
+Open **Infrastructure → Initialize Nix**. This creates a logical DevOps worker and
+one pending bootstrap approval. In **Approvals**, inspect the worker, requester,
+task/execution, exact parameters, preconditions and expiry, then approve or deny.
+An approval grants only that operation once. Bot messages and artifacts never approve.
+
+Once Nix is ready, **Ask Nix to provision** creates a real infrastructure task for
+existing unprovisioned workers. New workers automatically receive such a task on
+production Linux. Engineering waits for identity and clone grants; the UI exposes
+the waiting reason without model polling. Existing companies are not auto-provisioned
+by migration. Codex credentials and original runtime workspaces stay under botsquad.
+
+Use **Ask Nix to retire** only after outstanding and unintegrated work is resolved.
+Approval disables logical dispatch, locks/expires the Unix account, terminates its
+recorded UID processes and revokes home/project traversal. Homes and evidence remain.
+Protected CEO/CTO/Nix retirement is outside this bounded workflow.
+
+**Check provisioner health** reads the local protocol status. **Reconcile interrupted
+operations** retries only already-consumed exact intent under the same operation ID.
+Pending, expired and denied approvals cannot be used to create new authority. An
+unavailable provisioner leaves recoverable intent and blocks dependent work; repair
+the service and reconcile instead of editing SQLite or making replacement accounts.
+
+```sh
+ssh botsquad 'systemctl status botsquad-provisioner.socket botsquad-provisioner.service --no-pager'
+ssh botsquad 'journalctl -u botsquad-provisioner --since "15 minutes ago" --no-pager'
+```
+
+The socket is enabled at boot; its service starts on demand. Do not add worker users
+to the botsquad group or give them sudo, socket access or central credentials. Root
+code is updated only by the operator bootstrap from an exact pushed revision.
+
 ## Back up the headquarters
 
 The durable/sensitive directory is:
@@ -248,7 +281,11 @@ ssh botsquad 'systemctl stop botsquad'
 ```
 
 Use your operator-controlled backup/snapshot mechanism to protect the full
-`/var/lib/botsquad` tree.
+`/var/lib/botsquad` tree. Prompt 04 also requires `/var/lib/botsquad-provisioner`,
+`/var/lib/botsquad-workers`, `/etc/botsquad` and the host account/UID mapping. Preserve
+ownership and ACLs. A consistent whole-host snapshot is suitable; copying SQLite
+alone cannot restore worker accounts or root receipts. Keep the provisioner idle
+while capturing these related state directories.
 
 Then restart:
 

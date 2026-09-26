@@ -1,8 +1,8 @@
 # BotSquad：為持續運作的 AI 組織打造的自架式控制平面
 
 **技術白皮書**  
-**版本：** 0.1  
-**日期：** 2026-09-25  
+**版本：** 0.2
+**日期：** 2026-09-26
 **專案：** BotSquad  
 **程式庫：** eugenelin89/bot_messenger  
 **英文版：** [English Technical White Paper](WHITEPAPER.md)
@@ -17,9 +17,9 @@ BotSquad 是一套自架式（self-hosted）控制平面，用來把持續存在
 
 在 BotSquad 裡，AI 工作者不是一個永遠持續運轉的模型程序，而是一個持續存在的邏輯成員。沒有工作時，它可以完全休眠；只有真的有任務進入佇列時才會被喚醒。它的角色、任務歷史與組織關係會持續保留，而實際執行工作時，則透過可替換的 runtime session，例如 Codex thread，來完成一次有明確邊界的執行。
 
-BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成一個可以長時間運作、自行架設的 Ubuntu 總部。目前的實作已經實際驗證：一個具有上下層關係的 AI 組織，可以進行研究、同時進行軟體開發、接受獨立審查，再由可信任的整合流程完成測試與合併；同時也具備 Linux 隔離、每位工作者獨立的模型與推理強度設定、重新啟動後的狀態復原，以及僅供私人存取的 Web 介面。
+BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成一個可以長時間運作、自行架設的 Ubuntu 總部。目前的實作已經實際驗證：一個具有上下層關係的 AI 組織，可以進行研究、同時進行軟體開發、接受獨立審查，再由可信任的整合流程完成測試與合併；同時也具備 Linux 隔離、每位工作者獨立的模型與推理強度設定、重新啟動後的狀態復原，以及僅供私人存取的 Web 介面。Prompt 04 也加入每位工作者的 Unix 身分，以及由 Nix 協調、精確限定範圍的核准流程。
 
-長期架構會建立在這個基礎上，逐步加入更強的每工作者作業系統隔離、一般化的專案支援、安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
+長期架構會建立在這個基礎上，逐步加入一般化的專案支援、安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
 
 整個設計始終遵循一個原則：
 
@@ -504,13 +504,13 @@ Runner 採 fail-closed。
 
 > 如果某個任意惡意程序已經取得 botsquad service UID，它與其他同 UID 程序之間，目前還沒有完整隔離。
 
-這也正是 Prompt 04 要解決的重要原因。
+Prompt 04 已讓受限的工作者檔案與 Git 操作使用各自的 UID。可信任的控制平面、中央 Codex runtime 與認證仍使用 service UID；此隔離機制不宣稱能抵禦該可信任帳號遭到任意控制的情境。
 
 ---
 
 ## 12. 目前的驗證證據
 
-Prompt 03 已完成真實 Ubuntu acceptance。
+Prompt 03 已完成真實 Ubuntu acceptance。以下保留其歷史基準；目前的身分、核准、停用與資源證據，請見 [Prompt 04 驗證紀錄](validation/prompt-04-linux-identity.md)。
 
 驗證主機：
 
@@ -560,9 +560,9 @@ Acceptance 包含：
 - human lock；
 - 可查驗的 execution history。
 
-更完整的 trusted approval system，刻意留到 Prompt 04。
+Prompt 04 已實作工作者身分與專案存取所需的持久、精確範圍核准。一般化的受保護動作授權仍留待後續。
 
-未來的基本規則是：
+目前強制執行的流程是：
 
 ~~~text
 Bot 要求受保護的動作
@@ -585,11 +585,11 @@ Bot 要求受保護的動作
 
 ---
 
-## 14. 下一個安全邊界：每位工作者獨立的 Unix 身分
+## 14. 每位工作者獨立的 Unix 身分邊界
 
-Prompt 04 會強化目前多位工作者共用 service UID 的架構。
+Prompt 04 已為受限的本機操作實作獨立工作者身分。
 
-目標：
+目前架構：
 
 ~~~text
 root
@@ -598,22 +598,18 @@ root
 botsquad
 └── control plane
 
-botsquad-atlas
-botsquad-nix
-botsquad-turing
-botsquad-linus
-botsquad-ada
-botsquad-grace
+bsw-<固定 worker UUID 的雜湊>
+└── 私人 home 與核准後的獨立專案 clone
 ~~~
 
-Nix 將成為長期存在的 DevOps 工作者。
+Nix 是長期存在、不再向下委派的 DevOps 工作者，透過明確的 infrastructure task 工作。
 
 Nix 本身仍然不是 root，而是透過一個功能非常有限、可信任的 provisioner，提出明確、typed 的 privileged operation。
 
-這會帶來：
+這提供：
 
 - 每位工作者獨立 home；
-- 每位工作者獨立 process identity；
+- 受限原始碼寫入與 Git 操作使用各自的 UID；
 - 每位工作者獨立 project clone；
 - access revocation；
 - retirement lifecycle；
@@ -1058,8 +1054,6 @@ BotSquad 把這些東西正式變成系統的一級概念。
 
 目前已驗證的系統，還沒有提供：
 
-- 每位工作者獨立 Unix account；
-- Nix DevOps；
 - 一般化 trusted approval grant；
 - 任意 repository / project lifecycle；
 - native remote API；

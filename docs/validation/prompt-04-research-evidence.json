@@ -1,0 +1,115 @@
+{
+  "started": "2026-09-26T09:18:53.954Z",
+  "finished": "2026-09-26T09:19:55.786Z",
+  "data_directory": "/var/lib/botsquad/validation/prompt01-20260926T091853Z",
+  "result": "PASS",
+  "workflow_task_id": "task_766d4c6c-bc1e-4402-ba58-0ca9e884d8f2",
+  "atlas_id": "worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+  "scout_id": "worker_bc93766a-30d0-4820-9ede-c022de948a17",
+  "checks": [
+    "real dynamic hire",
+    "real Scout execution and artifact",
+    "real Atlas resume/evaluation",
+    "pause",
+    "process restart persistence",
+    "no replay of completed work",
+    "persisted binding resumes after restart",
+    "real turn interruption"
+  ],
+  "counts": {
+    "workers": 2,
+    "tasks": 4,
+    "executions": 5,
+    "artifacts": 1
+  },
+  "worker_profiles": [
+    {
+      "name": "Atlas",
+      "worker_id": "worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical",
+      "human_lock": true
+    },
+    {
+      "name": "Scout",
+      "worker_id": "worker_bc93766a-30d0-4820-9ede-c022de948a17",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0dd02-b1a0-7c03-bfac-5a40e451b51a",
+      "workspace_path": "/var/lib/botsquad/validation/prompt01-20260926T091853Z/workspaces/worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+      "created_at": "2026-09-26T09:18:56.944Z",
+      "thread_name": "BotSquad · Atlas · CEO"
+    },
+    {
+      "worker_id": "worker_bc93766a-30d0-4820-9ede-c022de948a17",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0dd02-ea7f-75c0-ae12-f78a873ee41e",
+      "workspace_path": "/var/lib/botsquad/validation/prompt01-20260926T091853Z/workspaces/worker_bc93766a-30d0-4820-9ede-c022de948a17",
+      "created_at": "2026-09-26T09:19:11.514Z",
+      "thread_name": "BotSquad · Scout · Market Researcher"
+    }
+  ],
+  "initial_workflow_executions": [
+    {
+      "execution_id": "execution_ca3a0b68-d1de-4122-91a7-e61d0116f17e",
+      "task_id": "task_766d4c6c-bc1e-4402-ba58-0ca9e884d8f2",
+      "worker_id": "worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+      "runtime_reference": "01a0dd02-b1a0-7c03-bfac-5a40e451b51a",
+      "status": "completed",
+      "started_at": "2026-09-26T09:18:55.821Z",
+      "finished_at": "2026-09-26T09:19:12.966Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_365b5edc-2f19-43ab-9186-1ca2b6d5f4b5",
+      "task_id": "task_949e9df8-b3e3-4125-86c0-7c21a7478cec",
+      "worker_id": "worker_bc93766a-30d0-4820-9ede-c022de948a17",
+      "runtime_reference": "01a0dd02-ea7f-75c0-ae12-f78a873ee41e",
+      "status": "completed",
+      "started_at": "2026-09-26T09:19:10.392Z",
+      "finished_at": "2026-09-26T09:19:35.077Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_0b2946f4-b3af-4ec1-89e4-1cbe442a8d9a",
+      "task_id": "task_766d4c6c-bc1e-4402-ba58-0ca9e884d8f2",
+      "worker_id": "worker_8cc6bfb9-04c8-4230-ac76-60e2d02bdb01",
+      "runtime_reference": "01a0dd02-b1a0-7c03-bfac-5a40e451b51a",
+      "status": "completed",
+      "started_at": "2026-09-26T09:19:35.090Z",
+      "finished_at": "2026-09-26T09:19:48.159Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    }
+  ],
+  "final_report": "I reviewed Scout’s saved report (**artifact_101fa214-52d5-4047-a34a-0683a0397109**) against the architecture, delegated-creation decision, and README. Its ranking is well supported:\n\n1. **Authority escalation.** A worker could mistake a message or child profile for permission to grant capabilities. Keep delegation limits and human-only approvals enforced by trusted code at worker creation and every tool call; test attempted escalation. [Decision 004](docs/decisions/decision_004_delegated_worker_creation.md); [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md).\n\n2. **Lost or ambiguous handoffs.** Creating or messaging a worker does not assign work. An unassigned child, or a parent resumed before all required results arrive, can leave an objective incomplete. Require explicit task ownership, acceptance criteria, durable child links, and parent resumption only after required children reach terminal states. [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md).\n\n3. **Unsafe crash recovery.** Git/filesystem effects and SQLite records cannot commit atomically, so a blind retry could duplicate work or conceal an incomplete operation. Record intent and evidence, use transactional execution claims, reconcile only safe queued work, and block ambiguous attempts for inspection rather than replaying them. [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md).\n\n**Next step:** make these three boundaries release gates with negative tests for escalation, missed handoffs, and restart-after-side-effect ambiguity. The documentation reports validation of the bounded Ubuntu workflow, not reliability under arbitrary workloads; current limits include two active executions and one fixed engineering workflow. [README, Current limits](README.md)."
+}

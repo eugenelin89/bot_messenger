@@ -1,0 +1,12 @@
+{
+  "status": "approved",
+  "source_commits": [
+    "07c6d6ee2d400072391a4c535471ce83dff931f5",
+    "c932cc9a86c3658caa059b0e581d0fb9daad0f75"
+  ],
+  "linus_findings": "Commit c932cc9a86c3658caa059b0e581d0fb9daad0f75 replaces the calculate stub with explicit array and worker/status checks, zero-initialized counts, and an increment per valid status. It rejects null, primitive, array, missing, unknown, or differently cased statuses with TypeError. Frozen-input and empty/mixed cases are covered by immutable tests; added test covers case sensitivity and array workers. No imports, mutation, or unrelated changes observed.",
+  "ada_findings": "Commit 07c6d6ee2d400072391a4c535471ce83dff931f5 replaces the format stub with object validation, five Number.isSafeInteger/nonnegative checks, total-sum equality, and exact template output. Immutable tests cover formatting and common invalid values; added test covers unsafe integers and sum overflow. No imports, runtime dependencies, or unrelated changes observed.",
+  "integration_risks": "The two commits share the same base and edit disjoint source/test paths, so conflict risk is low. Focused tests do not establish combined execution, trusted CLI output, or full-suite success; trusted integration must apply both exact commits and run full tests plus deterministic CLI evidence. Exotic accessor/proxy side effects are not covered by the stated ordinary-data contract.",
+  "acceptance_assessment": "Both submitted diffs align with the SquadStatus spec: calculate validates an array of non-array worker objects and exact case-sensitive statuses, returns fresh counts including empty input, and does not write to inputs; format validates each required nonnegative safe-integer count, checks the total, and emits the required five lines without a trailing newline. Changes are confined to each owner's module and optional extra test. Focused validation receipts show 3/3 calculate and 3/3 format tests passing. The supplied immutable integrated tests define composition/CLI expectations but have not yet run on a combined commit.",
+  "recommended_disposition": "Approve these exact commits for trusted integration only; do not claim product release until integration receipt confirms the full suite and CLI."
+}
