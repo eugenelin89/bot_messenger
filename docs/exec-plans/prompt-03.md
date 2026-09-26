@@ -113,3 +113,9 @@ restart/reboot/idempotency and final deployed/main equality.
   Human service-account Codex authorization remains the sole external blocker.
   All available noninteractive setup, security review and deterministic checks are complete.
   Do not merge to main or certify sizing until real Ubuntu model acceptance passes.
+
+- 01:47 UTC final fetch: PR #1 advanced from eed6353 to 9a21999 with seven new
+  multi-company/federation/Telegram future-documentation commits. Original Ubuntu
+  contribution is fully incorporated; the current expanded PR is partially incorporated.
+  Leave later out-of-scope topics on their branch and reconcile their duplicate Decision
+  010 number when adopted. Do not merge this expanded PR separately to main.

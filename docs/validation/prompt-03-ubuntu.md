@@ -138,10 +138,20 @@ failed updates stay stopped and retain evidence rather than running a partial bu
 
 [PR #1](https://github.com/eugenelin89/bot_messenger/pull/1), branch
 `docs/ubuntu-hq-direction` at `eed63536571d010894ba5f238af80e9620ff8000`, was **fully
-incorporated** into this feature branch by merge `4e8711e12085452fca6a5e5be67c58e3bf13826e`.
+incorporated through that Ubuntu-direction revision** into this feature branch by merge `4e8711e12085452fca6a5e5be67c58e3bf13826e`.
 It was not separately merged to main. No merge conflicts occurred. Its Ubuntu-first,
 operator-controlled state, workstation administration, provider neutrality and deferred
 infrastructure/Computer Use direction are retained.
+
+At the final fetch, this PR branch had advanced to
+`9a21999` with seven additional commits about future multi-company isolation,
+federation and Telegram external identities. Those later topics are outside the
+requested Prompt 03 Ubuntu/profile scope and remain on the docs branch. They were
+inspected, not silently incorporated or discarded. Thus **the latest PR is partially
+incorporated; its entire originally supplied Ubuntu HQ contribution is incorporated**.
+The later future-architecture decision also uses number 010, which already belongs
+to this implementation decision and will need reconciliation when that work is adopted.
+No separate merge of either part into main was performed.
 
 Intentional refinements replace prospective wording with actual implemented paths,
 Codex pin, Linux confinement, human profile controls and explicit pending acceptance.
