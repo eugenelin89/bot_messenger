@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -57,6 +58,14 @@ class Protocol(unittest.TestCase):
             with self.assertRaises(p.Rejected): p.authorize_path(project,path)
         with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(request,manifest_hash='0'*64)).encode())
         with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(request,worker_id='worker_aaaaaaaa-1234-1234-1234-123456789abc')).encode())
+        for field in ['allocation_id', 'repository_id', 'task_id']:
+            wrong = request[field].replace('12345678-', 'aaaaaaaa-', 1)
+            with self.assertRaisesRegex(p.Rejected, 'identity mismatch'):
+                p.parse(json.dumps(dict(request, **{field: wrong})).encode())
+        for path in ['src/parser2/new.mjs', 'src/parser/agents.md', 'src/parser/PROTECTED/a.mjs']:
+            with self.assertRaisesRegex(p.Rejected, 'persisted allocation scope'): p.authorize_path(project, path)
+        with self.assertRaisesRegex(p.Rejected, 'Unknown or missing'):
+            p.parse(json.dumps(dict(type='write_project_source',operation_id=OP,worker_id=WORKER,allocation_id=ALLOC,path='src/parser/new.mjs',content='x',manifest=request['manifest'])).encode())
         manifest['write_scope']=['src/']
         with self.assertRaises(p.Rejected): p.authorize_path(project,'src/other/a.mjs')
 
@@ -82,8 +91,13 @@ class Protocol(unittest.TestCase):
 
     def test_no_symlink_or_hardlink_tree(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             (root / 'escape').symlink_to('/etc/passwd')
-            with self.assertRaises(p.Rejected): p.safe_tree(root)
+            with self.assertRaisesRegex(p.Rejected, 'Nonregular project entry'): p.safe_tree(root)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            (root / 'original').write_text('unchanged')
+            os.link(root / 'original', root / 'alias')
+            with self.assertRaisesRegex(p.Rejected, 'hardlink'): p.safe_tree(root)
 
 if __name__ == '__main__': unittest.main()

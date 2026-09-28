@@ -63,6 +63,17 @@ Node runs without JIT/WebAssembly, with a 96 MiB heap and 512 MiB data limit, co
 disabled, bounded CPU, wall time and output. These restrictions are acceptance-tested
 on Ubuntu; development backend tests alone are not Linux identity evidence.
 
+The independent Prompt 05 audit found that raw TAP-looking stdout could falsely
+satisfy the completion check. The corrected runner accepts only a completed Node test
+summary with at least one passing test, no failures/cancellations, exit zero and no
+runner error. A fixed service-owned reporter emits a one-use authenticated receipt on
+a dedicated pipe; source stdout remains diagnostic. Its invocation key is consumed
+before source modules load, cleared from the buffer, and absent from files, arguments
+and environment. Missing, forged, skipped-only and premature-exit runs fail closed.
+This authenticates runner completion; tests and code review still determine whether
+application behavior is correct. It does not prove arbitrary JavaScript semantics.
+See the [independent audit](../validation/prompt-05-independent-audit.md).
+
 Hard ceilings are 16 MiB repository/object contents, 4 MiB bundles, 1,000 files,
 128 KiB per file, 256 KiB diff, 100 changed paths and 16 commits per submission range.
 Imports additionally limit 10,000 objects and 1,000 commits. Up to 16 recipes may run

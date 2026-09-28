@@ -101,7 +101,7 @@ export class Projects {
   }
   import(projectId: string, value: unknown) {
     const a = strictObject(value,['name','default_branch','bundle']);
-    requireThat(typeof a.bundle === 'string' && a.bundle.length <= Math.ceil(HARD_BOUNDS.bundle_bytes * 4 / 3) + 4,'Import bundle exceeds limit');
+    requireThat(typeof a.bundle === 'string' && a.bundle.length > 0 && a.bundle.length <= Math.ceil(HARD_BOUNDS.bundle_bytes * 4 / 3) + 4,'Import bundle is empty or exceeds limit');
     return this.initialize(projectId,textField(a,'name',100),branchName(a.default_branch),'imported',{bundle:a.bundle});
   }
   context(repositoryId: string, scopes: string[] = []) {

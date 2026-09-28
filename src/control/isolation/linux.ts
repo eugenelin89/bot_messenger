@@ -32,7 +32,7 @@ export function linuxFilter(): Buffer {
   return bytes;
 }
 
-export function linuxProductCommand(root: string, executable: string, nodeArgs: string[], options: {writable:boolean;cwd:string} = {writable:false,cwd:'.'}) {
+export function linuxProductCommand(root: string, executable: string, nodeArgs: string[], options: {writable:boolean;cwd:string;reporter?:string} = {writable:false,cwd:'.'}) {
   requireThat(process.platform === 'linux' && process.arch === 'x64', 'Unsupported Linux confinement platform');
   requireThat(existsSync('/opt/botsquad-runtime/bwrap'), 'Linux confinement requires bubblewrap; run the Ubuntu bootstrap');
   requireThat(executable.startsWith('/opt/') || executable.startsWith('/usr/'), 'Linux Node must be installed in a trusted system runtime directory');
@@ -47,6 +47,7 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
     '--dir', '/proc', '--dev', '/dev'];
   // Only the dynamic loader/libraries are mounted, never /home, /etc, /opt or /var.
   const libraryRoots = new Set<string>();
+  if(options.reporter)args.push('--ro-bind',options.reporter,'/runtime/validation-reporter.mjs');
   for (const path of ['/lib', '/lib64', '/usr/lib', '/usr/lib64']) {
     if (!existsSync(path)) continue;
     const canonical = realpathSync(path);
@@ -62,7 +63,7 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
   // can build in /work/build; the repository snapshot remains read-only.
   if(options.writable)args.push('--size','67108864','--tmpfs','/work/build','--dir','/work/build/.tmp');
   args.push('--remount-ro', '/', '--chdir', options.cwd === '.' ? '/work' : `/work/${options.cwd}`, '--setenv', 'LANG', 'C', '--setenv', 'TZ', 'UTC',
-    '--setenv','TMPDIR','/work/build/.tmp', '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a === `--allow-fs-write=${root}/build` ? '--allow-fs-write=/work/build' : a));
+    '--setenv','TMPDIR','/work/build/.tmp', '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a === `--allow-fs-write=${root}/build` ? '--allow-fs-write=/work/build' : options.reporter && a === `--allow-fs-read=${options.reporter}` ? '--allow-fs-read=/runtime/validation-reporter.mjs' : options.reporter && a === `--test-reporter=${options.reporter}` ? '--test-reporter=/runtime/validation-reporter.mjs' : a));
   return { command: options.writable?'/usr/bin/prlimit':'/opt/botsquad-runtime/bwrap',
     args:options.writable?['--core=0','--data=536870912','--fsize=67108864','--cpu=30:32','--','/opt/botsquad-runtime/bwrap',...args]:args,
     filterFd, close: () => closeSync(filterFd) };

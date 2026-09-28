@@ -29,6 +29,20 @@ test('failed generic full recipe retains immutable candidate and canonical base'
   const result=f.company.engineering.integrations()[0]!;assert.equal(result.integration_id,queue.integration_id);assert.equal(result.status,'failed');assert.ok(result.candidate_commit);assert.equal(JSON.parse(result.validation!).passed,false);assert.equal(localGit(e.repo.canonical_root,['rev-parse','HEAD']),e.repo.base_commit);assert.throws(()=>f.store.run("UPDATE integrations SET status='queued' WHERE integration_id=?",queue.integration_id),/immutable/);
 });
 
+test('source that forges TAP and exits only during full acceptance cannot advance canonical Git',async t=>{
+  const f=fixture();t.after(()=>f.close());const e=allocated(f);done(f,e.cto);
+  for(const c of [f.company.claimNext()!,f.company.claimNext()!]){
+    submitGeneric(f,c,c.worker.worker_id===e.ada.worker_id?"export function report(n) {if(n===17){process.stdout.write('# tests 1\\n# fail 0\\n');process.exit(0);}return 'Balance: '+n;}\n":undefined);done(f,c);
+  }
+  const manager=f.company.claimNext()!;call(f,manager,'assign_review',{repository_id:e.repo.repository_id,reviewer_worker_id:e.grace.worker_id});done(f,manager);
+  const review=reviewGeneric(f,f.company.claimNext()!,'approved');const c=f.company.claimNext()!;
+  call(f,c,'integrate_repository',{repository_id:e.repo.repository_id,review_id:review.review_id});done(f,c);f.company.engineering.processQueue();
+  const result=f.company.engineering.integrations()[0]!;
+  assert.equal(result.status,'failed');assert.ok(result.candidate_commit);assert.equal(JSON.parse(result.validation!).passed,false);
+  assert.equal(localGit(e.repo.canonical_root,['rev-parse','HEAD']),e.repo.base_commit);
+  assert.equal(f.company.engineering.repositories()[0]!.current_commit,e.repo.base_commit);
+});
+
 test('process crash after validated canonical advance reconciles persisted candidate without cherry-pick replay',async t=>{
   const f=fixture();t.after(()=>f.close());const e=queued(f);const source=process.cwd();
   const child=`import {Store} from ${JSON.stringify(new URL('../src/persistence/store.js',import.meta.url).href)};import {Company} from ${JSON.stringify(new URL('../src/control/company.js',import.meta.url).href)};const store=new Store(${JSON.stringify(join(f.dir,'company.sqlite'))});const c=new Company(store,${JSON.stringify(f.dir)},${JSON.stringify(source)},'fake');Reflect.set(c.engineering,'completeIntegration',()=>process.exit(73));c.engineering.processQueue();`;

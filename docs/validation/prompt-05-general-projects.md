@@ -1,6 +1,6 @@
 # Prompt 05 — Generalized Projects acceptance
 
-**Status:** Runtime, real Ubuntu, reboot and documentation acceptance PASS. Final Git/deployment equality is verified in the delivery handoff.
+**Status:** Historical Prompt 05 acceptance PASS; the subsequent [independent audit](prompt-05-independent-audit.md) found and corrected a validation-verdict defect. Preserve the original evidence and read its audit qualifications.
 
 **Started:** 2026-09-28 06:00 UTC
 
@@ -56,7 +56,7 @@ publication and archive. Closed issues before feature deployment:
 - write limits across the working tree, including prospective overwrites;
 - worker ID in immutable allocation identity;
 - read-only repository plus bounded disposable `build/` scratch;
-- no false success for early-exit/output/deadline recipe failures;
+- original plain early-exit/output/deadline failures were rejected; the independent audit later found that forged TAP plus early exit bypassed this check (H01), so the original universal claim was too broad;
 - exact revised packet and recovery after validated canonical advance;
 - compatible runtime tool-schema markers rather than silent thread replacement;
 - new work and policy changes blocked while publication is pending;
@@ -75,8 +75,9 @@ Accepted runtime feature: `18308dd80215dea4e0fb2c89597e9c1550143051`.
 The Project workflow ran on `7d3691c25e54ca821da3facdee9458e91ff506ad`; later changes
 only corrected legacy acceptance instructions and documentation, with identical
 production digest recorded below. All deployments used normally pushed exact SHAs.
-Final main, origin/main and deployed SHA equality is recorded in the delivery handoff;
-this evidence/documentation closure changes no accepted production implementation.
+Final original main, origin/main and deployed SHA: `8883cd95becbb0ce716504ba4fc91162542f0e96`.
+The independent audit directly reverified all three at 09:00 UTC on 2026-09-28.
+The audit record identifies subsequent correction commits and final deployment.
 Authenticated live GitHub push remains explicitly unvalidated, not a completion claim.
 
 ## Initial feature deployment and public GitHub
