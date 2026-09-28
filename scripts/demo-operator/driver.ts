@@ -34,6 +34,11 @@ export class BrowserDriver {
     assert.ok(response.ok(),`Read-only ${path} returned ${response.status()}`);return await response.json() as T;
   }
   state(){return this.read<Snapshot>('state');}
+  async uiMutation(path:string,action:()=>Promise<unknown>) {
+    const pending=this.page.waitForResponse(r=>r.url()===`${this.origin}/api/${path}`&&r.request().method()==='POST');
+    await action();const response=await pending;await response.finished();
+    assert.ok(response.ok(),`UI operation ${path} rejected: ${response.status()} ${response.ok()?'':await response.text()}`);
+  }
   async tab(tab:string) { await this.closeInspector();await this.page.locator(`[data-tab="${tab}"]`).click(); }
   async closeInspector() {
     if(await this.page.locator('#inspect').evaluate(e=>(e as HTMLDialogElement).open)) {
@@ -54,7 +59,7 @@ export class BrowserDriver {
   }
   async selectProject(){await this.tab('products');await this.page.locator(`[data-select-project="${this.scope.projectId}"]`).click();}
   async pause() {
-    if(!(await this.state()).paused) {await this.closeInspector();await this.page.locator('#pause').click();assert.equal((await this.state()).paused,true);}
+    if(!(await this.state()).paused) {await this.closeInspector();await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,true);}
   }
   async step(step:Action) {
     switch(step) {
@@ -88,7 +93,7 @@ export class BrowserDriver {
       case 'prepare_infrastructure': {
         await this.tab('infrastructure');let s=await this.state();let nix=s.workers.find(w=>w.role==='devops');
         if(!nix) {
-          await this.page.locator('#initialize-nix').click();s=await this.state();nix=s.workers.find(w=>w.role==='devops');assert.ok(nix);
+          await this.uiMutation('initialize-nix',()=>this.page.locator('#initialize-nix').click());s=await this.state();nix=s.workers.find(w=>w.role==='devops');assert.ok(nix);
           const op=s.infrastructure.operations.filter(o=>!this.baseline.infrastructure.operations.some(b=>b.operation_id===o.operation_id));assert.equal(op.length,1);
           this.scope.nixId=nix.worker_id;this.scope.bootstrapOperationId=op[0]!.operation_id;
           await this.capture('07a-nix-bootstrap','Initialized Nix through Infrastructure; the exact bootstrap approval is pending.');await this.approvals(s);
@@ -96,8 +101,9 @@ export class BrowserDriver {
         this.scope.nixId=nix.worker_id;
         s=await this.state();assert.ok(s.infrastructure.identities.some(i=>i.worker_id===nix!.worker_id&&i.state==='ready'));
         if(s.infrastructure.identities.find(i=>i.worker_id===this.scope.atlasId)?.state!=='ready') {
-          await this.tab('infrastructure');await this.page.locator(`[data-infra-worker="${this.scope.atlasId}"][data-infra-type=create_worker_identity]`).click();
-          s=await this.state();const task=s.infrastructure.tasks.find(t=>t.target_worker_id===this.scope.atlasId&&t.operation_type==='create_worker_identity');assert.ok(task);this.scope.atlasProvisionTaskId=task.task_id;
+          const oldIds=new Set(s.infrastructure.tasks.map(t=>t.task_id));
+          await this.tab('infrastructure');await this.uiMutation('infrastructure/request',()=>this.page.locator(`[data-infra-worker="${this.scope.atlasId}"][data-infra-type=create_worker_identity]`).click());
+          s=await this.state();const task=s.infrastructure.tasks.find(t=>!oldIds.has(t.task_id)&&t.target_worker_id===this.scope.atlasId&&t.operation_type==='create_worker_identity');assert.ok(task);this.scope.atlasProvisionTaskId=task.task_id;
           await this.capture('07b-atlas-request','Asked Nix to provision the retained Atlas identity using the Infrastructure UI.');
         }
         break;
@@ -109,7 +115,7 @@ export class BrowserDriver {
         await this.capture('03-objective-assigned','Assigned the natural-language StudyPlan goal to Atlas through Assign objective.','operator_action',{task_id:this.scope.objectiveId,project_id:this.scope.projectId,repository_id:this.scope.repositoryId});break;
       }
       case 'resume_dispatch': {
-        await this.page.locator('#pause').click();assert.equal((await this.state()).paused,false);
+        await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,false);
         await this.capture('03b-dispatch','Resumed dispatch through the HQ control. BotSquad now owns planning and execution.');break;
       }
       case 'observe_workflow': await this.observe();break;
@@ -145,7 +151,7 @@ export class BrowserDriver {
       const card=button.locator('xpath=ancestor::article');await card.locator('summary').click();await button.scrollIntoViewIfNeeded();
       await this.capture(`07-approval-${a.approval_id}`,'Inspected exact scenario-bound approval scope before deciding.','assertion',{approval_id:a.approval_id,operation_id:op.operation_id,type:op.operation_type,target:op.target_worker_id,parameters:JSON.parse(op.parameters)});
       // Recheck against a fresh read immediately before clicking the exact UI control.
-      checkApproval(await this.state(),a,this.scope);await button.click();
+      checkApproval(await this.state(),a,this.scope);await this.uiMutation('approvals/decide',()=>button.click());
       const after=await this.state();assert.equal(after.infrastructure.operations.find(o=>o.operation_id===op.operation_id)?.status,'completed','Protected operation did not complete');
       this.recorder.record({step_id:'approve',kind:'operator_action',description:`Approved ${op.operation_type} through the exact Approve button.`,result:'pass',related_approval_id:a.approval_id,related_worker_id:op.target_worker_id,observed_state:{operation_id:op.operation_id,status:'completed'}});
     }
@@ -169,6 +175,16 @@ export class BrowserDriver {
       assert.ok(!failure,`Real workflow stopped: ${failure?.task_id}: ${failure?.blocking_reason}`);
       await this.approvals(s);
       const tasks=projectTasks(s,this.scope);const spec=tasks.find(t=>t.kind==='spec'&&t.status==='completed');
+      // A retained worker may have an earlier cancelled infrastructure request.
+      // Ask Nix through the same visible control, only after this Project actually
+      // assigns that worker; historical requests never widen the approval allowlist.
+      for(const worker of s.workers.filter(w=>tasks.some(t=>t.assignee_worker_id===w.worker_id))) {
+        const outstanding=s.infrastructure.tasks.some(i=>i.target_worker_id===worker.worker_id&&i.operation_type==='create_worker_identity'&&s.tasks.some(t=>t.task_id===i.task_id&&!['completed','failed','cancelled'].includes(t.status)));
+        if(s.infrastructure.identities.find(i=>i.worker_id===worker.worker_id)?.state==='unprovisioned'&&!outstanding) {
+          await this.tab('infrastructure');await this.uiMutation('infrastructure/request',()=>this.page.locator(`[data-infra-worker="${worker.worker_id}"][data-infra-type=create_worker_identity]`).click());
+          this.recorder.record({step_id:'request_identity',kind:'operator_action',description:`Asked Nix to provision the assigned ${worker.display_name} through Infrastructure.`,result:'pass',related_worker_id:worker.worker_id,related_project_id:this.scope.projectId});
+        }
+      }
       const artifact=spec&&s.artifacts.find(a=>a.task_id===spec.task_id);
       if(artifact) await this.milestone('04-maya-spec','Maya completed a real product specification.',async()=>{await this.tab('tasks');await this.page.locator(`[data-artifact="${artifact.artifact_id}"]`).first().click();});
       const allocations=s.allocations.filter(a=>a.repository_id===this.scope.repositoryId);

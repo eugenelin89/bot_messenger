@@ -45,7 +45,7 @@ export function checkApproval(s:Snapshot,a:Approval,scope:RunScope):ProtectedOpe
   // Pending request turns are inspected but never approved until their turn is completed.
   const tasks=projectTasks(s,scope);
   const isAtlas=target.worker_id===scope.atlasId&&op.task_id===scope.atlasProvisionTaskId;
-  const isProjectWorker=!scope.baselineWorkers.has(target.worker_id)&&['product_manager','cto','engineer','reviewer'].includes(target.role)&&tasks.some(t=>t.assignee_worker_id===target.worker_id);
+  const isProjectWorker=['product_manager','cto','engineer','reviewer'].includes(target.role)&&tasks.some(t=>t.assignee_worker_id===target.worker_id);
   assert.ok(isAtlas||isProjectWorker,'Approval target is outside this tutorial');
   if(op.operation_type==='create_worker_identity') assert.deepEqual(Object.keys(p),['worker_id']);
   else {
