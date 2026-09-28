@@ -189,3 +189,24 @@ divergence and archive/UID probes. The final evidence writer failed only when lo
 up `/opt/botsquad/` with a trailing slash in Git safe.directory. The harness source root
 is now canonicalized; assertions are unchanged. Preserve this run as diagnostic evidence
 and repeat from fresh validation state to close the machine-readable record cleanly.
+
+### Corrected repeat — 07:52 UTC
+
+Feature `7d3691c25e54ca821da3facdee9458e91ff506ad` passed 105/105 hardened Ubuntu tests
+in 82.45 seconds and deployed paused/ready. A fresh real Project run started at
+`validation/projects-20260928T074655Z`; actual revision, new immutable submission and
+second review have progressed through all four restart gates to completed integration.
+The strict original-production comparison passed again after this deployment. Bootstrap
+operator documentation was included in the broader freshness scan and updated for
+bounded named recipes, build scratch and both root validation companions.
+
+### Legacy regression probe correction — 07:57 UTC
+
+The clean Project run passed at 07:51:57 UTC with 16.432 seconds of actual model-turn
+overlap, all 100 UID checks and four archive denials. Its full evidence is retained.
+The subsequent legacy SquadStatus run completed integration but failed the existing
+botsquad_source audit assertion: both engineers had guessed `/opt/botsquad/src/index.mjs`
+instead of using the supplied `/opt/botsquad/src/main.ts` denial target. All writes were
+rejected, correctly labeled path_escape. Tighten only the validation objective to copy
+engineering.confinement_checks.source_checkout_path verbatim. Keep production audit
+classification and every existing assertion unchanged; repeat fresh after deployment.
