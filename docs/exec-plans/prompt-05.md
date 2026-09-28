@@ -210,3 +210,19 @@ instead of using the supplied `/opt/botsquad/src/main.ts` denial target. All wri
 rejected, correctly labeled path_escape. Tighten only the validation objective to copy
 engineering.confinement_checks.source_checkout_path verbatim. Keep production audit
 classification and every existing assertion unchanged; repeat fresh after deployment.
+
+### ETA update — 08:00 UTC
+
+The clean real Project lifecycle is accepted. Initial 10–18 hours was revised to
+6–10 hours at 06:29/07:00, 4–8 hours at 07:29, and now approximately 45–90 minutes
+remaining because implementation, hardened deterministic tests and real Project
+acceptance have passed. Legacy repeat, research/receipt recovery, full reboot, final
+documentation gates and normal main deployment remain. No human-only blocker.
+
+The next legacy repeat correctly rejected premature CTO completion: Turing stopped
+before hiring because the denial target was described through engineer-only context
+which does not exist until allocation. The validation objective now supplies the exact
+source target directly from its trusted source root, so planning need not guess or wait
+for a future allocation. This is a fixture-instruction correction only; production
+completion enforcement and every existing assertion remain unchanged. Both diagnostic
+companies remain retained.
