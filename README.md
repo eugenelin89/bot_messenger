@@ -445,3 +445,8 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Prompt 02 Plan](docs/exec-plans/prompt-02.md)
 - [Prompt 03 Plan](docs/exec-plans/prompt-03.md)
 - [Prompt 04 Plan](docs/exec-plans/prompt-04.md)
+
+## License
+
+BotSquad is open source under the [MIT License](LICENSE).
+Copyright (c) 2026 Eugene Lin. Third-party dependencies retain their own licenses.
