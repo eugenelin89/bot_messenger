@@ -15,7 +15,7 @@ assert state_path.is_file() and str(state_path).startswith('/var/lib/botsquad/va
 state = json.loads(state_path.read_text())
 workers = {w['display_name']: w for w in state['workers']}
 identities = {i['worker_id']: i for i in state['infrastructure']['identities']}
-probe = '.prompt04-canary-' + uuid.uuid4().hex
+probe = '.isolation-canary-' + uuid.uuid4().hex
 created = []
 
 def canary(path, uid=0, gid=0):
@@ -37,7 +37,7 @@ try:
         'provisioner_receipt_canary': canary(Path('/var/lib/botsquad-provisioner/receipts') / probe),
         'etc_botsquad_canary': canary(Path('/etc/botsquad') / probe),
         'botsquad_source_canary': canary(Path('/opt/botsquad') / probe),
-        'canonical_product_main': str(Path(state['repositories'][0]['canonical_root']) / 'src/calculate.mjs'),
+        'canonical_product_main': str(Path(state['repositories'][0]['canonical_root']) / 'README.md'),
     }
     homes = {}
     for name in ['Linus', 'Ada', 'Nix', 'Grace']:
@@ -87,7 +87,7 @@ try:
         assert result.returncode == 0, result.stderr
         ownership = json.loads(result.stdout); assert ownership['uid'] == identity['uid']
         evidence['checks'].append(dict(worker=name,scope='own_clone_write',allowed=True,**ownership))
-        target = str(Path(other_allocation['worktree_path']) / 'src' / (other_allocation['module']+'.mjs'))
+        target = str(Path(other_allocation['worktree_path']) / 'README.md')
         result = run_as(identity, 'import sys;open(sys.argv[1],"r+")',target)
         assert result.returncode != 0 and 'PermissionError' in result.stderr
         evidence['checks'].append(dict(worker=name,scope='sibling_clone_write',denied=True))

@@ -4,8 +4,9 @@ const short = id => id?.split('_')[1]?.slice(0, 8) ?? id ?? '—';
 const time = value => value ? new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
 const status = value => `<span class="status ${escape(value)}">${escape(value.replaceAll('_', ' '))}</span>`;
 const avatar = name => `<span class="avatar ${escape(name.toLowerCase())}">${escape(name.slice(0, 2).toUpperCase())}</span>`;
+let selectedProject = null;
 let state, token, activeTab = 'conversation', draft = '', loading = false, refreshAgain = false, submitting = false;
-const titles = { approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Products & engineering', 'From specification to working software', 'Separate worktrees. Independent review. Verified integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
+const titles = { approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
 const worker = id => state.workers.find(w => w.worker_id === id);
 const principal = id => state.principals.find(p => p.principal_id === id);
 const artifacts = taskId => state.artifacts.filter(a => a.task_id === taskId);
@@ -30,7 +31,7 @@ function render() {
   $('#initialize').hidden = !!atlas;
   $('#pause').textContent = state.paused ? 'Resume dispatch' : 'Pause new dispatch';
   $('#pause-banner').hidden = !state.paused;
-  $('#approval-count').textContent = state.infrastructure.approvals.filter(a => a.status === 'pending').length;
+  $('#approval-count').textContent = state.infrastructure.approvals.filter(a => a.status === 'pending').length + (state.project_approvals ?? []).filter(a => a.status === 'pending').length;
   $('#worker-count').textContent = state.workers.length;
   $('#task-count').textContent = state.tasks.filter(t => !['completed', 'cancelled'].includes(t.status)).length;
   $('#workers').innerHTML = state.workers.length ? state.workers.map(w => `<button class="worker-button" data-worker="${escape(w.worker_id)}">${avatar(w.display_name)}<span>${escape(w.display_name)}<small>${escape(w.title)}</small></span><span class="dot ${escape(w.status)}" title="${escape(w.status)}"></span></button>`).join('') : '<p class="muted">Initialize Atlas to begin.</p>';
@@ -39,7 +40,7 @@ function render() {
   const title = titles[activeTab]; $('#view-title').textContent = title[0]; $('#heading').textContent = title[1]; $('#subtitle').textContent = title[2];
   document.querySelectorAll('[data-tab]').forEach(button => button.classList.toggle('selected', button.dataset.tab === activeTab));
   $('#view').innerHTML = ({ conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]();
-  $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>02</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews exact commits', 'Tests gate integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run when assigned work. A result wakes their manager. Nothing runs just to check for messages.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Research stays within approved documents. Browser and Computer Use remain disabled.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Messages are communication. Use <strong>Assign objective</strong> to create work.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
+  $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>05</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews and requests revisions', 'Full recipes gate queued integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run when assigned work. A result wakes their manager. Nothing runs just to check for messages.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Research stays within approved documents. Browser and Computer Use remain disabled.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Messages are communication. Use <strong>Assign objective</strong> to create work.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
   if ($('#objective')) { $('#objective').value = draft; if (selection) { $('#objective').focus(); $('#objective').setSelectionRange(...selection); } }
   document.querySelectorAll('#compose button').forEach(button => { button.disabled = submitting; });
   if ($('.messages')) $('.messages').scrollTop = wasAtBottom ? $('.messages').scrollHeight : scroll ?? 0;
@@ -65,29 +66,31 @@ function renderExecutions() {
 }
 const managedPath = path => path?.includes('/products/') ? `products/${path.split('/products/')[1]}` : 'Managed workspace';
 function renderProducts() {
-  if (!state.repositories?.length) return '<div class="panel empty"><strong>No product yet.</strong>Use “Build SquadStatus” in the executive channel to give Atlas a bounded engineering objective.</div>';
-  return state.repositories.map(repo => {
+  const header = projectHeader();
+  const repositories = state.repositories.filter(r => r.project_id === selectedProject);
+  if (!repositories.length) return header + '<div class="panel empty"><strong>No repository yet.</strong>Create a managed repository, import a Git bundle, or register a public GitHub source.</div>';
+  return header + repositories.map(repo => {
     const allocations = state.allocations.filter(a => a.repository_id === repo.repository_id);
     const submissions = state.submissions.filter(s => s.repository_id === repo.repository_id);
     const reviews = state.reviews.filter(r => r.repository_id === repo.repository_id);
     const integrations = state.integrations.filter(i => i.repository_id === repo.repository_id);
     const running = state.executions.filter(e => e.status === 'running' && allocations.some(a => a.task_id === e.task_id));
-    return `<div class="panel product-card"><div class="panel-title">${escape(repo.product_name)} ${status(repo.status)}</div><div class="product-body"><p class="muted">${escape(repo.repository_id)} · local managed repository</p><div class="product-commit"><strong>${escape(repo.default_branch)}</strong><code>${escape(repo.current_commit ?? 'Creating scaffold')}</code></div><div class="card-actions"><button class="button secondary small" data-evidence="repositories" data-record="${escape(repo.repository_id)}">Inspect repository</button><button class="artifact-link" data-artifact="${escape(repo.spec_artifact_id)}">▧ Product specification</button></div>
+    return `<div class="panel product-card"><div class="panel-title">${escape(repo.product_name)} ${status(repo.status)}</div><div class="product-body"><p class="muted">${escape(repo.repository_id)} · ${escape(repo.source_kind)} · remote ${escape(repo.remote_policy)} / ${escape(repo.remote_state)}</p><div class="product-commit"><strong>${escape(repo.default_branch)}</strong><code>${escape(repo.current_commit ?? 'Creating scaffold')}</code></div><div class="card-actions"><button class="button secondary small" data-evidence="repositories" data-record="${escape(repo.repository_id)}">Inspect repository</button>${repo.spec_artifact_id ? `<button class="artifact-link" data-artifact="${escape(repo.spec_artifact_id)}">▧ Product specification</button>` : ''}${repositoryControls(repo)}</div>
     ${running.length ? `<div class="concurrency-banner">${running.length} engineers active · ${running.map(e => escape(worker(e.worker_id)?.display_name)).join(' + ')}</div>` : ''}
     <h3>Engineering allocations</h3><div class="allocation-grid">${allocations.map(a => {
-      const submitted = submissions.find(s => s.allocation_id === a.allocation_id);
-      return `<article class="allocation-card"><header><strong>${escape(worker(a.worker_id)?.display_name)} · ${escape(a.module)}</strong>${status(a.status)}</header><p><code>${escape(a.branch_name)}</code></p><small>${escape(managedPath(a.worktree_path))}</small><dl><dt>Base</dt><dd><code>${escape(a.base_commit)}</code></dd><dt>Submitted</dt><dd><code>${escape(submitted?.commit_sha ?? 'Awaiting submission')}</code></dd></dl><div class="card-actions"><button class="task-link" data-task="${escape(a.task_id)}">Inspect task</button><button class="task-link" data-evidence="allocations" data-record="${escape(a.allocation_id)}">Ownership</button>${submitted ? `<button class="task-link" data-evidence="submissions" data-record="${escape(submitted.submission_id)}">Diff scope & tests</button>` : ''}</div></article>`;
-    }).join('')}</div><h3>Independent review</h3>${reviews.map(r => `<div class="evidence-row"><strong>${escape(worker(r.worker_id)?.display_name)}</strong>${status(r.status)}<button class="artifact-link" data-artifact="${escape(r.artifact_id)}">▧ Findings & reviewed commits</button></div>`).join('') || '<p class="muted">Waiting for both verified engineering submissions.</p>'}
+      const history = submissions.filter(s => s.allocation_id === a.allocation_id); const submitted = history.at(-1);
+      return `<article class="allocation-card"><header><strong>${escape(worker(a.worker_id)?.display_name)} · round ${escape(a.revision_round)}</strong>${status(a.status)}</header><p><code>${escape(JSON.parse(a.write_scope).join(', '))}</code></p><p><code>${escape(a.branch_name)}</code></p><small>${escape(managedPath(a.worktree_path))}</small><dl><dt>Base</dt><dd><code>${escape(a.base_commit)}</code></dd><dt>Submitted</dt><dd><code>${escape(submitted?.commit_sha ?? 'Awaiting submission')}</code></dd></dl><div class="card-actions"><button class="task-link" data-task="${escape(a.task_id)}">Inspect task</button><button class="task-link" data-evidence="allocations" data-record="${escape(a.allocation_id)}">Ownership</button>${history.map(s => `<button class="task-link" data-evidence="submissions" data-record="${escape(s.submission_id)}">Submission ${escape(s.revision_round)} · ${short(s.commit_sha)}</button>`).join('')}${a.status === 'integrated' ? `<button class="task-link" data-release="${escape(a.allocation_id)}">Release clone access</button>` : ''}</div></article>`;
+    }).join('')}</div><h3>Independent review</h3>${reviews.map(r => `<div class="evidence-row"><strong>${escape(worker(r.worker_id)?.display_name)} · round ${escape(state.review_rounds.find(x=>x.round_id===r.round_id)?.round_number ?? 'legacy')}</strong>${status(r.status)}${r.round_id ? `<button class="task-link" data-evidence="review_rounds" data-record="${escape(r.round_id)}">Exact packet</button>` : ''}<button class="artifact-link" data-artifact="${escape(r.artifact_id)}">▧ Findings & reviewed commits</button></div>`).join('') || '<p class="muted">Waiting for verified engineering submissions.</p>'}
     <h3>Integration</h3>${integrations.map(i => `<div class="integration-card"><div class="evidence-row">${status(i.status)}<span>${i.status === 'completed' ? 'Full acceptance tests passed' : 'Inspect test and Git evidence'}</span></div><dl><dt>Base</dt><dd><code>${escape(i.base_commit)}</code></dd><dt>Source commits</dt><dd><code>${escape(JSON.parse(i.source_commits).join('\n'))}</code></dd><dt>Candidate</dt><dd><code>${escape(i.candidate_commit ?? '—')}</code></dd><dt>Final</dt><dd><code>${escape(i.final_commit ?? 'Default branch not advanced')}</code></dd></dl><button class="button secondary small" data-evidence="integrations" data-record="${escape(i.integration_id)}">Inspect acceptance evidence</button></div>`).join('') || '<p class="muted">Requires independent approval, followed by passing full product tests.</p>'}</div></div>`;
   }).join('');
 }
 function renderApprovals() {
-  return state.infrastructure.approvals.length ? [...state.infrastructure.approvals].reverse().map(a => {
+  return projectApprovals() + (state.infrastructure.approvals.length ? [...state.infrastructure.approvals].reverse().map(a => {
     const op = state.infrastructure.operations.find(op => op.operation_id === a.operation_id);
     const execution = state.executions.find(e => e.execution_id === op.requesting_execution_id);
     const canDecide = a.status === 'pending';
     return `<article class="panel task-card"><header><strong>${escape(op.operation_type.replaceAll('_', ' '))}</strong>${status(a.status)}</header><h3>${escape(worker(op.target_worker_id)?.display_name)}</h3>${details({ requester: worker(op.requester_worker_id)?.display_name ?? 'Human — initial Nix bootstrap', task: op.task_id, execution: op.requesting_execution_id, reason: op.reason, requested: a.requested_at, expires: a.expires_at, identity_now: state.infrastructure.identities.find(i => i.worker_id === op.target_worker_id), operation_status: op.status, result: op.result ? JSON.parse(op.result) : null, error: op.error })}<details><summary>Exact parameters and preconditions</summary><pre>${escape(JSON.stringify({ operation_id: op.operation_id, approval_id: a.approval_id, parameters: JSON.parse(op.parameters), parameter_hash: op.parameter_hash, preconditions: JSON.parse(op.preconditions) }, null, 2))}</pre></details>${canDecide ? `<div class="card-actions"><button class="button primary" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="approve" ${execution && execution.status !== 'completed' ? 'disabled' : ''}>Approve</button><button class="button danger" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="deny">Deny</button></div><p class="muted">Approval executes this exact operation once. Current preconditions are rechecked by the server.${execution && execution.status !== 'completed' ? ' Waiting for Nix to finish its request turn.' : ''}</p>` : ''}</article>`;
-  }).join('') : '<div class="panel empty">No protected operations awaiting review.</div>';
+  }).join('') : '<div class="panel empty">No protected host operations awaiting review.</div>');
 }
 function renderInfrastructure() {
   const nix = state.workers.find(w => w.role === 'devops');
@@ -105,7 +108,7 @@ function inspectTask(id) {
   const retryLimit = t.kind === 'infrastructure' ? 'Inspect Approvals for the human decision. Use Infrastructure to reconcile an interrupted host operation; runtime retry cannot grant authority.'
     : state.allocations?.some(a => a.task_id === id && a.status === 'blocked') ? 'This allocation requires Git inspection. Automatic reactivation is unavailable.'
     : !worker(t.assignee_worker_id)?.enabled ? 'This worker has retired. Assign a new objective for further work.'
-    : parent && (parent.dispatch_reason === 'child_results' || ['completed', 'failed', 'cancelled'].includes(parent.status)) ? 'This result has been handed back to the manager. Assign a new objective for further work.'
+    : parent && ((parent.dispatch_reason === 'child_results' && parent.blocking_reason !== 'waiting_children') || ['completed', 'failed', 'cancelled'].includes(parent.status)) ? 'This result has been handed back to the manager. Assign a new objective for further work.'
     : state.tasks.some(child => child.parent_task_id === id && !['completed', 'failed', 'cancelled'].includes(child.status)) ? 'Resolve the child assignment before retrying this task.' : '';
   const retryControls = !retryEligible ? '' : retryLimit ? `<p class="muted">${escape(retryLimit)}</p>` : `<label class="check-review"><input type="checkbox" id="reviewed"> I inspected prior attempts, artifacts and child tasks. Retry the existing assignment without granting new authority.</label><button class="button primary" id="retry" data-id="${escape(id)}" disabled>Retry inspected task</button>`;
   inspect(`Task ${short(id)}`, `${details(t)}<h3>Artifacts</h3>${artifactLinks(id) || '<p class="muted">No artifacts recorded.</p>'}<h3>Execution attempts</h3>${state.executions.filter(e => e.task_id === id).map(e => `<pre>${escape(JSON.stringify(e, null, 2))}</pre>`).join('') || '<p class="muted">No execution attempts.</p>'}${retryControls}${['queued', 'blocked', 'failed', 'awaiting_approval'].includes(t.status) ? `<button class="button danger" data-cancel="${escape(id)}">Cancel task</button>` : ''}`);
@@ -137,15 +140,16 @@ async function inspectWorker(id) {
   };
 }
 function wireActions(root) {
+  wireProjectActions(root);
   root.querySelectorAll('[data-approval]').forEach(b => b.onclick = async () => { b.disabled = true; try { await mutate('approvals/decide', { approval_id: b.dataset.approval, operation_id: b.dataset.operation, decision: b.dataset.decision }); } catch { b.disabled = false; } });
   root.querySelectorAll('[data-infra-worker]').forEach(b => b.onclick = async () => { b.disabled = true; try { await mutate('infrastructure/request', { worker_id: b.dataset.infraWorker, operation_type: b.dataset.infraType, allocation_id: null }); } catch { b.disabled = false; } });
   root.querySelectorAll('[data-evidence]').forEach(b => b.onclick = () => {
     const category = b.dataset.evidence;
-    const key = { repositories: 'repository_id', allocations: 'allocation_id', submissions: 'submission_id', integrations: 'integration_id' }[category];
+    const key = { repositories: 'repository_id', allocations: 'allocation_id', submissions: 'submission_id', integrations: 'integration_id', review_rounds:'round_id' }[category];
     const record = state[category].find(r => r[key] === b.dataset.record);
     const display = { ...record };
     for (const name of ['canonical_root', 'worktree_path']) if (display[name]) display[name] = managedPath(display[name]);
-    for (const name of ['validation', 'changed_paths', 'source_commits']) if (display[name]) display[name] = JSON.parse(display[name]);
+    for (const name of ['validation', 'changed_paths', 'source_commits','write_scope','protected_paths','recipe_ids','policy_snapshot','commit_list','submission_ids','packet']) if (display[name]) display[name] = JSON.parse(display[name]);
     inspect('Engineering evidence', `<pre>${escape(JSON.stringify(display, null, 2))}</pre>`);
   });
   root.querySelectorAll('[data-artifact]').forEach(b => b.onclick = async () => {
@@ -194,3 +198,76 @@ try {
   events.addEventListener('changed', () => void refresh());
   events.onerror = () => { $('#connection').textContent = 'Reconnecting to headquarters…'; $('#connection-dot').classList.remove('online'); };
 } catch (error) { showError(error); }
+
+function projectHeader() {
+  const projects=state.projects??[];
+  if(!projects.some(p=>p.project_id===selectedProject)) selectedProject=projects[0]?.project_id??null;
+  const p=projects.find(p=>p.project_id===selectedProject);
+  return `<div class="panel task-card"><header><h3>Projects</h3><button class="button primary" data-project-action="create">New Project</button></header><div class="project-selector">${projects.map(p=>`<button class="button ${p.project_id===selectedProject?'primary':'secondary'} small" data-select-project="${escape(p.project_id)}">${escape(p.name)} · ${escape(p.status)}</button>`).join('')}</div>${p?`<h3>${escape(p.name)} ${status(p.status)}</h3><p>${escape(p.description)}</p><p class="muted">${escape(p.project_id)}</p><div class="card-actions"><button class="button secondary small" data-project-action="policy">Instructions & validation policy</button>${p.status==='active'?`<button class="button secondary small" data-project-action="local">New repository</button><button class="button secondary small" data-project-action="import">Import bundle</button><button class="button secondary small" data-project-action="remote">Register GitHub repository</button><button class="button danger small" data-project-action="archive">Archive Project</button>`:''}</div>`:'<p>Create a software Project to register repositories and configure trusted validation.</p>'}</div>`;
+}
+function repositoryControls(repo) {
+  if(state.projects.find(p=>p.project_id===repo.project_id)?.status!=='active')return '';
+  const latest=state.integrations.filter(i=>i.repository_id===repo.repository_id&&i.status==='completed'&&i.final_commit===repo.current_commit).at(-1);
+  return `<button class="button primary small" data-repo-action="objective" data-repository="${escape(repo.repository_id)}">Assign objective</button><button class="button secondary small" data-repo-action="remote" data-repository="${escape(repo.repository_id)}">Remote policy</button>${repo.remote_policy!=='none'?`<button class="button secondary small" data-repo-action="fetch" data-repository="${escape(repo.repository_id)}">Fetch & inspect remote</button>`:''}${latest&&repo.remote_policy==='approved_push'?`<button class="button secondary small" data-repo-action="publish" data-repository="${escape(repo.repository_id)}">Request publication approval</button>`:''}`;
+}
+function projectApprovals() {
+  return [...(state.project_approvals??[])].reverse().map(a=>{
+    const op=state.project_operations.find(o=>o.operation_id===a.operation_id);const e=JSON.parse(op.envelope);
+    return `<article class="panel task-card"><header><strong>Publish integrated repository commit</strong>${status(a.status)}</header><p>Trusted service operation · no root access</p>${details({repository:e.identity,branch:e.target_branch,expected_remote_sha:e.expected_old_sha,new_integrated_sha:e.new_sha,project:e.project_id,reason:op.reason,expires:a.expires_at,status:op.status,error:op.error,result:op.result?JSON.parse(op.result):null})}<details><summary>Exact approval envelope</summary><pre>${escape(JSON.stringify(e,null,2))}</pre></details><div class="card-actions">${a.status==='pending'?`<button class="button primary" data-project-approval="${escape(a.approval_id)}" data-approved="true">Approve exact publication</button><button class="button danger" data-project-approval="${escape(a.approval_id)}" data-approved="false">Deny</button>`:''}${op.status==='running'?`<button class="button secondary" data-publication-retry="${escape(op.operation_id)}">Reconcile & retry this operation</button>`:''}</div></article>`;
+  }).join('');
+}
+const field=(label,name,value='',type='text')=>`<label>${escape(label)}${type==='textarea'?`<textarea name="${name}" required>${escape(value)}</textarea>`:`<input name="${name}" type="${type}" value="${escape(value)}" required>`}</label>`;
+function projectForm(title,fields,action,submit='Save') {
+  inspect(title,`<form id="project-form" class="profile-form">${fields}<p id="project-form-error" role="alert"></p><button class="button primary" type="submit">${escape(submit)}</button></form>`);
+  $('#project-form').onsubmit=async event=>{
+    event.preventDefault();const button=event.target.querySelector('button[type=submit]');button.disabled=true;
+    try{await action(new FormData(event.target));$('#inspect').close();await refresh();}
+    catch(error){$('#project-form-error').textContent=error.message;button.disabled=false;}
+  };
+}
+async function projectAction(kind) {
+  const project=state.projects.find(p=>p.project_id===selectedProject);
+  if(kind==='create'){
+    const defaults=await request('projects/defaults');
+    projectForm('Create a software Project',field('Name','name')+field('Description','description','','textarea')+field('Instructions','instructions','Use bounded source changes and independent review.','textarea'),async f=>{const p=await request('projects/create',{name:f.get('name'),description:f.get('description'),instructions:f.get('instructions'),policy:defaults.policy});selectedProject=p.project_id;},'Create Project');return;
+  }
+  if(kind==='policy'){
+    const parsed=JSON.parse(project.policy);
+    const instructions=field('Project instructions','instructions',project.instructions,'textarea');
+    const help='<p>Named recipes use the Node test runner with explicit repository-relative test files. Configure focused and full stages before assigning work. Maximum runtime: 30 seconds. Tests may write only in the disposable build directory. Linux limits that directory to 64 MiB. The runtime disables JIT and WebAssembly. Dependency installation is unavailable.</p>';
+    const example={recipe_id:'unit',name:'Unit tests',stage:'focused',executable:'node',argv:['--test','test/unit.test.mjs'],cwd:'.',timeout_ms:10000,output_bytes:8000,environment:'isolated'};
+    if(project.status!=='active'){inspect('Archived Project policy',`<pre>${escape(JSON.stringify({instructions:project.instructions,policy:parsed},null,2))}</pre>`);return;}
+    projectForm('Project instructions & validation policy',instructions+help+`<details><summary>Recipe example</summary><pre>${escape(JSON.stringify(example,null,2))}</pre><p>Add a second named recipe with stage “full” for integration acceptance.</p></details>`+field('Trusted policy (JSON)','policy',JSON.stringify(parsed,null,2),'textarea'),f=>request('projects/update',{project_id:project.project_id,instructions:f.get('instructions'),policy:JSON.parse(f.get('policy'))}));return;
+  }
+  if(kind==='archive'){
+    projectForm('Archive '+project.name,`<p>Archive releases worker clone access and blocks new Project work. Canonical Git, clones, submissions, review rounds and integration history are retained. Outstanding work or publication must be resolved first.</p>${details({project_id:project.project_id,name:project.name})}`,()=>request('projects/archive',{project_id:project.project_id}),'Archive & release access');return;
+  }
+  const fields=field('Repository name','name')+field('Default branch','default_branch','main')+(kind==='import'?'<label>Git bundle (maximum 4 MiB)<input type="file" name="bundle" required></label>':kind==='remote'?field('Public GitHub HTTPS URL','url','https://github.com/owner/repository.git'):'<p>The service creates a managed repository with a minimal README commit.</p>');
+  projectForm(kind==='import'?'Import a repository bundle':kind==='remote'?'Register a public GitHub repository':'Create managed repository',fields,async f=>{
+    const repository={name:f.get('name'),default_branch:f.get('default_branch')};
+    if(kind==='import'){
+      const file=f.get('bundle');if(file.size>4*1024*1024)throw Error('Bundle exceeds 4 MiB');
+      repository.bundle=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('Could not read bundle'));reader.readAsDataURL(file);});
+    }
+    if(kind==='remote'){repository.url=f.get('url');repository.policy='fetch_only';}
+    await request('projects/repositories/'+kind,{project_id:project.project_id,repository});
+  },'Register repository');
+}
+function repoAction(kind,id) {
+  const repo=state.repositories.find(r=>r.repository_id===id);
+  if(kind==='objective')projectForm('Assign a Project objective',field('Objective','objective','','textarea')+field('Acceptance criteria','acceptance_criteria','','textarea')+field('Constraints','constraints','Stay within assigned scopes and named recipes. No external publication by workers.','textarea'),f=>request('projects/objective',{project_id:repo.project_id,repository_id:id,objective:f.get('objective'),acceptance_criteria:f.get('acceptance_criteria'),constraints:f.get('constraints')}),'Assign to Atlas');
+  if(kind==='remote')projectForm('Repository remote policy',field('Credential-free GitHub HTTPS URL','url',repo.remote_url??'https://github.com/owner/repository.git')+`<label>Remote policy<select name="policy">${['none','fetch_only','approved_push'].map(p=>`<option value="${p}" ${p===repo.remote_policy?'selected':''}>${p.replaceAll('_',' ')}</option>`).join('')}</select></label><p>Workers receive no remote credentials. Publication requires a separate exact human approval. Authenticated publication needs an operator-configured credential on the HQ host.</p>`,f=>request('projects/remote/configure',{repository_id:id,url:f.get('url'),policy:f.get('policy')}));
+  if(kind==='fetch')void mutate('projects/remote/fetch',{repository_id:id}).catch(()=>{});
+  if(kind==='publish'){
+    const integration=state.integrations.filter(i=>i.repository_id===id&&i.status==='completed'&&i.final_commit===repo.current_commit).at(-1);
+    projectForm('Request exact publication approval',details({remote:repo.remote_identity,branch:repo.default_branch,integrated_sha:integration.final_commit})+field('Reason','reason','Publish the tested integrated change.','textarea'),f=>request('projects/remote/request-push',{repository_id:id,integration_id:integration.integration_id,reason:f.get('reason')}),'Create approval request');
+  }
+}
+function wireProjectActions(root) {
+  root.querySelectorAll('[data-select-project]').forEach(b=>b.onclick=()=>{selectedProject=b.dataset.selectProject;render();});
+  root.querySelectorAll('[data-project-action]').forEach(b=>b.onclick=()=>void projectAction(b.dataset.projectAction).catch(showError));
+  root.querySelectorAll('[data-repo-action]').forEach(b=>b.onclick=()=>repoAction(b.dataset.repoAction,b.dataset.repository));
+  root.querySelectorAll('[data-release]').forEach(b=>b.onclick=()=>{projectForm('Release completed allocation access',details({allocation_id:b.dataset.release,action:'Revoke access; retain clone and evidence'}),()=>request('projects/release',{allocation_id:b.dataset.release}),'Release access');});
+  root.querySelectorAll('[data-project-approval]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await mutate('projects/approvals/decide',{approval_id:b.dataset.projectApproval,approved:b.dataset.approved==='true'});}catch{b.disabled=false;}});
+  root.querySelectorAll('[data-publication-retry]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await mutate('projects/remote/retry',{operation_id:b.dataset.publicationRetry});}catch{b.disabled=false;}});
+}

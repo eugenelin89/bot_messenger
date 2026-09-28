@@ -30,6 +30,14 @@ export class Infrastructure {
   project(allocationId: string) { return this.store.get<ProjectBinding>('SELECT * FROM worker_project_bindings WHERE allocation_id=?', allocationId); }
   clonePath(workerId: string, allocationId: string) { return join('/var/lib/botsquad-workers', identityName(workerId), 'projects', allocationId); }
   operations() { return this.store.all<ProtectedOperation>('SELECT * FROM protected_operations ORDER BY requested_at,rowid'); }
+  private visibleOperation(op:ProtectedOperation){
+    const parameters=JSON.parse(op.parameters);
+    if(typeof parameters.bundle!=='string')return op;
+    if(typeof parameters.bundle==='string'){
+      const bytes=Buffer.from(parameters.bundle,'base64');parameters.bundle={omitted:true,bytes:bytes.length,base64_sha256:hash(bytes.toString('base64'))};
+    }
+    return {...op,parameters:JSON.stringify(parameters)};
+  }
   approvals() { this.expire(); return this.store.all<Approval>('SELECT * FROM approvals ORDER BY requested_at,rowid'); }
   operation(operationId: string) { const op = this.store.get<ProtectedOperation>('SELECT * FROM protected_operations WHERE operation_id=?', operationId); requireThat(op, 'Protected operation not found'); return op; }
   private event(type: string, op: ProtectedOperation, extra: object = {}, actor = op.requester_principal_id) {
@@ -45,7 +53,7 @@ export class Infrastructure {
     requireThat(!['ceo','cto','devops'].includes(worker.role), 'Manager or Nix retirement is outside the bounded retirement workflow');
     requireThat(!this.store.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'", workerId), 'Active worker execution prevents retirement');
     requireThat(!this.store.get("SELECT 1 FROM tasks WHERE assignee_worker_id=? AND status NOT IN ('completed','failed','cancelled')", workerId), 'Resolve outstanding worker tasks before retirement');
-    requireThat(!this.store.get("SELECT 1 FROM allocations WHERE worker_id=? AND status!='integrated'", workerId), 'Unintegrated engineering work prevents retirement');
+    requireThat(!this.store.get("SELECT 1 FROM allocations WHERE worker_id=? AND status NOT IN ('integrated','released')", workerId), 'Unintegrated engineering work prevents retirement');
     requireThat(!this.company.workers().some(w => w.manager_worker_id === workerId && w.enabled), 'Active subordinates prevent retirement');
   }
   private preconditions(type: ProtectedType, workerId: string, allocationId?: string) {
@@ -122,13 +130,13 @@ export class Infrastructure {
     }
     if (task.kind === 'engineering') {
       const allocation = this.store.get<Allocation>('SELECT * FROM allocations WHERE task_id=?', task.task_id);
-      return !!allocation && this.project(allocation.allocation_id)?.state === 'ready' && this.company.engineering.allocations().filter(a => a.repository_id === allocation.repository_id).every(a => this.project(a.allocation_id)?.state === 'ready' && this.identityReady(a.worker_id));
+      return !!allocation && this.project(allocation.allocation_id)?.state === 'ready' && this.company.engineering.allocations().filter(a => this.company.task(a.task_id).parent_task_id === task.parent_task_id && !['integrated','released'].includes(a.status)).every(a => this.project(a.allocation_id)?.state === 'ready' && this.identityReady(a.worker_id));
     }
     return true;
   }
   context(task: Task) {
     const infra = this.store.get<InfraTask>('SELECT * FROM infrastructure_tasks WHERE task_id=?', task.task_id);
-    return infra ? { ...infra, target: this.company.worker(infra.target_worker_id), identity: this.identity(infra.target_worker_id), operations: this.operations().filter(op => op.task_id === task.task_id).map(op => ({ ...op, parameters: JSON.parse(op.parameters) })) } : undefined;
+    return infra ? { ...infra, target: this.company.worker(infra.target_worker_id), identity: this.identity(infra.target_worker_id), operations: this.operations().filter(op => op.task_id === task.task_id).map(op => ({ ...this.visibleOperation(op), parameters: JSON.parse(this.visibleOperation(op).parameters) })) } : undefined;
   }
   execute(name: string, input: unknown, actor: Actor): unknown {
     requireThat(actor.worker.role === 'devops' && actor.task.kind === 'infrastructure' && this.identityReady(actor.worker.worker_id), 'Only ready Nix may use infrastructure tools');
@@ -139,7 +147,7 @@ export class Infrastructure {
     const type = ({ request_create_worker_identity: 'create_worker_identity', request_disable_worker_identity: 'disable_worker_identity', request_project_access: 'prepare_worker_project_clone', request_project_revocation: 'revoke_worker_project_access' } as Record<string, ProtectedType>)[name];
     requireThat(type && type === infra.operation_type, 'Tool operation differs from assigned infrastructure task');
     requireThat(actor.worker.capability_profile.includes(infra.allocation_id ? 'request_project_access' : 'request_worker_identity'), 'Missing DevOps request capability');
-    return this.request(type, infra.target_worker_id, textField(a, 'reason', 2000), actor, infra.allocation_id ?? undefined);
+    return this.visibleOperation(this.request(type, infra.target_worker_id, textField(a, 'reason', 2000), actor, infra.allocation_id ?? undefined));
   }
   private validate(op: ProtectedOperation, approval: Approval) {
     requireThat(approval.operation_id === op.operation_id && op.approval_id === approval.approval_id && approval.envelope_hash === hash(this.envelope(op)) && op.parameter_hash === hash(op.parameters), 'Approval envelope or payload mismatch');
@@ -266,7 +274,7 @@ export class Infrastructure {
     }
   }
   snapshot() {
-    return { backend: this.host.backend, isolated: this.linux, identities: this.company.workers().map(w => this.identity(w.worker_id)), approvals: this.approvals(), operations: this.operations(),
+    return { backend: this.host.backend, isolated: this.linux, identities: this.company.workers().map(w => this.identity(w.worker_id)), approvals: this.approvals(), operations: this.operations().map(op=>this.visibleOperation(op)),
       retirements: this.store.all('SELECT * FROM retirement_revocations'), projects: this.store.all<ProjectBinding>('SELECT * FROM worker_project_bindings'), tasks: this.store.all<InfraTask>('SELECT * FROM infrastructure_tasks') };
   }
 }

@@ -1,4 +1,28 @@
-// Trusted, immutable acceptance tests. Engineers edit their module and optional extra tests only.
+// Explicit legacy regression fixture. The general engine receives data/scopes/recipes
+// from this adapter; these product names and paths confer no additional authority.
+import { DEFAULT_POLICY, type ProjectPolicy } from '../domain/projects.js';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { runProduct } from './product-runner.js';
+
+export function squadPolicy(): ProjectPolicy {
+  return { ...DEFAULT_POLICY, protected_paths: ['AGENTS.md','.github/','.botsquad/'], recipes: ['calculate','format','full'].map(name => ({
+    recipe_id:name,name,stage:name === 'full' ? 'full' : 'focused',executable:'node',argv:['--test',...(name === 'full' ? ['calculate','format','integrated'] : [name]).map(m => `test/${m}.test.mjs`)],cwd:'.',timeout_ms:10000,output_bytes:64000,environment:'isolated',
+  })) };
+}
+export function squadAssignment(module: string) {
+  if (!['calculate','format'].includes(module)) throw new Error('Invalid legacy module');
+  return { write_scope:[`src/${module}.mjs`,`test/${module}.extra.test.mjs`],recipe_ids:[module],
+    objective:`Implement ${module} for SquadStatus. Read the specification and immutable focused tests. Edit only your module and optional extra test. Run focused tests and submit verified changes.`,acceptance_criteria:PRODUCT_CONTRACT };
+}
+export function squadValidation(root: string, module?: string) {
+  const names = module ? [module] : ['calculate','format','integrated'];
+  const tests = [...names.map(m => `test/${m}.test.mjs`),...names.map(m => `test/${m}.extra.test.mjs`).filter(p => existsSync(join(root,p)))];
+  const validation = runProduct(root,tests);
+  if (module) return validation;
+  const output = validation.passed ? runProduct(root,['cli.mjs'],true) : undefined;
+  return { tests:validation,output,passed:validation.passed && output?.passed === true && output.output.trim() === 'Total: 4\nWorking: 2\nIdle: 1\nBlocked: 1\nFailed: 0' };
+}
 export const SQUAD_FILES: Record<string, string> = {
   'package.json': JSON.stringify({ name: 'squad-status', version: '0.0.1', private: true, type: 'module', scripts: { test: 'node --test test/*.test.mjs' } }, null, 2) + '\n',
   'README.md': '# SquadStatus\n\nDependency-free worker status summary. Run `node cli.mjs`; test with `node --test test/*.test.mjs`.\n',

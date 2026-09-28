@@ -1,6 +1,7 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { migrateProjects } from './projects-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -65,7 +66,7 @@ CREATE TABLE wake_events (
 );
 `;
 
-const migration2 = `
+export const migration2 = `
 CREATE TABLE legacy_runtime_bindings (worker_id TEXT PRIMARY KEY REFERENCES workers);
 INSERT INTO legacy_runtime_bindings SELECT worker_id FROM runtime_bindings;
 ALTER TABLE tasks ADD COLUMN kind TEXT NOT NULL DEFAULT 'research';
@@ -195,7 +196,9 @@ export class Store {
     this.db = new DatabaseSync(path);
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
-    this.transaction(() => {
+    const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
+    if (projectMigration) this.db.exec('PRAGMA foreign_keys=OFF');
+    try { this.transaction(() => {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=1')) {
         this.db.exec(migration1);
         this.run('INSERT INTO schema_migrations VALUES (1,?)', new Date().toISOString());
@@ -212,7 +215,11 @@ export class Store {
         this.db.exec(migration4);
         this.run('INSERT INTO schema_migrations VALUES (4,?)', new Date().toISOString());
       }
-    });
+      if (projectMigration) {
+        migrateProjects(this.db);
+        this.run('INSERT INTO schema_migrations VALUES (5,?)', new Date().toISOString());
+      }
+    }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }
   get<T>(sql: string, ...params: SQLInputValue[]): T | undefined { return this.db.prepare(sql).get(...params) as T | undefined; }

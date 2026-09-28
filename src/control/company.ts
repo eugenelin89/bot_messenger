@@ -6,6 +6,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { Engineering, ENGINEERING_TOOLS } from './engineering.js';
+import { Projects } from './projects.js';
+import { GithubTransport, RemoteProjects, type RemoteTransport } from './remote-git.js';
 import { Store } from '../persistence/store.js';
 import {
   COMPANY_CEILING, CEO_CAPABILITIES, DEVOPS_CAPABILITIES, CTO_DELEGATABLE, PROFILES, type Profile, assertCapabilities, assertTransition, requireThat, strictObject, textField,
@@ -34,15 +36,19 @@ export class Company extends EventEmitter {
   readonly dataDir: string;
   readonly engineering: Engineering;
   readonly infrastructure: Infrastructure;
+  readonly projects: Projects;
+  readonly remote: RemoteProjects;
   readonly referenceDocs: ReadonlyMap<string, string>;
-  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient) {
+  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
     mkdirSync(dataDir, { recursive: true, mode: 0o700 });
     this.dataDir = realpathSync(dataDir);
     mkdirSync(join(this.dataDir, 'workspaces'), { recursive: true, mode: 0o700 });
     mkdirSync(join(this.dataDir, 'artifacts'), { recursive: true, mode: 0o700 });
     this.infrastructure = new Infrastructure(this, host);
+    this.projects = new Projects(this);
     this.engineering = new Engineering(this, realpathSync(repoRoot));
+    this.remote = new RemoteProjects(this,remoteTransport ?? new GithubTransport(realpathSync(repoRoot)));
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
@@ -132,6 +138,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       this.store.run('INSERT OR IGNORE INTO runtime_bindings (worker_id,runtime_type,runtime_reference,workspace_path,created_at,thread_name) VALUES (?,?,?,?,?,?)', binding.worker_id, binding.runtime_type, binding.runtime_reference, binding.workspace_path, binding.created_at, binding.thread_name ?? null);
       requireThat(this.binding(worker.worker_id)?.runtime_reference === binding.runtime_reference, 'Runtime reference already belongs to another worker');
+      this.store.run('INSERT OR IGNORE INTO runtime_tool_versions VALUES (?,5)',worker.worker_id);
       this.store.run('UPDATE executions SET runtime_reference=? WHERE execution_id=?', binding.runtime_reference, context.executionId);
     });
   }
@@ -173,6 +180,20 @@ export class Company extends EventEmitter {
       return task;
     });
   }
+  assignProjectObjective(projectId: string, repositoryId: string, input: TaskInput): Task {
+    const repo = this.projects.repository(repositoryId);
+    requireThat(repo.project_id === projectId, 'Project/repository mismatch');
+    const policy = this.projects.policy(projectId);
+    requireThat(policy.recipes.some(r => r.stage === 'full') && policy.recipes.some(r => r.stage === 'focused'), 'Configure focused and full validation recipes first');
+    requireThat(!this.store.get("SELECT 1 FROM task_scopes s JOIN tasks t USING(task_id) WHERE s.repository_id=? AND t.kind='product' AND t.status NOT IN ('completed','failed','cancelled')", repositoryId), 'Repository objective already active');
+    requireThat(!this.store.get("SELECT 1 FROM project_operations WHERE repository_id=? AND status IN ('pending','running')",repositoryId),'Resolve publication before assigning new work');
+    if (this.infrastructure.linux) this.infrastructure.requireReadyNix();
+    return this.store.transaction(() => {
+      const atlas = this.initializeCEO(); const task = this.createTask('human',atlas,input,null,'product');
+      this.store.run('INSERT INTO task_scopes VALUES (?,?)',task.task_id,repositoryId);
+      this.message('human',input.objective,task.task_id,null,atlas.worker_id); return task;
+    });
+  }
   createTask(requester: string, worker: Worker, input: TaskInput, parent: string | null, kind: Task['kind'] = 'research', createdExecution: string | null = null): Task {
     requireThat(worker.enabled, 'Worker is disabled');
     requireThat(worker.lifecycle !== 'temporary' || !this.store.get('SELECT task_id FROM tasks WHERE assignee_worker_id=?', worker.worker_id), 'Temporary workers accept one lifetime assignment; use a persistent worker for a queue');
@@ -180,6 +201,10 @@ export class Company extends EventEmitter {
     const taskId = id('task'); const timestamp = now();
     this.store.run("INSERT INTO tasks (task_id,requester,assignee_worker_id,objective,acceptance_criteria,constraints,parent_task_id,status,blocking_reason,result_summary,dispatch_reason,created_at,updated_at,kind,created_execution_id) VALUES (?,?,?,?,?,?,?,'queued',NULL,NULL,'assignment',?,?,?,?)", taskId, requester, worker.worker_id,
       textField(validated, 'objective'), textField(validated, 'acceptance_criteria'), textField(validated, 'constraints'), parent, timestamp, timestamp, kind, createdExecution);
+    if (parent) {
+      const scope = this.store.get<{repository_id:string}>('SELECT * FROM task_scopes WHERE task_id=?',parent);
+      if (scope) { this.projects.repository(scope.repository_id); this.store.run('INSERT INTO task_scopes VALUES (?,?)',taskId,scope.repository_id); }
+    }
     this.audit('task_created', requester, {}, worker.worker_id, taskId);
     this.audit('task_assigned', requester, { parent_task_id: parent }, worker.worker_id, taskId);
     this.refreshWorker(worker.worker_id); this.changed();
@@ -207,6 +232,7 @@ export class Company extends EventEmitter {
       if (this.store.get<{ n: number }>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
       const task = this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
+        AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
         (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
       if (!task) return;
@@ -233,9 +259,10 @@ export class Company extends EventEmitter {
       if (outcome.status === 'completed') {
         requireThat(summary.trim(), 'Runtime returned no final result');
         // An objective that delegated work remains open until a later execution evaluates it.
-        const waiting = children.some(c => c.created_execution_id === executionId) || (task.kind === 'research' && children.length > 0 && task.dispatch_reason !== 'child_results');
-        if (!waiting) this.engineering.assertDeliverable(task);
-        if (!this.infrastructure.finishTask(task, execution)) this.transition(task, waiting ? 'blocked' : 'completed', waiting ? 'waiting_children' : null);
+        const waiting = children.some(c => c.created_execution_id === executionId || !terminal(c.status)) || (task.kind === 'research' && children.length > 0 && task.dispatch_reason !== 'child_results');
+        const integration = this.engineering.waitingIntegration(task);
+        if (!waiting && !integration) this.engineering.assertDeliverable(task);
+        if (!this.infrastructure.finishTask(task, execution)) this.transition(task, waiting || integration ? 'blocked' : 'completed', integration ? 'waiting_integration' : waiting ? 'waiting_children' : null);
         this.store.run('UPDATE tasks SET result_summary=? WHERE task_id=?', summary, task.task_id);
         this.message(worker.principal_id, summary, task.task_id, executionId, worker.manager_worker_id);
       } else {
@@ -245,6 +272,7 @@ export class Company extends EventEmitter {
       this.audit(`execution_${outcome.status}`, 'system', { error: outcome.error ?? null }, worker.worker_id, task.task_id, executionId);
       if (outcome.status === 'failed') this.audit('worker_failed', 'system', {}, worker.worker_id, task.task_id, executionId);
       if (terminal(this.task(task.task_id).status)) this.recordWake(this.task(task.task_id));
+      this.engineering.afterFinish(this.task(task.task_id));
       this.settleParents(); this.refreshWorker(worker.worker_id);
       if (terminal(this.task(task.task_id).status)) this.retireTemporary(worker, task.task_id);
     }); this.changed();
@@ -284,6 +312,10 @@ export class Company extends EventEmitter {
       this.settleParents();
       for (const w of this.workers()) this.refreshWorker(w.worker_id);
     });
+    this.remote.recover();
+    for(const project of this.projects.list().filter(p=>p.status==='archiving')){
+      try{this.projects.archive(project.project_id);}catch{this.audit('project_archive_pending','system',{project_id:project.project_id});}
+    }
   }
   retry(taskId: string, inspected: boolean) {
     requireThat(inspected === true, 'Inspect prior attempts and artifacts before retry');
@@ -295,7 +327,7 @@ export class Company extends EventEmitter {
       requireThat(this.worker(task.assignee_worker_id).enabled, 'Worker is retired; create a new objective with an enabled worker');
       if (task.parent_task_id) {
         const parent = this.task(task.parent_task_id);
-        requireThat(parent.dispatch_reason !== 'child_results' && !terminal(parent.status), 'Child result has been handed back to the manager; create a new objective for further work');
+        requireThat((parent.dispatch_reason !== 'child_results' || parent.blocking_reason === 'waiting_children') && !terminal(parent.status), 'Child result has been handed back to the manager; create a new objective for further work');
       }
       requireThat(!this.children(taskId).some(t => !terminal(t.status)), 'Child work is still unresolved');
       this.transition(task, 'queued');
@@ -324,6 +356,8 @@ export class Company extends EventEmitter {
   context(context: ExecutionContext) {
     const { worker, task } = this.verifyContext(context);
     requireThat(task.kind === 'research' || !this.store.get('SELECT 1 FROM legacy_runtime_bindings WHERE worker_id=?', worker.worker_id), 'Retained Prompt 01 runtime binding has a research-only tool schema. Use a fresh BOT_DATA_DIR for engineering; implicit thread replacement is forbidden.');
+    const scope=this.store.get<{source_kind:string}>('SELECT r.source_kind FROM task_scopes s JOIN repositories r USING(repository_id) WHERE s.task_id=?',task.task_id);
+    requireThat(!scope||scope.source_kind==='legacy_squadstatus'||!['cto','engineer','reviewer'].includes(worker.role)||!this.store.get('SELECT 1 FROM runtime_tool_versions WHERE worker_id=? AND schema_version<5',worker.worker_id),'Retained engineering thread has the legacy tool schema. It remains bound and usable for legacy work; generalized engineering needs a Prompt 05 tool binding. Implicit thread replacement is forbidden.');
     return { infrastructure: this.infrastructure.context(task), engineering: this.engineering.context(task), worker: { worker_id: worker.worker_id, display_name: worker.display_name, role: worker.role, mission: worker.mission,
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
@@ -426,7 +460,7 @@ export class Company extends EventEmitter {
     // them in the outer receipt transaction, which could erase crash evidence.
     try { return Object.hasOwn(ENGINEERING_TOOLS, name) || (INFRASTRUCTURE_TOOLS as readonly string[]).includes(name) ? perform() : this.store.transaction(perform); }
     catch (error) {
-      if (name === 'read_source' || name === 'write_source') {
+      if (name === 'read_source' || name === 'write_source' || name === 'delete_source') {
         // Attribute valid sessions only; never retain rejected source content or raw paths.
         try { this.engineering.recordAccessDenied(this.verifyContext(context), name, input); } catch {}
       }
@@ -444,7 +478,7 @@ export class Company extends EventEmitter {
     return this.store.get<Artifact>('SELECT * FROM artifacts WHERE artifact_id=?', artifactId)!;
   }
   snapshot() {
-    return { infrastructure: this.infrastructure.snapshot(), wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
+    return { projects:this.projects.list(), review_rounds:this.engineering.rounds(), revision_requests:this.store.all('SELECT * FROM revision_requests ORDER BY created_at'), project_operations:this.remote.operations(), project_approvals:this.remote.approvals(), project_receipts:this.store.all('SELECT * FROM project_operation_receipts'), allocation_releases:this.store.all('SELECT * FROM allocation_releases'), task_scopes:this.store.all('SELECT * FROM task_scopes'), runtime_tool_versions:this.store.all('SELECT * FROM runtime_tool_versions'), infrastructure: this.infrastructure.snapshot(), wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
       principals: this.store.all<Principal>('SELECT * FROM principals'),
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),

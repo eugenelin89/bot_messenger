@@ -6,16 +6,17 @@ import { join } from 'node:path';
 import { Company, DEFAULT_OBJECTIVE } from '../control/company.js';
 import { Dispatcher } from '../control/dispatcher.js';
 import { DomainError, requireThat, strictObject, textField } from '../domain/model.js';
+import {DEFAULT_POLICY,HARD_BOUNDS} from '../domain/projects.js';
 
 const securityHeaders = {
   'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
   'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'Cache-Control': 'no-store',
 };
-async function readBody(req: IncomingMessage): Promise<unknown> {
+async function readBody(req: IncomingMessage, limit=64000): Promise<unknown> {
   requireThat(req.headers['content-type']?.split(';')[0] === 'application/json', 'JSON body required');
   const chunks: Buffer[] = []; let length = 0;
   for await (const chunk of req) {
-    length += (chunk as Buffer).length; requireThat(length <= 64000, 'Request is too large'); chunks.push(chunk as Buffer);
+    length += (chunk as Buffer).length; requireThat(length <= limit, 'Request is too large'); chunks.push(chunk as Buffer);
   }
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown; }
   catch { throw new DomainError('Malformed JSON'); }
@@ -43,6 +44,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (req.method === 'GET') {
         if (path === '/api/health') { json(200, { alive: true, database: !!company.store.get('SELECT 1'), dispatcher: dispatcher.initialized, runtime: dispatcher.runtimeState, version: '0.1.0', commit: deployedCommit }); return; }
         if (path === '/api/runtime') { json(200, await dispatcher.runtimeCatalog()); return; }
+        if (path === '/api/projects/defaults') {json(200,{policy:DEFAULT_POLICY,hard_bounds:HARD_BOUNDS,supported_runtime:'Node test runner; explicit files; isolated temporary build area'});return;}
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
         if (path === '/api/events') {
@@ -61,9 +63,25 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (req.method !== 'POST') { json(405, { error: 'Method not allowed' }); return; }
       const supplied = req.headers['x-botsquad-token'];
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
-      const body = await readBody(req);
+      const body = await readBody(req,path==='/api/projects/repositories/import'?Math.ceil(HARD_BOUNDS.bundle_bytes*4/3)+2048:64000);
       if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }
       else if (path === '/api/initialize-nix') { strictObject(body, []); json(200, company.initializeNix()); }
+      else if(path==='/api/projects/create'){json(201,company.projects.create(body));}
+      else if(path==='/api/projects/update'){const a=strictObject(body,['project_id','instructions','policy']);json(200,company.projects.update(textField(a,'project_id',100),{instructions:a.instructions,policy:a.policy}));}
+      else if(path==='/api/projects/archive'){const a=strictObject(body,['project_id']);json(200,company.projects.archive(textField(a,'project_id',100)));}
+      else if(path==='/api/projects/release'){const a=strictObject(body,['allocation_id']);company.projects.release(textField(a,'allocation_id',100));json(200,{released:true});}
+      else if(path==='/api/projects/repositories/local'||path==='/api/projects/repositories/import'||path==='/api/projects/repositories/remote'){
+        const kind=path.split('/').at(-1)!;const a=strictObject(body,['project_id','repository']);const projectId=textField(a,'project_id',100);
+        json(201,kind==='local'?company.projects.local(projectId,a.repository):kind==='import'?company.projects.import(projectId,a.repository):company.remote.register(projectId,a.repository));
+      }
+      else if(path==='/api/projects/objective'){
+        const a=strictObject(body,['project_id','repository_id','objective','acceptance_criteria','constraints']);json(201,company.assignProjectObjective(textField(a,'project_id',100),textField(a,'repository_id',100),{objective:textField(a,'objective'),acceptance_criteria:textField(a,'acceptance_criteria'),constraints:textField(a,'constraints')}));
+      }
+      else if(path==='/api/projects/remote/configure'){const a=strictObject(body,['repository_id','url','policy']);json(200,company.remote.attach(textField(a,'repository_id',100),{url:a.url,policy:a.policy}));}
+      else if(path==='/api/projects/remote/fetch'){const a=strictObject(body,['repository_id']);json(200,company.remote.fetch(textField(a,'repository_id',100)));}
+      else if(path==='/api/projects/remote/request-push'){const a=strictObject(body,['repository_id','integration_id','reason']);json(201,company.remote.requestPush(textField(a,'repository_id',100),{integration_id:a.integration_id,reason:a.reason}));}
+      else if(path==='/api/projects/approvals/decide'){const a=strictObject(body,['approval_id','approved']);const operation=company.remote.decide(textField(a,'approval_id',100),{approved:a.approved});json(200,a.approved?company.remote.execute(operation.operation_id):operation);}
+      else if(path==='/api/projects/remote/retry'){const a=strictObject(body,['operation_id']);json(200,company.remote.execute(textField(a,'operation_id',100)));}
       else if (path === '/api/approvals/decide') { json(200, company.infrastructure.decide(body)); }
       else if (path === '/api/infrastructure/request') {
         const a = strictObject(body, ['worker_id','operation_type','allocation_id']);

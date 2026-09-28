@@ -34,10 +34,31 @@ class Protocol(unittest.TestCase):
 
     def test_write_scope(self):
         base = dict(type='write_project_source', operation_id=OP, worker_id=WORKER, allocation_id=ALLOC, content='x')
-        for path in ['/etc/passwd', '../src/calculate.mjs', '.git/config', 'src/x.mjs', 'src/calculate.mjs;id']:
+        for path in ['/etc/passwd', '../src/calculate.mjs', '.git/config', 'src/calculate.mjs;id', 'a//b', 'src/.git/x']:
             with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(base, path=path)).encode())
-        with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(base, path='src/calculate.mjs', content='a' * 16001)).encode())
+        with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(base, path='src/calculate.mjs', content='a' * (p.FILE_LIMIT+1))).encode())
         p.parse(json.dumps(dict(base, path='src/calculate.mjs')).encode())
+
+    def test_persisted_legacy_and_generic_scope(self):
+        legacy = {'module': 'calculate', 'task_id': 'task_12345678-1234-1234-1234-123456789abc'}
+        p.authorize_path(legacy, 'src/calculate.mjs')
+        for path in ['src/x.mjs', 'src/format.mjs', 'test/calculate.test.mjs']:
+            with self.assertRaises(p.Rejected): p.authorize_path(legacy, path)
+        manifest = dict(allocation_id=ALLOC,worker_id=WORKER,repository_id='repository_12345678-1234-1234-1234-123456789abc',
+                        task_id=legacy['task_id'],branch_name='botsquad/task/'+legacy['task_id'],base_commit='a'*40,
+                        write_scope=['src/parser/'],protected_paths=['AGENTS.md','.github/','.botsquad/','src/parser/protected/'],
+                        bounds=dict(repository_bytes=16*1024*1024,bundle_bytes=p.BUNDLE_LIMIT,files=1000,file_bytes=p.FILE_LIMIT,diff_bytes=256*1024,changed_files=100,commits=16))
+        request = dict(type='prepare_worker_project_clone',operation_id=OP,default_branch='trunk',bundle='YQ==',manifest=json.dumps(manifest),manifest_hash=p.digest(p.canonical(manifest).encode()),
+                       **{k:manifest[k] for k in ('allocation_id','worker_id','repository_id','task_id','base_commit')})
+        self.assertEqual(p.parse(json.dumps(request).encode()), request)
+        project = dict(manifest=manifest,manifest_hash=request['manifest_hash'])
+        for path in ['src/parser/new.mjs','src/parser/nested/test.mjs']: p.authorize_path(project,path)
+        for path in ['src/other/a.mjs','src/parser/AGENTS.md','src/parser/protected/a.mjs','src/parser/.git/config']:
+            with self.assertRaises(p.Rejected): p.authorize_path(project,path)
+        with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(request,manifest_hash='0'*64)).encode())
+        with self.assertRaises(p.Rejected): p.parse(json.dumps(dict(request,worker_id='worker_aaaaaaaa-1234-1234-1234-123456789abc')).encode())
+        manifest['write_scope']=['src/']
+        with self.assertRaises(p.Rejected): p.authorize_path(project,'src/other/a.mjs')
 
     def test_receipt_replay_and_payload_mismatch(self):
         with tempfile.TemporaryDirectory() as temporary, patch.object(p, 'STATE', Path(temporary)):

@@ -10,3 +10,11 @@
 .profile-form select { width: 100%; padding: 10px; border: 1px solid #cad5dc; border-radius: 6px; background: white; color: #152e3f; }
 .profile-form .check-review { display: flex; align-items: center; }
 #profile-error { color: #9f3029; }
+
+.project-selector { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+.profile-form input:not([type=checkbox]), .profile-form textarea { width:100%; border:1px solid #d5dcd7; border-radius:7px; padding:10px; background:#fff; color:#26332e; font:inherit; }
+.profile-form textarea { min-height:130px; resize:vertical; }
+.profile-form textarea[name=policy] { min-height:320px; font:12px/1.5 ui-monospace,monospace; }
+#project-form-error { color:#aa3b36; }
+.status.archived,.status.released { background:#edf0ed; color:#64716a; }
+.status.queued,.status.pending_infrastructure { background:#fff2ce; color:#7b651e; }

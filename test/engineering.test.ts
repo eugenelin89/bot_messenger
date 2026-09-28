@@ -25,7 +25,7 @@ test('Prompt 01 schema migrates without losing retained data and only trusted CE
   old.close();
   const migrated = new Store(path); t.after(() => migrated.close());
   assert.equal(migrated.get<{display_name:string}>("SELECT * FROM principals WHERE principal_id='human'")?.display_name, 'Retained Human');
-  assert.equal(migrated.all('SELECT * FROM schema_migrations').length, 4); assert.equal(migrated.all('SELECT * FROM repositories').length, 0);
+  assert.equal(migrated.all('SELECT * FROM schema_migrations').length, 5); assert.equal(migrated.all('SELECT * FROM repositories').length, 0);
   const company=new Company(migrated,f.dir,process.cwd(),'fake');
   assert.equal(company.task('old-task').result_summary,'Retained result');assert.equal(company.task('old-task').kind,'research');
   assert.equal(company.binding(atlas.worker_id)?.runtime_reference,'retained-thread');
@@ -81,7 +81,7 @@ test('atomic engineering allocation has distinct branches/worktrees and cannot d
   assert.ok(denials.every(e=>Object.keys(e).sort().join(',')==='scope,tool'));
   assert.throws(()=>call(f,a,'hire_worker',{...assign}),/Missing capability/);
   assert.throws(()=>call(f,a,'inspect_git',{allocation_id:own.allocation_id,command:'reset --hard'}),/identity-bearing/);
-  assert.throws(()=>f.store.run("INSERT INTO allocations SELECT 'dup',repository_id,worker_id,task_id,branch_name,worktree_path,base_commit,module,status,created_at,updated_at FROM allocations LIMIT 1"),/UNIQUE/);
+  assert.throws(()=>f.store.run("INSERT INTO allocations SELECT 'dup',repository_id,worker_id,task_id,branch_name,worktree_path,base_commit,module,status,created_at,updated_at,write_scope,protected_paths,recipe_ids,policy_snapshot,manifest_hash,revision_round,format_version FROM allocations LIMIT 1"),/UNIQUE/);
   const absolute=join(own.worktree_path,`src/${own.module}.mjs`);renameSync(absolute,absolute+'.saved');symlinkSync(join(other.worktree_path,`src/${other.module}.mjs`),absolute);
   assert.throws(()=>call(f,a,'write_source',{allocation_id:own.allocation_id,path:`src/${own.module}.mjs`,content:'escape'}),/symlink/);
 });
@@ -92,6 +92,9 @@ test('branch, metadata, task and ownership substitution are rejected before engi
   localGit(own.worktree_path,['switch','-c','unexpected-branch']);
   assert.throws(()=>call(f,a,'read_source',{allocation_id:own.allocation_id,path:'README.md'}),/branch\/identity/);
   localGit(own.worktree_path,['switch',own.branch_name]);
+  assert.throws(()=>f.store.run('UPDATE allocations SET worker_id=? WHERE allocation_id=?',e.grace.worker_id,own.allocation_id),/immutable/);
+  // Simulate corruption outside the application and its schema protections.
+  f.store.db.exec('DROP TRIGGER allocation_manifest_immutable');
   f.store.run('UPDATE allocations SET worker_id=? WHERE allocation_id=?',e.grace.worker_id,own.allocation_id);
   assert.throws(()=>call(f,a,'read_source',{allocation_id:own.allocation_id,path:'README.md'}),/mismatch/);
 });

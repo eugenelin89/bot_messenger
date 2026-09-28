@@ -32,7 +32,7 @@ export function linuxFilter(): Buffer {
   return bytes;
 }
 
-export function linuxProductCommand(root: string, executable: string, nodeArgs: string[]) {
+export function linuxProductCommand(root: string, executable: string, nodeArgs: string[], options: {writable:boolean;cwd:string} = {writable:false,cwd:'.'}) {
   requireThat(process.platform === 'linux' && process.arch === 'x64', 'Unsupported Linux confinement platform');
   requireThat(existsSync('/opt/botsquad-runtime/bwrap'), 'Linux confinement requires bubblewrap; run the Ubuntu bootstrap');
   requireThat(executable.startsWith('/opt/') || executable.startsWith('/usr/'), 'Linux Node must be installed in a trusted system runtime directory');
@@ -58,7 +58,12 @@ export function linuxProductCommand(root: string, executable: string, nodeArgs: 
     if (lstatSync(join(root, '.git')).isDirectory()) args.push('--tmpfs', '/work/.git', '--remount-ro', '/work/.git');
     else args.push('--ro-bind', '/dev/null', '/work/.git');
   }
-  args.push('--remount-ro', '/', '--chdir', '/work', '--setenv', 'LANG', 'C', '--setenv', 'TZ', 'UTC',
-    '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a));
-  return { command: '/opt/botsquad-runtime/bwrap', args, filterFd, close: () => closeSync(filterFd) };
+  // A single size-bounded scratch filesystem, never a writable host bind. Tests
+  // can build in /work/build; the repository snapshot remains read-only.
+  if(options.writable)args.push('--size','67108864','--tmpfs','/work/build','--dir','/work/build/.tmp');
+  args.push('--remount-ro', '/', '--chdir', options.cwd === '.' ? '/work' : `/work/${options.cwd}`, '--setenv', 'LANG', 'C', '--setenv', 'TZ', 'UTC',
+    '--setenv','TMPDIR','/work/build/.tmp', '--seccomp', '3', '--', '/runtime/node', ...nodeArgs.map(a => a === `--allow-fs-read=${root}` ? '--allow-fs-read=/work' : a === `--allow-fs-write=${root}/build` ? '--allow-fs-write=/work/build' : a));
+  return { command: options.writable?'/usr/bin/prlimit':'/opt/botsquad-runtime/bwrap',
+    args:options.writable?['--core=0','--data=536870912','--fsize=67108864','--cpu=30:32','--','/opt/botsquad-runtime/bwrap',...args]:args,
+    filterFd, close: () => closeSync(filterFd) };
 }

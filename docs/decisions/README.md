@@ -27,6 +27,7 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Accepted and validated | 2026-09-26 |
 | [012](decision_012_ios_remote_client.md) | Native clients use a stable authenticated API and private remote-access layer | Accepted (future architecture) | 2026-09-25 |
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
+| [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu acceptance pending | 2026-09-28 |
 
 ## Current deployment interpretation
 

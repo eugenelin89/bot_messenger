@@ -87,3 +87,23 @@ test('trusted human HTTP approval boundary rejects bots, foreign origins and act
   assert.equal((await post('approvals/decide', body)).status, 400);
   assert.equal(f.company.infrastructure.operations()[0]!.status, 'completed');
 });
+
+test('Project HTTP controls preserve the trusted-human boundary and render generalized persisted state',async t=>{
+  const f=fixture();const http=createHttpServer(f.company,f.dispatcher,join(process.cwd(),'public'));
+  await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await f.close();});
+  const base=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`;
+  const {csrfToken}=await(await fetch(base+'/api/session')).json() as {csrfToken:string};
+  const defaults=await(await fetch(base+'/api/projects/defaults')).json() as {policy:unknown};
+  const post=(path:string,body:unknown,token=csrfToken)=>fetch(base+'/api/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':token},body:JSON.stringify(body)});
+  const creation={name:'Human Project',description:'Software repository',instructions:'Bounded engineering',policy:defaults.policy};
+  assert.equal((await post('projects/create',creation,'forged')).status,403);
+  assert.equal((await post('projects/create',{...creation,created_by:'human'})).status,400);
+  const project=await(await post('projects/create',creation)).json() as {project_id:string};
+  const response=await post('projects/repositories/local',{project_id:project.project_id,repository:{name:'service',default_branch:'trunk'}});assert.equal(response.status,201);const repo=await response.json() as {repository_id:string};
+  assert.equal((await post('projects/remote/configure',{repository_id:repo.repository_id,url:'https://credential@github.com/o/r.git',policy:'approved_push'})).status,400);
+  assert.equal((await post('projects/approvals/decide',{approval_id:'not-real',approved:true,actor:'human'})).status,400);
+  assert.equal((await post('projects/archive',{project_id:project.project_id})).status,200);
+  assert.equal((await post('projects/repositories/local',{project_id:project.project_id,repository:{name:'late',default_branch:'trunk'}})).status,400);
+  const state=await(await fetch(base+'/api/state')).json() as {projects:{status:string}[];review_rounds:unknown[];project_operations:unknown[]};assert.equal(state.projects[0]!.status,'archived');assert.deepEqual(state.review_rounds,[]);assert.deepEqual(state.project_operations,[]);
+  assert.equal(f.runtime.calls.length,0);
+});

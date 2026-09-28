@@ -22,7 +22,7 @@ export class LinuxHost implements HostClient {
     requireThat(process.platform === 'linux', 'Linux identity backend requires Linux');
     const result = spawnSync('/usr/bin/python3', ['/opt/botsquad-provisioner/client.py'], {
       input: JSON.stringify(request), encoding: 'utf8', env: { PATH: '/usr/bin:/bin', LANG: 'C' },
-      timeout: 25000, maxBuffer: 2000000, stdio: ['pipe','pipe','pipe'],
+      timeout: 25000, maxBuffer: 6000000, stdio: ['pipe','pipe','pipe'],
     });
     requireThat(result.status === 0 && !result.error, 'Provisioner transport unavailable; operation remains recoverable');
     let response: { ok: boolean; result?: Record<string, unknown>; error?: string };

@@ -14,6 +14,7 @@
     "dev": "npm run build && npm start",
     "codex:preflight": "npm run build && node dist/scripts/codex-preflight.js",
     "validate:real": "npm run build && node dist/scripts/real-engineering.js",
+    "validate:projects": "npm run build && node dist/scripts/real-projects.js",
     "validate:prompt01": "npm run build && node dist/scripts/real-e2e.js"
   },
   "devDependencies": {

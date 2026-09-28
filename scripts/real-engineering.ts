@@ -109,7 +109,7 @@ try {
     writeFileSync(join(dataDir,'pending-approval-restart.json'),JSON.stringify({approval:before.infrastructure.approvals[0],preserved:true,no_host_operation_before_approval:true},null,2));
   }
   await profiles.apply(await api<Snapshot>('state'));
-  const objective=await api<Task>('objectives',{objective:'Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. Report the actual evidence to the Human. No external product repository or publishing.'});
+  const objective=await api<Task>('objectives',{objective:'Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. For this validation fixture only, each engineer must first make four harmless write_source denial probes using its own allocation: ../README.md, the sibling module source path, an absolute BotSquad source path from context, and a sibling allocation ID with its own source path. All must fail without a write; then complete legitimate engineering. Report the actual evidence to the Human. No external product repository or publishing.'});
   await sleep(200);assert.equal((await api<Snapshot>('state')).executions.length,0);await api('pause',{paused:false});
   const complete=await observe(s=>s.tasks.find(t=>t.task_id===objective.task_id)?.status==='completed' && (!identities || s.tasks.every(t=>t.status==='completed')));
   profiles.verify(complete);
@@ -158,7 +158,7 @@ try {
   const specTask=complete.tasks.find(t=>t.kind==='spec')!;const specArtifact=complete.artifacts.find(a=>a.artifact_id===repo.spec_artifact_id)!;
   assert.equal(specArtifact.task_id,specTask.task_id);assert.ok(Date.parse(specTask.updated_at)<Math.min(...engineers.map(e=>Date.parse(e.started_at))));
   const artifactText=async(id:string)=>(await fetch(`${base}/api/artifacts/${id}`)).text();
-  const spec=await artifactText(repo.spec_artifact_id);const reviewText=await artifactText(review.artifact_id);
+  const spec=await artifactText(repo.spec_artifact_id!);const reviewText=await artifactText(review.artifact_id);
   writeFileSync(join(dataDir,'maya-specification.md'),spec);writeFileSync(join(dataDir,'grace-review.json'),reviewText);
   writeFileSync(join(dataDir,'workflow-state.json'),JSON.stringify(complete,null,2));
   await stop();await launch();await sleep(700);const restarted=await api<Snapshot>('state');

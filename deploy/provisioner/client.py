@@ -4,7 +4,7 @@ import json
 import socket
 import sys
 
-LIMIT = 1_000_000
+LIMIT = 6_000_000
 request = sys.stdin.buffer.read(LIMIT + 1)
 if len(request) > LIMIT:
     raise SystemExit('Request exceeds limit')
