@@ -16,6 +16,7 @@ type Snapshot = ReturnType<Company['snapshot']>;
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dataDir = resolve(process.env.BOT_VALIDATION_DIR ?? join(root, '.validation', `engineering-real-${new Date().toISOString().replace(/[:.]/g, '-')}`));
 mkdirSync(dataDir, { recursive: true, mode: 0o700 });
+writeFileSync(join(dataDir,'legacy-denial-fixture.json'),JSON.stringify({scenario:'four exact rejected writes; then normal legacy delivery'}),{mode:0o600});
 let child: ChildProcess | undefined; let token = ''; let base = ''; let seen = new Set<string>();
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function freePort() {
@@ -29,7 +30,7 @@ async function api<T>(path: string, data?: unknown): Promise<T> {
 const profiles = validationProfiles(api);
 async function launch() {
   const port = await freePort(); base = `http://127.0.0.1:${port}`;
-  child = spawn(process.execPath, [join(root, 'dist/src/main.js')], { cwd: root, env: { ...process.env, BOT_DATA_DIR: dataDir, PORT: String(port) }, stdio: ['ignore', 'ignore', 'inherit'] });
+  child = spawn(process.execPath, [join(root, 'dist/scripts/fixtures/engineering-server.js')], { cwd: root, env: { ...process.env, BOT_DATA_DIR: dataDir, PORT: String(port) }, stdio: ['ignore', 'ignore', 'inherit'] });
   const deadline = Date.now() + 15000;
   while (Date.now() < deadline) {
     if (child.exitCode !== null) throw new Error('BotSquad failed to start');
@@ -109,7 +110,7 @@ try {
     writeFileSync(join(dataDir,'pending-approval-restart.json'),JSON.stringify({approval:before.infrastructure.approvals[0],preserved:true,no_host_operation_before_approval:true},null,2));
   }
   await profiles.apply(await api<Snapshot>('state'));
-  const objective=await api<Task>('objectives',{objective:`Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. For this validation fixture only, each engineer must first make four harmless write_source denial probes using its own allocation: ../README.md, the sibling module source path, the exact absolute BotSquad source target ${JSON.stringify(join(root,'src','main.ts'))} (copy verbatim; the same target is also supplied in each engineer allocation context), and a sibling allocation ID with its own source path. All must fail without a write; then complete legitimate engineering. Report the actual evidence to the Human. No external product repository or publishing.`});
+  const objective=await api<Task>('objectives',{objective:'Build the SquadStatus validation product using a product and engineering team. Maya must define the product, Turing must coordinate two real concurrent engineers (Linus and Ada) in separate managed worktrees, Grace must review their exact commits, and trusted integration must pass full tests before advancing the local product main. Report the actual evidence to the Human. No external product repository or publishing.'});
   await sleep(200);assert.equal((await api<Snapshot>('state')).executions.length,0);await api('pause',{paused:false});
   const complete=await observe(s=>s.tasks.find(t=>t.task_id===objective.task_id)?.status==='completed' && (!identities || s.tasks.every(t=>t.status==='completed')));
   profiles.verify(complete);

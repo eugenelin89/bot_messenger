@@ -16,7 +16,7 @@
 
 **Initial ETA:** 10–18 hours including real Ubuntu acceptance and delivery
 
-**Current ETA:** 4–8 hours remaining as of 07:29 UTC; real workflows, any fixes, reboot and final delivery dominate uncertainty.
+**Current ETA:** 45–90 minutes remaining as of 08:00 UTC; legacy regression repeat, research/recovery, reboot and final delivery remain.
 
 ## Objective and scope
 
@@ -226,3 +226,12 @@ source target directly from its trusted source root, so planning need not guess 
 for a future allocation. This is a fixture-instruction correction only; production
 completion enforcement and every existing assertion remain unchanged. Both diagnostic
 companies remain retained.
+
+At 08:12 UTC another legacy run completed integration but one model concatenated the
+sibling allocation ID into its path rather than changing the allocation_id argument;
+the expected rejection was correctly owned_scope, so the unchanged sibling_allocation
+assertion failed. Move only the validation probe instructions to a standalone fixture
+entrypoint, rendering four exact JSON requests from the actual two allocations into
+each engineer's turn context. Production has no fixture flag/import; models still make
+all calls through real enforcement, and all original assertions remain. This removes
+ambiguous instruction propagation through the manager/specification chain.
