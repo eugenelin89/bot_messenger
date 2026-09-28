@@ -1,0 +1,28 @@
+{
+  "tested_source_sha": "25cc544b9700f5a06f03451485b158a2b8b1518a",
+  "local": {
+    "pass": 120,
+    "skip": 1,
+    "fail": 0
+  },
+  "ubuntu": {
+    "pass": 121,
+    "skip": 0,
+    "fail": 0,
+    "duration_ms": 90162.272416,
+    "exit_code": 0,
+    "evidence": "/var/lib/botsquad/validation/deterministic-20260928T103720Z"
+  },
+  "provisioner": {
+    "pass": 9,
+    "fail": 0
+  },
+  "chrome_regression": {
+    "pass": 1,
+    "fail": 0
+  },
+  "real_project_full_recipe": {
+    "pass": 24,
+    "fail": 0
+  }
+}

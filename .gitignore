@@ -5,3 +5,5 @@ dist/
 *.sqlite*
 *.log
 .DS_Store
+.demo-artifacts/
+.demo-browser-tools/

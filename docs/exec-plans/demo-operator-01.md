@@ -1,12 +1,12 @@
 # Execution Plan — Demo Operator 01
 
-**Status:** Active  
-**Owner:** Codex Demo Operator task  
-**Branch:** feature/demo-operator-01  
-**Worktree:** bot_messenger  
-**Started:** 2026-09-28 09:50 UTC  
-**Initial ETA:** 60–120 minutes  
-**Current ETA:** 60–120 minutes; real workflow and blocker fixes determine completion.
+**Status:** Real-run and regression acceptance passed; delivery recorded in task handoff
+**Owner:** Codex Demo Operator task
+**Branch:** feature/demo-operator-01
+**Worktree:** bot_messenger
+**Started:** 2026-09-28 09:50 UTC
+**Initial ETA:** 60–120 minutes
+**Latest ETA:** 10–20 minutes remaining at 10:40 UTC for documentation and final delivery.
 
 ## Objective
 
@@ -50,6 +50,33 @@ Focused deterministic operator tests, full existing suite for shared product fix
 security review of browser/approval boundaries, real Ubuntu UI acceptance and host
 preservation comparison. Existing forged/missing/early-exit receipt regressions remain.
 
-## Remaining work
+## Acceptance closure
 
-Implementation, protected backup, real run, recording, final docs and delivery pending.
+Protected backup and preservation checks passed. The approval live-update product
+blocker was fixed at `1f177f0`. Five attempts remain truthfully failed and archived
+through the UI; run 05 completed real integration but exposed a legacy-field assumption
+in the operator's final specification check. The corrected check follows current Project
+task provenance with a regression. Failed evidence was never relabeled as successful.
+
+Fresh run 06 passed all assertions, producing a continuous 5m46s recording, 17 live
+screenshots plus one actual video frame, transcript, events and narration. Grace approved
+round 1; the real StudyPlan full recipe passed 24/24. The finished Project remains active
+and HQ paused. See the [tutorial](../tutorials/demo-01-studyplan/README.md).
+
+Local deterministic suite: 120 passes, one Linux-only skip. Hardened Ubuntu: 121/121.
+Provisioner: 9/9. Explicit Chrome approval regression: 1/1. Existing validation-receipt
+adversarial tests remain included. Artifact integrity, credential-pattern scan, screenshot
+associations, changed Markdown links and whitespace checks passed.
+
+All 20 original validation databases, 245 root records, 78 account mappings and 40
+original main-company rows passed comparison. Canonical Git and both worker clones
+match their trusted evidence. No `src/` or `deploy/` files changed from audited main.
+No new Decision 015 is needed; existing browser/test and Project boundaries suffice.
+
+## Delivery procedure
+
+Fetch current main again, preserve any newer valid source, integrate the feature normally
+without force push, and deploy the exact merged main to the existing HQ. The final task
+handoff records accepted feature, local main, origin/main and deployed SHAs, with repeated
+service/readiness/paused-state and retained-evidence checks. Large videos remain outside
+Git at the exact location and digest in the tutorial.

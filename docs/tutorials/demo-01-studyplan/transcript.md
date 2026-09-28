@@ -1,0 +1,56 @@
+# StudyPlan recorded transcript
+
+Operator: **BotSquad Demo Operator (automation)**. This is one continuous real run; no time was removed from the raw video.
+
+- **00:03 — Verified milestone:** BotSquad Demo Operator opens the paused development HQ. Automation is explicitly identified in the scenario and objective. [Screenshot](screenshots/01-start.png)
+- **00:04 — Operator action:** Created a fresh StudyPlan Project through New Project. [Screenshot](screenshots/02-project-created.png)
+- **00:05 — Operator action:** Configured named focused and full recipes through the Project policy form. [Screenshot](screenshots/02b-policy.png)
+- **00:06 — Operator action:** Created a real local managed repository through New repository. [Screenshot](screenshots/02c-repository.png)
+- **00:08 — Operator action:** Assigned the natural-language StudyPlan goal to Atlas through Assign objective. [Screenshot](screenshots/03-objective-assigned.png)
+- **00:09 — Operator action:** Resumed dispatch through the HQ control. BotSquad now owns planning and execution. [Screenshot](screenshots/03b-dispatch.png)
+- **00:09 — BotSquad autonomous action:** Atlas — task assigned
+- **00:17 — BotSquad autonomous action:** Maya — task assigned
+- **00:19 — BotSquad autonomous action:** Atlas — execution completed
+- **01:34 — BotSquad autonomous action:** Maya — artifact submitted
+- **01:38 — BotSquad autonomous action:** Maya — execution completed
+- **01:39 — Verified milestone:** Maya completed a real product specification. [Screenshot](screenshots/04-maya-spec.png)
+- **01:47 — BotSquad autonomous action:** Turing — task assigned
+- **01:49 — BotSquad autonomous action:** Atlas — execution completed
+- **02:12 — BotSquad autonomous action:** Linus — task assigned
+- **02:12 — BotSquad autonomous action:** Ada — task assigned
+- **02:12 — BotSquad autonomous action:** Nix — task assigned
+- **02:12 — BotSquad autonomous action:** Nix — task assigned
+- **02:13 — Verified milestone:** Turing allocated two non-overlapping engineering scopes. [Screenshot](screenshots/05-turing-plan.png)
+- **02:15 — BotSquad autonomous action:** Turing — execution completed
+- **02:25 — BotSquad autonomous action:** Nix — execution completed
+- **02:26 — Verified milestone:** Inspected exact scenario-bound approval scope before deciding. [Screenshot](screenshots/07-approval-approval_51d6d05d-8820-468a-8f6c-e1434fc68142.png)
+- **02:28 — Operator action:** Approved prepare_worker_project_clone through the exact Approve button.
+- **02:30 — BotSquad autonomous action:** Linus — worker project access granted
+- **02:39 — BotSquad autonomous action:** Nix — execution completed
+- **02:40 — Verified milestone:** Inspected exact scenario-bound approval scope before deciding. [Screenshot](screenshots/07-approval-approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6.png)
+- **02:44 — Operator action:** Approved prepare_worker_project_clone through the exact Approve button.
+- **02:46 — BotSquad autonomous action:** Ada — worker project access granted
+- **02:47 — Verified milestone:** 1 real engineering execution(s) observed. [Screenshot](screenshots/06-engineers-working.png)
+- **02:50 — BotSquad autonomous action:** Nix — execution completed
+- **04:15 — BotSquad autonomous action:** Linus — engineering submitted
+- **04:19 — BotSquad autonomous action:** Linus — execution completed
+- **04:30 — BotSquad autonomous action:** Ada — engineering submitted
+- **04:30 — Verified milestone:** Immutable engineering submissions reference real Git commits. [Screenshot](screenshots/08-submissions.png)
+- **04:34 — BotSquad autonomous action:** Nix — execution completed
+- **04:34 — BotSquad autonomous action:** Ada — execution completed
+- **04:40 — BotSquad autonomous action:** Grace — task assigned
+- **04:42 — BotSquad autonomous action:** Turing — execution completed
+- **05:16 — BotSquad autonomous action:** Grace — artifact submitted
+- **05:16 — BotSquad autonomous action:** Grace — review submitted
+- **05:17 — Verified milestone:** Independent review recorded approved. [Screenshot](screenshots/09-grace-review-review_5fded869-097e-4896-99df-16dccf26848a.png)
+- **05:19 — BotSquad autonomous action:** Grace — execution completed
+- **05:26 — BotSquad autonomous action:** Turing — integration queued
+- **05:26 — BotSquad autonomous action:** integration started
+- **05:26 — BotSquad autonomous action:** integration completed
+- **05:27 — BotSquad autonomous action:** Turing — execution completed
+- **05:40 — BotSquad autonomous action:** Atlas — artifact submitted
+- **05:42 — BotSquad autonomous action:** Atlas — execution completed
+- **05:43 — Verified milestone:** Inspected the completed trusted integration and full validation evidence. [Screenshot](screenshots/10-integration.png)
+- **05:44 — Verified milestone:** StudyPlan is integrated; exact submissions, independent review and canonical SHA are visible. [Screenshot](screenshots/11-final-project.png)
+- **05:44 — Operator action:** Opened Atlas’s final artifact containing the reported StudyPlan result. [Screenshot](screenshots/11b-final-output.png)
+- **05:46 — Operator action:** Paused new dispatch after the complete tutorial, preserving the active Project and all history. [Screenshot](screenshots/12-paused.png)

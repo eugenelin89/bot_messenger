@@ -3,6 +3,14 @@
 **Status:** Architecture/operator note; separate data roots and ports work conceptually today, but full production-grade multi-instance Prompt 04 infrastructure is not yet automated  
 **Updated:** 2026-09-28
 
+## Demo 01 deployment exception
+
+The [Demo Operator 01 tutorial](../tutorials/demo-01-studyplan/README.md) uses a fresh
+Project in the explicitly authorized existing development HQ, with a protected backup,
+UI-only actions and retained evidence. It does not create a second service or
+provisioner namespace. The separate-instance recommendations below describe stronger
+isolation for future or protected-production use, not what Demo 01 implements.
+
 ## Why run more than one instance?
 
 Useful cases include:
@@ -28,8 +36,9 @@ are independent of production paths and port 4310. Each instance manages its own
 canonical repositories, policy, review/integration history and remote approvals. Archive
 reduces access within that instance and retains evidence. A different data root does not
 create a new root provisioner, service identity or credential boundary; the host-infrastructure
-limitations below still apply. Demo Operator and multi-instance service provisioning are
-not implemented by Prompt 05.
+limitations below still apply. Prompt 05 did not implement either capability; the later
+Demo Operator 01 interlude adds the bounded UI client. Full multi-instance service
+provisioning remains unimplemented.
 
 ## Current application boundary
 
@@ -428,9 +437,11 @@ because it could match both.
 
 Use exact canonical paths plus an explicit instance-role guard.
 
-## Recommended first Demo Operator implementation
+## Historical first-demo recommendation
 
-For the first automated tutorial, prefer:
+The original design recommendation below predates Demo 01. The explicitly authorized
+existing-development-HQ exception above supersedes it for that tutorial; stronger
+isolation remains appropriate for protected production use. The original proposal was:
 
 ~~~text
 same installed BotSquad code

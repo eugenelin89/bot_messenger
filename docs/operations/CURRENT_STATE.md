@@ -55,12 +55,29 @@ Explicit remote fetch blocks divergence; exact approved publication uses a non-r
 executor and immutable receipt. Archive revokes clone access while preserving history.
 
 The independent audit corrected forged-output validation and empty-import edge cases.
-Current local acceptance has 107 passing tests and one Linux-only skip; the actual Ubuntu
-service-restriction suite passes all 108. The [independent audit](../validation/prompt-05-independent-audit.md)
+The audited Prompt 05 baseline passed 107 local tests with one Linux-only skip and all
+108 tests under actual Ubuntu service restrictions. The [independent audit](../validation/prompt-05-independent-audit.md)
 retains the original requirement matrix, findings and correction evidence. Real-runtime results and final release SHAs
 are tracked in the
 [Prompt 05 validation record](../validation/prompt-05-general-projects.md).
 [Decision 014](../decisions/decision_014_generalized_projects.md) defines the boundaries.
+
+## Demo Operator 01 interlude
+
+The bounded Playwright/Chrome operator completed a fresh StudyPlan Project through the
+existing HQ UI. Real workers produced two non-overlapping scoped commits, Grace approved
+round 1 without an invented revision, and trusted full validation gated integration.
+The same successful run produced a continuous 5m46s WebM, 17 live screenshots, an
+additional video frame, events, transcript and narration. The [tutorial](../tutorials/demo-01-studyplan/README.md)
+records exact worker/execution/Project/Git IDs and video integrity metadata.
+
+The HQ remains paused with seven retained logical workers, the completed active StudyPlan
+Project and five archived diagnostic attempts. Original main history, all 20 validation
+databases, 245 root records and 78 pre-existing account mappings passed preservation
+checks. The original Atlas and its Codex thread were preserved. The full local suite
+passes 120 tests with one Linux-only skip; hardened Ubuntu passes all 121, provisioner
+checks pass 9/9, and the separate Chrome UI regression passes.
+Prompt 06 remains next; no general worker browser/desktop capability was added.
 
 ## Prompt 04 historical acceptance
 
@@ -75,9 +92,10 @@ Runtime acceptance: `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`.
 - pending approval/reconciliation, provisioner restart and bounded reboot;
 - retained research/resume/interruption workflow and original production history.
 
-Production remains paused with its original Atlas, completed task/execution, profile and
-thread binding. Its OS binding remains unprovisioned until explicitly requested. The
-validation companies and Linux accounts are separate retained evidence.
+At Prompt 04 acceptance, production remained paused with its original Atlas, completed
+task/execution, profile and thread binding; its OS binding was unprovisioned. Demo 01
+subsequently provisioned Atlas through Nix and exact UI approval, preserving the original
+logical worker and thread. Validation companies and accounts remain retained evidence.
 
 ## Prompt 03 historical baseline
 
@@ -283,7 +301,7 @@ company state and Codex service-account authentication/history.
 The following are documented future directions, not current capabilities:
 
 - broad trusted human approval grants;
-- Computer Use/browser automation;
+- general worker Computer Use (the bounded Demo Operator is a separate test client);
 - public Internet UI/login;
 - generalized remote server fleets;
 - provider API provisioning;

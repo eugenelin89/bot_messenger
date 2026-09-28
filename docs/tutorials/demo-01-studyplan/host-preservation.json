@@ -1,0 +1,50 @@
+{
+  "retained_validation_databases": 20,
+  "retained_root_records": 245,
+  "retained_accounts": 78,
+  "original_main_rows": 40,
+  "integrity": "ok",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "1f177f0cb2aeddc75582405bb47827e3e3b50fde"
+  },
+  "paused": true,
+  "services": {
+    "botsquad": "active",
+    "botsquad-provisioner.socket": "active",
+    "botsquad-provisioner.service": "active"
+  },
+  "project": {
+    "project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "canonical_sha": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13",
+    "branch": "main",
+    "files": [
+      "README.md",
+      "src/planner/planner.mjs",
+      "src/planner/planner.test.mjs",
+      "src/report/report.mjs",
+      "src/report/report.test.mjs"
+    ],
+    "clones": [
+      {
+        "allocation_id": "allocation_2064d95a-2460-4231-afd3-caccd8dd0ef0",
+        "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+        "uid_matches": true,
+        "remotes": [],
+        "head": "d71a7c5b64e53ec476a7e852ecc09f5d2bd012f9"
+      },
+      {
+        "allocation_id": "allocation_8ede61eb-a60e-4f7f-87d5-d4ca33e8cb59",
+        "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+        "uid_matches": true,
+        "remotes": [],
+        "head": "5631378bd688f6b1642941425b1368d21a4ba671"
+      }
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "StudyPlan Demo 01",
+  "operator": "BotSquad Demo Operator",
+  "timeout_ms": 2700000,
+  "steps": [
+    "open_hq",
+    "create_project",
+    "configure_project",
+    "create_repository",
+    "prepare_infrastructure",
+    "assign_objective",
+    "resume_dispatch",
+    "observe_workflow",
+    "inspect_result",
+    "pause_dispatch"
+  ],
+  "objective": "Create a tiny dependency-free Node study planner. Given study tasks with subject, estimated minutes, and priority, produce a deterministic daily plan with recommended task order, total study time, and a readable text summary. Keep the code simple. Include meaningful automated edge-case tests and a sample plan in a final artifact. Use the normal product specification, engineering allocation, independent review and trusted integration workflow.",
+  "acceptance": "Support empty input, equal priorities, invalid values, and input immutability. Higher numeric priority comes first; ties preserve input order. Use task fields subject, minutes, priority. Planning exports planStudy(tasks) returning {tasks, totalMinutes}; reporting exports formatPlan(plan) returning readable text without mutating its input. Keep report tests independent using literal plan data. Include meaningful focused tests in src/planner/planner.test.mjs and src/report/report.test.mjs. Both must pass the full integration recipe. Provide an inspectable sample result artifact after integration.",
+  "constraints": "Local managed repository only. No external publication, network, packages, shell, or dependency installation. Respect project policy, non-overlapping scopes and named confined recipes. Do not invent a review problem; request revisions only for real issues.",
+  "instructions": "StudyPlan tutorial operated by BotSquad Demo Operator (automation, not a named human). The planner and report formatter are naturally separate scopes under src/planner/ and src/report/. Engineers should write tests alongside their own module. Managers decide assignments and review normally. The full recipe runs both module suites. Save the final example as a trusted task artifact; do not run a separate shell demo.",
+  "policy": {
+    "protected_paths": [
+      "AGENTS.md",
+      ".github/",
+      ".botsquad/",
+      "test/"
+    ],
+    "maximum_writers": 2,
+    "maximum_review_rounds": 3,
+    "bounds": {
+      "repository_bytes": 16777216,
+      "bundle_bytes": 4194304,
+      "files": 1000,
+      "file_bytes": 131072,
+      "diff_bytes": 262144,
+      "changed_files": 100,
+      "commits": 16
+    },
+    "recipes": [
+      {
+        "recipe_id": "planner",
+        "name": "StudyPlan planner tests",
+        "stage": "focused",
+        "executable": "node",
+        "argv": [
+          "--test",
+          "src/planner/planner.test.mjs"
+        ],
+        "cwd": ".",
+        "timeout_ms": 10000,
+        "output_bytes": 16000,
+        "environment": "isolated"
+      },
+      {
+        "recipe_id": "report",
+        "name": "StudyPlan report tests",
+        "stage": "focused",
+        "executable": "node",
+        "argv": [
+          "--test",
+          "src/report/report.test.mjs"
+        ],
+        "cwd": ".",
+        "timeout_ms": 10000,
+        "output_bytes": 16000,
+        "environment": "isolated"
+      },
+      {
+        "recipe_id": "full",
+        "name": "StudyPlan full tests",
+        "stage": "full",
+        "executable": "node",
+        "argv": [
+          "--test",
+          "src/planner/planner.test.mjs",
+          "src/report/report.test.mjs"
+        ],
+        "cwd": ".",
+        "timeout_ms": 10000,
+        "output_bytes": 16000,
+        "environment": "isolated"
+      }
+    ]
+  }
+}

@@ -267,7 +267,14 @@ work, revision/re-review, four durable restart gates, publication reconciliation
 The Linux operator companion verifies actual UID and revoked-clone access. See the milestone
 validation records.
 
-Decision 006 remains authoritative: Computer Use is disabled through Prompt 05.
+The [Demo Operator](../product/DEMO_OPERATOR.md) is a separate, bounded development/test
+client in `scripts/demo-operator/`. Scenario, Playwright UI driver, read-only assertions
+and artifact recorder are separated. Its consequential actions use the human-facing UI;
+it never imports private control-plane mutation functions or receives worker credentials.
+The isolated browser records the same session. Exact scenario checks restrict automated
+approval decisions while the existing trusted service/provisioner enforces authority.
+
+Decision 006 remains authoritative: worker Computer Use is disabled through Prompt 05.
 Engineering tools grant no GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration

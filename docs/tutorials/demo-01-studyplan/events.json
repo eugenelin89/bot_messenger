@@ -1,0 +1,1581 @@
+[
+  {
+    "step_id": "01-start",
+    "kind": "assertion",
+    "description": "BotSquad Demo Operator opens the paused development HQ. Automation is explicitly identified in the scenario and objective.",
+    "result": "pass",
+    "screenshot": "screenshots/01-start.png",
+    "observed_state": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "1f177f0cb2aeddc75582405bb47827e3e3b50fde"
+    },
+    "timestamp": "2026-09-28T10:29:12.154Z",
+    "elapsed_ms": 3407
+  },
+  {
+    "step_id": "02-project-created",
+    "kind": "operator_action",
+    "description": "Created a fresh StudyPlan Project through New Project.",
+    "result": "pass",
+    "screenshot": "screenshots/02-project-created.png",
+    "observed_state": {
+      "project_id": "project_7309f229-5151-4b17-af86-5bb991760932"
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "timestamp": "2026-09-28T10:29:13.489Z",
+    "elapsed_ms": 4742
+  },
+  {
+    "step_id": "02b-policy",
+    "kind": "operator_action",
+    "description": "Configured named focused and full recipes through the Project policy form.",
+    "result": "pass",
+    "screenshot": "screenshots/02b-policy.png",
+    "observed_state": {
+      "protected_paths": [
+        "AGENTS.md",
+        ".github/",
+        ".botsquad/",
+        "test/"
+      ],
+      "maximum_writers": 2,
+      "maximum_review_rounds": 3,
+      "bounds": {
+        "repository_bytes": 16777216,
+        "bundle_bytes": 4194304,
+        "files": 1000,
+        "file_bytes": 131072,
+        "diff_bytes": 262144,
+        "changed_files": 100,
+        "commits": 16
+      },
+      "recipes": [
+        {
+          "recipe_id": "planner",
+          "name": "StudyPlan planner tests",
+          "stage": "focused",
+          "executable": "node",
+          "argv": [
+            "--test",
+            "src/planner/planner.test.mjs"
+          ],
+          "cwd": ".",
+          "timeout_ms": 10000,
+          "output_bytes": 16000,
+          "environment": "isolated"
+        },
+        {
+          "recipe_id": "report",
+          "name": "StudyPlan report tests",
+          "stage": "focused",
+          "executable": "node",
+          "argv": [
+            "--test",
+            "src/report/report.test.mjs"
+          ],
+          "cwd": ".",
+          "timeout_ms": 10000,
+          "output_bytes": 16000,
+          "environment": "isolated"
+        },
+        {
+          "recipe_id": "full",
+          "name": "StudyPlan full tests",
+          "stage": "full",
+          "executable": "node",
+          "argv": [
+            "--test",
+            "src/planner/planner.test.mjs",
+            "src/report/report.test.mjs"
+          ],
+          "cwd": ".",
+          "timeout_ms": 10000,
+          "output_bytes": 16000,
+          "environment": "isolated"
+        }
+      ]
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "timestamp": "2026-09-28T10:29:14.621Z",
+    "elapsed_ms": 5874
+  },
+  {
+    "step_id": "02c-repository",
+    "kind": "operator_action",
+    "description": "Created a real local managed repository through New repository.",
+    "result": "pass",
+    "screenshot": "screenshots/02c-repository.png",
+    "observed_state": {
+      "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+      "initial_commit": "3268848ccaa39a3aedb61151a9960f075b525817",
+      "default_branch": "main"
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:29:15.609Z",
+    "elapsed_ms": 6862
+  },
+  {
+    "step_id": "03-objective-assigned",
+    "kind": "operator_action",
+    "description": "Assigned the natural-language StudyPlan goal to Atlas through Assign objective.",
+    "result": "pass",
+    "screenshot": "screenshots/03-objective-assigned.png",
+    "observed_state": {
+      "task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+      "project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+      "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd"
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:29:17.083Z",
+    "elapsed_ms": 8336
+  },
+  {
+    "step_id": "03b-dispatch",
+    "kind": "operator_action",
+    "description": "Resumed dispatch through the HQ control. BotSquad now owns planning and execution.",
+    "result": "pass",
+    "screenshot": "screenshots/03b-dispatch.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:29:17.986Z",
+    "elapsed_ms": 9239
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_56dc3555-2228-4518-85f4-4572e8a402ed",
+      "recorded_at": "2026-09-28T10:29:16.258Z",
+      "detail": {
+        "parent_task_id": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "timestamp": "2026-09-28T10:29:18.233Z",
+    "elapsed_ms": 9486
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_8068f4f9-9c8a-4a38-a2eb-02ceea632972",
+      "recorded_at": "2026-09-28T10:29:17.140Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_7e9c994a-c928-4f7d-9289-ddb797318920",
+    "timestamp": "2026-09-28T10:29:18.233Z",
+    "elapsed_ms": 9486
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_318c8592-1e71-40b6-8f45-baf0fd8f3f40",
+      "recorded_at": "2026-09-28T10:29:18.081Z",
+      "detail": {
+        "runtime_reference": "01a0db82-f1d4-7ea3-b601-0abe3b95bb79",
+        "turn_id": "01a0e78f-d462-7332-8a07-29784b90a5d8"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_7e9c994a-c928-4f7d-9289-ddb797318920",
+    "timestamp": "2026-09-28T10:29:20.025Z",
+    "elapsed_ms": 11278
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_13a378b8-20c7-4c53-95e7-e30672293748",
+      "recorded_at": "2026-09-28T10:29:24.752Z",
+      "detail": {
+        "parent_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_2dd186ec-b526-4708-b813-e1a104d233f0",
+    "related_worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+    "timestamp": "2026-09-28T10:29:26.092Z",
+    "elapsed_ms": 17345
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_77f75b49-15ce-4356-b3b9-aeea7a319876",
+      "recorded_at": "2026-09-28T10:29:24.759Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_2dd186ec-b526-4708-b813-e1a104d233f0",
+    "related_worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+    "related_execution_id": "execution_ca25a273-97bc-4135-9e1f-f2321f9e6962",
+    "timestamp": "2026-09-28T10:29:26.093Z",
+    "elapsed_ms": 17346
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_ea3b8f97-b32a-4629-99c4-ef05ab8505b4",
+      "recorded_at": "2026-09-28T10:29:25.579Z",
+      "detail": {
+        "runtime_reference": "01a0e779-d606-7a91-acfd-001b02279a92",
+        "turn_id": "01a0e78f-f1b3-7de0-819f-2158635d00d0"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_2dd186ec-b526-4708-b813-e1a104d233f0",
+    "related_worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+    "related_execution_id": "execution_ca25a273-97bc-4135-9e1f-f2321f9e6962",
+    "timestamp": "2026-09-28T10:29:27.854Z",
+    "elapsed_ms": 19107
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_b8d5eca9-9ac3-43d3-a2a0-e5f25c9a47d2",
+      "recorded_at": "2026-09-28T10:29:26.301Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_7e9c994a-c928-4f7d-9289-ddb797318920",
+    "timestamp": "2026-09-28T10:29:27.856Z",
+    "elapsed_ms": 19109
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "artifact submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_3ecfd873-8f39-40fa-b4a1-b4107232aa6b",
+      "recorded_at": "2026-09-28T10:30:41.662Z",
+      "detail": {
+        "artifact_id": "artifact_499bb629-473a-454e-bd33-7d9140efcc29"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_2dd186ec-b526-4708-b813-e1a104d233f0",
+    "related_worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+    "related_execution_id": "execution_ca25a273-97bc-4135-9e1f-f2321f9e6962",
+    "timestamp": "2026-09-28T10:30:43.420Z",
+    "elapsed_ms": 94673
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_89028ef1-df3e-4050-8b26-209358dc83e1",
+      "recorded_at": "2026-09-28T10:30:46.223Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_2dd186ec-b526-4708-b813-e1a104d233f0",
+    "related_worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+    "related_execution_id": "execution_ca25a273-97bc-4135-9e1f-f2321f9e6962",
+    "timestamp": "2026-09-28T10:30:47.299Z",
+    "elapsed_ms": 98552
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_2bb84a70-f2e5-43d8-badb-cc8ba880bbfd",
+      "recorded_at": "2026-09-28T10:30:46.246Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_9c003730-2146-4847-adee-21819c57625e",
+    "timestamp": "2026-09-28T10:30:47.300Z",
+    "elapsed_ms": 98553
+  },
+  {
+    "step_id": "04-maya-spec",
+    "kind": "assertion",
+    "description": "Maya completed a real product specification.",
+    "result": "pass",
+    "screenshot": "screenshots/04-maya-spec.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:30:47.834Z",
+    "elapsed_ms": 99087
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_ef646b8b-0af0-4f7e-873d-7cf131328ed5",
+      "recorded_at": "2026-09-28T10:30:47.172Z",
+      "detail": {
+        "runtime_reference": "01a0db82-f1d4-7ea3-b601-0abe3b95bb79",
+        "turn_id": "01a0e791-306a-7d61-ba67-c7fcf1a8c117"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_9c003730-2146-4847-adee-21819c57625e",
+    "timestamp": "2026-09-28T10:30:49.543Z",
+    "elapsed_ms": 100796
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_acbd62d1-cccd-4fec-90c4-fdfaad5974e1",
+      "recorded_at": "2026-09-28T10:30:54.156Z",
+      "detail": {
+        "parent_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "timestamp": "2026-09-28T10:30:56.000Z",
+    "elapsed_ms": 107253
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_083f628c-d1ab-41e8-8f18-5b999deb966d",
+      "recorded_at": "2026-09-28T10:30:54.162Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_4f1d8908-804a-479a-bf58-df1c37d06bf2",
+    "timestamp": "2026-09-28T10:30:56.001Z",
+    "elapsed_ms": 107254
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_7eb895a5-a0be-4764-82ef-804d36e659b0",
+      "recorded_at": "2026-09-28T10:30:55.225Z",
+      "detail": {
+        "runtime_reference": "01a0e782-9d0c-7ac1-8d14-aa424bbbae8a",
+        "turn_id": "01a0e791-4fe2-7183-9309-534ce84c74be"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_4f1d8908-804a-479a-bf58-df1c37d06bf2",
+    "timestamp": "2026-09-28T10:30:56.001Z",
+    "elapsed_ms": 107254
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_00d4252c-b068-4d9e-9de3-ca960ac9ad49",
+      "recorded_at": "2026-09-28T10:30:55.806Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_9c003730-2146-4847-adee-21819c57625e",
+    "timestamp": "2026-09-28T10:30:58.708Z",
+    "elapsed_ms": 109961
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_d5c2a5ce-83b3-4d61-9bb1-3a0a95a836ed",
+      "recorded_at": "2026-09-28T10:31:19.102Z",
+      "detail": {
+        "parent_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "timestamp": "2026-09-28T10:31:21.273Z",
+    "elapsed_ms": 132526
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_0cfc2e11-8a22-4cef-9ee0-3d2124d20718",
+      "recorded_at": "2026-09-28T10:31:19.105Z",
+      "detail": {
+        "parent_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "timestamp": "2026-09-28T10:31:21.274Z",
+    "elapsed_ms": 132527
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_788a8823-f86d-4f4a-a81d-3268aca5c429",
+      "recorded_at": "2026-09-28T10:31:19.133Z",
+      "detail": {
+        "parent_task_id": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "timestamp": "2026-09-28T10:31:21.274Z",
+    "elapsed_ms": 132527
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_5e9c1b16-4d87-4b10-9621-923277bea154",
+      "recorded_at": "2026-09-28T10:31:19.144Z",
+      "detail": {
+        "parent_task_id": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "timestamp": "2026-09-28T10:31:21.275Z",
+    "elapsed_ms": 132528
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_f63293e3-3dd0-4967-a3d7-de9f510a2f4a",
+      "recorded_at": "2026-09-28T10:31:19.157Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_0840a168-34ed-40ad-a1ad-6271cf5d1173",
+    "timestamp": "2026-09-28T10:31:21.275Z",
+    "elapsed_ms": 132528
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_86eabd39-00cb-496e-9a17-9a049076c535",
+      "recorded_at": "2026-09-28T10:31:19.938Z",
+      "detail": {
+        "runtime_reference": "01a0e779-a5ed-7221-8f2f-bce5fc323f8d",
+        "turn_id": "01a0e791-b06e-7aa3-a4fd-81fa77f7b42e"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_0840a168-34ed-40ad-a1ad-6271cf5d1173",
+    "timestamp": "2026-09-28T10:31:21.276Z",
+    "elapsed_ms": 132529
+  },
+  {
+    "step_id": "05-turing-plan",
+    "kind": "assertion",
+    "description": "Turing allocated two non-overlapping engineering scopes.",
+    "result": "pass",
+    "screenshot": "screenshots/05-turing-plan.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:31:21.754Z",
+    "elapsed_ms": 133007
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_dec15a08-03fe-494d-8872-7200a8d09bae",
+      "recorded_at": "2026-09-28T10:31:21.298Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_4f1d8908-804a-479a-bf58-df1c37d06bf2",
+    "timestamp": "2026-09-28T10:31:23.821Z",
+    "elapsed_ms": 135074
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_3d61c8fa-710b-43f4-a294-9bfc0e11a227",
+      "recorded_at": "2026-09-28T10:31:32.187Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_0840a168-34ed-40ad-a1ad-6271cf5d1173",
+    "timestamp": "2026-09-28T10:31:34.466Z",
+    "elapsed_ms": 145719
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_15e6c00d-e9c8-447f-aacb-e37b9680ddad",
+      "recorded_at": "2026-09-28T10:31:32.197Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_1c728859-8e2f-46e2-9f3e-36116a187580",
+    "timestamp": "2026-09-28T10:31:34.470Z",
+    "elapsed_ms": 145723
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_c54e9725-3e17-4176-ba8b-ccfc60d848dc",
+      "recorded_at": "2026-09-28T10:31:33.248Z",
+      "detail": {
+        "runtime_reference": "01a0e779-a5ed-7221-8f2f-bce5fc323f8d",
+        "turn_id": "01a0e791-e46a-7d31-b471-8e8fedaf8140"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_1c728859-8e2f-46e2-9f3e-36116a187580",
+    "timestamp": "2026-09-28T10:31:34.472Z",
+    "elapsed_ms": 145725
+  },
+  {
+    "step_id": "07-approval-approval_51d6d05d-8820-468a-8f6c-e1434fc68142",
+    "kind": "assertion",
+    "description": "Inspected exact scenario-bound approval scope before deciding.",
+    "result": "pass",
+    "screenshot": "screenshots/07-approval-approval_51d6d05d-8820-468a-8f6c-e1434fc68142.png",
+    "observed_state": {
+      "approval_id": "approval_51d6d05d-8820-468a-8f6c-e1434fc68142",
+      "operation_id": "operation_41816938-7a01-42c8-b370-a16ccdfc836a",
+      "type": "prepare_worker_project_clone",
+      "target": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+      "parameters": {
+        "allocation_id": "allocation_2064d95a-2460-4231-afd3-caccd8dd0ef0",
+        "base_commit": "3268848ccaa39a3aedb61151a9960f075b525817",
+        "bundle": {
+          "omitted": true,
+          "bytes": 400,
+          "base64_sha256": "15b0e02ee4ade021454b29c426b1c334af7cab10f071cae8fa6d769dca8b820b"
+        },
+        "default_branch": "main",
+        "manifest": "{\"allocation_id\":\"allocation_2064d95a-2460-4231-afd3-caccd8dd0ef0\",\"worker_id\":\"worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8\",\"repository_id\":\"repository_b22a536f-b730-4aae-8a7e-5090d321e8cd\",\"task_id\":\"task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2\",\"branch_name\":\"botsquad/task/task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2\",\"base_commit\":\"3268848ccaa39a3aedb61151a9960f075b525817\",\"write_scope\":[\"src/planner/\"],\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16}}",
+        "manifest_hash": "108418df0075ae01671f670b12b76456ea300c582d8606138f6a09a1fbc7ae25",
+        "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+        "task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+        "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:31:35.034Z",
+    "elapsed_ms": 146287
+  },
+  {
+    "step_id": "approve",
+    "kind": "operator_action",
+    "description": "Approved prepare_worker_project_clone through the exact Approve button.",
+    "result": "pass",
+    "related_approval_id": "approval_51d6d05d-8820-468a-8f6c-e1434fc68142",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "observed_state": {
+      "operation_id": "operation_41816938-7a01-42c8-b370-a16ccdfc836a",
+      "status": "completed"
+    },
+    "timestamp": "2026-09-28T10:31:36.790Z",
+    "elapsed_ms": 148043
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "worker project access granted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_0c46fbdf-0e06-4617-a184-fd216b581f84",
+      "recorded_at": "2026-09-28T10:31:36.190Z",
+      "detail": {
+        "operation_id": "operation_41816938-7a01-42c8-b370-a16ccdfc836a",
+        "approval_id": "approval_51d6d05d-8820-468a-8f6c-e1434fc68142",
+        "operation_type": "prepare_worker_project_clone"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "related_execution_id": "execution_0840a168-34ed-40ad-a1ad-6271cf5d1173",
+    "timestamp": "2026-09-28T10:31:39.492Z",
+    "elapsed_ms": 150745
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_d7d4725a-29e6-4c57-a693-195201ee4856",
+      "recorded_at": "2026-09-28T10:31:46.875Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_1c728859-8e2f-46e2-9f3e-36116a187580",
+    "timestamp": "2026-09-28T10:31:48.703Z",
+    "elapsed_ms": 159956
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_bc984ab8-873c-4eab-b01b-fd8efaeb194b",
+      "recorded_at": "2026-09-28T10:31:46.894Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_7228f5f5-4244-4d29-82bd-836eec7eccb8",
+    "timestamp": "2026-09-28T10:31:48.704Z",
+    "elapsed_ms": 159957
+  },
+  {
+    "step_id": "07-approval-approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6",
+    "kind": "assertion",
+    "description": "Inspected exact scenario-bound approval scope before deciding.",
+    "result": "pass",
+    "screenshot": "screenshots/07-approval-approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6.png",
+    "observed_state": {
+      "approval_id": "approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6",
+      "operation_id": "operation_d75a715e-6393-41dd-927b-be0b33db2427",
+      "type": "prepare_worker_project_clone",
+      "target": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+      "parameters": {
+        "allocation_id": "allocation_8ede61eb-a60e-4f7f-87d5-d4ca33e8cb59",
+        "base_commit": "3268848ccaa39a3aedb61151a9960f075b525817",
+        "bundle": {
+          "omitted": true,
+          "bytes": 400,
+          "base64_sha256": "15b0e02ee4ade021454b29c426b1c334af7cab10f071cae8fa6d769dca8b820b"
+        },
+        "default_branch": "main",
+        "manifest": "{\"allocation_id\":\"allocation_8ede61eb-a60e-4f7f-87d5-d4ca33e8cb59\",\"worker_id\":\"worker_db8bec3a-61e1-4690-b42a-de6456f63a7d\",\"repository_id\":\"repository_b22a536f-b730-4aae-8a7e-5090d321e8cd\",\"task_id\":\"task_c96b8a89-f742-4fff-981a-9b3f0e84a482\",\"branch_name\":\"botsquad/task/task_c96b8a89-f742-4fff-981a-9b3f0e84a482\",\"base_commit\":\"3268848ccaa39a3aedb61151a9960f075b525817\",\"write_scope\":[\"src/report/\"],\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16}}",
+        "manifest_hash": "668682d82df697a4dc476bbe522824cf3a72c78b8743335bc2de72003e43be3f",
+        "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+        "task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+        "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:31:49.223Z",
+    "elapsed_ms": 160476
+  },
+  {
+    "step_id": "approve",
+    "kind": "operator_action",
+    "description": "Approved prepare_worker_project_clone through the exact Approve button.",
+    "result": "pass",
+    "related_approval_id": "approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "observed_state": {
+      "operation_id": "operation_d75a715e-6393-41dd-927b-be0b33db2427",
+      "status": "completed"
+    },
+    "timestamp": "2026-09-28T10:31:52.870Z",
+    "elapsed_ms": 164123
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_c7e515bf-b975-4597-a0a8-69ecd4fec12b",
+      "recorded_at": "2026-09-28T10:31:47.969Z",
+      "detail": {
+        "runtime_reference": "01a0e779-a5ed-7221-8f2f-bce5fc323f8d",
+        "turn_id": "01a0e792-1dec-7153-8ebd-3768d7475a28"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_7228f5f5-4244-4d29-82bd-836eec7eccb8",
+    "timestamp": "2026-09-28T10:31:55.221Z",
+    "elapsed_ms": 166474
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "worker project access granted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_4aa06d94-c665-46e7-b34d-409e127b1546",
+      "recorded_at": "2026-09-28T10:31:51.197Z",
+      "detail": {
+        "operation_id": "operation_d75a715e-6393-41dd-927b-be0b33db2427",
+        "approval_id": "approval_46f2fa5b-5cf9-4e24-93be-d49832003ec6",
+        "operation_type": "prepare_worker_project_clone"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "related_execution_id": "execution_1c728859-8e2f-46e2-9f3e-36116a187580",
+    "timestamp": "2026-09-28T10:31:55.225Z",
+    "elapsed_ms": 166478
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_e53d0f98-a4e9-40b2-baf2-981cbf043f49",
+      "recorded_at": "2026-09-28T10:31:51.204Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "related_execution_id": "execution_db1e771c-d667-415c-a13f-2d5b28ad4e2d",
+    "timestamp": "2026-09-28T10:31:55.227Z",
+    "elapsed_ms": 166480
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_bd72e33d-cac7-413d-bb53-856e15bd93ae",
+      "recorded_at": "2026-09-28T10:31:51.923Z",
+      "detail": {
+        "runtime_reference": "01a0e789-6f54-7d73-90e4-d1d27794b8b0",
+        "turn_id": "01a0e792-2d5d-78c2-8f34-da44946424c8"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "related_execution_id": "execution_db1e771c-d667-415c-a13f-2d5b28ad4e2d",
+    "timestamp": "2026-09-28T10:31:55.229Z",
+    "elapsed_ms": 166482
+  },
+  {
+    "step_id": "06-engineers-working",
+    "kind": "assertion",
+    "description": "1 real engineering execution(s) observed.",
+    "result": "pass",
+    "screenshot": "screenshots/06-engineers-working.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:31:55.763Z",
+    "elapsed_ms": 167016
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_2413c2c5-018a-46d1-9d20-111d54cc1ee1",
+      "recorded_at": "2026-09-28T10:31:58.149Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_786628c0-0bcd-471a-ba2c-67c90dc66a62",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_7228f5f5-4244-4d29-82bd-836eec7eccb8",
+    "timestamp": "2026-09-28T10:31:59.602Z",
+    "elapsed_ms": 170855
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_602f0aee-cbda-4570-938f-5686c9664e16",
+      "recorded_at": "2026-09-28T10:31:58.170Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "related_execution_id": "execution_90f1830d-d83f-4630-a083-f81135036032",
+    "timestamp": "2026-09-28T10:31:59.604Z",
+    "elapsed_ms": 170857
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_75d3e69e-d72a-4685-a28c-152023292d68",
+      "recorded_at": "2026-09-28T10:31:59.032Z",
+      "detail": {
+        "runtime_reference": "01a0e789-7002-76b1-85dc-1a33a543b7ef",
+        "turn_id": "01a0e792-491a-76e3-b549-e5a83d46a3bb"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "related_execution_id": "execution_90f1830d-d83f-4630-a083-f81135036032",
+    "timestamp": "2026-09-28T10:31:59.607Z",
+    "elapsed_ms": 170860
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "engineering submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_db2a9102-9d82-446c-af16-fb3f95086f67",
+      "recorded_at": "2026-09-28T10:33:23.138Z",
+      "detail": {
+        "submission_id": "submission_29b612ba-cc92-4285-aeba-9932c1f87b7b",
+        "allocation_id": "allocation_2064d95a-2460-4231-afd3-caccd8dd0ef0",
+        "commit": "d71a7c5b64e53ec476a7e852ecc09f5d2bd012f9",
+        "revision_round": 1
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "related_execution_id": "execution_db1e771c-d667-415c-a13f-2d5b28ad4e2d",
+    "timestamp": "2026-09-28T10:33:24.185Z",
+    "elapsed_ms": 255438
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_c8809d83-133a-4217-9511-32450d97d6b9",
+      "recorded_at": "2026-09-28T10:33:28.175Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_b7238633-8ff4-4ce5-a8bf-a779ee8186c2",
+    "related_worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+    "related_execution_id": "execution_db1e771c-d667-415c-a13f-2d5b28ad4e2d",
+    "timestamp": "2026-09-28T10:33:28.684Z",
+    "elapsed_ms": 259937
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_a04cc846-7a02-477b-8519-87b9c1967337",
+      "recorded_at": "2026-09-28T10:33:28.202Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_a7f3651c-ba71-4eb6-aaf7-290d36ab5b6c",
+    "timestamp": "2026-09-28T10:33:30.991Z",
+    "elapsed_ms": 262244
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_62b0c457-b5eb-455a-9841-bb4ac583f860",
+      "recorded_at": "2026-09-28T10:33:29.464Z",
+      "detail": {
+        "runtime_reference": "01a0e779-a5ed-7221-8f2f-bce5fc323f8d",
+        "turn_id": "01a0e793-aa56-72d3-b53a-10cd3174fbf6"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_a7f3651c-ba71-4eb6-aaf7-290d36ab5b6c",
+    "timestamp": "2026-09-28T10:33:30.993Z",
+    "elapsed_ms": 262246
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "engineering submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_2c21f129-825a-4b9c-a131-aee78aa8c769",
+      "recorded_at": "2026-09-28T10:33:37.268Z",
+      "detail": {
+        "submission_id": "submission_2ebef3b1-cb63-4431-a4ab-2a58289217cd",
+        "allocation_id": "allocation_8ede61eb-a60e-4f7f-87d5-d4ca33e8cb59",
+        "commit": "5631378bd688f6b1642941425b1368d21a4ba671",
+        "revision_round": 1
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "related_execution_id": "execution_90f1830d-d83f-4630-a083-f81135036032",
+    "timestamp": "2026-09-28T10:33:38.826Z",
+    "elapsed_ms": 270079
+  },
+  {
+    "step_id": "08-submissions",
+    "kind": "assertion",
+    "description": "Immutable engineering submissions reference real Git commits.",
+    "result": "pass",
+    "screenshot": "screenshots/08-submissions.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:33:39.354Z",
+    "elapsed_ms": 270607
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_4cc19678-15f0-471a-95e0-333717cb9821",
+      "recorded_at": "2026-09-28T10:33:40.958Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_cd7c821b-2e0b-4ac2-b0ed-a316cb85b750",
+    "related_worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+    "related_execution_id": "execution_a7f3651c-ba71-4eb6-aaf7-290d36ab5b6c",
+    "timestamp": "2026-09-28T10:33:43.650Z",
+    "elapsed_ms": 274903
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_cbc66f2d-3c03-44c2-b5e6-4968dee58ee4",
+      "recorded_at": "2026-09-28T10:33:41.660Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c96b8a89-f742-4fff-981a-9b3f0e84a482",
+    "related_worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+    "related_execution_id": "execution_90f1830d-d83f-4630-a083-f81135036032",
+    "timestamp": "2026-09-28T10:33:43.652Z",
+    "elapsed_ms": 274905
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_4a532165-87f5-472f-9253-89a7e8fd4d96",
+      "recorded_at": "2026-09-28T10:33:41.664Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_2907b2ef-3a59-4abb-bdbc-5bbfd3c93d9e",
+    "timestamp": "2026-09-28T10:33:43.653Z",
+    "elapsed_ms": 274906
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_b71a9fef-6df1-468e-a2f9-840cea9d3e4f",
+      "recorded_at": "2026-09-28T10:33:42.478Z",
+      "detail": {
+        "runtime_reference": "01a0e782-9d0c-7ac1-8d14-aa424bbbae8a",
+        "turn_id": "01a0e793-dd25-7050-8b38-14d016196d32"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_2907b2ef-3a59-4abb-bdbc-5bbfd3c93d9e",
+    "timestamp": "2026-09-28T10:33:43.657Z",
+    "elapsed_ms": 274910
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "task assigned",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_58d346ea-c7fb-4deb-a5a7-97e8929bf175",
+      "recorded_at": "2026-09-28T10:33:47.328Z",
+      "detail": {
+        "parent_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "timestamp": "2026-09-28T10:33:48.971Z",
+    "elapsed_ms": 280224
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_7a3aa34f-df70-4c07-a6ac-fd025292addd",
+      "recorded_at": "2026-09-28T10:33:47.340Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "related_execution_id": "execution_a117bcd1-1626-488d-9c52-d90d0c536248",
+    "timestamp": "2026-09-28T10:33:48.974Z",
+    "elapsed_ms": 280227
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_20fa9ab8-173c-47cc-8484-448a15071bfc",
+      "recorded_at": "2026-09-28T10:33:48.151Z",
+      "detail": {
+        "runtime_reference": "01a0e78b-3f8b-76c2-bf41-5e1434bd1d72",
+        "turn_id": "01a0e793-f357-75a3-8680-50b2cef2b13f"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "related_execution_id": "execution_a117bcd1-1626-488d-9c52-d90d0c536248",
+    "timestamp": "2026-09-28T10:33:51.097Z",
+    "elapsed_ms": 282350
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_1e831d67-8d6c-471f-9e29-715b3ca10b1e",
+      "recorded_at": "2026-09-28T10:33:49.483Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_2907b2ef-3a59-4abb-bdbc-5bbfd3c93d9e",
+    "timestamp": "2026-09-28T10:33:51.100Z",
+    "elapsed_ms": 282353
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "artifact submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_53b3a778-9610-4bc7-aba2-654ff2222a37",
+      "recorded_at": "2026-09-28T10:34:23.234Z",
+      "detail": {
+        "artifact_id": "artifact_0d3971cc-6cd4-46f2-a850-27fdbaa5a3e3"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "related_execution_id": "execution_a117bcd1-1626-488d-9c52-d90d0c536248",
+    "timestamp": "2026-09-28T10:34:25.294Z",
+    "elapsed_ms": 316547
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "review submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_2128b46b-e57c-4a06-936f-6e42aa8a644b",
+      "recorded_at": "2026-09-28T10:34:23.235Z",
+      "detail": {
+        "review_id": "review_5fded869-097e-4896-99df-16dccf26848a",
+        "round_id": "round_5799ffe4-1caa-423b-b7e5-b553f36d22bb",
+        "status": "approved",
+        "source_commits": [
+          "5631378bd688f6b1642941425b1368d21a4ba671",
+          "d71a7c5b64e53ec476a7e852ecc09f5d2bd012f9"
+        ]
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "related_execution_id": "execution_a117bcd1-1626-488d-9c52-d90d0c536248",
+    "timestamp": "2026-09-28T10:34:25.296Z",
+    "elapsed_ms": 316549
+  },
+  {
+    "step_id": "09-grace-review-review_5fded869-097e-4896-99df-16dccf26848a",
+    "kind": "assertion",
+    "description": "Independent review recorded approved.",
+    "result": "pass",
+    "screenshot": "screenshots/09-grace-review-review_5fded869-097e-4896-99df-16dccf26848a.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:34:25.844Z",
+    "elapsed_ms": 317097
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_b998258e-ab00-4bb2-ac55-01f90b0aea5a",
+      "recorded_at": "2026-09-28T10:34:26.424Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_7790c9ab-1ee4-4c74-a321-17d481af0f76",
+    "related_worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+    "related_execution_id": "execution_a117bcd1-1626-488d-9c52-d90d0c536248",
+    "timestamp": "2026-09-28T10:34:28.150Z",
+    "elapsed_ms": 319403
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_46604443-678b-4f3e-b62f-7d1c5a3d7bda",
+      "recorded_at": "2026-09-28T10:34:26.436Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_c2b13f56-66fa-4d61-92de-a14cb2b3990f",
+    "timestamp": "2026-09-28T10:34:28.153Z",
+    "elapsed_ms": 319406
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_c8c3b766-a39c-4f8b-aeaa-a6804e8ac8d9",
+      "recorded_at": "2026-09-28T10:34:27.501Z",
+      "detail": {
+        "runtime_reference": "01a0e782-9d0c-7ac1-8d14-aa424bbbae8a",
+        "turn_id": "01a0e794-8d22-7b62-a0fd-941e9e1384a3"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_c2b13f56-66fa-4d61-92de-a14cb2b3990f",
+    "timestamp": "2026-09-28T10:34:30.479Z",
+    "elapsed_ms": 321732
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "integration queued",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_42a9cc9e-aac2-4427-96b8-63eae569e39b",
+      "recorded_at": "2026-09-28T10:34:32.432Z",
+      "detail": {
+        "integration_id": "integration_5e0dd01f-0642-4995-89ae-1cd46c822f3c",
+        "round_id": "round_5799ffe4-1caa-423b-b7e5-b553f36d22bb",
+        "base_commit": "3268848ccaa39a3aedb61151a9960f075b525817",
+        "submission_ids": [
+          "submission_29b612ba-cc92-4285-aeba-9932c1f87b7b",
+          "submission_2ebef3b1-cb63-4431-a4ab-2a58289217cd"
+        ]
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_c2b13f56-66fa-4d61-92de-a14cb2b3990f",
+    "timestamp": "2026-09-28T10:34:34.887Z",
+    "elapsed_ms": 326140
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "integration started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_a5447b0c-f698-46c1-a828-509eb11f87fe",
+      "recorded_at": "2026-09-28T10:34:32.442Z",
+      "detail": {
+        "integration_id": "integration_5e0dd01f-0642-4995-89ae-1cd46c822f3c"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "timestamp": "2026-09-28T10:34:34.892Z",
+    "elapsed_ms": 326145
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "integration completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_7fdff214-67f8-400c-b6c7-9cac7c240f05",
+      "recorded_at": "2026-09-28T10:34:33.086Z",
+      "detail": {
+        "integration_id": "integration_5e0dd01f-0642-4995-89ae-1cd46c822f3c",
+        "candidate_commit": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13",
+        "final_commit": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "timestamp": "2026-09-28T10:34:34.894Z",
+    "elapsed_ms": 326147
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_302cf7c9-9326-4d3e-b277-659c39110e33",
+      "recorded_at": "2026-09-28T10:34:35.468Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba",
+    "related_worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+    "related_execution_id": "execution_c2b13f56-66fa-4d61-92de-a14cb2b3990f",
+    "timestamp": "2026-09-28T10:34:36.687Z",
+    "elapsed_ms": 327940
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_cc161ad9-d666-4666-9902-40711b621b3f",
+      "recorded_at": "2026-09-28T10:34:35.477Z",
+      "detail": {}
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_4578cbd1-713c-4cbe-86e0-2165b7474363",
+    "timestamp": "2026-09-28T10:34:36.690Z",
+    "elapsed_ms": 327943
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "runtime turn started",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_4c920d83-bee3-4c75-88d9-b362fce84018",
+      "recorded_at": "2026-09-28T10:34:36.703Z",
+      "detail": {
+        "runtime_reference": "01a0db82-f1d4-7ea3-b601-0abe3b95bb79",
+        "turn_id": "01a0e794-b10e-7a33-ab1a-ac0707666c59"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_4578cbd1-713c-4cbe-86e0-2165b7474363",
+    "timestamp": "2026-09-28T10:34:39.053Z",
+    "elapsed_ms": 330306
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "artifact submitted",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_852d36e4-c1d1-483a-868b-e8d02c4fb452",
+      "recorded_at": "2026-09-28T10:34:47.133Z",
+      "detail": {
+        "artifact_id": "artifact_4c80eb60-2c93-4101-ae15-e8b5771e1736"
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_4578cbd1-713c-4cbe-86e0-2165b7474363",
+    "timestamp": "2026-09-28T10:34:49.109Z",
+    "elapsed_ms": 340362
+  },
+  {
+    "step_id": "observe_workflow",
+    "kind": "system_event",
+    "description": "execution completed",
+    "result": "observed",
+    "observed_state": {
+      "event_id": "event_e8036185-1add-424b-95d1-4fb774c19378",
+      "recorded_at": "2026-09-28T10:34:50.388Z",
+      "detail": {
+        "error": null
+      }
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "related_task_id": "task_0776bc45-c0bf-4537-86cc-846a0239640e",
+    "related_worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+    "related_execution_id": "execution_4578cbd1-713c-4cbe-86e0-2165b7474363",
+    "timestamp": "2026-09-28T10:34:51.579Z",
+    "elapsed_ms": 342832
+  },
+  {
+    "step_id": "10-integration",
+    "kind": "assertion",
+    "description": "Inspected the completed trusted integration and full validation evidence.",
+    "result": "pass",
+    "screenshot": "screenshots/10-integration.png",
+    "observed_state": {
+      "integration_id": "integration_5e0dd01f-0642-4995-89ae-1cd46c822f3c",
+      "repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+      "review_id": "review_5fded869-097e-4896-99df-16dccf26848a",
+      "base_commit": "3268848ccaa39a3aedb61151a9960f075b525817",
+      "source_commits": "[\"5631378bd688f6b1642941425b1368d21a4ba671\",\"d71a7c5b64e53ec476a7e852ecc09f5d2bd012f9\"]",
+      "candidate_commit": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13",
+      "final_commit": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13",
+      "strategy": "cherry-pick-then-fast-forward",
+      "validation": "{\"passed\":true,\"recipes\":[{\"recipe_id\":\"full\",\"command\":\"confined-node recipe:full\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: canonical fixture: exact fields, sum, ordering and inclusion\\nok 1 - canonical fixture: exact fields, sum, ordering and inclusion\\n  ---\\n  duration_ms: 3.41748\\n  type: 'test'\\n  ...\\n# Subtest: stable descending priority, not alphabetical or duration sorting\\nok 2 - stable descending priority, not alphabetical or duration sorting\\n  ---\\n  duration_ms: 0.391361\\n  type: 'test'\\n  ...\\n# Subtest: empty, single, trimming, Unicode, ignored extras and duplicates\\nok 3 - empty, single, trimming, Unicode, ignored extras and duplicates\\n  ---\\n  duration_ms: 0.518287\\n  type: 'test'\\n  ...\\n# Subtest: invalid containers, undefined entries and sparse arrays\\nok 4 - invalid containers, undefined entries and sparse arrays\\n  ---\\n  duration_ms: 0.856539\\n  type: 'test'\\n  ...\\n# Subtest: required fields, undefined values and legacy aliases\\nok 5 - required fields, undefined values and legacy aliases\\n  ---\\n  duration_ms: 0.535319\\n  type: 'test'\\n  ...\\n# Subtest: subject types, blanks and every forbidden original character at all positions\\nok 6 - subject types, blanks and every forbidden original character at all positions\\n  ---\\n  duration_ms: 2.370277\\n  type: 'test'\\n  ...\\n# Subtest: strict numeric validation without coercion\\nok 7 - strict numeric validation without coercion\\n  ---\\n  duration_ms: 0.909317\\n  type: 'test'\\n  ...\\n# Subtest: safe duration and total boundaries; overflow in either input order\\nok 8 - safe duration and total boundaries; overflow in either input order\\n  ---\\n  duration_ms: 0.570848\\n  type: 'test'\\n  ...\\n# Subtest: deep frozen source works and remains unchanged on success\\nok 9 - deep frozen source works and remains unchanged on success\\n  ---\\n  duration_ms: 0.531807\\n  type: 'test'\\n  ...\\n# Subtest: late invalid fields and overflow reject without changing source\\nok 10 - late invalid fields and overflow reject without changing source\\n  ---\\n  duration_ms: 0.593414\\n  type: 'test'\\n  ...\\n# Subtest: fresh plans, arrays and records isolate all mutable results\\nok 11 - fresh plans, arrays and records isolate all mutable results\\n  ---\\n  duration_ms: 0.628938\\n  type: 'test'\\n  ...\\n# Subtest: canonical standalone Plan renders exact bytes\\nok 12 - canonical standalone Plan renders exact bytes\\n  ---\\n  duration_ms: 2.05147\\n  type: 'test'\\n  ...\\n# Subtest: exact empty and single-task text\\nok 13 - exact empty and single-task text\\n  ---\\n  duration_ms: 0.262475\\n  type: 'test'\\n  ...\\n# Subtest: numbering beyond ten rows uses LF and no trailing newline\\nok 14 - numbering beyond ten rows uses LF and no trailing newline\\n  ---\\n  duration_ms: 0.483159\\n  type: 'test'\\n  ...\\n# Subtest: ties and duplicates retain order; Unicode/punctuation/internal spaces remain literal\\nok 15 - ties and duplicates retain order; Unicode/punctuation/internal spaces remain literal\\n  ---\\n  duration_ms: 0.290949\\n  type: 'test'\\n  ...\\n# Subtest: invalid Plan/tasks containers, sparse arrays and legacy aliases are rejected\\nok 16 - invalid Plan/tasks containers, sparse arrays and legacy aliases are rejected\\n  ---\\n  duration_ms: 0.670399\\n  type: 'test'\\n  ...\\n# Subtest: missing fields and malformed task records\\nok 17 - missing fields and malformed task records\\n  ---\\n  duration_ms: 0.445011\\n  type: 'test'\\n  ...\\n# Subtest: subject validation rejects every forbidden control before trim\\nok 18 - subject validation rejects every forbidden control before trim\\n  ---\\n  duration_ms: 2.183799\\n  type: 'test'\\n  ...\\n# Subtest: strict numeric minutes and priority fields; valid priority boundaries\\nok 19 - strict numeric minutes and priority fields; valid priority boundaries\\n  ---\\n  duration_ms: 0.464978\\n  type: 'test'\\n  ...\\n# Subtest: total must be present, safe, nonnegative and exactly consistent\\nok 20 - total must be present, safe, nonnegative and exactly consistent\\n  ---\\n  duration_ms: 0.34735\\n  type: 'test'\\n  ...\\n# Subtest: safe sum capacity including exact boundary and overflow\\nok 21 - safe sum capacity including exact boundary and overflow\\n  ---\\n  duration_ms: 0.372242\\n  type: 'test'\\n  ...\\n# Subtest: ascending priorities rejected, never repaired\\nok 22 - ascending priorities rejected, never repaired\\n  ---\\n  duration_ms: 0.241466\\n  type: 'test'\\n  ...\\n# Subtest: success preserves mutable/frozen values and ordering, with deterministic repeated text\\nok 23 - success preserves mutable/frozen values and ordering, with deterministic repeated text\\n  ---\\n  duration_ms: 0.387819\\n  type: 'test'\\n  ...\\n# Subtest: rejection preserves mutable and frozen source values and ordering\\nok 24 - rejection preserves mutable and frozen source values and ordering\\n  ---\\n  duration_ms: 0.39318\\n  type: 'test'\\n  ...\\n1..24\\n# tests 24\\n# suites 0\\n# pass 24\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 105.602131\\n\",\"checked_at\":\"2026-09-28T10:34:33.046Z\"}]}",
+      "status": "completed",
+      "error": null,
+      "requested_by": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+      "execution_id": "execution_c2b13f56-66fa-4d61-92de-a14cb2b3990f",
+      "created_at": "2026-09-28T10:34:32.430Z",
+      "updated_at": "2026-09-28T10:34:33.085Z",
+      "round_id": "round_5799ffe4-1caa-423b-b7e5-b553f36d22bb",
+      "submission_ids": "[\"submission_29b612ba-cc92-4285-aeba-9932c1f87b7b\",\"submission_2ebef3b1-cb63-4431-a4ab-2a58289217cd\"]",
+      "delivery_task_id": "task_c134d8af-e74f-4682-ba1d-1f046169daba"
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:34:52.475Z",
+    "elapsed_ms": 343728
+  },
+  {
+    "step_id": "11-final-project",
+    "kind": "assertion",
+    "description": "StudyPlan is integrated; exact submissions, independent review and canonical SHA are visible.",
+    "result": "pass",
+    "screenshot": "screenshots/11-final-project.png",
+    "observed_state": {
+      "canonical_sha": "fb74dc7a8304b19830108ccb001c3dc5fe39bd13"
+    },
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:34:52.924Z",
+    "elapsed_ms": 344177
+  },
+  {
+    "step_id": "11b-final-output",
+    "kind": "operator_action",
+    "description": "Opened Atlas’s final artifact containing the reported StudyPlan result.",
+    "result": "pass",
+    "screenshot": "screenshots/11b-final-output.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:34:53.530Z",
+    "elapsed_ms": 344783
+  },
+  {
+    "step_id": "12-paused",
+    "kind": "operator_action",
+    "description": "Paused new dispatch after the complete tutorial, preserving the active Project and all history.",
+    "result": "pass",
+    "screenshot": "screenshots/12-paused.png",
+    "related_project_id": "project_7309f229-5151-4b17-af86-5bb991760932",
+    "related_repository_id": "repository_b22a536f-b730-4aae-8a7e-5090d321e8cd",
+    "timestamp": "2026-09-28T10:34:54.899Z",
+    "elapsed_ms": 346152
+  }
+]

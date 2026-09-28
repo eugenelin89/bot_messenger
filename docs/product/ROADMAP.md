@@ -27,6 +27,10 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 12 | Cross-HQ federation | Planned |
 | 13+ | Broader operating capabilities | Later |
 
+Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
+operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
+existing development HQ. **Prompt 06 remains Next.**
+
 The sequence intentionally builds stronger authority and isolation boundaries before
 adding broader external access or autonomous capabilities.
 
@@ -708,7 +712,7 @@ are proven, later prompts may add capabilities such as:
 - customer-facing deployment;
 - specialized GPU/compute workers;
 - portfolio-level company supervision;
-- automated Demo Operator / guided tutorial generation and release walkthrough capture.
+- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01.
 
 These should not be assigned fixed prompt numbers until their dependencies and scope are
 better understood.

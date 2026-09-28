@@ -18,7 +18,9 @@ This is an explanatory primer, not the source of truth for current milestone sta
 Prompt 06 is next. Multiple repositories, scoped revision/review, durable integration,
 trusted remote operations and archive/release are implemented. Recipes currently support
 bounded dependency-free Node tests with explicit test-file arguments; general package
-environments, deployment and Demo Operator remain deferred. Public GitHub fetch passed;
+environments and deployment remain deferred. The bounded browser Demo Operator is now
+implemented; see the [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) and
+[operator boundary](../product/DEMO_OPERATOR.md). Public GitHub fetch passed;
 authenticated GitHub push remains unvalidated. The discussion below is preserved in its
 original historical framing. See [Decision 014](../decisions/decision_014_generalized_projects.md)
 and [Prompt 05 acceptance](../validation/prompt-05-general-projects.md) for exact boundaries

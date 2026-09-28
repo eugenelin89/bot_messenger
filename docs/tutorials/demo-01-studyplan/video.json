@@ -1,0 +1,13 @@
+{
+  "path": "/Users/eugenelin/Documents/ChatGPT/Bot Messenger/outputs/demo-operator-01/run-06/demo-raw.webm",
+  "bytes": 27656290,
+  "sha256": "bcb56787f4be8b96f72a249610452e7e84cb342f7634183012b7d457a8249a98",
+  "format": "WebM",
+  "recording": "Playwright native browser context video",
+  "wall_duration_ms": 346377,
+  "duration_seconds": 346.48,
+  "codec": "vp8",
+  "width": 1600,
+  "height": 1000,
+  "fps": 25
+}

@@ -49,6 +49,10 @@ The historical Prompt 04 runtime acceptance revision is
 `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`. Later documentation commits preserve its
 accepted source digest. See the [Linux identity validation record](docs/validation/prompt-04-linux-identity.md).
 
+The bounded [Demo Operator](docs/product/DEMO_OPERATOR.md) exercises the real web UI
+and records the [StudyPlan tutorial](docs/tutorials/demo-01-studyplan/README.md). It is an
+interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is unchanged.
+
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
 
@@ -331,7 +335,7 @@ Current important limits include:
 - public GitHub fetch only; optional authenticated push remains unvalidated live;
 - no arbitrary deployment or broad permission-granting approval workflow;
 - retained older Codex engineering bindings cannot silently adopt new tool schemas;
-- no Computer Use/browser automation;
+- no general worker Computer Use; the bounded Demo Operator is a separate test client;
 - no public Internet UI/login;
 - no multi-company runtime implementation yet;
 - no cross-HQ federation;
@@ -428,6 +432,10 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
 - [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md)
+
+### Recorded tutorial
+
+- [StudyPlan Demo 01](docs/tutorials/demo-01-studyplan/README.md)
 - [Demo Operator and Guided Tutorials](docs/product/DEMO_OPERATOR.md)
 
 ### Examples and history
