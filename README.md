@@ -9,7 +9,7 @@ control. Your Mac/PC is the bootstrap, administration, development, and browser 
 
 ## Current state
 
-**Prompt 04 is complete and validated on Ubuntu.**
+**Prompt 05 is implemented; real Ubuntu acceptance is in progress.**
 
 BotSquad currently supports:
 
@@ -19,7 +19,12 @@ BotSquad currently supports:
 - real Atlas → Scout → Atlas research;
 - Atlas → Maya/Turing → Linus + Ada → Grace engineering coordination;
 - two concurrent real Codex executions;
-- managed Git work, exact-commit review, and trusted tested integration;
+- first-class software Projects with multiple bounded repositories and configurable branches;
+- local creation, Git-bundle import and trusted public GitHub registration/fetch;
+- explicit non-overlapping write scopes and named focused/full validation recipes;
+- immutable submissions, independent review rounds and bounded revision/resubmission;
+- durable tested integration queues and exact human-approved remote publication;
+- archive/release that revokes clone access while preserving engineering history;
 - per-worker model selection;
 - per-worker reasoning effort;
 - per-worker scheduling priority;
@@ -34,7 +39,11 @@ BotSquad currently supports:
 - private worker Unix identities and independent Linux engineering clones;
 - worker-UID source writes/commits and evidence-preserving retirement.
 
-The Prompt 04 runtime acceptance revision is
+The generalized lifecycle and acceptance status are recorded in
+[Decision 014](docs/decisions/decision_014_generalized_projects.md) and
+[Prompt 05 validation](docs/validation/prompt-05-general-projects.md).
+
+The historical Prompt 04 runtime acceptance revision is
 `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`. Later documentation commits preserve its
 accepted source digest. See the [Linux identity validation record](docs/validation/prompt-04-linux-identity.md).
 
@@ -266,6 +275,26 @@ Real acceptance proved:
 
 See [Prompt 03 Ubuntu validation](docs/validation/prompt-03-ubuntu.md).
 
+## Start a software Project
+
+In **Projects & repositories**, create a Project and configure its instructions and
+trusted policy. Add named focused and full Node recipes with literal test paths. Create
+a minimal repository, import a Git bundle, or register a public GitHub HTTPS repository;
+choose its actual default branch. Repositories live under managed storage, never an
+arbitrary worker-selected host path.
+
+Assign a Project objective with acceptance criteria. Maya specifies it; Turing assigns
+non-overlapping scopes; Linus/Ada use approved clones and recipes; Grace reviews exact
+submissions and can request bounded revisions. Integration is queued and advances the
+canonical branch only after full tests pass. Approve each Linux identity/clone grant
+through Nix and the trusted Approvals UI.
+
+Remote policy starts at `none`. Configure `fetch_only` for explicit synchronization or
+`approved_push` to request a separate publication approval binding branch, expected old
+SHA and integrated new SHA. Workers receive no credentials or remote Git tool. Archive
+after work/publication is resolved to revoke clone access and retain history. See
+[Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md).
+
 ## Worker AI settings
 
 Open a worker inspector in the UI to configure:
@@ -294,11 +323,12 @@ Current important limits include:
 - three direct children per manager;
 - two hierarchy edges;
 - two active executions globally;
-- one fixed SquadStatus engineering template/workflow;
-- no arbitrary external repository registration/deployment;
-- no per-worker Unix account yet;
-- no Nix DevOps worker yet;
-- no broad permission-granting human approval workflow;
+- bounded dependency-free Node test recipes; no general language/package environment;
+- repositories capped at 16 MiB object contents, 4 MiB bundle, 1,000 files and 128 KiB/file;
+- no submodules, symlinks, LFS, custom Git attributes or arbitrary host-path registration;
+- public GitHub fetch only; optional authenticated push remains unvalidated live;
+- no arbitrary deployment or broad permission-granting approval workflow;
+- retained older Codex engineering bindings cannot silently adopt new tool schemas;
 - no Computer Use/browser automation;
 - no public Internet UI/login;
 - no multi-company runtime implementation yet;
@@ -306,8 +336,9 @@ Current important limits include:
 - no Telegram/external-identity implementation;
 - no autonomous financial authority.
 
-The next infrastructure milestone is expected to add Nix, trusted human grants, a narrow
-privileged provisioner, and separate Unix identities/project access for workers.
+Nix, exact human grants and private Unix identities are implemented. Project policy,
+remote publication and archive remain trusted human operations. SquadStatus remains a
+regression fixture using the generalized engineering engine.
 
 A later native-client milestone will add a secure iPhone/iPad dashboard that connects
 to BotSquad without requiring a manual SSH tunnel for normal mobile use. The HQ remains
@@ -348,6 +379,7 @@ npm run check
 npm test
 npm run validate:prompt01
 npm run validate:real
+npm run validate:projects
 ```
 
 The real validation commands consume Codex usage.

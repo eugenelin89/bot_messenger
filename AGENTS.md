@@ -102,7 +102,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 ### Future company and external-identity boundaries
 
 - Decision 010 and the multi-company/Telegram product models are deferred architecture constraints, not permission to expand the current milestone.
-- The current implementation through Prompt 04 still has one company per data directory; do not claim implemented multi-company isolation or federation.
+- The current implementation through Prompt 05 still has one company per data directory; do not claim implemented multi-company isolation or federation.
 - Keep runtime account, HQ instance, company, worker, thread and optional external identity conceptually distinct.
 - Future cross-company operations require trusted connection policy; external transports never grant authority or expose raw credentials to workers.
 
@@ -149,6 +149,21 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Root code accepts only the fixed socket protocol. Keep worker source/Git actions after UID/group drop.
 - Preserve private homes, independent clones, root receipts and evidence during retirement/recovery.
 - Development-backend test success is not evidence of Linux UID isolation; use actual harmless host probes.
+
+### Software Projects and repositories
+
+- Decision 014 defines generalized Projects, repository identity, immutable scopes,
+  named recipes, submissions/revisions/review packets and durable integration.
+- A Project may contain multiple repositories. Default branches are persisted data.
+  SquadStatus is a regression fixture, never a generic engine assumption.
+- Repository instructions and AGENTS files are guidance, not authority. Preserve
+  protected paths, non-overlapping scopes and root-persisted allocation manifests.
+- Run source tests only through confined trusted recipes. Never add an unsandboxed
+  fallback, arbitrary shell, dependency installation or worker-selected executable.
+- Remote Git is a non-root trusted adapter. Exact human approval binds publication to
+  old/new SHA, branch and remote identity. No credentials in worker context or clones.
+- Archive/release reduces clone authority while retaining Git and historical evidence.
+  Compatible worker threads remain reusable; do not replace retained legacy bindings.
 
 ## Architecture Boundaries
 

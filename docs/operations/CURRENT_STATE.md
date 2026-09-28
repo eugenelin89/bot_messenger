@@ -1,7 +1,7 @@
 # BotSquad — Current State
 
-**Status:** Prompt 04 complete; real Ubuntu acceptance validated
-**Updated:** 2026-09-26
+**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress
+**Updated:** 2026-09-28
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
@@ -41,7 +41,26 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
-## Prompt 04 acceptance
+## Prompt 05 software Projects
+
+Projects now own trusted instructions, protected paths, recipes and bounds; each can
+contain multiple managed repositories with configurable default branches. Local creation,
+bundle import and public GitHub registration are supported within explicit size/path/Git
+feature limits. Workers receive immutable non-overlapping scopes in private Linux clones.
+
+Named Node recipes run in disposable confined snapshots, with only `build/` writable.
+Multiple commits/submissions, exact independent review rounds and bounded genuine
+revisions precede a durable integration queue. Full validation gates canonical advance.
+Explicit remote fetch blocks divergence; exact approved publication uses a non-root
+executor and immutable receipt. Archive revokes clone access while preserving history.
+
+Local acceptance has 104 passing tests and one Linux-only skip; the actual Ubuntu
+service-restriction suite passes all 105. Real-runtime results and final release SHAs
+are tracked in the
+[Prompt 05 validation record](../validation/prompt-05-general-projects.md).
+[Decision 014](../decisions/decision_014_generalized_projects.md) defines the boundaries.
+
+## Prompt 04 historical acceptance
 
 Runtime acceptance: `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`.
 
@@ -201,7 +220,9 @@ It restricts product tests using:
 - seccomp syscall filtering;
 - empty environment;
 - Node permission controls;
-- bounded runtime/output.
+- bounded runtime/output;
+- generic recipe snapshots with one 64 MiB Linux build tmpfs, 96 MiB Node heap and
+  512 MiB data limit, without JIT/WebAssembly, package installation or inherited secrets.
 
 Acceptance probes denied:
 
@@ -297,7 +318,8 @@ authority automatically through a durable, safely deferred revocation intent.
 
 See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md) and
 [the validation record](../validation/prompt-04-linux-identity.md). Real Ubuntu acceptance passed.
-The next planned product milestone is generalized projects and repository lifecycle.
+Prompt 05 extends these same grants to generic allocation manifests and preserves the
+separate non-root boundary for remote Git. See Decision 014.
 
 ## Future native mobile access
 
@@ -321,7 +343,7 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Current next step:
+Current acceptance milestone:
 
 ~~~text
 Prompt 05

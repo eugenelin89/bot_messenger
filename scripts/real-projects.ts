@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawn,type ChildProcess} from 'node:child_process';
 import {createServer} from 'node:net';
-import {existsSync,mkdirSync,readFileSync,writeFileSync,statSync} from 'node:fs';
+import {existsSync,mkdirSync,readFileSync,writeFileSync,statSync,realpathSync} from 'node:fs';
 import {dirname,join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import type {Company} from '../src/control/company.js';
@@ -14,7 +14,7 @@ import {validationProfiles} from './validation-profiles.js';
 import {ledgerFiles,ledgerPolicy,ledgerObjective} from './fixtures/ledger.js';
 
 type Snapshot=ReturnType<Company['snapshot']>;
-const root=fileURLToPath(new URL('../../',import.meta.url));
+const root=realpathSync(fileURLToPath(new URL('../../',import.meta.url)));
 const data=resolve(process.env.BOT_VALIDATION_DIR??join(root,'.validation',`projects-${new Date().toISOString().replace(/[:.]/g,'-')}`));
 assert.ok(!existsSync(join(data,'company.sqlite')),'Use fresh validation state');mkdirSync(data,{recursive:true,mode:0o700});
 const started=new Date().toISOString();const identities=process.env.BOT_VALIDATE_IDENTITIES==='1';

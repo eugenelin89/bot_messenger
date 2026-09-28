@@ -506,13 +506,24 @@ workspace; engineering allocations are separately bound to current tasks. No imp
 thread replacement is permitted. Restart retains completed ownership and results;
 ambiguous source/Git work is blocked for inspection rather than automatically replayed.
 
-The fixed Prompt 02 Git/worktree layout remains the development regression path.
-Prompt 04 uses private Unix identities and independent clones on production Linux.
+Development worktrees support both generic Projects and the historical SquadStatus
+fixture. Production Linux retains Prompt 04 private identities/independent clones, now
+with generic immutable allocation manifests.
 
-The fixed product, two modules, one review and one integration attempt keep this
-milestone bounded. Automatic revision cycles, generalized product repositories,
-manager retirement, broad approval grants, cleanup and Computer Use are deferred.
-See [Decision 008](../decisions/decision_008_managed_engineering.md).
+Prompt 05 replaces that fixed-fixture limit with trusted human-defined software Projects,
+multiple repositories, configurable branches and named focused/full Node recipes. Turing
+assigns exact-file or directory-prefix write scopes inside immutable Project policy.
+Grace freezes and reviews exact submission packets; changes_required requeues affected
+engineers in their existing task/thread, with a bounded number of independent review
+rounds. Approved current submissions enter a durable tested integration queue.
+
+Remote fetch/publication is trusted application work. Exact human approval gates each
+publication; workers receive no GitHub credentials or remote tool. Archive revokes clone
+access while retaining identity, threads and evidence. Retained incompatible Codex tool
+schemas fail explicitly instead of silently replacing old threads. General environments,
+manager retirement, broad approval grants, physical cleanup and Computer Use remain
+outside this milestone. See [Decision 014](../decisions/decision_014_generalized_projects.md)
+and the [acceptance record](../validation/prompt-05-general-projects.md).
 
 
 ## Prompt 03 worker AI configuration

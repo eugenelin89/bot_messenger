@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 04 complete; real Ubuntu acceptance validated
+**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress
 **Updated:** 2026-09-26
 
 ## Runtime topology: implemented baseline and accepted target
@@ -73,7 +73,7 @@ Worker identity, manager, lifecycle, capabilities and private runtime workspace 
 separate from Task and runtime-thread identity. Artifacts have generated paths and
 SHA-256 integrity checks; messages and audit reject ordinary update/delete operations.
 
-Migration 2 adds:
+Historical migration 2 added the following fixed-fixture schema (generalized by migration 5):
 
 - **Repository:** product, canonical local root, default branch, base/current commit,
   creator CTO, workflow task, spec artifact and lifecycle timestamps/status.
@@ -91,6 +91,15 @@ Migration 2 adds:
 The schema ledger, foreign keys, WAL, full synchronization and `BEGIN IMMEDIATE`
 transactions preserve prior data. Migrations do not reset retained Prompt 01 history.
 
+Migration 5 adds first-class Projects and SQL-only table rebuilds that preserve original
+identities, columns and history. Repositories have nullable legacy workflow/spec links,
+source/remote identity and policy; allocations have immutable scopes/manifests; submissions
+have commit lists and linked revision rounds; immutable review packets, revision requests,
+integration queue attempts, release intents and non-root publication approvals/receipts
+are persistent. Multiple repositories, deliveries, submissions and integrations are
+supported. Legacy unknown metadata stays explicit rather than fabricated. Runtime-tool
+schema versions protect retained bindings from silent incompatible resume.
+
 ## Authority and runtime identity
 
 ```text
@@ -104,7 +113,7 @@ Fixed profiles enforce depth and role constraints in addition to the capability 
 | Atlas / CEO | messages, reports, approved docs, direct assignments | Researcher; Product Manager and CTO for product tasks |
 | Maya / Product Manager | approved context, specification artifacts, messages | none |
 | Turing / CTO | managed product creation/allocation, review assignment, integration request | two Engineers and one Reviewer |
-| Engineer | owned source read/write, fixed tests, own Git inspection, verified submission | none |
+| Engineer | bounded source read, scoped writes/deletes, named recipes, own Git inspection, immutable submission | none |
 | Reviewer | exact-commit read-only packet, structured review, artifacts/messages | none |
 
 There are eight workers maximum, three direct children per manager and two hierarchy
@@ -151,49 +160,52 @@ replayed. Queued safe work and pending completed-child wakes are reconciled loca
 
 ## Managed engineering
 
-A completed Maya spec is required before CTO delivery. The only template is the small
-local SquadStatus product. Trusted code creates `products/<repository-id>/main`, a
-separate Git repository with `main`, a clean base commit and no remote. Workers pass
-a logical name, never a filesystem root. Product development never targets BotSquad.
+A trusted human creates a Project with instructions, policy and named validation recipes,
+then creates/imports/registers its managed repositories. Repository identity, default
+branch and canonical SHA are independent of delivery tasks. A completed Maya specification
+precedes Turing's allocations. Existing compatible worker identities/threads can work on
+later deliveries and Projects. SquadStatus remains an explicit regression fixture.
 
-Linus and Ada receive separate branches and task allocations. Linux production uses
-independent clones in private worker homes; the development backend retains worktrees. Canonical
-paths, regular files, symlinks/hardlinks, `.git` pointers/backlinks, registered repository,
-branch/base and worker/task identity are checked on access. Engineers can edit only
-`src/<module>.mjs` and optional `test/<module>.extra.test.mjs`. Scaffold acceptance tests,
-composition and Git metadata are unavailable to write tools.
+Canonical Git stays service-owned. Linux engineers receive independent private clones;
+the development backend uses worktrees. Immutable allocation manifests bind worker,
+repository, task, base, branch, exact-file/directory-prefix scopes, protected paths and
+bounds. Application and provisioner verify ownership, normalized paths, links, metadata
+and scope on each action. Concurrent scopes cannot overlap. AGENTS/context is guidance.
 
-Fixed-argv Git operations use a clean environment, ignore global/system configuration
-and disable hooks, fsmonitor, signing and external diff/attributes configuration. Local
-repository configuration is allowlisted; remotes and replacement refs are rejected.
-Engineers have no general Git command or shell tool.
+Imports are bounded Git bundles or trusted GitHub fetches, never host paths. Fixed Git
+commands disable ambient config, helpers, hooks, replacement refs and redirects. Unsafe
+Git features are rejected. Source reads are bounded UTF-8; writes/deletes cannot cross
+scope or protected paths. Workers have no shell, arbitrary Git command or remote tool.
 
-Product code runs in a separate Node process with permissions restricting reads to
-the worktree, no addons/worker/child-process permission, an empty environment, a
-96 MB old-space limit, ten-second timeout and 64 KB captured-output limit (16 KB retained).
-On macOS, Seatbelt additionally denies network, writes, process signals, child processes and regular-file
-reads outside product/runtime locations. Inherited pipes remain usable. On Ubuntu x86_64, bubblewrap instead supplies user/mount/PID/network namespaces,
-read-only product/runtime mounts and seccomp denial of network sockets, non-thread
-clones, host signals and namespace/mount escape. A dedicated service-only AppArmor
-userns grant preserves global Ubuntu restrictions. No unsandboxed fallback exists.
+Generic named Node test recipes run in disposable snapshots. Only build/ is writable;
+Linux uses a 64 MiB tmpfs plus namespaces/seccomp and Node permissions. JIT/WebAssembly
+are disabled, with 96 MiB heap, 512 MiB data, 30-second maximum deadline and 64 KiB maximum
+output. macOS uses Seatbelt and Node permissions for development. There is no unsandboxed
+fallback or dependency installation. Policy may lower all bounds; see Decision 014.
 
-Submission verifies a real module change, allowed paths, the expected base HEAD,
-passing focused tests and a clean trusted commit. It freezes the worktree and persists
-immutable evidence. Grace receives the spec, base files, exact submitted diffs, immutable
-tests and focused evidence through a read-only packet. Its structured review binds
-approval/changes_required to exactly those two commits. It cannot mutate source or
-request integration.
+Submissions freeze a verified base/head/linear commit range, Git-computed changed paths,
+focused results and execution provenance. Every commit must stay inside the original
+scope. A hashed review round freezes exact submissions, specification, diffs, validation
+and previous feedback. Grace must read the packet and bind its disposition to those IDs
+and commits. Changes required requeues only affected existing engineer tasks with exact
+feedback; a revised immutable submission extends its predecessor. Review rounds are bounded.
 
-CTO integration checks completed approval and re-verifies the submissions. A retained
-candidate worktree cherry-picks the exact two commits, runs all acceptance/extra tests
-and checks deterministic CLI output. The clean default branch advances by fast-forward
-only after success. Conflict/test failure leaves default unchanged. Repeated requests
-return the recorded completed integration; failed/ambiguous attempts require inspection.
+An approved current packet permits a durable queued integration. The service serializes
+canonical mutation per repository, checks the base and approval again, retains a candidate,
+cherry-picks the exact ranges and runs all full recipes before fast-forward. Failed or
+stale attempts preserve canonical Git and evidence. Restart reconciles persisted passing
+candidates already advanced or blocks ambiguity; completed work never replays.
 
-Git/filesystem side effects and SQLite cannot form one atomic transaction. Durable
-creating/allocating/submitting/integrating intent is recorded first. Restart blocks
-unfinished intent instead of replaying it. Completed branches and worktrees stay
-retained; automatic repair, revision cycles and cleanup are deferred.
+Remote policy is none/fetch_only/approved_push. Explicit trusted fetch verifies identity,
+branch and ancestry; unexpected divergence blocks. Publication uses separate non-root
+operation/approval/receipt tables, exact human authority and an atomic receiver update
+bound to approved old/new SHA and branch. Lost responses reconcile before any retry.
+Operator credentials remain service-private, never in repository URLs or worker context.
+
+Archive persists authority-reduction intent, rejects unresolved work/publication, revokes
+exact clone bindings and blocks future Project work. Repositories, clones, reviews and
+history remain retained. Worker identities and compatible threads remain reusable.
+See [Decision 014](../decisions/decision_014_generalized_projects.md).
 
 ## Codex adapter
 
@@ -209,8 +221,10 @@ company tools supply engineering access without broadening the runtime sandbox.
 
 A new thread is named `BotSquad · <name> · <title>` and its exact name is persisted in the binding. Resume verifies exact thread ID, stored name and canonical UUID workspace, including compatible pre-rename names on legacy bindings. Existing bindings are never silently replaced. Migration records pre-Prompt-02 bindings:
 the pinned resume protocol cannot change their dynamic tool schemas, so they retain
-research support and fail explicitly on engineering objectives. Use fresh company
-data for engineering until an explicit binding-migration workflow exists. Runtime permission requests are
+research support and fail explicitly on incompatible engineering objectives. Migration 5
+also marks retained pre-Project engineering schemas; generalized engineering fails clearly
+for those bindings. New compatible Prompt 05 threads resume through revision and reuse.
+Use fresh validation workers until an explicit binding-migration workflow exists. Runtime permission requests are
 denied and retained as awaiting_approval. Four-minute deadlines and acknowledged
 interruption remain. Raw credentials, reasoning and arbitrary transport data are not logged.
 
@@ -222,7 +236,8 @@ sent to the external model service; self-hosted/operator-controlled describes th
 ## Human UI and host security
 
 The browser shows organization, durable messages, tasks, executions, artifacts, audit,
-products, allocations, submitted commits, reviews and integration test evidence. Active
+Projects/repositories, policy/recipes, scopes, submission history, exact review rounds,
+integration queue/results, remote approvals and archive state. Active
 engineers are visibly identified together. Friendly managed paths replace absolute
 paths in product summaries. Controls preserve initialization, explicit assignment,
 message-only posting, pause/resume, interruption, inspected retry and cancellation.
@@ -240,18 +255,21 @@ triggers preserve normal application integrity, not cryptographic tamper-proofin
 
 ## Validation and deferred work
 
-`npm test` covers both milestones, real local Git, migration, authority, ownership,
+`npm test` covers retained milestones and generalized Projects, real local Git, migration, authority, ownership,
 confinement, concurrency, exact-commit review, conflicts, failed acceptance, idempotency
 and recovery. `npm run validate:prompt01` exercises actual research/restart/resume/
 interruption. `npm run validate:real` exercises the actual six-worker engineering flow,
 positive execution/turn overlap, denied boundary probes, independent review, product
-acceptance and restart without replay. See the milestone validation records.
+acceptance and restart without replay. `npm run validate:projects` adds real imported-repository
+work, revision/re-review, four durable restart gates, publication reconciliation and archive.
+The Linux operator companion verifies actual UID and revoked-clone access. See the milestone
+validation records.
 
-Decision 006 remains authoritative: Computer Use is disabled in Prompt 01 and 02.
-Engineering tools grant no GUI/desktop authority. Approval grants are limited to the
-implemented worker infrastructure operations. Generalized external products, revision
-loops, cleanup, scalable history,
-payments, outreach, deployment and distributed orchestration remain deferred.
+Decision 006 remains authoritative: Computer Use is disabled through Prompt 05.
+Engineering tools grant no GUI/desktop authority. Exact approval supports bounded host
+infrastructure and non-root repository publication. General environments, physical
+cleanup, scalable history, payments, outreach, deployment and distributed orchestration
+remain deferred.
 
 
 ## Worker configuration, migration and dispatch
@@ -350,7 +368,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-The implementation through Prompt 04 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 05 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.
@@ -364,12 +382,12 @@ inbound content; they never replace internal records or grant authority.
 
 See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
 [External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
-These requirements constrain future work; they are not implemented by Prompt 04.
+These requirements constrain future work; they are not implemented through Prompt 05.
 
 
 ## Future native-client boundary
 
-The private HTTP/SSE surface established in Prompt 03 and retained through Prompt 04 is validated for a browser session through
+The private HTTP/SSE surface established in Prompt 03 and retained through Prompt 05 is validated for a browser session through
 an SSH tunnel. A future native-client milestone should extract/define a stable,
 versioned, authenticated client API above the existing control-plane operations.
 

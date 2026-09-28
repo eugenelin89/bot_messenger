@@ -79,3 +79,32 @@ required host reboot; final production comparison; documentation freshness; norm
 main integration/push/deployment/equality. Record IDs, SHAs and sanitized evidence below
 when observed. Authenticated live GitHub push is currently unvalidated and no credential
 or disposable external publication target has been assumed.
+
+
+## Initial feature deployment and public GitHub
+
+Feature `3894e7fe37a9dfdabd8bb4314de63ea309c7a21b` was pushed normally and deployed
+through the checked-in bootstrap. The hardened Ubuntu deterministic suite passed
+105/105 tests, zero skips/failures, in 77.99 seconds. Its evidence is retained at
+`validation/deterministic-20260928T072631Z` on the HQ.
+
+Production comparison passed all 27 original tables, preserving IDs, profiles, runtime
+bindings, messages, task/execution results and audit. The existing startup refreshWorker
+routine changed only the worker updated_at timestamp; status and all other original
+fields remained identical. All 38 original account mappings and 116 root JSON records
+matched. Schema is 5, production remains paused, runtime ready and no completed replay.
+
+The public GitHub adapter imported and fetched `https://github.com/octocat/hello-world.git`
+on `master`, head `7fd1a60b01f91b314f59955a4e4d4e80d8edf11d`. Inspection found 7 objects,
+914 object bytes, one 13-byte README. The 1.572-second credential-free probe created no
+workers and archived its Project. Evidence: `validation/public-github-20260928T073400Z`.
+Authenticated GitHub push was not attempted and remains unvalidated.
+
+The first real run, `validation/projects-20260928T073322Z`, reached changes_required,
+revision, second approval, completed integration, all four restart gates, reconciled
+publication, blocked divergence and archive. Root/operator evidence passed 100 real UID
+checks and four archived-clone denial checks. Its final report writer failed on a trailing
+slash in the source-root Git safe.directory value, after all lifecycle assertions. The
+harness canonicalizes that path now (verified under the service UID without a global
+Git exception). This diagnostic run remains retained; a fresh repeat will provide the
+clean final machine-readable result. No assertion or authority boundary was weakened.

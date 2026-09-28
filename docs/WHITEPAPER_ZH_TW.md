@@ -19,7 +19,9 @@ BotSquad 是一套自架式（self-hosted）控制平面，用來把持續存在
 
 BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成一個可以長時間運作、自行架設的 Ubuntu 總部。目前的實作已經實際驗證：一個具有上下層關係的 AI 組織，可以進行研究、同時進行軟體開發、接受獨立審查，再由可信任的整合流程完成測試與合併；同時也具備 Linux 隔離、每位工作者獨立的模型與推理強度設定、重新啟動後的狀態復原，以及僅供私人存取的 Web 介面。Prompt 04 也加入每位工作者的 Unix 身分，以及由 Nix 協調、精確限定範圍的核准流程。
 
-長期架構會建立在這個基礎上，逐步加入一般化的專案支援、安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
+Prompt 05 已實作有明確限制的軟體 Project、寫入範圍、修訂與獨立審查輪次、整合佇列、可信任的遠端 Git 與封存／撤銷存取流程；真實驗收進度記錄在 [Prompt 05 驗證紀錄](validation/prompt-05-general-projects.md)。
+
+長期架構會建立在這個基礎上，逐步加入安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
 
 整個設計始終遵循一個原則：
 
@@ -510,7 +512,7 @@ Prompt 04 已讓受限的工作者檔案與 Git 操作使用各自的 UID。可�
 
 ## 12. 目前的驗證證據
 
-Prompt 03 已完成真實 Ubuntu acceptance。以下保留其歷史基準；目前的身分、核准、停用與資源證據，請見 [Prompt 04 驗證紀錄](validation/prompt-04-linux-identity.md)。
+Prompt 03 已完成真實 Ubuntu acceptance。以下保留其歷史基準；身分、核准與停用的歷史證據請見 [Prompt 04 驗證紀錄](validation/prompt-04-linux-identity.md)。一般化專案與目前驗收狀態請見 [Prompt 05 驗證紀錄](validation/prompt-05-general-projects.md)，下列歷史量測不代表新工作負載的量測結果。
 
 驗證主機：
 
@@ -560,7 +562,7 @@ Acceptance 包含：
 - human lock；
 - 可查驗的 execution history。
 
-Prompt 04 已實作工作者身分與專案存取所需的持久、精確範圍核准。一般化的受保護動作授權仍留待後續。
+Prompt 04 已實作工作者身分與專案存取所需的持久、精確範圍核准。Prompt 05 另外加入非 root 的 publication 核准，綁定遠端身分、分支與精確的舊／新 SHA。一般化的受保護動作授權仍留待後續。
 
 目前強制執行的流程是：
 
@@ -619,21 +621,17 @@ Nix 本身仍然不是 root，而是透過一個功能非常有限、可信任�
 
 ## 15. 一般化專案支援
 
-目前 engineering flow 刻意使用一個範圍固定的小型產品做驗證。
+Prompt 05 將 Project 與 Repository 分成獨立、持久的概念。人類建立專案說明、保護路徑、資源上限與具名 Node 測試配方；一個 Project 可以包含多個新建、bundle 匯入或透過可信任 GitHub adapter 註冊的 repository，各自保存預設分支。任意主機路徑及未受限制的 Git 功能不在支援範圍。
 
-下一個 project milestone 會把以下概念正式變成一級物件：
+Maya 針對實際 repository 目標撰寫規格，Turing 指派不重疊的檔案或目錄前綴寫入範圍。Linux 工程師使用各自 Unix UID 擁有的獨立 clone，不持有外部 remote。AGENTS 與專案說明只是指引；可信任程式會依不可變的 allocation manifest 強制檢查每次原始碼及 Git 操作。
 
-- Project；
-- Repository；
-- Clone / workspace；
-- Branch allocation；
-- Submission；
-- Review；
-- Revision；
-- Integration；
-- Release policy。
+Submission 保存受限的線性 commit 範圍、實際變更路徑、驗證結果與執行來源。Grace 閱讀精確且具有雜湊的 review packet；changes_required 必須指向受影響的 allocation 與 submission，再讓原工作者以原 task/thread 進行修訂。新的 submission 延續原 head，並接受新的獨立審查。持久的整合佇列會先測試核准的 candidate，再以 fast-forward 推進 canonical 分支；失敗或過期的嘗試保留歷史。
 
-這會讓 BotSquad 從一個驗證環境，真正轉變成可用於一般軟體專案的 AI 工程組織。
+具名配方只支援明確 Node 測試路徑，不提供一般命令或套件安裝。測試在一次性 snapshot 中執行，只有 build/ 可寫；Linux 限制 tmpfs、記憶體、CPU、時間與輸出。Repository／object 內容上限 16 MiB、bundle 4 MiB、1,000 個檔案、每個檔案 128 KiB。不支援的連結、submodule、LFS、hook 與 Git 設定一律拒絕。
+
+遠端政策為 none、fetch_only 或 approved_push。非 root 的可信任服務處理公開 GitHub fetch，以及逐次精確核准的 publication。人類核准綁定 remote、分支、預期舊 SHA 與已整合的新 SHA，接收端會以原子方式拒絕已變動的舊 SHA。回應遺失時先比對遠端狀態，不盲目重送。選用的 publication 憑證由操作人員在服務端私下設定，不進入工作者 home、prompt 或 repository URL；沒有安全的測試目標與憑證時，不宣稱已驗證真實 GitHub authenticated push。
+
+封存會撤銷精確的 clone 存取權，同時保留 canonical Git、clone、submission、review 與 integration 歷史。Migration 不執行檔案、網路或特權操作，保留 Prompt 01–04 身分及證據。新的相容工作者 thread 可持續重用；舊工具 schema 不相容時明確拒絕，不悄悄換掉 thread。SquadStatus 保留為歷史回歸測試。詳見 [Decision 014](decisions/decision_014_generalized_projects.md) 與 [驗證紀錄](validation/prompt-05-general-projects.md)。
 
 ---
 
@@ -1055,7 +1053,7 @@ BotSquad 把這些東西正式變成系統的一級概念。
 目前已驗證的系統，還沒有提供：
 
 - 一般化 trusted approval grant；
-- 任意 repository / project lifecycle；
+- 任意大小的 repository、不支援的 Git 功能或一般語言／套件執行環境；
 - native remote API；
 - iOS client；
 - Computer Use；
@@ -1167,7 +1165,7 @@ BotSquad 把 multi-agent autonomy 看成一個「組織系統」問題，而不�
 - 多位 AI 工程師，可以在清楚 ownership 與獨立 review 下同時工作；
 - 整個組織可以在一台小型、自架的 Ubuntu Server 上長時間運作，並且保有真實模型執行、隔離、restart recovery，以及每位工作者獨立的 AI profile。
 
-接下來的 roadmap，不是繞過這些邊界去追求更大的 autonomy，而是逐層把這個基礎擴張：更強的 Unix isolation、一般化專案、安全的原生 client、受控 Computer Use、多家公司、外部身分，以及 federation。
+接下來的 roadmap，不是繞過這些邊界去追求更大的 autonomy，而是逐層把這個基礎擴張：安全的原生 client、受控 Computer Use、多家公司、外部身分，以及 federation。
 
 BotSquad 最核心的架構承諾始終不變：
 

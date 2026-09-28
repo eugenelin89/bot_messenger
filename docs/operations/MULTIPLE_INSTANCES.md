@@ -21,6 +21,16 @@ At minimum, each instance needs a distinct durable BotSquad data root. Stronger
 separation may also require a distinct service identity and Prompt 04 provisioner/worker
 namespace.
 
+## Projects within each data root
+
+Prompt 05 Project/repository identities are persisted in the configured data root and
+are independent of production paths and port 4310. Each instance manages its own
+canonical repositories, policy, review/integration history and remote approvals. Archive
+reduces access within that instance and retains evidence. A different data root does not
+create a new root provisioner, service identity or credential boundary; the host-infrastructure
+limitations below still apply. Demo Operator and multi-instance service provisioning are
+not implemented by Prompt 05.
+
 ## Current application boundary
 
 The BotSquad entrypoint reads two important environment values:

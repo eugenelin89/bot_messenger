@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Ubuntu HQ and trusted worker infrastructure implemented through Prompt 04; Prompt 05 is next
+**Status:** Product vision; Prompt 05 generalized Projects implemented, real Ubuntu acceptance in progress
 **Updated:** 2026-09-26
 
 ## One-sentence vision
@@ -355,8 +355,12 @@ Prompt 03 implemented persisted per-worker model, reasoning, priority and human 
 Prompt 04 then implemented and validated Nix as the ongoing DevOps worker for bounded worker identity
 and clone lifecycle, exact-scope trusted human approvals, private per-worker Unix identities,
 and the narrow root provisioner. The one-time bootstrap installs BotSquad and the root
-provisioner before Nix exists. General host administration and arbitrary repository
-lifecycle remain outside Nix's current authority; Prompt 05 is the next milestone.
+provisioner before Nix exists. General host administration remains outside Nix's authority. Prompt 05 adds trusted
+human-defined Projects, bounded local/imported/GitHub repositories, immutable write scopes,
+named recipes, revision/review rounds, durable integration and approval-gated remote
+publication. Nix retains only its bounded identity/clone role; remote Git is non-root
+application work. Archive reduces clone access and preserves evidence. See
+[Decision 014](../decisions/decision_014_generalized_projects.md).
 
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md), and [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
@@ -417,8 +421,8 @@ Current canonical sequence:
 | 01 | Persistent workers, tasks, Codex runtime, research loop | Complete |
 | 02 | Managed engineering organization and independent review | Complete |
 | 03 | Ubuntu HQ, Linux confinement, worker AI profiles | Complete |
-| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Next |
-| 05 | Generalized projects and repository lifecycle | Planned |
+| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
+| 05 | Generalized projects and repository lifecycle | Acceptance in progress |
 | 06 | Stable authenticated remote-client API and device identity | Planned |
 | 07 | Native iOS Remote MVP | Planned |
 | 08 | Bounded Computer Use | Planned |

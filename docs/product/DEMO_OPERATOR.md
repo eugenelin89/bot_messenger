@@ -131,8 +131,10 @@ A first tutorial could:
 9. show trusted integration;
 10. show final company/task status.
 
-Until Prompt 05 generalizes repositories, this scenario should stay compatible with the
-currently supported bounded engineering workflow.
+Use the bounded Project lifecycle from Prompt 05: a disposable local/imported repository,
+explicit scopes and named recipes, review/revision evidence, queued integration and archive.
+SquadStatus remains available as a regression scenario. A demo must not silently use
+production Projects, credentials or publication authority.
 
 ### Nix and approval walkthrough
 
@@ -333,8 +335,8 @@ This command does not exist yet.
 The Demo Operator does not yet have a fixed prompt number.
 
 It depends primarily on safe instance isolation and stable supported UI/control-plane
-operations. It becomes especially useful after Prompt 05 generalizes projects and can
-later benefit from Prompt 08 Computer Use.
+operations. Prompt 05 provides a bounded generalized Project lifecycle for these
+scenarios. A later tutorial could also use Prompt 08 Computer Use when implemented.
 
 Treat it as a reusable testing/tutorial capability without renumbering the canonical
 Prompt 05–12 roadmap unless an explicit roadmap decision changes that sequence.

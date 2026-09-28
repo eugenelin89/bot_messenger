@@ -1,18 +1,21 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 04 implemented and validated on Ubuntu 24.04 x86_64
+**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress on Ubuntu 24.04 x86_64
 **Date:** 2026-09-26
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
 
 ## Current implementation truth
 
-Prompt 04 is complete. For operational truth, use:
+Prompt 04 remains an accepted historical baseline; Prompt 05 extends its Project lifecycle.
+For operational truth and current acceptance status, use:
 
 - [Current State](../operations/CURRENT_STATE.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md)
-- [Prompt 04 validation](../validation/prompt-04-linux-identity.md)
+- [Prompt 04 validation](../validation/prompt-04-linux-identity.md) (historical)
+- [Prompt 05 validation](../validation/prompt-05-general-projects.md)
+- [Decision 014](../decisions/decision_014_generalized_projects.md)
 - [Prompt 03 historical baseline](../validation/prompt-03-ubuntu.md)
 - [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md)
 
@@ -297,10 +300,13 @@ Linus clone    Ada clone
 /home/...      /home/...
 ```
 
-Prompt 04 implements independent private clones for the fixed SquadStatus product.
-The development backend retains Prompt 02 worktrees; generalized repositories remain
-Prompt 05. Trusted integration imports exact commits by bundle, and Grace receives
-a read-only review packet rather than a mutable clone.
+Prompt 04 introduced private clones for its fixed validation product. Prompt 05 uses
+the same UID boundary for generic immutable allocation manifests and non-overlapping
+file/directory scopes. The development backend supports generic worktrees. Trusted
+integration imports bounded exact commit ranges by bundle; Grace receives immutable
+review packets with revision history. Named Node recipes use confined disposable
+snapshots and bounded build scratch. Remote Git stays in the non-root service; workers
+receive neither remote credentials nor publication authority.
 
 ## Nix — bounded DevOps worker
 
@@ -527,4 +533,7 @@ The concrete installer/service/Linux/profile choices are in [Decision 011](../de
 Prompt 03 established Ubuntu HQ, confinement, reproducible bootstrap and per-worker
 AI profiles. Prompt 04 added and validated Nix, exact-scope approvals, the narrow root
 provisioner and worker Unix-account/clone lifecycle while preserving those boundaries.
-Prompt 05 is the next canonical milestone.
+Prompt 05 adds generalized software Projects, scoped revision/review and integration
+queues, trusted remote operations and archive/release. Its provisioner protocol change
+requires an exact-revision reinstall and host reboot acceptance, while preserving old
+protocol-1 grants and all production state. Prompt 06 remains deferred until acceptance.

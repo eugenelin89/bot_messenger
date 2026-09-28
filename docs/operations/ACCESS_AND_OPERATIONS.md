@@ -1,6 +1,6 @@
 # Access and Operate a BotSquad Ubuntu HQ
 
-**Status:** Current operator guide, including Prompt 04 infrastructure
+**Status:** Current operator guide, including Prompt 05 Projects and retained Prompt 04 infrastructure
 **Supported host:** Ubuntu 24.04 x86_64
 
 This guide assumes BotSquad has already been bootstrapped on a server and that your
@@ -178,7 +178,7 @@ These are not equivalent.
 Pausing does not undo actions that already happened.
 
 The current accepted HQ remains intentionally handed off with production dispatch
-paused after Prompt 04. That is an operator handoff choice, not a requirement for every fresh install.
+paused during Prompt 05 acceptance. That is an operator handoff choice, not a requirement for every fresh install.
 
 Before resuming an existing HQ, inspect queued/blocked/awaiting-approval work in the UI.
 
@@ -375,3 +375,64 @@ Run the real-model scenarios only when you intentionally want to consume Codex u
 - [Decision 013 — Trusted worker infrastructure](../decisions/decision_013_trusted_worker_infrastructure.md)
 - [Prompt 03 Historical Validation](../validation/prompt-03-ubuntu.md)
 - [Decision 011 — Ubuntu HQ and worker AI profiles](../decisions/decision_011_ubuntu_hq_profiles.md)
+
+
+## Software Projects and trusted repository operations
+
+In Projects & repositories, create a Project, configure instructions/policy, and register
+one or more repositories. New local repositories start with README; imports accept a Git
+bundle up to 4 MiB, or a normalized public GitHub HTTPS URL. Choose the actual default
+branch. Host paths, credentials in URLs, submodules, symlinks, LFS and unsafe Git metadata
+are rejected. Inspect the error and narrow or sanitize the input outside BotSquad.
+
+Configure focused and full named recipes before assigning an objective. The supported
+command is the installed Node test runner with literal repository-relative test files,
+no shell/globs/custom executable/environment or dependency installation. Recipes run in
+disposable snapshots, with only build/ writable. Linux caps scratch at 64 MiB, Node heap
+at 96 MiB and data at 512 MiB; JIT/WebAssembly are disabled. Deadline/output can be lowered
+within 30 seconds/64 KiB. Project bounds can be lowered from the ceilings in Decision 014.
+
+Maya produces the actual spec; Turing assigns disjoint scopes and Nix requests exact
+Linux grants. Review scope/UID/clone evidence before approving each host operation.
+The UI shows all immutable submissions, review packets, revisions and integration attempts.
+Changes required returns only affected tasks to their existing worker/thread. Review-limit,
+stale-base or ambiguous integration failures require inspection; do not reset Git or alter
+history to make a status green. Pause stops new dispatch, including queued integration.
+
+Remote policy defaults to none. Explicit fetch_only synchronization verifies identity,
+default branch and ancestry; divergence blocks without merging/resetting. approved_push
+permits requesting publication of the current completed integration. Review the exact
+remote, branch, expected old/new SHA and source integration before approving. This is a
+non-root service operation with its own receipt, separate from provisioner approvals.
+If a response is lost, use Reconcile & retry this operation. Intended new SHA reconciles
+success; expected old SHA permits the same approved retry; another SHA blocks. Startup
+inspects running operations without republishing. There is no force push or branch delete.
+
+Optional GitHub publication credentials must be configured privately on the HQ host by
+an operator. Set BOTSQUAD_GITHUB_TOKEN_FILE in the protected service environment to an
+absolute canonical, service-owned regular file with mode 0600 in a private directory.
+Use a narrowly scoped credential for the explicitly authorized repository. Never paste
+its value into chat, logs, URLs, project instructions or SQLite; never copy workstation
+Git/gh/SSH authentication automatically. Restart the service after configuration. Public
+fetch is credential-free; authenticated private fetch is unsupported. Live authenticated
+GitHub publication remains unvalidated unless the acceptance record explicitly says otherwise.
+
+Resolve work and pending publication before archive. Archive retains canonical repositories,
+clones and all evidence, revokes exact worker clone access, and blocks new Project work.
+A completed allocation may also be released individually. Worker identity and compatible
+Codex thread remain reusable; archive is not worker retirement or physical cleanup.
+
+Retained pre-Project Codex engineering tool schemas cannot be changed on resume by the
+pinned runtime. They remain intact and fail clearly on generic engineering; use compatible
+new workers/fresh validation state rather than replacing a retained thread implicitly.
+
+For fresh real Ubuntu acceptance, the projects launcher uses the same service restrictions:
+
+```sh
+sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh projects
+sudo python3 /opt/botsquad/scripts/validate-projects-operator.py /var/lib/botsquad/validation/projects-TIMESTAMP
+```
+
+The operator companion performs harmless UID canary and archived-clone denial probes.
+Both commands are validation-only and consume real Codex usage. Production remains paused.
+Evidence and limitations are in [Prompt 05 validation](../validation/prompt-05-general-projects.md).

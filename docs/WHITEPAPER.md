@@ -29,7 +29,11 @@ with independent review, trusted integration, Linux confinement, per-worker mode
 reasoning settings, restart recovery, a private web interface, and Prompt 04 worker
 Unix identities with Nix-coordinated exact approvals.
 
-The long-term architecture extends this foundation toward generalized projects, secure native mobile access, bounded Computer
+Prompt 05 implements bounded software Projects, scoped revision/review, integration
+queues, trusted remote Git and archive/release; its live acceptance status is recorded
+in [Prompt 05 validation](validation/prompt-05-general-projects.md).
+
+The long-term architecture extends this foundation toward secure native mobile access, bounded Computer
 Use, multiple isolated companies, inter-company collaboration, external identities such
 as Telegram bots, and federation between independent BotSquad headquarters.
 
@@ -534,7 +538,9 @@ UID; arbitrary compromise of that trusted account remains outside the isolation 
 
 Prompt 03 completed real Ubuntu acceptance. The following measurements are its historical
 baseline; [Prompt 04 acceptance](validation/prompt-04-linux-identity.md) records the
-current identity, approval, retirement and resource evidence.
+historical identity, approval, retirement and resource evidence. The
+[Prompt 05 record](validation/prompt-05-general-projects.md) tracks generalized Projects
+and current acceptance; historical measurements below retain their original scope.
 
 Validated host:
 
@@ -586,7 +592,8 @@ The current system supports:
 - inspectable execution history.
 
 Prompt 04 implements durable, exact-scope approvals for worker identity and project
-access operations. General protected-action grants remain deferred.
+access operations. Prompt 05 adds separate non-root publication approvals bound to
+remote identity, branch and exact old/new SHA. General protected-action grants remain deferred.
 
 The enforced lifecycle is:
 
@@ -646,22 +653,42 @@ This enables:
 
 ## 15. Generalized projects
 
-The current engineering flow intentionally uses a fixed bounded product.
+Prompt 05 makes Project and Repository independent persistent concepts. A trusted human
+creates a Project with instructions, protected paths, bounds and named Node test recipes;
+one Project may contain several local-new, imported or trusted GitHub repositories with
+configurable default branches. Arbitrary host paths and unbounded Git features are rejected.
 
-The next project milestone will support real repositories through first-class:
+Maya specifies the actual repository objective. Turing assigns non-overlapping exact-file
+or directory-prefix scopes. Linux engineers use separate Unix-owned clones without external
+remotes. Repository AGENTS/context is guidance, never authorization. Trusted tools enforce
+scope and immutable manifests on every source/Git action.
 
-- Project;
-- Repository;
-- Clone/workspace;
-- Branch allocation;
-- Submission;
-- Review;
-- Revision;
-- Integration;
-- Release policy.
+Submissions retain bounded linear commit ranges and immutable validation provenance.
+Grace reviews an exact hashed packet; changes_required identifies affected allocations
+and requeues their existing task/thread. Revised submissions extend previous heads and
+receive new independent review rounds. A durable per-repository integration queue tests
+approved candidates before canonical fast-forward; failed or stale work preserves history.
 
-This turns BotSquad from a validation environment into a general software-engineering
-organization.
+Generic recipes permit literal Node test paths with no dependency installation or arbitrary
+commands. Disposable snapshots expose only build/ for writes, with Linux tmpfs, memory,
+CPU, deadline and output limits. Repository/object contents are capped at 16 MiB, bundles
+at 4 MiB, files at 1,000 and individual files at 128 KiB. Unsupported links, submodules,
+LFS, hooks and configuration fail closed.
+
+Explicit remote policy is none/fetch_only/approved_push. The non-root service handles
+credential-free public fetch and exact approved publication. Human approval binds remote,
+branch, expected old SHA and integrated new SHA; Git's receiver atomically rejects a
+changed old SHA. Lost responses reconcile without blind replay. Optional operator-managed
+publication credentials never reach worker homes, prompts or repository URLs. Live
+authenticated GitHub push remains unvalidated without a safe configured test target.
+
+Archive revokes exact clone access while preserving canonical Git, clones and all review
+and integration history. Migration preserves Prompt 01–04 identities and evidence without
+filesystem or privileged effects. Compatible new worker threads remain reusable; retained
+incompatible tool schemas fail explicitly instead of silently replacing old threads.
+SquadStatus remains a historical regression fixture. See
+[Decision 014](decisions/decision_014_generalized_projects.md) and the
+[validation record](validation/prompt-05-general-projects.md).
 
 ---
 
@@ -1092,7 +1119,7 @@ See the full Roadmap document for dependencies and acceptance themes.
 The current validated system does not yet provide:
 
 - general trusted approval grants;
-- arbitrary repository/project lifecycle;
+- arbitrary-size repositories, unsupported Git features or a general language/package environment;
 - native remote API;
 - iOS client;
 - Computer Use;
@@ -1210,7 +1237,7 @@ The first three milestones demonstrate that this model is practical:
   real model execution, confinement, restart recovery, and per-worker AI profiles.
 
 The remaining roadmap systematically expands that foundation rather than bypassing it:
-stronger Unix isolation, generalized projects, secure native clients, bounded computer
+secure native clients, bounded computer
 control, multiple companies, external identities, and federation.
 
 BotSquad's central architectural commitment remains:

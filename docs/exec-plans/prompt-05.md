@@ -16,7 +16,7 @@
 
 **Initial ETA:** 10–18 hours including real Ubuntu acceptance and delivery
 
-**Current ETA:** 6–10 hours remaining as of 07:00 UTC; real acceptance and deployment dominate the remaining uncertainty.
+**Current ETA:** 4–8 hours remaining as of 07:29 UTC; real workflows, any fixes, reboot and final delivery dominate uncertainty.
 
 ## Objective and scope
 
@@ -162,3 +162,30 @@ reconciliation. Roadmap advances only after acceptance, never on implementation 
   Preparing the exact feature commit/deployment. Real
   Ubuntu validation, security review, documentation and normal main delivery remain.
   No human-only blocker currently identified.
+
+
+### Feature deployment and production comparison — 07:29 UTC
+
+Feature `3894e7fe37a9dfdabd8bb4314de63ea309c7a21b` was committed/pushed normally and
+installed through the checked-in bootstrap. Ubuntu service-restriction suite passed
+105/105, zero skips, 77.99 seconds, including buffer-memory and 64 MiB scratch probes.
+Codex 0.157.0 remains authenticated. The installer applied five available package updates;
+this and the protocol change will be covered by the required full reboot.
+
+Protected backup manifest comparison preserved all 27 original table contents, except
+workers.updated_at refreshed by the existing startup refreshWorker behavior (status,
+identity, profile and all other columns unchanged). All 38 existing account mappings
+and 116 root ledger/receipt files were identical; migration created no Unix identity.
+Production remains paused and ready, no completed replay. Fresh real acceptance started
+at `/var/lib/botsquad/validation/projects-20260928T073322Z`. Current-facing docs are being
+updated concurrently; roadmap completion/next labels remain gated on acceptance.
+
+
+### First real workflow — 07:39 UTC
+
+The real imported LedgerBrief flow completed its actual revision/re-review, full-tested
+integration, four restart gates, exact approved bare publication/lost-response recovery,
+divergence and archive/UID probes. The final evidence writer failed only when looking
+up `/opt/botsquad/` with a trailing slash in Git safe.directory. The harness source root
+is now canonicalized; assertions are unchanged. Preserve this run as diagnostic evidence
+and repeat from fresh validation state to close the machine-readable record cleanly.
