@@ -366,6 +366,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 
 ### Start here
 
+- [BotSquad Engineer Primer — From Demo Operator to Prompt 05](docs/guides/BOTSQUAD_ENGINEER_PRIMER.md)
 - [Current State](docs/operations/CURRENT_STATE.md)
 - [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md)
 - [Running Multiple BotSquad Instances](docs/operations/MULTIPLE_INSTANCES.md)
