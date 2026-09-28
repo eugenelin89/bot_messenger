@@ -3,7 +3,7 @@ import type { Browser, BrowserContext, Page } from 'playwright';
 import { chromium } from 'playwright';
 import { renameSync } from 'node:fs';
 import { Recorder } from './recorder.js';
-import { checkAllocations, checkApproval, checkBaseline, checkCanonical, checkFinal, projectTasks, type RunScope, type Snapshot } from './assertions.js';
+import { checkAllocations, checkApproval, checkBaseline, checkCanonical, checkFinal, checkObjective, projectTasks, type RunScope, type Snapshot } from './assertions.js';
 import type { Action, Scenario } from './scenario.js';
 
 export function demoOrigin(value:string) {
@@ -105,9 +105,7 @@ export class BrowserDriver {
       case 'assign_objective': {
         await this.selectProject();await this.page.locator(`[data-repo-action=objective][data-repository="${this.scope.repositoryId}"]`).click();
         await this.form({objective:`BotSquad Demo Operator (automated tutorial): ${this.scenario.objective}`,acceptance_criteria:this.scenario.acceptance,constraints:this.scenario.constraints});
-        const s=await this.state();const scopes=(s.task_scopes as {project_id:string;repository_id:string;task_id:string}[]).filter(x=>x.project_id===this.scope.projectId&&x.repository_id===this.scope.repositoryId);
-        const roots=s.tasks.filter(t=>t.parent_task_id===null&&scopes.some(x=>x.task_id===t.task_id));assert.equal(roots.length,1);
-        this.scope.objectiveId=roots[0]!.task_id;assert.equal(roots[0]!.assignee_worker_id,this.scope.atlasId);
+        this.scope.objectiveId=checkObjective(await this.state(),this.scope).task_id;
         await this.capture('03-objective-assigned','Assigned the natural-language StudyPlan goal to Atlas through Assign objective.','operator_action',{task_id:this.scope.objectiveId,project_id:this.scope.projectId,repository_id:this.scope.repositoryId});break;
       }
       case 'resume_dispatch': {

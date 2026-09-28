@@ -17,6 +17,14 @@ export function projectTasks(s:Snapshot,scope:RunScope) {
   for(let n=0;n<=s.tasks.length;n++) for(const t of s.tasks) if(t.parent_task_id&&ids.has(t.parent_task_id)) ids.add(t.task_id);
   return s.tasks.filter(t=>ids.has(t.task_id));
 }
+export function checkObjective(s:Snapshot,scope:RunScope) {
+  const repo=s.repositories.find(r=>r.repository_id===scope.repositoryId);
+  assert.equal(repo?.project_id,scope.projectId,'Repository belongs to the wrong Project');
+  const scopes=s.task_scopes as {repository_id:string;task_id:string}[];
+  const roots=s.tasks.filter(t=>t.parent_task_id===null&&scopes.some(x=>x.repository_id===scope.repositoryId&&x.task_id===t.task_id));
+  assert.equal(roots.length,1,'Expected one scoped root objective');assert.equal(roots[0]!.assignee_worker_id,scope.atlasId);
+  return roots[0]!;
+}
 export function checkApproval(s:Snapshot,a:Approval,scope:RunScope):ProtectedOperation {
   const op=s.infrastructure.operations.find(o=>o.operation_id===a.operation_id);
   assert.ok(op,'Approval operation missing');assert.equal(op.approval_id,a.approval_id);assert.equal(op.status,'pending');

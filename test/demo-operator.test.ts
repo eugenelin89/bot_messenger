@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { actions, parseScenario, studyPlan } from '../scripts/demo-operator/scenario.js';
 import { boundedPath, executeSteps, Recorder, redact } from '../scripts/demo-operator/recorder.js';
 import { demoOrigin } from '../scripts/demo-operator/driver.js';
-import { checkApproval, checkBaseline, checkCanonical, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
+import { checkApproval, checkBaseline, checkCanonical, checkObjective, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
 import type { Approval, ProtectedOperation } from '../src/domain/infrastructure.js';
 
 test('demo scenario parsing validates identity, complete ordering, deadlines and confined recipes',()=>{
@@ -64,6 +64,11 @@ test('baseline refuses unrelated pending work and canonical advancement requires
   checkBaseline(s);assert.throws(()=>checkBaseline({...s,paused:false}));assert.throws(()=>checkBaseline({...s,tasks:[{status:'queued'}]} as Snapshot));
   const scope={repositoryId:'repo'} as RunScope;checkCanonical(s,scope,'before');
   assert.throws(()=>checkCanonical({...s,repositories:[{repository_id:'repo',current_commit:'forged'}]} as Snapshot,scope,'before'));
+});
+test('objective association follows task to repository to Project; scope rows have no project_id',()=>{
+  const s={repositories:[{repository_id:'repo',project_id:'project'}],task_scopes:[{task_id:'task',repository_id:'repo'}],tasks:[{task_id:'task',parent_task_id:null,assignee_worker_id:'atlas'}]} as unknown as Snapshot;
+  const scope={projectId:'project',repositoryId:'repo',atlasId:'atlas'} as RunScope;
+  assert.equal(checkObjective(s,scope).task_id,'task');assert.throws(()=>checkObjective(s,{...scope,projectId:'wrong'}));assert.throws(()=>checkObjective(s,{...scope,atlasId:'imposter'}));
 });
 test('production demo runner has UI-only mutations, no database, shell or private control-plane shortcuts',()=>{
   const root=join(process.cwd(),'scripts/demo-operator');
