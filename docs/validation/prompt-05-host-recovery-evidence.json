@@ -1,0 +1,210 @@
+{
+  "result": "PASS",
+  "at": "2026-09-28T08:24:36.228909+00:00",
+  "source_sha": "18308dd80215dea4e0fb2c89597e9c1550143051",
+  "original_tables": [
+    {
+      "table": "allocations",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "approvals",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "artifacts",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "audit_events",
+      "rows": 20,
+      "preserved": true
+    },
+    {
+      "table": "channels",
+      "rows": 1,
+      "preserved": true
+    },
+    {
+      "table": "executions",
+      "rows": 1,
+      "preserved": true
+    },
+    {
+      "table": "host_operation_receipts",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "infrastructure_tasks",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "integrations",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "legacy_runtime_bindings",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "messages",
+      "rows": 3,
+      "preserved": true
+    },
+    {
+      "table": "principals",
+      "rows": 3,
+      "preserved": true
+    },
+    {
+      "table": "protected_operations",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "repositories",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "retirement_revocations",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "reviews",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "runtime_bindings",
+      "rows": 1,
+      "preserved": true
+    },
+    {
+      "table": "schema_migrations",
+      "rows": 4,
+      "preserved": true
+    },
+    {
+      "table": "settings",
+      "rows": 3,
+      "preserved": true
+    },
+    {
+      "table": "submissions",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "task_scopes",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "tasks",
+      "rows": 1,
+      "preserved": true
+    },
+    {
+      "table": "tool_receipts",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "wake_events",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "worker_os_identities",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "worker_project_bindings",
+      "rows": 0,
+      "preserved": true
+    },
+    {
+      "table": "workers",
+      "rows": 1,
+      "preserved": true
+    }
+  ],
+  "expected_worker_timestamp_refresh": {
+    "field": "workers.updated_at",
+    "reason": "Existing startup refreshWorker recomputes unchanged status and refreshes this timestamp; all other original columns remain identical."
+  },
+  "original_accounts_preserved": 38,
+  "original_root_records_preserved": 116,
+  "all_accounts": 78,
+  "all_root_records": 245,
+  "acceptance_databases_compared": 10,
+  "production_paused": true,
+  "no_completed_replay": true,
+  "runtime_ready": true,
+  "services": {
+    "botsquad.service": "active",
+    "botsquad-provisioner.socket": "active",
+    "botsquad-provisioner.service": "active"
+  },
+  "reboot_changed_boot_id": true,
+  "all_preboot_databases_accounts_receipts_and_captured_permissions_preserved": true,
+  "postboot_probes": {
+    "result": "PASS",
+    "access_checks": [
+      {
+        "worker_id": "worker_7937f791-636c-4ef2-ab0a-279271fd770f",
+        "scope": "archived_clone",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker_id": "worker_7937f791-636c-4ef2-ab0a-279271fd770f",
+        "scope": "archived_clone",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker_id": "worker_75cf7c81-8da6-4c73-9a08-7c6b073dbf5c",
+        "scope": "archived_clone",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker_id": "worker_75cf7c81-8da6-4c73-9a08-7c6b073dbf5c",
+        "scope": "archived_clone",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "uid": 20075,
+        "scope": "retired_home",
+        "action": "read",
+        "denied": true
+      }
+    ],
+    "ui": "127.0.0.1:4310",
+    "central_authentication": "ChatGPT authenticated; credential contents never read"
+  },
+  "real_host_lost_response": {
+    "result": "PASS",
+    "operation_id": "operation_19b02502-9830-40f9-b22a-e8c23540bc1d",
+    "approval_id": "approval_7aa1feab-3d01-43bb-9179-459c24c79c1e",
+    "worker_id": "worker_c2e02595-007f-496a-95c2-12aac5f900df",
+    "uid": 20063,
+    "real_host_completed_before_response_loss": true,
+    "consumed_approval_recovered_on_restart": true,
+    "same_receipt_replayed": true,
+    "changed_payload_rejected": true
+  },
+  "sanitization": "Full host inventory, account/ACL manifests, boot IDs, raw receipt paths/hashes and protected backup contents remain in private operator storage."
+}

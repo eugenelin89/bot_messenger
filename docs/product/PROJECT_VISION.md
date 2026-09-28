@@ -1,7 +1,7 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 05 generalized Projects implemented, real Ubuntu acceptance in progress
-**Updated:** 2026-09-26
+**Status:** Product vision; Prompt 05 complete and Ubuntu validated; Prompt 06 next
+**Updated:** 2026-09-28
 
 ## One-sentence vision
 
@@ -422,8 +422,8 @@ Current canonical sequence:
 | 02 | Managed engineering organization and independent review | Complete |
 | 03 | Ubuntu HQ, Linux confinement, worker AI profiles | Complete |
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
-| 05 | Generalized projects and repository lifecycle | Acceptance in progress |
-| 06 | Stable authenticated remote-client API and device identity | Planned |
+| 05 | Generalized projects and repository lifecycle | Complete |
+| 06 | Stable authenticated remote-client API and device identity | Next |
 | 07 | Native iOS Remote MVP | Planned |
 | 08 | Bounded Computer Use | Planned |
 | 09 | Multi-company support on one HQ | Planned |

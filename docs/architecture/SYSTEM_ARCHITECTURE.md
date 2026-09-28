@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress
-**Updated:** 2026-09-26
+**Status:** Prompt 05 complete and Ubuntu validated
+**Updated:** 2026-09-28
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -48,18 +48,20 @@ Creating, messaging, assigning and executing remain separate operations.
 | Concern | Implementation |
 | --- | --- |
 | Domain, profiles and validation | `src/domain/model.ts`, `src/domain/engineering.ts` |
+| Project policy, paths and recipe contracts | `src/domain/projects.ts` |
 | Trusted operations and staged tasks | `src/control/company.ts` |
+| Project/repository lifecycle and remote policy | `src/control/projects.ts`, `src/control/remote-git.ts` |
 | Managed repositories, allocations, review, integration | `src/control/engineering.ts` |
-| Immutable product scaffold and contract | `src/control/product-scaffold.ts` |
-| Confined Node test process | `src/control/product-runner.ts` |
+| Legacy SquadStatus scaffold and contract | `src/control/product-scaffold.ts` |
+| Confined named Node recipes and legacy runner | `src/control/product-runner.ts` |
 | Atomic claims / execution lifecycle | `src/control/dispatcher.ts` |
-| SQLite migration / constraints | `src/persistence/store.ts` |
+| SQLite migration / constraints | `src/persistence/store.ts`, `src/persistence/projects-migration.ts` |
 | Single service ownership | `src/persistence/lock.ts` |
 | Runtime contract and tool schemas | `src/runtime/adapter.ts` |
 | Codex protocol / transport | `src/runtime/codex.ts`, `src/runtime/rpc.ts` |
 | Loopback API / browser UI | `src/http/server.ts`, `public/` |
 | Startup / shutdown | `src/main.ts` |
-| Deterministic and real validation | `test/`, `scripts/real-e2e.ts`, `scripts/real-engineering.ts` |
+| Deterministic and real validation | `test/`, `scripts/real-e2e.ts`, `scripts/real-engineering.ts`, `scripts/real-projects.ts` |
 
 Node 24 supplies HTTP, SQLite, process control and tests. TypeScript checks the code.
 The only runtime dependency is the pinned official Codex CLI. No distributed queue

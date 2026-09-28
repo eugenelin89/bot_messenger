@@ -1,0 +1,115 @@
+{
+  "started": "2026-09-28T08:15:50.672Z",
+  "finished": "2026-09-28T08:17:08.167Z",
+  "result": "PASS",
+  "workflow_task_id": "task_9b246f2a-5d37-4f1c-b003-e36c5a249f31",
+  "atlas_id": "worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+  "scout_id": "worker_6af22931-1051-4864-b006-3398dec5136c",
+  "checks": [
+    "real dynamic hire",
+    "real Scout execution and artifact",
+    "real Atlas resume/evaluation",
+    "pause",
+    "process restart persistence",
+    "no replay of completed work",
+    "persisted binding resumes after restart",
+    "real turn interruption"
+  ],
+  "counts": {
+    "workers": 2,
+    "tasks": 4,
+    "executions": 5,
+    "artifacts": 1
+  },
+  "worker_profiles": [
+    {
+      "name": "Atlas",
+      "worker_id": "worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical",
+      "human_lock": true
+    },
+    {
+      "name": "Scout",
+      "worker_id": "worker_6af22931-1051-4864-b006-3398dec5136c",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e715-b1e2-7023-a12e-a4b293374fc1",
+      "workspace_path": ".validation/prompt01-20260928T081549Z/workspaces/worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+      "created_at": "2026-09-28T08:15:54.353Z",
+      "thread_name": "BotSquad \u00b7 Atlas \u00b7 CEO"
+    },
+    {
+      "worker_id": "worker_6af22931-1051-4864-b006-3398dec5136c",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e715-ee12-7830-8cd3-2782d726cb9d",
+      "workspace_path": ".validation/prompt01-20260928T081549Z/workspaces/worker_6af22931-1051-4864-b006-3398dec5136c",
+      "created_at": "2026-09-28T08:16:09.856Z",
+      "thread_name": "BotSquad \u00b7 Scout \u00b7 Market Researcher"
+    }
+  ],
+  "initial_workflow_executions": [
+    {
+      "execution_id": "execution_39ca8a57-48de-4a92-a282-9d66d13090c9",
+      "task_id": "task_9b246f2a-5d37-4f1c-b003-e36c5a249f31",
+      "worker_id": "worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+      "runtime_reference": "01a0e715-b1e2-7023-a12e-a4b293374fc1",
+      "status": "completed",
+      "started_at": "2026-09-28T08:15:53.252Z",
+      "finished_at": "2026-09-28T08:16:09.814Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_9bd01e41-ffaf-4e6a-888c-00d37ab19098",
+      "task_id": "task_4b7281bb-2c97-41c7-ae5c-fd202c3bfc5e",
+      "worker_id": "worker_6af22931-1051-4864-b006-3398dec5136c",
+      "runtime_reference": "01a0e715-ee12-7830-8cd3-2782d726cb9d",
+      "status": "completed",
+      "started_at": "2026-09-28T08:16:08.594Z",
+      "finished_at": "2026-09-28T08:16:50.030Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    },
+    {
+      "execution_id": "execution_5a76908d-1f87-44c6-b225-902618c87e12",
+      "task_id": "task_9b246f2a-5d37-4f1c-b003-e36c5a249f31",
+      "worker_id": "worker_f38cb2dd-d73a-4f8f-8ab7-e24570107b7a",
+      "runtime_reference": "01a0e715-b1e2-7023-a12e-a4b293374fc1",
+      "status": "completed",
+      "started_at": "2026-09-28T08:16:50.044Z",
+      "finished_at": "2026-09-28T08:17:00.037Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded"
+    }
+  ],
+  "source_sha": "18308dd80215dea4e0fb2c89597e9c1550143051",
+  "validation_run": "prompt01-20260928T081549Z"
+}

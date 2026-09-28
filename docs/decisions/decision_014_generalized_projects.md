@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-28
 
-**Status:** Implemented; real Ubuntu acceptance pending
+**Status:** Accepted, implemented and validated on Ubuntu
 
 **Scope:** Prompt 05; extends [Decision 008](decision_008_managed_engineering.md) and
 [Decision 013](decision_013_trusted_worker_infrastructure.md). Their historical
@@ -167,4 +167,4 @@ external identities and Demo Operator remain deferred.
 
 See the [execution plan](../exec-plans/prompt-05.md) and
 [validation record](../validation/prompt-05-general-projects.md) for acceptance status,
-actual host measurements and unresolved gates.
+actual host measurements and explicit validation limitations.

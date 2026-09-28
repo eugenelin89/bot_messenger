@@ -2,10 +2,12 @@
 
 Prompt 03 established and validated the Ubuntu HQ. Prompt 04 extended that deployment
 with Nix, exact-scope trusted approvals, a narrow root provisioner, private per-worker
-Unix identities and independent engineering clones. See the
-[Prompt 04 validation record](../validation/prompt-04-linux-identity.md) for the current
-acceptance baseline and the [Prompt 03 record](../validation/prompt-03-ubuntu.md) for the
-historical Ubuntu baseline. Ubuntu HQ remains the primary self-hosted deployment; the
+Unix identities and independent engineering clones. Prompt 05 adds generic allocation
+manifests, bounded Project recipes, revision/integration and trusted remote Git.
+See the [Prompt 05 validation record](../validation/prompt-05-general-projects.md),
+[Prompt 04 identity record](../validation/prompt-04-linux-identity.md) and
+[Prompt 03 record](../validation/prompt-03-ubuntu.md) for their respective evidence.
+Ubuntu HQ remains the primary self-hosted deployment; the
 workstation provides SSH, administration and development.
 
 ## Operator quick links
@@ -125,9 +127,12 @@ so use operator-controlled protected backup storage. Do not commit backups.
 Ubuntu 24.04 x86_64 and Node 24 are the supported Linux contract. macOS Seatbelt remains
 available for development regression. Other platforms fail closed for engineering.
 Linux product tests use bubblewrap mount/user/PID/network namespaces, seccomp and Node
-permissions. Only the read-only product and runtime libraries are visible; writes,
-network sockets, process clones, host signals, namespace escape and protected Git
-metadata are denied. Tests remain bounded to 10 seconds and captured output.
+permissions. Only the read-only repository and runtime libraries are visible, with
+one writable 64 MiB `build/` scratch area. Network sockets, process clones, host signals,
+namespace escape and protected Git metadata are denied. Trusted named Node recipes
+have deadlines up to 30 seconds and output up to 64,000 bytes; workers cannot choose
+arbitrary executables or install dependencies. The legacy SquadStatus recipe retains
+its 10-second deadline.
 
 Prompt 04 added Nix, worker Unix identities/clones and exact-scope infrastructure
 approvals. General remote fleets, financial authority, customer deployment and
@@ -142,11 +147,12 @@ and namespace restrictions; the production company continues to use its own data
 Each run writes a fresh private directory under `/var/lib/botsquad/validation`.
 
 ```sh
-ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh deterministic'
-ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh prompt01'
-ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh engineering'
-ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh recovery --wait'
-ssh botsquad 'bash /opt/botsquad/scripts/validate-ubuntu-host.sh identity'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh deterministic'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh prompt01'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh engineering'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh recovery --wait'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh identity'
+ssh botsquad 'sudo bash /opt/botsquad/scripts/validate-ubuntu-host.sh projects'
 ```
 
 Run these sequentially. Research, engineering and identity invoke real Codex work and use the discovered
@@ -166,7 +172,7 @@ HTTP decisions, and waits before retirement for its operator companion. Using th
 exact report directory printed by the launcher, run in a second SSH invocation:
 
 ```sh
-ssh botsquad 'python3 /opt/botsquad/scripts/validate-identity-operator.py /var/lib/botsquad/validation/identity-<printed-timestamp>'
+ssh botsquad 'sudo python3 /opt/botsquad/scripts/validate-identity-operator.py /var/lib/botsquad/validation/identity-<printed-timestamp>'
 ```
 
 The companion runs harmless per-UID canaries and starts a bounded sleep under the
@@ -174,3 +180,16 @@ integrated engineer's UID, then lets the application retire it and verifies SIGK
 preservation. It never edits approvals or SQLite. `recovery` uses an acceptance-only
 transport wrapper to lose one real completed host response, then proves consumed
 intent reconciles on restart. The production code has no fault-injection switch.
+
+`projects` exercises a fresh imported LedgerBrief repository, real revision/re-review,
+four restart checkpoints, trusted bare-remote publication/reconciliation, divergence
+and archive. Run its root companion against the printed `projects-<timestamp>` directory:
+
+```sh
+ssh botsquad 'sudo python3 /opt/botsquad/scripts/validate-projects-operator.py /var/lib/botsquad/validation/projects-<printed-timestamp>'
+```
+
+It proves actual UID isolation before archive and revoked clone access afterward.
+These companions operate only on their fresh validation directories and do not mutate
+the retained production company. See [Prompt 05 acceptance](../validation/prompt-05-general-projects.md)
+for evidence and the unvalidated authenticated GitHub publication boundary.

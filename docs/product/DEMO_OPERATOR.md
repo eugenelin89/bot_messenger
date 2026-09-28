@@ -1,7 +1,7 @@
 # BotSquad Demo Operator and Guided Tutorials
 
 **Status:** Accepted future product/testing direction; not yet implemented  
-**Updated:** 2026-09-26
+**Updated:** 2026-09-28
 
 ## Purpose
 

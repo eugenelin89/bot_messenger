@@ -1,0 +1,1198 @@
+{
+  "result": "PASS",
+  "started": "2026-09-28T08:17:25.157Z",
+  "finished": "2026-09-28T08:21:43.683Z",
+  "source_digest": "f9b6333ed05011f0d0f6beb8ce719b65560548460cb6e2b2bd5b6a570f291c21",
+  "workers": [
+    {
+      "worker_id": "worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "name": "Atlas",
+      "title": "CEO",
+      "role": "ceo",
+      "manager_worker_id": null,
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_a207ab11-1415-460b-9dd9-7d2481fd18d3",
+      "name": "Nix",
+      "title": "DevOps",
+      "role": "devops",
+      "manager_worker_id": "worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_0277aa2b-cedd-4687-b650-137fbcba9186",
+      "name": "Maya",
+      "title": "Product Manager",
+      "role": "product_manager",
+      "manager_worker_id": "worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "name": "Turing",
+      "title": "CTO",
+      "role": "cto",
+      "manager_worker_id": "worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "high",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "name": "Linus",
+      "title": "Engineer",
+      "role": "engineer",
+      "manager_worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "name": "Ada",
+      "title": "Engineer",
+      "role": "engineer",
+      "manager_worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    },
+    {
+      "worker_id": "worker_0896abdd-5dc6-4088-8d23-e7705a2b7ba7",
+      "name": "Grace",
+      "title": "Reviewer",
+      "role": "reviewer",
+      "manager_worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "priority": "high",
+      "human_lock": true
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e717-259b-7d70-bdbd-db7ad63917c0",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_e6a0aac9-3494-4374-b599-28b2b144b2ee",
+      "created_at": "2026-09-28T08:17:29.511Z",
+      "thread_name": "BotSquad \u00b7 Atlas \u00b7 CEO"
+    },
+    {
+      "worker_id": "worker_a207ab11-1415-460b-9dd9-7d2481fd18d3",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e717-2604-7c52-9e1b-ad8b474cd57e",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_a207ab11-1415-460b-9dd9-7d2481fd18d3",
+      "created_at": "2026-09-28T08:17:29.603Z",
+      "thread_name": "BotSquad \u00b7 Nix \u00b7 DevOps"
+    },
+    {
+      "worker_id": "worker_0277aa2b-cedd-4687-b650-137fbcba9186",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e717-5563-7c63-9c95-d996a4801146",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_0277aa2b-cedd-4687-b650-137fbcba9186",
+      "created_at": "2026-09-28T08:17:41.758Z",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 Product Manager"
+    },
+    {
+      "worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e718-1149-78d2-ba96-bae9b9c7283b",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "created_at": "2026-09-28T08:18:29.845Z",
+      "thread_name": "BotSquad \u00b7 Turing \u00b7 CTO"
+    },
+    {
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e719-adce-78f2-82e4-60e21d941a55",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "created_at": "2026-09-28T08:20:15.481Z",
+      "thread_name": "BotSquad \u00b7 Linus \u00b7 Engineer"
+    },
+    {
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e719-ae4f-7320-a123-6cabab710a20",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "created_at": "2026-09-28T08:20:15.643Z",
+      "thread_name": "BotSquad \u00b7 Ada \u00b7 Engineer"
+    },
+    {
+      "worker_id": "worker_0896abdd-5dc6-4088-8d23-e7705a2b7ba7",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0e71a-4872-7453-a850-1d0c0bcab17a",
+      "workspace_path": ".validation/identity-20260928T081724Z/workspaces/worker_0896abdd-5dc6-4088-8d23-e7705a2b7ba7",
+      "created_at": "2026-09-28T08:20:55.028Z",
+      "thread_name": "BotSquad \u00b7 Grace \u00b7 Reviewer"
+    }
+  ],
+  "engineers": [
+    {
+      "name": "Linus",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "runtime_reference": "01a0e719-adce-78f2-82e4-60e21d941a55",
+      "status": "completed",
+      "started_at": "2026-09-28T08:20:13.930Z",
+      "finished_at": "2026-09-28T08:20:42.858Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "runtime_turn_started_at": "2026-09-28T08:20:15.510Z",
+      "allocation_id": "allocation_3fc3d813-4c05-4e22-8584-35cfd1239300",
+      "branch": "botsquad/calculate/task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "worktree": "/var/lib/botsquad-workers/bsw-2f7d4b8c508bbd2bc81f6603/projects/allocation_3fc3d813-4c05-4e22-8584-35cfd1239300",
+      "commit": "b4407befafd41d449e616abcaba4b181f55315fa"
+    },
+    {
+      "name": "Ada",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "runtime_reference": "01a0e719-ae4f-7320-a123-6cabab710a20",
+      "status": "completed",
+      "started_at": "2026-09-28T08:20:14.059Z",
+      "finished_at": "2026-09-28T08:20:47.270Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "runtime_turn_started_at": "2026-09-28T08:20:15.687Z",
+      "allocation_id": "allocation_1e8ae478-2899-415d-98fa-d6a0373a0990",
+      "branch": "botsquad/format/task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "worktree": "/var/lib/botsquad-workers/bsw-85a652bf996c59ffbee5cdd6/projects/allocation_1e8ae478-2899-415d-98fa-d6a0373a0990",
+      "commit": "9a2549e6b3db21affc508e7909af46f681cc1181"
+    }
+  ],
+  "execution_overlap_ms": 28799,
+  "runtime_turn_overlap_ms": 27171,
+  "repository": {
+    "repository_id": "repository_22999208-cea2-4890-b27a-5773cbf4f709",
+    "product_name": "SquadStatus",
+    "canonical_root": ".validation/identity-20260928T081724Z/products/repository_22999208-cea2-4890-b27a-5773cbf4f709/main",
+    "default_branch": "main",
+    "base_commit": "f57a336beef75c292e3365475ffd7c3ea0e37f5f",
+    "current_commit": "24f54342a962c920c532ddd5a3f54ed87e1fce31",
+    "created_by": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+    "workflow_task_id": "task_92bc4391-70f9-4813-a25f-7deab7dc4708",
+    "spec_artifact_id": "artifact_a6678f77-2689-438a-b31c-52f8ab975e2f",
+    "status": "ready",
+    "created_at": "2026-09-28T08:18:34.291Z",
+    "updated_at": "2026-09-28T08:21:30.477Z",
+    "project_id": "project_c3dedc7c-3ba4-47eb-9abc-6c0593ed7f56",
+    "source_kind": "legacy_squadstatus",
+    "remote_provider": null,
+    "remote_identity": null,
+    "remote_url": null,
+    "remote_policy": "none",
+    "remote_sha": null,
+    "remote_state": "none"
+  },
+  "submissions": [
+    {
+      "submission_id": "submission_f329aefc-e0fb-4003-8e50-45dd0828cc3a",
+      "repository_id": "repository_22999208-cea2-4890-b27a-5773cbf4f709",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "allocation_id": "allocation_3fc3d813-4c05-4e22-8584-35cfd1239300",
+      "base_commit": "f57a336beef75c292e3365475ffd7c3ea0e37f5f",
+      "branch_name": "botsquad/calculate/task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "commit_sha": "b4407befafd41d449e616abcaba4b181f55315fa",
+      "changed_paths": "[\"src/calculate.mjs\"]",
+      "validation": "{\"command\":\"confined-node --test --test-isolation=none test/calculate.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: counts workers without changing input\\nok 1 - counts workers without changing input\\n  ---\\n  duration_ms: 2.882797\\n  type: 'test'\\n  ...\\n# Subtest: rejects invalid workers/statuses with TypeError\\nok 2 - rejects invalid workers/statuses with TypeError\\n  ---\\n  duration_ms: 0.952761\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 41.353741\\n\",\"checked_at\":\"2026-09-28T08:20:38.925Z\"}",
+      "summary": "Implement nonmutating status counts with TypeError validation and safe-length guard; calculate focused recipe passes.",
+      "created_at": "2026-09-28T08:20:39.478Z",
+      "commit_list": "[\"b4407befafd41d449e616abcaba4b181f55315fa\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_822df5ae-3788-4956-8891-c7224665254b",
+      "repository_id": "repository_22999208-cea2-4890-b27a-5773cbf4f709",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "allocation_id": "allocation_1e8ae478-2899-415d-98fa-d6a0373a0990",
+      "base_commit": "f57a336beef75c292e3365475ffd7c3ea0e37f5f",
+      "branch_name": "botsquad/format/task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "commit_sha": "9a2549e6b3db21affc508e7909af46f681cc1181",
+      "changed_paths": "[\"src/format.mjs\"]",
+      "validation": "{\"command\":\"confined-node --test --test-isolation=none test/format.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: stable labels, order and no trailing newline\\nok 1 - stable labels, order and no trailing newline\\n  ---\\n  duration_ms: 1.896983\\n  type: 'test'\\n  ...\\n# Subtest: rejects missing, negative, noninteger and inconsistent counts\\nok 2 - rejects missing, negative, noninteger and inconsistent counts\\n  ---\\n  duration_ms: 1.055025\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 38.171206\\n\",\"checked_at\":\"2026-09-28T08:20:44.319Z\"}",
+      "summary": "Implement strict safe-count validation and exact five-line status formatting; focused format recipe passes.",
+      "created_at": "2026-09-28T08:20:44.931Z",
+      "commit_list": "[\"9a2549e6b3db21affc508e7909af46f681cc1181\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    }
+  ],
+  "review": {
+    "review_id": "review_4103619d-21b7-4dcd-bdec-a908a04bc6d1",
+    "repository_id": "repository_22999208-cea2-4890-b27a-5773cbf4f709",
+    "task_id": "task_5f64f80f-2ccb-4137-861a-c14b47d3dc98",
+    "worker_id": "worker_0896abdd-5dc6-4088-8d23-e7705a2b7ba7",
+    "execution_id": "execution_b798764f-5358-44cf-9770-c3eb5fb5532a",
+    "source_commits": "[\"9a2549e6b3db21affc508e7909af46f681cc1181\",\"b4407befafd41d449e616abcaba4b181f55315fa\"]",
+    "status": "approved",
+    "artifact_id": "artifact_61ee68b5-94d8-4fa5-a6b4-790cd450d9c0",
+    "created_at": "2026-09-28T08:21:12.586Z",
+    "round_id": "round_97d8593a-5567-49fa-b2b3-95301dd80a73"
+  },
+  "integration": {
+    "integration_id": "integration_5fc3f98d-41e8-41c1-9404-e27852a38611",
+    "repository_id": "repository_22999208-cea2-4890-b27a-5773cbf4f709",
+    "review_id": "review_4103619d-21b7-4dcd-bdec-a908a04bc6d1",
+    "base_commit": "f57a336beef75c292e3365475ffd7c3ea0e37f5f",
+    "source_commits": "[\"9a2549e6b3db21affc508e7909af46f681cc1181\",\"b4407befafd41d449e616abcaba4b181f55315fa\"]",
+    "candidate_commit": "24f54342a962c920c532ddd5a3f54ed87e1fce31",
+    "final_commit": "24f54342a962c920c532ddd5a3f54ed87e1fce31",
+    "strategy": "cherry-pick-then-fast-forward",
+    "validation": "{\"tests\":{\"command\":\"confined-node --test --test-isolation=none test/calculate.test.mjs test/format.test.mjs test/integrated.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: counts workers without changing input\\nok 1 - counts workers without changing input\\n  ---\\n  duration_ms: 2.655378\\n  type: 'test'\\n  ...\\n# Subtest: rejects invalid workers/statuses with TypeError\\nok 2 - rejects invalid workers/statuses with TypeError\\n  ---\\n  duration_ms: 1.003557\\n  type: 'test'\\n  ...\\n# Subtest: stable labels, order and no trailing newline\\nok 3 - stable labels, order and no trailing newline\\n  ---\\n  duration_ms: 0.501104\\n  type: 'test'\\n  ...\\n# Subtest: rejects missing, negative, noninteger and inconsistent counts\\nok 4 - rejects missing, negative, noninteger and inconsistent counts\\n  ---\\n  duration_ms: 0.957939\\n  type: 'test'\\n  ...\\n# Subtest: complete product example\\nok 5 - complete product example\\n  ---\\n  duration_ms: 0.563877\\n  type: 'test'\\n  ...\\n# Subtest: empty product input\\nok 6 - empty product input\\n  ---\\n  duration_ms: 0.457579\\n  type: 'test'\\n  ...\\n1..6\\n# tests 6\\n# suites 0\\n# pass 6\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 43.874023\\n\",\"checked_at\":\"2026-09-28T08:21:30.389Z\"},\"output\":{\"command\":\"confined-node cli.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"Total: 4\\nWorking: 2\\nIdle: 1\\nBlocked: 1\\nFailed: 0\\n\",\"checked_at\":\"2026-09-28T08:21:30.447Z\"},\"passed\":true}",
+    "status": "completed",
+    "error": null,
+    "requested_by": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+    "execution_id": "execution_0eec7665-f3e7-4297-8efc-8ea768f95b36",
+    "created_at": "2026-09-28T08:21:29.867Z",
+    "updated_at": "2026-09-28T08:21:30.477Z",
+    "round_id": "round_97d8593a-5567-49fa-b2b3-95301dd80a73",
+    "submission_ids": "[\"submission_822df5ae-3788-4956-8891-c7224665254b\",\"submission_f329aefc-e0fb-4003-8e50-45dd0828cc3a\"]",
+    "delivery_task_id": "task_92bc4391-70f9-4813-a25f-7deab7dc4708"
+  },
+  "specification": {
+    "task_id": "task_736bc3f1-15bc-4be3-b7ec-c73d47e93fdb",
+    "execution_id": "execution_b3f69104-68fc-47bc-a638-156364493009",
+    "artifact_id": "artifact_a6678f77-2689-438a-b31c-52f8ab975e2f",
+    "sha256": "94e13a54b4a71ebeaed437c410151cf4ab2d74655b6ce9e177fdd87bf29f6b7a"
+  },
+  "ownership": [
+    {
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "allocation_id": "allocation_3fc3d813-4c05-4e22-8584-35cfd1239300",
+      "path": "/var/lib/botsquad-workers/bsw-2f7d4b8c508bbd2bc81f6603/projects/allocation_3fc3d813-4c05-4e22-8584-35cfd1239300",
+      "uid": 20075,
+      "gid": 20075
+    },
+    {
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "allocation_id": "allocation_1e8ae478-2899-415d-98fa-d6a0373a0990",
+      "path": "/var/lib/botsquad-workers/bsw-85a652bf996c59ffbee5cdd6/projects/allocation_1e8ae478-2899-415d-98fa-d6a0373a0990",
+      "uid": 20076,
+      "gid": 20076
+    }
+  ],
+  "pending_approval_restart": true,
+  "retirement": {
+    "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+    "identity": {
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "backend": "linux",
+      "state": "disabled",
+      "unix_username": "bsw-2f7d4b8c508bbd2bc81f6603",
+      "uid": 20075,
+      "gid": 20075,
+      "home_path": "/var/lib/botsquad-workers/bsw-2f7d4b8c508bbd2bc81f6603",
+      "created_at": "2026-09-28T08:18:49.669Z",
+      "disabled_at": "2026-09-28T08:22:15.618Z",
+      "provision_operation_id": "operation_26719b83-9c97-453f-befc-771457a7a32b"
+    },
+    "operations": [
+      {
+        "operation_id": "operation_f715785a-ed61-4aa2-82fd-9058a421548a",
+        "approval_id": "approval_98d21755-6fba-486b-94c3-8bf1e52527ba",
+        "operation_type": "disable_worker_identity",
+        "target_worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+        "requester_principal_id": "principal_ef9a0ee4-f1a7-481a-9b2c-47aa5ecfdb7c",
+        "requester_worker_id": "worker_a207ab11-1415-460b-9dd9-7d2481fd18d3",
+        "requesting_execution_id": "execution_9a0f9d08-7edf-417b-8a53-90eab6258b5e",
+        "task_id": "task_e809ced7-4afa-43ac-8d70-95245c46bcf8",
+        "parameters": "{\"worker_id\":\"worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f\"}",
+        "parameter_hash": "b1ccfeef689047046e4c1f682441050554f6bf23324aa69705e783aa280efa33",
+        "preconditions": "{\"allocation\":null,\"enabled\":1,\"identity\":{\"backend\":\"linux\",\"created_at\":\"2026-09-28T08:18:49.669Z\",\"disabled_at\":null,\"gid\":20075,\"home_path\":\"/var/lib/botsquad-workers/bsw-2f7d4b8c508bbd2bc81f6603\",\"provision_operation_id\":\"operation_26719b83-9c97-453f-befc-771457a7a32b\",\"state\":\"ready\",\"uid\":20075,\"unix_username\":\"bsw-2f7d4b8c508bbd2bc81f6603\",\"worker_id\":\"worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f\"},\"lifecycle\":\"persistent\",\"principal_id\":\"principal_8db20fab-e826-4d0f-a721-36ba7d98a89a\",\"project\":null,\"role\":\"engineer\",\"worker_id\":\"worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f\"}",
+        "reason": "Disable the assigned Linus worker identity under the scoped offboarding task.",
+        "status": "completed",
+        "requested_at": "2026-09-28T08:22:12.335Z",
+        "result": "{\"backend\":\"linux\",\"gid\":20075,\"home_path\":\"/var/lib/botsquad-workers/bsw-2f7d4b8c508bbd2bc81f6603\",\"home_preserved\":true,\"operation_id\":\"operation_26719b83-9c97-453f-befc-771457a7a32b\",\"processes_signalled\":1,\"state\":\"disabled\",\"uid\":20075,\"unix_username\":\"bsw-2f7d4b8c508bbd2bc81f6603\",\"worker_id\":\"worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f\"}",
+        "error": null
+      }
+    ],
+    "history_preserved": true,
+    "new_assignment_rejected": true
+  },
+  "checks": [
+    "six real persistent Codex workers",
+    "actual Maya spec before engineering",
+    "distinct branch/worktree/commit ownership",
+    "real execution and runtime-turn overlap",
+    "real denied source/sibling/path writes",
+    "role-specific tool surface",
+    "real independent exact-commit Grace review",
+    "confined full acceptance tests",
+    "candidate before safe fast-forward",
+    "deterministic product output",
+    "process restart preserved all workflow records",
+    "no duplicate engineering/review/integration/wake"
+  ],
+  "counts": {
+    "workers": 7,
+    "tasks": 14,
+    "executions": 26
+  },
+  "confinement_rejections": [
+    {
+      "event_id": "event_d045c366-1447-4e52-b11b-b88dd05f218f",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_ae41577d-edf3-4c57-b5a2-fd7676dca527",
+      "task_id": "task_92bc4391-70f9-4813-a25f-7deab7dc4708",
+      "execution_id": "execution_3264255f-88bc-476f-804c-330e0aecb4a4",
+      "detail": "{\"reason\":\"Recipe outside Project policy\"}",
+      "created_at": "2026-09-28T08:18:46.240Z"
+    },
+    {
+      "event_id": "event_fcfdebc9-cfce-4ec8-ab6d-73bcb2749f46",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_55d421d9-2e44-4550-b905-3fc4a65012e9",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"path_escape\"}",
+      "created_at": "2026-09-28T08:20:21.082Z"
+    },
+    {
+      "event_id": "event_ce12f20b-65df-4287-8239-1c183ac5c45b",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-09-28T08:20:21.088Z"
+    },
+    {
+      "event_id": "event_8856ceba-bab4-48d4-beda-72d92db67d20",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_8db20fab-e826-4d0f-a721-36ba7d98a89a",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"path_escape\"}",
+      "created_at": "2026-09-28T08:20:21.239Z"
+    },
+    {
+      "event_id": "event_a46d5d04-eb90-4cb5-94c3-8da8caeb80a3",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-09-28T08:20:21.245Z"
+    },
+    {
+      "event_id": "event_0576af92-59c7-4f62-b4ba-35a7d00a6ad7",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_55d421d9-2e44-4550-b905-3fc4a65012e9",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"owned_scope\"}",
+      "created_at": "2026-09-28T08:20:21.381Z"
+    },
+    {
+      "event_id": "event_18433a73-4e86-4079-8d43-81b694d4d174",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-09-28T08:20:21.385Z"
+    },
+    {
+      "event_id": "event_2d13c678-832f-42ea-81ca-a16320b24fe9",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_55d421d9-2e44-4550-b905-3fc4a65012e9",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"botsquad_source\"}",
+      "created_at": "2026-09-28T08:20:21.575Z"
+    },
+    {
+      "event_id": "event_0ddc18a6-5b0b-45c8-86ba-d57780e3e47b",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-09-28T08:20:21.583Z"
+    },
+    {
+      "event_id": "event_7ee622bb-3087-44f4-89dd-f19055132ced",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_8db20fab-e826-4d0f-a721-36ba7d98a89a",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"owned_scope\"}",
+      "created_at": "2026-09-28T08:20:21.709Z"
+    },
+    {
+      "event_id": "event_ce297f0f-8e3d-4bdd-8b2f-49a46631073d",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-09-28T08:20:21.713Z"
+    },
+    {
+      "event_id": "event_6b0a2197-e974-423c-a486-b722ef6e2bdb",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_55d421d9-2e44-4550-b905-3fc4a65012e9",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"sibling_allocation\"}",
+      "created_at": "2026-09-28T08:20:21.736Z"
+    },
+    {
+      "event_id": "event_880bae5e-dd3e-439e-bca8-85068d8d52c8",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+      "task_id": "task_39482564-826e-4e67-aebf-6de459e82f5f",
+      "execution_id": "execution_d9d9608b-3224-4e62-a7e1-584f2ceda190",
+      "detail": "{\"reason\":\"Allocation/worker/task mismatch\"}",
+      "created_at": "2026-09-28T08:20:21.743Z"
+    },
+    {
+      "event_id": "event_756da1db-0c48-4c21-8da0-d26c89dda764",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_8db20fab-e826-4d0f-a721-36ba7d98a89a",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"botsquad_source\"}",
+      "created_at": "2026-09-28T08:20:21.902Z"
+    },
+    {
+      "event_id": "event_6f668be2-0c0c-40d0-ad47-8ed4b225712e",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-09-28T08:20:21.906Z"
+    },
+    {
+      "event_id": "event_dd1ceac2-1a28-4855-9ceb-9d3939bdb895",
+      "type": "engineering_access_denied",
+      "actor_principal_id": "principal_8db20fab-e826-4d0f-a721-36ba7d98a89a",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"tool\":\"write_source\",\"scope\":\"sibling_allocation\"}",
+      "created_at": "2026-09-28T08:20:21.967Z"
+    },
+    {
+      "event_id": "event_fdb6563c-e5fe-4728-95c9-d4965c32af88",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+      "task_id": "task_2b909105-535d-4b7d-881d-6a984975d8b4",
+      "execution_id": "execution_8fcf999f-9adb-48c2-a6bd-cd48c3645c50",
+      "detail": "{\"reason\":\"Allocation/worker/task mismatch\"}",
+      "created_at": "2026-09-28T08:20:21.971Z"
+    }
+  ],
+  "source_sha": "18308dd80215dea4e0fb2c89597e9c1550143051",
+  "validation_run": "identity-20260928T081724Z",
+  "isolation": {
+    "result": "PASS",
+    "canary_contents_recorded": false,
+    "workers": [
+      {
+        "name": "Linus",
+        "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+        "unix_username": "bsw-2f7d4b8c508bbd2bc81f6603",
+        "uid": 20075,
+        "gid": 20075,
+        "groups": [
+          20075
+        ],
+        "password_locked": true,
+        "home_mode": "0o750",
+        "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+      },
+      {
+        "name": "Ada",
+        "worker_id": "worker_91f1e99a-4293-461b-a1ea-b9d8b26a506d",
+        "unix_username": "bsw-85a652bf996c59ffbee5cdd6",
+        "uid": 20076,
+        "gid": 20076,
+        "groups": [
+          20076
+        ],
+        "password_locked": true,
+        "home_mode": "0o750",
+        "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+      },
+      {
+        "name": "Nix",
+        "worker_id": "worker_a207ab11-1415-460b-9dd9-7d2481fd18d3",
+        "unix_username": "bsw-b1bf3b19b8f198a4fd75a2cd",
+        "uid": 20071,
+        "gid": 20071,
+        "groups": [
+          20071
+        ],
+        "password_locked": true,
+        "home_mode": "0o750",
+        "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+      },
+      {
+        "name": "Grace",
+        "worker_id": "worker_0896abdd-5dc6-4088-8d23-e7705a2b7ba7",
+        "unix_username": "bsw-072dd6b7462b0905371f7e20",
+        "uid": 20077,
+        "gid": 20077,
+        "groups": [
+          20077
+        ],
+        "password_locked": true,
+        "home_mode": "0o750",
+        "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+      }
+    ],
+    "checks": [
+      {
+        "worker": "Linus",
+        "scope": "codex_auth_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "codex_auth_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "company_db_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "company_db_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "provisioner_receipt_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "provisioner_receipt_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "etc_botsquad_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "etc_botsquad_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "botsquad_source_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "botsquad_source_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "canonical_product_main",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "canonical_product_main",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Ada",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Ada",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Nix",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Nix",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Grace",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_Grace",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "provisioner_socket",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "root_uid",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "sudo",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "botsquad_source",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "provisioner_code",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "etc_write",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "codex_auth_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "codex_auth_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "company_db_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "company_db_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "provisioner_receipt_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "provisioner_receipt_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "etc_botsquad_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "etc_botsquad_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "botsquad_source_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "botsquad_source_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "canonical_product_main",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "canonical_product_main",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Linus",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Linus",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Nix",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Nix",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Grace",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_Grace",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "provisioner_socket",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "root_uid",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "sudo",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "botsquad_source",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "provisioner_code",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "etc_write",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "codex_auth_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "codex_auth_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "company_db_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "company_db_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "provisioner_receipt_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "provisioner_receipt_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "etc_botsquad_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "etc_botsquad_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "botsquad_source_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "botsquad_source_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "canonical_product_main",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "canonical_product_main",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Linus",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Linus",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Ada",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Ada",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Grace",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sibling_Grace",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "provisioner_socket",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "root_uid",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "sudo",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "botsquad_source",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "provisioner_code",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Nix",
+        "scope": "etc_write",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "codex_auth_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "codex_auth_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "company_db_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "company_db_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "provisioner_receipt_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "provisioner_receipt_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "etc_botsquad_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "etc_botsquad_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "botsquad_source_canary",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "botsquad_source_canary",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "canonical_product_main",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "canonical_product_main",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Linus",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Linus",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Ada",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Ada",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Nix",
+        "action": "read",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sibling_Nix",
+        "action": "write",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "provisioner_socket",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "root_uid",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "sudo",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "botsquad_source",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "provisioner_code",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Grace",
+        "scope": "etc_write",
+        "action": "write_open",
+        "denied": true
+      },
+      {
+        "worker": "Linus",
+        "scope": "own_clone_write",
+        "allowed": true,
+        "uid": 20075,
+        "gid": 20075
+      },
+      {
+        "worker": "Linus",
+        "scope": "sibling_clone_write",
+        "denied": true
+      },
+      {
+        "worker": "Ada",
+        "scope": "own_clone_write",
+        "allowed": true,
+        "uid": 20076,
+        "gid": 20076
+      },
+      {
+        "worker": "Ada",
+        "scope": "sibling_clone_write",
+        "denied": true
+      }
+    ]
+  },
+  "retirement_process": {
+    "result": "PASS",
+    "worker_id": "worker_1e5b573f-8eb5-4043-99c9-3b5f24f1861f",
+    "uid": 20075,
+    "exit_signal": 9,
+    "operation_id": "operation_f715785a-ed61-4aa2-82fd-9058a421548a",
+    "history_preserved": true,
+    "project_access_revoked": true,
+    "home_preserved": true,
+    "retired_home_access_denied": true
+  },
+  "provisioner_memory_peak_bytes": 21901312
+}

@@ -1,6 +1,6 @@
 # Execution Plan — Prompt 05: generalized software Projects
 
-**Status:** Active; acceptance pending
+**Status:** Runtime, reboot and documentation acceptance complete; normal main delivery in progress
 
 **Owner:** Codex task 01a0e69b-1e7f-7c30-9f3a-1504bf23a188; sole implementation writer
 
@@ -235,3 +235,26 @@ entrypoint, rendering four exact JSON requests from the actual two allocations i
 each engineer's turn context. Production has no fixture flag/import; models still make
 all calls through real enforcement, and all original assertions remain. This removes
 ambiguous instruction propagation through the manager/specification chain.
+
+### Acceptance closure — 08:25 UTC
+
+Feature `18308dd80215dea4e0fb2c89597e9c1550143051` passed 105/105 hardened tests in
+85.49 seconds. Its production tree matches the accepted Project revision exactly.
+Fresh research/resume/interruption passed, and the exact-probe legacy run passed all
+original assertions, 100 UID probes, 27.171 seconds real model overlap, full tests,
+retirement process kill/revocation and restart. Real host lost-response recovery passed.
+Full reboot preserved ten acceptance databases, 78 account mappings, 245 root records,
+permissions and original production state; only normal worker timestamp refresh differs.
+Postboot archived/retired access denials, loopback UI and central auth readiness passed.
+Documentation/Decision 014 and both white papers reflect Prompt 05, with roadmap gates
+now Complete / Prompt 06 Next. Normal final integration/push/deployment remains.
+
+### Upstream reconciliation — 08:30 UTC
+
+The required pre-integration fetch found two new valid documentation commits,
+`5c80b1105e82010efea88ce86f62096ca908853e` (engineer primer) and
+`30e208f11e7961ac7644b71e794f355639c8d433` (README link). Read the complete primer;
+it explicitly preserves the earlier design discussion and defers current status to
+Roadmap/Current State. Preserve both commits and their narrative, adding only a short
+current implementation/evidence note after normal merge. No production code changed.
+ETA at this point: 15–30 minutes for normal integration, final deployment and equality.

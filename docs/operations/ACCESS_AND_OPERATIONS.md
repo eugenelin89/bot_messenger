@@ -99,7 +99,7 @@ Expected binding:
 127.0.0.1:4310
 ```
 
-A public `0.0.0.0:4310` listener is not the supported current configuration; Prompt 03 established and Prompt 04 retained the loopback-only UI boundary.
+A public `0.0.0.0:4310` listener is not the supported current configuration; Prompt 03 established and Prompts 04–05 retained the loopback-only UI boundary.
 
 ## View recent logs
 
@@ -315,7 +315,10 @@ After the machine returns:
 ssh botsquad 'systemctl is-active botsquad && curl -fsS http://127.0.0.1:4310/api/health'
 ```
 
-Prompt 03 established reboot recovery on Ubuntu 24.04 x86_64, and Prompt 04 revalidated reboot recovery with the provisioner, worker identities, approvals and revoked access preserved.
+Prompts 03–05 validated full reboot recovery on Ubuntu 24.04 x86_64. Prompt 05
+rechecked original production history, worker identities, root receipts, archived
+Project state and retired access. Production remained paused and central Codex
+authentication ready. See the [acceptance record](../validation/prompt-05-general-projects.md).
 
 ## Troubleshooting
 

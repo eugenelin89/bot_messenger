@@ -1,12 +1,12 @@
 # BotSquad — Current State
 
-**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress
+**Status:** Prompt 05 complete and Ubuntu validated; Prompt 06 next
 **Updated:** 2026-09-28
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
-[Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md), and the
-[Prompt 04 Linux identity validation record](../validation/prompt-04-linux-identity.md).
+[Decision 014](../decisions/decision_014_generalized_projects.md), and the
+[Prompt 05 validation record](../validation/prompt-05-general-projects.md).
 
 ## Primary deployment
 
@@ -343,17 +343,16 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Current acceptance milestone:
+Prompt 05 generalized Projects and repository lifecycle is complete. The next milestone is:
 
 ~~~text
-Prompt 05
-Generalized projects and repository lifecycle
+Prompt 06
+Stable authenticated remote-client API and device identity
 ~~~
 
 Subsequent planned prompts are:
 
 ~~~text
-06 Authenticated remote-client API
 07 Native iOS Remote MVP
 08 Bounded Computer Use
 09 Multi-company

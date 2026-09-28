@@ -9,7 +9,7 @@ control. Your Mac/PC is the bootstrap, administration, development, and browser 
 
 ## Current state
 
-**Prompt 05 is implemented; real Ubuntu acceptance is in progress.**
+**Prompt 05 is complete and validated on Ubuntu. Prompt 06 is next.**
 
 BotSquad currently supports:
 

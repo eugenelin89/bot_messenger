@@ -1,6 +1,6 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 05 implemented; real Ubuntu acceptance in progress on Ubuntu 24.04 x86_64
+**Status:** Prompt 05 complete and validated on Ubuntu 24.04 x86_64
 **Date:** 2026-09-26
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
@@ -535,5 +535,5 @@ AI profiles. Prompt 04 added and validated Nix, exact-scope approvals, the narro
 provisioner and worker Unix-account/clone lifecycle while preserving those boundaries.
 Prompt 05 adds generalized software Projects, scoped revision/review and integration
 queues, trusted remote operations and archive/release. Its provisioner protocol change
-requires an exact-revision reinstall and host reboot acceptance, while preserving old
-protocol-1 grants and all production state. Prompt 06 remains deferred until acceptance.
+was validated by an exact-revision reinstall and full host reboot, preserving old
+protocol-1 grants and all production state. Prompt 06 is now next.

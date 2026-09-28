@@ -1,7 +1,7 @@
 # Running Multiple BotSquad Instances
 
 **Status:** Architecture/operator note; separate data roots and ports work conceptually today, but full production-grade multi-instance Prompt 04 infrastructure is not yet automated  
-**Updated:** 2026-09-26
+**Updated:** 2026-09-28
 
 ## Why run more than one instance?
 
@@ -299,7 +299,7 @@ demo:
 
 These demo path names are illustrative.
 
-The current Prompt 04 provisioner is not yet parameterized/documented as a supported
+The provisioner through Prompt 05 is not yet parameterized/documented as a supported
 multi-instance production stack, so this level needs deliberate future implementation
 rather than ad-hoc manual edits.
 

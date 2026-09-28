@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-09-26
+**Updated:** 2026-09-28
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -17,8 +17,8 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 02 | Managed engineering organization and independent review | Complete |
 | 03 | Ubuntu HQ, reproducible bootstrap, Linux confinement, worker AI profiles | Complete |
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
-| 05 | Generalized projects and repository lifecycle | Next |
-| 06 | Stable authenticated remote-client API and device identity | Planned |
+| 05 | Generalized projects and repository lifecycle | Complete |
+| 06 | Stable authenticated remote-client API and device identity | Next |
 | 07 | Native iOS Remote MVP | Planned |
 | 08 | Bounded Computer Use | Planned |
 | 09 | Multi-company support on one HQ | Planned |
@@ -203,69 +203,50 @@ remote/mobile APIs, Computer Use or multi-company persistence.
 
 ---
 
-# Next implementation phase
-
 ## Prompt 05 — Generalized projects and repository lifecycle
 
-**Status:** Next
+**Status:** Complete and validated
 
-Prompt 02–04 use a bounded fixed engineering product.
+Prompt 05 generalized the bounded SquadStatus workflow into reusable software Projects.
+A Project can contain multiple repositories with independent configurable default branches.
 
-Prompt 05 should make BotSquad useful for real repositories.
+Implemented capabilities:
 
-Target concepts:
+- trusted local creation, bounded Git-bundle import and public GitHub registration/fetch;
+- immutable per-worker scopes and private Linux-owned clones;
+- bounded Project instructions and applicable read-only AGENTS guidance;
+- named focused/full Node recipes in a confined disposable snapshot;
+- multiple commits and immutable submissions;
+- exact independent review packets, changes_required and bounded real revisions;
+- durable integration queue, stale/conflict blocking and full validation before advance;
+- non-root remote publication with exact old/new SHA human approval and receipts;
+- lost-response reconciliation, divergence blocking and archive/access release;
+- SQL-only history-preserving migration and compatible persistent worker threads.
 
-~~~text
-Project
-Repository
-Workspace/Clone
-Branch
-Task allocation
-Submission
-Review
-Revision
-Integration
-Release/deployment policy
-~~~
+Acceptance passed 105 hardened Ubuntu tests, a real imported LedgerBrief Project on
+`trunk`, concurrent Unix-isolated engineers, genuine revision and second review,
+full-tested integration, four restart gates, controlled bare publication/reconciliation,
+100 UID probes and archive denials. Legacy SquadStatus, retirement, research, receipt
+recovery and full reboot also passed with retained production paused and preserved.
 
-Capabilities should include:
+Repository and command support remains deliberately bounded: Node test files only,
+no dependency installation/general environment manager, unsafe Git features rejected,
+and no deployment automation. Public GitHub fetch passed; authenticated GitHub push
+remains unvalidated because no credential/disposable target was assumed. Historical
+SquadStatus remains a regression fixture. No Prompt 06+ capability was implemented.
 
-- register an existing repository;
-- create a new project repository;
-- GitHub remote configuration through trusted policy;
-- per-worker clone allocation;
-- task-to-branch ownership;
-- project-level AGENTS/instructions;
-- configurable acceptance commands;
-- revision loops;
-- Grace changes-required workflow;
-- resubmission;
-- multi-round review;
-- conflict handling;
-- integration queue;
-- archive/cleanup;
-- project-level capability policy.
-
-Protected remote operations should use trusted approvals where required.
-
-### Acceptance themes
-
-- use at least one non-SquadStatus repository;
-- two workers edit independent scopes safely;
-- reviewer requests revision;
-- engineer revises and resubmits;
-- trusted integration advances only validated work;
-- remote push policy is explicit and audited;
-- restart preserves repository/task state;
-- no worker gains arbitrary Git/system authority.
+See [Decision 014](../decisions/decision_014_generalized_projects.md) and
+[Prompt 05 acceptance](../validation/prompt-05-general-projects.md).
 
 ---
+
+# Next implementation phase
 
 # Remote operator access
 
 ## Prompt 06 — Stable authenticated remote-client API
 
-**Status:** Planned
+**Status:** Next
 
 Prompt 06 creates the foundation for native/mobile clients.
 
