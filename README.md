@@ -41,7 +41,9 @@ BotSquad currently supports:
 
 The generalized lifecycle and acceptance status are recorded in
 [Decision 014](docs/decisions/decision_014_generalized_projects.md) and
-[Prompt 05 validation](docs/validation/prompt-05-general-projects.md).
+[Prompt 05 validation](docs/validation/prompt-05-general-projects.md). The
+[independent audit](docs/validation/prompt-05-independent-audit.md) records the complete
+requirement matrix, validation-verdict correction and fresh 108/108 Ubuntu acceptance.
 
 The historical Prompt 04 runtime acceptance revision is
 `9af2db810b71ec9ca1097767a61ae0aa2edb43d8`. Later documentation commits preserve its

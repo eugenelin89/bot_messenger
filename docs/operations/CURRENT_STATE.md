@@ -54,8 +54,10 @@ revisions precede a durable integration queue. Full validation gates canonical a
 Explicit remote fetch blocks divergence; exact approved publication uses a non-root
 executor and immutable receipt. Archive revokes clone access while preserving history.
 
-Local acceptance has 104 passing tests and one Linux-only skip; the actual Ubuntu
-service-restriction suite passes all 105. Real-runtime results and final release SHAs
+The independent audit corrected forged-output validation and empty-import edge cases.
+Current local acceptance has 107 passing tests and one Linux-only skip; the actual Ubuntu
+service-restriction suite passes all 108. The [independent audit](../validation/prompt-05-independent-audit.md)
+retains the original requirement matrix, findings and correction evidence. Real-runtime results and final release SHAs
 are tracked in the
 [Prompt 05 validation record](../validation/prompt-05-general-projects.md).
 [Decision 014](../decisions/decision_014_generalized_projects.md) defines the boundaries.

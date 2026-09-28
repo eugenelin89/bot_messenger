@@ -1,0 +1,87 @@
+{
+  "baseline_sha": "8883cd95becbb0ce716504ba4fc91162542f0e96",
+  "accepted_feature_sha": "3dd7de7df39b14ea08de15f547c11e85ae8feba1",
+  "ubuntu_deterministic": {
+    "path": "/var/lib/botsquad/validation/deterministic-20260928T093241Z",
+    "exit_code": 0,
+    "tests": 108,
+    "passed": 108,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 97103.812102,
+    "console_sha256": "dce710f4ee192bbd2a5c20dca1bffcb16795d846a8098fc1c5966ea50019b6ba"
+  },
+  "python_provisioner": {
+    "command": "python3 test/provisioner_test.py",
+    "tests": 9,
+    "passed": 9,
+    "failed": 0
+  },
+  "production_preservation": {
+    "backup": "/var/backups/botsquad/prompt05-audit-20260928T0932Z",
+    "tables": 36,
+    "rows": 40,
+    "accounts": 78,
+    "retained_files": 248,
+    "differences": [],
+    "excluded_fields": [
+      "workers.updated_at: normal startup refresh timestamp"
+    ],
+    "database_integrity": "ok",
+    "foreign_key_errors": 0,
+    "counts": {
+      "workers": 1,
+      "tasks": 1,
+      "executions": 1,
+      "runtime_bindings": 1,
+      "projects": 0,
+      "repositories": 0,
+      "approvals": 0,
+      "protected_operations": 0
+    },
+    "paused": true,
+    "running_executions": 0
+  },
+  "credential_canary": {
+    "probe": "service-owned mode-0600 GitHub credential canary, no real credential and no network",
+    "service_uid": 997,
+    "canary_mode": "0600",
+    "results": [
+      {
+        "worker_id": "worker_7937f791-636c-4ef2-ab0a-279271fd770f",
+        "role": "engineer",
+        "uid": 20049,
+        "credential_canary_read": "denied"
+      },
+      {
+        "worker_id": "worker_75cf7c81-8da6-4c73-9a08-7c6b073dbf5c",
+        "role": "engineer",
+        "uid": 20050,
+        "credential_canary_read": "denied"
+      },
+      {
+        "worker_id": "worker_07290307-a420-4314-a90c-93d9d07da84c",
+        "role": "reviewer",
+        "uid": 20051,
+        "credential_canary_read": "denied"
+      }
+    ]
+  },
+  "service": {
+    "active": "active",
+    "enabled": "enabled",
+    "provisioner_socket": "active",
+    "listener": "LISTEN 0      511    127.0.0.1:4310 0.0.0.0:*",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "3dd7de7df39b14ea08de15f547c11e85ae8feba1"
+    }
+  },
+  "real_codex_rerun": false,
+  "reboot_rerun": false,
+  "authenticated_live_github_push": "UNVALIDATED"
+}

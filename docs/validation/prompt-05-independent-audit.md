@@ -1,8 +1,14 @@
 # Independent Prompt 05 post-acceptance audit
 
-**Baseline:** 8883cd95becbb0ce716504ba4fc91162542f0e96  
-**Audit started:** 2026-09-28 09:00 UTC  
-**Stage:** Baseline matrix recorded before implementation fixes.
+**Baseline:** 8883cd95becbb0ce716504ba4fc91162542f0e96
+**Audit started:** 2026-09-28 09:00 UTC
+**Stage:** Audit and corrections complete; accepted feature and delivery ledger below.
+
+**Post-correction conclusion: Prompt 05 fully satisfies the original specification within its explicitly allowed deferrals.**
+
+The [final requirement matrix](prompt-05-requirements-final.md) gives the current
+classification for every original section. The baseline matrix below is preserved
+as evidence of what this audit found before correction.
 
 **Baseline conclusion: Prompt 05 has material gaps and should not be considered fully complete until they are fixed.**
 
@@ -261,7 +267,7 @@ Prompt 05 is delivered, Nix/Unix identities exist, and Prompt 06 is next. Histor
 one-review/task and old schema uniqueness passages are labeled history and were preserved.
 Architecture, English and Traditional Chinese whitepapers describe the generalized flow.
 
-### Fresh verification (Ubuntu gate pending)
+### Fresh verification
 
 - macOS strict TypeScript/build passed; full deterministic suite **107 passed, 0 failed,
   1 Linux-only skip, 108 total**, 41.352 seconds.
@@ -272,6 +278,65 @@ Architecture, English and Traditional Chinese whitepapers describe the generaliz
   loading; both reimport/forgery negatives and genuine completion now pass. These failed
   development runs are not acceptance evidence.
 - No runtime adapter, root provisioner protocol, schema, deployment configuration or
-  dependencies changed. Fresh real Ubuntu confinement tests are required for the receipt
+  dependencies changed. Fresh real Ubuntu confinement tests passed for the receipt
   pipe/read-only reporter mount; retained real-model and reboot evidence remain separate.
 
+
+### Ubuntu acceptance and security review closure
+
+Exact accepted feature: `3dd7de7df39b14ea08de15f547c11e85ae8feba1` on
+`codex/prompt-05-independent-audit`. The [sanitized audit evidence](prompt-05-audit-evidence.json)
+records the directly observed results and retained host locations.
+
+- Hardened Ubuntu service-restriction suite: **108/108**, zero failures/skips,
+  **97.104 seconds**; `deterministic-20260928T093241Z`, raw exit code **0**.
+- Python provisioner tests: **9/9** on Ubuntu. The `unittest test/provisioner_test.py`
+  launcher collided with Ubuntu's installed Python `test` package before importing
+  repository tests; direct `python3 test/provisioner_test.py` ran the intended suite.
+- Actual retained engineer/reviewer UIDs **20049, 20050, 20051** could not read the
+  service-owned 0600 GitHub credential canary. No real credential was read or configured,
+  and no network request was made. This is UID/file-permission evidence, not live push.
+- Protection review: fixed reporter path, read-only Linux mount, no worker-supplied
+  executable/argv/environment, consumed/cleared invocation key, one-use synchronous
+  reporter, bounded dedicated receipt pipe, fail-closed receipt parsing. No network,
+  process, signal, host-read or resource restriction was relaxed. Existing confinement
+  probes and Linux memory/tmpfs ceilings passed alongside new adversarial verdict tests.
+- The reporter uses Node's documented custom reporter / `test:summary` event interface.
+  Bubblewrap forwards the explicitly supplied receipt descriptor to its child; no
+  unsupported preservation flag or broad extra filesystem mount is required. Sources:
+  [Node 24 test runner](https://r2.nodejs.org/docs/v24.0.1/api/test.html),
+  [bubblewrap source](https://github.com/containers/bubblewrap/blob/v0.9.0/bubblewrap.c).
+- Application-only deployment preserved unchanged schema, package lock, root provisioner,
+  systemd and AppArmor configuration. Production remains paused, runtime ready, service
+  enabled/active, socket active and UI loopback-only. No model work was dispatched.
+- Root-only backup `/var/backups/botsquad/prompt05-audit-20260928T0932Z` preceded update.
+  After service restart, all **36 tables / 40 retained rows**, **78 account mappings** and
+  **248 retained file hashes** matched. Only `workers.updated_at` is excluded for the
+  existing startup refresh; integrity is `ok` and there are zero foreign-key errors.
+- No new reboot or real-model acceptance was necessary: runtime/provisioner interfaces
+  and host policy were unchanged. The original real Codex/reboot records were read and
+  crosschecked independently, not promoted into fresh acceptance of changed code.
+
+### Final classifications and remaining risk
+
+H01, H02, H03 and H04 are **resolved** at the evidence levels above. There are no remaining
+BLOCKER or IMPORTANT implementation findings, and no mandatory feature was silently
+deferred. H03's cross-Project binding proof is deterministic, using real Git/SQLite and a
+fake runtime; original same-thread revision is real Codex evidence. This distinction is
+retained in the final matrix rather than claiming a new real cross-Project model run.
+
+The optional authenticated live GitHub push and credential-to-GitHub exchange remain
+unvalidated, as the original request explicitly allows. The new harmless credential
+canary closes the narrower UID read-denial evidence gap. Correct test completion is not
+a proof of arbitrary application semantics; immutable tests, review and exact provenance
+remain necessary. Dependency/environment management and Prompt 06+ stay out of scope.
+
+### Delivery ledger
+
+The accepted feature SHA above is immutable. Final documentation/evidence commits carry
+no additional implementation change. The final task handoff and standalone audit report
+record the exact final local-main, origin/main and Ubuntu deployed SHA after integration;
+this avoids pretending a document can contain its own Git commit hash. The historical
+Prompt 05 validation record now independently records original final release `8883cd9`.
+
+Final repository-wide documentation scan: 55 Markdown documents, 390 relative links, zero missing targets. The unaltered original request snapshot is excluded from link lint because it is source evidence.

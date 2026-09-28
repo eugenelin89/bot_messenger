@@ -1,10 +1,10 @@
 # Execution Plan — Independent Prompt 05 audit
 
-**Status:** Active  
-**Owner:** Codex task 01a0e73e-0330-7303-bd1c-99f7e91c10b1; sole audit writer  
-**Branch:** codex/prompt-05-independent-audit  
-**Worktree:** ../bot_messenger-audit  
-**Started:** 2026-09-28 09:00 UTC  
+**Status:** Complete — audit/corrections accepted; final delivery recorded in handoff
+**Owner:** Codex task 01a0e73e-0330-7303-bd1c-99f7e91c10b1; sole audit writer
+**Branch:** codex/prompt-05-independent-audit
+**Worktree:** ../bot_messenger-audit
+**Started:** 2026-09-28 09:00 UTC
 **Initial ETA:** 45–60 minutes; updates every 15 minutes requested by user.
 
 ## Objective and scope
@@ -59,3 +59,8 @@ approval, receipt, packet and source-history protections.
   217 relative links in 17 documents resolve; every production hard-coding match classified.
 - ETA updated near 09:15 to 60–90 minutes remaining due to implementation gap; near
   09:30 to 30–45 minutes remaining. Next: Ubuntu gate, final report and normal integration.
+
+- 09:32–09:36: exact feature3dd7de7 accepted on hardened Ubuntu108/108 (97.104s),
+  Python9/9. New actual UID credential-canary denials passed. Production service resumed
+  paused;36tables/40rows,78accounts,248files unchanged (existing updated_at refresh excluded).
+  H01–H04 resolved; final current matrix and sanitized evidence written. Integration pending.
