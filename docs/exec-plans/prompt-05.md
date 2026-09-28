@@ -1,6 +1,6 @@
 # Execution Plan — Prompt 05: generalized software Projects
 
-**Status:** Runtime, reboot and documentation acceptance complete; normal main delivery in progress
+**Status:** Runtime, reboot and documentation acceptance complete; final release equality is recorded in the delivery handoff
 
 **Owner:** Codex task 01a0e69b-1e7f-7c30-9f3a-1504bf23a188; sole implementation writer
 
@@ -16,7 +16,7 @@
 
 **Initial ETA:** 10–18 hours including real Ubuntu acceptance and delivery
 
-**Current ETA:** 45–90 minutes remaining as of 08:00 UTC; legacy regression repeat, research/recovery, reboot and final delivery remain.
+**Last pre-delivery ETA:** 15–30 minutes remaining at 08:30 UTC; full ETA history and actual final elapsed time are in the delivery handoff.
 
 ## Objective and scope
 
@@ -36,7 +36,7 @@ Operator, multi-instance provisioning or unrestricted commands/paths.
   commits. Fast-forwarded main to current origin/main, then created the requested branch.
 - No conflicting writer or active execution plan found; no delegation requested.
 - Read the requested product, operations, architecture, decision and historical
-  execution/validation documents. Implementation review is in progress.
+  execution/validation documents. Implementation and security review completed.
 - Ubuntu 24.04.5 x86_64, kernel 6.8.0-142; service and provisioner active. About 1601 MiB
   available of 1967 MiB RAM, 2047 MiB swap unused, 43 GiB free disk at initial inspection.
 - Production remains paused: one worker, one completed task/execution, three messages,
@@ -258,3 +258,10 @@ it explicitly preserves the earlier design discussion and defers current status 
 Roadmap/Current State. Preserve both commits and their narrative, adding only a short
 current implementation/evidence note after normal merge. No production code changed.
 ETA at this point: 15–30 minutes for normal integration, final deployment and equality.
+
+The normal upstream merge was conflict-free and preserved the primer/README addition.
+Final stale-text classification and link checks passed: 20 changed Markdown files,
+215 relative links, no broken targets. Historical decisions/evidence were preserved;
+only a short implementation note was added to the incoming historical primer. The
+accepted production digest remains unchanged. Final Git/deployed equality is checked
+at delivery and recorded in the user handoff; no force push or history rewrite is used.

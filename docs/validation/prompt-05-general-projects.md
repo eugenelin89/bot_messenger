@@ -315,3 +315,11 @@ or deployment automation; 16 MiB repository objects, 4 MiB bundle, 1,000 files, 
 closed. Older Codex engineering bindings cannot silently adopt new tool schemas. Public
 GitHub fetch passed, but authenticated GitHub push was not attempted without a safe
 credential and disposable authorized target. Controlled bare-receiver publication passed.
+
+Final Markdown gate: **20 changed Markdown files, 215 relative links, zero broken
+internal targets**; no relative fragment links required checking. `git diff --check`
+passed. The pre-integration fetch found main advanced to
+`30e208f11e7961ac7644b71e794f355639c8d433`; both incoming documentation commits were
+inspected and preserved by a normal merge. The new engineer primer's explicitly
+historical discussion remains intact, with a short accepted-implementation note and
+links to current evidence. Production files still match the accepted digest.
