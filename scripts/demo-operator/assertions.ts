@@ -25,6 +25,16 @@ export function checkObjective(s:Snapshot,scope:RunScope) {
   assert.equal(roots.length,1,'Expected one scoped root objective');assert.equal(roots[0]!.assignee_worker_id,scope.atlasId);
   return roots[0]!;
 }
+export function projectHire(s:Snapshot,scope:RunScope,workerId:string) {
+  const worker=s.workers.find(w=>w.worker_id===workerId);
+  if(!worker||scope.baselineWorkers.has(workerId))return false;
+  const manager=s.workers.find(w=>w.worker_id===worker.created_by_worker_id);if(!manager)return false;
+  const tasks=projectTasks(s,scope);
+  return s.executions.some(execution=>execution.worker_id===manager.worker_id&&tasks.some(t=>t.task_id===execution.task_id)&&
+    execution.started_at<=worker.created_at&&(!execution.finished_at||execution.finished_at>=worker.created_at)&&
+    s.audit.some(e=>e.type==='worker_creation_requested'&&e.execution_id===execution.execution_id&&e.task_id===execution.task_id&&e.actor_principal_id===manager.principal_id&&JSON.parse(e.detail).name===worker.display_name)&&
+    s.audit.some(e=>e.type==='worker_provisioned'&&e.worker_id===workerId&&e.actor_principal_id===manager.principal_id));
+}
 export function checkApproval(s:Snapshot,a:Approval,scope:RunScope):ProtectedOperation {
   const op=s.infrastructure.operations.find(o=>o.operation_id===a.operation_id);
   assert.ok(op,'Approval operation missing');assert.equal(op.approval_id,a.approval_id);assert.equal(op.status,'pending');
@@ -45,7 +55,8 @@ export function checkApproval(s:Snapshot,a:Approval,scope:RunScope):ProtectedOpe
   // Pending request turns are inspected but never approved until their turn is completed.
   const tasks=projectTasks(s,scope);
   const isAtlas=target.worker_id===scope.atlasId&&op.task_id===scope.atlasProvisionTaskId;
-  const isProjectWorker=['product_manager','cto','engineer','reviewer'].includes(target.role)&&tasks.some(t=>t.assignee_worker_id===target.worker_id);
+  const isProjectWorker=['product_manager','cto','engineer','reviewer'].includes(target.role)&&
+    (tasks.some(t=>t.assignee_worker_id===target.worker_id)||op.operation_type==='create_worker_identity'&&projectHire(s,scope,target.worker_id));
   assert.ok(isAtlas||isProjectWorker,'Approval target is outside this tutorial');
   if(op.operation_type==='create_worker_identity') assert.deepEqual(Object.keys(p),['worker_id']);
   else {

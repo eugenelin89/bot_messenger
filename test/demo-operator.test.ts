@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { actions, parseScenario, studyPlan } from '../scripts/demo-operator/scenario.js';
 import { boundedPath, executeSteps, Recorder, redact } from '../scripts/demo-operator/recorder.js';
 import { demoOrigin } from '../scripts/demo-operator/driver.js';
-import { checkApproval, checkBaseline, checkCanonical, checkObjective, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
+import { checkApproval, checkBaseline, checkCanonical, checkObjective, projectHire, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
 import type { Approval, ProtectedOperation } from '../src/domain/infrastructure.js';
 
 test('demo scenario parsing validates identity, complete ordering, deadlines and confined recipes',()=>{
@@ -69,6 +69,14 @@ test('objective association follows task to repository to Project; scope rows ha
   const s={repositories:[{repository_id:'repo',project_id:'project'}],task_scopes:[{task_id:'task',repository_id:'repo'}],tasks:[{task_id:'task',parent_task_id:null,assignee_worker_id:'atlas'}]} as unknown as Snapshot;
   const scope={projectId:'project',repositoryId:'repo',atlasId:'atlas'} as RunScope;
   assert.equal(checkObjective(s,scope).task_id,'task');assert.throws(()=>checkObjective(s,{...scope,projectId:'wrong'}));assert.throws(()=>checkObjective(s,{...scope,atlasId:'imposter'}));
+});
+test('pre-assignment identity requests need a real hire by the current Project execution',()=>{
+  const s={workers:[{worker_id:'manager',principal_id:'principal'},{worker_id:'new',created_by_worker_id:'manager',display_name:'Engineer',created_at:'2026-09-28T10:00:10Z'}],tasks:[{task_id:'root',parent_task_id:null}],executions:[{execution_id:'exec',worker_id:'manager',task_id:'root',started_at:'2026-09-28T10:00:00Z',finished_at:null}],audit:[{type:'worker_creation_requested',execution_id:'exec',task_id:'root',actor_principal_id:'principal',detail:'{"name":"Engineer"}'},{type:'worker_provisioned',worker_id:'new',actor_principal_id:'principal'}]} as unknown as Snapshot;
+  const scope={objectiveId:'root',baselineWorkers:new Set(['manager'])} as RunScope;
+  assert.equal(projectHire(s,scope,'new'),true);
+  assert.equal(projectHire(s,{...scope,objectiveId:'unrelated'},'new'),false);
+  assert.equal(projectHire({...s,audit:s.audit.slice(1)},scope,'new'),false);
+  assert.equal(projectHire(s,{...scope,baselineWorkers:new Set(['manager','new'])},'new'),false);
 });
 test('production demo runner has UI-only mutations, no database, shell or private control-plane shortcuts',()=>{
   const root=join(process.cwd(),'scripts/demo-operator');
