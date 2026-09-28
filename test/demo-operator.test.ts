@@ -6,7 +6,8 @@ import { join } from 'node:path';
 import { actions, parseScenario, studyPlan } from '../scripts/demo-operator/scenario.js';
 import { boundedPath, executeSteps, Recorder, redact } from '../scripts/demo-operator/recorder.js';
 import { demoOrigin } from '../scripts/demo-operator/driver.js';
-import { checkApproval, checkBaseline, checkCanonical, checkObjective, projectHire, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
+import { finalize } from '../scripts/demo-operator/finalize.js';
+import { checkApproval, checkBaseline, checkCanonical, checkObjective, checkSpecification, projectHire, type RunScope, type Snapshot } from '../scripts/demo-operator/assertions.js';
 import type { Approval, ProtectedOperation } from '../src/domain/infrastructure.js';
 
 test('demo scenario parsing validates identity, complete ordering, deadlines and confined recipes',()=>{
@@ -38,6 +39,11 @@ test('structured evidence redacts credentials and private managed host paths',()
   const value=redact({csrfToken:'never-log-me',nested:{authorization:'Bearer private',password:'hidden'},body:'Bearer abc.def.ghi sk-abcdefghijklmnop ghp_abcdefghijklmnop token=plaintext /var/lib/botsquad/.codex/auth.json',key:'-----BEGIN PRIVATE KEY-----\nmaterial\n-----END PRIVATE KEY-----',commit:'1234567890abcdef'});
   const text=JSON.stringify(value);for(const secret of ['never-log-me','private','hidden','abc.def.ghi','abcdefghijklmnop','plaintext','material','auth.json'])assert.ok(!text.includes(secret),secret);
   assert.match(text,/1234567890abcdef/);
+  assert.equal(JSON.parse(redact('{"api_key":"embedded-secret","scope":"planner"}') as string).api_key,'[REDACTED]');
+});
+test('artifact finalization refuses failed attempts instead of publishing a successful narrative',()=>{
+  const root=mkdtempSync(join(tmpdir(),'demo-finalize-'));writeFileSync(join(root,'run.json'),JSON.stringify({status:'failed'}));writeFileSync(join(root,'events.json'),'[]');
+  assert.throws(()=>finalize(root),/Failed attempts cannot become tutorials/);assert.ok(!readdirSync(root).includes('narration.md'));
 });
 test('browser origin is restricted to the declared private HQ',()=>{
   assert.equal(demoOrigin('http://127.0.0.1:4310'),'http://127.0.0.1:4310');
@@ -84,4 +90,13 @@ test('production demo runner has UI-only mutations, no database, shell or privat
   const source=files.map(f=>readFileSync(join(root,f),'utf8').replace(/^import type .*$/gm,'')).join('\n');
   for(const forbidden of [/node:sqlite/,/node:child_process/,/new Store\(/,/\.request\.(post|put|patch|delete)\(/,/method\s*:\s*['"]POST/,/from ['"].*src\/(control|persistence)\//,/\.evaluate\([^\n]*(fetch|click|request|mutate)/]) assert.doesNotMatch(source,forbidden);
   assert.match(source,/button\.click\(\)/);
+});
+
+test('generalized Project specification is bound through current task ancestry and real PM execution',()=>{
+  const s={workers:[{worker_id:'maya',role:'product_manager'}],tasks:[{task_id:'root',parent_task_id:null},{task_id:'spec',parent_task_id:'root',kind:'spec',status:'completed',assignee_worker_id:'maya'}],artifacts:[{artifact_id:'artifact',task_id:'spec',execution_id:'exec',type:'specification'}],executions:[{execution_id:'exec',task_id:'spec',status:'completed',provenance_status:'recorded'}]} as unknown as Snapshot;
+  const scope={objectiveId:'root'} as RunScope;
+  assert.equal(checkSpecification(s,scope).artifact_id,'artifact');
+  assert.throws(()=>checkSpecification(s,{...scope,objectiveId:'old-project'}));
+  assert.throws(()=>checkSpecification({...s,executions:[]},scope));
+  assert.throws(()=>checkSpecification({...s,workers:[]},scope));
 });

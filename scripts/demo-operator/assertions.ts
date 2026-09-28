@@ -81,12 +81,19 @@ export function checkCanonical(s:Snapshot,scope:RunScope,initial:string) {
   const repo=s.repositories.find(r=>r.repository_id===scope.repositoryId);assert.ok(repo);
   if(repo.current_commit!==initial) assert.ok(s.integrations.some(i=>i.repository_id===repo.repository_id&&i.status==='completed'&&i.final_commit===repo.current_commit),'Canonical advanced without trusted completed integration');
 }
+export function checkSpecification(s:Snapshot,scope:RunScope) {
+  // Generalized Projects bind specifications through scoped task ancestry;
+  // repository.spec_artifact_id belongs to the older product workflow.
+  const specs=projectTasks(s,scope).filter(t=>t.kind==='spec'&&t.status==='completed'&&s.workers.some(w=>w.worker_id===t.assignee_worker_id&&w.role==='product_manager'));
+  const artifact=s.artifacts.find(a=>a.type==='specification'&&specs.some(t=>t.task_id===a.task_id)&&s.executions.some(e=>e.execution_id===a.execution_id&&e.task_id===a.task_id&&e.status==='completed'&&e.provenance_status==='recorded'));
+  assert.ok(artifact,'Current Project requires a completed real PM specification artifact');return artifact;
+}
 export function checkFinal(s:Snapshot,scope:RunScope,initial:string) {
   const allocations=checkAllocations(s,scope);checkCanonical(s,scope,initial);
   const tasks=projectTasks(s,scope);assert.ok(tasks.length>=6);assert.ok(tasks.every(t=>t.status==='completed'),'Project workflow incomplete');
   const repo=s.repositories.find(r=>r.repository_id===scope.repositoryId)!;assert.notEqual(repo.current_commit,initial);
   assert.equal(repo.remote_policy,'none');assert.equal(repo.source_kind,'local_new');
-  assert.ok(repo.spec_artifact_id&&s.artifacts.some(a=>a.artifact_id===repo.spec_artifact_id));
+  const specification=checkSpecification(s,scope);
   const integration=s.integrations.find(i=>i.repository_id===repo.repository_id&&i.status==='completed'&&i.final_commit===repo.current_commit);assert.ok(integration);
   const validation=JSON.parse(integration.validation!);assert.equal(validation.passed,true);assert.ok(validation.recipes?.length>0&&validation.recipes.every((r:{passed:boolean})=>r.passed));
   const review=s.reviews.find(r=>r.review_id===integration.review_id);assert.ok(review);assert.equal(review.status,'approved');
@@ -103,5 +110,5 @@ export function checkFinal(s:Snapshot,scope:RunScope,initial:string) {
   }
   const relevant=s.executions.filter(e=>tasks.some(t=>t.task_id===e.task_id));
   assert.ok(relevant.every(e=>e.runtime_reference&&e.provenance_status==='recorded'&&e.status==='completed'));
-  return {project_id:scope.projectId,repository_id:scope.repositoryId,objective_id:scope.objectiveId,canonical_sha:repo.current_commit,allocations,submissions,reviews:s.reviews.filter(r=>r.repository_id===repo.repository_id),integration,executions:relevant,workers:s.workers.filter(w=>relevant.some(e=>e.worker_id===w.worker_id)),validation};
+  return {project_id:scope.projectId,repository_id:scope.repositoryId,objective_id:scope.objectiveId,canonical_sha:repo.current_commit,specification,allocations,submissions,reviews:s.reviews.filter(r=>r.repository_id===repo.repository_id),integration,executions:relevant,workers:s.workers.filter(w=>relevant.some(e=>e.worker_id===w.worker_id)),validation};
 }

@@ -4,11 +4,16 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 
 const sensitive = /(?:authorization|cookie|password|secret|credential|csrf|access.?token|refresh.?token|api.?key|private.?key)/i;
 export function redact(value: unknown): unknown {
-  if (typeof value === 'string') return value
+  if (typeof value === 'string') {
+    if (/^[\s]*[\[{]/.test(value)) {
+      try {return JSON.stringify(redact(JSON.parse(value)));}catch {/* Plain text, not serialized structured data. */}
+    }
+    return value
     .replace(/-----BEGIN [^-]*PRIVATE KEY-----[\s\S]*?-----END [^-]*PRIVATE KEY-----/g,'[REDACTED KEY]')
     .replace(/\b(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9_]{12,}|github_pat_[A-Za-z0-9_]+|Bearer\s+[A-Za-z0-9._~+\/-]+=*)/gi,'[REDACTED]')
     .replace(/((?:password|secret|token|api_key|authorization)\s*[=:]\s*)[^\s,;"}]+/gi,'$1[REDACTED]')
     .replace(/\/var\/lib\/botsquad(?:-workers)?[^\s"'<>]*/g,'[managed host path]');
+  }
   if (Array.isArray(value)) return value.map(redact);
   if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,sensitive.test(k)?'[REDACTED]':redact(v)]));
   return value;
