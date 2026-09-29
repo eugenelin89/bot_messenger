@@ -68,6 +68,10 @@ test('one-time pairing, confirmation, proof, expiry, reauthentication and termin
   const f = fixture(); t.after(() => f.close()); let clock = Date.now(); const trust = new RemoteClients(f.company, () => clock);
   const e = enroll(trust); assert.throws(() => trust.claim(e.value), errorCode('pairing_unavailable'));
   const first = e.authenticate(); assert.equal(trust.authenticate(`Bearer ${first.token.access_token}`, 'state:read').device.device_id, e.device.device_id);
+  const liveRows = ['client_pairings','client_tokens','client_challenges','remote_devices','audit_events'].map(table => f.store.all(`SELECT * FROM ${table}`));
+  const liveDump = JSON.stringify(liveRows);
+  assert.equal(f.store.all('SELECT * FROM client_tokens').length, 1);
+  for (const value of [e.p.pairing_secret, first.token.access_token, first.proof.signature, String(e.key.privateKey.export({ format: 'pem', type: 'pkcs8' })), e.key.privateKey.export({ format: 'jwk' }).d!]) assert.equal(liveDump.includes(value), false);
   assert.throws(() => trust.token(first.proof), errorCode('challenge_invalid'));
   const bad = trust.challenge({ device_id: e.device.device_id });
   assert.throws(() => trust.token({ device_id: e.device.device_id, challenge_id: bad.challenge_id, signature: sign(null, signingBytes(bad), keys().privateKey).toString('base64url') }), errorCode('signature_invalid'));

@@ -31,7 +31,7 @@ let client:ClientV1|undefined;
 try {
   const health=await readLocal<{commit:string;runtime:string}>('health');assert.equal(health.commit,expectedSHA);
   const initial=await readLocal<State>('state');assert.equal(initial.workers.length,0,'Real acceptance requires a fresh validation company');assert.equal(initial.tasks.length,0);
-  await page.goto(base);if(!initial.paused)await page.locator('#pause').click();await eventually(()=>readLocal<State>('state'),s=>s.paused);
+  await page.goto(base);await page.waitForFunction(()=>document.querySelector('#connection')?.textContent==='Connected to headquarters');if(!initial.paused)await page.locator('#pause').click();await eventually(()=>readLocal<State>('state'),s=>s.paused);
   await page.locator('#initialize').click();await eventually(()=>readLocal<State>('state'),s=>s.workers.length===1);
   await page.locator('[data-tab=devices]').click();await page.locator('#create-pairing').waitFor();
   for(const checkbox of await page.locator('[data-device-scope]').all())await checkbox.check();
@@ -115,7 +115,7 @@ try {
   const finalOverview=await client.get<{paused:boolean;event_cursor:string}>('/overview');assert.equal(finalOverview.data.paused,true);
   const rebootAbort=new AbortController();const rebootEvents=client.events(disconnectCursor,rebootAbort.signal);const rebootReady=await rebootEvents.next();assert.equal(rebootReady.value?.event,'ready');rebootAbort.abort();await rebootEvents.return(undefined).catch(()=>{});
   evidence.reboot={hq_id_unchanged:true,device_unchanged:true,old_expired_token_denied:true,fresh_authentication:true,idempotency_preserved:true,event_cursor:finalOverview.data.event_cursor,reconnect_preserved:true};
-  await page.reload();await page.locator('[data-tab=devices]').click();await page.locator(`[data-device-revoke="${claimed.device_id}"]`).waitFor();
+  await page.reload();await page.waitForFunction(()=>document.querySelector('#connection')?.textContent==='Connected to headquarters');await page.locator('[data-tab=devices]').click();await page.locator(`[data-device-revoke="${claimed.device_id}"]`).waitFor();
   const revokeAbort=new AbortController();const live=client.events(undefined,revokeAbort.signal);await live.next();
   await page.locator(`[data-device-revoke="${claimed.device_id}"]`).click();let closed=false;
   for(let i=0;i<20;i++){const next=await live.next();if(next.done)break;if(next.value.event==='authorization_expired'){closed=true;break;}}

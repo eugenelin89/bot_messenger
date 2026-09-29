@@ -78,3 +78,7 @@ runs the selected existing suite against this fixed checkout under those restric
 `preservation.py snapshot|compare INVENTORY_PATH` hashes original retained rows and
 identity/root records without copying secrets into reports. These are operator
 acceptance helpers, not remotely callable administration APIs.
+
+`isolation-ubuntu.py` checks the retained paused HQ workers using harmless temporary
+canaries and actual UID/GID drops. It never reads credentials, writes domain state or
+modifies account/permission records; its exact canaries are removed in `finally`.
