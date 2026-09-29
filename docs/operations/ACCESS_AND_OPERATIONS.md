@@ -1,6 +1,6 @@
 # Access and Operate a BotSquad Ubuntu HQ
 
-**Status:** Current operator guide, including Prompt 05 Projects and retained Prompt 04 infrastructure
+**Status:** Current operator guide, including Prompt 06 client API and retained Project/infrastructure boundaries
 **Supported host:** Ubuntu 24.04 x86_64
 
 This guide assumes BotSquad has already been bootstrapped on a server and that your
@@ -16,6 +16,27 @@ Replace that with your own SSH alias.
 
 For creating a new host, see [Set Up a Minimal Ubuntu Host](../bootstrap/SETUP_UBUNTU_HOST.md)
 and [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md).
+
+## Remote client administration
+
+Keep the listener on `127.0.0.1:4310`. Through the trusted browser/tunnel, open
+**Devices / Remote Clients**, select the minimum capability ceiling and create a pairing.
+Transfer the one-time payload privately to the client. Compare the displayed SHA-256
+public-key fingerprint, inspect the requested capabilities, then explicitly confirm or deny.
+Pairing expires after ten minutes. Revoke an active device from the same screen; existing
+tokens and streams lose authority and future challenges are denied. Device history remains.
+
+The [reference client](../../scripts/client-v1/README.md) stores a mode-0600 private key
+inside an owned mode-0700 directory; its bearer stays in memory. Lost keys require a new
+explicit pairing. No credential appears in command-line arguments or acceptance evidence.
+After a service restart or host reboot, use the same key/device and obtain a new challenge;
+HQ identity and unexpired retry/event history persist. Preserve the company database in
+backups. Never enroll by editing SQLite or copy a device private key onto the HQ.
+
+Read [API v1](../api/CLIENT_API_V1.md) for seven-day retry keys, scopes, retention and limits.
+The full administrative tunnel is trusted operator access; future device-only transport
+must forward only `/api/v1/`. Native protected approvals, iOS, relay and public ingress
+remain unavailable.
 
 ## Open the BotSquad UI
 
@@ -315,7 +336,7 @@ After the machine returns:
 ssh botsquad 'systemctl is-active botsquad && curl -fsS http://127.0.0.1:4310/api/health'
 ```
 
-Prompts 03–05 validated full reboot recovery on Ubuntu 24.04 x86_64. Prompt 05
+Prompts 03–06 validated full reboot recovery on Ubuntu 24.04 x86_64. Prompt 06 additionally preserved HQ/device keys, idempotency receipts and event cursors, then revoked the test devices; see its [acceptance record](../validation/prompt-06-remote-client-api.md). Prompt 05
 rechecked original production history, worker identities, root receipts, archived
 Project state and retired access. Production remained paused and central Codex
 authentication ready. See the [acceptance record](../validation/prompt-05-general-projects.md).

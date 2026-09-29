@@ -1,7 +1,7 @@
 # Decision 015 — Explicit device trust and stable Client API v1
 
 **Date:** 2026-09-29  
-**Status:** Implemented; Prompt 06 acceptance in progress
+**Status:** Implemented and accepted; real Ubuntu/restart/reboot validated
 
 ## Context
 
@@ -83,5 +83,5 @@ remain future work. No ordinary no-tunnel mobile access is claimed.
 rationale; this decision implements its protocol/device foundation only. Decisions
 002, 013 and 014 still govern message authority, protected operations and Projects.
 The [API contract](../api/CLIENT_API_V1.md), [execution plan](../exec-plans/prompt-06.md)
-and forthcoming Prompt 06 validation record distinguish deterministic, browser,
+and [Prompt 06 validation record](../validation/prompt-06-remote-client-api.md) distinguish deterministic, browser,
 real Ubuntu, restart/reboot and final deployment evidence.

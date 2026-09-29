@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 06 authenticated client API
 
-**Status:** Active  
+**Status:** Acceptance complete; final delivery equality recorded in the handoff
 **Owner:** Prompt 06 Codex task (sole implementation writer)  
 **Branch:** feature/prompt-06-remote-client-api  
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger  
 **Started:** 2026-09-29 05:31 UTC  
 **Initial ETA:** 10–16 hours active work; 18–24 if material integration issues emerge  
-**Current ETA:** At ~06:01 UTC, 3–5 hours remaining. Reuse of existing trusted operations is simpler than the initial conservative estimate. User requested ETA updates every 30 minutes.
+**Current ETA:** At 06:31 UTC, 60–90 minutes remaining. At 06:01 the estimate was revised to 3–5 hours as existing trusted operations simplified implementation. Full Linux/real-runtime checks now pass; expiry/reboot, final documentation/integration/deployment remain. User requested ETA updates every 30 minutes.
 
 ## Objective and scope
 
@@ -126,12 +126,24 @@ docs/validation/prompt-06-remote-client-api.md with sanitized exact evidence.
 
 ## Remaining work / blockers
 
-Implementation and acceptance pending. No current blocker. Network operations require
-the environment's normal escalation; initial sandbox DNS failure was resolved by an
-approved fetch. No credentials were read or changed.
+All implementation, real acceptance, reboot, revocation and retained-HQ migration gates passed. No blocker remains. Final documentation integration and main/deployed equality are recorded in the delivery handoff/receipt. Network actions used the environment's normal escalation. No credentials were read or replaced.
 
 ## Progress — 06:10 UTC
 
 Core migration/authentication/API/DTOs/receipts/events, Devices UI and independent reference client implemented. Baseline 120 pass/1 Linux skip; first full implementation run 129 pass/1 skip. Existing Chrome approval regression and actual new browser pairing/deny/revoke workflow pass. Expanded protocol tests 12/12; retained v5 migration and real process exits before/after receipt commit pass. Additional checks will run on the final feature SHA. Public-key identity forgery reproduced with Node crypto, then blocked through canonical/low-order encoding validation.
 
 Initial root-private preservation inventory saved at `/var/backups/botsquad/prompt06-20260929T0531Z/inventory.json`: 21 original databases, 281 root records, 84 worker homes. HQ runtime ready, no pending approvals, retained identities ready. No production deployment or domain mutation has occurred.
+
+## Progress — 06:31 UTC
+
+Exact runtime/API feature `011fd3874ae3483e87468ef21d1e5f1091a88224` pushed and running in the fresh hardened Ubuntu validation instance. Full local suite 135 pass/1 Linux skip; hardened Ubuntu 136/136; both Chrome regressions pass; provisioner 9/9. Real independent-client browser pairing, lost-result objective retry across service restart, message separation, reconnect cursors, profile/dispatch/interrupt retries and read-only capability denials passed. The token and live SSE are waiting through their real ten-minute expiry. Existing real research/resume/interrupt regression passed in fresh data in 67 seconds. Seven retained worker UIDs passed 189 denial probes. Original 21 databases/11,292 rows, 171 account/group mappings, 281 root records and 84 homes compare unchanged.
+
+The initial browser harness raced UI startup before creating any state; an explicit connection readiness wait fixed the harness. No server fix was needed. Security review and actual hash-only DB/log checks passed. Current-facing documentation is being updated without yet marking Prompt 06 Complete.
+
+## Acceptance complete — 06:40 UTC
+
+Real ten-minute token and SSE expiry passed. Full host reboot preserved exact HQ/device/public-key/scope records, receipts and event history; both apps and Codex returned ready and the provisioner read-only health protocol returned ready/version 2. Both validation devices were revoked through the browser, all further access denied, and their private key directories deleted. The completed validation service was stopped/disabled with history preserved.
+
+A verified root-private pre-migration backup was created. Accepted feature/harness `23356dc0a6a155c04a79a22f4522bd0067a5c90d` is deployed on the retained HQ; its runtime/public files are unchanged from the live tested `011fd38`. Schema 6 migration passed and the original inventory comparison again passed in full. Retained HQ is paused/healthy with zero devices and loopback port 4310 only. Its stable HQ ID is `hq_1cfe3e8d-dcca-47a4-8090-b79c3470b9f9`.
+
+Current documentation and Decision 015 describe the accepted boundary; Prompt 06 is Complete / Prompt 07 Next. Historical Prompt 01–05 and Demo 01 records remain unchanged. Targeted stale-prose scan is clean; 70 Markdown files have no missing relative links. Final Git integration/deployment follows these acceptance gates; its exact SHA equality is in the handoff and workspace delivery receipt to avoid a self-referential commit hash in this file.

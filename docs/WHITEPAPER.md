@@ -771,7 +771,19 @@ protocol.
 
 ## 18. Device identity and mobile authorization
 
-A future native client should use explicit device pairing.
+Prompt 06 implements explicit device pairing and the separate `/api/v1/` contract.
+[Ubuntu acceptance](validation/prompt-06-remote-client-api.md) tracks real validation.
+A local human confirms the public-key fingerprint and immutable capability ceiling.
+Ed25519 proof over a one-minute challenge yields a ten-minute opaque token; the server
+retains only public keys and bearer hashes. Private keys stay with the client.
+
+Every request checks human/device/token/capability state. Mutation receipts share the
+same transaction and support seven-day safe retries. Bounded durable SSE reconnects by
+cursor and closes on expiry or revocation. The full administrative SSH tunnel still
+confers operator access; future device-only routing must expose only `/api/v1/`.
+iOS, relay, APNs, protected remote approvals and artifact-content download remain deferred.
+See [Decision 015](decisions/decision_015_remote_client_trust.md) and the
+[v1 contract](api/CLIENT_API_V1.md).
 
 ~~~text
 HQ admin

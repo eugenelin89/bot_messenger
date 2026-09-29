@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 05 complete and Ubuntu validated
+**Status:** Prompt 06 complete and Ubuntu validated
 **Updated:** 2026-09-28
 
 ## Runtime topology: implemented baseline and accepted target
@@ -274,7 +274,7 @@ it never imports private control-plane mutation functions or receives worker cre
 The isolated browser records the same session. Exact scenario checks restrict automated
 approval decisions while the existing trusted service/provisioner enforces authority.
 
-Decision 006 remains authoritative: worker Computer Use is disabled through Prompt 05.
+Decision 006 remains authoritative: worker Computer Use is disabled through Prompt 06.
 Engineering tools grant no GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration
@@ -377,7 +377,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-The implementation through Prompt 05 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 06 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.
@@ -391,14 +391,34 @@ inbound content; they never replace internal records or grant authority.
 
 See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
 [External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
-These requirements constrain future work; they are not implemented through Prompt 05.
+These requirements constrain future work; they are not implemented through Prompt 06.
 
 
-## Future native-client boundary
+## Stable native-client boundary
 
-The private HTTP/SSE surface established in Prompt 03 and retained through Prompt 05 is validated for a browser session through
-an SSH tunnel. A future native-client milestone should extract/define a stable,
-versioned, authenticated client API above the existing control-plane operations.
+The existing private browser HTTP/SSE surface retains its local session, exact Host and
+Origin checks. Prompt 06 adds `/api/v1/` on the same loopback listener with a separate
+header-only device authentication boundary and explicit sanitized DTOs. Both invoke the
+existing trusted control-plane operations. See the [v1 contract](../api/CLIENT_API_V1.md)
+and [Decision 015](../decisions/decision_015_remote_client_trust.md).
+
+SQL migration 6 adds HQ, public device keys/capabilities, hashed one-time pairings,
+one-use challenges, hashed ten-minute tokens, atomic mutation receipts and bounded
+notification events. Application initialization creates the stable HQ UUID. No migration
+creates accounts, modifies Projects, performs networking or replays work. Device
+confirmation/revocation uses the local browser. Private keys stay with the client.
+
+Every request checks enabled human, active device, token expiry and endpoint capability.
+Seven-day timestamp/UUID request keys prevent stale replay becoming new work after
+receipt cleanup. Mutations and sanitized result receipts share a transaction; interruption
+commits intent before signaling, and existing orphan recovery blocks execution after a crash.
+Persistent HQ-bound SSE cursors replay the last 10,000 notification hints independently
+of retained audit history. Old cursors require authoritative refetch. Streams close at
+expiry/revocation and obey device, connection and backpressure limits.
+
+The full SSH administrative tunnel still confers legacy local administration. A future
+transport limited to device authority must forward only `/api/v1/`; it must never forward
+`/api/session` or other local browser/admin paths. No relay or public ingress is implemented.
 
 Target shape:
 

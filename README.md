@@ -9,7 +9,7 @@ control. Your Mac/PC is the bootstrap, administration, development, and browser 
 
 ## Current state
 
-**Prompt 05 is complete and validated on Ubuntu. Prompt 06 is next.**
+**Prompt 06 is complete and validated on Ubuntu. Prompt 07 is next.**
 
 BotSquad currently supports:
 
@@ -351,6 +351,21 @@ to BotSquad without requiring a manual SSH tunnel for normal mobile use. The HQ 
 private by default; the mobile architecture uses a stable authenticated client API and
 a separate secure transport layer rather than exposing port 4310 publicly. See
 [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md).
+
+## Authenticated native-client API
+
+`/api/v1/` is a separate stable contract on the existing private listener. The local
+**Devices / Remote Clients** screen creates a ten-minute pairing; compare the client's
+Ed25519 fingerprint and explicitly confirm its capability ceiling. Devices prove key
+possession for ten-minute access tokens. Mutations have durable seven-day retry receipts;
+SSE reconnects by persistent HQ-bound cursor. Messages never implicitly create tasks.
+
+Read the [v1 contract](docs/api/CLIENT_API_V1.md),
+[reference-client guide](scripts/client-v1/README.md), and
+[acceptance record](docs/validation/prompt-06-remote-client-api.md).
+Browser administration stays on its original local API. A future device-only transport
+must forward only `/api/v1/`, never the complete administrative listener. No iOS app,
+relay, public listener, remote protected approvals or artifact-content API is included.
 
 ## Local development
 

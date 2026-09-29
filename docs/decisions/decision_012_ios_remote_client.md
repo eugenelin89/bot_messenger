@@ -1,7 +1,14 @@
 # Decision 012 — Native clients use a stable authenticated API and private remote-access layer
 
 **Date:** 2026-09-25  
-**Status:** Accepted as future product architecture
+**Status:** Partially implemented by [Decision 015](decision_015_remote_client_trust.md);
+iOS and secure mobile transport remain future architecture
+
+**2026-09-29 implementation note:** Prompt 06 implements the separate stable API,
+HQ/device identity, local pairing, proof-of-possession authentication, capabilities,
+idempotency and reconnectable events. The existing browser API remains local; remote
+protected approvals, iOS, relay, APNs and multi-company operations remain deferred.
+The original rationale below is retained.
 
 ## Context
 

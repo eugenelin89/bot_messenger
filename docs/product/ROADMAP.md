@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -18,8 +18,8 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 03 | Ubuntu HQ, reproducible bootstrap, Linux confinement, worker AI profiles | Complete |
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
-| 06 | Stable authenticated remote-client API and device identity | Next |
-| 07 | Native iOS Remote MVP | Planned |
+| 06 | Stable authenticated remote-client API and device identity | Complete |
+| 07 | Native iOS Remote MVP | Next |
 | 08 | Bounded Computer Use | Planned |
 | 09 | Multi-company support on one HQ | Planned |
 | 10 | Company-to-company collaboration | Planned |
@@ -29,7 +29,7 @@ below should remain stable unless a later explicit roadmap update changes it.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. **Prompt 06 remains Next.**
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is Complete; Prompt 07 is Next.**
 
 The sequence intentionally builds stronger authority and isolation boundaries before
 adding broader external access or autonomous capabilities.
@@ -244,85 +244,47 @@ See [Decision 014](../decisions/decision_014_generalized_projects.md) and
 
 ---
 
-# Next implementation phase
-
 # Remote operator access
 
 ## Prompt 06 — Stable authenticated remote-client API
 
-**Status:** Next
+**Status:** Complete
 
-Prompt 06 creates the foundation for native/mobile clients.
+Prompt 06 implements a separate `/api/v1/` contract on the existing private listener.
+The original browser session API remains local and continues to call the same trusted
+control plane. Stable HQ identity and public-key devices belong to the existing human;
+pairing, fingerprint confirmation and revocation are explicit local browser operations.
 
-Do not begin by building an iOS UI against browser internals.
+Implemented and accepted:
 
-Create a stable, versioned, authenticated client API above the trusted control plane.
+- Ed25519 proof over a one-minute challenge; ten-minute opaque tokens, hash-only storage;
+- immutable capability ceilings checked with human/device state on every request;
+- explicit sanitized DTOs, discovery, capabilities and bounded pagination;
+- message-only communication, general/exact-Project objectives, dispatch/profile/interrupt;
+- atomic seven-day idempotency receipts and safe retry across lost response/restart;
+- durable bounded SSE cursors, reconnect/reset and expiry/revocation closure;
+- independent workstation client through SSH, actual UI pairing, read-only denials,
+  real runtime interruption, service restart, full host reboot and final device revocation;
+- full Linux/browser/research/isolation regressions and retained-HQ migration preservation.
 
-Target architecture:
+Read [API v1](../api/CLIENT_API_V1.md),
+[Decision 015](../decisions/decision_015_remote_client_trust.md) and
+[Prompt 06 acceptance](../validation/prompt-06-remote-client-api.md).
 
-~~~text
-BotSquad Core
-   |
-   +-- versioned client API
-   |      +-- Web UI
-   |      +-- iOS client
-   |      +-- future clients
-   |
-   +-- reconnectable event stream
-   +-- device identity
-   +-- human principal authorization
-~~~
-
-Major capabilities:
-
-- versioned API;
-- capability discovery;
-- explicit human principals;
-- remote device records;
-- device pairing;
-- device revocation;
-- short-lived credentials;
-- idempotent mutating requests;
-- reconnect-safe events;
-- audit by human/device/client request;
-- private-network access mode;
-- remote transport abstraction.
-
-The Ubuntu HQ remains private by default.
-
-Prompt 06 must not simply expose the current loopback UI port publicly.
-
-### Secure transport
-
-Initial supported remote paths may include:
-
-- LAN/private network;
-- operator-managed VPN;
-- SSH tunnel as recovery/admin path.
-
-A future outbound relay interface may be introduced here or prepared for Prompt 07.
-
-### Acceptance themes
-
-- pair one remote test client;
-- authenticate a human/device principal;
-- list workers/tasks;
-- send message-only communication;
-- assign an explicit objective;
-- pause/resume;
-- update one AI profile;
-- reconnect event stream;
-- revoke device;
-- duplicate mutating request does not duplicate work;
-- port 4310 remains private.
+No public port, CORS, relay, APNs, iOS project, remote protected approvals, Project-policy
+editor, multi-company implementation or artifact-content API was added. A future
+transport limited to device authority must route only `/api/v1/`, never the full legacy
+administrative listener. HQ UUID is not cryptographic server identity or E2EE.
 
 ---
 
+# Next implementation phase
+
 ## Prompt 07 — Native iOS Remote MVP
 
-**Status:** Planned
+**Status:** Next
 
-Build the first native iPhone/iPad operator client.
+Build the first native iPhone/iPad operator client against the accepted `/api/v1/` contract. Secure normal mobile transport remains a separate explicit implementation; an SSH acceptance tunnel is not the finished no-tunnel mobile experience.
 
 The app is a first-class BotSquad client, not:
 

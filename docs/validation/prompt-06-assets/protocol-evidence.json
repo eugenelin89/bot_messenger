@@ -1,0 +1,123 @@
+{
+  "started_at": "2026-09-29T06:22:16.886Z",
+  "feature_sha": "011fd3874ae3483e87468ef21d1e5f1091a88224",
+  "transport": "workstation HTTP through SSH to Ubuntu loopback:4311",
+  "status": "passed",
+  "stage": "complete",
+  "pairing_claim_ms": 1147,
+  "pairing_replay_denied": true,
+  "token_round_trip_ms": 171,
+  "identity": {
+    "hq_id": "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab",
+    "device_id": "device_a3abfa64-be78-4877-8969-60393be9943b",
+    "fingerprint": "SHA256:0FnSIZ2bR70dAxGiDSuFU3cXEuFF9qHn6LHhFUT07Tg",
+    "pairing_id": "pairing_b5c601d2-a126-4ca4-992d-cae8f916a105",
+    "owner_principal_id": "human",
+    "states": [
+      "open",
+      "pending",
+      "active"
+    ],
+    "pairing_states": [
+      "open",
+      "claimed",
+      "confirmed"
+    ],
+    "device_states": [
+      "pending",
+      "active",
+      "revoked"
+    ]
+  },
+  "initial_session_expires_at": "2026-09-29T06:32:22.787Z",
+  "capabilities": [
+    "artifacts:read",
+    "dispatch:control",
+    "executions:interrupt",
+    "messages:send",
+    "objectives:create",
+    "profiles:update",
+    "projects:read",
+    "state:read"
+  ],
+  "message": {
+    "key": "1790662943420.2d748718-7372-4feb-b762-98768958e773",
+    "message_id": "message_1f9fe9cd-b8bd-4d5f-872e-a597b99f764c",
+    "request_id": "request_6f6472c3-3a12-4d52-97e6-55abc0de5c4e",
+    "tasks_unchanged": true
+  },
+  "profile": {
+    "key": "1790662944814.4878684c-df67-4a5c-9e9c-7b513070da9a",
+    "worker_id": "worker_c0a54579-8de6-41e7-b951-16392f3d80bf",
+    "profile": {
+      "ai_model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "high",
+      "ai_profile_locked": true
+    },
+    "request_id": "request_293d0be2-c43a-4e3e-98c6-f4dcb65026ce"
+  },
+  "objective": {
+    "key": "1790662945921.3537d2bc-fcf7-4c6f-99ff-ab1b53c2357d",
+    "task_id": "task_9cbacaae-f3f7-48d6-8f1b-c256bf00b63d",
+    "request_id": "request_da23e3a9-925e-4f11-adb0-4db7ae482cd0",
+    "lost_response": true,
+    "restart_retry_same_task": true
+  },
+  "disconnect_cursor": "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab:16",
+  "restart": {
+    "hq_id_unchanged": true,
+    "device_still_active": true,
+    "new_session_expires_at": "2026-09-29T06:32:57.586Z"
+  },
+  "reconnect": {
+    "from": "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab:16",
+    "replayed": [
+      "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab:17",
+      "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab:18"
+    ]
+  },
+  "dispatch": {
+    "resume_key": "1790662978121.ce87f29e-3175-449d-988a-3e90133e0bb0",
+    "pause_key": "1790662980316.94b12d12-fcb5-4da8-b10a-e8b97c296f4c",
+    "final_paused": true,
+    "resume_request_id": "request_fefff8b1-d6e1-4bbb-8c5e-8a47005e0541",
+    "pause_request_id": "request_124a909e-89ed-4290-96a9-f0b9379d0d4a"
+  },
+  "interrupt": {
+    "key": "1790662979917.ce79a62c-7e98-4f96-a519-b0c1a3785cd7",
+    "execution_id": "execution_db35810f-aae7-454f-8994-9b82219730fb",
+    "request_id": "request_08da1c3f-b102-449e-9115-8e39d2e49c56",
+    "final_status": "interrupted",
+    "codex_confirmed": true
+  },
+  "capability_denial": {
+    "device_id": "device_22db5f60-fb3e-4fc6-86aa-17dcf2766bf4",
+    "scopes": [
+      "state:read"
+    ],
+    "mutations_denied": 5,
+    "revoked": true,
+    "private_key_deleted": true
+  },
+  "real_token_expiry_denied": true,
+  "real_stream_expiry_closed": true,
+  "reboot": {
+    "hq_id_unchanged": true,
+    "device_unchanged": true,
+    "old_expired_token_denied": true,
+    "fresh_authentication": true,
+    "idempotency_preserved": true,
+    "event_cursor": "hq_40960aeb-7a7c-47f1-a86a-8f731f41e7ab:45",
+    "reconnect_preserved": true
+  },
+  "revocation": {
+    "state": "revoked",
+    "existing_token_denied": true,
+    "mutation_denied": true,
+    "new_authentication_denied": true,
+    "stream_closed": true
+  },
+  "private_key_deleted": true,
+  "completed_at": "2026-09-29T06:36:06.764Z"
+}

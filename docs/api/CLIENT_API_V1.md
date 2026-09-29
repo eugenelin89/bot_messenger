@@ -1,6 +1,6 @@
 # BotSquad Client API v1
 
-**Status:** Implementation under Prompt 06 acceptance; not yet a completed release.
+**Status:** Implemented and accepted on Ubuntu under Prompt 06. See the [validation record](../validation/prompt-06-remote-client-api.md).
 
 This contract is independent of the browser `/api/...` implementation. The server
 remains on its existing private loopback listener. Acceptance uses a workstation-side
