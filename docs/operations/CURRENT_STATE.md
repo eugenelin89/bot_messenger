@@ -92,8 +92,14 @@ for the detailed semantics.
 
 The roadmap now prioritizes fixing this interaction model before native mobile work:
 Prompt 07 adds first-class direct conversations and explicit bounded reply/wake semantics;
-Prompt 08 adds multi-worker working groups and deliberation. The native iOS client is
-deferred while the existing SSH-tunnel browser path remains acceptable.
+Prompt 08 adds multi-worker working groups and deliberation; Prompt 09 then proves the
+first strategic company operating loop, including broad/specific mandates, initiative,
+decisions, outcome review and strategy adaptation. The native iOS client is deferred
+while the existing SSH-tunnel browser path remains acceptable.
+
+This is a future direction, not a current Prompt 06 capability. The product north star is
+described in the [Intelligent Company Operating Model](../product/INTELLIGENT_COMPANY_MODEL.md)
+and [Decision 016](../decisions/decision_016_intelligent_company_model.md).
 
 ## Prompt 05 software Projects
 
@@ -422,11 +428,12 @@ Prompt 06 authenticated Client API/device identity is complete. The next milesto
 ~~~text
 07 First-class conversations and direct worker interaction
 08 Collaborative working groups and deliberation
-09 Bounded Computer Use
-10 Multi-company
-11 Company-to-company collaboration
-12 Telegram / external identities
-13 Cross-HQ federation
+09 Strategic company operating loop
+10 Bounded Computer Use
+11 Multi-company
+12 Company-to-company collaboration
+13 Telegram / external identities
+14 Cross-HQ federation
 ~~~
 
 Native iOS / no-tunnel mobile transport is intentionally deferred and unnumbered for now;
