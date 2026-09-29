@@ -3,7 +3,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { migrateProjects } from './projects-migration.js';
 import { migration6 } from './client-migration.js';
-import { migrateConversations } from './conversations-migration.js';
+import { migrateConversations, migration8 } from './conversations-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -229,6 +229,10 @@ export class Store {
       if (conversationMigration) {
         migrateConversations(this.db);
         this.run('INSERT INTO schema_migrations VALUES (7,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=8')) {
+        this.db.exec(migration8);
+        this.run('INSERT INTO schema_migrations VALUES (8,?)', new Date().toISOString());
       }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }

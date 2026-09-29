@@ -176,3 +176,13 @@ test('queue, rate, tool and retrieval bounds remain finite without resetting con
   assert.throws(()=>f.company.conversations.callTool(first.context,'overflow','read_conversation',{conversation_id:c.conversation_id,before:null}),/tool budget/);
   const budgets=f.store.all('SELECT * FROM conversation_chains');f.company.recover();assert.deepEqual(f.store.all('SELECT * FROM conversation_chains'),budgets);
 });
+
+test('an unknown task provider attempt blocks cross-mode chat and later task dispatch after restart',async t=>{
+  const f=fixture();t.after(()=>f.close());const {scout}=setup(f);
+  const task=f.company.createTask('human',scout,objective,null);const run=f.company.claimNext()!;
+  f.company.recordRuntimeEvent(run.context,'runtime_turn_starting',{runtime_reference:'task-unknown',context_chars:100});
+  f.company.recover();const c=open(f,scout);const r=send(f,c.conversation_id);
+  assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.company.conversations.request(r.request!.request_id).status,'blocked');
+  assert.equal(f.company.worker(scout.worker_id).status,'blocked');assert.equal(f.company.task(task.task_id).status,'blocked');
+  assert.equal(f.company.providerUnresolved(scout.worker_id),true);
+});

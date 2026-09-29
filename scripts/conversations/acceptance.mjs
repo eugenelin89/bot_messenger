@@ -33,11 +33,11 @@ async function observe(get,predicate,label,timeout=240000){
   throw new Error(`Timed out: ${label}`);
 }
 async function ready(){await verifyTarget();await page.goto(base);await page.getByText('Connected to headquarters',{exact:true}).waitFor();}
-async function workerView(id){await verifyTarget();await page.locator(`[data-worker="${id}"]`).first().click();await page.getByRole('button',{name:'Open conversations',exact:true}).click();await page.locator('#conversation-worker').waitFor();}
-async function open(id,key){await workerView(id);await page.locator('#new-conversation').click();await page.locator('#chat-body').waitFor();const list=await raw(`conversations?worker_id=${id}`);record.ids[key]=list.items[0].conversation_id;save();return record.ids[key];}
-async function select(id,workerId){await workerView(workerId);await page.locator(`[data-conversation="${id}"]`).click();await page.locator('#chat-body').waitFor();}
+async function workerView(id){await verifyTarget();await page.locator(`[data-worker="${id}"]`).first().click();await page.getByRole('button',{name:'Open conversations',exact:true}).click();await page.waitForFunction(id=>document.querySelector('#conversation-worker')?.value===id,id);}
+async function open(id,key){await workerView(id);const pending=page.waitForResponse(r=>r.url()===`${base}/api/conversations/open`&&r.request().method()==='POST');await page.locator('#new-conversation').click();const response=await pending;assert.ok(response.ok());const created=await response.json();record.ids[key]=created.conversation_id;save();await page.locator(`#chat-compose[data-conversation-id="${created.conversation_id}"]`).waitFor();return record.ids[key];}
+async function select(id,workerId){await workerView(workerId);await page.locator(`[data-conversation="${id}"]`).click();await page.locator(`#chat-compose[data-conversation-id="${id}"]`).waitFor();}
 async function send(c,body,reply=true){
-  await verifyTarget();await page.locator('#chat-body').fill(body);
+  await verifyTarget();await page.locator(`#chat-compose[data-conversation-id="${c}"]`).waitFor();await page.locator('#chat-body').fill(body);
   const response=page.waitForResponse(r=>r.url()===`${base}/api/conversations/send`&&r.request().method()==='POST');
   await page.getByRole('button',{name:reply?'Send & request reply':'Send passive message',exact:true}).click();
   const r=await response;assert.ok(r.ok(),await r.text());const result=await r.json();assert.equal(result.message.conversation_id,c);return result;

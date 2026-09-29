@@ -116,3 +116,11 @@ CREATE TRIGGER client_audit_event AFTER INSERT ON audit_events
 `);
   if (db.prepare('PRAGMA foreign_key_check').all().length) throw new Error('Conversation migration foreign-key validation failed');
 }
+
+// Shared provider intent fence, added separately because schema 7 was exercised in validation.
+// Historical executions have no invented outcome metadata.
+export const migration8 = `
+CREATE TABLE execution_runtime_attempts (
+ execution_id TEXT PRIMARY KEY REFERENCES executions, unresolved INTEGER NOT NULL CHECK(unresolved IN (0,1))
+);
+`;

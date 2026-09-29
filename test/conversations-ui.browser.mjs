@@ -44,3 +44,24 @@ test('browser direct conversations preserve drafts by recipient, show passive/qu
   const dir=join(process.cwd(),'.validation','prompt07-browser');mkdirSync(dir,{recursive:true});await page.screenshot({path:join(dir,'conversation.png'),fullPage:true});
   assert.deepEqual(errors,[]);
 });
+
+test('delayed history page cannot be appended to another selected conversation',async t=>{
+  const f=fixture();const atlas=f.company.initializeCEO();f.company.pause(true);
+  const a=f.company.conversations.open({worker_id:atlas.worker_id,purpose:'History A'});
+  const b=f.company.conversations.open({worker_id:atlas.worker_id,purpose:'History B'});
+  for(let i=0;i<31;i++)f.company.conversations.send({conversation_id:a.conversation_id,body:`PRIVATE_HISTORY_A_${i}`,request_reply:false,receipt_key:`history-page-a-${String(i).padStart(4,'0')}`});
+  f.company.conversations.send({conversation_id:b.conversation_id,body:'VISIBLE_HISTORY_B',request_reply:false,receipt_key:'history-page-b-0000'});
+  const http=createHttpServer(f.company,f.dispatcher,join(process.cwd(),'public'));await new Promise(r=>http.server.listen(0,'127.0.0.1',r));
+  const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage();
+  t.after(async()=>{await browser.close();await http.close();await f.close();});
+  await page.goto(`http://127.0.0.1:${http.server.address().port}`);await page.getByText('Connected to headquarters',{exact:true}).waitFor();
+  await page.locator(`[data-worker="${atlas.worker_id}"]`).first().click();await page.getByRole('button',{name:'Open conversations',exact:true}).click();
+  await page.locator(`[data-conversation="${a.conversation_id}"]`).click();await page.locator('#older-chat').waitFor();
+  let release;let entered;const intercepted=new Promise(r=>entered=r);const gate=new Promise(r=>release=r);
+  await page.route(`**/api/conversations/${a.conversation_id}?before=*`,async route=>{const response=await route.fetch();entered();await gate;await route.fulfill({response});});
+  await page.locator('#older-chat').click();await intercepted;
+  await page.locator(`[data-conversation="${b.conversation_id}"]`).click();await page.getByText('VISIBLE_HISTORY_B',{exact:true}).waitFor();
+  const arrived=page.waitForResponse(r=>r.url().includes(`${a.conversation_id}?before=`));release();await arrived;
+  await new Promise(r=>setTimeout(r,200));assert.equal(await page.locator('.message-body').filter({hasText:'PRIVATE_HISTORY_A_'}).count(),0);
+  assert.equal(await page.locator('.message-body').filter({hasText:'VISIBLE_HISTORY_B'}).count(),1);
+});

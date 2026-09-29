@@ -67,7 +67,7 @@ export class Dispatcher {
             configured: config => this.company.recordRuntimeConfig(context, config),
             bind: binding => this.company.setBinding(context, binding),
             callTool: (callId, name, args) => this.company.callTool(context, callId, name, args),
-            event: (type, detail) => this.company.audit(type, 'system', detail, worker.worker_id, claim.task.task_id, execution.execution_id),
+            event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
           const result = await this.adapter.run(input, controller.signal);
           // Researchers must supply evidence, not only status prose.

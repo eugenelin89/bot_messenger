@@ -146,7 +146,7 @@ export class Conversations {
   requestRollover(c: string, workerId: string) {
     this.human(); this.member(c,this.company.worker(workerId).principal_id);
     requireThat(!this.db.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'",workerId),'Rollover requires an idle ownership boundary');
-    requireThat(!this.db.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',workerId),'Prior provider outcome is unresolved; rollover is blocked for inspection');
+    requireThat(!this.company.providerUnresolved(workerId),'Prior provider outcome is unresolved; rollover is blocked for inspection');
     const session = this.db.get<ConversationSession>("SELECT * FROM conversation_sessions WHERE conversation_id=? AND worker_id=? AND state='active'",c,workerId);
     requireThat(session,'No active conversation context');
     this.db.run('UPDATE conversation_sessions SET rollover_requested=1 WHERE session_id=?',session.session_id);
@@ -157,7 +157,7 @@ export class Conversations {
       WHERE r.status='queued' AND c.state='active' AND NOT EXISTS(SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running')
       ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,r.created_at,r.rowid`)) {
       try {
-        requireThat(!this.db.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',r.target_worker_id),'Prior provider outcome is unresolved; worker blocked for inspection');
+        requireThat(!this.company.providerUnresolved(r.target_worker_id),'Prior provider outcome is unresolved; worker blocked for inspection');
         this.authorized(r);return r;
       } catch(error) {
         this.db.run("UPDATE conversation_requests SET status='blocked',error=?,updated_at=? WHERE request_id=?",String(error),now(),r.request_id);
@@ -191,7 +191,7 @@ export class Conversations {
     const c=this.authorized(r); const worker=this.company.worker(r.target_worker_id);
     requireThat(r.status==='queued','Reply is not queued');
     requireThat(!this.db.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'",worker.worker_id),'Worker already active');
-    requireThat(!this.db.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',worker.worker_id),'Prior provider outcome is unresolved');
+    requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');
     let session=this.db.get<ConversationSession>("SELECT * FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state='active'",worker.worker_id,c.conversation_id);
     const toolHash=hash(conversationTools()); const scope=this.scope(c.conversation_id);
     const old=session;
@@ -264,6 +264,7 @@ export class Conversations {
   event(context: ExecutionContext,type: string,detail: Record<string,unknown>) {
     const {execution,session}=this.verify(context);
     if(type==='runtime_turn_starting') {
+      this.db.run('INSERT INTO execution_runtime_attempts VALUES (?,1)',execution.execution_id);
       requireThat(Number.isSafeInteger(detail.context_chars)&&Number(detail.context_chars)<=LIMIT.contextChars,'Invalid context accounting');
       this.db.run('UPDATE conversation_sessions SET input_chars=input_chars+?,unresolved=1 WHERE session_id=?',Number(detail.context_chars),session.session_id);
     }

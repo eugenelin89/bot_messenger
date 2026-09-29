@@ -158,6 +158,15 @@ export class Company extends EventEmitter {
       return this.worker(workerId);
     });
   }
+  providerUnresolved(workerId: string) {
+    return !!this.store.get('SELECT 1 FROM execution_runtime_attempts a JOIN executions e USING(execution_id) WHERE e.worker_id=? AND a.unresolved=1',workerId)
+      || !!this.store.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',workerId);
+  }
+  recordRuntimeEvent(context: ExecutionContext, type: string, detail: Record<string,unknown>) {
+    const {execution}=this.verifyContext(context);
+    if(type==='runtime_turn_starting')this.store.run('INSERT INTO execution_runtime_attempts VALUES (?,1)',execution.execution_id);
+    this.audit(type,'system',detail,context.workerId,execution.task_id,execution.execution_id);
+  }
   recordRuntimeConfig(context: ExecutionContext, config: EffectiveAIConfig) {
     const { execution } = this.execution(context.executionId).origin === 'conversation' ? this.conversations.verify(context) : this.verifyContext(context);
     requireThat(execution.provenance_status === 'unresolved', 'Execution provenance already recorded');
@@ -224,7 +233,7 @@ export class Company extends EventEmitter {
     const active = this.store.get('SELECT execution_id FROM executions WHERE worker_id=? AND status=\'running\'', workerId);
     const queued = this.store.get("SELECT task_id FROM tasks WHERE assignee_worker_id=? AND status='queued'", workerId)
       || this.store.get("SELECT request_id FROM conversation_requests WHERE target_worker_id=? AND status='queued'",workerId);
-    this.store.run('UPDATE workers SET status=?,updated_at=? WHERE worker_id=?', active ? 'working' : queued ? 'queued' : 'idle', now(), workerId);
+    this.store.run('UPDATE workers SET status=?,updated_at=? WHERE worker_id=?', active ? 'working' : this.providerUnresolved(workerId) ? 'blocked' : queued ? 'queued' : 'idle', now(), workerId);
   }
   pause(paused: boolean) {
     this.store.transaction(() => {
@@ -245,6 +254,7 @@ export class Company extends EventEmitter {
   private nextTask() {
     return this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
+        AND NOT EXISTS (SELECT 1 FROM execution_runtime_attempts a JOIN executions pe USING(execution_id) WHERE pe.worker_id=w.worker_id AND a.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM conversation_sessions cs WHERE cs.worker_id=w.worker_id AND cs.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
@@ -272,6 +282,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       const execution = this.execution(executionId);
       if (execution.status !== 'running') return;
+      if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
       if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const summary = (outcome.summary ?? '').slice(0, 20000);
