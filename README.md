@@ -83,6 +83,7 @@ operator-controlled Ubuntu HQ
       +-- root Unix-socket provisioner
       +-- private worker homes/UIDs
       +-- 127.0.0.1:4310 web UI
+      +-- /api/v1 authenticated Client API on the same private listener
 ```
 
 BotSquad is **self-hosted**, not a hosted multi-tenant SaaS. Assigned model/task context
