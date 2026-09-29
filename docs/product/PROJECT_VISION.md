@@ -1,7 +1,11 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 conversations next
+**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 conversations/continuity next
 **Updated:** 2026-09-29
+
+For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
+current repository status. [Decision 017](../decisions/decision_017_single_company_first.md)
+and the [canonical roadmap](ROADMAP.md) define the accepted single-company-first priority.
 
 ## One-sentence vision
 
@@ -69,6 +73,7 @@ mandate
   -> measure outcomes
   -> learn
   -> continue / iterate / pivot / stop / scale
+  -> persist next follow-up / review
 ~~~
 
 Hierarchy remains important for responsibility and authority, but should not restrict
@@ -77,6 +82,29 @@ authority stays explicitly enforced.
 
 See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
 [Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
+## One useful operating company before many companies
+
+The accepted priority is **one AI company that can actually operate a real business before
+multiple companies or federation**. A technically impressive network of agents is not a
+substitute for useful, accountable business operation.
+
+Prompt 07 includes context rollover: persistent employees and BotSquad conversations
+outlive replaceable provider threads/sessions. Prompt 09 includes a minimal durable
+one-time/recurring company clock and Asymmetri Motion as the canonical specific-product
+acceptance case, alongside a broad-objective scenario. Prompt 11 adds the smallest useful
+business evidence, approved external-action and scheduled outcome-review capabilities.
+
+Asymmetri Motion is reference configuration and evidence, not a hard-coded engine
+assumption. A read-only/sanitized/fixture-based Prompt 09 test can prove organization
+behavior, but only a separately authorized live pilot can prove external business
+operation. Require real receipts, observations, at least two operating cycles and honest
+limitations before reconsidering multi-company/federation. Do not invent revenue gains,
+credentials or permission to publish merely to pass acceptance.
+
+See [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
+[Decision 017](../decisions/decision_017_single_company_first.md) and
+[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
 
 ## Primary use case
 
@@ -126,6 +154,9 @@ Prototype is not yet ready for customer testing.
 One defect remains.
 ```
 
+This is an illustrative handoff, not a required employee roster or scripted acceptance
+transcript. Real organization acceptance leaves meaningful internal choices to the team.
+
 ## Why a dedicated application instead of Gmail or files?
 
 ### Email
@@ -162,13 +193,18 @@ A bot may have:
 - a role description;
 - allowed tools/capabilities;
 - a bound project/workspace or Git worktree;
-- a resumable Codex thread/session;
+- resumable and, when necessary, replaceable runtime threads/sessions;
 - queued and active tasks;
 - current status;
 - execution history;
 - messages and artifacts it produced.
 
-The same core worker identity should survive application restarts.
+The same core worker identity should survive application restarts and runtime-context
+replacement. BotSquad Conversation IDs, provider session IDs and execution attempts are
+distinct. Bounded source-linked handoffs preserve decisions, unresolved questions and
+active obligations without copying unauthorized private context. Durable records remain
+authoritative; summaries are derived, fallible context. Reconcile an in-flight operation
+before rollover rather than blindly replaying its effects.
 
 ## Product goals
 
@@ -202,10 +238,15 @@ A handoff should identify:
 A bot should not consume model execution merely to check whether someone sent it a message.
 
 The control plane should know when new work appears and dispatch the appropriate worker.
+It should also persist and schedule bounded authorized reviews/follow-ups. Ordinary code
+checks clocks and conditions; models do not poll an empty inbox. Scheduling belongs to
+Prompt 09's company loop, not a distant post-federation feature.
 
 ### G4 — Make failures recoverable
 
-Application restart, worker crash, duplicate events, or transient runtime failure should not silently lose work or repeat consequential side effects.
+Application restart, worker crash, context rollover, duplicate events, or transient runtime
+failure should not silently lose work or repeat consequential side effects. Unknown
+provider outcomes must be reconciled or visibly blocked before another attempt.
 
 ### G5 — Keep the human in control
 
@@ -223,11 +264,14 @@ BotSquad is not initially intended to be:
 - a security boundary between agents that actually share the same OS account, machine, or credentials;
 - a system that lets agents manufacture their own authorization.
 
-## Multi-company direction
+## Multi-company direction — deferred
 
-BotSquad should eventually support several independent companies at once.
+BotSquad may eventually support several independent companies at once. Under Decision 017,
+this is deferred until a useful single-company operating pilot is proven and scale is
+justified. It is not a prerequisite to business metrics, email/support, publishing or
+other needed narrow adapters.
 
-One self-hosted HQ may contain:
+One self-hosted HQ may later contain:
 
 ```text
 Human owner
@@ -243,7 +287,7 @@ Companies may collaborate through explicit, permissioned CompanyConnections rath
 
 Workers may also have optional external identities such as Telegram bots. External communication remains an adapter/capability; it does not replace BotSquad's internal messaging, task or authority model.
 
-See [Multi-Company and Federation Model](MULTI_COMPANY_AND_FEDERATION.md), [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEGRAM.md), and [Decision 010](../decisions/decision_010_multi_company_federation.md).
+See [Multi-Company and Federation Model](MULTI_COMPANY_AND_FEDERATION.md), [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEGRAM.md), [Decision 010](../decisions/decision_010_multi_company_federation.md), and [Decision 017](../decisions/decision_017_single_company_first.md).
 
 ## “Virtual startup” experiment
 
@@ -278,17 +322,24 @@ Only after reliability and controls are established:
 
 This project does **not** assume that an AI startup team will be profitable. The experiment should measure whether it can create customer value and operate reliably.
 
+The existing-product counterpart uses Asymmetri Motion: Prompt 09 proves a bounded
+reference operating loop; Prompt 11 requires an approved live operating action, observed
+results and repeated scheduled follow-up. Stage C financial authority remains separately
+reviewed future scope, not an automatic part of either milestone.
+
 ## Success metrics for the platform
 
-Early success is technical and operational rather than financial.
+Early success is technical and operational rather than financial. The later single-company
+pilot also measures actual business observations without guaranteeing improvement.
 
 ### Reliability
 
 - messages are not lost;
 - tasks are not duplicated;
-- agent restart does not erase ownership/history;
+- agent restart or context rollover does not erase ownership/history;
 - duplicate dispatch does not repeat already-completed work;
-- artifacts remain attributable to their producing execution.
+- artifacts remain attributable to their producing execution;
+- due reviews survive restart while cancelled/revoked work stays stopped.
 
 ### Coordination
 
@@ -311,7 +362,16 @@ Early success is technical and operational rather than financial.
 
 - idle workers generate no model traffic;
 - context passed to workers is bounded and relevant;
-- repeated work is minimized.
+- repeated work is minimized;
+- usage/costs and remaining supervision are reported where measurable, with unknowns explicit.
+
+### Useful business operation
+
+- approved external actions have receipts and observed results;
+- metrics have sources, periods, definitions and baselines;
+- at least two operating cycles show a scheduled follow-up and a justified next decision;
+- simulated evidence and actual business outcomes are never conflated;
+- a successful tool call is not mistaken for proven customer or revenue impact.
 
 ## First milestone
 
@@ -331,7 +391,7 @@ Prompt 02 extends this loop with Maya Product Manager, Turing CTO, two concurren
 engineers in separate managed worktrees, Grace's independent exact-commit review,
 and trusted integration gated by full local tests. The validation product remains
 local and dependency-free. Broader approval grants, departments,
-external repositories and external actions remain future work.
+external repositories and external actions remain future work at that historical milestone.
 
 No autonomous spending or public external action is needed for this milestone.
 
@@ -381,7 +441,8 @@ Use the system to test whether a supervised bot team can discover, build, valida
 6. **Agents should sleep when there is no work.**
 7. **Every important action should be attributable.**
 8. **The simplest architecture that proves the workflow wins.**
-
+9. **One useful operating company before multiple companies or federation.**
+10. **Employee identity and institutional knowledge outlive replaceable runtime contexts.**
 
 ## Current deployment foundation — Ubuntu headquarters (Prompt 03, extended in Prompt 04)
 
@@ -411,7 +472,6 @@ application work. Archive reduces clone access and preserves evidence. See
 
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md), and [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
-
 ## Conversation-first collaboration
 
 Prompt 07 first makes direct human↔worker and worker↔worker conversations reliable:
@@ -419,6 +479,11 @@ persistent conversation identity, participant-oriented history, explicit bounded
 turns that can wake the intended worker, and clear separation from passive messages and
 Tasks. The human should be able to talk directly to Maya, Turing, engineers, Grace or
 Nix without pretending that every conversation is an assignment.
+
+It also establishes context continuity: forced rollover to a fresh provider session must
+preserve employee/conversation identity, authorized history and pending work. Scope memory
+retrieval, retain session lineage, reject stale callbacks and reconcile ambiguity before
+resuming. Prompt 08 and later operating loops reuse this foundation.
 
 Prompt 08 then adds collaborative AI working groups.
 
@@ -452,14 +517,14 @@ through normal trusted assignment.
 This capability is intentionally **not** implemented by making ordinary worker messages
 wake recipients. The current communication-is-not-execution invariant remains.
 
-This is now the canonical interaction-first roadmap: direct conversations in Prompt 07,
-then bounded working groups/deliberation in Prompt 08.
+Direct conversations/continuity in Prompt 07 and working groups in Prompt 08 lead into
+Prompt 09's strategic loop, durable company clock and Asymmetri Motion reference test.
 
 ## Native mobile operator client — deferred
 
 BotSquad should eventually support a native iPhone/iPad application as a first-class
 operator client, but it is no longer the next milestone. The private browser over SSH
-tunnel is sufficient while the worker interaction model is being corrected.
+tunnel is sufficient while conversation and useful single-company operation are proven.
 
 The native app should provide mobile access to company status, workers, tasks,
 executions, messages, model/reasoning/priority settings, and trusted approvals without
@@ -503,37 +568,27 @@ authenticated app connection.
 See [Native iOS Remote Client and Secure Remote Access](IOS_REMOTE_CLIENT.md) and
 [Decision 012](../decisions/decision_012_ios_remote_client.md).
 
-
 ## Canonical prompt roadmap
 
 The earlier M1–M7 capability list above is the project's original capability framing.
-The current implementation plan is now tracked by numbered prompts in the
-[BotSquad Roadmap](ROADMAP.md).
+The current implementation plan is tracked by numbered prompts in the
+[BotSquad Roadmap](ROADMAP.md), which is the single sequence/status authority.
 
-Current canonical sequence:
+Prompts 01–06 are complete. The accepted future delivery order is:
 
 | Prompt | Milestone | Status |
 | --- | --- | --- |
-| 01 | Persistent workers, tasks, Codex runtime, research loop | Complete |
-| 02 | Managed engineering organization and independent review | Complete |
-| 03 | Ubuntu HQ, Linux confinement, worker AI profiles | Complete |
-| 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
-| 05 | Generalized projects and repository lifecycle | Complete |
-| 06 | Stable authenticated remote-client API and device identity | Complete |
-| 07 | First-class conversations and direct worker interaction | Next |
+| 07 | Direct conversations, worker interaction and runtime-context continuity | Next |
 | 08 | Collaborative working groups and deliberation | Planned |
-| 09 | Strategic company operating loop | Planned |
+| 09 | Strategic company loop, minimal durable scheduler and Asymmetri Motion reference acceptance | Planned |
 | 10 | Bounded Computer Use | Planned |
-| 11 | Multi-company support on one HQ | Planned |
-| 12 | Company-to-company collaboration | Planned |
-| 13 | External identities and Telegram integration | Planned |
-| 14 | Cross-HQ federation | Planned |
-| — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
-| 15+ | Broader operating capabilities | Later |
+| 11 | Single-company business operations and measured Asymmetri Motion pilot | Planned |
+| — | Multi-company, company collaboration, generic Telegram identities and federation | Deferred / unnumbered |
+| — | Native iOS / no-tunnel mobile access | Deferred |
+| — | Broader business, infrastructure and treasury platforms | Later / scope by demonstrated need |
 
-Prompt numbering should remain stable unless a later explicit roadmap update changes it.
-
-The sequence is intentionally dependency-driven: after authority, operating-system,
-Project and authenticated-client foundations, BotSquad now prioritizes conversation,
-deliberation and a persistent company operating loop before broader action surfaces,
-company boundaries or convenience clients.
+Decision 017 explicitly supersedes the former future 11–14 assignments and the practice of
+putting all useful business integrations after federation. Completed history is unchanged.
+Practical single-company usefulness and its evidence gate precede organizational scale;
+direct API adapters need not depend technically on Computer Use. No new capability or
+external action is claimed implemented by this documentation change.
