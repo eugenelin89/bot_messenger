@@ -6,8 +6,9 @@
 This document defines the current planned sequence of BotSquad implementation prompts.
 
 Prompt numbers are roadmap identifiers, not product version numbers. A prompt may contain
-multiple commits and may be split internally if evidence requires it, but the numbering
-below should remain stable unless a later explicit roadmap update changes it.
+multiple commits and may be split internally if evidence requires it. Decision 017
+explicitly changes the previous future ordering after Prompt 10; completed milestones
+and their historical evidence retain their original meaning.
 
 ## Roadmap at a glance
 
@@ -19,28 +20,51 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
 | 06 | Stable authenticated remote-client API and device identity | Complete |
-| 07 | First-class conversations and direct worker interaction | Next |
+| 07 | First-class conversations, direct worker interaction and context continuity | Next |
 | 08 | Collaborative working groups and deliberation | Planned |
-| 09 | Strategic company operating loop | Planned |
+| 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Planned |
 | 10 | Bounded Computer Use | Planned |
-| 11 | Multi-company support on one HQ | Planned |
-| 12 | Company-to-company collaboration | Planned |
-| 13 | External identities and Telegram integration | Planned |
-| 14 | Cross-HQ federation | Planned |
+| 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
+| — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
+| — | Company-to-company collaboration | Deferred; after company isolation |
+| — | Generic external identities / Telegram | Deferred; needed narrow business adapters may precede it |
+| — | Cross-HQ federation | Deferred; after justified company collaboration |
 | — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
-| 15+ | Broader operating capabilities | Later |
+| — | Broader business platforms, treasury and infrastructure fleets | Later; scope by demonstrated need |
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is Complete; Prompt 07 is Next.**
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is
+Complete; Prompt 07 is Next.** This documentation update does not implement Prompt 07+.
 
-The sequence now prioritizes making BotSquad behave like an **intelligent company**, not
-an agent assembly line. Prompt 06 already provides the stable authenticated client
-foundation; Prompt 07 builds direct conversation, Prompt 08 team deliberation, and
-Prompt 09 proves an iterative company operating loop before broader action surfaces.
-The existing SSH-tunnel browser path is acceptable while these semantics mature. See the
-[Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
-[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+## Accepted priority: one operational company first
+
+**One AI company that can actually operate a real business is more important than
+multiple companies or federation.** BotSquad should become a company of persistent
+intelligent employees, not an agent assembly line or a distributed-agent platform without
+a proven business use.
+
+Prompt 07 establishes conversation and runtime-context continuity; 08 team deliberation;
+09 an iterative company loop with a minimal durable company clock; 10 bounded Computer
+Use; and 11 a small practical operating capability set with measured live acceptance.
+Both broad strategic objectives and specific mandates remain first-class. Asymmetri
+Motion is the canonical specific-product test, not a hard-coded engine dependency.
+
+The existing SSH-tunnel browser is sufficient while these capabilities mature. Strategic
+reasoning may be broad; authority remains enforced outside model-authored text. Read
+[Decision 017](../decisions/decision_017_single_company_first.md),
+[Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
+[Project Memory](../PROJECT_MEMORY.md) and
+[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+
+### Numbering change
+
+The old future 11 multi-company, 12 company collaboration, 13 Telegram and 14 federation
+assignments are superseded. Prompt 11 now means single-company business operations;
+the former scale/transport milestones are deferred and unnumbered. Minimal scheduling is
+pulled forward into 09, and the useful first business-integration subset into 11 rather
+than an unspecified post-federation 15+. Historical records remain history. This is the
+current sequence even when an older document reproduces the previous table.
 
 ---
 
@@ -294,15 +318,16 @@ administrative listener. HQ UUID is not cryptographic server identity or E2EE.
 
 **Status:** Next
 
-Prompt 07 fixes the basic interaction model before adding more client surfaces.
+Prompt 07 fixes the basic interaction model and establishes runtime-context continuity
+before adding more client surfaces.
 
 The current system has durable messages, but ordinary messages are Task-centric and do
 not provide a general recipient inbox or reliable conversational wake/reply behavior.
 The human also cannot yet open a real private conversation with Maya, Turing, Linus,
 Ada, Grace or Nix.
 
-Prompt 07 should introduce a first-class Conversation/Thread model distinct from Tasks
-and passive Messages.
+Prompt 07 should introduce a first-class BotSquad Conversation model distinct from Tasks,
+passive Messages and provider-specific runtime threads/sessions.
 
 Target:
 
@@ -342,7 +367,7 @@ A conversation reply must never silently become a Task or grant new authority.
 
 ### Major capabilities
 
-- persistent Conversation/Thread identity;
+- persistent BotSquad Conversation identity independent of provider runtime threads;
 - one-to-one human ↔ worker conversations;
 - worker ↔ worker conversations not restricted to reporting edges;
 - durable participant-oriented inbox/history independent of a worker's current Task;
@@ -350,12 +375,35 @@ A conversation reply must never silently become a Task or grant new authority.
 - passive/non-dispatching messages retained for announcements/context;
 - bounded conversation turns with no idle polling;
 - reply/mention loop prevention and turn/rate budgets;
-- thread context included only where the participant is authorized to see it;
+- conversation context included only where the participant is currently authorized to see it;
 - human ability to observe, stop, mute/archive and resume conversations;
 - clear UI distinction among conversation, assignment and approval;
 - durable attribution of every turn to worker/execution/principal;
 - restart/recovery without replaying completed conversation turns;
-- existing Executive channel and historical messages preserved.
+- existing Executive channel and historical messages preserved;
+- bounded runtime-context handoff/rollover with durable session lineage and scoped rehydration.
+
+### Context continuity is part of acceptance
+
+Worker identity, BotSquad Conversation, Task, ExecutionAttempt and provider RuntimeSession
+are distinct. A worker can use several sessions over its lifetime; a conversation may
+involve several workers. Do not assume a one-to-one mapping.
+
+At a safe boundary, checkpoint authorized work and assemble a bounded, versioned handoff
+with source references, decisions, active obligations, unresolved questions and omissions.
+Link the old/new runtime generation and rollover reason. Durable records remain the
+source of truth; a summary does not replace transcript/artifact history or grant authority.
+
+Use verified runtime capabilities and configurable bounds rather than assuming a universal
+thread limit. Preserve healthy compatible legacy bindings. Reconcile in-flight operations
+before changing session ownership; ambiguity must block/escalate rather than cause blind
+replay. Reject stale callbacks and unauthorized context retrieval after rollover.
+
+Acceptance must force a small context budget, continue the same employee/conversation in
+a fresh runtime context, retain pending work, recover through an interrupted handoff, deny
+private-context leakage and reject stale-session writes. Prove completed results and
+committed effects are not replayed. Do not claim exactly-once provider invocation when a
+provider response is lost and cannot be reconciled.
 
 ### Authority rules
 
@@ -375,14 +423,15 @@ cannot assign Ada a Task if the hierarchy forbids it.
 - an explicit conversation turn does wake exactly the intended participant;
 - conversation does not create a Task unless a separate trusted assignment action occurs;
 - worker without assignment authority still cannot assign the conversation partner;
-- conversation history survives service restart;
-- duplicate/retried conversation-turn requests do not duplicate model work;
-- loops are bounded;
+- conversation history survives service restart and runtime-context rollover;
+- duplicate/retried requests do not create duplicate committed conversation turns;
+- loops are bounded and ambiguous runtime outcomes are reconciled or visibly blocked;
 - audit/execution evidence clearly distinguishes conversation work from Task work;
 - existing research/engineering/Project workflows remain correct.
 
 The browser/SSH path is sufficient for this milestone. Do not build iOS merely to expose
-these semantics.
+these semantics. Apply C07-1 through C07-4 in
+[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
 
 ---
 
@@ -432,7 +481,8 @@ questions.
 - discussion cannot silently create implementation Tasks;
 - follow-on Tasks use the existing trusted hierarchy/assignment rules;
 - human may observe, interject, pause, stop or request another bounded round;
-- unresolved disagreement should be preserved rather than fabricated into consensus.
+- unresolved disagreement should be preserved rather than fabricated into consensus;
+- reuse Prompt 07 scoped memory, session lineage and safe context handoff.
 
 Useful initial modes include design roundtable, architecture review, product/engineering
 trade-off discussion, pre-mortem/red-team review, research synthesis,
@@ -455,7 +505,8 @@ Verify:
 - restart/recovery resumes without duplicating completed turns;
 - a disallowed discussion message cannot expand capability;
 - no implementation Task is created until a separately authorized assignment occurs;
-- discussion terminates at its configured bound rather than becoming an infinite bot loop.
+- discussion terminates at its configured bound rather than becoming an infinite bot loop;
+- participant/context changes cannot leak a worker's private conversational memory.
 
 This milestone should make BotSquad feel more like a real team thinking together, while
 preserving the distinction between **communication, deliberation and execution authority**.
@@ -483,7 +534,7 @@ or:
 
 ~~~text
 Specific mandate
-"Manage and market this existing product; improve quality, adoption and revenue."
+"Manage and market Asymmetri Motion; improve product quality, adoption and sustainable revenue within the approved constraints."
 ~~~
 
 The organization should decide which workers, research, discussions, decisions, Projects,
@@ -523,6 +574,9 @@ company review
       +--> pivot
       +--> stop
       +--> scale
+      |
+      v
+persist bounded follow-up / next review
 ~~~
 
 ### Major capabilities
@@ -534,13 +588,30 @@ company review
   identify risks, recommend experiments and escalate protected choices;
 - durable strategy hypotheses and decision records;
 - company-selected participation rather than human-scripted every handoff;
-- outcome/metric observations attributable to sources;
-- periodic/event-driven company review when material evidence changes;
+- outcome/metric observations attributable to sources, periods and evidence modes;
+- periodic/event-driven company review with a minimal durable scheduler;
 - durable strategic memory: what was tried, why, what happened and what was learned;
 - stop/continue/iterate/pivot/scale decisions;
-- bounded operating cycles and escalation;
+- bounded operating cycles, follow-up and escalation;
 - no idle model polling;
 - no authority expansion from a vague objective.
+
+### Minimal durable company clock
+
+One-time follow-ups and recurring reviews are required here, not deferred behind
+multi-company/federation. Persist owner, mandate/initiative, purpose, due time/timezone,
+recurrence/end conditions, occurrence identity, schedule version, bounds and cancellation.
+
+Clock/event checks run in ordinary trusted code. A due authorized review is bounded work;
+a model is not repeatedly called to discover an empty inbox. Recheck authority and policy
+at dispatch and consequential execution. Respect pause, cancellation, revocation and
+concurrency/usage budgets.
+
+Define restart recovery, transactional claiming, duplicate-event handling, overlap,
+bounded missed-run catch-up, expired schedules, edits, backoff and escalation. Test these
+with a controlled clock and at least one real short scheduled occurrence. Record the
+difference between clock simulation and elapsed real-world operation. Later adapters reuse
+this mechanism; a general automation platform is not required.
 
 ### Broad-objective acceptance
 
@@ -558,21 +629,31 @@ Acceptance should show the organization:
 - makes an attributable decision;
 - creates appropriate bounded Projects/Tasks;
 - reviews the resulting evidence/outcome;
-- changes or confirms its next action based on what happened.
+- changes or confirms its next action based on what happened;
+- persists a useful follow-up rather than requiring the owner to prompt every handoff.
 
 A successful test is not "the bots produced lots of chat." The resulting plan and next
 action should be traceable to evidence and team reasoning.
 
-### Specific-product acceptance
+### Specific-product acceptance — Asymmetri Motion
 
-Also run a specific existing-product scenario representative of a real operating team,
-for example managing a small software product.
+Use Asymmetri Motion as the canonical real-product reference. The organization should
+coordinate useful product, engineering, research/review and growth work toward explicit
+product/business metrics rather than inventing a new business.
 
-The organization should coordinate product, engineering, research/review and growth work
-toward explicit product/business metrics rather than inventing a new business.
+Use owner-approved read-only material, scoped repository snapshots, sanitized exports or
+clearly labelled fixtures as available. Record provenance, dates, access limits and missing
+data. Asymmetri Motion-specific configuration must not be hard-coded into the engine.
 
-Acceptance should prove that the same operating model works when the human gives a
-specific mandate rather than a vague strategic goal.
+Run at least two bounded operating cycles with intervening evidence and a persisted
+follow-up. The second decision should change or explicitly confirm its course based on
+the outcome; do not script a required pivot or fabricate analytics/revenue. Keep meaningful
+participant and strategy choices with the team.
+
+Read-only/sandbox acceptance is valid for Prompt 09 but is not evidence of live product
+management or marketing. Do not change the app's release process, publish, contact users
+or access private systems without separate explicit authorization. Prompt 11 owns the
+live-business evidence gate.
 
 ### Financial/resource boundary
 
@@ -593,8 +674,9 @@ Do not make the scenario deterministic by scripting every worker message, partic
 strategy or conclusion. Validate the trusted invariants, bounds, evidence and operating
 outcome while leaving meaningful organizational choices to the team.
 
-See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
-[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md),
+[Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md), and C09-1 through
+C09-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
 
 ---
 
@@ -622,7 +704,8 @@ Capabilities should define environment, allowed apps/sites, filesystem scope,
 upload/download policy, maximum runtime, network policy and actions requiring approval.
 
 A specialized Computer Operator role is preferred to granting GUI authority to every
-worker.
+worker. Direct typed APIs may be preferable for business integrations; Computer Use is
+not a mandatory technical dependency for every adapter.
 
 ### Acceptance themes
 
@@ -638,66 +721,124 @@ worker.
 
 ---
 
-# Company layer
+# Single-company business operation
 
-## Prompt 11 — Multi-company support
+## Prompt 11 — Single-company business operations and measured pilot
 
 **Status:** Planned
 
-Allow one BotSquad HQ to host multiple isolated companies.
+Make one company useful in the real world before multiplying companies. Implement a small
+vertical slice connecting **evidence → decision → approved action → receipt → observed
+outcome → scheduled review**. A connector catalog, persuasive plan or dry-run transcript
+alone does not satisfy this milestone.
 
-Company becomes a first-class security/data boundary. Company-scoped concepts include
+### Bounded implementation slices
+
+1. **Business evidence and worker scope.** Ingest the smallest useful product/business
+   evidence set with source, period, units, baseline, freshness, privacy scope and explicit
+   missing values. Review current role/tool limitations and add only necessary bounded
+   growth/support/operations capabilities; role names never grant authority by themselves.
+2. **Useful protected action.** Select at least one approved operating path, such as a
+   reviewed website publication/deployment, scoped customer-support action or approved
+   communication to an explicit audience. Define typed intent, exact target/content,
+   policy/approval, credentials boundary, idempotency/reconciliation, receipt and revocation.
+3. **Repeated supervised operation.** Reuse 07 continuity and 09 scheduling to run a
+   measured Asymmetri Motion pilot across at least two cycles without the human scripting
+   every handoff. Separate completed work, successful delivery and actual business outcomes.
+
+Potential adapters include analytics/product data, feedback/support, email or another
+relevant communication channel, and product/website publishing. App Store data is optional
+and must be checked for supported interfaces and authorization. Do not implement every
+provider, CRM, accounting platform or cloud integration at once. A minimal direct API may
+be enough; a GUI-only workflow still requires the bounded Computer Use capability.
+
+No publication, outreach, app release, spending or account access is authorized by naming
+this milestone. A consequential action is allowed only when a trusted implemented policy
+and applicable human approval permit its exact scope. Ordinary workers never receive raw
+credentials. Ambiguous provider outcomes must be reconciled or blocked, not blindly retried.
+
+### Evidence gate before multi-company/federation
+
+Acceptance must show:
+
+- a mandate, resource/risk limits, baseline metrics/sources and success/stop criteria;
+- team-selected initiatives, inspectable decisions and meaningful independent review;
+- at least one explicitly authorized **real external operating action**, its receipt and
+  an observed result; drafts/mocks alone do not meet the live gate;
+- at least two operating cycles, including a scheduled follow-up and an evidence-based
+  continue/iterate/pivot/stop decision;
+- restart and runtime-context rollover without losing ownership or duplicating committed
+  effects; uncertain outcomes are reconciled or visibly blocked;
+- permission denial, expiry/revocation, human stop/cancel, cost/turn bounds and no idle
+  model polling;
+- reported usage/costs where available, explicit unknown values, limitations, failures and
+  remaining human supervision; no guaranteed or fabricated commercial improvement.
+
+A labelled dry run can pass its own bounded acceptance while live credentials or approvals
+are unavailable, but the live-business gate remains pending. The human may authorize a
+smaller pilot rather than broaden permissions merely to pass a test.
+
+See [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
+[Decision 017](../decisions/decision_017_single_company_first.md), and C11-1 through
+C11-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+
+---
+
+# Deferred company scale and external transports
+
+These directions retain their architecture/security constraints but no longer have fixed
+prompt numbers. Reconsider them only after the single-company evidence gate or a later
+explicit owner priority decision. Passing a gate does not itself establish a need to scale.
+
+## Multi-company support
+
+**Status:** Deferred / unnumbered; formerly future Prompt 11
+
+Allow one BotSquad HQ to host multiple isolated companies when a demonstrated need exists.
+Company must become a first-class security/data boundary. Company-scoped concepts include
 workers, conversations/messages, discussions, tasks, executions, artifacts,
 repositories/projects, approvals, external identities, policy and audit.
 
 Acceptance must prove two companies cannot read/write one another, conversations and
 discussions are company-scoped, active company is explicit for protected actions, and
-restart/migration preserves isolation.
+restart/migration preserves isolation. Until then, one company per data directory remains
+the implemented boundary, not a claim of multi-company isolation.
 
----
+## Company-to-company collaboration
 
-## Prompt 12 — Company-to-company collaboration
+**Status:** Deferred / unnumbered; formerly future Prompt 12
 
-**Status:** Planned
-
-After company isolation is real, allow companies to collaborate explicitly through a
-trusted CompanyConnection defining allowed message/task/discussion types, artifact
-policy, approval policy, rate limits and lifecycle/revocation.
+After company isolation is real and collaboration is justified, use a trusted
+CompanyConnection defining allowed message/task/discussion types, artifact policy,
+approval policy, rate limits and lifecycle/revocation.
 
 One company must not gain access to the other's internal worker conversations,
-working-group transcripts or unrelated data.
+working-group transcripts or unrelated data. Acceptance includes bounded handoff,
+explicitly permitted discussion, result/artifact return, provenance, revocation, loop
+bounds, deduplication/replay protection and no cross-company authority escalation.
 
-Acceptance includes bounded messaging/task handoff, explicitly permitted collaborative
-discussion, result/artifact return, provenance, revocation, loop bounds,
-deduplication/replay protection and no cross-company authority escalation.
+## External identities and Telegram integration
 
----
+**Status:** Deferred / unnumbered; formerly future Prompt 13
 
-# External communication
-
-## Prompt 13 — External identities and Telegram integration
-
-**Status:** Planned
-
-Add a generic ExternalIdentity model, then Telegram as the first concrete adapter.
-Workers use Telegram bot identities, never simulated human accounts. Raw provider
-credentials stay behind trusted integration code; external communication remains
-untrusted content and never becomes authority.
+A later generic ExternalIdentity model may use Telegram as a concrete adapter. Workers
+use Telegram bot identities, never simulated human accounts. Raw provider credentials
+stay behind trusted integration code; external communication remains untrusted content
+and never becomes authority.
 
 Acceptance includes attach/detach, hidden tokens, inbound/outbound mapping, rate limits,
 loop prevention, audit/provider IDs, rotation/revocation and continued internal operation
-when Telegram is unavailable.
+when Telegram is unavailable. This platform is not a prerequisite for an earlier narrow
+email/customer-support/other business adapter needed by one company.
 
----
+## Cross-HQ federation
 
-## Prompt 14 — Cross-HQ federation
+**Status:** Deferred / unnumbered; formerly future Prompt 14
 
-**Status:** Planned
-
-Allow companies on separate BotSquad installations to collaborate through authenticated
-provider-independent federation with stable HQ/company identity, signed/authenticated
-envelopes, replay protection, deduplication, rate limits, revocation, artifact integrity
-and bounded task/message/discussion loops.
+Only after justified company collaboration, allow companies on separate BotSquad
+installations to collaborate through authenticated provider-independent federation with
+stable HQ/company identity, authenticated envelopes, replay protection, deduplication,
+rate limits, revocation, artifact integrity and bounded task/message/discussion loops.
 
 Do not implement federation by sharing SQLite, exposing databases, trusting free-form bot
 messages or using Telegram identity as the sole authority mechanism.
@@ -715,49 +856,38 @@ pairing, idempotency and reconnectable events.
 
 For the current phase, the existing private browser over SSH tunnel is an acceptable
 operator experience. A native iPhone/iPad application and no-manual-tunnel mobile
-transport are useful convenience features, but they are lower priority than getting
-worker conversation and deliberation semantics correct.
+transport are useful convenience features, but they are lower priority than proving
+conversation, continuity, team reasoning and useful single-company operation.
 
 The iOS direction remains valid: native first-class client, Client API v1 rather than
 browser internals, explicit paired/revocable device identity, private HQ by default, SSH
 as admin/recovery, and possible future VPN/direct or outbound relay transport.
 
-Revisit this milestone when the interaction model is stable enough that the mobile client
-will not simply reproduce semantics that are about to change.
+Revisit it when operator needs and stable interaction semantics justify its priority.
 
 ---
 
-# Prompt 15 and beyond — broader operating capabilities
+# Later operating capabilities
 
-**Status:** Later / intentionally not fixed yet
+**Status:** Later / intentionally unnumbered
 
-After the foundational organization, security, project, interaction, remote-client,
-company and federation layers are proven, later prompts may add capabilities such as:
+The minimal durable scheduler is part of Prompt 09. A useful first metrics/evidence,
+external-action and recurring operating slice is part of Prompt 11. These do **not** wait
+for federation. Broader capabilities are selected later from demonstrated business need:
 
-- native iOS Remote MVP / managed no-tunnel mobile access if it has not been pulled forward;
-- deployment operator;
-- infrastructure fleets;
-- scheduled recurring work;
-- customer support;
-- email identities;
-- CRM/sales integrations;
-- accounting/metrics;
-- cloud provider provisioning;
-- secret-management integrations;
-- bounded budgets;
-- spending requests;
-- billing;
-- customer-facing deployment;
-- specialized GPU/compute workers;
-- protected treasury/payment/wallet adapters with bounded budgets, accounting and approval policy;
-- portfolio-level company supervision;
-- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01.
+- additional customer support, email, CRM/sales and analytics providers;
+- richer accounting, billing, budgets and spending-request workflows;
+- cloud provisioning, deployment fleets, secret-management integrations and specialized compute;
+- protected treasury/payment/wallet adapters with separately reviewed limits, accounting,
+  approval, receipts, reconciliation and revocation;
+- portfolio-level company supervision after company isolation is justified;
+- broader guided tutorials and release walkthroughs beyond Demo Operator 01.
 
-These should not be assigned fixed prompt numbers until their dependencies and scope are
-better understood.
+Do not assign these fixed prompt numbers or build a large platform before dependencies
+and scope are understood. No financial authority follows automatically from a company
+mandate or this roadmap.
 
 ---
-
 
 # Cross-cutting rules for every future prompt
 
@@ -779,13 +909,13 @@ When a milestone changes organization behavior, its Codex prompt should ask whet
 - evidence/metrics can cause strategy to change;
 - model turns remain event-driven and bounded;
 - acceptance leaves meaningful choices to the organization instead of scripting the
-  transcript or conclusion.
+  transcript or conclusion;
+- work and memory survive context replacement and scheduled/retried operation;
+- real external/business outcomes are distinguished from simulations and completed tool calls.
 
-Where relevant, acceptance should include both an open-ended company scenario and a
-specific existing-product scenario.
-
-See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
-[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+Where relevant, include both an open-ended company scenario and the Asymmetri Motion
+specific-product scenario. Read [Project Memory](../PROJECT_MEMORY.md) and apply the
+acceptance IDs in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
 
 ## Human agency
 
@@ -798,48 +928,55 @@ still require explicit trusted capabilities/policies and applicable human approv
 
 ## Communication is not execution
 
-Messages communicate.
-
-Tasks or other configured trusted triggers authorize work.
+Messages communicate. Tasks or other configured trusted triggers authorize bounded work.
+Neither a conversation reply nor a scheduled review silently grants external authority.
 
 ## Idle workers do not poll models
 
-Use control-plane events and queues.
-
-Do not consume model usage merely to check an empty inbox.
+Use control-plane events, queues and ordinary clock/condition checks. Do not consume
+model usage merely to check an empty inbox. A due authorized review is explicit work and
+must have a purpose, owner and bounds.
 
 ## Durable identities, replaceable runtime sessions
 
-Worker, company, HQ, runtime account, thread, execution, Unix user, device, and external
-identity are distinct concepts.
+Worker, company, HQ, runtime account, BotSquad Conversation, provider RuntimeSession/Thread,
+ExecutionAttempt, Unix user, device and external identity are distinct concepts. Summaries
+are scoped derived artifacts; durable records and current permission checks remain
+truth. Handoff/restart must not discard work, leak context or replay committed effects.
 
 ## Evidence over prose
 
 Important completion claims require artifacts, commits, tests, logs, receipts, or other
-inspectable evidence.
+inspectable evidence. Label simulated, sanitized historical and live evidence separately;
+state unknown metrics instead of inventing them.
 
 ## Fail closed
 
 Missing confinement, unsupported runtime settings, ambiguous authority, or invalid
-credentials must not silently fall back to broader access.
+credentials must not silently fall back to broader access. Unknown provider outcomes
+must be reconciled or blocked before another consequential attempt.
 
 ## No credential exposure to normal workers
 
-SSH keys, Codex auth, Telegram bot tokens, APNs secrets, infrastructure credentials, and
-other sensitive provider secrets remain behind trusted boundaries.
+SSH keys, Codex auth, provider tokens, infrastructure credentials and other sensitive
+secrets remain behind trusted boundaries. Neither a broad mandate nor a memory summary
+may introduce them into ordinary worker context.
 
 ## Idempotency
 
-Retries/reconnects must not duplicate consequential operations.
+Retries/reconnects, timer occurrences and session handoffs must not duplicate committed
+consequential operations. Explicitly represent unknown outcomes; do not promise provider
+exactly-once behavior that cannot be established.
 
 ## Explicit scope
 
 A new capability does not imply authority over unrelated files, machines, companies,
-accounts, or external systems.
+accounts or external systems. This roadmap is a plan, not an implementation or deployment
+receipt.
 
 ---
 
-# Dependency map
+# Dependency and delivery map
 
 ~~~text
 01 Persistent organization
@@ -854,41 +991,41 @@ accounts, or external systems.
         |
 06 Authenticated remote client API
         |
-07 Direct conversations + worker interaction
+07 Direct conversations + runtime-context continuity
         |
 08 Working groups + deliberation
         |
-09 Strategic company operating loop
+09 Company operating loop + durable clock + Asymmetri Motion reference test
         |
-10 Computer Use
+10 Bounded Computer Use
         |
-11 Multi-company
+11 Single-company business operations + measured live pilot
         |
-12 Company collaboration
+SINGLE-COMPANY EVIDENCE GATE + demonstrated need / owner priority decision
         |
-13 External identities / Telegram
-        |
-14 Cross-HQ federation
-        |
-15+ Broader company operations
+Deferred, unnumbered: company isolation -> company collaboration -> cross-HQ federation
 
-Native iOS / no-tunnel mobile access is deferred and can be pulled forward later without
-changing the interaction-layer priorities.
+Optional later transports: Telegram/external identities; native iOS/no-tunnel client.
+Needed narrow business adapters may precede those generic platforms.
 ~~~
 
-Some later work may proceed in parallel once its dependencies are proven, but prompt
-numbers above are the canonical planning order.
+The numbered sequence is delivery priority, not a requirement that every API adapter use
+Computer Use or that every future integration depend on federation. Some work can proceed
+in parallel once its actual trust/data dependencies are proven and scope is authorized.
 
 ## Related documents
 
-- Current State
-- Project Vision
-- System Architecture
-- AI Organization Model
-- Native iOS Remote Client and Secure Remote Access
-- Multi-Company and Federation Model
-- External Identities and Telegram Integration
-- Computer Use Model
-- Decision index
-- Demo Operator and Guided Tutorials
-- Running Multiple BotSquad Instances
+- [Project Memory](../PROJECT_MEMORY.md)
+- [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md)
+- [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md)
+- [Current State](../operations/CURRENT_STATE.md)
+- [Project Vision](PROJECT_VISION.md)
+- [System Architecture](../architecture/SYSTEM_ARCHITECTURE.md)
+- [AI Organization Model](AI_ORGANIZATION_MODEL.md)
+- [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md)
+- [Native iOS Remote Client and Secure Remote Access](IOS_REMOTE_CLIENT.md)
+- [Multi-Company and Federation Model](MULTI_COMPANY_AND_FEDERATION.md)
+- [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
+- [Computer Use Model](COMPUTER_USE_MODEL.md)
+- [Decision index](../decisions/README.md)
+- [Demo Operator and Guided Tutorials](DEMO_OPERATOR.md)
