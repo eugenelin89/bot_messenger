@@ -274,8 +274,9 @@ it never imports private control-plane mutation functions or receives worker cre
 The isolated browser records the same session. Exact scenario checks restrict automated
 approval decisions while the existing trusted service/provisioner enforces authority.
 
-Decision 006 remains authoritative: worker Computer Use is disabled through Prompt 06.
-Engineering tools grant no GUI/desktop authority. Exact approval supports bounded host
+Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 06;
+Prompt 08 is the planned bounded Computer Use milestone after Prompt 07. Engineering tools,
+Demo Operator and paired remote-human devices grant no worker GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration
 remain deferred.
