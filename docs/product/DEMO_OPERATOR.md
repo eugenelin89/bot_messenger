@@ -1,14 +1,16 @@
 # BotSquad Demo Operator and Guided Tutorials
 
 **Status:** Implemented; Demo 01 passed on the existing Ubuntu development HQ
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 BotSquad's Demo Operator is a clearly labeled automated tutorial operator. It uses the
 human-facing web UI, verifies real state, and records the same browser session. It does
 not impersonate a named human or fabricate a more successful organization.
 
-The implementation is an interlude between Prompt 05 and Prompt 06. **Prompt 06 remains
-Next.** This is not general Computer Use, a remote-client API, or multi-instance provisioning.
+The implementation was the unnumbered dogfood interlude after Prompt 05 and before
+Prompt 06. **Prompt 06 is now complete; Prompt 07 is next.** Demo Operator remains a
+separate bounded browser test client, not general Computer Use, the Client API itself,
+or multi-instance provisioning.
 
 ## Implemented boundary
 
