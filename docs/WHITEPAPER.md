@@ -1,7 +1,7 @@
 # BotSquad: A Self-Hosted Control Plane for Persistent AI Organizations
 
 **Technical White Paper**  
-**Version:** 0.3
+**Version:** 0.4
 **Date:** 2026-09-29
 **Project:** BotSquad  
 **Repository:** eugenelin89/bot_messenger  
