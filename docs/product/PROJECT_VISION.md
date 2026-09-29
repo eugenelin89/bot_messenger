@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 next
+**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 conversations next
 **Updated:** 2026-09-29
 
 ## One-sentence vision
@@ -365,7 +365,15 @@ application work. Archive reduces clone access and preserves evidence. See
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md), and [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 
-## Collaborative AI working groups
+## Conversation-first collaboration
+
+Prompt 07 first makes direct human↔worker and worker↔worker conversations reliable:
+persistent conversation identity, participant-oriented history, explicit bounded reply
+turns that can wake the intended worker, and clear separation from passive messages and
+Tasks. The human should be able to talk directly to Maya, Turing, engineers, Grace or
+Nix without pretending that every conversation is an assignment.
+
+Prompt 08 then adds collaborative AI working groups.
 
 BotSquad should evolve beyond a purely delegation-shaped organization.
 
@@ -397,12 +405,14 @@ through normal trusted assignment.
 This capability is intentionally **not** implemented by making ordinary worker messages
 wake recipients. The current communication-is-not-execution invariant remains.
 
-The exact roadmap slot is intentionally not fixed yet.
+This is now the canonical interaction-first roadmap: direct conversations in Prompt 07,
+then bounded working groups/deliberation in Prompt 08.
 
-## Native mobile operator client
+## Native mobile operator client — deferred
 
 BotSquad should eventually support a native iPhone/iPad application as a first-class
-operator client.
+operator client, but it is no longer the next milestone. The private browser over SSH
+tunnel is sufficient while the worker interaction model is being corrected.
 
 The native app should provide mobile access to company status, workers, tasks,
 executions, messages, model/reasoning/priority settings, and trusted approvals without
@@ -463,16 +473,18 @@ Current canonical sequence:
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
 | 06 | Stable authenticated remote-client API and device identity | Complete |
-| 07 | Native iOS Remote MVP | Next |
-| 08 | Bounded Computer Use | Planned |
-| 09 | Multi-company support on one HQ | Planned |
-| 10 | Company-to-company collaboration | Planned |
-| 11 | External identities and Telegram integration | Planned |
-| 12 | Cross-HQ federation | Planned |
-| 13+ | Broader operating capabilities | Later |
+| 07 | First-class conversations and direct worker interaction | Next |
+| 08 | Collaborative working groups and deliberation | Planned |
+| 09 | Bounded Computer Use | Planned |
+| 10 | Multi-company support on one HQ | Planned |
+| 11 | Company-to-company collaboration | Planned |
+| 12 | External identities and Telegram integration | Planned |
+| 13 | Cross-HQ federation | Planned |
+| — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
+| 14+ | Broader operating capabilities | Later |
 
 Prompt numbering should remain stable unless a later explicit roadmap update changes it.
 
-The sequence is intentionally dependency-driven: stronger approval, operating-system,
-and project boundaries are established before broader remote access, Computer Use,
-multi-company communication, or external identities.
+The sequence is intentionally dependency-driven: after authority, operating-system,
+Project and authenticated-client foundations, BotSquad now prioritizes conversation and
+deliberation semantics before broader autonomy, company boundaries or convenience clients.
