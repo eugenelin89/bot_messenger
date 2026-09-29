@@ -9,7 +9,7 @@ control. Your Mac/PC is the bootstrap, administration, development, and browser 
 
 ## Current state
 
-**Prompt 06 is complete and validated on Ubuntu. Prompt 07 is next.**
+**Prompt 06 is complete and validated on Ubuntu. Prompt 07 — first-class conversations and direct worker interaction — is next.**
 
 BotSquad currently supports:
 
@@ -55,6 +55,12 @@ accepted source digest. See the [Linux identity validation record](docs/validati
 The bounded [Demo Operator](docs/product/DEMO_OPERATOR.md) exercises the real web UI
 and records the [StudyPlan tutorial](docs/tutorials/demo-01-studyplan/README.md). It is an
 interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is unchanged.
+
+The roadmap now prioritizes the AI team's interaction model over a native phone client.
+Prompt 07 adds direct human↔worker and worker↔worker conversations with explicit bounded
+reply/wake semantics. Prompt 08 adds multi-worker working groups and deliberation. The
+existing SSH-tunnel browser remains the preferred operator path for now; native iOS is
+deferred until those interaction semantics stabilize.
 
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
