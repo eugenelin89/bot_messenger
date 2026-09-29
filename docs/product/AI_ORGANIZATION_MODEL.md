@@ -189,6 +189,78 @@ Operators can inspect those interactions through the Executive channel, linked T
 Audit history and Executions. Audit records are the precise source for assignment and
 result-return events; Executions show when workers actually ran and where work overlapped.
 
+## Future collaborative deliberation
+
+The current implementation is deliberately Task-centric, but the desired organization
+model should support **bounded group discussion** in addition to delegation.
+
+Hierarchy should govern responsibility, assignment authority and protected actions. It
+should not prevent peers or cross-functional specialists from reasoning together.
+
+A future first-class object such as a `DiscussionSession`, `WorkingGroup` or
+`Deliberation` should support:
+
+- one explicit topic/question and desired output;
+- a bounded participant list selected by the human or an authorized coordinator;
+- participants from different branches of the hierarchy;
+- ordinary human-readable discussion messages;
+- explicit facilitator/synthesizer responsibility;
+- bounded rounds, wall time and model-turn budget;
+- optional human observation/intervention;
+- durable transcript and attribution by worker/execution;
+- explicit conclusion/synthesis artifact;
+- preserved dissent, alternatives, risks and unresolved questions;
+- conversion of an accepted conclusion into Tasks only through normal trusted assignment
+  authority.
+
+Example:
+
+~~~text
+Human asks for a new feature design
+        |
+        v
+Atlas opens Design Working Group
+        |
+        +-- Maya  — product/user perspective
+        +-- Turing — architecture/engineering
+        +-- Linus — implementation practicality
+        +-- Grace — risks/review
+        |
+        v
+Round 1: proposals
+Round 2: critique and questions
+Round 3: synthesis
+        |
+        v
+Design artifact + alternatives + unresolved risks
+        |
+        v
+normal hierarchy creates implementation Tasks
+~~~
+
+Discussion participation must not grant task-assignment, approval, filesystem, repository
+or external authority. A worker can disagree with its manager inside a discussion without
+gaining authority to act outside its role.
+
+This should **not** be implemented by simply making every ordinary message wake a model.
+That would blur communication and execution and could create unbounded bot-to-bot loops.
+A discussion session itself should be the explicit bounded work object that schedules
+turns. Ordinary `message_worker` remains non-dispatching communication.
+
+Useful discussion modes may eventually include:
+
+- design roundtable;
+- architecture review;
+- product/engineering trade-off discussion;
+- incident/problem-solving room;
+- pre-mortem / red-team review;
+- research synthesis;
+- reviewer/implementer clarification.
+
+The human should be able to watch the transcript live, ask a participant a question,
+pause/stop the session, and inspect the final synthesis. This is a product direction,
+not an implemented Prompt 06 capability.
+
 ## Initial CEO
 
 The human owner creates the first executive manually.
