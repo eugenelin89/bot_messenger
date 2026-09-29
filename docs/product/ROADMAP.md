@@ -19,20 +19,24 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
 | 06 | Stable authenticated remote-client API and device identity | Complete |
-| 07 | Native iOS Remote MVP | Next |
-| 08 | Bounded Computer Use | Planned |
-| 09 | Multi-company support on one HQ | Planned |
-| 10 | Company-to-company collaboration | Planned |
-| 11 | External identities and Telegram integration | Planned |
-| 12 | Cross-HQ federation | Planned |
-| 13+ | Broader operating capabilities | Later |
+| 07 | First-class conversations and direct worker interaction | Next |
+| 08 | Collaborative working groups and deliberation | Planned |
+| 09 | Bounded Computer Use | Planned |
+| 10 | Multi-company support on one HQ | Planned |
+| 11 | Company-to-company collaboration | Planned |
+| 12 | External identities and Telegram integration | Planned |
+| 13 | Cross-HQ federation | Planned |
+| — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
+| 14+ | Broader operating capabilities | Later |
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
 existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is Complete; Prompt 07 is Next.**
 
-The sequence intentionally builds stronger authority and isolation boundaries before
-adding broader external access or autonomous capabilities.
+The sequence now prioritizes getting the **AI organization interaction model** right before
+adding convenience clients. Prompt 06 already provides the stable authenticated client
+foundation, and the existing SSH-tunnel browser path is acceptable while conversation,
+deliberation and collaboration semantics mature.
 
 ---
 
@@ -280,101 +284,188 @@ administrative listener. HQ UUID is not cryptographic server identity or E2EE.
 
 # Next implementation phase
 
-## Prompt 07 — Native iOS Remote MVP
+# Interaction layer
+
+## Prompt 07 — First-class conversations and direct worker interaction
 
 **Status:** Next
 
-Build the first native iPhone/iPad operator client against the accepted `/api/v1/` contract. Secure normal mobile transport remains a separate explicit implementation; an SSH acceptance tunnel is not the finished no-tunnel mobile experience.
+Prompt 07 fixes the basic interaction model before adding more client surfaces.
 
-The app is a first-class BotSquad client, not:
+The current system has durable messages, but ordinary messages are Task-centric and do
+not provide a general recipient inbox or reliable conversational wake/reply behavior.
+The human also cannot yet open a real private conversation with Maya, Turing, Linus,
+Ada, Grace or Nix.
 
-- a WebView;
-- an HTML scraper;
-- an SSH terminal wrapper.
+Prompt 07 should introduce a first-class Conversation/Thread model distinct from Tasks
+and passive Messages.
 
-Initial views:
-
-- HQ connection/status;
-- company dashboard;
-- organization;
-- workers;
-- tasks;
-- chat;
-- executions;
-- AI profile controls;
-- diagnostics/settings.
-
-Initial actions:
-
-- message Atlas/worker;
-- assign objective;
-- pause/resume;
-- interrupt supported execution;
-- inspect artifacts suitable for mobile;
-- change worker model/reasoning/priority;
-- pair/revoke device.
-
-### No-manual-tunnel goal
-
-Normal mobile operation should work without manually opening an SSH tunnel.
-
-The HQ should still remain private by default.
-
-Possible transport:
-
-- private VPN/direct;
-- outbound BotSquad relay.
-
-### Relay direction
-
-If an outbound relay is introduced:
+Target:
 
 ~~~text
-iOS app
-   |
-   v
-BotSquad relay
-   ^
-   |
-outbound HQ connection
-   |
-Ubuntu HQ
+Human
+  |
+  +-- direct conversation with Atlas
+  +-- direct conversation with Maya
+  +-- direct conversation with Turing
+  +-- direct conversation with Linus / Ada / Grace / Nix
+  |
+Workers
+  +-- direct worker-to-worker conversations across hierarchy
 ~~~
 
-The relay must not become:
+Hierarchy remains authoritative for **assignment and protected actions**, not for who is
+allowed to exchange ideas.
 
-- company database;
-- approval authority;
-- Codex credential holder;
-- worker credential holder;
-- source of organizational truth.
+### Required semantics
 
-End-to-end encryption is a design goal requiring a separate reviewed protocol before it
-is claimed.
+Separate at least three ideas:
+
+~~~text
+passive message
+    communicates / records context
+    does not wake a model
+
+conversation turn requesting a reply
+    explicit bounded model work
+    may wake the addressed participant
+
+Task
+    executable assignment with ownership / acceptance / authority
+~~~
+
+A conversation reply must never silently become a Task or grant new authority.
+
+### Major capabilities
+
+- persistent Conversation/Thread identity;
+- one-to-one human ↔ worker conversations;
+- worker ↔ worker conversations not restricted to reporting edges;
+- durable participant-oriented inbox/history independent of a worker's current Task;
+- explicit reply-request / conversation-turn semantics that can wake a worker;
+- passive/non-dispatching messages retained for announcements/context;
+- bounded conversation turns with no idle polling;
+- reply/mention loop prevention and turn/rate budgets;
+- thread context included only where the participant is authorized to see it;
+- human ability to observe, stop, mute/archive and resume conversations;
+- clear UI distinction among conversation, assignment and approval;
+- durable attribution of every turn to worker/execution/principal;
+- restart/recovery without replaying completed conversation turns;
+- existing Executive channel and historical messages preserved.
+
+### Authority rules
+
+Conversation participation does not imply task-assignment, approval, repository,
+filesystem, worker-management, Project-policy, Computer Use or external-service
+authority.
+
+For example, Linus may ask Ada a technical question and Ada may answer, while Linus still
+cannot assign Ada a Task if the hierarchy forbids it.
 
 ### Acceptance themes
 
-- pair one real iPhone;
-- connect remotely without manual SSH tunnel;
-- HQ application port remains non-public;
-- show live worker/task state;
-- send message and explicit objective separately;
-- show execution provenance;
-- update AI profile safely;
-- offline cached state marked stale;
-- retries are idempotent;
-- revoked phone loses access;
-- SSH/browser admin path still works.
+- human opens a direct conversation with Maya and receives a real reply;
+- human opens a direct conversation with an engineer without routing through Atlas;
+- Linus and Ada exchange a bounded technical conversation across normal peer roles;
+- a passive message does not wake the recipient;
+- an explicit conversation turn does wake exactly the intended participant;
+- conversation does not create a Task unless a separate trusted assignment action occurs;
+- worker without assignment authority still cannot assign the conversation partner;
+- conversation history survives service restart;
+- duplicate/retried conversation-turn requests do not duplicate model work;
+- loops are bounded;
+- audit/execution evidence clearly distinguishes conversation work from Task work;
+- existing research/engineering/Project workflows remain correct.
+
+The browser/SSH path is sufficient for this milestone. Do not build iOS merely to expose
+these semantics.
+
+---
+
+## Prompt 08 — Collaborative working groups and deliberation
+
+**Status:** Planned
+
+After direct conversation semantics are trustworthy, add explicit bounded multi-worker
+discussion.
+
+The goal is to let specialists reason **with one another**, rather than reducing every
+complex problem to manager → delegate → result.
+
+Target:
+
+~~~text
+Human / Atlas opens Design Working Group
+        |
+        +-- Maya    product/user perspective
+        +-- Turing  architecture
+        +-- Linus   implementation practicality
+        +-- Grace   reviewer / risk
+        |
+        v
+proposal -> critique -> questions -> refinement -> synthesis
+        |
+        v
+design artifact + alternatives + dissent + unresolved risks
+        |
+        v
+normal hierarchy may create implementation Tasks
+~~~
+
+Introduce a first-class bounded DiscussionSession / WorkingGroup / Deliberation object
+with a topic, desired output, participants, facilitator, synthesizer, round/turn budget,
+time budget, status, transcript, synthesis artifact and preserved dissent/unresolved
+questions.
+
+### Interaction rules
+
+- participants may come from different branches of the hierarchy;
+- discussion uses human-readable language;
+- every turn is explicitly scheduled and attributable;
+- no participant receives new authority merely by joining;
+- ordinary messages still do not automatically wake models;
+- the working-group object itself is the explicit work trigger;
+- discussion cannot silently create implementation Tasks;
+- follow-on Tasks use the existing trusted hierarchy/assignment rules;
+- human may observe, interject, pause, stop or request another bounded round;
+- unresolved disagreement should be preserved rather than fabricated into consensus.
+
+Useful initial modes include design roundtable, architecture review, product/engineering
+trade-off discussion, pre-mortem/red-team review, research synthesis,
+reviewer/implementer clarification and incident/problem-solving.
+
+### Acceptance themes
+
+Run at least one real design discussion with several existing workers, preferably
+Maya + Turing + engineer + Grace.
+
+Verify:
+
+- participants see the bounded shared discussion context;
+- participants challenge/respond to one another rather than producing isolated reports;
+- multiple viewpoints and alternatives are retained;
+- facilitator/synthesizer produces an inspectable final artifact;
+- dissent/unresolved risk survives synthesis;
+- human can inject one question mid-session;
+- discussion respects global execution capacity and queues safely;
+- restart/recovery resumes without duplicating completed turns;
+- a disallowed discussion message cannot expand capability;
+- no implementation Task is created until a separately authorized assignment occurs;
+- discussion terminates at its configured bound rather than becoming an infinite bot loop.
+
+This milestone should make BotSquad feel more like a real team thinking together, while
+preserving the distinction between **communication, deliberation and execution authority**.
 
 ---
 
 # Broader agent capabilities
 
-## Prompt 08 — Bounded Computer Use
+## Prompt 09 — Bounded Computer Use
 
 **Status:** Planned
 
-Add explicit Computer Use capability after worker OS identity and approvals are reliable.
+Add explicit Computer Use capability after worker OS identity, approvals and the core
+interaction model are reliable.
 
 Preferred autonomous model:
 
@@ -387,16 +478,8 @@ isolated browser / desktop / VM / container
 
 Do not make the human's personal workstation the default autonomous environment.
 
-Capabilities should define:
-
-- environment;
-- allowed apps;
-- allowed sites;
-- filesystem scope;
-- upload/download policy;
-- maximum runtime;
-- network policy;
-- actions requiring approval.
+Capabilities should define environment, allowed apps/sites, filesystem scope,
+upload/download policy, maximum runtime, network policy and actions requiring approval.
 
 A specialized Computer Operator role is preferred to granting GUI authority to every
 worker.
@@ -417,248 +500,101 @@ worker.
 
 # Company layer
 
-## Prompt 09 — Multi-company support
+## Prompt 10 — Multi-company support
 
 **Status:** Planned
 
 Allow one BotSquad HQ to host multiple isolated companies.
 
-Target:
+Company becomes a first-class security/data boundary. Company-scoped concepts include
+workers, conversations/messages, discussions, tasks, executions, artifacts,
+repositories/projects, approvals, external identities, policy and audit.
 
-~~~text
-Human owner
-└── BotSquad HQ
-    ├── Company A
-    ├── Company B
-    └── Company C
-~~~
-
-Company becomes a first-class security/data boundary.
-
-Company-scoped concepts include:
-
-- workers;
-- channels/messages;
-- tasks;
-- executions;
-- artifacts;
-- repositories/projects;
-- approvals;
-- external identities;
-- policy;
-- audit.
-
-The data model must keep distinct:
-
-~~~text
-owner
-runtime account
-BotSquad instance/HQ
-company
-worker
-runtime thread
-execution
-device/external identity
-~~~
-
-One runtime account may support several companies without merging company state.
-
-### Acceptance themes
-
-- create two companies in one HQ;
-- company A cannot read/write company B;
-- UI company switcher;
-- active company is explicit for every protected action;
-- worker belongs to one company;
-- runtime settings remain separate;
-- restart preserves isolation;
-- migrations from one-company data remain correct.
+Acceptance must prove two companies cannot read/write one another, conversations and
+discussions are company-scoped, active company is explicit for protected actions, and
+restart/migration preserves isolation.
 
 ---
 
-## Prompt 10 — Company-to-company collaboration
+## Prompt 11 — Company-to-company collaboration
 
 **Status:** Planned
 
-After company isolation is real, allow companies to collaborate explicitly.
+After company isolation is real, allow companies to collaborate explicitly through a
+trusted CompanyConnection defining allowed message/task/discussion types, artifact
+policy, approval policy, rate limits and lifecycle/revocation.
 
-Introduce a trusted connection object such as:
+One company must not gain access to the other's internal worker conversations,
+working-group transcripts or unrelated data.
 
-~~~text
-CompanyConnection
-  source company
-  target company
-  allowed message/task types
-  artifact policy
-  approval policy
-  rate limits
-  lifecycle/revocation
-~~~
-
-Example:
-
-~~~text
-Acme / Atlas
-   |
-   | research request
-   v
-ResearchCo / Atlas
-   |
-   v
-Scout
-   |
-   v
-ResearchCo result
-   |
-   v
-Acme
-~~~
-
-Acme should not gain access to ResearchCo's internal Scout context or unrelated data.
-
-Inter-company work should preserve separate internal tasks/audits on both sides.
-
-### Acceptance themes
-
-- explicit connection creation;
-- bounded message;
-- bounded task handoff;
-- result/artifact return;
-- provenance preserved;
-- revocation stops new traffic;
-- loops bounded;
-- duplicate/replay protection;
-- no cross-company authority escalation.
+Acceptance includes bounded messaging/task handoff, explicitly permitted collaborative
+discussion, result/artifact return, provenance, revocation, loop bounds,
+deduplication/replay protection and no cross-company authority escalation.
 
 ---
 
 # External communication
 
-## Prompt 11 — External identities and Telegram integration
+## Prompt 12 — External identities and Telegram integration
 
 **Status:** Planned
 
 Add a generic ExternalIdentity model, then Telegram as the first concrete adapter.
+Workers use Telegram bot identities, never simulated human accounts. Raw provider
+credentials stay behind trusted integration code; external communication remains
+untrusted content and never becomes authority.
 
-A worker may have:
-
-~~~text
-internal BotSquad identity
-+
-optional external identities
-~~~
-
-Examples:
-
-- Telegram bot;
-- email;
-- future Slack/Teams/Discord identity.
-
-Telegram workers should use Telegram bot accounts, not simulated human accounts.
-
-Not every worker needs an external identity.
-
-### Trusted credential gateway
-
-Raw Telegram tokens remain behind trusted integration code.
-
-Workers request typed operations such as:
-
-~~~text
-send_external_message
-~~~
-
-They do not receive the token.
-
-### Company-level identities
-
-Support both:
-
-- worker-level bot identity;
-- company-level bot routed internally.
-
-A company-level bot may be useful for:
-
-- public contact;
-- support routing;
-- lower provider-account count;
-- mobile conversation.
-
-### Bot-to-bot collaboration
-
-Telegram may be used as one transport for company-to-company communication.
-
-Telegram is not the authority layer.
-
-Incoming messages remain untrusted external content until mapped through known identity
-and company-connection policy.
-
-### Acceptance themes
-
-- optional identity attach/detach;
-- token hidden from normal worker context;
-- outbound message;
-- inbound message;
-- correct worker/company mapping;
-- rate limiting;
-- loop prevention;
-- bot-to-bot bounded exchange;
-- audit/provider message IDs;
-- credential rotation/revocation;
-- internal BotSquad works when Telegram is unavailable.
+Acceptance includes attach/detach, hidden tokens, inbound/outbound mapping, rate limits,
+loop prevention, audit/provider IDs, rotation/revocation and continued internal operation
+when Telegram is unavailable.
 
 ---
 
-## Prompt 12 — Cross-HQ federation
+## Prompt 13 — Cross-HQ federation
 
 **Status:** Planned
 
-Allow companies on separate BotSquad installations to collaborate directly.
+Allow companies on separate BotSquad installations to collaborate through authenticated
+provider-independent federation with stable HQ/company identity, signed/authenticated
+envelopes, replay protection, deduplication, rate limits, revocation, artifact integrity
+and bounded task/message/discussion loops.
 
-Target:
-
-~~~text
-BotSquad HQ A
-      |
-      | authenticated federation
-      v
-BotSquad HQ B
-~~~
-
-Requirements should include:
-
-- stable HQ identity;
-- stable company identity;
-- authenticated peers;
-- signed/authenticated envelopes;
-- replay protection;
-- deduplication;
-- rate limits;
-- connection negotiation;
-- revocation;
-- artifact integrity hashes;
-- bounded task/message loops;
-- capability/policy negotiation.
-
-Do not implement federation by:
-
-- sharing SQLite;
-- exposing internal DB access;
-- trusting free-form bot messages;
-- reusing Telegram identity as the sole authority mechanism.
-
-Telegram remains one possible transport/integration; native BotSquad federation should
-remain provider-independent.
+Do not implement federation by sharing SQLite, exposing databases, trusting free-form bot
+messages or using Telegram identity as the sole authority mechanism.
 
 ---
 
-# Prompt 13 and beyond — broader operating capabilities
+# Deferred convenience client
+
+## Native iOS Remote MVP
+
+**Status:** Deferred / intentionally unnumbered
+
+Prompt 06 already established the stable authenticated Client API, HQ/device identity,
+pairing, idempotency and reconnectable events.
+
+For the current phase, the existing private browser over SSH tunnel is an acceptable
+operator experience. A native iPhone/iPad application and no-manual-tunnel mobile
+transport are useful convenience features, but they are lower priority than getting
+worker conversation and deliberation semantics correct.
+
+The iOS direction remains valid: native first-class client, Client API v1 rather than
+browser internals, explicit paired/revocable device identity, private HQ by default, SSH
+as admin/recovery, and possible future VPN/direct or outbound relay transport.
+
+Revisit this milestone when the interaction model is stable enough that the mobile client
+will not simply reproduce semantics that are about to change.
+
+---
+
+# Prompt 14 and beyond — broader operating capabilities
 
 **Status:** Later / intentionally not fixed yet
 
-After the foundational security, project, remote-client, company, and federation layers
-are proven, later prompts may add capabilities such as:
+After the foundational organization, security, project, interaction, remote-client,
+company and federation layers are proven, later prompts may add capabilities such as:
 
+- native iOS Remote MVP / managed no-tunnel mobile access if it has not been pulled forward;
 - deployment operator;
 - infrastructure fleets;
 - scheduled recurring work;
@@ -674,16 +610,13 @@ are proven, later prompts may add capabilities such as:
 - customer-facing deployment;
 - specialized GPU/compute workers;
 - portfolio-level company supervision;
-- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01;
-- bounded multi-worker discussion / working-group sessions for design, critique, synthesis
-  and human-observed deliberation without weakening hierarchy or authority.
+- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01.
 
 These should not be assigned fixed prompt numbers until their dependencies and scope are
-better understood. In particular, collaborative deliberation should be designed as an
-explicit bounded work object rather than by making ordinary messages automatically wake
-recipients; discussion participation must not imply assignment or approval authority.
+better understood.
 
 ---
+
 
 # Cross-cutting rules for every future prompt
 
@@ -754,19 +687,24 @@ accounts, or external systems.
         |
 06 Authenticated remote client API
         |
-07 iOS Remote MVP
+07 Direct conversations + worker interaction
         |
-08 Computer Use
+08 Working groups + deliberation
         |
-09 Multi-company
+09 Computer Use
         |
-10 Company collaboration
+10 Multi-company
         |
-11 External identities / Telegram
+11 Company collaboration
         |
-12 Cross-HQ federation
+12 External identities / Telegram
         |
-13+ Broader company operations
+13 Cross-HQ federation
+        |
+14+ Broader company operations
+
+Native iOS / no-tunnel mobile access is deferred and can be pulled forward later without
+changing the interaction-layer priorities.
 ~~~
 
 Some later work may proceed in parallel once its dependencies are proven, but prompt
