@@ -230,8 +230,8 @@ Do not claim E2EE until those properties are implemented and reviewed.
 ## Native client API
 
 Prompt 06 defines [Client API v1](../api/CLIENT_API_V1.md) at `/api/v1/`, separate from
-the local browser API. Prompt 07 must use this contract without scraping HTML or relying
-on `/api/state`. It includes discovery/capabilities, bounded reads, message-only and
+the local browser API. The deferred native iOS client must use this contract without
+scraping HTML or relying on `/api/state`. It includes discovery/capabilities, bounded reads, message-only and
 objective operations, dispatch/profile/interrupt controls, durable retries and SSE.
 Artifact metadata is included; artifact contents are deferred.
 
