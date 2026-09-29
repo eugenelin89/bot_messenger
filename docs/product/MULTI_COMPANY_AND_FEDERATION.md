@@ -1,11 +1,14 @@
 # BotSquad — Multi-Company and Federation Model
 
 **Status:** Future product architecture; not yet implemented
-**Date:** 2026-09-25
+**Updated:** 2026-09-29
 
-Prompt 03 currently implements one company per data directory. This document sets
-future constraints; none of its multi-company, federation or external-identity
-capabilities is implemented or required for Prompt 03 acceptance.
+The implementation through Prompt 06 still has one company per data directory. Prompt 06
+adds durable HQ/device identity for authenticated clients, but it does **not** add
+multi-company state, company-to-company connections or cross-HQ federation. This document
+sets future constraints for those layers. The canonical roadmap currently places
+multi-company at Prompt 09, company-to-company collaboration at Prompt 10 and cross-HQ
+federation at Prompt 12.
 
 ## Goal
 

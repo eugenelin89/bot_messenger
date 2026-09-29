@@ -14,17 +14,21 @@ This is an explanatory primer, not the source of truth for current milestone sta
 - [BotSquad Roadmap](../product/ROADMAP.md)
 - [System Architecture](../architecture/SYSTEM_ARCHITECTURE.md)
 
-**Implementation update — 2026-09-28:** Prompt 05 is now complete and Ubuntu-validated;
-Prompt 06 is next. Multiple repositories, scoped revision/review, durable integration,
-trusted remote operations and archive/release are implemented. Recipes currently support
-bounded dependency-free Node tests with explicit test-file arguments; general package
-environments and deployment remain deferred. The bounded browser Demo Operator is now
-implemented; see the [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) and
-[operator boundary](../product/DEMO_OPERATOR.md). Public GitHub fetch passed;
-authenticated GitHub push remains unvalidated. The discussion below is preserved in its
-original historical framing. See [Decision 014](../decisions/decision_014_generalized_projects.md)
-and [Prompt 05 acceptance](../validation/prompt-05-general-projects.md) for exact boundaries
-and evidence.
+**Implementation update — 2026-09-29:** Prompt 05 and its independent audit are complete;
+Prompt 06 is also complete and Ubuntu/restart/reboot validated, and Prompt 07 is next.
+Multiple repositories, scoped revision/review, durable integration, trusted remote
+operations and archive/release are implemented. Prompt 06 adds the stable authenticated
+`/api/v1/` client contract, durable HQ/device identity, explicit local pairing/revocation,
+Ed25519 proof of possession, fixed device capabilities, idempotent mutations and
+reconnectable events. The bounded browser Demo Operator is implemented; see the
+[StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) and
+[operator boundary](../product/DEMO_OPERATOR.md). Recipes remain bounded to dependency-free
+Node tests; general package environments and deployment remain deferred. Public GitHub
+fetch passed; authenticated GitHub push remains unvalidated. The discussion below is
+preserved in its original historical framing. See [Decision 014](../decisions/decision_014_generalized_projects.md),
+[Decision 015](../decisions/decision_015_remote_client_trust.md), the
+[Client API v1 contract](../api/CLIENT_API_V1.md), and the Prompt 05/06 validation records
+for exact current boundaries and evidence.
 
 ---
 

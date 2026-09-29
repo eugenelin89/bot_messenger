@@ -1,6 +1,6 @@
 # Set Up a Minimal Ubuntu Host for BotSquad
 
-**Status:** Current Ubuntu host-preparation guide; validated through Prompt 05
+**Status:** Current Ubuntu host-preparation guide; validated through Prompt 06
 **Audience:** Anyone preparing a machine for the BotSquad Ubuntu bootstrap prompt
 
 ## Goal
@@ -51,7 +51,7 @@ DigitalOcean is only the worked example in this guide.
 
 BotSquad itself is small, but real Codex workers, Git repositories, builds, and tests need CPU and RAM.
 
-Sizing based on the bounded Prompt 03–05 acceptance evidence:
+Sizing based on the bounded Prompt 03–06 acceptance evidence:
 
 | Use | Suggested starting size |
 | --- | --- |
@@ -66,6 +66,12 @@ on the same host peaked at 244.96 MiB validation-cgroup memory, with at least
 1,384.59 MiB host memory available and 780 KiB swap used. These tiny dependency-free
 repositories do not establish capacity for larger builds. See the
 [Prompt 05 measurements](../validation/prompt-05-general-projects.md).
+
+Prompt 06 also passed on this same small-host class with the authenticated Client API,
+paired-device lifecycle, reconnectable SSE, restart and full reboot. Its bounded idle
+observation with one native SSE client plus the local browser used about 0.082% of one
+CPU over 188 seconds; this is a regression check, not a large-client capacity claim.
+See the [Prompt 06 validation record](../validation/prompt-06-remote-client-api.md).
 
 Bootstrap still inspects each actual host; provider branding does not establish compatibility.
 

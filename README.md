@@ -37,7 +37,10 @@ BotSquad currently supports:
 - Nix infrastructure tasks and exact-scope trusted human approvals;
 - a narrow root provisioner with durable operation receipts;
 - private worker Unix identities and independent Linux engineering clones;
-- worker-UID source writes/commits and evidence-preserving retirement.
+- worker-UID source writes/commits and evidence-preserving retirement;
+- a stable, versioned `/api/v1/` client contract with explicit sanitized DTOs;
+- paired remote-device identity with Ed25519 proof of possession, fixed capability ceilings, and revocation;
+- durable idempotent client mutations and reconnectable HQ-bound SSE event cursors.
 
 The generalized lifecycle and acceptance status are recorded in
 [Decision 014](docs/decisions/decision_014_generalized_projects.md) and
@@ -80,6 +83,7 @@ operator-controlled Ubuntu HQ
       +-- root Unix-socket provisioner
       +-- private worker homes/UIDs
       +-- 127.0.0.1:4310 web UI
+      +-- /api/v1 authenticated Client API on the same private listener
 ```
 
 BotSquad is **self-hosted**, not a hosted multi-tenant SaaS. Assigned model/task context
@@ -439,6 +443,8 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Ubuntu HQ and Bootstrap Model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Decision 011 — Ubuntu service, confinement and worker AI profiles](docs/decisions/decision_011_ubuntu_hq_profiles.md)
 - [Decision 013 — Trusted worker infrastructure](docs/decisions/decision_013_trusted_worker_infrastructure.md)
+- [Decision 015 — Remote client trust](docs/decisions/decision_015_remote_client_trust.md)
+- [Client API v1](docs/api/CLIENT_API_V1.md)
 - [Decision Index](docs/decisions/README.md)
 
 ### Future architecture

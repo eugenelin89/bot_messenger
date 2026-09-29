@@ -781,16 +781,17 @@ This architecture depends on several authority boundaries.
 Recommended direction:
 
 ~~~text
-Prompt 04
+Prompt 04 — complete
 Nix + trusted approvals + per-worker Linux identity
         ↓
+Prompt 05 — complete
 Generalized project/repository lifecycle
         ↓
-Stable/versioned authenticated remote client API
+Prompt 06 — complete
+Stable/versioned authenticated remote client API + device pairing
         ↓
-Device pairing + secure remote transport
-        ↓
-iOS Remote MVP
+Prompt 07 — next
+iOS Remote MVP + secure mobile transport
         ↓
 Push notifications + richer approvals
         ↓
@@ -799,9 +800,8 @@ Multi-company-aware mobile UI
 Optional managed outbound relay / direct federation evolution
 ~~~
 
-The exact prompt numbering may change.
-
-The important sequencing principle is:
+The canonical numbered sequence is maintained in the [roadmap](ROADMAP.md). The
+important sequencing principle is:
 
 > establish authorization and stable API semantics before making remote mobile access
 > able to trigger protected operations.

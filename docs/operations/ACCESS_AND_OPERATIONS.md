@@ -64,6 +64,36 @@ The UI is running on the Ubuntu server even though the browser URL looks local.
 
 Do not open TCP 4310 to the public Internet.
 
+## Follow bot interaction
+
+BotSquad currently coordinates primarily through explicit Tasks and manager handoffs,
+not through always-on private bot chats.
+
+For a readable completed workflow such as StudyPlan:
+
+1. Open **Executive channel** to read human-readable progress and handoff messages.
+2. Use **↗ Task** beneath a message to inspect the exact assignment, acceptance criteria,
+   parent relationship, result and execution attempts.
+3. Open **Audit history** for precise control-plane transitions such as task assignment,
+   child-result receipt, manager follow-up, approval and integration.
+4. Open **Executions** to see when each worker actually ran, including concurrent work.
+
+The human normally assigns executable objectives to Atlas. The message-only control adds
+durable Executive-channel communication but does not start a worker or create a Task.
+Direct private human-to-Maya/Linus/etc. chat is not implemented through Prompt 06.
+
+Workers may use human-readable messages to address other existing workers when their
+capabilities allow it, even across hierarchy edges. That message does not wake the
+recipient or grant authority. Actual work assignment is stricter: a manager can assign
+only a direct subordinate, subject to the supported workflow's role/stage constraints.
+
+A recipient-addressed worker message is durable and auditable, but current worker context
+is Task-centric rather than a general personal inbox. The reliable orchestration path is
+an explicit child Task, completed result/artifact, and the durable child-result event that
+queues the manager to continue.
+
+See [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md) for the complete semantics.
+
 ## SSH into the headquarters
 
 For ordinary administration:
@@ -120,7 +150,7 @@ Expected binding:
 127.0.0.1:4310
 ```
 
-A public `0.0.0.0:4310` listener is not the supported current configuration; Prompt 03 established and Prompts 04–05 retained the loopback-only UI boundary.
+A public `0.0.0.0:4310` listener is not the supported current configuration; Prompt 03 established and Prompts 04–06 retained the loopback-only UI/API boundary.
 
 ## View recent logs
 

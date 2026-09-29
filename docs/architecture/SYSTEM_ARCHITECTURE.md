@@ -133,6 +133,27 @@ Each research execution allows 32 successful calls; engineering workflow executi
 allow 64. Tasks allow four artifacts, each up to 20,000 characters. Source files are
 bounded to 16 KB. There are no raw database or bot-authority HTTP endpoints.
 
+## Communication versus assignment
+
+Worker messages use normal human-readable text inside durable structured records. A
+worker with `internal_message` may name any existing worker as recipient; message routing
+is not constrained to reporting edges. Messaging remains communication only: it does not
+create a Task, wake an idle recipient, expand capabilities or create approval.
+
+The current execution context is Task-centric. A running worker receives recent messages
+whose `related_task_id` matches its active Task rather than a general recipient inbox.
+Therefore a recipient-addressed message is durable/auditable but is not guaranteed delivery
+to a future worker turn unless it is also relevant to that worker's assigned Task.
+
+Task creation is separately enforced. `assign_task` requires the target to be the
+manager's direct subordinate and then applies the supported research/product role and
+stage restrictions. Child completion is the dependable orchestration signal: durable
+wake records queue manager follow-up after required children become terminal.
+
+The human-facing message endpoint currently posts to the Executive channel without a
+worker recipient and does not dispatch work. Explicit objectives enter through Atlas.
+Direct private human-to-worker chat is not implemented through Prompt 06.
+
 ## Task stages, dispatch and recovery
 
 Task transitions remain explicit: queued → working → completed, with blocked, failed,
@@ -274,8 +295,9 @@ it never imports private control-plane mutation functions or receives worker cre
 The isolated browser records the same session. Exact scenario checks restrict automated
 approval decisions while the existing trusted service/provisioner enforces authority.
 
-Decision 006 remains authoritative: worker Computer Use is disabled through Prompt 06.
-Engineering tools grant no GUI/desktop authority. Exact approval supports bounded host
+Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 06;
+Prompt 08 is the planned bounded Computer Use milestone after Prompt 07. Engineering tools,
+Demo Operator and paired remote-human devices grant no worker GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration
 remain deferred.

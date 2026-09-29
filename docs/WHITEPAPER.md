@@ -1,8 +1,8 @@
 # BotSquad: A Self-Hosted Control Plane for Persistent AI Organizations
 
 **Technical White Paper**  
-**Version:** 0.2
-**Date:** 2026-09-26
+**Version:** 0.3
+**Date:** 2026-09-29
 **Project:** BotSquad  
 **Repository:** eugenelin89/bot_messenger  
 **Traditional Chinese (Taiwan):** [台灣繁體中文版](WHITEPAPER_ZH_TW.md)
@@ -26,12 +26,17 @@ The system began as a workstation-local experiment and has progressed to an alwa
 self-hosted Ubuntu headquarters. The current implementation demonstrates a real
 hierarchical AI organization performing research and concurrent software engineering
 with independent review, trusted integration, Linux confinement, per-worker model and
-reasoning settings, restart recovery, a private web interface, and Prompt 04 worker
-Unix identities with Nix-coordinated exact approvals.
+reasoning settings, restart recovery, a private web interface, Prompt 04 worker Unix
+identities with Nix-coordinated exact approvals, and Prompt 05 generalized Projects.
 
-Prompt 05 implements bounded software Projects, scoped revision/review, integration
-queues, trusted remote Git and archive/release; its live acceptance status is recorded
-in [Prompt 05 validation](validation/prompt-05-general-projects.md).
+Prompt 06 adds a stable authenticated `/api/v1/` client contract with durable HQ/device
+identity, local human-confirmed Ed25519 pairing, fixed device capabilities, short-lived
+proof-of-possession sessions, idempotent mutations and reconnectable persistent events.
+The listener remains private; real acceptance used an independent reference client over
+an SSH tunnel and passed restart, token expiry, full reboot and revocation. Native iOS,
+no-tunnel mobile transport, relay and protected remote approvals remain deferred. See
+[Prompt 06 validation](validation/prompt-06-remote-client-api.md) and
+[Client API v1](api/CLIENT_API_V1.md).
 
 The long-term architecture extends this foundation toward secure native mobile access, bounded Computer
 Use, multiple isolated companies, inter-company collaboration, external identities such
@@ -539,8 +544,9 @@ UID; arbitrary compromise of that trusted account remains outside the isolation 
 Prompt 03 completed real Ubuntu acceptance. The following measurements are its historical
 baseline; [Prompt 04 acceptance](validation/prompt-04-linux-identity.md) records the
 historical identity, approval, retirement and resource evidence. The
-[Prompt 05 record](validation/prompt-05-general-projects.md) tracks generalized Projects
-and current acceptance; historical measurements below retain their original scope.
+[Prompt 05 record](validation/prompt-05-general-projects.md) tracks generalized Projects,
+and the [Prompt 06 record](validation/prompt-06-remote-client-api.md) tracks the current
+authenticated client/device boundary; historical measurements below retain their original scope.
 
 Validated host:
 
@@ -694,35 +700,27 @@ SquadStatus remains a historical regression fixture. See
 
 ## 16. Native remote clients
 
-The current web UI is private and requires an SSH tunnel for remote use.
-
-The long-term client architecture separates:
-
-~~~text
-client API
-~~~
-
-from:
-
-~~~text
-network transport
-~~~
-
-Target:
+The web UI remains private and uses its local browser/admin API. Prompt 06 now provides a
+separate stable authenticated `/api/v1/` contract on the same loopback listener. Client
+semantics and network transport are intentionally separate:
 
 ~~~text
 BotSquad Core
    |
-   +-- versioned authenticated API
-   |       +-- Web UI
-   |       +-- iOS app
-   |       +-- future clients
+   +-- local browser/admin API
+   |
+   +-- Client API v1
+           +-- reference client today
+           +-- native iOS app next
+           +-- future clients
    |
    +-- reconnectable event stream
    +-- device identity
    +-- human authorization
 ~~~
 
+The accepted reference client reaches `/api/v1/` through the existing SSH tunnel; that
+transport is still an administrative/recovery path, not the final mobile experience.
 The iOS app should be a native operator client, not a WebView or SSH terminal wrapper.
 
 ---

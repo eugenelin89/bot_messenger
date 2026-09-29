@@ -1,7 +1,7 @@
 # BotSquad — Project Vision
 
 **Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 next
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 ## One-sentence vision
 
@@ -364,6 +364,40 @@ application work. Archive reduces clone access and preserves evidence. See
 
 See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](../decisions/decision_009_ubuntu_bootstrap.md), and [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
+
+## Collaborative AI working groups
+
+BotSquad should evolve beyond a purely delegation-shaped organization.
+
+The reporting hierarchy remains important for responsibility, assignment authority and
+security, but workers should also be able to participate in explicit, bounded
+cross-functional discussions. A product decision may benefit from Maya, Turing, an
+engineer and Grace challenging one another before anyone receives implementation work.
+
+The desired model is:
+
+~~~text
+Hierarchy
+  -> who owns the decision
+  -> who may assign work
+  -> who may exercise authority
+
+Working group
+  -> who should reason together
+  -> proposals / critique / alternatives
+  -> synthesis and documented dissent
+~~~
+
+A future discussion/working-group object should schedule bounded model turns, persist the
+human-readable transcript, enforce participant/round/time budgets, permit human
+intervention, and finish with an inspectable synthesis artifact. Discussion messages
+must not silently become Tasks or expand authority; any follow-on execution still enters
+through normal trusted assignment.
+
+This capability is intentionally **not** implemented by making ordinary worker messages
+wake recipients. The current communication-is-not-execution invariant remains.
+
+The exact roadmap slot is intentionally not fixed yet.
 
 ## Native mobile operator client
 
