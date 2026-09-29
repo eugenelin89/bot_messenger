@@ -1,7 +1,13 @@
 # Decision 016 — BotSquad models an intelligent company, not an agent assembly line
 
 **Date:** 2026-09-29  
-**Status:** Accepted product/architecture direction; interaction and operating-loop milestones pending
+**Status:** Accepted product/architecture direction; interaction and operating-loop milestones pending; extended by Decision 017
+
+**2026-09-29 extension:** [Decision 017](decision_017_single_company_first.md) adds explicit
+runtime-context continuity to Prompt 07, minimal durable scheduling and Asymmetri Motion
+acceptance to Prompt 09, and a single-company business-operations pilot before scale.
+It supersedes the previous post-Prompt-10 roadmap ordering, not this employee/company
+model or its authority boundaries. The original rationale below is preserved.
 
 ## Context
 
@@ -108,6 +114,11 @@ The roadmap prioritizes organization intelligence before convenience clients.
   external identities, federation and protected financial/resource capabilities.
 - Native iOS remains deferred while the SSH-tunnel browser is sufficient.
 
+The original framing above is extended by Decision 017: **07 continuity → 08 deliberation
+→ 09 company loop/scheduler → 10 bounded Computer Use → 11 practical single-company
+operations**. Multi-company/federation are deferred and unnumbered, not prerequisites to
+business integrations. Use the current [Roadmap](../product/ROADMAP.md) for delivery order.
+
 ## Acceptance philosophy
 
 Future organization milestones should prove behavior using realistic company-level
@@ -154,3 +165,6 @@ See:
 - [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md)
 - [Project Vision](../product/PROJECT_VISION.md)
 - [Roadmap](../product/ROADMAP.md)
+- [Decision 017](decision_017_single_company_first.md)
+- [Single-Company Business Operations](../product/SINGLE_COMPANY_OPERATIONS.md)
+- [Project Memory](../PROJECT_MEMORY.md)

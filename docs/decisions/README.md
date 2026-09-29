@@ -2,6 +2,11 @@
 
 Durable product, architecture, security, data, and workflow decisions belong here.
 
+For a fresh chat or Codex task, first read [Project Memory](../PROJECT_MEMORY.md), then
+verify current implementation/status against the repository. For future milestone order,
+use the [canonical roadmap](../product/ROADMAP.md) and Decision 017 rather than an older
+numbered table.
+
 ## Rules
 
 - Use filenames `decision_NNN_<slug>.md`.
@@ -23,13 +28,14 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [007](decision_007_prompt_01_runtime_and_recovery.md) | Prompt 01 App Server, bounded authority and recovery | Accepted | 2026-09-25 |
 | [008](decision_008_managed_engineering.md) | Managed engineering, independent review and tested integration | Accepted | 2026-09-25 |
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
-| [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted (future architecture) | 2026-09-25 |
+| [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted future constraints; priority deferred by 017 | 2026-09-25 |
 | [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Accepted and validated | 2026-09-26 |
 | [012](decision_012_ios_remote_client.md) | Native clients use a stable authenticated API and private remote-access layer | Partially implemented by 015; iOS/transport deferred | 2026-09-25 |
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
 | [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu validated | 2026-09-28 |
 | [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; Ubuntu/restart/reboot validated | 2026-09-29 |
-| [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted (future architecture) | 2026-09-29 |
+| [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted future architecture; extended by 017 | 2026-09-29 |
+| [017](decision_017_single_company_first.md) | One operational company first; runtime continuity, durable scheduling and Asymmetri Motion pilot | Accepted future priority/requirements; not implemented | 2026-09-29 |
 
 ## Current deployment interpretation
 
@@ -47,7 +53,6 @@ approval, Nix, provisioner and isolated worker-infrastructure boundary. Decision
 extends engineering to generalized Projects, scoped revision/review, durable integration,
 trusted non-root remote publication and evidence-preserving archive.
 
-
 Decision 015 implements the protocol/device foundation of Decision 012. Decision 012 retains the future native-client direction: an iOS app is a first-class
 BotSquad client, the HQ remains private by default, and remote transport/authentication
 are explicit layers rather than public exposure of the current loopback web service.
@@ -58,3 +63,20 @@ communicate and deliberate across hierarchy, make attributable decisions, operat
 iterative evidence-driven cycles and take initiative within trusted authority. It does
 not grant financial/external authority; those require separate enforced capability and
 policy layers.
+
+## Current product priority and continuation
+
+Decision 017 makes **one useful operating AI company** the priority before multi-company
+or federation. It extends 016 and supersedes the previous post-Prompt-10 future order,
+without discarding Decision 010's eventual isolation/security constraints.
+
+Prompt 07 must include runtime-context rollover; Prompt 09 must include a minimal durable
+scheduler and both broad-mandate and Asymmetri Motion acceptance. Prompt 11 is now a small
+practical single-company operating capability set and measured live pilot. The old future
+11–14 multi-company/collaboration/Telegram/federation assignments are deferred/unnumbered.
+
+These are planned requirements, not completed implementation or deployment evidence.
+Read [Single-Company Business Operations](../product/SINGLE_COMPANY_OPERATIONS.md) and
+[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) when generating
+future work. Maintain [Project Memory](../PROJECT_MEMORY.md) when accepted decisions or
+verified milestone state change so the project can continue after a chat context ends.

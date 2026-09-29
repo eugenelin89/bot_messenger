@@ -7,9 +7,19 @@ Codex execution.
 The primary deployment is now an **always-on Ubuntu headquarters** under the operator's
 control. Your Mac/PC is the bootstrap, administration, development, and browser client.
 
+**Product priority:** prove one AI company can actually operate a real business before
+building multiple companies or federation. This is an accepted direction, not a claim
+that the current runtime already operates a business autonomously.
+
+**Continuing from another chat or Codex task?** Read
+[Project Memory](docs/PROJECT_MEMORY.md), the [canonical roadmap](docs/product/ROADMAP.md)
+and [Decision 017](docs/decisions/decision_017_single_company_first.md), then verify current
+repository status. Future milestone prompts also use
+[Milestone Prompt Requirements](prompts/MILESTONE_REQUIREMENTS.md).
+
 ## Current state
 
-**Prompt 06 is complete and validated on Ubuntu. Prompt 07 — first-class conversations and direct worker interaction — is next.**
+**Prompt 06 is complete and validated on Ubuntu. Prompt 07 — first-class conversations, direct worker interaction and runtime-context continuity — is next.**
 
 BotSquad currently supports:
 
@@ -56,11 +66,11 @@ The bounded [Demo Operator](docs/product/DEMO_OPERATOR.md) exercises the real we
 and records the [StudyPlan tutorial](docs/tutorials/demo-01-studyplan/README.md). It is an
 interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is unchanged.
 
-The roadmap now prioritizes the AI team's interaction model over a native phone client.
-Prompt 07 adds direct human↔worker and worker↔worker conversations with explicit bounded
-reply/wake semantics. Prompt 08 adds multi-worker working groups and deliberation. The
-existing SSH-tunnel browser remains the preferred operator path for now; native iOS is
-deferred until those interaction semantics stabilize.
+The roadmap prioritizes conversation and durable context continuity, team deliberation,
+a strategic loop with a minimal durable scheduler, and useful single-company business
+operations. The existing SSH-tunnel browser remains the preferred operator path for now;
+native iOS and multi-company/federation are deferred. None of these future requirements
+is marked implemented by a documentation update.
 
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
@@ -69,7 +79,8 @@ For the numbered implementation sequence, see the
 [BotSquad Roadmap](docs/product/ROADMAP.md).
 
 For the architecture and design rationale in one place, see the
-[BotSquad Technical White Paper](docs/WHITEPAPER.md).
+[BotSquad Technical White Paper](docs/WHITEPAPER.md). Current roadmap/decision records
+supersede historical future-numbering summaries.
 
 ## Product north star
 
@@ -95,16 +106,29 @@ pivot, stop or scale.
 The roadmap therefore prioritizes:
 
 ~~~text
-07 direct conversations
+07 direct conversations + runtime-context continuity
 08 working groups / deliberation
-09 strategic company operating loop
+09 strategic company loop + durable scheduling + Asymmetri Motion reference test
+10 bounded Computer Use
+11 practical single-company business operations + measured live pilot
+--- single-company evidence gate and demonstrated need ---
+later: multi-company / company collaboration / federation
 ~~~
 
-before broader action surfaces. Strategic reasoning can be broad; real operational
-authority remains bounded by trusted capabilities and approvals.
+Worker and BotSquad Conversation identities must outlive replaceable provider sessions.
+Due reviews/follow-ups belong to trusted durable scheduling, not idle model polling.
+Asymmetri Motion is a reference configuration, never a hard-coded engine assumption.
 
-See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md) and
-[Decision 016](docs/decisions/decision_016_intelligent_company_model.md).
+Prompt 09 may use clearly labelled read-only/sanitized/fixture evidence. Prompt 11 must
+close a real approved action → receipt → observation → scheduled review loop before
+claiming live business operation. Implement the smallest useful capability set, not every
+business connector at once. Strategic reasoning can be broad; operational authority
+remains bounded by trusted capabilities and approvals. No profitability is guaranteed.
+
+See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md),
+[Single-Company Business Operations](docs/product/SINGLE_COMPANY_OPERATIONS.md),
+[Decision 016](docs/decisions/decision_016_intelligent_company_model.md) and
+[Decision 017](docs/decisions/decision_017_single_company_first.md).
 
 ## Architecture at a glance
 
@@ -385,7 +409,8 @@ Current important limits include:
 - no multi-company runtime implementation yet;
 - no cross-HQ federation;
 - no Telegram/external-identity implementation;
-- no autonomous financial authority.
+- no autonomous financial authority;
+- planned conversation rollover, company scheduling and real-business pilot acceptance remain future work.
 
 Nix, exact human grants and private Unix identities are implemented. Project policy,
 remote publication and archive remain trusted human operations. SquadStatus remains a
@@ -464,6 +489,8 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 
 ### Start here
 
+- [Project Memory and Continuation Handoff](docs/PROJECT_MEMORY.md)
+- [Milestone Prompt Requirements](prompts/MILESTONE_REQUIREMENTS.md)
 - [BotSquad Engineer Primer — From Demo Operator to Prompt 05](docs/guides/BOTSQUAD_ENGINEER_PRIMER.md)
 - [Current State](docs/operations/CURRENT_STATE.md)
 - [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md)
@@ -477,20 +504,25 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [BotSquad Roadmap](docs/product/ROADMAP.md)
 - [Technical White Paper](docs/WHITEPAPER.md)
 - [技術白皮書｜台灣繁體中文版](docs/WHITEPAPER_ZH_TW.md)
-
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Project Vision](docs/product/PROJECT_VISION.md)
 - [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md)
+- [Single-Company Business Operations](docs/product/SINGLE_COMPANY_OPERATIONS.md)
 - [AI Organization Model](docs/product/AI_ORGANIZATION_MODEL.md)
 - [Ubuntu HQ and Bootstrap Model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Decision 011 — Ubuntu service, confinement and worker AI profiles](docs/decisions/decision_011_ubuntu_hq_profiles.md)
 - [Decision 013 — Trusted worker infrastructure](docs/decisions/decision_013_trusted_worker_infrastructure.md)
 - [Decision 015 — Remote client trust](docs/decisions/decision_015_remote_client_trust.md)
 - [Decision 016 — Intelligent company model](docs/decisions/decision_016_intelligent_company_model.md)
+- [Decision 017 — One operational company first](docs/decisions/decision_017_single_company_first.md)
 - [Client API v1](docs/api/CLIENT_API_V1.md)
 - [Decision Index](docs/decisions/README.md)
 
 ### Future architecture
+
+Multi-company/federation and optional transport models below retain their design
+constraints, but their former prompt numbers are superseded by Decision 017. Needed narrow
+business integrations do not depend on first implementing these larger platforms.
 
 - [Multi-Company and Federation Model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
