@@ -1,8 +1,8 @@
 # BotSquad：為持續運作的 AI 組織打造的自架式控制平面
 
 **技術白皮書**  
-**版本：** 0.2
-**日期：** 2026-09-26
+**版本：** 0.3
+**日期：** 2026-09-29
 **專案：** BotSquad  
 **程式庫：** eugenelin89/bot_messenger  
 **英文版：** [English Technical White Paper](WHITEPAPER.md)
@@ -17,9 +17,9 @@ BotSquad 是一套自架式（self-hosted）控制平面，用來把持續存在
 
 在 BotSquad 裡，AI 工作者不是一個永遠持續運轉的模型程序，而是一個持續存在的邏輯成員。沒有工作時，它可以完全休眠；只有真的有任務進入佇列時才會被喚醒。它的角色、任務歷史與組織關係會持續保留，而實際執行工作時，則透過可替換的 runtime session，例如 Codex thread，來完成一次有明確邊界的執行。
 
-BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成一個可以長時間運作、自行架設的 Ubuntu 總部。目前的實作已經實際驗證：一個具有上下層關係的 AI 組織，可以進行研究、同時進行軟體開發、接受獨立審查，再由可信任的整合流程完成測試與合併；同時也具備 Linux 隔離、每位工作者獨立的模型與推理強度設定、重新啟動後的狀態復原，以及僅供私人存取的 Web 介面。Prompt 04 也加入每位工作者的 Unix 身分，以及由 Nix 協調、精確限定範圍的核准流程。
+BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成一個可以長時間運作、自行架設的 Ubuntu 總部。目前的實作已經實際驗證：一個具有上下層關係的 AI 組織，可以進行研究、同時進行軟體開發、接受獨立審查，再由可信任的整合流程完成測試與合併；同時也具備 Linux 隔離、每位工作者獨立的模型與推理強度設定、重新啟動後的狀態復原，以及僅供私人存取的 Web 介面。Prompt 04 加入每位工作者的 Unix 身分與 Nix 協調的精確核准流程，Prompt 05 則加入一般化的軟體 Project 與 repository lifecycle。
 
-Prompt 05 已實作有明確限制的軟體 Project、寫入範圍、修訂與獨立審查輪次、整合佇列、可信任的遠端 Git 與封存／撤銷存取流程；真實驗收進度記錄在 [Prompt 05 驗證紀錄](validation/prompt-05-general-projects.md)。
+Prompt 06 進一步實作穩定、具版本的 `/api/v1/` Client API，包含持久的 HQ／device 身分、本機由人類確認的 Ed25519 配對、固定 device capability、短效 proof-of-possession session、可安全重送的 idempotent mutation，以及可重新連線的持久事件。Listener 仍維持私人存取；真實驗收透過 SSH tunnel 從獨立 reference client 連入，並通過 restart、token 到期、完整 host reboot 與裝置撤銷。原生 iOS、免手動 tunnel 的行動傳輸、relay 與遠端受保護 approval 仍屬後續工作。詳見 [Prompt 06 驗證紀錄](validation/prompt-06-remote-client-api.md) 與 [Client API v1](api/CLIENT_API_V1.md)。
 
 長期架構會建立在這個基礎上，逐步加入安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
 
@@ -512,7 +512,7 @@ Prompt 04 已讓受限的工作者檔案與 Git 操作使用各自的 UID。可�
 
 ## 12. 目前的驗證證據
 
-Prompt 03 已完成真實 Ubuntu acceptance。以下保留其歷史基準；身分、核准與停用的歷史證據請見 [Prompt 04 驗證紀錄](validation/prompt-04-linux-identity.md)。一般化專案與目前驗收狀態請見 [Prompt 05 驗證紀錄](validation/prompt-05-general-projects.md)，下列歷史量測不代表新工作負載的量測結果。
+Prompt 03 已完成真實 Ubuntu acceptance。以下保留其歷史基準；身分、核准與停用的歷史證據請見 [Prompt 04 驗證紀錄](validation/prompt-04-linux-identity.md)，一般化專案請見 [Prompt 05 驗證紀錄](validation/prompt-05-general-projects.md)，而目前的 authenticated client/device 邊界請見 [Prompt 06 驗證紀錄](validation/prompt-06-remote-client-api.md)。下列歷史量測仍只代表原始工作負載。
 
 驗證主機：
 
@@ -637,36 +637,24 @@ Submission 保存受限的線性 commit 範圍、實際變更路徑、驗證結�
 
 ## 16. 原生 Remote Client
 
-目前 Web UI 是私人介面，遠端使用時需要 SSH tunnel。
-
-長期 client architecture 會刻意拆開：
-
-~~~text
-Client API
-~~~
-
-與：
-
-~~~text
-Network Transport
-~~~
-
-目標：
+Web UI 仍是私人管理介面，使用既有的 local browser/admin API。Prompt 06 已在同一個 loopback listener 上加入獨立、穩定且具認證的 `/api/v1/` 契約，並刻意把 client semantics 與 network transport 分開：
 
 ~~~text
 BotSquad Core
    |
-   +-- Versioned Authenticated API
-   |       +-- Web UI
-   |       +-- iOS App
-   |       +-- Future Clients
+   +-- Local Browser/Admin API
+   |
+   +-- Client API v1
+           +-- 今日的 Reference Client
+           +-- 下一步的原生 iOS App
+           +-- Future Clients
    |
    +-- Reconnectable Event Stream
    +-- Device Identity
    +-- Human Authorization
 ~~~
 
-iOS App 應該是一個真正原生的 operator client，而不是 WebView，也不是把 SSH terminal 包裝成 App。
+目前已驗證的 reference client 是透過既有 SSH tunnel 存取 `/api/v1/`；這仍屬管理／救援 transport，不是最終的行動裝置體驗。iOS App 應該是一個真正原生的 operator client，而不是 WebView，也不是把 SSH terminal 包裝成 App。
 
 ---
 
