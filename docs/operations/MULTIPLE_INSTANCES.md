@@ -1,6 +1,6 @@
 # Running Multiple BotSquad Instances
 
-**Status:** Architecture/operator note; separate data roots and ports work conceptually today, but full production-grade multi-instance Prompt 04 infrastructure is not yet automated  
+**Status:** Architecture/operator note; separate data roots and ports work conceptually today, but full production-grade multi-instance worker/provisioner infrastructure is not yet automated  
 **Updated:** 2026-09-29
 
 ## Demo 01 deployment exception
@@ -36,8 +36,9 @@ are independent of production paths and port 4310. Each instance manages its own
 canonical repositories, policy, review/integration history and remote approvals. Archive
 reduces access within that instance and retains evidence. A different data root does not
 create a new root provisioner, service identity or credential boundary; the host-infrastructure
-limitations below still apply. Prompt 05 did not implement either capability; the later
-Demo Operator 01 interlude adds the bounded UI client. Full multi-instance service
+limitations below still apply. Prompt 05 did not implement either capability; the later Demo Operator 01 interlude
+adds the bounded UI client, and Prompt 06 adds device-authenticated Client API v1 within
+a single HQ/data root. Neither change creates a second provisioner namespace. Full multi-instance service
 provisioning remains unimplemented.
 
 ## HQ and device identities
@@ -321,9 +322,9 @@ demo:
 
 These demo path names are illustrative.
 
-The provisioner through Prompt 05 is not yet parameterized/documented as a supported
-multi-instance production stack, so this level needs deliberate future implementation
-rather than ad-hoc manual edits.
+The current provisioner/worker-home stack, unchanged by Prompt 06, is not yet
+parameterized/documented as a supported multi-instance production stack. This level
+therefore needs deliberate future implementation rather than ad-hoc manual edits.
 
 ### Level 4 — Separate VM/server
 
