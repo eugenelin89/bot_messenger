@@ -1,6 +1,6 @@
 # BotSquad — Native iOS Remote Client and Secure Remote Access
 
-**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction work proceeds
+**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction and company-operating semantics mature
 **Updated:** 2026-09-29
 
 ## Purpose
@@ -798,9 +798,12 @@ Direct conversations + worker interaction
 Prompt 08
 Collaborative working groups + deliberation
         ↓
+Prompt 09
+Strategic company operating loop
+        ↓
 ... core organization roadmap ...
         ↓
-Native iOS Remote MVP when interaction semantics are stable
+Native iOS Remote MVP when interaction/company semantics are stable
 ~~~
 
 The canonical numbered sequence is maintained in the [roadmap](ROADMAP.md). The
