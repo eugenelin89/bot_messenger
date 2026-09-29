@@ -5,7 +5,7 @@
 
 ## Purpose
 
-BotSquad should support more than a flat set of bots. It should be able to represent a small AI organization in which a human owner creates an initial executive worker, and that executive can create and manage subordinate workers within a bounded authority envelope.
+BotSquad should support more than a flat set of bots or a fixed delegation pipeline. It should represent a small **intelligent company** whose persistent employees can communicate, deliberate, take initiative within role, execute bounded work, learn from outcomes and adapt toward broad or specific human-defined goals.
 
 The motivating example is a virtual software startup:
 
@@ -26,6 +26,14 @@ The motivating example is a virtual software startup:
 ```
 
 The organizational hierarchy is a coordination model. It is not, by itself, a security boundary.
+
+The hierarchy is also **not the only thinking topology**. It defines responsibility,
+assignment and escalation, while direct conversations and future working groups allow
+cross-functional reasoning.
+
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
 
 ## Deployment context
 
@@ -262,6 +270,55 @@ The human should be able to watch the transcript live, ask a participant a quest
 pause/stop the session, and inspect the final synthesis. Prompt 07 first establishes
 first-class direct conversations and explicit bounded reply/wake semantics; Prompt 08
 then implements this collaborative working-group/deliberation layer.
+
+## From team discussion to company operation
+
+Conversation and deliberation are foundations, not the end state.
+
+After Prompt 07 direct conversations and Prompt 08 working groups, Prompt 09 should prove
+an ongoing company operating loop in which the human can provide either a broad mandate
+or a specific product/business mandate.
+
+Example broad mandate:
+
+~~~text
+"Increase sustainable profit within the approved constraints and resources."
+~~~
+
+Example specific mandate:
+
+~~~text
+"Manage and market Asymmetri Motion. Improve product quality, adoption and revenue."
+~~~
+
+The organization should then choose useful internal work:
+
+~~~text
+mandate
+  -> inspect situation
+  -> identify unknowns / risks
+  -> research + deliberate
+  -> make durable decision
+  -> create Projects / Tasks / approved operations
+  -> execute + review
+  -> observe outcomes / metrics
+  -> company review
+  -> continue / iterate / pivot / stop / scale
+~~~
+
+This operating loop should preserve persistent employee roles and accountability. A
+worker should be able to propose useful next work, request evidence, challenge a plan or
+recommend a strategy change without receiving new authority merely for showing
+initiative.
+
+The loop remains event-driven and bounded. Metrics/results wake relevant review work;
+idle employees do not continuously invoke models to simulate an always-running company.
+
+Real financial or other consequential external authority is separate. Workers may reason
+about budgets/resources, but raw wallet private keys, seed phrases, bank credentials or
+unrestricted payment credentials must never become ordinary worker context. A future
+treasury/resource capability must enforce typed intents, budgets, limits, approvals,
+audit, reconciliation and revocation outside worker-authored prose.
 
 ## Initial CEO
 
