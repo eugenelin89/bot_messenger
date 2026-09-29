@@ -1,6 +1,6 @@
 # BotSquad — Native iOS Remote Client and Secure Remote Access
 
-**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS and mobile transport deferred
+**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction work proceeds
 **Updated:** 2026-09-29
 
 ## Purpose
@@ -776,9 +776,11 @@ See [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEG
 
 ## Recommended implementation sequence
 
-This architecture depends on several authority boundaries.
+The protocol foundation is complete, but native mobile is no longer the immediate next
+step. The operator is comfortable using the private browser over SSH while BotSquad's
+worker interaction model is improved.
 
-Recommended direction:
+Current direction:
 
 ~~~text
 Prompt 04 — complete
@@ -791,13 +793,14 @@ Prompt 06 — complete
 Stable/versioned authenticated remote client API + device pairing
         ↓
 Prompt 07 — next
-iOS Remote MVP + secure mobile transport
+Direct conversations + worker interaction
         ↓
-Push notifications + richer approvals
+Prompt 08
+Collaborative working groups + deliberation
         ↓
-Multi-company-aware mobile UI
+... core organization roadmap ...
         ↓
-Optional managed outbound relay / direct federation evolution
+Native iOS Remote MVP when interaction semantics are stable
 ~~~
 
 The canonical numbered sequence is maintained in the [roadmap](ROADMAP.md). The
@@ -845,5 +848,6 @@ Do not require the first iOS version to provide:
 - autonomous device enrollment;
 - permanent bearer-token authentication.
 
-The first goal is a secure mobile operator dashboard and control surface for an existing
-self-hosted BotSquad HQ.
+When this deferred milestone is resumed, the first goal remains a secure mobile operator
+dashboard and control surface for an existing self-hosted BotSquad HQ. Until then, SSH
+tunneling remains the supported operator path.
