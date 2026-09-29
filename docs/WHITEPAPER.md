@@ -38,9 +38,18 @@ no-tunnel mobile transport, relay and protected remote approvals remain deferred
 [Prompt 06 validation](validation/prompt-06-remote-client-api.md) and
 [Client API v1](api/CLIENT_API_V1.md).
 
-The long-term architecture extends this foundation toward secure native mobile access, bounded Computer
-Use, multiple isolated companies, inter-company collaboration, external identities such
-as Telegram bots, and federation between independent BotSquad headquarters.
+The product north star is now an **intelligent company operating model**: persistent AI
+employees that can accept broad or specific human mandates, communicate and deliberate,
+make attributable decisions, execute bounded work, observe outcomes and adapt strategy.
+The roadmap therefore prioritizes direct conversation, working-group deliberation and a
+strategic company operating loop before broader action surfaces. See
+[Intelligent Company Operating Model](product/INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](decisions/decision_016_intelligent_company_model.md).
+
+Longer-term architecture then extends this foundation toward bounded Computer Use,
+multiple isolated companies, inter-company collaboration, external identities such as
+Telegram bots, federation between independent BotSquad headquarters, and deferred native
+mobile convenience clients.
 
 The design principle throughout is:
 
@@ -1116,13 +1125,14 @@ The canonical roadmap is:
 | 06 | Stable authenticated remote-client API |
 | 07 | First-class conversations and direct worker interaction |
 | 08 | Collaborative working groups and deliberation |
-| 09 | Bounded Computer Use |
-| 10 | Multi-company support |
-| 11 | Company-to-company collaboration |
-| 12 | External identities and Telegram |
-| 13 | Cross-HQ federation |
+| 09 | Strategic company operating loop |
+| 10 | Bounded Computer Use |
+| 11 | Multi-company support |
+| 12 | Company-to-company collaboration |
+| 13 | External identities and Telegram |
+| 14 | Cross-HQ federation |
 | — | Native iOS Remote MVP / no-tunnel mobile transport — deferred |
-| 14+ | Broader company operations |
+| 15+ | Broader company operations |
 
 See the full Roadmap document for dependencies and acceptance themes.
 
@@ -1136,6 +1146,7 @@ The current validated system does not yet provide:
 - arbitrary-size repositories, unsupported Git features or a general language/package environment;
 - direct human↔worker conversation with reliable reply/wake semantics;
 - bounded multi-worker working groups/deliberation;
+- strategic company operating loop with broad/specific mandates and outcome-driven adaptation;
 - iOS client / no-tunnel mobile transport;
 - Computer Use;
 - multi-company runtime;
@@ -1252,8 +1263,9 @@ The first three milestones demonstrate that this model is practical:
   real model execution, confinement, restart recovery, and per-worker AI profiles.
 
 The remaining roadmap systematically expands that foundation rather than bypassing it:
-secure native clients, bounded computer
-control, multiple companies, external identities, and federation.
+first making the organization behave more like an intelligent company through direct
+conversation, deliberation and an iterative operating loop, then adding bounded computer
+control, multiple companies, external identities, federation and deferred native clients.
 
 BotSquad's central architectural commitment remains:
 
