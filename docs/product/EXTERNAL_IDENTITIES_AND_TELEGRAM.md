@@ -7,8 +7,8 @@ The implementation through Prompt 06 still has one company per data directory. P
 adds paired **human client devices** for the stable Client API, but those devices are not
 worker/company external identities and do not implement Telegram. This document sets
 future constraints; multi-company, federation and external-identity capabilities remain
-unimplemented. The canonical roadmap currently places External Identities and Telegram
-at Prompt 11.
+unimplemented. The canonical interaction-first roadmap currently places External Identities and
+Telegram at Prompt 12.
 
 ## Goal
 

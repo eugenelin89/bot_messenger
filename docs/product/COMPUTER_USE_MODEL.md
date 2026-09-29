@@ -1,6 +1,6 @@
 # BotSquad — Computer Use Model
 
-**Status:** Planned Prompt 08 architecture; worker Computer Use is not implemented
+**Status:** Planned Prompt 09 architecture; worker Computer Use is not implemented
 **Updated:** 2026-09-29
 
 ## Purpose
@@ -41,8 +41,8 @@ A local-desktop worker remains a valid special mode when a task genuinely requir
 The Ubuntu HQ itself is not a license for unrestricted desktop/shell authority. Neither
 Demo Operator's bounded Playwright test client nor Prompt 06's paired remote-human Client
 API grants GUI authority to AI workers. Computer Use remains a separate explicit
-capability governed by Decision 006 and is currently planned for Prompt 08, after the
-Prompt 07 native iOS milestone.
+capability governed by Decision 006 and is currently planned for Prompt 09, after
+Prompt 07 direct conversations and Prompt 08 collaborative deliberation.
 
 ## Core principle
 

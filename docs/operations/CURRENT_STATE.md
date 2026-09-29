@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 next
+**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 direct conversations next
 **Updated:** 2026-09-29
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -89,6 +89,11 @@ saved artifacts/results and durable child-result wake events that resume the man
 The Web UI exposes the interaction trail through the Executive channel, linked Tasks,
 Audit history and Executions. See the [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md)
 for the detailed semantics.
+
+The roadmap now prioritizes fixing this interaction model before native mobile work:
+Prompt 07 adds first-class direct conversations and explicit bounded reply/wake semantics;
+Prompt 08 adds multi-worker working groups and deliberation. The native iOS client is
+deferred while the existing SSH-tunnel browser path remains acceptable.
 
 ## Prompt 05 software Projects
 
@@ -392,9 +397,9 @@ separate non-root boundary for remote Git. See Decision 014.
 
 ## Future native mobile access
 
-A native iPhone/iPad client is now an accepted future architecture direction.
-
-It is not implemented yet.
+A native iPhone/iPad client remains an accepted future architecture direction, but it is
+explicitly deferred while BotSquad fixes direct worker conversation and collaborative
+deliberation. It is not implemented yet.
 
 The intended design keeps the Ubuntu HQ private and makes the iOS app another
 authenticated BotSquad client rather than a WebView or SSH wrapper. The app should use a
@@ -412,22 +417,19 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Prompt 05 generalized Projects and repository lifecycle is complete. The next milestone is:
+Prompt 06 authenticated Client API/device identity is complete. The next milestones are:
 
 ~~~text
-Prompt 06
-Stable authenticated remote-client API and device identity
+07 First-class conversations and direct worker interaction
+08 Collaborative working groups and deliberation
+09 Bounded Computer Use
+10 Multi-company
+11 Company-to-company collaboration
+12 Telegram / external identities
+13 Cross-HQ federation
 ~~~
 
-Subsequent planned prompts are:
-
-~~~text
-07 Native iOS Remote MVP
-08 Bounded Computer Use
-09 Multi-company
-10 Company-to-company collaboration
-11 Telegram / external identities
-12 Cross-HQ federation
-~~~
+Native iOS / no-tunnel mobile transport is intentionally deferred and unnumbered for now;
+the private browser over SSH tunnel remains acceptable.
 
 See the roadmap for dependencies and acceptance themes.

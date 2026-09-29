@@ -154,6 +154,13 @@ The human-facing message endpoint currently posts to the Executive channel witho
 worker recipient and does not dispatch work. Explicit objectives enter through Atlas.
 Direct private human-to-worker chat is not implemented through Prompt 06.
 
+Prompt 07 is now the planned first-class conversation layer: durable participant-oriented
+threads, explicit bounded reply turns that can wake the intended worker, and direct
+human↔worker / worker↔worker conversation without changing task-assignment authority.
+Prompt 08 then adds bounded multi-worker working groups/deliberation. Ordinary passive
+messages remain non-dispatching so conversation work cannot become an unbounded polling
+or bot-loop mechanism.
+
 ## Task stages, dispatch and recovery
 
 Task transitions remain explicit: queued → working → completed, with blocked, failed,
@@ -296,8 +303,9 @@ The isolated browser records the same session. Exact scenario checks restrict au
 approval decisions while the existing trusted service/provisioner enforces authority.
 
 Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 06;
-Prompt 08 is the planned bounded Computer Use milestone after Prompt 07. Engineering tools,
-Demo Operator and paired remote-human devices grant no worker GUI/desktop authority. Exact approval supports bounded host
+Prompt 09 is the planned bounded Computer Use milestone after Prompt 07 conversations and
+Prompt 08 deliberation. Engineering tools, Demo Operator and paired remote-human devices
+grant no worker GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration
 remain deferred.

@@ -711,7 +711,7 @@ BotSquad Core
    |
    +-- Client API v1
            +-- reference client today
-           +-- native iOS app next
+           +-- native iOS app later
            +-- future clients
    |
    +-- reconnectable event stream
@@ -719,9 +719,11 @@ BotSquad Core
    +-- human authorization
 ~~~
 
-The accepted reference client reaches `/api/v1/` through the existing SSH tunnel; that
-transport is still an administrative/recovery path, not the final mobile experience.
-The iOS app should be a native operator client, not a WebView or SSH terminal wrapper.
+The accepted reference client reaches `/api/v1/` through the existing SSH tunnel. For the
+current phase that browser/tunnel path is an acceptable operator experience while Prompt
+07 direct conversations and Prompt 08 collaborative deliberation are implemented. Native
+iOS/no-tunnel mobile access is deferred until the interaction model is stable. When it is
+resumed, the iOS app should be a native operator client, not a WebView or SSH terminal wrapper.
 
 ---
 
@@ -1112,13 +1114,15 @@ The canonical roadmap is:
 | 04 | Nix, approvals, per-worker Linux identity |
 | 05 | Generalized projects/repositories |
 | 06 | Stable authenticated remote-client API |
-| 07 | Native iOS Remote MVP |
-| 08 | Bounded Computer Use |
-| 09 | Multi-company support |
-| 10 | Company-to-company collaboration |
-| 11 | External identities and Telegram |
-| 12 | Cross-HQ federation |
-| 13+ | Broader company operations |
+| 07 | First-class conversations and direct worker interaction |
+| 08 | Collaborative working groups and deliberation |
+| 09 | Bounded Computer Use |
+| 10 | Multi-company support |
+| 11 | Company-to-company collaboration |
+| 12 | External identities and Telegram |
+| 13 | Cross-HQ federation |
+| — | Native iOS Remote MVP / no-tunnel mobile transport — deferred |
+| 14+ | Broader company operations |
 
 See the full Roadmap document for dependencies and acceptance themes.
 
@@ -1130,8 +1134,9 @@ The current validated system does not yet provide:
 
 - general trusted approval grants;
 - arbitrary-size repositories, unsupported Git features or a general language/package environment;
-- native remote API;
-- iOS client;
+- direct human↔worker conversation with reliable reply/wake semantics;
+- bounded multi-worker working groups/deliberation;
+- iOS client / no-tunnel mobile transport;
 - Computer Use;
 - multi-company runtime;
 - company federation;

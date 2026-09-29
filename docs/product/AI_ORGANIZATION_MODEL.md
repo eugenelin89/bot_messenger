@@ -110,8 +110,9 @@ Task assignment is one of the events that may wake an idle worker.
 
 ## Current human and bot interaction semantics
 
-The current product is an **organization/task system with durable messaging**, not a
-Slack-like collection of independent bot chats.
+The current product is an **organization/task system with durable messaging**, not yet a
+full conversation system. Prompt 07 is now explicitly intended to fix that gap before
+adding more convenience clients.
 
 ### Human operator
 
@@ -258,8 +259,9 @@ Useful discussion modes may eventually include:
 - reviewer/implementer clarification.
 
 The human should be able to watch the transcript live, ask a participant a question,
-pause/stop the session, and inspect the final synthesis. This is a product direction,
-not an implemented Prompt 06 capability.
+pause/stop the session, and inspect the final synthesis. Prompt 07 first establishes
+first-class direct conversations and explicit bounded reply/wake semantics; Prompt 08
+then implements this collaborative working-group/deliberation layer.
 
 ## Initial CEO
 
