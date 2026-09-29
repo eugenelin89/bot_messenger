@@ -133,6 +133,27 @@ Each research execution allows 32 successful calls; engineering workflow executi
 allow 64. Tasks allow four artifacts, each up to 20,000 characters. Source files are
 bounded to 16 KB. There are no raw database or bot-authority HTTP endpoints.
 
+## Communication versus assignment
+
+Worker messages use normal human-readable text inside durable structured records. A
+worker with `internal_message` may name any existing worker as recipient; message routing
+is not constrained to reporting edges. Messaging remains communication only: it does not
+create a Task, wake an idle recipient, expand capabilities or create approval.
+
+The current execution context is Task-centric. A running worker receives recent messages
+whose `related_task_id` matches its active Task rather than a general recipient inbox.
+Therefore a recipient-addressed message is durable/auditable but is not guaranteed delivery
+to a future worker turn unless it is also relevant to that worker's assigned Task.
+
+Task creation is separately enforced. `assign_task` requires the target to be the
+manager's direct subordinate and then applies the supported research/product role and
+stage restrictions. Child completion is the dependable orchestration signal: durable
+wake records queue manager follow-up after required children become terminal.
+
+The human-facing message endpoint currently posts to the Executive channel without a
+worker recipient and does not dispatch work. Explicit objectives enter through Atlas.
+Direct private human-to-worker chat is not implemented through Prompt 06.
+
 ## Task stages, dispatch and recovery
 
 Task transitions remain explicit: queued → working → completed, with blocked, failed,
