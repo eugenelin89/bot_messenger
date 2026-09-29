@@ -7,6 +7,8 @@ import { Company, DEFAULT_OBJECTIVE } from '../control/company.js';
 import { Dispatcher } from '../control/dispatcher.js';
 import { DomainError, requireThat, strictObject, textField } from '../domain/model.js';
 import {DEFAULT_POLICY,HARD_BOUNDS} from '../domain/projects.js';
+import { ClientAPI } from './client-api.js';
+import { ClientError } from '../client/protocol.js';
 
 const securityHeaders = {
   'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
@@ -24,6 +26,7 @@ async function readBody(req: IncomingMessage, limit=64000): Promise<unknown> {
 export function createHttpServer(company: Company, dispatcher: Dispatcher, publicDir: string) {
   let deployedCommit = process.env.BOT_DEPLOYED_SHA ?? 'unknown';
   if (deployedCommit === 'unknown') { try { deployedCommit = execFileSync('/usr/bin/git', ['rev-parse', 'HEAD'], { cwd: join(publicDir, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 1000 }).trim(); } catch {} }
+  const clientAPI = new ClientAPI(company, dispatcher, deployedCommit);
   const token = randomBytes(32).toString('hex'); const clients = new Set<ServerResponse>();
   let changedTimer: NodeJS.Timeout | undefined;
   const changed = () => {
@@ -32,6 +35,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
   };
   company.on('changed', changed);
   const server = createServer(async (req, res) => {
+    if (/^\/api\/v[^/]*(?:\/|$)/.test(req.url ?? '')) { await clientAPI.handle(req, res); return; }
     const json = (status: number, value: unknown) => { res.writeHead(status, { ...securityHeaders, 'Content-Type': 'application/json' }); res.end(JSON.stringify(value)); };
     try {
       const address = server.address(); requireThat(address && typeof address !== 'string', 'Server unavailable');
@@ -41,11 +45,13 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (req.headers.origin && req.headers.origin !== expectedOrigin) { json(403, { error: 'Cross-origin request denied' }); return; }
       if (req.headers['sec-fetch-site'] === 'cross-site') { json(403, { error: 'Cross-site request denied' }); return; }
       const path = new URL(req.url ?? '/', expectedOrigin).pathname;
+      if (path.startsWith('/api/') && req.headers.authorization) { json(403, { error: 'Device authorization is not a local browser session' }); return; }
       if (req.method === 'GET') {
         if (path === '/api/health') { json(200, { alive: true, database: !!company.store.get('SELECT 1'), dispatcher: dispatcher.initialized, runtime: dispatcher.runtimeState, version: '0.1.0', commit: deployedCommit }); return; }
         if (path === '/api/runtime') { json(200, await dispatcher.runtimeCatalog()); return; }
         if (path === '/api/projects/defaults') {json(200,{policy:DEFAULT_POLICY,hard_bounds:HARD_BOUNDS,supported_runtime:'Node test runner; explicit files; isolated temporary build area'});return;}
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
+        if (path === '/api/devices') { json(200, clientAPI.trust.adminState()); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
         if (path === '/api/events') {
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/event-stream', Connection: 'keep-alive' });
@@ -64,7 +70,10 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       const supplied = req.headers['x-botsquad-token'];
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req,path==='/api/projects/repositories/import'?Math.ceil(HARD_BOUNDS.bundle_bytes*4/3)+2048:64000);
-      if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }
+      if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
+      else if (path === '/api/devices/decide') { json(200, clientAPI.trust.decide(body)); }
+      else if (path === '/api/devices/revoke') { json(200, clientAPI.trust.revoke(body)); }
+      else if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }
       else if (path === '/api/initialize-nix') { strictObject(body, []); json(200, company.initializeNix()); }
       else if(path==='/api/projects/create'){json(201,company.projects.create(body));}
       else if(path==='/api/projects/update'){const a=strictObject(body,['project_id','instructions','policy']);json(200,company.projects.update(textField(a,'project_id',100),{instructions:a.instructions,policy:a.policy}));}
@@ -111,9 +120,13 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         const a = strictObject(body, ['task_id']); company.cancel(textField(a, 'task_id', 100)); json(200, { cancelled: true });
       } else json(404, { error: 'Not found' });
     } catch (error) {
-      json(error instanceof DomainError ? 400 : 500, { error: error instanceof DomainError ? error.message : 'Operation failed. Inspect task and execution history.' });
+      json(error instanceof ClientError ? error.status : error instanceof DomainError ? 400 : 500, { error: error instanceof DomainError || error instanceof ClientError ? error.message : 'Operation failed. Inspect task and execution history.' });
     }
   });
-  server.on('close', () => { company.off('changed', changed); if (changedTimer) clearTimeout(changedTimer); });
-  return { server, close: async () => { for (const c of clients) c.end(); await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); } };
+  server.maxHeadersCount = 64;
+  server.maxConnections = 64;
+  server.requestTimeout = 15_000;
+  server.headersTimeout = 10_000;
+  server.on('close', () => { clientAPI.close(); company.off('changed', changed); if (changedTimer) clearTimeout(changedTimer); });
+  return { server, clientAPI, close: async () => { clientAPI.close(); for (const c of clients) c.end(); await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); } };
 }

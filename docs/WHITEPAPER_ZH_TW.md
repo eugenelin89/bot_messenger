@@ -712,7 +712,9 @@ Relay 是傳輸基礎設施。
 
 ## 18. Device Identity 與 Mobile Authorization
 
-未來 native client 應採明確的 device pairing。
+Prompt 06 已實作明確的裝置配對、HQ／device 身分與 `/api/v1/` 契約；真實 Ubuntu 驗收狀態請見 [Prompt 06 驗證紀錄](validation/prompt-06-remote-client-api.md)。本機 Web UI 核准一次性配對與公開金鑰指紋，裝置以 Ed25519 簽署一分鐘 challenge，換取十分鐘 opaque token。私人金鑰只留在 client；server 僅保存公開金鑰與 bearer secret 的 hash。
+
+每個請求都檢查 human、device、token 與固定 capability。變更操作與七日 idempotency receipt 在同一 transaction 提交；SSE 以持久 cursor 重連，過期或撤銷會終止串流。完整管理 tunnel 仍屬 operator 權限；未來 device-only transport 只能轉送 `/api/v1/`。iOS、relay、APNs、遠端受保護核准與 artifact 內容下載仍未實作。詳見 [Decision 015](decisions/decision_015_remote_client_trust.md) 與 [API 契約](api/CLIENT_API_V1.md)。
 
 ~~~text
 HQ Admin

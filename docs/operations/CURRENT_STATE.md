@@ -1,12 +1,12 @@
 # BotSquad — Current State
 
-**Status:** Prompt 05 complete and Ubuntu validated; Prompt 06 next
-**Updated:** 2026-09-28
+**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 next
+**Updated:** 2026-09-29
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
-[Decision 014](../decisions/decision_014_generalized_projects.md), and the
-[Prompt 05 validation record](../validation/prompt-05-general-projects.md).
+[Decision 015](../decisions/decision_015_remote_client_trust.md), and the
+[Prompt 06 validation record](../validation/prompt-06-remote-client-api.md).
 
 ## Primary deployment
 
@@ -41,6 +41,34 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
+## Prompt 06 authenticated client protocol
+
+The private listener now serves a separate stable `/api/v1/` contract. The existing
+human pairs and confirms Ed25519 public-key devices from the local Devices UI; each
+receives a fixed capability ceiling. One-minute challenges mint ten-minute opaque tokens.
+Every request rechecks human/device/token/scope state. Messages, explicit objectives,
+dispatch/profile/interrupt controls use the trusted domain operations and durable
+seven-day idempotency receipts. Bounded SSE replay survives reconnect/restart/reboot.
+
+Actual workstation reference-client acceptance used a fresh Ubuntu data root through an
+SSH tunnel: UI pairing, read-only denials, lost-result retry, real interruption, token and
+stream expiry, full host reboot, fresh authentication and UI revocation all passed.
+Both validation devices are revoked, token/challenge records are cleared and temporary
+private keys deleted. The validation unit is stopped/disabled; its evidence remains.
+
+The retained HQ migrated additively to schema 6 and stays paused with its seven workers,
+six Projects, 43 tasks, 53 executions, 63 messages, ten artifacts and seven bindings.
+The preflight comparison preserved 21 databases/11,292 original rows, 171 account/group
+mappings, 281 root records and 84 homes. There are no paired devices on the retained HQ.
+Full feature tests pass 135 locally with one Linux skip and all 136 under Ubuntu service
+restrictions; browser regressions, provisioner 9/9, real research and 189 retained-UID
+denial probes also pass. Detailed revisions, IDs and resource observations are in the
+[acceptance record](../validation/prompt-06-remote-client-api.md).
+
+No iOS app, relay, public ingress, remote protected approvals or artifact-content route
+is implemented. A future device-only transport must forward only `/api/v1/`, not the
+complete legacy browser/admin listener. The full administrative SSH path remains trusted.
+
 ## Prompt 05 software Projects
 
 Projects now own trusted instructions, protected paths, recipes and bounds; each can
@@ -74,10 +102,10 @@ records exact worker/execution/Project/Git IDs and video integrity metadata.
 The HQ remains paused with seven retained logical workers, the completed active StudyPlan
 Project and five archived diagnostic attempts. Original main history, all 20 validation
 databases, 245 root records and 78 pre-existing account mappings passed preservation
-checks. The original Atlas and its Codex thread were preserved. The full local suite
-passes 120 tests with one Linux-only skip; hardened Ubuntu passes all 121, provisioner
-checks pass 9/9, and the separate Chrome UI regression passes.
-Prompt 06 remains next; no general worker browser/desktop capability was added.
+checks. The original Atlas and its Codex thread were preserved. At Demo 01 acceptance the full local suite
+passed 120 tests with one Linux-only skip; hardened Ubuntu passed all 121, provisioner
+checks passed 9/9, and the separate Chrome UI regression passed.
+No general worker browser/desktop capability was added by that interlude or Prompt 06.
 
 ## Prompt 04 historical acceptance
 

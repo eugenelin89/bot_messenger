@@ -1,7 +1,7 @@
 # Running Multiple BotSquad Instances
 
 **Status:** Architecture/operator note; separate data roots and ports work conceptually today, but full production-grade multi-instance Prompt 04 infrastructure is not yet automated  
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 ## Demo 01 deployment exception
 
@@ -39,6 +39,19 @@ create a new root provisioner, service identity or credential boundary; the host
 limitations below still apply. Prompt 05 did not implement either capability; the later
 Demo Operator 01 interlude adds the bounded UI client. Full multi-instance service
 provisioning remains unimplemented.
+
+## HQ and device identities
+
+Prompt 06 persists one `hq_id` per company database/data root. Restarting or upgrading
+the same data root preserves it. A fresh root receives a different HQ ID; copying the
+whole database intentionally copies that identity and its device trust records. Do not
+run a copied backup as an independently trusted HQ without a separately reviewed recovery
+procedure. The API does not implement multi-company or multi-HQ client management.
+
+Prompt 06 acceptance uses a fresh data root and a loopback port, with a separately named
+unit inheriting production restrictions. It shares the existing service identity and
+central runtime authentication; it is validation isolation, not a supported multi-tenant
+host provisioning feature. Retained company/Project databases remain untouched.
 
 ## Current application boundary
 

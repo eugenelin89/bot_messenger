@@ -73,10 +73,14 @@ export class Dispatcher {
       this.running.set(execution.execution_id, { controller, done });
     }
   }
+  canInterrupt(executionId: string) {
+    return this.adapter.supportsInterrupt && this.running.has(executionId) && this.company.execution(executionId).status === 'running';
+  }
   interrupt(executionId: string) {
     if (!this.adapter.supportsInterrupt) throw new Error('Runtime does not support interruption');
     const active = this.running.get(executionId);
     if (!active) throw new Error('Execution is not active in this dispatcher');
+    if (active.controller.signal.aborted) return;
     this.company.audit('interrupt_requested', 'human', {}, null, null, executionId);
     active.controller.abort('Human requested interruption');
   }

@@ -25,9 +25,10 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [009](decision_009_ubuntu_bootstrap.md) | Ubuntu HQ uses a checked-in Codex bootstrap prompt | Accepted | 2026-09-25 |
 | [010](decision_010_multi_company_federation.md) | Companies are isolated first-class domains with explicit federation | Accepted (future architecture) | 2026-09-25 |
 | [011](decision_011_ubuntu_hq_profiles.md) | Ubuntu service, Linux confinement and worker AI profiles | Accepted and validated | 2026-09-26 |
-| [012](decision_012_ios_remote_client.md) | Native clients use a stable authenticated API and private remote-access layer | Accepted (future architecture) | 2026-09-25 |
+| [012](decision_012_ios_remote_client.md) | Native clients use a stable authenticated API and private remote-access layer | Partially implemented by 015; iOS/transport deferred | 2026-09-25 |
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
 | [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu validated | 2026-09-28 |
+| [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; Ubuntu/restart/reboot validated | 2026-09-29 |
 
 ## Current deployment interpretation
 
@@ -38,7 +39,7 @@ Decision 001 remains important for control-plane ownership and persistence, but 
 Historical Prompt 01/02 decisions and validation records should remain unchanged unless a later decision explicitly supersedes their architectural lesson. They describe what was actually validated at those milestones.
 
 Decision 010 defines deferred multi-company/federation boundaries. The implementation
-through Prompt 05 remains one company per data directory and does not implement those
+through Prompt 06 remains one company per data directory and does not implement those
 boundaries, Telegram or external identities. Decision 011 records the Ubuntu/service/profile
 choices and their real-runtime acceptance evidence; Decision 013 records the trusted
 approval, Nix, provisioner and isolated worker-infrastructure boundary. Decision 014
@@ -46,6 +47,6 @@ extends engineering to generalized Projects, scoped revision/review, durable int
 trusted non-root remote publication and evidence-preserving archive.
 
 
-Decision 012 defines the future native-client direction: an iOS app is a first-class
+Decision 015 implements the protocol/device foundation of Decision 012. Decision 012 retains the future native-client direction: an iOS app is a first-class
 BotSquad client, the HQ remains private by default, and remote transport/authentication
 are explicit layers rather than public exposure of the current loopback web service.

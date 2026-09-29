@@ -1,7 +1,7 @@
 # AI Organization Model
 
 **Status:** Product model; bounded research and engineering organization validated on Ubuntu HQ
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 ## Purpose
 
@@ -41,6 +41,12 @@ A logical worker remains a durable BotSquad identity. It is not the same thing a
 Prompt 03 moves the control plane/runtime to Ubuntu and adds per-worker AI profiles.
 Prompt 04 binds workers to separate Unix accounts and independent project clones
 without changing their logical identity, original runtime workspace or Codex thread.
+
+Prompt 06 adds remote devices owned by the existing human principal. A device is an
+operator client identity with an explicit capability ceiling, not a worker, Unix user,
+Codex account or company. Pairing alone launches no work. Native messages remain
+communication; explicit authenticated objectives create tasks through the same control
+plane. [Decision 015](../decisions/decision_015_remote_client_trust.md) defines this boundary.
 
 Historical Prompt 01/02 examples below describe the local validation architecture that proved the organization model.
 

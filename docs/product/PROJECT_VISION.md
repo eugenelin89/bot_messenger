@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 05 complete and Ubuntu validated; Prompt 06 next
+**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 next
 **Updated:** 2026-09-28
 
 ## One-sentence vision
@@ -399,6 +399,11 @@ A future relay should route traffic rather than become the source of company tru
 authorization. End-to-end encryption through the relay is a design goal that requires a
 separate reviewed protocol before it can be claimed.
 
+Prompt 06 implements the [stable v1 protocol](../api/CLIENT_API_V1.md), durable HQ/device
+identity, explicit local pairing, Ed25519 challenge authentication, fixed capabilities,
+idempotent mutations and reconnectable events. The browser API remains separate. Native
+app UI, no-tunnel transport, protected mobile approvals and push remain future work.
+
 Mobile devices must be explicitly paired, independently revocable, attributable to a
 human principal, and protected with device-specific credentials. Push notifications
 should carry minimal non-sensitive metadata and fetch authoritative detail only after
@@ -423,8 +428,8 @@ Current canonical sequence:
 | 03 | Ubuntu HQ, Linux confinement, worker AI profiles | Complete |
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
-| 06 | Stable authenticated remote-client API and device identity | Next |
-| 07 | Native iOS Remote MVP | Planned |
+| 06 | Stable authenticated remote-client API and device identity | Complete |
+| 07 | Native iOS Remote MVP | Next |
 | 08 | Bounded Computer Use | Planned |
 | 09 | Multi-company support on one HQ | Planned |
 | 10 | Company-to-company collaboration | Planned |

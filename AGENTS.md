@@ -102,7 +102,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 ### Future company and external-identity boundaries
 
 - Decision 010 and the multi-company/Telegram product models are deferred architecture constraints, not permission to expand the current milestone.
-- The current implementation through Prompt 05 still has one company per data directory; do not claim implemented multi-company isolation or federation.
+- The current implementation through Prompt 06 still has one company per data directory; do not claim implemented multi-company isolation or federation.
 - Keep runtime account, HQ instance, company, worker, thread and optional external identity conceptually distinct.
 - Future cross-company operations require trusted connection policy; external transports never grant authority or expose raw credentials to workers.
 
@@ -138,6 +138,20 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Do not couple the core message/task model to one model provider.
 - Runtime-specific behavior belongs behind adapters.
 - Codex is the first supported execution backend; additional runtimes are later adapters, not reasons to contaminate the core domain model.
+
+### Remote clients
+
+- Decision 015 and `docs/api/CLIENT_API_V1.md` define the stable native contract.
+- Preserve the separate browser session/Host/Origin boundary and `/api/v1/` device boundary.
+- Pairing/confirmation/revocation remain trusted local human operations. Devices cannot
+  expand their immutable capability ceiling or resolve protected approvals.
+- Every request rechecks the enabled human, active device and token; retries also require
+  current authorization. Keep mutation receipts atomic and old request keys invalid after cleanup.
+- Keep public-key identity separate from worker/Unix/Codex identities. Never put device
+  private keys, pairing secrets, signatures or tokens in logs/evidence/worker contexts.
+- SSE notifications are bounded durable hints; refetch DTOs after reset and reauthenticate
+  after token expiry. Do not replace append-only audit with a pruned event history.
+- A future device-only transport must forward only `/api/v1/`, not the browser/admin listener.
 
 ### Worker infrastructure
 

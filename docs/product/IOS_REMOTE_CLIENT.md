@@ -1,7 +1,7 @@
 # BotSquad — Native iOS Remote Client and Secure Remote Access
 
-**Status:** Future product architecture; not yet implemented  
-**Date:** 2026-09-25
+**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS and mobile transport deferred
+**Updated:** 2026-09-29
 
 ## Purpose
 
@@ -68,7 +68,7 @@ DOM structure.
 
 ## Current topology
 
-Prompt 03 currently uses:
+The retained private administration and Prompt 06 acceptance topology uses:
 
 ~~~text
 Mac / PC
@@ -229,16 +229,15 @@ Do not claim E2EE until those properties are implemented and reviewed.
 
 ## Native client API
 
-The existing HTTP UI API was designed for one local browser session. A native-client
-milestone should define a stable versioned API boundary.
+Prompt 06 defines [Client API v1](../api/CLIENT_API_V1.md) at `/api/v1/`, separate from
+the local browser API. Prompt 07 must use this contract without scraping HTML or relying
+on `/api/state`. It includes discovery/capabilities, bounded reads, message-only and
+objective operations, dispatch/profile/interrupt controls, durable retries and SSE.
+Artifact metadata is included; artifact contents are deferred.
 
-Possible shape:
-
-~~~text
-/api/v1/...
-~~~
-
-or an equivalent typed RPC surface.
+The operation examples below describe the broader future product. Multi-company and
+protected approval resolution are **not** v1 capabilities. A future device-only transport
+must route only `/api/v1/`, never the full legacy administrative listener.
 
 The API should expose domain operations rather than UI implementation details.
 
@@ -288,7 +287,10 @@ The iOS app should query capabilities rather than assume every HQ supports every
 
 The browser currently uses server-sent events for local state changes.
 
-A remote/native client needs a reconnectable event model.
+Prompt 06 implements reconnectable SSE at `/api/v1/events`: durable HQ-bound IDs,
+`Last-Event-ID` replay, explicit `reset_required` after retention loss, bounded streams
+and termination on token expiry or device revocation. Notifications contain safe IDs
+and event types; authoritative reads repair cached state.
 
 Possible transports include:
 
@@ -310,9 +312,13 @@ The server remains authoritative.
 
 ## Device pairing
 
-A native app needs explicit enrollment with a BotSquad HQ.
+Prompt 06 implements explicit enrollment through the local Devices UI and a versioned
+`botsquad://pair` URI. The ten-minute secret binds one Ed25519 public key to the existing
+human. Fingerprint confirmation is mandatory. Active devices sign a one-minute challenge
+for a ten-minute opaque token; no permanent bearer or refresh credential is issued.
+Server storage contains only public key material and hashes of bearer secrets.
 
-Preferred flow:
+The future iOS presentation may add QR scanning to this implemented protocol:
 
 ~~~text
 BotSquad Web UI / admin
@@ -333,7 +339,7 @@ device public key registered
 human confirms device
         |
         v
-paired device credential issued
+confirmed device may prove key possession for a short-lived token
 ~~~
 
 The pairing secret should:
