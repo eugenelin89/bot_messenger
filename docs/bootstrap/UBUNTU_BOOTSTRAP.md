@@ -3,8 +3,13 @@
 Prompt 03 established and validated the Ubuntu HQ. Prompt 04 extended that deployment
 with Nix, exact-scope trusted approvals, a narrow root provisioner, private per-worker
 Unix identities and independent engineering clones. Prompt 05 adds generic allocation
-manifests, bounded Project recipes, revision/integration and trusted remote Git.
-See the [Prompt 05 validation record](../validation/prompt-05-general-projects.md),
+manifests, bounded Project recipes, revision/integration and trusted remote Git. Prompt 06
+adds the stable authenticated `/api/v1/` client contract, persistent HQ/device identity,
+local pairing/revocation, durable retries and reconnectable events while keeping the
+listener private.
+See the [Prompt 06 validation record](../validation/prompt-06-remote-client-api.md),
+[Decision 015](../decisions/decision_015_remote_client_trust.md),
+[Prompt 05 validation record](../validation/prompt-05-general-projects.md),
 [Prompt 04 identity record](../validation/prompt-04-linux-identity.md) and
 [Prompt 03 record](../validation/prompt-03-ubuntu.md) for their respective evidence.
 Ubuntu HQ remains the primary self-hosted deployment; the
@@ -21,9 +26,10 @@ workstation provides SSH, administration and development.
 
 Dedicated Ubuntu 24.04 x86_64, working SSH alias, Internet access for Ubuntu packages,
 GitHub, Node and npm, and root or passwordless sudo. A 1-vCPU/2-GB/50-GB host with
-2 GiB swap has passed both the bounded Prompt 03 workload and the Prompt 04
-worker-identity/engineering acceptance at two active executions; see the validation
-records before applying that sizing to larger work. No provider API
+2 GiB swap has passed the bounded Prompt 03 workload, Prompt 04 worker-identity/
+engineering acceptance, Prompt 05 Project lifecycle, and Prompt 06 client-protocol
+acceptance at the current two-active-execution ceiling; see the validation records
+before applying that sizing to larger work. No provider API
 or hard-coded address is used. Existing conflicting paths/accounts fail clearly.
 
 Run [the bootstrap prompt](../../prompts/bootstrap-ubuntu.md), or inspect and invoke:
@@ -99,6 +105,10 @@ ssh -N -L 4310:127.0.0.1:4310 botsquad
 ```
 
 Open <http://127.0.0.1:4310>. Port 4310 is never opened publicly by bootstrap.
+Prompt 06 serves the authenticated `/api/v1/` client contract on this same private
+listener; its accepted reference-client path also used an SSH tunnel. This does not
+turn the full administrative listener into a device-only remote transport: any future
+mobile ingress must expose only `/api/v1/`, not `/api/session` or the browser admin surface.
 If your workstation already uses 4310, stop that local development instance or use
 another local port and a proxy preserving the service's expected Host header.
 
@@ -135,8 +145,9 @@ arbitrary executables or install dependencies. The legacy SquadStatus recipe ret
 its 10-second deadline.
 
 Prompt 04 added Nix, worker Unix identities/clones and exact-scope infrastructure
-approvals. General remote fleets, financial authority, customer deployment and
-Computer Use remain future milestones. Development identities are simulated and
+approvals. Prompt 05 added generalized Projects and trusted repository lifecycle;
+Prompt 06 added device-authenticated Client API v1 without public ingress. General
+remote fleets, financial authority, customer deployment and Computer Use remain future milestones. Development identities are simulated and
 make no Linux isolation claim.
 
 ## Acceptance under the production service restrictions
@@ -193,3 +204,11 @@ It proves actual UID isolation before archive and revoked clone access afterward
 These companions operate only on their fresh validation directories and do not mutate
 the retained production company. See [Prompt 05 acceptance](../validation/prompt-05-general-projects.md)
 for evidence and the unvalidated authenticated GitHub publication boundary.
+
+Prompt 06 acceptance used a separate production-restriction validation service plus an
+independent workstation reference client through an SSH tunnel. It exercised real UI
+pairing, signed challenge authentication, lost-response idempotency, event reconnect,
+service restart, token expiry, full host reboot and final device revocation. The retained
+HQ was then migrated additively and preserved. See the
+[Prompt 06 validation record](../validation/prompt-06-remote-client-api.md); no new public
+port, relay or device-only transport is created by bootstrap.
