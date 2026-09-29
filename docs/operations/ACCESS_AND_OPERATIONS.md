@@ -490,3 +490,22 @@ sudo python3 /opt/botsquad/scripts/validate-projects-operator.py /var/lib/botsqu
 The operator companion performs harmless UID canary and archived-clone denial probes.
 Both commands are validation-only and consume real Codex usage. Production remains paused.
 Evidence and limitations are in [Prompt 05 validation](../validation/prompt-05-general-projects.md).
+
+## Direct conversations and recovery
+
+Use the private browser's worker inspector → **Open conversations**. Passive messages
+do not wake workers; **Send & request reply** queues one bounded turn. Global pause
+holds queued turns. Interrupt requests active provider cancellation; mute/archive hold
+conversation dispatch, and archive also prevents new messages. History is retained.
+
+**Replace worker's context** requests safe replacement at the next authorized reply.
+The same worker/conversation remains; task bindings stay separate. A blocked ambiguous
+provider attempt is an inspection gate for both task and chat work. Creating a new
+conversation or retrying a Task cannot clear it. The UI does not offer a blind retry or
+fence reset. Inspect provider references and retained execution evidence first. See
+[full lifecycle/recovery semantics](../architecture/CONVERSATIONS_AND_CONTINUITY.md).
+
+Prompt 07 validation scripts explicitly distinguish fixture roster setup, real model
+responses and controlled process faults. Never arm a fault marker in retained HQ data.
+Use SQLite backup for an offline migration copy; never serve that copied production DB
+as a second authenticated HQ. Preserve the owner's pause state during deployment.

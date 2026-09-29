@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 conversations/continuity next
+**Status:** Product vision; Prompt 07 complete and Ubuntu validated; Prompt 08 working groups next
 **Updated:** 2026-09-29
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
@@ -474,16 +474,20 @@ See [Ubuntu HQ and Bootstrap Model](UBUNTU_HQ_AND_BOOTSTRAP.md), [Decision 009](
 
 ## Conversation-first collaboration
 
-Prompt 07 first makes direct human↔worker and worker↔worker conversations reliable:
+Prompt 07 implements direct human↔worker and bounded worker↔worker conversations:
 persistent conversation identity, participant-oriented history, explicit bounded reply
 turns that can wake the intended worker, and clear separation from passive messages and
-Tasks. The human should be able to talk directly to Maya, Turing, engineers, Grace or
-Nix without pretending that every conversation is an assignment.
+Tasks. The human can talk directly to Maya, Turing, engineers, Grace or Nix without
+creating an assignment. The browser owner can inspect these transcripts; unrelated
+workers cannot read them merely because they know a conversation ID.
 
-It also establishes context continuity: forced rollover to a fresh provider session must
-preserve employee/conversation identity, authorized history and pending work. Scope memory
-retrieval, retain session lineage, reject stale callbacks and reconcile ambiguity before
-resuming. Prompt 08 and later operating loops reuse this foundation.
+It also establishes context continuity: safe replacement with a fresh provider session
+preserves employee/conversation identity, source references and pending work. Context
+retrieval is scoped, session lineage is retained, stale callbacks are rejected, and
+unknown provider outcomes block work for inspection. Memory is bounded and source-backed,
+not perfect recall. See [actual acceptance](../validation/prompt-07-conversations-continuity.md)
+and [controls and limits](../architecture/CONVERSATIONS_AND_CONTINUITY.md).
+Prompt 08 and later operating loops reuse this foundation.
 
 Prompt 08 then adds collaborative AI working groups.
 

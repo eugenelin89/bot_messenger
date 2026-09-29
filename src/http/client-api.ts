@@ -134,7 +134,7 @@ export class ClientAPI {
         if (path === '/overview') {
           const count = (table: string, where = '1') => this.company.store.get<{ n: number }>(`SELECT count(*) n FROM ${table} WHERE ${where}`)!.n;
           json(200, this.envelope({ hq_id: this.trust.hq.hq_id, paused: this.company.paused, runtime_status: this.dispatcher.runtimeState,
-            workers: count('workers'), tasks: count('tasks'), queued_tasks: count('tasks', "status='queued'"), active_executions: count('executions', "status='running'"),
+            workers: count('workers'), tasks: count('tasks'), queued_tasks: count('tasks', "status='queued'"), active_executions: count('executions', "origin='task' AND status='running'"),
             pending_approvals: count('approvals', "status='pending'") + count('project_approvals', "status='pending'"), event_cursor: this.cursor(this.currentCursor()) }, requestId)); return;
         }
         if (path === '/runtime') {

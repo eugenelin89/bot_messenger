@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 06 complete and Ubuntu validated
-**Updated:** 2026-09-28
+**Status:** Prompt 07 complete and Ubuntu validated
+**Updated:** 2026-09-29
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -140,7 +140,7 @@ worker with `internal_message` may name any existing worker as recipient; messag
 is not constrained to reporting edges. Messaging remains communication only: it does not
 create a Task, wake an idle recipient, expand capabilities or create approval.
 
-The current execution context is Task-centric. A running worker receives recent messages
+The legacy task execution context is Task-scoped. A running task worker receives recent messages
 whose `related_task_id` matches its active Task rather than a general recipient inbox.
 Therefore a recipient-addressed message is durable/auditable but is not guaranteed delivery
 to a future worker turn unless it is also relevant to that worker's assigned Task.
@@ -150,16 +150,23 @@ manager's direct subordinate and then applies the supported research/product rol
 stage restrictions. Child completion is the dependable orchestration signal: durable
 wake records queue manager follow-up after required children become terminal.
 
-The human-facing message endpoint currently posts to the Executive channel without a
-worker recipient and does not dispatch work. Explicit objectives enter through Atlas.
-Direct private human-to-worker chat is not implemented through Prompt 06.
+The existing human message endpoint posts to the Executive channel without dispatch.
+Explicit objectives enter through Atlas. Prompt 07 adds a separate first-class direct
+Conversation with participant-scoped history and explicit bounded reply requests.
+Executions have checked task/conversation ownership; both share the same two-slot
+dispatcher and one-active-execution-per-worker rule. Conversation tools cannot assign,
+write source, approve or publish. Device API v1 continues to project task executions only.
 
-Prompt 07 is now the planned first-class conversation layer: durable participant-oriented
-threads, explicit bounded reply turns that can wake the intended worker, and direct
-human↔worker / worker↔worker conversation without changing task-assignment authority.
-Prompt 08 then adds bounded multi-worker working groups/deliberation. Ordinary passive
-messages remain non-dispatching so conversation work cannot become an unbounded polling
-or bot-loop mechanism.
+Each worker/conversation pair has separate provider generations, never its legacy task
+thread. A safe rollover persists a bounded handoff with original source references and
+structured obligations, then prepares and activates a fresh provider context. Unknown
+invocations block either work origin for that worker; stale generations cannot mutate
+current work. Healthy task bindings retain their provenance. See
+[Conversations and continuity](CONVERSATIONS_AND_CONTINUITY.md) and
+[Decision 018](../decisions/decision_018_conversations_context_continuity.md).
+
+Prompt 08 is the next bounded multi-worker deliberation layer. Passive messages remain
+non-dispatching; conversation completion cannot create a hidden task or an idle bot loop.
 
 ## Future intelligent-company operating loop
 
@@ -317,7 +324,7 @@ it never imports private control-plane mutation functions or receives worker cre
 The isolated browser records the same session. Exact scenario checks restrict automated
 approval decisions while the existing trusted service/provisioner enforces authority.
 
-Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 06;
+Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 07;
 Prompt 10 is the planned bounded Computer Use milestone after Prompt 07 conversations,
 Prompt 08 deliberation and Prompt 09's strategic company operating loop. Engineering
 tools, Demo Operator and paired remote-human devices
@@ -423,7 +430,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-The implementation through Prompt 06 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 07 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.

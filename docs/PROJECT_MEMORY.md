@@ -24,7 +24,7 @@ The owner may give either a broad goal or a specific mandate. The concrete refer
 
 Repository: `eugenelin89/bot_messenger` (product name: BotSquad).
 
-The GitHub documentation baseline was `a1532d3359223f4047d28f9a3c054dd1369108db`: **Prompts 01–06 complete; Prompt 07 next.** Earlier chat shorthand mentioning only Prompt 01/02 is obsolete. This documentation task does not implement Prompts 07+, verify the live Ubuntu deployment, change retained HQ state, or advance a running Codex task.
+The GitHub documentation baseline was `a1532d3359223f4047d28f9a3c054dd1369108db`: **Prompts 01–06 complete; Prompt 07 next.** That is the historical Decision 017 baseline. Prompt 07 implementation and actual Ubuntu acceptance are now recorded in [the validation report](validation/prompt-07-conversations-continuity.md) and [Decision 018](decisions/decision_018_conversations_context_continuity.md). The final source/deployment equality is recorded in the delivery handoff and private HQ journal; do not infer it from an older baseline SHA.
 
 Always reread current main, relevant execution plans and active branches before asserting current implementation/deployment status. Preserve historical records and concurrent writers. Use a dedicated branch/worktree, normal reviewed integration, and no force push or destructive history rewrite.
 
@@ -39,7 +39,7 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prepare Prompt 07 from the current repository, including explicit context-rollover acceptance, without implementing Prompt 09/11 prematurely. Subsequent prompt generation must preserve the requirements above. A newly added document does not automatically change an already-running Codex task; reconcile on its owned branch without discarding existing work.
+Prepare Prompt 08 working groups from the accepted direct-conversation foundation. Reuse its scoped sessions, source-backed handoffs, durable obligations, shared dispatcher and unknown-outcome fence. Do not expand conversation tools into assignment or approval authority. Preserve the 08 → 09 → 10 → 11 order, minimal scheduling in 09 and the single-company evidence gate before federation. Verify current main and the Prompt 07 delivery record before starting; do not discard concurrent work.
 
 ## Maintaining this record
 

@@ -53,6 +53,16 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
         if (path === '/api/devices') { json(200, clientAPI.trust.adminState()); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
+        if (path === '/api/conversations') {
+          const q = new URL(req.url!,expectedOrigin).searchParams;
+          requireThat([...q.keys()].every(k=>['worker_id','before'].includes(k)), 'Invalid conversation query');
+          json(200,company.conversations.list(q.get('worker_id')??undefined,q.has('before')?Number(q.get('before')):undefined));return;
+        }
+        if (path.startsWith('/api/conversations/')) {
+          const q = new URL(req.url!,expectedOrigin).searchParams;
+          requireThat([...q.keys()].every(k=>k==='before'),'Invalid history query');
+          json(200,company.conversations.inspect(decodeURIComponent(path.slice('/api/conversations/'.length)),q.has('before')?Number(q.get('before')):undefined));return;
+        }
         if (path === '/api/events') {
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/event-stream', Connection: 'keep-alive' });
           res.write('event: ready\ndata: {}\n\n'); clients.add(res); req.on('close', () => clients.delete(res)); return;
@@ -71,6 +81,15 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req,path==='/api/projects/repositories/import'?Math.ceil(HARD_BOUNDS.bundle_bytes*4/3)+2048:64000);
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
+      else if (path === '/api/conversations/open') { json(201,company.conversations.open(body)); }
+      else if (path === '/api/conversations/send') { json(201,company.conversations.send(body)); }
+      else if (path === '/api/conversations/control') {
+        const a=strictObject(body,['conversation_id','state']);requireThat(a.state==='active'||a.state==='muted'||a.state==='archived','Invalid conversation state');
+        company.conversations.control(textField(a,'conversation_id',100),a.state);json(200,{state:a.state});
+      }
+      else if (path === '/api/conversations/cancel') {const a=strictObject(body,['request_id']);company.conversations.cancel(textField(a,'request_id',100));json(200,{cancelled:true});}
+      else if (path === '/api/conversations/rollover') {const a=strictObject(body,['conversation_id','worker_id']);company.conversations.requestRollover(textField(a,'conversation_id',100),textField(a,'worker_id',100));json(200,{requested:true});}
+      else if (path === '/api/conversations/participation') {const a=strictObject(body,['conversation_id','principal_id','active']);requireThat(typeof a.active==='boolean','Invalid participation');company.conversations.participation(textField(a,'conversation_id',100),textField(a,'principal_id',100),a.active);json(200,{updated:true});}
       else if (path === '/api/devices/decide') { json(200, clientAPI.trust.decide(body)); }
       else if (path === '/api/devices/revoke') { json(200, clientAPI.trust.revoke(body)); }
       else if (path === '/api/initialize') { strictObject(body, []); json(200, company.initializeCEO()); }

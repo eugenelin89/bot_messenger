@@ -1,0 +1,76 @@
+{
+  "research": {
+    "result": "PASS",
+    "started": "2026-09-29T10:09:47.389Z",
+    "finished": "2026-09-29T10:11:09.508Z",
+    "workflow_task_id": "task_5911dd5c-2440-4cce-bca9-93e3ff8b6c32",
+    "checks": [
+      "real dynamic hire",
+      "real Scout execution and artifact",
+      "real Atlas resume/evaluation",
+      "pause",
+      "process restart persistence",
+      "no replay of completed work",
+      "persisted binding resumes after restart",
+      "real turn interruption"
+    ],
+    "counts": {
+      "workers": 2,
+      "tasks": 4,
+      "executions": 5,
+      "artifacts": 1
+    },
+    "evidence_directory": "/var/lib/botsquad/validation/conversations-prompt01-20260929T100946Z",
+    "exit_code": 0
+  },
+  "engineering": {
+    "result": "PASS",
+    "started": "2026-09-29T10:13:20.619Z",
+    "finished": "2026-09-29T10:17:03.950Z",
+    "source_digest": "c808b4d01f1530798816f98e00382713599ce02fe350e9b5728ea0ac7939c7b3",
+    "workflow_task_id": "task_851c32f3-dc52-4ab3-be4b-f98afc01893a",
+    "checks": [
+      "six real persistent Codex workers",
+      "actual Maya spec before engineering",
+      "distinct branch/worktree/commit ownership",
+      "real execution and runtime-turn overlap",
+      "real denied source/sibling/path writes",
+      "role-specific tool surface",
+      "real independent exact-commit Grace review",
+      "confined full acceptance tests",
+      "candidate before safe fast-forward",
+      "deterministic product output",
+      "process restart preserved all workflow records",
+      "no duplicate engineering/review/integration/wake"
+    ],
+    "counts": {
+      "workers": 7,
+      "tasks": 14,
+      "executions": 26
+    },
+    "execution_overlap_ms": 26959,
+    "pending_approval_restart": true,
+    "test_execution_identity": "Trusted botsquad service inside unchanged product sandbox",
+    "approval_boundary": "Trusted loopback HTTP, operator-authorized fixed validation scenario; no worker approval tool",
+    "evidence_directory": "/var/lib/botsquad/validation/identity-prompt07-20260929T101319Z",
+    "exit_code": 0,
+    "uid_isolation_checks": 100,
+    "retirement": {
+      "worker_id": "worker_ee0b18f4-9560-456f-91ee-e0fa993bb789",
+      "history_preserved": true,
+      "new_assignment_rejected": true
+    },
+    "retirement_identity_state": "disabled"
+  },
+  "projects": {
+    "result": "PASS",
+    "started": "2026-09-29T10:31:49.385Z",
+    "finished": "2026-09-29T10:37:13.175Z",
+    "execution_overlap_ms": 8129,
+    "runtime_turn_overlap_ms": 6758,
+    "evidence_directory": "/var/lib/botsquad/validation/projects-prompt07-20260929T103148Z",
+    "exit_code": 0,
+    "uid_isolation_checks": 100,
+    "archive_isolation_checks": 4
+  }
+}

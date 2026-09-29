@@ -17,7 +17,8 @@
     "validate:real": "npm run build && node dist/scripts/real-engineering.js",
     "validate:projects": "npm run build && node dist/scripts/real-projects.js",
     "validate:prompt01": "npm run build && node dist/scripts/real-e2e.js",
-    "demo:tutorial": "npm run build && node dist/scripts/demo-operator/run.js"
+    "demo:tutorial": "npm run build && node dist/scripts/demo-operator/run.js",
+    "validate:conversations": "npm run build && node scripts/conversations/acceptance.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

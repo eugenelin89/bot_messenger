@@ -118,9 +118,10 @@ Task assignment is one of the events that may wake an idle worker.
 
 ## Current human and bot interaction semantics
 
-The current product is an **organization/task system with durable messaging**, not yet a
-full conversation system. Prompt 07 is now explicitly intended to fix that gap before
-adding more convenience clients.
+The current product supports both explicit assignments and first-class direct
+Conversations. Prompt 07 adds bounded human↔worker and peer replies with separate
+scoped runtime contexts. Communication, executable assignments and protected approval
+remain different operations. See [conversation semantics and continuity](../architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
 ### Human operator
 
@@ -139,8 +140,10 @@ delegated tasks through the organization
 
 The Web UI and Client API also support a message-only operation. That creates a durable
 message in the Executive channel but does not assign work, wake Atlas, or cause an
-automatic reply. The current UI does not provide private human-to-Maya, human-to-Linus,
-or other direct worker chat sessions.
+automatic reply. Separately, the Conversations UI opens direct human-to-Maya,
+human-to-Linus or other eligible worker sessions. Requesting a reply queues only that
+worker; sending a passive message creates no execution. The owner administers and can
+inspect all conversations; privacy is against unrelated workers and unauthorized readers.
 
 A human who wants a specialist involved in actual work therefore assigns the objective
 to Atlas and may state the desired specialist/goal in that objective. The trusted task
@@ -174,9 +177,9 @@ Turing -> assign Ada task   permitted when Ada is Turing's direct report and wor
 
 Messages cannot grant capabilities, approvals or filesystem/repository authority.
 
-### Reliable handoff
+### Reliable task handoff
 
-The reliable coordination path is therefore:
+The task coordination path remains:
 
 ~~~text
 manager assigns explicit child Task
@@ -191,8 +194,10 @@ child becomes terminal
 durable wake event queues manager follow-up
 ~~~
 
-This is why completed BotSquad runs look primarily like delegation, evidence and manager
-follow-up rather than a continuous group conversation.
+Conversation work is separate: one human request may ask one eligible peer, reserve the
+peer reply and one initiating-worker continuation, then stop. Each step releases its slot;
+the chain cannot recursively extend. Peer answers and continuations remain discoverable
+in the peer transcript. They do not complete Tasks or wake task managers.
 
 Operators can inspect those interactions through the Executive channel, linked Tasks,
 Audit history and Executions. Audit records are the precise source for assignment and
@@ -200,8 +205,8 @@ result-return events; Executions show when workers actually ran and where work o
 
 ## Future collaborative deliberation
 
-The current implementation is deliberately Task-centric, but the desired organization
-model should support **bounded group discussion** in addition to delegation.
+Direct conversations and task delegation are implemented. The next organization layer
+should support **bounded group discussion**, with explicit membership and synthesis.
 
 Hierarchy should govern responsibility, assignment authority and protected actions. It
 should not prevent peers or cross-functional specialists from reasoning together.
