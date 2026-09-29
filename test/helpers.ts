@@ -28,9 +28,10 @@ export class FakeRuntime implements RuntimeAdapter {
     this.maxByWorker.set(input.worker.worker_id, Math.max(count, this.maxByWorker.get(input.worker.worker_id) ?? 0));
     try {
       input.bind(input.binding ?? { worker_id: input.worker.worker_id, runtime_type: this.type,
-        runtime_reference: `fake:${input.worker.worker_id}`, workspace_path: input.worker.workspace_path, created_at: new Date().toISOString() });
+        runtime_reference: `fake:${input.mode==='conversation'?input.execution.session_id:input.worker.worker_id}`, workspace_path: input.worker.workspace_path, created_at: new Date().toISOString() });
       input.event(input.binding ? 'worker_resumed' : 'runtime_started', {});
       const overridden = await this.gate?.(input, signal); if (overridden) return overridden;
+      if (input.mode === 'conversation') return {status:'completed',summary:'A bounded conversation reply.'};
       if (input.worker.role === 'ceo') {
         if (input.task.dispatch_reason === 'child_results') {
           const children = (input.context as { children: { artifacts: { content: string }[] }[] }).children;

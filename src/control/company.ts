@@ -1,4 +1,5 @@
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
+import { Conversations } from './conversations.js';
 import type { HostClient } from '../infrastructure/client.js';
 import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
@@ -12,7 +13,7 @@ import { Store } from '../persistence/store.js';
 import {
   COMPANY_CEILING, CEO_CAPABILITIES, DEVOPS_CAPABILITIES, CTO_DELEGATABLE, PROFILES, type Profile, assertCapabilities, assertTransition, requireThat, strictObject, textField,
   type Artifact, type AuditEvent, type Capability, type Execution, type Message, type Principal,
-  type RuntimeBinding, type Task, type TaskStatus, type Worker,
+  type RuntimeBinding, type Task, type TaskExecution, type TaskStatus, type Worker,
 } from '../domain/model.js';
 
 export const REFERENCE_DOCUMENTS = [
@@ -38,6 +39,7 @@ export class Company extends EventEmitter {
   readonly infrastructure: Infrastructure;
   readonly projects: Projects;
   readonly remote: RemoteProjects;
+  readonly conversations: Conversations;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -49,6 +51,7 @@ export class Company extends EventEmitter {
     this.projects = new Projects(this);
     this.engineering = new Engineering(this, realpathSync(repoRoot));
     this.remote = new RemoteProjects(this,remoteTransport ?? new GithubTransport(realpathSync(repoRoot)));
+    this.conversations = new Conversations(this);
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
@@ -121,8 +124,9 @@ export class Company extends EventEmitter {
     const expected = join(this.dataDir, 'workspaces', worker.worker_id);
     requireThat(path === expected && realpathSync(path) === expected, 'Workspace identity mismatch or symlink');
   }
-  private verifyContext(context: ExecutionContext): { worker: Worker; execution: Execution; task: Task } {
-    const execution = this.execution(context.executionId); const worker = this.worker(context.workerId); const task = this.task(execution.task_id);
+  private verifyContext(context: ExecutionContext): { worker: Worker; execution: TaskExecution; task: Task } {
+    const execution = this.execution(context.executionId); requireThat(execution.origin === 'task', 'Task execution required');
+    const worker = this.worker(context.workerId); const task = this.task(execution.task_id);
     requireThat(execution.worker_id === worker.worker_id && task.assignee_worker_id === worker.worker_id, 'Execution identity mismatch');
     requireThat(execution.status === 'running' && task.status === 'working' && worker.enabled, 'Execution is not authorized to act');
     this.verifyWorkspace(worker, context.workspacePath);
@@ -133,6 +137,7 @@ export class Company extends EventEmitter {
     const { worker } = this.verifyContext(context);
     requireThat(binding.worker_id === worker.worker_id && binding.runtime_type === worker.runtime_type, 'Runtime binding identity mismatch');
     this.verifyWorkspace(worker, binding.workspace_path);
+    requireThat(!this.store.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a conversation context');
     const old = this.binding(worker.worker_id);
     requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type && (old.thread_name ?? null) === (binding.thread_name ?? null)), 'Cannot replace an existing runtime binding implicitly');
     this.store.transaction(() => {
@@ -154,7 +159,7 @@ export class Company extends EventEmitter {
     });
   }
   recordRuntimeConfig(context: ExecutionContext, config: EffectiveAIConfig) {
-    const { execution } = this.verifyContext(context);
+    const { execution } = this.execution(context.executionId).origin === 'conversation' ? this.conversations.verify(context) : this.verifyContext(context);
     requireThat(execution.provenance_status === 'unresolved', 'Execution provenance already recorded');
     requireThat(config.execution_priority === execution.execution_priority, 'Execution priority changed after claim');
     for (const value of [config.model, config.reasoning_effort, config.runtime_version, config.runtime_adapter]) requireThat(typeof value === 'string' && value.length > 0 && value.length <= 150, 'Invalid runtime provenance');
@@ -215,9 +220,10 @@ export class Company extends EventEmitter {
     this.store.run('UPDATE tasks SET status=?,blocking_reason=?,updated_at=? WHERE task_id=? AND status=?', to, reason, now(), task.task_id, task.status);
     this.audit('task_transition', 'system', { from: task.status, to, reason }, task.assignee_worker_id, task.task_id);
   }
-  private refreshWorker(workerId: string) {
+  refreshWorker(workerId: string) {
     const active = this.store.get('SELECT execution_id FROM executions WHERE worker_id=? AND status=\'running\'', workerId);
-    const queued = this.store.get("SELECT task_id FROM tasks WHERE assignee_worker_id=? AND status='queued'", workerId);
+    const queued = this.store.get("SELECT task_id FROM tasks WHERE assignee_worker_id=? AND status='queued'", workerId)
+      || this.store.get("SELECT request_id FROM conversation_requests WHERE target_worker_id=? AND status='queued'",workerId);
     this.store.run('UPDATE workers SET status=?,updated_at=? WHERE worker_id=?', active ? 'working' : queued ? 'queued' : 'idle', now(), workerId);
   }
   pause(paused: boolean) {
@@ -226,15 +232,29 @@ export class Company extends EventEmitter {
       this.audit(paused ? 'dispatch_paused' : 'dispatch_resumed', 'human', {});
     }); this.changed();
   }
-  claimNext(maxActive = 2): { task: Task; worker: Worker; execution: Execution; context: ExecutionContext } | undefined {
+  claimWorkNext(maxActive = 2) {
     return this.store.transaction(() => {
-      if (this.paused) return;
-      if (this.store.get<{ n: number }>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
-      const task = this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
+      if (this.paused || this.store.get<{n:number}>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
+      const reply = this.conversations.candidate(); const task = this.nextTask();
+      const priority = {critical:3,high:2,normal:1,low:0};
+      if (reply && (!task || priority[this.worker(reply.target_worker_id).execution_priority] > priority[this.worker(task.assignee_worker_id).execution_priority]
+        || (priority[this.worker(reply.target_worker_id).execution_priority] === priority[this.worker(task.assignee_worker_id).execution_priority] && reply.created_at < task.created_at))) return this.conversations.claim(reply);
+      const claim = this.claimNext(maxActive); return claim ? {origin:'task' as const,...claim} : undefined;
+    });
+  }
+  private nextTask() {
+    return this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
+        AND NOT EXISTS (SELECT 1 FROM conversation_sessions cs WHERE cs.worker_id=w.worker_id AND cs.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
         (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
+  }
+  claimNext(maxActive = 2): { task: Task; worker: Worker; execution: TaskExecution; context: ExecutionContext } | undefined {
+    return this.store.transaction(() => {
+      if (this.paused) return;
+      if (this.store.get<{ n: number }>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
+      const task = this.nextTask();
       if (!task) return;
       const worker = this.worker(task.assignee_worker_id);
       this.transition(task, 'working');
@@ -243,14 +263,16 @@ export class Company extends EventEmitter {
       this.audit('task_claimed', 'system', { dispatch_reason: task.dispatch_reason }, worker.worker_id, task.task_id, executionId);
       this.audit('execution_started', 'system', {}, worker.worker_id, task.task_id, executionId);
       this.refreshWorker(worker.worker_id);
-      return { task: this.task(task.task_id), worker: this.worker(worker.worker_id), execution: this.execution(executionId),
+      const execution = this.execution(executionId); requireThat(execution.origin === 'task', 'Invalid claimed execution');
+      return { task: this.task(task.task_id), worker: this.worker(worker.worker_id), execution,
         context: Object.freeze({ executionId, workerId: worker.worker_id, workspacePath: worker.workspace_path }) };
     });
   }
-  finish(executionId: string, outcome: { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string }) {
+  finish(executionId: string, outcome: { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }) {
     this.store.transaction(() => {
       const execution = this.execution(executionId);
       if (execution.status !== 'running') return;
+      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const summary = (outcome.summary ?? '').slice(0, 20000);
       this.store.run('UPDATE executions SET status=?,finished_at=?,error=?,interruption_reason=? WHERE execution_id=?',
@@ -303,6 +325,7 @@ export class Company extends EventEmitter {
     this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
+        if (e.origin === 'conversation') { this.conversations.recover(e); continue; }
         this.store.run("UPDATE executions SET status='interrupted',finished_at=?,interruption_reason='application_restart' WHERE execution_id=?", now(), e.execution_id);
         const task = this.task(e.task_id);
         if (task.status === 'working') this.transition(task, 'blocked', 'Interrupted by restart. Inspect existing executions, artifacts and child tasks before retry.');

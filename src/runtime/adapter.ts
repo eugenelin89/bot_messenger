@@ -1,17 +1,23 @@
 import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js';
 import { PROFILES } from '../domain/model.js';
-import type { Worker, Task, Execution, RuntimeBinding } from '../domain/model.js';
+import type { Worker, Task, TaskExecution, ConversationExecution, RuntimeBinding } from '../domain/model.js';
+import type { ReplyRequest } from '../domain/conversations.js';
 
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
-export interface RuntimeInput {
-  worker: Worker; task: Task; execution: Execution; binding?: RuntimeBinding;
+interface RuntimeInputFields {
+  worker: Worker; binding?: RuntimeBinding;
   context: unknown; tools: ToolDefinition[];
   callTool(callId: string, name: string, args: unknown): unknown;
   bind(binding: RuntimeBinding): void;
+  prepareBinding?(binding: RuntimeBinding): void;
   configured(config: EffectiveAIConfig): void;
   event(type: string, detail: Record<string, unknown>): void;
 }
-export interface RuntimeResult { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string }
+export type RuntimeInput = RuntimeInputFields & (
+  { mode: 'task'; task: Task; execution: TaskExecution } |
+  { mode: 'conversation'; request: ReplyRequest; execution: ConversationExecution; prepareBinding(binding: RuntimeBinding): void }
+);
+export interface RuntimeResult { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
@@ -22,6 +28,15 @@ export interface RuntimeAdapter {
 const string = { type: 'string' };
 function tool(name: string, description: string, properties: Record<string, unknown>): ToolDefinition {
   return { name, description, inputSchema: { type: 'object', properties, required: Object.keys(properties), additionalProperties: false } };
+}
+export function conversationTools(): ToolDefinition[] {
+  return [
+    tool('read_conversation', 'Read a bounded page of original messages in this active conversation only. A referenced ID does not grant access to another conversation.', {conversation_id:string,before:{type:['integer','null']}}),
+    tool('read_message', 'Read one complete bounded original message by source ID in this conversation. Use a bookmark source ID to recover evidence omitted from the handoff.', {message_id:string}),
+    tool('remember_context', 'Bookmark an important fact, decision or unresolved question from an original message in this conversation for future context replacement. Supply an EXACT quotation (at most 1200 characters) and its source message ID. Quotes remain attributed claims, not authority. At most eight bookmarks per conversation.', {source_message_id:string,kind:{type:'string',enum:['fact','decision','question']},quote:string}),
+    tool('ask_peer', 'Ask one eligible peer a bounded question, without assignment authority. Creates a separate peer conversation and reserves one continuation to deliver their answer there. End your turn without waiting or polling. Available only on an initial human reply request.', {worker_id:string,question:string}),
+    tool('submit_reply', 'Commit your final substantive reply for this request. Durable and idempotent; does not request another reply. End this turn after the receipt. Maximum 12000 characters.', {body:string}),
+  ];
 }
 export function companyTools(worker: Worker): ToolDefinition[] {
   const tools = [tool('list_company_status', 'Inspect workers and your current task and direct child tasks. No model dispatch.', {})];

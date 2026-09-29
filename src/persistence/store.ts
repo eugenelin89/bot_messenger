@@ -3,6 +3,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { migrateProjects } from './projects-migration.js';
 import { migration6 } from './client-migration.js';
+import { migrateConversations } from './conversations-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -198,7 +199,8 @@ export class Store {
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
     const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
-    if (projectMigration) this.db.exec('PRAGMA foreign_keys=OFF');
+    const conversationMigration = !this.get('SELECT version FROM schema_migrations WHERE version=7');
+    if (projectMigration || conversationMigration) this.db.exec('PRAGMA foreign_keys=OFF');
     try { this.transaction(() => {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=1')) {
         this.db.exec(migration1);
@@ -223,6 +225,10 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=6')) {
         this.db.exec(migration6);
         this.run('INSERT INTO schema_migrations VALUES (6,?)', new Date().toISOString());
+      }
+      if (conversationMigration) {
+        migrateConversations(this.db);
+        this.run('INSERT INTO schema_migrations VALUES (7,?)', new Date().toISOString());
       }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }

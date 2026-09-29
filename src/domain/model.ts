@@ -36,13 +36,20 @@ export interface Task {
   kind: 'research' | 'product' | 'spec' | 'delivery' | 'engineering' | 'review' | 'infrastructure'; created_execution_id: string | null;
   dispatch_reason: string; created_at: string; updated_at: string;
 }
-export interface Execution {
-  execution_id: string; task_id: string; worker_id: string; runtime_reference: string | null;
+interface ExecutionFields {
+  execution_id: string; worker_id: string; runtime_reference: string | null;
   status: ExecutionStatus; started_at: string; finished_at: string | null; error: string | null;
   interruption_reason: string | null;
   model: string | null; reasoning_effort: string | null; execution_priority: Priority | null;
   runtime_version: string | null; runtime_adapter: string | null; provenance_status: 'legacy' | 'unresolved' | 'recorded';
 }
+export interface TaskExecution extends ExecutionFields {
+  origin: 'task'; task_id: string; request_id: null; session_id: null; generation: null;
+}
+export interface ConversationExecution extends ExecutionFields {
+  origin: 'conversation'; task_id: null; request_id: string; session_id: string; generation: number;
+}
+export type Execution = TaskExecution | ConversationExecution;
 export interface RuntimeBinding {
   worker_id: string; runtime_type: string; runtime_reference: string; workspace_path: string; created_at: string; thread_name?: string | null;
 }

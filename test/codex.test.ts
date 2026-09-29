@@ -26,7 +26,7 @@ createInterface({input:process.stdin}).on('line',line=>{
   if(p.config['mcp_servers.inherited.enabled']!==false)throw new Error('MCP not disabled');
   if(p.sandbox!=='read-only'||p.approvalPolicy!=='never')throw new Error('Unsafe settings');
   send({id:m.id,result:{thread,model:'test-model',approvalPolicy:'never',sandbox:{type:'readOnly',networkAccess:false}}});
- } else if(m.method==='thread/name/set'){if(!p.name.startsWith('BotSquad · Atlas · CEO'))throw new Error('Missing friendly name');send({id:m.id,result:{}});}
+ } else if(m.method==='thread/name/set'){if(mode==='name-failure'){send({id:m.id,error:{code:-32000,message:'Naming failed'}});return;}if(!p.name.startsWith('BotSquad · Atlas · CEO'))throw new Error('Missing friendly name');send({id:m.id,result:{}});}
  else if(m.method==='turn/start'){
   if(p.environments.length!==0)throw new Error('Environment enabled');
   if(p.model!=='test-model'||p.effort!==(mode==='explicit-effort'?'low':'medium'))throw new Error('Wrong effective AI config');
@@ -35,16 +35,18 @@ createInterface({input:process.stdin}).on('line',line=>{
   if(mode==='interrupt'||mode==='timeout')return;
   if(mode==='exit'){process.exit(2)}
   if(mode==='approval'){send({id:'approval-1',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'turn-1'}});return;}
+  if(mode==='stale-approval')send({id:'stale-approval',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'old-turn'}});
   send({id:'tool-1',method:'item/tool/call',params:{threadId:mode==='forged-thread'?'other-thread':thread.id,turnId:'turn-1',callId:'call-1',namespace:null,tool:'list_company_status',arguments:{}}});
  } else if(m.id==='tool-1'){
   send({method:'item/completed',params:{threadId:thread.id,turnId:'turn-1',item:{type:'agentMessage',phase:'final_answer',text:'Protocol result'}}});
+  if(mode==='stale-final')send({method:'item/completed',params:{threadId:thread.id,turnId:'old-turn',item:{type:'agentMessage',phase:'final_answer',text:'PRIVATE_STALE_FINAL'}}});
   send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'turn-1',status:'completed'}}});
  } else if(m.method==='turn/interrupt'){
   send({id:m.id,result:{}});if(turnActive)send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'turn-1',status:'interrupted'}}});
  }
 });`, { mode: 0o700 });
   let calls = 0; const events: string[] = [];
-  const input: RuntimeInput = { ...claim, worker: { ...claim.worker, runtime_type: 'codex-app-server' }, context: f.company.context(claim.context), tools: companyTools(claim.worker),
+  const input: RuntimeInput = { mode: 'task', ...claim, worker: { ...claim.worker, runtime_type: 'codex-app-server' }, context: f.company.context(claim.context), tools: companyTools(claim.worker),
     configured: () => {}, bind: () => {}, callTool: () => { calls++; return { ok: true }; }, event: type => events.push(type) };
   return { ...f, input, command, events, callCount: () => calls };
 }
@@ -57,6 +59,21 @@ test('App Server transport routes trusted tools, streams completion and resumes 
   assert.ok(f.events.includes('runtime_started'));
   f.input.binding = { worker_id: f.input.worker.worker_id, runtime_type: 'codex-app-server', workspace_path: f.input.worker.workspace_path, runtime_reference: 'thread-owned', created_at: 'now' };
   assert.equal((await adapter.run(f.input, new AbortController().signal)).status, 'completed'); assert.ok(f.events.includes('worker_resumed'));
+});
+
+test('stale same-thread final output and approval requests cannot affect the current turn',async t=>{
+  for(const mode of ['stale-final','stale-approval']) {
+    const f=protocolFixture(mode);t.after(()=>f.close());
+    const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
+    assert.equal(result.status,'completed');assert.equal(result.summary,'Protocol result');assert.equal(f.events.includes('runtime_approval_required'),false);
+  }
+});
+
+test('a known newly created provider reference is prepared before naming failure, without activation',async t=>{
+  const f=protocolFixture('name-failure');t.after(()=>f.close());let prepared:string|undefined;let activated=false;
+  f.input.prepareBinding=b=>{prepared=b.runtime_reference;};f.input.bind=()=>{activated=true;};
+  await assert.rejects(()=>new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal),/request rejected/);
+  assert.equal(prepared,'thread-owned');assert.equal(activated,false);
 });
 test('App Server rejects cross-thread tool identity before invoking the control plane', async t => {
   const f = protocolFixture('forged-thread'); t.after(() => f.close());

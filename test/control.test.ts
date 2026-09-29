@@ -16,7 +16,7 @@ test('migration is non-destructive and initializes stable principal/channel/CEO 
   assert.equal(atlas.lifecycle, 'persistent'); assert.equal(atlas.manager_worker_id, null); assert.equal(atlas.status, 'idle');
   assert.equal(f.company.snapshot().principals.length, 3);
   const second = new Store(join(f.dir, 'company.sqlite'));
-  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 6);
+  assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM schema_migrations')?.n, 7);
   assert.equal(second.get<{ n: number }>('SELECT count(*) n FROM workers')?.n, 1); second.close();
 });
 
@@ -157,7 +157,7 @@ test('pause does not interrupt running work; human interruption preserves histor
   const execution = f.company.snapshot().executions[0]!; f.company.pause(true);
   assert.equal(f.company.execution(execution.execution_id).status, 'running');
   f.dispatcher.interrupt(execution.execution_id); await until(() => f.company.execution(execution.execution_id).status === 'interrupted');
-  assert.equal(f.company.task(execution.task_id).status, 'blocked'); assert.equal(f.company.worker(execution.worker_id).status, 'idle');
+  assert.equal(execution.origin, 'task'); assert.ok(execution.task_id); assert.equal(f.company.task(execution.task_id).status, 'blocked'); assert.equal(f.company.worker(execution.worker_id).status, 'idle');
 });
 
 test('runtime failures are visible, history retained and no uncontrolled automatic retry', async t => {

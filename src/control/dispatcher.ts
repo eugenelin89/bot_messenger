@@ -1,7 +1,7 @@
 import type { RuntimeCatalog } from '../domain/ai-profile.js';
 import { requireThat } from '../domain/model.js';
 import { Company } from './company.js';
-import { companyTools, type RuntimeAdapter } from '../runtime/adapter.js';
+import { companyTools, conversationTools, type RuntimeAdapter, type RuntimeInput } from '../runtime/adapter.js';
 
 export class Dispatcher {
   private running = new Map<string, { controller: AbortController; done: Promise<void> }>();
@@ -46,23 +46,32 @@ export class Dispatcher {
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
     while (!this.stopped && this.running.size < this.maxActive) {
-      const claim = this.company.claimNext(this.maxActive);
+      const claim = this.company.claimWorkNext(this.maxActive);
       if (!claim) break;
-      const { task, worker, execution, context } = claim;
+      const { worker, execution, context } = claim;
       const controller = new AbortController();
       const done = (async () => {
         try {
           this.company.verifyWorkspace(worker);
           if (worker.runtime_type !== this.adapter.type) throw new Error('Worker/runtime adapter mismatch');
-          const result = await this.adapter.run({ worker, task, execution, context: this.company.context(context),
+          const input: RuntimeInput = claim.origin === 'conversation' ? {
+            mode:'conversation', worker, request:claim.request, execution:claim.execution,
+            context:this.company.conversations.context(context),binding:this.company.conversations.binding(context),tools:conversationTools(),
+            configured:config=>this.company.recordRuntimeConfig(context,config),
+            prepareBinding:binding=>this.company.conversations.prepareBinding(context,binding),
+            bind:binding=>{this.company.conversations.prepareBinding(context,binding);this.company.conversations.activateBinding(context);},
+            callTool:(callId,name,args)=>this.company.conversations.callTool(context,callId,name,args),
+            event:(type,detail)=>this.company.conversations.event(context,type,detail),
+          } : { mode:'task', worker, task:claim.task, execution:claim.execution, context: this.company.context(context),
             binding: this.company.binding(worker.worker_id), tools: companyTools(worker),
             configured: config => this.company.recordRuntimeConfig(context, config),
             bind: binding => this.company.setBinding(context, binding),
             callTool: (callId, name, args) => this.company.callTool(context, callId, name, args),
-            event: (type, detail) => this.company.audit(type, 'system', detail, worker.worker_id, task.task_id, execution.execution_id),
-          }, controller.signal);
+            event: (type, detail) => this.company.audit(type, 'system', detail, worker.worker_id, claim.task.task_id, execution.execution_id),
+          };
+          const result = await this.adapter.run(input, controller.signal);
           // Researchers must supply evidence, not only status prose.
-          if (result.status === 'completed' && ['researcher', 'product_manager'].includes(worker.role) && !this.company.artifacts(task.task_id).length) {
+          if (claim.origin === 'task' && result.status === 'completed' && ['researcher', 'product_manager'].includes(worker.role) && !this.company.artifacts(claim.task.task_id).length) {
             throw new Error('Research finished without an artifact');
           }
           this.company.finish(execution.execution_id, result);

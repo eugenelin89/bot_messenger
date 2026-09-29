@@ -23,9 +23,10 @@ test('migration 6 preserves every original Prompt 05 row/field and performs no d
   migrateProjects(old); old.prepare('INSERT INTO schema_migrations VALUES (5,?)').run('original');
   const tables = (old.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name!='schema_migrations' AND name NOT LIKE 'sqlite_%' ORDER BY name").all() as {name:string}[]).map(t=>t.name);
   old.exec('PRAGMA foreign_keys=OFF; DELETE FROM settings');
-  const before: Record<string, unknown[]> = {};
+  const before: Record<string, unknown[]> = {}; const originalColumns: Record<string,string[]> = {};
   for (const table of tables) {
     const columns = (old.prepare(`PRAGMA table_info(${table})`).all() as {name:string}[]).map(c=>c.name);
+    originalColumns[table]=columns;
     const rows = f.store.all<Record<string,string|number|null>>(`SELECT ${columns.join(',')} FROM ${table} ORDER BY 1`);
     for (const row of rows) old.prepare(`INSERT INTO ${table} (${columns.join(',')}) VALUES (${columns.map(()=>'?').join(',')})`).run(...columns.map(c=>row[c]!));
     before[table] = old.prepare(`SELECT * FROM ${table} ORDER BY 1`).all();
@@ -33,8 +34,8 @@ test('migration 6 preserves every original Prompt 05 row/field and performs no d
   assert.equal(old.prepare('PRAGMA foreign_key_check').all().length,0);old.close();
   const tree = () => readdirSync(f.dir,{recursive:true}).filter(p=>!String(p).startsWith('original-v5.sqlite')).sort(); const paths=tree();
   const migrated=new Store(path); t.after(()=>migrated.close());
-  for (const table of tables) assert.deepEqual(migrated.all(`SELECT * FROM ${table} ORDER BY 1`),before[table],table);
+  for (const table of tables) assert.deepEqual(migrated.all(`SELECT ${originalColumns[table]!.join(',')} FROM ${table} ORDER BY 1`),before[table],table);
   assert.deepEqual(tree(),paths);assert.equal(migrated.all('PRAGMA foreign_key_check').length,0);
   for(const table of ['client_hq','remote_devices','client_pairings','client_challenges','client_tokens','client_receipts','client_events'])assert.equal(migrated.all(`SELECT * FROM ${table}`).length,0,table);
-  assert.equal(migrated.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,6);
+  assert.equal(migrated.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,7);
 });
