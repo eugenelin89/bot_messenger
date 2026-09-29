@@ -69,6 +69,27 @@ No iOS app, relay, public ingress, remote protected approvals or artifact-conten
 is implemented. A future device-only transport must forward only `/api/v1/`, not the
 complete legacy browser/admin listener. The full administrative SSH path remains trusted.
 
+## Current interaction model
+
+The current human-facing workflow is intentionally not a direct-chat interface to every
+worker. Explicit company/Project objectives enter through Atlas, which coordinates work
+through the enforced reporting hierarchy. The human message-only action writes durable
+Executive-channel communication but does not start a worker or create a Task.
+
+Bot-to-bot text is ordinary human-readable language wrapped in structured message records.
+A worker with messaging capability may address any existing worker, but assignment
+authority is stricter: managers can assign only their direct reports and the supported
+workflow applies additional role/stage rules. A message never grants authority.
+
+Messages also do not constitute a general recipient inbox today. Worker executions load
+recent messages related to their active Task; addressing a message to an idle worker does
+not wake it or guarantee a response. Reliable coordination uses explicit child Tasks,
+saved artifacts/results and durable child-result wake events that resume the manager.
+
+The Web UI exposes the interaction trail through the Executive channel, linked Tasks,
+Audit history and Executions. See the [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md)
+for the detailed semantics.
+
 ## Prompt 05 software Projects
 
 Projects now own trusted instructions, protected paths, recipes and bounds; each can
