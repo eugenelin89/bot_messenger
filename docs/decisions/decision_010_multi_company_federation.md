@@ -1,7 +1,14 @@
 # Decision 010 — Companies are isolated first-class domains with explicit federation
 
 **Date:** 2026-09-25
-**Status:** Accepted as future product architecture
+**Status:** Accepted as future product architecture; implementation priority deferred by Decision 017
+
+**2026-09-29 priority clarification:** [Decision 017](decision_017_single_company_first.md)
+prioritizes one useful operating company before multi-company/federation. The former
+future 11–14 scale/transport numbering is superseded; these capabilities are deferred and
+unnumbered. The isolation, credential and connection boundaries below remain accepted
+future constraints, not requirements to implement multi-company persistence in the current
+milestone. Through Prompt 06, one company per data directory remains the implementation.
 
 ## Context
 
@@ -54,3 +61,5 @@ See:
 
 - [Multi-Company and Federation Model](../product/MULTI_COMPANY_AND_FEDERATION.md)
 - [External Identities and Telegram Integration](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
+- [Decision 017 — One operational company first](decision_017_single_company_first.md)
+- [Canonical roadmap](../product/ROADMAP.md)
