@@ -177,10 +177,10 @@ export class Conversations {
     let budget=6000;
     const messages=recent.reverse().map(m=>{const body=m.body.slice(0,Math.max(0,Math.min(4000,budget)));budget-=body.length;return {message_id:m.message_id,sender_principal_id:m.sender_principal_id,body,omitted_characters:m.body.length-body.length};}).filter(m=>m.body).reverse();
     const obligations=this.db.all<ReplyRequest>("SELECT * FROM conversation_requests WHERE conversation_id=? AND status NOT IN ('completed','cancelled') ORDER BY rowid LIMIT 32",r.conversation_id).map(q=>({request_id:q.request_id,message_id:q.message_id,target_worker_id:q.target_worker_id,status:q.status,kind:q.kind,parent_request_id:q.parent_request_id}));
-    const peer_deliveries=this.db.all(`SELECT d.* FROM conversation_deliveries d JOIN conversation_requests peer ON peer.request_id=d.peer_request_id
+    const peer_deliveries=this.db.all(`SELECT d.*, continuation.status continuation_status FROM conversation_deliveries d JOIN conversation_requests continuation ON continuation.request_id=d.continuation_request_id JOIN conversation_requests peer ON peer.request_id=d.peer_request_id
       LEFT JOIN conversation_requests parent ON parent.request_id=peer.parent_request_id
       WHERE (peer.conversation_id=? OR (parent.conversation_id=? AND d.return_worker_id=?))
-      AND d.state IN ('waiting','blocked') ORDER BY d.created_at LIMIT 16`,r.conversation_id,r.conversation_id,r.target_worker_id);
+      AND continuation.status NOT IN ('completed','cancelled') ORDER BY d.created_at LIMIT 16`,r.conversation_id,r.conversation_id,r.target_worker_id);
     const bookmarks=this.db.all<{source_message_id:string;quote:string;kind:string}>(`SELECT n.source_message_id,n.quote,n.kind FROM conversation_notes n JOIN conversation_messages m ON m.message_id=n.source_message_id
       WHERE n.conversation_id=? AND m.conversation_id=n.conversation_id ORDER BY n.rowid LIMIT 8`,r.conversation_id);
     const original_range=this.db.get<{first_cursor:number;last_cursor:number;count:number}>('SELECT min(rowid) first_cursor,max(rowid) last_cursor,count(*) count FROM conversation_messages WHERE conversation_id=?',r.conversation_id);
@@ -274,7 +274,8 @@ export class Conversations {
   }
   private reply(context: ExecutionContext,body: string) {
     const {execution,worker,request:r}=this.verify(context);
-    requireThat(body.trim().length>0&&body.length<=LIMIT.replyChars,'Reply output bound exceeded');
+    requireThat(body.trim().length>0,'Provider completed without a committed reply or final answer; inspect evidence and submit a new explicit request if needed');
+    requireThat(body.length<=LIMIT.replyChars,'Reply output bound exceeded');
     if(r.response_message_id){const old=this.db.get<ConversationMessage>('SELECT * FROM conversation_messages WHERE message_id=?',r.response_message_id)!;requireThat(old.body===body,'Reply already committed with different content');return old;}
     const message=this.message(r.conversation_id,worker.principal_id,body,worker.worker_id,execution.execution_id,r.request_id,r.request_id);
     this.db.run("UPDATE conversation_requests SET status='completed',response_message_id=?,updated_at=? WHERE request_id=?",message.message_id,now(),r.request_id);
@@ -305,7 +306,7 @@ export class Conversations {
     const request=this.queue(c,message.message_id,target.worker_id,worker.principal_id,r.chain_id,1,'peer',r.request_id,worker.worker_id);
     const continuation=this.queue(c,message.message_id,worker.worker_id,target.principal_id,r.chain_id,2,'continuation',request.request_id,null,true);
     this.db.run("INSERT INTO conversation_deliveries VALUES (?,?,?,'waiting',NULL,?)",request.request_id,worker.worker_id,continuation.request_id,now());
-    return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'End this turn. One reserved continuation delivers the answer in the peer conversation; do not wait or poll.'};
+    return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'One reserved continuation delivers the answer in the peer conversation. Now submit_reply with your own brief explanation of the question you asked and any initial reasoning, then end this turn. Do not wait or poll, and do not claim the peer has answered yet.'};
   }
   callTool(context: ExecutionContext,callId: string,name: string,input: unknown) {
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
@@ -356,7 +357,7 @@ export class Conversations {
       catch(e){status='failed';error=String(e);}
       const r=this.request(execution.request_id);
       this.db.run('UPDATE executions SET status=?,finished_at=?,error=?,interruption_reason=? WHERE execution_id=?',status,now(),error??null,status==='interrupted'?error??'Interrupted':null,execution.execution_id);
-      if(!r.response_message_id)this.db.run('UPDATE conversation_requests SET status=?,error=?,updated_at=? WHERE request_id=?',status==='interrupted'?'interrupted':'blocked',error??'Provider outcome is unresolved. Inspect evidence; automatic replay is disabled.',now(),r.request_id);
+      if(!r.response_message_id)this.db.run('UPDATE conversation_requests SET status=?,error=?,updated_at=? WHERE request_id=?',status==='interrupted'?'interrupted':outcome.settled?'failed':'blocked',error??'Provider outcome is unresolved. Inspect evidence; automatic replay is disabled.',now(),r.request_id);
       if(!r.response_message_id)this.blockDelivery(r.request_id,'Peer outcome unresolved; inspect evidence.');
       const session=this.session(execution.session_id);
       if(outcome.settled || outcome.status==='completed')this.db.run('UPDATE conversation_sessions SET unresolved=0 WHERE session_id=?',session.session_id);

@@ -50,7 +50,7 @@ async function settled(c,rid){
 }
 async function screenshot(name){await sleep(500);await page.screenshot({path:join(dir,`${name}.png`),fullPage:true});}
 try{
-  await ready();
+  await ready();record.revisions??={};record.revisions[phase]=(await raw('health')).commit;save();
   if(phase==='direct'){
     const start=await verifyTarget();assert.equal(start.paused,true);assert.equal(start.tasks.length,3);
     const privateId=await open(fixture.ada,'private');
@@ -78,9 +78,9 @@ try{
     const r=await send(c,'Ask Ada one bounded technical question about how to reconcile a lost acknowledgement after a reply was durably committed. Compare the tradeoff once her answer arrives. You may communicate with her, but cannot assign her a Task or change a repository.');
     record.ids.peer_parent=r.request.request_id;save();await settled(c,r.request.request_id);
     const list=await observe(()=>raw(`conversations?worker_id=${fixture.linus}`),l=>l.items.some(c=>c.participants.every(p=>p.principal_id!=='human')),'peer conversation');
-    const peer=list.items.find(c=>c.participants.every(p=>p.principal_id!=='human'));record.ids.peer=peer.conversation_id;save();
+    const peer=list.items.find(c=>c.participants.every(p=>p.principal_id!=='human')); record.ids.peer=peer.conversation_id;save();
     const d=await observe(()=>raw(`conversations/${peer.conversation_id}`),d=>d.requests.length===2&&d.requests.every(r=>r.status==='completed')&&!d.executions.some(e=>e.status==='running'),'peer answer and continuation');
-    assert.ok(d.history.items.some(m=>m.sender_worker_id===fixture.ada&&m.response_to));assert.ok(d.history.items.some(m=>m.sender_worker_id===fixture.linus&&m.response_to));
+    assert.ok(d.history.items.some(m=>m.worker_id===fixture.ada&&m.response_to));assert.ok(d.history.items.some(m=>m.worker_id===fixture.linus&&m.response_to));
     writeFileSync(join(dir,'peer-exchange.json'),JSON.stringify(d,null,2));assert.equal((await verifyTarget()).tasks.length,3);
     await workerView(fixture.linus);await page.locator(`[data-conversation="${peer.conversation_id}"]`).click();await screenshot('04-peer-exchange');
   }else if(phase==='rollover'){
@@ -137,7 +137,7 @@ try{
     record.idle_interval_ms=10000;await page.locator('#pause').click();
   }else throw new Error('Unknown phase');
   assert.deepEqual(errors,[]);record.phases[phase]={completed:new Date().toISOString()};save();
-  writeFileSync(join(dir,`state-${phase}.json`),JSON.stringify(await verifyTarget(),null,2));
+  if(phase!=='crash')writeFileSync(join(dir,`state-${phase}.json`),JSON.stringify(await verifyTarget(),null,2));
   console.log(`PASS: ${phase}; evidence ${dir}`);
 }catch(error){await page.screenshot({path:join(dir,`failure-${phase}.png`),fullPage:true}).catch(()=>{});record.last_failure={phase,error:String(error),at:new Date().toISOString()};save();throw error;}
 finally{await context.close();await browser.close();}
