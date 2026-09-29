@@ -19,10 +19,13 @@ Before substantive editing:
 1. Inspect the current branch, HEAD, working tree, worktrees, and relevant files. Preserve unrelated work.
 2. Read `README.md`.
 3. Read `docs/product/PROJECT_VISION.md` for product intent and scope.
-4. Read `docs/architecture/SYSTEM_ARCHITECTURE.md` for boundaries and invariants.
-5. Use `docs/decisions/README.md` to locate accepted decisions relevant to the task.
-6. For substantial, interruption-prone, or multi-step work, create and maintain an execution plan using `docs/exec-plans/TEMPLATE.md`.
-7. Verify documentation claims against the current implementation. Current code/configuration wins over stale prose unless the task explicitly changes the implementation to match an accepted requirement.
+4. Read `docs/product/INTELLIGENT_COMPANY_MODEL.md` when changing worker interaction,
+   planning, company behavior, initiative, operating loops, external actions or future
+   milestone prompts.
+5. Read `docs/architecture/SYSTEM_ARCHITECTURE.md` for boundaries and invariants.
+6. Use `docs/decisions/README.md` to locate accepted decisions relevant to the task.
+7. For substantial, interruption-prone, or multi-step work, create and maintain an execution plan using `docs/exec-plans/TEMPLATE.md`.
+8. Verify documentation claims against the current implementation. Current code/configuration wins over stale prose unless the task explicitly changes the implementation to match an accepted requirement.
 
 Do not load unrelated historical material by default. For future milestone planning or prompt numbering, treat `docs/product/ROADMAP.md` as the canonical roadmap unless the user's current instruction explicitly changes it.
 
@@ -48,6 +51,41 @@ For substantial, multi-step, or long-running work, keep the human operator infor
 - The final handoff should state whether the initial ETA materially changed and why when that information is useful for planning later work.
 
 For execution plans, record the initial ETA and update it when the estimate changes materially.
+
+## Product North Star — Intelligent Company
+
+BotSquad is intended to model a **team of persistent intelligent employees**, not an
+assembly line of agents following a predetermined handoff script.
+
+Future product and milestone work should preserve these principles:
+
+- The human may give either a broad strategic mandate or a specific operating mandate.
+- The organization should decide what evidence, people, discussions, Projects and Tasks
+  are useful instead of requiring the human to micromanage every handoff.
+- Hierarchy governs responsibility, assignment and authority; it should not be the only
+  communication/thinking topology.
+- Conversation, deliberation, decision and Task/operation are distinct.
+- Workers should be able to ask questions, challenge assumptions, preserve dissent,
+  propose work and revise plans from observed outcomes.
+- Company behavior should become iterative: understand → discuss/research → decide →
+  execute → measure → learn → adapt.
+- Strategic reasoning may be broad, but operational authority remains explicitly bounded
+  by trusted code, capabilities, budgets and approvals.
+- Do not give ordinary workers raw financial/private credentials. Future treasury,
+  payment, wallet or similar authority requires a separately reviewed trusted adapter
+  and policy layer.
+- Do not fake organizational intelligence with scripted transcripts, predetermined
+  conclusions or meaningless bot chatter.
+- Idle workers still do not poll models; conversations, discussions and operating cycles
+  require explicit bounded triggers.
+
+For substantial future milestone prompts that change organizational behavior, include
+acceptance evidence that exercises realistic team behavior. Where relevant, cover both an
+open-ended mandate and a specific existing-product mandate. Validate invariants and
+outcomes without hard-coding every participant, message or conclusion.
+
+See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](docs/decisions/decision_016_intelligent_company_model.md).
 
 ## Scope And Safety
 
