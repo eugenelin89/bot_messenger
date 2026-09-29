@@ -337,6 +337,9 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
         if (e.origin === 'conversation') { this.conversations.recover(e); continue; }
+        // A retained pre-intent execution with a bound provider may have started a turn.
+        // Record recovery uncertainty now; never fabricate historical start/settlement events.
+        if(e.runtime_reference)this.store.run('INSERT OR IGNORE INTO execution_runtime_attempts VALUES (?,1)',e.execution_id);
         this.store.run("UPDATE executions SET status='interrupted',finished_at=?,interruption_reason='application_restart' WHERE execution_id=?", now(), e.execution_id);
         const task = this.task(e.task_id);
         if (task.status === 'working') this.transition(task, 'blocked', 'Interrupted by restart. Inspect existing executions, artifacts and child tasks before retry.');

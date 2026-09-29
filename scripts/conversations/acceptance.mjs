@@ -48,6 +48,7 @@ async function settled(c,rid){
   assert.equal(d.requests.find(r=>r.request_id===rid).status,'completed',JSON.stringify(d.requests));
   assert.ok(d.history.items.find(m=>m.response_to===rid)?.body.length>80,'Expected substantive real reply');return d;
 }
+async function pause(desired){if((await verifyTarget()).paused!==desired){await page.locator('#pause').click();await observe(()=>raw('state'),s=>s.paused===desired,'pause acknowledgement',15000);}await page.getByRole('button',{name:desired?'Resume dispatch':'Pause new dispatch',exact:true}).waitFor();}
 async function screenshot(name){await sleep(500);await page.screenshot({path:join(dir,`${name}.png`),fullPage:true});}
 try{
   await ready();record.revisions??={};record.revisions[phase]=(await raw('health')).commit;save();
@@ -61,7 +62,7 @@ try{
     const result=await send(c,'Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.');
     record.ids.maya_first=result.request.request_id;save();await screenshot('01-passive-and-paused-reply');
     assert.equal((await raw(`conversations/${c}`)).requests[0].status,'queued');
-    await page.locator('#pause').click();
+    await pause(false);
     await observe(()=>raw('state'),s=>s.executions.some(e=>e.task_id===fixture.initial_task_id&&e.status==='running'),'initial task running',60000);
     const linus=await open(fixture.linus,'linus');
     const chat=await send(linus,'Explain the practical difference between idempotent response persistence and exactly-once model invocation. Discuss uncertainty without changing code or assigning anyone.');
@@ -74,6 +75,7 @@ try{
     record.direct={passive_no_execution:true,paused_queued:true,busy_worker_queued:true,no_task_creation:true};
     await select(c,fixture.maya);await screenshot('03-maya-real-response');
   }else if(phase==='peer'){
+    await pause(false);
     const c=record.ids.linus;assert.ok(c);await select(c,fixture.linus);
     const r=await send(c,'Ask Ada one bounded technical question about how to reconcile a lost acknowledgement after a reply was durably committed. Compare the tradeoff once her answer arrives. You may communicate with her, but cannot assign her a Task or change a repository.');
     record.ids.peer_parent=r.request.request_id;save();await settled(c,r.request.request_id);
@@ -87,18 +89,18 @@ try{
     const c=record.ids.maya;assert.ok(c);await select(c,fixture.maya);
     const before=await raw(`conversations/${c}`);record.pre_rollover=before.sessions;save();
     await page.getByRole('button',{name:'Replace Maya’s context',exact:true}).click();
-    await page.locator('#pause').click();assert.equal((await verifyTarget()).paused,true);
+    await pause(true);
     const first=await send(c,'Continue our earlier policy discussion after context replacement. State the retention constraint and the unresolved question from our original conversation. Explain what remains uncertain.');
     const pending=await send(c,'Pending obligation: after the policy recap, propose two criteria the human should use to resolve the outstanding tombstone question. Do not decide it on the human’s behalf.');
     record.ids.rollover_reply=first.request.request_id;record.ids.pending_reply=pending.request.request_id;save();
-    await page.locator('#pause').click();await settled(c,first.request.request_id);const after=await settled(c,pending.request.request_id);
+    await pause(false);await settled(c,first.request.request_id);const after=await settled(c,pending.request.request_id);
     assert.ok(after.sessions.some(s=>s.generation===2&&s.state==='active'));assert.ok(after.sessions.some(s=>s.generation===1&&s.state==='superseded'));
     const recap=after.history.items.find(m=>m.response_to===first.request.request_id).body;
     assert.match(recap,/48/);assert.match(recap,/tombstone|identifier/i);assert.ok(!JSON.stringify(after).includes('PRIVATE_ADA_ONLY_P07'));
     await screenshot('05-context-replaced-continuation');
   }else if(phase==='controls'){
     const c=record.ids.maya;await select(c,fixture.maya);
-    await page.locator('#pause').click();assert.equal((await verifyTarget()).paused,true);
+    await pause(true);
     const cancelled=await send(c,'This queued validation request will be cancelled before dispatch.');record.ids.cancelled=cancelled.request.request_id;save();
     await page.locator(`[data-cancel-reply="${cancelled.request.request_id}"]`).click();
     await observe(()=>raw(`conversations/${c}`),d=>d.requests.find(r=>r.request_id===cancelled.request.request_id)?.status==='cancelled','cancel');
@@ -106,7 +108,7 @@ try{
     assert.equal(await page.getByRole('button',{name:'Send & request reply',exact:true}).isDisabled(),true);
     await page.getByRole('button',{name:'Resume conversation',exact:true}).click();await page.getByRole('button',{name:'Mute reply dispatch',exact:true}).waitFor();
     const r=await send(c,'Reason carefully about six distinct failure windows for context replacement, with concrete evidence requirements and recovery tradeoffs. The operator may interrupt this validation turn.');record.ids.interrupted=r.request.request_id;save();
-    await page.locator('#pause').click();
+    await pause(false);
     await observe(()=>raw('state'),s=>s.audit.some(e=>e.type==='conversation_runtime_turn_started'&&s.executions.some(x=>x.execution_id===e.execution_id&&x.request_id===r.request.request_id)),'actual turn started',60000);
     await page.getByRole('button',{name:'Interrupt reply',exact:true}).click();
     await observe(()=>raw(`conversations/${c}`),d=>d.requests.find(q=>q.request_id===r.request.request_id)?.status==='interrupted','provider confirmed interruption',60000);
@@ -134,7 +136,7 @@ try{
   }else if(phase==='idle'){
     const before=await verifyTarget();assert.equal(before.paused,false);assert.ok(!before.executions.some(e=>e.status==='running'));
     const n=before.executions.length;await sleep(10000);assert.equal((await verifyTarget()).executions.length,n);
-    record.idle_interval_ms=10000;await page.locator('#pause').click();
+    record.idle_interval_ms=10000;await pause(true);
   }else throw new Error('Unknown phase');
   assert.deepEqual(errors,[]);record.phases[phase]={completed:new Date().toISOString()};save();
   if(phase!=='crash')writeFileSync(join(dir,`state-${phase}.json`),JSON.stringify(await verifyTarget(),null,2));

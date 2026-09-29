@@ -5,6 +5,8 @@ import { fixture, objective, hire, until } from './helpers.js';
 import { conversationTools } from '../src/runtime/adapter.js';
 import type { Worker } from '../src/domain/model.js';
 import type { ConversationMessage } from '../src/domain/conversations.js';
+import { Store } from '../src/persistence/store.js';
+import { join } from 'node:path';
 import { ClientDTOs } from '../src/client/dto.js';
 
 type Fixture = ReturnType<typeof fixture>;
@@ -185,4 +187,34 @@ test('an unknown task provider attempt blocks cross-mode chat and later task dis
   assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.company.conversations.request(r.request!.request_id).status,'blocked');
   assert.equal(f.company.worker(scout.worker_id).status,'blocked');assert.equal(f.company.task(task.task_id).status,'blocked');
   assert.equal(f.company.providerUnresolved(scout.worker_id),true);
+});
+
+test('confirmed empty provider completion is a visible failure, preserves effects, and never invents a reply',async t=>{
+  const f=fixture();t.after(()=>f.close());const {scout}=setup(f);const c=open(f,scout);send(f,c.conversation_id);const run=claim(f);bind(f,run);
+  f.company.conversations.event(run.context,'runtime_turn_starting',{context_chars:100});
+  f.company.finish(run.execution.execution_id,{status:'completed',summary:'',settled:true});
+  const r=f.company.conversations.request(run.request.request_id);assert.equal(r.status,'failed');assert.equal(r.response_message_id,null);assert.match(r.error!,/without a committed reply/);
+  assert.equal(f.company.providerUnresolved(scout.worker_id),false);assert.equal(f.company.conversations.inspect(c.conversation_id).history.items.length,1);assert.equal(f.company.claimWorkNext(),undefined);
+});
+
+test('task result validation failure preserves confirmed provider settlement and permits explicit chat',async t=>{
+  const f=fixture();t.after(()=>f.close());const {scout}=setup(f);
+  f.runtime.gate=async input=>{input.event('runtime_turn_starting',{context_chars:100});return {status:'completed',settled:true,summary:'Provider finished, but this researcher did not save an artifact.'};};
+  const task=f.company.createTask('human',scout,objective,null);f.dispatcher.start();
+  await until(()=>f.company.task(task.task_id).status==='failed');assert.equal(f.company.providerUnresolved(scout.worker_id),false);
+  const c=open(f,scout);const request=send(f,c.conversation_id);await until(()=>f.company.conversations.request(request.request!.request_id).status==='completed');
+  assert.equal(f.company.snapshot().tasks.length,2);assert.equal(f.runtime.calls.length,2);
+});
+
+
+test('migration of a pre-intent running task preserves its record and recovery fences the bound provider',async t=>{
+  const f=fixture();t.after(()=>f.close());const {scout}=setup(f);f.company.createTask('human',scout,objective,null);const run=f.company.claimNext()!;
+  f.company.setBinding(run.context,{worker_id:scout.worker_id,runtime_type:'fake',runtime_reference:'retained-task-provider',workspace_path:scout.workspace_path,created_at:'original'});
+  const original=f.company.execution(run.execution.execution_id);
+  f.store.db.exec('DROP TABLE execution_runtime_attempts; DELETE FROM schema_migrations WHERE version=8');
+  const upgraded=new Store(join(f.dir,'company.sqlite'));assert.deepEqual(upgraded.get('SELECT * FROM executions WHERE execution_id=?',original.execution_id),original);
+  assert.equal(upgraded.all('SELECT * FROM execution_runtime_attempts').length,0,'Migration must not invent historical intent');upgraded.close();
+  f.company.recover();assert.equal(f.company.providerUnresolved(scout.worker_id),true);
+  const c=open(f,scout);send(f,c.conversation_id);assert.equal(f.company.claimWorkNext(),undefined);
+  assert.equal(f.company.binding(scout.worker_id)!.runtime_reference,'retained-task-provider');
 });

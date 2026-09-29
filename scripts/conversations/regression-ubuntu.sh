@@ -14,7 +14,7 @@ esac
 unit=botsquad-conversations-regression-${mode}
 ! systemctl is-active --quiet "$unit" || { echo 'Already active' >&2; exit 1; }
 stamp=$(date -u +%Y%m%dT%H%M%SZ)
-report=/var/lib/botsquad/validation/conversations-${mode}-${stamp}
+report=/var/lib/botsquad/validation/${mode}-prompt07-${stamp}
 runner=/run/botsquad-conversations-regression-${mode}
 [[ ! -e $report ]] || exit 1
 install -d -o botsquad -g botsquad -m 700 "$report"

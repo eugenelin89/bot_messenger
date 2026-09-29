@@ -51,6 +51,7 @@ export class Dispatcher {
       const { worker, execution, context } = claim;
       const controller = new AbortController();
       const done = (async () => {
+        let providerSettled=false;
         try {
           this.company.verifyWorkspace(worker);
           if (worker.runtime_type !== this.adapter.type) throw new Error('Worker/runtime adapter mismatch');
@@ -70,13 +71,14 @@ export class Dispatcher {
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
           const result = await this.adapter.run(input, controller.signal);
+          providerSettled=result.settled===true||result.status==='completed';
           // Researchers must supply evidence, not only status prose.
           if (claim.origin === 'task' && result.status === 'completed' && ['researcher', 'product_manager'].includes(worker.role) && !this.company.artifacts(claim.task.task_id).length) {
             throw new Error('Research finished without an artifact');
           }
           this.company.finish(execution.execution_id, result);
         } catch (error) {
-          this.company.finish(execution.execution_id, { status: 'failed', error: error instanceof Error ? error.message : 'Runtime failed' });
+          this.company.finish(execution.execution_id, { status: 'failed', settled:providerSettled, error: error instanceof Error ? error.message : 'Runtime failed' });
         }
       })().finally(() => { this.running.delete(execution.execution_id); this.kick(); });
       this.running.set(execution.execution_id, { controller, done });
