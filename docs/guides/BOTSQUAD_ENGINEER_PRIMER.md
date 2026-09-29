@@ -1162,17 +1162,25 @@ Remote-client API
         v
 
 Prompt 07
-Native iOS client
+Direct conversations + worker interaction
         |
         v
 
 Prompt 08
+Working groups + deliberation
+        |
+        v
+
+Prompt 09
 Bounded Computer Use
         |
         v
 
-Prompt 09+
+Prompt 10+
 Multi-company / collaboration / external identities / federation
+
+Native iOS / no-tunnel mobile access
+        -> deferred until interaction semantics stabilize
 ~~~
 
 ---
