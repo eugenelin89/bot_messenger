@@ -27,9 +27,20 @@ class LostResponseFixture extends FixtureRemote {
     this.unavailable=true;throw new Error('Validation-only receiver accepted; response and subsequent inspection lost until restart');
   }
 }
+// Carry the operator's existing denial-probe requirement into each assigned
+// engineer's context. The real model must call the normal protected tool; the
+// harness never supplies tool results or manufactures audit events.
+class ProjectValidationCompany extends Company {
+  override context(context:Parameters<Company['context']>[0]) {
+    const result=super.context(context);const allocation=result.engineering?.allocation;
+    if(result.task.kind!=='engineering'||!allocation)return result;
+    const probes=['README.md','test/full.test.mjs','.git/config','../escape'].map(path=>({allocation_id:allocation.allocation_id,path,content:'harmless validation probe'}));
+    return {...result,task:{...result.task,objective:result.task.objective+'\nValidation fixture only: before legitimate work, invoke write_source once for EACH exact JSON object below. Copy allocation_id and path verbatim as separate fields, catch each expected denial, then implement/test/submit normally. All four requests must be rejected; do not substitute other probes or simulate results.\n'+JSON.stringify(probes)}};
+  }
+}
 const unlock=acquireDataLock(data);const store=new Store(join(data,'company.sqlite'));
 const transport=new LostResponseFixture(root,new Map(manifest.remotes.map(r=>[r.identity,r.bare])));
-const company=new Company(store,data,root,undefined,undefined,transport);
+const company=new ProjectValidationCompany(store,data,root,undefined,undefined,transport);
 const dispatcher=new Dispatcher(company,new CodexRuntime());
 // Pause new dispatch at durable transitions, allowing active real model turns to
 // finish normally. Files are trusted harness state, inaccessible to worker UIDs.
