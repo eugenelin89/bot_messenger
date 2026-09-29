@@ -108,6 +108,87 @@ Creates explicit work with an objective, owner, acceptance criteria, constraints
 
 Task assignment is one of the events that may wake an idle worker.
 
+## Current human and bot interaction semantics
+
+The current product is an **organization/task system with durable messaging**, not a
+Slack-like collection of independent bot chats.
+
+### Human operator
+
+Today the human normally enters executable work through Atlas:
+
+~~~text
+Human
+  |
+  | explicit objective
+  v
+Atlas
+  |
+  v
+delegated tasks through the organization
+~~~
+
+The Web UI and Client API also support a message-only operation. That creates a durable
+message in the Executive channel but does not assign work, wake Atlas, or cause an
+automatic reply. The current UI does not provide private human-to-Maya, human-to-Linus,
+or other direct worker chat sessions.
+
+A human who wants a specialist involved in actual work therefore assigns the objective
+to Atlas and may state the desired specialist/goal in that objective. The trusted task
+and role rules still decide what can actually be delegated.
+
+### Bot-to-bot messages
+
+Workers with the `internal_message` capability can address ordinary human-readable text
+to any existing worker; messaging itself is not restricted to manager/subordinate edges.
+The durable record retains sender, optional recipient, related task, execution and time.
+
+That does **not** mean messages are a general worker inbox or dispatch mechanism. A worker
+is started only for actual queued work, and its current runtime context includes recent
+messages related to its active task. Merely addressing a message to an idle worker does
+not wake it, create a task or guarantee a reply.
+
+### Task assignment follows hierarchy
+
+Executable work is stricter than communication. `assign_task` is enforced against the
+reporting hierarchy: a manager may assign only a direct subordinate, with additional
+role/stage limits for the supported research and product workflows.
+
+So, for example:
+
+~~~text
+Linus -> message Ada        permitted when Linus has messaging capability
+Linus -> assign Ada task    not permitted
+
+Turing -> assign Ada task   permitted when Ada is Turing's direct report and workflow allows it
+~~~
+
+Messages cannot grant capabilities, approvals or filesystem/repository authority.
+
+### Reliable handoff
+
+The reliable coordination path is therefore:
+
+~~~text
+manager assigns explicit child Task
+        |
+        v
+worker executes and saves result/evidence
+        |
+        v
+child becomes terminal
+        |
+        v
+durable wake event queues manager follow-up
+~~~
+
+This is why completed BotSquad runs look primarily like delegation, evidence and manager
+follow-up rather than a continuous group conversation.
+
+Operators can inspect those interactions through the Executive channel, linked Tasks,
+Audit history and Executions. Audit records are the precise source for assignment and
+result-return events; Executions show when workers actually ran and where work overlapped.
+
 ## Initial CEO
 
 The human owner creates the first executive manually.
