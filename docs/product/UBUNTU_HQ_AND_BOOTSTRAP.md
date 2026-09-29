@@ -1,19 +1,22 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 05 complete and validated on Ubuntu 24.04 x86_64
-**Date:** 2026-09-26
+**Status:** Prompt 06 complete and validated on Ubuntu 24.04 x86_64
+**Updated:** 2026-09-29
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
 
 ## Current implementation truth
 
-Prompt 04 remains an accepted historical baseline; Prompt 05 extends its Project lifecycle.
-For operational truth and current acceptance status, use:
+Prompt 04 remains an accepted historical baseline; Prompt 05 extends its Project lifecycle,
+and Prompt 06 adds the stable authenticated Client API/device trust layer while preserving
+the private Ubuntu deployment. For operational truth and current acceptance status, use:
 
 - [Current State](../operations/CURRENT_STATE.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Ubuntu HQ Bootstrap](../bootstrap/UBUNTU_BOOTSTRAP.md)
 - [Prompt 04 validation](../validation/prompt-04-linux-identity.md) (historical)
+- [Prompt 06 validation](../validation/prompt-06-remote-client-api.md)
+- [Decision 015](../decisions/decision_015_remote_client_trust.md)
 - [Prompt 05 validation](../validation/prompt-05-general-projects.md)
 - [Decision 014](../decisions/decision_014_generalized_projects.md)
 - [Prompt 03 historical baseline](../validation/prompt-03-ubuntu.md)
@@ -536,4 +539,8 @@ provisioner and worker Unix-account/clone lifecycle while preserving those bound
 Prompt 05 adds generalized software Projects, scoped revision/review and integration
 queues, trusted remote operations and archive/release. Its provisioner protocol change
 was validated by an exact-revision reinstall and full host reboot, preserving old
-protocol-1 grants and all production state. Prompt 06 is now next.
+protocol-1 grants and all production state. Prompt 06 then added stable `/api/v1/`,
+durable HQ/device identity, explicit local pairing/revocation, short-lived device
+authentication, idempotent mutations and reconnectable events without opening a public
+listener. Its restart/reboot acceptance preserved retained HQ state. **Prompt 07 — Native
+iOS Remote MVP — is now next.**
