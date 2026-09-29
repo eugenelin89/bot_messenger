@@ -544,5 +544,6 @@ durable HQ/device identity, explicit local pairing/revocation, short-lived devic
 authentication, idempotent mutations and reconnectable events without opening a public
 listener. Its restart/reboot acceptance preserved retained HQ state. **Prompt 07 — first-class
 conversations and direct worker interaction — is now next; Prompt 08 adds collaborative
-working groups/deliberation.** Native iOS/no-tunnel mobile access is deferred while the
-private SSH-tunnel browser remains the supported operator path.
+working groups/deliberation, and Prompt 09 adds the strategic company operating loop.**
+Native iOS/no-tunnel mobile access is deferred while the private SSH-tunnel browser remains
+the supported operator path.

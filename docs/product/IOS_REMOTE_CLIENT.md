@@ -1,6 +1,6 @@
 # BotSquad — Native iOS Remote Client and Secure Remote Access
 
-**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction work proceeds
+**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction and company-operating semantics mature
 **Updated:** 2026-09-29
 
 ## Purpose
@@ -230,8 +230,8 @@ Do not claim E2EE until those properties are implemented and reviewed.
 ## Native client API
 
 Prompt 06 defines [Client API v1](../api/CLIENT_API_V1.md) at `/api/v1/`, separate from
-the local browser API. Prompt 07 must use this contract without scraping HTML or relying
-on `/api/state`. It includes discovery/capabilities, bounded reads, message-only and
+the local browser API. The deferred native iOS client must use this contract without
+scraping HTML or relying on `/api/state`. It includes discovery/capabilities, bounded reads, message-only and
 objective operations, dispatch/profile/interrupt controls, durable retries and SSE.
 Artifact metadata is included; artifact contents are deferred.
 
@@ -798,9 +798,12 @@ Direct conversations + worker interaction
 Prompt 08
 Collaborative working groups + deliberation
         ↓
+Prompt 09
+Strategic company operating loop
+        ↓
 ... core organization roadmap ...
         ↓
-Native iOS Remote MVP when interaction semantics are stable
+Native iOS Remote MVP when interaction/company semantics are stable
 ~~~
 
 The canonical numbered sequence is maintained in the [roadmap](ROADMAP.md). The

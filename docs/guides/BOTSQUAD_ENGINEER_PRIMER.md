@@ -1172,11 +1172,16 @@ Working groups + deliberation
         v
 
 Prompt 09
+Strategic company operating loop
+        |
+        v
+
+Prompt 10
 Bounded Computer Use
         |
         v
 
-Prompt 10+
+Prompt 11+
 Multi-company / collaboration / external identities / federation
 
 Native iOS / no-tunnel mobile access
@@ -1184,6 +1189,30 @@ Native iOS / no-tunnel mobile access
 ~~~
 
 ---
+
+# 34A. The intelligent-company north star
+
+The roadmap is no longer trying to optimize only for reliable delegation.
+
+The target is a persistent company of intelligent employees. The human may provide a
+broad mandate ("increase sustainable profit within these constraints") or a specific one
+("manage and market this product"). The organization should decide who needs to
+participate, what evidence is missing, what alternatives deserve discussion, what work
+should be created, and how to change course after observing results.
+
+Prompts 07 and 08 establish the interpersonal/team-reasoning layer. Prompt 09 then proves
+an iterative operating loop:
+
+~~~text
+mandate -> discuss/research -> decide -> execute -> measure -> learn -> adapt
+~~~
+
+Hierarchy remains the authority/accountability structure, not the only path for thinking.
+Strategic reasoning may be broad; real external/financial authority remains separately
+bounded by trusted capabilities and approvals.
+
+See [Intelligent Company Operating Model](../product/INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
 
 # 35. The most useful mental model
 

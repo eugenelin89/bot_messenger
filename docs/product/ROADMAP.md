@@ -21,22 +21,26 @@ below should remain stable unless a later explicit roadmap update changes it.
 | 06 | Stable authenticated remote-client API and device identity | Complete |
 | 07 | First-class conversations and direct worker interaction | Next |
 | 08 | Collaborative working groups and deliberation | Planned |
-| 09 | Bounded Computer Use | Planned |
-| 10 | Multi-company support on one HQ | Planned |
-| 11 | Company-to-company collaboration | Planned |
-| 12 | External identities and Telegram integration | Planned |
-| 13 | Cross-HQ federation | Planned |
+| 09 | Strategic company operating loop | Planned |
+| 10 | Bounded Computer Use | Planned |
+| 11 | Multi-company support on one HQ | Planned |
+| 12 | Company-to-company collaboration | Planned |
+| 13 | External identities and Telegram integration | Planned |
+| 14 | Cross-HQ federation | Planned |
 | — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
-| 14+ | Broader operating capabilities | Later |
+| 15+ | Broader operating capabilities | Later |
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
 existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is Complete; Prompt 07 is Next.**
 
-The sequence now prioritizes getting the **AI organization interaction model** right before
-adding convenience clients. Prompt 06 already provides the stable authenticated client
-foundation, and the existing SSH-tunnel browser path is acceptable while conversation,
-deliberation and collaboration semantics mature.
+The sequence now prioritizes making BotSquad behave like an **intelligent company**, not
+an agent assembly line. Prompt 06 already provides the stable authenticated client
+foundation; Prompt 07 builds direct conversation, Prompt 08 team deliberation, and
+Prompt 09 proves an iterative company operating loop before broader action surfaces.
+The existing SSH-tunnel browser path is acceptable while these semantics mature. See the
+[Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
 
 ---
 
@@ -458,9 +462,145 @@ preserving the distinction between **communication, deliberation and execution a
 
 ---
 
+# Company intelligence layer
+
+## Prompt 09 — Strategic company operating loop
+
+**Status:** Planned
+
+Prompts 07 and 08 make workers capable of direct conversation and genuine team
+deliberation. Prompt 09 proves that those capabilities can operate as an ongoing company
+rather than isolated conversations or one-shot workflows.
+
+The human may give either:
+
+~~~text
+Broad mandate
+"Increase sustainable profit within these constraints and resources."
+~~~
+
+or:
+
+~~~text
+Specific mandate
+"Manage and market this existing product; improve quality, adoption and revenue."
+~~~
+
+The organization should decide which workers, research, discussions, decisions, Projects,
+Tasks and experiments are useful. The human should not have to prescribe every handoff.
+
+Target loop:
+
+~~~text
+human mandate
+      |
+      v
+situation / evidence
+      |
+      v
+strategy / hypotheses
+      |
+      v
+research + working-group deliberation
+      |
+      v
+durable decision
+      |
+      v
+Projects / Tasks / approved operations
+      |
+      v
+execution + independent review
+      |
+      v
+outcomes / metrics
+      |
+      v
+company review
+      |
+      +--> continue
+      +--> iterate
+      +--> pivot
+      +--> stop
+      +--> scale
+~~~
+
+### Major capabilities
+
+- durable company mandate / strategic objective distinct from one Task;
+- support for broad and specific human objectives;
+- explicit situation/goal state and important constraints;
+- worker initiative within role: ask questions, request research, propose Projects,
+  identify risks, recommend experiments and escalate protected choices;
+- durable strategy hypotheses and decision records;
+- company-selected participation rather than human-scripted every handoff;
+- outcome/metric observations attributable to sources;
+- periodic/event-driven company review when material evidence changes;
+- durable strategic memory: what was tried, why, what happened and what was learned;
+- stop/continue/iterate/pivot/scale decisions;
+- bounded operating cycles and escalation;
+- no idle model polling;
+- no authority expansion from a vague objective.
+
+### Broad-objective acceptance
+
+Use a safe scenario with simulated or non-financial operating resources.
+
+Give Atlas a deliberately broad mandate with outcomes and constraints, but **do not**
+hard-code the internal plan or every participant.
+
+Acceptance should show the organization:
+
+- inspects the current situation;
+- chooses what it needs to learn;
+- convenes useful workers/discussions;
+- generates and compares multiple strategies;
+- makes an attributable decision;
+- creates appropriate bounded Projects/Tasks;
+- reviews the resulting evidence/outcome;
+- changes or confirms its next action based on what happened.
+
+A successful test is not "the bots produced lots of chat." The resulting plan and next
+action should be traceable to evidence and team reasoning.
+
+### Specific-product acceptance
+
+Also run a specific existing-product scenario representative of a real operating team,
+for example managing a small software product.
+
+The organization should coordinate product, engineering, research/review and growth work
+toward explicit product/business metrics rather than inventing a new business.
+
+Acceptance should prove that the same operating model works when the human gives a
+specific mandate rather than a vague strategic goal.
+
+### Financial/resource boundary
+
+Prompt 09 does **not** grant raw bank, payment or crypto-wallet authority.
+
+Workers may reason about budgets/resources and propose expenditures or transactions, but
+real financial execution requires a separately implemented trusted treasury/resource
+capability. Ordinary workers must never receive wallet private keys, seed phrases, bank
+credentials or unrestricted payment credentials.
+
+A future financial capability must define typed intents, budgets/limits, provider or
+destination policy, audit/receipts, idempotency/reconciliation, approval thresholds and
+emergency revocation before real financial autonomy is claimed.
+
+### Acceptance philosophy
+
+Do not make the scenario deterministic by scripting every worker message, participant,
+strategy or conclusion. Validate the trusted invariants, bounds, evidence and operating
+outcome while leaving meaningful organizational choices to the team.
+
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
+---
+
 # Broader agent capabilities
 
-## Prompt 09 — Bounded Computer Use
+## Prompt 10 — Bounded Computer Use
 
 **Status:** Planned
 
@@ -500,7 +640,7 @@ worker.
 
 # Company layer
 
-## Prompt 10 — Multi-company support
+## Prompt 11 — Multi-company support
 
 **Status:** Planned
 
@@ -516,7 +656,7 @@ restart/migration preserves isolation.
 
 ---
 
-## Prompt 11 — Company-to-company collaboration
+## Prompt 12 — Company-to-company collaboration
 
 **Status:** Planned
 
@@ -535,7 +675,7 @@ deduplication/replay protection and no cross-company authority escalation.
 
 # External communication
 
-## Prompt 12 — External identities and Telegram integration
+## Prompt 13 — External identities and Telegram integration
 
 **Status:** Planned
 
@@ -550,7 +690,7 @@ when Telegram is unavailable.
 
 ---
 
-## Prompt 13 — Cross-HQ federation
+## Prompt 14 — Cross-HQ federation
 
 **Status:** Planned
 
@@ -587,7 +727,7 @@ will not simply reproduce semantics that are about to change.
 
 ---
 
-# Prompt 14 and beyond — broader operating capabilities
+# Prompt 15 and beyond — broader operating capabilities
 
 **Status:** Later / intentionally not fixed yet
 
@@ -609,6 +749,7 @@ company and federation layers are proven, later prompts may add capabilities suc
 - billing;
 - customer-facing deployment;
 - specialized GPU/compute workers;
+- protected treasury/payment/wallet adapters with bounded budgets, accounting and approval policy;
 - portfolio-level company supervision;
 - broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01.
 
@@ -623,11 +764,37 @@ better understood.
 Every future milestone must preserve these invariants unless a new accepted decision
 explicitly changes them.
 
+## Intelligent-company acceptance
+
+Future milestones should improve BotSquad as a company of persistent intelligent
+employees, not merely add another deterministic pipeline.
+
+When a milestone changes organization behavior, its Codex prompt should ask whether:
+
+- the human can give a broad or specific mandate without micromanaging every handoff;
+- workers can decide who needs to participate, ask questions and challenge assumptions;
+- conversation, deliberation, decision and Task/operation remain distinct;
+- initiative remains bounded by role and authority;
+- decisions and important outcomes are attributable and inspectable;
+- evidence/metrics can cause strategy to change;
+- model turns remain event-driven and bounded;
+- acceptance leaves meaningful choices to the organization instead of scripting the
+  transcript or conclusion.
+
+Where relevant, acceptance should include both an open-ended company scenario and a
+specific existing-product scenario.
+
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
 ## Human agency
 
 The human owns company-level authority.
 
-Bots may request protected actions but cannot create human approval through text.
+Bots may request protected actions but cannot create human approval through text. A broad
+mandate such as "grow the business" or "maximize sustainable profit" does not grant new
+financial, publication, account, contract or external-system authority. Those actions
+still require explicit trusted capabilities/policies and applicable human approvals.
 
 ## Communication is not execution
 
@@ -691,17 +858,19 @@ accounts, or external systems.
         |
 08 Working groups + deliberation
         |
-09 Computer Use
+09 Strategic company operating loop
         |
-10 Multi-company
+10 Computer Use
         |
-11 Company collaboration
+11 Multi-company
         |
-12 External identities / Telegram
+12 Company collaboration
         |
-13 Cross-HQ federation
+13 External identities / Telegram
         |
-14+ Broader company operations
+14 Cross-HQ federation
+        |
+15+ Broader company operations
 
 Native iOS / no-tunnel mobile access is deferred and can be pulled forward later without
 changing the interaction-layer priorities.

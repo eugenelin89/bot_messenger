@@ -71,6 +71,41 @@ For the numbered implementation sequence, see the
 For the architecture and design rationale in one place, see the
 [BotSquad Technical White Paper](docs/WHITEPAPER.md).
 
+## Product north star
+
+BotSquad is being built to behave like a **company of intelligent persistent employees**,
+not an assembly line of agents.
+
+The human should eventually be able to give either a broad mandate:
+
+~~~text
+"Increase sustainable profit within these constraints and resources."
+~~~
+
+or a specific operating mandate:
+
+~~~text
+"Manage and market Asymmetri Motion; improve the product, adoption and revenue."
+~~~
+
+and let the organization decide what to research, who should discuss the problem, what
+Projects/experiments to run, how to review the result, and whether to continue, iterate,
+pivot, stop or scale.
+
+The roadmap therefore prioritizes:
+
+~~~text
+07 direct conversations
+08 working groups / deliberation
+09 strategic company operating loop
+~~~
+
+before broader action surfaces. Strategic reasoning can be broad; real operational
+authority remains bounded by trusted capabilities and approvals.
+
+See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](docs/decisions/decision_016_intelligent_company_model.md).
+
 ## Architecture at a glance
 
 ```text
@@ -445,11 +480,13 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Project Vision](docs/product/PROJECT_VISION.md)
+- [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md)
 - [AI Organization Model](docs/product/AI_ORGANIZATION_MODEL.md)
 - [Ubuntu HQ and Bootstrap Model](docs/product/UBUNTU_HQ_AND_BOOTSTRAP.md)
 - [Decision 011 — Ubuntu service, confinement and worker AI profiles](docs/decisions/decision_011_ubuntu_hq_profiles.md)
 - [Decision 013 — Trusted worker infrastructure](docs/decisions/decision_013_trusted_worker_infrastructure.md)
 - [Decision 015 — Remote client trust](docs/decisions/decision_015_remote_client_trust.md)
+- [Decision 016 — Intelligent company model](docs/decisions/decision_016_intelligent_company_model.md)
 - [Client API v1](docs/api/CLIENT_API_V1.md)
 - [Decision Index](docs/decisions/README.md)
 

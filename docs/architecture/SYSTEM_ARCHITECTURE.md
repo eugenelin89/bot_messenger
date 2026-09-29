@@ -161,6 +161,21 @@ Prompt 08 then adds bounded multi-worker working groups/deliberation. Ordinary p
 messages remain non-dispatching so conversation work cannot become an unbounded polling
 or bot-loop mechanism.
 
+## Future intelligent-company operating loop
+
+Prompt 09 is planned to add a durable company-level operating loop above individual Tasks.
+It should accept broad or specific human mandates, support worker initiative within role,
+record strategy hypotheses and decisions, ingest attributable outcomes/metrics, and
+schedule bounded company reviews that may continue, iterate, pivot, stop or scale work.
+
+This layer must reuse the conversation, deliberation, Task, Project, review and authority
+boundaries below it rather than bypassing them. A vague goal does not expand capabilities.
+Real financial/payment/wallet authority remains a separate trusted capability/policy
+problem; ordinary workers never receive raw financial credentials.
+
+See [Intelligent Company Operating Model](../product/INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
 ## Task stages, dispatch and recovery
 
 Task transitions remain explicit: queued → working → completed, with blocked, failed,
@@ -303,8 +318,9 @@ The isolated browser records the same session. Exact scenario checks restrict au
 approval decisions while the existing trusted service/provisioner enforces authority.
 
 Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 06;
-Prompt 09 is the planned bounded Computer Use milestone after Prompt 07 conversations and
-Prompt 08 deliberation. Engineering tools, Demo Operator and paired remote-human devices
+Prompt 10 is the planned bounded Computer Use milestone after Prompt 07 conversations,
+Prompt 08 deliberation and Prompt 09's strategic company operating loop. Engineering
+tools, Demo Operator and paired remote-human devices
 grant no worker GUI/desktop authority. Exact approval supports bounded host
 infrastructure and non-root repository publication. General environments, physical
 cleanup, scalable history, payments, outreach, deployment and distributed orchestration
