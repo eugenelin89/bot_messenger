@@ -646,7 +646,7 @@ BotSquad Core
    |
    +-- Client API v1
            +-- 今日的 Reference Client
-           +-- 下一步的原生 iOS App
+           +-- 稍後的原生 iOS App
            +-- Future Clients
    |
    +-- Reconnectable Event Stream
@@ -654,7 +654,7 @@ BotSquad Core
    +-- Human Authorization
 ~~~
 
-目前已驗證的 reference client 是透過既有 SSH tunnel 存取 `/api/v1/`；這仍屬管理／救援 transport，不是最終的行動裝置體驗。iOS App 應該是一個真正原生的 operator client，而不是 WebView，也不是把 SSH terminal 包裝成 App。
+目前已驗證的 reference client 是透過既有 SSH tunnel 存取 `/api/v1/`。在目前階段，Browser + SSH tunnel 已足夠作為操作方式；接下來先完成 Prompt 07 的直接對話與 Prompt 08 的多工作者協作討論。原生 iOS 與免手動 tunnel 的行動傳輸暫時延後，等互動語意穩定後再實作。屆時 iOS App 仍應該是一個真正原生的 operator client，而不是 WebView，也不是把 SSH terminal 包裝成 App。
 
 ---
 
@@ -1026,13 +1026,15 @@ BotSquad 把這些東西正式變成系統的一級概念。
 | 04 | Nix、Approvals、每位工作者獨立 Linux Identity |
 | 05 | 一般化 Project / Repository |
 | 06 | Stable Authenticated Remote-Client API |
-| 07 | Native iOS Remote MVP |
-| 08 | Bounded Computer Use |
-| 09 | Multi-Company Support |
-| 10 | Company-to-Company Collaboration |
-| 11 | External Identities 與 Telegram |
-| 12 | Cross-HQ Federation |
-| 13+ | 更廣泛的公司營運能力 |
+| 07 | 第一級直接對話與 Worker Interaction |
+| 08 | 多工作者 Working Group 與 Deliberation |
+| 09 | Bounded Computer Use |
+| 10 | Multi-Company Support |
+| 11 | Company-to-Company Collaboration |
+| 12 | External Identities 與 Telegram |
+| 13 | Cross-HQ Federation |
+| — | Native iOS Remote MVP／免手動 tunnel 行動傳輸 — 延後 |
+| 14+ | 更廣泛的公司營運能力 |
 
 完整 dependency 與 acceptance theme 請參考 Roadmap 文件。
 
@@ -1044,8 +1046,9 @@ BotSquad 把這些東西正式變成系統的一級概念。
 
 - 一般化 trusted approval grant；
 - 任意大小的 repository、不支援的 Git 功能或一般語言／套件執行環境；
-- native remote API；
-- iOS client；
+- 人類與個別 worker 的可靠直接對話／reply-wake 語意；
+- 有界的多 worker working group／deliberation；
+- iOS client／免手動 tunnel 行動傳輸；
 - Computer Use；
 - multi-company runtime；
 - company federation；
@@ -1155,7 +1158,7 @@ BotSquad 把 multi-agent autonomy 看成一個「組織系統」問題，而不�
 - 多位 AI 工程師，可以在清楚 ownership 與獨立 review 下同時工作；
 - 整個組織可以在一台小型、自架的 Ubuntu Server 上長時間運作，並且保有真實模型執行、隔離、restart recovery，以及每位工作者獨立的 AI profile。
 
-接下來的 roadmap，不是繞過這些邊界去追求更大的 autonomy，而是逐層把這個基礎擴張：安全的原生 client、受控 Computer Use、多家公司、外部身分，以及 federation。
+接下來的 roadmap，不是先追求更多 client 介面，而是先把 AI 組織本身的互動做正確：Prompt 07 直接對話、Prompt 08 多工作者 deliberation，再逐步加入受控 Computer Use、多家公司、外部身分與 federation。Prompt 06 的 Client API 基礎已保留，原生 iOS 可在互動模型穩定後再接上。
 
 BotSquad 最核心的架構承諾始終不變：
 
