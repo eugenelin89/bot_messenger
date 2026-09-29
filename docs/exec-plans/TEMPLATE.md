@@ -33,6 +33,12 @@ State the outcome in one or two sentences.
 - Persistence/migration implications:
 - Concurrency/idempotency implications:
 - Runtime/agent implications:
+- Intelligent-company implications (if organizational behavior changes):
+  - Does this improve employee-like collaboration, initiative, deliberation, learning, or
+    accountability rather than add a fixed pipeline?
+  - Does it preserve conversation ≠ deliberation ≠ decision ≠ Task/operation?
+  - Can a broad or specific human mandate remain meaningful without expanding authority?
+  - What realistic organization-level acceptance scenario will prove the behavior?
 
 ## Implementation steps
 
