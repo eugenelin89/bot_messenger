@@ -29,6 +29,7 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
 | [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu validated | 2026-09-28 |
 | [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; Ubuntu/restart/reboot validated | 2026-09-29 |
+| [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted (future architecture) | 2026-09-29 |
 
 ## Current deployment interpretation
 
@@ -50,3 +51,10 @@ trusted non-root remote publication and evidence-preserving archive.
 Decision 015 implements the protocol/device foundation of Decision 012. Decision 012 retains the future native-client direction: an iOS app is a first-class
 BotSquad client, the HQ remains private by default, and remote transport/authentication
 are explicit layers rather than public exposure of the current loopback web service.
+
+Decision 016 defines the product north star after Prompt 06: BotSquad should behave like
+a company of persistent intelligent employees able to handle broad or specific mandates,
+communicate and deliberate across hierarchy, make attributable decisions, operate in
+iterative evidence-driven cycles and take initiative within trusted authority. It does
+not grant financial/external authority; those require separate enforced capability and
+policy layers.
