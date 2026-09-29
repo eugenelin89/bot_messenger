@@ -1,7 +1,7 @@
 # BotSquad — Project Vision
 
 **Status:** Product vision; Prompt 06 complete and Ubuntu validated; Prompt 07 next
-**Updated:** 2026-09-28
+**Updated:** 2026-09-29
 
 ## One-sentence vision
 
