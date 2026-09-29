@@ -542,5 +542,7 @@ was validated by an exact-revision reinstall and full host reboot, preserving ol
 protocol-1 grants and all production state. Prompt 06 then added stable `/api/v1/`,
 durable HQ/device identity, explicit local pairing/revocation, short-lived device
 authentication, idempotent mutations and reconnectable events without opening a public
-listener. Its restart/reboot acceptance preserved retained HQ state. **Prompt 07 — Native
-iOS Remote MVP — is now next.**
+listener. Its restart/reboot acceptance preserved retained HQ state. **Prompt 07 — first-class
+conversations and direct worker interaction — is now next; Prompt 08 adds collaborative
+working groups/deliberation.** Native iOS/no-tunnel mobile access is deferred while the
+private SSH-tunnel browser remains the supported operator path.
