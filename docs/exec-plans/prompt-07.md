@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 07 conversations and context continuity
 
 **Status:** Implementation, review and acceptance complete; delivery verification tracked in the private journal below
-**Owner:** Codex Prompt 07 implementation task  
-**Branch:** `feature/prompt-07-conversations-continuity`  
-**Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt07`  
-**Started:** 2026-09-29 09:12 UTC  
-**Initial ETA:** 6–10 hours, including real Ubuntu acceptance, review and deployment.  
-**Current ETA:** 2–3 hours remaining at 10:16 UTC. Updates in the active task every 30 minutes; no scheduled reporting task.
+**Owner:** Codex Prompt 07 implementation task
+**Branch:** `feature/prompt-07-conversations-continuity`
+**Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt07`
+**Started:** 2026-09-29 09:12 UTC
+**Initial ETA:** 6–10 hours, including real Ubuntu acceptance, review and deployment.
+**Current ETA:** 20–40 minutes remaining after final acceptance at 10:40 UTC. Updates in the active task every 30 minutes; no scheduled reporting task.
 
 ## Objective and scope
 
