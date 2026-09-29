@@ -380,3 +380,16 @@ Protocol sources: [RFC 8037 public Ed25519 JWK](https://www.rfc-editor.org/rfc/r
 [Node 24 crypto](https://nodejs.org/docs/latest-v24.x/api/crypto.html), and the published
 [low-order encoding constants](https://github.com/jedisct1/libsodium/blob/1.0.18/src/libsodium/crypto_core/ed25519/ref10/ed25519_ref10.c#L966).
 No custom signature algorithm or encryption is implemented.
+
+## Prompt 07 compatible projection
+
+Conversations and reply generation are browser-only. `/api/conversations` routes retain
+the existing local Host/Origin/CSRF boundary and reject device Authorization headers.
+No v1 capability or passive message operation acquires reply authority.
+
+Execution list/detail/interrupt and effective execution profiles remain task projections;
+conversation-owned executions have no fictitious task ID and are omitted. Their audit
+notifications are also excluded from v1 SSE. Worker status remains coarse shared worker
+availability and may reflect chat activity; no conversation IDs, transcripts or provider
+contexts are included. The browser owner can inspect peer exchanges. See
+[conversation authority and recovery](../architecture/CONVERSATIONS_AND_CONTINUITY.md).

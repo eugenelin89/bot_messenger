@@ -1,0 +1,3082 @@
+{
+  "source_revisions": "See browser phase records; final negative recovery fixes have separate deterministic evidence",
+  "hq_id": "hq_af47a5d3-f64b-41e5-9917-86fbb46621c1",
+  "fixture": {
+    "roster_fixture": true,
+    "setup_task_ids": [
+      "task_75e53d23-471c-430b-aff9-8766d424cf4b",
+      "task_63e467f1-a4d0-4e64-9a21-e0ab1d1addf2"
+    ],
+    "atlas": "worker_706f824e-fa9e-4ba3-81b6-b1bf1234e454",
+    "maya": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+    "turing": "worker_2faa0b56-754d-4b84-8017-cf3cb5817eda",
+    "linus": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+    "ada": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+    "initial_task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b"
+  },
+  "assertions": {
+    "same_worker_conversation_new_provider_contexts": true,
+    "all_handoff_hashes_match": true,
+    "pending_obligation_in_generation_2": true,
+    "prepared_generation_3_retained_blocked": true,
+    "generation_4_continuation": true,
+    "private_and_task_context_sentinels_excluded": true,
+    "tool_modes_separate": true,
+    "unique_response_per_request": true,
+    "no_unresolved_provider_after_run": true
+  },
+  "counts": {
+    "tasks": 4,
+    "conversations": 7,
+    "recorded_runtime_inputs": 15,
+    "conversation_executions": 13
+  },
+  "executions": [
+    {
+      "execution_id": "execution_fe176b13-c071-43b7-a320-53bd211cc5cf",
+      "task_id": "task_75e53d23-471c-430b-aff9-8766d424cf4b",
+      "worker_id": "worker_706f824e-fa9e-4ba3-81b6-b1bf1234e454",
+      "runtime_reference": null,
+      "status": "interrupted",
+      "started_at": "2026-09-29T09:53:22.550Z",
+      "finished_at": "2026-09-29T09:53:22.570Z",
+      "error": "Fixture roster setup; no provider invoked",
+      "interruption_reason": "Fixture roster setup; no provider invoked",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_priority": "normal",
+      "runtime_version": null,
+      "runtime_adapter": null,
+      "provenance_status": "unresolved",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null
+    },
+    {
+      "execution_id": "execution_6ca2ee3f-5acc-44ee-ad6a-df3cc65e4a7a",
+      "task_id": "task_63e467f1-a4d0-4e64-9a21-e0ab1d1addf2",
+      "worker_id": "worker_2faa0b56-754d-4b84-8017-cf3cb5817eda",
+      "runtime_reference": null,
+      "status": "interrupted",
+      "started_at": "2026-09-29T09:53:22.586Z",
+      "finished_at": "2026-09-29T09:53:22.606Z",
+      "error": "Fixture roster setup; no provider invoked",
+      "interruption_reason": "Fixture roster setup; no provider invoked",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_priority": "normal",
+      "runtime_version": null,
+      "runtime_adapter": null,
+      "provenance_status": "unresolved",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null
+    },
+    {
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+      "status": "completed",
+      "started_at": "2026-09-29T10:01:14.505Z",
+      "finished_at": "2026-09-29T10:01:40.866Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null
+    },
+    {
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": "01a0ec9c-8509-7d21-9ae2-24409f72ca43",
+      "status": "completed",
+      "started_at": "2026-09-29T10:01:14.655Z",
+      "finished_at": "2026-09-29T10:01:33.226Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+      "session_id": "session_9d6cd92c-d016-4817-a85d-933fdc8b461c",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "task_id": null,
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+      "status": "completed",
+      "started_at": "2026-09-29T10:01:40.916Z",
+      "finished_at": "2026-09-29T10:01:55.599Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+      "session_id": "session_f666dba2-9010-4e5c-977b-3f5bfd2bd4c3",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "task_id": null,
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+      "status": "failed",
+      "started_at": "2026-09-29T10:03:01.686Z",
+      "finished_at": "2026-09-29T10:03:10.038Z",
+      "error": "Error: Reply output bound exceeded",
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_a430e4ed-38a5-4b59-860c-9388d1d45b14",
+      "session_id": "session_f666dba2-9010-4e5c-977b-3f5bfd2bd4c3",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "task_id": null,
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "runtime_reference": "01a0ec9e-4120-71b2-9537-b89a4b6f1cab",
+      "status": "completed",
+      "started_at": "2026-09-29T10:03:08.441Z",
+      "finished_at": "2026-09-29T10:03:20.865Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+      "session_id": "session_9fbf059e-ac1d-4472-8580-a80d39b00a19",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "task_id": null,
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9e-6997-70d1-bc20-42e79c94012d",
+      "status": "completed",
+      "started_at": "2026-09-29T10:03:19.216Z",
+      "finished_at": "2026-09-29T10:03:25.612Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+      "session_id": "session_e43ff16e-74aa-4aaa-810d-4c2a9b8ff81e",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "task_id": null,
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+      "status": "completed",
+      "started_at": "2026-09-29T10:07:06.620Z",
+      "finished_at": "2026-09-29T10:07:24.268Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+      "session_id": "session_f666dba2-9010-4e5c-977b-3f5bfd2bd4c3",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "task_id": null,
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "runtime_reference": "01a0eca2-0d96-71f1-a0d7-88f5081917f2",
+      "status": "completed",
+      "started_at": "2026-09-29T10:07:17.785Z",
+      "finished_at": "2026-09-29T10:07:24.110Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+      "session_id": "session_bbe4a2ea-4ab3-49be-9751-47ee2c710b99",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "task_id": null,
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0eca2-26ff-7fd0-a5d1-9bc756c7716a",
+      "status": "completed",
+      "started_at": "2026-09-29T10:07:24.311Z",
+      "finished_at": "2026-09-29T10:07:30.711Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+      "session_id": "session_f3b40c2e-5ce4-42ca-9a10-ab976effdc88",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+      "status": "completed",
+      "started_at": "2026-09-29T10:09:14.270Z",
+      "finished_at": "2026-09-29T10:09:27.859Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+      "session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "generation": 2
+    },
+    {
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+      "status": "completed",
+      "started_at": "2026-09-29T10:09:27.877Z",
+      "finished_at": "2026-09-29T10:09:36.504Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+      "session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "generation": 2
+    },
+    {
+      "execution_id": "execution_455c23f1-4d27-4730-b6cf-8ac57034bebe",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+      "status": "interrupted",
+      "started_at": "2026-09-29T10:10:17.434Z",
+      "finished_at": "2026-09-29T10:10:18.535Z",
+      "error": "Codex confirmed turn interruption",
+      "interruption_reason": "Codex confirmed turn interruption",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_3976eddf-5b7a-4242-b51e-aa15bc345f60",
+      "session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "generation": 2
+    },
+    {
+      "execution_id": "execution_7a0daa02-d613-4880-87ad-b41a0107992f",
+      "task_id": "task_89ad7e9f-30d4-43a0-ab22-8073d0dbaefc",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+      "status": "completed",
+      "started_at": "2026-09-29T10:10:22.013Z",
+      "finished_at": "2026-09-29T10:10:26.216Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null
+    },
+    {
+      "execution_id": "execution_fe154a53-d3e7-401c-90f5-f84e649092cc",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": null,
+      "status": "interrupted",
+      "started_at": "2026-09-29T10:11:28.890Z",
+      "finished_at": "2026-09-29T10:12:49.125Z",
+      "error": null,
+      "interruption_reason": "application_restart",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_priority": "normal",
+      "runtime_version": null,
+      "runtime_adapter": null,
+      "provenance_status": "unresolved",
+      "origin": "conversation",
+      "request_id": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+      "session_id": "session_3adc9842-f9a4-416e-aab8-4310f5b7d932",
+      "generation": 3
+    },
+    {
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": "01a0eca7-9edb-77d1-a9d5-64a2b6ad7b81",
+      "status": "completed",
+      "started_at": "2026-09-29T10:13:22.374Z",
+      "finished_at": "2026-09-29T10:13:32.938Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353",
+      "session_id": "session_de7f1be7-09ed-41a5-a561-803c8b2ff31b",
+      "generation": 4
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "session_9d6cd92c-d016-4817-a85d-933fdc8b461c",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0ec9c-8509-7d21-9ae2-24409f72ca43",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 product_manager \u00b7 conversation_8ff78837-3a61-402f-8c89-cead4e68deb4 \u00b7 generation 1",
+      "state": "superseded",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "51320f87765dd1e54bedd3a1616742e2be5e1c97dad63c983ae5798bfd668980",
+        "worker": {
+          "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+          "display_name": "Maya",
+          "role": "product_manager",
+          "mission": "Persistent product_manager; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+        "purpose": "Conversation with Maya",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "sender_principal_id": "human",
+            "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+            "sender_principal_id": "human",
+            "body": "Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+            "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [],
+        "original_range": {
+          "first_cursor": 4,
+          "last_cursor": 5,
+          "count": 2
+        },
+        "source_range": {
+          "first": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+          "last": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "476a05cfdf9bb678eb63fe6600e135a956f336fb86c70b6eff22fea50d2f9e2b",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 4929,
+      "rollover_requested": 1,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:01:14.655Z",
+      "activated_at": "2026-09-29T10:01:16.738Z"
+    },
+    {
+      "session_id": "session_f666dba2-9010-4e5c-977b-3f5bfd2bd4c3",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+      "thread_name": "BotSquad \u00b7 Linus \u00b7 engineer \u00b7 conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f \u00b7 generation 1",
+      "state": "active",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "38f31d34222d3ce92fe4428fdc5be922bd7bb1f0d01fef98c683ea80e0807885",
+        "worker": {
+          "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+          "display_name": "Linus",
+          "role": "engineer",
+          "mission": "Persistent engineer; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+        "purpose": "Conversation with Linus",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2",
+            "sender_principal_id": "human",
+            "body": "Explain the practical difference between idempotent response persistence and exactly-once model invocation. Discuss uncertainty without changing code or assigning anyone.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+            "message_id": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2",
+            "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [],
+        "original_range": {
+          "first_cursor": 6,
+          "last_cursor": 6,
+          "count": 1
+        },
+        "source_range": {
+          "first": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2",
+          "last": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "89dda02d83865854537c7660e1e478c78a52c0b1ed265e197d74523f8a95537d",
+      "handoff_version": 1,
+      "completed_turns": 3,
+      "input_chars": 15701,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:01:40.912Z",
+      "activated_at": "2026-09-29T10:01:42.566Z"
+    },
+    {
+      "session_id": "session_9fbf059e-ac1d-4472-8580-a80d39b00a19",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0ec9e-4120-71b2-9537-b89a4b6f1cab",
+      "thread_name": "BotSquad \u00b7 Ada \u00b7 engineer \u00b7 conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71 \u00b7 generation 1",
+      "state": "active",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "fadac37a62018b870fca0c3bbaf71f727085cdd138b535674a129ffcd67e91a8",
+        "worker": {
+          "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+          "display_name": "Ada",
+          "role": "engineer",
+          "mission": "Persistent engineer; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+        "purpose": "Peer question: Linus and Ada",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+            "body": "If a reply was durably committed but its acknowledgement was lost, how would you reconcile a retry by request ID, and what tradeoff would you make between returning the stored reply and regenerating it? Please answer briefly; no code or repository changes.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+            "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "target_worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+            "status": "queued",
+            "kind": "peer",
+            "parent_request_id": "reply_a430e4ed-38a5-4b59-860c-9388d1d45b14"
+          },
+          {
+            "request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+            "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "status": "waiting_peer",
+            "kind": "continuation",
+            "parent_request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8"
+          }
+        ],
+        "peer_deliveries": [
+          {
+            "peer_request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+            "return_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "continuation_request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+            "state": "waiting",
+            "error": null,
+            "created_at": "2026-09-29T10:03:08.412Z"
+          }
+        ],
+        "bookmarks": [],
+        "original_range": {
+          "first_cursor": 10,
+          "last_cursor": 10,
+          "count": 1
+        },
+        "source_range": {
+          "first": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+          "last": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "9ea694d99995aec09d60e2ca7c0609cef954344df455be9da3363bc5f1e4c160",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 5551,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:03:08.441Z",
+      "activated_at": "2026-09-29T10:03:10.111Z"
+    },
+    {
+      "session_id": "session_e43ff16e-74aa-4aaa-810d-4c2a9b8ff81e",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0ec9e-6997-70d1-bc20-42e79c94012d",
+      "thread_name": "BotSquad \u00b7 Linus \u00b7 engineer \u00b7 conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71 \u00b7 generation 1",
+      "state": "active",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "fadac37a62018b870fca0c3bbaf71f727085cdd138b535674a129ffcd67e91a8",
+        "worker": {
+          "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+          "display_name": "Linus",
+          "role": "engineer",
+          "mission": "Persistent engineer; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+        "purpose": "Peer question: Linus and Ada",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+            "body": "If a reply was durably committed but its acknowledgement was lost, how would you reconcile a retry by request ID, and what tradeoff would you make between returning the stored reply and regenerating it? Please answer briefly; no code or repository changes.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_d450df5a-1df0-4998-a92e-29c76ea9747f",
+            "sender_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+            "body": "On retry, look up the request ID in durable storage. If it is already committed, return the stored reply (and its original response ID); if it is still in progress, wait or report that state. Regenerate only when no committed result exists, using an atomic uniqueness check on the request ID to prevent two commits. Returning the stored reply favors exactly-once, consistent user-visible behavior; regeneration might incorporate newer context but risks a different answer or duplicate side effects. Any intentional refresh should be a new request ID.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+            "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "status": "queued",
+            "kind": "continuation",
+            "parent_request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8"
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [
+          {
+            "source_message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+            "quote": "If a reply was durably committed but its acknowledgement was lost, how would you reconcile a retry by request ID, and what tradeoff would you make between returning the stored reply and regenerating it? Please answer briefly; no code or repository changes.",
+            "kind": "question"
+          }
+        ],
+        "original_range": {
+          "first_cursor": 10,
+          "last_cursor": 11,
+          "count": 2
+        },
+        "source_range": {
+          "first": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+          "last": "cmessage_d450df5a-1df0-4998-a92e-29c76ea9747f"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "b105ad6a87c273992fa8576ef8d8be3adc84c6d0af5e877cae7b966b324a8265",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 6031,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:03:19.214Z",
+      "activated_at": "2026-09-29T10:03:20.405Z"
+    },
+    {
+      "session_id": "session_bbe4a2ea-4ab3-49be-9751-47ee2c710b99",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0eca2-0d96-71f1-a0d7-88f5081917f2",
+      "thread_name": "BotSquad \u00b7 Ada \u00b7 engineer \u00b7 conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b \u00b7 generation 1",
+      "state": "active",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "fadac37a62018b870fca0c3bbaf71f727085cdd138b535674a129ffcd67e91a8",
+        "worker": {
+          "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+          "display_name": "Ada",
+          "role": "engineer",
+          "mission": "Persistent engineer; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+        "purpose": "Peer question: Linus and Ada",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+            "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+            "body": "For a retry after a reply was durably committed but its acknowledgement was lost, should reconciliation return the stored reply by request ID or regenerate? What is the key tradeoff? Brief technical answer only; no task or code changes.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+            "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+            "target_worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+            "status": "queued",
+            "kind": "peer",
+            "parent_request_id": "reply_ba140d2d-d986-442b-b467-b6572b2c561d"
+          },
+          {
+            "request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+            "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+            "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "status": "waiting_peer",
+            "kind": "continuation",
+            "parent_request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde"
+          }
+        ],
+        "peer_deliveries": [
+          {
+            "peer_request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+            "return_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "continuation_request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+            "state": "waiting",
+            "error": null,
+            "created_at": "2026-09-29T10:07:17.766Z",
+            "continuation_status": "waiting_peer"
+          }
+        ],
+        "bookmarks": [],
+        "original_range": {
+          "first_cursor": 14,
+          "last_cursor": 14,
+          "count": 1
+        },
+        "source_range": {
+          "first": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+          "last": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "0a30a4cfe0dabef6071aa9887a6d1da45b795b956a9b9172b79ca394de8ceec0",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 5548,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:07:17.785Z",
+      "activated_at": "2026-09-29T10:07:18.977Z"
+    },
+    {
+      "session_id": "session_f3b40c2e-5ce4-42ca-9a10-ab976effdc88",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "generation": 1,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": null,
+      "runtime_reference": "01a0eca2-26ff-7fd0-a5d1-9bc756c7716a",
+      "thread_name": "BotSquad \u00b7 Linus \u00b7 engineer \u00b7 conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b \u00b7 generation 1",
+      "state": "active",
+      "reason": "initial_context",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "fadac37a62018b870fca0c3bbaf71f727085cdd138b535674a129ffcd67e91a8",
+        "worker": {
+          "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+          "display_name": "Linus",
+          "role": "engineer",
+          "mission": "Persistent engineer; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+        "purpose": "Peer question: Linus and Ada",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+            "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+            "body": "For a retry after a reply was durably committed but its acknowledgement was lost, should reconciliation return the stored reply by request ID or regenerate? What is the key tradeoff? Brief technical answer only; no task or code changes.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_b0c623f9-0981-414f-96fb-d437fde69ca3",
+            "sender_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+            "body": "Return the durably stored reply by request ID; do not regenerate. This gives idempotent retries and preserves exactly the user-visible result that committed, avoiding duplicate effects or divergent answers. The tradeoff is retaining and indexing committed replies (with suitable retention/privacy policy) rather than recomputing them.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+            "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+            "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "status": "queued",
+            "kind": "continuation",
+            "parent_request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde"
+          }
+        ],
+        "peer_deliveries": [
+          {
+            "peer_request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+            "return_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+            "continuation_request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+            "state": "queued",
+            "error": null,
+            "created_at": "2026-09-29T10:07:17.766Z",
+            "continuation_status": "queued"
+          }
+        ],
+        "bookmarks": [],
+        "original_range": {
+          "first_cursor": 14,
+          "last_cursor": 16,
+          "count": 2
+        },
+        "source_range": {
+          "first": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+          "last": "cmessage_b0c623f9-0981-414f-96fb-d437fde69ca3"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "025e1fba20a26c50a2c755a57522056954a40e1d243e048e1c848c255659c3d0",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 5722,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:07:24.309Z",
+      "activated_at": "2026-09-29T10:07:25.475Z"
+    },
+    {
+      "session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "generation": 2,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": "session_9d6cd92c-d016-4817-a85d-933fdc8b461c",
+      "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 product_manager \u00b7 conversation_8ff78837-3a61-402f-8c89-cead4e68deb4 \u00b7 generation 2",
+      "state": "superseded",
+      "reason": "operator_requested",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "51320f87765dd1e54bedd3a1616742e2be5e1c97dad63c983ae5798bfd668980",
+        "worker": {
+          "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+          "display_name": "Maya",
+          "role": "product_manager",
+          "mission": "Persistent product_manager; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+        "purpose": "Conversation with Maya",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "sender_principal_id": "human",
+            "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+            "sender_principal_id": "human",
+            "body": "Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_7182b3fe-22bb-4a51-b241-b241152ea621",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "For a small support team, I\u2019d keep the policy simple: delete raw diagnostic logs within 48 hours, while retaining only aggregated operational counts for longer-term trend monitoring. Treat repeated message submissions with the same identifier as one action during a clearly documented, bounded deduplication window; make retries safe within that window, and avoid promising duplicate suppression forever.\n\nTradeoff: a longer deduplication window protects against late retries, but requires retaining identifiers longer and adds privacy and operational burden. The window\u2019s exact length and the retention of support-case content are not specified here, so I would not set either by assumption.\n\n**Open decision to preserve:** Should expired message identifiers remain as opaque tombstones for deduplication after their associated records expire? That has not been decided; it needs an explicit retention-versus-late-retry decision before the policy is finalized.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+            "sender_principal_id": "human",
+            "body": "Continue our earlier policy discussion after context replacement. State the retention constraint and the unresolved question from our original conversation. Explain what remains uncertain.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+            "sender_principal_id": "human",
+            "body": "Pending obligation: after the policy recap, propose two criteria the human should use to resolve the outstanding tombstone question. Do not decide it on the human\u2019s behalf.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+            "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          },
+          {
+            "request_id": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+            "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "kind": "question"
+          },
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist.",
+            "kind": "fact"
+          }
+        ],
+        "original_range": {
+          "first_cursor": 4,
+          "last_cursor": 19,
+          "count": 5
+        },
+        "source_range": {
+          "first": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+          "last": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "d6cab6a711cda38060dea513c8482b315893192a5e01c418dc48b49e70f573af",
+      "handoff_version": 1,
+      "completed_turns": 3,
+      "input_chars": 22329,
+      "rollover_requested": 1,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:09:14.270Z",
+      "activated_at": "2026-09-29T10:09:15.493Z"
+    },
+    {
+      "session_id": "session_3adc9842-f9a4-416e-aab8-4310f5b7d932",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "generation": 3,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "runtime_reference": "01a0eca5-e2c9-7752-a925-247d134fbb83",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 product_manager \u00b7 conversation_8ff78837-3a61-402f-8c89-cead4e68deb4 \u00b7 generation 3",
+      "state": "blocked",
+      "reason": "operator_requested",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "51320f87765dd1e54bedd3a1616742e2be5e1c97dad63c983ae5798bfd668980",
+        "worker": {
+          "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+          "display_name": "Maya",
+          "role": "product_manager",
+          "mission": "Persistent product_manager; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+        "purpose": "Conversation with Maya",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "sender_principal_id": "human",
+            "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+            "sender_principal_id": "human",
+            "body": "Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_7182b3fe-22bb-4a51-b241-b241152ea621",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "For a small support team, I\u2019d keep the policy simple: delete raw diagnostic logs within 48 hours, while retaining only aggregated operational counts for longer-term trend monitoring. Treat repeated message submissions with the same identifier as one action during a clearly documented, bounded deduplication window; make retries safe within that window, and avoid promising duplicate suppression forever.\n\nTradeoff: a longer deduplication window protects against late retries, but requires retaining identifiers longer and adds privacy and operational burden. The window\u2019s exact length and the retention of support-case content are not specified here, so I would not set either by assumption.\n\n**Open decision to preserve:** Should expired message identifiers remain as opaque tombstones for deduplication after their associated records expire? That has not been decided; it needs an explicit retention-versus-late-retry decision before the policy is finalized.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+            "sender_principal_id": "human",
+            "body": "Continue our earlier policy discussion after context replacement. State the retention constraint and the unresolved question from our original conversation. Explain what remains uncertain.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+            "sender_principal_id": "human",
+            "body": "Pending obligation: after the policy recap, propose two criteria the human should use to resolve the outstanding tombstone question. Do not decide it on the human\u2019s behalf.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_56d8116e-6f91-4644-a159-f72cc76aa690",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "The original constraint is to delete raw diagnostic logs after 48 hours; aggregated operational counts may persist. The unresolved question is whether expired message identifiers should remain as opaque tombstones for deduplication. We have not decided that.\n\nWhat remains uncertain is the appropriate deduplication window, whether identifiers may be retained beyond record expiry, and how long support-case content should be kept; none of those durations was specified. To resolve the tombstone question, I\u2019d weigh (1) how often late retries occur and the harm of processing a duplicate, against (2) the privacy and operational cost of retaining even opaque identifiers. I would not make that decision on your behalf.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_35d4fac5-cec9-44d1-9987-44da4e48430a",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "Two criteria for deciding whether to retain opaque tombstones after records expire:\n1. **Late-retry risk:** How often do retries arrive after expiry, and what is the impact of processing one twice?\n2. **Retention cost:** What privacy, compliance, and operational burden would retaining identifiers create, even if they are opaque?\n\nThese criteria frame the decision; they do not settle it. The required 48-hour deletion of raw diagnostic logs still applies.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_6c4becc0-fc18-4af7-8eeb-67ff564d574e",
+            "sender_principal_id": "human",
+            "body": "This queued validation request will be cancelled before dispatch.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+            "sender_principal_id": "human",
+            "body": "Reason carefully about six distinct failure windows for context replacement, with concrete evidence requirements and recovery tradeoffs. The operator may interrupt this validation turn.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+            "sender_principal_id": "human",
+            "body": "Continue our retention discussion. This request exercises a controlled application restart before a provider turn begins; preserve the unresolved policy question.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_3976eddf-5b7a-4242-b51e-aa15bc345f60",
+            "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "interrupted",
+            "kind": "reply",
+            "parent_request_id": null
+          },
+          {
+            "request_id": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+            "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "kind": "question"
+          },
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist.",
+            "kind": "fact"
+          }
+        ],
+        "original_range": {
+          "first_cursor": 4,
+          "last_cursor": 24,
+          "count": 10
+        },
+        "source_range": {
+          "first": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+          "last": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "6beb4ad99d2fd54fb35b6f3c5bc56c58dfe8316e560712e814fb804569e23389",
+      "handoff_version": 1,
+      "completed_turns": 0,
+      "input_chars": 0,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:11:28.890Z",
+      "activated_at": null
+    },
+    {
+      "session_id": "session_de7f1be7-09ed-41a5-a561-803c8b2ff31b",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "generation": 4,
+      "scope_version": 1,
+      "mode": "conversation",
+      "tool_schema": "conversation-v1",
+      "tool_hash": "39b0e89fee5a8cf117203d1592ba4aa1dfa12b9d20ab22a846f72648da53165b",
+      "previous_session_id": "session_42955645-5d12-43ea-b9be-3984ba6d65aa",
+      "runtime_reference": "01a0eca7-9edb-77d1-a9d5-64a2b6ad7b81",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 product_manager \u00b7 conversation_8ff78837-3a61-402f-8c89-cead4e68deb4 \u00b7 generation 4",
+      "state": "active",
+      "reason": "operator_requested",
+      "handoff": {
+        "version": 1,
+        "scope_hash": "51320f87765dd1e54bedd3a1616742e2be5e1c97dad63c983ae5798bfd668980",
+        "worker": {
+          "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+          "display_name": "Maya",
+          "role": "product_manager",
+          "mission": "Persistent product_manager; reason carefully about reliable software and human-visible behavior."
+        },
+        "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+        "purpose": "Conversation with Maya",
+        "summary": "Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.",
+        "messages": [
+          {
+            "message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "sender_principal_id": "human",
+            "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+            "sender_principal_id": "human",
+            "body": "Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_7182b3fe-22bb-4a51-b241-b241152ea621",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "For a small support team, I\u2019d keep the policy simple: delete raw diagnostic logs within 48 hours, while retaining only aggregated operational counts for longer-term trend monitoring. Treat repeated message submissions with the same identifier as one action during a clearly documented, bounded deduplication window; make retries safe within that window, and avoid promising duplicate suppression forever.\n\nTradeoff: a longer deduplication window protects against late retries, but requires retaining identifiers longer and adds privacy and operational burden. The window\u2019s exact length and the retention of support-case content are not specified here, so I would not set either by assumption.\n\n**Open decision to preserve:** Should expired message identifiers remain as opaque tombstones for deduplication after their associated records expire? That has not been decided; it needs an explicit retention-versus-late-retry decision before the policy is finalized.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+            "sender_principal_id": "human",
+            "body": "Continue our earlier policy discussion after context replacement. State the retention constraint and the unresolved question from our original conversation. Explain what remains uncertain.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+            "sender_principal_id": "human",
+            "body": "Pending obligation: after the policy recap, propose two criteria the human should use to resolve the outstanding tombstone question. Do not decide it on the human\u2019s behalf.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_56d8116e-6f91-4644-a159-f72cc76aa690",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "The original constraint is to delete raw diagnostic logs after 48 hours; aggregated operational counts may persist. The unresolved question is whether expired message identifiers should remain as opaque tombstones for deduplication. We have not decided that.\n\nWhat remains uncertain is the appropriate deduplication window, whether identifiers may be retained beyond record expiry, and how long support-case content should be kept; none of those durations was specified. To resolve the tombstone question, I\u2019d weigh (1) how often late retries occur and the harm of processing a duplicate, against (2) the privacy and operational cost of retaining even opaque identifiers. I would not make that decision on your behalf.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_35d4fac5-cec9-44d1-9987-44da4e48430a",
+            "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+            "body": "Two criteria for deciding whether to retain opaque tombstones after records expire:\n1. **Late-retry risk:** How often do retries arrive after expiry, and what is the impact of processing one twice?\n2. **Retention cost:** What privacy, compliance, and operational burden would retaining identifiers create, even if they are opaque?\n\nThese criteria frame the decision; they do not settle it. The required 48-hour deletion of raw diagnostic logs still applies.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_6c4becc0-fc18-4af7-8eeb-67ff564d574e",
+            "sender_principal_id": "human",
+            "body": "This queued validation request will be cancelled before dispatch.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+            "sender_principal_id": "human",
+            "body": "Reason carefully about six distinct failure windows for context replacement, with concrete evidence requirements and recovery tradeoffs. The operator may interrupt this validation turn.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+            "sender_principal_id": "human",
+            "body": "Continue our retention discussion. This request exercises a controlled application restart before a provider turn begins; preserve the unresolved policy question.",
+            "omitted_characters": 0
+          },
+          {
+            "message_id": "cmessage_50d4d4cf-8474-4375-b968-9e68c7cae78f",
+            "sender_principal_id": "human",
+            "body": "After the restart, give a concise recap of the original 48-hour retention constraint and the still-open tombstone decision. Distinguish known facts from unresolved outcomes; this is a new explicit reply request.",
+            "omitted_characters": 0
+          }
+        ],
+        "obligations": [
+          {
+            "request_id": "reply_3976eddf-5b7a-4242-b51e-aa15bc345f60",
+            "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "interrupted",
+            "kind": "reply",
+            "parent_request_id": null
+          },
+          {
+            "request_id": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+            "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "blocked",
+            "kind": "reply",
+            "parent_request_id": null
+          },
+          {
+            "request_id": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353",
+            "message_id": "cmessage_50d4d4cf-8474-4375-b968-9e68c7cae78f",
+            "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+            "status": "queued",
+            "kind": "reply",
+            "parent_request_id": null
+          }
+        ],
+        "peer_deliveries": [],
+        "bookmarks": [
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+            "kind": "question"
+          },
+          {
+            "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+            "quote": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist.",
+            "kind": "fact"
+          }
+        ],
+        "original_range": {
+          "first_cursor": 4,
+          "last_cursor": 25,
+          "count": 11
+        },
+        "source_range": {
+          "first": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+          "last": "cmessage_50d4d4cf-8474-4375-b968-9e68c7cae78f"
+        },
+        "omissions": "Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.",
+        "disposition": "No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.",
+        "constraints": "Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority."
+      },
+      "handoff_hash": "b1792fc61c5e3821fe444495c340d225e75dd5c887803c25b4cdb6e0c533f788",
+      "handoff_version": 1,
+      "completed_turns": 1,
+      "input_chars": 10124,
+      "rollover_requested": 0,
+      "unresolved": 0,
+      "created_at": "2026-09-29T10:13:22.374Z",
+      "activated_at": "2026-09-29T10:13:23.882Z"
+    }
+  ],
+  "runtime_inputs": [
+    {
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "c92a9b182f71788062ffb45c8bb1c79a715c8779ce7745757e82631329817957",
+      "binding_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0"
+    },
+    {
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "33fc471f79d6ac295af50b9eb826f42c44d7410d410330c5d84c01e4fbca243b",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "ce7bc25af2cee4b952f9690d02037cfde5c12a061a69cbb22dce1d4ee33d7914",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_455c23f1-4d27-4730-b6cf-8ac57034bebe",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "347a04bdeefff835bc85157235e8373863ffea887e9f35a30a9b5bb944ba88bd",
+      "binding_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f"
+    },
+    {
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "392dfde8218f5f3f4c82b520bd6304a333221374b86ca311c74d27d649774e5f",
+      "binding_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f"
+    },
+    {
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "9dd98d167acbce7b6aaee90799c17a354191decd41d88bf0d01819fd5cf934e5",
+      "binding_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0"
+    },
+    {
+      "execution_id": "execution_7a0daa02-d613-4880-87ad-b41a0107992f",
+      "mode": "task",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_source",
+        "write_source",
+        "run_repo_tests",
+        "delete_source",
+        "commit_project_changes",
+        "inspect_git",
+        "submit_engineering"
+      ],
+      "input_sha256": "3e3e4bd4d282604602c0ff1c7cf6361f814543a191955030acab3e61af7160d7",
+      "binding_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d"
+    },
+    {
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "05575ddec6618d084bd295a56d976f657da555a540154dd82554f815785d6e91",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "2ac853fb6a92ff31959cb8713c0044aab4ca192662e1788fc09215ae349663f3",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "f32cbc0fe19831e6b1fa7d50b62b8aea92f14b7465d797e8b979ea458c5c07eb",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "2e6013a4c08998f4bacfeca97b8ef703dd061dcaaadf8b79bb858f5f255b33c0",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "mode": "task",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_source",
+        "write_source",
+        "run_repo_tests",
+        "delete_source",
+        "commit_project_changes",
+        "inspect_git",
+        "submit_engineering"
+      ],
+      "input_sha256": "402414c36df7a815c403229d851126b2d170be4c8163a964a1039822fe559684",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "e4683c36de8215a9c2ea95dcb9622118893aa372b8043b17281e864301e04bce",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "fcd3a3b73cc06627745891aa25d8b7cabe83e6d3daa00926caa03705435cd6a5",
+      "binding_reference": null
+    },
+    {
+      "execution_id": "execution_fe154a53-d3e7-401c-90f5-f84e649092cc",
+      "mode": "conversation",
+      "tools": [
+        "read_conversation",
+        "read_message",
+        "remember_context",
+        "ask_peer",
+        "submit_reply"
+      ],
+      "input_sha256": "0aa73ef496626518a12c45b85650315531f52ae924b3789ddeb31413d4cbeb25",
+      "binding_reference": null
+    }
+  ],
+  "usage_and_turn_events": [
+    {
+      "event_id": "event_fbcce984-0421-4fc6-be64-01dbbd6f646c",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "runtime_reference": "01a0ec9c-8509-7d21-9ae2-24409f72ca43",
+        "context_chars": 4778
+      },
+      "created_at": "2026-09-29T10:01:16.758Z"
+    },
+    {
+      "event_id": "event_05fd16da-edef-46ed-962d-9562389b0bd6",
+      "type": "runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "detail": {
+        "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+        "context_chars": 1613
+      },
+      "created_at": "2026-09-29T10:01:16.803Z"
+    },
+    {
+      "event_id": "event_2bc84bda-93f8-4447-ab21-d9465c0e4f7c",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "runtime_reference": "01a0ec9c-8509-7d21-9ae2-24409f72ca43",
+        "turn_id": "01a0ec9c-88e2-7bd0-8d10-5190d2bac7d9"
+      },
+      "created_at": "2026-09-29T10:01:16.866Z"
+    },
+    {
+      "event_id": "event_727f20dd-6df1-44fb-89dd-e08c58d4a3cd",
+      "type": "runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "detail": {
+        "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+        "turn_id": "01a0ec9c-890a-7792-93ca-7531c5b20c6b"
+      },
+      "created_at": "2026-09-29T10:01:16.871Z"
+    },
+    {
+      "event_id": "event_c2894560-0255-41c8-a07e-412453a17dff",
+      "type": "runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "detail": {
+        "turn_id": "01a0ec9c-890a-7792-93ca-7531c5b20c6b",
+        "input_tokens": 5779,
+        "output_tokens": 35,
+        "total_tokens": 5814,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:19.347Z"
+    },
+    {
+      "event_id": "event_1ed05a90-211c-48f1-855b-75d18e993ae3",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "turn_id": "01a0ec9c-88e2-7bd0-8d10-5190d2bac7d9",
+        "input_tokens": 6417,
+        "output_tokens": 94,
+        "total_tokens": 6511,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:20.640Z"
+    },
+    {
+      "event_id": "event_254fbed7-9749-40bf-a4c2-1a1a69b2d5a4",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "turn_id": "01a0ec9c-88e2-7bd0-8d10-5190d2bac7d9",
+        "input_tokens": 6592,
+        "output_tokens": 78,
+        "total_tokens": 6670,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:24.123Z"
+    },
+    {
+      "event_id": "event_af17b74f-5027-4566-b87a-53bcb22ebbec",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "turn_id": "01a0ec9c-88e2-7bd0-8d10-5190d2bac7d9",
+        "input_tokens": 6754,
+        "output_tokens": 214,
+        "total_tokens": 6968,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:31.133Z"
+    },
+    {
+      "event_id": "event_480ae699-4cbd-41f4-86a3-da74c361c62c",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "detail": {
+        "turn_id": "01a0ec9c-88e2-7bd0-8d10-5190d2bac7d9",
+        "input_tokens": 7389,
+        "output_tokens": 35,
+        "total_tokens": 7424,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:33.182Z"
+    },
+    {
+      "event_id": "event_5e225052-26b2-4cc0-beaf-12ad68e8a0d8",
+      "type": "runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "detail": {
+        "turn_id": "01a0ec9c-890a-7792-93ca-7531c5b20c6b",
+        "input_tokens": 12026,
+        "output_tokens": 401,
+        "total_tokens": 12427,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:37.832Z"
+    },
+    {
+      "event_id": "event_dfb165bd-af27-483e-8cbc-12d678ac308b",
+      "type": "runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_f1c4bb0f-1eb6-485e-96b6-41dc54b67b4b",
+      "execution_id": "execution_af39fb0c-1d94-44ee-83c9-f117cfc39040",
+      "detail": {
+        "turn_id": "01a0ec9c-890a-7792-93ca-7531c5b20c6b",
+        "input_tokens": 12656,
+        "output_tokens": 111,
+        "total_tokens": 12767,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:40.839Z"
+    },
+    {
+      "event_id": "event_c800f67f-e754-408b-bb2e-e6b0bef610ad",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "context_chars": 4353
+      },
+      "created_at": "2026-09-29T10:01:42.616Z"
+    },
+    {
+      "event_id": "event_9743a05d-1055-41f0-b9d2-70b763344c0c",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "turn_id": "01a0ec9c-eddf-7a41-b534-691adc1d3db4"
+      },
+      "created_at": "2026-09-29T10:01:42.662Z"
+    },
+    {
+      "event_id": "event_9b6509c7-0bcd-42d7-adea-4f2b01127d88",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "detail": {
+        "turn_id": "01a0ec9c-eddf-7a41-b534-691adc1d3db4",
+        "input_tokens": 6333,
+        "output_tokens": 321,
+        "total_tokens": 6654,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:54.205Z"
+    },
+    {
+      "event_id": "event_b2eeef63-6d8b-44cc-9bfc-2b6aed8488a7",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "detail": {
+        "turn_id": "01a0ec9c-eddf-7a41-b534-691adc1d3db4",
+        "input_tokens": 7132,
+        "output_tokens": 4,
+        "total_tokens": 7136,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:01:55.573Z"
+    },
+    {
+      "event_id": "event_c51fe1f6-98b0-4ec8-8c32-96068a31a9cf",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "context_chars": 5363
+      },
+      "created_at": "2026-09-29T10:03:03.146Z"
+    },
+    {
+      "event_id": "event_3eb8c93e-b2b3-45f9-b28f-def633ce3d9a",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "turn_id": "01a0ec9e-2877-7ad1-a6aa-fdcb4188b71e"
+      },
+      "created_at": "2026-09-29T10:03:03.195Z"
+    },
+    {
+      "event_id": "event_45eeeb7f-9d84-414e-92d9-7f21f43ecf82",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "detail": {
+        "turn_id": "01a0ec9e-2877-7ad1-a6aa-fdcb4188b71e",
+        "input_tokens": 8721,
+        "output_tokens": 145,
+        "total_tokens": 8866,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:08.697Z"
+    },
+    {
+      "event_id": "event_60f8962b-1634-4e24-a221-a709d08cf14c",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "detail": {
+        "turn_id": "01a0ec9e-2877-7ad1-a6aa-fdcb4188b71e",
+        "input_tokens": 8974,
+        "output_tokens": 4,
+        "total_tokens": 8978,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:10.010Z"
+    },
+    {
+      "event_id": "event_cb9c8a8b-2b8d-4f3e-9f97-a26c587dbba4",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "detail": {
+        "runtime_reference": "01a0ec9e-4120-71b2-9537-b89a4b6f1cab",
+        "context_chars": 5551
+      },
+      "created_at": "2026-09-29T10:03:10.144Z"
+    },
+    {
+      "event_id": "event_a42a78a7-ebd9-4b0a-8f83-9dd3da22eb5e",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "detail": {
+        "runtime_reference": "01a0ec9e-4120-71b2-9537-b89a4b6f1cab",
+        "turn_id": "01a0ec9e-43c6-7ed0-9c41-27d05a43d840"
+      },
+      "created_at": "2026-09-29T10:03:10.196Z"
+    },
+    {
+      "event_id": "event_230c4c29-b19f-46e4-bf9c-1e0cf9d936c7",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "detail": {
+        "turn_id": "01a0ec9e-43c6-7ed0-9c41-27d05a43d840",
+        "input_tokens": 6908,
+        "output_tokens": 118,
+        "total_tokens": 7026,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:14.209Z"
+    },
+    {
+      "event_id": "event_6e207661-54f6-452f-90f0-d629774532af",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "detail": {
+        "turn_id": "01a0ec9e-43c6-7ed0-9c41-27d05a43d840",
+        "input_tokens": 7112,
+        "output_tokens": 128,
+        "total_tokens": 7240,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:19.376Z"
+    },
+    {
+      "event_id": "event_7826d54a-ee19-449a-84df-8a2dd2ab0842",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "detail": {
+        "runtime_reference": "01a0ec9e-6997-70d1-bc20-42e79c94012d",
+        "context_chars": 6031
+      },
+      "created_at": "2026-09-29T10:03:20.418Z"
+    },
+    {
+      "event_id": "event_051ab36c-53bf-42a1-9a28-2d2d59f8a707",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "detail": {
+        "runtime_reference": "01a0ec9e-6997-70d1-bc20-42e79c94012d",
+        "turn_id": "01a0ec9e-6be6-7cd0-ace2-44669061a18e"
+      },
+      "created_at": "2026-09-29T10:03:20.445Z"
+    },
+    {
+      "event_id": "event_923d908f-5410-4614-853b-b67789e28941",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "detail": {
+        "turn_id": "01a0ec9e-43c6-7ed0-9c41-27d05a43d840",
+        "input_tokens": 7589,
+        "output_tokens": 4,
+        "total_tokens": 7593,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:20.847Z"
+    },
+    {
+      "event_id": "event_61d787a0-f82e-4e36-8753-78fe52602d9b",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "detail": {
+        "turn_id": "01a0ec9e-6be6-7cd0-ace2-44669061a18e",
+        "input_tokens": 6890,
+        "output_tokens": 124,
+        "total_tokens": 7014,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:24.336Z"
+    },
+    {
+      "event_id": "event_1d160986-ca04-4472-b523-ca8f56c39d7f",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "detail": {
+        "turn_id": "01a0ec9e-6be6-7cd0-ace2-44669061a18e",
+        "input_tokens": 7335,
+        "output_tokens": 4,
+        "total_tokens": 7339,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:03:25.595Z"
+    },
+    {
+      "event_id": "event_e82fa2fd-8816-4ce7-82b2-427174e2e8eb",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "context_chars": 5985
+      },
+      "created_at": "2026-09-29T10:07:07.479Z"
+    },
+    {
+      "event_id": "event_efcfc8d5-2185-4cb0-be50-63d61fcc97cf",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "detail": {
+        "runtime_reference": "01a0ec9c-eb43-7f00-9e16-666ff89c69f0",
+        "turn_id": "01a0eca1-e2dc-7dd0-9407-e563b8d3c801"
+      },
+      "created_at": "2026-09-29T10:07:07.503Z"
+    },
+    {
+      "event_id": "event_75cb1799-4d64-4244-a30f-280457b563f9",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "detail": {
+        "turn_id": "01a0eca1-e2dc-7dd0-9407-e563b8d3c801",
+        "input_tokens": 10731,
+        "output_tokens": 297,
+        "total_tokens": 11028,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:17.910Z"
+    },
+    {
+      "event_id": "event_ec5f5edf-4ceb-4410-9651-c336fd4ef715",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "detail": {
+        "runtime_reference": "01a0eca2-0d96-71f1-a0d7-88f5081917f2",
+        "context_chars": 5548
+      },
+      "created_at": "2026-09-29T10:07:19.002Z"
+    },
+    {
+      "event_id": "event_5b8956a2-7b95-45dc-bde8-1d9cdfd603d9",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "detail": {
+        "runtime_reference": "01a0eca2-0d96-71f1-a0d7-88f5081917f2",
+        "turn_id": "01a0eca2-0fea-7793-86f0-7f8a0a3e500b"
+      },
+      "created_at": "2026-09-29T10:07:19.038Z"
+    },
+    {
+      "event_id": "event_a0d538fe-2a04-479c-944e-4567aab28f9c",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "detail": {
+        "turn_id": "01a0eca1-e2dc-7dd0-9407-e563b8d3c801",
+        "input_tokens": 11169,
+        "output_tokens": 129,
+        "total_tokens": 11298,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:21.556Z"
+    },
+    {
+      "event_id": "event_de581353-705c-46c2-b360-f8b3a78678e6",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "detail": {
+        "turn_id": "01a0eca2-0fea-7793-86f0-7f8a0a3e500b",
+        "input_tokens": 6880,
+        "output_tokens": 84,
+        "total_tokens": 6964,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:22.698Z"
+    },
+    {
+      "event_id": "event_009a00bd-7cd0-47a4-ae29-f68ee1b852d0",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "task_id": null,
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "detail": {
+        "turn_id": "01a0eca2-0fea-7793-86f0-7f8a0a3e500b",
+        "input_tokens": 7269,
+        "output_tokens": 4,
+        "total_tokens": 7273,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:24.086Z"
+    },
+    {
+      "event_id": "event_d1d77dfe-0066-48f0-b60f-66bc1f089d03",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "detail": {
+        "turn_id": "01a0eca1-e2dc-7dd0-9407-e563b8d3c801",
+        "input_tokens": 11628,
+        "output_tokens": 4,
+        "total_tokens": 11632,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:24.251Z"
+    },
+    {
+      "event_id": "event_1a968af6-7161-4ef5-a203-6b8fb796822e",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "detail": {
+        "runtime_reference": "01a0eca2-26ff-7fd0-a5d1-9bc756c7716a",
+        "context_chars": 5722
+      },
+      "created_at": "2026-09-29T10:07:25.487Z"
+    },
+    {
+      "event_id": "event_216b72d2-d105-4a06-b2d6-db85caec9e4d",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "detail": {
+        "runtime_reference": "01a0eca2-26ff-7fd0-a5d1-9bc756c7716a",
+        "turn_id": "01a0eca2-2933-7223-ab02-f28b109d94ac"
+      },
+      "created_at": "2026-09-29T10:07:25.513Z"
+    },
+    {
+      "event_id": "event_c0c42317-9927-4732-b0aa-bdf1299c3cf9",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "detail": {
+        "turn_id": "01a0eca2-2933-7223-ab02-f28b109d94ac",
+        "input_tokens": 6858,
+        "output_tokens": 103,
+        "total_tokens": 6961,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:29.394Z"
+    },
+    {
+      "event_id": "event_4c475542-eb13-45c6-aaa9-354f01800d60",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": null,
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "detail": {
+        "turn_id": "01a0eca2-2933-7223-ab02-f28b109d94ac",
+        "input_tokens": 7253,
+        "output_tokens": 4,
+        "total_tokens": 7257,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:07:30.690Z"
+    },
+    {
+      "event_id": "event_9f9abb45-90f8-4ae3-adf6-d1539f6c420b",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "context_chars": 7208
+      },
+      "created_at": "2026-09-29T10:09:15.509Z"
+    },
+    {
+      "event_id": "event_52ea916b-ae10-46ed-be62-464d1ea0161d",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "turn_id": "01a0eca3-d6f9-74a3-8651-f9638e6dd159"
+      },
+      "created_at": "2026-09-29T10:09:15.536Z"
+    },
+    {
+      "event_id": "event_826e1e5f-0ba8-48c6-8912-df3889c7a7bd",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "detail": {
+        "turn_id": "01a0eca3-d6f9-74a3-8651-f9638e6dd159",
+        "input_tokens": 7020,
+        "output_tokens": 195,
+        "total_tokens": 7215,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:09:21.269Z"
+    },
+    {
+      "event_id": "event_5d2a7775-2039-4fbd-9464-2e41306f270e",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "detail": {
+        "turn_id": "01a0eca3-d6f9-74a3-8651-f9638e6dd159",
+        "input_tokens": 7304,
+        "output_tokens": 168,
+        "total_tokens": 7472,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:09:26.418Z"
+    },
+    {
+      "event_id": "event_0b895b82-7e50-414e-a08d-9e60297dc9b6",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "detail": {
+        "turn_id": "01a0eca3-d6f9-74a3-8651-f9638e6dd159",
+        "input_tokens": 7848,
+        "output_tokens": 4,
+        "total_tokens": 7852,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:09:27.842Z"
+    },
+    {
+      "event_id": "event_934c0a96-ed6a-4364-818d-26c1544fe953",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "context_chars": 6989
+      },
+      "created_at": "2026-09-29T10:09:28.639Z"
+    },
+    {
+      "event_id": "event_5ee01e96-b546-4663-947b-bce93329b6ab",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "turn_id": "01a0eca4-0a49-7d71-be2a-648dee95ac6e"
+      },
+      "created_at": "2026-09-29T10:09:28.663Z"
+    },
+    {
+      "event_id": "event_fcf25c06-2b45-41e9-a9e9-fb10e65db957",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "detail": {
+        "turn_id": "01a0eca4-0a49-7d71-be2a-648dee95ac6e",
+        "input_tokens": 9807,
+        "output_tokens": 138,
+        "total_tokens": 9945,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:09:34.360Z"
+    },
+    {
+      "event_id": "event_721abdc3-9f79-4b14-92ac-476140930ed2",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "detail": {
+        "turn_id": "01a0eca4-0a49-7d71-be2a-648dee95ac6e",
+        "input_tokens": 10286,
+        "output_tokens": 4,
+        "total_tokens": 10290,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:09:36.490Z"
+    },
+    {
+      "event_id": "event_d01b7e36-83c3-4177-bc40-d9a7dfc23b81",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_455c23f1-4d27-4730-b6cf-8ac57034bebe",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "context_chars": 8132
+      },
+      "created_at": "2026-09-29T10:10:18.234Z"
+    },
+    {
+      "event_id": "event_49e460b8-2678-4c57-be1c-1806cdc0185b",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_455c23f1-4d27-4730-b6cf-8ac57034bebe",
+      "detail": {
+        "runtime_reference": "01a0eca3-d4a5-7492-b2d9-0536118c152f",
+        "turn_id": "01a0eca4-cc00-7a40-a5c5-bdaf7d6e4328"
+      },
+      "created_at": "2026-09-29T10:10:18.256Z"
+    },
+    {
+      "event_id": "event_9a2843c7-865d-458c-921b-855843455bf0",
+      "type": "runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_89ad7e9f-30d4-43a0-ab22-8073d0dbaefc",
+      "execution_id": "execution_7a0daa02-d613-4880-87ad-b41a0107992f",
+      "detail": {
+        "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+        "context_chars": 1474
+      },
+      "created_at": "2026-09-29T10:10:22.923Z"
+    },
+    {
+      "event_id": "event_5e0a3ed3-29fd-427f-934f-2b19118f63e8",
+      "type": "runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_89ad7e9f-30d4-43a0-ab22-8073d0dbaefc",
+      "execution_id": "execution_7a0daa02-d613-4880-87ad-b41a0107992f",
+      "detail": {
+        "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+        "turn_id": "01a0eca4-de5b-7ef0-a2b0-f3cc25395be6"
+      },
+      "created_at": "2026-09-29T10:10:22.969Z"
+    },
+    {
+      "event_id": "event_763e2bb1-660b-4031-bf43-c3cdd48a427e",
+      "type": "runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "task_id": "task_89ad7e9f-30d4-43a0-ab22-8073d0dbaefc",
+      "execution_id": "execution_7a0daa02-d613-4880-87ad-b41a0107992f",
+      "detail": {
+        "turn_id": "01a0eca4-de5b-7ef0-a2b0-f3cc25395be6",
+        "input_tokens": 13154,
+        "output_tokens": 59,
+        "total_tokens": 13213,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:10:26.200Z"
+    },
+    {
+      "event_id": "event_065e2669-15c3-4d0f-b209-a76fd8f46aab",
+      "type": "conversation_runtime_turn_starting",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "detail": {
+        "runtime_reference": "01a0eca7-9edb-77d1-a9d5-64a2b6ad7b81",
+        "context_chars": 10124
+      },
+      "created_at": "2026-09-29T10:13:23.903Z"
+    },
+    {
+      "event_id": "event_ba500b27-4b5e-4eff-9ad5-40b1387bd325",
+      "type": "conversation_runtime_turn_started",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "detail": {
+        "runtime_reference": "01a0eca7-9edb-77d1-a9d5-64a2b6ad7b81",
+        "turn_id": "01a0eca7-a148-7800-9a12-11dc34c315b1"
+      },
+      "created_at": "2026-09-29T10:13:23.956Z"
+    },
+    {
+      "event_id": "event_4f97cad2-a2c4-4e84-a332-68a0618ea7f5",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "detail": {
+        "turn_id": "01a0eca7-a148-7800-9a12-11dc34c315b1",
+        "input_tokens": 7811,
+        "output_tokens": 92,
+        "total_tokens": 7903,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:13:30.893Z"
+    },
+    {
+      "event_id": "event_58dda613-e424-4b80-88ca-e33fba38914e",
+      "type": "conversation_runtime_usage",
+      "actor_principal_id": "system",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "task_id": null,
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "detail": {
+        "turn_id": "01a0eca7-a148-7800-9a12-11dc34c315b1",
+        "input_tokens": 8221,
+        "output_tokens": 4,
+        "total_tokens": 8225,
+        "context_window": 258400
+      },
+      "created_at": "2026-09-29T10:13:32.884Z"
+    }
+  ],
+  "conversations": [
+    {
+      "conversation_id": "conversation_1ef7d2a8-b435-40c6-b773-ef6fcc0c83bc",
+      "purpose": "Conversation with Ada",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-09-29T09:54:00.520Z",
+      "updated_at": "2026-09-29T09:54:00.520Z"
+    },
+    {
+      "conversation_id": "conversation_217b26de-e8a3-4781-9a4d-fd9c917d3a58",
+      "purpose": "Conversation with Maya",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-09-29T09:54:03.852Z",
+      "updated_at": "2026-09-29T09:54:03.852Z"
+    },
+    {
+      "conversation_id": "conversation_0e6ff264-7339-49bc-8247-67ea93d9dc17",
+      "purpose": "Conversation with Ada",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-09-29T10:01:09.762Z",
+      "updated_at": "2026-09-29T10:01:09.762Z"
+    },
+    {
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "purpose": "Conversation with Maya",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-09-29T10:01:12.155Z",
+      "updated_at": "2026-09-29T10:10:16.013Z"
+    },
+    {
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "purpose": "Conversation with Linus",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-09-29T10:01:16.825Z",
+      "updated_at": "2026-09-29T10:10:27.047Z"
+    },
+    {
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "purpose": "Peer question: Linus and Ada",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "created_at": "2026-09-29T10:03:08.405Z",
+      "updated_at": "2026-09-29T10:03:08.405Z"
+    },
+    {
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "purpose": "Peer question: Linus and Ada",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "created_at": "2026-09-29T10:07:17.762Z",
+      "updated_at": "2026-09-29T10:07:17.762Z"
+    }
+  ],
+  "requests": [
+    {
+      "request_id": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_96b22d77-0426-4f3f-b686-e003845f9992",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_7182b3fe-22bb-4a51-b241-b241152ea621",
+      "error": null,
+      "created_at": "2026-09-29T10:01:13.624Z",
+      "updated_at": "2026-09-29T10:01:31.087Z"
+    },
+    {
+      "request_id": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "message_id": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2",
+      "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "requester_principal_id": "human",
+      "chain_id": "chain_ec788e02-6db1-465c-ab62-64933def249c",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_72b218f5-cbe9-4a48-bcaa-ca6b58f72938",
+      "error": null,
+      "created_at": "2026-09-29T10:01:17.556Z",
+      "updated_at": "2026-09-29T10:01:54.156Z"
+    },
+    {
+      "request_id": "reply_a430e4ed-38a5-4b59-860c-9388d1d45b14",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "message_id": "cmessage_f53e7f9b-1090-430c-ab2a-6e358a8e6f91",
+      "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "requester_principal_id": "human",
+      "chain_id": "chain_d2faf6dc-5128-4ad6-9073-9b36159107f6",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "blocked",
+      "scope_version": 1,
+      "response_message_id": null,
+      "error": "Error: Reply output bound exceeded",
+      "created_at": "2026-09-29T10:03:01.667Z",
+      "updated_at": "2026-09-29T10:03:10.038Z"
+    },
+    {
+      "request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+      "target_worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "requester_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "chain_id": "chain_d2faf6dc-5128-4ad6-9073-9b36159107f6",
+      "hop": 1,
+      "kind": "peer",
+      "parent_request_id": "reply_a430e4ed-38a5-4b59-860c-9388d1d45b14",
+      "return_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_d450df5a-1df0-4998-a92e-29c76ea9747f",
+      "error": null,
+      "created_at": "2026-09-29T10:03:08.409Z",
+      "updated_at": "2026-09-29T10:03:19.202Z"
+    },
+    {
+      "request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+      "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "requester_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+      "chain_id": "chain_d2faf6dc-5128-4ad6-9073-9b36159107f6",
+      "hop": 2,
+      "kind": "continuation",
+      "parent_request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_211b080b-c5c1-4f27-ab49-af96cef9e428",
+      "error": null,
+      "created_at": "2026-09-29T10:03:08.410Z",
+      "updated_at": "2026-09-29T10:03:24.299Z"
+    },
+    {
+      "request_id": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "message_id": "cmessage_93724ef1-be50-4baf-9382-c7fef106742a",
+      "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "requester_principal_id": "human",
+      "chain_id": "chain_e48fe34f-673e-4ee0-a020-d86a648f8a2c",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_654cc7ec-ebbc-4b53-8cbf-699280cb248d",
+      "error": null,
+      "created_at": "2026-09-29T10:07:06.607Z",
+      "updated_at": "2026-09-29T10:07:21.478Z"
+    },
+    {
+      "request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+      "target_worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "requester_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "chain_id": "chain_e48fe34f-673e-4ee0-a020-d86a648f8a2c",
+      "hop": 1,
+      "kind": "peer",
+      "parent_request_id": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+      "return_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_b0c623f9-0981-414f-96fb-d437fde69ca3",
+      "error": null,
+      "created_at": "2026-09-29T10:07:17.764Z",
+      "updated_at": "2026-09-29T10:07:22.669Z"
+    },
+    {
+      "request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+      "target_worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "requester_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+      "chain_id": "chain_e48fe34f-673e-4ee0-a020-d86a648f8a2c",
+      "hop": 2,
+      "kind": "continuation",
+      "parent_request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_dcb17231-a9db-436e-a552-5aa50e42156f",
+      "error": null,
+      "created_at": "2026-09-29T10:07:17.765Z",
+      "updated_at": "2026-09-29T10:07:29.363Z"
+    },
+    {
+      "request_id": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_54ec0ccd-9412-4c9a-9bce-8cda12bce2c3",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_56d8116e-6f91-4644-a159-f72cc76aa690",
+      "error": null,
+      "created_at": "2026-09-29T10:09:13.380Z",
+      "updated_at": "2026-09-29T10:09:26.382Z"
+    },
+    {
+      "request_id": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_76b23517-38f7-4162-9f11-d576ecca9453",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_35d4fac5-cec9-44d1-9987-44da4e48430a",
+      "error": null,
+      "created_at": "2026-09-29T10:09:13.846Z",
+      "updated_at": "2026-09-29T10:09:34.325Z"
+    },
+    {
+      "request_id": "reply_6f9199c6-6d11-4c2b-be72-c8357e72ae7a",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_6c4becc0-fc18-4af7-8eeb-67ff564d574e",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_272b2fa9-44c4-461b-ae59-a0a070604f91",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "cancelled",
+      "scope_version": 1,
+      "response_message_id": null,
+      "error": null,
+      "created_at": "2026-09-29T10:10:14.622Z",
+      "updated_at": "2026-09-29T10:10:15.516Z"
+    },
+    {
+      "request_id": "reply_3976eddf-5b7a-4242-b51e-aa15bc345f60",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_04ea5b9b-c24a-48a6-bdd2-e56697ec9cd3",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "interrupted",
+      "scope_version": 1,
+      "response_message_id": null,
+      "error": "Codex confirmed turn interruption",
+      "created_at": "2026-09-29T10:10:17.033Z",
+      "updated_at": "2026-09-29T10:10:18.535Z"
+    },
+    {
+      "request_id": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_bab2da6c-7c58-4727-bec7-11763050b826",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "blocked",
+      "scope_version": 1,
+      "response_message_id": null,
+      "error": "Provider outcome unknown after restart; inspect retained evidence. No automatic replay.",
+      "created_at": "2026-09-29T10:11:28.737Z",
+      "updated_at": "2026-09-29T10:12:49.125Z"
+    },
+    {
+      "request_id": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "message_id": "cmessage_50d4d4cf-8474-4375-b968-9e68c7cae78f",
+      "target_worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "requester_principal_id": "human",
+      "chain_id": "chain_3c35f5e7-9077-4304-9950-a74ee5a13ce7",
+      "hop": 0,
+      "kind": "reply",
+      "parent_request_id": null,
+      "return_worker_id": null,
+      "status": "completed",
+      "scope_version": 1,
+      "response_message_id": "cmessage_c6143f9a-2a0b-46c5-9cee-6241164032e6",
+      "error": null,
+      "created_at": "2026-09-29T10:13:22.353Z",
+      "updated_at": "2026-09-29T10:13:30.851Z"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "cmessage_becb841e-14c7-4c62-8dd4-0db107b63208",
+      "conversation_id": "conversation_1ef7d2a8-b435-40c6-b773-ef6fcc0c83bc",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Unrelated private test marker: PRIVATE_ADA_ONLY_P07. This passive conversation is unrelated to retention design. Do not dispatch a reply.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T09:54:01.970Z"
+    },
+    {
+      "message_id": "cmessage_95ae70f9-9064-42d2-9a84-0b490c431327",
+      "conversation_id": "conversation_1ef7d2a8-b435-40c6-b773-ef6fcc0c83bc",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T09:54:04.289Z"
+    },
+    {
+      "message_id": "cmessage_09a9b4ca-17c9-4bee-8465-43409d442833",
+      "conversation_id": "conversation_0e6ff264-7339-49bc-8247-67ea93d9dc17",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Unrelated private test marker: PRIVATE_ADA_ONLY_P07. This passive conversation is unrelated to retention design. Do not dispatch a reply.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:01:10.396Z"
+    },
+    {
+      "message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist. Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:01:12.890Z"
+    },
+    {
+      "message_id": "cmessage_d0a764d7-bd32-4e36-a057-32f82150b741",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Discuss a sensible retention and idempotency policy for a small support team. Explain one tradeoff and preserve the unresolved question for a later decision. No implementation assignment.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:01:13.623Z"
+    },
+    {
+      "message_id": "cmessage_0b2bb256-ec1e-4b75-af65-df16fb7c51f2",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Explain the practical difference between idempotent response persistence and exactly-once model invocation. Discuss uncertainty without changing code or assigning anyone.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:01:17.556Z"
+    },
+    {
+      "message_id": "cmessage_7182b3fe-22bb-4a51-b241-b241152ea621",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "body": "For a small support team, I\u2019d keep the policy simple: delete raw diagnostic logs within 48 hours, while retaining only aggregated operational counts for longer-term trend monitoring. Treat repeated message submissions with the same identifier as one action during a clearly documented, bounded deduplication window; make retries safe within that window, and avoid promising duplicate suppression forever.\n\nTradeoff: a longer deduplication window protects against late retries, but requires retaining identifiers longer and adds privacy and operational burden. The window\u2019s exact length and the retention of support-case content are not specified here, so I would not set either by assumption.\n\n**Open decision to preserve:** Should expired message identifiers remain as opaque tombstones for deduplication after their associated records expire? That has not been decided; it needs an explicit retention-versus-late-retry decision before the policy is finalized.",
+      "request_id": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+      "response_to": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+      "created_at": "2026-09-29T10:01:31.086Z"
+    },
+    {
+      "message_id": "cmessage_72b218f5-cbe9-4a48-bcaa-ca6b58f72938",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_a8ba842a-e841-4b85-b739-a0ba54eb7ac6",
+      "body": "**Idempotent response persistence** means a retry for the same request cannot create a second durable, user-visible reply. For example, a unique request ID can make repeated saves return the already-stored response. It protects the *recorded outcome*, not the work done to produce it.\n\n**Exactly-once model invocation** means the model is called one time total for that request. That is a stronger and usually harder guarantee: a worker can call the model, then crash before saving the result. On retry, the system may not know whether the call completed, so it may call again. The user might still see just one persisted reply, while the system incurs two calls (and possibly two different generated answers).\n\nThe precise guarantees depend on the provider\u2019s retry/idempotency support and where invocation, result capture, and database commit occur. Without those details, I would claim **at-most-one persisted response per request** if persistence is properly keyed\u2014not exactly-once model execution. Avoiding duplicate calls across failures generally needs provider-supported idempotency or a recoverable invocation/result protocol; a local database transaction alone cannot atomically cover an external model call.",
+      "request_id": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+      "response_to": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+      "created_at": "2026-09-29T10:01:54.156Z"
+    },
+    {
+      "message_id": "cmessage_f53e7f9b-1090-430c-ab2a-6e358a8e6f91",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Ask Ada one bounded technical question about how to reconcile a lost acknowledgement after a reply was durably committed. Compare the tradeoff once her answer arrives. You may communicate with her, but cannot assign her a Task or change a repository.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:03:01.665Z"
+    },
+    {
+      "message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_556e4e47-5ae6-43c3-8622-9a451c0a114d",
+      "body": "If a reply was durably committed but its acknowledgement was lost, how would you reconcile a retry by request ID, and what tradeoff would you make between returning the stored reply and regenerating it? Please answer briefly; no code or repository changes.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:03:08.407Z"
+    },
+    {
+      "message_id": "cmessage_d450df5a-1df0-4998-a92e-29c76ea9747f",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "sender_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "body": "On retry, look up the request ID in durable storage. If it is already committed, return the stored reply (and its original response ID); if it is still in progress, wait or report that state. Regenerate only when no committed result exists, using an atomic uniqueness check on the request ID to prevent two commits. Returning the stored reply favors exactly-once, consistent user-visible behavior; regeneration might incorporate newer context but risks a different answer or duplicate side effects. Any intentional refresh should be a new request ID.",
+      "request_id": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+      "response_to": "reply_9110f35c-e503-4333-84a5-5a501ccba1c8",
+      "created_at": "2026-09-29T10:03:19.201Z"
+    },
+    {
+      "message_id": "cmessage_211b080b-c5c1-4f27-ab49-af96cef9e428",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_86f1dac0-7946-4184-8537-a466b48ed145",
+      "body": "On retry, look up the durable record by request ID. If committed, return the stored reply and original response ID; if pending, wait or report pending. Only generate when no committed result exists, with an atomic uniqueness guard. Returning the stored reply preserves idempotent, consistent behavior; regenerating may use newer context but risks divergent output or duplicate effects. Treat an intentional refresh as a new request.",
+      "request_id": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+      "response_to": "reply_542148c6-4fe2-4632-b16d-4ccc5c000db0",
+      "created_at": "2026-09-29T10:03:24.299Z"
+    },
+    {
+      "message_id": "cmessage_93724ef1-be50-4baf-9382-c7fef106742a",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Ask Ada one bounded technical question about how to reconcile a lost acknowledgement after a reply was durably committed. Compare the tradeoff once her answer arrives. You may communicate with her, but cannot assign her a Task or change a repository.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:07:06.606Z"
+    },
+    {
+      "message_id": "cmessage_835a675c-9195-4af6-a6b0-6420a29bf934",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "body": "For a retry after a reply was durably committed but its acknowledgement was lost, should reconciliation return the stored reply by request ID or regenerate? What is the key tradeoff? Brief technical answer only; no task or code changes.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:07:17.763Z"
+    },
+    {
+      "message_id": "cmessage_654cc7ec-ebbc-4b53-8cbf-699280cb248d",
+      "conversation_id": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_14bfea69-ad90-4873-a7ec-3be74caf7898",
+      "body": "I asked Ada whether a retry after a durable commit but lost acknowledgement should return the stored reply by request ID or regenerate it, and what tradeoff matters most. My initial view: returning the stored reply preserves one stable, user-visible outcome and avoids another model call; regeneration might yield fresher content but risks a different answer and duplicate cost. Ada\u2019s answer has not arrived yet, so I cannot compare her reasoning with mine now. No code or repository changes were made.",
+      "request_id": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+      "response_to": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+      "created_at": "2026-09-29T10:07:21.477Z"
+    },
+    {
+      "message_id": "cmessage_b0c623f9-0981-414f-96fb-d437fde69ca3",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "sender_principal_id": "principal_ec033471-c488-488b-96e4-eca9dd7b9099",
+      "worker_id": "worker_8878dee3-7f68-4897-bfc5-de97f8db2f41",
+      "execution_id": "execution_ddf97969-c010-46b2-af78-5dcecc77b0b4",
+      "body": "Return the durably stored reply by request ID; do not regenerate. This gives idempotent retries and preserves exactly the user-visible result that committed, avoiding duplicate effects or divergent answers. The tradeoff is retaining and indexing committed replies (with suitable retention/privacy policy) rather than recomputing them.",
+      "request_id": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+      "response_to": "reply_4510d4c1-14a9-4a84-a3db-564fb8bd6bde",
+      "created_at": "2026-09-29T10:07:22.669Z"
+    },
+    {
+      "message_id": "cmessage_dcb17231-a9db-436e-a552-5aa50e42156f",
+      "conversation_id": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+      "sender_principal_id": "principal_bf055f43-9f63-49f6-9530-d028c72e812f",
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "execution_id": "execution_248f9c22-28d6-484f-a329-e11041dc4769",
+      "body": "Return the durably stored reply by request ID, not a regenerated one. This makes retries idempotent and preserves the committed user-visible result; the tradeoff is storing and indexing replies, with appropriate retention and privacy controls.",
+      "request_id": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+      "response_to": "reply_ea957d43-1819-4b1e-86a9-5db77adf12e1",
+      "created_at": "2026-09-29T10:07:29.363Z"
+    },
+    {
+      "message_id": "cmessage_09ad8317-b218-4260-b7a1-ec529fcf63d1",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Continue our earlier policy discussion after context replacement. State the retention constraint and the unresolved question from our original conversation. Explain what remains uncertain.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:09:13.379Z"
+    },
+    {
+      "message_id": "cmessage_66461eb1-f0e0-417b-9ee4-84b245bcde51",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Pending obligation: after the policy recap, propose two criteria the human should use to resolve the outstanding tombstone question. Do not decide it on the human\u2019s behalf.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:09:13.845Z"
+    },
+    {
+      "message_id": "cmessage_56d8116e-6f91-4644-a159-f72cc76aa690",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "execution_id": "execution_bf85706d-3269-49da-9f85-fd42b03352da",
+      "body": "The original constraint is to delete raw diagnostic logs after 48 hours; aggregated operational counts may persist. The unresolved question is whether expired message identifiers should remain as opaque tombstones for deduplication. We have not decided that.\n\nWhat remains uncertain is the appropriate deduplication window, whether identifiers may be retained beyond record expiry, and how long support-case content should be kept; none of those durations was specified. To resolve the tombstone question, I\u2019d weigh (1) how often late retries occur and the harm of processing a duplicate, against (2) the privacy and operational cost of retaining even opaque identifiers. I would not make that decision on your behalf.",
+      "request_id": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+      "response_to": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+      "created_at": "2026-09-29T10:09:26.381Z"
+    },
+    {
+      "message_id": "cmessage_35d4fac5-cec9-44d1-9987-44da4e48430a",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "execution_id": "execution_456df4e4-aa56-4d93-8115-9f4377d17b7a",
+      "body": "Two criteria for deciding whether to retain opaque tombstones after records expire:\n1. **Late-retry risk:** How often do retries arrive after expiry, and what is the impact of processing one twice?\n2. **Retention cost:** What privacy, compliance, and operational burden would retaining identifiers create, even if they are opaque?\n\nThese criteria frame the decision; they do not settle it. The required 48-hour deletion of raw diagnostic logs still applies.",
+      "request_id": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+      "response_to": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+      "created_at": "2026-09-29T10:09:34.325Z"
+    },
+    {
+      "message_id": "cmessage_6c4becc0-fc18-4af7-8eeb-67ff564d574e",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "This queued validation request will be cancelled before dispatch.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:10:14.621Z"
+    },
+    {
+      "message_id": "cmessage_6ee23cbb-b2e5-42af-b408-961fc4dec41a",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Reason carefully about six distinct failure windows for context replacement, with concrete evidence requirements and recovery tradeoffs. The operator may interrupt this validation turn.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:10:17.032Z"
+    },
+    {
+      "message_id": "cmessage_eeef7d20-8103-4377-9ccf-71a0802a10d0",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "Continue our retention discussion. This request exercises a controlled application restart before a provider turn begins; preserve the unresolved policy question.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:11:28.736Z"
+    },
+    {
+      "message_id": "cmessage_50d4d4cf-8474-4375-b968-9e68c7cae78f",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "human",
+      "worker_id": null,
+      "execution_id": null,
+      "body": "After the restart, give a concise recap of the original 48-hour retention constraint and the still-open tombstone decision. Distinguish known facts from unresolved outcomes; this is a new explicit reply request.",
+      "request_id": null,
+      "response_to": null,
+      "created_at": "2026-09-29T10:13:22.352Z"
+    },
+    {
+      "message_id": "cmessage_c6143f9a-2a0b-46c5-9cee-6241164032e6",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "sender_principal_id": "principal_3f7f598f-1e3c-4a9d-af71-3aa347c4d151",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "execution_id": "execution_41ce82b6-1196-4378-bdeb-1e5d4299f8c2",
+      "body": "**Known:** Raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist.\n\n**Still open:** Whether expired message identifiers should remain as opaque tombstones for deduplication has not been decided. The deduplication window and any retention period for such identifiers remain unspecified; I would not treat either as approved.",
+      "request_id": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353",
+      "response_to": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353",
+      "created_at": "2026-09-29T10:13:30.851Z"
+    }
+  ],
+  "source_bookmarks": [
+    {
+      "note_id": "note_cfde2509-54a2-4733-b3e3-b6bffbab4f17",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+      "kind": "question",
+      "quote": "Unresolved question: should expired message identifiers remain as opaque tombstones for deduplication? We have not decided that yet.",
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "created_at": "2026-09-29T10:01:20.587Z"
+    },
+    {
+      "note_id": "note_f89aef81-4fb4-4cfa-9e0a-4aeb876952f9",
+      "conversation_id": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+      "source_message_id": "cmessage_d8067992-9f7a-455b-921b-af43d62b6039",
+      "kind": "fact",
+      "quote": "Product constraints: raw diagnostic logs must be deleted after 48 hours; aggregated operational counts may persist.",
+      "execution_id": "execution_aa9ce007-29a6-4465-a468-a9b14e5b03e4",
+      "created_at": "2026-09-29T10:01:24.086Z"
+    },
+    {
+      "note_id": "note_3ff82a92-b3b8-4734-91ad-afce89ff36ce",
+      "conversation_id": "conversation_e4439b58-20b7-4342-bb4d-a369cf44ee71",
+      "source_message_id": "cmessage_b1a4e3cf-3d0e-4165-bda8-11e01c9b64c4",
+      "kind": "question",
+      "quote": "If a reply was durably committed but its acknowledgement was lost, how would you reconcile a retry by request ID, and what tradeoff would you make between returning the stored reply and regenerating it? Please answer briefly; no code or repository changes.",
+      "execution_id": "execution_8cb3a3c7-5ad2-4533-aba3-131f55f33d01",
+      "created_at": "2026-09-29T10:03:14.170Z"
+    }
+  ],
+  "causal_budgets": [
+    {
+      "chain_id": "chain_96b22d77-0426-4f3f-b686-e003845f9992",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:01:13.623Z"
+    },
+    {
+      "chain_id": "chain_ec788e02-6db1-465c-ab62-64933def249c",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:01:17.556Z"
+    },
+    {
+      "chain_id": "chain_d2faf6dc-5128-4ad6-9073-9b36159107f6",
+      "consumed": 3,
+      "created_at": "2026-09-29T10:03:01.665Z"
+    },
+    {
+      "chain_id": "chain_e48fe34f-673e-4ee0-a020-d86a648f8a2c",
+      "consumed": 3,
+      "created_at": "2026-09-29T10:07:06.607Z"
+    },
+    {
+      "chain_id": "chain_54ec0ccd-9412-4c9a-9bce-8cda12bce2c3",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:09:13.380Z"
+    },
+    {
+      "chain_id": "chain_76b23517-38f7-4162-9f11-d576ecca9453",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:09:13.846Z"
+    },
+    {
+      "chain_id": "chain_272b2fa9-44c4-461b-ae59-a0a070604f91",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:10:14.622Z"
+    },
+    {
+      "chain_id": "chain_04ea5b9b-c24a-48a6-bdd2-e56697ec9cd3",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:10:17.032Z"
+    },
+    {
+      "chain_id": "chain_bab2da6c-7c58-4727-bec7-11763050b826",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:11:28.737Z"
+    },
+    {
+      "chain_id": "chain_3c35f5e7-9077-4304-9950-a74ee5a13ce7",
+      "consumed": 1,
+      "created_at": "2026-09-29T10:13:22.352Z"
+    }
+  ],
+  "legacy_task_bindings": [
+    {
+      "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+      "workspace_path": "/var/lib/botsquad/validation/conversations-20260929-prompt07/workspaces/worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+      "created_at": "2026-09-29T10:01:16.113Z",
+      "thread_name": "BotSquad \u00b7 Linus \u00b7 engineer"
+    }
+  ],
+  "prepared_crash": {
+    "boundary": "real provider created; before activation and turn invocation",
+    "execution": {
+      "execution_id": "execution_fe154a53-d3e7-401c-90f5-f84e649092cc",
+      "task_id": null,
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_reference": null,
+      "status": "running",
+      "started_at": "2026-09-29T10:11:28.890Z",
+      "finished_at": null,
+      "error": null,
+      "interruption_reason": null,
+      "model": null,
+      "reasoning_effort": null,
+      "execution_priority": "normal",
+      "runtime_version": null,
+      "runtime_adapter": null,
+      "provenance_status": "unresolved",
+      "origin": "conversation",
+      "request_id": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+      "session_id": "session_3adc9842-f9a4-416e-aab8-4310f5b7d932",
+      "generation": 3
+    },
+    "binding": {
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a0eca5-e2c9-7752-a925-247d134fbb83",
+      "workspace_path": "/var/lib/botsquad/validation/conversations-20260929-prompt07/workspaces/worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "created_at": "2026-09-29T10:11:29.660Z",
+      "thread_name": "BotSquad \u00b7 Maya \u00b7 product_manager \u00b7 conversation_8ff78837-3a61-402f-8c89-cead4e68deb4 \u00b7 generation 3"
+    },
+    "at": "2026-09-29T10:11:29.680Z"
+  },
+  "cost": "unknown; provider token notifications are retained as reported, not converted to billing"
+}

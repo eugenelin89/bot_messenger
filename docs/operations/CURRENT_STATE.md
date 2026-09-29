@@ -1,12 +1,12 @@
 # BotSquad — Current State
 
-**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 direct conversations next
+**Status:** Prompt 07 complete and Ubuntu validated; Prompt 08 working groups next
 **Updated:** 2026-09-29
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
-[Decision 015](../decisions/decision_015_remote_client_trust.md), and the
-[Prompt 06 validation record](../validation/prompt-06-remote-client-api.md).
+[Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
+[Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
 
 ## Primary deployment
 
@@ -41,6 +41,22 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
+## Prompt 07 acceptance and release
+
+Direct conversations and context continuity passed real Ubuntu C07-1–C07-4 acceptance.
+Final checks: 159/159 Ubuntu tests, 158 local plus one Linux-only skip, four actual-browser
+checks, nine provisioner checks, real research/engineering/Projects workflows and retained
+worker isolation. Read-only security/recovery review findings were resolved. The new
+schema is 8; offline 6→8 migration and repeat-start preserved every original field/rowid.
+
+The retained HQ must remain paused with its seven workers, six Projects, 43 Tasks,
+53 executions, 63 legacy messages, ten artifacts and seven legacy bindings. No demo
+conversation or Task is created there. The original preservation inventory covers
+23 databases/11,677 rows, 171 account/group mappings, 281 root records and 84 homes.
+Exact integrated source/build and post-deployment preservation are recorded in the
+release handoff and private `/var/lib/botsquad/validation/prompt07-delivery.json` journal.
+Historical Prompt 06 figures below describe that earlier acceptance.
+
 ## Prompt 06 authenticated client protocol
 
 The private listener now serves a separate stable `/api/v1/` contract. The existing
@@ -56,11 +72,11 @@ stream expiry, full host reboot, fresh authentication and UI revocation all pass
 Both validation devices are revoked, token/challenge records are cleared and temporary
 private keys deleted. The validation unit is stopped/disabled; its evidence remains.
 
-The retained HQ migrated additively to schema 6 and stays paused with its seven workers,
+At Prompt 06 acceptance, the retained HQ migrated to schema 6 and stayed paused with seven workers,
 six Projects, 43 tasks, 53 executions, 63 messages, ten artifacts and seven bindings.
 The preflight comparison preserved 21 databases/11,292 original rows, 171 account/group
-mappings, 281 root records and 84 homes. There are no paired devices on the retained HQ.
-Full feature tests pass 135 locally with one Linux skip and all 136 under Ubuntu service
+mappings, 281 root records and 84 homes. There were no paired devices on the retained HQ.
+The Prompt 06 feature tests passed 135 locally with one Linux skip and all 136 under Ubuntu service
 restrictions; browser regressions, provisioner 9/9, real research and 189 retained-UID
 denial probes also pass. Detailed revisions, IDs and resource observations are in the
 [acceptance record](../validation/prompt-06-remote-client-api.md).
@@ -71,35 +87,33 @@ complete legacy browser/admin listener. The full administrative SSH path remains
 
 ## Current interaction model
 
-The current human-facing workflow is intentionally not a direct-chat interface to every
-worker. Explicit company/Project objectives enter through Atlas, which coordinates work
-through the enforced reporting hierarchy. The human message-only action writes durable
-Executive-channel communication but does not start a worker or create a Task.
+Use **Conversations** or a worker inspector to open direct human↔worker chat. A passive
+message records context only; requesting a reply creates bounded conversation work,
+without a Task. Busy workers queue visibly and global pause remains in force. The owner
+can cancel queued requests, interrupt active replies, mute/archive/resume conversations,
+and inspect attributed transcripts, peer exchanges and context-generation evidence.
 
-Bot-to-bot text is ordinary human-readable language wrapped in structured message records.
-A worker with messaging capability may address any existing worker, but assignment
-authority is stricter: managers can assign only their direct reports and the supported
-workflow applies additional role/stage rules. A message never grants authority.
+One initial reply can ask one eligible peer across reporting lines and reserve one
+continuation for the initiator. Each step releases its execution slot. The causal budget
+survives restart and cannot recursively extend. A conversation grants no task assignment,
+source write, approval, infrastructure or publication authority.
 
-Messages also do not constitute a general recipient inbox today. Worker executions load
-recent messages related to their active Task; addressing a message to an idle worker does
-not wake it or guarantee a response. Reliable coordination uses explicit child Tasks,
-saved artifacts/results and durable child-result wake events that resume the manager.
+Worker and Conversation identities survive provider replacement. Separate per-conversation
+bindings protect unrelated history and legacy task tools. Rollover uses bounded original
+excerpts, source bookmarks and structured pending obligations; ambiguous provider outcomes
+block further work for the worker pending inspection. See
+[controls, bounds and recovery](../architecture/CONVERSATIONS_AND_CONTINUITY.md) and
+[real Prompt 07 evidence](../validation/prompt-07-conversations-continuity.md).
 
-The Web UI exposes the interaction trail through the Executive channel, linked Tasks,
-Audit history and Executions. See the [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md)
-for the detailed semantics.
+The Executive message-only action and legacy task messaging remain passive. Executable
+objectives still enter through Atlas and the enforced reporting hierarchy; child-result
+wake events remain the task orchestration path. Device API v1 retains its current scopes
+and task-only execution projection, with no conversation data in its broad state/events.
 
-The roadmap now prioritizes fixing this interaction model before native mobile work:
-Prompt 07 adds first-class direct conversations and explicit bounded reply/wake semantics;
-Prompt 08 adds multi-worker working groups and deliberation; Prompt 09 then proves the
-first strategic company operating loop, including broad/specific mandates, initiative,
-decisions, outcome review and strategy adaptation. The native iOS client is deferred
-while the existing SSH-tunnel browser path remains acceptable.
-
-This is a future direction, not a current Prompt 06 capability. The product north star is
-described in the [Intelligent Company Operating Model](../product/INTELLIGENT_COMPANY_MODEL.md)
-and [Decision 016](../decisions/decision_016_intelligent_company_model.md).
+Prompt 08 working groups is next; Prompt 09 then adds the strategic operating loop and
+minimal durable scheduling. Neither is implemented here. Native iOS remains deferred;
+the existing private browser over SSH is the operator path. Decision 017's single-company
+priority remains authoritative.
 
 ## Prompt 05 software Projects
 
@@ -423,17 +437,15 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Prompt 06 authenticated Client API/device identity is complete. The next milestones are:
+Conversations/continuity and the authenticated Client API are implemented. The next milestones are:
 
 ~~~text
-07 First-class conversations and direct worker interaction
 08 Collaborative working groups and deliberation
 09 Strategic company operating loop
 10 Bounded Computer Use
-11 Multi-company
-12 Company-to-company collaboration
-13 Telegram / external identities
-14 Cross-HQ federation
+11 Single-company business operations and measured Asymmetri Motion pilot
+--- deferred / unnumbered after single-company evidence ---
+Multi-company, company collaboration, Telegram / external identities, federation
 ~~~
 
 Native iOS / no-tunnel mobile transport is intentionally deferred and unnumbered for now;

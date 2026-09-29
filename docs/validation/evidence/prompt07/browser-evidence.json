@@ -1,0 +1,85 @@
+{
+  "started": "2026-09-29T09:53:54.781Z",
+  "phases": {
+    "direct": {
+      "completed": "2026-09-29T10:02:00.162Z"
+    },
+    "peer": {
+      "completed": "2026-09-29T10:07:33.163Z"
+    },
+    "rollover": {
+      "completed": "2026-09-29T10:09:37.594Z"
+    },
+    "controls": {
+      "completed": "2026-09-29T10:10:28.362Z"
+    },
+    "crash": {
+      "completed": "2026-09-29T10:11:29.904Z"
+    },
+    "recovery": {
+      "completed": "2026-09-29T10:13:33.989Z"
+    },
+    "idle": {
+      "completed": "2026-09-29T10:14:24.079Z"
+    }
+  },
+  "ids": {
+    "private": "conversation_0e6ff264-7339-49bc-8247-67ea93d9dc17",
+    "maya": "conversation_8ff78837-3a61-402f-8c89-cead4e68deb4",
+    "maya_first": "reply_f32c746c-b276-4cd4-8f15-08198f7d0cef",
+    "linus": "conversation_a4a8866a-87ed-49a2-a873-c35a02c3093f",
+    "linus_first": "reply_2439fd83-6045-4d1e-a604-6a2bb5718845",
+    "peer_parent": "reply_ba140d2d-d986-442b-b467-b6572b2c561d",
+    "peer": "conversation_a40f32e5-d80b-44b3-b06f-d795ca6ebd1b",
+    "rollover_reply": "reply_bc257232-eb4c-4df0-8807-62b35fe658d1",
+    "pending_reply": "reply_cacb7217-733e-4d93-8849-ddd85589c188",
+    "cancelled": "reply_6f9199c6-6d11-4c2b-be72-c8357e72ae7a",
+    "interrupted": "reply_3976eddf-5b7a-4242-b51e-aa15bc345f60",
+    "crash_request": "reply_1ecc3e9d-71e5-4cce-8711-19a5cd6dfcff",
+    "recovery_reply": "reply_00414ea6-59bb-4839-9dbd-a722b50e5353"
+  },
+  "hq_id": "hq_af47a5d3-f64b-41e5-9917-86fbb46621c1",
+  "last_failure": {
+    "phase": "rollover",
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n",
+    "at": "2026-09-29T10:07:59.277Z"
+  },
+  "revisions": {
+    "direct": "f3239534347cbd4dfdca5910db334ab21fced655",
+    "peer": "6694be334530408a8c3d8103e5b35fe04eab75eb",
+    "rollover": "6694be334530408a8c3d8103e5b35fe04eab75eb",
+    "controls": "6694be334530408a8c3d8103e5b35fe04eab75eb",
+    "crash": "6694be334530408a8c3d8103e5b35fe04eab75eb",
+    "recovery": "6694be334530408a8c3d8103e5b35fe04eab75eb",
+    "idle": "6694be334530408a8c3d8103e5b35fe04eab75eb"
+  },
+  "legacy_binding": {
+    "worker_id": "worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+    "runtime_type": "codex-app-server",
+    "runtime_reference": "01a0ec9c-84de-7162-ae9d-ec0336d6423d",
+    "workspace_path": "/var/lib/botsquad/validation/conversations-20260929-prompt07/workspaces/worker_dbe12325-82d6-4afe-b3e0-9080624a7a7c",
+    "created_at": "2026-09-29T10:01:16.113Z",
+    "thread_name": "BotSquad · Linus · engineer"
+  },
+  "direct": {
+    "passive_no_execution": true,
+    "paused_queued": true,
+    "busy_worker_queued": true,
+    "no_task_creation": true
+  },
+  "pre_rollover": [
+    {
+      "session_id": "session_9d6cd92c-d016-4817-a85d-933fdc8b461c",
+      "worker_id": "worker_f32f89ca-9d65-491e-a3a6-283690d53bc4",
+      "generation": 1,
+      "previous_session_id": null,
+      "state": "active",
+      "reason": "initial_context",
+      "completed_turns": 1,
+      "created_at": "2026-09-29T10:01:14.655Z",
+      "activated_at": "2026-09-29T10:01:16.738Z"
+    }
+  ],
+  "task_return": true,
+  "idle_interval_ms": 10000
+}

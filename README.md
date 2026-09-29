@@ -19,13 +19,16 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 06 is complete and validated on Ubuntu. Prompt 07 — first-class conversations, direct worker interaction and runtime-context continuity — is next.**
+**Prompt 07 is complete and validated on Ubuntu. Prompt 08 — collaborative working groups and deliberation — is next.**
 
 BotSquad currently supports:
 
 - a non-root, boot-enabled Ubuntu `botsquad.service`;
 - durable SQLite company/task/message/execution state;
 - persistent logical workers with resumable Codex threads;
+- direct human/worker and bounded peer conversations, separate from Tasks;
+- explicit reply requests, passive messages, pause/cancel/interrupt and retained transcripts;
+- scoped context replacement with source-backed handoffs and durable session lineage;
 - real Atlas → Scout → Atlas research;
 - Atlas → Maya/Turing → Linus + Ada → Grace engineering coordination;
 - two concurrent real Codex executions;
@@ -66,11 +69,17 @@ The bounded [Demo Operator](docs/product/DEMO_OPERATOR.md) exercises the real we
 and records the [StudyPlan tutorial](docs/tutorials/demo-01-studyplan/README.md). It is an
 interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is unchanged.
 
-The roadmap prioritizes conversation and durable context continuity, team deliberation,
+The roadmap builds on conversation and durable context continuity with team deliberation,
 a strategic loop with a minimal durable scheduler, and useful single-company business
 operations. The existing SSH-tunnel browser remains the preferred operator path for now;
 native iOS and multi-company/federation are deferred. None of these future requirements
-is marked implemented by a documentation update.
+is marked implemented without its acceptance evidence.
+
+Use the worker inspector or **Conversations** tab to open a direct conversation.
+**Request reply** queues bounded model work; **Passive message** only records context.
+The owner can inspect peer exchanges, stop queued work and interrupt active replies.
+See [Prompt 07 acceptance](docs/validation/prompt-07-conversations-continuity.md) and
+[conversation controls and continuity](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).

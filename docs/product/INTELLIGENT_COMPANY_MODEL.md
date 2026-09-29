@@ -543,6 +543,14 @@ It establishes the interpersonal layer required by intelligent employees:
 Acceptance should demonstrate workers using conversation for genuine clarification and
 idea improvement, not only exchanging status messages.
 
+Prompt 07's implementation uses explicit direct conversations, finite reply chains and
+worker/conversation context generations. The authoritative state is the transcript,
+source-linked bookmarks and structured requests, with a shared unresolved-provider
+fence across work modes. See [Decision 018](../decisions/decision_018_conversations_context_continuity.md)
+and the [acceptance record](../validation/prompt-07-conversations-continuity.md).
+This establishes communication and continuity; it does not implement recurring company
+operation, deliberation groups, Computer Use or live business authority.
+
 ## Implications for Prompt 08
 
 Prompt 08 establishes team reasoning:

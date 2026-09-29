@@ -36,6 +36,7 @@ numbered table.
 | [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; Ubuntu/restart/reboot validated | 2026-09-29 |
 | [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted future architecture; extended by 017 | 2026-09-29 |
 | [017](decision_017_single_company_first.md) | One operational company first; runtime continuity, durable scheduling and Asymmetri Motion pilot | Accepted future priority/requirements; not implemented | 2026-09-29 |
+| [018](decision_018_conversations_context_continuity.md) | Direct conversations, bounded replies and scoped provider-context continuity | Implemented; acceptance pending | 2026-09-29 |
 
 ## Current deployment interpretation
 

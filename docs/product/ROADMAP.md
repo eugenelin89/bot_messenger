@@ -20,8 +20,8 @@ and their historical evidence retain their original meaning.
 | 04 | Nix, trusted approvals, privileged provisioner, per-worker Linux identity | Complete |
 | 05 | Generalized projects and repository lifecycle | Complete |
 | 06 | Stable authenticated remote-client API and device identity | Complete |
-| 07 | First-class conversations, direct worker interaction and context continuity | Next |
-| 08 | Collaborative working groups and deliberation | Planned |
+| 07 | First-class conversations, direct worker interaction and context continuity | Complete |
+| 08 | Collaborative working groups and deliberation | Next |
 | 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Planned |
 | 10 | Bounded Computer Use | Planned |
 | 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
@@ -34,8 +34,8 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 06 is
-Complete; Prompt 07 is Next.** This documentation update does not implement Prompt 07+.
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 07 is
+Complete; Prompt 08 is Next.** See the [actual Prompt 07 acceptance](../validation/prompt-07-conversations-continuity.md).
 
 ## Accepted priority: one operational company first
 
@@ -316,18 +316,19 @@ administrative listener. HQ UUID is not cryptographic server identity or E2EE.
 
 ## Prompt 07 — First-class conversations and direct worker interaction
 
-**Status:** Next
+**Status:** Complete
 
 Prompt 07 fixes the basic interaction model and establishes runtime-context continuity
 before adding more client surfaces.
 
-The current system has durable messages, but ordinary messages are Task-centric and do
-not provide a general recipient inbox or reliable conversational wake/reply behavior.
-The human also cannot yet open a real private conversation with Maya, Turing, Linus,
-Ada, Grace or Nix.
+The implemented Conversation model is distinct from Tasks, passive legacy Messages and
+provider-specific runtime threads/sessions. The browser supports direct human↔worker and
+bounded peer exchanges, explicit versus passive sends, lifecycle controls and durable
+context replacement. See [Prompt 07 acceptance](../validation/prompt-07-conversations-continuity.md),
+[Decision 018](../decisions/decision_018_conversations_context_continuity.md) and
+[technical/operator semantics](../architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
-Prompt 07 should introduce a first-class BotSquad Conversation model distinct from Tasks,
-passive Messages and provider-specific runtime threads/sessions.
+The requirements below remain the acceptance contract; group deliberation is Prompt 08.
 
 Target:
 
@@ -437,7 +438,7 @@ these semantics. Apply C07-1 through C07-4 in
 
 ## Prompt 08 — Collaborative working groups and deliberation
 
-**Status:** Planned
+**Status:** Next
 
 After direct conversation semantics are trustworthy, add explicit bounded multi-worker
 discussion.

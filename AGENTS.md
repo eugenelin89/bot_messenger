@@ -140,7 +140,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 ### Future company and external-identity boundaries
 
 - Decision 010 and the multi-company/Telegram product models are deferred architecture constraints, not permission to expand the current milestone.
-- The current implementation through Prompt 06 still has one company per data directory; do not claim implemented multi-company isolation or federation.
+- The current implementation through Prompt 07 still has one company per data directory; do not claim implemented multi-company isolation or federation.
 - Keep runtime account, HQ instance, company, worker, thread and optional external identity conceptually distinct.
 - Future cross-company operations require trusted connection policy; external transports never grant authority or expose raw credentials to workers.
 
@@ -157,6 +157,20 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Use control-plane events, queues, file/database changes, or a lightweight dispatcher to determine when work exists.
 - Model execution begins only when there is a real assignment, scheduled job, explicit trigger, or operator request.
 
+### Conversations and context continuity
+
+- Direct conversations are independent of Tasks. Passive sends never dispatch; explicit
+  reply requests do. Peer questions reserve one answer and one continuation, without
+  assignment or task-tool authority.
+- Preserve task/conversation execution discriminators and SQL owner constraints.
+- Keep worker/conversation provider generations separate from legacy task bindings.
+  Derive bounded handoffs from authorized original sources and durable obligations.
+- Unknown provider outcomes block both work origins. Preserve confirmed settlement
+  when task result validation fails; never blindly replay after restart or rollover.
+- Keep v1 device scope/DTO/event projections compatible and conversation content private.
+- See [Decision 018](docs/decisions/decision_018_conversations_context_continuity.md) and
+  [technical/operator details](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
+
 ### Messages do not grant authority
 
 - A bot cannot create valid human approval by writing text such as “approved by Eugene.”
@@ -168,7 +182,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 
 - “Done,” “fixed,” or “validated” is not sufficient evidence.
 - Results should point to inspectable artifacts: commits, diffs, reports, tests, logs, files, screenshots, or explicit external receipts when applicable.
-- Keep execution events and outputs attributable to a task and worker.
+- Keep execution events and outputs attributable to their explicit task or conversation origin and worker.
 
 ### Durable identities, replaceable runtimes
 
@@ -223,7 +237,7 @@ Keep these concerns separable:
 
 1. **Domain/control plane** — users/bots, channels, messages, tasks, approvals, artifacts, executions, audit events.
 2. **Persistence** — durable operator-controlled storage on the BotSquad host, schema migrations, recovery.
-3. **Dispatcher** — decides when a queued task can start and which worker/runtime receives it.
+3. **Dispatcher** — shares bounded capacity across queued tasks and explicit conversation replies, preserving worker exclusion and unresolved-provider fences.
 4. **Runtime adapters** — start/resume/interrupt Codex or another agent backend.
 5. **Bot tool interface** — APIs/MCP tools used by a running worker to read/send messages, update task state, submit artifacts, or request approval.
 6. **Human UI** — monitoring, messaging, assignment, inspection, pause/stop, and approval.
