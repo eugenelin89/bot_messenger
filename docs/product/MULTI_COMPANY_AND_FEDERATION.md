@@ -6,8 +6,8 @@
 The implementation through Prompt 06 still has one company per data directory. Prompt 06
 adds durable HQ/device identity for authenticated clients, but it does **not** add
 multi-company state, company-to-company connections or cross-HQ federation. This document
-sets future constraints for those layers. The canonical interaction-first roadmap currently places multi-company at Prompt 10,
-company-to-company collaboration at Prompt 11 and cross-HQ federation at Prompt 13.
+sets future constraints for those layers. The canonical intelligent-company roadmap currently places multi-company at Prompt 11,
+company-to-company collaboration at Prompt 12 and cross-HQ federation at Prompt 14.
 
 ## Goal
 
