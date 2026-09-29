@@ -1,11 +1,14 @@
 # BotSquad — External Identities and Telegram Integration
 
 **Status:** Future product architecture; not yet implemented
-**Date:** 2026-09-25
+**Updated:** 2026-09-29
 
-Prompt 03 currently implements one company per data directory. This document sets
-future constraints; none of its multi-company, federation or external-identity
-capabilities is implemented or required for Prompt 03 acceptance.
+The implementation through Prompt 06 still has one company per data directory. Prompt 06
+adds paired **human client devices** for the stable Client API, but those devices are not
+worker/company external identities and do not implement Telegram. This document sets
+future constraints; multi-company, federation and external-identity capabilities remain
+unimplemented. The canonical roadmap currently places External Identities and Telegram
+at Prompt 11.
 
 ## Goal
 
