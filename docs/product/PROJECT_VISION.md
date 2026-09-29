@@ -5,7 +5,7 @@
 
 ## One-sentence vision
 
-Build a self-hosted team workspace where a human can supervise persistent AI workers that message one another, receive explicit assignments, hand off work, and produce inspectable results from an always-on operator-controlled headquarters.
+Build a self-hosted **intelligent company** where persistent AI employees can understand broad or specific human mandates, communicate and deliberate as a team, choose and execute bounded work, learn from outcomes, and adapt strategy from an always-on operator-controlled headquarters.
 
 ## Deployment model
 
@@ -33,6 +33,50 @@ BotSquad turns that mechanism into a purpose-built self-hosted application:
 - durable operator-controlled history that survives worker, application and host-service restarts.
 
 The intended result is not merely “bots chatting.” It is an observable coordination layer for a small AI team.
+
+## Product north star — intelligent employees operating a company
+
+The long-term goal is not a collection of agents arranged into a fixed assembly line.
+
+The human may provide a broad objective such as:
+
+~~~text
+"Increase sustainable profit using the resources and authority I have approved."
+~~~
+
+or a specific mandate such as:
+
+~~~text
+"Manage and market Asymmetri Motion. Improve the product, adoption and revenue."
+~~~
+
+Both should be natural inputs.
+
+The organization should decide what it needs to learn, which employees should participate,
+what should be discussed, what Projects or experiments should run, what evidence matters,
+and when the strategy should change. The human should not need to manually orchestrate
+every internal handoff.
+
+The target company loop is:
+
+~~~text
+mandate
+  -> understand situation
+  -> research / discuss
+  -> decide
+  -> execute bounded work
+  -> review
+  -> measure outcomes
+  -> learn
+  -> continue / iterate / pivot / stop / scale
+~~~
+
+Hierarchy remains important for responsibility and authority, but should not restrict
+who can exchange ideas. Strategic intelligence should become broad while operational
+authority stays explicitly enforced.
+
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
 
 ## Primary use case
 
@@ -140,9 +184,9 @@ The human should be able to answer:
 - What changed since I last looked?
 - Can I stop or redirect it?
 
-### G2 — Make handoffs explicit
+### G2 — Make collaboration and handoffs explicit
 
-Workers should hand off tasks through durable task records instead of relying on vague chat context.
+Workers should communicate and deliberate naturally, while executable handoffs use durable task records instead of relying on vague chat context.
 
 A handoff should identify:
 
@@ -248,7 +292,10 @@ Early success is technical and operational rather than financial.
 
 ### Coordination
 
-- one bot can assign work to another;
+- the human can speak directly with the relevant specialist;
+- workers can ask questions and challenge one another across hierarchy;
+- a working group can improve a proposal through critique and synthesis;
+- one bot can assign work to another where authority permits;
 - a worker can return a result;
 - a reviewer can reject or request revision;
 - unresolved loops escalate instead of continuing forever.
@@ -475,16 +522,18 @@ Current canonical sequence:
 | 06 | Stable authenticated remote-client API and device identity | Complete |
 | 07 | First-class conversations and direct worker interaction | Next |
 | 08 | Collaborative working groups and deliberation | Planned |
-| 09 | Bounded Computer Use | Planned |
-| 10 | Multi-company support on one HQ | Planned |
-| 11 | Company-to-company collaboration | Planned |
-| 12 | External identities and Telegram integration | Planned |
-| 13 | Cross-HQ federation | Planned |
+| 09 | Strategic company operating loop | Planned |
+| 10 | Bounded Computer Use | Planned |
+| 11 | Multi-company support on one HQ | Planned |
+| 12 | Company-to-company collaboration | Planned |
+| 13 | External identities and Telegram integration | Planned |
+| 14 | Cross-HQ federation | Planned |
 | — | Native iOS Remote MVP / no-tunnel mobile transport | Deferred |
-| 14+ | Broader operating capabilities | Later |
+| 15+ | Broader operating capabilities | Later |
 
 Prompt numbering should remain stable unless a later explicit roadmap update changes it.
 
 The sequence is intentionally dependency-driven: after authority, operating-system,
-Project and authenticated-client foundations, BotSquad now prioritizes conversation and
-deliberation semantics before broader autonomy, company boundaries or convenience clients.
+Project and authenticated-client foundations, BotSquad now prioritizes conversation,
+deliberation and a persistent company operating loop before broader action surfaces,
+company boundaries or convenience clients.
