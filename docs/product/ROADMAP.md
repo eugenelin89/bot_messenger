@@ -764,11 +764,37 @@ better understood.
 Every future milestone must preserve these invariants unless a new accepted decision
 explicitly changes them.
 
+## Intelligent-company acceptance
+
+Future milestones should improve BotSquad as a company of persistent intelligent
+employees, not merely add another deterministic pipeline.
+
+When a milestone changes organization behavior, its Codex prompt should ask whether:
+
+- the human can give a broad or specific mandate without micromanaging every handoff;
+- workers can decide who needs to participate, ask questions and challenge assumptions;
+- conversation, deliberation, decision and Task/operation remain distinct;
+- initiative remains bounded by role and authority;
+- decisions and important outcomes are attributable and inspectable;
+- evidence/metrics can cause strategy to change;
+- model turns remain event-driven and bounded;
+- acceptance leaves meaningful choices to the organization instead of scripting the
+  transcript or conclusion.
+
+Where relevant, acceptance should include both an open-ended company scenario and a
+specific existing-product scenario.
+
+See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
+[Decision 016](../decisions/decision_016_intelligent_company_model.md).
+
 ## Human agency
 
 The human owns company-level authority.
 
-Bots may request protected actions but cannot create human approval through text.
+Bots may request protected actions but cannot create human approval through text. A broad
+mandate such as "grow the business" or "maximize sustainable profit" does not grant new
+financial, publication, account, contract or external-system authority. Those actions
+still require explicit trusted capabilities/policies and applicable human approvals.
 
 ## Communication is not execution
 
