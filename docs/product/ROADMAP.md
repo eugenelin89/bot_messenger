@@ -674,10 +674,14 @@ are proven, later prompts may add capabilities such as:
 - customer-facing deployment;
 - specialized GPU/compute workers;
 - portfolio-level company supervision;
-- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01.
+- broader guided tutorials and release walkthroughs beyond the bounded Demo Operator 01;
+- bounded multi-worker discussion / working-group sessions for design, critique, synthesis
+  and human-observed deliberation without weakening hierarchy or authority.
 
 These should not be assigned fixed prompt numbers until their dependencies and scope are
-better understood.
+better understood. In particular, collaborative deliberation should be designed as an
+explicit bounded work object rather than by making ordinary messages automatically wake
+recipients; discussion participation must not imply assignment or approval authority.
 
 ---
 
