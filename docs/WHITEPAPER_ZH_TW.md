@@ -21,7 +21,7 @@ BotSquad 最初只是跑在單一工作站上的實驗，後來逐步演進成�
 
 Prompt 06 進一步實作穩定、具版本的 `/api/v1/` Client API，包含持久的 HQ／device 身分、本機由人類確認的 Ed25519 配對、固定 device capability、短效 proof-of-possession session、可安全重送的 idempotent mutation，以及可重新連線的持久事件。Listener 仍維持私人存取；真實驗收透過 SSH tunnel 從獨立 reference client 連入，並通過 restart、token 到期、完整 host reboot 與裝置撤銷。原生 iOS、免手動 tunnel 的行動傳輸、relay 與遠端受保護 approval 仍屬後續工作。詳見 [Prompt 06 驗證紀錄](validation/prompt-06-remote-client-api.md) 與 [Client API v1](api/CLIENT_API_V1.md)。
 
-長期架構會建立在這個基礎上，逐步加入安全的原生行動裝置存取、受限的 Computer Use、多家公司隔離、公司對公司的協作、Telegram Bot 等外部身分，以及不同 BotSquad 總部之間的聯邦式連線（federation）。
+產品的長期 north star 現在明確定義為 **intelligent company operating model**：持續存在的 AI 員工可以接受寬泛或具體的人類 mandate，彼此直接對話、進行 working-group deliberation、留下可追溯的決策，執行有界工作，觀察成果並依證據調整策略。因此 roadmap 會先完成直接對話、團隊 deliberation 與 strategic company operating loop，再加入更廣泛的 Computer Use、多家公司、外部身分、federation，以及延後的原生行動 client。詳見 [Intelligent Company Operating Model](product/INTELLIGENT_COMPANY_MODEL.md) 與 [Decision 016](decisions/decision_016_intelligent_company_model.md)。
 
 整個設計始終遵循一個原則：
 
@@ -1028,13 +1028,14 @@ BotSquad 把這些東西正式變成系統的一級概念。
 | 06 | Stable Authenticated Remote-Client API |
 | 07 | 第一級直接對話與 Worker Interaction |
 | 08 | 多工作者 Working Group 與 Deliberation |
-| 09 | Bounded Computer Use |
-| 10 | Multi-Company Support |
-| 11 | Company-to-Company Collaboration |
-| 12 | External Identities 與 Telegram |
-| 13 | Cross-HQ Federation |
+| 09 | Strategic Company Operating Loop |
+| 10 | Bounded Computer Use |
+| 11 | Multi-Company Support |
+| 12 | Company-to-Company Collaboration |
+| 13 | External Identities 與 Telegram |
+| 14 | Cross-HQ Federation |
 | — | Native iOS Remote MVP／免手動 tunnel 行動傳輸 — 延後 |
-| 14+ | 更廣泛的公司營運能力 |
+| 15+ | 更廣泛的公司營運能力 |
 
 完整 dependency 與 acceptance theme 請參考 Roadmap 文件。
 
@@ -1048,6 +1049,7 @@ BotSquad 把這些東西正式變成系統的一級概念。
 - 任意大小的 repository、不支援的 Git 功能或一般語言／套件執行環境；
 - 人類與個別 worker 的可靠直接對話／reply-wake 語意；
 - 有界的多 worker working group／deliberation；
+- 可接受寬泛／具體 mandate、依 outcome 調整策略的 strategic company operating loop；
 - iOS client／免手動 tunnel 行動傳輸；
 - Computer Use；
 - multi-company runtime；
@@ -1158,7 +1160,7 @@ BotSquad 把 multi-agent autonomy 看成一個「組織系統」問題，而不�
 - 多位 AI 工程師，可以在清楚 ownership 與獨立 review 下同時工作；
 - 整個組織可以在一台小型、自架的 Ubuntu Server 上長時間運作，並且保有真實模型執行、隔離、restart recovery，以及每位工作者獨立的 AI profile。
 
-接下來的 roadmap，不是先追求更多 client 介面，而是先把 AI 組織本身的互動做正確：Prompt 07 直接對話、Prompt 08 多工作者 deliberation，再逐步加入受控 Computer Use、多家公司、外部身分與 federation。Prompt 06 的 Client API 基礎已保留，原生 iOS 可在互動模型穩定後再接上。
+接下來的 roadmap，不是先追求更多 client 介面，而是先把 AI 組織本身做成真正能工作的 intelligent company：Prompt 07 直接對話、Prompt 08 多工作者 deliberation、Prompt 09 strategic company operating loop，之後才逐步加入 Prompt 10 受控 Computer Use、多家公司、外部身分與 federation。Prompt 06 的 Client API 基礎已保留，原生 iOS 可在互動模型穩定後再接上。
 
 BotSquad 最核心的架構承諾始終不變：
 
