@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 next
+**Status:** Prompt 06 complete and Ubuntu validated; Prompt 07 direct conversations next
 **Updated:** 2026-09-29
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -89,6 +89,11 @@ saved artifacts/results and durable child-result wake events that resume the man
 The Web UI exposes the interaction trail through the Executive channel, linked Tasks,
 Audit history and Executions. See the [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md)
 for the detailed semantics.
+
+The roadmap now prioritizes fixing this interaction model before native mobile work:
+Prompt 07 adds first-class direct conversations and explicit bounded reply/wake semantics;
+Prompt 08 adds multi-worker working groups and deliberation. The native iOS client is
+deferred while the existing SSH-tunnel browser path remains acceptable.
 
 ## Prompt 05 software Projects
 
