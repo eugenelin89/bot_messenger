@@ -2,6 +2,7 @@ import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { migrateProjects } from './projects-migration.js';
+import { migration6 } from './client-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -218,6 +219,10 @@ export class Store {
       if (projectMigration) {
         migrateProjects(this.db);
         this.run('INSERT INTO schema_migrations VALUES (5,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=6')) {
+        this.db.exec(migration6);
+        this.run('INSERT INTO schema_migrations VALUES (6,?)', new Date().toISOString());
       }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }

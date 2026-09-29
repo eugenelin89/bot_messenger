@@ -29,6 +29,8 @@ Durable product, architecture, security, data, and workflow decisions belong her
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
 | [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu validated | 2026-09-28 |
 
+| [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; acceptance in progress | 2026-09-29 |
+
 ## Current deployment interpretation
 
 Decision 009 is the current deployment-direction authority: BotSquad is moving from the Prompt 01/02 workstation-local topology to an always-on, self-hosted Ubuntu headquarters.

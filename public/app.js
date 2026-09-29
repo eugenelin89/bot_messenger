@@ -7,6 +7,8 @@ const avatar = name => `<span class="avatar ${escape(name.toLowerCase())}">${esc
 let selectedProject = null;
 let state, token, activeTab = 'conversation', draft = '', loading = false, refreshAgain = false, submitting = false;
 let renderedView = '';
+let deviceState = null;
+let deviceScopes = new Set(['state:read']);
 function updateView(html) {
   if (html === renderedView) return;
   const expanded = new Set([...document.querySelectorAll('#view details[open][data-disclosure]')].map(element => element.dataset.disclosure));
@@ -14,7 +16,7 @@ function updateView(html) {
   for (const element of document.querySelectorAll('#view details[data-disclosure]')) element.open = expanded.has(element.dataset.disclosure);
   renderedView = html;
 }
-const titles = { approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
+const titles = { devices: ['Devices / Remote Clients', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
 const worker = id => state.workers.find(w => w.worker_id === id);
 const principal = id => state.principals.find(p => p.principal_id === id);
 const artifacts = taskId => state.artifacts.filter(a => a.task_id === taskId);
@@ -27,7 +29,7 @@ async function mutate(path, body) { $('#error').hidden = true; try { const resul
 async function refresh() {
   if (loading) { refreshAgain = true; return; }
   loading = true;
-  try { state = await request('state'); render(); }
+  try { state = await request('state'); if (activeTab === 'devices') deviceState = await request('devices'); render(); }
   catch (error) { showError(error); }
   finally { loading = false; if (refreshAgain) { refreshAgain = false; void refresh(); } }
 }
@@ -47,7 +49,7 @@ function render() {
   $('#metrics').innerHTML = [['Team members', state.workers.length, 'persistent identities'], ['Active now', active, 'executions'], ['Queued work', state.tasks.filter(t => t.status === 'queued').length, 'assignments'], ['Evidence saved', state.artifacts.length, 'artifacts']].map(([label, value, note]) => `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value}<small>${note}</small></div></div>`).join('');
   const title = titles[activeTab]; $('#view-title').textContent = title[0]; $('#heading').textContent = title[1]; $('#subtitle').textContent = title[2];
   document.querySelectorAll('[data-tab]').forEach(button => button.classList.toggle('selected', button.dataset.tab === activeTab));
-  updateView(({ conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
+  updateView(({ devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
   $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>05</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews and requests revisions', 'Full recipes gate queued integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run when assigned work. A result wakes their manager. Nothing runs just to check for messages.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Research stays within approved documents. Browser and Computer Use remain disabled.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Messages are communication. Use <strong>Assign objective</strong> to create work.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
   if ($('#objective')) { $('#objective').value = draft; if (selection) { $('#objective').focus(); $('#objective').setSelectionRange(...selection); } }
   document.querySelectorAll('#compose button').forEach(button => { button.disabled = submitting; });
@@ -175,6 +177,7 @@ function wireActions(root) {
 }
 function wireView() {
   wireActions(document);
+  wireDevices();
   if ($('#initialize-nix')) $('#initialize-nix').onclick = async () => { try { await mutate('initialize-nix', {}); activeTab = 'approvals'; render(); } catch {} };
   if ($('#host-health')) $('#host-health').onclick = async () => { try { const result = await request('infrastructure/health', {}); $('#host-health-result').textContent = JSON.stringify(result); } catch (error) { showError(error); } };
   if ($('#reconcile-host')) $('#reconcile-host').onclick = async () => { try { await mutate('infrastructure/reconcile', {}); } catch {} };
@@ -192,7 +195,7 @@ function wireView() {
     $('#send-message').onclick = () => void submit('messages');
   }
 }
-document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { activeTab = button.dataset.tab; render(); });
+document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { activeTab = button.dataset.tab; render(); if (activeTab === 'devices') void refresh(); });
 $('#close-inspect').onclick = () => $('#inspect').close();
 $('#initialize').onclick = async () => { try { await mutate('initialize', {}); } catch {} };
 $('#pause').onclick = async () => { try { await mutate('pause', { paused: !state.paused }); } catch {} };
@@ -278,4 +281,37 @@ function wireProjectActions(root) {
   root.querySelectorAll('[data-release]').forEach(b=>b.onclick=()=>{projectForm('Release completed allocation access',details({allocation_id:b.dataset.release,action:'Revoke access; retain clone and evidence'}),()=>request('projects/release',{allocation_id:b.dataset.release}),'Release access');});
   root.querySelectorAll('[data-project-approval]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await mutate('projects/approvals/decide',{approval_id:b.dataset.projectApproval,approved:b.dataset.approved==='true'});}catch{b.disabled=false;}});
   root.querySelectorAll('[data-publication-retry]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await mutate('projects/remote/retry',{operation_id:b.dataset.publicationRetry});}catch{b.disabled=false;}});
+}
+
+
+function renderDevices() {
+  if (!deviceState) return '<div class="panel empty">Loading device identities…</div>';
+  const labels = { 'state:read': 'Read dashboard, workers, tasks and messages', 'projects:read': 'Read Projects and repositories', 'artifacts:read': 'Read artifact metadata', 'messages:send': 'Send messages', 'objectives:create': 'Assign objectives', 'dispatch:control': 'Pause / resume dispatch', 'executions:interrupt': 'Interrupt executions', 'profiles:update': 'Update worker AI profiles' };
+  const intro = `<section class="panel task-card"><h3>HQ identity</h3><p><code>${escape(deviceState.hq_id)}</code></p><p>This HQ stays private. The reference client currently connects through an SSH tunnel. Protected infrastructure and publication approvals remain in this Web UI.</p><h3>Add a device</h3><p>Select its maximum capabilities. Read-only access is selected by default.</p><div class="device-scopes">${deviceState.scope_allowlist.map(scope => `<label class="check-review"><input type="checkbox" data-device-scope="${escape(scope)}" ${deviceScopes.has(scope) ? 'checked' : ''}> ${escape(labels[scope])} <small>${escape(scope)}</small></label>`).join('')}</div><button id="create-pairing" class="button primary">Create pairing</button><p class="muted">Pairing expires in ten minutes and can be claimed once. Compare fingerprints before confirming.</p></section>`;
+  const devices = deviceState.devices.map(d => {
+    const p = deviceState.pairings.find(p => p.device_id === d.device_id);
+    return `<article class="panel task-card" data-device="${escape(d.device_id)}"><header><strong>${escape(d.display_name)}</strong>${status(d.state)}</header>${details({ device_id: d.device_id, owner: d.owner_principal_id, platform: d.platform, app_version: d.app_version, public_key_fingerprint: d.fingerprint, capabilities: d.capabilities, hq_id: deviceState.hq_id, pairing_id: p?.pairing_id, pairing_expires: p?.expires_at, created: d.created_at, confirmed: d.confirmed_at, last_seen: d.last_seen_at, revoked: d.revoked_at })}<div class="card-actions">${d.state === 'pending' ? `<button class="button primary" data-device-confirm="${escape(d.device_id)}">Inspect and confirm</button><button class="button danger" data-device-deny="${escape(d.device_id)}">Deny device</button>` : d.state === 'active' ? `<button class="button danger" data-device-revoke="${escape(d.device_id)}">Revoke device</button>` : ''}</div></article>`;
+  }).join('');
+  const open = deviceState.pairings.filter(p => p.state === 'open').map(p => `<p>Waiting for claim · ${escape(p.pairing_id)} · expires ${escape(p.expires_at)}</p>`).join('');
+  return intro + (open ? `<section class="panel task-card">${open}</section>` : '') + (devices || '<div class="panel empty">No devices have been paired.</div>');
+}
+function wireDevices() {
+  document.querySelectorAll('[data-device-scope]').forEach(input => input.onchange = () => { if (input.checked) deviceScopes.add(input.dataset.deviceScope); else deviceScopes.delete(input.dataset.deviceScope); });
+  if ($('#create-pairing')) $('#create-pairing').onclick = async () => {
+    const button = $('#create-pairing'); button.disabled = true;
+    try {
+      const pairing = await mutate('devices/pairings', { capabilities: [...deviceScopes] });
+      inspect('One-time pairing payload', `<p>Transfer this payload privately to your device. It expires at ${escape(pairing.expires_at)}. The device must still be confirmed here before it can connect.</p><label for="pairing-payload">Pairing payload</label><textarea id="pairing-payload" readonly rows="5">${escape(pairing.pairing_uri)}</textarea><p>This secret is shown once. Close this dialog after transferring it.</p><button id="dismiss-pairing" class="button primary">I have transferred the payload</button>`);
+      const dialog = $('#inspect'); const clear = () => { const payload = $('#pairing-payload'); if (payload) { payload.value = ''; payload.textContent = ''; } };
+      dialog.addEventListener('close', clear, { once: true });
+      $('#dismiss-pairing').onclick = () => { clear(); dialog.close(); };
+    } catch {} finally { if (button.isConnected) button.disabled = false; }
+  };
+  document.querySelectorAll('[data-device-confirm]').forEach(button => button.onclick = () => {
+    const d = deviceState.devices.find(d => d.device_id === button.dataset.deviceConfirm);
+    inspect('Confirm device identity', `<p>Compare this fingerprint with the one shown by your client. Confirm only if they match.</p>${details({ name: d.display_name, platform: d.platform, fingerprint: d.fingerprint, capabilities: d.capabilities, hq_id: deviceState.hq_id, device_id: d.device_id })}<button id="confirm-device" class="button primary">Fingerprints match — confirm device</button>`);
+    $('#confirm-device').onclick = async () => { $('#confirm-device').disabled = true; try { await mutate('devices/decide', { device_id: d.device_id, decision: 'confirm' }); $('#inspect').close(); } catch { if ($('#confirm-device')) $('#confirm-device').disabled = false; } };
+  });
+  document.querySelectorAll('[data-device-deny]').forEach(button => button.onclick = async () => { button.disabled = true; try { await mutate('devices/decide', { device_id: button.dataset.deviceDeny, decision: 'deny' }); } catch { button.disabled = false; } });
+  document.querySelectorAll('[data-device-revoke]').forEach(button => button.onclick = async () => { button.disabled = true; try { await mutate('devices/revoke', { device_id: button.dataset.deviceRevoke }); } catch { button.disabled = false; } });
 }
