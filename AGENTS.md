@@ -429,6 +429,7 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 - Front door: `README.md`
 - Agent instructions: `AGENTS.md`
 - Product vision: `docs/product/PROJECT_VISION.md`
+- Intelligent company north star: `docs/product/INTELLIGENT_COMPANY_MODEL.md`
 - Canonical prompt roadmap: `docs/product/ROADMAP.md`
 - Technical white paper: `docs/WHITEPAPER.md`
 - Architecture: `docs/architecture/SYSTEM_ARCHITECTURE.md`
