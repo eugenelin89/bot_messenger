@@ -19,6 +19,7 @@ The owner may give either a broad goal or a specific mandate. The concrete refer
 6. Durable organizational state is authoritative; summaries are bounded, scoped, fallible derived artifacts. Worker ≠ BotSquad conversation ≠ runtime thread/session ≠ execution attempt ≠ company ≠ HQ ≠ runtime account ≠ Unix user ≠ device ≠ external identity.
 7. Broad reasoning does not expand operational authority. No raw financial credentials, unapproved outreach/publication, spending, contracts or unsafe desktop access. Bots cannot manufacture approval in text.
 8. Native iOS/no-tunnel access remains deferred while the private browser is sufficient. Asymmetri Motion is a reference product configuration, never a hard-coded assumption in the generic engine.
+9. **Very near-term follow-up after Prompt 07: give bots appropriate power and authority.** Employees need public research/current information, relevant company knowledge, useful tools and standing authority for routine work within role, scope and budget. Avoid per-lookup micromanagement. Plan the first useful slice alongside Prompt 08 preparation; do not defer basic public research to Prompt 11. This is planned work, not a live permission grant. See [Decision 019](decisions/decision_019_near_term_worker_empowerment.md) and the [roadmap task](product/ROADMAP.md#near-term-task--give-bots-appropriate-power-and-authority).
 
 ## Verified implementation baseline at this decision
 
@@ -40,6 +41,8 @@ Always reread current main, relevant execution plans and active branches before 
 ## Next planning action
 
 Prepare Prompt 08 working groups from the accepted direct-conversation foundation. Reuse its scoped sessions, source-backed handoffs, durable obligations, shared dispatcher and unknown-outcome fence. Do not expand conversation tools into assignment or approval authority. Preserve the 08 → 09 → 10 → 11 order, minimal scheduling in 09 and the single-company evidence gate before federation. Verify current main and the Prompt 07 delivery record before starting; do not discard concurrent work.
+
+Also scope and schedule the near-term worker-empowerment task in the roadmap. Start with real public research and a source-backed current-information reply from Atlas; define the standing grants, limits and acceptance evidence before changing the adapter. Carry this owner priority into the next implementation prompt.
 
 ## Maintaining this record
 

@@ -37,6 +37,10 @@ operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exer
 existing development HQ. It remains an unnumbered historical interlude. **Prompt 07 is
 Complete; Prompt 08 is Next.** See the [actual Prompt 07 acceptance](../validation/prompt-07-conversations-continuity.md).
 
+**Very near-term priority after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
+Plan this bounded follow-up alongside Prompt 08 preparation; basic public research must
+not wait for Prompt 11's broader business integrations.
+
 ## Accepted priority: one operational company first
 
 **One AI company that can actually operate a real business is more important than
@@ -65,6 +69,40 @@ the former scale/transport milestones are deferred and unnumbered. Minimal sched
 pulled forward into 09, and the useful first business-integration subset into 11 rather
 than an unspecified post-federation 15+. Historical records remain history. This is the
 current sequence even when an older document reproduces the previous table.
+
+## Near-term task — give bots appropriate power and authority
+
+**Status:** Planned; very near-term owner priority accepted 2026-09-29. No new runtime
+permissions have been implemented or granted by this documentation change.
+
+Employees need useful tools, access to information and standing authority to do their
+jobs. BotSquad should let them carry out routine work independently within their role,
+scope and budget, without making the owner approve every lookup or internal step.
+
+Deliver this in small useful slices:
+
+- Enable public web research and current-information lookup, including source links and
+  honest reporting when information is unavailable.
+- Provide role-appropriate access to company knowledge, tools and execution environments.
+  Review today's disabled capabilities individually against actual job needs.
+- Define standing authority for routine actions within approved scope and budgets, with
+  clear escalation when an action exceeds that authority or requires protected approval.
+- Make capabilities, limits, actions and results inspectable by the owner, with attribution,
+  revocation and recovery. Enforce these grants in trusted code, not worker-authored text.
+
+The first acceptance slice should let Atlas answer a current-weather question for a known
+location in a direct conversation using a real current source, and let a research worker
+complete a useful public-web research task. Both should run within standing authority
+without per-lookup approval. Verify sources, unavailable-source behavior, recorded tool
+use and denial of actions outside the granted scope; canned answers do not count.
+
+Scope and schedule this follow-up during the next implementation planning session.
+Preserve the numbered 08 → 09 → 10 → 11 sequence. Public research does not depend on
+Computer Use or a full business-integration platform. Broader external actions still need
+their applicable trusted policy and approval implementation.
+
+See [Decision 019](../decisions/decision_019_near_term_worker_empowerment.md) for the owner
+direction and current implementation boundary.
 
 ---
 
