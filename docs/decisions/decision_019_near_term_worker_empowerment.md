@@ -1,7 +1,9 @@
 # Decision 019 — Make useful worker capabilities and authority a near-term priority
 
-**Date:** 2026-09-29  
-**Status:** Accepted near-term product priority; implementation planned  
+**Date:** 2026-09-29
+
+**Status:** Accepted near-term product priority; implementation planned
+
 **Extends:** [Decision 016](decision_016_intelligent_company_model.md) and
 [Decision 017](decision_017_single_company_first.md); preserves their numbered milestone
 order and existing authority boundaries.
