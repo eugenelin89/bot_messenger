@@ -37,6 +37,7 @@ numbered table.
 | [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted future architecture; extended by 017 | 2026-09-29 |
 | [017](decision_017_single_company_first.md) | One operational company first; runtime continuity, durable scheduling and Asymmetri Motion pilot | Accepted future priority/requirements; not implemented | 2026-09-29 |
 | [018](decision_018_conversations_context_continuity.md) | Direct conversations, bounded replies and scoped provider-context continuity | Implemented; acceptance pending | 2026-09-29 |
+| [019](decision_019_near_term_worker_empowerment.md) | Useful worker capabilities and standing authority as a very near-term priority | Accepted priority; implementation planned | 2026-09-29 |
 
 ## Current deployment interpretation
 
@@ -81,3 +82,8 @@ Read [Single-Company Business Operations](../product/SINGLE_COMPANY_OPERATIONS.m
 [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) when generating
 future work. Maintain [Project Memory](../PROJECT_MEMORY.md) when accepted decisions or
 verified milestone state change so the project can continue after a chat context ends.
+
+Decision 019 adds a very near-term follow-up after Prompt 07: give workers useful tools,
+public research and appropriate standing authority for routine work. Plan it alongside
+Prompt 08 preparation without deferring basic public research to Prompt 11. It preserves
+the numbered milestone order and records planned work, not implemented permission grants.
