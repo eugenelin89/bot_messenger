@@ -488,7 +488,7 @@ sudo python3 /opt/botsquad/scripts/validate-projects-operator.py /var/lib/botsqu
 ```
 
 The operator companion performs harmless UID canary and archived-clone denial probes.
-Both commands are validation-only and consume real Codex usage. Production remains paused.
+Both commands are validation-only and consume real Codex usage. Preserve the actual production pause state.
 Evidence and limitations are in [Prompt 05 validation](../validation/prompt-05-general-projects.md).
 
 ## Direct conversations and recovery
@@ -538,3 +538,27 @@ Keep query/conversation evidence private even when source URLs are public. Expor
 necessary bounded excerpts, metadata and hashes. Hard defaults, residual query-disclosure
 limitations and opaque-provider boundaries are recorded in
 [Decision 020](../decisions/decision_020_scoped_public_research.md).
+
+## Working groups and scoped application updates
+
+Use **Working Groups** to create a draft, explicitly start it, interject, pause future
+turns, interrupt active work, stop without summarizing, or authorize one more bounded
+round. The wall-clock deadline continues while paused. **Finish with current evidence**
+authorizes one final synthesis after active work settles. A blocked incomplete group can
+use a different current unfenced participant; this does not repair the failed worker.
+Saved versions, failures, source omissions and unanswered questions remain inspectable.
+See [controls and recovery](../architecture/WORKING_GROUPS.md).
+
+For a code-only update on an already provisioned host, first inspect current source and
+build identity, active/runnable work, actual pause/grants, and all retained state. Take a
+consistent SQLite backup and exercise migration twice on an offline copy. Quiesce work,
+stop only the application service, check out the exact accepted revision, build with the
+unchanged validated dependencies, update the deployment SHA receipt, then restart and
+verify health/listener/build/preservation. Do not run full bootstrap merely to deploy code:
+its provisioning and OS-package operations require their own justified scope. No worker
+roster, new grant, pause reset, or demonstration belongs in production deployment.
+
+Prompt 08 isolated scripts are explicitly restricted to validation roots and loopback
+ports; their manifests distinguish trusted roster setup, real model output and deliberate
+fault injection. Preserve failed attempts and all unknown-outcome fences. Stop temporary
+services/tunnels after evidence collection. No acceptance script imports production data.

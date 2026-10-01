@@ -59,6 +59,20 @@ the isolated validation researcher and is not currently in this roster. Create a
 through the existing Task hiring workflow if needed, then confirm that worker's permission
 once. An Atlas grant does not extend to another worker.
 
+## Prompt 08 preflight and candidate
+
+A fresh retained-HQ inspection on October 1 supersedes the WE-01 zero-grant release
+snapshot above: the same seven workers remain enabled, dispatch is unpaused, 43 Tasks
+are terminal, and no work is runnable. **One existing Atlas Public Research grant** is
+present for Task/direct modes; Company Knowledge remains ungranted. Prompt 08 migration
+must not extend that permission to discussions or change the owner's pause state.
+
+Working groups are implemented on the owned candidate branch and undergoing isolated
+Ubuntu acceptance. The manual group passed; the research group produced an explicitly
+incomplete recommendation after a recorded Atlas timeout, with the original worker fence
+retained. Production deployment is still pending. Consult the
+[current acceptance record](../validation/PROMPT_08_VALIDATION.md) before claiming release.
+
 ## Prompt 07 acceptance and release
 
 Direct conversations and context continuity passed real Ubuntu C07-1–C07-4 acceptance.

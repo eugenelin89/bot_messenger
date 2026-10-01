@@ -55,6 +55,10 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
+        if(path==='/api/groups') {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group query');json(200,company.discussions.list(q.has('before')?Number(q.get('before')):undefined));return;}
+        if(path.startsWith('/api/groups/')) {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group history query');json(200,company.discussions.inspect(decodeURIComponent(path.slice('/api/groups/'.length)),q.has('before')?Number(q.get('before')):undefined));return;}
+        if(path.startsWith('/api/group-syntheses/')) {json(200,company.discussions.synthesis(decodeURIComponent(path.slice('/api/group-syntheses/'.length))));return;}
+        if(path.startsWith('/api/group-assignment-preview/')) {json(200,company.discussions.assignmentPreview(decodeURIComponent(path.slice('/api/group-assignment-preview/'.length))));return;}
         if (path === '/api/conversations') {
           const q = new URL(req.url!,expectedOrigin).searchParams;
           requireThat([...q.keys()].every(k=>['worker_id','before'].includes(k)), 'Invalid conversation query');
@@ -73,7 +77,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           const content = company.artifactContent(decodeURIComponent(path.slice('/api/artifacts/'.length)));
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/plain; charset=utf-8' }); res.end(content); return;
         }
-        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
+        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
         const file = staticFiles[path];
         if (file) { res.writeHead(200, { ...securityHeaders, 'Content-Type': `${file[1]}; charset=utf-8` }); res.end(readFileSync(join(publicDir, file[0]))); return; }
         json(404, { error: 'Not found' }); return;
@@ -85,6 +89,15 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
+      else if(path==='/api/groups/create'){json(201,company.discussions.create(body));}
+      else if(path==='/api/groups/note'){json(201,company.discussions.note(body));}
+      else if(path==='/api/groups/share'){json(201,company.discussions.share(body));}
+      else if(path==='/api/groups/control'){json(200,company.discussions.control(body));}
+      else if(path==='/api/groups/revoke-member'){json(200,company.discussions.revokeMember(body));}
+      else if(path==='/api/groups/withdraw-evidence'){json(200,company.discussions.withdrawEvidence(body));}
+      else if(path==='/api/groups/assignment'){json(201,company.discussions.submitAssignment(body));}
+      else if(path==='/api/groups/interrupt'){const a=strictObject(body,['group_id']);const active=company.discussions.activeExecutions(textField(a,'group_id',100));for(const e of active)dispatcher.interrupt(e.execution_id);json(200,{requested:active.length,notice:'Cancellation requested; inspect each execution for confirmation or uncertainty.'});}
+      else if(path==='/api/groups/rollover'){const a=strictObject(body,['group_id','worker_id']);const g=company.discussions.group(textField(a,'group_id',100));company.conversations.requestRollover(g.conversation_id,textField(a,'worker_id',100));json(200,{requested:true});}
       else if (path === '/api/conversations/open') { json(201,company.conversations.open(body)); }
       else if (path === '/api/conversations/send') { json(201,company.conversations.send(body)); }
       else if (path === '/api/conversations/control') {

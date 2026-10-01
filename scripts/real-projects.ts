@@ -114,6 +114,13 @@ try{
   });
   const overlap=Math.min(...engineers.map(e=>Date.parse(e.finished!)))-Math.max(...engineers.map(e=>Date.parse(e.started)));
   const turnOverlap=Math.min(...engineers.map(e=>Date.parse(e.finished!)))-Math.max(...engineers.map(e=>Date.parse(e.turn_started)));assert.ok(overlap>0&&turnOverlap>0);
+  const readiness=process.env.BOT_VALIDATION_ENGINEERING_BARRIER==='1'?JSON.parse(readFileSync(join(data,'engineering-readiness.json'),'utf8')):null;
+  if(readiness){
+    assert.ok(readiness.original_eligibility_preserved);assert.equal(readiness.max_employee_slots,2);
+    assert.ok(readiness.infrastructure_tasks.every((t:{status:string})=>t.status==='completed'));
+    assert.ok(readiness.infrastructure_executions.every((e:{status:string;finished_at:string})=>e.status==='completed'&&Date.parse(e.finished_at)<=Date.parse(readiness.released_at)));
+    assert.ok(engineers.every(e=>Date.parse(e.started)>=Date.parse(readiness.released_at)),'Actual engineers must start after operator readiness admission');
+  }
   assert.equal(new Set(engineers.map(e=>e.clone)).size,2);if(identities)assert.equal(new Set(engineers.map(e=>e.uid)).size,2);
   const originalExecution=complete.executions.find(e=>e.execution_id===original.execution_id)!,revisionExecution=complete.executions.find(e=>e.execution_id===revised.execution_id)!;assert.equal(originalExecution.runtime_reference,revisionExecution.runtime_reference);
   const policies=complete.audit.filter(e=>e.type==='runtime_policy_applied').map(e=>({execution_id:e.execution_id,...JSON.parse(e.detail)}));assert.equal(policies.length,complete.executions.length);assert.ok(policies.every(p=>p.network===false&&p.sandbox==='read-only'&&p.environments.length===0));
@@ -145,7 +152,7 @@ try{
   if(identities&&process.env.BOT_VALIDATE_PROJECT_PROBES==='1'){
     const deadline=Date.now()+90000;while(!existsSync(join(data,'archive-probes-complete'))&&Date.now()<deadline)await sleep(300);assert.ok(existsSync(join(data,'archive-probes-complete')),'Archive access probes deadline');
   }
-  const sanitized=JSON.parse(JSON.stringify({result:'PASS',started,finished:new Date().toISOString(),source_sha:localGit(root,['rev-parse','HEAD']),project:afterArchive.projects[0],repositories:afterArchive.repositories,workers:complete.workers.map(w=>({worker_id:w.worker_id,name:w.display_name,role:w.role,model:w.ai_model,reasoning:w.reasoning_effort,priority:w.execution_priority})),bindings:complete.bindings,engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,submissions:complete.submissions,reviews:complete.reviews,rounds:complete.review_rounds,integration,recovery,remote:{identity:remotes[0]!.identity,initial,new:repo.current_commit,operation:published,approvals:reconciled.project_approvals,receipts:reconciled.project_receipts,publish_attempts:1,divergence_blocked:true,live_authenticated_github_push:'unvalidated'},scope_denials:complete.audit.filter(e=>e.type==='tool_rejected'),runtime_policies:policies}).replaceAll(data,`.validation/${data.split('/').at(-1)}`));
+  const sanitized=JSON.parse(JSON.stringify({result:'PASS',started,finished:new Date().toISOString(),source_sha:localGit(root,['rev-parse','HEAD']),project:afterArchive.projects[0],repositories:afterArchive.repositories,workers:complete.workers.map(w=>({worker_id:w.worker_id,name:w.display_name,role:w.role,model:w.ai_model,reasoning:w.reasoning_effort,priority:w.execution_priority})),bindings:complete.bindings,engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,operator_readiness_admission:readiness,submissions:complete.submissions,reviews:complete.reviews,rounds:complete.review_rounds,integration,recovery,remote:{identity:remotes[0]!.identity,initial,new:repo.current_commit,operation:published,approvals:reconciled.project_approvals,receipts:reconciled.project_receipts,publish_attempts:1,divergence_blocked:true,live_authenticated_github_push:'unvalidated'},scope_denials:complete.audit.filter(e=>e.type==='tool_rejected'),runtime_policies:policies}).replaceAll(data,`.validation/${data.split('/').at(-1)}`));
   save('evidence.json',sanitized);save('final-state.json',afterArchive);console.log(`PASS: real Projects, revision, queue, remote reconciliation, archive. Overlap ${overlap}/${turnOverlap} ms. Evidence ${join(data,'evidence.json')}`);
 }catch(error){try{save('failed-state.json',await api('state'));}catch{}console.error(error instanceof Error?error.stack:error);console.error(`Retained validation state: ${data}`);process.exitCode=1;}
 finally{await stop();}

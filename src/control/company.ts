@@ -1,6 +1,7 @@
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
 import { Research } from './research.js';
+import { Discussions } from './discussions.js';
 import type { HostClient } from '../infrastructure/client.js';
 import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
@@ -42,6 +43,7 @@ export class Company extends EventEmitter {
   readonly remote: RemoteProjects;
   readonly conversations: Conversations;
   readonly research: Research;
+  readonly discussions: Discussions;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -56,6 +58,7 @@ export class Company extends EventEmitter {
     this.conversations = new Conversations(this);
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.research = new Research(this);
+    this.discussions = new Discussions(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -248,6 +251,7 @@ export class Company extends EventEmitter {
   }
   claimWorkNext(maxActive = 2) {
     return this.store.transaction(() => {
+      this.discussions.progress();
       if (this.paused || this.store.get<{n:number}>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
       const reply = this.conversations.candidate(); const task = this.nextTask();
       const priority = {critical:3,high:2,normal:1,low:0};
@@ -407,6 +411,7 @@ export class Company extends EventEmitter {
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
+      selected_discussion_synthesis: this.store.get('SELECT s.synthesis_id,s.content,s.sha256 FROM discussion_assignments a JOIN group_syntheses s USING(synthesis_id) WHERE a.task_id=?',task.task_id),
       messages: this.store.all<Message>('SELECT * FROM messages WHERE related_task_id=? ORDER BY created_at DESC LIMIT 8', task.task_id).reverse(),
       reference_documents: [...this.referenceDocs.keys()] };
   }
@@ -526,11 +531,12 @@ export class Company extends EventEmitter {
   }
   snapshot() {
     return { projects:this.projects.list(), review_rounds:this.engineering.rounds(), revision_requests:this.store.all('SELECT * FROM revision_requests ORDER BY created_at'), project_operations:this.remote.operations(), project_approvals:this.remote.approvals(), project_receipts:this.store.all('SELECT * FROM project_operation_receipts'), allocation_releases:this.store.all('SELECT * FROM allocation_releases'), task_scopes:this.store.all('SELECT * FROM task_scopes'), runtime_tool_versions:this.store.all('SELECT * FROM runtime_tool_versions'), infrastructure: this.infrastructure.snapshot(), wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
+      group_synthesis_count:this.store.get<{n:number}>('SELECT count(*) n FROM group_syntheses')!.n,
       principals: this.store.all<Principal>('SELECT * FROM principals'),
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),
       tasks: this.store.all<Task>('SELECT * FROM tasks ORDER BY created_at,rowid'),
-      executions: this.store.all<Execution>('SELECT * FROM executions ORDER BY started_at,rowid'),
+      executions: this.store.all<Execution & {group_id:string|null;discussion_kind:string|null}>('SELECT e.*,t.group_id,t.kind discussion_kind FROM executions e LEFT JOIN discussion_turns t ON t.request_id=e.request_id ORDER BY e.started_at,e.rowid'),
       artifacts: this.store.all<Artifact>('SELECT * FROM artifacts ORDER BY created_at,rowid'),
       audit: this.store.all<AuditEvent>('SELECT * FROM audit_events ORDER BY created_at,rowid'),
       bindings: this.store.all<RuntimeBinding>('SELECT * FROM runtime_bindings') };

@@ -19,3 +19,10 @@ Open BotSquad before starting. For connection instructions, see [Open the BotSqu
 The [repository overview](../../README.md) describes the project and its current capabilities. [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md) covers connecting to and administering an existing installation.
 
 Tutorial instructions are not, by themselves, evidence that a live run completed. Check each tutorial's scope and any associated validation record; your installed version may differ from the repository interface.
+
+## Working groups
+
+[Learn by doing: ask your team to reason together](working-groups.md) covers a manual or
+Atlas-organized charter, explicit sharing/research, interjections, lifecycle controls,
+saved recommendations and separate assignment submission. See the linked acceptance
+report for the delivered revision and current validation status.

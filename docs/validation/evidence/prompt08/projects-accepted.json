@@ -1,0 +1,455 @@
+{
+  "result": "PASS",
+  "started": "2026-10-01T11:42:04.218Z",
+  "finished": "2026-10-01T11:48:47.551Z",
+  "source_sha": "04ff797be8dcd5372765e4885e24c0bf98413ea6",
+  "project": {
+    "project_id": "project_a256ed93-575c-4815-b17c-ac05859b5baa",
+    "name": "LedgerBrief real acceptance",
+    "description": "Imported non-SquadStatus software with staged independent revision acceptance",
+    "status": "archived",
+    "instructions": "Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.",
+    "policy": "{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]}",
+    "created_by": "human",
+    "created_at": "2026-10-01T11:42:08.643Z",
+    "updated_at": "2026-10-01T11:48:45.783Z",
+    "legacy": 0
+  },
+  "repositories": [
+    {
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "product_name": "LedgerBrief",
+      "canonical_root": ".validation/projects-prompt08-20261001T114202Z/products/repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e/main",
+      "default_branch": "trunk",
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "current_commit": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+      "created_by": "human",
+      "workflow_task_id": null,
+      "spec_artifact_id": null,
+      "status": "ready",
+      "created_at": "2026-10-01T11:42:08.666Z",
+      "updated_at": "2026-10-01T11:48:01.413Z",
+      "project_id": "project_a256ed93-575c-4815-b17c-ac05859b5baa",
+      "source_kind": "imported",
+      "remote_provider": "github",
+      "remote_identity": "botsquad-validation/ledger-publication",
+      "remote_url": "https://github.com/botsquad-validation/ledger-publication.git",
+      "remote_policy": "approved_push",
+      "remote_sha": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+      "remote_state": "in_sync"
+    },
+    {
+      "repository_id": "repository_7900a753-76be-4214-a7a5-eac28e719a9e",
+      "product_name": "Divergence inspection",
+      "canonical_root": ".validation/projects-prompt08-20261001T114202Z/products/repository_7900a753-76be-4214-a7a5-eac28e719a9e/main",
+      "default_branch": "trunk",
+      "base_commit": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+      "current_commit": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+      "created_by": "human",
+      "workflow_task_id": null,
+      "spec_artifact_id": null,
+      "status": "ready",
+      "created_at": "2026-10-01T11:48:44.992Z",
+      "updated_at": "2026-10-01T11:48:45.517Z",
+      "project_id": "project_a256ed93-575c-4815-b17c-ac05859b5baa",
+      "source_kind": "imported",
+      "remote_provider": "github",
+      "remote_identity": "botsquad-validation/ledger-divergence",
+      "remote_url": "https://github.com/botsquad-validation/ledger-divergence.git",
+      "remote_policy": "fetch_only",
+      "remote_sha": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "remote_state": "blocked"
+    }
+  ],
+  "engineers": [
+    {
+      "worker_id": "worker_fc1cc61f-07c1-431c-86c6-486986238cac",
+      "name": "Linus",
+      "allocation_id": "allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14",
+      "scope": [
+        "src/ledger/"
+      ],
+      "clone": "/var/lib/botsquad-workers/bsw-f2eabcaa39b99f9bc117715d/projects/allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14",
+      "uid": 20143,
+      "gid": 20143,
+      "execution_id": "execution_497989f8-0bb7-4674-a6dc-5da3d6db3fea",
+      "started": "2026-10-01T11:45:10.199Z",
+      "turn_started": "2026-10-01T11:45:12.000Z",
+      "finished": "2026-10-01T11:45:29.521Z"
+    },
+    {
+      "worker_id": "worker_b5cc7381-efd0-4831-9673-712e9e2d2dc3",
+      "name": "Ada",
+      "allocation_id": "allocation_3efe7abc-2728-4b5a-85d0-544daa1f20c1",
+      "scope": [
+        "src/report/"
+      ],
+      "clone": "/var/lib/botsquad-workers/bsw-7e7a5b1056b020900de8193b/projects/allocation_3efe7abc-2728-4b5a-85d0-544daa1f20c1",
+      "uid": 20144,
+      "gid": 20144,
+      "execution_id": "execution_26fec5cc-43fa-4b66-a211-810ac60a6828",
+      "started": "2026-10-01T11:45:10.369Z",
+      "turn_started": "2026-10-01T11:45:12.478Z",
+      "finished": "2026-10-01T11:45:38.469Z"
+    }
+  ],
+  "execution_overlap_ms": 19152,
+  "runtime_turn_overlap_ms": 17043,
+  "operator_readiness_admission": {
+    "purpose": "Operator-controlled readiness admission before real overlap acceptance; not unconstrained production priority ordering",
+    "released_at": "2026-10-01T11:45:10.190Z",
+    "infrastructure_tasks": [
+      {
+        "task_id": "task_f16899e0-c149-4395-9591-9aa1e3f69570",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_220ef679-c570-4b91-8d1c-7f20b245ec54",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_ab77fb4f-06b7-45c7-9f9e-47b4a51ee793",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_e2ee5c2a-8e58-4415-ab4a-f640adfd9696",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_310afa25-3d94-454d-ad67-8a91faf6501c",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_70bb1069-1662-4d21-a2d5-60a2709f4450",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_5a95626d-7c3b-4e19-bb74-aba1222d06b2",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_780327d7-4e6d-424e-ab37-fd6244e0def2",
+        "status": "completed"
+      }
+    ],
+    "infrastructure_executions": [
+      {
+        "execution_id": "execution_5f881538-d312-400a-9f7c-40ed9ff2fcdb",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:42:18.883Z"
+      },
+      {
+        "execution_id": "execution_f1142f7e-ffd3-455c-b416-8f20f33fe821",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:42:29.363Z"
+      },
+      {
+        "execution_id": "execution_fd070017-c02b-432f-94a3-df20eb1c874b",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:42:39.781Z"
+      },
+      {
+        "execution_id": "execution_28429ae1-704b-43f8-beba-3f6590765372",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:42:54.661Z"
+      },
+      {
+        "execution_id": "execution_28d4be9b-9c9a-4b24-adc0-a9b6ac57b27a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:43:19.577Z"
+      },
+      {
+        "execution_id": "execution_8523cd0f-e22a-4905-8994-18d6a9db3951",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:43:27.376Z"
+      },
+      {
+        "execution_id": "execution_667edf63-2eb3-4b0f-bc4f-677d8e43c23f",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:43:37.489Z"
+      },
+      {
+        "execution_id": "execution_0eb9f217-051a-4451-91d9-22e81896cf70",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:43:46.223Z"
+      },
+      {
+        "execution_id": "execution_eab3d542-2f07-41d1-a2e3-ae11ebe8a593",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:43:54.047Z"
+      },
+      {
+        "execution_id": "execution_36e19d26-a2d5-4145-8f42-4a71ed62149e",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:44:02.046Z"
+      },
+      {
+        "execution_id": "execution_2ddec717-b7df-4998-b749-212e28256bfb",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:44:12.507Z"
+      },
+      {
+        "execution_id": "execution_cf9daab5-7fe9-4327-8b56-5ff49c24a02f",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:44:23.717Z"
+      },
+      {
+        "execution_id": "execution_f6462f7b-8880-4909-8bd7-0712c3f141b8",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:44:33.660Z"
+      },
+      {
+        "execution_id": "execution_7d675cd9-e06b-4b9b-870e-24d923d9bbe4",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:44:50.931Z"
+      },
+      {
+        "execution_id": "execution_88416439-fa78-43a3-a765-822bdb3cef02",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:45:00.625Z"
+      },
+      {
+        "execution_id": "execution_28e36442-2b6a-4672-b379-6e8710ec6ed5",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:45:10.111Z"
+      }
+    ],
+    "original_eligibility_preserved": true,
+    "max_employee_slots": 2
+  },
+  "submissions": [
+    {
+      "submission_id": "submission_1f12cf19-837e-4627-8503-3f29a9b668f9",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "task_id": "task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4",
+      "worker_id": "worker_fc1cc61f-07c1-431c-86c6-486986238cac",
+      "execution_id": "execution_497989f8-0bb7-4674-a6dc-5da3d6db3fea",
+      "allocation_id": "allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14",
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "branch_name": "botsquad/task/task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4",
+      "commit_sha": "291b5296756125e58596156745bdb6623ef18951",
+      "changed_paths": "[\"src/ledger/index.mjs\"]",
+      "validation": "{\"command\":\"ledger\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"ledger\\\",\\\"command\\\":\\\"confined-node recipe:ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: valid ledger totals without mutation\\\\nok 1 - valid ledger totals without mutation\\\\n  ---\\\\n  duration_ms: 4.287128\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 72.133604\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-01T11:45:26.860Z\\\"}]\",\"checked_at\":\"2026-10-01T11:45:26.861Z\"}",
+      "summary": "Initial ledger implementation sums valid numeric entries without mutation; focused ledger recipe passes. Malformed and nonfinite TypeError guards are deliberately deferred for independent review feedback, so this is not final acceptance.",
+      "created_at": "2026-10-01T11:45:27.498Z",
+      "commit_list": "[\"291b5296756125e58596156745bdb6623ef18951\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_7a451726-0431-42af-a6ad-68fb13080651",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "task_id": "task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0",
+      "worker_id": "worker_b5cc7381-efd0-4831-9673-712e9e2d2dc3",
+      "execution_id": "execution_26fec5cc-43fa-4b66-a211-810ac60a6828",
+      "allocation_id": "allocation_3efe7abc-2728-4b5a-85d0-544daa1f20c1",
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "branch_name": "botsquad/task/task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0",
+      "commit_sha": "50ea65cffa620970ca0e45e65642652e212df0f3",
+      "changed_paths": "[\"src/report/index.mjs\"]",
+      "validation": "{\"command\":\"report\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"report\\\",\\\"command\\\":\\\"confined-node recipe:report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: exact plain-text rendering\\\\nok 1 - exact plain-text rendering\\\\n  ---\\\\n  duration_ms: 1.754766\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 70.292526\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-01T11:45:34.854Z\\\"}]\",\"checked_at\":\"2026-10-01T11:45:34.857Z\"}",
+      "summary": "Implement exact dependency-free plain-text report rendering; focused report test passes.",
+      "created_at": "2026-10-01T11:45:35.521Z",
+      "commit_list": "[\"50ea65cffa620970ca0e45e65642652e212df0f3\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_e83d16f7-5027-40b4-8fcb-fd005e83fde8",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "task_id": "task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4",
+      "worker_id": "worker_fc1cc61f-07c1-431c-86c6-486986238cac",
+      "execution_id": "execution_425f6c41-bd02-4720-96bc-cf434de701a6",
+      "allocation_id": "allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14",
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "branch_name": "botsquad/task/task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4",
+      "commit_sha": "43f0238a4b5f67c7f8e153135dc342e2fe31da95",
+      "changed_paths": "[\"src/ledger/index.mjs\"]",
+      "validation": "{\"command\":\"ledger\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"ledger\\\",\\\"command\\\":\\\"confined-node recipe:ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: valid ledger totals without mutation\\\\nok 1 - valid ledger totals without mutation\\\\n  ---\\\\n  duration_ms: 4.63727\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 72.365107\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-01T11:47:04.880Z\\\"}]\",\"checked_at\":\"2026-10-01T11:47:04.881Z\"}",
+      "summary": "Revision adds TypeError validation for non-array inputs and entries lacking finite numeric amounts, while preserving valid sums, empty-array zero, and caller input. Focused ledger recipe passes; commit descends from initial submission.",
+      "created_at": "2026-10-01T11:47:05.548Z",
+      "commit_list": "[\"291b5296756125e58596156745bdb6623ef18951\",\"43f0238a4b5f67c7f8e153135dc342e2fe31da95\"]",
+      "revision_round": 2,
+      "previous_submission_id": "submission_1f12cf19-837e-4627-8503-3f29a9b668f9"
+    }
+  ],
+  "reviews": [
+    {
+      "review_id": "review_de34fb04-9df4-432a-a08d-f969da375fb0",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "task_id": "task_153e69c4-4483-4358-8c7d-79940ff0e02a",
+      "worker_id": "worker_737d0f63-9ad4-4c1e-b435-0c11c8f51787",
+      "execution_id": "execution_b7fd49ad-88c5-413f-b2f5-36357a989243",
+      "source_commits": "[\"291b5296756125e58596156745bdb6623ef18951\",\"50ea65cffa620970ca0e45e65642652e212df0f3\"]",
+      "status": "changes_required",
+      "artifact_id": "artifact_5d122fdc-7b28-4909-b81f-9390b03a88eb",
+      "created_at": "2026-10-01T11:46:38.695Z",
+      "round_id": "round_08813f5d-78e9-4cc0-b934-28c0f9b599f5"
+    },
+    {
+      "review_id": "review_4f2d8651-cb0c-4edb-85d9-a51d3293a43e",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "task_id": "task_f07842f0-3f57-4774-b757-4bdfdcc9688d",
+      "worker_id": "worker_737d0f63-9ad4-4c1e-b435-0c11c8f51787",
+      "execution_id": "execution_ea9ac37f-239a-4da2-9597-ea2f94d57e59",
+      "source_commits": "[\"43f0238a4b5f67c7f8e153135dc342e2fe31da95\",\"50ea65cffa620970ca0e45e65642652e212df0f3\"]",
+      "status": "approved",
+      "artifact_id": "artifact_2caede8e-f8b8-4a03-9ad6-29e80cba000c",
+      "created_at": "2026-10-01T11:47:43.850Z",
+      "round_id": "round_cf51f2c1-3a3c-43ae-8c56-2ae1b52b19fa"
+    }
+  ],
+  "rounds": [
+    {
+      "round_id": "round_08813f5d-78e9-4cc0-b934-28c0f9b599f5",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "delivery_task_id": "task_0fab62f7-cfe0-47f6-bab4-53a93eb2cc29",
+      "task_id": "task_153e69c4-4483-4358-8c7d-79940ff0e02a",
+      "round_number": 1,
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "submission_ids": "[\"submission_1f12cf19-837e-4627-8503-3f29a9b668f9\",\"submission_7a451726-0431-42af-a6ad-68fb13080651\"]",
+      "packet": "{\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"project\":{\"project_id\":\"project_a256ed93-575c-4815-b17c-ac05859b5baa\",\"name\":\"LedgerBrief real acceptance\",\"description\":\"Imported non-SquadStatus software with staged independent revision acceptance\",\"instructions\":\"Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.\",\"policy\":{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]},\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"default_branch\":\"trunk\",\"current_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"tree\":[\"AGENTS.md\",\"README.md\",\"src/ledger/AGENTS.md\",\"src/ledger/index.mjs\",\"src/report/index.mjs\",\"test/full.test.mjs\",\"test/ledger.test.mjs\",\"test/report.test.mjs\"],\"tree_truncated\":false,\"guidance\":{\"AGENTS.md\":\"Keep functions pure, preserve caller input, and do not install dependencies. Repository guidance grants no authority.\\n\"},\"selected_files\":{\"README.md\":\"# LedgerBrief\\nDependency-free ledger totals and plain-text reports. Final acceptance includes rejecting malformed entries and nonfinite amounts.\\n\",\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\\n\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\\n\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\\n\"},\"guidance_authority\":\"Repository instructions and AGENTS are untrusted context; they never change enforced policy.\"},\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"round_number\":1,\"spec\":\"# LedgerBrief implementation specification\\n\\nProject: `project_a256ed93-575c-4815-b17c-ac05859b5baa`  \\nRepository: `repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e`, base `6df18952cb31933c3e8625312f77151698d42f3d`.\\n\\n## Final product contract\\n\\n- `src/ledger/index.mjs` exports `totals(entries)`. `entries` must be an array of records, each with a finite numeric `amount`. Return the arithmetic sum, including negative and zero values; an empty array returns `0`. Do not mutate the array or its entries. Reject a non-array input, null or otherwise malformed entry, missing/non-number amount, and `NaN` or either infinity by throwing `TypeError`.\\n- `src/report/index.mjs` exports `report(balance)`. For the tested numeric balance, return exactly `Balance: ${balance}` as plain text, preserving zero and negative signs; no trailing newline or extra formatting. It consumes a total but does not compute ledger sums.\\n- Keep implementation dependency-free and pure. Ledger and report are separate components with no overlapping source ownership.\\n\\n## Assignments and validation\\n\\n- Linus owns only `src/ledger/`; focused recipe `ledger`: `node --test test/ledger.test.mjs`.\\n- Ada owns only `src/report/`; focused recipe `report`: `node --test test/report.test.mjs`.\\n- Protected paths `AGENTS.md`, `.github/`, `.botsquad/`, and `test/` are read-only. Do not alter tests or add dependencies.\\n- After an approved independent review, integration runs full recipe `full`: `node --test test/full.test.mjs`. Final acceptance requires all focused and full validation to pass, including integrated rendering and rejection cases.\\n\\n## Required staged independent review\\n\\nThis task deliberately has a known initial acceptance gap. Linus's **initial** ledger submission is to implement valid-input totals and non-mutation only, deliberately deferring malformed/nonfinite-input `TypeError` guards. Passing the focused ledger recipe is not final acceptance. Grace must inspect the actual first immutable ledger diff and the full-test requirements, identify the missing guards as a real defect, and submit `changes_required` feedback addressed to Linus's exact allocation and submission. Grace must not approve that initial ledger commit or manufacture a review finding without inspecting it. Ada should implement the report contract correctly in round one; her unchanged submission need not be revised merely because ledger needs correction. Linus's next revision must add the guards and descend from the prior submission. Grace must independently inspect the revised exact commit and its validation, approving only if the final contracts are met with empty feedback. Integration must use only the completed approved review packet, never the rejected round. No integration success is claimed before its actual result receipt.\\n\\n## Review criteria\\n\\nVerify source ownership and protected-path compliance; pure/non-mutating valid-input behavior; explicit `TypeError` for every malformed/nonfinite class in `test/full.test.mjs`; exact report strings; focused recipe receipts for each engineer; and correspondence of reviewed source submission IDs/commits to the current revisions. The full suite is an integration gate, not evidence available at first review.\",\"selected_base_files\":{\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\"},\"submissions\":[{\"submission_id\":\"submission_1f12cf19-837e-4627-8503-3f29a9b668f9\",\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"task_id\":\"task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4\",\"worker_id\":\"worker_fc1cc61f-07c1-431c-86c6-486986238cac\",\"execution_id\":\"execution_497989f8-0bb7-4674-a6dc-5da3d6db3fea\",\"allocation_id\":\"allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14\",\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"branch_name\":\"botsquad/task/task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4\",\"commit_sha\":\"291b5296756125e58596156745bdb6623ef18951\",\"changed_paths\":\"[\\\"src/ledger/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"ledger\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:ledger\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: valid ledger totals without mutation\\\\\\\\nok 1 - valid ledger totals without mutation\\\\\\\\n  ---\\\\\\\\n  duration_ms: 4.287128\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 72.133604\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-01T11:45:26.860Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-01T11:45:26.861Z\\\"}\",\"summary\":\"Initial ledger implementation sums valid numeric entries without mutation; focused ledger recipe passes. Malformed and nonfinite TypeError guards are deliberately deferred for independent review feedback, so this is not final acceptance.\",\"created_at\":\"2026-10-01T11:45:27.498Z\",\"commit_list\":\"[\\\"291b5296756125e58596156745bdb6623ef18951\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Linus\",\"diff\":\"diff --git a/src/ledger/index.mjs b/src/ledger/index.mjs\\nindex b555538..3a4750e 100644\\n--- a/src/ledger/index.mjs\\n+++ b/src/ledger/index.mjs\\n@@ -1 +1,3 @@\\n-export function totals(entries) { throw new Error(\\\"Implement totals\\\"); }\\n+export function totals(entries) {\\n+  return entries.reduce((sum, entry) => sum + entry.amount, 0);\\n+}\"},{\"submission_id\":\"submission_7a451726-0431-42af-a6ad-68fb13080651\",\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"task_id\":\"task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0\",\"worker_id\":\"worker_b5cc7381-efd0-4831-9673-712e9e2d2dc3\",\"execution_id\":\"execution_26fec5cc-43fa-4b66-a211-810ac60a6828\",\"allocation_id\":\"allocation_3efe7abc-2728-4b5a-85d0-544daa1f20c1\",\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"branch_name\":\"botsquad/task/task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0\",\"commit_sha\":\"50ea65cffa620970ca0e45e65642652e212df0f3\",\"changed_paths\":\"[\\\"src/report/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"report\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:report\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: exact plain-text rendering\\\\\\\\nok 1 - exact plain-text rendering\\\\\\\\n  ---\\\\\\\\n  duration_ms: 1.754766\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 70.292526\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-01T11:45:34.854Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-01T11:45:34.857Z\\\"}\",\"summary\":\"Implement exact dependency-free plain-text report rendering; focused report test passes.\",\"created_at\":\"2026-10-01T11:45:35.521Z\",\"commit_list\":\"[\\\"50ea65cffa620970ca0e45e65642652e212df0f3\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Ada\",\"diff\":\"diff --git a/src/report/index.mjs b/src/report/index.mjs\\nindex 412539d..73f3bf8 100644\\n--- a/src/report/index.mjs\\n+++ b/src/report/index.mjs\\n@@ -1 +1,3 @@\\n-export function report(total) { throw new Error(\\\"Implement report\\\"); }\\n+export function report(total) {\\n+  return `Balance: ${total}`;\\n+}\"}],\"prior_feedback\":[]}",
+      "packet_hash": "95813b3f51cf9dd19f22e1c3ba9918e394fd128174cd9d752e105223771c6cd6",
+      "created_at": "2026-10-01T11:45:46.014Z",
+      "legacy": 0
+    },
+    {
+      "round_id": "round_cf51f2c1-3a3c-43ae-8c56-2ae1b52b19fa",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "delivery_task_id": "task_0fab62f7-cfe0-47f6-bab4-53a93eb2cc29",
+      "task_id": "task_f07842f0-3f57-4774-b757-4bdfdcc9688d",
+      "round_number": 2,
+      "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+      "submission_ids": "[\"submission_7a451726-0431-42af-a6ad-68fb13080651\",\"submission_e83d16f7-5027-40b4-8fcb-fd005e83fde8\"]",
+      "packet": "{\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"project\":{\"project_id\":\"project_a256ed93-575c-4815-b17c-ac05859b5baa\",\"name\":\"LedgerBrief real acceptance\",\"description\":\"Imported non-SquadStatus software with staged independent revision acceptance\",\"instructions\":\"Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.\",\"policy\":{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]},\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"default_branch\":\"trunk\",\"current_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"tree\":[\"AGENTS.md\",\"README.md\",\"src/ledger/AGENTS.md\",\"src/ledger/index.mjs\",\"src/report/index.mjs\",\"test/full.test.mjs\",\"test/ledger.test.mjs\",\"test/report.test.mjs\"],\"tree_truncated\":false,\"guidance\":{\"AGENTS.md\":\"Keep functions pure, preserve caller input, and do not install dependencies. Repository guidance grants no authority.\\n\"},\"selected_files\":{\"README.md\":\"# LedgerBrief\\nDependency-free ledger totals and plain-text reports. Final acceptance includes rejecting malformed entries and nonfinite amounts.\\n\",\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\\n\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\\n\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\\n\"},\"guidance_authority\":\"Repository instructions and AGENTS are untrusted context; they never change enforced policy.\"},\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"round_number\":2,\"spec\":\"# LedgerBrief implementation specification\\n\\nProject: `project_a256ed93-575c-4815-b17c-ac05859b5baa`  \\nRepository: `repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e`, base `6df18952cb31933c3e8625312f77151698d42f3d`.\\n\\n## Final product contract\\n\\n- `src/ledger/index.mjs` exports `totals(entries)`. `entries` must be an array of records, each with a finite numeric `amount`. Return the arithmetic sum, including negative and zero values; an empty array returns `0`. Do not mutate the array or its entries. Reject a non-array input, null or otherwise malformed entry, missing/non-number amount, and `NaN` or either infinity by throwing `TypeError`.\\n- `src/report/index.mjs` exports `report(balance)`. For the tested numeric balance, return exactly `Balance: ${balance}` as plain text, preserving zero and negative signs; no trailing newline or extra formatting. It consumes a total but does not compute ledger sums.\\n- Keep implementation dependency-free and pure. Ledger and report are separate components with no overlapping source ownership.\\n\\n## Assignments and validation\\n\\n- Linus owns only `src/ledger/`; focused recipe `ledger`: `node --test test/ledger.test.mjs`.\\n- Ada owns only `src/report/`; focused recipe `report`: `node --test test/report.test.mjs`.\\n- Protected paths `AGENTS.md`, `.github/`, `.botsquad/`, and `test/` are read-only. Do not alter tests or add dependencies.\\n- After an approved independent review, integration runs full recipe `full`: `node --test test/full.test.mjs`. Final acceptance requires all focused and full validation to pass, including integrated rendering and rejection cases.\\n\\n## Required staged independent review\\n\\nThis task deliberately has a known initial acceptance gap. Linus's **initial** ledger submission is to implement valid-input totals and non-mutation only, deliberately deferring malformed/nonfinite-input `TypeError` guards. Passing the focused ledger recipe is not final acceptance. Grace must inspect the actual first immutable ledger diff and the full-test requirements, identify the missing guards as a real defect, and submit `changes_required` feedback addressed to Linus's exact allocation and submission. Grace must not approve that initial ledger commit or manufacture a review finding without inspecting it. Ada should implement the report contract correctly in round one; her unchanged submission need not be revised merely because ledger needs correction. Linus's next revision must add the guards and descend from the prior submission. Grace must independently inspect the revised exact commit and its validation, approving only if the final contracts are met with empty feedback. Integration must use only the completed approved review packet, never the rejected round. No integration success is claimed before its actual result receipt.\\n\\n## Review criteria\\n\\nVerify source ownership and protected-path compliance; pure/non-mutating valid-input behavior; explicit `TypeError` for every malformed/nonfinite class in `test/full.test.mjs`; exact report strings; focused recipe receipts for each engineer; and correspondence of reviewed source submission IDs/commits to the current revisions. The full suite is an integration gate, not evidence available at first review.\",\"selected_base_files\":{\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\"},\"submissions\":[{\"submission_id\":\"submission_e83d16f7-5027-40b4-8fcb-fd005e83fde8\",\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"task_id\":\"task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4\",\"worker_id\":\"worker_fc1cc61f-07c1-431c-86c6-486986238cac\",\"execution_id\":\"execution_425f6c41-bd02-4720-96bc-cf434de701a6\",\"allocation_id\":\"allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14\",\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"branch_name\":\"botsquad/task/task_d85cd7d0-e8f8-4d97-bddb-b4026e179eb4\",\"commit_sha\":\"43f0238a4b5f67c7f8e153135dc342e2fe31da95\",\"changed_paths\":\"[\\\"src/ledger/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"ledger\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:ledger\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: valid ledger totals without mutation\\\\\\\\nok 1 - valid ledger totals without mutation\\\\\\\\n  ---\\\\\\\\n  duration_ms: 4.63727\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 72.365107\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-01T11:47:04.880Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-01T11:47:04.881Z\\\"}\",\"summary\":\"Revision adds TypeError validation for non-array inputs and entries lacking finite numeric amounts, while preserving valid sums, empty-array zero, and caller input. Focused ledger recipe passes; commit descends from initial submission.\",\"created_at\":\"2026-10-01T11:47:05.548Z\",\"commit_list\":\"[\\\"291b5296756125e58596156745bdb6623ef18951\\\",\\\"43f0238a4b5f67c7f8e153135dc342e2fe31da95\\\"]\",\"revision_round\":2,\"previous_submission_id\":\"submission_1f12cf19-837e-4627-8503-3f29a9b668f9\",\"worker_name\":\"Linus\",\"diff\":\"diff --git a/src/ledger/index.mjs b/src/ledger/index.mjs\\nindex b555538..d9d6874 100644\\n--- a/src/ledger/index.mjs\\n+++ b/src/ledger/index.mjs\\n@@ -1 +1,12 @@\\n-export function totals(entries) { throw new Error(\\\"Implement totals\\\"); }\\n+export function totals(entries) {\\n+  if (!Array.isArray(entries)) {\\n+    throw new TypeError('Ledger entries must be an array');\\n+  }\\n+\\n+  return entries.reduce((sum, entry) => {\\n+    if (entry === null || typeof entry !== 'object' || !Number.isFinite(entry.amount)) {\\n+      throw new TypeError('Each ledger entry must have a finite numeric amount');\\n+    }\\n+    return sum + entry.amount;\\n+  }, 0);\\n+}\"},{\"submission_id\":\"submission_7a451726-0431-42af-a6ad-68fb13080651\",\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"task_id\":\"task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0\",\"worker_id\":\"worker_b5cc7381-efd0-4831-9673-712e9e2d2dc3\",\"execution_id\":\"execution_26fec5cc-43fa-4b66-a211-810ac60a6828\",\"allocation_id\":\"allocation_3efe7abc-2728-4b5a-85d0-544daa1f20c1\",\"base_commit\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"branch_name\":\"botsquad/task/task_47c43fc5-8ad9-4736-9e74-87285c9d1bf0\",\"commit_sha\":\"50ea65cffa620970ca0e45e65642652e212df0f3\",\"changed_paths\":\"[\\\"src/report/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"report\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:report\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: exact plain-text rendering\\\\\\\\nok 1 - exact plain-text rendering\\\\\\\\n  ---\\\\\\\\n  duration_ms: 1.754766\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 70.292526\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-01T11:45:34.854Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-01T11:45:34.857Z\\\"}\",\"summary\":\"Implement exact dependency-free plain-text report rendering; focused report test passes.\",\"created_at\":\"2026-10-01T11:45:35.521Z\",\"commit_list\":\"[\\\"50ea65cffa620970ca0e45e65642652e212df0f3\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Ada\",\"diff\":\"diff --git a/src/report/index.mjs b/src/report/index.mjs\\nindex 412539d..73f3bf8 100644\\n--- a/src/report/index.mjs\\n+++ b/src/report/index.mjs\\n@@ -1 +1,3 @@\\n-export function report(total) { throw new Error(\\\"Implement report\\\"); }\\n+export function report(total) {\\n+  return `Balance: ${total}`;\\n+}\"}],\"prior_feedback\":[{\"review_id\":\"review_de34fb04-9df4-432a-a08d-f969da375fb0\",\"round_id\":\"round_08813f5d-78e9-4cc0-b934-28c0f9b599f5\",\"content\":\"{\\n  \\\"status\\\": \\\"changes_required\\\",\\n  \\\"source_commits\\\": [\\n    \\\"291b5296756125e58596156745bdb6623ef18951\\\",\\n    \\\"50ea65cffa620970ca0e45e65642652e212df0f3\\\"\\n  ],\\n  \\\"source_submission_ids\\\": [\\n    \\\"submission_1f12cf19-837e-4627-8503-3f29a9b668f9\\\",\\n    \\\"submission_7a451726-0431-42af-a6ad-68fb13080651\\\"\\n  ],\\n  \\\"round_id\\\": \\\"round_08813f5d-78e9-4cc0-b934-28c0f9b599f5\\\",\\n  \\\"round_number\\\": 1,\\n  \\\"packet_hash\\\": \\\"95813b3f51cf9dd19f22e1c3ba9918e394fd128174cd9d752e105223771c6cd6\\\",\\n  \\\"feedback\\\": [\\n    {\\n      \\\"allocation_id\\\": \\\"allocation_f1d34e4a-81ee-4e94-9374-032a8f5e9e14\\\",\\n      \\\"submission_id\\\": \\\"submission_1f12cf19-837e-4627-8503-3f29a9b668f9\\\",\\n      \\\"feedback\\\": \\\"In src/ledger/index.mjs, validate that entries is an array and each entry is a non-null record with a finite numeric amount before adding it; throw TypeError for non-array inputs, missing/non-number amounts, NaN, and either infinity. The current reduce returns NaN for `[{}]`, string-concatenates `[{amount:'2'}]`, and returns NaN/Infinity for nonfinite amounts, violating the full-test and spec. Preserve valid-input sums, empty-array 0, and non-mutation; run the assigned ledger recipe and submit a new commit descending from 291b5296756125e58596156745bdb6623ef18951.\\\"\\n    }\\n  ],\\n  \\\"findings\\\": \\\"The exact ledger diff replaces the stub with `entries.reduce((sum, entry) => sum + entry.amount, 0)` and contains no validation. Although null, {}, and [null] incidentally throw TypeError, `[{}]` returns NaN, `[{amount:'2'}]` returns '02', and NaN/Infinity amounts return nonfinite values instead of TypeError. Thus the protected full test's rejection cases and final spec fail. The report diff is correctly scoped to src/report/index.mjs and returns `Balance: ${total}` with no extra text. Both submissions touch only assigned source paths; no protected files changed.\\\",\\n  \\\"integration_risks\\\": \\\"Integrating this round would fail the full recipe's malformed/nonfinite rejection test. Do not integrate until a revised ledger submission is independently reviewed and approved; Ada's unchanged report submission can remain in the packet.\\\",\\n  \\\"acceptance_assessment\\\": \\\"Round 1 focused ledger and report recipes both passed. Ada's report diff implements exact plain-text rendering for the tested numeric balances. Linus's ledger diff sums valid entries without mutation, but fails final malformed/nonfinite rejection contract. The full integration recipe has not run at review time.\\\",\\n  \\\"recommended_disposition\\\": \\\"Request a Linus-only revision adding explicit input/entry/finite-number guards, then inspect the new immutable ledger commit alongside Ada's existing report commit in a new review round.\\\"\\n}\"}]}",
+      "packet_hash": "473ded4bf2f3a8f2cb419e457eee39363bb7b6b621147ea67b842bae390db654",
+      "created_at": "2026-10-01T11:47:14.760Z",
+      "legacy": 0
+    }
+  ],
+  "integration": {
+    "integration_id": "integration_f639e72e-5f1a-4fb8-a5a7-c1009f2d0c5a",
+    "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+    "review_id": "review_4f2d8651-cb0c-4edb-85d9-a51d3293a43e",
+    "base_commit": "6df18952cb31933c3e8625312f77151698d42f3d",
+    "source_commits": "[\"43f0238a4b5f67c7f8e153135dc342e2fe31da95\",\"50ea65cffa620970ca0e45e65642652e212df0f3\"]",
+    "candidate_commit": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+    "final_commit": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+    "strategy": "cherry-pick-then-fast-forward",
+    "validation": "{\"passed\":true,\"recipes\":[{\"recipe_id\":\"full\",\"command\":\"confined-node recipe:full\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: integrated balance\\nok 1 - integrated balance\\n  ---\\n  duration_ms: 1.865999\\n  type: 'test'\\n  ...\\n# Subtest: reject malformed and nonfinite amounts\\nok 2 - reject malformed and nonfinite amounts\\n  ---\\n  duration_ms: 1.091154\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 76.091084\\n\",\"checked_at\":\"2026-10-01T11:48:01.362Z\"}]}",
+    "status": "completed",
+    "error": null,
+    "requested_by": "worker_28144fc6-3976-4f3f-abf7-479f99627e1b",
+    "execution_id": "execution_486888e1-64e5-440d-bbd2-db0b89f119d3",
+    "created_at": "2026-10-01T11:47:57.706Z",
+    "updated_at": "2026-10-01T11:48:01.413Z",
+    "round_id": "round_cf51f2c1-3a3c-43ae-8c56-2ae1b52b19fa",
+    "submission_ids": "[\"submission_7a451726-0431-42af-a6ad-68fb13080651\",\"submission_e83d16f7-5027-40b4-8fcb-fd005e83fde8\"]",
+    "delivery_task_id": "task_0fab62f7-cfe0-47f6-bab4-53a93eb2cc29"
+  },
+  "recovery": [
+    {
+      "stage": "pending_identity_approval",
+      "preserved": true
+    },
+    {
+      "stage": "submissions",
+      "at": "2026-10-01T11:45:39.333Z",
+      "executions": 22,
+      "submissions": 2,
+      "rounds": 0,
+      "integrations": []
+    },
+    {
+      "stage": "revision",
+      "at": "2026-10-01T11:46:45.922Z",
+      "executions": 24,
+      "submissions": 2,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "resubmission",
+      "at": "2026-10-01T11:47:09.347Z",
+      "executions": 25,
+      "submissions": 3,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "integration",
+      "at": "2026-10-01T11:48:00.533Z",
+      "executions": 28,
+      "submissions": 3,
+      "rounds": 2,
+      "integrations": [
+        {
+          "id": "integration_f639e72e-5f1a-4fb8-a5a7-c1009f2d0c5a",
+          "status": "queued"
+        }
+      ]
+    },
+    {
+      "stage": "accepted_remote_lost_response",
+      "operation_id": "operation_fa140489-de48-4237-a091-45e2ffa48250",
+      "receipt_count": 1,
+      "publish_attempts": 1
+    },
+    {
+      "stage": "archived",
+      "preserved": true,
+      "new_work_rejected": true
+    }
+  ],
+  "remote": {
+    "identity": "botsquad-validation/ledger-publication",
+    "initial": "6df18952cb31933c3e8625312f77151698d42f3d",
+    "new": "d731aab0c1370ca6397082b4688280aa8412dd8a",
+    "operation": {
+      "operation_id": "operation_fa140489-de48-4237-a091-45e2ffa48250",
+      "approval_id": "approval_3a6a86d2-0cd5-4d88-89c5-48a81760ea4f",
+      "operation_type": "remote_push",
+      "project_id": "project_a256ed93-575c-4815-b17c-ac05859b5baa",
+      "repository_id": "repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e",
+      "envelope": "{\"approval_id\":\"approval_3a6a86d2-0cd5-4d88-89c5-48a81760ea4f\",\"expected_old_sha\":\"6df18952cb31933c3e8625312f77151698d42f3d\",\"identity\":\"botsquad-validation/ledger-publication\",\"integration_id\":\"integration_f639e72e-5f1a-4fb8-a5a7-c1009f2d0c5a\",\"new_sha\":\"d731aab0c1370ca6397082b4688280aa8412dd8a\",\"operation_id\":\"operation_fa140489-de48-4237-a091-45e2ffa48250\",\"operation_type\":\"remote_push\",\"project_id\":\"project_a256ed93-575c-4815-b17c-ac05859b5baa\",\"provider\":\"github\",\"repository_id\":\"repository_9356e0d6-ef97-4d9d-8ead-da20f0bbd51e\",\"target_branch\":\"trunk\",\"url\":\"https://github.com/botsquad-validation/ledger-publication.git\"}",
+      "envelope_hash": "1fc22ba794170415ee5f316c9b9a874a7e5d5044934f10ae82b17a9bd34848ec",
+      "reason": "Explicitly authorized disposable Prompt 05 remote fixture publication",
+      "status": "completed",
+      "requested_at": "2026-10-01T11:48:44.213Z",
+      "result": "{\"remote_sha\":\"d731aab0c1370ca6397082b4688280aa8412dd8a\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+      "error": null
+    },
+    "approvals": [
+      {
+        "approval_id": "approval_3a6a86d2-0cd5-4d88-89c5-48a81760ea4f",
+        "operation_id": "operation_fa140489-de48-4237-a091-45e2ffa48250",
+        "envelope_hash": "1fc22ba794170415ee5f316c9b9a874a7e5d5044934f10ae82b17a9bd34848ec",
+        "status": "consumed",
+        "requested_at": "2026-10-01T11:48:44.213Z",
+        "expires_at": "2026-10-01T12:48:44.213Z",
+        "decided_at": "2026-10-01T11:48:44.239Z",
+        "decided_by": "human",
+        "consumed_at": "2026-10-01T11:48:44.283Z"
+      }
+    ],
+    "receipts": [
+      {
+        "operation_id": "operation_fa140489-de48-4237-a091-45e2ffa48250",
+        "envelope_hash": "1fc22ba794170415ee5f316c9b9a874a7e5d5044934f10ae82b17a9bd34848ec",
+        "result": "{\"remote_sha\":\"d731aab0c1370ca6397082b4688280aa8412dd8a\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+        "recorded_at": "2026-10-01T11:48:44.883Z"
+      }
+    ],
+    "publish_attempts": 1,
+    "divergence_blocked": true,
+    "live_authenticated_github_push": "unvalidated"
+  },
+  "operator_probes": {
+    "result": "PASS",
+    "isolation_checks": 100,
+    "archive_checks": 4
+  },
+  "omissions": [
+    "Full fixture runtime contexts, model text and audit remain in the protected original root."
+  ]
+}

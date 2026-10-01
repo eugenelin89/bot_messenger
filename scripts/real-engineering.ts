@@ -149,6 +149,13 @@ try {
   const overlap=Math.min(...engineers.map(e=>Date.parse(e.finished_at!)))-Math.max(...engineers.map(e=>Date.parse(e.started_at)));
   const turnOverlap=Math.min(...engineers.map(e=>Date.parse(e.finished_at!)))-Math.max(...engineers.map(e=>Date.parse(e.runtime_turn_started_at)));
   assert.ok(overlap>0&&turnOverlap>0,`Engineering did not overlap: ${overlap}/${turnOverlap}`);
+  const readiness=process.env.BOT_VALIDATION_ENGINEERING_BARRIER==='1'?JSON.parse(readFileSync(join(dataDir,'engineering-readiness.json'),'utf8')):null;
+  if(readiness){
+    assert.ok(readiness.original_eligibility_preserved);assert.equal(readiness.max_employee_slots,2);
+    assert.ok(readiness.infrastructure_tasks.every((t:{status:string})=>t.status==='completed'));
+    assert.ok(readiness.infrastructure_executions.every((e:{status:string;finished_at:string})=>e.status==='completed'&&Date.parse(e.finished_at)<=Date.parse(readiness.released_at)));
+    assert.ok(engineers.every(e=>Date.parse(e.started_at)>=Date.parse(readiness.released_at)),'Actual engineers must start after operator readiness admission');
+  }
   const policies=complete.audit.filter(e=>e.type==='runtime_policy_applied').map(e=>({worker_id:e.worker_id,execution_id:e.execution_id,...JSON.parse(e.detail)}));
   assert.equal(policies.length,complete.executions.length);assert.ok(policies.every(p=>p.network===false&&p.sandbox==='read-only'&&p.environments.length===0));
   for(const name of ['Linus','Ada','Grace']){
@@ -169,7 +176,7 @@ try {
   const sanitize=(value:unknown)=>JSON.parse(JSON.stringify(value).replaceAll(dataDir,relative));
   const evidence=sanitize({started,finished:new Date().toISOString(),result:'PASS',source_digest:sourceDigest(),data_directory:relative,workflow_task_id:objective.task_id,
     workers:complete.workers.map(w=>({worker_id:w.worker_id,name:w.display_name,title:w.title,role:w.role,manager_worker_id:w.manager_worker_id,model:w.ai_model,reasoning:w.reasoning_effort,priority:w.execution_priority,human_lock:!!w.ai_profile_locked})),
-    executions:complete.executions,bindings:complete.bindings,engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,repository:repo,submissions:complete.submissions,review,integration,
+    executions:complete.executions,bindings:complete.bindings,engineers,execution_overlap_ms:overlap,runtime_turn_overlap_ms:turnOverlap,operator_readiness_admission:readiness,repository:repo,submissions:complete.submissions,review,integration,
     specification:{task_id:specTask.task_id,execution_id:specArtifact.execution_id,artifact_id:specArtifact.artifact_id,sha256:specArtifact.sha256},
     runtime_policies:policies,confinement_rejections:complete.audit.filter(e=>['tool_rejected','engineering_access_denied'].includes(e.type)),wake_events:complete.wake_events,
     checks:['six real persistent Codex workers','actual Maya spec before engineering','distinct branch/worktree/commit ownership','real execution and runtime-turn overlap','real denied source/sibling/path writes','role-specific tool surface','real independent exact-commit Grace review','confined full acceptance tests','candidate before safe fast-forward','deterministic product output','process restart preserved all workflow records','no duplicate engineering/review/integration/wake'],

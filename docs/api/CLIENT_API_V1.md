@@ -393,3 +393,12 @@ notifications are also excluded from v1 SSE. Worker status remains coarse shared
 availability and may reflect chat activity; no conversation IDs, transcripts or provider
 contexts are included. The browser owner can inspect peer exchanges. See
 [conversation authority and recovery](../architecture/CONVERSATIONS_AND_CONTINUITY.md).
+
+## Working-group privacy
+
+Prompt 08 does not extend v1 device scopes or DTOs. Browser-only group routes preserve
+Host/Origin/session enforcement and reject device authority. Group-owned executions,
+transcripts, evidence, syntheses and related audit payloads do not enter v1 projections.
+A separately submitted synthesis assignment is an ordinary Task under existing device
+visibility rules. Coarse worker availability can reflect group activity without revealing
+its content. No group research grant is implied by device access.

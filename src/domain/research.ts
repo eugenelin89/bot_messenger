@@ -6,7 +6,7 @@ export const RESEARCH_LIMITS = Object.freeze({
   bytes: 1048576, redirects: 3, sourcesPerSearch: 12, outputPerWork: 160000,
 });
 export type ResearchCapability = 'public_research' | 'company_knowledge';
-export type ResearchMode = 'task' | 'conversation';
+export type ResearchMode = 'task' | 'conversation' | 'discussion';
 export interface StandingGrant {
   grant_id: string; worker_id: string; capability: ResearchCapability; granted_by: string;
   operation: string; policy_version: string; modes: string; resources: string; limits: string;

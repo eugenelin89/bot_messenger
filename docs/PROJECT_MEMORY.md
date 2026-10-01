@@ -47,3 +47,26 @@ WE-01 completed and deployed the first public-research/standing-knowledge slice 
 ## Maintaining this record
 
 Update this handoff when the owner changes a decision or a milestone is genuinely accepted. Keep rationale in decision records and detailed status/evidence in execution plans. Do not duplicate secrets or private customer data here. Current owner instructions and accepted decisions take precedence over an old handoff. This file makes the conversation recoverable from the repository; it does not claim that every future chat automatically loads it.
+
+## Prompt 08 implementation in progress — October 1
+
+The owned `feature/prompt-08-working-groups` candidate implements first-class bounded
+working groups, explicit owner/Atlas start, separately attributed turns, shared evidence,
+discussion-mode research opt-in, versioned synthesis and separate assignments. Read the
+[execution plan](exec-plans/prompt-08.md), [validation report](validation/PROMPT_08_VALIDATION.md),
+[Decision 021](decisions/decision_021_bounded_working_groups.md), and
+[tutorial](tutorials/working-groups.md). Do not mark Prompt 08 complete before all gates pass.
+
+The actual production preflight supersedes the older zero-grant snapshot above: seven
+workers (Atlas, Nix, Maya, Turing, Linus, Ada, Grace), unpaused, no runnable work, 43 terminal
+Tasks, and one existing Atlas Public Research grant for Task/direct conversation modes.
+No Company Knowledge grant. That existing permission must remain unchanged; it does not
+include discussions. Production has not been migrated/deployed at this checkpoint.
+
+The isolated manual four-worker group passed real deliberation, owner interjection,
+safe restart and scoped context replacement. An Atlas-organized group shared two real
+retrieved public pages and peer responses but its Atlas synthesis timed out; the original
+phase remains failed and that worker remains fenced. An explicitly owner-selected Maya
+then saved a source-backed incomplete synthesis. Retain both attempts and never clear
+unknown fences to improve a demonstration. Separate fresh acceptance is validating the
+harmless follow-on assignment. Production and all historical validation roots stay intact.

@@ -119,3 +119,12 @@ Only after this packet supports a useful bounded operating company should multi-
 ## Future prompt checklist and continuity
 
 Use [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) to carry these requirements into executable Codex tasks. Start new planning sessions with [Project Memory](../PROJECT_MEMORY.md), then verify current repository status rather than trusting a stale chat recap. Preserve earlier milestone evidence; accepted future requirements must never be presented as completed implementation.
+
+## Deliberation boundary for later operating cycles
+
+Prompt 08's candidate working groups can compare options using explicitly shared material
+and granted public research, then save a traceable recommendation. The owner separately
+selects and submits that artifact as a normal Task. This capability alone does not create
+an operating mandate, recurring schedule, outreach permission or measured business result.
+Prompt 09 must reuse these ownership, evidence, budget and uncertainty boundaries while
+adding its separately accepted durable loop. See [working-group semantics](../architecture/WORKING_GROUPS.md).

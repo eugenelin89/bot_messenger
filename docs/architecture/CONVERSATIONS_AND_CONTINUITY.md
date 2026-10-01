@@ -163,3 +163,13 @@ worker's intent. A parent reply explaining failure does not clear an unresolved 
 Restart marks unfinished uninvoked research failed and ambiguous invocation unknown,
 retaining attempts and fencing future work. Known page errors remain recoverable tool
 failures. No UI operation clears provider uncertainty without operator investigation.
+
+## Working-group reuse
+
+Prompt 08 adds a first-class group associated with one scoped conversation, using
+`discussion-v1` tool schemas and group-owned turns. Direct-chat routes cannot request or
+cancel group work. Group provider generations stay distinct from private and Task sessions.
+Original transcript/evidence checkpoints, owner notes, unanswered question IDs and failures
+survive safe rollover; no private history is injected. An uncertain member remains fenced
+even if another member performs explicitly authorized incomplete finalization. See
+[Working groups](WORKING_GROUPS.md) for bounds and controls.

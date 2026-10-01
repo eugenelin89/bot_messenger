@@ -68,3 +68,15 @@ live status. Do not assume every worker is granted, enable production permission
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
 worker fence; ordinary source failures do not. Prompt 08 remains the next numbered step.
+
+## Prompt 08 implementation reference
+
+The working-group candidate records its implementation and actual acceptance in
+[Decision 021](../docs/decisions/decision_021_bounded_working_groups.md),
+[technical semantics](../docs/architecture/WORKING_GROUPS.md), and
+[Prompt 08 validation](../docs/validation/PROMPT_08_VALIDATION.md). Later prompts must
+preserve group execution ownership, explicit sharing and grant-mode opt-in, actual seen
+checkpoints, versioned recommendations, separate assignments and uncertainty fences.
+A failed model attempt remains failed even when a separately authorized incomplete
+result or fresh isolated regression succeeds. Check the validation report's open gates
+before changing the canonical roadmap's completion status.

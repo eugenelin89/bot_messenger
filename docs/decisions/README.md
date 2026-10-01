@@ -94,3 +94,5 @@ the numbered milestone order and records planned work, not implemented permissio
 slice: separate owner grants, an isolated existing-account live-search broker, bounded
 HTTPS source reading, durable scoped evidence, asynchronous receipts and compatible
 session transitions. Acceptance and retained activation remain explicit separate facts.
+
+- [Decision 021 — Bounded working groups and scoped deliberation](decision_021_bounded_working_groups.md) — implementation candidate; acceptance in progress.
