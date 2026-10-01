@@ -105,5 +105,24 @@
     "archive_denial_checks": 4,
     "remote": "Disposable local bare fixture; live authenticated GitHub push unvalidated",
     "lost_response_publish_attempts": 1
+  },
+  "production_gate": {
+    "source_revision": "01f5b76b533d6fc715fba669e7c139fcafd566c5",
+    "total": 211,
+    "passed": 211,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 159552.763935,
+    "evidence_root": "/var/lib/botsquad/validation/deterministic-20261001T115510Z"
+  },
+  "browser_roster_correction": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "groups": 4,
+    "direct_conversations": 2,
+    "research": 1,
+    "read_only_review": "Accepted",
+    "production_followup": "pending"
   }
 }

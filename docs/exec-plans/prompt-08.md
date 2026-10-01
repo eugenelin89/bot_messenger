@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt08`
 **Started:** 2026-10-01
 **Initial ETA:** 8–16 hours including real Ubuntu acceptance, independent review and deployment
-**Current ETA:** 1–2 hours (11:25 UTC update); revised estimates reported every 30 minutes as requested
+**Current ETA:** 30–60 minutes (11:55 UTC update); revised estimates reported every 30 minutes as requested
 
 ## Objective and scope
 
@@ -238,3 +238,20 @@ validation failure is discarded.
   Fresh protected backup/repeated migration passed; all original records and identities
   still match. Temporary services/tunnels are stopped with evidence retained. Normal
   evidence commit, PR integration and exact-build production gate follow.
+
+- 11:55 UTC ETA: **30–60 minutes remaining**. All actual acceptance/regression and
+  independent review gates passed. PR #7 merged normally as
+  `01f5b76b533d6fc715fba669e7c139fcafd566c5`; local main and origin/main match. Application-only
+  deployment is building that exact revision, followed by the actual service-confinement
+  gate before startup. GitHub's optional automated Codex review was unavailable due to
+  review quota; the separate read-only security/recovery reviewer completed review.
+  Production was safely paused/stopped with no active job after its consistent backup.
+
+- 12:04 UTC: exact integrated backend gate passed211/211; all182 build files matched,
+  service/PID/private listener/HQ/grants/pause and original+fresh preservation passed.
+  The legacy comparator's client-event growth diagnostic is retained; independent review
+  accepted exact bijective accounting of the two owner pause/resume audit notifications,
+  with every original row/cursor and all identity/home/receipt checks unchanged.
+  Production Chrome preview found a real initial-roster loading race (no writes/work).
+  Narrow browser fix waits for roster readiness; delayed-response regression and all
+  affected Chrome checks pass. Review and normal correction delivery precede completion.

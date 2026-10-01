@@ -10,6 +10,23 @@ import {createHttpServer} from '../dist/src/http/server.js';
 async function setup(t){const f=fixture();f.company.assignObjective(objective);const setup=f.company.claimNext();const scout=f.company.callTool(setup.context,'hire','hire_worker',hire);f.company.finish(setup.execution.execution_id,{status:'completed',summary:'Trusted fixture roster'});f.company.pause(true);f.dispatcher.start();const http=createHttpServer(f.company,f.dispatcher,join(process.cwd(),'public'));await new Promise(r=>http.server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1100}});const errors=[];page.on('pageerror',e=>errors.push(e.message));t.after(async()=>{await browser.close();await http.close();await f.close();assert.deepEqual(errors,[]);});await page.goto(`http://127.0.0.1:${http.server.address().port}`);await page.getByText('Connected to headquarters',{exact:true}).waitFor();return {...f,page,scout,atlas:setup.worker};}
 const group=(f,topic)=>f.company.discussions.create({topic,desired_output:'Recommend with evidence and uncertainty',constraints:'Hypothetical. Do not implement.',participant_ids:[f.atlas.worker_id,f.scout.worker_id],facilitator_id:f.atlas.worker_id,synthesizer_id:f.atlas.worker_id,organize_with_atlas:false,allow_incomplete:true,allow_research:false,receipt_key:randomUUID()});
 
+test('new group waits for the initial eligible roster before opening the charter',async t=>{
+  const f=await setup(t),{page}=f;let release,entered;
+  const intercepted=new Promise(r=>entered=r),gate=new Promise(r=>release=r);
+  await page.route('**/api/groups',async route=>{const response=await route.fetch();entered();await gate;await route.fulfill({response});});
+  await page.locator('[data-tab=groups]').click();await intercepted;
+  try {
+    await page.getByText('Loading working groups…',{exact:true}).waitFor();
+    assert.equal(await page.locator('#new-group').isDisabled(),true);
+    assert.equal(await page.locator('[name=participant]').count(),0);
+  } finally {release();}
+  await page.locator('#new-group').click();await page.locator('[name=topic]').waitFor();
+  assert.equal(await page.locator('[name=participant]').count(),2);
+  assert.equal(await page.locator(`[name=participant][value="${f.atlas.worker_id}"]`).count(),1);
+  assert.equal(await page.locator(`[name=participant][value="${f.scout.worker_id}"]`).count(),1);
+  assert.equal(f.company.discussions.list().items.length,0);
+});
+
 test('working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation',async t=>{
   const f=await setup(t),{page}=f;const dir=join(process.cwd(),'.validation/prompt08/browser');mkdirSync(dir,{recursive:true});
   await page.locator('[data-tab=groups]').click();await page.locator('#new-group').click();await page.locator('[name=topic]').fill('Hypothetical onboarding decision');await page.locator('[name=desired_output]').fill('Compare options and recommend with uncertainty');

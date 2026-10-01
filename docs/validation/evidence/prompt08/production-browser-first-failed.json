@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "phase": "initial production preview on 01f5b76",
+  "assertion": "At least two participant inputs after opening New working group",
+  "reason": "Initial group list rendered before the async eligible roster arrived; opening immediately captured the empty initial list.",
+  "server_eligible_workers": 7,
+  "production_posts": 0,
+  "preserved": true,
+  "correction": "Disable and guard creation until a current initial group-list response loads; delayed-response browser regression added."
+}

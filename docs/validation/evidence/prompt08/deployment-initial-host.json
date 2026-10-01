@@ -1,0 +1,127 @@
+{
+  "result": "PASS",
+  "checked_at": "2026-10-01T12:00:59.227023+00:00",
+  "source_revision": "01f5b76b533d6fc715fba669e7c139fcafd566c5",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "01f5b76b533d6fc715fba669e7c139fcafd566c5"
+  },
+  "hq_id": "hq_1cfe3e8d-dcca-47a4-8090-b79c3470b9f9",
+  "paused": false,
+  "workers": [
+    {
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "display_name": "Atlas",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+      "display_name": "Nix",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "display_name": "Maya",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+      "display_name": "Turing",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+      "display_name": "Linus",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+      "display_name": "Ada",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+      "display_name": "Grace",
+      "enabled": 1,
+      "status": "idle"
+    }
+  ],
+  "tasks": {
+    "completed": 26,
+    "cancelled": 17
+  },
+  "executions": 58,
+  "working_groups": 0,
+  "schema": 10,
+  "grant_count": 1,
+  "grants_preserved_exactly": true,
+  "pid": 254709,
+  "process_started_epoch": 1790856041.1,
+  "newest_build_mtime": 1790855710.7987986,
+  "process_newer_than_build": true,
+  "listener": "127.0.0.1:4310",
+  "service_enabled": true,
+  "gate_root": "/var/lib/botsquad/validation/deterministic-20261001T115510Z",
+  "preservation": {
+    "original": {
+      "preserved": true,
+      "original_databases": 34,
+      "original_rows": 23958,
+      "account_and_group_mappings": 249,
+      "root_records": 411,
+      "worker_homes": 123,
+      "only_excluded_field": "workers.updated_at",
+      "original_compare_diagnostic": "Unexpected retained domain growth: company.sqlite:client_events",
+      "exact_owner_audit_ids": [
+        "event_bc50c6de-f52d-4a29-9632-46f9cb4a4058",
+        "event_c8685d3d-6465-430c-b2ff-e9f5a2efe1d7"
+      ],
+      "exact_new_client_cursors": [
+        2,
+        3
+      ],
+      "bijective_owner_notification_growth": 2,
+      "every_original_client_cursor_and_hash_preserved": true
+    },
+    "fresh": {
+      "preserved": true,
+      "original_databases": 43,
+      "original_rows": 33136,
+      "account_and_group_mappings": 293,
+      "root_records": 484,
+      "worker_homes": 145,
+      "only_excluded_field": "workers.updated_at",
+      "original_compare_diagnostic": "Unexpected retained domain growth: company.sqlite:client_events",
+      "exact_owner_audit_ids": [
+        "event_bc50c6de-f52d-4a29-9632-46f9cb4a4058",
+        "event_c8685d3d-6465-430c-b2ff-e9f5a2efe1d7"
+      ],
+      "exact_new_client_cursors": [
+        2,
+        3
+      ],
+      "bijective_owner_notification_growth": 2,
+      "every_original_client_cursor_and_hash_preserved": true
+    }
+  },
+  "scope": "Initial host deployment and preservation verification; browser preview race subsequently found, so release remains pending correction.",
+  "build_manifest_digest": "184a5ab53f142216d6be96515fad92d94d6ab3a83e3c1d4aa9c2bd3b577f4025",
+  "build_files": 182,
+  "deterministic": {
+    "total": 211,
+    "passed": 211,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 159552.763935
+  }
+}
