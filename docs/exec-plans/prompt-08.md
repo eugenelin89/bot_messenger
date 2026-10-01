@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt08`
 **Started:** 2026-10-01
 **Initial ETA:** 8–16 hours including real Ubuntu acceptance, independent review and deployment
-**Current ETA:** 3–6 hours (10:55 UTC update); revised estimates reported every 30 minutes as requested
+**Current ETA:** 1–2 hours (11:25 UTC update); revised estimates reported every 30 minutes as requested
 
 ## Objective and scope
 
@@ -203,3 +203,18 @@ validation failure is discarded.
   grounding and private-source exclusion verified. All C08-1/C08-2 core gates now pass;
   real engineering/Projects regressions and delivery remain. Current full Linux 211/211
   and local 210/211 (one Linux-only skip). Real identity transport recovery passed.
+
+- 11:25 UTC ETA: **1–2 hours remaining**. Both core C08 cases and semantic/security
+  review pass; current suite is 211/211 Ubuntu and210 local plus one Linux-only skip.
+  Real recovery, assignment, revocation and idle checks pass. Engineering/identity is
+  progressing through its normal protected clone setup; Projects follows sequentially.
+  Then normal merge, exact application-only deployment and final preservation/cleanup.
+  Production remains unchanged. No scope expansion or relaxation of limits/fences.
+
+- 11:33 UTC: the existing real engineering/identity workflow completed14 Tasks but its
+  actual engineers missed overlap by203 ms (provider-turn gap1,568 ms) while Nix follow-ups
+  occupied a slot. Failure/root/identities retained; canary and retirement gates not reached.
+  Independent review accepted an optional fixture-only restrictive admission gate waiting
+  for infrastructure Task AND execution settlement. Original eligibility/dispatch/overlap
+  assertions stay unchanged; no production scheduler edits or provider waiting. Fresh
+  real rerun required, with the fixture admission explicitly recorded in its evidence.

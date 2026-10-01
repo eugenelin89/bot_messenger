@@ -9,6 +9,7 @@ import {Company} from '../../src/control/company.js';
 import {Dispatcher} from '../../src/control/dispatcher.js';
 import {CodexRuntime} from '../../src/runtime/codex.js';
 import {createHttpServer} from '../../src/http/server.js';
+import {installEngineeringReadinessGate} from './engineering-readiness.js';
 
 const root=realpathSync(fileURLToPath(new URL('../../../',import.meta.url)));
 const data=resolve(process.env.BOT_DATA_DIR!);const port=Number(process.env.PORT);
@@ -30,7 +31,8 @@ class LegacyValidationCompany extends Company {
   }
 }
 const unlock=acquireDataLock(data);const store=new Store(join(data,'company.sqlite'));
-const company=new LegacyValidationCompany(store,data,root);const dispatcher=new Dispatcher(company,new CodexRuntime());
+const company=new LegacyValidationCompany(store,data,root);installEngineeringReadinessGate(company);
+const dispatcher=new Dispatcher(company,new CodexRuntime());
 const http=createHttpServer(company,dispatcher,join(root,'public'));let stopping=false;
 async function stop(){if(stopping)return;stopping=true;await dispatcher.stop();await http.close();store.close();unlock();}
 http.server.listen(port,'127.0.0.1',()=>dispatcher.start());

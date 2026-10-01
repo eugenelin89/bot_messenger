@@ -1,0 +1,31 @@
+{
+  "result": "FAIL",
+  "source_revision": "34779af89b141448c1b471b003d6ac00327216c1",
+  "root": "/var/lib/botsquad/validation/identity-prompt08-20261001T111722Z",
+  "failure": "Engineering did not overlap",
+  "execution_overlap_ms": -203,
+  "runtime_turn_overlap_ms": -1568,
+  "engineers": [
+    {
+      "worker": "Linus",
+      "execution_id": "execution_1ff650f2-806c-4a4b-a699-13793882c5d8",
+      "status": "completed",
+      "started_at": "2026-10-01T11:25:23.461Z",
+      "runtime_turn_started_at": "2026-10-01T11:25:24.934Z",
+      "finished_at": "2026-10-01T11:25:47.892Z"
+    },
+    {
+      "worker": "Ada",
+      "execution_id": "execution_9db8b4d8-224f-4254-8c4c-c607875f9be8",
+      "status": "completed",
+      "started_at": "2026-10-01T11:25:48.095Z",
+      "runtime_turn_started_at": "2026-10-01T11:25:49.460Z",
+      "finished_at": "2026-10-01T11:26:17.143Z"
+    }
+  ],
+  "completed_task_count": 14,
+  "task_count": 14,
+  "uid_operator_probes": "not reached",
+  "retirement_probe": "not reached",
+  "preservation": "Failed root, histories, clones, identities and receipts retained"
+}

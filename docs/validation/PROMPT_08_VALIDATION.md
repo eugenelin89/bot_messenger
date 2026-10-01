@@ -1,269 +1,262 @@
 # Prompt 08 validation report
 
-**Status: in progress — not accepted, merged or deployed.**
+**Status: core acceptance and independent review passed; remaining workflow regressions and delivery pending.**
 
-Owned branch: `feature/prompt-08-working-groups`. Baseline production/current main:
-`9f57f7fd67d52b13dd0feb50863994059a342aac`. Initial candidate `ece0850`; real fixture
-candidate `4e2a7eb`. Detailed gates and continuing evidence are in the
-[execution plan](../exec-plans/prompt-08.md).
+The accepted application candidate is `34779af89b141448c1b471b003d6ac00327216c1`.
+Later commits contain documentation/evidence and an optional validation-only readiness
+gate; application source and browser code remain unchanged. The owned
+branch is `feature/prompt-08-working-groups`; baseline main/production is
+`9f57f7fd67d52b13dd0feb50863994059a342aac`. Production has not yet been migrated or
+restarted. The [execution plan](../exec-plans/prompt-08.md) retains the progress history.
 
-## Current evidence
+## Acceptance matrix
 
-- Candidate `34779af`: local full suite **211 total, 210 passed, zero failed, one
-  Linux-only skip**. The prior `509a4a4` candidate passed **211/211** on actual Ubuntu;
-  the current `34779af` rerun also passed **211/211**, no skips (188.3 seconds).
-  Focused discussion suite: **26/26**.
-- Actual Chrome: **6/6** group, direct-conversation and research browser checks passed.
-  Screenshots were visually inspected; real workflow screenshots are linked below.
-- Independent read-only review accepted the manual discussion, normal assignment scope,
-  full-excerpt citation enforcement and corrected partial recovery. The fresh complete research final is independently accepted; release regressions
-  and final delivery sign-off remain due.
-- Protected offline production copy migrated schema 9→10 twice, preserving all 58 original
-  tables, 1,760 original rows, rowids and fields. Integrity and foreign keys are clean.
-  Only the storage migration opened this copy; it was never served as an authenticated HQ.
-- Pre-delivery comparison still preserves **34 original databases / 23,958 rows**,
-  **249 account/group mappings, 411 root records and 123 homes**. The sole excluded field
-  is the pre-existing heartbeat field `workers.updated_at`; audit/schema growth is allowed.
-- Three strictly isolated fixture roots use loopback 4311–4313 and inherit the existing
-  service restrictions and configured account. These are application-data boundaries,
-  not separate Unix/credential security boundaries. Trusted roster setup is not model evidence.
-
-## Retained failed attempts
-
-- Initial full local sandbox run: 192 total, 146 passed, 45 failed, one skipped. Loopback
-  permission and nested macOS sandbox execution failures were retained, then rerun with
-  the required local capabilities; assertions and confinement were not weakened.
-- First browser group test timed out because the app referenced `worker` before its
-  initialization. Corrected and both group browser checks rerun successfully.
-- First Ubuntu fixture setup correctly rejected Scout hiring from a product Task.
-  Corrected by using the normal separately scoped research setup Task; the failed fixture
-  is retained at `discussions-20261001-p08-setup-failed-0943`, never served as production.
-- First real-browser harness start used the Playwright response method on native Fetch.
-  It failed before creating any group; fixed and retained the log.
-
-## Required real gates
-
-| Gate | Current result |
+| Gate | Actual result |
 | --- | --- |
-| C08-1 A supplied-material reasoning and owner interjection | Passed: four actual workers, substantive revision, final unresolved concerns, no Task |
-| C08-1 B Atlas-organized public evidence | Passed: five workers, 15 turns, two sources, draft/review/final; independent semantic review accepted; earlier failures retained |
-| C08-2 continuity/recovery | Passed: actual contexts replaced, safe restart, confirmed interruptions, deliberately injected in-flight crash and retained unknown fences |
-| D deterministic/privacy/budgets/idle/migration | Local and current actual Linux suite passed; real 30-second idle passed |
-| E separate assignment | Passed: explicit edited preview, normal Atlas Task, exact selected synthesis context, real internal report |
-| F regressions/review | Direct/peer, live grants/revocation and Prompt01 passed; identity recovery passed; engineering/Projects pending |
-| Delivery/preservation | Offline migration and original-state checks passed; normal PR/merge/deploy and final cleanup pending |
+| C08-1 A: supplied-material deliberation | Passed: four actual workers, owner constraint through Chrome, substantive responses/refinement, reviewed final, no Task |
+| C08-1 B: Atlas organization and public evidence | Passed on `34779af`: five actual workers, 15 turns, two public-source exports, peer critique, draft/review/final; independently accepted |
+| C08-2: continuity and recovery | Passed: actual provider-context replacement, safe restart, confirmed interrupts, deliberate in-flight crash, no replay and retained unknown fences |
+| D: authority, isolation, bounds and idle | 211/211 actual Ubuntu tests; 210 local passes plus one Linux-only skip; real 30-second idle intervals with zero new work; repeated offline migration |
+| E: separate assignment | Passed: explicit edited owner preview, normal Atlas Task, exact selected synthesis context and actual internal report |
+| F: regressions and review | Direct/peer, live research/revocation, Prompt01 and Linux identity receipt recovery passed; engineering/Projects in progress; independent core review passed |
+| Preservation and delivery | Protected backup/offline migration and original-state checks passed; normal PR/merge, exact deployment, final comparison and cleanup pending |
 
-No historical test count or mock execution substitutes for a required actual gate.
+## Checks and isolated environments
 
-### Research run timeout and bounded recovery candidate (2026-10-01 10:22 UTC)
+The current candidate passed **211/211 tests on actual Ubuntu**, zero skips, in 188.3
+seconds under inherited production service restrictions. Local results are **211 total:
+210 passed, zero failed, one Linux-only skip** (filesystem/buffer confinement). The focused
+discussion suite passed **26/26**. Actual Chrome checks passed **6/6**: three group, two
+direct-conversation and one research check. No browser code changed after that run.
+Type checking and the complete diff whitespace check pass. See [check receipts](evidence/prompt08/checks.json).
 
-The Atlas-organized research group `group_6494eb28-0ff8-4264-a199-cd7361458056`
-selected Atlas, Maya, Turing and Grace, retrieved two public documentation pages through
-WE-01, exported bounded excerpts, and produced separately attributed opening/response
-turns. Its Atlas synthesis execution `execution_c8d1a256-0ad4-4dfa-ab43-8cba07b64c0d`
-timed out after 240 seconds without committing a synthesis. The original research phase
-is **failed**, not relabeled as passed. Atlas's unresolved-provider fence remains.
-
-The candidate adds an explicit owner finish option for another existing unfenced member
-only when the group is blocked and its immutable charter permits incomplete results.
-Independent read-only review confirmed artifact predecessor integrity across recovery,
-rejection of stale callbacks, and retention of the old worker fence. Review found and
-fixed browser receipt identity/selector persistence across failed control requests.
-Focused tests: 24/24 passed. Affected group/direct browser checks: 5/5 passed; a subsequent
-3/3 group run includes a failed-control retry. The delayed-research test now waits for
-actual provider invocation before changing membership, evidence scope, stop or grant.
-Earlier test-authoring failures remain in protected local logs. At that checkpoint, real incomplete finish and assignment were still pending; the
-subsequent results below record their separate actual outcomes.
-
-## Actual deliberation results
-
-| Case | Actual evidence | Result |
+| Fixture | Data root below `/var/lib/botsquad/validation/` | Loopback port |
 | --- | --- | --- |
-| Supplied-material group | `group_615eb29c-3d39-43e7-81a0-6566087e82a2`; Maya, Turing, Linus, Grace; 11 actual turns; draft/review/final | Passed |
-| Browser owner constraint | `cmessage_103518e0-641f-42ff-a32c-b1abd02e7e6d`; keyboard-only, offline, no personal video | Subsequent workers and final synthesis address it |
-| Manual final | `synthesis_57f66767-22bb-4633-a07e-b15f45cf6624` | Conditional recommendation; unresolved meaning of useful first action/accessibility/one-week feasibility retained |
-| Atlas organization and public evidence | `group_6494eb28-0ff8-4264-a199-cd7361458056`; actual Atlas selection, four workers, two retrieved pages, peer critiques | Research/exchange passed; original synthesis timed out and remains failed |
-| Explicit incomplete finish | Owner selected existing Maya; `synthesis_5bbd242c-2fca-496c-8ecd-c67b659af972` | Passed on `d65ea45`; original Atlas fence and failed turn retained; no Task |
-| Safe restart and actual replacement | Paused boundary after two completed openings; resumed queue; actual new provider references for scoped generations | Passed; completed work not replayed |
-| Context/source isolation | 23 captured group inputs across both groups | Private sentinel and private source IDs absent; task/private tool authority excluded |
-| Capacity | Full settled execution intervals | Maximum two top-level employees, one execution per worker |
-| Separate assignment | Fresh confirmation company, group `group_04186982-e5f6-4dcf-bd93-0770c5aa8bd3`, synthesis `synthesis_d4b7a8eb-b45c-4cef-bf3c-8aceecb76b3c` | Real two-worker discussion; no automatic Task |
-| Actual idle interval and owner Task | 30 seconds without new executions/research/synthesis; explicit edited preview creates `task_d3ccd213-8107-437c-b9b9-06995e38306a` | Atlas completed internal report; no child Tasks or external actions |
+| Manual/recovery | `discussions-20261001-p08` | 4311 |
+| Assignment/grounded partial | `discussions-20261001-p08-confirmation` | 4312 |
+| Complete research | `discussions-20261001-p08-research-confirmation` | 4313 |
 
-The manual group's initial local-file-first proposal did not satisfy the later owner
-constraint. Linus/Grace argued for inspecting a precomputed synthetic result; Grace
-challenged a merely static screenshot, and Turing explicitly revised his position.
-The final recommendation is conditional on interpreting output counting as useful; it
-would be insufficient if first use must run the actual analysis pipeline. This is actual
-convergence with stated uncertainty, not mandatory disagreement.
+Each sequence verifies its HQ ID, workers and workspace root. Six persistent fixture roles
+were created through trusted normal hierarchy/policy; setup is labelled separately from
+actual model evidence. Each fixture uses the existing service confinement and configured
+runtime account. These are application-data boundaries, not separate Unix/credential
+security boundaries. Fresh fixtures do not repair or reuse failed worker identities.
 
-The research group narrowed sample-first assumptions after challenges about representative
-work, reversibility and one-week feasibility. Its incomplete final favors an offline
-quickstart plus direct local entry, adding an optional synthetic sample only if a concrete
-feasibility/accessibility gate is met. It distinguishes public documentation analogies
-from evidence of user outcomes. GitHub Desktop and VS Code pages were retrieved at
-10:01:17Z and 10:01:41Z; source publication/observation times are unknown. Only 298 and
-268 characters, respectively, were shared from retained bounded pages. Private queries,
-producer histories and full source pages are excluded from public evidence exports.
+Ubuntu uses Node 24.21.0 and Codex 0.157.0. Actual employees used `gpt-6-sol` with low
+reasoning and normal execution priority. Maximum observed concurrency was two top-level
+employees and one execution per worker. Nested WE-01 brokers remain provider activity
+inside their parent slot; this count is not a claim about every provider-internal process.
 
-A second confirmation company was necessary for the healthy Atlas assignment run because
-the first company's Atlas remains fenced. This did not reset/reuse/repair the failed
-identity, and the original failure remains in its original data root. Fixture setup
-used trusted normal hierarchy, while every reported discussion and Task output came
-from actual models. Both companies share the existing Unix/runtime account boundary.
+## C08-1 A: useful supplied-material reasoning
 
-### Independent semantic review and grounding correction
+Group `group_615eb29c-3d39-43e7-81a0-6566087e82a2` used actual Maya, Turing, Linus and
+Grace executions: 11 turns and two immutable synthesis versions. The owner added
+`cmessage_103518e0-641f-42ff-a32c-b1abd02e7e6d` through Chrome after two opening turns:
+first useful action must work with keyboard only, offline and without personal-video import.
 
-Review accepted the manual group's substantive reasoning and verified the separate Task
-context against the actual recorded provider input. It found a material quality gap in
-the first research final: the final claimed the product category was unknown, even though
-the owner packet identified a local video-analysis prototype. Workers read both public
-excerpts but did not retrieve the owner brief, which they still cited. That artifact is
-retained unchanged and is **not accepted as fully grounded in supplied material**.
+The initial local-file-first proposal did not meet the added constraint. Linus/Grace
+argued for a precomputed synthetic result; Grace challenged a merely static screenshot,
+and Turing explicitly revised his position. Final
+`synthesis_57f66767-22bb-4633-a07e-b15f45cf6624` recommends a bounded interactive
+inspection, conditional on that counting as the useful first action. It preserves the
+unresolved distinction between inspecting results and executing the real pipeline,
+one-week feasibility and untested accessibility. This was actual conditional convergence,
+not scripted disagreement or invented user evidence. The discussion created no Task.
 
-The corrected candidate requires a same-execution full-excerpt delivery receipt for every
-evidence citation and explicitly identifies the catalog as metadata without bodies.
-It distinguishes unread material from absent evidence in runtime instructions. Twenty-five
-focused tests pass, including metadata-only, partial, other-worker, previous-turn and
-producer-export cases. A new actual Atlas-organized research run is pending; the earlier
-flawed final will not be relabeled or overwritten. The first group's actual organization,
-lookup, sharing and incomplete recovery evidence remains valid for those narrower checks.
+Inspect the [charter/audience](evidence/prompt08/manual-charter.png),
+[owner constraint and Grace response](evidence/prompt08/owner-constraint-and-response.png),
+[exchange](evidence/prompt08/manual-exchange.png),
+[recommendation](evidence/prompt08/manual-synthesis.png),
+[unresolved concerns](evidence/prompt08/manual-unresolved-concerns.png), and
+[execution/continuity records](evidence/prompt08/manual-and-recovery-evidence.json).
 
-The first live revocation harness used the wrong assertion tool name (`research_open_url`
-instead of the actual `research_open`) after real research completed. The failed attempt
-is retained. The continuation checked the existing actual search/page operations, revoked
-Scout's grant, and obtained a real trusted-code rejection on the next requested lookup.
-No new operation was created and prior source evidence remained. Permission was never
-extended to discussion mode for Scout. Ineligible engineer grant controls were disabled.
+## C08-1 B: Atlas-organized research and refinement
 
-Current full checks before the grounding delta: 209/209 Ubuntu tests passed, 208 local
-plus one Linux-only skip. Actual direct/peer continuation and both real group interrupts
-passed; both interrupts were confirmed by Codex and stop created zero syntheses. The
-controlled crash draft is armed but has not dispatched; remaining real regressions and
-final suite/review are still required.
-
-### Controlled crash recovery
-
-The operator deliberately terminated only the first validation service after the actual
-`runtime_turn_started` notification for `execution_c22d36ae-b719-48c8-a5be-4b7deccbe407`
-at 10:46:37Z. This is fault injection, not a spontaneous service outage. Systemd recorded
-exit75/MainPID0. Provider settlement remains unconfirmed despite control-plane termination.
-After restart, both in-flight group sessions were blocked with unresolved outcomes,
-charter/material/owner constraint remained, no employee contribution or synthesis was
-invented, and 30 seconds produced zero new executions. Explicit stop then closed group
-`group_a1cf1948-aa47-4beb-8264-dc3e27701d1a` without clearing either fence. The earlier
-Atlas synthesis timeout fence also remains. Captured SQLite integrity and foreign keys
-are clean; original group histories and completed outputs did not replay.
-
-### Grounded retry and bounded tool guidance (11:03 UTC)
-
-The second Atlas research run on `509a4a4`, group
-`group_81587f52-3167-486c-bd7f-b37fcd80a842`, is also recorded as **failed**:
-Atlas exhausted the existing 16-call allowance before committing its opening. Five
-actual research operations completed and two public excerpts were shared. Other
-participants read and correctly used the hypothetical local-video-analysis brief.
-Four rejected calls (two non-exact excerpts and two source IDs supplied to the group
-record reader) and redundant rereads consumed the remaining allowance. Atlas's
-unknown-outcome fence remains; no limit was increased or consumed budget reset.
-
-The correction makes exact-excerpt and source/group-ID errors actionable, exposes
-the unchanged call/retrieval bounds in context, and explains that a successful own
-export already proves excerpt delivery. A separately named owner-authorized partial
-finish will test grounded recovery. A third isolated fixture will test a fresh
-complete Atlas path after this reviewed correction, preserving both previous roots,
-identities, failures and fences. It uses loopback 4313 and the same service confinement.
-
-Current candidate checks: 211 total locally (210 passed, one Linux-only skip) and
-211/211 on actual Ubuntu under inherited service confinement. Actual Prompt01
-CEO/Scout research, restart/resume and confirmed interruption passed. Engineering,
-Projects and identity-recovery regressions remain pending.
-
-### Grounded partial recovery accepted (11:05 UTC)
-
-Explicit owner-selected Maya produced `synthesis_a3e88d57-ff09-49ea-844a-207f36d771fd`
-for the second research group. The original Atlas failure/fence remains. Independent
-review accepted this as partial recovery evidence: all three citations have distinct
-same-execution full-excerpt receipts, and the actual final correctly retains the local
-video-analysis brief, source relevance limits, conditional feasibility/accessibility,
-failed participation and three unanswered questions. It does not replace the failed
-original phase or establish the fresh complete research gate.
-
-## Independent review and fixes
-
-The separate read-only security/recovery reviewer reproduced or verified the following
-material corrections before release. These are actual review findings, not a claim that
-finite tests prove every possible model behavior.
-
-| Finding | Correction and verification |
-| --- | --- |
-| Invalid later scheduling item could leave earlier work enqueued | Atomic scheduling savepoint; rejected plans leave no partial work |
-| Export or retrieval could falsely advance the delivered checkpoint | Separate immutable checkpoint, refresh and original-retrieval ledgers; actual execution delivery proof |
-| Escaped content and many owner notes could exceed the context envelope | Serialized admission bounds; optional previews omitted with counts, mandatory constraints/references retained |
-| Group/current-worker ownership or stale scopes could be confused | Trusted checks plus SQL association triggers; changed scopes and stale callbacks denied |
-| Unknown synthesis completion and failed synthesizer recovery | Artifact commitment preserved separately from provider settlement; explicit incomplete finish selects only an existing safe participant and retains fences |
-| Failed browser control retry could reuse the wrong payload | Control receipt identity includes the full immutable request; per-group synthesizer selection survives rerender |
-| Catalog-only citations enabled an unsupported missing-fact claim | Each cited full excerpt must have a same-execution trusted delivery receipt; unread material is explicitly unreviewed |
-| Misleading research source errors wasted the finite tool allowance | Exact-excerpt/source-ID guidance and visible unchanged budgets; own export avoids redundant reads |
-
-Latest read-only delta review found no material issue. The reviewer separately accepted
-the manual reasoning, normal assignment's actual context and the grounded partial final.
-The fresh complete research final was subsequently accepted. Final release regression
-and delivery checks remain pending.
-
-## Inspectable evidence
-
-All linked screenshots come from isolated hypothetical fixtures. Provider reasoning,
-credentials, private production transcripts, private queries and full source pages are
-excluded. Full protected failure logs and databases remain on the operator's host.
-
-- [Charter and audience](evidence/prompt08/manual-charter.png)
-- [Actual owner constraint and Grace's response](evidence/prompt08/owner-constraint-and-response.png)
-- [Real exchange](evidence/prompt08/manual-exchange.png) and [restart continuation](evidence/prompt08/restart-continuation.png)
-- [Manual recommendation](evidence/prompt08/manual-synthesis.png) and [unresolved concerns](evidence/prompt08/manual-unresolved-concerns.png)
-- [Grounded partial final](evidence/prompt08/grounded-partial-synthesis.png) and [source inspector](evidence/prompt08/grounded-partial-source.png)
-- [Ineligible research control](evidence/prompt08/ineligible-research-control.png), [crash blocking](evidence/prompt08/controlled-crash-blocked.png), [explicit stop without replay](evidence/prompt08/stopped-no-replay.png)
-- [Separate assignment preview](evidence/prompt08/assignment-preview.png)
-- [Manual/recovery records](evidence/prompt08/manual-and-recovery-evidence.json), [assignment and citation receipts](evidence/prompt08/assignment-and-grounded-partial-evidence.json), [actual checks](evidence/prompt08/checks.json), [original preservation comparison](evidence/prompt08/original-preservation-before-delivery.json)
-
-### Existing infrastructure recovery
-
-The unchanged real Linux identity-recovery acceptance passed on `34779af` at
-`/var/lib/botsquad/validation/recovery-prompt08-20261001T110806Z` (exit 0). The actual
-root provisioner completed an explicitly approved identity operation before the fixture
-injected transport-response loss. Restart reconciled the consumed approval to the exact
-existing UID/receipt; replay returned the same receipt and changed payload was rejected.
-This is labelled transport fault injection, not a fabricated provider result. The identity,
-home and root receipt remain retained. See the [receipt evidence](evidence/prompt08/identity-recovery-evidence.json).
-
-### Fresh complete research acceptance (11:17 UTC)
-
-On `34779af`, group `group_bb493eb1-d9a4-4a76-8f79-effba7d8090c` completed normally
-with Atlas, Maya, Turing, Scout and Grace: 15 separately attributed turns, two bounded
-response rounds, draft, independent Grace review and final
-`synthesis_bf130459-893c-4562-b4d1-fedeb64e5960`. Three original fixture setup Tasks
-remain cancelled; the discussion created zero Tasks. Observed capacity was two employees,
-one per worker. Every citation has current-execution excerpt delivery proof. Actual private
-research source IDs and sentinels are absent from recorded group runtime inputs.
+On `34779af`, Atlas selected Scout, Maya, Turing, Grace and itself in group
+`group_bb493eb1-d9a4-4a76-8f79-effba7d8090c`. Fifteen actual completed conversation
+executions produced two substantive response rounds, a draft, independent Grace review
+and final `synthesis_bf130459-893c-4562-b4d1-fedeb64e5960`. There were no failed employee
+turns or unresolved outcomes. Only the three cancelled trusted setup Tasks exist.
 
 Atlas made six group research operations: two searches completed, one search failed with
-a known settled outcome, and three managed page reads completed. Two relevant excerpts
-were shared: Audacity's basic-editing manual (350/10,343 retained characters, retrieved
-11:09:59Z) and Blender's demo-files page (254/10,912, 11:10:00Z). Source publication and
-page-observation times remain unknown. Peers inspected the group exports without lookup
-authority. The final explicitly treats the pages as analogies, not product-effectiveness,
-privacy or accessibility proof. The earlier failed identities and fences remain untouched.
+a known settled outcome, and three managed page reads completed. The failure is retained.
+Two actual excerpts were shared:
 
-The final recommends a skippable local-file baseline and a sample only after affirmative
-rights, size, processing, accessibility and privacy checks. It records Maya/Scout's
-actual refinement after Turing/Grace challenges, unresolved evidence and separate owner
-approval requirements. Grace's review added the distinction between forbidden uploads
-and permitted local file selection. Independent semantic review accepted this run, including 36 valid causal references and
-28 same-execution evidence checks. A subsequent
-30-second real idle observation recorded zero new model/research/discussion work.
+| Source | Retrieval UTC, October 1 | Shared/retained characters | Evidentiary scope |
+| --- | --- | --- | --- |
+| Audacity basic-editing manual | 11:09:59 | 350/10,343 | Direct record/import entry and format caveats |
+| Blender demo-files page | 11:10:00 | 254/10,912 | Sample size, licensing and version requirements |
+
+Original source IDs, URLs, hashes, retrieval times and omissions are preserved. Source
+publication and page-observation times remain unknown. These are retrieved-page excerpts,
+not search snippets. Neither demonstrates effectiveness, privacy or accessibility for the
+hypothetical video-analysis product. Peers explicitly recognized their narrow relevance,
+including Blender's different domain, and inspected exports without lookup authority.
+
+Turing/Grace established technical, privacy and accessibility conditions. Maya/Scout
+then explicitly narrowed their sample-first positions. The final recommends a skippable
+local-file baseline, with a sample only after affirmative rights, size, ordinary-path
+processing, accessibility and privacy checks. Grace's review materially clarified that
+avoiding uploads does not prohibit selecting a local file. The final preserves two
+unanswered questions, missing evidence, conditional confidence and separate owner authority.
+
+Independent semantic review accepted this run. It verified **36 causal prior-contribution
+references and 28 same-execution full-excerpt citation checks**, linked draft/final hashes,
+the actual owner brief and current-execution receipts for every final citation. Only Atlas
+has a research grant; other participants receive no lookup tools. Captured contexts exclude
+private conversation sentinels and source IDs. A subsequent **30-second idle interval**
+produced zero new execution, research, discussion or synthesis work.
 
 Inspect the [charter](evidence/prompt08/research-charter.png),
 [exchange](evidence/prompt08/research-exchange.png),
-[shared-source inspector](evidence/prompt08/research-shared-source.png),
+[source inspector](evidence/prompt08/research-shared-source.png),
 [final](evidence/prompt08/research-synthesis.png),
-[sanitized execution/source/citation proof](evidence/prompt08/research-complete-evidence.json),
-and [idle interval](evidence/prompt08/research-idle-evidence.json).
+[execution/source/citation proof](evidence/prompt08/research-complete-evidence.json), and
+[idle receipt](evidence/prompt08/research-idle-evidence.json).
+
+## C08-2: actual continuity and honest failure recovery
+
+A settled, globally paused restart after two manual openings retained two completed and
+two queued turns; continuation finished without replay. The operator-only low-turn fixture
+requested normal rollover after one actual completed turn. Recorded runtime inputs and
+provider references prove new scoped generations retained group/worker identity, original
+evidence, unresolved questions, owner constraints and pending work. No fake provider-usage
+event or deliberately exhausted context window was used.
+
+A separate actual Linus→Grace→Linus peer exchange completed. Two real group interruptions
+were confirmed by Codex; explicit stop created zero syntheses.
+
+For controlled crash recovery, the operator terminated only the first validation service
+after actual `runtime_turn_started` for
+`execution_c22d36ae-b719-48c8-a5be-4b7deccbe407` at 10:46:37Z. This is deliberate fault
+injection, not a spontaneous outage. Systemd recorded exit 75/MainPID0. After restart,
+both in-flight sessions in `group_a1cf1948-aa47-4beb-8264-dc3e27701d1a` were blocked
+with unresolved outcomes; charter, material and owner constraint remained. No employee
+contribution or synthesis was invented. Thirty seconds produced zero new executions,
+and explicit stop retained both fences. The earlier Atlas timeout fence also remains.
+
+See [restart continuation](evidence/prompt08/restart-continuation.png),
+[blocked crash](evidence/prompt08/controlled-crash-blocked.png),
+[stop without replay](evidence/prompt08/stopped-no-replay.png), and
+[retained records](evidence/prompt08/manual-and-recovery-evidence.json).
+
+## Separate assignment and existing regressions
+
+A fresh two-worker group `group_04186982-e5f6-4dcf-bd93-0770c5aa8bd3` produced
+`synthesis_d4b7a8eb-b45c-4cef-bf3c-8aceecb76b3c` without a Task. A real 30-second idle
+interval produced no new work. Only the owner's separately edited preview/submission
+created `task_d3ccd213-8107-437c-b9b9-06995e38306a`, which Atlas completed as an internal
+report without children or external action. Actual runtime input contains the exact selected
+synthesis ID/content/hash and Task-scoped messages, with no whole-group transcript.
+See the [preview](evidence/prompt08/assignment-preview.png) and
+[assignment proof](evidence/prompt08/assignment-and-grounded-partial-evidence.json).
+
+Live WE-01 regression used Scout's own Task/direct grant: actual search/page retrieval,
+then revocation and a subsequent trusted denial, with no new operation and prior sources
+retained. The denial reason is “No active Public Research standing permission. Ask the
+owner to enable it once.” Scout's grant was never extended to discussions. Ineligible
+engineer controls remained [disabled](evidence/prompt08/ineligible-research-control.png).
+Actual Prompt01 CEO/Scout Task research, restart/resume and confirmed interruption passed.
+
+Real Linux identity receipt recovery passed at
+`/var/lib/botsquad/validation/recovery-prompt08-20261001T110806Z` (exit 0). The actual
+provisioner completed an approved identity operation before injected response loss.
+Restart reconciled the consumed approval to the same UID/receipt; exact replay returned
+that receipt, and changed payload was rejected. Identity, home and root receipt remain.
+See [receipt evidence](evidence/prompt08/identity-recovery-evidence.json).
+Engineering/identity-isolation and generalized Projects acceptance remain in progress.
+
+## Independent review and retained failed attempts
+
+The separate read-only reviewer accepted the manual reasoning, complete research final,
+normal assignment context, grounded partial recovery and security/recovery boundaries.
+It inspected the packaged evidence for credentials, private histories/queries, raw runtime
+contexts and full-source leakage. No material finding remains in the reviewed application.
+
+| Material finding | Correction and verification |
+| --- | --- |
+| Invalid later scheduling item could leave earlier work enqueued | Atomic savepoint; rejected plans leave no partial work |
+| Export/retrieval could falsely advance delivered checkpoint | Separate immutable checkpoint, refresh and retrieval accounting |
+| Escaped content/many owner notes could overwhelm context | Serialized admission bounds; mandatory constraints/references retained while optional previews report omissions |
+| Group/request/session or stale-scope confusion | Trusted checks and SQL association triggers; changed scopes/stale callbacks denied |
+| Unknown synthesis settlement or failed synthesizer recovery | Artifact commitment survives; explicit incomplete finish selects only an existing safe member and retains old fences |
+| Failed browser-control retry could reuse the wrong payload | Receipt identity includes the full immutable request; per-group selection survives rerender |
+| Catalog-only citations allowed unsupported missing-fact claim | Full same-execution excerpt delivery required; unread material is explicitly unreviewed |
+| Misleading source errors wasted finite tool calls | Actionable exact-excerpt/source-ID guidance, unchanged bounds, no redundant own-export reread |
+
+Failed attempts are retained, never renamed as successes:
+
+- Actual engineering/identity attempt `identity-prompt08-20261001T111722Z` completed all
+  14 Tasks but failed real overlap: execution overlap was −203 ms and runtime-turn overlap
+  was −1,568 ms. Nix follow-ups occupied a dispatcher slot while the first engineer finished.
+  UID canaries/retirement were not reached. The [failed receipt](evidence/prompt08/engineering-failed-overlap.json),
+  original root, clones, identities and host receipts remain. A reviewed, explicitly enabled
+  fixture-only gate now additionally holds engineering admission until infrastructure Tasks
+  and executions settle. It preserves original eligibility, the two slots, model work and
+  overlap assertions. A successful rerun will demonstrate actual overlap after operator
+  readiness admission, not unconstrained production priority ordering. It changes no
+  production scheduling, permissions or Task status.
+- Initial sandbox full run: 192 total, 146 passed, 45 failed, one skipped. Loopback and nested
+  sandbox permissions caused failures; authorized rerun preserved assertions/confinement.
+- Initial browser startup exposed a `worker` initialization error; corrected and rerun.
+  First browser harness also used the wrong Fetch response API before creating any group.
+- First fixture correctly rejected hiring Scout from a product Task. A separate research
+  setup Task fixed the policy error; the failed root remains `...-setup-failed-0943`.
+- First research group `group_6494eb28-0ff8-4264-a199-cd7361458056` retrieved/shared real
+  GitHub Desktop and VS Code excerpts and exchanged critiques, but Atlas synthesis timed
+  out after 240 seconds with no artifact. Its fence remains. Explicit Maya recovery saved
+  `synthesis_5bbd242c-2fca-496c-8ecd-c67b659af972`; its mechanism passed, but independent
+  review rejected its claim that the product category was unknown despite an unread owner
+  brief. That historical artifact is immutable and is not accepted as fully grounded.
+- Second research group `group_81587f52-3167-486c-bd7f-b37fcd80a842` correctly read the
+  owner brief, but Atlas exhausted the unchanged 16-call budget after two excerpt errors,
+  two source/group-ID mistakes and redundant reads. No budget was reset or increased;
+  Atlas remains fenced. After corrected guidance, explicitly selected Maya produced
+  `synthesis_a3e88d57-ff09-49ea-844a-207f36d771fd`, independently accepted as grounded
+  **partial** recovery. Three complete excerpt receipts, failed participation and three
+  unanswered questions remain. See the [partial final](evidence/prompt08/grounded-partial-synthesis.png),
+  [source inspector](evidence/prompt08/grounded-partial-source.png) and
+  [receipts](evidence/prompt08/assignment-and-grounded-partial-evidence.json).
+- The first revocation harness asserted `research_open_url` instead of actual
+  `research_open` after real retrieval. A separately named continuation inspected that
+  same research, revoked permission and verified the real denial; it did not fabricate calls.
+- A fixture installation preflight ran before restarted port 4312 was ready and stopped
+  before new fixture mutation. Readiness was checked before the guarded retry.
+
+The third complete research run followed reviewed corrections in a distinct root with new
+fixture identities; both earlier companies, failures and fences remain intact. Full protected
+logs retain additional development/check-authoring failures. Public exports omit source bodies,
+private queries, production transcripts, credentials and hidden provider reasoning.
+
+## Preservation, limits and remaining delivery
+
+Original production preflight: seven enabled workers (Atlas, Nix, Maya, Turing, Linus, Ada,
+Grace), dispatch unpaused, 43 terminal Tasks (26 completed/17 cancelled), no runnable work,
+one existing Atlas Public Research grant for Task/direct modes, no Company Knowledge grant.
+This supersedes the older WE-01 zero-grant release snapshot. No production activation is
+implied: discussion research requires a separate explicit owner scope change.
+
+Protected backup/inventory: `/var/backups/botsquad/prompt08-20261001T0904Z/`.
+An offline copy migrated schema 9→10 twice with all 58 original tables/1,760 rows, original
+rowids and fields unchanged, clean integrity/foreign keys and zero working groups. Only
+storage migration opened it; it was never served as a second authenticated HQ.
+The latest [original-state comparison](evidence/prompt08/original-preservation-before-delivery.json)
+preserves 34 original databases/23,958 rows, 249 account/group mappings, 411 root records and
+123 homes. Only the pre-existing `workers.updated_at` heartbeat field is excluded; audit
+and schema-migration growth is allowed. New isolated fixture records are additional.
+
+The implementation has finite participants, turns, rounds, context/retrieval/research budgets,
+a wall-clock deadline that continues while paused, and at most two explicit extensions.
+Evidence delivery is provable; interpretation quality is still model-dependent and requires
+honest limitations. Known source errors can settle; ambiguous provider outcomes remain
+fenced. Revocation stops future delivery and cannot recall already delivered information.
+The managed reader does not inspect scripts/images/interactive behavior. Provider-internal
+search behavior is opaque. Recurring company work, Computer Use, live business publication,
+and authenticated employee GitHub publication remain outside this acceptance.
+
+Remaining delivery: finish existing workflow regressions, refresh current main and review
+the complete diff, normal PR/merge/push, exact application-only deployment, running-build
+correspondence/private-browser health, original pause/grant/state comparison and temporary
+service/tunnel cleanup. No OS upgrade, provisioner replacement, public ingress or production
+demonstration group/worker/grant is authorized by this release. Mark Prompt 08 complete and
+Prompt 09 next only after those checks. Save the final exact revision receipt outside Git.

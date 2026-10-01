@@ -6,8 +6,8 @@ mode=${1:?Usage: regression-ubuntu.sh deterministic|prompt01|identity|projects|r
 case "$mode" in
  deterministic) command='BOT_IDENTITY_BACKEND=development node --test dist/test/*.test.js' ;;
  prompt01) command='node dist/scripts/real-e2e.js' ;;
- identity) command='BOT_VALIDATE_IDENTITIES=1 BOT_VALIDATE_IDENTITY_PROBES=1 node dist/scripts/real-engineering.js' ;;
- projects) command='BOT_VALIDATE_IDENTITIES=1 BOT_VALIDATE_PROJECT_PROBES=1 node dist/scripts/real-projects.js' ;;
+ identity) command='BOT_VALIDATE_IDENTITIES=1 BOT_VALIDATE_IDENTITY_PROBES=1 BOT_VALIDATION_ENGINEERING_BARRIER=1 node dist/scripts/real-engineering.js' ;;
+ projects) command='BOT_VALIDATE_IDENTITIES=1 BOT_VALIDATE_PROJECT_PROBES=1 BOT_VALIDATION_ENGINEERING_BARRIER=1 node dist/scripts/real-projects.js' ;;
  recovery) command='node dist/scripts/real-identity-recovery.js' ;;
  *) exit 2 ;;
 esac

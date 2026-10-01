@@ -10,6 +10,7 @@ import {Dispatcher} from '../../src/control/dispatcher.js';
 import {CodexRuntime} from '../../src/runtime/codex.js';
 import {createHttpServer} from '../../src/http/server.js';
 import {FixtureRemote} from './remote.js';
+import {installEngineeringReadinessGate} from './engineering-readiness.js';
 import type {Repository} from '../../src/domain/engineering.js';
 import type {RemoteEnvelope} from '../../src/control/remote-git.js';
 
@@ -41,6 +42,7 @@ class ProjectValidationCompany extends Company {
 const unlock=acquireDataLock(data);const store=new Store(join(data,'company.sqlite'));
 const transport=new LostResponseFixture(root,new Map(manifest.remotes.map(r=>[r.identity,r.bare])));
 const company=new ProjectValidationCompany(store,data,root,undefined,undefined,transport);
+installEngineeringReadinessGate(company);
 const dispatcher=new Dispatcher(company,new CodexRuntime());
 // Pause new dispatch at durable transitions, allowing active real model turns to
 // finish normally. Files are trusted harness state, inaccessible to worker UIDs.
