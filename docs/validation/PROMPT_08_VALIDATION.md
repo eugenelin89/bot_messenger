@@ -43,3 +43,23 @@ C08-2 actual provider replacement, safe restart, injected in-flight uncertainty,
 work and retained obligations remain under execution. Assignment, actual idle interval,
 Linux/real workflow regressions, final review and normal delivery remain required.
 No prior milestone's test count or mock execution is substituted for these gates.
+
+### Research run timeout and bounded recovery candidate (2026-10-01 10:22 UTC)
+
+The Atlas-organized research group `group_6494eb28-0ff8-4264-a199-cd7361458056`
+selected Atlas, Maya, Turing and Grace, retrieved two public documentation pages through
+WE-01, exported bounded excerpts, and produced separately attributed opening/response
+turns. Its Atlas synthesis execution `execution_c8d1a256-0ad4-4dfa-ab43-8cba07b64c0d`
+timed out after 240 seconds without committing a synthesis. The original research phase
+is **failed**, not relabeled as passed. Atlas's unresolved-provider fence remains.
+
+The candidate adds an explicit owner finish option for another existing unfenced member
+only when the group is blocked and its immutable charter permits incomplete results.
+Independent read-only review confirmed artifact predecessor integrity across recovery,
+rejection of stale callbacks, and retention of the old worker fence. Review found and
+fixed browser receipt identity/selector persistence across failed control requests.
+Focused tests: 24/24 passed. Affected group/direct browser checks: 5/5 passed; a subsequent
+3/3 group run includes a failed-control retry. The delayed-research test now waits for
+actual provider invocation before changing membership, evidence scope, stop or grant.
+Earlier test-authoring failures remain in protected local logs. Real incomplete finish,
+separate assignment and remaining regressions are still pending at this checkpoint.

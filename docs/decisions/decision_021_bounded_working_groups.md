@@ -95,3 +95,9 @@ process or search.
 See [technical details](../architecture/WORKING_GROUPS.md),
 [tutorial](../tutorials/working-groups.md) and
 [acceptance record](../validation/PROMPT_08_VALIDATION.md).
+
+For a blocked group whose original charter permits incomplete results, the owner can
+select another current, unfenced participant when choosing **Finish with current evidence**.
+This queues one bounded final synthesis and records the previous and selected authors.
+It does not alter membership, grant permissions, or clear the original worker fence.
+The resulting artifact lists failed participation; prior artifacts stay immutable.

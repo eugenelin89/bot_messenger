@@ -54,3 +54,9 @@ withdrawing evidence blocks future delivery; already delivered context cannot be
 Create a new group with a reviewed packet to continue under a different sharing scope.
 Archive settled groups to keep them read-only. Recurring meetings, automatic implementation
 and Computer Use are outside this milestone.
+
+For a blocked group whose original charter permits incomplete results, the owner can
+select another current, unfenced participant when choosing **Finish with current evidence**.
+This queues one bounded final synthesis and records the previous and selected authors.
+It does not alter membership, grant permissions, or clear the original worker fence.
+The resulting artifact lists failed participation; prior artifacts stay immutable.

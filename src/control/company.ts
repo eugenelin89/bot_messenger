@@ -531,6 +531,7 @@ export class Company extends EventEmitter {
   }
   snapshot() {
     return { projects:this.projects.list(), review_rounds:this.engineering.rounds(), revision_requests:this.store.all('SELECT * FROM revision_requests ORDER BY created_at'), project_operations:this.remote.operations(), project_approvals:this.remote.approvals(), project_receipts:this.store.all('SELECT * FROM project_operation_receipts'), allocation_releases:this.store.all('SELECT * FROM allocation_releases'), task_scopes:this.store.all('SELECT * FROM task_scopes'), runtime_tool_versions:this.store.all('SELECT * FROM runtime_tool_versions'), infrastructure: this.infrastructure.snapshot(), wake_events: this.store.all<{ source_task_id: string; parent_task_id: string; created_at: string }>('SELECT * FROM wake_events ORDER BY created_at,source_task_id'), repositories: this.engineering.repositories(), allocations: this.engineering.allocations(), submissions: this.engineering.submissions(), reviews: this.engineering.reviews(), integrations: this.engineering.integrations(), paused: this.paused, runtime_type: this.runtimeType, workers: this.workers(),
+      group_synthesis_count:this.store.get<{n:number}>('SELECT count(*) n FROM group_syntheses')!.n,
       principals: this.store.all<Principal>('SELECT * FROM principals'),
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),

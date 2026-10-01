@@ -141,3 +141,9 @@ All existing Task hierarchy, Project, repository and protected-approval rules st
 See [Decision 021](../decisions/decision_021_bounded_working_groups.md),
 [conversation continuity](CONVERSATIONS_AND_CONTINUITY.md) and
 [WE-01 research](../operations/PUBLIC_RESEARCH_TUTORIAL.md).
+
+For a blocked group whose original charter permits incomplete results, the owner can
+select another current, unfenced participant when choosing **Finish with current evidence**.
+This queues one bounded final synthesis and records the previous and selected authors.
+It does not alter membership, grant permissions, or clear the original worker fence.
+The resulting artifact lists failed participation; prior artifacts stay immutable.
