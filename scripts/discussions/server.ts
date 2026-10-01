@@ -13,7 +13,7 @@ import {createHttpServer} from '../../src/http/server.js';
 
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const data=resolve(process.env.BOT_DATA_DIR??''),port=Number(process.env.PORT);
-requireThat(process.env.BOT_VALIDATION_DISCUSSIONS==='1'&&((data==='/var/lib/botsquad/validation/discussions-20261001-p08'&&port===4311)||(data==='/var/lib/botsquad/validation/discussions-20261001-p08-confirmation'&&port===4312)),'Explicit isolated Prompt 08 configuration required');
+requireThat(process.env.BOT_VALIDATION_DISCUSSIONS==='1'&&((data==='/var/lib/botsquad/validation/discussions-20261001-p08'&&port===4311)||(data==='/var/lib/botsquad/validation/discussions-20261001-p08-confirmation'&&port===4312)||(data==='/var/lib/botsquad/validation/discussions-20261001-p08-research-confirmation'&&port===4313)),'Explicit isolated Prompt 08 configuration required');
 const manifest=JSON.parse(readFileSync(join(data,'validation-manifest.json'),'utf8')) as {purpose:string};requireThat(manifest.purpose==='Prompt 08 isolated real worker deliberation','Wrong fixture manifest');
 const unlock=acquireDataLock(data),store=new Store(join(data,'company.sqlite')),company=new Company(store,data,root);
 const inputs=join(data,'runtime-inputs');mkdirSync(inputs,{recursive:true,mode:0o700});

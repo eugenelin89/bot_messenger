@@ -131,3 +131,39 @@ plus one Linux-only skip. Actual direct/peer continuation and both real group in
 passed; both interrupts were confirmed by Codex and stop created zero syntheses. The
 controlled crash draft is armed but has not dispatched; remaining real regressions and
 final suite/review are still required.
+
+### Controlled crash recovery
+
+The operator deliberately terminated only the first validation service after the actual
+`runtime_turn_started` notification for `execution_c22d36ae-b719-48c8-a5be-4b7deccbe407`
+at 10:46:37Z. This is fault injection, not a spontaneous service outage. Systemd recorded
+exit75/MainPID0. Provider settlement remains unconfirmed despite control-plane termination.
+After restart, both in-flight group sessions were blocked with unresolved outcomes,
+charter/material/owner constraint remained, no employee contribution or synthesis was
+invented, and 30 seconds produced zero new executions. Explicit stop then closed group
+`group_a1cf1948-aa47-4beb-8264-dc3e27701d1a` without clearing either fence. The earlier
+Atlas synthesis timeout fence also remains. Captured SQLite integrity and foreign keys
+are clean; original group histories and completed outputs did not replay.
+
+### Grounded retry and bounded tool guidance (11:03 UTC)
+
+The second Atlas research run on `509a4a4`, group
+`group_81587f52-3167-486c-bd7f-b37fcd80a842`, is also recorded as **failed**:
+Atlas exhausted the existing 16-call allowance before committing its opening. Five
+actual research operations completed and two public excerpts were shared. Other
+participants read and correctly used the hypothetical local-video-analysis brief.
+Four rejected calls (two non-exact excerpts and two source IDs supplied to the group
+record reader) and redundant rereads consumed the remaining allowance. Atlas's
+unknown-outcome fence remains; no limit was increased or consumed budget reset.
+
+The correction makes exact-excerpt and source/group-ID errors actionable, exposes
+the unchanged call/retrieval bounds in context, and explains that a successful own
+export already proves excerpt delivery. A separately named owner-authorized partial
+finish will test grounded recovery. A third isolated fixture will test a fresh
+complete Atlas path after this reviewed correction, preserving both previous roots,
+identities, failures and fences. It uses loopback4313 and the same service confinement.
+
+Current candidate checks: 211 total locally (210 passed, one Linux-only skip) and
+211/211 on actual Ubuntu under inherited service confinement. Actual Prompt01
+CEO/Scout research, restart/resume and confirmed interruption passed. Engineering,
+Projects and identity-recovery regressions remain pending.

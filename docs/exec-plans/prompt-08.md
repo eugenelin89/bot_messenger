@@ -61,10 +61,10 @@ before finalizing Decision 021.
 | Synthesis | Attributable immutable versions, dissent/challenges, bounded review, separate Task preview/submit | Implemented; focused checks pass, real acceptance in progress |
 | Browser | Charter, transcript/evidence, interjection, controls, history isolation and screenshots | Implemented; focused checks pass, real acceptance in progress |
 | C08-1 A | Real supplied-material deliberation with substantive response and browser interjection | Passed on 4e2a7eb: four real workers, 11 turns, draft/final, no Task |
-| C08-1 B | Atlas-selected roster, actual worker research, >1 source, shared inspection and denied new authority | Pending |
-| C08-2 C | Actual rollover, safe restart, no duplicates, separate deterministic and provider failure evidence | Pending |
+| C08-1 B | Atlas-selected roster, actual worker research, >1 source, shared inspection and denied new authority | Mechanics passed; first final failed semantic grounding; corrected fresh run pending |
+| C08-2 C | Actual rollover, safe restart, no duplicates, separate deterministic and provider failure evidence | Rollover, safe restart and confirmed interruptions passed; controlled crash recovery underway |
 | D | Deterministic authority, isolation, scope, bounds, idempotency, lifecycle, migration and actual idle interval | Pending |
-| E | No discussion-created Task; explicit edited owner submission through existing Task path | Pending |
+| E | No discussion-created Task; explicit edited owner submission through existing Task path | Passed: real final → edited owner preview → Atlas report; exact selected context verified |
 | F | Current typecheck/full suite counts, affected Ubuntu/browser regression, independent read-only review | Pending |
 | Preservation | Consistent protected backup, repeated offline migration, original records retained | Offline check passed; production post-deployment comparison remains |
 | Delivery | Complete diff, normal PR/merge/push, exact deployment/build, health and cleanup | Pending |
@@ -173,3 +173,11 @@ final documentation/review/integration/deployment remain open. ETA remains 7–1
   facilitator current-turn reading and max47894/48000 context. No material finding.
   A new actual Atlas-organized run will validate the correction. Existing Task research
   regression passed actual CEO/Scout/resume/restart/interruption.
+
+- 10:55 UTC ETA: **3–6 hours remaining**. Controlled in-flight crash/restart and
+  no-replay blocking passed; original unknown fences retained. Full candidate suite
+  is 211/211 on Ubuntu, 210 pass/one Linux skip locally. Second research attempt
+  read the owner brief correctly but Atlas exhausted its unchanged16-call budget
+  after source-ID/excerpt mistakes. Failure retained. Corrected actionable guidance
+  and source error messages; bounded partial finish and a fresh isolated confirmation
+  will verify the correction. Existing production is unchanged.
