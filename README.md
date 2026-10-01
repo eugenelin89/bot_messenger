@@ -21,6 +21,11 @@ repository status. Future milestone prompts also use
 
 **Prompt 07 is complete and validated on Ubuntu. Prompt 08 — collaborative working groups and deliberation — is next.**
 
+**Worker Empowerment 01:** the scoped public-research and standing-knowledge slice is
+implemented; its live acceptance and delivery status are tracked in the
+[WE-01 report](docs/validation/worker-empowerment-01.md). A deployment does not activate
+production grants. Start with the [public research tutorial](docs/operations/PUBLIC_RESEARCH_TUTORIAL.md).
+
 BotSquad currently supports:
 
 - a non-root, boot-enabled Ubuntu `botsquad.service`;
@@ -29,7 +34,7 @@ BotSquad currently supports:
 - direct human/worker and bounded peer conversations, separate from Tasks;
 - explicit reply requests, passive messages, pause/cancel/interrupt and retained transcripts;
 - scoped context replacement with source-backed handoffs and durable session lineage;
-- real Atlas → Scout → Atlas research;
+- Atlas → Scout → Atlas research, with optional owner-granted public lookup and scoped company knowledge;
 - Atlas → Maya/Turing → Linus + Ada → Grace engineering coordination;
 - two concurrent real Codex executions;
 - first-class software Projects with multiple bounded repositories and configurable branches;

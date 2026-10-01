@@ -509,3 +509,27 @@ encryption is a design goal pending an explicit protocol/security review.
 
 See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CLIENT.md)
 and [Decision 012](../decisions/decision_012_ios_remote_client.md).
+
+## WE-01 public research and standing knowledge
+
+[Decision 020](../decisions/decision_020_scoped_public_research.md) defines the implemented
+bounded slice. `src/control/research.ts` owns current grants, eligibility/work scope,
+durable budget reservation, receipts, source provenance and task-binding compatibility.
+`src/runtime/research.ts` isolates the minimal public query in a native live-search
+session on the existing account. `src/research/public-fetch.ts` provides DNS-pinned
+bounded HTTPS GET with static extraction. Ordinary worker native broad tools remain
+disabled. Public research no longer means only approved local-document analysis.
+
+Schema 9 adds empty grant/evidence tables; trusted owner operations activate a worker.
+The public and company-knowledge presets remain separate. All network waits occur outside
+SQLite transactions; the promise-capable runtime awaits tool results and rechecks authority
+before delivery. Unresolved broker invocation independently fences both work origins.
+Source reads are worker/work scoped, outputs and attempts bounded across retries and
+rollover. Preserved legacy Task bindings are distinct from research Task and conversation
+bindings. Browser-only capability and evidence routes extend no device v1 capability.
+
+Provider-internal network/cache behavior remains opaque. Managed fetch protections are
+not described as provider protections. A source's retrieval time is not its observation
+time. The [tutorial](../operations/PUBLIC_RESEARCH_TUTORIAL.md) and
+[validation report](../validation/worker-empowerment-01.md) distinguish user operation,
+synthetic fault tests, real worker evidence and retained-HQ activation.

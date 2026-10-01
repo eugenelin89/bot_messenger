@@ -25,3 +25,9 @@ scoped memory, bounded model work, independent evidence and trusted human author
 A bootstrap/maintenance prompt remains bounded to its requested purpose; this guidance is
 not permission to make it implement future company features. Do not rewrite historical
 prompt/validation records as though they included requirements accepted later.
+
+WE-01 adds narrowly granted public research and separate approved company knowledge;
+read Decision 020 and its actual acceptance report before repeating older blanket claims
+that workers have no public-information tools. Keep ordinary native shell/browser/MCP
+restrictions, independent broker uncertainty and explicit retained-HQ activation. Public
+research is not outreach, account access, spending, publication or Computer Use authority.

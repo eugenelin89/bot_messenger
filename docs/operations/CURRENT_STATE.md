@@ -41,6 +41,21 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
+## WE-01 implementation and activation
+
+The first public-research/standing-knowledge slice is implemented on the owned WE-01
+branch. Live acceptance and delivery are tracked in the
+[WE-01 report](../validation/worker-empowerment-01.md); do not infer production deployment
+from this implementation description. Owner controls are in each worker's **Capabilities
+& research** view. See the [tutorial](PUBLIC_RESEARCH_TUTORIAL.md) and
+[Decision 020](../decisions/decision_020_scoped_public_research.md).
+
+Actual retained-HQ inspection on October 1 found dispatch **unpaused**, all 43 Tasks
+terminal and no running execution. Preserve the actual state rather than a historical
+pause statement. No production research grant has been activated by this work. The new
+schema creates no implicit permission; deployment requires a separate owner confirmation
+before retained Atlas/Scout can use the new route.
+
 ## Prompt 07 acceptance and release
 
 Direct conversations and context continuity passed real Ubuntu C07-1–C07-4 acceptance.
@@ -49,8 +64,10 @@ checks, nine provisioner checks, real research/engineering/Projects workflows an
 worker isolation. Read-only security/recovery review findings were resolved. The new
 schema is 8; offline 6→8 migration and repeat-start preserved every original field/rowid.
 
-The retained HQ must remain paused with its seven workers, six Projects, 43 Tasks,
-53 executions, 63 legacy messages, ten artifacts and seven legacy bindings. No demo
+At the Prompt 07 release checkpoint, the retained HQ was targeted to remain paused
+with seven workers, six Projects, 43 Tasks, 53 executions, 63 legacy messages, ten
+artifacts and seven legacy bindings. The later actual WE-01 inspection above supersedes
+that pause/count snapshot; do not reapply it as current policy. No demo
 conversation or Task is created there. The original preservation inventory covers
 23 databases/11,677 rows, 171 account/group mappings, 281 root records and 84 homes.
 Exact integrated source/build and post-deployment preservation are recorded in the

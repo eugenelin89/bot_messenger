@@ -72,8 +72,10 @@ current sequence even when an older document reproduces the previous table.
 
 ## Near-term task — give bots appropriate power and authority
 
-**Status:** Planned; very near-term owner priority accepted 2026-09-29. No new runtime
-permissions have been implemented or granted by this documentation change.
+**Status:** WE-01 public-research/standing-knowledge slice implemented; acceptance and
+delivery tracked in the [WE-01 report](../validation/worker-empowerment-01.md). Broader
+empowerment remains open. Grants require explicit owner activation; implementation and
+deployment alone do not grant retained workers new authority.
 
 Employees need useful tools, access to information and standing authority to do their
 jobs. BotSquad should let them carry out routine work independently within their role,
@@ -96,7 +98,8 @@ complete a useful public-web research task. Both should run within standing auth
 without per-lookup approval. Verify sources, unavailable-source behavior, recorded tool
 use and denial of actions outside the granted scope; canned answers do not count.
 
-Scope and schedule this follow-up during the next implementation planning session.
+See [Decision 020](../decisions/decision_020_scoped_public_research.md) and the
+[owner tutorial](../operations/PUBLIC_RESEARCH_TUTORIAL.md) for the bounded implementation.
 Preserve the numbered 08 → 09 → 10 → 11 sequence. Public research does not depend on
 Computer Use or a full business-integration platform. Broader external actions still need
 their applicable trusted policy and approval implementation.

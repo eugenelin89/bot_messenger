@@ -1,6 +1,6 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-09-29  
+**Updated:** 2026-10-01
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
 ## What we are building
@@ -42,7 +42,7 @@ Always reread current main, relevant execution plans and active branches before 
 
 Prepare Prompt 08 working groups from the accepted direct-conversation foundation. Reuse its scoped sessions, source-backed handoffs, durable obligations, shared dispatcher and unknown-outcome fence. Do not expand conversation tools into assignment or approval authority. Preserve the 08 → 09 → 10 → 11 order, minimal scheduling in 09 and the single-company evidence gate before federation. Verify current main and the Prompt 07 delivery record before starting; do not discard concurrent work.
 
-Also scope and schedule the near-term worker-empowerment task in the roadmap. Start with real public research and a source-backed current-information reply from Atlas; define the standing grants, limits and acceptance evidence before changing the adapter. Carry this owner priority into the next implementation prompt.
+WE-01 implements the first public-research/standing-knowledge slice from Decision 019. Read [Decision 020](decisions/decision_020_scoped_public_research.md), the [active execution plan](exec-plans/worker-empowerment-01.md), [validation record](validation/worker-empowerment-01.md) and [owner tutorial](operations/PUBLIC_RESEARCH_TUTORIAL.md). Live acceptance and delivery remain open until that report records them. Separate owner activation is required at the retained HQ; do not confuse deployed code with active permission. Broader empowerment remains future work.
 
 ## Maintaining this record
 

@@ -107,3 +107,23 @@ test('Project HTTP controls preserve the trusted-human boundary and render gener
   const state=await(await fetch(base+'/api/state')).json() as {projects:{status:string}[];review_rounds:unknown[];project_operations:unknown[]};assert.equal(state.projects[0]!.status,'archived');assert.deepEqual(state.review_rounds,[]);assert.deepEqual(state.project_operations,[]);
   assert.equal(f.runtime.calls.length,0);
 });
+
+test('standing permissions require browser owner authority and do not extend device routes or state',async t=>{
+  const f=fixture();const atlas=f.company.initializeCEO();const http=createHttpServer(f.company,f.dispatcher,join(process.cwd(),'public'));
+  await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await f.close();});
+  const base=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`;
+  const {csrfToken}=await(await fetch(base+'/api/session')).json() as {csrfToken:string};
+  const post=(path:string,body:unknown,headers:Record<string,string>={})=>fetch(base+'/api/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':csrfToken,...headers},body:JSON.stringify(body)});
+  const body={worker_id:atlas.worker_id,preset:'public_research',expires_at:null,document_paths:[]};
+  assert.equal((await post('research/grant',body,{'X-BotSquad-Token':'forged'})).status,403);
+  assert.equal((await post('research/grant',body,{Origin:'https://attacker.example'})).status,403);
+  assert.equal((await post('research/grant',body,{Authorization:'Bearer device'})).status,403);
+  assert.equal((await post('research/grant',{...body,granted_by:'human'})).status,400);
+  assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM standing_grants')!.n,0);
+  const granted=await post('research/grant',body);assert.equal(granted.status,201);const g=await granted.json() as {grant_id:string};
+  assert.equal((await fetch(base+`/api/research/workers/${atlas.worker_id}`,{headers:{Authorization:'Bearer device'}})).status,403);
+  assert.equal((await post('v1/research/grant',body)).status,403);
+  const state=await(await fetch(base+'/api/state')).json() as Record<string,unknown>;assert.equal(state.standing_grants,undefined);assert.equal(state.research_operations,undefined);
+  const revoked=await post('research/revoke',{grant_id:g.grant_id});assert.equal(revoked.status,200);
+  const status=await(await fetch(base+`/api/research/workers/${atlas.worker_id}`)).json() as {configured:boolean;grants:{status:string}[]};assert.equal(status.configured,false);assert.equal(status.grants[0]!.status,'revoked');
+});

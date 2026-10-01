@@ -191,6 +191,25 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Runtime-specific behavior belongs behind adapters.
 - Codex is the first supported execution backend; additional runtimes are later adapters, not reasons to contaminate the core domain model.
 
+### Standing research and company knowledge
+
+- WE-01 adds explicitly owner-granted public research and separate approved-document
+  access. Preserve Decision 020's policy/eligibility/grant/work-scope intersection.
+  Migrations never activate grants; worker names/messages never confer authority.
+- Ordinary worker native network/shell/MCP remain disabled. Search uses the isolated
+  existing-account public broker; managed pages use bounded public HTTPS. Do not claim
+  managed DNS checks cover opaque provider requests or broker budgets count every search.
+- Await async tools, reserve budget before I/O outside transactions, and recheck current
+  authority before commit/delivery. Preserve execution-wide call IDs and consumed attempts.
+- Revocation denies further actions and late delivery but cannot recall transmitted
+  queries. Known source errors do not create a provider fence; unknown model outcomes do.
+- Keep worker/work-scoped source provenance and original timestamps across restart and
+  rollover. Do not present a stale snippet or provider summary as a fresh observation.
+  Public URL visibility does not make its private query/conversation public.
+- Preserve old Task bindings when installing research tools. Device API v1 has no new
+  grant-management, research-history or conversation authority. Never enable retained
+  production grants merely because development/isolated acceptance is authorized.
+
 ### Remote clients
 
 - Decision 015 and `docs/api/CLIENT_API_V1.md` define the stable native contract.
