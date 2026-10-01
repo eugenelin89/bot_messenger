@@ -1,7 +1,7 @@
 # Worker Empowerment 01 — Validation and delivery
 
-**Status:** In progress. Local implementation checks pass; live worker acceptance,
-final review, integration and retained-HQ deployment remain open.
+**Status:** Research gates WE01-1 through WE01-5 pass. Engineering/Projects regression,
+normal integration and retained-HQ deployment remain open.
 
 This is the Decision 019 follow-up WE-01, not Prompt 08. The
 [execution plan](../exec-plans/worker-empowerment-01.md) tracks remaining work, and
@@ -30,8 +30,8 @@ profiles and pinned Codex 0.157.0. Answers and research conclusions are not scri
 | WE01-2 Useful delegated public research | Passed on candidate | Actual Atlas → Scout → Atlas report on GitHub, Linear and Sentry |
 | WE01-3 Standing authority/knowledge | Passed on candidate | Tests plus real separate browser grants, repeated use, README read and denied revoked tool call |
 | WE01-4 Failure/network boundaries | Passed on candidate | Synthetic boundaries plus real timeout/page-error recovery and labeled outage limitation reply |
-| WE01-5 Async/continuity/budgets | Partial | Actual generation replacement, original evidence and separate knowledge reading pass; restart/idle pending |
-| WE01-6 Regression/delivery | Open | Local checks pass; Ubuntu regressions, final integration/deployment pending |
+| WE01-5 Async/continuity/budgets | Passed on candidate | Actual replacement/restart/idle and in-flight crash recovery, plus async/budget tests |
+| WE01-6 Regression/delivery | Open | Local/Ubuntu suites and independent code review pass; engineering/Projects and integration/deployment pending |
 
 ## Completed checks and meaningful failures
 
@@ -41,14 +41,16 @@ profiles and pinned Codex 0.157.0. Answers and research conclusions are not scri
 - Browser: existing direct conversation, draft/history isolation tests **2/2**; new
   separate public/knowledge grants, sourced reply, safe links, source inspector and
   revocation **1/1**. These use a labeled synthetic provider, not live research proof.
-- Ubuntu full suite under inherited service restrictions: **179/179 passed**, no skips;
+- Latest Ubuntu full suite under inherited service restrictions: **185/185 passed**, no skips;
   includes the Linux-only heap/filesystem confinement check. Protected evidence:
-  `deterministic-we01-20261001T071721Z`, exit code 0.
+  `deterministic-we01-20261001T073228Z`, exit code 0. Earlier candidate passed 179/179.
 - Separate read-only review found five material issues: uncertainty did not stop the
   next call in the same execution; old source IDs fell outside latest-24 retrieval;
   source listings bypassed serialized bounds; known parent settlement could be lost
   while awaiting callbacks; call IDs could cross the ordinary/research receipt stores.
   All fixed; focused rerun **28/28**, and re-review found no further material defect.
+  A final read-only acceptance audit of candidate `05ce3e2` plus the evidence/harness
+  changes found no additional material requirement gap or misleading security claim.
 - Public network tests use injected isolated responses/DNS, never real protected
   destinations. They cover private/special IPv4/IPv6 and unusual encodings, mixed DNS,
   pinned sockets, every redirect, credentials/control endpoints, unsafe schemes,
@@ -163,6 +165,46 @@ original rows/rowids/fields across 53 tables** preserved, foreign keys/integrity
 zero standing grants and zero research tool activations. The copied database was never
 served as another authenticated HQ. Final deployed preservation comparison remains open.
 
+## Restart, restored provider access and idle behavior
+
+Candidate `05ce3e2183a150ffac6126ed32327c7a3cbd37d9` passed an actual controlled service
+restart. Exact before/after comparisons preserved both workers' grants, revocations and
+research activity, plus Tasks, executions, artifacts, original bindings, conversation
+sessions, transcript and pause state. Atlas resumed in the real provider, read README,
+and public permission remained revoked. Old sources remained inspectable in the browser.
+
+A first post-restart Scout search succeeded, but both Python page reads returned real
+HTTP 503. Scout reported search recovery only and did not claim page verification. That
+failed acceptance attempt is retained. A bounded follow-up selected PostgreSQL and read
+its official reference page successfully at 07:34:40 UTC; Scout distinguished the verified
+page fact from the unresolved Python-site outage. This exercises the later native-source
+collector on the updated candidate as well as ordinary post-outage recovery.
+
+The isolated research HQ then had no runnable work. One passive message and a 30-second
+idle interval caused **zero new model executions, zero research operations and zero Tasks**.
+This measures that HQ; an independent engineering regression service was starting on the
+same host. It is not a claim that the entire host had no model processes.
+
+## In-flight recovery and retained failed attempts
+
+An initial manual crash landed after the broker and parent had already completed; it
+is retained as a missed in-flight test, not counted as recovery acceptance. The next
+harness stopped only the fixed isolated validation service immediately after observing
+durable broker invocation intent. At **07:50:25 UTC**, restart recovered operation
+`research_14d57077-575a-455b-9b66-aa9b2849951e` as `unknown`, unresolved 1, with parent
+`execution_fb4a8c4a-0b2e-49fb-b230-ab226d04167d` interrupted and its reply blocked.
+Prior grants, revocation and receipts matched exactly. Five seconds of observation
+showed no automatic model or research replay. The intentionally unresolved fixture
+remains fenced for inspection; its receipt was not manually cleared.
+
+The first unrelated engineering regression (`identity-we01-20261001T073624Z`) reached
+Maya's existing four-minute runtime deadline without further output. Its failed state
+and logs are retained. The fresh unchanged retry (`identity-we01-20261001T074831Z`)
+passed full engineering/review/integration/restart and 100 harmless UID isolation probes.
+The actual runtime turns overlapped by 41,938 ms (execution overlap 43,613 ms). Retirement
+killed the test UID process, denied its preserved home, revoked project access and
+preserved history. No deadline or assertion was weakened; the failed company was not replayed.
+
 ## Evidence locations and limits
 
 Raw validation logs, recordings and screenshots remain under the ignored local
@@ -176,3 +218,18 @@ budget counts broker sessions, not every native lookup; monetary cost is unknown
 minimization and injection tests are defenses, not a guarantee against all semantic
 leakage. Source retrieval time never establishes observation freshness. Production grant
 activation and exact local/origin/deployed/running equality will be recorded after delivery.
+
+## Inspectable evidence
+
+The [structured export](evidence/we01/research-evidence.json) retains fixture identities,
+phase revisions, outcomes, usage where measured, public requests and source metadata/hashes.
+It omits all source bodies, snippets, provider summaries, raw runtime inputs and retained
+production data. The [saved Scout report](evidence/we01/scout-public-research-report.md) contains the worker's synthesis and explicit verification limits.
+
+- [Owner public grant](evidence/we01/weather-grant-atlas.png) and [separate knowledge grant](evidence/we01/weather-separate-knowledge.png).
+- [Actual weather reply](evidence/we01/weather-current-weather-reply.png) and [source inspection](evidence/we01/weather-source-inspection.png).
+- [Delegated result](evidence/we01/task-delegated-report.png) and [context replacement](evidence/we01/rollover-retained-source-after-rollover.png).
+- [Labeled outage response](evidence/we01/outage-honest-outage.png) and [revoked tool denial](evidence/we01/revoke-denial-after-revocation.png).
+- [Evidence after restart](evidence/we01/restart-evidence-after-restart.png), [normal page recovery](evidence/we01/source_followup-normal-provider-after-restart.png), and [idle HQ](evidence/we01/idle-idle-no-work.png).
+
+- [Unresolved broker after controlled crash](evidence/we01/pending_recovery-unknown-after-crash.png).

@@ -6,7 +6,7 @@
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-we01`
 **Started:** 2026-10-01 UTC (September 30 Vancouver)
 **Initial ETA:** 8–12 hours including Ubuntu acceptance, review and deployment
-**Current ETA:** 6–10 hours remaining at 07:04 UTC; revised ETA every 20 minutes per owner request
+**Current ETA:** 2–4 hours remaining at 07:44 UTC; revised ETA every 20 minutes per owner request
 
 ## Objective and ownership
 
@@ -131,7 +131,7 @@ API v1 grants no new capability and research audit events stay outside device pr
 | WE01-2 | Actual delegated non-weather multi-domain research and supported artifact/report | Passed candidate eb96508 |
 | WE01-3 | Repeated grant use; missing/revoked/expired/self-grant denials; document scope | Passed tests + actual UI/worker use and revocation |
 | WE01-4 | Source failures/stale data/limits and synthetic network/injection boundaries | Passed deterministic boundaries + real recovery/fixture response |
-| WE01-5 | Real rollover/restart, async ownership, retries/revocation/cancellation/budgets/idle | Rollover passed; restart/idle pending |
+| WE01-5 | Real rollover/restart, async ownership, retries/revocation/cancellation/budgets/idle | Passed: rollover/restart/idle/in-flight crash plus deterministic async/limits |
 | WE01-6 | Full checks, browser/Ubuntu regressions, independent review, merge/deploy/preservation | Open |
 
 ## Sequence and remaining gates
@@ -167,3 +167,32 @@ source survives; first fixture attempt used a noncanonical macOS temp path and c
 failed workspace validation, then canonical-path correction passed. Four explicit durable
 budget tests and a hostile-source/private-query boundary test were added. No enforcement
 was relaxed. Restart will exercise the next committed candidate; final checks remain open.
+
+## Candidate 05ce3e2 follow-up at 07:39 UTC
+
+Latest full suite: local 184/185 with one Linux-only skip; Ubuntu 185/185 under service
+restrictions. Final read-only review found no material findings. Browser regressions total
+five passed (research, two conversation, device pairing and protected-approval stability).
+Actual restart compared all relevant rows/DTOs exactly and resumed Atlas's knowledge-only
+conversation with public revocation intact. Normal Scout search recovered; two real Python
+page 503s were reported honestly and retained as a failed page-read acceptance attempt.
+A bounded alternative fetched official PostgreSQL documentation successfully. One passive
+message plus 30 seconds of idle research HQ produced zero model/research work or Tasks.
+An independent engineering regression was starting during that interval; host-wide idle
+is not claimed. Real engineering/UID regression is running; Projects remains next.
+
+Source bodies and raw contexts are excluded from the public evidence export. Actual UI
+screenshots, metadata/hashes and worker-authored synthesis are in `docs/validation/evidence/we01`.
+The remaining work is an in-flight research crash/recovery probe, existing real engineering/
+Projects regressions, normal integration/deployment and final preservation/cleanup.
+
+At 07:50 UTC the immediate-stop in-flight crash probe passed: unknown broker receipt,
+interrupted parent/blocked reply, preserved prior records and no automatic replay.
+The first manual crash had missed the active interval and remains a recorded failed
+probe. Engineering first run hit the unchanged four-minute model deadline; a fresh
+unchanged retry is running with the original failure retained.
+
+At 07:54 UTC the unchanged fresh engineering retry passed integration, exact review,
+restart and 100 harmless UID isolation probes, including retirement/process kill.
+Real turn overlap: 41,938 ms. Projects validation is running with its established
+operator probe companion. Final read-only evidence/security audit found no new issue.

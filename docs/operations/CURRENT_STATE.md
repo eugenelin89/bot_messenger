@@ -64,8 +64,10 @@ checks, nine provisioner checks, real research/engineering/Projects workflows an
 worker isolation. Read-only security/recovery review findings were resolved. The new
 schema is 8; offline 6→8 migration and repeat-start preserved every original field/rowid.
 
-The retained HQ must remain paused with its seven workers, six Projects, 43 Tasks,
-53 executions, 63 legacy messages, ten artifacts and seven legacy bindings. No demo
+At the Prompt 07 release checkpoint, the retained HQ was targeted to remain paused
+with seven workers, six Projects, 43 Tasks, 53 executions, 63 legacy messages, ten
+artifacts and seven legacy bindings. The later actual WE-01 inspection above supersedes
+that pause/count snapshot; do not reapply it as current policy. No demo
 conversation or Task is created there. The original preservation inventory covers
 23 databases/11,677 rows, 171 account/group mappings, 281 root records and 84 homes.
 Exact integrated source/build and post-deployment preservation are recorded in the

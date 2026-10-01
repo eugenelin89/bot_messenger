@@ -169,6 +169,7 @@ test('work budgets are shared by delegated researchers and survive a fresh grant
   for(let i=1;i<L.callsPerWork;i++){const values={...op,operation_id:randomUUID(),call_id:randomUUID(),runtime_reference:null,created_at:new Date(Date.now()-120000).toISOString()};f.store.run(`INSERT INTO research_operations (${Object.keys(values).join(',')}) VALUES (${Object.keys(values).map(()=>'?').join(',')})`,...Object.values(values));}
   f.company.finish(parent.execution.execution_id,{status:'completed',settled:true,summary:'Delegated; synthetic test history consumes shared budget.'});
   const child=f.company.claimNext()!;assert.equal(child.worker.worker_id,scout.worker_id);const g=grant(f,scout.worker_id);
+  const parentSource=f.store.get<{source_id:string}>('SELECT source_id FROM research_sources')!;assert.throws(()=>f.company.research.callTool(child.context,'private-parent-history','research_read',{source_id:parentSource.source_id,offset:0},new AbortController().signal),/worker and work scope/);
   const call=()=>f.company.research.callTool(child.context,'child','research_search',{query:'public docs'},new AbortController().signal);
   assert.throws(call,/Work research call\/output budget/);f.company.research.revoke({grant_id:g.grant_id});grant(f,scout.worker_id);assert.throws(call,/Work research call\/output budget/);
 });
