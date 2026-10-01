@@ -43,15 +43,18 @@ if(!existsSync(fixturePath)){
   const atlas=company.initializeCEO(),objective={objective:'Prompt 08 validation-only roster setup',acceptance_criteria:'Create persistent role identities through normal hierarchy and policy',constraints:'Trusted setup; no provider invocation, synthetic answers or acceptance claims.'};
   const setup=company.createTask('human',atlas,objective,null,'product'),claim=company.claimNext()!;
   const hire=(c:NonNullable<ReturnType<Company['claimNext']>>,name:string,profile:Profile)=>company.callTool(c.context,`fixture-hire-${name}`,'hire_worker',{display_name:name,title:profile,profile,mission:`Persistent ${profile}. Assess useful software designs and evidence within explicit charter and authority.`,capabilities:[...PROFILES[profile]],lifecycle:'persistent',justification:'Explicit isolated Prompt 08 fixture roster'}) as Worker;
-  const maya=hire(claim,'Maya','product_manager'),turing=hire(claim,'Turing','cto'),scout=hire(claim,'Scout','researcher');
+  const maya=hire(claim,'Maya','product_manager'),turing=hire(claim,'Turing','cto');
   company.finish(claim.execution.execution_id,{status:'interrupted',settled:true,error:'Trusted setup, no model invoked'});company.cancel(setup.task_id);
+  const researchSetup=company.createTask('human',atlas,objective,null,'research'),researchClaim=company.claimNext()!;
+  const scout=hire(researchClaim,'Scout','researcher');
+  company.finish(researchClaim.execution.execution_id,{status:'interrupted',settled:true,error:'Trusted setup, no model invoked'});company.cancel(researchSetup.task_id);
   const delivery=company.createTask('human',turing,objective,null,'delivery'),cto=company.claimNext()!;
   const linus=hire(cto,'Linus','engineer'),grace=hire(cto,'Grace','reviewer');
   company.finish(cto.execution.execution_id,{status:'interrupted',settled:true,error:'Trusted setup, no model invoked'});company.cancel(delivery.task_id);
   const model=catalog.models.find(m=>m.model==='gpt-6-sol');requireThat(model,'Validation model must be advertised');
   for(const w of company.workers())company.updateWorkerAIProfile(w.worker_id,{ai_model:model.model,reasoning_effort:'low',execution_priority:'normal',ai_profile_locked:true},catalog);
   company.pause(true);
-  writeFileSync(fixturePath,JSON.stringify({roster_fixture:true,data_root:data,revision:process.env.BOT_DEPLOYED_SHA,setup_task_ids:[setup.task_id,delivery.task_id],atlas:atlas.worker_id,maya:maya.worker_id,turing:turing.worker_id,scout:scout.worker_id,linus:linus.worker_id,grace:grace.worker_id},null,2),{mode:0o600,flag:'wx'});
+  writeFileSync(fixturePath,JSON.stringify({roster_fixture:true,data_root:data,revision:process.env.BOT_DEPLOYED_SHA,setup_task_ids:[setup.task_id,researchSetup.task_id,delivery.task_id],atlas:atlas.worker_id,maya:maya.worker_id,turing:turing.worker_id,scout:scout.worker_id,linus:linus.worker_id,grace:grace.worker_id},null,2),{mode:0o600,flag:'wx'});
 }
 // Optional conservative operator policy: replace a settled context after ONE real turn.
 // It uses the normal rollover operation. No fake usage/events or runtime replies.
