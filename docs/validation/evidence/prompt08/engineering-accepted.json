@@ -1,0 +1,343 @@
+{
+  "started": "2026-10-01T11:34:21.319Z",
+  "finished": "2026-10-01T11:38:37.239Z",
+  "result": "PASS",
+  "source_digest": "18c52da9215995c37d374c61141911aae6fe1ca2c6d2e47a6f9e6ddb4820455e",
+  "data_directory": ".validation/identity-prompt08-20261001T113419Z",
+  "workflow_task_id": "task_165db777-bd5e-4b55-950c-c3935cacf032",
+  "engineers": [
+    {
+      "name": "Linus",
+      "execution_id": "execution_b83afe6b-b63a-4f43-8340-fd91acc28aaa",
+      "task_id": "task_4b61f569-6231-4f16-8142-3f02d3a9b252",
+      "worker_id": "worker_de27efc1-0c5b-49d1-a322-16d882601d1d",
+      "runtime_reference": "01a0f741-322c-72f1-8ac4-837259826767",
+      "status": "completed",
+      "started_at": "2026-10-01T11:37:19.228Z",
+      "finished_at": "2026-10-01T11:37:48.471Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null,
+      "group_id": null,
+      "discussion_kind": null,
+      "runtime_turn_started_at": "2026-10-01T11:37:20.783Z",
+      "allocation_id": "allocation_124078f8-8a34-4e55-8b1c-d0e91617f7b4",
+      "branch": "botsquad/calculate/task_4b61f569-6231-4f16-8142-3f02d3a9b252",
+      "worktree": "/var/lib/botsquad-workers/bsw-16a88ff4e4915af9f74eebde/projects/allocation_124078f8-8a34-4e55-8b1c-d0e91617f7b4",
+      "commit": "0389eb4efbaa7736735645c65083a9cd0ead7303"
+    },
+    {
+      "name": "Ada",
+      "execution_id": "execution_43a35beb-f172-4130-ac8c-7cdf7af4dcd8",
+      "task_id": "task_217f53dd-f09a-420a-ba79-49fe08061739",
+      "worker_id": "worker_83318e11-dc60-40ff-8331-c2d8035a62d5",
+      "runtime_reference": "01a0f741-3327-7493-82e1-d6711e483d06",
+      "status": "completed",
+      "started_at": "2026-10-01T11:37:19.394Z",
+      "finished_at": "2026-10-01T11:37:44.045Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null,
+      "group_id": null,
+      "discussion_kind": null,
+      "runtime_turn_started_at": "2026-10-01T11:37:20.992Z",
+      "allocation_id": "allocation_de73735c-10e0-442e-90e4-df08884e935d",
+      "branch": "botsquad/format/task_217f53dd-f09a-420a-ba79-49fe08061739",
+      "worktree": "/var/lib/botsquad-workers/bsw-9bee9689a142a1d6f6568803/projects/allocation_de73735c-10e0-442e-90e4-df08884e935d",
+      "commit": "f43ccc1973d4134d00f80fe46c9711b37b227a9c"
+    }
+  ],
+  "execution_overlap_ms": 24651,
+  "runtime_turn_overlap_ms": 23053,
+  "operator_readiness_admission": {
+    "purpose": "Operator-controlled readiness admission before real overlap acceptance; not unconstrained production priority ordering",
+    "released_at": "2026-10-01T11:37:19.223Z",
+    "infrastructure_tasks": [
+      {
+        "task_id": "task_c6416c1f-1b74-4bac-b1c4-c8303829db68",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_68742265-ec5a-46c6-945c-fc55d2c451e2",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_b362d5e3-e833-4adc-aa21-a5b43e40a646",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_afd6c2ba-a56e-4659-8529-67408f74248d",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_2b098452-bba0-4de6-a0a5-0c8585114981",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_2701dbe8-9e77-4785-ac9b-60ddcbfe43d5",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_2c3d0312-74c4-48b0-b8de-60e97fca8c1f",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_27924bed-2e2d-4d28-adce-c2a719b06065",
+        "status": "completed"
+      }
+    ],
+    "infrastructure_executions": [
+      {
+        "execution_id": "execution_5ef9ea87-8fbd-493d-b1b5-e8b3493c268a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:34:35.033Z"
+      },
+      {
+        "execution_id": "execution_c3e4590f-d646-4fb4-a407-0a183b1190f3",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:34:43.619Z"
+      },
+      {
+        "execution_id": "execution_65267de5-1fdf-4051-8107-372ccaf8bf7a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:34:53.098Z"
+      },
+      {
+        "execution_id": "execution_4d9ff687-1ced-4bf5-b918-990428fc9541",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:35:02.348Z"
+      },
+      {
+        "execution_id": "execution_7567ce07-29e3-4031-9b1c-0c720175eb2a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:35:25.289Z"
+      },
+      {
+        "execution_id": "execution_685a7e79-50f3-4eac-acb5-ee782ad1835a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:35:32.968Z"
+      },
+      {
+        "execution_id": "execution_fe767420-2de7-4040-9599-261f0574145e",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:35:51.960Z"
+      },
+      {
+        "execution_id": "execution_07014c5a-3148-4e1e-8d56-d1d1b79a52aa",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:01.399Z"
+      },
+      {
+        "execution_id": "execution_236f1e78-683e-4ca4-972e-f94e5655c314",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:10.561Z"
+      },
+      {
+        "execution_id": "execution_76986c8b-b5b8-4537-a050-2d94056fe165",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:17.921Z"
+      },
+      {
+        "execution_id": "execution_aa21b343-1ce8-4a46-b298-87ca346de42a",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:26.666Z"
+      },
+      {
+        "execution_id": "execution_f0304d78-6fda-4104-b133-f5717f377b74",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:36.031Z"
+      },
+      {
+        "execution_id": "execution_af580477-9a81-4c33-b779-36a3e6d5147f",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:43.501Z"
+      },
+      {
+        "execution_id": "execution_5c7f0036-32cb-45a3-acbf-5cc9be55df18",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:36:55.953Z"
+      },
+      {
+        "execution_id": "execution_0fa4ca39-9630-46da-a6a7-b65718d56c69",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:37:10.686Z"
+      },
+      {
+        "execution_id": "execution_c8fa7f78-da10-4d62-a6ad-e105dda81fc9",
+        "status": "completed",
+        "finished_at": "2026-10-01T11:37:19.199Z"
+      }
+    ],
+    "original_eligibility_preserved": true,
+    "max_employee_slots": 2
+  },
+  "repository": {
+    "repository_id": "repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48",
+    "product_name": "SquadStatus",
+    "canonical_root": ".validation/identity-prompt08-20261001T113419Z/products/repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48/main",
+    "default_branch": "main",
+    "base_commit": "37fda78a899024d709405e5762bc43366dfed69a",
+    "current_commit": "398a944b9feb341a90f97b211fa061085c268f5e",
+    "created_by": "worker_f001a1ec-4e24-4e10-b6c9-68a960e194e6",
+    "workflow_task_id": "task_db7eda83-c6cd-4d56-bf6f-86d02e45b56a",
+    "spec_artifact_id": "artifact_740c6d34-0cf9-42b8-823d-d3d13343be0d",
+    "status": "ready",
+    "created_at": "2026-10-01T11:35:39.759Z",
+    "updated_at": "2026-10-01T11:38:26.488Z",
+    "project_id": "project_6cc104ef-5451-45c2-96c1-e2d37374e7ed",
+    "source_kind": "legacy_squadstatus",
+    "remote_provider": null,
+    "remote_identity": null,
+    "remote_url": null,
+    "remote_policy": "none",
+    "remote_sha": null,
+    "remote_state": "none"
+  },
+  "submissions": [
+    {
+      "submission_id": "submission_c92ce4a4-fdb9-4239-bddb-6d28be7471ef",
+      "repository_id": "repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48",
+      "task_id": "task_217f53dd-f09a-420a-ba79-49fe08061739",
+      "worker_id": "worker_83318e11-dc60-40ff-8331-c2d8035a62d5",
+      "execution_id": "execution_43a35beb-f172-4130-ac8c-7cdf7af4dcd8",
+      "allocation_id": "allocation_de73735c-10e0-442e-90e4-df08884e935d",
+      "base_commit": "37fda78a899024d709405e5762bc43366dfed69a",
+      "branch_name": "botsquad/format/task_217f53dd-f09a-420a-ba79-49fe08061739",
+      "commit_sha": "f43ccc1973d4134d00f80fe46c9711b37b227a9c",
+      "changed_paths": "[\"src/format.mjs\"]",
+      "validation": "{\"command\":\"confined-node --test --test-isolation=none test/format.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: stable labels, order and no trailing newline\\nok 1 - stable labels, order and no trailing newline\\n  ---\\n  duration_ms: 1.976969\\n  type: 'test'\\n  ...\\n# Subtest: rejects missing, negative, noninteger and inconsistent counts\\nok 2 - rejects missing, negative, noninteger and inconsistent counts\\n  ---\\n  duration_ms: 1.14822\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 55.750834\\n\",\"checked_at\":\"2026-10-01T11:37:40.939Z\"}",
+      "summary": "Implemented validated exact status-summary formatting; focused format recipe passes.",
+      "created_at": "2026-10-01T11:37:41.498Z",
+      "commit_list": "[\"f43ccc1973d4134d00f80fe46c9711b37b227a9c\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_e0d3925a-0b13-4502-985a-89023f1ebc78",
+      "repository_id": "repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48",
+      "task_id": "task_4b61f569-6231-4f16-8142-3f02d3a9b252",
+      "worker_id": "worker_de27efc1-0c5b-49d1-a322-16d882601d1d",
+      "execution_id": "execution_b83afe6b-b63a-4f43-8340-fd91acc28aaa",
+      "allocation_id": "allocation_124078f8-8a34-4e55-8b1c-d0e91617f7b4",
+      "base_commit": "37fda78a899024d709405e5762bc43366dfed69a",
+      "branch_name": "botsquad/calculate/task_4b61f569-6231-4f16-8142-3f02d3a9b252",
+      "commit_sha": "0389eb4efbaa7736735645c65083a9cd0ead7303",
+      "changed_paths": "[\"src/calculate.mjs\"]",
+      "validation": "{\"command\":\"confined-node --test --test-isolation=none test/calculate.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: counts workers without changing input\\nok 1 - counts workers without changing input\\n  ---\\n  duration_ms: 2.683686\\n  type: 'test'\\n  ...\\n# Subtest: rejects invalid workers/statuses with TypeError\\nok 2 - rejects invalid workers/statuses with TypeError\\n  ---\\n  duration_ms: 1.092101\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 54.298263\\n\",\"checked_at\":\"2026-10-01T11:37:45.759Z\"}",
+      "summary": "Implement validated, non-mutating worker status counting; calculate focused recipe passes.",
+      "created_at": "2026-10-01T11:37:46.355Z",
+      "commit_list": "[\"0389eb4efbaa7736735645c65083a9cd0ead7303\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    }
+  ],
+  "review": {
+    "review_id": "review_b4d4a120-7287-48a6-ac93-d569764a97ae",
+    "repository_id": "repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48",
+    "task_id": "task_5644de9f-cc1c-494c-b9e2-e60b8968e618",
+    "worker_id": "worker_0cb20b02-b3e4-4107-9179-eb8c719354b8",
+    "execution_id": "execution_62a863c5-a084-404b-95fd-dae207fc39fc",
+    "source_commits": "[\"0389eb4efbaa7736735645c65083a9cd0ead7303\",\"f43ccc1973d4134d00f80fe46c9711b37b227a9c\"]",
+    "status": "approved",
+    "artifact_id": "artifact_2779a83e-b6ab-461c-bfe0-bd7b60dbb48e",
+    "created_at": "2026-10-01T11:38:17.596Z",
+    "round_id": "round_ba9d71c7-faa0-4d6a-a64d-2dfe4bd83382"
+  },
+  "integration": {
+    "integration_id": "integration_ee2792ae-8404-4be5-ab16-e4ca478b3436",
+    "repository_id": "repository_e111bbe5-30fd-4912-b1ed-2946ef56ab48",
+    "review_id": "review_b4d4a120-7287-48a6-ac93-d569764a97ae",
+    "base_commit": "37fda78a899024d709405e5762bc43366dfed69a",
+    "source_commits": "[\"0389eb4efbaa7736735645c65083a9cd0ead7303\",\"f43ccc1973d4134d00f80fe46c9711b37b227a9c\"]",
+    "candidate_commit": "398a944b9feb341a90f97b211fa061085c268f5e",
+    "final_commit": "398a944b9feb341a90f97b211fa061085c268f5e",
+    "strategy": "cherry-pick-then-fast-forward",
+    "validation": "{\"tests\":{\"command\":\"confined-node --test --test-isolation=none test/calculate.test.mjs test/format.test.mjs test/integrated.test.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: counts workers without changing input\\nok 1 - counts workers without changing input\\n  ---\\n  duration_ms: 3.84968\\n  type: 'test'\\n  ...\\n# Subtest: rejects invalid workers/statuses with TypeError\\nok 2 - rejects invalid workers/statuses with TypeError\\n  ---\\n  duration_ms: 1.921017\\n  type: 'test'\\n  ...\\n# Subtest: stable labels, order and no trailing newline\\nok 3 - stable labels, order and no trailing newline\\n  ---\\n  duration_ms: 0.726094\\n  type: 'test'\\n  ...\\n# Subtest: rejects missing, negative, noninteger and inconsistent counts\\nok 4 - rejects missing, negative, noninteger and inconsistent counts\\n  ---\\n  duration_ms: 0.827854\\n  type: 'test'\\n  ...\\n# Subtest: complete product example\\nok 5 - complete product example\\n  ---\\n  duration_ms: 0.474552\\n  type: 'test'\\n  ...\\n# Subtest: empty product input\\nok 6 - empty product input\\n  ---\\n  duration_ms: 0.334306\\n  type: 'test'\\n  ...\\n1..6\\n# tests 6\\n# suites 0\\n# pass 6\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 85.708515\\n\",\"checked_at\":\"2026-10-01T11:38:26.349Z\"},\"output\":{\"command\":\"confined-node cli.mjs\",\"passed\":true,\"exit_code\":0,\"output\":\"Total: 4\\nWorking: 2\\nIdle: 1\\nBlocked: 1\\nFailed: 0\\n\",\"checked_at\":\"2026-10-01T11:38:26.437Z\"},\"passed\":true}",
+    "status": "completed",
+    "error": null,
+    "requested_by": "worker_f001a1ec-4e24-4e10-b6c9-68a960e194e6",
+    "execution_id": "execution_fa1d1c55-9d34-4de4-a1f7-0381a2c6df95",
+    "created_at": "2026-10-01T11:38:25.571Z",
+    "updated_at": "2026-10-01T11:38:26.487Z",
+    "round_id": "round_ba9d71c7-faa0-4d6a-a64d-2dfe4bd83382",
+    "submission_ids": "[\"submission_c92ce4a4-fdb9-4239-bddb-6d28be7471ef\",\"submission_e0d3925a-0b13-4502-985a-89023f1ebc78\"]",
+    "delivery_task_id": "task_db7eda83-c6cd-4d56-bf6f-86d02e45b56a"
+  },
+  "checks": [
+    "six real persistent Codex workers",
+    "actual Maya spec before engineering",
+    "distinct branch/worktree/commit ownership",
+    "real execution and runtime-turn overlap",
+    "real denied source/sibling/path writes",
+    "role-specific tool surface",
+    "real independent exact-commit Grace review",
+    "confined full acceptance tests",
+    "candidate before safe fast-forward",
+    "deterministic product output",
+    "process restart preserved all workflow records",
+    "no duplicate engineering/review/integration/wake"
+  ],
+  "counts": {
+    "workers": 7,
+    "tasks": 14,
+    "executions": 26
+  },
+  "pending_approval_restart": true,
+  "approval_boundary": "Trusted loopback HTTP, operator-authorized fixed validation scenario; no worker approval tool",
+  "test_execution_identity": "Trusted botsquad service inside unchanged product sandbox",
+  "source_revision": "04ff797be8dcd5372765e4885e24c0bf98413ea6",
+  "operator_probes": {
+    "result": "PASS",
+    "isolation_checks": 100,
+    "retirement": {
+      "result": "PASS",
+      "worker_id": "worker_de27efc1-0c5b-49d1-a322-16d882601d1d",
+      "uid": 20136,
+      "probe_pid": 233968,
+      "exit_signal": 9,
+      "operation_id": "operation_37f05dc8-0bd4-4f7f-91a6-320e6f876fee",
+      "history_preserved": true,
+      "project_access_revoked": true,
+      "home_preserved": true,
+      "retired_home_access_denied": true
+    }
+  },
+  "retirement": {
+    "worker_id": "worker_de27efc1-0c5b-49d1-a322-16d882601d1d",
+    "identity": {
+      "worker_id": "worker_de27efc1-0c5b-49d1-a322-16d882601d1d",
+      "backend": "linux",
+      "state": "disabled",
+      "unix_username": "bsw-16a88ff4e4915af9f74eebde",
+      "uid": 20136,
+      "gid": 20136,
+      "home_path": "/var/lib/botsquad-workers/bsw-16a88ff4e4915af9f74eebde",
+      "created_at": "2026-10-01T11:35:52.509Z",
+      "disabled_at": "2026-10-01T11:39:16.764Z",
+      "provision_operation_id": "operation_b1cc7015-0544-4ba5-b6ee-ad2863d8afd7"
+    },
+    "history_preserved": true,
+    "new_assignment_rejected": true
+  },
+  "omissions": [
+    "Full fixture runtime inputs, model text, audit and identity approval envelopes remain in the protected original root."
+  ]
+}

@@ -1,6 +1,6 @@
 # Prompt 08 validation report
 
-**Status: core acceptance and independent review passed; remaining workflow regressions and delivery pending.**
+**Status: required real acceptance and workflow regressions passed; independent review passed; delivery pending.**
 
 The accepted application candidate is `34779af89b141448c1b471b003d6ac00327216c1`.
 Later commits contain documentation/evidence and an optional validation-only readiness
@@ -18,7 +18,7 @@ restarted. The [execution plan](../exec-plans/prompt-08.md) retains the progress
 | C08-2: continuity and recovery | Passed: actual provider-context replacement, safe restart, confirmed interrupts, deliberate in-flight crash, no replay and retained unknown fences |
 | D: authority, isolation, bounds and idle | 211/211 actual Ubuntu tests; 210 local passes plus one Linux-only skip; real 30-second idle intervals with zero new work; repeated offline migration |
 | E: separate assignment | Passed: explicit edited owner preview, normal Atlas Task, exact selected synthesis context and actual internal report |
-| F: regressions and review | Direct/peer, live research/revocation, Prompt01 and Linux identity receipt recovery passed; engineering/Projects in progress; independent core review passed |
+| F: regressions and review | Direct/peer, live research/revocation, Prompt01 and Linux identity receipt recovery passed; engineering/Projects and Linux isolation passed; independent final evidence review passed |
 | Preservation and delivery | Protected backup/offline migration and original-state checks passed; normal PR/merge, exact deployment, final comparison and cleanup pending |
 
 ## Checks and isolated environments
@@ -164,14 +164,37 @@ provisioner completed an approved identity operation before injected response lo
 Restart reconciled the consumed approval to the same UID/receipt; exact replay returned
 that receipt, and changed payload was rejected. Identity, home and root receipt remain.
 See [receipt evidence](evidence/prompt08/identity-recovery-evidence.json).
-Engineering/identity-isolation and generalized Projects acceptance remain in progress.
+
+Real engineering/identity acceptance passed on `04ff797` in
+`identity-prompt08-20261001T113419Z`: 14 Tasks, 26 workflow executions, independently
+reviewed exact commits, confined six-test integration, safe restart without duplicates,
+and an additional real retirement Task. Linus/Ada overlapped for 24,651 ms by execution
+and **23,053 ms by provider turn after operator-controlled readiness admission**. The
+fixture first waited for infrastructure Tasks and their executions to settle; this is
+not a claim about unconstrained production priority ordering. All **100 actual Linux
+UID isolation checks** passed. Retirement signalled the one harmless probe process,
+revoked project/home access and preserved identity history and home. See
+[accepted engineering evidence](evidence/prompt08/engineering-accepted.json).
+
+Real generalized Projects acceptance passed on the same revision in
+`projects-prompt08-20261001T114202Z`: imported LedgerBrief on `trunk`, two real engineers,
+three submissions across two independent review rounds, requested revision, exact-commit
+integration and retained restart checkpoints at pending approval, submission, revision,
+resubmission and queued integration. Runtime turns overlapped **17,043 ms after
+operator-controlled readiness admission**. Lost-response publication reconciled to one
+actual attempt against a disposable local bare remote; an independent divergence was
+blocked. This does not validate live authenticated employee GitHub publication. All
+**100 actual UID isolation checks and four archived-clone read/write denials** passed;
+archived Git history, homes and reusable identities remained. See
+[Projects evidence](evidence/prompt08/projects-accepted.json).
 
 ## Independent review and retained failed attempts
 
 The separate read-only reviewer accepted the manual reasoning, complete research final,
 normal assignment context, grounded partial recovery and security/recovery boundaries.
 It inspected the packaged evidence for credentials, private histories/queries, raw runtime
-contexts and full-source leakage. No material finding remains in the reviewed application.
+contexts and full-source leakage. No material finding remains in the reviewed application. The reviewer also accepted
+the actual engineering/Projects evidence, selected exports and scoped delivery scripts.
 
 | Material finding | Correction and verification |
 | --- | --- |
@@ -193,7 +216,7 @@ Failed attempts are retained, never renamed as successes:
   original root, clones, identities and host receipts remain. A reviewed, explicitly enabled
   fixture-only gate now additionally holds engineering admission until infrastructure Tasks
   and executions settle. It preserves original eligibility, the two slots, model work and
-  overlap assertions. A successful rerun will demonstrate actual overlap after operator
+  overlap assertions. The successful fresh rerun demonstrates actual overlap after operator
   readiness admission, not unconstrained production priority ordering. It changes no
   production scheduling, permissions or Task status.
 - Initial sandbox full run: 192 total, 146 passed, 45 failed, one skipped. Loopback and nested
@@ -240,10 +263,16 @@ Protected backup/inventory: `/var/backups/botsquad/prompt08-20261001T0904Z/`.
 An offline copy migrated schema 9→10 twice with all 58 original tables/1,760 rows, original
 rowids and fields unchanged, clean integrity/foreign keys and zero working groups. Only
 storage migration opened it; it was never served as a second authenticated HQ.
-The latest [original-state comparison](evidence/prompt08/original-preservation-before-delivery.json)
+The post-regression [original-state comparison](evidence/prompt08/original-preservation-before-delivery.json)
 preserves 34 original databases/23,958 rows, 249 account/group mappings, 411 root records and
 123 homes. Only the pre-existing `workers.updated_at` heartbeat field is excluded; audit
 and schema-migration growth is allowed. New isolated fixture records are additional.
+A fresh pre-delivery backup at `/var/backups/botsquad/prompt08-delivery-20261001T115043Z/`
+again preserved all 58 production tables/1,760 original rows and rowids through two offline
+opens. Its protected whole-host inventory additionally covers all newly retained fixtures:
+43 databases, 484 root records and 145 homes. All three discussion fixture services are
+stopped/disabled with no active work; their data, identities, failures and fences remain.
+The task-owned tunnels on 4311–4313 are closed; the existing production tunnel is preserved.
 
 The implementation has finite participants, turns, rounds, context/retrieval/research budgets,
 a wall-clock deadline that continues while paused, and at most two explicit extensions.
@@ -254,7 +283,7 @@ The managed reader does not inspect scripts/images/interactive behavior. Provide
 search behavior is opaque. Recurring company work, Computer Use, live business publication,
 and authenticated employee GitHub publication remain outside this acceptance.
 
-Remaining delivery: finish existing workflow regressions, refresh current main and review
+Remaining delivery: refresh current main and review
 the complete diff, normal PR/merge/push, exact application-only deployment, running-build
 correspondence/private-browser health, original pause/grant/state comparison and temporary
 service/tunnel cleanup. No OS upgrade, provisioner replacement, public ingress or production

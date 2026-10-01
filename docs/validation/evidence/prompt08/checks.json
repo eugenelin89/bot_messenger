@@ -28,7 +28,7 @@
     "direct_conversations": 2,
     "research": 1,
     "revision": "509a4a493280d50c59c1df24aba37b429545f236",
-    "note": "No browser code changed in34779af."
+    "note": "No browser code changed after this run."
   },
   "prompt01": {
     "result": "PASS",
@@ -76,5 +76,34 @@
     "zero_new_idle_work": true,
     "same_execution_evidence_citation_checks": 28,
     "valid_prior_contribution_references": 36
+  },
+  "engineering_identity": {
+    "result": "PASS",
+    "revision": "04ff797be8dcd5372765e4885e24c0bf98413ea6",
+    "evidence_root": "/var/lib/botsquad/validation/identity-prompt08-20261001T113419Z",
+    "workflow_tasks": 14,
+    "workflow_executions": 26,
+    "execution_overlap_ms": 24651,
+    "runtime_turn_overlap_ms": 23053,
+    "overlap_scope": "After operator-controlled readiness admission",
+    "isolation_checks": 100,
+    "retirement_process_signalled": 1,
+    "history_and_home_preserved": true,
+    "read_only_review": "Accepted; earlier failed run retained"
+  },
+  "projects": {
+    "result": "PASS",
+    "revision": "04ff797be8dcd5372765e4885e24c0bf98413ea6",
+    "evidence_root": "/var/lib/botsquad/validation/projects-prompt08-20261001T114202Z",
+    "engineers": 2,
+    "submissions": 3,
+    "reviews": 2,
+    "rounds": 2,
+    "runtime_turn_overlap_ms": 17043,
+    "overlap_scope": "After operator-controlled readiness admission",
+    "isolation_checks": 100,
+    "archive_denial_checks": 4,
+    "remote": "Disposable local bare fixture; live authenticated GitHub push unvalidated",
+    "lost_response_publish_attempts": 1
   }
 }

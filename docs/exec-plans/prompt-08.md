@@ -55,17 +55,17 @@ before finalizing Decision 021.
 | Gate | Required evidence | State |
 | --- | --- | --- |
 | Preflight | Required docs/code, remote/PR/host state, ownership and current retained inventory | Passed; actual retained state inventoried |
-| Domain | Draft/start, charter, eligible manual/Atlas team, finite budgets, lifecycle, causal turns | Implemented; focused checks pass, real acceptance in progress |
-| Sharing | Owner export, public-source packet, provenance, revocation and private-history denials | Implemented; focused checks pass, real acceptance in progress |
-| Runtime | Shared capacity, scoped sessions, no task tools, callback/settlement safety | Implemented; focused checks pass, real acceptance in progress |
-| Synthesis | Attributable immutable versions, dissent/challenges, bounded review, separate Task preview/submit | Implemented; focused checks pass, real acceptance in progress |
-| Browser | Charter, transcript/evidence, interjection, controls, history isolation and screenshots | Implemented; focused checks pass, real acceptance in progress |
+| Domain | Draft/start, charter, eligible manual/Atlas team, finite budgets, lifecycle, causal turns | Passed deterministic and actual Ubuntu acceptance |
+| Sharing | Owner export, public-source packet, provenance, revocation and private-history denials | Passed deterministic and actual Ubuntu acceptance |
+| Runtime | Shared capacity, scoped sessions, no task tools, callback/settlement safety | Passed deterministic and actual Ubuntu acceptance |
+| Synthesis | Attributable immutable versions, dissent/challenges, bounded review, separate Task preview/submit | Passed deterministic and actual Ubuntu acceptance |
+| Browser | Charter, transcript/evidence, interjection, controls, history isolation and screenshots | Passed deterministic and actual Ubuntu acceptance |
 | C08-1 A | Real supplied-material deliberation with substantive response and browser interjection | Passed on 4e2a7eb: four real workers, 11 turns, draft/final, no Task |
 | C08-1 B | Atlas-selected roster, actual worker research, >1 source, shared inspection and denied new authority | Passed on 34779af: five real workers, two sources, 15 turns, reviewed final; prior failures retained |
 | C08-2 C | Actual rollover, safe restart, no duplicates, separate deterministic and provider failure evidence | Passed: actual rollover, safe restart, confirmed interrupts and controlled in-flight crash; unknown fences retained |
 | D | Deterministic authority, isolation, scope, bounds, idempotency, lifecycle, migration and actual idle interval | Passed: 211/211 Ubuntu, 210/211 local with Linux-only skip, actual 30-second idle |
 | E | No discussion-created Task; explicit edited owner submission through existing Task path | Passed: real final → edited owner preview → Atlas report; exact selected context verified |
-| F | Current typecheck/full suite counts, affected Ubuntu/browser regression, independent read-only review | Pending |
+| F | Current typecheck/full suite counts, affected Ubuntu/browser regression, independent read-only review | All actual checks and independent final evidence review passed |
 | Preservation | Consistent protected backup, repeated offline migration, original records retained | Offline check passed; production post-deployment comparison remains |
 | Delivery | Complete diff, normal PR/merge/push, exact deployment/build, health and cleanup | Pending |
 
@@ -87,8 +87,7 @@ complete or Prompt 09 next before required acceptance passes.
 
 ## Remaining gates
 
-Complete the fresh Atlas research run and semantic review, actual engineering/Projects
-regressions, final Linux suite and evidence packaging, then normal integration/deployment
+Complete normal integration/deployment
 with retained-state comparison and temporary-service cleanup. Historical progress below
 records earlier gate states; the matrix and validation report give current status.
 
@@ -218,3 +217,24 @@ validation failure is discarded.
   for infrastructure Task AND execution settlement. Original eligibility/dispatch/overlap
   assertions stay unchanged; no production scheduler edits or provider waiting. Fresh
   real rerun required, with the fixture admission explicitly recorded in its evidence.
+
+- 11:42 UTC: engineering rerun passed on `04ff797`: 14 workflow Tasks, 26 executions,
+  23,053 ms actual provider-turn overlap after the explicit readiness admission, exact
+  commit review and confined integration. All 100 real UID checks passed. An additional
+  retirement Task killed the one harmless UID probe, denied retired access and preserved
+  history/home. Original failed overlap run remains failed. Projects started sequentially
+  in `projects-prompt08-20261001T114202Z`; production is still unchanged.
+
+- 11:49 UTC: Projects passed on `04ff797`: two engineers, real requested revision,
+  three submissions/two review rounds, confined integration, all restart checkpoints,
+  one reconciled local-remote publication attempt, divergence denial and archive recovery.
+  Actual provider turns overlapped 17,043 ms after operator readiness admission; 100 UID
+  checks and four archived-clone access denials passed. Independent final evidence review
+  is underway. Typecheck/build/diff checks pass and all 182 built files exactly match
+  the retained candidate manifest. No production migration or restart yet.
+
+- 11:53 UTC: independent read-only review accepted the engineering/Projects receipts,
+  selected public exports and application-only deployment scripts. No material blocker.
+  Fresh protected backup/repeated migration passed; all original records and identities
+  still match. Temporary services/tunnels are stopped with evidence retained. Normal
+  evidence commit, PR integration and exact-build production gate follow.
