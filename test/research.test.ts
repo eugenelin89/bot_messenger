@@ -159,3 +159,36 @@ test('protected destinations and unsafe/action URLs fail before network; mixed D
   let calls=0;await assert.rejects(()=>resolvePublic(publicUrl('https://example.org/'),(async()=>{calls++;return [{address:'93.184.216.34',family:4},{address:'127.0.0.1',family:4}];}) as never),/protected/);assert.equal(calls,1);
   const extracted=extractPage('<title>Safe &amp; source</title><script>steal()</script><p>Visible &lt;data&gt;</p>','text/html');assert.equal(extracted.title,'Safe & source');assert.ok(!extracted.content.includes('steal()'));assert.match(extracted.content,/<data>/);
 });
+
+test('work budgets are shared by delegated researchers and survive a fresh grant',async t=>{
+  const f=fixture();t.after(()=>f.close());const {worker}=setup(f);grant(f,worker.worker_id);f.company.assignObjective(objective);const parent=f.company.claimNext()!;
+  await f.company.research.callTool(parent.context,'initial','research_search',{query:'public docs'},new AbortController().signal);
+  const scout=f.company.callTool(parent.context,'hire-scout','hire_worker',{display_name:'Scout',title:'Researcher',mission:'Research public docs',capabilities:['internal_message','read_workspace','write_workspace'],lifecycle:'persistent',justification:'Bounded delegation'}) as {worker_id:string};
+  f.company.callTool(parent.context,'delegate','assign_task',{worker_id:scout.worker_id,objective:'Research public documentation',acceptance_criteria:'Supported report',constraints:'Read only'});
+  const op=f.store.get<Record<string,string|number|null>>('SELECT * FROM research_operations')!;
+  for(let i=1;i<L.callsPerWork;i++){const values={...op,operation_id:randomUUID(),call_id:randomUUID(),runtime_reference:null,created_at:new Date(Date.now()-120000).toISOString()};f.store.run(`INSERT INTO research_operations (${Object.keys(values).join(',')}) VALUES (${Object.keys(values).map(()=>'?').join(',')})`,...Object.values(values));}
+  f.company.finish(parent.execution.execution_id,{status:'completed',settled:true,summary:'Delegated; synthetic test history consumes shared budget.'});
+  const child=f.company.claimNext()!;assert.equal(child.worker.worker_id,scout.worker_id);const g=grant(f,scout.worker_id);
+  const call=()=>f.company.research.callTool(child.context,'child','research_search',{query:'public docs'},new AbortController().signal);
+  assert.throws(call,/Work research call\/output budget/);f.company.research.revoke({grant_id:g.grant_id});grant(f,scout.worker_id);assert.throws(call,/Work research call\/output budget/);
+});
+
+for(const limit of ['rate','search','output'] as const)test(`durable ${limit} limit denies before provider invocation`,async t=>{
+  const f=fixture();t.after(()=>f.close());const {worker}=setup(f);grant(f,worker.worker_id);const c=chat(f,worker.worker_id);await lookup(f,c);
+  const op=f.store.get<Record<string,string|number|null>>('SELECT * FROM research_operations')!;
+  const count=limit==='rate'?L.callsPerMinute:limit==='search'?L.searchesPerWork:L.outputPerWork/L.resultChars;
+  if(limit==='output')f.store.run('UPDATE research_operations SET output_chars=?',L.resultChars);
+  for(let i=1;i<count;i++){const values={...op,operation_id:randomUUID(),call_id:randomUUID(),runtime_reference:null,tool:limit==='search'?'research_search':'research_sources',output_chars:limit==='output'?L.resultChars:op.output_chars!,created_at:limit==='rate'?new Date().toISOString():new Date(Date.now()-120000).toISOString()};f.store.run(`INSERT INTO research_operations (${Object.keys(values).join(',')}) VALUES (${Object.keys(values).map(()=>'?').join(',')})`,...Object.values(values));}
+  let calls=0;f.company.research.provider={name:'must-not-run',async search(){calls++;return result;}};
+  assert.throws(()=>lookup(f,c,'over-limit'),limit==='rate'?/rate limit/:limit==='search'?/search broker budget/:/call\/output budget/);assert.equal(calls,0);
+});
+
+test('hostile source instructions cannot grant document or tool authority; private query patterns never reach provider',async t=>{
+  const f=fixture();t.after(()=>f.close());const {worker}=setup(f);grant(f,worker.worker_id);grant(f,worker.worker_id,'company_knowledge',['README.md']);const c=chat(f,worker.worker_id);
+  const r=await lookup(f,c);const read=f.company.research.callTool(c.context,'hostile-source','research_read',{source_id:r.sources[0]!.source_id,offset:0},new AbortController().signal) as {content:string};assert.match(read.content,/UNTRUSTED/);
+  assert.throws(()=>f.company.research.callTool(c.context,'secret-doc','read_company_document',{path:'/etc/passwd'},new AbortController().signal),/explicit standing knowledge scope/);
+  assert.throws(()=>f.company.conversations.callTool(c.context,'grant-from-page','research/grant',{worker_id:worker.worker_id}),/authority/);
+  let calls=0;f.company.research.provider={name:'must-not-run',async search(){calls++;return result;}};
+  for(const query of ['api_key=FAKE_TEST_SECRET','person@example.org private account','http://127.0.0.1/status','https://metadata.google.internal/latest','file:///etc/passwd'])assert.throws(()=>f.company.research.callTool(c.context,query,'research_search',{query},new AbortController().signal));
+  assert.equal(calls,0);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM standing_grants')!.n,2);
+});

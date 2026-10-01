@@ -58,3 +58,13 @@ Prompts 01â€“06 remain completed history. Preserve 07 conversations/continuity â
 The old future assignments of 11 multi-company, 12 company collaboration, 13 Telegram and 14 federation are superseded by Decision 017. Those directions are deferred and unnumbered. Minimal scheduling belongs in 09; minimal business evidence and external-action adapters belong in 11, not behind federation. Broader CRM/accounting/cloud/payment platforms remain later unless a new explicit owner decision changes scope.
 
 Asymmetri Motion is configuration and acceptance evidence, not a hard-coded dependency of the generic BotSquad engine. Do not read private product data, change another repository or publish/send/spend merely because the reference case is named.
+
+## Preserve WE-01 standing research authority
+
+Future milestones preserve Decision 020's separate public-research and company-knowledge
+grants, source provenance/freshness, durable work/day budgets, compatible session lineage,
+and asynchronous callback ownership. Read the WE-01 acceptance report for the current
+live status. Do not assume every worker is granted, enable production permissions through
+migration, send internal documents to public search, or confuse provider-internal actions
+with hard application broker limits. Unknown research invocations preserve the shared
+worker fence; ordinary source failures do not. Prompt 08 remains the next numbered step.

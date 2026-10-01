@@ -41,6 +41,21 @@ The validated Linux contract is currently:
 Prompt 01/02's macOS-local path remains useful for development/regression, but Ubuntu HQ
 is the primary operating topology.
 
+## WE-01 implementation and activation
+
+The first public-research/standing-knowledge slice is implemented on the owned WE-01
+branch. Live acceptance and delivery are tracked in the
+[WE-01 report](../validation/worker-empowerment-01.md); do not infer production deployment
+from this implementation description. Owner controls are in each worker's **Capabilities
+& research** view. See the [tutorial](PUBLIC_RESEARCH_TUTORIAL.md) and
+[Decision 020](../decisions/decision_020_scoped_public_research.md).
+
+Actual retained-HQ inspection on October 1 found dispatch **unpaused**, all 43 Tasks
+terminal and no running execution. Preserve the actual state rather than a historical
+pause statement. No production research grant has been activated by this work. The new
+schema creates no implicit permission; deployment requires a separate owner confirmation
+before retained Atlas/Scout can use the new route.
+
 ## Prompt 07 acceptance and release
 
 Direct conversations and context continuity passed real Ubuntu C07-1–C07-4 acceptance.

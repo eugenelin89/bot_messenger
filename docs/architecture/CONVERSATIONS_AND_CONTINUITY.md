@@ -23,7 +23,9 @@ metadata for historical attempts.
 Both origins share priority/FIFO scheduling, global capacity two, and worker exclusion.
 Conversation completion cannot complete a Task, wake a task manager, require an
 artifact, retire a temporary worker, or acquire task tools. Conversation tools are
-only scoped source retrieval, exact source bookmarks, one peer question and final reply.
+scoped conversation retrieval, exact source bookmarks, one peer question and final reply.
+WE-01 optionally adds public research and approved company-document reading through
+separate current owner grants; these do not add Task, hiring or approval tools.
 Normal runtime confinement remains read-only/no network/no shell/no inherited MCP,
 with provider goals, subagents, memories and native broad tools disabled.
 
@@ -138,3 +140,26 @@ Repeatable real validation uses `scripts/conversations/validate-ubuntu.sh` (oper
 `npm run validate:conversations -- PHASE` with explicit private URL and evidence directory,
 and `scripts/conversations/regression-ubuntu.sh`. Fixtures, real responses and deterministic
 faults are distinguished in the [validation record](../validation/prompt-07-conversations-continuity.md).
+
+## WE-01 research continuity
+
+See [Decision 020](../decisions/decision_020_scoped_public_research.md) for the transport,
+numerical limits and residual information-boundary limits. Schema 9 retains standing
+grants, research operations/sources and separate research-Task provider bindings. A first
+explicit grant marks that worker for the extended dynamic-tool schema. The next safe
+conversation claim creates a compatible generation using the existing handoff; it does
+not change the Conversation or worker. Revocation keeps schema compatibility while each
+call rechecks live authority. Expired/revoked grants never authorize a retained tool.
+
+Research source metadata is included within the existing 32,000-character context bound.
+Stored-source reads require the same worker and Task root/conversation, preserve original
+timestamps, and paginate bounded evidence. Conversation message retrieval retains its
+24,000-character budget; research additionally has its own shared durable work budgets.
+Async callbacks are awaited before serialization and settlement. Completion cannot race
+pending research, and known parent settlement survives a subsequent transport close.
+
+The isolated broker's invocation intent and uncertainty are separate from the parent
+worker's intent. A parent reply explaining failure does not clear an unresolved broker.
+Restart marks unfinished uninvoked research failed and ambiguous invocation unknown,
+retaining attempts and fencing future work. Known page errors remain recoverable tool
+failures. No UI operation clears provider uncertainty without operator investigation.

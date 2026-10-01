@@ -115,17 +115,23 @@ API v1 grants no new capability and research audit events stay outside device pr
 - Browser: existing conversation/draft/history checks pass 2/2; new separate grant,
   research reply, safe source inspection and revocation check passes 1/1. First source
   inspector assertion raced its loading state; wait for actual source response added.
-- Live worker acceptance remains pending. No production grant or retained domain mutation.
+- Live pre-grant conversation and Atlas → Scout internal Task passed. Actual weather
+  conversation passed after UI grants: Environment Canada 11.4°C/cloudy observed 07:00 UTC,
+  fetched 07:19:41 UTC, no Task; native stale snippets were superseded by a managed live read.
+  Delegated public research is running; other live gates remain open.
+- Offline migration 8→9 and repeated opens preserved 1,756 original rows/fields/rowids
+  across 53 tables, with integrity/foreign keys and zero implicit grants/activations.
+  No production grant or retained domain mutation.
 
 ## Acceptance matrix
 
 | Gate | Required evidence | Status |
 | --- | --- | --- |
-| WE01-1 | Actual Atlas conversation, live Vancouver weather, observation time/source, no Task | Open |
-| WE01-2 | Actual delegated non-weather multi-domain research and supported artifact/report | Open |
-| WE01-3 | Repeated grant use; missing/revoked/expired/self-grant denials; document scope | Open |
-| WE01-4 | Source failures/stale data/limits and synthetic network/injection boundaries | Open |
-| WE01-5 | Real rollover/restart, async ownership, retries/revocation/cancellation/budgets/idle | Open |
+| WE01-1 | Actual Atlas conversation, live Vancouver weather, observation time/source, no Task | Passed candidate eb96508 |
+| WE01-2 | Actual delegated non-weather multi-domain research and supported artifact/report | Passed candidate eb96508 |
+| WE01-3 | Repeated grant use; missing/revoked/expired/self-grant denials; document scope | Passed tests + actual UI/worker use and revocation |
+| WE01-4 | Source failures/stale data/limits and synthetic network/injection boundaries | Passed deterministic boundaries + real recovery/fixture response |
+| WE01-5 | Real rollover/restart, async ownership, retries/revocation/cancellation/budgets/idle | Rollover passed; restart/idle pending |
 | WE01-6 | Full checks, browser/Ubuntu regressions, independent review, merge/deploy/preservation | Open |
 
 ## Sequence and remaining gates
@@ -142,3 +148,22 @@ API v1 grants no new capability and research audit events stay outside device pr
 
 The retained company must receive a clear one-time owner activation control; authorized
 development and isolated validation do not themselves activate production grants.
+
+## Live acceptance progress at 07:29 UTC
+
+Useful delegated research passed: Scout chose GitHub, Linear and Sentry, read multiple
+actual domains, saved an evidence-qualified report, and Atlas evaluated it. A known broker
+timeout, 404 and inaccessible support route were handled without provider uncertainty.
+Atlas actual context replacement preserved source ID/hash/timestamp and read README
+under its separate knowledge grant, without refreshing public sources. Real Scout then
+attempted both lookups in the clearly labeled isolated outage fixture and reported no
+retrieved facts; no query/page request was transmitted by that fixture. Browser revocation
+was followed by a real denied Atlas tool attempt, verified in conversation_tool_rejected
+audit, with the extended schema still present. Real Linux lost-response recovery passed.
+
+The native source collector now retains a bounded rolling set so late opened sources are
+not discarded after 48 early search results. A dedicated protocol test confirms the final
+source survives; first fixture attempt used a noncanonical macOS temp path and correctly
+failed workspace validation, then canonical-path correction passed. Four explicit durable
+budget tests and a hostile-source/private-query boundary test were added. No enforcement
+was relaxed. Restart will exercise the next committed candidate; final checks remain open.

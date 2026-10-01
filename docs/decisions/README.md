@@ -87,3 +87,10 @@ Decision 019 adds a very near-term follow-up after Prompt 07: give workers usefu
 public research and appropriate standing authority for routine work. Plan it alongside
 Prompt 08 preparation without deferring basic public research to Prompt 11. It preserves
 the numbered milestone order and records planned work, not implemented permission grants.
+
+## Decision 020 — Scoped public research and standing knowledge authority
+
+[Decision 020](decision_020_scoped_public_research.md) implements the first Decision 019
+slice: separate owner grants, an isolated existing-account live-search broker, bounded
+HTTPS source reading, durable scoped evidence, asynchronous receipts and compatible
+session transitions. Acceptance and retained activation remain explicit separate facts.

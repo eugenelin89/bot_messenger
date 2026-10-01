@@ -39,10 +39,11 @@ export class CodexResearchProvider implements ResearchProvider {
           const item=p.item as {type?:string;text?:string;phase?:string;results?:unknown[]};
           if(item.type==='webSearch')for(const entry of (item.results??[]).slice(0,30)) {
             const r=entry as {url?:unknown;title?:unknown;snippet?:unknown};
-            if(typeof r.url!=='string'||sources.length>=48)continue;
+            if(typeof r.url!=='string')continue;
             let url:string;try{url=publicUrl(r.url).href;}catch{continue;}
             if(sources.some(s=>s.url===url))continue;
             sources.push({url,title:String(r.title??'Public search result').slice(0,300),content:String(r.snippet??'').slice(0,700),kind:'search_snippet',retrieved_at:new Date().toISOString(),published_at:null,observed_at:null,freshness:'unknown',omissions:'Provider-returned snippet/metadata only. Live search mode permits live access but does not establish this source observation time or cache freshness.'});
+            if(sources.length>48)sources.shift();
           }
           else if(item.type==='agentMessage'&&item.phase!=='commentary')summary=String(item.text??'').slice(0,6000);
           else if(['commandExecution','fileChange','mcpToolCall','imageGeneration','collabAgentToolCall'].includes(item.type??''))stop();

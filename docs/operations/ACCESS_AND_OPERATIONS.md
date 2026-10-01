@@ -509,3 +509,32 @@ Prompt 07 validation scripts explicitly distinguish fixture roster setup, real m
 responses and controlled process faults. Never arm a fault marker in retained HQ data.
 Use SQLite backup for an offline migration copy; never serve that copied production DB
 as a second authenticated HQ. Preserve the owner's pause state during deployment.
+
+## Public Research and Company Knowledge standing permissions
+
+Use the private browser worker inspector → **Capabilities & research**. Public Research
+and selected Company Knowledge documents require separate explicit confirmations. Revoke
+from the same view. The [learn-by-doing tutorial](PUBLIC_RESEARCH_TUTORIAL.md) explains
+questions, delegated reports, source inspection and revocation. Do not edit SQL for normal
+activation. New deployments and migrations leave existing grants/denials unchanged and
+do not automatically enable retained workers.
+
+The existing pinned Codex account must advertise the worker's configured model and support
+native live search. No extra subscription/API key is assumed. Provider configured status
+is not proof of a successful lookup; inspect actual outcomes. Managed public pages may
+reject compression, dynamic content, oversized responses or protected/control URLs.
+Source outage/rate limit/timeout is a tool failure; provider uncertainty is a worker-wide
+fence. Inspect retained operation, execution and provider references before a reviewed
+repair; never clear a fence or replay an ambiguous query simply to unblock a demonstration.
+
+Browser routes `/api/research/workers/:id`, `/api/research/operations/:id` and POST
+`/api/research/{grant,revoke}` use the existing Host/Origin/browser token boundary.
+Grant input is an explicit worker ID, `public_research` or `company_knowledge` preset,
+null/future `expires_at` and explicit `document_paths` (empty for public research).
+Authority fields are immutable; revoke then create a replacement to alter scope.
+Device v1 intentionally supplies none of these routes or research history/event payloads.
+
+Keep query/conversation evidence private even when source URLs are public. Export only
+necessary bounded excerpts, metadata and hashes. Hard defaults, residual query-disclosure
+limitations and opaque-provider boundaries are recorded in
+[Decision 020](../decisions/decision_020_scoped_public_research.md).
