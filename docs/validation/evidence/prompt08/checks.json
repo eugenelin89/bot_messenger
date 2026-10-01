@@ -1,0 +1,80 @@
+{
+  "revision": "34779af89b141448c1b471b003d6ac00327216c1",
+  "local": {
+    "total": 211,
+    "passed": 210,
+    "failed": 0,
+    "skipped": 1,
+    "skip": "Linux-only filesystem/buffer recipe confinement",
+    "seconds": 45.802
+  },
+  "ubuntu": {
+    "total": 211,
+    "passed": 211,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 188.291,
+    "evidence_root": "/var/lib/botsquad/validation/deterministic-prompt08-20261001T110407Z",
+    "exit_code": 0
+  },
+  "focused_discussion": {
+    "total": 26,
+    "passed": 26
+  },
+  "browser": {
+    "total": 6,
+    "passed": 6,
+    "groups": 3,
+    "direct_conversations": 2,
+    "research": 1,
+    "revision": "509a4a493280d50c59c1df24aba37b429545f236",
+    "note": "No browser code changed in34779af."
+  },
+  "prompt01": {
+    "result": "PASS",
+    "evidence_root": "/var/lib/botsquad/validation/prompt01-prompt08-20261001T103938Z",
+    "note": "Actual CEO/Scout Task workflow, restart/resume and confirmed interrupt; before citation-only correction.",
+    "started": "2026-10-01T10:39:39.695Z",
+    "finished": "2026-10-01T10:41:08.983Z",
+    "counts": {
+      "workers": 2,
+      "tasks": 4,
+      "executions": 5,
+      "artifacts": 1
+    },
+    "checks": [
+      "real dynamic hire",
+      "real Scout execution and artifact",
+      "real Atlas resume/evaluation",
+      "pause",
+      "process restart persistence",
+      "no replay of completed work",
+      "persisted binding resumes after restart",
+      "real turn interruption"
+    ]
+  },
+  "identity_recovery": {
+    "result": "PASS",
+    "evidence_root": "/var/lib/botsquad/validation/recovery-prompt08-20261001T110806Z",
+    "exit_code": 0
+  },
+  "research_full": {
+    "result": "PASS",
+    "revision": "34779af89b141448c1b471b003d6ac00327216c1",
+    "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+    "synthesis_id": "synthesis_bf130459-893c-4562-b4d1-fedeb64e5960",
+    "participants": 5,
+    "turns": 15,
+    "synthesis_versions": 2,
+    "public_sources": 2,
+    "research_operations": 6,
+    "known_failed_searches": 1,
+    "unresolved_operations": 0,
+    "new_tasks": 0,
+    "semantic_review": "Accepted by separate read-only reviewer",
+    "idle_seconds": 30,
+    "zero_new_idle_work": true,
+    "same_execution_evidence_citation_checks": 28,
+    "valid_prior_contribution_references": 36
+  }
+}

@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 08 working groups
 
-**Status:** Active, preflight/design; acceptance pending  
-**Owner:** Codex Prompt 08 implementation task  
-**Branch:** `feature/prompt-08-working-groups`  
-**Worktree:** `../bot_messenger-prompt08`  
-**Started:** 2026-10-01  
-**Initial ETA:** 8–16 hours including real Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 6–12 hours (09:55 UTC update); revised estimates reported every 30 minutes as requested
+**Status:** Implementation complete; real acceptance and delivery in progress
+**Owner:** Codex Prompt 08 implementation task
+**Branch:** `feature/prompt-08-working-groups`
+**Worktree:** `../bot_messenger-prompt08`
+**Started:** 2026-10-01
+**Initial ETA:** 8–16 hours including real Ubuntu acceptance, independent review and deployment
+**Current ETA:** 3–6 hours (10:55 UTC update); revised estimates reported every 30 minutes as requested
 
 ## Objective and scope
 
@@ -61,9 +61,9 @@ before finalizing Decision 021.
 | Synthesis | Attributable immutable versions, dissent/challenges, bounded review, separate Task preview/submit | Implemented; focused checks pass, real acceptance in progress |
 | Browser | Charter, transcript/evidence, interjection, controls, history isolation and screenshots | Implemented; focused checks pass, real acceptance in progress |
 | C08-1 A | Real supplied-material deliberation with substantive response and browser interjection | Passed on 4e2a7eb: four real workers, 11 turns, draft/final, no Task |
-| C08-1 B | Atlas-selected roster, actual worker research, >1 source, shared inspection and denied new authority | Mechanics passed; first final failed semantic grounding; corrected fresh run pending |
-| C08-2 C | Actual rollover, safe restart, no duplicates, separate deterministic and provider failure evidence | Rollover, safe restart and confirmed interruptions passed; controlled crash recovery underway |
-| D | Deterministic authority, isolation, scope, bounds, idempotency, lifecycle, migration and actual idle interval | Pending |
+| C08-1 B | Atlas-selected roster, actual worker research, >1 source, shared inspection and denied new authority | Passed on 34779af: five real workers, two sources, 15 turns, reviewed final; prior failures retained |
+| C08-2 C | Actual rollover, safe restart, no duplicates, separate deterministic and provider failure evidence | Passed: actual rollover, safe restart, confirmed interrupts and controlled in-flight crash; unknown fences retained |
+| D | Deterministic authority, isolation, scope, bounds, idempotency, lifecycle, migration and actual idle interval | Passed: 211/211 Ubuntu, 210/211 local with Linux-only skip, actual 30-second idle |
 | E | No discussion-created Task; explicit edited owner submission through existing Task path | Passed: real final → edited owner preview → Atlas report; exact selected context verified |
 | F | Current typecheck/full suite counts, affected Ubuntu/browser regression, independent read-only review | Pending |
 | Preservation | Consistent protected backup, repeated offline migration, original records retained | Offline check passed; production post-deployment comparison remains |
@@ -87,8 +87,10 @@ complete or Prompt 09 next before required acceptance passes.
 
 ## Remaining gates
 
-All implementation/acceptance/delivery gates above remain open. No implementation or
-real group acceptance has been claimed from this preflight.
+Complete the fresh Atlas research run and semantic review, actual engineering/Projects
+regressions, final Linux suite and evidence packaging, then normal integration/deployment
+with retained-state comparison and temporary-service cleanup. Historical progress below
+records earlier gate states; the matrix and validation report give current status.
 
 ## Progress — 2026-10-01 09:40 UTC
 
@@ -181,3 +183,23 @@ final documentation/review/integration/deployment remain open. ETA remains 7–1
   after source-ID/excerpt mistakes. Failure retained. Corrected actionable guidance
   and source error messages; bounded partial finish and a fresh isolated confirmation
   will verify the correction. Existing production is unchanged.
+
+## Delivery sequencing
+
+Keep the implementation PR explicitly release-pending through acceptance and review.
+After its normal merge, deploy the exact integrated source using only the established
+application build/service steps, preserving the provisioner/OS configuration. Verify
+runtime/build identity, private listener, browser, actual pause/grants and original-state
+preservation. Only then update completion/next-milestone documentation in a normal bounded
+follow-up PR. Deploy that final documentation revision and save its exact receipt outside
+Git, avoiding a commit that tries to contain its own future hash. No unrelated writer or
+validation failure is discarded.
+
+- 11:20 UTC: independent semantic review accepted fresh C08-1 B on `34779af`:
+  five workers, 15 actual completed executions, two retrieved public sources, linked
+  draft/final, 36 causal prior-contribution references and 28 same-execution evidence
+  checks. Maya/Scout revised their recommendations after concrete Turing/Grace challenges.
+  Known search failure retained; no ambiguous operation or new Task. Final owner-brief
+  grounding and private-source exclusion verified. All C08-1/C08-2 core gates now pass;
+  real engineering/Projects regressions and delivery remain. Current full Linux 211/211
+  and local 210/211 (one Linux-only skip). Real identity transport recovery passed.

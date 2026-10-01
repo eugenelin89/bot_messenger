@@ -531,7 +531,8 @@ For demos that exercise privileged Prompt 04 provisioning, use a stronger bounda
 
 The first group fixture uses `/var/lib/botsquad/validation/discussions-20261001-p08`
 and loopback 4311. Its separate confirmation company uses the `-confirmation` suffix
-and loopback 4312. Both inherit existing `botsquad` service confinement and configured
+and loopback 4312. The research confirmation uses the additional suffix
+`-research-confirmation` and loopback 4313. All inherit existing `botsquad` service confinement and configured
 runtime account, but use independent HQ IDs, data and workers. This is data isolation,
 not a new credential/Unix security boundary. Verify each fixture's HQ and workspace root
 before every sequence. Original failed attempts and fenced workers are retained; a fresh

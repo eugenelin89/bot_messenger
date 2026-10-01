@@ -1,0 +1,2579 @@
+{
+  "exported_at": "2026-10-01T11:17:26.059Z",
+  "assignment_proof": [],
+  "revoked_research_denials": [],
+  "retained_source_counts": [
+    {
+      "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "kind": "retrieved_page",
+      "n": 4
+    },
+    {
+      "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "kind": "search_snippet",
+      "n": 36
+    }
+  ],
+  "purpose": "Sanitized isolated Prompt 08 evidence; source bodies/private queries/provider reasoning omitted",
+  "fixture": {
+    "roster_fixture": true,
+    "data_root": "/var/lib/botsquad/validation/discussions-20261001-p08-research-confirmation",
+    "revision": "34779af89b141448c1b471b003d6ac00327216c1",
+    "setup_task_ids": [
+      "task_f444ffd6-9c94-49f4-b5aa-b3a03ac83b86",
+      "task_19da6b71-4f70-469f-b9e7-e8205fe101e6",
+      "task_420631a2-21cf-4027-a5f8-725934af3a98"
+    ],
+    "atlas": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+    "maya": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+    "turing": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+    "scout": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+    "linus": "worker_ed82dd07-3bb4-4903-81c3-bb45d9239d86",
+    "grace": "worker_8a47e8df-24ab-4c27-8429-05e356051513"
+  },
+  "workers": [
+    {
+      "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "display_name": "Atlas",
+      "role": "ceo"
+    },
+    {
+      "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+      "display_name": "Maya",
+      "role": "product_manager"
+    },
+    {
+      "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+      "display_name": "Turing",
+      "role": "cto"
+    },
+    {
+      "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+      "display_name": "Scout",
+      "role": "researcher"
+    },
+    {
+      "worker_id": "worker_ed82dd07-3bb4-4903-81c3-bb45d9239d86",
+      "display_name": "Linus",
+      "role": "engineer"
+    },
+    {
+      "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+      "display_name": "Grace",
+      "role": "reviewer"
+    }
+  ],
+  "groups": [
+    {
+      "group": {
+        "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+        "conversation_id": "conversation_11188284-226a-4c13-9b4e-d41a82d5af3c",
+        "topic": "Use public software onboarding/documentation patterns to recommend a practical first-use approach for a small offline-capable tool. Compare evidence and trade-offs.",
+        "desired_output": "A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.",
+        "constraints": "Atlas: choose an appropriate team from existing eligible workers. Only Atlas has an explicit public research grant. Investigate a material public question using your own bounded search queries; retrieve and share relevant evidence from at least two distinct public sources with the managed reader when available. Distinguish retrieved page content from search snippets. Other participants should inspect the shared exports and evaluate their relevance and limits. Discuss specific earlier contributions when clarification is worthwhile. Hypothetical product, one engineer-week, privacy and accessibility constraints. No implementation, publication, hiring or implied approvals.",
+        "created_by": "human",
+        "initiating_operation": "owner_atlas",
+        "eligible_workers": "[\"worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc\",\"worker_b0579799-3a20-4aa5-ae04-339f9d894fb7\",\"worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52\",\"worker_5f7a99a2-655c-417a-a9a5-d3ebea656966\",\"worker_ed82dd07-3bb4-4903-81c3-bb45d9239d86\",\"worker_8a47e8df-24ab-4c27-8429-05e356051513\"]",
+        "facilitator_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+        "synthesizer_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+        "state": "completed",
+        "scope_version": 2,
+        "revision": 16,
+        "evidence_revision": 3,
+        "round": 3,
+        "turns_used": 15,
+        "turn_limit": 24,
+        "round_limit": 3,
+        "extensions_used": 0,
+        "synthesis_used": 2,
+        "deadline": "2026-10-01T12:06:02.351Z",
+        "allow_incomplete": 1,
+        "allow_research": 1,
+        "error": null,
+        "created_at": "2026-10-01T11:06:00.678Z",
+        "started_at": "2026-10-01T11:06:02.351Z",
+        "updated_at": "2026-10-01T11:16:50.292Z"
+      },
+      "turns": [
+        {
+          "turn_id": "dturn_8ec69f28-594a-44ab-98c6-af88fcc8512b",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_17fe1a69-14c7-4769-8338-8990b2fd3889",
+          "kind": "organize",
+          "round": 1,
+          "prompt": "Select a suitable existing team within the charter and explain your plan. Report missing specialties; do not hire.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 1,
+          "seen_evidence_revision": 1,
+          "output": "{\"participant_ids\":[\"worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc\",\"worker_b0579799-3a20-4aa5-ae04-339f9d894fb7\",\"worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52\",\"worker_5f7a99a2-655c-417a-a9a5-d3ebea656966\",\"worker_8a47e8df-24ab-4c27-8429-05e356051513\"],\"synthesizer_id\":\"worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc\",\"body\":\"Use Atlas for bounded public evidence gathering and final synthesis; Maya for first-use product framing and alternatives; Turing for offline feasibility and one-engineer-week scope; Scout for source-quality scrutiny of shared exports without independent lookup; Grace for privacy/accessibility and evidence-limit challenge. The owner brief says a local video-analysis prototype with no usage analytics needs a first useful action without uploading personal media; examples, guided setup, and contextual help are candidates, not proven outcomes (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). Atlas will investigate public onboarding/documentation patterns with minimal queries and share retrieved evidence from at least two distinct public sources if the managed reader is available, distinguishing page text from snippets. Peers should inspect those exports and evaluate relevance/limits before synthesis. We lack a dedicated accessibility practitioner and actual user-testing/analytics evidence; no participant should imply approval or implementation authority.\"}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:02.354Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_87572762-e78d-4b1f-ad60-0529c879146f",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_751b45c4-66e8-4930-bb0e-d312b328ff0f",
+          "kind": "opening",
+          "round": 1,
+          "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 2,
+          "seen_evidence_revision": 1,
+          "output": "{\"body\":\"My opening view: make the first useful action an optional, bundled sample-video analysis with a short, plain-language result explanation; then offer a clearly labeled local-file path and task-specific contextual help. The owner brief establishes only a hypothetical local prototype, no analytics, and the need to avoid uploading personal media; it does not establish that the sample works, is representative, or improves completion (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). Compared with a mandatory guided setup, a sample-first path likely reduces permission/privacy friction and can fit a one-engineer-week constraint, but may teach an artificial workflow or consume bundle/storage budget. Compared with documentation-only onboarding, it demonstrates the value sooner, but requires an accessible sample and explanation. Keep setup guidance optional and contextual rather than a long tour; do not block direct local-file use. I agree with Atlas's division of work (cmessage_87572762-e78d-4b1f-ad60-0529c879146f): I will scrutinize the eventual shared public exports, not independently look up sources. Public patterns can justify a design hypothesis, not a causal efficacy claim; with no analytics or user testing, the decisive unanswered question is whether a privacy-preserving sample gives users a comprehensible, accessible first result within the actual prototype constraints. Accessibility concerns include keyboard navigation, captions/transcript or non-video equivalent for any sample, and text alternatives for analysis output; feasibility remains for Turing and Grace to assess.\",\"contribution_ids\":[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"],\"answers\":[],\"questions\":[{\"question\":\"For the one-engineer-week recommendation, should the first result be a bundled synthetic/sample asset or a no-media interactive example if bundled video size and accessibility are problematic?\",\"target_worker_id\":\"worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52\"}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:24.726Z",
+          "target_worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "status": "completed",
+          "response_message_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_bad10c29-147d-499c-b57b-f19c9ec8ec6a",
+          "kind": "opening",
+          "round": 1,
+          "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 2,
+          "seen_evidence_revision": 1,
+          "output": "{\"body\":\"For this hypothetical local video-analysis prototype, I would make the first screen a short, skippable choice: “Try a built-in sample” (default) or “Open a local video,” followed by one clearly named analysis action and a visible explanation of what remains on-device. The sample should be bundled/offline and non-personal, so the user can reach a meaningful result without uploading or selecting private media. This is a product hypothesis, not a measured conversion claim. Against a multi-step guided setup, sample-first reduces decisions and likely fits one engineer-week better, but may teach less about unusual real-world files; a compact contextual hint at the point of action can cover that gap. Against documentation-first, it exposes value sooner, but should retain a plainly accessible help path for troubleshooting. I would avoid a modal tour or mandatory account/network step because both obstruct the brief's privacy/offline first-use goal. Assumptions: a legally usable sample can be bundled, the prototype can run the same basic analysis on that sample, and an accessible keyboard/screen-reader path is feasible; if any fail, prefer a tiny illustrated local workflow plus an explicit local-file option rather than fake results. Following Atlas's framing in cmessage_87572762-e78d-4b1f-ad60-0529c879146f, public analogies should be treated as pattern evidence only; absent user tests or analytics, we cannot claim the sample path improves adoption. Useful question for the group: what is the smallest truthful “first useful result” this prototype can show offline, and does it expose privacy-sensitive derived data even from a sample?\",\"contribution_ids\":[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"],\"answers\":[],\"questions\":[{\"question\":\"What is the smallest truthful first useful result the prototype can show offline, without implying a real user's media is required?\",\"target_worker_id\":\"worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52\"}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:24.734Z",
+          "target_worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "status": "completed",
+          "response_message_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_aa0cfe54-c2b7-483f-8e7d-165265404995",
+          "kind": "opening",
+          "round": 1,
+          "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 3,
+          "seen_evidence_revision": 1,
+          "output": "{\"body\":\"I agree with Maya’s sample-or-local-file entry point (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554), conditionally. From a one-engineer-week feasibility perspective, the smallest truthful offline result is not a pre-rendered success screen: it is one existing analysis operation run on a bundled, licensed, non-personal clip, showing its ordinary output with a label that identifies the sample and a local-only processing statement that is actually true. Reusing the production path matters: a separate demo path would be cheaper to mock but risks teaching a workflow that fails on real files. If the existing analysis cannot reliably process such a clip, the fallback should be a concise local workflow explanation plus 'Open a local video,' not simulated analysis. A full guided wizard might better teach file constraints, but costs more states, failure paths and accessibility review than a one-screen choice plus point-of-action help; documentation-only is lower engineering effort but postpones the first useful action. I would scope the candidate to a single sample, one analysis action, a result explanation, and explicit paths to local file and help, with no account, upload, telemetry, or network dependency. This is a design hypothesis, not a measured outcome; the owner material gives no actual file-format, performance, packaging or accessibility test facts (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). The material challenge in Maya’s question is whether output from even a sample may contain sensitive inferences: choose a clip and analysis mode whose displayed result is non-sensitive, and state that derived results from user files remain local only if that is verified. Key unresolved feasibility check: can the same offline analysis path produce a comprehensible, non-sensitive result on a distributable sample within the one-week budget? Public source exports are not yet in my checkpoint, so this opening view does not claim support from them.\",\"contribution_ids\":[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\",\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"],\"answers\":[\"question_e7de5bbc-98bd-41ed-9319-6c17013d5616\"],\"questions\":[{\"question\":\"Can the actual analysis path run fully offline on one distributable, non-personal clip and yield a useful non-sensitive result without special demo code?\",\"target_worker_id\":null}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:24.741Z",
+          "target_worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "status": "completed",
+          "response_message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_6ab657f9-8672-4866-95bc-a7d7b86c0ad6",
+          "kind": "opening",
+          "round": 1,
+          "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 5,
+          "seen_evidence_revision": 1,
+          "output": "{\"body\":\"I support Maya’s optional sample-or-local-file entry (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554), with Turing’s important condition that the sample run through the ordinary offline analysis path rather than a staged result (cmessage_a5187120-3386-4d56-b792-bbe37b88e78a). The owner brief establishes a hypothetical local video-analysis prototype, no analytics, and a first useful action without uploading personal media; it does not establish actual sample availability, processing behavior, or measured onboarding effects (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). My reviewer preference is a single skippable first screen: try one distributable, non-personal bundled clip or choose a local file; show one real analysis result with a short explanation, and keep task-specific help reachable. For accessibility, avoid autoplay or a video-only instruction, ensure keyboard/screen-reader operability, and present the result as understandable text with a caption/transcript or equivalent for the sample. These are review criteria, not verified properties of the prototype. For privacy, avoid claiming that all data stay local until the file, derived outputs, logs, and any network behavior are checked; distinguish a sample result from a user's result. A mandatory wizard may explain edge cases better but adds states and can block direct use within one engineer-week. Documentation-only is cheap but postpones a meaningful first action; a separate mocked demo is cheap but risks misleading users. If a licensed, accessible clip cannot yield a comprehensible non-sensitive result on the real offline path, use a compact local-workflow explanation and direct file option rather than fabricate success. Public patterns, when Atlas shares them, should be treated as analogies, not evidence of causal uptake or accessibility. Useful question: what minimum observable result and privacy checks would make the sample path truthful and accessible enough to recommend, and who can validate them without analytics?\",\"contribution_ids\":[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"],\"answers\":[],\"questions\":[{\"question\":\"What minimum observable result and privacy checks would make the sample path truthful and accessible enough to recommend, given no analytics?\",\"target_worker_id\":null}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:24.748Z",
+          "target_worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "status": "completed",
+          "response_message_id": "cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_dce82170-c799-4b0d-9043-a68d272a7985",
+          "kind": "opening",
+          "round": 1,
+          "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 6,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"My opening recommendation is conditional: offer a skippable first screen with “Try a bundled sample” and “Open a local video,” then one real offline analysis action, a plain-language text result, and contextual help. The sample must use the same analysis path as user files, be distributable/non-personal, and not expose sensitive inference; otherwise prefer a short local-workflow explanation plus direct local-file entry, not a staged result. This refines Maya’s sample-first proposal (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554) with Turing’s truthful-path condition (cmessage_a5187120-3386-4d56-b792-bbe37b88e78a) and Grace’s privacy/accessibility checks (cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8). A mandatory wizard better covers file constraints but adds states and accessibility review inside one engineer-week; documentation-only is cheaper but delays the first useful action. Public pattern evidence is modest: the retrieved Audacity manual permits either recording or importing existing audio at the point of editing, and flags format dependencies (evidence_473ae49e-a373-4f42-9cac-eb868fdac293); Blender’s retrieved demo-files page offers ready-to-use assets while explicitly listing size, license, and version constraints (evidence_13454d73-254d-48c7-8cff-f72483436646). These are analogies for choice and sample qualification, not proof that bundling a video improves onboarding. Search snippets/provider summaries were not used as evidentiary support; both cited exports are retrieved page text, with unknown publication/observation times and bounded extraction omissions. The owner brief only establishes a hypothetical local prototype without analytics and a first useful action without uploading personal media (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). Unresolved: actual offline execution, clip rights/size/representativeness, keyboard/screen-reader and text-equivalent behavior, and whether derived outputs/logs/network traffic justify any local-only claim. Useful question: which single existing analysis output can be shown meaningfully and non-sensitively from a licensed sample, and can its offline/privacy behavior be verified within the week?\",\"contribution_ids\":[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[],\"questions\":[{\"question\":\"Which one existing analysis output can yield a meaningful, non-sensitive result from a distributable clip offline, and what minimum checks would verify it?\",\"target_worker_id\":null}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:06:24.753Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_0ca6a81a-c5d1-49d9-a192-d2dfad502b64",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_cb1ca6d9-c92d-48d2-acd6-e1fd983a380e",
+          "kind": "facilitate",
+          "round": 1,
+          "prompt": "Choose the material issue to clarify, one or two eligible speakers to address earlier contributions, or explain why evidence is sufficient for synthesis. Research only if worthwhile and permitted; do not wait on peers.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 7,
+          "seen_evidence_revision": 3,
+          "output": "{\"action\":\"discuss\",\"body\":\"The public pages support only analogies: Audacity documents a direct import/record choice and format caveat; Blender shows ready-to-use assets with size, license, and version caveats. The material unresolved decision is the one-week go/no-go boundary for a truthful, accessible bundled sample versus a direct-local-file fallback. Please test the recommendation against that boundary, not claim measured onboarding gains. This is discussion only, not an assignment.\",\"turns\":[{\"worker_id\":\"worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52\",\"contribution_ids\":[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"prompt\":\"What minimum observable offline result and feasibility checks would justify a bundled sample within one engineer-week? Compare a no-media/local-file fallback; inspect both public exports and state their limits. Address Scout's sample-versus-no-media question and Grace's privacy/accessibility challenge.\"},{\"worker_id\":\"worker_8a47e8df-24ab-4c27-8429-05e356051513\",\"contribution_ids\":[\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"prompt\":\"Review the minimum truthfulness, privacy and accessibility go/no-go criteria for the optional sample path versus direct-local-file fallback. Inspect both public exports and say what they do and do not establish. Respond to Turing's same-path condition and Atlas's conditional recommendation.\"}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:10:40.328Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_c8b773b5-cfcf-484c-86a8-0405fd141ec7",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_9f9ecc02-99f7-461f-b47d-fad8dbea4675",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_5293dd22-6c20-4f19-a21c-22133c044659",
+          "kind": "response",
+          "round": 2,
+          "prompt": "What minimum observable offline result and feasibility checks would justify a bundled sample within one engineer-week? Compare a no-media/local-file fallback; inspect both public exports and state their limits. Address Scout's sample-versus-no-media question and Grace's privacy/accessibility challenge.",
+          "contribution_ids": "[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 8,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"I would choose Scout’s optional bundled sample over a no-media introduction only if a short feasibility check clears hard gates (cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5); otherwise the no-media explanation plus direct local-file path is the honest one-week fallback. Minimum observable result: with networking unavailable, the same ordinary analysis action used for user files processes one distributable, non-personal clip and displays a correctly labelled, comprehensible text result, not a staged screenshot. The sample must remain optional, with direct file choice and task-specific help visible. Gates are: confirmed redistribution rights and manageable package size; supported media format and reliable completion on representative target hardware; non-sensitive content/output; and a usable keyboard/screen-reader path with equivalent text and no autoplay. For Grace’s challenge (cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8), a local-only/privacy claim is conditional on observing that media, derived output and logs do not leave the device or trigger hidden network calls during both sample and user-file flows. No analytics is not proof of no egress. These checks would require owner-authorized product validation later; discussion cannot assign it or assert it has passed. The fallback avoids licensing/size/accessibility burden of bundled media but cannot demonstrate analysis without the user selecting a file; a no-media mock result would be misleading. Audacity’s retrieved manual offers record-or-import as direct starting paths and warns about format dependencies (evidence_473ae49e-a373-4f42-9cac-eb868fdac293), supporting a visible alternate path and compatibility hint, not a claim about video onboarding. Blender’s retrieved demo page lists ready-to-use assets with a concrete 49 MB size, CC0 license and Blender-version condition (evidence_13454d73-254d-48c7-8cff-f72483436646), underscoring sample qualification rather than proving a clip belongs in this tool. Both are bounded retrieved page-text excerpts, not search snippets; retrieval was 2026-10-01, while publication/observation times for the pages are unknown, and most page content plus interactive behavior was not exported. The owner brief establishes only a hypothetical local prototype and no analytics (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). One engineer-week favors a conditional go/no-go over an elaborate tour, but there are no actual runtime, package, rights, privacy, accessibility or user-test measurements here. This refines my earlier conditional recommendation (cmessage_a5187120-3386-4d56-b792-bbe37b88e78a), not an approval.\",\"contribution_ids\":[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[\"question_3d7ce06a-ae13-4638-bc20-3b6731a3608f\",\"question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82\"],\"questions\":[]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:11:02.974Z",
+          "target_worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "status": "completed",
+          "response_message_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_83a8002f-718c-4cb2-b353-30eee23d96fd",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_b11311c3-5cb8-4a8a-b1a8-6a5eb5f22b38",
+          "kind": "response",
+          "round": 2,
+          "prompt": "Review the minimum truthfulness, privacy and accessibility go/no-go criteria for the optional sample path versus direct-local-file fallback. Inspect both public exports and say what they do and do not establish. Respond to Turing's same-path condition and Atlas's conditional recommendation.",
+          "contribution_ids": "[\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 8,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"Review of Atlas’s conditional recommendation (cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab): I retain it, but would make the go/no-go boundary explicit. Recommend the optional sample only if (1) rights permit bundling a non-personal clip of acceptable size; (2) an existing analysis action processes it with network disconnected through the same path and ordinary output as local user files, as Turing argued (cmessage_a5187120-3386-4d56-b792-bbe37b88e78a); (3) the visible result is meaningful, accurately labeled as a sample, and avoids sensitive inference; (4) the first screen, action, result and help are keyboard/screen-reader usable, with text equivalent for the sample and result, no autoplay or video-only directions; and (5) any statement about local processing has been checked against media, derived outputs, logs and network behavior. These answer the review question I raised in cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8 as proposed verification criteria, not claims that the hypothetical prototype passes. Failure or unknown status on a material criterion favors the direct-local-file path plus short local-workflow explanation and contextual help, not a simulated or pre-rendered 'success.' The fallback still needs honest file-format caveats, accessible controls and precise privacy language; it does not solve the unknown behavior of user-file analysis. The two exports are retrieved page excerpts, not search snippets: Audacity describes an immediate record-or-import choice and warns that some formats require FFmpeg (evidence_473ae49e-a373-4f42-9cac-eb868fdac293); Blender lists ready-to-use assets with a 49 MB size, CC0 license and version requirement (evidence_13454d73-254d-48c7-8cff-f72483436646). They support the value of a direct path and the need to qualify sample assets, respectively. Neither tests a bundled video-analysis sample, offline execution, privacy, accessibility or onboarding outcomes. Both excerpts are small bounded extractions from pages retrieved on 2026-10-01; publication/observation times are unknown, and omitted page content is unreviewed. The owner brief itself is hypothetical and says public analogies do not establish causal impact or accessibility (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). One engineer-week argues against a mandatory wizard or separate demo path, but does not guarantee this sample passes. Unresolved is whether any real existing output meets all five criteria; without that, this remains a recommendation to consider, not approval or an implementation assignment.\",\"contribution_ids\":[\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[\"question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82\"],\"questions\":[]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:11:02.984Z",
+          "target_worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "status": "completed",
+          "response_message_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_153dfd99-91c0-4bde-af1a-6b1b03b64dc9",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_ae533b78-6ca4-4484-8fc9-66d24141c487",
+          "kind": "facilitate",
+          "round": 2,
+          "prompt": "Choose the material issue to clarify, one or two eligible speakers to address earlier contributions, or explain why evidence is sufficient for synthesis. Research only if worthwhile and permitted; do not wait on peers.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 10,
+          "seen_evidence_revision": 3,
+          "output": "{\"action\":\"discuss\",\"body\":\"Turing and Grace converge on a conditional sample with explicit rights, offline same-path, meaningful/non-sensitive output, accessibility, and privacy gates; unknown or failed gates trigger a direct-local-file plus short-help fallback. I want one final product/research challenge before synthesis: whether this is still the best one-week prioritization given the public analogies' narrow scope. This is a request for discussion, not validation work or implementation.\",\"turns\":[{\"worker_id\":\"worker_b0579799-3a20-4aa5-ae04-339f9d894fb7\",\"contribution_ids\":[\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"prompt\":\"Reassess your sample-first proposal against the five hard gates and one engineer-week. Should the default recommendation be conditional sample or fallback-first? Compare wizard and documentation alternatives; inspect both public exports and their limits.\"},{\"worker_id\":\"worker_5f7a99a2-655c-417a-a9a5-d3ebea656966\",\"contribution_ids\":[\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"prompt\":\"Evaluate whether the Audacity and Blender excerpts actually support the recommendation or merely weak analogies. Respond to Turing's conditional answer to your sample-versus-no-media question and Grace's gate. Flag any overclaim or material unresolved concern before synthesis.\"}]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:11:43.790Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_d5860b40-37de-4412-8264-2e3fa34f0b85",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_2611d742-2b34-4727-8391-1f839811bbe7",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_e41883f0-088e-436e-adc6-07477ac9eea3",
+          "kind": "response",
+          "round": 3,
+          "prompt": "Reassess your sample-first proposal against the five hard gates and one engineer-week. Should the default recommendation be conditional sample or fallback-first? Compare wizard and documentation alternatives; inspect both public exports and their limits.",
+          "contribution_ids": "[\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 11,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"I revise my opening sample-first default (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554): for one engineer-week, the planning baseline should be fallback-first—direct local-file choice, a concise offline workflow explanation and contextual help—with an optional bundled sample only if all five gates are affirmatively met within the budget. This is not a claim that the sample is bad; it is a response to Turing's truthful same-path criterion (cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6) and Grace's explicit go/no-go criteria (cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81). The gates are redistribution rights/size; reliable supported-format processing offline on target hardware via the ordinary analysis path; a meaningful, labelled, non-sensitive result; keyboard/screen-reader access with text equivalent and no autoplay; and verified non-egress for media, derived output and logs before any local-only claim. Unknown is not passed. A sample that passes could better fulfill the owner brief's no-personal-media first action, but a simulated result would be misleading. The fallback is honest and smaller, though it cannot demonstrate actual analysis until the user supplies a file and still needs accessible controls, format caveats and precise privacy wording. A mandatory wizard may help with complex setup/compatibility but adds states, friction and accessibility burden; documentation-only is cheaper but leaves the first useful action to user initiative. The retrieved Audacity page excerpt documents a direct record/import choice and format dependency (evidence_473ae49e-a373-4f42-9cac-eb868fdac293); the retrieved Blender excerpt shows ready-to-use assets whose size, CC0 status and version requirement matter (evidence_13454d73-254d-48c7-8cff-f72483436646). These support design analogies, not efficacy, privacy or accessibility claims for video analysis. They are bounded page-text exports retrieved 2026-10-01, not search snippets; page publication/observation times are unknown and omitted portions unreviewed. The owner material describes only a hypothetical local prototype without analytics (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101); no actual product measurements establish that any gate passes. Thus the decision remains conditional and requires separate owner validation/approval, not implementation authority.\",\"contribution_ids\":[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[],\"questions\":[]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:12:04.761Z",
+          "target_worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "status": "completed",
+          "response_message_id": "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_bcdd9aec-40fb-4798-968b-85b8e19d064e",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_4c00de6c-4be6-47ac-ba1c-d48cce23a0bf",
+          "kind": "response",
+          "round": 3,
+          "prompt": "Evaluate whether the Audacity and Blender excerpts actually support the recommendation or merely weak analogies. Respond to Turing's conditional answer to your sample-versus-no-media question and Grace's gate. Flag any overclaim or material unresolved concern before synthesis.",
+          "contribution_ids": "[\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 11,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"The exports support narrow analogies, not the sample-first outcome claim. Audacity's retrieved page text shows two immediate ways to obtain editable input (record or import) and a format dependency; it supports keeping a direct-file path visible and giving a compatibility hint, but neither bundled examples nor video-analysis success (evidence_473ae49e-a373-4f42-9cac-eb868fdac293). Blender's retrieved page text shows ready-to-use asset bundles with stated size, CC0 license, and version requirement; it supports qualifying any example's redistribution/size/compatibility, but these are 3D assets, not evidence that a bundled clip is optimal or accessible (evidence_13454d73-254d-48c7-8cff-f72483436646). Both are small bounded retrieved-page excerpts from 2026-10-01, not snippets; publication and actual page-observation times are unknown, and omitted page/interaction content is unreviewed. I therefore narrow my opening sample preference (cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5) in light of Turing (cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6) and Grace (cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81): the practical one-week recommendation is a skippable choice with direct local-file use and contextual help as the dependable baseline; offer a bundled sample only if the same real offline analysis path, rights/size/format, meaningful non-sensitive output, keyboard/screen-reader text equivalent, and verified no-egress/privacy wording all clear. If any gate is unknown, use the short no-media workflow explanation rather than a simulated result. This changes priority from sample-first to conditional sample, fallback-ready because the owner brief supplies no actual runtime, rights, accessibility or user-test facts (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). A mandatory wizard could surface constraints but costs states/review; docs-only is cheap but cannot demonstrate value. Neither public page establishes measured onboarding gains. The material unresolved concern is whether any existing output can pass the gates within one engineer-week; that cannot be presumed or assigned in this discussion.\",\"contribution_ids\":[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[\"question_3d7ce06a-ae13-4638-bc20-3b6731a3608f\"],\"questions\":[]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:12:04.770Z",
+          "target_worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "status": "completed",
+          "response_message_id": "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_abdbb49c-8892-41c2-b186-d123d29c2783",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_7caed196-5886-4ead-a37a-f774a344f029",
+          "kind": "synthesis",
+          "round": 3,
+          "prompt": "Prepare a structured draft synthesis. Compare alternatives, cite supporting contributions and shared evidence, answer owner constraints, preserve dissent/risks and distinguish recommendation from owner decision or assignment.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 13,
+          "seen_evidence_revision": 3,
+          "output": "{\"synthesis_id\":\"synthesis_e7f70d0e-27bc-43bf-a019-ef85eb05486c\",\"state\":\"draft\"}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:13:29.818Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_20f8ab17-626c-43e6-8837-3a8931232536",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_b29e8450-c386-4353-8452-f77101f5849e",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_0d203119-4345-46fa-b31d-fc1c996ed3f6",
+          "kind": "review",
+          "round": 3,
+          "prompt": "Inspect the draft synthesis for a material omission or misrepresentation. Cite original contributions/evidence. State any unresolved dissent; do not impersonate absent approvals. One review only.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 14,
+          "seen_evidence_revision": 3,
+          "output": "{\"body\":\"I find no material misrepresentation in Atlas’s draft (cmessage_20f8ab17-626c-43e6-8837-3a8931232536). It correctly makes the direct-local-file plus concise help path the one-week baseline after Maya and Scout revised their sample-first preferences (cmessage_86d9a55e-4cbc-4616-90be-332ed8548013; cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093), and retains the five affirmative sample gates from my review (cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81). One nuance worth keeping prominent in the final wording: the baseline avoids *uploading* personal media but cannot demonstrate analysis without some local file, so it only partially satisfies a no-media first-result aspiration. The sample is the stronger first-result option only if all gates pass; unknown is not passed. The owner brief says only 'without uploading personal media,' not that users must never select a local file (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). The public sources remain narrow retrieved-page excerpts: Audacity’s direct record/import choice and FFmpeg caveat (evidence_473ae49e-a373-4f42-9cac-eb868fdac293) and Blender’s ready-to-use asset with size/license/version conditions (evidence_13454d73-254d-48c7-8cff-f72483436646). Neither establishes efficacy, privacy, accessibility or actual prototype feasibility. I see no continuing substantive dissent in the cited revisions, but no owner approval or absent specialist validation should be inferred. Unresolved checks are actual offline same-path operation, clip rights/size/output, assistive-technology behavior, and media/output/log/network handling before any local-only claim.\",\"contribution_ids\":[\"cmessage_20f8ab17-626c-43e6-8837-3a8931232536\",\"cmessage_86d9a55e-4cbc-4616-90be-332ed8548013\",\"cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"],\"evidence_ids\":[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"],\"answers\":[],\"questions\":[]}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:15:31.031Z",
+          "target_worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "status": "completed",
+          "response_message_id": "cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059",
+          "error": null
+        },
+        {
+          "turn_id": "dturn_b27ad32b-8cc9-4943-a9f1-bb91c8f7d15b",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "request_id": "reply_38351eb5-690a-4ed7-9bf9-f44d304b15b7",
+          "kind": "finalize",
+          "round": 3,
+          "prompt": "Finalize the synthesis after its bounded review. Address material omissions, owner constraints and unresolved concerns; retain genuine disagreement and source limitations.",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 15,
+          "seen_evidence_revision": 3,
+          "output": "{\"synthesis_id\":\"synthesis_bf130459-893c-4562-b4d1-fedeb64e5960\",\"state\":\"final\"}",
+          "advanced": 1,
+          "created_at": "2026-10-01T11:15:56.253Z",
+          "target_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "status": "completed",
+          "response_message_id": "cmessage_f9f9c876-46c4-4871-a81f-958321c41b4f",
+          "error": null
+        }
+      ],
+      "executions": [
+        {
+          "execution_id": "execution_dacdefd5-cb4d-47ef-870c-e807d1fcd543",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f724-9191-7dd2-aaba-144e2909a0a5",
+          "status": "completed",
+          "started_at": "2026-10-01T11:06:02.415Z",
+          "finished_at": "2026-10-01T11:06:24.651Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_17fe1a69-14c7-4769-8338-8990b2fd3889",
+          "session_id": "session_b90ee190-1781-45fe-8a84-6d8811513b18",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_fa7af950-8d6e-4d98-ac7f-3bb975524e1f",
+          "task_id": null,
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "runtime_reference": "01a0f724-e97a-7e53-a7eb-c4ab09969fef",
+          "status": "completed",
+          "started_at": "2026-10-01T11:06:24.850Z",
+          "finished_at": "2026-10-01T11:07:26.054Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_751b45c4-66e8-4930-bb0e-d312b328ff0f",
+          "session_id": "session_1d9d5d62-03ff-4633-ba5e-1b48ca528dc4",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_c2a1481f-9d04-49a2-8dfa-ebc8514b015c",
+          "task_id": null,
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "runtime_reference": "01a0f724-eb3b-7261-a1f9-4804451274de",
+          "status": "completed",
+          "started_at": "2026-10-01T11:06:25.309Z",
+          "finished_at": "2026-10-01T11:06:49.889Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_bad10c29-147d-499c-b57b-f19c9ec8ec6a",
+          "session_id": "session_e7db4859-538e-41c0-a60d-a7bf343c4749",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "task_id": null,
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "runtime_reference": "01a0f725-4b00-72e2-8b9f-d5d4b939f47e",
+          "status": "completed",
+          "started_at": "2026-10-01T11:06:49.980Z",
+          "finished_at": "2026-10-01T11:07:13.815Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_aa0cfe54-c2b7-483f-8e7d-165265404995",
+          "session_id": "session_e729026f-50b2-4177-a925-da637f8765d4",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_4835bbc2-fa5e-4f2b-a364-0e112d8bcab9",
+          "task_id": null,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "runtime_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "status": "completed",
+          "started_at": "2026-10-01T11:07:13.918Z",
+          "finished_at": "2026-10-01T11:07:34.755Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_6ab657f9-8672-4866-95bc-a7d7b86c0ad6",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f725-d55b-7672-a143-e108b24bc10c",
+          "status": "completed",
+          "started_at": "2026-10-01T11:07:26.104Z",
+          "finished_at": "2026-10-01T11:10:40.272Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_dce82170-c799-4b0d-9043-a68d272a7985",
+          "session_id": "session_3ae2ed0d-26a4-42ab-9c5f-fda0bd96b1fb",
+          "generation": 2,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f728-cc64-77b2-b1c5-d38e89fcb2a8",
+          "status": "completed",
+          "started_at": "2026-10-01T11:10:40.373Z",
+          "finished_at": "2026-10-01T11:11:02.933Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_cb1ca6d9-c92d-48d2-acd6-e1fd983a380e",
+          "session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "generation": 3,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "task_id": null,
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "runtime_reference": "01a0f725-4b00-72e2-8b9f-d5d4b939f47e",
+          "status": "completed",
+          "started_at": "2026-10-01T11:11:03.019Z",
+          "finished_at": "2026-10-01T11:11:31.377Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_5293dd22-6c20-4f19-a21c-22133c044659",
+          "session_id": "session_e729026f-50b2-4177-a925-da637f8765d4",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "task_id": null,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "runtime_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "status": "completed",
+          "started_at": "2026-10-01T11:11:03.256Z",
+          "finished_at": "2026-10-01T11:11:43.725Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_b11311c3-5cb8-4a8a-b1a8-6a5eb5f22b38",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f728-cc64-77b2-b1c5-d38e89fcb2a8",
+          "status": "completed",
+          "started_at": "2026-10-01T11:11:43.844Z",
+          "finished_at": "2026-10-01T11:12:04.736Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_ae533b78-6ca4-4484-8fc9-66d24141c487",
+          "session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "generation": 3,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "task_id": null,
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "runtime_reference": "01a0f724-eb3b-7261-a1f9-4804451274de",
+          "status": "completed",
+          "started_at": "2026-10-01T11:12:04.807Z",
+          "finished_at": "2026-10-01T11:12:28.355Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_e41883f0-088e-436e-adc6-07477ac9eea3",
+          "session_id": "session_e7db4859-538e-41c0-a60d-a7bf343c4749",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "task_id": null,
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "runtime_reference": "01a0f724-e97a-7e53-a7eb-c4ab09969fef",
+          "status": "completed",
+          "started_at": "2026-10-01T11:12:05.018Z",
+          "finished_at": "2026-10-01T11:13:29.785Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_4c00de6c-4be6-47ac-ba1c-d48cce23a0bf",
+          "session_id": "session_1d9d5d62-03ff-4633-ba5e-1b48ca528dc4",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f72b-61fc-76a0-a51d-cf422603eece",
+          "status": "completed",
+          "started_at": "2026-10-01T11:13:29.867Z",
+          "finished_at": "2026-10-01T11:15:30.981Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_7caed196-5886-4ead-a37a-f774a344f029",
+          "session_id": "session_ee3148a6-b4ed-45ed-9b20-89133566808f",
+          "generation": 4,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "task_id": null,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "runtime_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "status": "completed",
+          "started_at": "2026-10-01T11:15:31.072Z",
+          "finished_at": "2026-10-01T11:15:56.226Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_0d203119-4345-46fa-b31d-fc1c996ed3f6",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "summary_omitted": false
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "task_id": null,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "runtime_reference": "01a0f72b-61fc-76a0-a51d-cf422603eece",
+          "status": "completed",
+          "started_at": "2026-10-01T11:15:56.304Z",
+          "finished_at": "2026-10-01T11:17:02.282Z",
+          "error": null,
+          "interruption_reason": null,
+          "model": "gpt-6-sol",
+          "reasoning_effort": "low",
+          "execution_priority": "normal",
+          "runtime_version": "codex-cli 0.157.0",
+          "runtime_adapter": "codex-app-server",
+          "provenance_status": "recorded",
+          "origin": "conversation",
+          "request_id": "reply_38351eb5-690a-4ed7-9bf9-f44d304b15b7",
+          "session_id": "session_ee3148a6-b4ed-45ed-9b20-89133566808f",
+          "generation": 4,
+          "summary_omitted": false
+        }
+      ],
+      "sessions": [
+        {
+          "session_id": "session_b90ee190-1781-45fe-8a84-6d8811513b18",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "generation": 1,
+          "previous_session_id": null,
+          "runtime_reference": "01a0f724-9191-7dd2-aaba-144e2909a0a5",
+          "state": "superseded",
+          "reason": "initial_context",
+          "scope_version": 1,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 1,
+          "unresolved": 0,
+          "handoff_hash": "9e000a92f604c32783a6661914769574f083d0d7fc365046fec451d3c1a7f1e6"
+        },
+        {
+          "session_id": "session_1d9d5d62-03ff-4633-ba5e-1b48ca528dc4",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "generation": 1,
+          "previous_session_id": null,
+          "runtime_reference": "01a0f724-e97a-7e53-a7eb-c4ab09969fef",
+          "state": "active",
+          "reason": "initial_context",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 2,
+          "unresolved": 0,
+          "handoff_hash": "4b2e4b773bd416b06a9285a7a39caf8a179c1c84799d71e5aca4b2b33bdb68a4"
+        },
+        {
+          "session_id": "session_e7db4859-538e-41c0-a60d-a7bf343c4749",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "generation": 1,
+          "previous_session_id": null,
+          "runtime_reference": "01a0f724-eb3b-7261-a1f9-4804451274de",
+          "state": "active",
+          "reason": "initial_context",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 2,
+          "unresolved": 0,
+          "handoff_hash": "d6e2a5cb5e456f3a7145ea69fd9e16c1ef0772c9a1716f9e91d3be13e994bba3"
+        },
+        {
+          "session_id": "session_e729026f-50b2-4177-a925-da637f8765d4",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "generation": 1,
+          "previous_session_id": null,
+          "runtime_reference": "01a0f725-4b00-72e2-8b9f-d5d4b939f47e",
+          "state": "active",
+          "reason": "initial_context",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 2,
+          "unresolved": 0,
+          "handoff_hash": "93469ad9eb7986a2018e513a44cee5c9947ca62114dda93dc219e9adc351874e"
+        },
+        {
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "generation": 1,
+          "previous_session_id": null,
+          "runtime_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "state": "active",
+          "reason": "initial_context",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 3,
+          "unresolved": 0,
+          "handoff_hash": "77b1f8d07af324567307d8074d6a03c351af4cef40d4054b5c87618ab806c398"
+        },
+        {
+          "session_id": "session_3ae2ed0d-26a4-42ab-9c5f-fda0bd96b1fb",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "generation": 2,
+          "previous_session_id": "session_b90ee190-1781-45fe-8a84-6d8811513b18",
+          "runtime_reference": "01a0f725-d55b-7672-a143-e108b24bc10c",
+          "state": "superseded",
+          "reason": "scope_changed",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 1,
+          "unresolved": 0,
+          "handoff_hash": "ffb7176f7266b446feecbdf43fe67c52ab41440e53b2c15e3521311303f282d6"
+        },
+        {
+          "session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "generation": 3,
+          "previous_session_id": "session_3ae2ed0d-26a4-42ab-9c5f-fda0bd96b1fb",
+          "runtime_reference": "01a0f728-cc64-77b2-b1c5-d38e89fcb2a8",
+          "state": "superseded",
+          "reason": "conservative_context_limit",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 2,
+          "unresolved": 0,
+          "handoff_hash": "7db9170a98277dfd5289508e0a2c3d1deed72bb2c3326531bc99824a17d1f0fe"
+        },
+        {
+          "session_id": "session_ee3148a6-b4ed-45ed-9b20-89133566808f",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "generation": 4,
+          "previous_session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "runtime_reference": "01a0f72b-61fc-76a0-a51d-cf422603eece",
+          "state": "active",
+          "reason": "conservative_context_limit",
+          "scope_version": 2,
+          "tool_schema": "discussion-v1",
+          "completed_turns": 2,
+          "unresolved": 0,
+          "handoff_hash": "e0d5a1c988dce43d9f3480a434c0df1e9db66e2b0cd4ccdd632cb83637cd1fad"
+        }
+      ],
+      "contributions": [
+        {
+          "message_id": "cmessage_c56bac25-372e-48bb-b364-e05683753707",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 1,
+          "kind": "charter",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 0,
+          "seen_evidence_revision": 0,
+          "worker_id": null,
+          "execution_id": null,
+          "body_excerpt": "Use public software onboarding/documentation patterns to recommend a practical first-use approach for a small offline-capable tool. Compare evidence and trade-offs.\nDesired output: A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.\nConstrain",
+          "omitted_chars": 681
+        },
+        {
+          "message_id": "cmessage_87572762-e78d-4b1f-ad60-0529c879146f",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 2,
+          "kind": "organize",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 1,
+          "seen_evidence_revision": 1,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_dacdefd5-cb4d-47ef-870c-e807d1fcd543",
+          "body_excerpt": "Use Atlas for bounded public evidence gathering and final synthesis; Maya for first-use product framing and alternatives; Turing for offline feasibility and one-engineer-week scope; Scout for source-quality scrutiny of shared exports without independent lookup; Grace for privacy/accessibility and evidence-limit challenge. The owner brief says a local video-analysis prototype with no usage analytic",
+          "omitted_chars": 664
+        },
+        {
+          "message_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 3,
+          "kind": "opening",
+          "contribution_ids": "[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"]",
+          "seen_revision": 2,
+          "seen_evidence_revision": 1,
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "execution_id": "execution_c2a1481f-9d04-49a2-8dfa-ebc8514b015c",
+          "body_excerpt": "For this hypothetical local video-analysis prototype, I would make the first screen a short, skippable choice: “Try a built-in sample” (default) or “Open a local video,” followed by one clearly named analysis action and a visible explanation of what remains on-device. The sample should be bundled/offline and non-personal, so the user can reach a meaningful result without uploading or selecting pri",
+          "omitted_chars": 1248
+        },
+        {
+          "message_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 4,
+          "kind": "opening",
+          "contribution_ids": "[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"]",
+          "seen_revision": 2,
+          "seen_evidence_revision": 1,
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "execution_id": "execution_fa7af950-8d6e-4d98-ac7f-3bb975524e1f",
+          "body_excerpt": "My opening view: make the first useful action an optional, bundled sample-video analysis with a short, plain-language result explanation; then offer a clearly labeled local-file path and task-specific contextual help. The owner brief establishes only a hypothetical local prototype, no analytics, and the need to avoid uploading personal media; it does not establish that the sample works, is represe",
+          "omitted_chars": 1196
+        },
+        {
+          "message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 5,
+          "kind": "opening",
+          "contribution_ids": "[\"cmessage_87572762-e78d-4b1f-ad60-0529c879146f\",\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"]",
+          "seen_revision": 3,
+          "seen_evidence_revision": 1,
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "body_excerpt": "I agree with Maya’s sample-or-local-file entry point (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554), conditionally. From a one-engineer-week feasibility perspective, the smallest truthful offline result is not a pre-rendered success screen: it is one existing analysis operation run on a bundled, licensed, non-personal clip, showing its ordinary output with a label that identifies the sample and a",
+          "omitted_chars": 1568
+        },
+        {
+          "message_id": "cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 6,
+          "kind": "opening",
+          "contribution_ids": "[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\"]",
+          "seen_revision": 5,
+          "seen_evidence_revision": 1,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "execution_id": "execution_4835bbc2-fa5e-4f2b-a364-0e112d8bcab9",
+          "body_excerpt": "I support Maya’s optional sample-or-local-file entry (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554), with Turing’s important condition that the sample run through the ordinary offline analysis path rather than a staged result (cmessage_a5187120-3386-4d56-b792-bbe37b88e78a). The owner brief establishes a hypothetical local video-analysis prototype, no analytics, and a first useful action without u",
+          "omitted_chars": 1612
+        },
+        {
+          "message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 7,
+          "kind": "opening",
+          "contribution_ids": "[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 6,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "body_excerpt": "My opening recommendation is conditional: offer a skippable first screen with “Try a bundled sample” and “Open a local video,” then one real offline analysis action, a plain-language text result, and contextual help. The sample must use the same analysis path as user files, be distributable/non-personal, and not expose sensitive inference; otherwise prefer a short local-workflow explanation plus d",
+          "omitted_chars": 1783
+        },
+        {
+          "message_id": "cmessage_c8b773b5-cfcf-484c-86a8-0405fd141ec7",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 8,
+          "kind": "facilitate",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 7,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "body_excerpt": "The public pages support only analogies: Audacity documents a direct import/record choice and format caveat; Blender shows ready-to-use assets with size, license, and version caveats. The material unresolved decision is the one-week go/no-go boundary for a truthful, accessible bundled sample versus a direct-local-file fallback. Please test the recommendation against that boundary, not claim measur",
+          "omitted_chars": 64
+        },
+        {
+          "message_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 9,
+          "kind": "response",
+          "contribution_ids": "[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 8,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "body_excerpt": "I would choose Scout’s optional bundled sample over a no-media introduction only if a short feasibility check clears hard gates (cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5); otherwise the no-media explanation plus direct local-file path is the honest one-week fallback. Minimum observable result: with networking unavailable, the same ordinary analysis action used for user files processes one dis",
+          "omitted_chars": 2237
+        },
+        {
+          "message_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 10,
+          "kind": "response",
+          "contribution_ids": "[\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\",\"cmessage_a5187120-3386-4d56-b792-bbe37b88e78a\",\"cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 8,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "body_excerpt": "Review of Atlas’s conditional recommendation (cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab): I retain it, but would make the go/no-go boundary explicit. Recommend the optional sample only if (1) rights permit bundling a non-personal clip of acceptable size; (2) an existing analysis action processes it with network disconnected through the same path and ordinary output as local user files, as Turi",
+          "omitted_chars": 2152
+        },
+        {
+          "message_id": "cmessage_d5860b40-37de-4412-8264-2e3fa34f0b85",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 11,
+          "kind": "facilitate",
+          "contribution_ids": "[]",
+          "evidence_ids": "[]",
+          "seen_revision": 10,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "body_excerpt": "Turing and Grace converge on a conditional sample with explicit rights, offline same-path, meaningful/non-sensitive output, accessibility, and privacy gates; unknown or failed gates trigger a direct-local-file plus short-help fallback. I want one final product/research challenge before synthesis: whether this is still the best one-week prioritization given the public analogies' narrow scope. This ",
+          "omitted_chars": 67
+        },
+        {
+          "message_id": "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 12,
+          "kind": "response",
+          "contribution_ids": "[\"cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 11,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "body_excerpt": "I revise my opening sample-first default (cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554): for one engineer-week, the planning baseline should be fallback-first—direct local-file choice, a concise offline workflow explanation and contextual help—with an optional bundled sample only if all five gates are affirmatively met within the budget. This is not a claim that the sample is bad; it is a respons",
+          "omitted_chars": 1942
+        },
+        {
+          "message_id": "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 13,
+          "kind": "response",
+          "contribution_ids": "[\"cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 11,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "body_excerpt": "The exports support narrow analogies, not the sample-first outcome claim. Audacity's retrieved page text shows two immediate ways to obtain editable input (record or import) and a format dependency; it supports keeping a direct-file path visible and giving a compatibility hint, but neither bundled examples nor video-analysis success (evidence_473ae49e-a373-4f42-9cac-eb868fdac293). Blender's retrie",
+          "omitted_chars": 1725
+        },
+        {
+          "message_id": "cmessage_20f8ab17-626c-43e6-8837-3a8931232536",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 14,
+          "kind": "synthesis",
+          "contribution_ids": "[\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\",\"cmessage_86d9a55e-4cbc-4616-90be-332ed8548013\",\"cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 13,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "body_excerpt": "Draft synthesis saved: synthesis_e7f70d0e-27bc-43bf-a019-ef85eb05486c\nProposed one-engineer-week baseline: a skippable first-use choice centered on opening a local video, with a concise offline-workflow explanation, supported-format caveat, and contextual help. Add an optional, clearly labelled bundled sample only if five material gates are affirmatively met within budget; unknown means use the ba",
+          "omitted_chars": 500
+        },
+        {
+          "message_id": "cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 15,
+          "kind": "review",
+          "contribution_ids": "[\"cmessage_20f8ab17-626c-43e6-8837-3a8931232536\",\"cmessage_86d9a55e-4cbc-4616-90be-332ed8548013\",\"cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 14,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "body_excerpt": "I find no material misrepresentation in Atlas’s draft (cmessage_20f8ab17-626c-43e6-8837-3a8931232536). It correctly makes the direct-local-file plus concise help path the one-week baseline after Maya and Scout revised their sample-first preferences (cmessage_86d9a55e-4cbc-4616-90be-332ed8548013; cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093), and retains the five affirmative sample gates from my r",
+          "omitted_chars": 1220
+        },
+        {
+          "message_id": "cmessage_f9f9c876-46c4-4871-a81f-958321c41b4f",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "revision": 16,
+          "kind": "finalize",
+          "contribution_ids": "[\"cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab\",\"cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6\",\"cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81\",\"cmessage_86d9a55e-4cbc-4616-90be-332ed8548013\",\"cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093\",\"cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059\"]",
+          "evidence_ids": "[\"evidence_b09e9e73-72e5-488e-a21e-313b3d40a101\",\"evidence_473ae49e-a373-4f42-9cac-eb868fdac293\",\"evidence_13454d73-254d-48c7-8cff-f72483436646\"]",
+          "seen_revision": 15,
+          "seen_evidence_revision": 3,
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "body_excerpt": "Final synthesis saved: synthesis_bf130459-893c-4562-b4d1-fedeb64e5960\nFinal proposed planning baseline for one engineer-week: a skippable first-use route to open a local video, with concise offline-workflow explanation, format caveat and contextual help. This avoids uploading personal media, but cannot demonstrate analysis until a user supplies a local file; the brief does not prohibit local selec",
+          "omitted_chars": 652
+        }
+      ],
+      "citation_delivery_proof": [
+        {
+          "message_id": "cmessage_87572762-e78d-4b1f-ad60-0529c879146f",
+          "execution_id": "execution_dacdefd5-cb4d-47ef-870c-e807d1fcd543",
+          "policy": "full_excerpt_delivery",
+          "checks": []
+        },
+        {
+          "message_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "execution_id": "execution_c2a1481f-9d04-49a2-8dfa-ebc8514b015c",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-d4fa26e5-31b8-4bfa-98c7-af18c534a952"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "execution_id": "execution_fa7af950-8d6e-4d98-ac7f-3bb975524e1f",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-88ef9d0d-5414-424a-ab4c-5009d7ae32bb"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a",
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-aada57de-f36d-4929-ae96-d44fab8ddb10"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8",
+          "execution_id": "execution_4835bbc2-fa5e-4f2b-a364-0e112d8bcab9",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-3d4d7240-b8b2-46b7-b70f-661d6adab9c1"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-027a75b4-8231-48b8-8dcc-514b58ad99ea"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-aa0c871f-83bd-490a-aecc-5df51bcf6024"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-5b506a89-b4f8-4a39-a677-c64fdeeba01b"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_c8b773b5-cfcf-484c-86a8-0405fd141ec7",
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "policy": "full_excerpt_delivery",
+          "checks": []
+        },
+        {
+          "message_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-96c881eb-a756-4efa-8a15-e2138474938c"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-c0ee9ac8-3691-45df-9c11-3305d5145db9"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-ddf364fa-1144-4aeb-9235-19d63cdd2176"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-bb1826b7-5a01-417e-a381-f5ca3af0de01"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-dea62a01-98d7-401e-b371-7583c0e8d4b5"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-6a2d961a-5052-4de8-ad1b-081f8393ab9d"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_d5860b40-37de-4412-8264-2e3fa34f0b85",
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "policy": "full_excerpt_delivery",
+          "checks": []
+        },
+        {
+          "message_id": "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-18b15ffa-5b1d-4a9a-b92e-3b0e550a1dbb"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-075e6e37-2df6-42c8-b52b-9aea115b69de"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-77dbd617-3c3a-4b21-909e-07fef87b4392"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093",
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-583677be-d212-41a8-9caa-cd510caae949"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-b59a3e34-7e2c-4695-89d4-ae5a14f12942"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-1982abc0-ad65-415b-a1fd-85c18db25690"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_20f8ab17-626c-43e6-8837-3a8931232536",
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-247d901f-c2aa-4985-9c53-be49d1088544"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-cf0df9d6-2365-4835-bc00-74f4374525fb"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-2cc85d3c-bb22-41ca-9112-9496b6d93303"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059",
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-37b6eede-483b-479e-8177-54b9841c83d5"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-ef32daeb-2358-4902-88ee-0715d1a43a89"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-401ca17b-179b-4842-873f-9b46ebd56494"
+            }
+          ]
+        },
+        {
+          "message_id": "cmessage_f9f9c876-46c4-4871-a81f-958321c41b4f",
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "policy": "full_excerpt_delivery",
+          "checks": [
+            {
+              "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "delivered_in_execution": true,
+              "call_id": "exec-f94a1653-38b4-486d-be1c-fd90edfc5c7e"
+            },
+            {
+              "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "delivered_in_execution": true,
+              "call_id": "exec-51cf3af6-e463-4b91-af1e-c053178aa4fb"
+            },
+            {
+              "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+              "delivered_in_execution": true,
+              "call_id": "exec-bb497f33-a45b-48dd-ba32-835d7ffda077"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "kind": "owner_material",
+          "title": "Authorized hypothetical charter material",
+          "metadata": {
+            "supplied_at": "2026-10-01T11:06:01.690Z",
+            "verification": "Owner-supplied material; not independently verified",
+            "omissions": "Only explicitly supplied content",
+            "export_authority": "explicit_owner_selection",
+            "audience_worker_ids": [
+              "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+              "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+              "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+              "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+              "worker_ed82dd07-3bb4-4903-81c3-bb45d9239d86",
+              "worker_8a47e8df-24ab-4c27-8429-05e356051513"
+            ],
+            "audience_scope_version": 1
+          },
+          "sha256": "c1eae1f58c2bb20683f6fdacb564fd266f81d998dd72d5b4439cd0ec6576bfcb",
+          "source_id": null,
+          "revision": 1,
+          "actor": "human",
+          "execution_id": null,
+          "created_at": "2026-10-01T11:06:01.692Z",
+          "retained_chars": 329
+        },
+        {
+          "evidence_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "kind": "public_source",
+          "title": "Basic audio editing | Audacity Manual",
+          "metadata": {
+            "source_id": "source_648856a1-1cab-43a2-b50d-09c0237a9ea0",
+            "url": "https://www.audacityteam.org/manual/getting-started/basic-audio-editing/",
+            "kind": "retrieved_page",
+            "retrieved_at": "2026-10-01T11:09:59.652Z",
+            "published_at": null,
+            "observed_at": null,
+            "freshness": "live_response",
+            "source_sha256": "f0b1eb25c68c337e30bd3400c54bbdbf1749acf6543d4acf98122c48f9a6247d",
+            "omissions": "Bounded static text extraction; scripts, images and interactive content are not read.; shared excerpt 350/10343 retained characters; private query/operation/history excluded"
+          },
+          "sha256": "98afb94d8dab65e08af59719bf04f3983ebfa7570a133e453b344bcb8ce8e57c",
+          "source_id": "source_648856a1-1cab-43a2-b50d-09c0237a9ea0",
+          "revision": 2,
+          "actor": "principal_9653dadc-268a-489e-beef-d9569a21c368",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "created_at": "2026-10-01T11:10:08.210Z",
+          "retained_chars": 350
+        },
+        {
+          "evidence_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "kind": "public_source",
+          "title": "  Demo Files &mdash; Blender",
+          "metadata": {
+            "source_id": "source_8bb5614f-fad6-4f35-8ccd-5f539edc3a70",
+            "url": "https://www.blender.org/download/demo-files/",
+            "kind": "retrieved_page",
+            "retrieved_at": "2026-10-01T11:10:00.286Z",
+            "published_at": null,
+            "observed_at": null,
+            "freshness": "live_response",
+            "source_sha256": "448722b9e946cc76f8a1fb3b4689d210eace2edbca3ca6e520a5d9c0efe47ad8",
+            "omissions": "Bounded static text extraction; scripts, images and interactive content are not read.; shared excerpt 254/10912 retained characters; private query/operation/history excluded"
+          },
+          "sha256": "716aa5d7c4a65ed02dfbbd6a3d2773de02fc4d05153413e506f55f203cccefa5",
+          "source_id": "source_8bb5614f-fad6-4f35-8ccd-5f539edc3a70",
+          "revision": 3,
+          "actor": "principal_9653dadc-268a-489e-beef-d9569a21c368",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "created_at": "2026-10-01T11:10:08.328Z",
+          "retained_chars": 254
+        }
+      ],
+      "syntheses": [
+        {
+          "synthesis_id": "synthesis_e7f70d0e-27bc-43bf-a019-ef85eb05486c",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "version": 1,
+          "previous_id": null,
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "state": "draft",
+          "transcript_revision": 13,
+          "evidence_revision": 3,
+          "scope_version": 2,
+          "content": {
+            "question": "Use public software onboarding/documentation patterns to recommend a practical first-use approach for a small offline-capable tool. Compare evidence and trade-offs.",
+            "desired_output": "A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.",
+            "constraints": "Atlas: choose an appropriate team from existing eligible workers. Only Atlas has an explicit public research grant. Investigate a material public question using your own bounded search queries; retrieve and share relevant evidence from at least two distinct public sources with the managed reader when available. Distinguish retrieved page content from search snippets. Other participants should inspect the shared exports and evaluate their relevance and limits. Discuss specific earlier contributions when clarification is worthwhile. Hypothetical product, one engineer-week, privacy and accessibility constraints. No implementation, publication, hiring or implied approvals.",
+            "recommendation": "Proposed one-engineer-week baseline: a skippable first-use choice centered on opening a local video, with a concise offline-workflow explanation, supported-format caveat, and contextual help. Add an optional, clearly labelled bundled sample only if five material gates are affirmatively met within budget; unknown means use the baseline, never a simulated success. This is discussion, not owner approval or an implementation assignment.",
+            "alternatives": "Conditional bundled sample can demonstrate a first real result without personal media, but adds rights, package-size, compatibility, accessibility and privacy verification. Mandatory guided wizard could surface setup constraints but adds friction, states and review cost. Documentation-only is cheapest but postpones the first useful action. A pre-rendered demo would be easier but misleading if presented as real analysis.",
+            "supporting_findings": "Owner brief: hypothetical local video-analysis prototype, no analytics, first useful action without uploading personal media (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). Audacity's retrieved manual excerpt shows direct record/import routes and a format dependency (evidence_473ae49e-a373-4f42-9cac-eb868fdac293); Blender's retrieved demo-files excerpt lists ready-to-use assets with 49 MB size, CC0 license and version requirement (evidence_13454d73-254d-48c7-8cff-f72483436646). These are narrow design analogies, not proof of video onboarding efficacy. Turing specifies real same-path offline analysis rather than staged output (cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6); Grace makes the five go/no-go criteria explicit (cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81). Maya and Scout revise sample-first toward fallback-first after those challenges (cmessage_86d9a55e-4cbc-4616-90be-332ed8548013; cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093).",
+            "challenges_addressed": "A sample qualifies only with confirmed redistribution rights/manageable size; supported-format reliable processing on representative hardware while disconnected via the ordinary user-file path; a meaningful, non-sensitive and accurately labelled text result; keyboard/screen-reader usable first screen, action, result and help with text equivalent and no autoplay; and verification of media, derived-output, log and network behavior before any local-only claim. No analytics alone does not prove no egress. The fallback remains useful as an honest path but cannot demonstrate actual analysis until a file is supplied and still needs accessibility, compatibility and privacy care.",
+            "dissent_and_risks": "No substantive continuing disagreement after Maya and Scout narrowed their initial sample preference; the sample's potential no-personal-media value remains, but gates may make it infeasible in one week. The fallback is weaker as a demonstration. No claim that hypothetical product behavior passes any gate. Public analogies do not establish causal impact or accessibility.",
+            "missing_evidence_and_confidence": "Moderate confidence in the planning priority, low confidence that a sample is feasible or improves outcomes. The owner brief supplies no runtime, licensed clip, package budget, target hardware, output, accessibility or user-test measurements. Both public sources are small bounded retrieved-page excerpts from 2026-10-01, not search snippets; page publication and actual observation times are unknown, and omitted page/interaction content is unreviewed.",
+            "next_actions_and_approvals": "If the owner separately chooses to pursue this, first decide whether the direct-file baseline is acceptable and whether a bounded feasibility check for a sample merits the one-week budget. Any validation, implementation, privacy wording, distribution or publication requires separate owner authorization/assignment. No such approval is implied here.",
+            "contribution_ids": [
+              "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+              "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+              "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+              "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+              "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093"
+            ],
+            "evidence_ids": [
+              "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "evidence_13454d73-254d-48c7-8cff-f72483436646"
+            ],
+            "authority": "Proposed recommendation; no owner decision, implementation assignment or protected approval is implied.",
+            "failed_participation": [],
+            "participation": [
+              {
+                "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+                "contributions": 4
+              }
+            ],
+            "unanswered_questions": [
+              {
+                "question_id": "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+                "message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a"
+              },
+              {
+                "question_id": "question_d544580b-0d33-49db-a8f0-a5a0db1324fd",
+                "message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab"
+              }
+            ]
+          },
+          "sha256": "457b3b024856bb164a7580f6002a40b0452d1b6551ecbfbd8f95f18d3aa2ad72",
+          "created_at": "2026-10-01T11:14:32.277Z"
+        },
+        {
+          "synthesis_id": "synthesis_bf130459-893c-4562-b4d1-fedeb64e5960",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "version": 2,
+          "previous_id": "synthesis_e7f70d0e-27bc-43bf-a019-ef85eb05486c",
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "state": "final",
+          "transcript_revision": 15,
+          "evidence_revision": 3,
+          "scope_version": 2,
+          "content": {
+            "question": "Use public software onboarding/documentation patterns to recommend a practical first-use approach for a small offline-capable tool. Compare evidence and trade-offs.",
+            "desired_output": "A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.",
+            "constraints": "Atlas: choose an appropriate team from existing eligible workers. Only Atlas has an explicit public research grant. Investigate a material public question using your own bounded search queries; retrieve and share relevant evidence from at least two distinct public sources with the managed reader when available. Distinguish retrieved page content from search snippets. Other participants should inspect the shared exports and evaluate their relevance and limits. Discuss specific earlier contributions when clarification is worthwhile. Hypothetical product, one engineer-week, privacy and accessibility constraints. No implementation, publication, hiring or implied approvals.",
+            "recommendation": "Final proposed planning baseline for one engineer-week: a skippable first-use route to open a local video, with concise offline-workflow explanation, format caveat and contextual help. This avoids uploading personal media, but cannot demonstrate analysis until a user supplies a local file; the brief does not prohibit local selection. Offer a clearly labelled bundled sample only if all five gates are affirmatively verified within budget. Unknown is not passed; never substitute a simulated success. This is discussion, not an owner decision.",
+            "alternatives": "A qualifying sample better demonstrates a genuine first result without any user's media, but incurs rights, size, compatibility, accessibility and privacy checks. A mandatory wizard may explain complex setup but adds states, friction and accessibility review. Documentation-only is cheaper but leaves first useful action to user initiative. A staged/pre-rendered result is easier yet misleading if presented as real analysis.",
+            "supporting_findings": "The owner-supplied hypothetical brief specifies a local video-analysis prototype, no usage analytics, and first useful action without uploading personal media (evidence_b09e9e73-72e5-488e-a21e-313b3d40a101). Audacity's retrieved manual excerpt offers direct record/import entry and notes format dependencies (evidence_473ae49e-a373-4f42-9cac-eb868fdac293). Blender's retrieved demo-files excerpt lists a ready-to-use asset with 49 MB size, CC0 license and version requirement (evidence_13454d73-254d-48c7-8cff-f72483436646). These support direct entry and explicit sample qualification as analogies only. Turing's same-path offline criterion (cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6), Grace's five gates (cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81), and Maya/Scout's revised fallback-first positions (cmessage_86d9a55e-4cbc-4616-90be-332ed8548013; cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093) underpin the priority. Grace's bounded review finds no material misrepresentation and clarifies the upload-vs-local-file distinction (cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059).",
+            "challenges_addressed": "Five affirmative sample gates: distributable non-personal clip and manageable package size; supported format and reliable ordinary-path processing while disconnected on representative hardware; meaningful non-sensitive accurately labelled text result; keyboard/screen-reader usable first screen, action, result and help, with text equivalent and no autoplay; and checked media, derived-output, log and network behavior before local-only wording. No analytics is not proof of no egress. Baseline still requires accessible controls, format caveats and precise privacy claims, and only partially serves a no-media first-result aspiration.",
+            "dissent_and_risks": "Maya and Scout initially preferred sample-first but explicitly narrowed to fallback-first after technical and review challenges. No continuing substantive dissent is documented. The sample might be the better demonstration if all gates pass; the baseline might feel underwhelming without a file. Neither passing gates nor observed user benefit can be presumed. No approval from owner or absent specialists is implied.",
+            "missing_evidence_and_confidence": "Moderate confidence in one-week prioritization, low confidence in sample feasibility or onboarding impact. No actual runtime, target hardware, rights-cleared clip, package budget, representative output, assistive-technology results, traffic/log checks or user tests are supplied. Both public sources are small bounded retrieved-page text excerpts from 2026-10-01, not search snippets; publication and actual page-observation times are unknown, and omitted page or interaction material remains unreviewed. Neither establishes video-analysis efficacy, privacy or accessibility.",
+            "next_actions_and_approvals": "Owner would need separately to decide whether to adopt the baseline and whether a bounded sample feasibility check is worth the one-week budget. Any validation, implementation, privacy statement, distribution or publication needs a separate authorized decision/assignment. This synthesis grants none.",
+            "contribution_ids": [
+              "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+              "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+              "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+              "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+              "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093",
+              "cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059"
+            ],
+            "evidence_ids": [
+              "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+              "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+              "evidence_13454d73-254d-48c7-8cff-f72483436646"
+            ],
+            "authority": "Proposed recommendation; no owner decision, implementation assignment or protected approval is implied.",
+            "failed_participation": [],
+            "participation": [
+              {
+                "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+                "contributions": 2
+              },
+              {
+                "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+                "contributions": 3
+              },
+              {
+                "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+                "contributions": 5
+              }
+            ],
+            "unanswered_questions": [
+              {
+                "question_id": "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+                "message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a"
+              },
+              {
+                "question_id": "question_d544580b-0d33-49db-a8f0-a5a0db1324fd",
+                "message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab"
+              }
+            ]
+          },
+          "sha256": "ed164e960c18d173306b1e367bc88a080f6f48918c7a6a9bd9bfa120c32f66da",
+          "created_at": "2026-10-01T11:16:50.292Z"
+        }
+      ],
+      "delivered_contexts": [
+        {
+          "execution_id": "execution_dacdefd5-cb4d-47ef-870c-e807d1fcd543",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_b90ee190-1781-45fe-8a84-6d8811513b18",
+          "generation": 1,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "organize_discussion"
+          ],
+          "checkpoint": {
+            "transcript_revision": 1,
+            "evidence_revision": 1,
+            "scope_version": 1
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_8ec69f28-594a-44ab-98c6-af88fcc8512b"
+          ],
+          "context_chars": 6947,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_fa7af950-8d6e-4d98-ac7f-3bb975524e1f",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "session_id": "session_1d9d5d62-03ff-4633-ba5e-1b48ca528dc4",
+          "generation": 1,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 2,
+            "evidence_revision": 1,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+            "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+            "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+            "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+            "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816"
+          ],
+          "context_chars": 8280,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_c2a1481f-9d04-49a2-8dfa-ebc8514b015c",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "session_id": "session_e7db4859-538e-41c0-a60d-a7bf343c4749",
+          "generation": 1,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 2,
+            "evidence_revision": 1,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+            "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+            "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+            "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+            "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816"
+          ],
+          "context_chars": 8291,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "session_id": "session_e729026f-50b2-4177-a925-da637f8765d4",
+          "generation": 1,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 3,
+            "evidence_revision": 1,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+            "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+            "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+            "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+            "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816"
+          ],
+          "context_chars": 10636,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_4835bbc2-fa5e-4f2b-a364-0e112d8bcab9",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 5,
+            "evidence_revision": 1,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+            "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+            "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+            "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+            "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816"
+          ],
+          "context_chars": 14841,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_3ae2ed0d-26a4-42ab-9c5f-fda0bd96b1fb",
+          "generation": 2,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution",
+            "research_search",
+            "research_open",
+            "research_read",
+            "research_sources",
+            "share_public_evidence"
+          ],
+          "checkpoint": {
+            "transcript_revision": 5,
+            "evidence_revision": 1,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101"
+          ],
+          "pending_turn_ids": [
+            "dturn_e82b4586-00d0-4d11-ac75-d4dece4d4ce3",
+            "dturn_46b70511-a1b1-4762-aa76-2f3d67b59fe6",
+            "dturn_fe62fe15-87cf-4e7a-9689-58085b303f1c",
+            "dturn_8f4b4123-57b8-4e60-931b-24b158b97c9d",
+            "dturn_037020f5-2c9e-4bc7-87be-bb008b2ac816"
+          ],
+          "context_chars": 16028,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "generation": 3,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "facilitate_discussion",
+            "research_search",
+            "research_open",
+            "research_read",
+            "research_sources",
+            "share_public_evidence"
+          ],
+          "checkpoint": {
+            "transcript_revision": 7,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_0ca6a81a-c5d1-49d9-a192-d2dfad502b64"
+          ],
+          "context_chars": 19125,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "session_id": "session_e729026f-50b2-4177-a925-da637f8765d4",
+          "generation": 1,
+          "resumed_reference": "01a0f725-4b00-72e2-8b9f-d5d4b939f47e",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 8,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_9f9ecc02-99f7-461f-b47d-fad8dbea4675",
+            "dturn_83a8002f-718c-4cb2-b353-30eee23d96fd"
+          ],
+          "context_chars": 16576,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "resumed_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 8,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_9f9ecc02-99f7-461f-b47d-fad8dbea4675",
+            "dturn_83a8002f-718c-4cb2-b353-30eee23d96fd"
+          ],
+          "context_chars": 16575,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_dd50ad4c-5bc7-486c-887f-0c428527b434",
+          "generation": 3,
+          "resumed_reference": "01a0f728-cc64-77b2-b1c5-d38e89fcb2a8",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "facilitate_discussion",
+            "research_search",
+            "research_open",
+            "research_read",
+            "research_sources",
+            "share_public_evidence"
+          ],
+          "checkpoint": {
+            "transcript_revision": 10,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_153dfd99-91c0-4bde-af1a-6b1b03b64dc9"
+          ],
+          "context_chars": 20544,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "session_id": "session_e7db4859-538e-41c0-a60d-a7bf343c4749",
+          "generation": 1,
+          "resumed_reference": "01a0f724-eb3b-7261-a1f9-4804451274de",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 11,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_2611d742-2b34-4727-8391-1f839811bbe7",
+            "dturn_bcdd9aec-40fb-4798-968b-85b8e19d064e"
+          ],
+          "context_chars": 17968,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "session_id": "session_1d9d5d62-03ff-4633-ba5e-1b48ca528dc4",
+          "generation": 1,
+          "resumed_reference": "01a0f724-e97a-7e53-a7eb-c4ab09969fef",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 11,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_2611d742-2b34-4727-8391-1f839811bbe7",
+            "dturn_bcdd9aec-40fb-4798-968b-85b8e19d064e"
+          ],
+          "context_chars": 17984,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_ee3148a6-b4ed-45ed-9b20-89133566808f",
+          "generation": 4,
+          "resumed_reference": null,
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_synthesis"
+          ],
+          "checkpoint": {
+            "transcript_revision": 13,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_abdbb49c-8892-41c2-b186-d123d29c2783"
+          ],
+          "context_chars": 19613,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "session_id": "session_afeb931f-b88f-499f-8871-bee4d33d79b5",
+          "generation": 1,
+          "resumed_reference": "01a0f725-a71c-7bf3-804f-429abb1836f2",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_contribution"
+          ],
+          "checkpoint": {
+            "transcript_revision": 14,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_b29e8450-c386-4353-8452-f77101f5849e"
+          ],
+          "context_chars": 23630,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "session_id": "session_ee3148a6-b4ed-45ed-9b20-89133566808f",
+          "generation": 4,
+          "resumed_reference": "01a0f72b-61fc-76a0-a51d-cf422603eece",
+          "tools": [
+            "read_discussion",
+            "read_group_history",
+            "read_group_record",
+            "submit_synthesis"
+          ],
+          "checkpoint": {
+            "transcript_revision": 15,
+            "evidence_revision": 3,
+            "scope_version": 2
+          },
+          "owner_interjection_ids": [],
+          "question_ids": [
+            "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+            "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+            "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+            "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+            "question_d544580b-0d33-49db-a8f0-a5a0db1324fd"
+          ],
+          "evidence_ids": [
+            "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+            "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+            "evidence_13454d73-254d-48c7-8cff-f72483436646"
+          ],
+          "pending_turn_ids": [
+            "dturn_b27ad32b-8cc9-4943-a9f1-bb91c8f7d15b"
+          ],
+          "context_chars": 25392,
+          "requires_full_excerpt_delivery": true,
+          "private_sentinels_absent": true,
+          "private_source_ids_absent": true
+        }
+      ],
+      "original_reads": [
+        {
+          "execution_id": "execution_dacdefd5-cb4d-47ef-870c-e807d1fcd543",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_c2a1481f-9d04-49a2-8dfa-ebc8514b015c",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_fa7af950-8d6e-4d98-ac7f-3bb975524e1f",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "cmessage_87572762-e78d-4b1f-ad60-0529c879146f",
+          "returned_chars": 1064
+        },
+        {
+          "execution_id": "execution_72d077f5-a7cd-4f4c-af43-ca434fb50985",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "returned_chars": 1648
+        },
+        {
+          "execution_id": "execution_4835bbc2-fa5e-4f2b-a364-0e112d8bcab9",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "returned_chars": 1648
+        },
+        {
+          "execution_id": "execution_0cff20bc-70de-4492-8959-99ba774096c7",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "returned_chars": 1596
+        },
+        {
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_d7947828-1c17-4f0f-9706-895731f5f12d",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "returned_chars": 1596
+        },
+        {
+          "execution_id": "execution_b931b7f1-adc0-44c2-89ae-4072e563197c",
+          "worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "record_id": "cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8",
+          "returned_chars": 2012
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "returned_chars": 2637
+        },
+        {
+          "execution_id": "execution_61b5b95f-ca7e-41f8-8d76-e729be4ab16e",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "returned_chars": 2552
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "returned_chars": 2637
+        },
+        {
+          "execution_id": "execution_bd1c9405-b987-4018-8908-ddd6bf7d2d29",
+          "worker_id": "worker_b0579799-3a20-4aa5-ae04-339f9d894fb7",
+          "record_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "returned_chars": 2552
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "returned_chars": 2637
+        },
+        {
+          "execution_id": "execution_ee9ed36f-9fd0-45c7-87a8-344c0e54fe73",
+          "worker_id": "worker_5f7a99a2-655c-417a-a9a5-d3ebea656966",
+          "record_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "returned_chars": 2552
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+          "returned_chars": 2183
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6",
+          "returned_chars": 2637
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_7935dda1-2d34-4c9f-b03f-9ef06004ea81",
+          "returned_chars": 2552
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_86d9a55e-4cbc-4616-90be-332ed8548013",
+          "returned_chars": 2342
+        },
+        {
+          "execution_id": "execution_f6b5155b-8a7c-4716-8d51-f3f2611e4932",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_2ed21b69-b45f-485a-8c4d-7f0328754093",
+          "returned_chars": 2125
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "cmessage_20f8ab17-626c-43e6-8837-3a8931232536",
+          "returned_chars": 900
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_370c1025-1c1c-4dcb-a663-f9117fde0fdd",
+          "worker_id": "worker_8a47e8df-24ab-4c27-8429-05e356051513",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_b09e9e73-72e5-488e-a21e-313b3d40a101",
+          "returned_chars": 329
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_473ae49e-a373-4f42-9cac-eb868fdac293",
+          "returned_chars": 350
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "evidence_13454d73-254d-48c7-8cff-f72483436646",
+          "returned_chars": 254
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_6e5f8cbd-d0ab-4c75-bf6c-ee2b67c4b059",
+          "returned_chars": 1620
+        },
+        {
+          "execution_id": "execution_cb86f7f8-dbff-423e-a701-acb733b1d919",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "record_id": "cmessage_20f8ab17-626c-43e6-8837-3a8931232536",
+          "returned_chars": 900
+        }
+      ],
+      "research": [
+        {
+          "operation_id": "research_177c7a10-da21-411b-9a22-9f2874769091",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-54458df7-1dd0-4f39-9783-b4884b4e4d19",
+          "tool": "research_search",
+          "state": "completed",
+          "output_chars": 9459,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:07:35.659Z",
+          "finished_at": "2026-10-01T11:08:00.325Z"
+        },
+        {
+          "operation_id": "research_9ef2b652-309e-47c2-bfa0-95631ba2e224",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-5df90eea-2b42-435a-b8ea-2bb943bcedb6",
+          "tool": "research_search",
+          "state": "completed",
+          "output_chars": 10044,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:08:00.419Z",
+          "finished_at": "2026-10-01T11:08:18.727Z"
+        },
+        {
+          "operation_id": "research_cb1142cf-067b-4e45-b2ac-e8b34776304f",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-5821287f-b2b1-49f9-a301-22aa83a81758",
+          "tool": "research_search",
+          "state": "failed",
+          "output_chars": 162,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:08:18.811Z",
+          "finished_at": "2026-10-01T11:09:49.014Z"
+        },
+        {
+          "operation_id": "research_871cb2de-6a6c-4e60-beaa-2d6b692b74cd",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-b4cbf4a1-a857-4f2a-9070-80f30b44eedd",
+          "tool": "research_open",
+          "state": "completed",
+          "output_chars": 6972,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:09:59.502Z",
+          "finished_at": "2026-10-01T11:09:59.660Z"
+        },
+        {
+          "operation_id": "research_df7ed91d-064f-4e1d-b9a0-59173a3c3819",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-05f70b5c-7f8e-4f93-8a03-3744c392541b",
+          "tool": "research_open",
+          "state": "completed",
+          "output_chars": 7204,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:09:59.715Z",
+          "finished_at": "2026-10-01T11:10:00.302Z"
+        },
+        {
+          "operation_id": "research_5e398171-b903-400f-a5ba-8e08dbd43c59",
+          "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+          "execution_id": "execution_1e25fdfa-82c3-474c-8eed-a133e33d78d5",
+          "call_id": "exec-acc402a1-30f1-4b8d-bb21-a0ee4be7658a",
+          "tool": "research_open",
+          "state": "completed",
+          "output_chars": 7203,
+          "unresolved": 0,
+          "created_at": "2026-10-01T11:10:00.369Z",
+          "finished_at": "2026-10-01T11:10:00.625Z"
+        }
+      ],
+      "questions": [
+        {
+          "question_id": "question_e7de5bbc-98bd-41ed-9319-6c17013d5616",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "message_id": "cmessage_854f8f28-84a3-40c5-aa89-0e3212eba554",
+          "question": "What is the smallest truthful first useful result the prototype can show offline, without implying a real user's media is required?",
+          "target_worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "answered_by": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a"
+        },
+        {
+          "question_id": "question_3d7ce06a-ae13-4638-bc20-3b6731a3608f",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "message_id": "cmessage_97c7813d-c81c-461d-ae8c-3bee2e2e2bf5",
+          "question": "For the one-engineer-week recommendation, should the first result be a bundled synthetic/sample asset or a no-media interactive example if bundled video size and accessibility are problematic?",
+          "target_worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+          "answered_by": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6"
+        },
+        {
+          "question_id": "question_42abe18b-1d2d-4cae-8f8f-6f9ce37e9440",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "message_id": "cmessage_a5187120-3386-4d56-b792-bbe37b88e78a",
+          "question": "Can the actual analysis path run fully offline on one distributable, non-personal clip and yield a useful non-sensitive result without special demo code?",
+          "target_worker_id": null,
+          "answered_by": null
+        },
+        {
+          "question_id": "question_9e6e8f46-f0e4-449a-8fae-0ecdceed6e82",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "message_id": "cmessage_ac44b426-7bb5-44ee-8564-6f5e9d7870b8",
+          "question": "What minimum observable result and privacy checks would make the sample path truthful and accessible enough to recommend, given no analytics?",
+          "target_worker_id": null,
+          "answered_by": "cmessage_d1d7aeec-c009-4767-bf4d-7dec7b0f43d6"
+        },
+        {
+          "question_id": "question_d544580b-0d33-49db-a8f0-a5a0db1324fd",
+          "group_id": "group_bb493eb1-d9a4-4a76-8f79-effba7d8090c",
+          "message_id": "cmessage_01500322-ac88-4004-a2d7-aeaa4a7bf5ab",
+          "question": "Which one existing analysis output can yield a meaningful, non-sensitive result from a distributable clip offline, and what minimum checks would verify it?",
+          "target_worker_id": null,
+          "answered_by": null
+        }
+      ]
+    }
+  ],
+  "concurrency": {
+    "observed_top_level_employee_max": 2,
+    "observed_per_worker_max": 1,
+    "note": "Nested brokers are provider activity inside their parent slot, not separately scheduled employees."
+  },
+  "tasks": [
+    {
+      "task_id": "task_f444ffd6-9c94-49f4-b5aa-b3a03ac83b86",
+      "requester": "human",
+      "assignee_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "parent_task_id": null,
+      "kind": "product",
+      "status": "cancelled"
+    },
+    {
+      "task_id": "task_19da6b71-4f70-469f-b9e7-e8205fe101e6",
+      "requester": "human",
+      "assignee_worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "parent_task_id": null,
+      "kind": "research",
+      "status": "cancelled"
+    },
+    {
+      "task_id": "task_420631a2-21cf-4027-a5f8-725934af3a98",
+      "requester": "human",
+      "assignee_worker_id": "worker_a7e6ca84-98ee-400c-804f-f6d7adbebd52",
+      "parent_task_id": null,
+      "kind": "delivery",
+      "status": "cancelled"
+    }
+  ],
+  "assignments": [],
+  "standing_grants": [
+    {
+      "grant_id": "grant_81ca3960-206b-4a30-abfc-b939da146482",
+      "worker_id": "worker_d51c17f8-2b17-448f-a5f1-e8fbec856acc",
+      "capability": "public_research",
+      "modes": "[\"task\",\"conversation\",\"discussion\"]",
+      "revoked_at": null
+    }
+  ],
+  "integrity": "ok",
+  "foreign_key_errors": []
+}

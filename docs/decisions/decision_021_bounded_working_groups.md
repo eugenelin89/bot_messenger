@@ -1,6 +1,6 @@
 # Decision 021: Bounded working groups and scoped deliberation
 
-**Date:** 2026-10-01  
+**Date:** 2026-10-01
 **Status:** Implemented candidate; real acceptance and integration pending
 
 ## Context
