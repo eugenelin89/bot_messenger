@@ -91,3 +91,18 @@ worker work stays blocked pending operator inspection, because the provider may 
 be running. Do not clear that fence or blindly retry to obtain a nicer status. Ordinary
 source timeouts, inaccessible pages and rate limits can be explained or handled with
 another source within the remaining budget.
+
+## Research inside a working group
+
+In **Capabilities & research**, explicitly include working-group discussions when granting
+Public Research to an eligible worker. Old Task/direct grants remain as originally issued;
+revoke and replace one if you intend to extend it. The group's charter must also permit
+research. Other participants can read explicitly shared source excerpts without receiving
+lookup rights. A Company Knowledge grant alone never exports a document to a group.
+
+Use the owner group sharing form for a selected approved-document excerpt or retained
+private-work public source. Review the audience and scope before submitting. This exports
+only the selected material and provenance, not the producer's private query or history.
+Group researchers can share bounded sources obtained for that same group without per-source
+approval. Group-wide and individual budgets both apply and survive restart/extension.
+See the [working-group tutorial](../tutorials/working-groups.md).

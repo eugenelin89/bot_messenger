@@ -489,7 +489,7 @@ production instance -> one company/data directory
 demo instance       -> one separate company/data directory
 ~~~
 
-Prompt 09 eventually targets:
+Deferred multi-company support, after the single-company operating evidence gate, may target:
 
 ~~~text
 one BotSquad HQ
@@ -526,3 +526,13 @@ different VM/server
 For ordinary tutorials, data-root + port separation is the starting point.
 
 For demos that exercise privileged Prompt 04 provisioning, use a stronger boundary.
+
+## Prompt 08 validation topology
+
+The first group fixture uses `/var/lib/botsquad/validation/discussions-20261001-p08`
+and loopback 4311. Its separate confirmation company uses the `-confirmation` suffix
+and loopback 4312. Both inherit existing `botsquad` service confinement and configured
+runtime account, but use independent HQ IDs, data and workers. This is data isolation,
+not a new credential/Unix security boundary. Verify each fixture's HQ and workspace root
+before every sequence. Original failed attempts and fenced workers are retained; a fresh
+acceptance company never repairs their state. Production remains on loopback 4310.

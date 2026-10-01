@@ -101,3 +101,10 @@ select another current, unfenced participant when choosing **Finish with current
 This queues one bounded final synthesis and records the previous and selected authors.
 It does not alter membership, grant permissions, or clear the original worker fence.
 The resulting artifact lists failed participation; prior artifacts stay immutable.
+
+Evidence catalog visibility is distinct from content delivery. Actual semantic review
+found a model citing an unread owner packet and falsely treating its product category as
+unknown. Every evidence citation now requires a same-execution trusted receipt for the
+complete exported excerpt. Runtime guidance requires reading relevant owner material and
+labeling budget-limited unread items as unreviewed. This is a grounding check, not a truth
+oracle; final recommendations still need scrutiny against original evidence.

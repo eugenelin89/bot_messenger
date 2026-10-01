@@ -165,8 +165,13 @@ current work. Healthy task bindings retain their provenance. See
 [Conversations and continuity](CONVERSATIONS_AND_CONTINUITY.md) and
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md).
 
-Prompt 08 is the next bounded multi-worker deliberation layer. Passive messages remain
-non-dispatching; conversation completion cannot create a hidden task or an idle bot loop.
+The Prompt 08 candidate adds first-class bounded working groups on this substrate.
+`discussion_turns` bind requests to one charter; SQL verifies group/worker/session ownership.
+A facilitator chooses substantive follow-ups, then separate draft, review and final turns
+produce immutable synthesis artifacts. Evidence exports, actual revision checkpoints,
+shared research accounting and owner controls are durable. Passive material never dispatches;
+only an explicit owner assignment converts a selected synthesis into a normal Task. See
+[working-group details](WORKING_GROUPS.md) and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
 ## Future intelligent-company operating loop
 

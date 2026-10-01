@@ -203,7 +203,14 @@ Operators can inspect those interactions through the Executive channel, linked T
 Audit history and Executions. Audit records are the precise source for assignment and
 result-return events; Executions show when workers actually ran and where work overlapped.
 
-## Future collaborative deliberation
+## Collaborative deliberation
+
+The Prompt 08 candidate implements this bounded layer with frozen eligible participants,
+separate actual worker turns, meaningful facilitator choices, explicit evidence exports,
+owner interjections and versioned synthesis. It uses no scripted employee transcript.
+Recommendations carry uncertainty and require a separate owner-submitted Task to become
+assignments. Release evidence and limits are in the [validation record](../validation/PROMPT_08_VALIDATION.md)
+and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
 Direct conversations and task delegation are implemented. The next organization layer
 should support **bounded group discussion**, with explicit membership and synthesis.

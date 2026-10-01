@@ -86,6 +86,14 @@ The owner can inspect peer exchanges, stop queued work and interrupt active repl
 See [Prompt 07 acceptance](docs/validation/prompt-07-conversations-continuity.md) and
 [conversation controls and continuity](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
+The Prompt 08 candidate adds **Working Groups**: create a charter, select participants
+or explicitly let Atlas organize, share selected material, then start. Owner interjections
+remain visible alongside attributable worker responses and immutable synthesis versions.
+Research requires a separate discussion-mode opt-in for each eligible researcher. A saved
+recommendation becomes work only through **Prepare assignment** and an explicit owner
+submission. Follow the [working-group tutorial](docs/tutorials/working-groups.md); release
+and deployment gates are tracked in the [acceptance report](docs/validation/PROMPT_08_VALIDATION.md).
+
 For the detailed snapshot, measured resource evidence, and deferred features, see
 [Current State](docs/operations/CURRENT_STATE.md).
 

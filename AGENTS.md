@@ -171,6 +171,25 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - See [Decision 018](docs/decisions/decision_018_conversations_context_continuity.md) and
   [technical/operator details](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
+### Working groups and shared evidence
+
+- Working groups are first-class bounded deliberation objects backed by typed
+  conversation executions (`task_id=null`, `discussion-v1`). Preserve per-worker/group
+  generations and the shared two-slot dispatcher; discussion is never a hidden Task.
+- Only explicit owner start/extension/finish authorizes model work. Drafts, notes and
+  ordinary mentions remain passive. Preserve consumed budgets, original checkpoints,
+  no-replay recovery, bounded synthesis reserve and worker/broker uncertainty fences.
+- Group membership sees only the transcript and explicitly exported evidence packet.
+  Private conversations, queries, source histories and Company Knowledge grants are not
+  implicit sharing authority. Public research needs an explicit discussion-mode grant;
+  migration must not widen old grants. Recheck scope before async delivery and commitment.
+- Synthesis is a versioned recommendation, not approval or assignment. Only the owner
+  can preview/edit and submit its selected context through the normal Atlas Task path.
+  Incomplete finish may select a safe existing member while retaining every old fence.
+- See [Working groups](docs/architecture/WORKING_GROUPS.md),
+  [Decision 021](docs/decisions/decision_021_bounded_working_groups.md), and the
+  [acceptance record](docs/validation/PROMPT_08_VALIDATION.md) for current release gates.
+
 ### Messages do not grant authority
 
 - A bot cannot create valid human approval by writing text such as “approved by Eugene.”

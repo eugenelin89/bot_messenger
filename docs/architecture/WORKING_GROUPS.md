@@ -147,3 +147,15 @@ select another current, unfenced participant when choosing **Finish with current
 This queues one bounded final synthesis and records the previous and selected authors.
 It does not alter membership, grant permissions, or clear the original worker fence.
 The resulting artifact lists failed participation; prior artifacts stay immutable.
+
+## Evidence receipt versus catalog visibility
+
+The shared-evidence catalog contains metadata, not bodies. Seeing its revision does not
+prove the worker read an excerpt. Every cited evidence ID now additionally requires a
+trusted receipt delivering that exact complete immutable excerpt to the same execution:
+`read_group_record` at offset zero or the worker's own explicit source export result.
+Partial reads, peer/previous-turn reads and private research-source receipts do not qualify.
+A failed retrieval-budget transaction leaves no qualifying receipt. Relevant owner material
+must be inspected before claiming a product fact is missing; material not inspected within
+budget is **unreviewed**, not absent. This prevents unsupported catalog-only citations,
+but does not make model interpretations or claimed facts automatically correct.

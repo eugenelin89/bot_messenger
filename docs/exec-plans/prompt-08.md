@@ -156,3 +156,20 @@ final documentation/review/integration/deployment remain open. ETA remains 7–1
   explicit incomplete finish; 24 focused and 5 affected browser tests pass. Original
   failure remains failed; a separately named browser recovery phase will validate the
   partial result. Production unchanged. No uncertainty repair or broad new permissions.
+
+- 10:25 UTC ETA: **5–10 hours remaining**. Research group now completed by explicit
+  owner-selected Maya incomplete synthesis, retaining Atlas timeout/fence and failed
+  original phase. Full local suite 209 total:208 passed,0 failed,1 Linux-only skip.
+  Fresh isolated company will validate harmless assignment; old company stays intact.
+  Remaining: live regression/controlled crash gates, final Linux suite, documentation,
+  normal merge, code-only production deployment and preservation/cleanup.
+
+- 10:45 UTC: independent semantic review identified a real grounding failure in the
+  first research final: it called product category unknown despite the unread owner
+  packet identifying a local video-analysis prototype. Artifact retained unchanged;
+  research final quality gate remains open. New trusted full-excerpt delivery checks
+  reject catalog-only, peer, partial and prior-turn citations; 26 focused tests pass.
+  Reviewer separately exercised escaped6000-char exports, wrong-ID equality, rollback,
+  facilitator current-turn reading and max47894/48000 context. No material finding.
+  A new actual Atlas-organized run will validate the correction. Existing Task research
+  regression passed actual CEO/Scout/resume/restart/interruption.
