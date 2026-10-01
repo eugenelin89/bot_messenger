@@ -1,0 +1,194 @@
+{
+  "result": "PASS",
+  "checked_at": "2026-10-01T12:10:19.278059+00:00",
+  "source_revision": "f82235835a0dcc3473678d6f6bf9780d93709223",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "f82235835a0dcc3473678d6f6bf9780d93709223"
+  },
+  "hq_id": "hq_1cfe3e8d-dcca-47a4-8090-b79c3470b9f9",
+  "paused": false,
+  "workers": [
+    {
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "display_name": "Atlas",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+      "display_name": "Nix",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "display_name": "Maya",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+      "display_name": "Turing",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+      "display_name": "Linus",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+      "display_name": "Ada",
+      "enabled": 1,
+      "status": "idle"
+    },
+    {
+      "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+      "display_name": "Grace",
+      "enabled": 1,
+      "status": "idle"
+    }
+  ],
+  "tasks": {
+    "completed": 26,
+    "cancelled": 17
+  },
+  "executions": 58,
+  "working_groups": 0,
+  "schema": 10,
+  "grant_count": 1,
+  "grants_preserved_exactly": true,
+  "pid": 255882,
+  "process_started_epoch": 1790856611.79,
+  "newest_build_mtime": 1790856609.9280019,
+  "process_newer_than_build": true,
+  "listener": "127.0.0.1:4310",
+  "service_enabled": true,
+  "gate_root": "/var/lib/botsquad/validation/deterministic-20261001T115510Z",
+  "preservation": {
+    "original": {
+      "preserved": true,
+      "original_databases": 34,
+      "original_rows": 23958,
+      "account_and_group_mappings": 249,
+      "root_records": 411,
+      "worker_homes": 123,
+      "only_excluded_field": "workers.updated_at",
+      "original_compare_diagnostic": "Unexpected retained domain growth: company.sqlite:client_events",
+      "exact_owner_audit_ids": [
+        "event_17d84348-157e-4c5e-b506-e4fef5d786ba",
+        "event_bb561387-eb54-4820-97a2-f89a3c9d7662",
+        "event_bc50c6de-f52d-4a29-9632-46f9cb4a4058",
+        "event_c8685d3d-6465-430c-b2ff-e9f5a2efe1d7"
+      ],
+      "exact_new_client_cursors": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "bijective_owner_notification_growth": 4,
+      "every_original_client_cursor_and_hash_preserved": true
+    },
+    "fresh": {
+      "preserved": true,
+      "original_databases": 43,
+      "original_rows": 33136,
+      "account_and_group_mappings": 293,
+      "root_records": 484,
+      "worker_homes": 145,
+      "only_excluded_field": "workers.updated_at",
+      "original_compare_diagnostic": "Unexpected retained domain growth: company.sqlite:client_events",
+      "exact_owner_audit_ids": [
+        "event_17d84348-157e-4c5e-b506-e4fef5d786ba",
+        "event_bb561387-eb54-4820-97a2-f89a3c9d7662",
+        "event_bc50c6de-f52d-4a29-9632-46f9cb4a4058",
+        "event_c8685d3d-6465-430c-b2ff-e9f5a2efe1d7"
+      ],
+      "exact_new_client_cursors": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "bijective_owner_notification_growth": 4,
+      "every_original_client_cursor_and_hash_preserved": true
+    }
+  },
+  "implementation_pr": "https://github.com/eugenelin89/bot_messenger/pull/7",
+  "browser_correction_pr": "https://github.com/eugenelin89/bot_messenger/pull/8",
+  "local_main_and_origin_main": "f82235835a0dcc3473678d6f6bf9780d93709223",
+  "build_manifest_digest": "7ecd0cfd16ea8f46e0d9caf69e2bcfb3307474a14365f3ea3b6fb81c2a0fd44a",
+  "build_files": 182,
+  "browser": {
+    "result": "PASS",
+    "checked_at": "2026-10-01T12:11:30.367Z",
+    "hq_id": "hq_1cfe3e8d-dcca-47a4-8090-b79c3470b9f9",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "f82235835a0dcc3473678d6f6bf9780d93709223"
+    },
+    "paused": false,
+    "workers": [
+      {
+        "name": "Atlas",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Nix",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Maya",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Turing",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Linus",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Ada",
+        "enabled": 1,
+        "status": "idle"
+      },
+      {
+        "name": "Grace",
+        "enabled": 1,
+        "status": "idle"
+      }
+    ],
+    "tasks": 43,
+    "executions": 58,
+    "groups": 0,
+    "posts": 0,
+    "errors": [],
+    "checks": [
+      "Actual Chrome owner UI",
+      "Manual and Atlas form preview",
+      "No production draft or model work",
+      "Same verified HQ and deployed SHA"
+    ]
+  },
+  "backend_gate_note": "211/211 on01f5b76; backend and compiled dist remain byte-identical. Reviewed public/groups.js correction passed7/7 Chrome.",
+  "temporary_services": "Discussion services inactive/disabled; task-owned tunnels4311\u20134313 closed; all fixture data retained."
+}

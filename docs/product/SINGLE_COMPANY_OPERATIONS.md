@@ -122,7 +122,7 @@ Use [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) to 
 
 ## Deliberation boundary for later operating cycles
 
-Prompt 08's candidate working groups can compare options using explicitly shared material
+Prompt 08's accepted working groups can compare options using explicitly shared material
 and granted public research, then save a traceable recommendation. The owner separately
 selects and submits that artifact as a normal Task. This capability alone does not create
 an operating mandate, recurring schedule, outreach permission or measured business result.

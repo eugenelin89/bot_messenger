@@ -537,3 +537,7 @@ runtime account, but use independent HQ IDs, data and workers. This is data isol
 not a new credential/Unix security boundary. Verify each fixture's HQ and workspace root
 before every sequence. Original failed attempts and fenced workers are retained; a fresh
 acceptance company never repairs their state. Production remains on loopback 4310.
+
+After accepted Prompt 08 delivery, all three temporary discussion services are inactive and
+disabled, and their task-owned tunnels are closed. The protected validation data, failed
+attempts, worker identities/homes and uncertainty fences remain available for inspection.

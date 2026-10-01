@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-09-29
+**Updated:** 2026-10-01
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -21,8 +21,8 @@ and their historical evidence retain their original meaning.
 | 05 | Generalized projects and repository lifecycle | Complete |
 | 06 | Stable authenticated remote-client API and device identity | Complete |
 | 07 | First-class conversations, direct worker interaction and context continuity | Complete |
-| 08 | Collaborative working groups and deliberation | Next |
-| 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Planned |
+| 08 | Collaborative working groups and deliberation | Complete |
+| 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Next |
 | 10 | Bounded Computer Use | Planned |
 | 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
 | — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
@@ -34,12 +34,12 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 07 is
-Complete; Prompt 08 is Next.** See the [actual Prompt 07 acceptance](../validation/prompt-07-conversations-continuity.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 08 is
+Complete; Prompt 09 is Next.** See the [actual Prompt 08 acceptance and deployment](../validation/PROMPT_08_VALIDATION.md).
 
-**Very near-term priority after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
-Plan this bounded follow-up alongside Prompt 08 preparation; basic public research must
-not wait for Prompt 11's broader business integrations.
+**Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
+WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
+those boundaries. Broader business integrations remain scoped future work.
 
 ## Accepted priority: one operational company first
 
@@ -351,7 +351,7 @@ administrative listener. HQ UUID is not cryptographic server identity or E2EE.
 
 ---
 
-# Next implementation phase
+# Implementation phases
 
 # Interaction layer
 
@@ -479,7 +479,12 @@ these semantics. Apply C07-1 through C07-4 in
 
 ## Prompt 08 — Collaborative working groups and deliberation
 
-**Status:** Next
+**Status:** Complete
+
+Actual C08-1/C08-2 acceptance, regression, independent review, preserved-state deployment
+and browser verification passed. See the [validation report](../validation/PROMPT_08_VALIDATION.md),
+[Decision 021](../decisions/decision_021_bounded_working_groups.md) and
+[tutorial](../tutorials/working-groups.md). The requirements below remain the acceptance contract.
 
 After direct conversation semantics are trustworthy, add explicit bounded multi-worker
 discussion.
@@ -559,7 +564,7 @@ preserving the distinction between **communication, deliberation and execution a
 
 ## Prompt 09 — Strategic company operating loop
 
-**Status:** Planned
+**Status:** Next
 
 Prompts 07 and 08 make workers capable of direct conversation and genuine team
 deliberation. Prompt 09 proves that those capabilities can operate as an ongoing company

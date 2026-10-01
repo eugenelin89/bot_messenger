@@ -553,7 +553,7 @@ operation, deliberation groups, Computer Use or live business authority.
 
 ## Implications for Prompt 08
 
-The implementation candidate now makes deliberation a separate bounded object rather
+The accepted implementation now makes deliberation a separate bounded object rather
 than a side effect of chat or Tasks. Actual employees cite earlier contributions, respond
 to challenges, and can revise positions. The owner approves the charter and evidence
 sharing audience, not every speaker. A synthesis records a recommendation with dissent,

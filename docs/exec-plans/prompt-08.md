@@ -1,8 +1,8 @@
 # Execution Plan — Prompt 08 working groups
 
-**Status:** Implementation complete; real acceptance and delivery in progress
+**Status:** Complete: actual acceptance, independent review and production delivery passed
 **Owner:** Codex Prompt 08 implementation task
-**Branch:** `feature/prompt-08-working-groups`
+**Branches:** implementation `feature/prompt-08-working-groups`; final documentation `codex/prompt08-completion-record`
 **Worktree:** `../bot_messenger-prompt08`
 **Started:** 2026-10-01
 **Initial ETA:** 8–16 hours including real Ubuntu acceptance, independent review and deployment
@@ -66,8 +66,8 @@ before finalizing Decision 021.
 | D | Deterministic authority, isolation, scope, bounds, idempotency, lifecycle, migration and actual idle interval | Passed: 211/211 Ubuntu, 210/211 local with Linux-only skip, actual 30-second idle |
 | E | No discussion-created Task; explicit edited owner submission through existing Task path | Passed: real final → edited owner preview → Atlas report; exact selected context verified |
 | F | Current typecheck/full suite counts, affected Ubuntu/browser regression, independent read-only review | All actual checks and independent final evidence review passed |
-| Preservation | Consistent protected backup, repeated offline migration, original records retained | Offline check passed; production post-deployment comparison remains |
-| Delivery | Complete diff, normal PR/merge/push, exact deployment/build, health and cleanup | Pending |
+| Preservation | Consistent protected backup, repeated offline migration, original records retained | Passed original 34-DB and fresh 43-DB inventories with exact owner-notification accounting |
+| Delivery | Complete diff, normal PR/merge/push, exact deployment/build, health and cleanup | Passed on f822358; final documentation receipt will be recorded after its deployment |
 
 ## Evidence ledger
 
@@ -85,11 +85,13 @@ Update affected current docs, add Decision 021, a focused technical guide, tutor
 sanitized screenshots/evidence and a dedicated validation report. Do not mark Prompt 08
 complete or Prompt 09 next before required acceptance passes.
 
-## Remaining gates
+## Completion and final receipt
 
-Complete normal integration/deployment
-with retained-state comparison and temporary-service cleanup. Historical progress below
-records earlier gate states; the matrix and validation report give current status.
+All implementation, actual acceptance, review, preservation and production browser gates
+passed on `f822358`. Complete the normal documentation-only merge/deployment and record its
+exact local/origin/deployed SHA outside Git. This does not require new model work or a new
+backend suite: the final documentation revision must preserve all 182 build-file hashes.
+Historical progress below records earlier states; the validation report gives accepted results.
 
 ## Progress — 2026-10-01 09:40 UTC
 
@@ -255,3 +257,13 @@ validation failure is discarded.
   Production Chrome preview found a real initial-roster loading race (no writes/work).
   Narrow browser fix waits for roster readiness; delayed-response regression and all
   affected Chrome checks pass. Review and normal correction delivery precede completion.
+
+- 12:12 UTC: PR #8 normally merged as `f82235835a0dcc3473678d6f6bf9780d93709223` and deployed.
+  All 182 build files matched; sole application delta was the reviewed browser readiness fix.
+  Actual Chrome production preview passed seven choices/manual+Atlas controls with no POST,
+  group or model work. Original/fresh inventories, exact four owner audit/client notifications,
+  original unpaused state, seven idle workers, 43 terminal Tasks, 58 executions and one unchanged
+  Atlas grant all pass. Generated verifier bytecode was preserved outside the checkout after
+  its clean-tree guard stopped an attempted update; native fieldset assertion corrected and
+  both operator failures retained. Temporary services/tunnels remain stopped. Prompt 08 is
+  accepted and Prompt 09 next; final documentation-only merge and exact receipt follow.

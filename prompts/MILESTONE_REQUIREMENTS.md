@@ -67,11 +67,11 @@ and asynchronous callback ownership. Read the WE-01 acceptance report for the cu
 live status. Do not assume every worker is granted, enable production permissions through
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
-worker fence; ordinary source failures do not. Prompt 08 remains the next numbered step.
+worker fence; ordinary source failures do not. Prompt 08 is accepted; Prompt 09 is the next numbered step.
 
 ## Prompt 08 implementation reference
 
-The working-group candidate records its implementation and actual acceptance in
+The accepted working-group implementation records its actual acceptance and deployment in
 [Decision 021](../docs/decisions/decision_021_bounded_working_groups.md),
 [technical semantics](../docs/architecture/WORKING_GROUPS.md), and
 [Prompt 08 validation](../docs/validation/PROMPT_08_VALIDATION.md). Later prompts must
