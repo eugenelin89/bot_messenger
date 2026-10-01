@@ -6,8 +6,8 @@ The accepted application candidate is `34779af89b141448c1b471b003d6ac00327216c1`
 Later commits contain documentation/evidence and an optional validation-only readiness
 gate; application source and browser code remain unchanged. The owned
 branch is `feature/prompt-08-working-groups`; baseline main/production is
-`9f57f7fd67d52b13dd0feb50863994059a342aac`. Production has not yet been migrated or
-restarted. The [execution plan](../exec-plans/prompt-08.md) retains the progress history.
+`9f57f7fd67d52b13dd0feb50863994059a342aac`. Initial production deployment passed the host/build/preservation gates; a browser
+loading correction found in its final preview is undergoing follow-up delivery. The [execution plan](../exec-plans/prompt-08.md) retains the progress history.
 
 ## Acceptance matrix
 
@@ -209,6 +209,12 @@ the actual engineering/Projects evidence, selected exports and scoped delivery s
 
 Failed attempts are retained, never renamed as successes:
 
+- The initial production browser preview on `01f5b76` exposed a loading race: opening
+  New working group before the roster response arrived displayed no participants, although
+  the server returned seven eligible workers. The browser check failed without a POST or
+  model invocation. Creation now waits for a current initial roster; a delayed-response
+  regression covers the race. See the [failed receipt](evidence/prompt08/production-browser-first-failed.json).
+
 - Actual engineering/identity attempt `identity-prompt08-20261001T111722Z` completed all
   14 Tasks but failed real overlap: execution overlap was −203 ms and runtime-turn overlap
   was −1,568 ms. Nix follow-ups occupied a dispatcher slot while the first engineer finished.
@@ -289,3 +295,27 @@ correspondence/private-browser health, original pause/grant/state comparison and
 service/tunnel cleanup. No OS upgrade, provisioner replacement, public ingress or production
 demonstration group/worker/grant is authorized by this release. Mark Prompt 08 complete and
 Prompt 09 next only after those checks. Save the final exact revision receipt outside Git.
+
+## Initial integrated deployment and follow-up
+
+PR [#7](https://github.com/eugenelin89/bot_messenger/pull/7) merged normally as
+`01f5b76b533d6fc715fba669e7c139fcafd566c5`. Local main, origin/main and deployed source
+matched; all 182 built files matched the candidate manifest. Its production-confinement
+suite passed **211/211**, zero skips (159.6 seconds), before startup. The process started
+after the build; health/runtime and loopback-only listener passed. Actual original pause,
+seven-worker roster, 43 terminal Tasks, 58 executions and the single Atlas grant were
+preserved. Schema 10 has zero production groups.
+
+The unchanged legacy inventory comparator reported client-event growth from the two
+explicit owner pause/resume operations. Its diagnostic is retained. A separately reviewed
+operator proof verified every original row hash/cursor plus a one-to-one match of the two
+new `state.changed` notifications to the exact captured human pause/resume audit records.
+No other production audit or domain growth was permitted. The original 34 databases/
+23,958 rows and fresh 43 databases/33,136 rows, account mappings, receipts and homes all
+passed. See [host delivery evidence](evidence/prompt08/deployment-initial-host.json).
+
+The actual production Chrome preview then found the loading race above. Completion
+remains pending its reviewed browser-only correction, normal integration and exact
+production browser recheck. Backend files and all previous actual-model evidence remain
+unchanged. GitHub's optional automated Codex review could not run because its review quota
+was exhausted; separate read-only review was completed and repository checks were not bypassed.
