@@ -8,6 +8,7 @@ export class Dispatcher {
   private running = new Map<string, { controller: AbortController; done: Promise<void> }>();
   private scheduled = false;
   private stopped = true;
+  private deadlineTimer?: NodeJS.Timeout;
   private readonly onChange = () => this.kick();
   runtimeState: 'unknown' | 'ready' | 'degraded' = 'unknown';
   private catalogRequest?: Promise<RuntimeCatalog>;
@@ -45,6 +46,10 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.discussions.progress();
+    if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
+    const deadline=this.company.discussions.deadline();
+    if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.max(1,Date.parse(deadline)-Date.now()));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
     while (!this.stopped && this.running.size < this.maxActive) {
@@ -52,6 +57,8 @@ export class Dispatcher {
       if (!claim) break;
       const { worker, execution, context } = claim;
       const controller = new AbortController();
+      const group=claim.origin==='conversation'?this.company.discussions.forConversation(claim.request.conversation_id):undefined;
+      const deadlineAbort=group?.deadline?setTimeout(()=>controller.abort('Discussion deadline expired'),Math.max(1,Date.parse(group.deadline)-Date.now())):undefined;
       const done = (async () => {
         let providerSettled=false;
         try {
@@ -90,7 +97,7 @@ export class Dispatcher {
           await this.company.research.drain(execution.execution_id);
           this.company.finish(execution.execution_id, { status: 'failed', settled:providerSettled, error: error instanceof Error ? error.message : 'Runtime failed' });
         }
-      })().finally(() => { this.running.delete(execution.execution_id); this.kick(); });
+      })().finally(() => { if(deadlineAbort)clearTimeout(deadlineAbort);this.running.delete(execution.execution_id); this.kick(); });
       this.running.set(execution.execution_id, { controller, done });
     }
   }
@@ -107,6 +114,7 @@ export class Dispatcher {
   }
   get activeCount() { return this.running.size; }
   async stop() {
+    if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
     for (const { controller } of this.running.values()) controller.abort('Application shutdown');
     await Promise.all([...this.running.values()].map(r => r.done));

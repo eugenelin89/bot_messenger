@@ -1,6 +1,7 @@
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
 import { Research } from './research.js';
+import { Discussions } from './discussions.js';
 import type { HostClient } from '../infrastructure/client.js';
 import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
@@ -42,6 +43,7 @@ export class Company extends EventEmitter {
   readonly remote: RemoteProjects;
   readonly conversations: Conversations;
   readonly research: Research;
+  readonly discussions: Discussions;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -56,6 +58,7 @@ export class Company extends EventEmitter {
     this.conversations = new Conversations(this);
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.research = new Research(this);
+    this.discussions = new Discussions(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -248,6 +251,7 @@ export class Company extends EventEmitter {
   }
   claimWorkNext(maxActive = 2) {
     return this.store.transaction(() => {
+      this.discussions.progress();
       if (this.paused || this.store.get<{n:number}>("SELECT count(*) n FROM executions WHERE status='running'")!.n >= maxActive) return;
       const reply = this.conversations.candidate(); const task = this.nextTask();
       const priority = {critical:3,high:2,normal:1,low:0};
@@ -407,6 +411,7 @@ export class Company extends EventEmitter {
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
+      selected_discussion_synthesis: this.store.get('SELECT s.synthesis_id,s.content,s.sha256 FROM discussion_assignments a JOIN group_syntheses s USING(synthesis_id) WHERE a.task_id=?',task.task_id),
       messages: this.store.all<Message>('SELECT * FROM messages WHERE related_task_id=? ORDER BY created_at DESC LIMIT 8', task.task_id).reverse(),
       reference_documents: [...this.referenceDocs.keys()] };
   }

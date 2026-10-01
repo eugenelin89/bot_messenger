@@ -5,6 +5,7 @@ import { migrateProjects } from './projects-migration.js';
 import { migration6 } from './client-migration.js';
 import { migrateConversations, migration8 } from './conversations-migration.js';
 import { migration9 } from './research-migration.js';
+import { migration10 } from './discussions-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -238,6 +239,10 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=9')) {
         this.db.exec(migration9);
         this.run('INSERT INTO schema_migrations VALUES (9,?)', new Date().toISOString());
+      }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=10')) {
+        this.db.exec(migration10);
+        this.run('INSERT INTO schema_migrations VALUES (10,?)', new Date().toISOString());
       }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
