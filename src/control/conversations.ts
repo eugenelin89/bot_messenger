@@ -193,7 +193,7 @@ export class Conversations {
     requireThat(!this.db.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'",worker.worker_id),'Worker already active');
     requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');
     let session=this.db.get<ConversationSession>("SELECT * FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state='active'",worker.worker_id,c.conversation_id);
-    const toolHash=hash(conversationTools()); const scope=this.scope(c.conversation_id);
+    const toolHash=hash(conversationTools(this.company.research.enabled(worker.worker_id))); const scope=this.scope(c.conversation_id);
     const old=session;
     if (!session||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
       requireThat(!this.db.get("SELECT 1 FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state IN ('creating','prepared')",worker.worker_id,c.conversation_id),'Pending handoff requires inspection');
@@ -222,7 +222,7 @@ export class Conversations {
     requireThat(session.worker_id===worker.worker_id&&session.conversation_id===r.conversation_id&&session.generation===execution.generation&&['creating','prepared','active'].includes(session.state),'Superseded runtime generation');
     requireThat(!['cancelled','blocked','failed','interrupted'].includes(r.status),'Reply is no longer authorized');
     this.authorized(r);this.company.verifyWorkspace(worker,context.workspacePath);
-    requireThat(session.tool_schema===CONVERSATION_SCHEMA&&session.tool_hash===hash(conversationTools())&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
+    requireThat(session.tool_schema===CONVERSATION_SCHEMA&&[hash(conversationTools()),hash(conversationTools(true))].includes(session.tool_hash)&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
     const handoff=JSON.parse(session.handoff);requireThat(hash(handoff)===session.handoff_hash&&handoff.scope_hash===this.scope(r.conversation_id),'Handoff integrity or source authorization changed');
     return {execution,worker,request:r,session};
   }
@@ -234,6 +234,7 @@ export class Conversations {
       request:r,request_message:source,causal_budget:this.db.get('SELECT consumed FROM conversation_chains WHERE chain_id=?',r.chain_id),
       handoff:session.completed_turns===0?JSON.parse(session.handoff):undefined,...(session.completed_turns===0?{}:this.sources(r)),
       peers:this.company.workers().filter(w=>w.enabled&&w.worker_id!==worker.worker_id&&w.capability_profile.includes('internal_message')).map(w=>({worker_id:w.worker_id,display_name:w.display_name,role:w.role})),
+      research_authority:this.company.research.context(context),
       constraints:'Reply only. A completed reply does not request another reply. Ask at most one peer question, then finish without waiting. A bounded continuation in the peer conversation delivers its answer. Never poll.'};
     requireThat(JSON.stringify(result).length<=LIMIT.contextChars,'Authorized context exceeds bounded handoff budget');return result;
   }
@@ -241,10 +242,12 @@ export class Conversations {
     const {worker,session}=this.verify(context);if(session.state!=='active'||!session.runtime_reference)return;
     return {worker_id:worker.worker_id,runtime_type:worker.runtime_type,runtime_reference:session.runtime_reference,workspace_path:worker.workspace_path,created_at:session.created_at,thread_name:session.thread_name};
   }
+  tools(context: ExecutionContext) {const {session}=this.verify(context);return conversationTools(session.tool_hash===hash(conversationTools(true)));}
   prepareBinding(context: ExecutionContext,binding: RuntimeBinding) {
     const {worker,session}=this.verify(context);
     requireThat(binding.worker_id===worker.worker_id&&binding.runtime_type===worker.runtime_type,'Runtime owner mismatch');this.company.verifyWorkspace(worker,binding.workspace_path);
     requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a task context');
+    requireThat(!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.db.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a research context');
     if(session.state==='active'){requireThat(session.runtime_reference===binding.runtime_reference&&session.thread_name===(binding.thread_name??null),'Cannot implicitly replace active context');return;}
     requireThat(!session.runtime_reference||session.runtime_reference===binding.runtime_reference,'Replacement context changed');
     this.db.run("UPDATE conversation_sessions SET runtime_reference=?,thread_name=?,state='prepared' WHERE session_id=?",binding.runtime_reference,binding.thread_name??null,session.session_id);
@@ -309,9 +312,11 @@ export class Conversations {
     return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'One reserved continuation delivers the answer in the peer conversation. Now submit_reply with your own brief explanation of the question you asked and any initial reasoning, then end this turn. Do not wait or poll, and do not claim the peer has answered yet.'};
   }
   callTool(context: ExecutionContext,callId: string,name: string,input: unknown) {
+    requireThat(!this.company.research.hasPending(context.executionId),'Await pending research before replying or using another tool.');
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
     return this.db.transaction(()=>{
       this.verify(context);requireThat(conversationTools().some(t=>t.name===name),'Tool is outside conversation authority');
+      requireThat(!this.db.get('SELECT 1 FROM research_operations WHERE execution_id=? AND call_id=?',context.executionId,callId),'Tool replay payload mismatch');
       const digest=hash([name,input]);const receipt=this.db.get<{request_hash:string;result:string}>('SELECT * FROM tool_receipts WHERE execution_id=? AND call_id=?',context.executionId,callId);
       if(receipt){requireThat(receipt.request_hash===digest,'Tool replay payload mismatch');return JSON.parse(receipt.result);}
       requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',context.executionId)!.n<LIMIT.toolCalls,'Conversation tool budget exhausted');

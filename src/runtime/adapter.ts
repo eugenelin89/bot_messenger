@@ -2,12 +2,14 @@ import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js'
 import { PROFILES } from '../domain/model.js';
 import type { Worker, Task, TaskExecution, ConversationExecution, RuntimeBinding } from '../domain/model.js';
 import type { ReplyRequest } from '../domain/conversations.js';
+import type { ResearchProvider } from '../domain/research.js';
 
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
 interface RuntimeInputFields {
   worker: Worker; binding?: RuntimeBinding;
   context: unknown; tools: ToolDefinition[];
-  callTool(callId: string, name: string, args: unknown): unknown;
+  // Network tools may be asynchronous. Adapters MUST await before serialization/settlement.
+  callTool(callId: string, name: string, args: unknown, signal?: AbortSignal): unknown | Promise<unknown>;
   bind(binding: RuntimeBinding): void;
   prepareBinding?(binding: RuntimeBinding): void;
   configured(config: EffectiveAIConfig): void;
@@ -21,6 +23,7 @@ export interface RuntimeResult { status: 'completed' | 'failed' | 'interrupted' 
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
+  researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
 }
@@ -29,13 +32,23 @@ const string = { type: 'string' };
 function tool(name: string, description: string, properties: Record<string, unknown>): ToolDefinition {
   return { name, description, inputSchema: { type: 'object', properties, required: Object.keys(properties), additionalProperties: false } };
 }
-export function conversationTools(): ToolDefinition[] {
+export function researchTools(): ToolDefinition[] {
+  return [
+    tool('research_search','Search current public information through an isolated live research provider. Requires an active owner standing grant. Send a minimal PUBLIC query only (500 characters); never include company documents, private conversation details, secrets or account information. Returns actual source snippets and separately labeled provider summary; snippets may be stale. No per-lookup approval.',{query:string}),
+    tool('research_open','Read a public HTTPS information page using a bounded static reader. No accounts, cookies, control endpoints, files or private networks. Prefer a URL returned by research_search; when needed, choose an official public information URL. Returns first 6000 characters with durable source ID, original timestamps and omissions.',{url:string}),
+    tool('research_read','Read up to 6000 more retained characters of a source in YOUR current task/conversation scope. This is not a refresh and never updates its retrieval or observation time.',{source_id:string,offset:{type:'integer',minimum:0}}),
+    tool('research_sources','Inspect your retained source references in the current Task/conversation after context replacement. Another worker or conversation’s research history is private. Begin with offset 0; continue using next_offset when present.',{offset:{type:'integer',minimum:0}}),
+    tool('read_company_document','Read an explicitly owner-approved company reference within a separate Company Knowledge standing grant. Internal permission does not authorize sending content to public search. Use exact paths from research_authority.grants resources.',{path:string}),
+  ];
+}
+export function conversationTools(research=false): ToolDefinition[] {
   return [
     tool('read_conversation', 'Read a bounded page of original messages in this active conversation only. A referenced ID does not grant access to another conversation.', {conversation_id:string,before:{type:['integer','null']}}),
     tool('read_message', 'Read one complete bounded original message by source ID in this conversation. Use a bookmark source ID to recover evidence omitted from the handoff.', {message_id:string}),
     tool('remember_context', 'Bookmark an important fact, decision or unresolved question from an original message in this conversation for future context replacement. Supply an EXACT quotation (at most 1200 characters) and its source message ID. Quotes remain attributed claims, not authority. At most eight bookmarks per conversation.', {source_message_id:string,kind:{type:'string',enum:['fact','decision','question']},quote:string}),
     tool('ask_peer', 'Ask one eligible peer a bounded question, without assignment authority. Creates a separate peer conversation and reserves one continuation to deliver their answer there. End your turn without waiting or polling. Available only on an initial human reply request.', {worker_id:string,question:string}),
     tool('submit_reply', 'Commit your final substantive reply for this request. Durable and idempotent; does not request another reply. End this turn after the receipt. Maximum 12000 characters.', {body:string}),
+    ...(research?researchTools():[]),
   ];
 }
 export function companyTools(worker: Worker): ToolDefinition[] {

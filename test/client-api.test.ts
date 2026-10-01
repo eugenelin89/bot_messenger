@@ -267,3 +267,16 @@ test('malformed cryptographic inputs, signatures, JSON, duplicate headers and un
   const connect=(signal:AbortSignal)=>fetch(f.base+'/api/v1/events',{headers:{Authorization:`Bearer ${d.token}`},signal});
   await connect(controller1.signal);await connect(controller2.signal);assert.equal((await f.request('/events',d.token)).status,429);controller1.abort();controller2.abort();
 });
+
+test('research authority and private activity add no device capability, route, DTO field or event',async t=>{
+  const f=await httpFixture(t);const device=await f.pair();const atlas=f.company.workers()[0]!;
+  const before=f.store.get<{n:number}>('SELECT count(*) n FROM client_events')!.n;
+  f.company.research.grant({worker_id:atlas.worker_id,preset:'public_research',expires_at:null,document_paths:[]});
+  f.company.audit('research_reserved','system',{query:'PRIVATE_RESEARCH_SENTINEL'},atlas.worker_id,null,null);
+  assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM client_events')!.n,before);
+  for(const path of ['/research/grant','/research/revoke'])assert.equal((await f.request(path,device.token,{},keyId())).status,404);
+  for(const path of [`/research/workers/${atlas.worker_id}`,'/research/operations/example'])assert.equal((await f.request(path,device.token)).status,404);
+  for(const path of ['/overview','/workers','/capabilities']){
+    const response=await f.request(path,device.token);assert.equal(response.status,200);assert.doesNotMatch(JSON.stringify(await response.json()),/standing_grants|research_operations|PRIVATE_RESEARCH_SENTINEL|public_research|company_knowledge/);
+  }
+});

@@ -53,6 +53,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
         if (path === '/api/devices') { json(200, clientAPI.trust.adminState()); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
+        if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
+        if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if (path === '/api/conversations') {
           const q = new URL(req.url!,expectedOrigin).searchParams;
           requireThat([...q.keys()].every(k=>['worker_id','before'].includes(k)), 'Invalid conversation query');
@@ -81,6 +83,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req,path==='/api/projects/repositories/import'?Math.ceil(HARD_BOUNDS.bundle_bytes*4/3)+2048:64000);
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
+      else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
+      else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
       else if (path === '/api/conversations/open') { json(201,company.conversations.open(body)); }
       else if (path === '/api/conversations/send') { json(201,company.conversations.send(body)); }
       else if (path === '/api/conversations/control') {
@@ -128,7 +132,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         const a = strictObject(body, ['objective']);
         json(201, company.assignObjective({ objective: textField(a, 'objective'),
           acceptance_criteria: 'Evaluate the evidence and report concrete recommendations to the Human. If delegating research, require a saved report and review it before your final conclusion.',
-          constraints: 'Approved local tools only. Research: one subordinate. SquadStatus: Product Manager then CTO with two engineers and one reviewer. No spending, external accounts, outreach, publishing, Computer Use or arbitrary shell/network.' }));
+          constraints: 'Use approved tools only, including public research when a current owner standing grant permits it. Research: one subordinate. SquadStatus: Product Manager then CTO with two engineers and one reviewer. No spending, external accounts, outreach, publishing, Computer Use or arbitrary shell/network.' }));
       } else if (path === '/api/pause') {
         const a = strictObject(body, ['paused']); requireThat(typeof a.paused === 'boolean', 'Invalid pause value'); company.pause(a.paused); json(200, { paused: company.paused });
       } else if (path === '/api/interrupt') {

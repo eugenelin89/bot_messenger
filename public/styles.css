@@ -20,3 +20,5 @@
 .status.queued,.status.pending_infrastructure { background:#fff2ce; color:#7b651e; }
 
 .conversation-entry{display:block;width:100%;text-align:left;padding:12px;margin:6px 0;border:1px solid #dce2df;background:#fff;border-radius:8px;cursor:pointer}.conversation-entry small{display:block;margin-top:4px;color:#65716a}.conversation-entry.selected{border-color:#26745d;background:#f0f7f3}.conversation-request{padding:12px 0;border-bottom:1px solid #e8ede9}.conversation-request button{margin-left:12px}
+
+.research-source,.research-operation{padding:14px 0;border-bottom:1px solid #e1e6ec}.research-source h4{margin:8px 0}.research-operation small{display:block;color:#65716a;margin:6px 0}#inspect p{font-size:12px;line-height:1.7}

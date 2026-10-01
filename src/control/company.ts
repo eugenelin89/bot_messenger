@@ -1,5 +1,6 @@
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
+import { Research } from './research.js';
 import type { HostClient } from '../infrastructure/client.js';
 import { parseAIProfile, resolveAIProfile, type RuntimeCatalog, type EffectiveAIConfig } from '../domain/ai-profile.js';
 import { EventEmitter } from 'node:events';
@@ -40,6 +41,7 @@ export class Company extends EventEmitter {
   readonly projects: Projects;
   readonly remote: RemoteProjects;
   readonly conversations: Conversations;
+  readonly research: Research;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -53,6 +55,7 @@ export class Company extends EventEmitter {
     this.remote = new RemoteProjects(this,remoteTransport ?? new GithubTransport(realpathSync(repoRoot)));
     this.conversations = new Conversations(this);
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
+    this.research = new Research(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -68,7 +71,7 @@ export class Company extends EventEmitter {
       this.store.run("INSERT OR IGNORE INTO channels VALUES ('executive','executive','Company objectives, results and decisions')");
     });
   }
-  private changed() { queueMicrotask(() => this.emit('changed')); }
+  changed() { queueMicrotask(() => this.emit('changed')); }
   worker(workerId: string): Worker {
     const raw = this.store.get<Worker & { capability_profile: string; delegatable_capabilities: string }>('SELECT * FROM workers WHERE worker_id=?', workerId);
     requireThat(raw, 'Worker not found');
@@ -124,7 +127,7 @@ export class Company extends EventEmitter {
     const expected = join(this.dataDir, 'workspaces', worker.worker_id);
     requireThat(path === expected && realpathSync(path) === expected, 'Workspace identity mismatch or symlink');
   }
-  private verifyContext(context: ExecutionContext): { worker: Worker; execution: TaskExecution; task: Task } {
+  verifyContext(context: ExecutionContext): { worker: Worker; execution: TaskExecution; task: Task } {
     const execution = this.execution(context.executionId); requireThat(execution.origin === 'task', 'Task execution required');
     const worker = this.worker(context.workerId); const task = this.task(execution.task_id);
     requireThat(execution.worker_id === worker.worker_id && task.assignee_worker_id === worker.worker_id, 'Execution identity mismatch');
@@ -138,6 +141,7 @@ export class Company extends EventEmitter {
     requireThat(binding.worker_id === worker.worker_id && binding.runtime_type === worker.runtime_type, 'Runtime binding identity mismatch');
     this.verifyWorkspace(worker, binding.workspace_path);
     requireThat(!this.store.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a conversation context');
+    requireThat(!this.store.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.store.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a research context');
     const old = this.binding(worker.worker_id);
     requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type && (old.thread_name ?? null) === (binding.thread_name ?? null)), 'Cannot replace an existing runtime binding implicitly');
     this.store.transaction(() => {
@@ -160,7 +164,8 @@ export class Company extends EventEmitter {
   }
   providerUnresolved(workerId: string) {
     return !!this.store.get('SELECT 1 FROM execution_runtime_attempts a JOIN executions e USING(execution_id) WHERE e.worker_id=? AND a.unresolved=1',workerId)
-      || !!this.store.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',workerId);
+      || !!this.store.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',workerId)
+      || !!this.store.get('SELECT 1 FROM research_operations WHERE worker_id=? AND unresolved=1',workerId);
   }
   recordRuntimeEvent(context: ExecutionContext, type: string, detail: Record<string,unknown>) {
     const {execution}=this.verifyContext(context);
@@ -256,6 +261,7 @@ export class Company extends EventEmitter {
         WHERE t.status='queued' AND w.enabled=1
         AND NOT EXISTS (SELECT 1 FROM execution_runtime_attempts a JOIN executions pe USING(execution_id) WHERE pe.worker_id=w.worker_id AND a.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM conversation_sessions cs WHERE cs.worker_id=w.worker_id AND cs.unresolved=1)
+        AND NOT EXISTS (SELECT 1 FROM research_operations ro WHERE ro.worker_id=w.worker_id AND ro.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
         (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
@@ -282,6 +288,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       const execution = this.execution(executionId);
       if (execution.status !== 'running') return;
+      requireThat(!this.research.hasPending(executionId),'Cannot complete while research callbacks are unfinished.');
       if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
       if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
@@ -333,6 +340,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.research.recover();
     this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
@@ -403,10 +411,12 @@ export class Company extends EventEmitter {
       reference_documents: [...this.referenceDocs.keys()] };
   }
   callTool(context: ExecutionContext, callId: string, name: string, input: unknown): unknown {
+    requireThat(!this.research.hasPending(context.executionId),'Await pending research before other tools or completion.');
     requireThat(typeof callId === 'string' && callId.length > 0 && callId.length <= 256, 'Invalid tool call ID');
     const hash = digest(JSON.stringify([name, input]));
     const perform = () => {
       const { worker, task, execution } = this.verifyContext(context);
+      requireThat(!this.store.get('SELECT 1 FROM research_operations WHERE execution_id=? AND call_id=?',context.executionId,callId),'Tool replay payload mismatch');
       const receipt = this.store.get<{ request_hash: string; result: string }>('SELECT * FROM tool_receipts WHERE execution_id=? AND call_id=?', context.executionId, callId);
       if (receipt) { requireThat(receipt.request_hash === hash, 'Tool replay payload mismatch'); return JSON.parse(receipt.result); }
       const count = this.store.get<{ n: number }>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?', execution.execution_id)!.n;

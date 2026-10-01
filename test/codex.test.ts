@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { CodexRuntime, DISABLED_FEATURES } from '../src/runtime/codex.js';
 import { companyTools, type RuntimeInput } from '../src/runtime/adapter.js';
@@ -11,6 +11,7 @@ function protocolFixture(mode: string) {
   const command = join(f.dir, 'mock-codex.mjs');
   writeFileSync(command, `#!${process.execPath}
 import {createInterface} from 'node:readline';
+import {writeFileSync} from 'node:fs';
 if(process.argv.includes('--version')){console.log('codex-cli 0.157.0');process.exit(0)}
 const mode=${JSON.stringify(mode)}, cwd=process.cwd(), features=${JSON.stringify(Object.fromEntries(DISABLED_FEATURES.map(f => [f, false])))};
 const send=x=>console.log(JSON.stringify(x));let turnActive=false;
@@ -37,7 +38,10 @@ createInterface({input:process.stdin}).on('line',line=>{
   if(mode==='approval'){send({id:'approval-1',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'turn-1'}});return;}
   if(mode==='stale-approval')send({id:'stale-approval',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'old-turn'}});
   send({id:'tool-1',method:'item/tool/call',params:{threadId:mode==='forged-thread'?'other-thread':thread.id,turnId:'turn-1',callId:'call-1',namespace:null,tool:'list_company_status',arguments:{}}});
+  if(mode==='async-early'||mode==='async-close'){send({method:'item/completed',params:{threadId:thread.id,turnId:'turn-1',item:{type:'agentMessage',phase:'final_answer',text:'Protocol result'}}});send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'turn-1',status:'completed'}}});}
+  if(mode==='async-close')setTimeout(()=>process.exit(0),20);
  } else if(m.id==='tool-1'){
+  if(mode==='async-result')writeFileSync(${JSON.stringify(join(f.dir,'tool-response.json'))},JSON.stringify(m));
   send({method:'item/completed',params:{threadId:thread.id,turnId:'turn-1',item:{type:'agentMessage',phase:'final_answer',text:'Protocol result'}}});
   if(mode==='stale-final')send({method:'item/completed',params:{threadId:thread.id,turnId:'old-turn',item:{type:'agentMessage',phase:'final_answer',text:'PRIVATE_STALE_FINAL'}}});
   send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'turn-1',status:'completed'}}});
@@ -59,6 +63,28 @@ test('App Server transport routes trusted tools, streams completion and resumes 
   assert.ok(f.events.includes('runtime_started'));
   f.input.binding = { worker_id: f.input.worker.worker_id, runtime_type: 'codex-app-server', workspace_path: f.input.worker.workspace_path, runtime_reference: 'thread-owned', created_at: 'now' };
   assert.equal((await adapter.run(f.input, new AbortController().signal)).status, 'completed'); assert.ok(f.events.includes('worker_resumed'));
+});
+
+test('promise tool results are awaited and an early provider completion cannot release unfinished callbacks',async t=>{
+  for(const mode of ['async-result','async-early']) {
+  const f=protocolFixture(mode);t.after(()=>f.close());let settled=false;
+  f.input.callTool=async()=>{await new Promise(r=>setTimeout(r,100));settled=true;return {awaited_value:'real async result'};};
+  const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
+  assert.equal(result.status,'completed');assert.equal(settled,true);
+  // The mock persists the actual wire result, not the callback's implementation value.
+  if(mode==='async-result'){
+  const wire=JSON.parse(readFileSync(join(f.dir,'tool-response.json'),'utf8'));
+  assert.deepEqual(JSON.parse(wire.result.contentItems[0].text),{awaited_value:'real async result'});
+  }
+  }
+});
+
+test('confirmed provider settlement survives transport loss while an async callback drains',async t=>{
+  const f=protocolFixture('async-close');t.after(()=>f.close());
+  f.input.callTool=async()=>{await new Promise(r=>setTimeout(r,100));return {ok:true};};
+  const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
+  assert.equal(result.status,'failed');assert.equal(result.settled,true);
+  await new Promise(r=>setTimeout(r,120));
 });
 
 test('stale same-thread final output and approval requests cannot affect the current turn',async t=>{
