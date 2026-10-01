@@ -196,3 +196,14 @@ At 07:54 UTC the unchanged fresh engineering retry passed integration, exact rev
 restart and 100 harmless UID isolation probes, including retirement/process kill.
 Real turn overlap: 41,938 ms. Projects validation is running with its established
 operator probe companion. Final read-only evidence/security audit found no new issue.
+
+At 08:00 UTC real Projects passed staged recovery, revision/re-review, integration,
+remote reconciliation and archive with 100 UID probes plus four archive-denial checks.
+A final fresh legacy Task hire/research/resume/interruption regression is running.
+Deployment preflight passed; unchanged host/runtime configuration allows the established
+application update stages without unrelated pending OS package upgrades.
+
+At 08:02 UTC the fresh legacy Task regression passed real hire/artifact/evaluation,
+restart/resume and confirmed interruption. All pre-merge gates and independent review
+are complete. Remaining work: normal PR merge, exact-revision application update,
+production browser/build/preservation verification and final documentation closure.

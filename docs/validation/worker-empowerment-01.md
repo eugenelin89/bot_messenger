@@ -1,7 +1,7 @@
 # Worker Empowerment 01 — Validation and delivery
 
-**Status:** Research gates WE01-1 through WE01-5 pass. Engineering/Projects regression,
-normal integration and retained-HQ deployment remain open.
+**Status:** All pre-merge acceptance and review checks pass. Normal integration and
+retained-HQ deployment/preservation remain open.
 
 This is the Decision 019 follow-up WE-01, not Prompt 08. The
 [execution plan](../exec-plans/worker-empowerment-01.md) tracks remaining work, and
@@ -9,8 +9,9 @@ This is the Decision 019 follow-up WE-01, not Prompt 08. The
 
 ## Candidate and environment
 
-Implementation commits `3017ceb` and `eb9650892b2ef80e720b9b106d0861927bf654a3` are on the
-owned `feature/worker-empowerment-01` branch, based on `c6a65ae`.
+Implementation candidate `05ce3e2183a150ffac6126ed32327c7a3cbd37d9` and subsequent
+test/harness/evidence commit `a9a241e` are on the owned `feature/worker-empowerment-01`
+branch, based on `c6a65ae`. Runtime source/public assets are unchanged after `05ce3e2`.
 Fresh validation HQ: `/var/lib/botsquad/validation/research-20261001-we01`, loopback 4311,
 unit `botsquad-research-validation.service`, source `/opt/botsquad-research-validation`.
 HQ identity `hq_1f8daefb-bd16-4dad-a88d-075e581bf3e7` was checked against the copied
@@ -31,7 +32,7 @@ profiles and pinned Codex 0.157.0. Answers and research conclusions are not scri
 | WE01-3 Standing authority/knowledge | Passed on candidate | Tests plus real separate browser grants, repeated use, README read and denied revoked tool call |
 | WE01-4 Failure/network boundaries | Passed on candidate | Synthetic boundaries plus real timeout/page-error recovery and labeled outage limitation reply |
 | WE01-5 Async/continuity/budgets | Passed on candidate | Actual replacement/restart/idle and in-flight crash recovery, plus async/budget tests |
-| WE01-6 Regression/delivery | Open | Local/Ubuntu suites and independent code review pass; engineering/Projects and integration/deployment pending |
+| WE01-6 Regression/delivery | Open | Local/Ubuntu suites, engineering/Projects and independent review pass; legacy Task passes; integration/deployment pending |
 
 ## Completed checks and meaningful failures
 
@@ -204,6 +205,28 @@ passed full engineering/review/integration/restart and 100 harmless UID isolatio
 The actual runtime turns overlapped by 41,938 ms (execution overlap 43,613 ms). Retirement
 killed the test UID process, denied its preserved home, revoked project access and
 preserved history. No deadline or assertion was weakened; the failed company was not replayed.
+
+## Broader Ubuntu regressions
+
+The unchanged Projects scenario passed in `projects-we01-20261001T075423Z`: real
+LedgerBrief work, requested revision and exact-commit re-review, all four staged
+restart checkpoints, trusted integration, remote-operation lost-response reconciliation
+and archive. Actual engineer turns overlapped by 18,008 ms (execution overlap 19,879 ms).
+The operator companion passed 100 harmless UID checks and four archived-clone read/write
+denials. Worker identities remained reusable; clones and history were preserved.
+
+The [regression summary](evidence/we01/regression-evidence.json) includes pass/fail
+results, original protected evidence paths and measured resource aggregates. It retains
+the first engineering timeout. No process arguments, environment or credentials are exported.
+
+The fresh legacy Task scenario (`prompt01-we01-20261001T080017Z`) also passed: real
+dynamic hiring, Scout artifact, Atlas evaluation, pause, restart preservation, reuse of
+the persisted provider binding, no replay and provider-confirmed interruption.
+
+Deployment preflight found the production checkout clean and host healthy. OS updates
+were pending; they are outside this feature update. Runtime, dependencies, service units
+and privileged helper sources are unchanged, so delivery uses the established Git/build/
+confined-validation/restart stages without unrelated package upgrades.
 
 ## Evidence locations and limits
 

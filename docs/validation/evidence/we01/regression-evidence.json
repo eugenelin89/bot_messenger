@@ -1,0 +1,188 @@
+{
+  "fixture_only": true,
+  "reports": [
+    {
+      "protected_evidence_directory": "/var/lib/botsquad/validation/deterministic-we01-20261001T073228Z",
+      "exit_code": 0,
+      "runtime_source_revision": "05ce3e2183a150ffac6126ed32327c7a3cbd37d9",
+      "console_tail": [
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 166416.803555"
+      ],
+      "resources": {
+        "samples": 85,
+        "peak_validation_cgroup_bytes": 308060160,
+        "minimum_host_available_kib": 1387980,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    },
+    {
+      "protected_evidence_directory": "/var/lib/botsquad/validation/identity-we01-20261001T073624Z",
+      "exit_code": 1,
+      "runtime_source_revision": "05ce3e2183a150ffac6126ed32327c7a3cbd37d9",
+      "console_tail": [
+        "{\"event\":\"execution_failed\",\"worker\":\"worker_a6b1b443-9eae-4e4f-9d4e-c43c269a3d35\",\"task\":\"task_23185f2d-e269-4c77-a1ac-b3d430351ef8\",\"execution\":\"execution_7e572d21-25be-4647-9cc5-c7b3d452a4c3\",\"detail\":{\"error\":\"Bounded runtime deadline exceeded; inspect evidence before retry\"}}",
+        "{\"event\":\"manager_followup_queued\",\"worker\":\"worker_9805e86f-5389-4ce7-98df-a29ff2723b3a\",\"task\":\"task_2d7891e2-3f78-4244-ad3c-d4c3328ba0b0\",\"execution\":null,\"detail\":{\"children\":[\"task_23185f2d-e269-4c77-a1ac-b3d430351ef8\"]}}",
+        "Real workflow stopped: task_23185f2d-e269-4c77-a1ac-b3d430351ef8: Bounded runtime deadline exceeded; inspect evidence before retry",
+        "Retained validation directory: /var/lib/botsquad/validation/identity-we01-20261001T073624Z"
+      ],
+      "resources": {
+        "samples": 134,
+        "peak_validation_cgroup_bytes": 194162688,
+        "minimum_host_available_kib": 1411456,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    },
+    {
+      "result": "PASS",
+      "started": "2026-10-01T07:48:32.959Z",
+      "finished": "2026-10-01T07:52:58.406Z",
+      "source_digest": "1a0368ea2e8e8362e927a923123f446bab6d2fcdf1ab26c757c6accb266471e2",
+      "workflow_task_id": "task_50e8d604-8844-41a8-b342-3959c5a13a2a",
+      "checks": [
+        "six real persistent Codex workers",
+        "actual Maya spec before engineering",
+        "distinct branch/worktree/commit ownership",
+        "real execution and runtime-turn overlap",
+        "real denied source/sibling/path writes",
+        "role-specific tool surface",
+        "real independent exact-commit Grace review",
+        "confined full acceptance tests",
+        "candidate before safe fast-forward",
+        "deterministic product output",
+        "process restart preserved all workflow records",
+        "no duplicate engineering/review/integration/wake"
+      ],
+      "counts": {
+        "workers": 7,
+        "tasks": 14,
+        "executions": 26
+      },
+      "execution_overlap_ms": 43613,
+      "runtime_turn_overlap_ms": 41938,
+      "protected_evidence_directory": "/var/lib/botsquad/validation/identity-we01-20261001T074831Z",
+      "exit_code": 0,
+      "runtime_source_revision": "05ce3e2183a150ffac6126ed32327c7a3cbd37d9",
+      "console_tail": [
+        "{\"event\":\"worker_resumed\",\"worker\":\"worker_6c58a2bd-cc5a-4079-801e-082e683a4d61\",\"task\":\"task_859fc83d-684f-48fd-9bad-ec7c6e81e189\",\"execution\":\"execution_df5fb959-01de-4c4b-bf61-c35f889b0a02\",\"detail\":{\"runtime_reference\":\"01a0f66f-cf81-7660-8799-a9c4cdb68179\",\"model\":\"gpt-6-sol\"}}",
+        "{\"event\":\"execution_completed\",\"worker\":\"worker_6c58a2bd-cc5a-4079-801e-082e683a4d61\",\"task\":\"task_859fc83d-684f-48fd-9bad-ec7c6e81e189\",\"execution\":\"execution_df5fb959-01de-4c4b-bf61-c35f889b0a02\",\"detail\":{\"error\":null}}",
+        "Started local application: http://127.0.0.1:40201",
+        "PASS: real engineering/review/integration/restart. Execution overlap 43613 ms; runtime-turn overlap 41938 ms. Evidence: /var/lib/botsquad/validation/identity-we01-20261001T074831Z/evidence.json"
+      ],
+      "isolation.json": {
+        "result": "PASS",
+        "check_count": 100
+      },
+      "retirement-process.json": {
+        "result": "PASS",
+        "worker_id": "worker_3b3dc2f8-00be-43ef-8da2-2f1e08c8b2b0",
+        "uid": 20114,
+        "exit_signal": 9,
+        "operation_id": "operation_e81920ad-a415-4336-ae08-563c8a7b74de",
+        "history_preserved": true,
+        "project_access_revoked": true,
+        "home_preserved": true,
+        "retired_home_access_denied": true
+      },
+      "resources": {
+        "samples": 159,
+        "peak_validation_cgroup_bytes": 242237440,
+        "minimum_host_available_kib": 1354552,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    },
+    {
+      "result": "PASS",
+      "started": "2026-10-01T07:54:24.667Z",
+      "finished": "2026-10-01T07:59:49.244Z",
+      "execution_overlap_ms": 19879,
+      "runtime_turn_overlap_ms": 18008,
+      "protected_evidence_directory": "/var/lib/botsquad/validation/projects-we01-20261001T075423Z",
+      "exit_code": 0,
+      "runtime_source_revision": "05ce3e2183a150ffac6126ed32327c7a3cbd37d9",
+      "console_tail": [
+        "{\"event\":\"execution_completed\",\"worker\":\"worker_17aef043-dc61-4730-803d-8fcf2b689aaa\",\"task\":\"task_e1cc1e0b-fe27-4e0c-be80-721d648b2553\",\"execution\":\"execution_74eda47c-db55-4b88-9239-031603e342a8\",\"detail\":{\"error\":null}}",
+        "{\"event\":\"execution_started\",\"worker\":\"worker_e5889df4-588a-4877-b8ee-1894fcabf1e3\",\"task\":\"task_5b1ab03a-935d-4ff6-971f-c159d6d0a72a\",\"execution\":\"execution_da98a1ad-e72b-43d4-a97c-b7f97aed5d3b\",\"detail\":{}}",
+        "{\"event\":\"execution_completed\",\"worker\":\"worker_e5889df4-588a-4877-b8ee-1894fcabf1e3\",\"task\":\"task_5b1ab03a-935d-4ff6-971f-c159d6d0a72a\",\"execution\":\"execution_da98a1ad-e72b-43d4-a97c-b7f97aed5d3b\",\"detail\":{\"error\":null}}",
+        "PASS: real Projects, revision, queue, remote reconciliation, archive. Overlap 19879/18008 ms. Evidence /var/lib/botsquad/validation/projects-we01-20261001T075423Z/evidence.json"
+      ],
+      "isolation.json": {
+        "result": "PASS",
+        "check_count": 100
+      },
+      "archive-isolation.json": {
+        "result": "PASS",
+        "check_count": 4
+      },
+      "resources": {
+        "samples": 164,
+        "peak_validation_cgroup_bytes": 270585856,
+        "minimum_host_available_kib": 1360440,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    },
+    {
+      "result": "PASS",
+      "operation_id": "operation_bef45805-5a18-4f6c-b2a3-65875e7554d0",
+      "approval_id": "approval_abf71004-75d0-4086-bc0d-7f73576bb481",
+      "worker_id": "worker_87e00938-b0d3-4467-9f1a-bce22f59c69c",
+      "uid": 20106,
+      "real_host_completed_before_response_loss": true,
+      "consumed_approval_recovered_on_restart": true,
+      "same_receipt_replayed": true,
+      "changed_payload_rejected": true,
+      "protected_evidence_directory": "/var/lib/botsquad/validation/recovery-we01-20261001T072522Z",
+      "exit_code": 0,
+      "runtime_source_revision": "eb9650892b2ef80e720b9b106d0861927bf654a3",
+      "console_tail": [
+        "PASS: real host completion, lost response, restart reconciliation and exact receipt replay"
+      ],
+      "resources": {
+        "samples": 2,
+        "peak_validation_cgroup_bytes": 63721472,
+        "minimum_host_available_kib": 1474732,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    },
+    {
+      "result": "PASS",
+      "started": "2026-10-01T08:00:18.726Z",
+      "finished": "2026-10-01T08:02:03.363Z",
+      "workflow_task_id": "task_5a8ed3d7-2655-4f3d-827e-64ab8be89f90",
+      "checks": [
+        "real dynamic hire",
+        "real Scout execution and artifact",
+        "real Atlas resume/evaluation",
+        "pause",
+        "process restart persistence",
+        "no replay of completed work",
+        "persisted binding resumes after restart",
+        "real turn interruption"
+      ],
+      "counts": {
+        "workers": 2,
+        "tasks": 4,
+        "executions": 5,
+        "artifacts": 1
+      },
+      "protected_evidence_directory": "/var/lib/botsquad/validation/prompt01-we01-20261001T080017Z",
+      "exit_code": 0,
+      "runtime_source_revision": "05ce3e2183a150ffac6126ed32327c7a3cbd37d9",
+      "console_tail": [
+        "{\"event\":\"task_assigned\",\"worker\":\"worker_b4e240fe-2025-4f99-a516-4e177551fe7e\",\"task\":\"task_9485dd6d-c73b-417b-9875-841cb21cc76e\",\"execution\":null,\"detail\":{\"parent_task_id\":null}}",
+        "{\"event\":\"worker_resumed\",\"worker\":\"worker_b4e240fe-2025-4f99-a516-4e177551fe7e\",\"task\":\"task_9485dd6d-c73b-417b-9875-841cb21cc76e\",\"execution\":\"execution_60e56500-b4b0-4680-b631-6963a588e4c0\",\"detail\":{\"runtime_reference\":\"01a0f67a-8dc1-7aa1-93d4-8c12c3c282a9\",\"model\":\"gpt-6-sol\"}}",
+        "{\"event\":\"execution_interrupted\",\"worker\":\"worker_b4e240fe-2025-4f99-a516-4e177551fe7e\",\"task\":\"task_9485dd6d-c73b-417b-9875-841cb21cc76e\",\"execution\":\"execution_60e56500-b4b0-4680-b631-6963a588e4c0\",\"detail\":{\"error\":\"Codex confirmed turn interruption\"}}",
+        "PASS: real CEO \u2192 Scout \u2192 CEO, restart/resume and interruption. Evidence: /var/lib/botsquad/validation/prompt01-we01-20261001T080017Z/evidence.json"
+      ],
+      "resources": {
+        "samples": 54,
+        "peak_validation_cgroup_bytes": 162361344,
+        "minimum_host_available_kib": 1452568,
+        "note": "Host resource values include other services; no process arguments or environment retained."
+      }
+    }
+  ],
+  "omissions": "No production data, raw worker inputs, source bodies, credentials, process arguments or environment."
+}
