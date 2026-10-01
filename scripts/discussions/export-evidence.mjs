@@ -4,7 +4,7 @@ import {readFileSync,existsSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
-const root=resolve(process.argv[2]??'');assert.equal(root,'/var/lib/botsquad/validation/discussions-20261001-p08');
+const root=resolve(process.argv[2]??'');assert.ok(['/var/lib/botsquad/validation/discussions-20261001-p08','/var/lib/botsquad/validation/discussions-20261001-p08-confirmation'].includes(root));
 const fixture=JSON.parse(readFileSync(join(root,'fixture.json'),'utf8'));assert.equal(fixture.data_root,root);assert.equal(fixture.roster_fixture,true);
 const db=new DatabaseSync(join(root,'company.sqlite'),{readOnly:true});db.exec('BEGIN');
 const all=(sql,...args)=>db.prepare(sql).all(...args),one=(sql,...args)=>db.prepare(sql).get(...args);
