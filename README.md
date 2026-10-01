@@ -21,8 +21,8 @@ repository status. Future milestone prompts also use
 
 **Prompt 07 is complete and validated on Ubuntu. Prompt 08 — collaborative working groups and deliberation — is next.**
 
-**Worker Empowerment 01:** the scoped public-research and standing-knowledge slice is
-implemented; its live acceptance and delivery status are tracked in the
+**Worker Empowerment 01 is accepted and deployed:** the scoped public-research and
+standing-knowledge slice passed real Ubuntu acceptance; evidence is in the
 [WE-01 report](docs/validation/worker-empowerment-01.md). A deployment does not activate
 production grants. Start with the [public research tutorial](docs/operations/PUBLIC_RESEARCH_TUTORIAL.md).
 

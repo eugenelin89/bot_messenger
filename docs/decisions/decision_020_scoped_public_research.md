@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01
 
-**Status:** Implementation decision for WE-01; acceptance is tracked separately in the
+**Status:** Accepted and implemented in WE-01; acceptance and delivery are recorded in the
 [execution plan](../exec-plans/worker-empowerment-01.md).
 
 ## Context

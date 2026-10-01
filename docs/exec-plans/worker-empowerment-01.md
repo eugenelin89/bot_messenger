@@ -1,12 +1,12 @@
 # Execution Plan — Worker Empowerment 01
 
-**Status:** Active; acceptance and delivery not yet achieved
+**Status:** Complete: all six gates passed, accepted application merged/deployed/verified
 **Owner:** Codex task `01a0f625-65b7-7d70-aa35-152913df3147`
 **Branch:** `feature/worker-empowerment-01`
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-we01`
 **Started:** 2026-10-01 UTC (September 30 Vancouver)
 **Initial ETA:** 8–12 hours including Ubuntu acceptance, review and deployment
-**Current ETA:** 2–4 hours remaining at 07:44 UTC; revised ETA every 20 minutes per owner request
+**Latest ETA:** 30–60 minutes remaining at 08:04 UTC; application verified at 08:09 UTC, then documentation closure
 
 ## Objective and ownership
 
@@ -132,7 +132,7 @@ API v1 grants no new capability and research audit events stay outside device pr
 | WE01-3 | Repeated grant use; missing/revoked/expired/self-grant denials; document scope | Passed tests + actual UI/worker use and revocation |
 | WE01-4 | Source failures/stale data/limits and synthetic network/injection boundaries | Passed deterministic boundaries + real recovery/fixture response |
 | WE01-5 | Real rollover/restart, async ownership, retries/revocation/cancellation/budgets/idle | Passed: rollover/restart/idle/in-flight crash plus deterministic async/limits |
-| WE01-6 | Full checks, browser/Ubuntu regressions, independent review, merge/deploy/preservation | Open |
+| WE01-6 | Full checks, browser/Ubuntu regressions, independent review, merge/deploy/preservation | Passed; PR #5 deployment checkpoint d6463fb |
 
 ## Sequence and remaining gates
 
@@ -207,3 +207,22 @@ At 08:02 UTC the fresh legacy Task regression passed real hire/artifact/evaluati
 restart/resume and confirmed interruption. All pre-merge gates and independent review
 are complete. Remaining work: normal PR merge, exact-revision application update,
 production browser/build/preservation verification and final documentation closure.
+
+## Accepted delivery checkpoint — October 1
+
+PR #5 merged normally at `d6463fbee0e3459c81c636818f0c86acba482ddb`. Local main,
+origin/main, deployed source and running health matched exactly. The deployment suite
+passed 185/185 again; actual browser controls, runtime readiness and all 81 compiled/public
+file hashes matched the local build. Retained comparison passed 18,400 original rows in
+28 databases, 213 account/group mappings, 354 root records and 105 worker homes. Actual
+dispatch remains unpaused, with no runnable work and zero new standing grants.
+
+The research validation unit is disabled/stopped, all regression processes completed,
+and its temporary 4311 tunnel is closed. Evidence, backup and worker homes remain. The
+production 4310 tunnel was left in place. The external GitHub Codex review bot could not
+run because its review quota was exhausted; the separate read-only reviewer completed
+code/security/evidence review and all five findings were resolved before merge.
+
+A documentation-only closure PR records these observed results and clarifies that Scout
+is not yet in the retained roster. Its final revision will be deployed and reverified
+without changing the accepted application tree. Prompt 08 remains next.

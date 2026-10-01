@@ -1,7 +1,7 @@
 # BotSquad — Current State
 
-**Status:** Prompt 07 complete and Ubuntu validated; Prompt 08 working groups next
-**Updated:** 2026-09-29
+**Status:** Prompt 07 and WE-01 complete and Ubuntu validated; Prompt 08 working groups next
+**Updated:** 2026-10-01
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
@@ -43,26 +43,29 @@ is the primary operating topology.
 
 ## WE-01 implementation and activation
 
-The first public-research/standing-knowledge slice is implemented on the owned WE-01
-branch. Live acceptance and delivery are tracked in the
-[WE-01 report](../validation/worker-empowerment-01.md); do not infer production deployment
-from this implementation description. Owner controls are in each worker's **Capabilities
-& research** view. See the [tutorial](PUBLIC_RESEARCH_TUTORIAL.md) and
+The first public-research/standing-knowledge slice passed all six gates and was deployed
+from normally merged PR #5 on October 1. The [WE-01 report](../validation/worker-empowerment-01.md)
+records actual model/browser evidence, the exact application release and preservation.
+Owner controls are in each worker's **Capabilities & research** view. See the [tutorial](PUBLIC_RESEARCH_TUTORIAL.md) and
 [Decision 020](../decisions/decision_020_scoped_public_research.md).
 
 Actual retained-HQ inspection on October 1 found dispatch **unpaused**, all 43 Tasks
 terminal and no running execution. Preserve the actual state rather than a historical
 pause statement. No production research grant has been activated by this work. The new
-schema creates no implicit permission; deployment requires a separate owner confirmation
-before retained Atlas/Scout can use the new route.
+schema 9 creates no implicit permission. The retained company has **zero Public Research
+and zero Company Knowledge grants**, with seven workers, 43 terminal Tasks and 58
+executions preserved. Atlas and Maya are eligible for conversation research; Scout was
+the isolated validation researcher and is not currently in this roster. Create a researcher
+through the existing Task hiring workflow if needed, then confirm that worker's permission
+once. An Atlas grant does not extend to another worker.
 
 ## Prompt 07 acceptance and release
 
 Direct conversations and context continuity passed real Ubuntu C07-1–C07-4 acceptance.
 Final checks: 159/159 Ubuntu tests, 158 local plus one Linux-only skip, four actual-browser
 checks, nine provisioner checks, real research/engineering/Projects workflows and retained
-worker isolation. Read-only security/recovery review findings were resolved. The new
-schema is 8; offline 6→8 migration and repeat-start preserved every original field/rowid.
+worker isolation. Read-only security/recovery review findings were resolved. That release
+introduced schema 8; offline 6→8 migration and repeat-start preserved every original field/rowid.
 
 At the Prompt 07 release checkpoint, the retained HQ was targeted to remain paused
 with seven workers, six Projects, 43 Tasks, 53 executions, 63 legacy messages, ten

@@ -72,8 +72,8 @@ current sequence even when an older document reproduces the previous table.
 
 ## Near-term task — give bots appropriate power and authority
 
-**Status:** WE-01 public-research/standing-knowledge slice implemented; acceptance and
-delivery tracked in the [WE-01 report](../validation/worker-empowerment-01.md). Broader
+**Status:** WE-01 public-research/standing-knowledge slice accepted and deployed on
+2026-10-01; see the [WE-01 report](../validation/worker-empowerment-01.md). Broader
 empowerment remains open. Grants require explicit owner activation; implementation and
 deployment alone do not grant retained workers new authority.
 
