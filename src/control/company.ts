@@ -535,7 +535,7 @@ export class Company extends EventEmitter {
       channels: this.store.all('SELECT * FROM channels'),
       messages: this.store.all<Message>('SELECT * FROM messages ORDER BY created_at,rowid'),
       tasks: this.store.all<Task>('SELECT * FROM tasks ORDER BY created_at,rowid'),
-      executions: this.store.all<Execution>('SELECT * FROM executions ORDER BY started_at,rowid'),
+      executions: this.store.all<Execution & {group_id:string|null;discussion_kind:string|null}>('SELECT e.*,t.group_id,t.kind discussion_kind FROM executions e LEFT JOIN discussion_turns t ON t.request_id=e.request_id ORDER BY e.started_at,e.rowid'),
       artifacts: this.store.all<Artifact>('SELECT * FROM artifacts ORDER BY created_at,rowid'),
       audit: this.store.all<AuditEvent>('SELECT * FROM audit_events ORDER BY created_at,rowid'),
       bindings: this.store.all<RuntimeBinding>('SELECT * FROM runtime_bindings') };

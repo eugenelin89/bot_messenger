@@ -5,7 +5,7 @@ export const DISCUSSION_LIMITS = Object.freeze({
   minutes: 60, extensionMinutes: 30, outputChars: 8000, transcriptChars: 180000,
   contextChars: 48000, evidenceItems: 32, evidenceChars: 6000, packetChars: 64000,
   synthesisChars: 12000, artifactChars: 32000, synthesisTurns: 6, reservedTurns: 3, questions: 24,
-  toolCalls: 16, retrievalChars: 48000,
+  ownerNotes: 32, toolCalls: 16, retrievalChars: 48000,
 });
 export type DiscussionState = 'draft'|'active'|'paused'|'blocked'|'stopped'|'completed'|'archived';
 export type DiscussionTurnKind = 'organize'|'opening'|'facilitate'|'response'|'synthesis'|'review'|'finalize';
