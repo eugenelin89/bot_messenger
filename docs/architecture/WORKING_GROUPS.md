@@ -1,8 +1,8 @@
 # Working groups: execution, visibility and continuity
 
-Prompt 08 adds an owner-started bounded deliberation object. This implementation is under
-acceptance; consult the [validation report](../validation/PROMPT_08_VALIDATION.md) for the
-actual accepted revision rather than inferring acceptance from this design description.
+Prompt 08 implements an owner-started bounded deliberation object. Actual Ubuntu acceptance
+and production deployment passed; consult the [validation report](../validation/PROMPT_08_VALIDATION.md)
+for exact evidence, retained failures, revisions and limitations.
 
 A draft persists the question, desired output, constraints, initiating operation, roster,
 facilitator, synthesizer, incomplete-result/research choices and limits. It creates no

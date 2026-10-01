@@ -165,7 +165,7 @@ current work. Healthy task bindings retain their provenance. See
 [Conversations and continuity](CONVERSATIONS_AND_CONTINUITY.md) and
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md).
 
-The Prompt 08 candidate adds first-class bounded working groups on this substrate.
+Prompt 08 adds first-class bounded working groups on this substrate.
 `discussion_turns` bind requests to one charter; SQL verifies group/worker/session ownership.
 A facilitator chooses substantive follow-ups, then separate draft, review and final turns
 produce immutable synthesis artifacts. Evidence exports, actual revision checkpoints,
@@ -435,7 +435,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-The implementation through Prompt 07 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 08 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.

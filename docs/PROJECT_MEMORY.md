@@ -40,33 +40,49 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prepare Prompt 08 working groups from the accepted direct-conversation foundation. Reuse its scoped sessions, source-backed handoffs, durable obligations, shared dispatcher and unknown-outcome fence. Do not expand conversation tools into assignment or approval authority. Preserve the 08 → 09 → 10 → 11 order, minimal scheduling in 09 and the single-company evidence gate before federation. Verify current main and the Prompt 07 delivery record before starting; do not discard concurrent work.
+Prepare Prompt 09’s strategic company operating loop and minimal durable one-time/recurring
+scheduler. Reuse accepted Prompt 07 continuity, WE-01 authority and Prompt 08 deliberation,
+shared evidence, immutable synthesis and explicit assignment boundaries. Cover both a broad
+mandate and the bounded Asymmetri Motion reference scenario with two evidence-based cycles.
+Do not imply live marketing/publication authority or implement Computer Use early. Preserve
+09 → 10 → 11 and the single-company evidence gate before federation. Verify current main,
+active worktrees and the delivery receipt; never discard concurrent work.
 
-WE-01 completed and deployed the first public-research/standing-knowledge slice from Decision 019. Read [Decision 020](decisions/decision_020_scoped_public_research.md), the [completed execution plan](exec-plans/worker-empowerment-01.md), [validation record](validation/worker-empowerment-01.md) and [owner tutorial](operations/PUBLIC_RESEARCH_TUTORIAL.md). All six gates passed; PR #5 merged and its exact application revision was deployed and verified on October 1. Separate owner activation is required at the retained HQ; do not confuse deployed code with active permission. The retained HQ has zero new grants and remains unpaused with no runnable work. Atlas and Maya are present; Scout was the isolated validation researcher and is not yet in the retained roster. Broader empowerment remains future work.
+WE-01 completed and deployed the first public-research/standing-knowledge slice from Decision 019. Read [Decision 020](decisions/decision_020_scoped_public_research.md), the [completed execution plan](exec-plans/worker-empowerment-01.md), [validation record](validation/worker-empowerment-01.md) and [owner tutorial](operations/PUBLIC_RESEARCH_TUTORIAL.md). All six gates passed; PR #5 merged and its exact application revision was deployed and verified on October 1. Separate owner activation is required at the retained HQ; do not confuse deployed code with active permission. At that historical WE-01 release, the retained HQ had zero grants and was unpaused with no runnable work; the fresh Prompt 08 state below supersedes its grant count. Atlas and Maya are present; Scout was the isolated validation researcher and is not yet in the retained roster. Broader empowerment remains future work.
 
 ## Maintaining this record
 
 Update this handoff when the owner changes a decision or a milestone is genuinely accepted. Keep rationale in decision records and detailed status/evidence in execution plans. Do not duplicate secrets or private customer data here. Current owner instructions and accepted decisions take precedence over an old handoff. This file makes the conversation recoverable from the repository; it does not claim that every future chat automatically loads it.
 
-## Prompt 08 implementation in progress — October 1
+## Prompt 08 accepted and deployed — October 1
 
-The owned `feature/prompt-08-working-groups` candidate implements first-class bounded
-working groups, explicit owner/Atlas start, separately attributed turns, shared evidence,
-discussion-mode research opt-in, versioned synthesis and separate assignments. Read the
-[execution plan](exec-plans/prompt-08.md), [validation report](validation/PROMPT_08_VALIDATION.md),
-[Decision 021](decisions/decision_021_bounded_working_groups.md), and
-[tutorial](tutorials/working-groups.md). Do not mark Prompt 08 complete before all gates pass.
+Working groups now support manual teams or explicit Atlas organization, actual attributed
+employee turns, shared evidence, owner interjections, bounded continuation, reviewed immutable
+synthesis and separately submitted assignments. C08-1/C08-2, actual research, context replacement,
+restart/crash recovery, direct/peer, engineering/Projects and Linux isolation passed. Backend
+suite: 211/211 Ubuntu; local 210 plus one Linux-only skip. Final Chrome suite: 7/7. Independent
+read-only security/recovery and semantic review accepted the results. Earlier research failures,
+fences, failed overlap attempt and the corrected initial browser-loading race remain recorded.
 
-The actual production preflight supersedes the older zero-grant snapshot above: seven
-workers (Atlas, Nix, Maya, Turing, Linus, Ada, Grace), unpaused, no runnable work, 43 terminal
-Tasks, and one existing Atlas Public Research grant for Task/direct conversation modes.
-No Company Knowledge grant. That existing permission must remain unchanged; it does not
-include discussions. Production has not been migrated/deployed at this checkpoint.
+Implementation PR #7 and browser correction PR #8 merged normally. The accepted application
+revision `f82235835a0dcc3473678d6f6bf9780d93709223` was deployed with matching local/origin/source,
+all 182 build hashes, ready runtime, private listener and actual Chrome verification. The final
+documentation revision’s exact equality receipt will be saved after its deployment outside
+Git in the task handoff and protected HQ backup journal, avoiding a self-referential hash commit.
 
-The isolated manual four-worker group passed real deliberation, owner interjection,
-safe restart and scoped context replacement. An Atlas-organized group shared two real
-retrieved public pages and peer responses but its Atlas synthesis timed out; the original
-phase remains failed and that worker remains fenced. An explicitly owner-selected Maya
-then saved a source-backed incomplete synthesis. Retain both attempts and never clear
-unknown fences to improve a demonstration. Separate fresh acceptance is validating the
-harmless follow-on assignment. Production and all historical validation roots stay intact.
+Production: seven enabled idle workers (Atlas, Nix, Maya, Turing, Linus, Ada, Grace), unpaused,
+43 terminal Tasks, 58 executions and zero working groups. One existing Atlas Public Research
+grant covers Task/direct conversation only; no Company Knowledge or discussion grant was added.
+For group lookup, the owner must explicitly revoke/regrant an eligible worker with discussion
+mode and permit research in the charter. Supplied-material groups need no research grant.
+
+Protected backups, repeated offline migration and original/fresh preservation checks passed.
+Exact pause/resume audit notifications are separately accounted for; every original row/cursor
+is retained, excluding only the pre-existing worker heartbeat timestamp. Temporary services
+and task-owned tunnels are stopped; all fixture roots, identities, homes, receipts and fences
+remain. No OS/provisioner upgrade, public ingress or production demonstration was performed.
+
+Read the [validation report](validation/PROMPT_08_VALIDATION.md),
+[execution plan](exec-plans/prompt-08.md), [Decision 021](decisions/decision_021_bounded_working_groups.md),
+[technical guide](architecture/WORKING_GROUPS.md) and [tutorial](tutorials/working-groups.md).
+**Prompt 09 is next; WE-01 remains complete.**

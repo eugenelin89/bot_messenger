@@ -1,7 +1,7 @@
 # Decision 021: Bounded working groups and scoped deliberation
 
 **Date:** 2026-10-01
-**Status:** Implemented candidate; real acceptance and integration pending
+**Status:** Accepted and implemented; actual Ubuntu acceptance and deployment verified on 2026-10-01
 
 ## Context
 

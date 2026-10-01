@@ -95,4 +95,4 @@ slice: separate owner grants, an isolated existing-account live-search broker, b
 HTTPS source reading, durable scoped evidence, asynchronous receipts and compatible
 session transitions. Acceptance and retained activation remain explicit separate facts.
 
-- [Decision 021 — Bounded working groups and scoped deliberation](decision_021_bounded_working_groups.md) — implementation candidate; acceptance in progress.
+- [Decision 021 — Bounded working groups and scoped deliberation](decision_021_bounded_working_groups.md) — accepted; real Ubuntu acceptance and production deployment verified.

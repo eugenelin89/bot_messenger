@@ -123,6 +123,7 @@
     "direct_conversations": 2,
     "research": 1,
     "read_only_review": "Accepted",
-    "production_followup": "pending"
-  }
+    "production_followup": "PASS: actual Chrome on f822358, seven eligible participants, zero POSTs/groups/page errors"
+  },
+  "accepted_application_revision": "f82235835a0dcc3473678d6f6bf9780d93709223"
 }

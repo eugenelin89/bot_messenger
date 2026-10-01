@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompt 07 and WE-01 complete and Ubuntu validated; Prompt 08 working groups next
+**Status:** Prompt 08 and WE-01 complete, Ubuntu validated and deployed; Prompt 09 next
 **Updated:** 2026-10-01
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -49,29 +49,37 @@ records actual model/browser evidence, the exact application release and preserv
 Owner controls are in each worker's **Capabilities & research** view. See the [tutorial](PUBLIC_RESEARCH_TUTORIAL.md) and
 [Decision 020](../decisions/decision_020_scoped_public_research.md).
 
-Actual retained-HQ inspection on October 1 found dispatch **unpaused**, all 43 Tasks
+At the historical WE-01 release, retained-HQ inspection found dispatch **unpaused**, all 43 Tasks
 terminal and no running execution. Preserve the actual state rather than a historical
 pause statement. No production research grant has been activated by this work. The new
-schema 9 creates no implicit permission. The retained company has **zero Public Research
+schema 9 creates no implicit permission. That release snapshot had **zero Public Research
 and zero Company Knowledge grants**, with seven workers, 43 terminal Tasks and 58
 executions preserved. Atlas and Maya are eligible for conversation research; Scout was
 the isolated validation researcher and is not currently in this roster. Create a researcher
 through the existing Task hiring workflow if needed, then confirm that worker's permission
 once. An Atlas grant does not extend to another worker.
 
-## Prompt 08 preflight and candidate
+## Prompt 08 accepted production state
 
-A fresh retained-HQ inspection on October 1 supersedes the WE-01 zero-grant release
-snapshot above: the same seven workers remain enabled, dispatch is unpaused, 43 Tasks
-are terminal, and no work is runnable. **One existing Atlas Public Research grant** is
-present for Task/direct modes; Company Knowledge remains ungranted. Prompt 08 migration
-must not extend that permission to discussions or change the owner's pause state.
+Working groups passed real C08-1/C08-2, current regressions and independent review, then
+normal integration and exact Ubuntu deployment. Manual teams and Atlas organization share
+only authorized evidence, preserve dissent/uncertainty, and produce saved synthesis. A separate
+owner preview/submission creates an assignment. See the [tutorial](../tutorials/working-groups.md),
+[acceptance/deployment report](../validation/PROMPT_08_VALIDATION.md) and
+[accepted delivery receipt](../validation/evidence/prompt08/deployment-accepted.json).
 
-Working groups are implemented on the owned candidate branch and undergoing isolated
-Ubuntu acceptance. The manual group passed; the research group produced an explicitly
-incomplete recommendation after a recorded Atlas timeout, with the original worker fence
-retained. Production deployment is still pending. Consult the
-[current acceptance record](../validation/PROMPT_08_VALIDATION.md) before claiming release.
+The October 1 accepted snapshot supersedes older release counts: seven enabled idle workers
+(Atlas, Nix, Maya, Turing, Linus, Ada, Grace), dispatch unpaused, 43 terminal Tasks, 58 executions,
+no runnable work and zero working groups. **One existing Atlas Public Research grant** covers
+Task/direct modes; Company Knowledge is ungranted. Schema 10 preserves these exact grants.
+No production demonstration, roster or permission was created. To allow group research,
+explicitly revoke/regrant an eligible worker with discussion mode and enable research in the
+charter; supplied-material deliberation works without new grants.
+
+All 182 build-file hashes and process/source identity matched; runtime, loopback listener and
+actual Chrome manual/Atlas preview passed. Original and fresh preservation inventories passed.
+Temporary discussion services and task-owned tunnels are stopped with all evidence retained.
+Final documentation-revision equality will be recorded outside Git after that deployment.
 
 ## Prompt 07 acceptance and release
 
@@ -144,8 +152,8 @@ objectives still enter through Atlas and the enforced reporting hierarchy; child
 wake events remain the task orchestration path. Device API v1 retains its current scopes
 and task-only execution projection, with no conversation data in its broad state/events.
 
-Prompt 08 working groups is next; Prompt 09 then adds the strategic operating loop and
-minimal durable scheduling. Neither is implemented here. Native iOS remains deferred;
+Prompt 08 working groups is implemented; Prompt 09 is next and will add the strategic
+operating loop and minimal durable scheduling. That recurring company loop is not implemented. Native iOS remains deferred;
 the existing private browser over SSH is the operator path. Decision 017's single-company
 priority remains authoritative.
 
@@ -471,10 +479,9 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Conversations/continuity and the authenticated Client API are implemented. The next milestones are:
+Conversations/continuity, working groups and the authenticated Client API are implemented. The next milestones are:
 
 ~~~text
-08 Collaborative working groups and deliberation
 09 Strategic company operating loop
 10 Bounded Computer Use
 11 Single-company business operations and measured Asymmetri Motion pilot

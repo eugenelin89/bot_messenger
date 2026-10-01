@@ -1,13 +1,16 @@
 # Prompt 08 validation report
 
-**Status: required real acceptance and workflow regressions passed; independent review passed; delivery pending.**
+**Status: Prompt 08 accepted, normally merged and deployed; Prompt 09 is next.**
 
-The accepted application candidate is `34779af89b141448c1b471b003d6ac00327216c1`.
-Later commits contain documentation/evidence and an optional validation-only readiness
-gate; application source and browser code remain unchanged. The owned
-branch is `feature/prompt-08-working-groups`; baseline main/production is
-`9f57f7fd67d52b13dd0feb50863994059a342aac`. Initial production deployment passed the host/build/preservation gates; a browser
-loading correction found in its final preview is undergoing follow-up delivery. The [execution plan](../exec-plans/prompt-08.md) retains the progress history.
+The accepted application revision is `f82235835a0dcc3473678d6f6bf9780d93709223`, normally
+merged through implementation PR [#7](https://github.com/eugenelin89/bot_messenger/pull/7)
+and browser-correction PR [#8](https://github.com/eugenelin89/bot_messenger/pull/8).
+The backend is unchanged from real-model/full-suite candidate `34779af`; the final browser
+correction passed seven actual Chrome checks. Exact source/build, runtime, private listener,
+production browser and original/fresh preservation gates passed. Final documentation-only
+delivery uses an exact receipt outside Git, avoiding a self-hash commit. See
+[accepted delivery evidence](evidence/prompt08/deployment-accepted.json) and the
+[execution plan](../exec-plans/prompt-08.md).
 
 ## Acceptance matrix
 
@@ -19,15 +22,16 @@ loading correction found in its final preview is undergoing follow-up delivery. 
 | D: authority, isolation, bounds and idle | 211/211 actual Ubuntu tests; 210 local passes plus one Linux-only skip; real 30-second idle intervals with zero new work; repeated offline migration |
 | E: separate assignment | Passed: explicit edited owner preview, normal Atlas Task, exact selected synthesis context and actual internal report |
 | F: regressions and review | Direct/peer, live research/revocation, Prompt01 and Linux identity receipt recovery passed; engineering/Projects and Linux isolation passed; independent final evidence review passed |
-| Preservation and delivery | Protected backup/offline migration and original-state checks passed; normal PR/merge, exact deployment, final comparison and cleanup pending |
+| Preservation and delivery | Passed: protected backup/offline migration, normal merges, exact source/build/runtime, private browser, original/fresh state comparison and temporary-service cleanup |
 
 ## Checks and isolated environments
 
-The current candidate passed **211/211 tests on actual Ubuntu**, zero skips, in 188.3
+The accepted backend passed **211/211 tests on actual Ubuntu**, zero skips, in 188.3
 seconds under inherited production service restrictions. Local results are **211 total:
 210 passed, zero failed, one Linux-only skip** (filesystem/buffer confinement). The focused
-discussion suite passed **26/26**. Actual Chrome checks passed **6/6**: three group, two
-direct-conversation and one research check. No browser code changed after that run.
+discussion suite passed **26/26**. The initial Chrome suite passed **6/6**. The final corrected suite passed **7/7**:
+four group (including delayed roster loading), two direct-conversation and one research check.
+The actual production manual/Atlas preview also passed with zero POSTs or created groups.
 Type checking and the complete diff whitespace check pass. See [check receipts](evidence/prompt08/checks.json).
 
 | Fixture | Data root below `/var/lib/botsquad/validation/` | Loopback port |
@@ -257,7 +261,7 @@ fixture identities; both earlier companies, failures and fences remain intact. F
 logs retain additional development/check-authoring failures. Public exports omit source bodies,
 private queries, production transcripts, credentials and hidden provider reasoning.
 
-## Preservation, limits and remaining delivery
+## Preservation and remaining limitations
 
 Original production preflight: seven enabled workers (Atlas, Nix, Maya, Turing, Linus, Ada,
 Grace), dispatch unpaused, 43 terminal Tasks (26 completed/17 cancelled), no runnable work,
@@ -289,12 +293,12 @@ The managed reader does not inspect scripts/images/interactive behavior. Provide
 search behavior is opaque. Recurring company work, Computer Use, live business publication,
 and authenticated employee GitHub publication remain outside this acceptance.
 
-Remaining delivery: refresh current main and review
-the complete diff, normal PR/merge/push, exact application-only deployment, running-build
-correspondence/private-browser health, original pause/grant/state comparison and temporary
-service/tunnel cleanup. No OS upgrade, provisioner replacement, public ingress or production
-demonstration group/worker/grant is authorized by this release. Mark Prompt 08 complete and
-Prompt 09 next only after those checks. Save the final exact revision receipt outside Git.
+Normal implementation/correction integration, exact application deployment, running-build
+correspondence, private-browser health, original pause/grant/state comparison and temporary
+service/tunnel cleanup passed. The documentation completion record follows those gates.
+No OS upgrade, provisioner replacement, public ingress or production demonstration was used.
+After final documentation deployment, its exact revision receipt will be saved outside Git
+in the operator handoff and protected HQ backup journal.
 
 ## Initial integrated deployment and follow-up
 
@@ -314,8 +318,31 @@ No other production audit or domain growth was permitted. The original 34 databa
 23,958 rows and fresh 43 databases/33,136 rows, account mappings, receipts and homes all
 passed. See [host delivery evidence](evidence/prompt08/deployment-initial-host.json).
 
-The actual production Chrome preview then found the loading race above. Completion
-remains pending its reviewed browser-only correction, normal integration and exact
-production browser recheck. Backend files and all previous actual-model evidence remain
-unchanged. GitHub's optional automated Codex review could not run because its review quota
+The actual production Chrome preview then found the loading race above. Its reviewed
+browser-only correction merged in PR #8 and passed the exact production browser recheck.
+Backend files and all previous actual-model evidence remain unchanged. GitHub’s optional
+automated Codex review could not run because its review quota
 was exhausted; separate read-only review was completed and repository checks were not bypassed.
+
+## Accepted corrected production delivery
+
+`f82235835a0dcc3473678d6f6bf9780d93709223` matched local main, origin/main, deployed source
+and health. All 182 built files matched the reviewed local manifest; only `public/groups.js`
+differed from the first deployment. The unchanged compiled backend retains its exact
+211/211 production-confinement gate; the UI correction passed 7/7 actual Chrome checks.
+Actual production Chrome verified seven participant choices, manual/Atlas controls,
+zero page errors, zero POSTs and zero groups. The final process is newer than the deployed
+files. Original dispatch is unpaused; every worker, Task, execution and grant remains.
+
+The second safe pause/resume adds two more attributable audit notifications. Both original
+and fresh inventories preserve all rows/cursors, accounts, homes and root receipts, with
+exact bijective accounting of four owner notification records. The final documentation
+roll-forward repeats this same proof and records its final SHA outside Git.
+
+Two operator check failures are retained separately from product acceptance: Playwright's
+fieldset-level `isDisabled()` assertion did not represent native disabled-fieldset semantics;
+verification now checks the native fieldset property and actual descendant controls. A
+verifier import generated Python bytecode in the checkout, so the unchanged clean-deployment
+guard stopped before mutation. The generated cache was archived in the protected backup and
+future bytecode writing disabled; the guarded retry passed. Neither failure was hidden by
+changing application state or relaxing preservation, concurrency or research assertions.

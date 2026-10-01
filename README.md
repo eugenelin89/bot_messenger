@@ -19,7 +19,7 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 07 is complete and validated on Ubuntu. Prompt 08 — collaborative working groups and deliberation — is next.**
+**Prompt 08 — collaborative working groups and deliberation — is complete and deployed on Ubuntu. Prompt 09 — the strategic company operating loop and durable scheduling — is next.**
 
 **Worker Empowerment 01 is accepted and deployed:** the scoped public-research and
 standing-knowledge slice passed real Ubuntu acceptance; evidence is in the
@@ -86,7 +86,7 @@ The owner can inspect peer exchanges, stop queued work and interrupt active repl
 See [Prompt 07 acceptance](docs/validation/prompt-07-conversations-continuity.md) and
 [conversation controls and continuity](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
-The Prompt 08 candidate adds **Working Groups**: create a charter, select participants
+Prompt 08 adds **Working Groups**: create a charter, select participants
 or explicitly let Atlas organize, share selected material, then start. Owner interjections
 remain visible alongside attributable worker responses and immutable synthesis versions.
 Research requires a separate discussion-mode opt-in for each eligible researcher. A saved

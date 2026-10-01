@@ -205,21 +205,20 @@ result-return events; Executions show when workers actually ran and where work o
 
 ## Collaborative deliberation
 
-The Prompt 08 candidate implements this bounded layer with frozen eligible participants,
+Prompt 08 implements this bounded layer with frozen eligible participants,
 separate actual worker turns, meaningful facilitator choices, explicit evidence exports,
 owner interjections and versioned synthesis. It uses no scripted employee transcript.
 Recommendations carry uncertainty and require a separate owner-submitted Task to become
 assignments. Release evidence and limits are in the [validation record](../validation/PROMPT_08_VALIDATION.md)
 and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
-Direct conversations and task delegation are implemented. The next organization layer
-should support **bounded group discussion**, with explicit membership and synthesis.
+Direct conversations, task delegation and **bounded group discussion** are implemented,
+with explicit membership and synthesis. The next layer is Prompt 09’s company operating loop.
 
 Hierarchy should govern responsibility, assignment authority and protected actions. It
 should not prevent peers or cross-functional specialists from reasoning together.
 
-A future first-class object such as a `DiscussionSession`, `WorkingGroup` or
-`Deliberation` should support:
+The first-class `WorkingGroup` provides the bounded foundation for these requirements:
 
 - one explicit topic/question and desired output;
 - a bounded participant list selected by the human or an authorized coordinator;
