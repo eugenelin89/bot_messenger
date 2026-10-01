@@ -1,7 +1,7 @@
 # Worker Empowerment 01 — Validation and delivery
 
-**Status:** All pre-merge acceptance and review checks pass. Normal integration and
-retained-HQ deployment/preservation remain open.
+**Status:** Accepted and deployed. WE01-1 through WE01-6 passed, with inactive retained-HQ
+grants requiring the owner's separate one-time activation.
 
 This is the Decision 019 follow-up WE-01, not Prompt 08. The
 [execution plan](../exec-plans/worker-empowerment-01.md) tracks remaining work, and
@@ -32,7 +32,7 @@ profiles and pinned Codex 0.157.0. Answers and research conclusions are not scri
 | WE01-3 Standing authority/knowledge | Passed on candidate | Tests plus real separate browser grants, repeated use, README read and denied revoked tool call |
 | WE01-4 Failure/network boundaries | Passed on candidate | Synthetic boundaries plus real timeout/page-error recovery and labeled outage limitation reply |
 | WE01-5 Async/continuity/budgets | Passed on candidate | Actual replacement/restart/idle and in-flight crash recovery, plus async/budget tests |
-| WE01-6 Regression/delivery | Open | Local/Ubuntu suites, engineering/Projects and independent review pass; legacy Task passes; integration/deployment pending |
+| WE01-6 Regression/delivery | Passed | All regressions/review plus PR #5 merge, exact deployment, browser/build and preservation verification |
 
 ## Completed checks and meaningful failures
 
@@ -164,7 +164,10 @@ unpaused, with seven workers, 43 terminal Tasks and no running execution.
 An offline protected copy migrated from schema 8 to 9 and reopened twice: all **1,756
 original rows/rowids/fields across 53 tables** preserved, foreign keys/integrity passed,
 zero standing grants and zero research tool activations. The copied database was never
-served as another authenticated HQ. Final deployed preservation comparison remains open.
+served as another authenticated HQ. Final deployed preservation comparison passed: **18,400 original rows across all 28
+databases**, 213 account/group mappings, 354 root records and 105 worker homes. The only
+excluded original field is the established transient `workers.updated_at`; audit/schema
+append is permitted, while old domain rows/counts are preserved.
 
 ## Restart, restored provider access and idle behavior
 
@@ -239,8 +242,7 @@ production transcripts or provider reasoning.
 Managed-fetch checks do not cover opaque provider DNS/network/cache behavior. A broker
 budget counts broker sessions, not every native lookup; monetary cost is unknown. Query
 minimization and injection tests are defenses, not a guarantee against all semantic
-leakage. Source retrieval time never establishes observation freshness. Production grant
-activation and exact local/origin/deployed/running equality will be recorded after delivery.
+leakage. Source retrieval time never establishes observation freshness. Production grants remain inactive; exact release equality is recorded below.
 
 ## Inspectable evidence
 
@@ -256,3 +258,38 @@ production data. The [saved Scout report](evidence/we01/scout-public-research-re
 - [Evidence after restart](evidence/we01/restart-evidence-after-restart.png), [normal page recovery](evidence/we01/source_followup-normal-provider-after-restart.png), and [idle HQ](evidence/we01/idle-idle-no-work.png).
 
 - [Unresolved broker after controlled crash](evidence/we01/pending_recovery-unknown-after-crash.png).
+
+## Accepted deployment and owner activation
+
+[PR #5](https://github.com/eugenelin89/bot_messenger/pull/5) merged normally at
+`d6463fbee0e3459c81c636818f0c86acba482ddb`. The [deployment checkpoint](evidence/we01/deployment-checkpoint.json)
+records local integration main = origin/main = deployed source = running health at that
+revision. All **81 compiled runtime/source-map/public files** matched the local build,
+aggregate SHA-256 `084138c4b4c6484b1fcf49ca526f26f553d19e41fe3aa8c6789137b1b58cf6aa`.
+The exact deployed revision passed **185/185** tests under inherited restrictions in
+`deterministic-20261001T080549Z`. At 08:09:20 UTC, actual Chrome verified the owner grant
+control without activating it or launching work; runtime was ready and the service
+remained non-root, confined and loopback-only.
+
+Retained HQ remains **unpaused**, with seven workers, 43 terminal Tasks, 58 executions,
+zero research operations, **zero Public Research grants and zero Company Knowledge grants**.
+Atlas and Maya are present and conversation-eligible. Scout is the isolated acceptance
+researcher, not an existing production employee. The [tutorial](../operations/PUBLIC_RESEARCH_TUTORIAL.md)
+explains how to create a researcher through the normal Task workflow when needed, then
+confirm that employee's permission once. Select Atlas → **Capabilities & research** →
+**Confirm & enable Public Research** to activate Atlas. Select approved documents and
+confirm separately for Company Knowledge. Routine permitted searches/pages then need
+no per-lookup approval. Permission does not transfer from Atlas to another employee.
+
+The dedicated research validation service is disabled and stopped. All regression
+processes completed, the temporary 4311 tunnel is closed, and protected evidence/backup/
+worker homes remain. The existing production tunnel was preserved. A stale failed
+readiness-probe unit flag was cleared after inspecting its retained journal; no logs
+were deleted. The external GitHub Codex review bot did not run due to review quota;
+the separate read-only agent performed code, security and evidence reviews with all
+findings resolved. No required GitHub check was bypassed.
+
+A later documentation-only closure records these observed results; it does not change
+the accepted runtime/public asset tree. The final handoff and health endpoint identify
+that closing revision after deployment verification. Broader Decision 019 empowerment
+remains open. **Prompt 08 is the next numbered milestone**, followed by 09 → 10 → 11.

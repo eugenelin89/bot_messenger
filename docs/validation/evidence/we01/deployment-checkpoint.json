@@ -1,0 +1,105 @@
+{
+  "checkpoint": "Initial accepted application deployment; later documentation-only closure may advance the Git revision without changing application files.",
+  "pr": "https://github.com/eugenelin89/bot_messenger/pull/5",
+  "local_integration_main": "d6463fbee0e3459c81c636818f0c86acba482ddb",
+  "origin_main": "d6463fbee0e3459c81c636818f0c86acba482ddb",
+  "deployed_source": "d6463fbee0e3459c81c636818f0c86acba482ddb",
+  "production": {
+    "passed": true,
+    "verified_at": "2026-10-01T08:09:20.117Z",
+    "hq_id": "hq_1cfe3e8d-dcca-47a4-8090-b79c3470b9f9",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "d6463fbee0e3459c81c636818f0c86acba482ddb"
+    },
+    "paused": false,
+    "workers": 7,
+    "tasks": 43,
+    "executions": 58,
+    "roster": [
+      {
+        "name": "Atlas",
+        "role": "ceo",
+        "eligible": true,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Nix",
+        "role": "devops",
+        "eligible": false,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Maya",
+        "role": "product_manager",
+        "eligible": true,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Turing",
+        "role": "cto",
+        "eligible": false,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Linus",
+        "role": "engineer",
+        "eligible": false,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Ada",
+        "role": "engineer",
+        "eligible": false,
+        "grant_count": 0,
+        "operation_count": 0
+      },
+      {
+        "name": "Grace",
+        "role": "reviewer",
+        "eligible": false,
+        "grant_count": 0,
+        "operation_count": 0
+      }
+    ],
+    "browser": {
+      "owner_activation_visible": true,
+      "no_grant_clicked": true,
+      "no_page_errors": true,
+      "no_work_dispatched": true
+    },
+    "public_research_grants": 0,
+    "company_knowledge_grants": 0,
+    "research_operations": 0
+  },
+  "preservation": {
+    "preserved": true,
+    "original_databases": 28,
+    "original_rows": 18400,
+    "account_and_group_mappings": 213,
+    "root_records": 354,
+    "worker_homes": 105,
+    "only_excluded_field": "workers.updated_at"
+  },
+  "build_correspondence": {
+    "matched": true,
+    "files": 81,
+    "aggregate_sha256": "084138c4b4c6484b1fcf49ca526f26f553d19e41fe3aa8c6789137b1b58cf6aa"
+  },
+  "deployed_revision_suite": {
+    "passed": 185,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "/var/lib/botsquad/validation/deterministic-20261001T080549Z"
+  },
+  "known_external_review_limit": "GitHub Codex review bot did not run because account review quota was exhausted. Separate read-only agent code/security/evidence review completed with all findings resolved."
+}

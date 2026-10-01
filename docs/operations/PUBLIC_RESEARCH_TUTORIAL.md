@@ -12,6 +12,14 @@ Open the private HQ through its normal SSH tunnel. Select **Atlas**, then
 and the provider is configured. Choose **Confirm & enable Public Research**. Do the
 same for **Scout**, or another eligible researcher who will receive delegated work.
 
+In the retained HQ checked on October 1, Atlas and Maya are present; Scout is not.
+Maya can use granted research in her direct conversation, but the existing delegated
+research Task workflow requires a researcher. If you want Scout, first use **Assign
+objective** to ask Atlas to hire a persistent researcher named Scout, return after hiring,
+and perform no research or delegation yet. Once Scout appears, confirm Scout's Public
+Research permission here, then assign the research objective below. This setup uses
+the existing hiring boundary; it does not give Atlas grant authority.
+
 This confirmation grants repeated public searches and page reads during research Tasks
 and conversations. It does not grant accounts, outreach, publication, purchases, shell
 access or repository changes. A manager cannot enable its own permission or grant it to
