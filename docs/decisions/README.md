@@ -98,3 +98,6 @@ session transitions. Acceptance and retained activation remain explicit separate
 - [Decision 021 — Bounded working groups and scoped deliberation](decision_021_bounded_working_groups.md) — accepted; real Ubuntu acceptance and production deployment verified.
 
 - [Decision 022 — Bounded strategic mandates and durable company clock](decision_022_company_operating_loop.md) — accepted; actual broad/two-cycle Ubuntu acceptance and production deployment verified.
+
+
+- [Decision 023 — Risk-routed read-only Codex specialist subagents](decision_023_codex_specialist_subagents.md) — accepted development workflow; parent remains sole writer/integrator.
