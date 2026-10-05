@@ -377,6 +377,7 @@ export class Company extends EventEmitter {
     requireThat(inspected === true, 'Inspect prior attempts and artifacts before retry');
     this.store.transaction(() => {
       const task = this.task(taskId);
+      requireThat(!this.mandates.internalWork(taskId), 'Mandate analysis Tasks are single-attempt; the coordinator must create separate work within the remaining active cycle allowance');
       requireThat(task.kind !== 'infrastructure', 'Infrastructure tasks require exact operation reconciliation, not runtime retry');
       requireThat(['blocked', 'failed', 'awaiting_approval'].includes(task.status) && task.blocking_reason !== 'waiting_children', 'Task cannot be retried');
       requireThat(!this.store.get("SELECT 1 FROM allocations WHERE task_id=? AND status='blocked'", taskId), 'Allocation requires Git inspection; automatic reactivation is unavailable');

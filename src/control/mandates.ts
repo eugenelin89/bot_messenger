@@ -248,7 +248,14 @@ export class Mandates {
       this.db.run('INSERT INTO tool_receipts VALUES (?,?,?,?)',context.executionId,callId,digest,JSON.stringify(result));this.audit('tool_completed',m.mandate_id,{tool:name},v.worker.principal_id,context.executionId);return result;
     });
   }
-  saveOwnerSchedule(input:unknown){this.human();const a=strictObject(input,['mandate_id','schedule_id','purpose','initiative_id','due_at','recurrence_kind','interval_seconds','local_time','occurrence_limit','end_at']);const {mandate_id,...parameters}=a;return this.db.transaction(()=>this.saveSchedule(parameters,this.mandate(textField({mandate_id},'mandate_id',100)),'human'));}
+  saveOwnerSchedule(input:unknown){this.human();const a=strictObject(input,['mandate_id','schedule_id','purpose','initiative_id','due_at','first_local_date','recurrence_kind','interval_seconds','local_time','occurrence_limit','end_at']);const {mandate_id,first_local_date,...parameters}=a;
+    return this.db.transaction(()=>{const m=this.mandate(textField({mandate_id},'mandate_id',100));
+      if(first_local_date!==undefined&&first_local_date!==null){
+        requireThat(a.recurrence_kind==='daily'&&a.due_at===null,'A first local date is only accepted for a daily review without an absolute due time');
+        parameters.due_at=new Date(wallClockInstant(textField(a,'first_local_date',10),textField(a,'local_time',5),this.envelope(m).timezone)).toISOString();
+      }
+      return this.saveSchedule(parameters,m,'human');
+    });}
   private saveSchedule(input:unknown,m:Mandate,actor:string,context?:ExecutionContext){
     const a=strictObject(input,['schedule_id','purpose','initiative_id','due_at','recurrence_kind','interval_seconds','local_time','occurrence_limit','end_at']),e=this.envelope(m);
     requireThat(m.status==='active'||!context&&m.status==='paused','Schedules require an activated mandate');requireThat(!context||e.worker_schedules,'Worker-created reviews are outside this envelope');
@@ -328,7 +335,16 @@ export class Mandates {
       if(o.state!==state||o.reason!==reason){this.db.run('UPDATE review_occurrences SET state=?,reason=?,completed_at=? WHERE occurrence_id=?',state,reason,['cancelled','superseded'].includes(state)?this.now():null,o.occurrence_id);this.audit('occurrence_held',m.mandate_id,{occurrence_id:o.occurrence_id,state,reason});}
     });
   }
-  private block(c:OperatingCycle,reason:string){this.db.run("UPDATE operating_cycles SET state='blocked',error=?,retry_at=NULL WHERE cycle_id=?",reason,c.cycle_id);this.db.run("UPDATE conversation_requests SET status='cancelled',error=? WHERE status='queued' AND request_id IN (SELECT request_id FROM mandate_turns WHERE cycle_id=?)",reason,c.cycle_id);if(c.occurrence_id)this.db.run("UPDATE review_occurrences SET state='blocked',reason=? WHERE occurrence_id=?",reason,c.occurrence_id);this.audit('cycle_blocked',c.mandate_id,{cycle_id:c.cycle_id,reason});}
+  private block(c:OperatingCycle,reason:string){
+    this.db.run("UPDATE operating_cycles SET state='blocked',error=?,retry_at=NULL WHERE cycle_id=?",reason,c.cycle_id);
+    this.db.run("UPDATE conversation_requests SET status='cancelled',error=? WHERE status='queued' AND request_id IN (SELECT request_id FROM mandate_turns WHERE cycle_id=?)",reason,c.cycle_id);
+    for(const work of this.db.all<Work>('SELECT * FROM mandate_internal_work WHERE cycle_id=?',c.cycle_id)){
+      // Active attempts settle through the dispatcher; never clear their outcome fences.
+      if(work.task_id&&['queued','blocked','awaiting_approval'].includes(this.company.task(work.task_id).status))this.company.cancel(work.task_id);
+    }
+    if(c.occurrence_id)this.db.run("UPDATE review_occurrences SET state='blocked',reason=? WHERE occurrence_id=?",reason,c.occurrence_id);
+    this.audit('cycle_blocked',c.mandate_id,{cycle_id:c.cycle_id,reason});
+  }
   progress(){
     for(const initial of this.db.all<OperatingCycle>("SELECT * FROM operating_cycles WHERE state IN ('active','waiting')"))this.db.transaction(()=>{
       const c=this.cycle(initial.cycle_id),m=this.mandate(c.mandate_id);

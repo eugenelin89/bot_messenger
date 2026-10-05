@@ -80,8 +80,10 @@ The coordinator should save its useful follow-up under **Review schedules**. Che
 timezone, due instant, recurrence, count/end bounds and version. Inspect occurrence history as
 it becomes due. Do not create the second cycle manually for this exercise.
 
-One-time, elapsed-interval and daily wall-clock recurrence are supported. Browser date pickers
-use the browser's local timezone; daily `HH:mm` uses the mandate's stored IANA timezone. A spring
+One-time, elapsed-interval and daily wall-clock recurrence are supported. The daily first date
+and `HH:mm` both use the mandate's stored IANA timezone, even when the browser is elsewhere.
+The server resolves that calendar date using the same DST rule as later occurrences. One-time
+and interval due times, and schedule end times, use the browser's local timezone. A spring
 clock gap moves to the first valid minute; a repeated autumn minute uses the earlier instant.
 Missed intervals coalesce; another active cycle holds the review rather than starting a competitor.
 

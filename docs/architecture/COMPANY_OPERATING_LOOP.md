@@ -28,6 +28,10 @@ A cycle has one current coordinator and a deadline. At most one active, waiting 
 cycle may exist per mandate. `active → waiting → active → closed` covers investigation,
 delegation and review without inventing a state for every reasoning step. `blocked` retains
 an unresolved outcome or exhausted allowance; `cancelled` records owner termination.
+Blocking a cycle cancels its queued or otherwise unstarted linked Tasks while preserving
+original records and provider fences. Internal analysis Tasks permit one attempt; owner
+retry is explicitly rejected. Further analysis requires a separate coordinator assignment
+within the remaining active cycle allowance.
 Decisions include disposition, rationale, alternatives, dissent/contrary evidence, unknowns,
 source IDs, worker/execution provenance and previous-decision identity. Changed judgment
 creates a new decision; it does not overwrite history.

@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 45–90 minutes remaining (20:14 UTC checkpoint); user requested an ETA update every 15 minutes
+**Current ETA:** 60–90 minutes remaining (20:27 UTC checkpoint); user requested an ETA update every 15 minutes
 
 ## Objective and boundary
 
@@ -102,7 +102,7 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 
 ## Remaining work
 
-Implementation is present; actual acceptance, final review and release gates remain open. Do not mark Prompt 09 complete
+Actual broad and two-cycle acceptance passed; the GitHub follow-up fixes, final review and release gates remain open. Do not mark Prompt 09 complete
 or Prompt 10 next until the complete acceptance matrix passes.
 
 ## Implementation checkpoint (2026-10-05)
@@ -258,3 +258,16 @@ inventory comparison and explicit empty-new-table checks; these were added befor
 The initial 8–14-hour estimate was conservative while the runtime read-loop failure was
 unresolved; remaining ETA is now 45–90 minutes. Completion/Prompt 10 Next will be marked only
 after actual production delivery, preservation and cleanup pass.
+
+## GitHub follow-up review checkpoint (2026-10-05 20:29 UTC)
+
+PR #10's automated review found three P2 issues: expired-cycle queued Tasks remained pending,
+owner retry could queue a one-shot internal Task that could never dispatch, and daily review
+creation interpreted the first instant in the browser zone instead of the mandate zone.
+The fixes cancel unresolved unstarted linked Tasks when blocking a cycle, reject internal
+Task retry without changing attempts/fences, and resolve daily first calendar date plus
+clock time in the trusted mandate zone. Owner absolute-time callers remain compatible.
+48 targeted checks and all 11 browser checks pass, including a UTC browser creating/editing
+Vancouver daily reviews over spring gaps and autumn repeats. The full local suite passes 258/259 with only the Linux-specific check skipped. Independent
+follow-up review found no material regression. Exact-candidate Ubuntu validation and release
+remain pending; production remains unchanged.

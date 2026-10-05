@@ -203,6 +203,29 @@ expectations corrected while preserving original-field assertions, and an engine
 that missed the existing root operator probe window. The runner now starts the authorized
 operator companion immediately. None is counted as acceptance or repaired by clearing state.
 
+## GitHub review follow-up
+
+The automated review of PR #10 found three P2 lifecycle/browser issues. Expired or otherwise
+blocked cycles now cancel unstarted linked Tasks through the existing Task control path;
+original records and unresolved provider outcomes remain retained. Owner retry explicitly
+rejects one-shot mandate analysis Tasks before any transition, preserving private session
+ownership and uncertainty fences. Daily owner schedules accept a first calendar date and
+clock time that trusted code resolves in the mandate timezone; the browser no longer turns
+that date into a browser-zone instant. Existing absolute-time schedule callers are unchanged.
+
+48 targeted tests and all 11 browser tests pass, including UTC-browser creation and editing
+of Vancouver daily reviews on ordinary, spring-gap and autumn-repeat dates. A new test used
+an incorrect runtime-event method name at first, and a browser assertion expected a closed
+form to be removed rather than hidden; those failed construction reports are retained, and
+the corrected checks preserve all behavioral assertions. Full-suite and independent
+follow-up results: local 258 passed, zero failed, one Linux-only skip (259 total);
+[48 targeted tests](evidence/prompt09/review-fixes-targeted.txt),
+[11 browser tests](evidence/prompt09/review-fixes-browser-all.txt), and
+[full local suite](evidence/prompt09/review-fixes-local-all.txt). The independent read-only
+review found no material regression. The generic Task inspector still presents Retry for a
+failed internal Task, then displays the explicit rejection; this is a retained nonblocking
+UX limitation. Exact-candidate Ubuntu validation follows.
+
 ## Delivery gate and scope
 
 Implementation [PR #10](https://github.com/eugenelin89/bot_messenger/pull/10) is open.
