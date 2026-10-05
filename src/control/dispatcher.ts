@@ -46,10 +46,11 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=this.company.discussions.deadline();
-    if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.max(1,Date.parse(deadline)-Date.now()));
+    const deadline=[this.company.discussions.deadline(),this.company.mandates.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
     while (!this.stopped && this.running.size < this.maxActive) {
@@ -58,7 +59,9 @@ export class Dispatcher {
       const { worker, execution, context } = claim;
       const controller = new AbortController();
       const group=claim.origin==='conversation'?this.company.discussions.forConversation(claim.request.conversation_id):undefined;
-      const deadlineAbort=group?.deadline?setTimeout(()=>controller.abort('Discussion deadline expired'),Math.max(1,Date.parse(group.deadline)-Date.now())):undefined;
+      const mandateTurn=claim.origin==='conversation'?this.company.mandates.turn(claim.request.request_id):undefined;
+      const workDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:group?.deadline;
+      const deadlineAbort=workDeadline?setTimeout(()=>controller.abort('Bounded work deadline expired'),Math.max(1,Date.parse(workDeadline)-this.company.mandates.clock.now())):undefined;
       const done = (async () => {
         let providerSettled=false;
         try {

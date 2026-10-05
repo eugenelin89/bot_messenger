@@ -66,6 +66,7 @@ export class Research {
   }
   authorize(context:ExecutionContext,capability:ResearchCapability) {
     const s=this.scope(context);
+    this.company.mandates.researchAuthority(context);
     const group=s.origin==='conversation'?this.company.discussions.forConversation(s.scopeId):undefined;
     if(group){requireThat(capability==='public_research'&&group.allow_research===1,'Group charter allows only explicitly shared material; no company-document reading or new research');const turn=s.execution.origin==='conversation'?this.company.discussions.turn(s.execution.request_id):undefined;requireThat(turn&&!turn.output&&!['organize','synthesis','review','finalize'].includes(turn.kind),'Research is outside this scheduled discussion turn');}
     requireThat(this.db.get<{value:string}>("SELECT value FROM settings WHERE key='research_policy_disabled'")?.value!=='true','Company policy disables research and knowledge access.');
@@ -175,6 +176,7 @@ export class Research {
     this.pending.set(key,{execution:context.executionId,grant:s.grant.grant_id,controller,promise});return promise;
   }
   private reserve(context:ExecutionContext,callId:string,name:string,input:unknown,grant:StandingGrant,requestHash:string) {
+    this.company.mandates.researchAuthority(context,true);
     const s=this.authorize(context,grant.capability);requireThat(s.grant.grant_id===grant.grant_id,'Standing permission changed.');
     requireThat(!this.hasPending(context.executionId),'A lookup is already pending; await its result before another operation.');
     requireThat(!this.db.get('SELECT 1 FROM research_operations WHERE worker_id=? AND unresolved=1',s.worker.worker_id),'Prior research provider outcome is unresolved; further lookup actions are fenced.');

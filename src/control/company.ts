@@ -1,3 +1,4 @@
+import { Mandates } from './mandates.js';
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
 import { Research } from './research.js';
@@ -44,6 +45,7 @@ export class Company extends EventEmitter {
   readonly conversations: Conversations;
   readonly research: Research;
   readonly discussions: Discussions;
+  readonly mandates: Mandates;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -59,6 +61,7 @@ export class Company extends EventEmitter {
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.research = new Research(this);
     this.discussions = new Discussions(this);
+    this.mandates = new Mandates(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -136,6 +139,7 @@ export class Company extends EventEmitter {
     requireThat(execution.worker_id === worker.worker_id && task.assignee_worker_id === worker.worker_id, 'Execution identity mismatch');
     requireThat(execution.status === 'running' && task.status === 'working' && worker.enabled, 'Execution is not authorized to act');
     this.verifyWorkspace(worker, context.workspacePath);
+    this.mandates.authorizeInternal(task.task_id);
     return { worker, execution, task };
   }
   private capability(worker: Worker, capability: Capability) { requireThat(worker.capability_profile.includes(capability), `Missing capability: ${capability}`); }
@@ -268,7 +272,7 @@ export class Company extends EventEmitter {
         AND NOT EXISTS (SELECT 1 FROM research_operations ro WHERE ro.worker_id=w.worker_id AND ro.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate));
   }
   claimNext(maxActive = 2): { task: Task; worker: Worker; execution: TaskExecution; context: ExecutionContext } | undefined {
     return this.store.transaction(() => {

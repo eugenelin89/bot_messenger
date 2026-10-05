@@ -1,0 +1,345 @@
+
+> botsquad@0.1.0 test
+> npm run build && node --test dist/test/*.test.js
+
+
+> botsquad@0.1.0 build
+> tsc
+
+(node:47397) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ profiles inherit or resolve explicit advertised model/reasoning and reject unavailable combinations (44.03275ms)
+✔ human locks and profiles survive restart; bots cannot forge a human profile mutation or unlock (46.735417ms)
+✔ execution provenance records effective settings once and remains immutable after profile changes (36.489833ms)
+✔ eligible high precedes normal precedes low, with pause, atomic global capacity and one active worker (41.685792ms)
+✔ equal priority uses FIFO even with identical timestamps and disabled workers stay ineligible (46.273209ms)
+✔ priority never grants capabilities and repeated dispatcher kicks do not duplicate claims (59.490584ms)
+✖ legacy migrations preserve bindings and historical unknown provenance without fabricated settings (92.687291ms)
+(node:47398) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Ed25519 canonical wire bytes and low-order/noncanonical public keys fail closed (2.214166ms)
+✔ one-time pairing, confirmation, proof, expiry, reauthentication and terminal revocation (52.385875ms)
+✔ pairing expiry/denial/wrong secrets and private JWK or capability smuggling cannot enroll (31.722792ms)
+✔ HTTP pairing and strict scoped DTO contract keep browser and remote authority separate (129.010917ms)
+✔ HTTP mutations are atomic, device-bound and replay original responses without duplicate work (127.665292ms)
+✔ persisted authentication, HQ identity, receipt and notification history survive reopening SQLite (91.798917ms)
+✔ SSE reconnect replays durable notifications and revocation/expiry close authorization (98.546292ms)
+✔ pagination, event retention reset, adversarial bodies and rate/resource bounds (216.228416ms)
+✔ interrupt records exact durable intent once and retries do not repeat the runtime action (91.732208ms)
+✔ Project objectives bind exact Project/repository IDs and cannot use prose to cross Projects (243.812375ms)
+✔ outstanding pairings, tokens, active devices and retained identities have finite ceilings (171.208791ms)
+✔ malformed cryptographic inputs, signatures, JSON, duplicate headers and unsupported locations fail safely (79.228125ms)
+✔ research authority and private activity add no device capability, route, DTO field or event (70.046708ms)
+(node:47399) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real process crash before receipt commit recovers without duplicate mutation (352.697375ms)
+✔ real process crash after receipt commit recovers without duplicate mutation (321.979167ms)
+(node:47400) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ migration 6 preserves every original Prompt 05 row/field and performs no domain or filesystem operations (8235.933209ms)
+(node:47401) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ App Server transport routes trusted tools, streams completion and resumes only its named workspace (504.412125ms)
+✔ promise tool results are awaited and an early provider completion cannot release unfinished callbacks (1037.542ms)
+✔ confirmed provider settlement survives transport loss while an async callback drains (482.795167ms)
+✔ stale same-thread final output and approval requests cannot affect the current turn (625.0605ms)
+✔ a known newly created provider reference is prepared before naming failure, without activation (412.214583ms)
+✔ App Server rejects cross-thread tool identity before invoking the control plane (287.136917ms)
+✔ App Server preserves exact worker bindings created before the product rename (328.114167ms)
+✔ App Server refuses a stored thread from a different workspace (302.92125ms)
+✔ App Server fails closed if confinement flags do not take effect (302.119666ms)
+✔ App Server denies approval and preserves awaiting_approval outcome (315.025166ms)
+✔ App Server turn interruption is acknowledged distinctly from pause (304.50975ms)
+✔ App Server unexpected exit and execution deadline terminate without hanging (898.981ms)
+✔ runtime resolves effective worker reasoning and records actual provenance before turn start (295.525584ms)
+✔ runtime refuses unavailable model and effort instead of substituting defaults (380.097166ms)
+✔ an explicit worker model overrides an unavailable global default without silent inheritance (385.19425ms)
+(node:47402) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ migration is non-destructive and initializes stable principal/channel/CEO identities (40.647375ms)
+✔ task state machine validates the happy path, terminal immutability and recovery paths (0.527083ms)
+✔ hiring persists manager, lifecycle and minimal capabilities without starting a model (49.708459ms)
+✔ authority ceiling rejects known and unknown escalation; hostile text never grants authority (33.322125ms)
+✔ sender comes from execution; extra sender arguments and forged execution context are rejected (42.448792ms)
+✔ Scout cannot create approvals, workers or tasks; message text cannot rewrite audit (40.66925ms)
+✔ atomic claim across database connections and one active execution per worker (54.716042ms)
+✔ duplicate tool delivery returns receipt and rejects changed payload without repeating a hire (42.860834ms)
+✔ plain messages and idle workers never invoke the adapter; pause persists and prevents dispatch (156.945625ms)
+✔ complete CEO → Scout → CEO flow consumes artifact evidence and survives restart without repeating (135.458708ms)
+✔ completion arriving while manager is active still queues exactly one followup (44.540708ms)
+✔ crash recovery retains evidence, blocks ambiguous runs and retries only after explicit inspection (50.099583ms)
+✔ pause does not interrupt running work; human interruption preserves history and allows inspected retry (65.513209ms)
+✔ runtime failures are visible, history retained and no uncontrolled automatic retry (76.76875ms)
+✔ runtime approval is preserved as awaiting_approval; approval prose cannot release it (74.309708ms)
+✔ bindings reject Atlas/Scout cross-identity swaps and workspace mismatches (41.240334ms)
+✔ artifact/document paths are bounded and tampering or symlink workspace substitution fails closed (44.041334ms)
+✔ service lock rejects a second writer and can be cleanly reacquired (35.559042ms)
+✔ temporary worker has one lifetime assignment and retires without losing history (37.5595ms)
+✔ startup gate fails closed rather than deleting an ambiguous competing lock (30.137583ms)
+✔ retry cannot strand work on a retired worker or revise a child result already handed to its manager (93.610542ms)
+(node:47403) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ passive messages never create tasks, requests or model work; explicit requests correlate and deduplicate (52.203459ms)
+✔ conversation tools and task tools stay separate even for CEO; active scopes deny unrelated sources (53.744292ms)
+✔ shared dispatcher respects busy workers, capacity, pause, FIFO and task binding preservation (52.224ms)
+✔ peer exchange reserves a bounded continuation and cannot recurse across conversations (74.39325ms)
+✔ rollover preserves scoped original sources and pending work, fences stale callbacks and retains lineage (56.168583ms)
+✔ restart at creating retains evidence, blocks ambiguity and never duplicates replies (62.722583ms)
+✔ restart at prepared retains evidence, blocks ambiguity and never duplicates replies (49.708625ms)
+✔ restart at active retains evidence, blocks ambiguity and never duplicates replies (36.769875ms)
+✔ restart at reply_committed retains evidence, blocks ambiguity and never duplicates replies (56.366625ms)
+✔ mute/archive/cancel, participant revocation and retired workers recheck delayed work and callbacks (78.830791ms)
+✔ Client API projections and event hints exclude private conversation executions and do not gain interrupt scope (39.958125ms)
+✔ SQL rejects fake task ownership and mismatched conversation generations (51.360833ms)
+✔ idle interval has no runtime calls and shared dispatcher delivers a narrow conversation reply (169.748416ms)
+✔ source bookmarks and full original retrieval survive a history window and reject fabricated or cross-scope quotes (62.29275ms)
+✔ peer continuation reserves queue capacity, pending metadata survives parent rollover, and revocation settles reservation (60.691667ms)
+✔ unknown provider activity blocks replacement and task dispatch instead of bypassing the shared worker boundary (42.457209ms)
+✔ queue, rate, tool and retrieval bounds remain finite without resetting consumed causal budget (76.440667ms)
+✔ an unknown task provider attempt blocks cross-mode chat and later task dispatch after restart (37.798291ms)
+✔ confirmed empty provider completion is a visible failure, preserves effects, and never invents a reply (58.339209ms)
+✔ task result validation failure preserves confirmed provider settlement and permits explicit chat (59.001458ms)
+✔ migration of a pre-intent running task preserves its record and recovery fences the bound provider (37.209167ms)
+✔ demo scenario parsing validates identity, complete ordering, deadlines and confined recipes (2.318667ms)
+✔ a failed step or assertion stops all later consequential actions (0.496917ms)
+✔ artifact paths reject traversal, absolute paths and existing symlink parents or targets (1.216042ms)
+✔ events associate existing bounded screenshots and generate a distinct operator/system transcript (5.40725ms)
+✔ structured evidence redacts credentials and private managed host paths (0.152666ms)
+✔ artifact finalization refuses failed attempts instead of publishing a successful narrative (2.586208ms)
+✔ browser origin is restricted to the declared private HQ (0.615083ms)
+✔ unexpected protected operations, targets, extra parameters and expired approvals stop automation (1.808083ms)
+✔ baseline refuses unrelated pending work and canonical advancement requires a trusted integration record (0.664292ms)
+✔ objective association follows task to repository to Project; scope rows have no project_id (0.782708ms)
+✔ pre-assignment identity requests need a real hire by the current Project execution (0.576459ms)
+✔ production demo runner has UI-only mutations, no database, shell or private control-plane shortcuts (0.746583ms)
+✔ generalized Project specification is bound through current task ancestry and real PM execution (0.266792ms)
+(node:47405) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ group drafts/passive material never dispatch; direct routes cannot start group work (86.419459ms)
+✔ causal group progression, immutable synthesis review/final, no Task until explicit assignment (167.427458ms)
+✔ pause permits active commitment, stops future dispatch, stop never creates a synthesis (86.610667ms)
+✔ Atlas organization is explicit, freezes selected eligible members after real turn settlement (57.643625ms)
+✔ new discussion research mode requires explicit owner grant; shared source excludes private history and preserves checkpoints (101.146833ms)
+✔ explicit incomplete finalization keeps failed participant fence without blocking a safe synthesizer (109.195917ms)
+✔ progression batch rolls back entirely on busy queue capacity; safe resume retains original plan (113.016125ms)
+✔ committed final artifact is retained but unknown synthesizer outcome blocks group completion (91.192625ms)
+✔ private direct/task/document sentinels stay outside group context, grants and record retrieval (53.358292ms)
+✔ membership revocation and evidence withdrawal invalidate cached group sessions and stale callbacks (110.575458ms)
+✔ owner interjection arriving during synthesis requires refreshed checkpoint before commitment (93.04475ms)
+✔ restart preserves completed turns and queued work; deterministic scoped generation replacement retains pending questions (96.905833ms)
+✔ durable deadlines, bounded owner extension and no consumed-limit reset (56.459542ms)
+✔ sharing pins the reviewed Atlas audience and scope during organization and after selection (48.923833ms)
+✔ maximum charter and question inputs remain retrievable and allow a bounded final artifact (95.644333ms)
+✔ persistence rejects forged synthesis/checkpoint/evidence ownership independently of tools (53.260291ms)
+✔ serialized charter admission and refresh/record accounting remain consistent (63.947916ms)
+✔ many tiny owner constraints stop at admission before metadata can prevent context assembly (69.272917ms)
+✔ group device projections omit private executions, notes, evidence and event payloads (56.649083ms)
+✔ delayed group research rechecks membership, evidence policy, stop and grant before delivery (294.085333ms)
+✔ one group research budget applies to both granted participants and survives extension (124.02175ms)
+✔ owner can select an existing safe synthesizer for blocked incomplete finalization without clearing the old fence (90.970167ms)
+✔ synthesizer selection cannot change an ordinary active group or accompany another control (39.680791ms)
+✔ blocked charter without incomplete authority cannot replace its synthesizer (69.078833ms)
+✔ evidence citation requires this execution to receive the full excerpt, not metadata, partial text or a peer read (89.234208ms)
+✔ failed evidence retrieval does not leave a citation receipt or reset consumed retrieval usage (44.3545ms)
+(node:47430) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ Prompt 01 schema migrates without losing retained data and only trusted CEO policy expands (90.296417ms)
+✔ product and delivery managers cannot complete on prose without trusted integration (69.317417ms)
+✔ bounded profiles preserve hierarchy, authority ceiling, manager identity and depth (59.783125ms)
+✔ managed repository rejects arbitrary paths/source targets and retains a clean remote-free base (373.234208ms)
+✔ atomic engineering allocation has distinct branches/worktrees and cannot dispatch before manager ends (1800.747709ms)
+✔ branch, metadata, task and ownership substitution are rejected before engineering writes (857.031041ms)
+✔ verified engineering submissions freeze exact commits and reject unrelated/dirty history (1371.157ms)
+✔ real local Git submissions and read-only exact-commit review integrate once and survive restart (8457.395125ms)
+✔ changes_required and wrong-repository review prevent integration without advancing main (3881.630917ms)
+✔ integrated test failure retains candidate and leaves default branch unchanged (5992.393292ms)
+✔ actual cherry-pick conflict fails visibly and retains main and candidate evidence (5506.646959ms)
+✔ new call IDs cannot duplicate a submission/review and frozen source cannot be changed (5593.9205ms)
+✔ confined product code cannot read host/sibling files, write, spawn, signal or access network (483.919625ms)
+✔ interrupted engineer and partially recorded Git intent block without replay and retain source (509.733167ms)
+✔ interruption after verified commit allows inspected completion without repeating the commit (1468.193333ms)
+✔ legacy runtime tool bindings stay usable for research and fail explicitly for engineering (22.078417ms)
+✔ early product process exit cannot masquerade as passing acceptance tests (437.741167ms)
+✔ dispatcher runs two distinct engineers concurrently and duplicate kicks never repeat allocations (431.186791ms)
+(node:47431) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (160.147791ms)
+✔ SSE emits durable-state changes without model polling (125.29125ms)
+✔ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (64.659291ms)
+✔ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (72.1225ms)
+✔ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (248.087209ms)
+✔ standing permissions require browser owner authority and do not extend device routes or state (75.400625ms)
+(node:47474) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Nix is trusted initialization only, persistent, nondelegating and bootstrap is visibly unprovisioned (58.823667ms)
+✔ initial Nix approval consumes once, produces a receipt and preserves binding/runtime separation (32.281083ms)
+✔ approval denial leaves logical worker unprovisioned and cannot be replayed (41.228083ms)
+✔ expired approval never performs host mutation and expiry is auditable (35.233ms)
+✔ approval ID cannot authorize another operation and bodies cannot forge actor (45.592417ms)
+✔ messages and artifacts cannot grant approval and bot tools cannot decide one (49.0965ms)
+✔ changed worker preconditions invalidate approved operation before consumption (43.018291ms)
+✔ changed requester, task or execution rejects exact approval even with unchanged target (41.729875ms)
+✔ database envelope guards reject target, parameter, hash and approval substitutions (38.888ms)
+✔ Nix requests exact task scope, yields awaiting approval and resumes from host evidence (51.879ms)
+✔ pending approval survives reopen without host action or workspace/profile changes (45.853ms)
+✔ consumed in-flight operation reconciles same ID after control-plane crash without duplicate side effect (39.391375ms)
+✔ CEO may retain three normal children plus Nix; Nix does not expand delegation or company count (55.964625ms)
+✔ safe retirement rejects active/queued work and preserves disabled identity/history (56.522417ms)
+✔ stable safe username ignores display-name changes and reserves no human-selected account (0.268417ms)
+✔ provisioner protocol parser and durable receipt adversarial suite (365.304375ms)
+✔ Prompt 03 retained history migrates with honest unprovisioned identities and zero host actions (50.405709ms)
+✔ Linux dispatch never falls back to service UID when identity or independent clone binding is missing (781.220792ms)
+✔ temporary-worker revocation reduces authority without erasing history and is restart-safe (44.540583ms)
+✔ Linux product objectives require ready Nix before creating work; retained research remains available (35.721542ms)
+(node:47563) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mandate draft is passive, activation explicit, review ownership differs from direct replies and tasks (97.526084ms)
+✔ grounding requires full same-execution originals, denies invented/cross-mandate/future/withdrawn evidence (51.277708ms)
+✔ decisions are append-only, missing evidence explicit, committed outcome idempotent (46.256917ms)
+✔ one-time clock: before/exactly/after due, overlap hold-one, stable occurrence and no duplicate callback (40.969584ms)
+✔ recurring clock coalesces missed times without a model burst and ends at occurrence count (38.7415ms)
+✔ schedule edits retain versions, invalidate old due callbacks, cancellation is terminal (40.958333ms)
+✔ global, mandate and schedule pause retain due work and resume without duplication (162.311ms)
+✔ disabled coordinator, revoked communication, cycle limit and unknown provider fence deny due review (210.134625ms)
+✔ stop prevents queued work and stale timers from reviving a mandate (35.670458ms)
+✔ Vancouver DST uses first repeated minute and first valid post-gap minute; interval uses elapsed seconds (19.901ms)
+✔ crash after occurrence commit, before claim: reopening safely queues exactly one review (52.717292ms)
+✔ fault before next-time commit rolls back occurrence and consumption atomically (33.625125ms)
+✔ known review failure backs off boundedly; ambiguous invocation blocks without retry (79.475375ms)
+✔ real dispatcher substrate executes two simulated-runtime cycles, second initiated only by persisted clock (94.700875ms)
+✔ idle company clock causes no model or research work (93.58025ms)
+✔ mandate internal Task enforces reporting hierarchy and separate decision link (49.687333ms)
+(node:47565) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ retained Prompt 04 database migrates every original table and field without replay or filesystem changes (7994.552709ms)
+(node:47574) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ interrupted assigned review resumes by inspection without replacing packet or replaying submissions (5885.165208ms)
+✔ stale queued integration blocks without merging, resetting or hiding the changed canonical head (5323.7135ms)
+✔ failed generic full recipe retains immutable candidate and canonical base (5606.879833ms)
+✔ source that forges TAP and exits only during full acceptance cannot advance canonical Git (5641.627333ms)
+✔ process crash after validated canonical advance reconciles persisted candidate without cherry-pick replay (5995.478542ms)
+✔ interrupted candidate without validated advance blocks and cannot replay after restart (4722.047208ms)
+(node:47592) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Projects persist, contain multiple repositories, use configurable branches and archive without deleting Git (411.357041ms)
+✔ bounded bundle import preserves history and rejects host paths, unsupported refs, symlinks and oversized inputs (1393.273792ms)
+✔ paths, overlap, protected instructions, remote identities and recipe argv fail closed (0.555208ms)
+✔ allocation rejects overlap and protected scopes before provisioning; guidance cannot grant writes (1715.84875ms)
+✔ source TAP and forged completion cannot pass generic or legacy validation without actual completion (1087.874334ms)
+✔ archived Project workers retain compatible bindings when reused on another Project (8815.259917ms)
+✔ generic read/write/delete and multi-commit submission retain immutable Git-derived paths (2592.697583ms)
+✔ real Git revision, exact second review, durable queue, second delivery and archive preserve history (14427.347833ms)
+✔ review-round ceiling escalates to human and never queues an unbounded revision (4002.061375ms)
+✔ generic validation permits scratch writes only in disposable copy and denies host, process and network (419.778334ms)
+✔ generic recipe deadline and output limits fail closed without accepting early exit (458.367125ms)
+﹣ Linux generic recipes cap large buffers and the disposable build filesystem (0.039417ms) # SKIP
+(node:47886) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ remote publication binds exact immutable human approval and uses a non-root receipt (8374.45525ms)
+✔ lost publication response reconciles intended remote head once; restart never republishes completion (6260.894208ms)
+✔ exact receive-pack old SHA rejects a race even when raced commit is an ancestor of approved head (6346.990625ms)
+✔ remote divergence and a changed default branch block fetch without changing canonical history (6599.203333ms)
+✔ recovery at old remote head waits for explicit retry; unavailable state never replays publication (6336.621166ms)
+✔ remote registration imports bounded fixture; fetch-only and none cannot publish (834.856375ms)
+✔ restart after remote accepted and inspection response lost reconciles the same consumed operation (4985.769625ms)
+✔ each redirect is validated before transport; rebinding cannot replace the socket address (11.074792ms)
+✔ source rate limits, errors, compression, declared and streamed size are bounded tool failures (3.514125ms)
+✔ redirect ceilings, cancellation, stale page timestamps and malicious instructions remain explicit (1.402375ms)
+(node:47930) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ isolated broker keeps later opened source evidence within bounded native result collection (293.892ms)
+(node:47986) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ standing authority is explicit, durable, separate by capability and never a worker tool (81.825042ms)
+✔ concurrent duplicate calls share I/O; reply and completion cannot race unfinished callbacks (43.906ms)
+✔ revoke during I/O withholds late content and retains consumed attempt (38.837583ms)
+✔ cancel during I/O withholds late content and retains consumed attempt (43.4495ms)
+✔ ambiguous broker remains fenced after settled parent completion and restart (54.235834ms)
+✔ source provenance survives rollover and is not exposed to another conversation (61.223875ms)
+✔ old source IDs remain readable and long source pages and excerpts obey serialized bounds (88.285167ms)
+✔ tool call IDs cannot cross ordinary and research receipt boundaries (71.78225ms)
+✔ expired grants, company ceiling and worker eligibility deny before provider calls (104.416583ms)
+✔ known page failures return durable tool errors without a provider fence or duplicate retry (57.891083ms)
+✔ durable budgets survive retries, regrant and fresh conversation (72.34625ms)
+✔ compatible task transition retains legacy binding and rejects cross-mode provider reuse (37.198625ms)
+✔ protected destinations and unsafe/action URLs fail before network; mixed DNS fails closed (1.051416ms)
+✔ work budgets are shared by delegated researchers and survive a fresh grant (47.899584ms)
+✔ durable rate limit denies before provider invocation (52.785583ms)
+✔ durable search limit denies before provider invocation (52.805709ms)
+✔ durable output limit denies before provider invocation (36.241458ms)
+✔ hostile source instructions cannot grant document or tool authority; private query patterns never reach provider (47.98175ms)
+ℹ tests 227
+ℹ suites 0
+ℹ pass 223
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 42263.970542
+
+✖ failing tests:
+
+test at dist/test/ai-profile.test.js:134:1
+✖ legacy migrations preserve bindings and historical unknown provenance without fabricated settings (92.687291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  11 !== 10
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/ai-profile.test.js:155:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 10,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/control.test.js:12:1
+✖ migration is non-destructive and initializes stable principal/channel/CEO identities (40.647375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  11 !== 10
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/control.test.js:22:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 10,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/engineering.test.js:14:1
+✖ Prompt 01 schema migrates without losing retained data and only trusted CEO policy expands (90.296417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  11 !== 10
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/engineering.test.js:31:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 10,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+npm notice
+npm notice New minor version of npm available! 11.6.0 -> 11.21.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+npm notice To update run: npm install -g npm@11.21.0
+npm notice
