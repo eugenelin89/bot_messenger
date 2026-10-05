@@ -1,6 +1,7 @@
 import {createHash,randomUUID} from 'node:crypto';
 import type {Company,ExecutionContext} from './company.js';
-import {requireThat,strictObject,textField,type Task} from '../domain/model.js';
+import {requireThat,strictObject,textField,type Task,type RuntimeBinding} from '../domain/model.js';
+import type {ToolDefinition} from '../runtime/adapter.js';
 import type {ReplyRequest} from '../domain/conversations.js';
 import {DEFAULT_MANDATE_ENVELOPE as DEFAULTS,EVIDENCE_MODES,type MandateEnvelope,type Mandate,type OperatingCycle,type ReviewTurn,type Initiative,type StrategicDecision,type Observation,type ReviewSchedule,type ReviewOccurrence,type Recurrence} from '../domain/mandates.js';
 import {systemClock,timezone,absoluteTime,nextReviewInstant,wallClockInstant,type Clock} from './company-clock.js';
@@ -10,6 +11,7 @@ const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).d
 const ids=(value:unknown,max=16):string[]=>{requireThat(Array.isArray(value)&&value.length<=max&&value.every(x=>typeof x==='string'&&x.length<=100)&&new Set(value).size===value.length,'Invalid bounded record IDs');return value;};
 const optional=(a:Record<string,unknown>,key:string,max=2000)=>a[key]===null?null:textField(a,key,max);
 interface Work {work_id:string;mandate_id:string;cycle_id:string;decision_id:string|null;task_id:string|null;group_id:string|null;execution_id:string;delivered:number;created_at:string}
+interface PrivateTaskSession {session_id:string;task_id:string;mandate_id:string;worker_id:string;execution_id:string;runtime_reference:string|null;thread_name:string|null;tool_hash:string;state:string;created_at:string}
 export class Mandates {
   clock:Clock=systemClock;
   /** Validation-only injected application fault. Never configured from HTTP/model input. */
@@ -93,7 +95,13 @@ export class Mandates {
     this.db.run("INSERT INTO mandate_observations VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 'mandate_private',?,?,?,?,'human',NULL)",oid,m.mandate_id,cycle,initiative,String(a.mode),textField(a,'name',200),optional(a,'value',500),optional(a,'unit',100),observed,optional(a,'period',300),this.now(),textField(a,'source',1000),textField(a,'provenance',1500),textField(a,'limitations',1500),textField(a,'missingness',1000),body,hash(body));
     this.audit('observation_admitted',m.mandate_id,{observation_id:oid,mode:a.mode,observed_at:observed},'human');return this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',oid)!;
   }
-  withdrawObservation(input:unknown){this.human();const a=strictObject(input,['observation_id']);const o=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',textField(a,'observation_id',100));requireThat(o,'Observation not found');this.db.run('UPDATE mandate_observations SET withdrawn_at=coalesce(withdrawn_at,?) WHERE observation_id=?',this.now(),o.observation_id);this.audit('observation_withdrawn',o.mandate_id,{observation_id:o.observation_id},'human');return {withdrawn:true};}
+  withdrawObservation(input:unknown){this.human();const a=strictObject(input,['observation_id']);const o=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',textField(a,'observation_id',100));requireThat(o,'Observation not found');return this.db.transaction(()=>{
+    this.db.run('UPDATE mandate_observations SET withdrawn_at=coalesce(withdrawn_at,?) WHERE observation_id=?',this.now(),o.observation_id);
+    // Export does not sever provenance. Revoke every affected group scope, including
+    // settled syntheses, so later reads, commits and async deliveries fail closed.
+    for(const exported of this.db.all<{group_id:string;evidence_id:string}>("SELECT group_id,min(evidence_id) evidence_id FROM group_evidence WHERE json_extract(metadata,'$.observation_id')=? GROUP BY group_id",o.observation_id))this.company.discussions.withdrawEvidence(exported);
+    this.audit('observation_withdrawn',o.mandate_id,{observation_id:o.observation_id},'human');return {withdrawn:true};
+  });}
   private openCycle(m:Mandate,trigger:string,occurrence?:ReviewOccurrence){
     requireThat(m.status==='active','Mandate is not active');this.coordinator(m);
     requireThat(!this.db.get("SELECT 1 FROM operating_cycles WHERE mandate_id=? AND state IN ('active','waiting','blocked')",m.mandate_id),'An earlier mandate cycle remains open');
@@ -115,8 +123,14 @@ export class Mandates {
     requireThat(m.status==='active'||m.status==='paused'&&r.status!=='queued','Mandate is held or ended');
     requireThat(c.state==='active'&&c.mandate_version===m.version&&m.coordinator_id===r.target_worker_id,'Mandate cycle or coordinator authority changed');
     requireThat(Date.parse(c.deadline)>this.clock.now(),'Mandate cycle deadline expired');
+    const scheduled=this.unstartedSchedule(c);if(scheduled){requireThat(scheduled.schedule.version===scheduled.occurrence.schedule_version&&scheduled.schedule.status!=='cancelled'&&scheduled.schedule.status!=='paused'&&Date.parse(scheduled.schedule.end_at)>=this.clock.now(),'Scheduled review is paused, expired or superseded');}
   }
-  held(conversation:string){const direct=this.forConversation(conversation),group=this.company.discussions.forConversation(conversation),work=group?this.internalWork(undefined,group.group_id):undefined,m=direct??(work?this.mandate(work.mandate_id):undefined);return !!m&&m.status==='paused';}
+  private unstartedSchedule(c:OperatingCycle){if(!c.occurrence_id||this.db.get('SELECT 1 FROM executions e JOIN mandate_turns t USING(request_id) WHERE t.cycle_id=?',c.cycle_id))return;
+    const occurrence=this.db.get<ReviewOccurrence>('SELECT * FROM review_occurrences WHERE occurrence_id=?',c.occurrence_id)!;return {occurrence,schedule:this.schedule(occurrence.schedule_id)};
+  }
+  held(conversation:string){const direct=this.forConversation(conversation),group=this.company.discussions.forConversation(conversation),work=group?this.internalWork(undefined,group.group_id):undefined,m=direct??(work?this.mandate(work.mandate_id):undefined);if(m?.status==='paused')return true;
+    return !!(direct?.current_cycle_id&&this.unstartedSchedule(this.cycle(direct.current_cycle_id))?.schedule.status==='paused');
+  }
   verify(context:ExecutionContext){const v=this.company.conversations.verify(context),m=this.forConversation(v.request.conversation_id),turn=this.turn(v.request.request_id);requireThat(m&&turn,'Mandate review execution required');const cycle=this.cycle(turn.cycle_id);return {...v,mandate:m,cycle,turn};}
   private acting(context:ExecutionContext){const v=this.verify(context);requireThat(v.mandate.status==='active'&&!v.turn.output,'Mandate is paused or this turn already committed');return v;}
   tools(){return mandateTools();}
@@ -151,13 +165,14 @@ export class Mandates {
     requireThat(false,'Record is absent or outside this mandate scope');
   }
   private delivered(context:ExecutionContext,m:Mandate,recordId:string){const original=this.record(m,recordId),receipt=this.db.get<{sha256:string}>('SELECT sha256 FROM mandate_evidence_delivery WHERE execution_id=? AND record_id=? AND mandate_id=?',context.executionId,recordId,m.mandate_id);requireThat(receipt?.sha256===hash(original),'Citation requires the complete current original record delivered in this execution');return original;}
-  private read(context:ExecutionContext,m:Mandate,input:unknown){const a=strictObject(input,['record_id','offset']),recordId=textField(a,'record_id',100),record=this.record(m,recordId),serialized=JSON.stringify(record),digest=hash(record);requireThat(Number.isInteger(a.offset)&&Number(a.offset)>=0&&Number(a.offset)<serialized.length,'Invalid record offset');
+  private read(context:ExecutionContext,m:Mandate,input:unknown){const a=strictObject(input,['record_id','offset']),recordId=textField(a,'record_id',100),record=this.record(m,recordId),serialized=JSON.stringify(record),digest=hash(record);requireThat(Number.isInteger(a.offset)&&Number(a.offset)>=0&&Number(a.offset)<serialized.length,`offset is required and must be an integer from 0 to ${serialized.length-1}. Start with {record_id:"${recordId}",offset:0}. Use only next_offset from a successful read; null means this record is complete. Do not repeat a failed call unchanged.`);
     const offset=Number(a.offset),content=serialized.slice(offset,offset+6000);
-    const used=this.db.get<{n:number}>('SELECT coalesce(sum(chars),0) n FROM mandate_read_chunks WHERE execution_id=?',context.executionId)!.n;requireThat(used+content.length<=48000,'Mandate retrieval budget exhausted');
+    const used=this.db.get<{chars:number}>('SELECT chars FROM mandate_read_usage WHERE execution_id=?',context.executionId)?.chars??0;requireThat(used+content.length<=48000,'Mandate retrieval budget exhausted');
+    this.db.run('INSERT INTO mandate_read_usage VALUES (?,?) ON CONFLICT(execution_id) DO UPDATE SET chars=chars+excluded.chars',context.executionId,content.length);
     this.db.run('INSERT OR IGNORE INTO mandate_read_chunks VALUES (?,?,?,?,?)',context.executionId,recordId,offset,content.length,digest);
     let end=0;for(const chunk of this.db.all<{offset:number;chars:number}>('SELECT offset,chars FROM mandate_read_chunks WHERE execution_id=? AND record_id=? AND sha256=? ORDER BY offset',context.executionId,recordId,digest)){if(chunk.offset>end)break;end=Math.max(end,chunk.offset+chunk.chars);}
     if(end>=serialized.length)this.db.run('INSERT OR IGNORE INTO mandate_evidence_delivery VALUES (?,?,?,?,?)',context.executionId,recordId,m.mandate_id,digest,this.now());
-    return {record_id:recordId,offset,content,next_offset:offset+content.length<serialized.length?offset+content.length:null,total_characters:serialized.length,fully_delivered:end>=serialized.length,sha256:digest};
+    return {record_id:recordId,offset,content,next_offset:offset+content.length<serialized.length?offset+content.length:null,total_characters:serialized.length,fully_delivered:end>=serialized.length,sha256:digest,next_action:end>=serialized.length?'Complete original delivered. Do not reread it this execution. Read a different needed record or make your next decision.':'Continue with the returned next_offset.',remaining_retrieval_characters:48000-used-content.length};
   }
   private commitTurn(context:ExecutionContext,output:object,summary:string){const {turn,request,worker}=this.acting(context),message=id('cmessage');
     this.db.run('UPDATE mandate_turns SET output=? WHERE turn_id=?',JSON.stringify(output),turn.turn_id);
@@ -179,18 +194,21 @@ export class Mandates {
         this.db.run("INSERT INTO initiatives VALUES (?,?,?,?,?,?,?,'proposed',?,?,?)",i,m.mandate_id,c.cycle_id,textField(a,'title',200),textField(a,'mechanism',2000),textField(a,'expected_outcome',2000),textField(a,'assumptions',2000),v.worker.principal_id,context.executionId,this.now());result=this.db.get<Initiative>('SELECT * FROM initiatives WHERE initiative_id=?',i);
       }else if(name==='record_strategic_decision'){
         const a=strictObject(input,['initiative_id','disposition','recommendation','rationale','alternatives','evidence_ids','contrary_evidence','unknowns','missing_evidence']);const initiative=optional(a,'initiative_id',100);if(initiative)requireThat(this.db.get('SELECT 1 FROM initiatives WHERE initiative_id=? AND mandate_id=?',initiative,m.mandate_id),'Initiative outside mandate');
-        requireThat(['continue','iterate','pivot','stop','scale'].includes(String(a.disposition)),'Invalid strategic disposition');const cited=ids(a.evidence_ids);for(const ref of cited)this.delivered(context,m,ref);const missing=optional(a,'missing_evidence',1500);requireThat(cited.length||missing,'Cite delivered evidence or explicitly describe missing evidence');
+        requireThat(['continue','iterate','pivot','stop','scale'].includes(String(a.disposition)),'Invalid strategic disposition');const cited=ids(a.evidence_ids);for(const ref of cited){this.delivered(context,m,ref);requireThat(!this.db.get('SELECT 1 FROM initiatives WHERE initiative_id=?',ref),'A hypothesis is not supporting evidence; cite observations or internal results');}const missing=optional(a,'missing_evidence',1500);
+        const substantive=cited.some(ref=>!this.db.get('SELECT 1 FROM strategic_decisions WHERE decision_id=?',ref));requireThat(substantive||missing,'Cite delivered evidence or explicitly describe missing evidence; prior decisions alone are not observations');
         requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM strategic_decisions WHERE cycle_id=?',c.cycle_id)!.n<6,'Decision bound reached');const d=id('decision'),previous=this.db.get<{decision_id:string}>('SELECT decision_id FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 1',m.mandate_id)?.decision_id??null;
         this.db.run('INSERT INTO strategic_decisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',d,m.mandate_id,c.cycle_id,initiative,previous,String(a.disposition),textField(a,'recommendation',2000),textField(a,'rationale',4000),textField(a,'alternatives',3000),JSON.stringify(cited),textField(a,'contrary_evidence',2000),textField(a,'unknowns',2000),missing,v.worker.worker_id,context.executionId,this.now());
         if(initiative)this.db.run('UPDATE initiatives SET status=? WHERE initiative_id=?',a.disposition==='stop'?'stopped':'active',initiative);
         this.db.run('UPDATE mandates SET strategic_state=?,updated_at=? WHERE mandate_id=?',textField(a,'recommendation',2000),this.now(),m.mandate_id);result=this.db.get<StrategicDecision>('SELECT * FROM strategic_decisions WHERE decision_id=?',d);this.audit('decision_recorded',m.mandate_id,{cycle_id:c.cycle_id,decision_id:d},v.worker.principal_id,context.executionId);
       }else if(name==='assign_internal_task'){
-        const a=strictObject(input,['decision_id','worker_id','objective','acceptance_criteria','constraints']);requireThat(e.internal_tasks&&c.tasks_created<e.max_tasks,'Internal Task envelope exhausted or disabled');requireThat(this.pending(c.cycle_id).length<e.max_pending_work,'Pending internal work limit reached');
+        const a=strictObject(input,['decision_id','worker_id','objective','acceptance_criteria','constraints','evidence_ids']);requireThat(e.internal_tasks&&c.tasks_created<e.max_tasks,'Internal Task envelope exhausted or disabled');requireThat(this.pending(c.cycle_id).length<e.max_pending_work,'Pending internal work limit reached');
+        const exported=ids(a.evidence_ids??[],8).map(ref=>({record_id:ref,original:this.delivered(context,m,ref)}));requireThat(JSON.stringify(exported).length<=12000,'Selected Task evidence exceeds 12000 characters; choose a smaller relevant packet');
         const decision=textField(a,'decision_id',100);requireThat(this.db.get('SELECT 1 FROM strategic_decisions WHERE decision_id=? AND cycle_id=?',decision,c.cycle_id),'Task must link a decision in this cycle');const worker=this.company.worker(textField(a,'worker_id',100));
         requireThat(v.worker.capability_profile.includes('create_task')&&worker.manager_worker_id===v.worker.worker_id,'Only existing assignment authority over direct reports is permitted');requireThat(worker.enabled&&worker.lifecycle==='persistent'&&['researcher','product_manager'].includes(worker.role),'Only bounded analysis/research specialists are supported');requireThat(!this.company.providerUnresolved(worker.worker_id),'Assignee has an unresolved provider outcome');
         this.reserve(this.cycle(c.cycle_id),1);
         const task=this.company.createTask(v.worker.principal_id,worker,{objective:textField(a,'objective',6000),acceptance_criteria:textField(a,'acceptance_criteria',3000),constraints:`Internal mandate analysis only; no external actions or new authority. Evidence modes must remain labelled. ${textField(a,'constraints',3000)}`},null,'research',context.executionId);
         this.db.run('INSERT INTO mandate_internal_work VALUES (?,?,?,?,?,NULL,?,0,?)',id('internal'),m.mandate_id,c.cycle_id,decision,task.task_id,context.executionId,this.now());
+        for(const item of exported)this.db.run('INSERT INTO mandate_task_evidence VALUES (?,?,?,?)',task.task_id,item.record_id,hash(item.original),JSON.stringify(item.original));
         // Creation audit precedes the link in the shared Task method; remove only these
         // new private notification hints atomically, never original audit events.
         this.db.run('DELETE FROM client_events WHERE task_id=?',task.task_id);
@@ -246,8 +264,9 @@ export class Mandates {
   }
   controlSchedule(input:unknown){this.human();const a=strictObject(input,['schedule_id','action']),s=this.schedule(textField(a,'schedule_id',100)),action=textField(a,'action',20);requireThat(['pause','resume','cancel'].includes(action),'Invalid schedule control');
     return this.db.transaction(()=>{
-      requireThat(s.status!=='cancelled','Cancelled schedules cannot be resurrected');requireThat(action==='cancel'||action==='pause'&&s.status==='active'||action==='resume'&&s.status==='paused','Schedule state does not permit this control');
-      this.db.run('UPDATE review_schedules SET status=?,next_due=CASE WHEN ? THEN NULL ELSE next_due END,updated_at=? WHERE schedule_id=?',action==='cancel'?'cancelled':action==='pause'?'paused':'active',Number(action==='cancel'),this.now(),s.schedule_id);
+      const pending=this.db.get("SELECT 1 FROM review_occurrences WHERE schedule_id=? AND state IN ('due','held','queued')",s.schedule_id);
+      requireThat(s.status!=='cancelled','Cancelled schedules cannot be resurrected');requireThat(action==='cancel'||action==='pause'&&(s.status==='active'||s.status==='exhausted'&&!!pending)||action==='resume'&&s.status==='paused','Schedule state does not permit this control');
+      this.db.run('UPDATE review_schedules SET status=?,next_due=CASE WHEN ? THEN NULL ELSE next_due END,updated_at=? WHERE schedule_id=?',action==='cancel'?'cancelled':action==='pause'?'paused':s.next_due?'active':'exhausted',Number(action==='cancel'),this.now(),s.schedule_id);
       if(action==='cancel')this.invalidateQueued(s.schedule_id,'cancelled','Owner cancelled schedule');
       this.audit(`schedule_${action}`,s.mandate_id,{schedule_id:s.schedule_id},'human');return this.schedule(s.schedule_id);
     });
@@ -295,6 +314,8 @@ export class Mandates {
   progress(){
     for(const initial of this.db.all<OperatingCycle>("SELECT * FROM operating_cycles WHERE state IN ('active','waiting')"))this.db.transaction(()=>{
       const c=this.cycle(initial.cycle_id),m=this.mandate(c.mandate_id);
+      const scheduled=this.unstartedSchedule(c);
+      if(scheduled&&(scheduled.schedule.version!==scheduled.occurrence.schedule_version||scheduled.schedule.status==='cancelled'||Date.parse(scheduled.schedule.end_at)<this.clock.now())){this.invalidateQueued(scheduled.schedule.schedule_id,'cancelled','Schedule ended before first review execution');return;}
       if(Date.parse(c.deadline)<=this.clock.now()){this.block(c,'Cycle wall-clock limit reached; no automatic extension');return;}
       if(m.status!=='active')return;
       if(this.db.get("SELECT 1 FROM executions e JOIN mandate_turns t USING(request_id) WHERE t.cycle_id=? AND e.status='running'",c.cycle_id))return;
@@ -330,12 +351,32 @@ export class Mandates {
     this.db.get<{time:string|null}>("SELECT min(next_due) time FROM review_schedules WHERE status='active'")?.time,
     this.db.get<{time:string|null}>("SELECT min(retry_at) time FROM operating_cycles c JOIN mandates m USING(mandate_id) WHERE c.state='waiting' AND m.status='active'")?.time,
     this.db.get<{time:string|null}>("SELECT min(deadline) time FROM operating_cycles WHERE state IN ('active','waiting')")?.time,
+    this.db.get<{time:string|null}>("SELECT min(strftime('%Y-%m-%dT%H:%M:%fZ',s.end_at,'+0.001 seconds')) time FROM review_schedules s JOIN review_occurrences o USING(schedule_id) WHERE o.state='queued' AND NOT EXISTS (SELECT 1 FROM executions e JOIN mandate_turns t USING(request_id) WHERE t.cycle_id=o.cycle_id)")?.time,
   ].filter((x):x is string=>!!x);return candidates.sort()[0];}
   internalWork(taskId?:string,groupId?:string){return taskId?this.db.get<Work>('SELECT * FROM mandate_internal_work WHERE task_id=?',taskId):groupId?this.db.get<Work>('SELECT * FROM mandate_internal_work WHERE group_id=?',groupId):undefined;}
+  taskSession(context:ExecutionContext,tools:ToolDefinition[]){const {task,worker}=this.company.verifyContext(context),work=this.internalWork(task.task_id);if(!work)return;
+    const existing=this.db.get<PrivateTaskSession>('SELECT * FROM mandate_task_sessions WHERE task_id=?',task.task_id);
+    if(existing){requireThat(existing.execution_id===context.executionId&&existing.tool_hash===hash(tools)&&existing.state!=='blocked','Private Task context no longer owns this execution');return existing;}
+    requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');const sid=id('mandate_task_session');
+    this.db.run("INSERT INTO mandate_task_sessions VALUES (?,?,?,?,?,NULL,NULL,?,'creating',?)",sid,task.task_id,work.mandate_id,worker.worker_id,context.executionId,hash(tools),this.now());
+    return this.db.get<PrivateTaskSession>('SELECT * FROM mandate_task_sessions WHERE session_id=?',sid)!;
+  }
+  taskBinding(session:PrivateTaskSession):RuntimeBinding|undefined {if(session.state!=='active'||!session.runtime_reference)return;const w=this.company.worker(session.worker_id);return {worker_id:w.worker_id,runtime_type:w.runtime_type,runtime_reference:session.runtime_reference,workspace_path:w.workspace_path,created_at:session.created_at,thread_name:session.thread_name};}
+  prepareTaskBinding(context:ExecutionContext,sessionId:string,binding:RuntimeBinding,activate=false){const {worker,task}=this.company.verifyContext(context),s=this.db.get<PrivateTaskSession>('SELECT * FROM mandate_task_sessions WHERE session_id=?',sessionId);
+    requireThat(s&&s.worker_id===worker.worker_id&&s.task_id===task.task_id&&s.execution_id===context.executionId&&['creating','prepared','active'].includes(s.state),'Private Task context no longer owns execution');
+    this.company.verifyWorkspace(worker,binding.workspace_path);requireThat(binding.worker_id===worker.worker_id&&binding.runtime_type===worker.runtime_type,'Private Task binding identity mismatch');
+    for(const table of ['runtime_bindings','conversation_sessions','research_task_sessions','research_operations'])requireThat(!this.db.get(`SELECT 1 FROM ${table} WHERE runtime_reference=?`,binding.runtime_reference),'Private Task cannot reuse another work context');
+    requireThat(!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=? AND session_id!=?',binding.runtime_reference,sessionId),'Private Task context belongs to another Task');
+    requireThat(!s.runtime_reference||s.runtime_reference===binding.runtime_reference,'Private Task context cannot change implicitly');
+    this.db.run('UPDATE mandate_task_sessions SET runtime_reference=?,thread_name=?,state=? WHERE session_id=?',binding.runtime_reference,binding.thread_name??null,activate?'active':'prepared',sessionId);
+    if(activate)this.db.run('UPDATE executions SET runtime_reference=? WHERE execution_id=?',binding.runtime_reference,context.executionId);
+  }
   internalEligible(task:Task){const w=this.internalWork(task.task_id);if(!w)return true;const m=this.mandate(w.mandate_id),c=this.cycle(w.cycle_id);return m.status==='active'&&['active','waiting'].includes(c.state)&&Date.parse(c.deadline)>this.clock.now()&&!this.db.get('SELECT 1 FROM executions WHERE task_id=?',task.task_id);}
   authorizeInternal(taskId?:string,groupId?:string){const work=this.internalWork(taskId,groupId);if(!work)return;
     const m=this.mandate(work.mandate_id),c=this.cycle(work.cycle_id);requireThat(['active','paused'].includes(m.status)&&['active','waiting'].includes(c.state)&&Date.parse(c.deadline)>this.clock.now(),'Internal work mandate is ended, blocked or expired');
+    if(taskId)this.taskEvidence(taskId);
   }
+  taskEvidence(taskId:string){const work=this.internalWork(taskId);if(!work)return undefined;const m=this.mandate(work.mandate_id);return this.db.all<{record_id:string;sha256:string;content:string}>('SELECT record_id,sha256,content FROM mandate_task_evidence WHERE task_id=?',taskId).map(e=>{requireThat(hash(this.record(m,e.record_id))===e.sha256,'Selected Task evidence changed or was withdrawn');return {...e,evidence:JSON.parse(e.content),content:undefined};});}
   researchAuthority(context:ExecutionContext,reserve=false){const execution=this.company.execution(context.executionId);
     const conversation=execution.origin==='conversation'?this.company.conversations.request(execution.request_id).conversation_id:undefined;
     requireThat(!conversation||!this.forConversation(conversation),'Coordinator research must use existing authorized Task or discussion paths');

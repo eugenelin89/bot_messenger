@@ -60,6 +60,7 @@ export class Discussions {
     const v=this.company.mandates.verify(context);requireThat(v.mandate.status==='active'&&!v.turn.output,'Active mandate coordinator required');
     const group=this.createAuthorized({...input,organize_with_atlas:false,allow_incomplete:true,receipt_key:`mandate_${randomUUID()}`},context);
     for(const o of observations){const content=JSON.stringify({mode:o.mode,name:o.name,value:o.value,unit:o.unit,observed_at:o.observed_at,period:o.period,recorded_at:o.recorded_at,body:o.body,missingness:o.missingness,limitations:o.limitations});
+      requireThat(content.length<=L.evidenceChars,'Observation exceeds the 6000-character group excerpt bound; select a concise admitted observation');
       this.evidence(group,'owner_material',`${o.mode.toUpperCase()}: ${o.name}`,content,{observation_id:o.observation_id,mandate_id:o.mandate_id,provenance:o.provenance,source:o.source,export_authority:'active_mandate_envelope',coordinator_execution_id:context.executionId,audience_worker_ids:input.participant_ids},null);}
     this.requireMembers(group);this.db.run("UPDATE working_groups SET state='active',started_at=?,deadline=?,updated_at=? WHERE group_id=?",now(),v.cycle.deadline,now(),group.group_id);this.openings(this.group(group.group_id));
     this.audit('mandate_started',group,{mandate_id:v.mandate.mandate_id,cycle_id:v.cycle.cycle_id,coordinator_execution_id:context.executionId},context);return this.group(group.group_id);

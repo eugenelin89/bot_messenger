@@ -1,5 +1,5 @@
 // Isolated operator validation only. Not imported by production or exposed through HTTP.
-import {existsSync,mkdirSync,readFileSync,writeFileSync,renameSync} from 'node:fs';
+import {existsSync,mkdirSync,readFileSync,writeFileSync,renameSync,appendFileSync} from 'node:fs';
 import {resolve,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {Store} from '../../src/persistence/store.js';
@@ -20,7 +20,12 @@ const inputs=join(data,'runtime-inputs');mkdirSync(inputs,{recursive:true,mode:0
 class RecordingRuntime extends CodexRuntime {
   override async run(input:RuntimeInput,signal:AbortSignal){
     writeFileSync(join(inputs,`${input.execution.execution_id}.json`),JSON.stringify({mode:input.mode,execution:input.execution,context:input.context,binding:input.binding??null,tools:input.tools.map(t=>t.name)},null,2),{mode:0o600,flag:'wx'});
-    const event=input.event;
+    const event=input.event,callTool=input.callTool;
+    input={...input,callTool:async(callId,name,args,signal)=>{
+      const path=join(inputs,`${input.execution.execution_id}.tools.jsonl`);
+      try{const result=await callTool(callId,name,args,signal);appendFileSync(path,JSON.stringify({callId,name,args,result})+'\n',{mode:0o600});return result;}
+      catch(error){appendFileSync(path,JSON.stringify({callId,name,args,error:String(error)})+'\n',{mode:0o600});throw error;}
+    }};
     input={...input,event:(type,detail)=>{
       event(type,detail);
       const arm=join(data,'arm-inflight-crash.json');

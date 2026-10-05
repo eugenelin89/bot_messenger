@@ -151,7 +151,7 @@ export class Research {
         this.db.run("UPDATE research_operations SET state='running' WHERE operation_id=?",op);
         const result:ResearchResult=name==='research_search'?await this.provider!.search(request,combined,{
           model:s.execution.model??undefined,
-          prepared:reference=>{requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',reference),'Research provider context already belongs to another work mode.');this.db.run('UPDATE research_operations SET runtime_reference=? WHERE operation_id=?',reference,op);},
+          prepared:reference=>{requireThat(!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',reference),'Research provider cannot reuse a private mandate context');requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',reference),'Research provider context already belongs to another work mode.');this.db.run('UPDATE research_operations SET runtime_reference=? WHERE operation_id=?',reference,op);},
           invoking:()=>{const current=this.authorize(context,cap);requireThat(current.grant.grant_id===s.grant.grant_id&&!combined.aborted,'Research authority changed before provider invocation.');this.db.run('UPDATE research_operations SET unresolved=1 WHERE operation_id=?',op);},
           settled:()=>{this.db.run('UPDATE research_operations SET unresolved=0 WHERE operation_id=?',op);},
         }):{provider:'https-static-reader',sources:[await this.fetcher(request,combined)],outcome:'succeeded'};
@@ -197,6 +197,7 @@ export class Research {
   }
   taskSession(context:ExecutionContext,tools:ToolDefinition[]) {
     const {worker,task}=this.company.verifyContext(context);if(task.kind!=='research'||!this.enabled(worker.worker_id))return undefined;
+    requireThat(!this.company.mandates.internalWork(task.task_id),'Private mandate Tasks require a scoped context');
     let session=this.db.get<TaskSession>("SELECT * FROM research_task_sessions WHERE worker_id=? AND state IN ('creating','prepared','active')",worker.worker_id);
     if(session){requireThat(session.tool_hash===hash(tools),'Research task schema changed; explicit transition required.');return session;}
     requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved.');
@@ -211,6 +212,7 @@ export class Research {
   }
   prepareTaskBinding(context:ExecutionContext,sessionId:string,binding:RuntimeBinding,activate=false) {
     const {worker}=this.company.verifyContext(context);const s=this.db.get<TaskSession>('SELECT * FROM research_task_sessions WHERE session_id=?',sessionId);requireThat(s&&s.worker_id===worker.worker_id&&['creating','prepared','active'].includes(s.state),'Research task context no longer owns execution.');
+    requireThat(!this.company.mandates.internalWork(this.company.execution(context.executionId).task_id??undefined)&&!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',binding.runtime_reference),'Ordinary research Task cannot reuse a private mandate context');
     this.company.verifyWorkspace(worker,binding.workspace_path);requireThat(binding.worker_id===worker.worker_id&&binding.runtime_type===worker.runtime_type,'Research task binding identity mismatch.');
     requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',binding.runtime_reference)&&!this.db.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.db.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Provider context already belongs to another work mode.');
     requireThat(!s.runtime_reference||s.runtime_reference===binding.runtime_reference,'Research context cannot be replaced implicitly.');

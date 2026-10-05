@@ -130,3 +130,30 @@ review is not candidate clearance. Exact candidate and semantic artifact reviews
 
 Revised remaining ETA: 7–12 hours. Real Ubuntu acceptance, review, complete regressions,
 documentation and production delivery remain outstanding.
+
+### Review and first real attempt — 2026-10-05 19:00 UTC
+
+Frozen candidate `a504807` completed the local suite (233 total, 232 passed, one Linux-only
+skip) and the offline retained-state migration (schema 10→11, 69 tables, 2,231 original
+rows, every original field and rowid preserved, repeated reopen and integrity/FKs clean).
+Independent read-only review withheld clearance for six material findings: private Task
+provider-context reuse, post-queue schedule pause/expiry, observation export withdrawal,
+Task deadline interruption, hypothesis-only grounding, and deduplicated retrieval charging.
+All six have focused fixes and regressions. Additive schema 12 retains early validation
+schema 11 while adding private Task contexts, read accounting and explicit Task evidence exports.
+
+The first actual broad attempt ran at `/var/lib/botsquad/validation/mandates-p09-20261005-initial`
+with real gpt-6-sol workers under the existing runtime. Atlas independently chose an
+activation/setup hypothesis, a three-person group and a separate Scout analysis Task.
+The Task honestly reported that Atlas had referred to a baseline without exporting it.
+The coordinator continuation then repeatedly omitted the required `offset` argument after
+one complete observation read; the 20-call limit stopped it with an unresolved provider
+fence. No fence was cleared and this attempt is not acceptance. The failure and all original
+records are retained. The product now supports explicit selected evidence-body exports to
+internal Tasks and actionable pagination errors/completion hints; no strategy is scripted.
+
+The updated targeted suite passes 30/30. The full local suite passes 240/241 with one
+Linux-only skip. A prior sandboxed full attempt failed because local listeners and nested
+isolation processes were denied; that report is retained and the permission-correct run
+passed. Actual acceptance and final independent review remain blocked pending fresh runs.
+ETA remains 7–12 hours; production remains unchanged.

@@ -60,7 +60,8 @@ export class Dispatcher {
       const controller = new AbortController();
       const group=claim.origin==='conversation'?this.company.discussions.forConversation(claim.request.conversation_id):undefined;
       const mandateTurn=claim.origin==='conversation'?this.company.mandates.turn(claim.request.request_id):undefined;
-      const workDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:group?.deadline;
+      const internalTask=claim.origin==='task'?this.company.mandates.internalWork(claim.task.task_id):undefined;
+      const workDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:internalTask?this.company.mandates.cycle(internalTask.cycle_id).deadline:group?.deadline;
       const deadlineAbort=workDeadline?setTimeout(()=>controller.abort('Bounded work deadline expired'),Math.max(1,Date.parse(workDeadline)-this.company.mandates.clock.now())):undefined;
       const done = (async () => {
         let providerSettled=false;
@@ -69,7 +70,8 @@ export class Dispatcher {
           if (worker.runtime_type !== this.adapter.type) throw new Error('Worker/runtime adapter mismatch');
           const taskTools=companyTools(worker);
           if(claim.origin==='task'&&claim.task.kind==='research'&&this.company.research.enabled(worker.worker_id))taskTools.push(...researchTools());
-          const session=claim.origin==='task'?this.company.research.taskSession(context,taskTools):undefined;
+          const privateSession=claim.origin==='task'?this.company.mandates.taskSession(context,taskTools):undefined;
+          const session=claim.origin==='task'&&!privateSession?this.company.research.taskSession(context,taskTools):undefined;
           const callResearch=(callId:string,name:string,args:unknown,signal?:AbortSignal)=>this.company.research.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal);
           const input: RuntimeInput = claim.origin === 'conversation' ? {
             mode:'conversation', worker, request:claim.request, execution:claim.execution,
@@ -80,10 +82,10 @@ export class Dispatcher {
             callTool:(callId,name,args,signal)=>(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.conversations.callTool(context,callId,name,args),
             event:(type,detail)=>this.company.conversations.event(context,type,detail),
           } : { mode:'task', worker, task:claim.task, execution:claim.execution, context: {...this.company.context(context),research_authority:claim.task.kind==='research'?this.company.research.context(context):undefined},
-            binding: session?this.company.research.taskBinding(session):this.company.binding(worker.worker_id), tools: taskTools,
+            binding: privateSession?this.company.mandates.taskBinding(privateSession):session?this.company.research.taskBinding(session):this.company.binding(worker.worker_id), tools: taskTools,
             configured: config => this.company.recordRuntimeConfig(context, config),
-            prepareBinding:session?binding=>this.company.research.prepareTaskBinding(context,session.session_id,binding):undefined,
-            bind: binding => session?this.company.research.prepareTaskBinding(context,session.session_id,binding,true):this.company.setBinding(context, binding),
+            prepareBinding:privateSession?binding=>this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding):session?binding=>this.company.research.prepareTaskBinding(context,session.session_id,binding):undefined,
+            bind: binding => privateSession?this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding,true):session?this.company.research.prepareTaskBinding(context,session.session_id,binding,true):this.company.setBinding(context, binding),
             callTool: (callId, name, args,signal) => (RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };

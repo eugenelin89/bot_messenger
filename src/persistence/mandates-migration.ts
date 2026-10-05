@@ -1,4 +1,29 @@
 import type {DatabaseSync} from 'node:sqlite';
+// Separate additive revision keeps already-retained validation candidates migratable.
+export const migration12=`
+CREATE TABLE mandate_task_sessions (
+ session_id TEXT PRIMARY KEY, task_id TEXT NOT NULL UNIQUE REFERENCES tasks,
+ mandate_id TEXT NOT NULL REFERENCES mandates, worker_id TEXT NOT NULL REFERENCES workers,
+ execution_id TEXT NOT NULL UNIQUE REFERENCES executions, runtime_reference TEXT UNIQUE,
+ thread_name TEXT, tool_hash TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('creating','prepared','active','blocked')),
+ created_at TEXT NOT NULL
+);
+CREATE TRIGGER mandate_task_session_owner BEFORE INSERT ON mandate_task_sessions
+ WHEN NOT EXISTS(SELECT 1 FROM mandate_internal_work w JOIN tasks t USING(task_id) JOIN executions e USING(task_id)
+ WHERE w.task_id=NEW.task_id AND w.mandate_id=NEW.mandate_id AND e.execution_id=NEW.execution_id
+ AND e.worker_id=NEW.worker_id AND t.assignee_worker_id=NEW.worker_id AND e.status='running')
+ BEGIN SELECT RAISE(ABORT,'Invalid private Task context owner'); END;
+CREATE TRIGGER mandate_task_session_identity BEFORE UPDATE OF session_id,task_id,mandate_id,worker_id,execution_id,tool_hash,created_at ON mandate_task_sessions
+ BEGIN SELECT RAISE(ABORT,'Private Task context ownership is immutable'); END;
+CREATE TABLE mandate_read_usage (execution_id TEXT PRIMARY KEY REFERENCES executions,chars INTEGER NOT NULL);
+INSERT INTO mandate_read_usage SELECT execution_id,sum(chars) FROM mandate_read_chunks GROUP BY execution_id;
+CREATE TABLE mandate_task_evidence (
+ task_id TEXT NOT NULL REFERENCES tasks,record_id TEXT NOT NULL,sha256 TEXT NOT NULL,
+ content TEXT NOT NULL,PRIMARY KEY(task_id,record_id)
+);
+CREATE TRIGGER mandate_task_evidence_immutable BEFORE UPDATE ON mandate_task_evidence
+ BEGIN SELECT RAISE(ABORT,'Private Task evidence export is immutable'); END;
+`;
 /** The one existing CHECK widened here records the actual coordinator principal.
  * All existing group rowids/values and triggers are retained. No work is created. */
 export function migrateMandates(db:DatabaseSync){

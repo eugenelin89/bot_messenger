@@ -17,6 +17,6 @@ for(let pass=0;pass<2;pass++){
     else assert.deepEqual(actual,old.rows,`Original row/rowid/field changed: ${table}`);
   }
   assert.deepEqual(migrated.all('PRAGMA foreign_key_check'),[]);assert.equal(migrated.get('PRAGMA integrity_check').integrity_check,'ok');
-  assert.equal(migrated.get('SELECT max(version) n FROM schema_migrations').n,11);for(const table of ['mandates','operating_cycles','review_schedules','review_occurrences','mandate_observations'])assert.equal(migrated.get(`SELECT count(*) n FROM ${table}`).n,0);migrated.close();
+  assert.equal(migrated.get('SELECT max(version) n FROM schema_migrations').n,12);for(const table of ['mandates','operating_cycles','review_schedules','review_occurrences','mandate_observations'])assert.equal(migrated.get(`SELECT count(*) n FROM ${table}`).n,0);migrated.close();
 }
-console.log(JSON.stringify({offline:true,previous_schema:previous,schema:11,repeat_open_preserved:true,tables:tables.length,original_rows:Object.values(saved).reduce((n,t)=>n+t.rows.length,0),rowids_and_every_original_field_preserved:true,foreign_keys:'ok',integrity:'ok'}));
+console.log(JSON.stringify({offline:true,previous_schema:previous,schema:12,repeat_open_preserved:true,tables:tables.length,original_rows:Object.values(saved).reduce((n,t)=>n+t.rows.length,0),rowids_and_every_original_field_preserved:true,foreign_keys:'ok',integrity:'ok'}));

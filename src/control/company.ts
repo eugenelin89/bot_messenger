@@ -145,9 +145,11 @@ export class Company extends EventEmitter {
   private capability(worker: Worker, capability: Capability) { requireThat(worker.capability_profile.includes(capability), `Missing capability: ${capability}`); }
   setBinding(context: ExecutionContext, binding: RuntimeBinding) {
     const { worker } = this.verifyContext(context);
+    requireThat(!this.mandates.internalWork(this.execution(context.executionId).task_id??undefined),'Private mandate Tasks require a scoped context');
     requireThat(binding.worker_id === worker.worker_id && binding.runtime_type === worker.runtime_type, 'Runtime binding identity mismatch');
     this.verifyWorkspace(worker, binding.workspace_path);
     requireThat(!this.store.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a conversation context');
+    requireThat(!this.store.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a private mandate context');
     requireThat(!this.store.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.store.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a research context');
     const old = this.binding(worker.worker_id);
     requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type && (old.thread_name ?? null) === (binding.thread_name ?? null)), 'Cannot replace an existing runtime binding implicitly');
@@ -349,6 +351,7 @@ export class Company extends EventEmitter {
   }
   recover() {
     this.research.recover();
+    this.store.run("UPDATE mandate_task_sessions SET state='blocked' WHERE state IN ('creating','prepared')");
     this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
@@ -415,6 +418,7 @@ export class Company extends EventEmitter {
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
+      mandate_selected_evidence:this.mandates.taskEvidence(task.task_id),
       selected_discussion_synthesis: this.store.get('SELECT s.synthesis_id,s.content,s.sha256 FROM discussion_assignments a JOIN group_syntheses s USING(synthesis_id) WHERE a.task_id=?',task.task_id),
       messages: this.store.all<Message>('SELECT * FROM messages WHERE related_task_id=? ORDER BY created_at DESC LIMIT 8', task.task_id).reverse(),
       reference_documents: [...this.referenceDocs.keys()] };
