@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** Implementation delivery complete; final completion-documentation deployment and handoff remain. The user requested an ETA every 15 minutes.
+**Historical ETA checkpoint (20:41 UTC):** 15–25 minutes remained for completion-documentation delivery and handoff. This is not a current action list; final completion and exact deployment identity are recorded in the delivery receipt. The user requested an ETA every 15 minutes.
 
 ## Objective and boundary
 
