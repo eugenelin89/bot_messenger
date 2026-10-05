@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 8–14 hours; user requested an ETA update every 15 minutes
+**Current ETA:** 7–12 hours remaining (19:15 UTC checkpoint); user requested an ETA update every 15 minutes
 
 ## Objective and boundary
 
@@ -58,23 +58,23 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 
 | Gate | Required evidence | State / remaining prerequisite |
 | --- | --- | --- |
-| C09-1 broad | Real broad cycle, team choices, initiative, alternatives, useful internal Task and follow-up | blocked — implementation and actual Ubuntu run |
-| C09-1 specific | Real Asymmetri reference, fixture-only product logic, no external action | blocked — implementation and actual Ubuntu run |
-| C09-2 schedules | One-time/recurring, owner/purpose/zone/limits, edit/version/cancel durability | blocked — implementation and deterministic/real tests |
-| C09-3 clock | Due/restart/dedup/overlap/catch-up/pause/revoke/idle and actual elapsed-time worker | blocked — implementation and controlled plus real acceptance |
+| C09-1 broad | Real broad cycle, team choices, initiative, alternatives, useful internal Task and follow-up | implemented — two failed real broad attempts retained; fresh-context acceptance pending |
+| C09-1 specific | Real Asymmetri reference, fixture-only product logic, no external action | implemented — actual Asymmetri run pending |
+| C09-2 schedules | One-time/recurring, owner/purpose/zone/limits, edit/version/cancel durability | tested — deterministic schedules/version/cancel pass; real elapsed-time acceptance pending |
+| C09-3 clock | Due/restart/dedup/overlap/catch-up/pause/revoke/idle and actual elapsed-time worker | tested — controlled clock/recovery checks pass; real elapsed-time acceptance pending |
 | C09-4 two cycles | Two actual cycles, attributable intervening observation, evidence-responsive decision, scheduled second cycle | blocked — real runs and independent semantic review |
-| Mandate authority | Owner activation; immutable envelope; no prose escalation; coordinator eligibility | blocked — implementation and denial tests |
-| Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | blocked — implementation and actual integration |
-| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | blocked — implementation and grounding/recovery tests |
+| Mandate authority | Owner activation; immutable envelope; no prose escalation; coordinator eligibility | tested — owner/envelope/role denial checks pass |
+| Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | tested — actual groups/Tasks ran; complete cycle acceptance pending |
+| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 35 focused checks pass; real fresh-context acceptance pending |
 | Clock failures | All requested crash points, known-failure backoff, unknown-outcome no-replay | blocked — fault injection and restart tests |
-| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | blocked — implementation and browser verification |
-| Client API/privacy | No strategy, observation, group-control or schedule authority exposed to v1 | blocked — projection/event/control regression tests |
+| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — browser workflow passed on 66c291a; final candidate recheck pending |
+| Client API/privacy | No strategy, observation, group-control or schedule authority exposed to v1 | tested — v1 privacy and compatibility pass |
 | Prompt 07 regressions | Direct/passive/reply/peer/rollover/interruption/uncertainty | blocked — accepted candidate regressions |
 | WE-01 regressions | Grants/revocation/public sources/failures/async/rollover | blocked — accepted candidate regressions |
 | Prompt 08 regressions | Manual/Atlas groups, sharing, challenge/response, synthesis, separate assignment, privacy | blocked — accepted candidate regressions |
 | Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | blocked — applicable complete and real suites |
 | Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | blocked — applicable complete suite and host probes |
-| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | blocked — migration implementation and deployment gate |
+| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — schema 10→11 preserves every original row/field; schema 12 and deployment pending |
 | Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | blocked — candidate and real evidence required |
 | Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | blocked — final implementation and evidence |
 | Integration/deploy | Normal PR merge, exact local/origin/source/build equality, health/preservation/cleanup | blocked — all prior gates |
@@ -98,11 +98,11 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 | --- | --- | --- |
 | Repository/host preflight | Git fetch/status/worktree and SSH health plus read-only SQLite inventory | tested — baseline and newer retained state above |
 | Concurrent PRs | Connected GitHub search, 2026-10-05 | tested — no open PRs |
-| Independent review | Read-only reviewer started on baseline; implementation review follows | blocked — candidate not yet implemented |
+| Independent review | Read-only reviewer started on baseline; implementation review follows | implemented — frozen reviews found material issues; fixes and final clearance pending |
 
 ## Remaining work
 
-All implementation and release gates above remain open. Do not mark Prompt 09 complete
+Implementation is present; actual acceptance, final review and release gates remain open. Do not mark Prompt 09 complete
 or Prompt 10 next until the complete acceptance matrix passes.
 
 ## Implementation checkpoint (2026-10-05)
@@ -157,3 +157,26 @@ Linux-only skip. A prior sandboxed full attempt failed because local listeners a
 isolation processes were denied; that report is retained and the permission-correct run
 passed. Actual acceptance and final independent review remain blocked pending fresh runs.
 ETA remains 7–12 hours; production remains unchanged.
+
+
+### Second real attempt and conservative continuity — 2026-10-05 19:15 UTC
+
+Candidate `66c291a` passed the complete Ubuntu suite: 241/241, including Linux-only checks.
+Its browser workflow passed. The second broad real attempt delivered the explicitly selected
+simulated baseline to Scout and produced a qualified, source-grounded Task result. A group
+also completed. Atlas's resumed coordinator again performed one valid complete baseline read,
+then 19 invalid reads omitting `offset`, exhausting the bounded call allowance. Actual tool
+payloads were recorded in the private validation evidence. This attempt remains failed, with
+its unknown provider fence intact. Production is unchanged.
+
+Follow-up independent review found withdrawal could still reappear through provider context,
+derived Task results and previews; unexecuted Task metadata could also count as evidence.
+The fixes conservatively withhold prior derived worker material after withdrawal, invalidate
+queued scope, preserve owner originals and fences, and require completed Task execution
+results for substantive grounding. Every settled strategic turn now starts a normal Prompt 07
+generation reconstructed from trusted records, with fresh evidence receipts and retained
+lineage/budgets. Direct conversations and ordinary Task bindings retain existing behavior.
+The reviewer found this continuity policy sound but requires actual acceptance proof.
+
+The current focused suite passes 35/35, including fresh generations, withdrawal, grounding,
+and atomic claim rollback. Reports include all failed attempts. Remaining ETA: 7–12 hours.

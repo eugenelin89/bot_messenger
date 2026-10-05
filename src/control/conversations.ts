@@ -215,7 +215,11 @@ export class Conversations {
     const mandate=this.company.mandates.forConversation(c.conversation_id);
     const toolHash=hash(mandate?this.company.mandates.tools():group?this.company.discussions.toolsFor(r):conversationTools(this.company.research.enabled(worker.worker_id))); const scope=this.scope(c.conversation_id);
     const old=session;
-    if (!session||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
+    // Each strategic turn receives a fresh bounded checkpoint. Original observations,
+    // decisions and results are retrieved from trusted mandate records, rather than
+    // replaying a provider's previous tools or treating old delivery as current proof.
+    const strategicCheckpoint=!!mandate&&!!session&&session.completed_turns>0;
+    if (!session||strategicCheckpoint||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
       requireThat(!this.db.get("SELECT 1 FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state IN ('creating','prepared')",worker.worker_id,c.conversation_id),'Pending handoff requires inspection');
       const generation=this.db.get<{n:number}>('SELECT coalesce(max(generation),0)+1 n FROM conversation_sessions WHERE worker_id=? AND conversation_id=?',worker.worker_id,c.conversation_id)!.n;
       const handoff={version:1,scope_hash:scope,worker:{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},conversation_id:c.conversation_id,purpose:c.purpose,
@@ -224,7 +228,7 @@ export class Conversations {
       const sessionId=id('session');
       this.db.run(`INSERT INTO conversation_sessions (session_id,worker_id,conversation_id,generation,scope_version,mode,tool_schema,tool_hash,previous_session_id,state,reason,handoff,handoff_hash,handoff_version,created_at)
         VALUES (?,?,?,?,?,'conversation',?,?,?,'creating',?,?,?,1,?)`,sessionId,worker.worker_id,c.conversation_id,generation,c.scope_version,mandate?MANDATE_SCHEMA:group?DISCUSSION_SCHEMA:CONVERSATION_SCHEMA,toolHash,old?.session_id??null,
-        !old?'initial_context':old.rollover_requested?'operator_requested':old.scope_version!==c.scope_version||JSON.parse(old.handoff).scope_hash!==scope?'scope_changed':'conservative_context_limit',JSON.stringify(handoff),hash(handoff),now());
+        !old?'initial_context':old.rollover_requested?'operator_requested':old.scope_version!==c.scope_version||JSON.parse(old.handoff).scope_hash!==scope?'scope_changed':strategicCheckpoint?'strategic_turn_checkpoint':'conservative_context_limit',JSON.stringify(handoff),hash(handoff),now());
       session=this.session(sessionId); this.audit('handoff_checkpoint',{session_id:sessionId,previous_session_id:old?.session_id??null,generation,source_range:handoff.source_range},worker.worker_id);
     }
     const executionId=id('execution');

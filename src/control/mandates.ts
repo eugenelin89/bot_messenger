@@ -20,6 +20,8 @@ export class Mandates {
   get db(){return this.company.store;}
   now(){return new Date(this.clock.now()).toISOString();}
   private human(){this.company.conversations.human();}
+  private withdrawal(mandate:string){return this.db.get<{at:string|null}>('SELECT max(withdrawn_at) at FROM mandate_observations WHERE mandate_id=?',mandate)?.at??'';}
+  private requireDerived(m:Mandate,createdAt:string){requireThat(createdAt>this.withdrawal(m.mandate_id),'Derived record predates evidence withdrawal; retained for owner history, unavailable for future worker delivery');}
   private audit(type:string,mandate:string,detail:object={},actor='system',execution:string|null=null){this.company.audit(`mandate_${type}`,actor,{mandate_id:mandate,...detail},null,null,execution);}
   mandate(value:string){const m=this.db.get<Mandate>('SELECT * FROM mandates WHERE mandate_id=?',value);requireThat(m,'Mandate not found');return m;}
   cycle(value:string){const c=this.db.get<OperatingCycle>('SELECT * FROM operating_cycles WHERE cycle_id=?',value);requireThat(c,'Operating cycle not found');return c;}
@@ -96,10 +98,21 @@ export class Mandates {
     this.audit('observation_admitted',m.mandate_id,{observation_id:oid,mode:a.mode,observed_at:observed},'human');return this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',oid)!;
   }
   withdrawObservation(input:unknown){this.human();const a=strictObject(input,['observation_id']);const o=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',textField(a,'observation_id',100));requireThat(o,'Observation not found');return this.db.transaction(()=>{
+    if(o.withdrawn_at)return {withdrawn:true};
     this.db.run('UPDATE mandate_observations SET withdrawn_at=coalesce(withdrawn_at,?) WHERE observation_id=?',this.now(),o.observation_id);
-    // Export does not sever provenance. Revoke every affected group scope, including
-    // settled syntheses, so later reads, commits and async deliveries fail closed.
-    for(const exported of this.db.all<{group_id:string;evidence_id:string}>("SELECT group_id,min(evidence_id) evidence_id FROM group_evidence WHERE json_extract(metadata,'$.observation_id')=? GROUP BY group_id",o.observation_id))this.company.discussions.withdrawEvidence(exported);
+    // Models can quote observations into free-form derivatives without preserving
+    // every dependency. Invalidate all earlier derived worker material conservatively,
+    // while retaining the owner's complete historical records and provider fences.
+    const conversation=this.db.get<{conversation_id:string}>('SELECT conversation_id FROM mandate_conversations WHERE mandate_id=?',o.mandate_id)!;
+    this.db.run('UPDATE conversations SET scope_version=scope_version+1 WHERE conversation_id=?',conversation.conversation_id);
+    for(const work of this.db.all<Work>('SELECT * FROM mandate_internal_work WHERE mandate_id=?',o.mandate_id)){
+      if(work.group_id){const evidence=this.db.get<{evidence_id:string}>('SELECT evidence_id FROM group_evidence WHERE group_id=? LIMIT 1',work.group_id);if(evidence)this.company.discussions.withdrawEvidence({group_id:work.group_id,evidence_id:evidence.evidence_id});}
+      if(work.task_id&&this.company.task(work.task_id).status==='queued')this.company.cancel(work.task_id);
+    }
+    for(const queued of this.db.all<{turn_id:string;request_id:string;cycle_id:string}>("SELECT t.* FROM mandate_turns t JOIN operating_cycles c USING(cycle_id) JOIN conversation_requests r USING(request_id) WHERE c.mandate_id=? AND r.status='queued'",o.mandate_id)){
+      this.db.run("UPDATE conversation_requests SET status='cancelled',error='Evidence withdrawal replaced the pending scope' WHERE request_id=?",queued.request_id);this.db.run('UPDATE mandate_turns SET advanced=1 WHERE turn_id=?',queued.turn_id);
+      try{this.enqueue(this.cycle(queued.cycle_id));}catch(error){this.block(this.cycle(queued.cycle_id),String(error));}
+    }
     this.audit('observation_withdrawn',o.mandate_id,{observation_id:o.observation_id},'human');return {withdrawn:true};
   });}
   private openCycle(m:Mandate,trigger:string,occurrence?:ReviewOccurrence){
@@ -137,17 +150,17 @@ export class Mandates {
   private works(cycle:string){return this.db.all<Work>('SELECT * FROM mandate_internal_work WHERE cycle_id=? ORDER BY rowid',cycle);}
   private workTerminal(w:Work){return w.task_id?['completed','failed','cancelled'].includes(this.company.task(w.task_id).status):['completed','blocked','stopped','archived'].includes(this.company.discussions.group(w.group_id!).state);}
   private pending(cycle:string){return this.works(cycle).filter(w=>!this.workTerminal(w));}
-  context(context:ExecutionContext){const {mandate:m,cycle:c,worker,session}=this.verify(context);
-    const result={mode:'mandate_review',clock_now:this.now(),mandate:{...m,envelope:this.envelope(m)},cycle:c,
+  context(context:ExecutionContext){const {mandate:m,cycle:c,worker,session}=this.verify(context),withdrawn=this.withdrawal(m.mandate_id);
+    const result={mode:'mandate_review',clock_now:this.now(),mandate:{...m,envelope:this.envelope(m),strategic_state:withdrawn?'Earlier strategic prose is withheld after evidence withdrawal; evaluate currently available originals.':m.strategic_state},cycle:c,
       session:{session_id:session.session_id,generation:session.generation,previous_session_id:session.previous_session_id},
       worker:{worker_id:worker.worker_id,role:worker.role,display_name:worker.display_name},
       eligible_workers:this.company.discussions.eligible().map(w=>({worker_id:w.worker_id,display_name:w.display_name,role:w.role,manager_worker_id:w.manager_worker_id,research_eligible:this.company.research.eligible(w.worker_id)})),
-      initiatives:this.db.all('SELECT initiative_id,title,status,cycle_id FROM initiatives WHERE mandate_id=? ORDER BY rowid DESC LIMIT 20',m.mandate_id),
-      decisions:this.db.all('SELECT decision_id,cycle_id,disposition,substr(recommendation,1,300) recommendation_preview,created_at FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 20',m.mandate_id),
+      initiatives:this.db.all("SELECT initiative_id,CASE WHEN created_at>? THEN title ELSE '[Withheld after evidence withdrawal]' END title,status,cycle_id FROM initiatives WHERE mandate_id=? ORDER BY rowid DESC LIMIT 20",withdrawn,m.mandate_id),
+      decisions:this.db.all("SELECT decision_id,cycle_id,disposition,CASE WHEN created_at>? THEN substr(recommendation,1,300) ELSE '[Withheld after evidence withdrawal]' END recommendation_preview,created_at FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 20",withdrawn,m.mandate_id),
       observations:this.db.all('SELECT observation_id,mode,name,cycle_id,initiative_id,observed_at,period,recorded_at,withdrawn_at FROM mandate_observations WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',m.mandate_id),
-      previous_cycles:this.db.all('SELECT cycle_id,number,state,substr(summary,1,800) fallible_summary_preview FROM operating_cycles WHERE mandate_id=? AND number<? ORDER BY number DESC LIMIT 2',m.mandate_id,c.number),
+      previous_cycles:this.db.all("SELECT cycle_id,number,state,CASE WHEN created_at>? THEN substr(summary,1,800) ELSE '[Withheld after evidence withdrawal]' END fallible_summary_preview FROM operating_cycles WHERE mandate_id=? AND number<? ORDER BY number DESC LIMIT 2",withdrawn,m.mandate_id,c.number),
       internal_work:this.db.all<Work>('SELECT * FROM mandate_internal_work WHERE mandate_id=? ORDER BY rowid DESC LIMIT 30',m.mandate_id).map(w=>({...w,status:w.task_id?this.company.task(w.task_id).status:this.company.discussions.group(w.group_id!).state,result_ids:w.task_id?this.company.artifacts(w.task_id).map(a=>a.artifact_id):this.db.all<{synthesis_id:string}>("SELECT synthesis_id FROM group_syntheses WHERE group_id=? AND state='final'",w.group_id!).map(s=>s.synthesis_id)})),
-      schedules:this.db.all('SELECT * FROM review_schedules WHERE mandate_id=? ORDER BY rowid DESC LIMIT 12',m.mandate_id),
+      schedules:this.db.all<ReviewSchedule>('SELECT * FROM review_schedules WHERE mandate_id=? ORDER BY rowid DESC LIMIT 12',m.mandate_id).map(s=>({...s,purpose:s.created_at>withdrawn?s.purpose:'Purpose withheld after evidence withdrawal; owner history remains available'})),
       pending_occurrences:this.db.all("SELECT * FROM review_occurrences WHERE mandate_id=? AND state IN ('due','held','queued','blocked') LIMIT 12",m.mandate_id),
       authority:'Only typed internal mandate tools. No hiring, grants, protected approvals, repository writes, publication, spending or Computer Use. Public research uses independently granted Task/discussion paths. Catalogs/previews are not evidence delivery; retrieve original records before citing. Unknown values remain unknown. Summaries are fallible and never permission.'};
     requireThat(JSON.stringify(result).length<=48000,'Mandate context exceeds its bounded budget');return result;
@@ -155,16 +168,21 @@ export class Mandates {
   private record(m:Mandate,recordId:string):unknown {
     const observation=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=? AND mandate_id=?',recordId,m.mandate_id);
     if(observation){requireThat(!observation.withdrawn_at&&this.envelope(m).evidence_modes.includes(observation.mode),'Observation was withdrawn or its mode is outside policy');requireThat(!observation.observed_at||Date.parse(observation.observed_at)<=this.clock.now(),'Future observation denied');return observation;}
-    for(const [table,key] of [['strategic_decisions','decision_id'],['initiatives','initiative_id']] as const){const row=this.db.get(`SELECT * FROM ${table} WHERE ${key}=? AND mandate_id=?`,recordId,m.mandate_id);if(row)return row;}
+    for(const [table,key] of [['strategic_decisions','decision_id'],['initiatives','initiative_id']] as const){const row=this.db.get<{created_at:string}>(`SELECT * FROM ${table} WHERE ${key}=? AND mandate_id=?`,recordId,m.mandate_id);if(row){this.requireDerived(m,row.created_at);return row;}}
     const work=this.db.get<Work>('SELECT * FROM mandate_internal_work WHERE mandate_id=? AND task_id=?',m.mandate_id,recordId);
-    if(work){const task=this.company.task(recordId);return {task,artifacts:this.company.artifacts(recordId).map(a=>({artifact_id:a.artifact_id,description:a.description,sha256:a.sha256})),evidence_mode:'internal_worker_analysis',limitation:'Worker interpretation is not a measured observation'};}
+    if(work){this.requireDerived(m,work.created_at);this.taskEvidence(recordId);const task=this.company.task(recordId);return {task,artifacts:this.company.artifacts(recordId).map(a=>({artifact_id:a.artifact_id,description:a.description,sha256:a.sha256})),evidence_mode:'internal_worker_analysis',limitation:'Worker interpretation is not a measured observation'};}
     const artifact=this.db.get<{task_id:string}>('SELECT a.task_id FROM artifacts a JOIN mandate_internal_work w USING(task_id) WHERE a.artifact_id=? AND w.mandate_id=?',recordId,m.mandate_id);
-    if(artifact)return {artifact_id:recordId,task_id:artifact.task_id,content:this.company.artifactContent(recordId),evidence_mode:'internal_worker_analysis',limitation:'Worker interpretation is not a measured observation'};
-    const synthesis=this.db.get<{group_id:string;content:string}>('SELECT s.* FROM group_syntheses s JOIN mandate_internal_work w USING(group_id) WHERE s.synthesis_id=? AND w.mandate_id=? AND s.state=\'final\'',recordId,m.mandate_id);
-    if(synthesis){const group=this.company.discussions.group(synthesis.group_id);requireThat(group.state==='completed','Only a settled completed group synthesis is readable');requireThat(!this.db.get("SELECT 1 FROM audit_events WHERE type='discussion_sharing_withdrawn' AND json_extract(detail,'$.group_id')=?",group.group_id),'Shared evidence was withdrawn');return {...synthesis,evidence_mode:'working_group_interpretation',limitation:'Recommendations and interpretations are not observations or approvals'};}
+    if(artifact){this.requireDerived(m,this.internalWork(artifact.task_id)!.created_at);this.taskEvidence(artifact.task_id);return {artifact_id:recordId,task_id:artifact.task_id,content:this.company.artifactContent(recordId),evidence_mode:'internal_worker_analysis',limitation:'Worker interpretation is not a measured observation'};}
+    const synthesis=this.db.get<{group_id:string;content:string;created_at:string}>('SELECT s.* FROM group_syntheses s JOIN mandate_internal_work w USING(group_id) WHERE s.synthesis_id=? AND w.mandate_id=? AND s.state=\'final\'',recordId,m.mandate_id);
+    if(synthesis){this.requireDerived(m,synthesis.created_at);const group=this.company.discussions.group(synthesis.group_id);requireThat(group.state==='completed','Only a settled completed group synthesis is readable');requireThat(!this.db.get("SELECT 1 FROM audit_events WHERE type='discussion_sharing_withdrawn' AND json_extract(detail,'$.group_id')=?",group.group_id),'Shared evidence was withdrawn');return {...synthesis,evidence_mode:'working_group_interpretation',limitation:'Recommendations and interpretations are not observations or approvals'};}
     requireThat(false,'Record is absent or outside this mandate scope');
   }
   private delivered(context:ExecutionContext,m:Mandate,recordId:string){const original=this.record(m,recordId),receipt=this.db.get<{sha256:string}>('SELECT sha256 FROM mandate_evidence_delivery WHERE execution_id=? AND record_id=? AND mandate_id=?',context.executionId,recordId,m.mandate_id);requireThat(receipt?.sha256===hash(original),'Citation requires the complete current original record delivered in this execution');return original;}
+  private substantiveEvidence(ref:string){
+    if(this.db.get('SELECT 1 FROM mandate_observations WHERE observation_id=?',ref)||this.db.get("SELECT 1 FROM group_syntheses WHERE synthesis_id=? AND state='final'",ref))return true;
+    const task=this.db.get<{task_id:string}>("SELECT task_id FROM tasks WHERE task_id=? UNION SELECT task_id FROM artifacts WHERE artifact_id=?",ref,ref);
+    return !!(task&&this.db.get("SELECT 1 FROM tasks t JOIN executions e USING(task_id) WHERE t.task_id=? AND t.status='completed' AND e.status='completed' AND (t.result_summary IS NOT NULL OR EXISTS(SELECT 1 FROM artifacts a WHERE a.task_id=t.task_id))",task.task_id));
+  }
   private read(context:ExecutionContext,m:Mandate,input:unknown){const a=strictObject(input,['record_id','offset']),recordId=textField(a,'record_id',100),record=this.record(m,recordId),serialized=JSON.stringify(record),digest=hash(record);requireThat(Number.isInteger(a.offset)&&Number(a.offset)>=0&&Number(a.offset)<serialized.length,`offset is required and must be an integer from 0 to ${serialized.length-1}. Start with {record_id:"${recordId}",offset:0}. Use only next_offset from a successful read; null means this record is complete. Do not repeat a failed call unchanged.`);
     const offset=Number(a.offset),content=serialized.slice(offset,offset+6000);
     const used=this.db.get<{chars:number}>('SELECT chars FROM mandate_read_usage WHERE execution_id=?',context.executionId)?.chars??0;requireThat(used+content.length<=48000,'Mandate retrieval budget exhausted');
@@ -195,7 +213,7 @@ export class Mandates {
       }else if(name==='record_strategic_decision'){
         const a=strictObject(input,['initiative_id','disposition','recommendation','rationale','alternatives','evidence_ids','contrary_evidence','unknowns','missing_evidence']);const initiative=optional(a,'initiative_id',100);if(initiative)requireThat(this.db.get('SELECT 1 FROM initiatives WHERE initiative_id=? AND mandate_id=?',initiative,m.mandate_id),'Initiative outside mandate');
         requireThat(['continue','iterate','pivot','stop','scale'].includes(String(a.disposition)),'Invalid strategic disposition');const cited=ids(a.evidence_ids);for(const ref of cited){this.delivered(context,m,ref);requireThat(!this.db.get('SELECT 1 FROM initiatives WHERE initiative_id=?',ref),'A hypothesis is not supporting evidence; cite observations or internal results');}const missing=optional(a,'missing_evidence',1500);
-        const substantive=cited.some(ref=>!this.db.get('SELECT 1 FROM strategic_decisions WHERE decision_id=?',ref));requireThat(substantive||missing,'Cite delivered evidence or explicitly describe missing evidence; prior decisions alone are not observations');
+        const substantive=cited.some(ref=>this.substantiveEvidence(ref));requireThat(substantive||missing,'Cite delivered evidence or explicitly describe missing evidence; prior decisions and unexecuted Task metadata are not observations or settled results');
         requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM strategic_decisions WHERE cycle_id=?',c.cycle_id)!.n<6,'Decision bound reached');const d=id('decision'),previous=this.db.get<{decision_id:string}>('SELECT decision_id FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 1',m.mandate_id)?.decision_id??null;
         this.db.run('INSERT INTO strategic_decisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',d,m.mandate_id,c.cycle_id,initiative,previous,String(a.disposition),textField(a,'recommendation',2000),textField(a,'rationale',4000),textField(a,'alternatives',3000),JSON.stringify(cited),textField(a,'contrary_evidence',2000),textField(a,'unknowns',2000),missing,v.worker.worker_id,context.executionId,this.now());
         if(initiative)this.db.run('UPDATE initiatives SET status=? WHERE initiative_id=?',a.disposition==='stop'?'stopped':'active',initiative);
@@ -302,8 +320,8 @@ export class Mandates {
         try{this.coordinator(m);requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM operating_cycles WHERE mandate_id=?',m.mandate_id)!.n<this.envelope(m).max_cycles,'Mandate cycle allowance exhausted');}
         catch(error){state='blocked';reason=String(error);}
         if(!reason){
-          this.fault?.('after_claim_before_execution');
           const c=this.openCycle(m,'durable_schedule',o);
+          this.fault?.('after_claim_before_execution');
           this.db.run("UPDATE review_occurrences SET state='queued',cycle_id=?,reason=NULL WHERE occurrence_id=?",c.cycle_id,o.occurrence_id);this.audit('occurrence_queued',m.mandate_id,{occurrence_id:o.occurrence_id,cycle_id:c.cycle_id});return;
         }
       }
@@ -373,7 +391,7 @@ export class Mandates {
   }
   internalEligible(task:Task){const w=this.internalWork(task.task_id);if(!w)return true;const m=this.mandate(w.mandate_id),c=this.cycle(w.cycle_id);return m.status==='active'&&['active','waiting'].includes(c.state)&&Date.parse(c.deadline)>this.clock.now()&&!this.db.get('SELECT 1 FROM executions WHERE task_id=?',task.task_id);}
   authorizeInternal(taskId?:string,groupId?:string){const work=this.internalWork(taskId,groupId);if(!work)return;
-    const m=this.mandate(work.mandate_id),c=this.cycle(work.cycle_id);requireThat(['active','paused'].includes(m.status)&&['active','waiting'].includes(c.state)&&Date.parse(c.deadline)>this.clock.now(),'Internal work mandate is ended, blocked or expired');
+    const m=this.mandate(work.mandate_id),c=this.cycle(work.cycle_id);this.requireDerived(m,work.created_at);requireThat(['active','paused'].includes(m.status)&&['active','waiting'].includes(c.state)&&Date.parse(c.deadline)>this.clock.now(),'Internal work mandate is ended, blocked or expired');
     if(taskId)this.taskEvidence(taskId);
   }
   taskEvidence(taskId:string){const work=this.internalWork(taskId);if(!work)return undefined;const m=this.mandate(work.mandate_id);return this.db.all<{record_id:string;sha256:string;content:string}>('SELECT record_id,sha256,content FROM mandate_task_evidence WHERE task_id=?',taskId).map(e=>{requireThat(hash(this.record(m,e.record_id))===e.sha256,'Selected Task evidence changed or was withdrawn');return {...e,evidence:JSON.parse(e.content),content:undefined};});}
