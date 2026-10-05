@@ -1,0 +1,140 @@
+{
+  "revision": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+  "read_only": true,
+  "classification": "Research origin is conversation for both direct and group modes; scope ownership distinguishes private sources.",
+  "checked_contexts": [
+    {
+      "execution_id": "execution_cf83b040-6f79-45de-961f-0fb26935544d",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "c297225d4f6e86a1e6717ddb40ad29cab5c0322b8ecf7a97a523c531c69eb4b2"
+    },
+    {
+      "execution_id": "execution_288f7342-f442-4b73-9b0d-0f1612ad5a1f",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "e8979a1e93a150826c2ee99c11f8dd7650896f4a54acef3c0188c4bede9222ce"
+    },
+    {
+      "execution_id": "execution_d80054e9-4998-4c39-89eb-31ba6664198c",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "59c1880ad945846e01820ffe28644c67a1fc26b98846d36bf6f6caf6850e2dcb"
+    },
+    {
+      "execution_id": "execution_ba6300dd-4179-4bb0-88f6-f8d7bed40b1c",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "f85bbda0ed7beae203dc26d3419240f597b7de7e69868b4d39d8711edd3cfe79"
+    },
+    {
+      "execution_id": "execution_00004956-eda0-4001-8f6b-0b15b3ec982e",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "9e9e7aab07e7a7a724de7e11c0ddab6d34e9279408ae3a2ad1bc9e858cbe67f8"
+    },
+    {
+      "execution_id": "execution_521b585c-c8f3-430c-8292-db566ad0f33a",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "e1cecb30345690fde07d66398a73e6ea0ce63a64713a711441cbfd75d515cd57"
+    },
+    {
+      "execution_id": "execution_ccf4f004-bf88-4694-88e7-ca0a8ac4b1f0",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "0795ddc2040c8adebd2d39ad27103d54e319ba0ef90621fb0fb765a97f7308e1"
+    },
+    {
+      "execution_id": "execution_7209fced-c7e8-4f33-a0bf-358afefa7709",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "d173b89edb2e175f4088a82d5249fa45ab9fd9ed83b0b6a0ec45d9a230102f5a"
+    },
+    {
+      "execution_id": "execution_5f0a3844-3ba6-4ca0-8d36-a04e02c8fd16",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "90bfe17f11c8f7c627945338a5d007c064e9b5a75646d896e88a342978890809"
+    },
+    {
+      "execution_id": "execution_ef2425e0-2962-4a70-abb5-a829568b8a1e",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "f787d844d5a111341a5957e1b7fda93ff364efbcab4fffb020e99997c7ec5e87"
+    },
+    {
+      "execution_id": "execution_b91213c8-5b14-4621-9a3b-f995341be7ce",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "context_sha256": "7fcff9e577c91978fe8a4703982de83d3a670044b7fc8f794fe93b9591c4381f"
+    },
+    {
+      "execution_id": "execution_333ec202-ae11-4cbb-b41c-6afa75dbea70",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "50dffcd3276a5f0cb0929d0723476a0f119146326c662bc7a542b767c63f83c2"
+    },
+    {
+      "execution_id": "execution_6e35bbc1-b29f-4096-bb15-ae6a4d34aeb9",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "8c4d480669e1885b46fab2b60030b39bd728c329096704f8352f572733d62bd7"
+    },
+    {
+      "execution_id": "execution_9fd813df-9917-4404-b80c-0459f7aa3a56",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "f1e1340b48a315ad66bd333b0e3db4389df65623dcc9d5c178454c31f86b0698"
+    },
+    {
+      "execution_id": "execution_315796a6-6b89-4308-8633-c8be586bd02b",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "c9b3208591a142adff580628c741b880eda54d50840fc57f4ad5b95d7b8f761b"
+    },
+    {
+      "execution_id": "execution_7ff0cf69-294c-4717-9eba-a55014330cb1",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "d39e417437f6ac229bf253c0292614de3dcbcc401ff102590276854312312666"
+    },
+    {
+      "execution_id": "execution_157ae4f1-ea8d-4244-9341-f2cba35140e0",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "6aef697dd178970faf91b4718394c2880c98c57913ab70e55cd5d7b57a7d7bac"
+    },
+    {
+      "execution_id": "execution_bf7bc410-a94b-4adc-bc21-7fcd4c6040b8",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "88cb00f9bf6b6ff42e760489b73bb7e68608b02fbb50e13c6db40ec772d54043"
+    },
+    {
+      "execution_id": "execution_9bc4d344-3089-4593-90f9-30f84018d6af",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "1c2ee506b7e7903de1f632af94adc98e092f5626f667ad63c10122e7258d41c4"
+    },
+    {
+      "execution_id": "execution_f1d8af75-8a16-454f-abb1-84b1c05e3369",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "56348d376bb4a7b168da1f2a37405e38bd14e6a12b33fcec23288c3858db3d8a"
+    },
+    {
+      "execution_id": "execution_5dfc7674-d96c-47ca-8ba3-288b4efb2a24",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "02f6ac4f7eb599ebe433798821c854353b86ca51c5831eeabab20486cc1b14c8"
+    },
+    {
+      "execution_id": "execution_e233728a-a63c-4e6e-8d04-1181d9736ecd",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "3e14506bb2865fa1b4adc6a1776eaa855f749b44e25358ef87bfc5747b2b18ca"
+    },
+    {
+      "execution_id": "execution_085e74e6-431a-4599-ad63-01cdad8186e7",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "539911275d78360210e3a38d22237de7cc2a6af265b266ae1559b6dda1567824"
+    },
+    {
+      "execution_id": "execution_49f0a64e-beb2-4d43-bec5-cee8eaf10073",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "a48cac2275b386b59d4e695a45a5b4d371a5b8d426d22e050ab66820e01a2335"
+    },
+    {
+      "execution_id": "execution_9aa4247d-b198-41ba-b8c0-57787094f715",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "e56e0fe812ae6a5d52962f35deb23eacb2c3327a409d6776a41b489c2fe6739a"
+    },
+    {
+      "execution_id": "execution_4a96865b-7784-439e-a223-9499bf1dfa17",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "context_sha256": "2a021feb13da66dae5cb41839f244110763e1fba970507435ef78f6e410a6a6d"
+    }
+  ],
+  "private_conversations_checked": 4,
+  "private_sources_checked": 26,
+  "private_history_and_source_ids_absent": true
+}

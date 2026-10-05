@@ -66,3 +66,38 @@ perform existing harmless canary/fixture-identity probes and kill only their own
 they do not restart production or approve company operations. Source-rollover assertions now
 compare original source identity/content/timestamps/kind/freshness/hash, with its actual run
 tracked separately. No new material finding remains in the scoped review.
+
+
+## Actual research and owner-link follow-up
+
+Scoped UI review passed after original-result links were completed. IDs and record bodies
+are escaped; synthesis IDs are URL-encoded; type-specific lookup selects the exact original
+within the current mandate. Task/artifact links reuse existing owner inspectors. Twenty-one
+actual original-record/artifact link checks passed with no errors; no worker or v1 authority
+changed.
+
+The final actual public group `group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0` passed separate
+semantic review: 15 executions across five workers, final synthesis cites the owner brief
+and both exported public excerpts, incorporates Grace's substantive fallback-value correction,
+compares alternatives and retains unknown dates, extraction limits and causal/accessibility
+limitations. The private sentinel is absent from its transcript.
+
+Source rollover generation 1→2 / execution `execution_ec058709-99b0-407a-a276-803a1c52295c`
+read retained source `source_7b257108-c762-419d-9c19-422470a084d2` without new search/open.
+Identity, content hash and metadata match, and the reply preserves original retrieval time
+19:52:49.568 UTC rather than presenting a reread as fresh research. The delivered 6,000-character
+excerpt supports the stated fact. No material issue found in these reviewed artifacts.
+
+
+## Operator deployment review
+
+Before production mutation, separate read-only review examined the exact application-only
+operator script. Four missing guards were corrected: failure after the deployment phase stops
+only botsquad without rolling back migrated data; health must report the exact SHA and runtime
+ready; immediate pre-stop checks cover conversations, working/queued Tasks, protected/remote
+operations, integrations, archiving and retirement revocations plus fresh inventory drift;
+and all new production strategy tables must be empty after startup. A final status predicate
+was corrected from Task running to working (execution status remains running). Shell syntax
+passed. Source ancestry, unchanged dependencies/infrastructure, protected consistent backup,
+repeat offline migration, exact build manifests and preserved pause were cleared. No blocker
+remains after that predicate correction; this is guard review, not evidence of deployment.

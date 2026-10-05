@@ -1,0 +1,11 @@
+{
+  "baseline": "/var/backups/botsquad/prompt09-20261005/preflight-inventory.json",
+  "preserved": true,
+  "original_databases": 43,
+  "original_rows": 33607,
+  "account_and_group_mappings": 293,
+  "root_records": 484,
+  "worker_homes": 145,
+  "only_excluded_field": "workers.updated_at",
+  "recorded_at": "2026-10-05T20:07:31.705319+00:00"
+}

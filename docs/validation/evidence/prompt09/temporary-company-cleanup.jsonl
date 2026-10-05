@@ -1,0 +1,6 @@
+{"unit": "botsquad-mandates-validation", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-initial/retained-release-evidence.sqlite"}
+{"unit": "botsquad-mandates-20261005-review1", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-review1/retained-release-evidence.sqlite"}
+{"unit": "botsquad-mandates-20261005-review2", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-review2/retained-release-evidence.sqlite"}
+{"unit": "botsquad-mandates-20261005-contract", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-contract/retained-release-evidence.sqlite"}
+{"unit": "botsquad-mandates-20261005-regressions", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-regressions/retained-release-evidence.sqlite"}
+{"unit": "botsquad-mandates-20261005-final", "stopped": true, "evidence": "/var/lib/botsquad/validation/mandates-p09-20261005-final/retained-release-evidence.sqlite"}

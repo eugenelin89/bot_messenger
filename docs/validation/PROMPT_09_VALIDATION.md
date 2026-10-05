@@ -1,16 +1,17 @@
 # Prompt 09 validation — company operating loop and durable clock
 
-**Status: acceptance in progress; not released.** Updated 2026-10-05. Production remains
+**Status: implementation acceptance passed; normal integration and production delivery pending.** Updated 2026-10-05. Production remains
 `ccf85629493b4d839d98c73a2e3ed1742304843b` until the final delivery gate below is recorded.
 The [execution plan](../exec-plans/prompt-09.md) tracks outstanding work. This report separates
 real workers, synthetic product evidence, deterministic application faults and production.
 
 ## Candidate and environment
 
-The implemented source is `c6690a5b55fc1d1f9fdfe991626583dbc5d972fd`, following reviewed
+The accepted engine source is `c6690a5b55fc1d1f9fdfe991626583dbc5d972fd`, following reviewed
 authority/withdrawal fixes in `66c291a` and `fd6a755`. Ubuntu uses Node 24.21 and pinned Codex
 0.157.0, with the existing service account and gpt-6-sol workers at low reasoning. Model
-settings were not raised to conceal the failed tool-contract behavior. All demonstrations
+settings were not raised to conceal the failed tool-contract behavior. Checkpoint `7d1e1b7f14f1604d69174ed6212fc648e4a7f3f1` adds the final tests, owner result
+links and evidence; its backend/dependencies are unchanged. All demonstrations
 use separate data roots beneath `/var/lib/botsquad/validation`; production is not a fixture.
 
 ## Acceptance matrix
@@ -21,7 +22,7 @@ use separate data roots beneath `/var/lib/botsquad/validation`; production is no
 | C09-2 — durable schedules | PASS | Persisted one-time/interval/daily schedules, IANA zone, owner/purpose/count/end, version edits and cancellation; one actual one-time review |
 | C09-3 — clock/recovery | PASS | Controlled before/exact/after due, overlap, catch-up, pause, revocation, atomic crash windows, database reopens, real elapsed-time invocation and idle service restart |
 | C09-4 — two evidence-based cycles | PASS | Actual scheduled Asymmetri Cycle 2 evaluated attributable new simulated evidence and made an unscripted reasoned decision |
-| Complete affected regressions | Pending | Local 255 passed/1 Linux-only skip; browser 10/10; Ubuntu c6690a5 246/246; expanded Ubuntu and remaining real regressions pending |
+| Complete affected regressions | PASS | Local 255 passed/1 Linux-only skip; exact Ubuntu checkpoint 256/256; browser 10/10, original-result links 21/21, Python provisioner 9/9; all actual regressions below |
 | Normal integration, exact deployment and preservation | Pending | Fresh production preflight/backup/migration, PR/main, build identity and cleanup required |
 
 The four scenario gates passing does not by itself complete the milestone.
@@ -121,7 +122,7 @@ the broad mandate remained paused.
 - Full c6690a5 suite: [Ubuntu 246/246](evidence/prompt09/linux-c6690a5.txt) and
   [local 245/246, one Linux-only skip](evidence/prompt09/local-c6690a5.txt).
 - Expanded current suite: [local 255/256, one Linux-only skip](evidence/prompt09/local-256.txt);
-  [all 10 browser checks](evidence/prompt09/browser-10.txt). Expanded Ubuntu rerun pending. All nine Python provisioner protocol tests passed.
+  [all 10 browser checks](evidence/prompt09/browser-10.txt). [Exact Ubuntu checkpoint 256/256](evidence/prompt09/linux-7d1e1b7.txt), zero skips. All nine Python provisioner protocol tests passed.
 - Actual engineering: hierarchy, independent review, integration and restart passed.
   [Engineering receipts](evidence/prompt09/engineering-c6690a5.json),
   [100 Linux isolation probes](evidence/prompt09/engineering-isolation-c6690a5.json) and
@@ -142,6 +143,42 @@ the broad mandate remained paused.
   across 69 original tables. See [offline reports](evidence/prompt09/offline-schema12.txt).
   A fresh backup/offline migration and post-deployment comparison remain mandatory.
 
+## Actual direct, research and working-group regressions
+
+[The phase ledger](evidence/prompt09/regression-acceptance.json) records the actual isolated
+c6690a5 worker runs. New crash fixtures are explicitly operator-injected at provider turn-start;
+these were not spontaneous outages. All original requests, provider references and fences remain.
+
+- Manual group: two opening contributions before safe pause, owner constraint, actual service
+  restart/context replacement, four-worker interaction and 11 turns, final synthesis. No Task
+  was created by discussion. A 30-second idle check preceded an explicit separate Atlas Task,
+  which completed with one internal artifact and no child assignments.
+- Atlas-organized public group: 15 turns across five workers, two distinct retrieved public
+  sources explicitly exported, peer response and reviewed synthesis citing the owner brief.
+  Independent review confirmed Grace's substantive correction and retained evidence limits.
+- Direct peer exchange completed; a new passive correction caused zero dispatch, then neutral
+  context-replacement retrieval recovered 53 hours and the unresolved audit-tombstone question
+  without either answer in the follow-up. The older hinted test remains in the ledger but is
+  not the proof used for retained-context acceptance.
+- Source rollover generation 1→2 used retained scoped research_read with no new search/open.
+  Source ID, original content/hash, publication/observation/retrieval metadata, kind and freshness
+  matched. The reply preserved 19:52:49.568 UTC as the original retrieval time.
+- A real one-shot missing-page request recorded one known failed operation, no fake content,
+  no retry and no unresolved provider fence. Scout's research grant was revoked after actual
+  search/open; the subsequent attempted lookup was denied before reservation or I/O (two
+  operations before and after). Engineer eligibility and discussion-mode grant boundaries held.
+- Direct and group interruptions received provider-confirmed interruption. Separate controlled
+  group and direct service crashes after actual provider start retained unknown-outcome fences
+  through restart, produced no invented answer/contribution and did not replay during separate
+  30-second observations. See [group fault](evidence/prompt09/group-actual-crash.json),
+  [direct fault](evidence/prompt09/direct-actual-crash.json) and their phase records.
+- [Actual privacy checks](evidence/prompt09/actual-group-privacy.json) inspected 26 completed-group
+  contexts and transcripts against four private conversations and 26 private sources; no private
+  IDs or synthetic private sentinels leaked. Direct and group research share origin=conversation,
+  so classification used work-scope ownership, not the origin label alone.
+- Deterministic callback tests separately cover asynchronous grant, mandate, membership and
+  observation withdrawal, preserving consumed attempts while denying late source delivery.
+
 ## Failed attempts retained
 
 The `initial`, `review1` and `review2` isolated companies are retained and stopped; their
@@ -154,6 +191,13 @@ reading the actual JSON before dependent pagination; it resolved the failure on 
 profile. See [failed programs](evidence/prompt09/failed-read-programs.jsonl) and
 [delivery diagnosis](evidence/prompt09/failed-read-delivery.txt).
 
+Two new clock-test construction failures are retained: final cycles initially omitted the
+required explicit stop when no future review remained, and a test object needed a TypeScript
+annotation. Corrected tests preserve the earlier-edit, exact-due and end-exhaustion assertions.
+A read-only privacy-check attempt initially classified every conversation-origin source as
+private, including group-owned research. The corrected check follows actual scope ownership
+and preserves the same private-history denial standard.
+
 Other failed reports are retained: sandbox-restricted local runs, obsolete latest-schema test
 expectations corrected while preserving original-field assertions, and an engineering attempt
 that missed the existing root operator probe window. The runner now starts the authorized
@@ -161,9 +205,12 @@ operator companion immediately. None is counted as acceptance or repaired by cle
 
 ## Delivery gate and scope
 
-PR, merge commit, exact local/origin/deployed source and running build identity: **pending**.
-Production health, browser surface, no-startup-work, roster/grant/pause preservation and
-temporary-service cleanup: **pending**. Production must receive zero demonstration mandates,
+Implementation [PR #10](https://github.com/eugenelin89/bot_messenger/pull/10) is open.
+Normal merge, exact local/origin/deployed source and running build identity: **pending**.
+Production health, browser surface, no-startup-work and roster/grant/pause preservation:
+**pending**. All six owned temporary HQ services are stopped and five validation tunnels
+closed; consistent retained-release database snapshots preserve successful and failed
+attempts ([cleanup receipts](evidence/prompt09/temporary-company-cleanup.jsonl)). Production must receive zero demonstration mandates,
 zero schedules, no new grants and no roster changes.
 
 Prompt 09 demonstrates bounded internal strategic operation. It does **not** prove live

@@ -1,0 +1,29 @@
+{
+  "fault": "Operator deliberately terminated control plane after actual provider turn/start notification; not a spontaneous outage",
+  "execution": {
+    "execution_id": "execution_365cea4b-4c15-4959-910b-ac27e0cc3e89",
+    "task_id": null,
+    "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+    "runtime_reference": null,
+    "status": "running",
+    "started_at": "2026-10-05T20:07:35.358Z",
+    "finished_at": null,
+    "error": null,
+    "interruption_reason": null,
+    "model": null,
+    "reasoning_effort": null,
+    "execution_priority": "normal",
+    "runtime_version": null,
+    "runtime_adapter": null,
+    "provenance_status": "unresolved",
+    "origin": "conversation",
+    "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+    "session_id": "session_845e98fd-59ee-4fcd-809d-47ed0af175e9",
+    "generation": 1
+  },
+  "detail": {
+    "runtime_reference": "01a10dad-cc54-71d1-bf89-57bc299b29b3",
+    "turn_id": "01a10dad-ce9d-7861-9f2b-00503a64cb14"
+  },
+  "at": "2026-10-05T20:07:36.891Z"
+}

@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 09 company operating loop
 
-**Status:** Active; acceptance is not complete  
+**Status:** Implementation acceptance passed; integration/deployment remain open
 **Owner:** Codex Prompt 09 implementation chat  
 **Branch:** `codex/prompt09-company-operating-loop`  
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 4–7 hours remaining (19:44 UTC checkpoint); user requested an ETA update every 15 minutes
+**Current ETA:** 45–90 minutes remaining (20:14 UTC checkpoint); user requested an ETA update every 15 minutes
 
 ## Objective and boundary
 
@@ -65,18 +65,18 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 | C09-4 two cycles | Two actual cycles, attributable intervening observation, evidence-responsive decision, scheduled second cycle | tested — actual scheduled second cycle evaluated the new 7/3/2 synthetic outcome; independent PASS |
 | Mandate authority | Owner activation; immutable envelope; no prose escalation; coordinator eligibility | tested — owner/envelope/role denial checks pass |
 | Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | tested — actual company-selected groups and separate decision-linked Tasks completed |
-| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 43 focused checks; real fresh contexts and all 15 same-execution decision citations verified |
+| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 45 focused checks; real fresh contexts and all 15 same-execution decision citations verified |
 | Clock failures | All requested crash points, known-failure backoff, unknown-outcome no-replay | tested — atomic rollback/claim, actual database reopen, provider-reference boundaries, known 30/60-second backoff and no-replay fences |
-| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — all 10 current browser checks pass; actual result surfaces under inspection |
+| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — all 10 browser checks and 21 actual original-record/artifact links pass |
 | Client API/privacy | No strategy, observation, group-control or schedule authority exposed to v1 | tested — v1 privacy and compatibility pass |
-| Prompt 07 regressions | Direct/passive/reply/peer/rollover/interruption/uncertainty | blocked — accepted candidate regressions |
-| WE-01 regressions | Grants/revocation/public sources/failures/async/rollover | blocked — accepted candidate regressions |
-| Prompt 08 regressions | Manual/Atlas groups, sharing, challenge/response, synthesis, separate assignment, privacy | blocked — accepted candidate regressions |
-| Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | blocked — applicable complete and real suites |
-| Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | blocked — applicable complete suite and host probes |
+| Prompt 07 regressions | Direct/passive/reply/peer/rollover/interruption/uncertainty | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
+| WE-01 regressions | Grants/revocation/public sources/failures/async/rollover | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
+| Prompt 08 regressions | Manual/Atlas groups, sharing, challenge/response, synthesis, separate assignment, privacy | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
+| Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | tested — actual engineering, Projects, identity recovery and Prompt 01 passed; exact Ubuntu 256/256 |
+| Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | tested — complete suite, 10 browser checks, nine provisioner tests and actual Linux probes passed |
 | Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — offline schema 10→12 and 11→12 preserve all original rows/fields/rowids; fresh deployment check pending |
-| Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | tested — separate scoped security clearance and real-artifact semantic PASS; final harness review pending |
-| Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | blocked — final implementation and evidence |
+| Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | tested — security/recovery, semantic, final harness and owner-link reviews passed |
+| Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | implemented — current documentation, tutorial, Decision 022 and detailed validation report; final delivery record pending |
 | Integration/deploy | Normal PR merge, exact local/origin/source/build equality, health/preservation/cleanup | blocked — all prior gates |
 | Prompt 10/11 | Computer Use and live external/business operation | intentionally out of scope — separate numbered milestones |
 
@@ -230,3 +230,31 @@ Linux isolation probes passed, including worker retirement. Real manual group re
 context replacement, four-person response/synthesis, 30-second idle observation and separately
 submitted internal assignment passed. Remaining actual research/direct/Projects regressions,
 documentation and production delivery remain open. Remaining ETA: 4–7 hours at 19:44 UTC.
+
+
+### Release checkpoint — 2026-10-05 20:14 UTC
+
+Checkpoint `7d1e1b7` passed all 256 Ubuntu tests with zero skips, local 255/256 with one
+Linux-only skip, 45 focused clock/authority checks, all 10 browser workflows, 21 actual
+original-result links and nine provisioner protocol tests. Its engine matches the accepted
+c6690a5 real runs. Actual Prompt 01, engineering, Projects/publication/archive, root isolation,
+retirement and lost-response recovery all passed. Actual direct/peer/neutral rollover, manual
+and Atlas-organized groups, explicit separate assignment, public sources, original-source
+rollover, known-source failure, revoked permission and provider-confirmed interruption passed.
+Deliberate actual group and direct provider-start crashes retained their fences after restart
+with no duplicate output or automatic replay. Evidence remains labelled by method.
+
+Separate semantic review passed the public group and retained-source reply. A read-only check
+verified 26 group contexts and transcripts exclude four private conversations and 26 private
+sources. All six owned validation HQs are stopped with consistent retained-release snapshots;
+five temporary tunnels are closed. Original preflight preservation still passes: 43 databases,
+33,607 rows, 293 account/group mappings, 484 root records and 145 homes (only workers.updated_at
+excluded, as in the existing comparator). No production domain mutation has occurred.
+
+Draft PR #10 is attached. Remaining delivery uses an application-only exact-main procedure,
+with no OS, package, provisioner or credential changes. Independent operator review required
+failure-stop, exact runtime readiness, all non-model pending-work guards, fresh pre-stop
+inventory comparison and explicit empty-new-table checks; these were added before execution.
+The initial 8–14-hour estimate was conservative while the runtime read-loop failure was
+unresolved; remaining ETA is now 45–90 minutes. Completion/Prompt 10 Next will be marked only
+after actual production delivery, preservation and cleanup pass.
