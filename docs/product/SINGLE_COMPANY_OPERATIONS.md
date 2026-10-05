@@ -136,8 +136,8 @@ adding its separately accepted durable loop. See [working-group semantics](../ar
 [operating-loop architecture](../architecture/COMPANY_OPERATING_LOOP.md) implement the bounded
 internal layer: immutable owner envelope, explicit activation, company-selected analysis and
 groups, attributable decisions, mode-labelled observations and one-time/recurring reviews.
-The second review can wake from a durable occurrence without owner handoff. Full acceptance and
-production release remain tracked separately in [the plan](../exec-plans/prompt-09.md).
+The second review can wake from a durable occurrence without owner handoff. Actual broad/two-cycle acceptance and
+production delivery passed; see [the completed plan](../exec-plans/prompt-09.md).
 
 An initiative's recommendation is not approval for a Project change or business operation.
 Scale is a strategic disposition only. Simulated evidence proves no customer, revenue or

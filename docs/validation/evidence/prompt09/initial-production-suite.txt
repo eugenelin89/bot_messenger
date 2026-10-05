@@ -1,0 +1,14 @@
+Unit: botsquad-validation-deterministic
+Evidence: /var/lib/botsquad/validation/deterministic-20261005T203558Z
+✔ durable rate limit denies before provider invocation (252.680498ms)
+✔ durable search limit denies before provider invocation (467.268015ms)
+✔ durable output limit denies before provider invocation (232.969589ms)
+✔ hostile source instructions cannot grant document or tool authority; private query patterns never reach provider (256.574045ms)
+ℹ tests 259
+ℹ suites 0
+ℹ pass 259
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 195495.362768

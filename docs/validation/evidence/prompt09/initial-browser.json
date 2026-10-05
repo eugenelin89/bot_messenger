@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-05T20:40:19.436Z",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "9c9bdce50f5ec3bb7ec4931979dc9eed70bff260"
+  },
+  "workers": [
+    {
+      "id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "name": "Atlas",
+      "enabled": 1
+    },
+    {
+      "id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+      "name": "Nix",
+      "enabled": 1
+    },
+    {
+      "id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "name": "Maya",
+      "enabled": 1
+    },
+    {
+      "id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+      "name": "Turing",
+      "enabled": 1
+    },
+    {
+      "id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+      "name": "Linus",
+      "enabled": 1
+    },
+    {
+      "id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+      "name": "Ada",
+      "enabled": 1
+    },
+    {
+      "id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+      "name": "Grace",
+      "enabled": 1
+    },
+    {
+      "id": "worker_25313ecb-e017-44ba-a8d0-c361da021d4b",
+      "name": "Scout",
+      "enabled": 1
+    }
+  ],
+  "tasks": 48,
+  "executions": 65,
+  "paused": false,
+  "grants": [
+    {
+      "id": "grant_34b49549-1aad-4793-982a-8ad9a36db350",
+      "worker": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "modes": [
+        "task",
+        "conversation"
+      ],
+      "status": "active"
+    }
+  ],
+  "mandates": 0,
+  "idle_seconds": 30,
+  "no_new_execution": true,
+  "no_owner_mutation": true,
+  "errors": [],
+  "posts": []
+}

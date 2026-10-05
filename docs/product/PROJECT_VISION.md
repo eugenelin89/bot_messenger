@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompts 07/08 and WE-01 complete; Prompt 09 implemented with release acceptance pending
+**Status:** Product vision; Prompts 01–09 and WE-01 complete; Prompt 10 next
 **Updated:** 2026-09-29
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
@@ -582,10 +582,10 @@ Prompts 01–06 are complete. The accepted future delivery order is:
 
 | Prompt | Milestone | Status |
 | --- | --- | --- |
-| 07 | Direct conversations, worker interaction and runtime-context continuity | Next |
+| 07 | Direct conversations, worker interaction and runtime-context continuity | Complete |
 | 08 | Collaborative working groups and deliberation | Complete |
-| 09 | Strategic company loop, minimal durable scheduler and Asymmetri Motion reference acceptance | Implemented; release acceptance pending |
-| 10 | Bounded Computer Use | Planned |
+| 09 | Strategic company loop, minimal durable scheduler and Asymmetri Motion reference acceptance | Complete |
+| 10 | Bounded Computer Use | Next |
 | 11 | Single-company business operations and measured Asymmetri Motion pilot | Planned |
 | — | Multi-company, company collaboration, generic Telegram identities and federation | Deferred / unnumbered |
 | — | Native iOS / no-tunnel mobile access | Deferred |

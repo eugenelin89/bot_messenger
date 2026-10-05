@@ -1,6 +1,6 @@
 # Company operating loop and durable clock
 
-Prompt 09 implementation; release acceptance is tracked in
+Prompt 09 accepted and deployed; release evidence is recorded in
 [the execution plan](../exec-plans/prompt-09.md). A mandate is an owner-authorized outcome
 pursued through bounded strategic cycles. It is distinct from a Task, direct conversation,
 working group, runtime thread and schedule occurrence. Durable records are authoritative;
