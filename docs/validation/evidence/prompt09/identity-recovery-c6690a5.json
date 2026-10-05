@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "operation_id": "operation_8e350fe2-f4dd-498b-8d24-91fc5e15a57b",
+  "approval_id": "approval_8cde0593-eff6-40ef-bfa4-ccd417dc0b02",
+  "worker_id": "worker_95c6c8a8-9b78-4378-a7c8-1c77e319f11b",
+  "uid": 20167,
+  "real_host_completed_before_response_loss": true,
+  "consumed_approval_recovered_on_restart": true,
+  "same_receipt_replayed": true,
+  "changed_payload_rejected": true
+}

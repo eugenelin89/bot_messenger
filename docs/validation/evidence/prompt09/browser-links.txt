@@ -1,0 +1,30 @@
+(node:48816) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client (3994.853542ms)
+(node:48817) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage (4506.806208ms)
+✔ delayed history page cannot be appended to another selected conversation (1083.996917ms)
+(node:48818) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ live updates preserve the approval being inspected and expanded exact scope (3729.401792ms)
+(node:48819) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ new group waits for the initial eligible roster before opening the charter (3244.929208ms)
+✔ working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation (1974.142542ms)
+✔ group drafts and delayed history stay attached to the original group (955.549667ms)
+✔ blocked group owner selects an unfenced existing participant for explicit incomplete finish (783.810375ms)
+(node:48820) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (4208.500167ms)
+(node:48821) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes (4658.71125ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7271.404333

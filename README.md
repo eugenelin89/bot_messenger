@@ -19,7 +19,13 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 08 — collaborative working groups and deliberation — is complete and deployed on Ubuntu. Prompt 09 — the strategic company operating loop and durable scheduling — is next.**
+**Prompt 08 is complete and deployed. Prompt 09 — the strategic company operating loop and durable clock — is implemented and undergoing full acceptance; it is not yet released.**
+
+The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
+[learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and
+[active acceptance plan](docs/exec-plans/prompt-09.md) describe owner-activated mandates,
+company-selected internal work, labelled evidence, durable decisions and scheduled reviews.
+These add no publication, outreach, spending or Computer Use authority.
 
 **Worker Empowerment 01 is accepted and deployed:** the scoped public-research and
 standing-knowledge slice passed real Ubuntu acceptance; evidence is in the

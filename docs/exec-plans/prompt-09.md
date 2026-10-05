@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 7–12 hours remaining (19:15 UTC checkpoint); user requested an ETA update every 15 minutes
+**Current ETA:** 4–7 hours remaining (19:44 UTC checkpoint); user requested an ETA update every 15 minutes
 
 ## Objective and boundary
 
@@ -58,24 +58,24 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 
 | Gate | Required evidence | State / remaining prerequisite |
 | --- | --- | --- |
-| C09-1 broad | Real broad cycle, team choices, initiative, alternatives, useful internal Task and follow-up | implemented — two failed real broad attempts retained; fresh-context acceptance pending |
-| C09-1 specific | Real Asymmetri reference, fixture-only product logic, no external action | implemented — actual Asymmetri run pending |
-| C09-2 schedules | One-time/recurring, owner/purpose/zone/limits, edit/version/cancel durability | tested — deterministic schedules/version/cancel pass; real elapsed-time acceptance pending |
-| C09-3 clock | Due/restart/dedup/overlap/catch-up/pause/revoke/idle and actual elapsed-time worker | tested — controlled clock/recovery checks pass; real elapsed-time acceptance pending |
-| C09-4 two cycles | Two actual cycles, attributable intervening observation, evidence-responsive decision, scheduled second cycle | blocked — real runs and independent semantic review |
+| C09-1 broad | Real broad cycle, team choices, initiative, alternatives, useful internal Task and follow-up | tested — real c6690a5 broad cycle closed; semantic review passed; three failed attempts retained |
+| C09-1 specific | Real Asymmetri reference, fixture-only product logic, no external action | tested — two actual Asymmetri cycles; fixture-only simulated evidence; semantic review passed |
+| C09-2 schedules | One-time/recurring, owner/purpose/zone/limits, edit/version/cancel durability | tested — one-time/recurring/version/cancel controlled cases and actual elapsed-time occurrence pass |
+| C09-3 clock | Due/restart/dedup/overlap/catch-up/pause/revoke/idle and actual elapsed-time worker | tested — controlled clock/recovery, real scheduled invocation and idle service restart pass |
+| C09-4 two cycles | Two actual cycles, attributable intervening observation, evidence-responsive decision, scheduled second cycle | tested — actual scheduled second cycle evaluated the new 7/3/2 synthetic outcome; independent PASS |
 | Mandate authority | Owner activation; immutable envelope; no prose escalation; coordinator eligibility | tested — owner/envelope/role denial checks pass |
-| Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | tested — actual groups/Tasks ran; complete cycle acceptance pending |
-| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 35 focused checks pass; real fresh-context acceptance pending |
-| Clock failures | All requested crash points, known-failure backoff, unknown-outcome no-replay | blocked — fault injection and restart tests |
-| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — browser workflow passed on 66c291a; final candidate recheck pending |
+| Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | tested — actual company-selected groups and separate decision-linked Tasks completed |
+| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 43 focused checks; real fresh contexts and all 15 same-execution decision citations verified |
+| Clock failures | All requested crash points, known-failure backoff, unknown-outcome no-replay | tested — atomic rollback/claim, actual database reopen, provider-reference boundaries, known 30/60-second backoff and no-replay fences |
+| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — all 10 current browser checks pass; actual result surfaces under inspection |
 | Client API/privacy | No strategy, observation, group-control or schedule authority exposed to v1 | tested — v1 privacy and compatibility pass |
 | Prompt 07 regressions | Direct/passive/reply/peer/rollover/interruption/uncertainty | blocked — accepted candidate regressions |
 | WE-01 regressions | Grants/revocation/public sources/failures/async/rollover | blocked — accepted candidate regressions |
 | Prompt 08 regressions | Manual/Atlas groups, sharing, challenge/response, synthesis, separate assignment, privacy | blocked — accepted candidate regressions |
 | Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | blocked — applicable complete and real suites |
 | Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | blocked — applicable complete suite and host probes |
-| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — schema 10→11 preserves every original row/field; schema 12 and deployment pending |
-| Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | blocked — candidate and real evidence required |
+| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — offline schema 10→12 and 11→12 preserve all original rows/fields/rowids; fresh deployment check pending |
+| Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | tested — separate scoped security clearance and real-artifact semantic PASS; final harness review pending |
 | Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | blocked — final implementation and evidence |
 | Integration/deploy | Normal PR merge, exact local/origin/source/build equality, health/preservation/cleanup | blocked — all prior gates |
 | Prompt 10/11 | Computer Use and live external/business operation | intentionally out of scope — separate numbered milestones |
@@ -98,7 +98,7 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 | --- | --- | --- |
 | Repository/host preflight | Git fetch/status/worktree and SSH health plus read-only SQLite inventory | tested — baseline and newer retained state above |
 | Concurrent PRs | Connected GitHub search, 2026-10-05 | tested — no open PRs |
-| Independent review | Read-only reviewer started on baseline; implementation review follows | implemented — frozen reviews found material issues; fixes and final clearance pending |
+| Independent review | Read-only reviewer started on baseline; implementation review follows | tested — material fixes reviewed; c6690a5 security and C09-1/C09-4 semantic clearance |
 
 ## Remaining work
 
@@ -202,3 +202,31 @@ The runtime introduction now identifies a strategic mandate review precisely. An
 first-page offset also defaults to zero, with null/strings/negative/fractional inputs still
 rejected and scope/delivery/cumulative budgets unchanged (35/35 focused checks pass).
 The fixture retains the same low reasoning configuration to test the diagnosed correction.
+
+
+### Actual strategic acceptance and regression checkpoint — 2026-10-05 19:49 UTC
+
+Candidate `c6690a5` completed the real broad cycle and two Asymmetri cycles. The corrected
+runtime tool contract resolved the nested pagination loop without changing the model profile,
+expected answer or company strategy. Broad work selected conditional cohort diagnosis after
+considering a prototype alternative. Asymmetri narrowed setup clarity to an internal diagnostic
+proposal; its scheduled review evaluated the new 7 consistent / 3 inconclusive / 2 concerning
+simulated descriptions and stopped at the owner two-cycle bound, retaining the hypothesis
+weakly. Neither baseline nor outcome is production data. Independent semantic review passed,
+including reconstruction of all 15 evidence hashes across five decisions. One immutable
+summary misattributes Scout's Task to Maya; authoritative provenance and citations are correct.
+
+The scheduled second cycle began 85 ms after 19:36:45 UTC, once. A real service restart after
+completion preserved 24 executions and all cycles/decisions/occurrences without new dispatch.
+The broad mandate was owner-paused; its one-time occurrence expired before dispatch and is
+retained as cancelled, rather than an indefinite held review. Asymmetri remains stopped.
+
+The complete c6690a5 Ubuntu suite passed 246/246. Eight additional focused integration tests
+cover aggregate research charging, late callback denial, provider-reference boundaries,
+actual database reopen and exact bounded backoff. With those tests, the local full suite
+passes 253/254 (one Linux-only skip); all 10 browser checks pass. Ubuntu final checkpoint
+rerun is pending. Real engineering, independent review, integration, restart and 100 actual
+Linux isolation probes passed, including worker retirement. Real manual group restart and
+context replacement, four-person response/synthesis, 30-second idle observation and separately
+submitted internal assignment passed. Remaining actual research/direct/Projects regressions,
+documentation and production delivery remain open. Remaining ETA: 4–7 hours at 19:44 UTC.

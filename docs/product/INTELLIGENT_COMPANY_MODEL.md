@@ -314,7 +314,11 @@ action."
 
 ## Company operating loop
 
-A future company-level operating loop should be explicit:
+The company-level operating model is explicit. Prompt 09 implements its bounded internal
+subset: owner-activated mandates, team-selected research/analysis and groups, durable decisions,
+labelled observations and a trusted review clock. Project/external operations in the broader
+model below remain separately authorized. See [architecture and limits](../architecture/COMPANY_OPERATING_LOOP.md);
+complete real acceptance and release are tracked in [the plan](../exec-plans/prompt-09.md).
 
 ~~~text
 Mandate
@@ -584,7 +588,7 @@ response to another participant's reasoning.
 After conversation and deliberation work, BotSquad should prove the first persistent
 company-level operating cycle.
 
-Prompt 09 should support:
+The Prompt 09 acceptance contract includes:
 
 - broad or specific human mandates;
 - company situation/goal state;

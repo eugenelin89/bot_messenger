@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "checks": [
+    {
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "allocation_id": "allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "uid": 20164,
+      "action": "read",
+      "denied": true,
+      "clone_preserved": true
+    },
+    {
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "allocation_id": "allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "uid": 20164,
+      "action": "write",
+      "denied": true,
+      "clone_preserved": true
+    },
+    {
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "allocation_id": "allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2",
+      "uid": 20165,
+      "action": "read",
+      "denied": true,
+      "clone_preserved": true
+    },
+    {
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "allocation_id": "allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2",
+      "uid": 20165,
+      "action": "write",
+      "denied": true,
+      "clone_preserved": true
+    }
+  ]
+}

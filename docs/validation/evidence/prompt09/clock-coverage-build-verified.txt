@@ -1,0 +1,5 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/mandates.test.ts(64,21): error TS2698: Spread types may only be created from object types.

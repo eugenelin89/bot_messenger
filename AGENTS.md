@@ -176,15 +176,19 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 - Working groups are first-class bounded deliberation objects backed by typed
   conversation executions (`task_id=null`, `discussion-v1`). Preserve per-worker/group
   generations and the shared two-slot dispatcher; discussion is never a hidden Task.
-- Only explicit owner start/extension/finish authorizes model work. Drafts, notes and
+- Manual groups require explicit owner start/extension/finish. Prompt 09 may start a
+  typed coordinator-origin group only under an active owner-approved mandate envelope;
+  its reserved allowance cannot be enlarged by an owner group extension. Drafts, notes and
   ordinary mentions remain passive. Preserve consumed budgets, original checkpoints,
   no-replay recovery, bounded synthesis reserve and worker/broker uncertainty fences.
 - Group membership sees only the transcript and explicitly exported evidence packet.
   Private conversations, queries, source histories and Company Knowledge grants are not
   implicit sharing authority. Public research needs an explicit discussion-mode grant;
   migration must not widen old grants. Recheck scope before async delivery and commitment.
-- Synthesis is a versioned recommendation, not approval or assignment. Only the owner
-  can preview/edit and submit its selected context through the normal Atlas Task path.
+- Synthesis is a versioned recommendation, not approval or assignment. The owner may
+  preview/edit and submit selected context through the normal Atlas Task path. A Prompt 09
+  coordinator may separately create a decision-linked internal Task only through its
+  mandate tool, within the active envelope and existing reporting hierarchy.
   Incomplete finish may select a safe existing member while retaining every old fence.
 - See [Working groups](docs/architecture/WORKING_GROUPS.md),
   [Decision 021](docs/decisions/decision_021_bounded_working_groups.md), and the
@@ -493,3 +497,30 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 - Execution plans: `docs/exec-plans/`
 
 This map should evolve with the implementation; keep it current.
+
+
+## Strategic mandates and company clock
+
+- Preserve [Decision 022](docs/decisions/decision_022_company_operating_loop.md) and the
+  [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md). Drafts are passive;
+  explicit owner activation and immutable typed bounds authorize internal work. Prose, strategic
+  dispositions and timer callbacks never add permissions.
+- Keep mandate reviews distinct from Tasks/direct replies/groups using typed ownership and the
+  shared dispatcher. Fresh strategic generations reconstruct scoped durable records and retain
+  worker/session lineage, pending work, consumed execution allowances and uncertainty fences.
+- Internal Tasks require an existing current decision, hierarchy/capability checks, private
+  Task provider contexts and explicit selected evidence exports. Group creation has actual
+  coordinator provenance; deliberation does not implicitly assign work or enable research.
+- Observations are trusted admissions, not model claims. Preserve mode, observed versus recorded
+  time, missingness and provenance. Citation needs complete current-execution body delivery.
+  Withdrawal denies future source/derivative delivery while retaining owner history and fences.
+- Clock operations are durable trusted code: stable schedule/version/due identity, atomic claim,
+  bounded coalescing and hold-one overlap. Known failures use bounded backoff; ambiguous provider
+  outcomes never replay automatically. Idle state invokes no models.
+- Client API v1 receives no new strategic data/control authority. Migration and startup must not
+  create mandates, schedules, observations, grants or model work. Acceptance demonstrations stay
+  isolated; production delivery preserves the actual retained state.
+- Tool response envelopes contain text JSON, not raw domain objects. Do not rely on model code
+  accessing pagination fields on wrapped returns; preserve hard runtime and retrieval limits.
+- Prompt 09 release status belongs to its validation/plan. Do not mark complete before all gates.
+  Prompt 10 Computer Use and Prompt 11 real business operations remain separate work.

@@ -52,7 +52,7 @@ first-page offset means zero; explicit malformed offsets remain invalid.
 
 Every settled strategic turn starts a fresh normal Prompt 07 provider generation. The
 checkpoint reconstructs the mandate, current cycle, initiatives, decision previews, prior
-cycle summaries, observations, work status, grants and schedules from bounded durable
+cycle summaries, observations, work status, research eligibility and schedules from bounded durable
 records. Older originals remain retrievable through scoped reads. Prior provider tool outputs
 are not copied into the replacement prompt or accepted as current evidence receipts. The
 same employee, mandate, cycle and pending-work identity survive; previous session/provider
@@ -81,8 +81,11 @@ cycle budget. Async research completion rechecks current authority before delive
 A group does not create a Task. A separate coordinator operation must link the Task to an
 existing decision in the current cycle and enforce hierarchy, role and pending-work limits.
 `wait_for_internal_work` commits the review turn and releases its slot. Trusted completion
-then queues one bounded continuation. The coordinator must inspect completed results before
-closing the cycle. Task/group uncertainty remains visible and prevents unsafe completion.
+then queues one bounded continuation. The worker contract instructs the coordinator to inspect completed results before closing.
+Trusted close checks enforce settled work, continuation delivery and an existing decision;
+citation gates enforce complete reads of cited originals. Semantic acceptance separately
+checks whether the decision actually evaluates relevant work. Task/group uncertainty remains
+visible and prevents unsafe completion.
 
 | Bound | Default | Allowed owner range |
 | --- | ---: | ---: |

@@ -128,3 +128,17 @@ selects and submits that artifact as a normal Task. This capability alone does n
 an operating mandate, recurring schedule, outreach permission or measured business result.
 Prompt 09 must reuse these ownership, evidence, budget and uncertainty boundaries while
 adding its separately accepted durable loop. See [working-group semantics](../architecture/WORKING_GROUPS.md).
+
+
+## Prompt 09 implementation boundary
+
+[Decision 022](../decisions/decision_022_company_operating_loop.md) and the
+[operating-loop architecture](../architecture/COMPANY_OPERATING_LOOP.md) implement the bounded
+internal layer: immutable owner envelope, explicit activation, company-selected analysis and
+groups, attributable decisions, mode-labelled observations and one-time/recurring reviews.
+The second review can wake from a durable occurrence without owner handoff. Full acceptance and
+production release remain tracked separately in [the plan](../exec-plans/prompt-09.md).
+
+An initiative's recommendation is not approval for a Project change or business operation.
+Scale is a strategic disposition only. Simulated evidence proves no customer, revenue or
+marketing outcome. Prompt 11 still needs approved real action, receipt and measured result.

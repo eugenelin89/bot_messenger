@@ -1,0 +1,648 @@
+{
+  "result": "PASS",
+  "canary_contents_recorded": false,
+  "workers": [
+    {
+      "name": "Linus",
+      "worker_id": "worker_d03b4263-38fb-4a1e-871b-1b7d1acc8734",
+      "unix_username": "bsw-93a8e27a433a5cf7e3d20b05",
+      "uid": 20157,
+      "gid": 20157,
+      "groups": [
+        20157
+      ],
+      "password_locked": true,
+      "home_mode": "0o750",
+      "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+    },
+    {
+      "name": "Ada",
+      "worker_id": "worker_a4178145-e01f-46d0-9639-9f6f7aae82ea",
+      "unix_username": "bsw-59652a0e4017c58e5546e4cd",
+      "uid": 20158,
+      "gid": 20158,
+      "groups": [
+        20158
+      ],
+      "password_locked": true,
+      "home_mode": "0o750",
+      "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+    },
+    {
+      "name": "Nix",
+      "worker_id": "worker_6815adb1-19be-4e50-864c-a1b84f96a640",
+      "unix_username": "bsw-8482acab2558680812aa41fa",
+      "uid": 20153,
+      "gid": 20153,
+      "groups": [
+        20153
+      ],
+      "password_locked": true,
+      "home_mode": "0o750",
+      "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+    },
+    {
+      "name": "Grace",
+      "worker_id": "worker_8e1b2d35-1c6e-4a8f-bc91-4666f4a9e71c",
+      "unix_username": "bsw-2cbde053c33a2d0e218144b3",
+      "uid": 20159,
+      "gid": 20159,
+      "groups": [
+        20159
+      ],
+      "password_locked": true,
+      "home_mode": "0o750",
+      "home_acl": "user::rwx\nuser:botsquad:r-x\ngroup::---\nmask::r-x\nother::---\ndefault:user::rwx\ndefault:user:botsquad:r-x\ndefault:group::---\ndefault:mask::r-x\ndefault:other::---\n\n"
+    }
+  ],
+  "checks": [
+    {
+      "worker": "Linus",
+      "scope": "codex_auth_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "codex_auth_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "company_db_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "company_db_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "provisioner_receipt_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "provisioner_receipt_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "etc_botsquad_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "etc_botsquad_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "botsquad_source_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "botsquad_source_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "canonical_product_main",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "canonical_product_main",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Ada",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Ada",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Nix",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Nix",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Grace",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_Grace",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "provisioner_socket",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "root_uid",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "sudo",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "botsquad_source",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "provisioner_code",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "etc_write",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "codex_auth_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "codex_auth_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "company_db_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "company_db_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "provisioner_receipt_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "provisioner_receipt_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "etc_botsquad_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "etc_botsquad_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "botsquad_source_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "botsquad_source_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "canonical_product_main",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "canonical_product_main",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Linus",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Linus",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Nix",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Nix",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Grace",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_Grace",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "provisioner_socket",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "root_uid",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "sudo",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "botsquad_source",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "provisioner_code",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "etc_write",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "codex_auth_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "codex_auth_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "company_db_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "company_db_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "provisioner_receipt_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "provisioner_receipt_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "etc_botsquad_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "etc_botsquad_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "botsquad_source_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "botsquad_source_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "canonical_product_main",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "canonical_product_main",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Linus",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Linus",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Ada",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Ada",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Grace",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sibling_Grace",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "provisioner_socket",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "root_uid",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "sudo",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "botsquad_source",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "provisioner_code",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Nix",
+      "scope": "etc_write",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "codex_auth_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "codex_auth_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "company_db_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "company_db_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "provisioner_receipt_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "provisioner_receipt_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "etc_botsquad_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "etc_botsquad_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "botsquad_source_canary",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "botsquad_source_canary",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "canonical_product_main",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "canonical_product_main",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Linus",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Linus",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Ada",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Ada",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Nix",
+      "action": "read",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sibling_Nix",
+      "action": "write",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "provisioner_socket",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "root_uid",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "sudo",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "botsquad_source",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "provisioner_code",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Grace",
+      "scope": "etc_write",
+      "action": "write_open",
+      "denied": true
+    },
+    {
+      "worker": "Linus",
+      "scope": "own_clone_write",
+      "allowed": true,
+      "uid": 20157,
+      "gid": 20157
+    },
+    {
+      "worker": "Linus",
+      "scope": "sibling_clone_write",
+      "denied": true
+    },
+    {
+      "worker": "Ada",
+      "scope": "own_clone_write",
+      "allowed": true,
+      "uid": 20158,
+      "gid": 20158
+    },
+    {
+      "worker": "Ada",
+      "scope": "sibling_clone_write",
+      "denied": true
+    }
+  ]
+}

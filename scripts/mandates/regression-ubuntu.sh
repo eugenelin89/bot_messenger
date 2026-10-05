@@ -45,4 +45,14 @@ sed -e "s|^ExecStart=.*|ExecStart=/bin/bash $runner/run|" -e '/^\[Install\]/,$d'
 printf 'RuntimeMaxSec=30min\n' >> "/run/systemd/system/$unit.service"
 systemctl daemon-reload
 systemctl start "$unit"
+# Start the established root companion immediately so its bounded ready/probe window
+# cannot be missed while the operator monitors other acceptance work.
+if [[ $mode == identity || $mode == projects ]]; then
+  companion=validate-identity-operator.py
+  [[ $mode != projects ]] || companion=validate-projects-operator.py
+  systemd-run --quiet --unit="$unit-operator" --property=Type=exec --property=RuntimeMaxSec=30min \
+    --property="StandardOutput=append:$report/operator-console.log" \
+    --property="StandardError=append:$report/operator-console.log" \
+    /usr/bin/python3 "$source_root/scripts/$companion" "$report"
+fi
 printf 'Unit: %s\nEvidence: %s\nRevision: %s\n' "$unit" "$report" "$revision"

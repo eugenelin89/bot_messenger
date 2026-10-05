@@ -1,0 +1,133 @@
+{
+  "started": "2026-10-05T19:51:12.951Z",
+  "finished": "2026-10-05T19:52:40.018Z",
+  "data_directory": "/var/lib/botsquad/validation/prompt01-prompt09-20261005-contract-20261005T195111Z",
+  "result": "PASS",
+  "workflow_task_id": "task_624f53a6-47df-4d1e-8533-591f432edbcb",
+  "atlas_id": "worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+  "scout_id": "worker_88044125-f5ba-4850-8d4e-11cddbb2e8b5",
+  "checks": [
+    "real dynamic hire",
+    "real Scout execution and artifact",
+    "real Atlas resume/evaluation",
+    "pause",
+    "process restart persistence",
+    "no replay of completed work",
+    "persisted binding resumes after restart",
+    "real turn interruption"
+  ],
+  "counts": {
+    "workers": 2,
+    "tasks": 4,
+    "executions": 5,
+    "artifacts": 1
+  },
+  "worker_profiles": [
+    {
+      "name": "Atlas",
+      "worker_id": "worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical",
+      "human_lock": true
+    },
+    {
+      "name": "Scout",
+      "worker_id": "worker_88044125-f5ba-4850-8d4e-11cddbb2e8b5",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal",
+      "human_lock": true
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d9e-d895-7143-a5cd-eea2c5a3f948",
+      "workspace_path": "/var/lib/botsquad/validation/prompt01-prompt09-20261005-contract-20261005T195111Z/workspaces/worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+      "created_at": "2026-10-05T19:51:16.423Z",
+      "thread_name": "BotSquad · Atlas · CEO"
+    },
+    {
+      "worker_id": "worker_88044125-f5ba-4850-8d4e-11cddbb2e8b5",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d9f-2038-7381-a465-1f963a524afc",
+      "workspace_path": "/var/lib/botsquad/validation/prompt01-prompt09-20261005-contract-20261005T195111Z/workspaces/worker_88044125-f5ba-4850-8d4e-11cddbb2e8b5",
+      "created_at": "2026-10-05T19:51:34.769Z",
+      "thread_name": "BotSquad · Scout · Market Researcher"
+    }
+  ],
+  "initial_workflow_executions": [
+    {
+      "execution_id": "execution_b597675c-690c-48a8-a86b-7ce1930badf1",
+      "task_id": "task_624f53a6-47df-4d1e-8533-591f432edbcb",
+      "worker_id": "worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+      "runtime_reference": "01a10d9e-d895-7143-a5cd-eea2c5a3f948",
+      "status": "completed",
+      "started_at": "2026-10-05T19:51:15.610Z",
+      "finished_at": "2026-10-05T19:51:36.554Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null,
+      "group_id": null,
+      "discussion_kind": null
+    },
+    {
+      "execution_id": "execution_408fc83c-23ba-4e43-b51c-5323defbabed",
+      "task_id": "task_36945c8b-f9c1-4345-b52c-d85af4e35a98",
+      "worker_id": "worker_88044125-f5ba-4850-8d4e-11cddbb2e8b5",
+      "runtime_reference": "01a10d9f-2038-7381-a465-1f963a524afc",
+      "status": "completed",
+      "started_at": "2026-10-05T19:51:33.907Z",
+      "finished_at": "2026-10-05T19:52:21.398Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null,
+      "group_id": null,
+      "discussion_kind": null
+    },
+    {
+      "execution_id": "execution_dcac2a7c-149a-43b0-8d28-585231c50586",
+      "task_id": "task_624f53a6-47df-4d1e-8533-591f432edbcb",
+      "worker_id": "worker_ad366e0b-4dcf-464b-aaa6-6fcbfb226d25",
+      "runtime_reference": "01a10d9e-d895-7143-a5cd-eea2c5a3f948",
+      "status": "completed",
+      "started_at": "2026-10-05T19:52:21.429Z",
+      "finished_at": "2026-10-05T19:52:31.347Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "task",
+      "request_id": null,
+      "session_id": null,
+      "generation": null,
+      "group_id": null,
+      "discussion_kind": null
+    }
+  ],
+  "final_report": "I reviewed Scout’s saved report, **artifact_a5d6d3ea-aafc-4d51-806c-42882dc73181**. Its three risks are well supported by the approved documents, but the failure scenarios are plausible inferences—not observed incidents.\n\n1. **Handoffs mistaken for assignments.** Creating a worker or sending a message does not start work. Require an explicit child task with an owner, acceptance criteria, and constraints; confirm its task ID and state before calling a recommendation delegated. (`AI_ORGANIZATION_MODEL.md`; `SYSTEM_ARCHITECTURE.md`)\n2. **Uncertain outcomes after crashes.** Retrying an ambiguous operation could duplicate an effect; not retrying could strand a parent task. Preserve operation IDs and receipts, reconcile state before retry, visibly block unresolved cases, and test crashes around child completion and manager wake. (`PROJECT_VISION.md`; `SYSTEM_ARCHITECTURE.md`)\n3. **Plans that cannot execute or never reach a slot.** Direct-report and capability limits can prevent assignment, while strict priority without aging can starve lower-priority work. Validate authority and capacity before committing to a plan; surface queue age and blocked dependencies for human reprioritization. (`decision_004_delegated_worker_creation.md`; `AI_ORGANIZATION_MODEL.md`; `SYSTEM_ARCHITECTURE.md`)\n\n**Next step:** Turn these into three acceptance-test suites—handoff, crash/reconciliation, and authority/queue behavior—before expanding coordination workflows. This was document research only; no code, telemetry, or incident history was audited."
+}
