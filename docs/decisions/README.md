@@ -96,3 +96,5 @@ HTTPS source reading, durable scoped evidence, asynchronous receipts and compati
 session transitions. Acceptance and retained activation remain explicit separate facts.
 
 - [Decision 021 — Bounded working groups and scoped deliberation](decision_021_bounded_working_groups.md) — accepted; real Ubuntu acceptance and production deployment verified.
+
+- [Decision 022 — Bounded strategic mandates and durable company clock](decision_022_company_operating_loop.md) — implemented; Prompt 09 release acceptance pending.

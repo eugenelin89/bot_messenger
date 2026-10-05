@@ -337,7 +337,7 @@ export class CodexRuntime implements RuntimeAdapter {
       input.event('runtime_turn_starting', {runtime_reference:threadId,context_chars:contextText.length});
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
-        input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? 'conversation reply' : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
+        input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?'strategic mandate review':'conversation reply') : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
         approvalPolicy: 'never', sandboxPolicy: { type: 'readOnly', networkAccess: false } });
       turnId = started.turn.id;
       starting = false;

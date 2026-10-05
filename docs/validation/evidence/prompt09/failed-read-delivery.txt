@@ -1,0 +1,6 @@
+provider_reference 01a10d80-3169-7f53-a34d-23f5a726b21c
+matched_files 1
+{"at": "2026-10-05T19:17:50.231Z", "type": "custom_tool_call", "name": "exec", "call_id": "call_hLSPgWILfsCWaiaWe1Ex50Kc", "arguments": null, "output": ""}
+{"at": "2026-10-05T19:17:50.298Z", "type": "custom_tool_call_output", "name": null, "call_id": "call_hLSPgWILfsCWaiaWe1Ex50Kc", "arguments": null, "output": "[{'type': 'input_text', 'text': 'Script completed\\nWall time 0.1 seconds\\nOutput:\\n'}, {'type': 'input_text', 'text': '{\"mode\":\"mandate_review\",\"clock_now\":\"2026-10-05T19:17:50.268Z\",\"mandate\":{\"mandate_id\":\"mandate_0c7880dc-08e0-42d4-a2b7-adb407c2bb"}
+{"at": "2026-10-05T19:17:56.404Z", "type": "custom_tool_call", "name": "exec", "call_id": "call_LQKpHVqrPZbJQValR46MK7Gb", "arguments": null, "output": ""}
+{"at": "2026-10-05T19:17:57.174Z", "type": "custom_tool_call_output", "name": null, "call_id": "call_LQKpHVqrPZbJQValR46MK7Gb", "arguments": null, "output": "aborted by user after 0.8s"}

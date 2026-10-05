@@ -161,7 +161,10 @@ test('internal Task receives only explicitly selected evidence bodies and withdr
   f.company.mandates.withdrawObservation({observation_id:selected.observation_id});assert.throws(()=>f.company.context(worker.context),/withdrawn|withdrawal/);
 }finally{await f.close();}});
 
-test('missing offset gives a corrective read contract and complete reads identify the next action',async()=>{const f=setup();try{const o=observe(f);activate(f);const c=claim(f);assert.throws(()=>f.company.mandates.callTool(c.context,'missing','read_mandate_record',{record_id:o.observation_id}),/offset is required.*offset:0.*Do not repeat/);const r=f.company.mandates.callTool(c.context,'correct','read_mandate_record',{record_id:o.observation_id,offset:0}) as {next_offset:null;next_action:string};assert.equal(r.next_offset,null);assert.match(r.next_action,/Do not reread/);
+test('first-page reads allow omitted offset without relaxing scope, receipts or cumulative budgets',async()=>{const f=setup();try{const o=observe(f);activate(f);const c=claim(f);
+  const first=f.company.mandates.callTool(c.context,'default','read_mandate_record',{record_id:o.observation_id}) as {offset:number;next_offset:null;next_action:string;content:string;fully_delivered:boolean};assert.equal(first.offset,0);assert.equal(first.next_offset,null);assert.equal(first.fully_delivered,true);assert.match(first.next_action,/Do not reread/);decision(f,c.context,[o.observation_id]);
+  const second=f.company.mandates.callTool(c.context,'explicit','read_mandate_record',{record_id:o.observation_id,offset:0}) as {content:string};assert.equal(second.content,first.content);assert.equal(f.store.get<{chars:number}>('SELECT chars FROM mandate_read_usage')!.chars,first.content.length*2);
+  for(const offset of [null,'0',-1,0.1,999999])assert.throws(()=>f.company.mandates.callTool(c.context,`invalid-${offset}`,'read_mandate_record',{record_id:o.observation_id,offset}),/offset must be/);assert.throws(()=>f.company.mandates.callTool(c.context,'foreign','read_mandate_record',{record_id:'observation_unavailable'}),/outside/);
 }finally{await f.close();}});
 
 test('withdrawal replaces coordinator provider generation and withholds earlier derived strategy and reports',async()=>{const f=setup();try{

@@ -180,3 +180,25 @@ The reviewer found this continuity policy sound but requires actual acceptance p
 
 The current focused suite passes 35/35, including fresh generations, withdrawal, grounding,
 and atomic claim rollback. Reports include all failed attempts. Remaining ETA: 7–12 hours.
+
+
+### Third attempt and actual response-contract diagnosis — 2026-10-05 19:25 UTC
+
+`fd6a755` received independent scoped security clearance. The full local suite passed
+245/246 with one Linux-only skip. Its fresh coordinator generation still exhausted the
+20-call limit, so the continuity change did not fix the behavioral failure. Attempt
+`mandates-p09-20261005-review2` is retained and stopped with its fence intact.
+
+Read-only inspection of that specific provider thread's operational tool programs (excluding
+hidden reasoning and credentials) established the actual cause: a single generated code-tool
+program looped over `rawReturn.next_offset` and `rawReturn.fully_delivered`, but dynamic tool
+returns are content envelopes containing JSON text. Those fields were undefined, so its
+`while(true)` loop repeatedly omitted offset before the model could see feedback. This was
+not repeated deliberative choice after receiving corrective error text.
+
+The corrected mandate tool contract tells workers to display the return and inspect its JSON,
+read one page per dependent call, and avoid automatic pagination loops on raw wrappers.
+The runtime introduction now identifies a strategic mandate review precisely. An omitted
+first-page offset also defaults to zero, with null/strings/negative/fractional inputs still
+rejected and scope/delivery/cumulative budgets unchanged (35/35 focused checks pass).
+The fixture retains the same low reasoning configuration to test the diagnosed correction.
