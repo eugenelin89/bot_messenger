@@ -1,0 +1,111 @@
+{
+  "mode": "Actual accepted-company read-only browser; current candidate static mandates.js served locally, existing c6690a5 API/source records unchanged",
+  "checked": [
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "cycle",
+      "id": "cycle_6d5de761-2b34-4510-9949-a1ec702689b3"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "initiative",
+      "id": "initiative_b544f8df-00fe-4cbe-8375-23892cc9e196"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "observation",
+      "id": "observation_12f9178b-1420-41c2-9bdd-862ab0071396"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "decision",
+      "id": "decision_0a153421-300c-46fe-8341-ca10f955c0fc"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "synthesis",
+      "id": "synthesis_c5d41be2-af87-4a17-bf6d-c7ead8873878"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "decision",
+      "id": "decision_612a0ab6-e617-40fc-83ab-a80b23fd2dd1"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "schedule",
+      "id": "schedule_99d86c32-5ec9-44a3-9089-604d5cc450d1"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "occurrence",
+      "id": "occurrence_a3e74284c4c4eb8895bcc19b4a34c6978f37ccf8951b42695ccb52b1e8f8972d"
+    },
+    {
+      "mandate": "mandate_a946aa13-1e12-4065-a41a-bc58f9797b3f",
+      "type": "artifact",
+      "id": "artifact_126b42a7-8cd2-468c-8f0c-c7ffce98d9dc"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "cycle",
+      "id": "cycle_0c0f88a4-ad8b-4e86-9247-bfa40ad31b0b"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "occurrence",
+      "id": "occurrence_14146a00456b5d1bf910be24b27cd04327fb6179c2fcb74294fec5fe224f00e0"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "cycle",
+      "id": "cycle_86236e8d-4cdc-4270-858d-242182da1221"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "initiative",
+      "id": "initiative_d5df1293-d0e5-4e64-9dd1-64557639e59e"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "observation",
+      "id": "observation_aa9dd4da-831d-47bf-a641-bf09fbcf8112"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "observation",
+      "id": "observation_55a4c364-1ab8-44d9-8e03-828c6346bf27"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "decision",
+      "id": "decision_678e29f3-3914-460b-8075-2fe5e90b5ddb"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "synthesis",
+      "id": "synthesis_acc68224-3d1b-412b-8d72-e582ca5ff9fb"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "decision",
+      "id": "decision_025103ab-6e76-4e59-a0d6-a00f2fa831ba"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "decision",
+      "id": "decision_a154747a-a904-45f1-b39b-30eb8db3df62"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "schedule",
+      "id": "schedule_19c1049f-9b12-41ff-9408-c23696865e96"
+    },
+    {
+      "mandate": "mandate_b11fc003-dc05-43bb-9dfa-529e4e694484",
+      "type": "artifact",
+      "id": "artifact_f4dc7773-3642-4c82-942f-36fec253a466"
+    }
+  ],
+  "errors": []
+}

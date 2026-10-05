@@ -80,3 +80,14 @@ checkpoints, versioned recommendations, separate assignments and uncertainty fen
 A failed model attempt remains failed even when a separately authorized incomplete
 result or fresh isolated regression succeeds. Check the validation report's open gates
 before changing the canonical roadmap's completion status.
+
+
+## Prompt 09 implementation reference
+
+[Decision 022](../docs/decisions/decision_022_company_operating_loop.md) and
+[the architecture](../docs/architecture/COMPANY_OPERATING_LOOP.md) define the implemented
+mandate/clock boundary. C09-1 through C09-4 remain individual acceptance gates in
+[the active plan](../docs/exec-plans/prompt-09.md); implementation is not release completion.
+Later prompts must preserve worker/cycle identity, evidence modes and delivery proof,
+private Task contexts, durable occurrence/version semantics, consumed bounds and unknown
+provider fences. Prompt 10 owns Computer Use; Prompt 11 owns measured live operations.

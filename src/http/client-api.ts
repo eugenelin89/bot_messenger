@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Company } from '../control/company.js';
 import type { Dispatcher } from '../control/dispatcher.js';
 import { RemoteClients, type Authentication, type Receipt } from '../control/remote-clients.js';
-import { ClientDTOs, type Resource } from '../client/dto.js';
+import { ClientDTOs, privateStrategyFilter, type Resource } from '../client/dto.js';
 import { canonical, check, ClientError, hash, identifier, LIMITS, newId, object, requestKey, text, type Scope } from '../client/protocol.js';
 import { DomainError } from '../domain/model.js';
 import { parseAIProfile, type RuntimeCatalog } from '../domain/ai-profile.js';
@@ -132,7 +132,7 @@ export class ClientAPI {
             limitations: ['single-human', 'single-company', 'private-transport-required', 'local-only-protected-approvals', 'artifact-metadata-only'] }, requestId)); return;
         }
         if (path === '/overview') {
-          const count = (table: string, where = '1') => this.company.store.get<{ n: number }>(`SELECT count(*) n FROM ${table} WHERE ${where}`)!.n;
+          const count = (table: string, where = '1') => this.company.store.get<{ n: number }>(`SELECT count(*) n FROM ${table} WHERE ${where} ${privateStrategyFilter(table)}`)!.n;
           json(200, this.envelope({ hq_id: this.trust.hq.hq_id, paused: this.company.paused, runtime_status: this.dispatcher.runtimeState,
             workers: count('workers'), tasks: count('tasks'), queued_tasks: count('tasks', "status='queued'"), active_executions: count('executions', "origin='task' AND status='running'"),
             pending_approvals: count('approvals', "status='pending'") + count('project_approvals', "status='pending'"), event_cursor: this.cursor(this.currentCursor()) }, requestId)); return;

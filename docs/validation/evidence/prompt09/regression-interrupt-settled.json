@@ -1,0 +1,212 @@
+{
+  "group": {
+    "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+    "conversation_id": "conversation_d5780a75-a5ad-4677-8de6-ffafda76e0d5",
+    "topic": "Bounded lifecycle validation: compare two hypothetical offline onboarding approaches.",
+    "desired_output": "A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.",
+    "constraints": "Discuss only; compare trade-offs and unresolved questions. No research, implementation or external actions.",
+    "created_by": "human",
+    "initiating_operation": "owner_selected",
+    "eligible_workers": "[\"worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7\",\"worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77\"]",
+    "facilitator_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+    "synthesizer_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+    "state": "blocked",
+    "scope_version": 1,
+    "revision": 1,
+    "evidence_revision": 0,
+    "round": 1,
+    "turns_used": 2,
+    "turn_limit": 24,
+    "round_limit": 3,
+    "extensions_used": 0,
+    "synthesis_used": 0,
+    "deadline": "2026-10-05T21:02:07.392Z",
+    "allow_incomplete": 1,
+    "allow_research": 0,
+    "error": "A scheduled turn did not commit a contribution. Inspect its execution; no automatic retry.",
+    "created_at": "2026-10-05T20:02:06.477Z",
+    "started_at": "2026-10-05T20:02:07.392Z",
+    "updated_at": "2026-10-05T20:02:07.392Z"
+  },
+  "shared_audience": [
+    {
+      "worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "display_name": "Linus"
+    },
+    {
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "display_name": "Scout"
+    }
+  ],
+  "participants": [
+    {
+      "worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "display_name": "Linus",
+      "role": "engineer",
+      "enabled": 1,
+      "provider_unresolved": false
+    },
+    {
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "display_name": "Scout",
+      "role": "researcher",
+      "enabled": 1,
+      "provider_unresolved": false
+    }
+  ],
+  "eligible_audience": [
+    {
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "display_name": "Scout"
+    },
+    {
+      "worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "display_name": "Linus"
+    }
+  ],
+  "history": {
+    "items": [
+      {
+        "cursor": 52,
+        "message_id": "cmessage_55f3cbf5-c42b-4e08-8b6d-1525425c15e7",
+        "conversation_id": "conversation_d5780a75-a5ad-4677-8de6-ffafda76e0d5",
+        "sender_principal_id": "human",
+        "worker_id": null,
+        "execution_id": null,
+        "body": "Bounded lifecycle validation: compare two hypothetical offline onboarding approaches.\nDesired output: A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.\nConstraints: Discuss only; compare trade-offs and unresolved questions. No research, implementation or external actions.",
+        "request_id": null,
+        "response_to": null,
+        "created_at": "2026-10-05T20:02:06.481Z"
+      }
+    ],
+    "next_cursor": null
+  },
+  "contributions": [
+    {
+      "message_id": "cmessage_55f3cbf5-c42b-4e08-8b6d-1525425c15e7",
+      "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+      "revision": 1,
+      "kind": "charter",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 0,
+      "seen_evidence_revision": 0
+    }
+  ],
+  "turns": [
+    {
+      "turn_id": "dturn_e688a0fe-a500-46c3-a4b4-cc0f95e90816",
+      "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+      "request_id": "reply_55343d03-ba23-41e8-8005-b629f84fa243",
+      "kind": "opening",
+      "round": 1,
+      "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 1,
+      "seen_evidence_revision": 0,
+      "output": null,
+      "advanced": 0,
+      "created_at": "2026-10-05T20:02:07.407Z",
+      "status": "interrupted",
+      "target_worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "error": "Codex confirmed turn interruption"
+    },
+    {
+      "turn_id": "dturn_5275a794-ead8-4a04-b4e6-da333bc61f9d",
+      "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+      "request_id": "reply_40ae4501-c88d-4847-a128-f5790aa335d3",
+      "kind": "opening",
+      "round": 1,
+      "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 1,
+      "seen_evidence_revision": 0,
+      "output": null,
+      "advanced": 0,
+      "created_at": "2026-10-05T20:02:07.401Z",
+      "status": "interrupted",
+      "target_worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "error": "Codex confirmed turn interruption"
+    }
+  ],
+  "evidence": [],
+  "syntheses": [],
+  "questions": [],
+  "executions": [
+    {
+      "execution_id": "execution_11a8d791-61bf-453e-98ec-efe46ae43a3c",
+      "task_id": null,
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "runtime_reference": "01a10da8-d071-7bd1-8215-5e357e142f4c",
+      "status": "interrupted",
+      "started_at": "2026-10-05T20:02:07.844Z",
+      "finished_at": "2026-10-05T20:02:10.989Z",
+      "error": "Codex confirmed turn interruption",
+      "interruption_reason": "Codex confirmed turn interruption",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_55343d03-ba23-41e8-8005-b629f84fa243",
+      "session_id": "session_12003b53-1550-411c-8bbd-2feed2845f91",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_035be38c-fb54-42b7-87f0-c021b6e6ab8c",
+      "task_id": null,
+      "worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "runtime_reference": "01a10da8-cf5f-78c1-a75c-6385d3144629",
+      "status": "interrupted",
+      "started_at": "2026-10-05T20:02:07.469Z",
+      "finished_at": "2026-10-05T20:02:10.867Z",
+      "error": "Codex confirmed turn interruption",
+      "interruption_reason": "Codex confirmed turn interruption",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_40ae4501-c88d-4847-a128-f5790aa335d3",
+      "session_id": "session_a2788bbc-ae05-4500-bc92-581567e87911",
+      "generation": 1
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "session_12003b53-1550-411c-8bbd-2feed2845f91",
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "generation": 1,
+      "previous_session_id": null,
+      "state": "active",
+      "reason": "initial_context",
+      "completed_turns": 1,
+      "created_at": "2026-10-05T20:02:07.844Z"
+    },
+    {
+      "session_id": "session_a2788bbc-ae05-4500-bc92-581567e87911",
+      "worker_id": "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+      "generation": 1,
+      "previous_session_id": null,
+      "state": "active",
+      "reason": "initial_context",
+      "completed_turns": 1,
+      "created_at": "2026-10-05T20:02:07.469Z"
+    }
+  ],
+  "research_activity": [],
+  "paused": false,
+  "approved_documents": [
+    "README.md",
+    "docs/product/PROJECT_VISION.md",
+    "docs/product/AI_ORGANIZATION_MODEL.md",
+    "docs/architecture/SYSTEM_ARCHITECTURE.md",
+    "docs/decisions/decision_004_delegated_worker_creation.md"
+  ]
+}

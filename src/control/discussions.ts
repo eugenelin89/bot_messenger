@@ -1,3 +1,4 @@
+import type {Observation} from '../domain/mandates.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {Company,ExecutionContext,TaskInput} from './company.js';
 import {requireThat,strictObject,textField} from '../domain/model.js';
@@ -30,8 +31,9 @@ export class Discussions {
     return this.db.transaction(()=>{const old=this.db.get<{group_id:string;request_hash:string;result:string}>('SELECT * FROM discussion_receipts WHERE receipt_key=?',key);if(old){requireThat(old.group_id===g.group_id&&old.request_hash===hash(payload),'Receipt payload mismatch');return JSON.parse(old.result) as T;}
       requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM discussion_receipts')!.n<50000,'Discussion receipt capacity reached');const result=operation();this.db.run('INSERT INTO discussion_receipts VALUES (?,?,?,?)',key,g.group_id,hash(payload),JSON.stringify(result));return result;});
   }
-  create(input:unknown){
-    this.human();const a=strictObject(input,['topic','desired_output','constraints','participant_ids','facilitator_id','synthesizer_id','organize_with_atlas','allow_incomplete','allow_research','receipt_key']);
+  create(input:unknown){this.human();return this.createAuthorized(input);}
+  private createAuthorized(input:unknown,mandateContext?:ExecutionContext){
+    const a=strictObject(input,['topic','desired_output','constraints','participant_ids','facilitator_id','synthesizer_id','organize_with_atlas','allow_incomplete','allow_research','receipt_key']);
     requireThat(typeof a.organize_with_atlas==='boolean'&&typeof a.allow_incomplete==='boolean'&&typeof a.allow_research==='boolean','Explicit organization and incomplete-result choices required');
     const receiptKey=textField(a,'receipt_key',100);requireThat(/^[a-zA-Z0-9_-]{16,100}$/.test(receiptKey),'Invalid creation receipt key');
     const chosen=ids(a.participant_ids);const atlas=this.eligible().find(w=>w.role==='ceo');
@@ -45,16 +47,25 @@ export class Discussions {
       const old=this.db.get<{request_hash:string;result:string}>('SELECT * FROM discussion_receipts WHERE receipt_key=?',receiptKey);if(old){requireThat(old.request_hash===hash(a),'Receipt payload mismatch');return JSON.parse(old.result) as WorkingGroup;}
       requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM working_groups')!.n<L.groups,'Working group capacity reached');
       requireThat(this.db.get<{n:number}>("SELECT count(*) n FROM working_groups WHERE state IN ('draft','active','paused','blocked')")!.n<L.queuedGroups,'Working group queue is full');
-      const c=id('conversation'),g=id('group'),time=now();
+      const c=id('conversation'),g=id('group'),time=now(),creator=mandateContext?this.company.mandates.verify(mandateContext).worker.principal_id:'human';
       this.db.run("INSERT INTO conversations VALUES (?,?,'active',1,'human',?,?)",c,topic,time,time);
       this.db.run("INSERT INTO conversation_participants VALUES (?,'human',NULL,1)",c);
       for(const w of a.organize_with_atlas?[facilitator.worker_id]:chosen)this.db.run('INSERT INTO conversation_participants VALUES (?,?,?,1)',c,this.worker(w).principal_id,w);
       this.db.run(`INSERT INTO working_groups (group_id,conversation_id,topic,desired_output,constraints,created_by,initiating_operation,eligible_workers,facilitator_id,synthesizer_id,state,scope_version,turn_limit,round_limit,allow_incomplete,allow_research,created_at,updated_at)
-        VALUES (?,?,?,?,?,'human',?,?,?,?,'draft',1,?,?,?,?,?,?)`,g,c,topic,desired,constraints,a.organize_with_atlas?'owner_atlas':'owner_selected',JSON.stringify(a.organize_with_atlas?this.eligible().map(w=>w.worker_id):chosen),facilitator.worker_id,synthesizer.worker_id,L.turns,L.rounds,Number(a.allow_incomplete),Number(a.allow_research),time,time);
-      const result=this.group(g);this.append(result,`${topic}\nDesired output: ${desired}\nConstraints: ${constraints}`,'charter');this.audit('created',result,{draft_only:true});const created=this.group(g);this.db.run('INSERT INTO discussion_receipts VALUES (?,?,?,?)',receiptKey,g,hash(a),JSON.stringify(created));return created;
+        VALUES (?,?,?,?,?,?,?,?,?,?,'draft',1,?,?,?,?,?,?)`,g,c,topic,desired,constraints,creator,mandateContext?'mandate_coordinator':a.organize_with_atlas?'owner_atlas':'owner_selected',JSON.stringify(a.organize_with_atlas?this.eligible().map(w=>w.worker_id):chosen),facilitator.worker_id,synthesizer.worker_id,L.turns,L.rounds,Number(a.allow_incomplete),Number(a.allow_research),time,time);
+      const result=this.group(g);this.append(result,`${topic}\nDesired output: ${desired}\nConstraints: ${constraints}`,'charter',undefined,[],[],creator);this.audit('created',result,{draft_only:true});const created=this.group(g);this.db.run('INSERT INTO discussion_receipts VALUES (?,?,?,?)',receiptKey,g,hash(a),JSON.stringify(created));return created;
     });
   }
-  private append(g:WorkingGroup,body:string,kind:string,context?:ExecutionContext,references:string[]=[],evidence:string[]=[]){
+  createForMandate(context:ExecutionContext,input:{topic:string;desired_output:string;constraints:string;participant_ids:string[];facilitator_id:string;synthesizer_id:string;allow_research:boolean},observations:Observation[]){
+    const v=this.company.mandates.verify(context);requireThat(v.mandate.status==='active'&&!v.turn.output,'Active mandate coordinator required');
+    const group=this.createAuthorized({...input,organize_with_atlas:false,allow_incomplete:true,receipt_key:`mandate_${randomUUID()}`},context);
+    for(const o of observations){const content=JSON.stringify({mode:o.mode,name:o.name,value:o.value,unit:o.unit,observed_at:o.observed_at,period:o.period,recorded_at:o.recorded_at,body:o.body,missingness:o.missingness,limitations:o.limitations});
+      requireThat(content.length<=L.evidenceChars,'Observation exceeds the 6000-character group excerpt bound; select a concise admitted observation');
+      this.evidence(group,'owner_material',`${o.mode.toUpperCase()}: ${o.name}`,content,{observation_id:o.observation_id,mandate_id:o.mandate_id,provenance:o.provenance,source:o.source,export_authority:'active_mandate_envelope',coordinator_execution_id:context.executionId,audience_worker_ids:input.participant_ids},null);}
+    this.requireMembers(group);this.db.run("UPDATE working_groups SET state='active',started_at=?,deadline=?,updated_at=? WHERE group_id=?",now(),v.cycle.deadline,now(),group.group_id);this.openings(this.group(group.group_id));
+    this.audit('mandate_started',group,{mandate_id:v.mandate.mandate_id,cycle_id:v.cycle.cycle_id,coordinator_execution_id:context.executionId},context);return this.group(group.group_id);
+  }
+  private append(g:WorkingGroup,body:string,kind:string,context?:ExecutionContext,references:string[]=[],evidence:string[]=[],actorOverride?:string){
     const execution=context?this.company.execution(context.executionId):undefined;
     requireThat(!execution||execution.origin==='conversation','Discussion execution required');
     const worker=context?this.company.worker(context.workerId):undefined;
@@ -62,7 +73,7 @@ export class Discussions {
     const seen=turn?.seen_revision??g.revision,seenEvidence=turn?.seen_evidence_revision??g.evidence_revision;
     requireThat(this.db.get<{n:number}>('SELECT coalesce(sum(length(body)),0) n FROM conversation_messages WHERE conversation_id=?',g.conversation_id)!.n+body.length<=L.transcriptChars-(['synthesis','review','finalize'].includes(kind)?0:L.reservedTurns*L.outputChars),'Discussion transcript budget exhausted; synthesis space is reserved');
     const message=id('cmessage');
-    this.db.run('INSERT INTO conversation_messages VALUES (?,?,?,?,?,?,?,?,?)',message,g.conversation_id,worker?.principal_id??'human',worker?.worker_id??null,execution?.execution_id??null,body,turn?.request_id??null,turn?.request_id??null,now());
+    this.db.run('INSERT INTO conversation_messages VALUES (?,?,?,?,?,?,?,?,?)',message,g.conversation_id,actorOverride??worker?.principal_id??'human',worker?.worker_id??null,execution?.execution_id??null,body,turn?.request_id??null,turn?.request_id??null,now());
     const revision=this.group(g.group_id).revision;
     this.db.run('INSERT INTO discussion_contributions VALUES (?,?,?,?,?,?,?,?)',message,g.group_id,revision,kind,JSON.stringify(references),JSON.stringify(evidence),seen,seenEvidence);
     if(turn)this.db.run("UPDATE conversation_requests SET response_message_id=?,status='completed',updated_at=? WHERE request_id=?",message,now(),turn.request_id);
@@ -108,6 +119,7 @@ export class Discussions {
       else if(action==='stop'){requireThat(g.state!=='archived','Archived group is read-only');queued();this.db.run("UPDATE working_groups SET state='stopped',error='Stopped by owner; no automatic synthesis' WHERE group_id=?",g.group_id);}
       else if(action==='archive'){requireThat(!active.length&&['completed','stopped','blocked','draft'].includes(g.state),'Stop and settle work before archiving');queued();this.db.run("UPDATE working_groups SET state='archived' WHERE group_id=?",g.group_id);}
       else if(action==='extend'){
+        requireThat(!this.company.mandates.internalWork(undefined,g.group_id),'Mandate groups cannot extend beyond their reserved envelope');
         requireThat(g.state!=='draft'&&g.state!=='archived'&&!active.length,'Extension requires a started, unarchived, idle group');this.requireMembers(g);requireThat(!this.members(g).some(w=>this.company.providerUnresolved(w.worker_id)),'Provider uncertainty blocks extension');
         requireThat(g.extensions_used<L.extensions&&g.turn_limit+L.extensionTurns<=L.hardTurns&&g.round_limit+1<=L.hardRounds,'Maximum explicit extension allowance reached');
         queued();this.db.run("UPDATE working_groups SET state='active',error=NULL,turn_limit=turn_limit+?,round_limit=round_limit+1,extensions_used=extensions_used+1,round=round+1,deadline=? WHERE group_id=?",L.extensionTurns,new Date(Math.max(Date.now(),Date.parse(g.deadline!))+L.extensionMinutes*60000).toISOString(),g.group_id);
@@ -130,6 +142,7 @@ export class Discussions {
   activeExecutions(groupId:string){return this.db.all<{execution_id:string;worker_id:string}>("SELECT e.execution_id,e.worker_id FROM executions e JOIN discussion_turns t USING(request_id) WHERE t.group_id=? AND e.status='running'",groupId);}
   private openings(g:WorkingGroup){for(const w of this.members(g))this.enqueue(g,w.worker_id,'opening','Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.');}
   authorize(r:ReplyRequest){const g=this.forConversation(r.conversation_id);if(!g)return;
+    this.company.mandates.authorizeInternal(undefined,g.group_id);
     const turn=this.turn(r.request_id);requireThat(turn&&turn.group_id===g.group_id,'Request lacks discussion ownership');
     requireThat(g.state==='active'||g.state==='paused'&&r.status!=='queued','Discussion is held or stopped');requireThat(g.scope_version===r.scope_version,'Discussion scope changed');
     requireThat(g.deadline&&Date.parse(g.deadline)>Date.now(),'Discussion deadline expired');this.requireMembers(g);

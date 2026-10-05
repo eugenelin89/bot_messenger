@@ -1,0 +1,249 @@
+{
+  "group": {
+    "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+    "conversation_id": "conversation_9a8b3eac-e56b-461f-8156-acac4f12f33c",
+    "topic": "Controlled crash recovery validation for a bounded hypothetical design discussion.",
+    "desired_output": "A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.",
+    "constraints": "Compare a local example and contextual help, retaining an unresolved question. This isolated run will exercise operator-injected service failure. No research, implementation or external action.",
+    "created_by": "human",
+    "initiating_operation": "owner_selected",
+    "eligible_workers": "[\"worker_51847e12-d630-4d80-b08b-245abe75e7f6\",\"worker_6294901c-2f4a-4366-946a-092fdd81e2c1\"]",
+    "facilitator_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+    "synthesizer_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+    "state": "blocked",
+    "scope_version": 1,
+    "revision": 2,
+    "evidence_revision": 1,
+    "round": 1,
+    "turns_used": 2,
+    "turn_limit": 24,
+    "round_limit": 3,
+    "extensions_used": 0,
+    "synthesis_used": 0,
+    "deadline": "2026-10-05T21:03:26.665Z",
+    "allow_incomplete": 1,
+    "allow_research": 0,
+    "error": "A participant has an unresolved worker/broker outcome",
+    "created_at": "2026-10-05T20:02:15.589Z",
+    "started_at": "2026-10-05T20:03:26.665Z",
+    "updated_at": "2026-10-05T20:03:26.665Z"
+  },
+  "shared_audience": [
+    {
+      "worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "display_name": "Grace"
+    },
+    {
+      "worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "display_name": "Turing"
+    }
+  ],
+  "participants": [
+    {
+      "worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "display_name": "Grace",
+      "role": "reviewer",
+      "enabled": 1,
+      "provider_unresolved": true
+    },
+    {
+      "worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "display_name": "Turing",
+      "role": "cto",
+      "enabled": 1,
+      "provider_unresolved": false
+    }
+  ],
+  "eligible_audience": [
+    {
+      "worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "display_name": "Turing"
+    },
+    {
+      "worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "display_name": "Grace"
+    }
+  ],
+  "history": {
+    "items": [
+      {
+        "cursor": 53,
+        "message_id": "cmessage_8ae52719-cac6-4a55-8b54-fb7b58957029",
+        "conversation_id": "conversation_9a8b3eac-e56b-461f-8156-acac4f12f33c",
+        "sender_principal_id": "human",
+        "worker_id": null,
+        "execution_id": null,
+        "body": "Controlled crash recovery validation for a bounded hypothetical design discussion.\nDesired output: A practical recommendation, alternatives and trade-offs, explicit supporting contribution/source IDs, responses to material challenges, unresolved concerns and evidence limits. Discuss only; no implementation.\nConstraints: Compare a local example and contextual help, retaining an unresolved question. This isolated run will exercise operator-injected service failure. No research, implementation or external action.",
+        "request_id": null,
+        "response_to": null,
+        "created_at": "2026-10-05T20:02:15.593Z"
+      },
+      {
+        "cursor": 54,
+        "message_id": "cmessage_d049e40f-5e51-4bcc-9907-17c26b15c112",
+        "conversation_id": "conversation_9a8b3eac-e56b-461f-8156-acac4f12f33c",
+        "sender_principal_id": "human",
+        "worker_id": null,
+        "execution_id": null,
+        "body": "Recovery constraint: no network dependency and no automatic replay of ambiguous turns.",
+        "request_id": null,
+        "response_to": null,
+        "created_at": "2026-10-05T20:02:16.786Z"
+      }
+    ],
+    "next_cursor": null
+  },
+  "contributions": [
+    {
+      "message_id": "cmessage_d049e40f-5e51-4bcc-9907-17c26b15c112",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "revision": 2,
+      "kind": "constraint",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 1,
+      "seen_evidence_revision": 1
+    },
+    {
+      "message_id": "cmessage_8ae52719-cac6-4a55-8b54-fb7b58957029",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "revision": 1,
+      "kind": "charter",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 0,
+      "seen_evidence_revision": 0
+    }
+  ],
+  "turns": [
+    {
+      "turn_id": "dturn_5c5e7640-0212-476d-ab17-f3bf8d3b608b",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "request_id": "reply_8feb6650-031a-4d2e-9be9-3cba3b864d4d",
+      "kind": "opening",
+      "round": 1,
+      "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 2,
+      "seen_evidence_revision": 1,
+      "output": null,
+      "advanced": 0,
+      "created_at": "2026-10-05T20:03:26.671Z",
+      "status": "blocked",
+      "target_worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "error": "Provider outcome unknown after restart; inspect retained evidence. No automatic replay."
+    },
+    {
+      "turn_id": "dturn_8e5b6d03-469b-4e06-b99b-3c84c9736fdd",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "request_id": "reply_9835aa71-4382-455b-b3b7-78a1dd9e80dc",
+      "kind": "opening",
+      "round": 1,
+      "prompt": "Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.",
+      "contribution_ids": "[]",
+      "evidence_ids": "[]",
+      "seen_revision": 2,
+      "seen_evidence_revision": 1,
+      "output": null,
+      "advanced": 0,
+      "created_at": "2026-10-05T20:03:26.668Z",
+      "status": "blocked",
+      "target_worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "error": "Provider outcome unknown after restart; inspect retained evidence. No automatic replay."
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence_9cc8fa93-4c2a-425e-8a6e-10770ef45107",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "kind": "owner_material",
+      "title": "Recovery fixture material",
+      "content": "Hypothetical charter: keep personal media local. This material must survive a controlled restart.",
+      "metadata": "{\"supplied_at\":\"2026-10-05T20:02:16.577Z\",\"verification\":\"Owner-supplied material; not independently verified\",\"omissions\":\"Only explicitly supplied content\",\"export_authority\":\"explicit_owner_selection\",\"audience_worker_ids\":[\"worker_6294901c-2f4a-4366-946a-092fdd81e2c1\",\"worker_51847e12-d630-4d80-b08b-245abe75e7f6\"],\"audience_scope_version\":1}",
+      "sha256": "928c3c8671e2d53e4773b93c4fe41e54c6411aff77e969377a8898ab5809fb64",
+      "source_id": null,
+      "revision": 1,
+      "actor": "human",
+      "execution_id": null,
+      "created_at": "2026-10-05T20:02:16.577Z"
+    }
+  ],
+  "syntheses": [],
+  "questions": [],
+  "executions": [
+    {
+      "execution_id": "execution_dec622f1-c847-472e-b0b9-704ae801488a",
+      "task_id": null,
+      "worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "runtime_reference": null,
+      "status": "interrupted",
+      "started_at": "2026-10-05T20:03:27.172Z",
+      "finished_at": "2026-10-05T20:04:35.517Z",
+      "error": null,
+      "interruption_reason": "application_restart",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_priority": "normal",
+      "runtime_version": null,
+      "runtime_adapter": null,
+      "provenance_status": "unresolved",
+      "origin": "conversation",
+      "request_id": "reply_8feb6650-031a-4d2e-9be9-3cba3b864d4d",
+      "session_id": "session_2fde6690-d373-49a9-9f59-9bd2abd71ff0",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_2cfca560-80c6-48e4-943e-e64f2af71730",
+      "task_id": null,
+      "worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "runtime_reference": "01a10daa-0573-7311-83f0-28cf4abe6077",
+      "status": "interrupted",
+      "started_at": "2026-10-05T20:03:26.701Z",
+      "finished_at": "2026-10-05T20:04:35.518Z",
+      "error": null,
+      "interruption_reason": "application_restart",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_9835aa71-4382-455b-b3b7-78a1dd9e80dc",
+      "session_id": "session_a03a25ab-c0c6-465f-a668-c681b151358c",
+      "generation": 1
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "session_2fde6690-d373-49a9-9f59-9bd2abd71ff0",
+      "worker_id": "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+      "generation": 1,
+      "previous_session_id": null,
+      "state": "blocked",
+      "reason": "initial_context",
+      "completed_turns": 0,
+      "created_at": "2026-10-05T20:03:27.168Z"
+    },
+    {
+      "session_id": "session_a03a25ab-c0c6-465f-a668-c681b151358c",
+      "worker_id": "worker_6294901c-2f4a-4366-946a-092fdd81e2c1",
+      "generation": 1,
+      "previous_session_id": null,
+      "state": "blocked",
+      "reason": "initial_context",
+      "completed_turns": 0,
+      "created_at": "2026-10-05T20:03:26.700Z"
+    }
+  ],
+  "research_activity": [],
+  "paused": false,
+  "approved_documents": [
+    "README.md",
+    "docs/product/PROJECT_VISION.md",
+    "docs/product/AI_ORGANIZATION_MODEL.md",
+    "docs/architecture/SYSTEM_ARCHITECTURE.md",
+    "docs/decisions/decision_004_delegated_worker_creation.md"
+  ]
+}

@@ -1,0 +1,90 @@
+(node:19270) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mandate draft is passive, activation explicit, review ownership differs from direct replies and tasks (46.798542ms)
+✔ grounding requires full same-execution originals, denies invented/cross-mandate/future/withdrawn evidence (30.502709ms)
+✔ decisions are append-only, missing evidence explicit, committed outcome idempotent (29.966625ms)
+✔ one-time clock: before/exactly/after due, overlap hold-one, stable occurrence and no duplicate callback (28.236875ms)
+✔ recurring clock coalesces missed times without a model burst and ends at occurrence count (21.677125ms)
+✔ schedule edits retain versions, invalidate old due callbacks, cancellation is terminal (21.74275ms)
+✔ global, mandate and schedule pause retain due work and resume without duplication (87.566333ms)
+✔ disabled coordinator, revoked communication, cycle limit and unknown provider fence deny due review (110.127833ms)
+✔ stop prevents queued work and stale timers from reviving a mandate (20.883792ms)
+✔ Vancouver DST uses first repeated minute and first valid post-gap minute; interval uses elapsed seconds (10.981292ms)
+✔ crash after occurrence commit, before claim: reopening safely queues exactly one review (31.171ms)
+✔ fault before next-time commit rolls back occurrence and consumption atomically (21.899333ms)
+✔ known review failure backs off boundedly; ambiguous invocation blocks without retry (52.118167ms)
+✔ real dispatcher substrate executes two simulated-runtime cycles, second initiated only by persisted clock (70.845209ms)
+✔ idle company clock causes no model or research work (74.753833ms)
+✔ mandate internal Task enforces reporting hierarchy and separate decision link (30.4ms)
+✔ cancel after due queue but before dispatch cancels its review without invocation (28.722917ms)
+✔ mandate-selected group has actual coordinator provenance, explicit observation export and no hidden Task (33.933291ms)
+✔ v1 DTOs and notification hints exclude strategic Tasks, reports, messages and review executions (31.8265ms)
+✔ crash after claim before invocation retains effects, retries only known uninvoked attempt (32.564708ms)
+✔ unknown provider outcome after a committed decision retains decision and blocks occurrence (33.525333ms)
+✔ confirmed completion before occurrence completion reconciles on restart with no new model turn (32.958333ms)
+✔ schedule pause and expiry are rechecked after durable queue, before first provider execution (58.902709ms)
+✔ hypotheses and unsupported decisions cannot masquerade as supporting observation evidence (29.026167ms)
+✔ every distinct successful read consumes retrieval budget; idempotent replay does not (32.041667ms)
+✔ observation withdrawal revokes exported group scope and late evidence reads without deleting history (37.213083ms)
+✔ private analysis uses a Task-scoped provider context and preserves ordinary bindings in both directions (70.857292ms)
+✔ linked Task receives runtime abort at the enclosing cycle deadline (140.085708ms)
+✔ internal Task receives only explicitly selected evidence bodies and withdrawal denies late delivery (39.609292ms)
+✔ first-page reads allow omitted offset without relaxing scope, receipts or cumulative budgets (31.734208ms)
+✔ withdrawal replaces coordinator provider generation and withholds earlier derived strategy and reports (48.95125ms)
+✔ withdrawal replaces a safely queued request without altering its immutable scope or duplicating cycles (23.052042ms)
+✔ an unexecuted internal Task is inspectable but cannot alone satisfy decision grounding (29.837375ms)
+✔ fault after atomic cycle/request claim rolls back without duplicate or orphaned scheduled work (28.448292ms)
+✔ each settled strategic turn uses a fresh checkpoint with retained cycle identity and fresh delivery receipts (35.244166ms)
+✔ mandate research allowance is shared across separate internal Tasks and failed source attempts stay consumed (42.6465ms)
+✔ mandate revoke during Task research withholds late evidence and retains consumed budget (33.01875ms)
+✖ mandate pause during Task research withholds late evidence and retains consumed budget (33.696541ms)
+✖ mandate withdraw during Task research withholds late evidence and retains consumed budget (32.966791ms)
+✔ restart after provider reference persistence retains identity without replaying an ambiguous invocation (64.794ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 38
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1746.436792
+
+✖ failing tests:
+
+test at dist/test/mandates.test.js:864:5
+✖ mandate pause during Task research withholds late evidence and retains consumed budget (33.696541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed'
+  - 'withheld'
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:895:20)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'withheld',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/mandates.test.js:864:5
+✖ mandate withdraw during Task research withholds late evidence and retains consumed budget (32.966791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failed'
+  - 'withheld'
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:895:20)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'withheld',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

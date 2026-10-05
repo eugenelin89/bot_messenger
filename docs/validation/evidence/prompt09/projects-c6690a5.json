@@ -1,0 +1,1808 @@
+{
+  "result": "PASS",
+  "started": "2026-10-05T19:39:59.879Z",
+  "finished": "2026-10-05T19:46:08.714Z",
+  "source_sha": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+  "project": {
+    "project_id": "project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f",
+    "name": "LedgerBrief real acceptance",
+    "description": "Imported non-SquadStatus software with staged independent revision acceptance",
+    "status": "archived",
+    "instructions": "Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.",
+    "policy": "{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]}",
+    "created_by": "human",
+    "created_at": "2026-10-05T19:40:05.849Z",
+    "updated_at": "2026-10-05T19:46:06.685Z",
+    "legacy": 0
+  },
+  "repositories": [
+    {
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "product_name": "LedgerBrief",
+      "canonical_root": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/products/repository_1004eb8c-2095-4684-9adf-32e7295b98a7/main",
+      "default_branch": "trunk",
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "current_commit": "31de4b674904b1b360472b744cd60e141fbf3a19",
+      "created_by": "human",
+      "workflow_task_id": null,
+      "spec_artifact_id": null,
+      "status": "ready",
+      "created_at": "2026-10-05T19:40:05.993Z",
+      "updated_at": "2026-10-05T19:45:23.605Z",
+      "project_id": "project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f",
+      "source_kind": "imported",
+      "remote_provider": "github",
+      "remote_identity": "botsquad-validation/ledger-publication",
+      "remote_url": "https://github.com/botsquad-validation/ledger-publication.git",
+      "remote_policy": "approved_push",
+      "remote_sha": "31de4b674904b1b360472b744cd60e141fbf3a19",
+      "remote_state": "in_sync"
+    },
+    {
+      "repository_id": "repository_19b18416-f31c-40f8-927e-030af61c31f5",
+      "product_name": "Divergence inspection",
+      "canonical_root": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/products/repository_19b18416-f31c-40f8-927e-030af61c31f5/main",
+      "default_branch": "trunk",
+      "base_commit": "31de4b674904b1b360472b744cd60e141fbf3a19",
+      "current_commit": "31de4b674904b1b360472b744cd60e141fbf3a19",
+      "created_by": "human",
+      "workflow_task_id": null,
+      "spec_artifact_id": null,
+      "status": "ready",
+      "created_at": "2026-10-05T19:46:05.246Z",
+      "updated_at": "2026-10-05T19:46:06.356Z",
+      "project_id": "project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f",
+      "source_kind": "imported",
+      "remote_provider": "github",
+      "remote_identity": "botsquad-validation/ledger-divergence",
+      "remote_url": "https://github.com/botsquad-validation/ledger-divergence.git",
+      "remote_policy": "fetch_only",
+      "remote_sha": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "remote_state": "blocked"
+    }
+  ],
+  "workers": [
+    {
+      "worker_id": "worker_a9f6fe13-7cb8-4e38-b607-aec8c3eabdc9",
+      "name": "Atlas",
+      "role": "ceo",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "critical"
+    },
+    {
+      "worker_id": "worker_b62ee2d2-f7c1-4e4b-9e38-e5ddf5a16fee",
+      "name": "Nix",
+      "role": "devops",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal"
+    },
+    {
+      "worker_id": "worker_479dae05-7104-4049-b4b8-860e4a0e6e63",
+      "name": "Maya",
+      "role": "product_manager",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal"
+    },
+    {
+      "worker_id": "worker_494a3799-b89b-40ae-b21e-261146710449",
+      "name": "Turing",
+      "role": "cto",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "high"
+    },
+    {
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "name": "Linus",
+      "role": "engineer",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal"
+    },
+    {
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "name": "Ada",
+      "role": "engineer",
+      "model": "gpt-6-sol",
+      "reasoning": "low",
+      "priority": "normal"
+    },
+    {
+      "worker_id": "worker_86227788-b8f2-44af-90fa-7c1fd6e26b9d",
+      "name": "Grace",
+      "role": "reviewer",
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "priority": "high"
+    }
+  ],
+  "bindings": [
+    {
+      "worker_id": "worker_a9f6fe13-7cb8-4e38-b607-aec8c3eabdc9",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d94-a864-7613-851c-23e7006dda41",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_a9f6fe13-7cb8-4e38-b607-aec8c3eabdc9",
+      "created_at": "2026-10-05T19:40:08.762Z",
+      "thread_name": "BotSquad · Atlas · CEO"
+    },
+    {
+      "worker_id": "worker_b62ee2d2-f7c1-4e4b-9e38-e5ddf5a16fee",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d94-a936-7940-859d-02d2f588147a",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_b62ee2d2-f7c1-4e4b-9e38-e5ddf5a16fee",
+      "created_at": "2026-10-05T19:40:08.960Z",
+      "thread_name": "BotSquad · Nix · DevOps"
+    },
+    {
+      "worker_id": "worker_479dae05-7104-4049-b4b8-860e4a0e6e63",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d94-d643-7212-8112-35a6056c5b47",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_479dae05-7104-4049-b4b8-860e4a0e6e63",
+      "created_at": "2026-10-05T19:40:20.470Z",
+      "thread_name": "BotSquad · Maya · Product Manager"
+    },
+    {
+      "worker_id": "worker_494a3799-b89b-40ae-b21e-261146710449",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d95-62b1-75a2-aed2-6ca017b9abdd",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_494a3799-b89b-40ae-b21e-261146710449",
+      "created_at": "2026-10-05T19:40:56.423Z",
+      "thread_name": "BotSquad · Turing · CTO"
+    },
+    {
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d97-7e92-7480-9074-e6c95b433739",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "created_at": "2026-10-05T19:43:14.656Z",
+      "thread_name": "BotSquad · Linus · Ledger Engineer"
+    },
+    {
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d97-8032-7a31-9a47-7054fd6e906c",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "created_at": "2026-10-05T19:43:15.059Z",
+      "thread_name": "BotSquad · Ada · Report Engineer"
+    },
+    {
+      "worker_id": "worker_86227788-b8f2-44af-90fa-7c1fd6e26b9d",
+      "runtime_type": "codex-app-server",
+      "runtime_reference": "01a10d98-0b32-7aa3-863f-8f2e2cbb0cc8",
+      "workspace_path": ".validation/projects-prompt09-20261005-contract-20261005T193958Z/workspaces/worker_86227788-b8f2-44af-90fa-7c1fd6e26b9d",
+      "created_at": "2026-10-05T19:43:50.693Z",
+      "thread_name": "BotSquad · Grace · Reviewer"
+    }
+  ],
+  "engineers": [
+    {
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "name": "Linus",
+      "allocation_id": "allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "scope": [
+        "src/ledger/"
+      ],
+      "clone": "/var/lib/botsquad-workers/bsw-5cd275b2afade545b98ee549/projects/allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "uid": 20164,
+      "gid": 20164,
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "started": "2026-10-05T19:43:13.558Z",
+      "turn_started": "2026-10-05T19:43:15.219Z",
+      "finished": "2026-10-05T19:43:42.973Z"
+    },
+    {
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "name": "Ada",
+      "allocation_id": "allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2",
+      "scope": [
+        "src/report/"
+      ],
+      "clone": "/var/lib/botsquad-workers/bsw-dbd73811bf7483ed300ca45e/projects/allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2",
+      "uid": 20165,
+      "gid": 20165,
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "started": "2026-10-05T19:43:13.702Z",
+      "turn_started": "2026-10-05T19:43:15.632Z",
+      "finished": "2026-10-05T19:43:43.242Z"
+    }
+  ],
+  "execution_overlap_ms": 29271,
+  "runtime_turn_overlap_ms": 27341,
+  "operator_readiness_admission": {
+    "purpose": "Operator-controlled readiness admission before real overlap acceptance; not unconstrained production priority ordering",
+    "released_at": "2026-10-05T19:43:13.556Z",
+    "infrastructure_tasks": [
+      {
+        "task_id": "task_69b34bb0-55dc-4c37-a7fa-d6c7ce2fb2a3",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_ab3124e3-91f3-45ec-a5ab-d0eac6e76b53",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_5d867bb0-bf26-4b3c-9cbe-d147740540b9",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_fca5ac3d-6377-4f13-bde4-57ceb2d8fdd6",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_fe5cc692-0a77-48a6-805b-38907d31b4e1",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_c99af9d6-f349-43ea-abc4-aa87987dbf82",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_341425d3-7ddd-46a2-8753-527bc0948168",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_1707a62a-6419-4aef-bb12-d063ce6a6cf3",
+        "status": "completed"
+      }
+    ],
+    "infrastructure_executions": [
+      {
+        "execution_id": "execution_d1c3eff6-8dd9-4955-a699-2b47c9833d09",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:40:16.864Z"
+      },
+      {
+        "execution_id": "execution_4a7b3f86-62bd-41b1-b632-4244f029293f",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:40:25.161Z"
+      },
+      {
+        "execution_id": "execution_a14d701b-2d80-470f-a3ca-49ab280910f1",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:40:33.448Z"
+      },
+      {
+        "execution_id": "execution_916b69bf-57f5-4e7b-a96e-b0dc007663ae",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:40:41.006Z"
+      },
+      {
+        "execution_id": "execution_c8d2537f-531d-466e-bcbb-f6839a133d97",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:40:59.565Z"
+      },
+      {
+        "execution_id": "execution_c6dd884c-1fa7-4a78-944c-daac68c8599c",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:41:18.831Z"
+      },
+      {
+        "execution_id": "execution_67d92ce2-5019-4454-9523-45655c7d6205",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:41:40.043Z"
+      },
+      {
+        "execution_id": "execution_1edaf733-2dd7-4646-9448-2cefb72fc644",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:41:49.645Z"
+      },
+      {
+        "execution_id": "execution_65268db5-c51b-4b8c-8e92-3468c0b7cb17",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:41:59.748Z"
+      },
+      {
+        "execution_id": "execution_45a273c7-37f9-4d19-9b54-c11140d1f051",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:42:07.710Z"
+      },
+      {
+        "execution_id": "execution_bcc88a76-cae5-422a-833a-9e6fb3f6139c",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:42:18.724Z"
+      },
+      {
+        "execution_id": "execution_0c9df098-f3af-421e-9082-772c93ca17c5",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:42:30.845Z"
+      },
+      {
+        "execution_id": "execution_22fd3d96-1978-438c-a226-e6e5001011e2",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:42:39.051Z"
+      },
+      {
+        "execution_id": "execution_f0799d19-d6bc-409c-81b2-de5946d52ed8",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:42:52.352Z"
+      },
+      {
+        "execution_id": "execution_1c7f274a-d424-46bb-9aef-af9d3fcbf25e",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:43:06.021Z"
+      },
+      {
+        "execution_id": "execution_f38f8ec7-4fd4-45dc-93c6-6b2868aab58d",
+        "status": "completed",
+        "finished_at": "2026-10-05T19:43:13.460Z"
+      }
+    ],
+    "original_eligibility_preserved": true,
+    "max_employee_slots": 2
+  },
+  "submissions": [
+    {
+      "submission_id": "submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "allocation_id": "allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "branch_name": "botsquad/task/task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "commit_sha": "051f378e18cc22b0047ebf168d4da05b3c48aeb5",
+      "changed_paths": "[\"src/ledger/index.mjs\"]",
+      "validation": "{\"command\":\"ledger\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"ledger\\\",\\\"command\\\":\\\"confined-node recipe:ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: valid ledger totals without mutation\\\\nok 1 - valid ledger totals without mutation\\\\n  ---\\\\n  duration_ms: 3.96784\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 64.961179\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-05T19:43:34.630Z\\\"}]\",\"checked_at\":\"2026-10-05T19:43:34.631Z\"}",
+      "summary": "Initial valid-input totals implementation; focused ledger test passes. Four required out-of-scope/protected write probes were rejected. Malformed and nonfinite validation intentionally deferred to review revision.",
+      "created_at": "2026-10-05T19:43:35.241Z",
+      "commit_list": "[\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_70cf7bbf-473f-4532-be5b-3552e9129b7c",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "task_id": "task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "allocation_id": "allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2",
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "branch_name": "botsquad/task/task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "commit_sha": "b832e0c0c779af441026cd73941cce862faa17c5",
+      "changed_paths": "[\"src/report/index.mjs\"]",
+      "validation": "{\"command\":\"report\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"report\\\",\\\"command\\\":\\\"confined-node recipe:report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: exact plain-text rendering\\\\nok 1 - exact plain-text rendering\\\\n  ---\\\\n  duration_ms: 1.328094\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 59.771668\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-05T19:43:39.355Z\\\"}]\",\"checked_at\":\"2026-10-05T19:43:39.356Z\"}",
+      "summary": "Implement exact plain-text report rendering; report focused recipe passes. All four required out-of-scope/protected write probes were rejected.",
+      "created_at": "2026-10-05T19:43:39.909Z",
+      "commit_list": "[\"b832e0c0c779af441026cd73941cce862faa17c5\"]",
+      "revision_round": 1,
+      "previous_submission_id": null
+    },
+    {
+      "submission_id": "submission_d25cb522-dcac-4ef0-aa5a-7a9ab235bdfe",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "execution_id": "execution_a034916d-b127-4ec8-91dc-550cf370916d",
+      "allocation_id": "allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb",
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "branch_name": "botsquad/task/task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "commit_sha": "847ac9790565fda3c96d0ce1c9877271d0bd81df",
+      "changed_paths": "[\"src/ledger/index.mjs\"]",
+      "validation": "{\"command\":\"ledger\",\"passed\":true,\"exit_code\":0,\"output\":\"[{\\\"recipe_id\\\":\\\"ledger\\\",\\\"command\\\":\\\"confined-node recipe:ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"TAP version 13\\\\n# Subtest: valid ledger totals without mutation\\\\nok 1 - valid ledger totals without mutation\\\\n  ---\\\\n  duration_ms: 4.014729\\\\n  type: 'test'\\\\n  ...\\\\n1..1\\\\n# tests 1\\\\n# suites 0\\\\n# pass 1\\\\n# fail 0\\\\n# cancelled 0\\\\n# skipped 0\\\\n# todo 0\\\\n# duration_ms 68.969856\\\\n\\\",\\\"checked_at\\\":\\\"2026-10-05T19:44:35.764Z\\\"}]\",\"checked_at\":\"2026-10-05T19:44:35.765Z\"}",
+      "summary": "Revision adds explicit TypeError validation for non-array input and malformed/nonfinite amounts without mutation; focused ledger test passes. Descends from initial submission.",
+      "created_at": "2026-10-05T19:44:36.386Z",
+      "commit_list": "[\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\",\"847ac9790565fda3c96d0ce1c9877271d0bd81df\"]",
+      "revision_round": 2,
+      "previous_submission_id": "submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d"
+    }
+  ],
+  "reviews": [
+    {
+      "review_id": "review_b43baaef-7605-4c60-a75e-eb2290b4f0a9",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "task_id": "task_14fff7ff-c21b-4174-9e29-7f621867e844",
+      "worker_id": "worker_86227788-b8f2-44af-90fa-7c1fd6e26b9d",
+      "execution_id": "execution_6a5414d0-b739-41c6-9b69-67fe23ce2d13",
+      "source_commits": "[\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\",\"b832e0c0c779af441026cd73941cce862faa17c5\"]",
+      "status": "changes_required",
+      "artifact_id": "artifact_cda82f44-6553-4f5d-8f3f-ec2d7eb33972",
+      "created_at": "2026-10-05T19:44:12.624Z",
+      "round_id": "round_7f209e05-5354-49fe-9bff-a68986dcbc22"
+    },
+    {
+      "review_id": "review_9870f920-1e37-4c8c-ae00-38d2150f464c",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "task_id": "task_c8b9e4f5-142b-4c9c-bb53-0bb3b509ffbc",
+      "worker_id": "worker_86227788-b8f2-44af-90fa-7c1fd6e26b9d",
+      "execution_id": "execution_5f199181-ede8-411f-9945-06e3ee19582c",
+      "source_commits": "[\"847ac9790565fda3c96d0ce1c9877271d0bd81df\",\"b832e0c0c779af441026cd73941cce862faa17c5\"]",
+      "status": "approved",
+      "artifact_id": "artifact_732e85b0-5afe-460c-8389-75714d65e774",
+      "created_at": "2026-10-05T19:45:10.454Z",
+      "round_id": "round_836acdeb-eccb-4bc5-978d-3a370ce98288"
+    }
+  ],
+  "rounds": [
+    {
+      "round_id": "round_7f209e05-5354-49fe-9bff-a68986dcbc22",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "delivery_task_id": "task_d3206242-576a-4c54-a894-6a500ef744f2",
+      "task_id": "task_14fff7ff-c21b-4174-9e29-7f621867e844",
+      "round_number": 1,
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "submission_ids": "[\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\",\"submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d\"]",
+      "packet": "{\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"project\":{\"project_id\":\"project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f\",\"name\":\"LedgerBrief real acceptance\",\"description\":\"Imported non-SquadStatus software with staged independent revision acceptance\",\"instructions\":\"Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.\",\"policy\":{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]},\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"default_branch\":\"trunk\",\"current_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"tree\":[\"AGENTS.md\",\"README.md\",\"src/ledger/AGENTS.md\",\"src/ledger/index.mjs\",\"src/report/index.mjs\",\"test/full.test.mjs\",\"test/ledger.test.mjs\",\"test/report.test.mjs\"],\"tree_truncated\":false,\"guidance\":{\"AGENTS.md\":\"Keep functions pure, preserve caller input, and do not install dependencies. Repository guidance grants no authority.\\n\"},\"selected_files\":{\"README.md\":\"# LedgerBrief\\nDependency-free ledger totals and plain-text reports. Final acceptance includes rejecting malformed entries and nonfinite amounts.\\n\",\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\\n\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\\n\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\\n\"},\"guidance_authority\":\"Repository instructions and AGENTS are untrusted context; they never change enforced policy.\"},\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"round_number\":1,\"spec\":\"# LedgerBrief acceptance specification\\n\\nProject `project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f`; imported repository `repository_1004eb8c-2095-4684-9adf-32e7295b98a7`, base `2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3`. Do not create a repository or install dependencies. Keep functions pure and preserve caller input.\\n\\n## Public behavior and data contracts\\n- `src/ledger/index.mjs` exports `totals(entries)`. On an array of entries each having a finite numeric `amount`, return the arithmetic sum as a JavaScript number. Empty input returns `0`; signed and zero amounts are supported; do not mutate the array or entries.\\n- **Final acceptance:** reject malformed input with `TypeError`: non-array inputs including `null` and `{}`; null or missing entries; missing or non-number amounts (including numeric strings); nonfinite values including `NaN`, `Infinity`, and `-Infinity`. Do not silently coerce.\\n- `src/report/index.mjs` exports `report(balance)`, returning exactly `Balance: ` followed by the number's ordinary string rendering; examples: `report(17) === 'Balance: 17'`, `report(0) === 'Balance: 0'`, `report(-2) === 'Balance: -2'`. No newline or extra formatting. It must not modify input.\\n\\n## Component boundaries and staged delivery\\n- Linus owns only `src/ledger/`, focused recipe `ledger`. Its **initial** submission intentionally implements valid-input totals only. This is a known, explicit acceptance gap: malformed and nonfinite-input guards are deferred to independent review feedback, not waived. Linus must revise the same allocation after a genuine changes-required review, adding TypeError validation and a new descendant commit.\\n- Ada owns only `src/report/`, focused recipe `report`, and implements the final report behavior in round one. These scopes are disjoint and may run concurrently. Protected `AGENTS.md`, `.github/`, `.botsquad/`, and `test/` are not writable.\\n- Grace independently reviews the actual immutable initial submissions, exact commit IDs/diffs, specification, and validation. The first ledger diff is expected to fail final full acceptance for malformed/nonfinite input; Grace must verify that defect from the real diff and issue actionable `changes_required` feedback identifying Linus's allocation and submission IDs. Do not fabricate a finding or submission. Ada needs no revision if its actual diff meets this contract. On revised ledger submission, Grace reviews its exact new commit, not merely prior prose, and approves only if all final contracts are met; approved feedback is empty. Do not integrate an old or rejected review.\\n\\n## Validation and review criteria\\n- Focused `ledger`: `node --test test/ledger.test.mjs` (valid totals, empty array, preservation).\\n- Focused `report`: `node --test test/report.test.mjs` (exact positive, zero, negative rendering).\\n- Full `full`: `node --test test/full.test.mjs` (integrated rendering and TypeError rejection for malformed/nonfinite inputs). Initial focused ledger success is insufficient for final acceptance. After approved review, integration must run the registered full recipe and report actual result, integration ID and candidate/final SHA; queued/running is not success.\",\"selected_base_files\":{\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\"},\"submissions\":[{\"submission_id\":\"submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d\",\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"task_id\":\"task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa\",\"worker_id\":\"worker_8e5b3aff-c880-47a1-b325-75b0988d1b04\",\"execution_id\":\"execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0\",\"allocation_id\":\"allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb\",\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"branch_name\":\"botsquad/task/task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa\",\"commit_sha\":\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\",\"changed_paths\":\"[\\\"src/ledger/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"ledger\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:ledger\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: valid ledger totals without mutation\\\\\\\\nok 1 - valid ledger totals without mutation\\\\\\\\n  ---\\\\\\\\n  duration_ms: 3.96784\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 64.961179\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-05T19:43:34.630Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-05T19:43:34.631Z\\\"}\",\"summary\":\"Initial valid-input totals implementation; focused ledger test passes. Four required out-of-scope/protected write probes were rejected. Malformed and nonfinite validation intentionally deferred to review revision.\",\"created_at\":\"2026-10-05T19:43:35.241Z\",\"commit_list\":\"[\\\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Linus\",\"diff\":\"diff --git a/src/ledger/index.mjs b/src/ledger/index.mjs\\nindex b555538..3a4750e 100644\\n--- a/src/ledger/index.mjs\\n+++ b/src/ledger/index.mjs\\n@@ -1 +1,3 @@\\n-export function totals(entries) { throw new Error(\\\"Implement totals\\\"); }\\n+export function totals(entries) {\\n+  return entries.reduce((sum, entry) => sum + entry.amount, 0);\\n+}\"},{\"submission_id\":\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\",\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"task_id\":\"task_a9d304c4-91a0-49f8-a5c2-890cdfe90820\",\"worker_id\":\"worker_6873a094-048b-4525-a2be-9f9c648c0157\",\"execution_id\":\"execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638\",\"allocation_id\":\"allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2\",\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"branch_name\":\"botsquad/task/task_a9d304c4-91a0-49f8-a5c2-890cdfe90820\",\"commit_sha\":\"b832e0c0c779af441026cd73941cce862faa17c5\",\"changed_paths\":\"[\\\"src/report/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"report\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:report\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: exact plain-text rendering\\\\\\\\nok 1 - exact plain-text rendering\\\\\\\\n  ---\\\\\\\\n  duration_ms: 1.328094\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 59.771668\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-05T19:43:39.355Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-05T19:43:39.356Z\\\"}\",\"summary\":\"Implement exact plain-text report rendering; report focused recipe passes. All four required out-of-scope/protected write probes were rejected.\",\"created_at\":\"2026-10-05T19:43:39.909Z\",\"commit_list\":\"[\\\"b832e0c0c779af441026cd73941cce862faa17c5\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Ada\",\"diff\":\"diff --git a/src/report/index.mjs b/src/report/index.mjs\\nindex 412539d..fffd23e 100644\\n--- a/src/report/index.mjs\\n+++ b/src/report/index.mjs\\n@@ -1 +1,3 @@\\n-export function report(total) { throw new Error(\\\"Implement report\\\"); }\\n+export function report(balance) {\\n+  return `Balance: ${balance}`;\\n+}\"}],\"prior_feedback\":[]}",
+      "packet_hash": "13537550e8e1368b469823db30868d956e0f36c2f7b6cdc2f76ddeaeb88f606f",
+      "created_at": "2026-10-05T19:43:49.700Z",
+      "legacy": 0
+    },
+    {
+      "round_id": "round_836acdeb-eccb-4bc5-978d-3a370ce98288",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "delivery_task_id": "task_d3206242-576a-4c54-a894-6a500ef744f2",
+      "task_id": "task_c8b9e4f5-142b-4c9c-bb53-0bb3b509ffbc",
+      "round_number": 2,
+      "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+      "submission_ids": "[\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\",\"submission_d25cb522-dcac-4ef0-aa5a-7a9ab235bdfe\"]",
+      "packet": "{\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"project\":{\"project_id\":\"project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f\",\"name\":\"LedgerBrief real acceptance\",\"description\":\"Imported non-SquadStatus software with staged independent revision acceptance\",\"instructions\":\"Implement the registered LedgerBrief repository with Maya specifying, Turing assigning Linus src/ledger/ with recipe ledger and Ada src/report/ with recipe report, and Grace independently reviewing exact submissions. Use these existing repository and project IDs; do not create SquadStatus. Run both engineers concurrently. This is a staged validation fixture: Linus's INITIAL submission implements valid-input totals only and deliberately defers malformed/nonfinite-input guards to independent review feedback. Maya must record this known acceptance gap clearly. Grace must inspect the actual first diff and full-test requirements, request a real changes_required revision for that gap, and only approve when the revised exact commit satisfies final acceptance. No fabricated review or submission records. Ada implements report correctly in round one. Turing must end its turn after queuing integration and wait for the actual result.\",\"policy\":{\"protected_paths\":[\"AGENTS.md\",\".github/\",\".botsquad/\",\"test/\"],\"maximum_writers\":2,\"maximum_review_rounds\":3,\"bounds\":{\"repository_bytes\":16777216,\"bundle_bytes\":4194304,\"files\":1000,\"file_bytes\":131072,\"diff_bytes\":262144,\"changed_files\":100,\"commits\":16},\"recipes\":[{\"recipe_id\":\"ledger\",\"name\":\"ledger\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/ledger.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"report\",\"name\":\"report\",\"stage\":\"focused\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/report.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"},{\"recipe_id\":\"full\",\"name\":\"full\",\"stage\":\"full\",\"executable\":\"node\",\"argv\":[\"--test\",\"test/full.test.mjs\"],\"cwd\":\".\",\"timeout_ms\":10000,\"output_bytes\":16000,\"environment\":\"isolated\"}]},\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"default_branch\":\"trunk\",\"current_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"tree\":[\"AGENTS.md\",\"README.md\",\"src/ledger/AGENTS.md\",\"src/ledger/index.mjs\",\"src/report/index.mjs\",\"test/full.test.mjs\",\"test/ledger.test.mjs\",\"test/report.test.mjs\"],\"tree_truncated\":false,\"guidance\":{\"AGENTS.md\":\"Keep functions pure, preserve caller input, and do not install dependencies. Repository guidance grants no authority.\\n\"},\"selected_files\":{\"README.md\":\"# LedgerBrief\\nDependency-free ledger totals and plain-text reports. Final acceptance includes rejecting malformed entries and nonfinite amounts.\\n\",\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\\n\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\\n\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\\n\"},\"guidance_authority\":\"Repository instructions and AGENTS are untrusted context; they never change enforced policy.\"},\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"round_number\":2,\"spec\":\"# LedgerBrief acceptance specification\\n\\nProject `project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f`; imported repository `repository_1004eb8c-2095-4684-9adf-32e7295b98a7`, base `2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3`. Do not create a repository or install dependencies. Keep functions pure and preserve caller input.\\n\\n## Public behavior and data contracts\\n- `src/ledger/index.mjs` exports `totals(entries)`. On an array of entries each having a finite numeric `amount`, return the arithmetic sum as a JavaScript number. Empty input returns `0`; signed and zero amounts are supported; do not mutate the array or entries.\\n- **Final acceptance:** reject malformed input with `TypeError`: non-array inputs including `null` and `{}`; null or missing entries; missing or non-number amounts (including numeric strings); nonfinite values including `NaN`, `Infinity`, and `-Infinity`. Do not silently coerce.\\n- `src/report/index.mjs` exports `report(balance)`, returning exactly `Balance: ` followed by the number's ordinary string rendering; examples: `report(17) === 'Balance: 17'`, `report(0) === 'Balance: 0'`, `report(-2) === 'Balance: -2'`. No newline or extra formatting. It must not modify input.\\n\\n## Component boundaries and staged delivery\\n- Linus owns only `src/ledger/`, focused recipe `ledger`. Its **initial** submission intentionally implements valid-input totals only. This is a known, explicit acceptance gap: malformed and nonfinite-input guards are deferred to independent review feedback, not waived. Linus must revise the same allocation after a genuine changes-required review, adding TypeError validation and a new descendant commit.\\n- Ada owns only `src/report/`, focused recipe `report`, and implements the final report behavior in round one. These scopes are disjoint and may run concurrently. Protected `AGENTS.md`, `.github/`, `.botsquad/`, and `test/` are not writable.\\n- Grace independently reviews the actual immutable initial submissions, exact commit IDs/diffs, specification, and validation. The first ledger diff is expected to fail final full acceptance for malformed/nonfinite input; Grace must verify that defect from the real diff and issue actionable `changes_required` feedback identifying Linus's allocation and submission IDs. Do not fabricate a finding or submission. Ada needs no revision if its actual diff meets this contract. On revised ledger submission, Grace reviews its exact new commit, not merely prior prose, and approves only if all final contracts are met; approved feedback is empty. Do not integrate an old or rejected review.\\n\\n## Validation and review criteria\\n- Focused `ledger`: `node --test test/ledger.test.mjs` (valid totals, empty array, preservation).\\n- Focused `report`: `node --test test/report.test.mjs` (exact positive, zero, negative rendering).\\n- Full `full`: `node --test test/full.test.mjs` (integrated rendering and TypeError rejection for malformed/nonfinite inputs). Initial focused ledger success is insufficient for final acceptance. After approved review, integration must run the registered full recipe and report actual result, integration ID and candidate/final SHA; queued/running is not success.\",\"selected_base_files\":{\"test/ledger.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs';\\ntest('valid ledger totals without mutation',()=>{const x=[{amount:20},{amount:-3},{amount:0}];assert.equal(totals(x),17);assert.deepEqual(x,[{amount:20},{amount:-3},{amount:0}]);assert.equal(totals([]),0);});\",\"test/report.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {report} from '../src/report/index.mjs';\\ntest('exact plain-text rendering',()=>{assert.equal(report(17),'Balance: 17');assert.equal(report(0),'Balance: 0');assert.equal(report(-2),'Balance: -2');});\",\"test/full.test.mjs\":\"import {test} from 'node:test'; import assert from 'node:assert/strict'; import {totals} from '../src/ledger/index.mjs'; import {report} from '../src/report/index.mjs';\\ntest('integrated balance',()=>assert.equal(report(totals([{amount:20},{amount:-3}])),'Balance: 17'));\\ntest('reject malformed and nonfinite amounts',()=>{for(const x of [null,{},[null],[{}],[{amount:'2'}],[{amount:NaN}],[{amount:Infinity}]])assert.throws(()=>totals(x),TypeError);});\"},\"submissions\":[{\"submission_id\":\"submission_d25cb522-dcac-4ef0-aa5a-7a9ab235bdfe\",\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"task_id\":\"task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa\",\"worker_id\":\"worker_8e5b3aff-c880-47a1-b325-75b0988d1b04\",\"execution_id\":\"execution_a034916d-b127-4ec8-91dc-550cf370916d\",\"allocation_id\":\"allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb\",\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"branch_name\":\"botsquad/task/task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa\",\"commit_sha\":\"847ac9790565fda3c96d0ce1c9877271d0bd81df\",\"changed_paths\":\"[\\\"src/ledger/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"ledger\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"ledger\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:ledger\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: valid ledger totals without mutation\\\\\\\\nok 1 - valid ledger totals without mutation\\\\\\\\n  ---\\\\\\\\n  duration_ms: 4.014729\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 68.969856\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-05T19:44:35.764Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-05T19:44:35.765Z\\\"}\",\"summary\":\"Revision adds explicit TypeError validation for non-array input and malformed/nonfinite amounts without mutation; focused ledger test passes. Descends from initial submission.\",\"created_at\":\"2026-10-05T19:44:36.386Z\",\"commit_list\":\"[\\\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\\\",\\\"847ac9790565fda3c96d0ce1c9877271d0bd81df\\\"]\",\"revision_round\":2,\"previous_submission_id\":\"submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d\",\"worker_name\":\"Linus\",\"diff\":\"diff --git a/src/ledger/index.mjs b/src/ledger/index.mjs\\nindex b555538..36cccd0 100644\\n--- a/src/ledger/index.mjs\\n+++ b/src/ledger/index.mjs\\n@@ -1 +1,13 @@\\n-export function totals(entries) { throw new Error(\\\"Implement totals\\\"); }\\n+export function totals(entries) {\\n+  if (!Array.isArray(entries)) {\\n+    throw new TypeError('Ledger entries must be an array');\\n+  }\\n+\\n+  return entries.reduce((sum, entry) => {\\n+    if (entry === null || typeof entry !== 'object' ||\\n+        typeof entry.amount !== 'number' || !Number.isFinite(entry.amount)) {\\n+      throw new TypeError('Each ledger entry must have a finite numeric amount');\\n+    }\\n+    return sum + entry.amount;\\n+  }, 0);\\n+}\"},{\"submission_id\":\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\",\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"task_id\":\"task_a9d304c4-91a0-49f8-a5c2-890cdfe90820\",\"worker_id\":\"worker_6873a094-048b-4525-a2be-9f9c648c0157\",\"execution_id\":\"execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638\",\"allocation_id\":\"allocation_1d49e76c-ec9b-4d92-a74f-dc7658a2bbb2\",\"base_commit\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"branch_name\":\"botsquad/task/task_a9d304c4-91a0-49f8-a5c2-890cdfe90820\",\"commit_sha\":\"b832e0c0c779af441026cd73941cce862faa17c5\",\"changed_paths\":\"[\\\"src/report/index.mjs\\\"]\",\"validation\":\"{\\\"command\\\":\\\"report\\\",\\\"passed\\\":true,\\\"exit_code\\\":0,\\\"output\\\":\\\"[{\\\\\\\"recipe_id\\\\\\\":\\\\\\\"report\\\\\\\",\\\\\\\"command\\\\\\\":\\\\\\\"confined-node recipe:report\\\\\\\",\\\\\\\"passed\\\\\\\":true,\\\\\\\"exit_code\\\\\\\":0,\\\\\\\"output\\\\\\\":\\\\\\\"TAP version 13\\\\\\\\n# Subtest: exact plain-text rendering\\\\\\\\nok 1 - exact plain-text rendering\\\\\\\\n  ---\\\\\\\\n  duration_ms: 1.328094\\\\\\\\n  type: 'test'\\\\\\\\n  ...\\\\\\\\n1..1\\\\\\\\n# tests 1\\\\\\\\n# suites 0\\\\\\\\n# pass 1\\\\\\\\n# fail 0\\\\\\\\n# cancelled 0\\\\\\\\n# skipped 0\\\\\\\\n# todo 0\\\\\\\\n# duration_ms 59.771668\\\\\\\\n\\\\\\\",\\\\\\\"checked_at\\\\\\\":\\\\\\\"2026-10-05T19:43:39.355Z\\\\\\\"}]\\\",\\\"checked_at\\\":\\\"2026-10-05T19:43:39.356Z\\\"}\",\"summary\":\"Implement exact plain-text report rendering; report focused recipe passes. All four required out-of-scope/protected write probes were rejected.\",\"created_at\":\"2026-10-05T19:43:39.909Z\",\"commit_list\":\"[\\\"b832e0c0c779af441026cd73941cce862faa17c5\\\"]\",\"revision_round\":1,\"previous_submission_id\":null,\"worker_name\":\"Ada\",\"diff\":\"diff --git a/src/report/index.mjs b/src/report/index.mjs\\nindex 412539d..fffd23e 100644\\n--- a/src/report/index.mjs\\n+++ b/src/report/index.mjs\\n@@ -1 +1,3 @@\\n-export function report(total) { throw new Error(\\\"Implement report\\\"); }\\n+export function report(balance) {\\n+  return `Balance: ${balance}`;\\n+}\"}],\"prior_feedback\":[{\"review_id\":\"review_b43baaef-7605-4c60-a75e-eb2290b4f0a9\",\"round_id\":\"round_7f209e05-5354-49fe-9bff-a68986dcbc22\",\"content\":\"{\\n  \\\"status\\\": \\\"changes_required\\\",\\n  \\\"source_commits\\\": [\\n    \\\"051f378e18cc22b0047ebf168d4da05b3c48aeb5\\\",\\n    \\\"b832e0c0c779af441026cd73941cce862faa17c5\\\"\\n  ],\\n  \\\"source_submission_ids\\\": [\\n    \\\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\\\",\\n    \\\"submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d\\\"\\n  ],\\n  \\\"round_id\\\": \\\"round_7f209e05-5354-49fe-9bff-a68986dcbc22\\\",\\n  \\\"round_number\\\": 1,\\n  \\\"packet_hash\\\": \\\"13537550e8e1368b469823db30868d956e0f36c2f7b6cdc2f76ddeaeb88f606f\\\",\\n  \\\"feedback\\\": [\\n    {\\n      \\\"allocation_id\\\": \\\"allocation_70fdc8f0-81ad-4edd-879d-1272080f1ebb\\\",\\n      \\\"submission_id\\\": \\\"submission_b82ebdc9-bdd5-4c12-9977-cc11aa0c714d\\\",\\n      \\\"feedback\\\": \\\"Revise src/ledger/index.mjs in this same allocation with explicit validation before summing: reject non-array input, null or malformed entries, missing or non-number amount, and NaN/±Infinity with TypeError; do not coerce or mutate input. Preserve correct valid sums and empty-array zero. The submitted reduce-only code returns NaN for [{}], concatenates for a numeric string, and returns NaN/Infinity rather than throwing. Run the assigned ledger focused recipe and submit a new descendant commit.\\\"\\n    }\\n  ],\\n  \\\"findings\\\": \\\"Linus's actual diff replaces the stub with entries.reduce((sum, entry) => sum + entry.amount, 0). This passes valid totals but lacks entry and amount validation. For [{}] it returns NaN, for [{amount:'2'}] it coerces by concatenation, and for NaN/Infinity it returns a nonfinite value, rather than throwing TypeError. Null/non-array cases may throw incidentally but do not establish the required comprehensive contract. Ada's actual diff returns the exact `Balance: ${balance}` string and meets the report contract; no report change is requested.\\\",\\n  \\\"integration_risks\\\": \\\"Do not integrate this round: the ledger submission would fail the full recipe's malformed/nonfinite case. Re-review the exact revised descendant commit and only then queue integration.\\\",\\n  \\\"acceptance_assessment\\\": \\\"Both focused recipes passed in their submitted evidence. The protected full test requires TypeError for malformed/nonfinite ledger values and the ledger diff cannot satisfy it; final acceptance is not met. The integrated valid balance and Ada's rendering appear correct from the exact diffs, but full integration validation has not run.\\\",\\n  \\\"recommended_disposition\\\": \\\"Request revision only for Linus's ledger allocation; retain Ada's accepted round-one report submission in the next review packet.\\\"\\n}\"}]}",
+      "packet_hash": "e02f403f73a1b67718fb4ef96e71a0543b7c485935ec913d6bd6fbefc00a3821",
+      "created_at": "2026-10-05T19:44:47.419Z",
+      "legacy": 0
+    }
+  ],
+  "integration": {
+    "integration_id": "integration_47288729-20cc-4919-be2a-a970691e8447",
+    "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+    "review_id": "review_9870f920-1e37-4c8c-ae00-38d2150f464c",
+    "base_commit": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+    "source_commits": "[\"847ac9790565fda3c96d0ce1c9877271d0bd81df\",\"b832e0c0c779af441026cd73941cce862faa17c5\"]",
+    "candidate_commit": "31de4b674904b1b360472b744cd60e141fbf3a19",
+    "final_commit": "31de4b674904b1b360472b744cd60e141fbf3a19",
+    "strategy": "cherry-pick-then-fast-forward",
+    "validation": "{\"passed\":true,\"recipes\":[{\"recipe_id\":\"full\",\"command\":\"confined-node recipe:full\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: integrated balance\\nok 1 - integrated balance\\n  ---\\n  duration_ms: 6.853559\\n  type: 'test'\\n  ...\\n# Subtest: reject malformed and nonfinite amounts\\nok 2 - reject malformed and nonfinite amounts\\n  ---\\n  duration_ms: 2.475653\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 151.134439\\n\",\"checked_at\":\"2026-10-05T19:45:23.517Z\"}]}",
+    "status": "completed",
+    "error": null,
+    "requested_by": "worker_494a3799-b89b-40ae-b21e-261146710449",
+    "execution_id": "execution_4b22be0b-8c54-486f-89ec-307b61874591",
+    "created_at": "2026-10-05T19:45:19.887Z",
+    "updated_at": "2026-10-05T19:45:23.605Z",
+    "round_id": "round_836acdeb-eccb-4bc5-978d-3a370ce98288",
+    "submission_ids": "[\"submission_70cf7bbf-473f-4532-be5b-3552e9129b7c\",\"submission_d25cb522-dcac-4ef0-aa5a-7a9ab235bdfe\"]",
+    "delivery_task_id": "task_d3206242-576a-4c54-a894-6a500ef744f2"
+  },
+  "recovery": [
+    {
+      "stage": "pending_identity_approval",
+      "preserved": true
+    },
+    {
+      "stage": "submissions",
+      "at": "2026-10-05T19:43:43.932Z",
+      "executions": 22,
+      "submissions": 2,
+      "rounds": 0,
+      "integrations": []
+    },
+    {
+      "stage": "revision",
+      "at": "2026-10-05T19:44:20.519Z",
+      "executions": 24,
+      "submissions": 2,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "resubmission",
+      "at": "2026-10-05T19:44:39.229Z",
+      "executions": 25,
+      "submissions": 3,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "integration",
+      "at": "2026-10-05T19:45:22.571Z",
+      "executions": 28,
+      "submissions": 3,
+      "rounds": 2,
+      "integrations": [
+        {
+          "id": "integration_47288729-20cc-4919-be2a-a970691e8447",
+          "status": "queued"
+        }
+      ]
+    },
+    {
+      "stage": "accepted_remote_lost_response",
+      "operation_id": "operation_91474315-041d-4a1f-9d0e-ee3780940ed3",
+      "receipt_count": 1,
+      "publish_attempts": 1
+    },
+    {
+      "stage": "archived",
+      "preserved": true,
+      "new_work_rejected": true
+    }
+  ],
+  "remote": {
+    "identity": "botsquad-validation/ledger-publication",
+    "initial": "2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3",
+    "new": "31de4b674904b1b360472b744cd60e141fbf3a19",
+    "operation": {
+      "operation_id": "operation_91474315-041d-4a1f-9d0e-ee3780940ed3",
+      "approval_id": "approval_8618e9ff-fb8d-4a7c-a4bf-0dcce58ad8a9",
+      "operation_type": "remote_push",
+      "project_id": "project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f",
+      "repository_id": "repository_1004eb8c-2095-4684-9adf-32e7295b98a7",
+      "envelope": "{\"approval_id\":\"approval_8618e9ff-fb8d-4a7c-a4bf-0dcce58ad8a9\",\"expected_old_sha\":\"2ccb224e3829a5d753dedb1bed7bbf5ccf5d8be3\",\"identity\":\"botsquad-validation/ledger-publication\",\"integration_id\":\"integration_47288729-20cc-4919-be2a-a970691e8447\",\"new_sha\":\"31de4b674904b1b360472b744cd60e141fbf3a19\",\"operation_id\":\"operation_91474315-041d-4a1f-9d0e-ee3780940ed3\",\"operation_type\":\"remote_push\",\"project_id\":\"project_b5dfcd12-e878-4b78-96e7-d610d9dddf4f\",\"provider\":\"github\",\"repository_id\":\"repository_1004eb8c-2095-4684-9adf-32e7295b98a7\",\"target_branch\":\"trunk\",\"url\":\"https://github.com/botsquad-validation/ledger-publication.git\"}",
+      "envelope_hash": "28ec2cf4cde18a42eeaadcf065213ae47858ae4ab8d095fed5bab9f76b69dfcb",
+      "reason": "Explicitly authorized disposable Prompt 05 remote fixture publication",
+      "status": "completed",
+      "requested_at": "2026-10-05T19:46:03.567Z",
+      "result": "{\"remote_sha\":\"31de4b674904b1b360472b744cd60e141fbf3a19\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+      "error": null
+    },
+    "approvals": [
+      {
+        "approval_id": "approval_8618e9ff-fb8d-4a7c-a4bf-0dcce58ad8a9",
+        "operation_id": "operation_91474315-041d-4a1f-9d0e-ee3780940ed3",
+        "envelope_hash": "28ec2cf4cde18a42eeaadcf065213ae47858ae4ab8d095fed5bab9f76b69dfcb",
+        "status": "consumed",
+        "requested_at": "2026-10-05T19:46:03.567Z",
+        "expires_at": "2026-10-05T20:46:03.568Z",
+        "decided_at": "2026-10-05T19:46:03.602Z",
+        "decided_by": "human",
+        "consumed_at": "2026-10-05T19:46:03.659Z"
+      }
+    ],
+    "receipts": [
+      {
+        "operation_id": "operation_91474315-041d-4a1f-9d0e-ee3780940ed3",
+        "envelope_hash": "28ec2cf4cde18a42eeaadcf065213ae47858ae4ab8d095fed5bab9f76b69dfcb",
+        "result": "{\"remote_sha\":\"31de4b674904b1b360472b744cd60e141fbf3a19\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+        "recorded_at": "2026-10-05T19:46:04.966Z"
+      }
+    ],
+    "publish_attempts": 1,
+    "divergence_blocked": true,
+    "live_authenticated_github_push": "unvalidated"
+  },
+  "scope_denials": [
+    {
+      "event_id": "event_35f539ed-ad76-4659-8f07-d65e5ebb75bf",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-05T19:43:20.058Z"
+    },
+    {
+      "event_id": "event_675ca89d-8db3-4408-83ed-82761b7833ec",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-05T19:43:20.141Z"
+    },
+    {
+      "event_id": "event_20c997ee-558d-4433-947b-1e9e2da04417",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-05T19:43:20.250Z"
+    },
+    {
+      "event_id": "event_b4dcc3ea-7e28-4c61-87e2-6d32c293d060",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_8e5b3aff-c880-47a1-b325-75b0988d1b04",
+      "task_id": "task_1bc8d0e6-5b52-450a-a814-8c93cf3612fa",
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-05T19:43:20.328Z"
+    },
+    {
+      "event_id": "event_059a66e1-a3fd-49fd-88ba-a7ab246b2c1a",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "task_id": "task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-05T19:43:23.415Z"
+    },
+    {
+      "event_id": "event_a5c95e0d-6594-462d-abef-e4f3573eae23",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "task_id": "task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-05T19:43:23.529Z"
+    },
+    {
+      "event_id": "event_13513f51-c379-4cec-b4cd-68462a82ca96",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "task_id": "task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-05T19:43:23.644Z"
+    },
+    {
+      "event_id": "event_bcef4a92-e11e-426f-a4db-4ea64b914f3d",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_6873a094-048b-4525-a2be-9f9c648c0157",
+      "task_id": "task_a9d304c4-91a0-49f8-a5c2-890cdfe90820",
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-05T19:43:23.756Z"
+    }
+  ],
+  "runtime_policies": [
+    {
+      "execution_id": "execution_bae47e0b-4d84-4ee0-99b0-829147bdfd8b",
+      "role": "ceo",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_d1c3eff6-8dd9-4955-a699-2b47c9833d09",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_4a7b3f86-62bd-41b1-b632-4244f029293f",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_efb3b3d5-6c2f-44eb-8a0e-abee12371b1e",
+      "role": "product_manager",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_a14d701b-2d80-470f-a3ca-49ab280910f1",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_916b69bf-57f5-4e7b-a96e-b0dc007663ae",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_4a8b7fea-e70a-45a7-a288-7a9e2bf37553",
+      "role": "ceo",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_c8d2537f-531d-466e-bcbb-f6839a133d97",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_5a301c2b-66ed-4072-a9b3-a98dbdaf912b",
+      "role": "cto",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "create_repository",
+        "assign_engineering",
+        "assign_review",
+        "integrate_repository"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_c6dd884c-1fa7-4a78-944c-daac68c8599c",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_67d92ce2-5019-4454-9523-45655c7d6205",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_1edaf733-2dd7-4646-9448-2cefb72fc644",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_65268db5-c51b-4b8c-8e92-3468c0b7cb17",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_45a273c7-37f9-4d19-9b54-c11140d1f051",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_bcc88a76-cae5-422a-833a-9e6fb3f6139c",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_0c9df098-f3af-421e-9082-772c93ca17c5",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_22fd3d96-1978-438c-a226-e6e5001011e2",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_f0799d19-d6bc-409c-81b2-de5946d52ed8",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_1c7f274a-d424-46bb-9aef-af9d3fcbf25e",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_f38f8ec7-4fd4-45dc-93c6-6b2868aab58d",
+      "role": "devops",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "inspect_worker_identity",
+        "inspect_host_health",
+        "request_create_worker_identity",
+        "request_disable_worker_identity",
+        "request_project_access",
+        "request_project_revocation"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_d6fd7f5d-f7fd-46cc-b5eb-074abb7fe9e0",
+      "role": "engineer",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_source",
+        "write_source",
+        "run_repo_tests",
+        "delete_source",
+        "commit_project_changes",
+        "inspect_git",
+        "submit_engineering"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_d8eb1fce-874c-4858-92f3-6fc2f3b8c638",
+      "role": "engineer",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_source",
+        "write_source",
+        "run_repo_tests",
+        "delete_source",
+        "commit_project_changes",
+        "inspect_git",
+        "submit_engineering"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_605753b8-07fd-4de3-8ecd-38d83770f68c",
+      "role": "cto",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "create_repository",
+        "assign_engineering",
+        "assign_review",
+        "integrate_repository"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_6a5414d0-b739-41c6-9b69-67fe23ce2d13",
+      "role": "reviewer",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_review_packet",
+        "submit_review"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_a034916d-b127-4ec8-91dc-550cf370916d",
+      "role": "engineer",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_source",
+        "write_source",
+        "run_repo_tests",
+        "delete_source",
+        "commit_project_changes",
+        "inspect_git",
+        "submit_engineering"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_9ff699a2-60c6-4fb0-85ac-b977f94f0e1d",
+      "role": "cto",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "create_repository",
+        "assign_engineering",
+        "assign_review",
+        "integrate_repository"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_5f199181-ede8-411f-9945-06e3ee19582c",
+      "role": "reviewer",
+      "tools": [
+        "list_company_status",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "read_review_packet",
+        "submit_review"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_4b22be0b-8c54-486f-89ec-307b61874591",
+      "role": "cto",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "create_repository",
+        "assign_engineering",
+        "assign_review",
+        "integrate_repository"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_b457cf3e-0008-4c5f-be8f-d59b6a02d238",
+      "role": "cto",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact",
+        "create_repository",
+        "assign_engineering",
+        "assign_review",
+        "integrate_repository"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    },
+    {
+      "execution_id": "execution_51daa95e-fb37-47ee-8273-c9d2515d6dc4",
+      "role": "ceo",
+      "tools": [
+        "list_company_status",
+        "hire_worker",
+        "assign_task",
+        "message_worker",
+        "read_document",
+        "submit_artifact"
+      ],
+      "disabled_features": [
+        "apps",
+        "plugins",
+        "hooks",
+        "shell_tool",
+        "unified_exec",
+        "shell_snapshot",
+        "multi_agent",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "in_app_browser",
+        "image_generation",
+        "workspace_dependencies",
+        "memories",
+        "goals",
+        "tool_suggest",
+        "code_mode",
+        "code_mode_only"
+      ],
+      "sandbox": "read-only",
+      "network": false,
+      "environments": [],
+      "inherited_mcp_disabled": 0
+    }
+  ]
+}

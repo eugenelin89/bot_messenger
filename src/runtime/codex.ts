@@ -1,3 +1,4 @@
+import {mandateInstructions} from './mandates.js';
 import {DISCUSSION_LIMITS} from '../domain/discussions.js';
 import {discussionInstructions} from './discussions.js';
 import { resolveAIProfile, type RuntimeCatalog, type RuntimeModel } from '../domain/ai-profile.js';
@@ -223,7 +224,7 @@ export class CodexRuntime implements RuntimeAdapter {
         if (message.method === 'item/tool/call') {
           requireThat(!finished && !signal.aborted, 'Execution is stopping');
           toolCalls++;
-          if (toolCalls > (input.mode === 'conversation' ? (input.tools.some(t=>t.name==='read_discussion')?DISCUSSION_LIMITS.toolCalls:CONVERSATION_LIMITS.toolCalls) : 64)) {
+          if (toolCalls > (input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?20:input.tools.some(t=>t.name==='read_discussion')?DISCUSSION_LIMITS.toolCalls:CONVERSATION_LIMITS.toolCalls) : 64)) {
             finish({status:'failed',error:'Runtime tool-call budget exhausted'}); rpc.close(); return;
           }
           requireThat(p.threadId === threadId && p.turnId === turnId && !!turnId, 'Runtime tool identity mismatch');
@@ -299,7 +300,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if (signal.aborted || finished) return await result;
       input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
-        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='read_discussion')?discussionInstructions:conversationInstructions) : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
+        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?discussionInstructions:conversationInstructions) : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
         developerInstructions: `Trusted BotSquad worker identity: ${input.worker.worker_id}. Use only the supplied ${input.mode} context.`,
         model, allowProviderModelFallback: false };
       let thread: ThreadResponse;
@@ -336,7 +337,7 @@ export class CodexRuntime implements RuntimeAdapter {
       input.event('runtime_turn_starting', {runtime_reference:threadId,context_chars:contextText.length});
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
-        input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? 'conversation reply' : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
+        input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?'strategic mandate review':'conversation reply') : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
         approvalPolicy: 'never', sandboxPolicy: { type: 'readOnly', networkAccess: false } });
       turnId = started.turn.id;
       starting = false;

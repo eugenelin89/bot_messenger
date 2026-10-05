@@ -11,7 +11,7 @@ export type DiscussionState = 'draft'|'active'|'paused'|'blocked'|'stopped'|'com
 export type DiscussionTurnKind = 'organize'|'opening'|'facilitate'|'response'|'synthesis'|'review'|'finalize';
 export interface WorkingGroup {
   group_id:string; conversation_id:string; topic:string; desired_output:string; constraints:string;
-  created_by:string; initiating_operation:'owner_selected'|'owner_atlas'; eligible_workers:string;
+  created_by:string; initiating_operation:'owner_selected'|'owner_atlas'|'mandate_coordinator'; eligible_workers:string;
   facilitator_id:string; synthesizer_id:string; state:DiscussionState; scope_version:number;
   revision:number; evidence_revision:number; round:number; turns_used:number; turn_limit:number;
   round_limit:number; extensions_used:number; synthesis_used:number; deadline:string|null;

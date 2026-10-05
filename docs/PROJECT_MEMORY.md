@@ -40,8 +40,9 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prepare Prompt 09’s strategic company operating loop and minimal durable one-time/recurring
-scheduler. Reuse accepted Prompt 07 continuity, WE-01 authority and Prompt 08 deliberation,
+Complete the remaining Prompt 09 acceptance and release gates in
+[the active execution plan](exec-plans/prompt-09.md). Its strategic operating loop and durable
+clock are implemented on the owned branch, but release is not complete. Reuse accepted Prompt 07 continuity, WE-01 authority and Prompt 08 deliberation,
 shared evidence, immutable synthesis and explicit assignment boundaries. Cover both a broad
 mandate and the bounded Asymmetri Motion reference scenario with two evidence-based cycles.
 Do not imply live marketing/publication authority or implement Computer Use early. Preserve
@@ -85,4 +86,20 @@ remain. No OS/provisioner upgrade, public ingress or production demonstration wa
 Read the [validation report](validation/PROMPT_08_VALIDATION.md),
 [execution plan](exec-plans/prompt-08.md), [Decision 021](decisions/decision_021_bounded_working_groups.md),
 [technical guide](architecture/WORKING_GROUPS.md) and [tutorial](tutorials/working-groups.md).
-**Prompt 09 is next; WE-01 remains complete.**
+**Prompt 09 is in progress; WE-01 remains complete.**
+
+
+## Prompt 09 implementation checkpoint — October 5
+
+The current implementation is on `codex/prompt09-company-operating-loop`, based on retained
+production/main `ccf8562`. Schema 12 adds durable strategic records, schedules and private
+internal Task contexts without activating domain work. Actual production preflight found eight
+workers including Scout, 48 Tasks, 65 executions and one retained Atlas research grant; this
+supersedes older October 1 roster/grant counts. Production remains unchanged at this checkpoint.
+
+Three real failed broad attempts are retained with their unknown fences. The diagnosed failure
+was a generated pagination loop reading domain fields on wrapped dynamic-tool responses.
+Candidate `c6690a5` corrects the contract and completed a broad real cycle. Asymmetri two-cycle
+acceptance and other release gates remain open. Independent security review cleared the
+candidate; semantic review remains required. See Decision 022, the architecture/tutorial and
+execution plan for authoritative progress. Do not infer full completion from this checkpoint.

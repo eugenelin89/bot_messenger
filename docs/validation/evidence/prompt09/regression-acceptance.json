@@ -1,0 +1,304 @@
+{
+  "started": "2026-10-05T19:33:48.202Z",
+  "phases": {
+    "manual-start": {
+      "safe_boundary": true,
+      "completed_openings": 2,
+      "queued": 2
+    },
+    "manual-continue": {
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "synthesis_id": "synthesis_ade65cec-c505-40ae-8b11-40537229aebe",
+      "turns": 11,
+      "participants": 4
+    },
+    "idle-assignment": {
+      "idle_seconds": 30,
+      "zero_new_work": true,
+      "task_id": "task_c55ae089-45df-4f24-8689-400b039aa27d"
+    },
+    "direct-peer": {
+      "conversations": [
+        {
+          "id": "conversation_77bc0778-925d-45d6-add5-e081519644dc",
+          "requests": [
+            {
+              "kind": "continuation",
+              "status": "completed"
+            },
+            {
+              "kind": "peer",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "conversation_26cf3990-ba26-4f23-a809-d3f86a7eead7",
+          "requests": [
+            {
+              "kind": "reply",
+              "status": "completed"
+            }
+          ]
+        }
+      ]
+    },
+    "direct-rollover": {
+      "passive_no_execution": true,
+      "no_task_creation": true,
+      "conversation_id": "conversation_26cf3990-ba26-4f23-a809-d3f86a7eead7",
+      "request_id": "reply_9f2d08ba-6fad-4866-9df4-050817eb4d26"
+    },
+    "direct-rollover-neutral": {
+      "passive_no_execution": true,
+      "no_task_creation": true,
+      "conversation_id": "conversation_26cf3990-ba26-4f23-a809-d3f86a7eead7",
+      "request_id": "reply_1b714bb8-6861-43a5-98fb-5d4c53c915fb"
+    },
+    "research-grounded": {
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "synthesis_id": "synthesis_6702e404-161d-44eb-a39a-d002f80032fa",
+      "evidence": [
+        {
+          "evidence_id": "evidence_22fb1829-bfdf-47a0-a1d2-b2b40c237b01",
+          "source_id": null,
+          "kind": "owner_material",
+          "sha256": "c1eae1f58c2bb20683f6fdacb564fd266f81d998dd72d5b4439cd0ec6576bfcb",
+          "metadata": {
+            "supplied_at": "2026-10-05T19:52:58.703Z",
+            "verification": "Owner-supplied material; not independently verified",
+            "omissions": "Only explicitly supplied content",
+            "export_authority": "explicit_owner_selection",
+            "audience_worker_ids": [
+              "worker_14cbf2db-6d94-433c-a546-35c5d66b8f93",
+              "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+              "worker_51847e12-d630-4d80-b08b-245abe75e7f6",
+              "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+              "worker_0e23d704-3661-49b1-a05d-0d4f3cdb5d77",
+              "worker_6294901c-2f4a-4366-946a-092fdd81e2c1"
+            ],
+            "audience_scope_version": 1
+          }
+        },
+        {
+          "evidence_id": "evidence_e56d01c9-456d-4fb2-8cb6-14b655bde54f",
+          "source_id": "source_d2b78d1e-03ef-43e8-a4a9-45e593d1cc3e",
+          "kind": "public_source",
+          "sha256": "645a5728c7da2d771a4425cc390f1cb3150a332b6fcedb39b2fcde7740a67d82",
+          "metadata": {
+            "source_id": "source_d2b78d1e-03ef-43e8-a4a9-45e593d1cc3e",
+            "url": "https://www.audacityteam.org/manual/getting-started/",
+            "kind": "retrieved_page",
+            "retrieved_at": "2026-10-05T19:54:16.787Z",
+            "published_at": null,
+            "observed_at": null,
+            "freshness": "live_response",
+            "source_sha256": "25e9fc35c891542d3d41662fea8ca8566560ae3d40ee42ab9dc2a54eaba3b571",
+            "omissions": "Bounded static text extraction; scripts, images and interactive content are not read.; shared excerpt 308/2082 retained characters; private query/operation/history excluded"
+          }
+        },
+        {
+          "evidence_id": "evidence_8db7bbe4-46bd-41dd-ae8f-d14ece4b81bd",
+          "source_id": "source_71b5c976-05f2-4935-9e96-dd8fc8b20d6f",
+          "kind": "public_source",
+          "sha256": "35aee452df9ba397109e97b570b18debcb796e79e85eda18bb78112687963a82",
+          "metadata": {
+            "source_id": "source_71b5c976-05f2-4935-9e96-dd8fc8b20d6f",
+            "url": "https://tensorpm.com/documentation/onboarding",
+            "kind": "retrieved_page",
+            "retrieved_at": "2026-10-05T19:54:17.738Z",
+            "published_at": null,
+            "observed_at": null,
+            "freshness": "live_response",
+            "source_sha256": "3ec72004c4739e15fae0b1c0b87dfc7949cf031f1b4c061af2da863df46d91c5",
+            "omissions": "Only first 24000 extracted characters retained.; shared excerpt 346/24000 retained characters; private query/operation/history excluded"
+          }
+        }
+      ],
+      "turns": 15
+    },
+    "source-rollover": {
+      "conversation_id": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+      "request_id": "reply_3c21f482-8477-48f0-9860-34da71ccbd23",
+      "operations": [
+        {
+          "operation_id": "research_6947bcd4-440e-4e22-8d80-da121c593ff9",
+          "execution_id": "execution_ec058709-99b0-407a-a276-803a1c52295c",
+          "origin": "conversation",
+          "scope_id": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+          "grant_id": "grant_475670f3-2afa-4756-b79d-28a7443a999c",
+          "policy_version": "public-research-v1",
+          "tool": "research_read",
+          "state": "completed",
+          "created_at": "2026-10-05T19:59:56.368Z",
+          "finished_at": "2026-10-05T19:59:56.371Z",
+          "output_chars": 6890,
+          "provider": null,
+          "unresolved": 0
+        },
+        {
+          "operation_id": "research_963ae9de-8ef7-47aa-b675-a4001d20c9c2",
+          "execution_id": "execution_ec058709-99b0-407a-a276-803a1c52295c",
+          "origin": "conversation",
+          "scope_id": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+          "grant_id": "grant_475670f3-2afa-4756-b79d-28a7443a999c",
+          "policy_version": "public-research-v1",
+          "tool": "research_sources",
+          "state": "completed",
+          "created_at": "2026-10-05T19:59:53.100Z",
+          "finished_at": "2026-10-05T19:59:53.100Z",
+          "output_chars": 10298,
+          "provider": null,
+          "unresolved": 0
+        }
+      ]
+    },
+    "source-failure": {
+      "conversation_id": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+      "request_id": "reply_8608f55b-ed5d-4ddc-bd9b-7e136dd68789",
+      "operations": [
+        {
+          "operation_id": "research_fff23798-0c00-4ee6-89a7-2b873378161c",
+          "execution_id": "execution_8f4d1bf5-184d-4132-bde1-b1542ae0d8d2",
+          "origin": "conversation",
+          "scope_id": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+          "grant_id": "grant_475670f3-2afa-4756-b79d-28a7443a999c",
+          "policy_version": "public-research-v1",
+          "tool": "research_open",
+          "state": "failed",
+          "created_at": "2026-10-05T20:00:15.221Z",
+          "finished_at": "2026-10-05T20:00:15.324Z",
+          "output_chars": 145,
+          "provider": null,
+          "unresolved": 0
+        }
+      ]
+    },
+    "permission-revocation": {
+      "worker_id": "worker_0175ea76-e1ed-4272-ae14-432bbfb54ff7",
+      "grant_id": "grant_83178f32-5d78-412b-8c2e-e00d9a5e3e8a",
+      "lookup_operations_before": 2,
+      "lookup_operations_after": 2,
+      "discussion_mode_not_granted": true,
+      "engineer_grant_disabled": true,
+      "revoked": true
+    },
+    "direct-interrupt": {
+      "conversation_id": "conversation_26cf3990-ba26-4f23-a809-d3f86a7eead7",
+      "request_id": "reply_ec3f0f04-04ae-4629-9184-3229bd124510",
+      "provider_confirmed": true,
+      "no_task_creation": true
+    },
+    "interrupt": {
+      "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+      "executions": [
+        {
+          "execution_id": "execution_11a8d791-61bf-453e-98ec-efe46ae43a3c",
+          "status": "interrupted",
+          "error": "Codex confirmed turn interruption",
+          "interruption_reason": "Codex confirmed turn interruption"
+        },
+        {
+          "execution_id": "execution_035be38c-fb54-42b7-87f0-c021b6e6ab8c",
+          "status": "interrupted",
+          "error": "Codex confirmed turn interruption",
+          "interruption_reason": "Codex confirmed turn interruption"
+        }
+      ],
+      "syntheses": 0
+    },
+    "fault-prepare": {
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "conversation_id": "conversation_9a8b3eac-e56b-461f-8156-acac4f12f33c",
+      "draft_only": true
+    },
+    "fault-start": {
+      "started": true,
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04"
+    },
+    "fault-inspect": {
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "blocked_reason": "A participant has an unresolved worker/broker outcome",
+      "no_duplicate_contributions": true,
+      "observed_idle_seconds": 30
+    },
+    "direct-fault-prepare": {
+      "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+      "passive_only": true
+    },
+    "direct-fault-start": {
+      "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+      "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2"
+    },
+    "direct-fault-inspect": {
+      "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+      "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+      "unknown_fence_retained": true,
+      "idle_seconds": 30,
+      "no_automatic_replay": true
+    }
+  },
+  "ids": {
+    "manual": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+    "interjection": "cmessage_f1c6a163-5334-45f9-9c00-80a6ce1eadb6",
+    "manual_synthesis": "synthesis_ade65cec-c505-40ae-8b11-40537229aebe",
+    "assignment": "task_c55ae089-45df-4f24-8689-400b039aa27d",
+    "direct_peer": "conversation_26cf3990-ba26-4f23-a809-d3f86a7eead7",
+    "direct_peer_request": "reply_414f5257-7ba2-407c-af84-634048a65942",
+    "private_research": "conversation_11aa81e3-f884-4bc2-9b0d-9c156d5a198e",
+    "private_research_request": "reply_a101af47-d28f-4adb-97b9-e93861c863a8",
+    "research": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+    "revocation_research": "conversation_f41c9dd6-a1b6-47dd-81cc-385db518daae",
+    "revocation_research_request": "reply_6e08cbff-217c-43b0-a076-f9b45ac665ec",
+    "direct_interruption": "reply_ec3f0f04-04ae-4629-9184-3229bd124510",
+    "interrupt": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+    "fault": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+    "fault_conversation": "conversation_9a8b3eac-e56b-461f-8156-acac4f12f33c",
+    "direct_fault": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+    "direct_fault_request": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2"
+  },
+  "attempts": [
+    {
+      "phase": "manual-start",
+      "group_id": "group_b5ece8ce-4aa7-41eb-868e-db9165c082c8",
+      "at": "2026-10-05T19:33:56.138Z"
+    },
+    {
+      "phase": "research-grounded",
+      "group_id": "group_f47ebf4d-dc27-4cf0-a9d7-1ec10cbf3cd0",
+      "at": "2026-10-05T19:52:57.591Z"
+    },
+    {
+      "phase": "interrupt",
+      "group_id": "group_2d74ee4e-3655-4e69-80e6-c6fffeb7396f",
+      "at": "2026-10-05T20:02:06.492Z"
+    },
+    {
+      "phase": "fault-prepare",
+      "group_id": "group_475aba80-7519-4b3a-b457-4c1d4e552f04",
+      "at": "2026-10-05T20:02:15.608Z"
+    }
+  ],
+  "hq_id": "hq_aac0aeaa-4e3d-40fd-8af4-4465184b4739",
+  "initial_tasks": 3,
+  "revisions": {
+    "manual-start": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "manual-continue": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "idle-assignment": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-peer": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-rollover": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-rollover-neutral": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "research-grounded": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "source-rollover": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "source-failure": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "permission-revocation": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-interrupt": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "interrupt": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "fault-prepare": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "fault-start": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "fault-inspect": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-fault-prepare": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-fault-start": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd",
+    "direct-fault-inspect": "c6690a5b55fc1d1f9fdfe991626583dbc5d972fd"
+  }
+}

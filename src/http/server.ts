@@ -55,6 +55,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
+        if(path==='/api/mandates'){json(200,company.mandates.list());return;}
+        if(path.startsWith('/api/mandates/')){json(200,company.mandates.inspect(decodeURIComponent(path.slice('/api/mandates/'.length))));return;}
         if(path==='/api/groups') {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group query');json(200,company.discussions.list(q.has('before')?Number(q.get('before')):undefined));return;}
         if(path.startsWith('/api/groups/')) {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group history query');json(200,company.discussions.inspect(decodeURIComponent(path.slice('/api/groups/'.length)),q.has('before')?Number(q.get('before')):undefined));return;}
         if(path.startsWith('/api/group-syntheses/')) {json(200,company.discussions.synthesis(decodeURIComponent(path.slice('/api/group-syntheses/'.length))));return;}
@@ -77,7 +79,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           const content = company.artifactContent(decodeURIComponent(path.slice('/api/artifacts/'.length)));
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/plain; charset=utf-8' }); res.end(content); return;
         }
-        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
+        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/mandates.js':['mandates.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
         const file = staticFiles[path];
         if (file) { res.writeHead(200, { ...securityHeaders, 'Content-Type': `${file[1]}; charset=utf-8` }); res.end(readFileSync(join(publicDir, file[0]))); return; }
         json(404, { error: 'Not found' }); return;
@@ -89,6 +91,12 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
+      else if(path==='/api/mandates/create'){json(201,company.mandates.create(body));}
+      else if(path==='/api/mandates/control'){json(200,company.mandates.control(body));}
+      else if(path==='/api/mandates/observations'){json(201,company.mandates.admitObservation(body));}
+      else if(path==='/api/mandates/withdraw-observation'){json(200,company.mandates.withdrawObservation(body));}
+      else if(path==='/api/mandates/schedules'){json(201,company.mandates.saveOwnerSchedule(body));}
+      else if(path==='/api/mandates/schedule-control'){json(200,company.mandates.controlSchedule(body));}
       else if(path==='/api/groups/create'){json(201,company.discussions.create(body));}
       else if(path==='/api/groups/note'){json(201,company.discussions.note(body));}
       else if(path==='/api/groups/share'){json(201,company.discussions.share(body));}

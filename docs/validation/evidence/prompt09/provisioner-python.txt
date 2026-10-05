@@ -1,0 +1,7 @@
+.....{"operation_id":"operation_12345678-1234-1234-1234-123456789abc","result":"completed","timestamp":1791230039,"type":"create_worker_identity","worker_id":"worker_12345678-1234-1234-1234-123456789abc"}
+.{"operation_id":"operation_12345678-1234-1234-1234-123456789abc","result":"completed","timestamp":1791230039,"type":"create_worker_identity","worker_id":"worker_12345678-1234-1234-1234-123456789abc"}
+...
+----------------------------------------------------------------------
+Ran 9 tests in 0.006s
+
+OK

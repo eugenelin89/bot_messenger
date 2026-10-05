@@ -9,11 +9,17 @@ const resources = {
   repositories: 'repository', messages: 'message', artifacts: 'artifact',
 } as const;
 export type Resource = keyof typeof resources;
+export function privateStrategyFilter(resource:string):string {
+  if(resource==='tasks'||resource==='artifacts')return ` AND NOT EXISTS(SELECT 1 FROM mandate_internal_work mw WHERE mw.task_id=${resource}.task_id)`;
+  if(resource==='executions')return ` AND origin='task' AND NOT EXISTS(SELECT 1 FROM mandate_internal_work mw WHERE mw.task_id=executions.task_id)`;
+  if(resource==='messages')return ` AND NOT EXISTS(SELECT 1 FROM mandate_internal_work mw WHERE mw.task_id=messages.related_task_id)`;
+  return '';
+}
 export class ClientDTOs {
   constructor(readonly company: Company, readonly hqId: string) {}
   one(resource: Resource, id: string) {
     identifier(id, resources[resource]);
-    const row = this.company.store.get<Row>(`SELECT * FROM ${resource} WHERE ${resources[resource]}_id=? ${resource === 'executions' ? "AND origin='task'" : ''}`, id);
+    const row = this.company.store.get<Row>(`SELECT * FROM ${resource} WHERE ${resources[resource]}_id=? ${privateStrategyFilter(resource)}`, id);
     check(row, 404, 'not_found', 'Resource was not found.'); return this.convert(resource, row);
   }
   page(resource: Resource, query: URLSearchParams, projectId?: string) {
@@ -30,18 +36,18 @@ export class ClientDTOs {
       check(Number.isSafeInteger(c.after) && Number.isSafeInteger(c.through) && (c.after as number) >= 0 && (c.through as number) >= (c.after as number) && (c.through as number) <= through);
       after = c.after as number; through = c.through as number;
     }
-    const rows = this.company.store.all<Row>(`SELECT rowid AS page_rowid,* FROM ${resource} WHERE rowid>? AND rowid<=? ${resource === 'executions' ? "AND origin='task'" : ''} ${projectId ? 'AND project_id=?' : ''} ORDER BY rowid LIMIT ?`, after, through, ...(projectId ? [projectId] : []), limit + 1);
+    const rows = this.company.store.all<Row>(`SELECT rowid AS page_rowid,* FROM ${resource} WHERE rowid>? AND rowid<=? ${privateStrategyFilter(resource)} ${projectId ? 'AND project_id=?' : ''} ORDER BY rowid LIMIT ?`, after, through, ...(projectId ? [projectId] : []), limit + 1);
     const more = rows.length > limit; const selected = rows.slice(0, limit);
     return { items: selected.map(row => this.convert(resource, row)), next_cursor: more ? Buffer.from(JSON.stringify({ v: 1, hq_id: this.hqId, resource, project_id: projectId ?? null, after: selected.at(-1)!.page_rowid, through })).toString('base64url') : null };
   }
   convert(resource: Resource, row: Row): Record<string, unknown> {
     switch (resource) {
       case 'workers': {
-        const last = this.company.store.get<Row>("SELECT model,reasoning_effort,execution_priority,runtime_version,runtime_adapter FROM executions WHERE origin='task' AND worker_id=? AND provenance_status='recorded' ORDER BY rowid DESC LIMIT 1", row.worker_id!);
+        const last = this.company.store.get<Row>("SELECT model,reasoning_effort,execution_priority,runtime_version,runtime_adapter FROM executions WHERE origin='task' AND NOT EXISTS(SELECT 1 FROM mandate_internal_work mw WHERE mw.task_id=executions.task_id) AND worker_id=? AND provenance_status='recorded' ORDER BY rowid DESC LIMIT 1", row.worker_id!);
         return { ...fields(row, ['worker_id', 'display_name', 'title', 'role', 'manager_worker_id', 'status', 'lifecycle', 'created_at', 'updated_at']), enabled: row.enabled === 1,
           configured_profile: { ...fields(row, ['ai_model', 'reasoning_effort', 'execution_priority']), ai_profile_locked: row.ai_profile_locked === 1 },
           last_execution_profile: last ? fields(last, ['model', 'reasoning_effort', 'execution_priority', 'runtime_version', 'runtime_adapter']) : null,
-          current_task_id: this.company.store.get<{ task_id: string }>("SELECT task_id FROM executions WHERE worker_id=? AND status='running'", row.worker_id!)?.task_id ?? null };
+          current_task_id: this.company.store.get<{ task_id: string }>("SELECT task_id FROM executions WHERE worker_id=? AND origin='task' AND status='running' AND NOT EXISTS(SELECT 1 FROM mandate_internal_work mw WHERE mw.task_id=executions.task_id)", row.worker_id!)?.task_id ?? null };
       }
       case 'tasks': return { ...fields(row, ['task_id', 'requester', 'assignee_worker_id', 'objective', 'acceptance_criteria', 'constraints', 'parent_task_id', 'status', 'kind', 'created_at', 'updated_at']),
         attention_required: ['blocked', 'failed', 'awaiting_approval'].includes(String(row.status)),

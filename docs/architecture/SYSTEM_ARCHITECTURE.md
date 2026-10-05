@@ -173,12 +173,18 @@ shared research accounting and owner controls are durable. Passive material neve
 only an explicit owner assignment converts a selected synthesis into a normal Task. See
 [working-group details](WORKING_GROUPS.md) and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
-## Future intelligent-company operating loop
+## Strategic company operating loop
 
-Prompt 09 is planned to add a durable company-level operating loop above individual Tasks.
-It should accept broad or specific human mandates, support worker initiative within role,
-record strategy hypotheses and decisions, ingest attributable outcomes/metrics, and
-schedule bounded company reviews that may continue, iterate, pivot, stop or scale work.
+Prompt 09 implements durable owner-activated mandates above individual Tasks. Typed
+`mandate-review-v1` turns share the existing dispatcher and worker fences, with fresh Prompt 07
+generations reconstructed from strategic records. Company-selected groups use explicit
+coordinator provenance; separate decision-linked internal Tasks retain hierarchy and private
+provider contexts. Observations preserve mode/time/provenance; decisions require current
+original-delivery evidence or explicit missingness. A trusted clock persists versioned
+one-time/interval/daily schedules, stable occurrences, hold-one overlap and coalesced missed
+intervals. Idle time invokes no models. See [complete semantics](COMPANY_OPERATING_LOOP.md),
+[Decision 022](../decisions/decision_022_company_operating_loop.md) and
+[release acceptance](../exec-plans/prompt-09.md).
 
 This layer must reuse the conversation, deliberation, Task, Project, review and authority
 boundaries below it rather than bypassing them. A vague goal does not expand capabilities.

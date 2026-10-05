@@ -1,0 +1,45 @@
+(node:5472) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mandate draft is passive, activation explicit, review ownership differs from direct replies and tasks (62.457042ms)
+✔ grounding requires full same-execution originals, denies invented/cross-mandate/future/withdrawn evidence (28.873834ms)
+✔ decisions are append-only, missing evidence explicit, committed outcome idempotent (29.24375ms)
+✔ one-time clock: before/exactly/after due, overlap hold-one, stable occurrence and no duplicate callback (27.700458ms)
+✔ recurring clock coalesces missed times without a model burst and ends at occurrence count (21.805791ms)
+✔ schedule edits retain versions, invalidate old due callbacks, cancellation is terminal (21.276125ms)
+✔ global, mandate and schedule pause retain due work and resume without duplication (82.096666ms)
+✔ disabled coordinator, revoked communication, cycle limit and unknown provider fence deny due review (106.023292ms)
+✔ stop prevents queued work and stale timers from reviving a mandate (20.813834ms)
+✔ Vancouver DST uses first repeated minute and first valid post-gap minute; interval uses elapsed seconds (11.455375ms)
+✔ crash after occurrence commit, before claim: reopening safely queues exactly one review (29.030833ms)
+✔ fault before next-time commit rolls back occurrence and consumption atomically (20.327333ms)
+✔ known review failure backs off boundedly; ambiguous invocation blocks without retry (47.866792ms)
+✔ real dispatcher substrate executes two simulated-runtime cycles, second initiated only by persisted clock (67.2235ms)
+✔ idle company clock causes no model or research work (79.507875ms)
+✔ mandate internal Task enforces reporting hierarchy and separate decision link (32.206833ms)
+✔ cancel after due queue but before dispatch cancels its review without invocation (27.94625ms)
+✔ mandate-selected group has actual coordinator provenance, explicit observation export and no hidden Task (33.466416ms)
+✔ v1 DTOs and notification hints exclude strategic Tasks, reports, messages and review executions (28.659375ms)
+✔ crash after claim before invocation retains effects, retries only known uninvoked attempt (32.483708ms)
+✔ unknown provider outcome after a committed decision retains decision and blocks occurrence (32.596583ms)
+✔ confirmed completion before occurrence completion reconciles on restart with no new model turn (32.105583ms)
+✔ schedule pause and expiry are rechecked after durable queue, before first provider execution (55.452125ms)
+✔ hypotheses and unsupported decisions cannot masquerade as supporting observation evidence (29.490875ms)
+✔ every distinct successful read consumes retrieval budget; idempotent replay does not (31.908625ms)
+✔ observation withdrawal revokes exported group scope and late evidence reads without deleting history (36.343708ms)
+✔ private analysis uses a Task-scoped provider context and preserves ordinary bindings in both directions (70.895958ms)
+✔ linked Task receives runtime abort at the enclosing cycle deadline (139.707792ms)
+✔ internal Task receives only explicitly selected evidence bodies and withdrawal denies late delivery (40.627625ms)
+✔ first-page reads allow omitted offset without relaxing scope, receipts or cumulative budgets (30.889334ms)
+✔ withdrawal replaces coordinator provider generation and withholds earlier derived strategy and reports (79.256625ms)
+✔ withdrawal replaces a safely queued request without altering its immutable scope or duplicating cycles (22.272417ms)
+✔ an unexecuted internal Task is inspectable but cannot alone satisfy decision grounding (27.321875ms)
+✔ fault after atomic cycle/request claim rolls back without duplicate or orphaned scheduled work (27.447875ms)
+✔ each settled strategic turn uses a fresh checkpoint with retained cycle identity and fresh delivery receipts (33.639042ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1554.205458

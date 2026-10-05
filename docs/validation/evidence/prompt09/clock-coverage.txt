@@ -1,0 +1,85 @@
+(node:35666) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mandate draft is passive, activation explicit, review ownership differs from direct replies and tasks (51.163208ms)
+✔ grounding requires full same-execution originals, denies invented/cross-mandate/future/withdrawn evidence (36.227375ms)
+✔ decisions are append-only, missing evidence explicit, committed outcome idempotent (35.982209ms)
+✔ one-time clock: before/exactly/after due, overlap hold-one, stable occurrence and no duplicate callback (32.430625ms)
+✔ recurring clock coalesces missed times without a model burst and ends at occurrence count (23.680541ms)
+✖ editing a one-time review earlier invokes only the new version at its exact due instant (38.323792ms)
+✖ recurring reviews execute successive completed cycles and stop at the end date before the count limit (46.402ms)
+✔ schedule edits retain versions, invalidate old due callbacks, cancellation is terminal (26.08825ms)
+✔ global, mandate and schedule pause retain due work and resume without duplication (99.163208ms)
+✔ disabled coordinator, revoked communication, cycle limit and unknown provider fence deny due review (125.4885ms)
+✔ stop prevents queued work and stale timers from reviving a mandate (29.655958ms)
+✔ Vancouver DST uses first repeated minute and first valid post-gap minute; interval uses elapsed seconds (11.10275ms)
+✔ crash after occurrence commit, before claim: reopening safely queues exactly one review (40.441375ms)
+✔ fault before next-time commit rolls back occurrence and consumption atomically (27.782833ms)
+✔ known review failure backs off boundedly; ambiguous invocation blocks without retry (63.149958ms)
+✔ real dispatcher substrate executes two simulated-runtime cycles, second initiated only by persisted clock (75.17525ms)
+✔ idle company clock causes no model or research work (94.840959ms)
+✔ mandate internal Task enforces reporting hierarchy and separate decision link (49.723625ms)
+✔ cancel after due queue but before dispatch cancels its review without invocation (42.92325ms)
+✔ mandate-selected group has actual coordinator provenance, explicit observation export and no hidden Task (47.194ms)
+✔ v1 DTOs and notification hints exclude strategic Tasks, reports, messages and review executions (41.291208ms)
+✔ crash after claim before invocation retains effects, retries only known uninvoked attempt (44.379959ms)
+✔ unknown provider outcome after a committed decision retains decision and blocks occurrence (49.150709ms)
+✔ confirmed completion before occurrence completion reconciles on restart with no new model turn (47.038334ms)
+✔ schedule pause and expiry are rechecked after durable queue, before first provider execution (98.616083ms)
+✔ hypotheses and unsupported decisions cannot masquerade as supporting observation evidence (47.620208ms)
+✔ every distinct successful read consumes retrieval budget; idempotent replay does not (44.839834ms)
+✔ observation withdrawal revokes exported group scope and late evidence reads without deleting history (50.798333ms)
+✔ private analysis uses a Task-scoped provider context and preserves ordinary bindings in both directions (88.842458ms)
+✔ linked Task receives runtime abort at the enclosing cycle deadline (145.645834ms)
+✔ internal Task receives only explicitly selected evidence bodies and withdrawal denies late delivery (41.643709ms)
+✔ first-page reads allow omitted offset without relaxing scope, receipts or cumulative budgets (37.59525ms)
+✔ withdrawal replaces coordinator provider generation and withholds earlier derived strategy and reports (57.040166ms)
+✔ withdrawal replaces a safely queued request without altering its immutable scope or duplicating cycles (30.076625ms)
+✔ an unexecuted internal Task is inspectable but cannot alone satisfy decision grounding (41.795917ms)
+✔ fault after atomic cycle/request claim rolls back without duplicate or orphaned scheduled work (41.449917ms)
+✔ each settled strategic turn uses a fresh checkpoint with retained cycle identity and fresh delivery receipts (47.4505ms)
+✔ mandate research allowance is shared across separate internal Tasks and failed source attempts stay consumed (49.419584ms)
+✔ mandate revoke during Task research withholds late evidence and retains consumed budget (44.489666ms)
+✔ mandate pause during Task research withholds late evidence and retains consumed budget (41.34325ms)
+✔ mandate withdraw during Task research withholds late evidence and retains consumed budget (40.88575ms)
+✔ restart after provider reference persistence retains identity without replaying an ambiguous invocation (110.894375ms)
+✔ reopening before due preserves the future instant and produces no early or duplicate review (52.167459ms)
+✔ database reopen after persisted provider reference preserves invoked uncertainty and uninvoked recovery (97.583584ms)
+✔ known failures wait 30 then 60 seconds and exhaust the retry allowance without unbounded reviews (39.4175ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 43
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2479.945209
+
+✖ failing tests:
+
+test at dist/test/mandates.test.js:130:1
+✖ editing a one-time review earlier invokes only the new version at its exact due instant (38.323792ms)
+  Error: Persist a future review or explicitly stop
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/domain/model.js:21:15)
+      at file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/control/mandates.js:426:17
+      at Store.transaction (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/persistence/store.js:269:28)
+      at Mandates.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/control/mandates.js:330:24)
+      at closeCycle (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:21:103)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:147:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+
+test at dist/test/mandates.test.js:160:1
+✖ recurring reviews execute successive completed cycles and stop at the end date before the count limit (46.402ms)
+  Error: Persist a future review or explicitly stop
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/domain/model.js:21:15)
+      at file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/control/mandates.js:426:17
+      at Store.transaction (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/persistence/store.js:269:28)
+      at Mandates.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/src/control/mandates.js:330:24)
+      at closeCycle (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:21:103)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt09/dist/test/mandates.test.js:179:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)

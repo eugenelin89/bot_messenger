@@ -22,3 +22,8 @@
 .conversation-entry{display:block;width:100%;text-align:left;padding:12px;margin:6px 0;border:1px solid #dce2df;background:#fff;border-radius:8px;cursor:pointer}.conversation-entry small{display:block;margin-top:4px;color:#65716a}.conversation-entry.selected{border-color:#26745d;background:#f0f7f3}.conversation-request{padding:12px 0;border-bottom:1px solid #e8ede9}.conversation-request button{margin-left:12px}
 
 .research-source,.research-operation{padding:14px 0;border-bottom:1px solid #e1e6ec}.research-source h4{margin:8px 0}.research-operation small{display:block;color:#65716a;margin:6px 0}#inspect p{font-size:12px;line-height:1.7}
+
+.evidence-mode { display: block; padding: .6rem .8rem; border: 1px solid currentColor; border-radius: 6px; font-size: .78rem; letter-spacing: .04em; margin: .5rem 0; color: #31566b; background: #edf5f8; }
+.evidence-mode.simulated { color: #805100; background: #fff2cd; }
+#mandate-form, #observation-form, #review-form { display: grid; gap: 12px; }
+#mandate-form textarea, #observation-form textarea, #review-form input { width: 100%; }

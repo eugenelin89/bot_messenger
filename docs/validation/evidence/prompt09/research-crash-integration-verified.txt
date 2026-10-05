@@ -1,0 +1,50 @@
+(node:19469) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mandate draft is passive, activation explicit, review ownership differs from direct replies and tasks (47.089334ms)
+✔ grounding requires full same-execution originals, denies invented/cross-mandate/future/withdrawn evidence (31.672417ms)
+✔ decisions are append-only, missing evidence explicit, committed outcome idempotent (29.581167ms)
+✔ one-time clock: before/exactly/after due, overlap hold-one, stable occurrence and no duplicate callback (28.299916ms)
+✔ recurring clock coalesces missed times without a model burst and ends at occurrence count (21.43625ms)
+✔ schedule edits retain versions, invalidate old due callbacks, cancellation is terminal (22.320292ms)
+✔ global, mandate and schedule pause retain due work and resume without duplication (86.671208ms)
+✔ disabled coordinator, revoked communication, cycle limit and unknown provider fence deny due review (108.085417ms)
+✔ stop prevents queued work and stale timers from reviving a mandate (21.739208ms)
+✔ Vancouver DST uses first repeated minute and first valid post-gap minute; interval uses elapsed seconds (11.504291ms)
+✔ crash after occurrence commit, before claim: reopening safely queues exactly one review (31.226875ms)
+✔ fault before next-time commit rolls back occurrence and consumption atomically (22.143166ms)
+✔ known review failure backs off boundedly; ambiguous invocation blocks without retry (52.852334ms)
+✔ real dispatcher substrate executes two simulated-runtime cycles, second initiated only by persisted clock (71.553041ms)
+✔ idle company clock causes no model or research work (79.549167ms)
+✔ mandate internal Task enforces reporting hierarchy and separate decision link (31.885042ms)
+✔ cancel after due queue but before dispatch cancels its review without invocation (29.397042ms)
+✔ mandate-selected group has actual coordinator provenance, explicit observation export and no hidden Task (36.341209ms)
+✔ v1 DTOs and notification hints exclude strategic Tasks, reports, messages and review executions (31.987208ms)
+✔ crash after claim before invocation retains effects, retries only known uninvoked attempt (32.983916ms)
+✔ unknown provider outcome after a committed decision retains decision and blocks occurrence (34.563292ms)
+✔ confirmed completion before occurrence completion reconciles on restart with no new model turn (34.377708ms)
+✔ schedule pause and expiry are rechecked after durable queue, before first provider execution (58.771209ms)
+✔ hypotheses and unsupported decisions cannot masquerade as supporting observation evidence (30.300416ms)
+✔ every distinct successful read consumes retrieval budget; idempotent replay does not (32.364166ms)
+✔ observation withdrawal revokes exported group scope and late evidence reads without deleting history (37.298166ms)
+✔ private analysis uses a Task-scoped provider context and preserves ordinary bindings in both directions (71.875875ms)
+✔ linked Task receives runtime abort at the enclosing cycle deadline (139.42575ms)
+✔ internal Task receives only explicitly selected evidence bodies and withdrawal denies late delivery (38.846125ms)
+✔ first-page reads allow omitted offset without relaxing scope, receipts or cumulative budgets (31.512542ms)
+✔ withdrawal replaces coordinator provider generation and withholds earlier derived strategy and reports (48.774166ms)
+✔ withdrawal replaces a safely queued request without altering its immutable scope or duplicating cycles (23.388292ms)
+✔ an unexecuted internal Task is inspectable but cannot alone satisfy decision grounding (28.94075ms)
+✔ fault after atomic cycle/request claim rolls back without duplicate or orphaned scheduled work (28.209375ms)
+✔ each settled strategic turn uses a fresh checkpoint with retained cycle identity and fresh delivery receipts (35.770167ms)
+✔ mandate research allowance is shared across separate internal Tasks and failed source attempts stay consumed (34.928708ms)
+✔ mandate revoke during Task research withholds late evidence and retains consumed budget (34.606417ms)
+✔ mandate pause during Task research withholds late evidence and retains consumed budget (34.639416ms)
+✔ mandate withdraw during Task research withholds late evidence and retains consumed budget (33.931875ms)
+✔ restart after provider reference persistence retains identity without replaying an ambiguous invocation (65.041958ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1758.796041

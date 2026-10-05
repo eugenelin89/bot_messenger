@@ -9,7 +9,7 @@ export function workingGroups({request,refresh,render,inspect,showError,escape,l
   const button=(action,label,disabled=false)=>`<button class="button secondary" data-group-action="${action}" ${disabled?'disabled':''}>${label}</button>`;
   function html(){
     const d=detail,g=d?.group;renderedGroup=g?.group_id??null;
-    const index=`<section class="panel task-card"><header><h3>Discussions</h3><button class="button primary" id="new-group" ${listLoaded?'':'disabled'}>New working group</button></header><p>Choose a team or explicitly let Atlas organize one. Creating a draft invokes no model.</p>${list.items.map(x=>`<button class="conversation-entry ${selected===x.group_id?'selected':''}" data-group="${escape(x.group_id)}"><strong>${escape(x.topic)}</strong><small>${escape(x.state)} · ${x.turns_used}/${x.turn_limit} turns · ${escape(x.initiating_operation==='owner_atlas'?'Atlas organized':'Owner selected')}</small></button>`).join('')||`<p class="muted">${listLoaded?'No working groups yet.':'Loading working groups…'}</p>`}${list.next_cursor?'<button class="button secondary" id="older-groups">Older groups</button>':''}</section>`;
+    const index=`<section class="panel task-card"><header><h3>Discussions</h3><button class="button primary" id="new-group" ${listLoaded?'':'disabled'}>New working group</button></header><p>Choose a team or explicitly let Atlas organize one. Creating a draft invokes no model.</p>${list.items.map(x=>`<button class="conversation-entry ${selected===x.group_id?'selected':''}" data-group="${escape(x.group_id)}"><strong>${escape(x.topic)}</strong><small>${escape(x.state)} · ${x.turns_used}/${x.turn_limit} turns · ${escape(x.initiating_operation==='mandate_coordinator'?'Mandate coordinator':x.initiating_operation==='owner_atlas'?'Atlas organized':'Owner selected')}</small></button>`).join('')||`<p class="muted">${listLoaded?'No working groups yet.':'Loading working groups…'}</p>`}${list.next_cursor?'<button class="button secondary" id="older-groups">Older groups</button>':''}</section>`;
     if(!g)return index+(selected?'<section class="panel empty">Loading selected discussion…</section>':'');
     const active=d.executions.filter(e=>e.status==='running');
     const names=d.shared_audience.map(p=>p.display_name).join(', ');
@@ -47,5 +47,5 @@ export function workingGroups({request,refresh,render,inspect,showError,escape,l
     document.querySelectorAll('[data-revoke-member]').forEach(b=>b.onclick=async()=>{try{await request('groups/revoke-member',{group_id:g.group_id,worker_id:b.dataset.revokeMember});await refresh();}catch(e){showError(e);}});
     document.querySelectorAll('[data-group-rollover]').forEach(b=>b.onclick=async()=>{try{await request('groups/rollover',{group_id:g.group_id,worker_id:b.dataset.groupRollover});await refresh();}catch(e){showError(e);}});
   }
-  return {load,capture,render:html,wire};
+  return {load,capture,render:html,wire,select};
 }

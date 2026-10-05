@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompt 08 and WE-01 complete, Ubuntu validated and deployed; Prompt 09 next
+**Status:** Prompt 08 and WE-01 complete and deployed; Prompt 09 implemented with acceptance/deployment pending
 **Updated:** 2026-10-01
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -152,8 +152,9 @@ objectives still enter through Atlas and the enforced reporting hierarchy; child
 wake events remain the task orchestration path. Device API v1 retains its current scopes
 and task-only execution projection, with no conversation data in its broad state/events.
 
-Prompt 08 working groups is implemented; Prompt 09 is next and will add the strategic
-operating loop and minimal durable scheduling. That recurring company loop is not implemented. Native iOS remains deferred;
+Prompt 09 implements owner-activated strategic mandates and a durable review clock on the
+owned implementation branch. It is not yet accepted or deployed. See [the active plan](../exec-plans/prompt-09.md)
+and [operator tutorial](COMPANY_OPERATING_LOOP_TUTORIAL.md). Native iOS remains deferred;
 the existing private browser over SSH is the operator path. Decision 017's single-company
 priority remains authoritative.
 

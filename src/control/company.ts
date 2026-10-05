@@ -1,3 +1,4 @@
+import { Mandates } from './mandates.js';
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
 import { Research } from './research.js';
@@ -44,6 +45,7 @@ export class Company extends EventEmitter {
   readonly conversations: Conversations;
   readonly research: Research;
   readonly discussions: Discussions;
+  readonly mandates: Mandates;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -59,6 +61,7 @@ export class Company extends EventEmitter {
     this.referenceDocs = new Map(REFERENCE_DOCUMENTS.map(path => [path, readFileSync(join(repoRoot, path), 'utf8').slice(0, 40000)]));
     this.research = new Research(this);
     this.discussions = new Discussions(this);
+    this.mandates = new Mandates(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -136,14 +139,17 @@ export class Company extends EventEmitter {
     requireThat(execution.worker_id === worker.worker_id && task.assignee_worker_id === worker.worker_id, 'Execution identity mismatch');
     requireThat(execution.status === 'running' && task.status === 'working' && worker.enabled, 'Execution is not authorized to act');
     this.verifyWorkspace(worker, context.workspacePath);
+    this.mandates.authorizeInternal(task.task_id);
     return { worker, execution, task };
   }
   private capability(worker: Worker, capability: Capability) { requireThat(worker.capability_profile.includes(capability), `Missing capability: ${capability}`); }
   setBinding(context: ExecutionContext, binding: RuntimeBinding) {
     const { worker } = this.verifyContext(context);
+    requireThat(!this.mandates.internalWork(this.execution(context.executionId).task_id??undefined),'Private mandate Tasks require a scoped context');
     requireThat(binding.worker_id === worker.worker_id && binding.runtime_type === worker.runtime_type, 'Runtime binding identity mismatch');
     this.verifyWorkspace(worker, binding.workspace_path);
     requireThat(!this.store.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a conversation context');
+    requireThat(!this.store.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a private mandate context');
     requireThat(!this.store.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.store.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Task cannot reuse a research context');
     const old = this.binding(worker.worker_id);
     requireThat(!old || (old.runtime_reference === binding.runtime_reference && old.workspace_path === binding.workspace_path && old.runtime_type === binding.runtime_type && (old.thread_name ?? null) === (binding.thread_name ?? null)), 'Cannot replace an existing runtime binding implicitly');
@@ -268,7 +274,7 @@ export class Company extends EventEmitter {
         AND NOT EXISTS (SELECT 1 FROM research_operations ro WHERE ro.worker_id=w.worker_id AND ro.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate));
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate));
   }
   claimNext(maxActive = 2): { task: Task; worker: Worker; execution: TaskExecution; context: ExecutionContext } | undefined {
     return this.store.transaction(() => {
@@ -345,6 +351,7 @@ export class Company extends EventEmitter {
   }
   recover() {
     this.research.recover();
+    this.store.run("UPDATE mandate_task_sessions SET state='blocked' WHERE state IN ('creating','prepared')");
     this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
@@ -370,6 +377,7 @@ export class Company extends EventEmitter {
     requireThat(inspected === true, 'Inspect prior attempts and artifacts before retry');
     this.store.transaction(() => {
       const task = this.task(taskId);
+      requireThat(!this.mandates.internalWork(taskId), 'Mandate analysis Tasks are single-attempt; the coordinator must create separate work within the remaining active cycle allowance');
       requireThat(task.kind !== 'infrastructure', 'Infrastructure tasks require exact operation reconciliation, not runtime retry');
       requireThat(['blocked', 'failed', 'awaiting_approval'].includes(task.status) && task.blocking_reason !== 'waiting_children', 'Task cannot be retried');
       requireThat(!this.store.get("SELECT 1 FROM allocations WHERE task_id=? AND status='blocked'", taskId), 'Allocation requires Git inspection; automatic reactivation is unavailable');
@@ -411,6 +419,7 @@ export class Company extends EventEmitter {
       capability_profile: worker.capability_profile, delegatable_capabilities: worker.delegatable_capabilities }, task,
       children: this.children(task.task_id).map(t => ({ ...t, artifacts: this.artifacts(t.task_id).map(a => ({ ...a, content: this.artifactContent(a.artifact_id).slice(0, 20000) })) })),
       prior_artifacts: this.artifacts(task.task_id),
+      mandate_selected_evidence:this.mandates.taskEvidence(task.task_id),
       selected_discussion_synthesis: this.store.get('SELECT s.synthesis_id,s.content,s.sha256 FROM discussion_assignments a JOIN group_syntheses s USING(synthesis_id) WHERE a.task_id=?',task.task_id),
       messages: this.store.all<Message>('SELECT * FROM messages WHERE related_task_id=? ORDER BY created_at DESC LIMIT 8', task.task_id).reverse(),
       reference_documents: [...this.referenceDocs.keys()] };

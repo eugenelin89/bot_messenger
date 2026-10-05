@@ -1,0 +1,31 @@
+(node:53682) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client (2919.841209ms)
+(node:53683) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage (3517.343ms)
+✔ delayed history page cannot be appended to another selected conversation (1843.301708ms)
+(node:53684) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ live updates preserve the approval being inspected and expanded exact scope (2754.85375ms)
+(node:53685) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ new group waits for the initial eligible roster before opening the charter (2183.81825ms)
+✔ working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation (2286.654292ms)
+✔ group drafts and delayed history stay attached to the original group (1787.335583ms)
+✔ blocked group owner selects an unfenced existing participant for explicit incomplete finish (1437.629125ms)
+(node:53686) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (3216.258792ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (3492.977041ms)
+(node:53687) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes (3864.401792ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8033.348667

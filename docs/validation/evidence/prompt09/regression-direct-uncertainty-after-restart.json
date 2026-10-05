@@ -1,0 +1,224 @@
+{
+  "before": {
+    "conversation": {
+      "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+      "purpose": "Conversation with Maya",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-10-05T20:06:18.346Z",
+      "updated_at": "2026-10-05T20:06:18.346Z"
+    },
+    "participants": [
+      {
+        "principal_id": "human",
+        "worker_id": null,
+        "display_name": "Human",
+        "active": 1
+      },
+      {
+        "principal_id": "principal_52f0e82e-f2a2-4525-a56b-995238531ede",
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "display_name": "Maya",
+        "active": 1
+      }
+    ],
+    "history": {
+      "items": [
+        {
+          "cursor": 55,
+          "message_id": "cmessage_187d7344-387a-4b18-b4f6-0846c33f98b2",
+          "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+          "sender_principal_id": "human",
+          "worker_id": null,
+          "execution_id": null,
+          "body": "Passive recovery fixture: retain the internal-only constraint. This isolated conversation will exercise an operator-injected service failure; never replay an ambiguous provider turn.",
+          "request_id": null,
+          "response_to": null,
+          "created_at": "2026-10-05T20:06:18.665Z"
+        },
+        {
+          "cursor": 56,
+          "message_id": "cmessage_9d5e9526-4914-4c69-9104-21541ac0b269",
+          "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+          "sender_principal_id": "human",
+          "worker_id": null,
+          "execution_id": null,
+          "body": "Explain the retained internal-only constraint and how uncertainty should be reported. This is the explicitly authorized controlled service-failure validation. No Tasks, external actions or research.",
+          "request_id": null,
+          "response_to": null,
+          "created_at": "2026-10-05T20:07:35.343Z"
+        }
+      ],
+      "next_cursor": null
+    },
+    "paused": false,
+    "requests": [
+      {
+        "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+        "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+        "message_id": "cmessage_9d5e9526-4914-4c69-9104-21541ac0b269",
+        "target_worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "requester_principal_id": "human",
+        "chain_id": "chain_94af5aaa-5a55-48e7-9387-d06893bd22f8",
+        "hop": 0,
+        "kind": "reply",
+        "parent_request_id": null,
+        "return_worker_id": null,
+        "status": "blocked",
+        "scope_version": 1,
+        "response_message_id": null,
+        "error": "Provider outcome unknown after restart; inspect retained evidence. No automatic replay.",
+        "created_at": "2026-10-05T20:07:35.344Z",
+        "updated_at": "2026-10-05T20:08:49.938Z"
+      }
+    ],
+    "executions": [
+      {
+        "execution_id": "execution_365cea4b-4c15-4959-910b-ac27e0cc3e89",
+        "task_id": null,
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "runtime_reference": "01a10dad-cc54-71d1-bf89-57bc299b29b3",
+        "status": "interrupted",
+        "started_at": "2026-10-05T20:07:35.358Z",
+        "finished_at": "2026-10-05T20:08:49.937Z",
+        "error": null,
+        "interruption_reason": "application_restart",
+        "model": "gpt-6-sol",
+        "reasoning_effort": "low",
+        "execution_priority": "normal",
+        "runtime_version": "codex-cli 0.157.0",
+        "runtime_adapter": "codex-app-server",
+        "provenance_status": "recorded",
+        "origin": "conversation",
+        "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+        "session_id": "session_845e98fd-59ee-4fcd-809d-47ed0af175e9",
+        "generation": 1
+      }
+    ],
+    "sessions": [
+      {
+        "session_id": "session_845e98fd-59ee-4fcd-809d-47ed0af175e9",
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "generation": 1,
+        "previous_session_id": null,
+        "state": "blocked",
+        "reason": "initial_context",
+        "completed_turns": 0,
+        "created_at": "2026-10-05T20:07:35.357Z",
+        "activated_at": "2026-10-05T20:07:36.849Z"
+      }
+    ]
+  },
+  "after": {
+    "conversation": {
+      "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+      "purpose": "Conversation with Maya",
+      "state": "active",
+      "scope_version": 1,
+      "created_by": "human",
+      "created_at": "2026-10-05T20:06:18.346Z",
+      "updated_at": "2026-10-05T20:06:18.346Z"
+    },
+    "participants": [
+      {
+        "principal_id": "human",
+        "worker_id": null,
+        "display_name": "Human",
+        "active": 1
+      },
+      {
+        "principal_id": "principal_52f0e82e-f2a2-4525-a56b-995238531ede",
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "display_name": "Maya",
+        "active": 1
+      }
+    ],
+    "history": {
+      "items": [
+        {
+          "cursor": 55,
+          "message_id": "cmessage_187d7344-387a-4b18-b4f6-0846c33f98b2",
+          "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+          "sender_principal_id": "human",
+          "worker_id": null,
+          "execution_id": null,
+          "body": "Passive recovery fixture: retain the internal-only constraint. This isolated conversation will exercise an operator-injected service failure; never replay an ambiguous provider turn.",
+          "request_id": null,
+          "response_to": null,
+          "created_at": "2026-10-05T20:06:18.665Z"
+        },
+        {
+          "cursor": 56,
+          "message_id": "cmessage_9d5e9526-4914-4c69-9104-21541ac0b269",
+          "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+          "sender_principal_id": "human",
+          "worker_id": null,
+          "execution_id": null,
+          "body": "Explain the retained internal-only constraint and how uncertainty should be reported. This is the explicitly authorized controlled service-failure validation. No Tasks, external actions or research.",
+          "request_id": null,
+          "response_to": null,
+          "created_at": "2026-10-05T20:07:35.343Z"
+        }
+      ],
+      "next_cursor": null
+    },
+    "paused": false,
+    "requests": [
+      {
+        "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+        "conversation_id": "conversation_1b1959e4-bac0-4f4b-8f70-f8dbea98ee2a",
+        "message_id": "cmessage_9d5e9526-4914-4c69-9104-21541ac0b269",
+        "target_worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "requester_principal_id": "human",
+        "chain_id": "chain_94af5aaa-5a55-48e7-9387-d06893bd22f8",
+        "hop": 0,
+        "kind": "reply",
+        "parent_request_id": null,
+        "return_worker_id": null,
+        "status": "blocked",
+        "scope_version": 1,
+        "response_message_id": null,
+        "error": "Provider outcome unknown after restart; inspect retained evidence. No automatic replay.",
+        "created_at": "2026-10-05T20:07:35.344Z",
+        "updated_at": "2026-10-05T20:08:49.938Z"
+      }
+    ],
+    "executions": [
+      {
+        "execution_id": "execution_365cea4b-4c15-4959-910b-ac27e0cc3e89",
+        "task_id": null,
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "runtime_reference": "01a10dad-cc54-71d1-bf89-57bc299b29b3",
+        "status": "interrupted",
+        "started_at": "2026-10-05T20:07:35.358Z",
+        "finished_at": "2026-10-05T20:08:49.937Z",
+        "error": null,
+        "interruption_reason": "application_restart",
+        "model": "gpt-6-sol",
+        "reasoning_effort": "low",
+        "execution_priority": "normal",
+        "runtime_version": "codex-cli 0.157.0",
+        "runtime_adapter": "codex-app-server",
+        "provenance_status": "recorded",
+        "origin": "conversation",
+        "request_id": "reply_c2d408d1-009f-4a1c-b140-7d3f65b237c2",
+        "session_id": "session_845e98fd-59ee-4fcd-809d-47ed0af175e9",
+        "generation": 1
+      }
+    ],
+    "sessions": [
+      {
+        "session_id": "session_845e98fd-59ee-4fcd-809d-47ed0af175e9",
+        "worker_id": "worker_799f0fcc-7cb2-49aa-b2a8-f37f8cfb0755",
+        "generation": 1,
+        "previous_session_id": null,
+        "state": "blocked",
+        "reason": "initial_context",
+        "completed_turns": 0,
+        "created_at": "2026-10-05T20:07:35.357Z",
+        "activated_at": "2026-10-05T20:07:36.849Z"
+      }
+    ]
+  }
+}

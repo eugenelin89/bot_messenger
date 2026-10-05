@@ -1,3 +1,4 @@
+import { MANDATE_SCHEMA } from '../domain/mandates.js';
 import { createHash, randomUUID } from 'node:crypto';
 import type { Company, ExecutionContext } from './company.js';
 import { requireThat, strictObject, textField, type ConversationExecution, type Principal, type RuntimeBinding } from '../domain/model.js';
@@ -42,6 +43,7 @@ export class Conversations {
     const c = this.conversation(request.conversation_id);
     requireThat(c.state === 'active' && c.scope_version === request.scope_version, 'Conversation is held or its participant scope changed');
     this.company.discussions.authorize(request);
+    this.company.mandates.authorize(request);
     this.member(c.conversation_id, request.requester_principal_id);
     this.member(c.conversation_id, this.company.worker(request.target_worker_id).principal_id);
     return c;
@@ -87,7 +89,13 @@ export class Conversations {
     requireThat(message,'Discussion charter message required');const chain=id('chain');this.db.run('INSERT INTO conversation_chains VALUES (?,1,?)',chain,now());
     return this.queue(c,message.message_id,workerId,'human',chain,0,'reply',null,null,false,true);
   }
-  private direct(c:string){requireThat(!this.company.discussions.forConversation(c),'Use the dedicated working-group controls');}
+  queueMandate(conversationId:string,workerId:string) {
+    const c=this.conversation(conversationId);requireThat(this.company.mandates.forConversation(conversationId),'Mandate conversation required');
+    const message=this.db.get<{message_id:string}>('SELECT message_id FROM conversation_messages WHERE conversation_id=? ORDER BY rowid LIMIT 1',conversationId)!;
+    const chain=id('chain');this.db.run('INSERT INTO conversation_chains VALUES (?,1,?)',chain,now());
+    return this.queue(c,message.message_id,workerId,'human',chain,0,'reply',null,null,false,true);
+  }
+  private direct(c:string){requireThat(!this.company.mandates.forConversation(c),'Use dedicated mandate controls');requireThat(!this.company.discussions.forConversation(c),'Use the dedicated working-group controls');}
   send(input: unknown) {
     this.human(); const a = strictObject(input,['conversation_id','body','request_reply','receipt_key']);
     const c = this.conversation(textField(a,'conversation_id',100));
@@ -116,7 +124,7 @@ export class Conversations {
   list(workerId?: string, before = Number.MAX_SAFE_INTEGER) {
     this.human(); requireThat(Number.isSafeInteger(before) && before>0,'Invalid conversation cursor');
     if (workerId) this.company.worker(workerId);
-    const items = this.db.all<Conversation & {cursor:number}>(`SELECT c.rowid cursor,c.* FROM conversations c WHERE NOT EXISTS(SELECT 1 FROM working_groups g WHERE g.conversation_id=c.conversation_id) AND c.rowid<? ${workerId ? 'AND EXISTS (SELECT 1 FROM conversation_participants p WHERE p.conversation_id=c.conversation_id AND p.worker_id=?)' : ''} ORDER BY c.rowid DESC LIMIT 31`,before,...(workerId?[workerId]:[]));
+    const items = this.db.all<Conversation & {cursor:number}>(`SELECT c.rowid cursor,c.* FROM conversations c WHERE NOT EXISTS(SELECT 1 FROM working_groups g WHERE g.conversation_id=c.conversation_id) AND NOT EXISTS(SELECT 1 FROM mandate_conversations mc WHERE mc.conversation_id=c.conversation_id) AND c.rowid<? ${workerId ? 'AND EXISTS (SELECT 1 FROM conversation_participants p WHERE p.conversation_id=c.conversation_id AND p.worker_id=?)' : ''} ORDER BY c.rowid DESC LIMIT 31`,before,...(workerId?[workerId]:[]));
     return {items:items.slice(0,30).map(c=>({...c,participants:this.participants(c.conversation_id)})),next_cursor:items.length>30?items[29]!.cursor:null};
   }
   participants(c: string) { return this.db.all<{principal_id:string;worker_id:string|null;display_name:string;active:number}>('SELECT p.principal_id,p.worker_id,i.display_name,p.active FROM conversation_participants p JOIN principals i USING(principal_id) WHERE conversation_id=? ORDER BY p.principal_id',c); }
@@ -165,6 +173,7 @@ export class Conversations {
     for (const r of this.db.all<ReplyRequest>(`SELECT r.* FROM conversation_requests r JOIN workers w ON w.worker_id=r.target_worker_id JOIN conversations c USING(conversation_id)
       WHERE r.status='queued' AND c.state='active' AND NOT EXISTS(SELECT 1 FROM working_groups g WHERE g.conversation_id=c.conversation_id AND g.state!='active') AND NOT EXISTS(SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running')
       ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,r.created_at,r.rowid`)) {
+      if(this.company.mandates.held(r.conversation_id))continue;
       try {
         requireThat(!this.company.providerUnresolved(r.target_worker_id),'Prior provider outcome is unresolved; worker blocked for inspection');
         this.authorized(r);return r;
@@ -203,9 +212,14 @@ export class Conversations {
     requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');
     let session=this.db.get<ConversationSession>("SELECT * FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state='active'",worker.worker_id,c.conversation_id);
     const group=this.company.discussions.forConversation(c.conversation_id);
-    const toolHash=hash(group?this.company.discussions.toolsFor(r):conversationTools(this.company.research.enabled(worker.worker_id))); const scope=this.scope(c.conversation_id);
+    const mandate=this.company.mandates.forConversation(c.conversation_id);
+    const toolHash=hash(mandate?this.company.mandates.tools():group?this.company.discussions.toolsFor(r):conversationTools(this.company.research.enabled(worker.worker_id))); const scope=this.scope(c.conversation_id);
     const old=session;
-    if (!session||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
+    // Each strategic turn receives a fresh bounded checkpoint. Original observations,
+    // decisions and results are retrieved from trusted mandate records, rather than
+    // replaying a provider's previous tools or treating old delivery as current proof.
+    const strategicCheckpoint=!!mandate&&!!session&&session.completed_turns>0;
+    if (!session||strategicCheckpoint||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
       requireThat(!this.db.get("SELECT 1 FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state IN ('creating','prepared')",worker.worker_id,c.conversation_id),'Pending handoff requires inspection');
       const generation=this.db.get<{n:number}>('SELECT coalesce(max(generation),0)+1 n FROM conversation_sessions WHERE worker_id=? AND conversation_id=?',worker.worker_id,c.conversation_id)!.n;
       const handoff={version:1,scope_hash:scope,worker:{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},conversation_id:c.conversation_id,purpose:c.purpose,
@@ -213,8 +227,8 @@ export class Conversations {
         disposition:'No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.',constraints:'Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority.'};
       const sessionId=id('session');
       this.db.run(`INSERT INTO conversation_sessions (session_id,worker_id,conversation_id,generation,scope_version,mode,tool_schema,tool_hash,previous_session_id,state,reason,handoff,handoff_hash,handoff_version,created_at)
-        VALUES (?,?,?,?,?,'conversation',?,?,?,'creating',?,?,?,1,?)`,sessionId,worker.worker_id,c.conversation_id,generation,c.scope_version,group?DISCUSSION_SCHEMA:CONVERSATION_SCHEMA,toolHash,old?.session_id??null,
-        !old?'initial_context':old.rollover_requested?'operator_requested':old.scope_version!==c.scope_version||JSON.parse(old.handoff).scope_hash!==scope?'scope_changed':'conservative_context_limit',JSON.stringify(handoff),hash(handoff),now());
+        VALUES (?,?,?,?,?,'conversation',?,?,?,'creating',?,?,?,1,?)`,sessionId,worker.worker_id,c.conversation_id,generation,c.scope_version,mandate?MANDATE_SCHEMA:group?DISCUSSION_SCHEMA:CONVERSATION_SCHEMA,toolHash,old?.session_id??null,
+        !old?'initial_context':old.rollover_requested?'operator_requested':old.scope_version!==c.scope_version||JSON.parse(old.handoff).scope_hash!==scope?'scope_changed':strategicCheckpoint?'strategic_turn_checkpoint':'conservative_context_limit',JSON.stringify(handoff),hash(handoff),now());
       session=this.session(sessionId); this.audit('handoff_checkpoint',{session_id:sessionId,previous_session_id:old?.session_id??null,generation,source_range:handoff.source_range},worker.worker_id);
     }
     const executionId=id('execution');
@@ -233,12 +247,14 @@ export class Conversations {
     requireThat(!['cancelled','blocked','failed','interrupted'].includes(r.status),'Reply is no longer authorized');
     this.authorized(r);this.company.verifyWorkspace(worker,context.workspacePath);
     const group=this.company.discussions.forConversation(r.conversation_id);
-    requireThat((group?session.tool_schema===DISCUSSION_SCHEMA&&session.tool_hash===hash(this.company.discussions.toolsFor(r)):session.tool_schema===CONVERSATION_SCHEMA&&[hash(conversationTools()),hash(conversationTools(true))].includes(session.tool_hash))&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
+    const mandate=this.company.mandates.forConversation(r.conversation_id);
+    requireThat((mandate?session.tool_schema===MANDATE_SCHEMA&&session.tool_hash===hash(this.company.mandates.tools()):group?session.tool_schema===DISCUSSION_SCHEMA&&session.tool_hash===hash(this.company.discussions.toolsFor(r)):session.tool_schema===CONVERSATION_SCHEMA&&[hash(conversationTools()),hash(conversationTools(true))].includes(session.tool_hash))&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
     const handoff=JSON.parse(session.handoff);requireThat(hash(handoff)===session.handoff_hash&&handoff.scope_hash===this.scope(r.conversation_id),'Handoff integrity or source authorization changed');
     return {execution,worker,request:r,session};
   }
   context(context: ExecutionContext) {
     const {worker,request:r,session}=this.verify(context);
+    if(this.company.mandates.forConversation(r.conversation_id))return this.company.mandates.context(context);
     if(this.company.discussions.forConversation(r.conversation_id))return this.company.discussions.context(context);
     const source=this.db.get<ConversationMessage>('SELECT * FROM conversation_messages WHERE message_id=? AND conversation_id=?',r.message_id,r.conversation_id);
     requireThat(source,'Request source is unavailable');
@@ -254,11 +270,12 @@ export class Conversations {
     const {worker,session}=this.verify(context);if(session.state!=='active'||!session.runtime_reference)return;
     return {worker_id:worker.worker_id,runtime_type:worker.runtime_type,runtime_reference:session.runtime_reference,workspace_path:worker.workspace_path,created_at:session.created_at,thread_name:session.thread_name};
   }
-  tools(context: ExecutionContext) {const {session,request}=this.verify(context);return this.company.discussions.forConversation(request.conversation_id)?this.company.discussions.toolsFor(request):conversationTools(session.tool_hash===hash(conversationTools(true)));}
+  tools(context: ExecutionContext) {const {session,request}=this.verify(context);return this.company.mandates.forConversation(request.conversation_id)?this.company.mandates.tools():this.company.discussions.forConversation(request.conversation_id)?this.company.discussions.toolsFor(request):conversationTools(session.tool_hash===hash(conversationTools(true)));}
   prepareBinding(context: ExecutionContext,binding: RuntimeBinding) {
     const {worker,session}=this.verify(context);
     requireThat(binding.worker_id===worker.worker_id&&binding.runtime_type===worker.runtime_type,'Runtime owner mismatch');this.company.verifyWorkspace(worker,binding.workspace_path);
     requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a task context');
+    requireThat(!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a private mandate context');
     requireThat(!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.db.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a research context');
     if(session.state==='active'){requireThat(session.runtime_reference===binding.runtime_reference&&session.thread_name===(binding.thread_name??null),'Cannot implicitly replace active context');return;}
     requireThat(!session.runtime_reference||session.runtime_reference===binding.runtime_reference,'Replacement context changed');
@@ -279,7 +296,7 @@ export class Conversations {
   event(context: ExecutionContext,type: string,detail: Record<string,unknown>) {
     const {execution,session}=this.verify(context);
     if(type==='runtime_turn_starting') {
-      const limit=this.company.discussions.forConversation(this.request(execution.request_id).conversation_id)?DISCUSSION_LIMITS.contextChars:LIMIT.contextChars;
+      const conversationId=this.request(execution.request_id).conversation_id;const limit=this.company.mandates.forConversation(conversationId)||this.company.discussions.forConversation(conversationId)?DISCUSSION_LIMITS.contextChars:LIMIT.contextChars;
       requireThat(Number.isSafeInteger(detail.context_chars)&&Number(detail.context_chars)>=0&&Number(detail.context_chars)<=limit,'Invalid context accounting');
       this.db.run('INSERT INTO execution_runtime_attempts VALUES (?,1)',execution.execution_id);
       this.db.run('UPDATE conversation_sessions SET input_chars=input_chars+?,unresolved=1 WHERE session_id=?',Number(detail.context_chars),session.session_id);
@@ -326,7 +343,7 @@ export class Conversations {
     return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'One reserved continuation delivers the answer in the peer conversation. Now submit_reply with your own brief explanation of the question you asked and any initial reasoning, then end this turn. Do not wait or poll, and do not claim the peer has answered yet.'};
   }
   callTool(context: ExecutionContext,callId: string,name: string,input: unknown) {
-    const {request}=this.verify(context);if(this.company.discussions.forConversation(request.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
+    const {request}=this.verify(context);if(this.company.mandates.forConversation(request.conversation_id))return this.company.mandates.callTool(context,callId,name,input);if(this.company.discussions.forConversation(request.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
     requireThat(!this.company.research.hasPending(context.executionId),'Await pending research before replying or using another tool.');
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
     return this.db.transaction(()=>{

@@ -1,6 +1,6 @@
 # Access and Operate a BotSquad Ubuntu HQ
 
-**Status:** Current operator guide, including Prompt 06 client API and retained Project/infrastructure boundaries
+**Status:** Current operator guide, including conversations, research, working groups and bounded mandates
 **Supported host:** Ubuntu 24.04 x86_64
 
 This guide assumes BotSquad has already been bootstrapped on a server and that your
@@ -66,32 +66,18 @@ Do not open TCP 4310 to the public Internet.
 
 ## Follow bot interaction
 
-BotSquad currently coordinates primarily through explicit Tasks and manager handoffs,
-not through always-on private bot chats.
+Use **Company Mandates** for an ongoing strategic outcome and its bounded review schedule;
+see [the operating-loop tutorial](COMPANY_OPERATING_LOOP_TUTORIAL.md). **Conversations**
+support private direct replies and bounded peer questions; passive messages do not dispatch.
+**Working Groups** support deliberation and shared evidence. A group synthesis remains a
+recommendation; a separate owner assignment or authorized mandate operation creates a Task.
 
-For a readable completed workflow such as StudyPlan:
-
-1. Open **Executive channel** to read human-readable progress and handoff messages.
-2. Use **↗ Task** beneath a message to inspect the exact assignment, acceptance criteria,
-   parent relationship, result and execution attempts.
-3. Open **Audit history** for precise control-plane transitions such as task assignment,
-   child-result receipt, manager follow-up, approval and integration.
-4. Open **Executions** to see when each worker actually ran, including concurrent work.
-
-The human normally assigns executable objectives to Atlas. The message-only control adds
-durable Executive-channel communication but does not start a worker or create a Task.
-Direct private human-to-Maya/Linus/etc. chat is not implemented through Prompt 06.
-
-Workers may use human-readable messages to address other existing workers when their
-capabilities allow it, even across hierarchy edges. That message does not wake the
-recipient or grant authority. Actual work assignment is stricter: a manager can assign
-only a direct subordinate, subject to the supported workflow's role/stage constraints.
-
-A recipient-addressed worker message is durable and auditable, but current worker context
-is Task-centric rather than a general personal inbox. The reliable orchestration path is
-an explicit child Task, completed result/artifact, and the durable child-result event that
-queues the manager to continue.
-
+Use **Executive channel**, **Tasks** and **Executions** to follow an executable assignment.
+Task links expose its acceptance criteria, result, artifact and attempts; audit history records
+precise assignment, child-result, approval and integration transitions. Actual Task assignment
+is restricted to a manager's eligible direct reports and existing workflow capabilities.
+Messages, group membership and strategic prose do not grant new authority. Idle workers do
+not poll models.
 See [AI Organization Model](../product/AI_ORGANIZATION_MODEL.md) for the complete semantics.
 
 ## SSH into the headquarters
@@ -228,8 +214,8 @@ These are not equivalent.
 
 Pausing does not undo actions that already happened.
 
-The current accepted HQ remains intentionally handed off with production dispatch
-paused during Prompt 05 acceptance. That is an operator handoff choice, not a requirement for every fresh install.
+Pause state is retained operator policy. Read the current HQ state before an update; preserve
+its actual value rather than applying an old milestone handoff assumption.
 
 Before resuming an existing HQ, inspect queued/blocked/awaiting-approval work in the UI.
 

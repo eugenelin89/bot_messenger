@@ -6,6 +6,7 @@ import { migration6 } from './client-migration.js';
 import { migrateConversations, migration8 } from './conversations-migration.js';
 import { migration9 } from './research-migration.js';
 import { migration10 } from './discussions-migration.js';
+import { migrateMandates, migration12 } from './mandates-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -202,7 +203,8 @@ export class Store {
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
     const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
     const conversationMigration = !this.get('SELECT version FROM schema_migrations WHERE version=7');
-    if (projectMigration || conversationMigration) this.db.exec('PRAGMA foreign_keys=OFF');
+    const mandateMigration = !this.get('SELECT version FROM schema_migrations WHERE version=11');
+    if (projectMigration || conversationMigration || mandateMigration) this.db.exec('PRAGMA foreign_keys=OFF');
     try { this.transaction(() => {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=1')) {
         this.db.exec(migration1);
@@ -244,6 +246,8 @@ export class Store {
         this.db.exec(migration10);
         this.run('INSERT INTO schema_migrations VALUES (10,?)', new Date().toISOString());
       }
+      if (mandateMigration) { migrateMandates(this.db); this.run('INSERT INTO schema_migrations VALUES (11,?)', new Date().toISOString()); }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=12')) { this.db.exec(migration12); this.run('INSERT INTO schema_migrations VALUES (12,?)', new Date().toISOString()); }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }
