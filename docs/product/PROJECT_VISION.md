@@ -1,7 +1,7 @@
 # BotSquad — Project Vision
 
 **Status:** Product vision; Prompts 01–09 and WE-01 complete; Prompt 10 next
-**Updated:** 2026-09-29
+**Updated:** 2026-10-05
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
 current repository status. [Decision 017](../decisions/decision_017_single_company_first.md)

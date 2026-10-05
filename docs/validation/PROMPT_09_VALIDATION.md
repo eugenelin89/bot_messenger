@@ -125,7 +125,7 @@ the broad mandate remained paused.
 
 - Full c6690a5 suite: [Ubuntu 246/246](evidence/prompt09/linux-c6690a5.txt) and
   [local 245/246, one Linux-only skip](evidence/prompt09/local-c6690a5.txt).
-- Expanded current suite: [local 255/256, one Linux-only skip](evidence/prompt09/local-256.txt);
+- Historical 7d1e1b7 checkpoint suite: [local 255/256, one Linux-only skip](evidence/prompt09/local-256.txt);
   [all 10 browser checks](evidence/prompt09/browser-10.txt). [Exact Ubuntu checkpoint 256/256](evidence/prompt09/linux-7d1e1b7.txt), zero skips. All nine Python provisioner protocol tests passed.
 - Actual engineering: hierarchy, independent review, integration and restart passed.
   [Engineering receipts](evidence/prompt09/engineering-c6690a5.json),

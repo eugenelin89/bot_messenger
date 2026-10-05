@@ -225,7 +225,7 @@ retained as cancelled, rather than an indefinite held review. Asymmetri remains 
 The complete c6690a5 Ubuntu suite passed 246/246. Eight additional focused integration tests
 cover aggregate research charging, late callback denial, provider-reference boundaries,
 actual database reopen and exact bounded backoff. With those tests, the local full suite
-passes 253/254 (one Linux-only skip); all 11 browser checks pass. Ubuntu final checkpoint
+passes 253/254 (one Linux-only skip); all 10 browser checks pass. Ubuntu final checkpoint
 rerun is pending. Real engineering, independent review, integration, restart and 100 actual
 Linux isolation probes passed, including worker retirement. Real manual group restart and
 context replacement, four-person response/synthesis, 30-second idle observation and separately
