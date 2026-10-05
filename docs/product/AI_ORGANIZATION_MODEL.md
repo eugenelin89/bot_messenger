@@ -214,7 +214,7 @@ and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
 Direct conversations, task delegation and **bounded group discussion** are implemented,
 with explicit membership and synthesis. Prompt 09 implements the next bounded company-loop
-layer; its complete release acceptance is tracked separately in the execution plan.
+layer; its completed release acceptance is recorded in the execution plan.
 
 Hierarchy should govern responsibility, assignment authority and protected actions. It
 should not prevent peers or cross-functional specialists from reasoning together.
@@ -289,7 +289,7 @@ Conversation and deliberation are foundations, not the end state.
 
 Prompt 09 implements an ongoing company operating loop above Prompt 07 direct conversations
 and Prompt 08 working groups. The human may provide a broad mandate or a specific product
-mandate, explicitly activating a typed internal envelope. Release acceptance remains pending.
+mandate, explicitly activating a typed internal envelope. Actual broad/two-cycle acceptance and production deployment passed.
 See [the bounded implementation](../architecture/COMPANY_OPERATING_LOOP.md) and
 [Decision 022](../decisions/decision_022_company_operating_loop.md). Its automatic work is
 limited to analysis/research Tasks, groups and reviews; Project/external operations in the

@@ -1,17 +1,21 @@
 # Prompt 09 validation — company operating loop and durable clock
 
-**Status: implementation acceptance passed; normal integration and production delivery pending.** Updated 2026-10-05. Production remains
-`ccf85629493b4d839d98c73a2e3ed1742304843b` until the final delivery gate below is recorded.
-The [execution plan](../exec-plans/prompt-09.md) tracks outstanding work. This report separates
+**Status: Prompt 09 complete — actual acceptance passed, normally merged and deployed.** Updated 2026-10-05.
+Implementation PR #10 merged and deployed as `9c9bdce50f5ec3bb7ec4931979dc9eed70bff260`. The final documentation
+revision's exact identity is recorded in the delivery handoff/protected HQ journal after its deployment.
+The [execution plan](../exec-plans/prompt-09.md) records all gates. This report separates
 real workers, synthetic product evidence, deterministic application faults and production.
 
 ## Candidate and environment
 
-The accepted engine source is `c6690a5b55fc1d1f9fdfe991626583dbc5d972fd`, following reviewed
+Actual model acceptance used engine source `c6690a5b55fc1d1f9fdfe991626583dbc5d972fd`, following reviewed
 authority/withdrawal fixes in `66c291a` and `fd6a755`. Ubuntu uses Node 24.21 and pinned Codex
 0.157.0, with the existing service account and gpt-6-sol workers at low reasoning. Model
 settings were not raised to conceal the failed tool-contract behavior. Checkpoint `7d1e1b7f14f1604d69174ed6212fc648e4a7f3f1` adds the final tests, owner result
-links and evidence; its backend/dependencies are unchanged. All demonstrations
+links and evidence; its backend/dependencies are unchanged. Final code `f3ce1f6771bcd4f135215b1a6c03a22e10ae3c6a`
+adds the three independently reviewed lifecycle/timezone fixes documented below; their affected
+failure/browser paths and the complete suite were rerun. Provider, evidence, research, discussion
+and persistence paths from the real runs are unchanged. All demonstrations
 use separate data roots beneath `/var/lib/botsquad/validation`; production is not a fixture.
 
 ## Acceptance matrix
@@ -22,10 +26,10 @@ use separate data roots beneath `/var/lib/botsquad/validation`; production is no
 | C09-2 — durable schedules | PASS | Persisted one-time/interval/daily schedules, IANA zone, owner/purpose/count/end, version edits and cancellation; one actual one-time review |
 | C09-3 — clock/recovery | PASS | Controlled before/exact/after due, overlap, catch-up, pause, revocation, atomic crash windows, database reopens, real elapsed-time invocation and idle service restart |
 | C09-4 — two evidence-based cycles | PASS | Actual scheduled Asymmetri Cycle 2 evaluated attributable new simulated evidence and made an unscripted reasoned decision |
-| Complete affected regressions | PASS | Local 255 passed/1 Linux-only skip; exact Ubuntu checkpoint 256/256; browser 10/10, original-result links 21/21, Python provisioner 9/9; all actual regressions below |
-| Normal integration, exact deployment and preservation | Pending | Fresh production preflight/backup/migration, PR/main, build identity and cleanup required |
+| Complete affected regressions | PASS | Local 258 passed/1 Linux-only skip; exact Ubuntu final code and integrated build 259/259; browser 11/11, original-result links 21/21, Python provisioner 9/9; all actual regressions below |
+| Normal integration, exact deployment and preservation | PASS | PR #10 merged; protected fresh backup/migration, exact source/build/health, Chrome/idle and original/fresh preservation passed; seven owned temporary HQs stopped |
 
-The four scenario gates passing does not by itself complete the milestone.
+The scenario gates and the production delivery/preservation gates passed separately.
 
 ## Broad company result
 
@@ -121,7 +125,7 @@ the broad mandate remained paused.
 
 - Full c6690a5 suite: [Ubuntu 246/246](evidence/prompt09/linux-c6690a5.txt) and
   [local 245/246, one Linux-only skip](evidence/prompt09/local-c6690a5.txt).
-- Expanded current suite: [local 255/256, one Linux-only skip](evidence/prompt09/local-256.txt);
+- Historical 7d1e1b7 checkpoint suite: [local 255/256, one Linux-only skip](evidence/prompt09/local-256.txt);
   [all 10 browser checks](evidence/prompt09/browser-10.txt). [Exact Ubuntu checkpoint 256/256](evidence/prompt09/linux-7d1e1b7.txt), zero skips. All nine Python provisioner protocol tests passed.
 - Actual engineering: hierarchy, independent review, integration and restart passed.
   [Engineering receipts](evidence/prompt09/engineering-c6690a5.json),
@@ -141,7 +145,7 @@ the broad mandate remained paused.
 - Offline schema 10→12 and 11→12: repeated open, integrity and foreign keys passed; every
   original field and rowid was preserved. The production schema-10 snapshot has 2,231 rows
   across 69 original tables. See [offline reports](evidence/prompt09/offline-schema12.txt).
-  A fresh backup/offline migration and post-deployment comparison remain mandatory.
+  Fresh protected backup/offline migration and post-deployment comparison passed again during delivery.
 
 ## Actual direct, research and working-group regressions
 
@@ -224,19 +228,65 @@ follow-up results: local 258 passed, zero failed, one Linux-only skip (259 total
 [full local suite](evidence/prompt09/review-fixes-local-all.txt). The independent read-only
 review found no material regression. The generic Task inspector still presents Retry for a
 failed internal Task, then displays the explicit rejection; this is a retained nonblocking
-UX limitation. Exact-candidate Ubuntu validation follows.
+UX limitation. Exact-candidate Ubuntu validation passed 259/259 with no skips; see
+[Linux report](evidence/prompt09/linux-f3ce1f6.txt) and
+[independent follow-up review](evidence/prompt09/independent-review-f3ce1f6.md).
 
-## Delivery gate and scope
+## Accepted production delivery and preservation
 
-Implementation [PR #10](https://github.com/eugenelin89/bot_messenger/pull/10) is open.
-Normal merge, exact local/origin/deployed source and running build identity: **pending**.
-Production health, browser surface, no-startup-work and roster/grant/pause preservation:
-**pending**. All six owned temporary HQ services are stopped and five validation tunnels
-closed; consistent retained-release database snapshots preserve successful and failed
-attempts ([cleanup receipts](evidence/prompt09/temporary-company-cleanup.jsonl)). Production must receive zero demonstration mandates,
-zero schedules, no new grants and no roster changes.
+Implementation [PR #10](https://github.com/eugenelin89/bot_messenger/pull/10) merged normally
+as **`9c9bdce50f5ec3bb7ec4931979dc9eed70bff260`**. Exact local integration main = origin/main =
+deployed source = health commit was verified. A protected independently built source archive and
+the installed `dist`/`public` tree matched across **197 files**; manifest SHA-256:
+`3ba1149a6733e2f99d22891d49c2f11ed05a8593ac62ea4f640bcffd21ed2f02`. The integrated build passed **259/259** tests under actual
+production service restrictions before startup ([integrated suite receipt](evidence/prompt09/initial-production-suite.txt)). Running service, ready runtime, non-root identity
+and `127.0.0.1:4310` listener passed. No OS, dependency, provisioner or credential update was made.
 
-Prompt 09 demonstrates bounded internal strategic operation. It does **not** prove live
-marketing, live product management, publication, customer outreach, revenue improvement,
-autonomous spending or unrestricted computer operation. Prompt 10 owns bounded Computer Use;
-Prompt 11 owns approved real business actions, receipts and measured Asymmetri outcomes.
+The protected backup at `/var/backups/botsquad/prompt09-delivery-20261005-first` contains consistent
+original/offline SQLite copies, inventories, expected/actual build manifests, health, no-pending-work
+checks, source revision and running-process receipts. Offline migration schema 10→12 reopened twice,
+with all **2,231 original rows across 69 tables**, every original field and rowid, integrity and foreign
+keys preserved. Fresh preservation passed **55 databases / 44,415 original rows / 337 account and group
+mappings / 557 root records / 167 worker homes**. The original preflight comparison independently
+passed **43 databases / 33,607 rows / 293 mappings / 484 root records / 145 homes**. Only the pre-existing
+heartbeat field `workers.updated_at` is excluded; no historical row or receipt was discarded.
+
+Production remains eight enabled idle workers — Atlas, Nix, Maya, Turing, Linus, Ada, Grace, Scout —
+48 Tasks, 65 executions, one direct conversation, six Projects, zero working groups and pause=false.
+The original blocked infrastructure Task and Atlas Task/direct Public Research grant are retained;
+no discussion grant was enabled. **Mandates, cycles, initiatives, decisions, observations, schedules
+and occurrences all remain zero.** Actual Chrome loaded Mandates and passive draft controls without
+any POST. A further 30 seconds produced no new execution, Task, permission or domain object.
+See [bounded production receipt](evidence/prompt09/initial-release.json),
+[browser/idle receipt](evidence/prompt09/initial-browser.json) and
+[deployment log](evidence/prompt09/initial-deployment.txt).
+
+All seven task-owned temporary HQ services are stopped, with consistent root-owned retained-release
+snapshots. Successful/failed transcripts, actual crash receipts, provider fences, Unix identities,
+homes and root evidence remain. The original five validation tunnels are closed. The temporary
+production verification tunnel is closed after the final completion-documentation deployment.
+See [earlier cleanup](evidence/prompt09/temporary-company-cleanup.jsonl) and
+[final candidate cleanup](evidence/prompt09/reviewed-company-cleanup.json).
+
+This completion record is integrated with a separate normal documentation PR. Its final local/origin/
+source/build identity, unchanged production state, browser/idle verification and tunnel cleanup are
+recorded outside Git in the task delivery handoff and protected HQ journal after deployment. This
+avoids trying to embed a commit's own SHA inside that commit. The application code is unchanged.
+
+## Known limits and next milestones
+
+- Strategic summaries remain fallible: Cycle 1 names Maya for a Task actually assigned to Scout.
+  The original Task and artifact IDs retain correct ownership and are authoritative.
+- Withdrawal conservatively withholds older derived material; already transmitted provider
+  context cannot be recalled. Unknown provider outcomes remain fenced and are never auto-replayed.
+- Internal analysis Tasks are single-attempt. The generic inspector still offers Retry, but the
+  trusted operation rejects it explicitly without queuing work or clearing a fence.
+- All Asymmetri baseline/outcome measurements were **simulated_fixture**. No intervention or
+  customer experiment occurred, and no revenue/conversion/retention lift is established.
+- The supported clock is finite one-time, elapsed interval and daily wall time, with explicit
+  IANA/DST, one-held-overlap and coalesced-missed-run semantics; it is not unrestricted automation.
+
+Prompt 09 is complete. **Prompt 10 — Bounded Computer Use — is next.** Prompt 11 later owns approved
+real business actions, receipts and measured Asymmetri Motion outcomes. Prompt 09 does **not** prove
+live marketing, live product management, publication, customer outreach, revenue improvement,
+autonomous spending or unrestricted computer operation.

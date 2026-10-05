@@ -1,7 +1,7 @@
 # Decision 022 — Bounded strategic mandates and durable company clock
 
 Date: 2026-10-05  
-Status: Implemented; full release acceptance pending  
+Status: Accepted; actual Ubuntu acceptance and production deployment verified
 Extends: Decisions 016–018, 020 and 021
 
 ## Context

@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-10-01
+**Updated:** 2026-10-05
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -22,8 +22,8 @@ and their historical evidence retain their original meaning.
 | 06 | Stable authenticated remote-client API and device identity | Complete |
 | 07 | First-class conversations, direct worker interaction and context continuity | Complete |
 | 08 | Collaborative working groups and deliberation | Complete |
-| 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | In progress — release gates pending |
-| 10 | Bounded Computer Use | Planned |
+| 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Complete |
+| 10 | Bounded Computer Use | Next |
 | 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
 | — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
 | — | Company-to-company collaboration | Deferred; after company isolation |
@@ -34,8 +34,7 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 08 is
-Complete; Prompt 09 is In progress.** See the [actual Prompt 08 acceptance and deployment](../validation/PROMPT_08_VALIDATION.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 09 is Complete; Prompt 10 is Next.** See the [actual Prompt 09 acceptance and deployment](../validation/PROMPT_09_VALIDATION.md).
 
 **Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
 WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
@@ -564,7 +563,7 @@ preserving the distinction between **communication, deliberation and execution a
 
 ## Prompt 09 — Strategic company operating loop
 
-**Status:** Implemented; full acceptance and release pending. See [active evidence](../exec-plans/prompt-09.md), [architecture](../architecture/COMPANY_OPERATING_LOOP.md) and [Decision 022](../decisions/decision_022_company_operating_loop.md).
+**Status:** Complete and deployed. See [accepted evidence](../validation/PROMPT_09_VALIDATION.md), [architecture](../architecture/COMPANY_OPERATING_LOOP.md) and [Decision 022](../decisions/decision_022_company_operating_loop.md).
 
 Prompts 07 and 08 make workers capable of direct conversation and genuine team
 deliberation. Prompt 09 proves that those capabilities can operate as an ongoing company
@@ -731,7 +730,7 @@ C09-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md
 
 ## Prompt 10 — Bounded Computer Use
 
-**Status:** Planned
+**Status:** Next
 
 Add explicit Computer Use capability after worker OS identity, approvals and the core
 interaction model are reliable.

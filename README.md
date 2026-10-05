@@ -19,7 +19,7 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 08 is complete and deployed. Prompt 09 — the strategic company operating loop and durable clock — is implemented and undergoing full acceptance; it is not yet released.**
+**Prompt 09 — the strategic company operating loop and durable clock — is complete and deployed. Prompt 10 — Bounded Computer Use — is next.** See [acceptance and delivery evidence](docs/validation/PROMPT_09_VALIDATION.md).
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and

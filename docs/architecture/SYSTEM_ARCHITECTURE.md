@@ -184,7 +184,7 @@ original-delivery evidence or explicit missingness. A trusted clock persists ver
 one-time/interval/daily schedules, stable occurrences, hold-one overlap and coalesced missed
 intervals. Idle time invokes no models. See [complete semantics](COMPANY_OPERATING_LOOP.md),
 [Decision 022](../decisions/decision_022_company_operating_loop.md) and
-[release acceptance](../exec-plans/prompt-09.md).
+[completed release acceptance](../validation/PROMPT_09_VALIDATION.md).
 
 This layer must reuse the conversation, deliberation, Task, Project, review and authority
 boundaries below it rather than bypassing them. A vague goal does not expand capabilities.

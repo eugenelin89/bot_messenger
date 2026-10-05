@@ -318,7 +318,7 @@ The company-level operating model is explicit. Prompt 09 implements its bounded 
 subset: owner-activated mandates, team-selected research/analysis and groups, durable decisions,
 labelled observations and a trusted review clock. Project/external operations in the broader
 model below remain separately authorized. See [architecture and limits](../architecture/COMPANY_OPERATING_LOOP.md);
-complete real acceptance and release are tracked in [the plan](../exec-plans/prompt-09.md).
+completed real acceptance and release are recorded in [the plan](../exec-plans/prompt-09.md).
 
 ~~~text
 Mandate

@@ -1,0 +1,22 @@
+From https://github.com/eugenelin89/bot_messenger
+ * branch            main       -> FETCH_HEAD
+   ccf8562..9c9bdce  main       -> origin/main
+Production has no active execution or queued Task; pause state: False
+{"snapshot_saved": true, "databases": 55, "root_records": 557, "worker_homes": 167}
+
+> botsquad@0.1.0 build
+> tsc
+
+Previous HEAD position was ccf8562 Merge pull request #9: verified Prompt 08 delivery record
+HEAD is now at 9c9bdce Merge pull request #10: bounded company mandates and durable clock
+
+> botsquad@0.1.0 build
+> tsc
+
+curl: (7) Failed to connect to 127.0.0.1 port 4310 after 2 ms: Couldn't connect to server
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AssertionError
+Exact source/build/health identity verified; original pause and executions preserved
+Application delivery verified: 9c9bdce50f5ec3bb7ec4931979dc9eed70bff260
+Protected evidence: /var/backups/botsquad/prompt09-delivery-20261005-first

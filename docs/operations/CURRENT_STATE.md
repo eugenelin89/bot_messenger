@@ -1,12 +1,34 @@
 # BotSquad — Current State
 
-**Status:** Prompt 08 and WE-01 complete and deployed; Prompt 09 implemented with acceptance/deployment pending
-**Updated:** 2026-10-01
+**Status:** Prompt 09 and WE-01 complete and deployed; Prompt 10 — Bounded Computer Use — next
+**Updated:** 2026-10-05
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
+
+## Prompt 09 accepted production state — October 5
+
+Implementation [PR #10](https://github.com/eugenelin89/bot_messenger/pull/10) merged normally
+as `9c9bdce50f5ec3bb7ec4931979dc9eed70bff260` and was deployed with exact local/origin/source identity, a matching
+197-file build/public manifest, ready runtime and a loopback-only listener.
+C09-1 through C09-4 passed with real broad and two-cycle Asymmetri workers; all Asymmetri
+baseline/outcome measurements are explicitly simulated fixtures. Ubuntu passed 259/259,
+Chrome 11/11, and independent security/recovery/semantic review passed after material fixes.
+
+The retained HQ has eight enabled idle workers: Atlas, Nix, Maya, Turing, Linus, Ada, Grace
+and Scout; 48 Tasks, 65 executions, one direct conversation, six Projects and zero groups.
+The original blocked infrastructure Task, existing Atlas Task/direct Public Research grant
+and unpaused state remain. Zero mandates, observations, schedules or occurrences were created;
+startup and a 30-second browser observation produced no model execution. Protected offline
+migration and original/fresh row, identity, home and provisioner preservation passed. All seven
+task-owned temporary HQs are stopped; successful and failed evidence/fences are retained.
+
+The completion-documentation revision is deployed separately. Its final exact SHA/build receipt
+is recorded outside Git in the delivery handoff and protected HQ backup journal, avoiding a
+self-referential hash commit. See [full validation](../validation/PROMPT_09_VALIDATION.md).
+Older dated state sections below remain historical evidence and do not override this snapshot.
 
 ## Primary deployment
 
@@ -152,8 +174,8 @@ objectives still enter through Atlas and the enforced reporting hierarchy; child
 wake events remain the task orchestration path. Device API v1 retains its current scopes
 and task-only execution projection, with no conversation data in its broad state/events.
 
-Prompt 09 implements owner-activated strategic mandates and a durable review clock on the
-owned implementation branch. It is not yet accepted or deployed. See [the active plan](../exec-plans/prompt-09.md)
+Prompt 09 provides accepted and deployed owner-activated strategic mandates and a durable
+review clock. See [the completed plan](../exec-plans/prompt-09.md)
 and [operator tutorial](COMPANY_OPERATING_LOOP_TUTORIAL.md). Native iOS remains deferred;
 the existing private browser over SSH is the operator path. Decision 017's single-company
 priority remains authoritative.
@@ -480,10 +502,9 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Conversations/continuity, working groups and the authenticated Client API are implemented. The next milestones are:
+Conversations/continuity, working groups, the company operating loop/clock and the authenticated Client API are implemented. The next milestones are:
 
 ~~~text
-09 Strategic company operating loop
 10 Bounded Computer Use
 11 Single-company business operations and measured Asymmetri Motion pilot
 --- deferred / unnumbered after single-company evidence ---

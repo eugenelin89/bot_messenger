@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 09 company operating loop
 
-**Status:** Implementation acceptance passed; integration/deployment remain open
+**Status:** Complete — accepted, merged and deployed; completion documentation delivery recorded separately
 **Owner:** Codex Prompt 09 implementation chat  
 **Branch:** `codex/prompt09-company-operating-loop`  
 **Worktree:** `../bot_messenger-prompt09`  
 **Started:** 2026-10-05 (America/Vancouver)  
 **Initial ETA:** 8–14 hours, including actual Ubuntu acceptance, independent review and deployment  
-**Current ETA:** 60–90 minutes remaining (20:27 UTC checkpoint); user requested an ETA update every 15 minutes
+**Historical ETA checkpoint (20:41 UTC):** 15–25 minutes remained for completion-documentation delivery and handoff. This is not a current action list; final completion and exact deployment identity are recorded in the delivery receipt. The user requested an ETA every 15 minutes.
 
 ## Objective and boundary
 
@@ -65,19 +65,19 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 | C09-4 two cycles | Two actual cycles, attributable intervening observation, evidence-responsive decision, scheduled second cycle | tested — actual scheduled second cycle evaluated the new 7/3/2 synthetic outcome; independent PASS |
 | Mandate authority | Owner activation; immutable envelope; no prose escalation; coordinator eligibility | tested — owner/envelope/role denial checks pass |
 | Internal coordination | Typed group creation; separate decision-linked Task; current hierarchy and grants | tested — actual company-selected groups and separate decision-linked Tasks completed |
-| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 45 focused checks; real fresh contexts and all 15 same-execution decision citations verified |
+| Evidence/memory | Mode/provenance/time/missingness; delivered-citation validation; bounded original reads; rollover | tested — 48 focused checks; real fresh contexts and all 15 same-execution decision citations verified |
 | Clock failures | All requested crash points, known-failure backoff, unknown-outcome no-replay | tested — atomic rollback/claim, actual database reopen, provider-reference boundaries, known 30/60-second backoff and no-replay fences |
-| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — all 10 browser checks and 21 actual original-record/artifact links pass |
+| Human/browser | Create/envelope/activate/pause/stop/observations/decisions/schedules/review-now/history | tested — all 11 browser checks and 21 actual original-record/artifact links pass |
 | Client API/privacy | No strategy, observation, group-control or schedule authority exposed to v1 | tested — v1 privacy and compatibility pass |
 | Prompt 07 regressions | Direct/passive/reply/peer/rollover/interruption/uncertainty | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
 | WE-01 regressions | Grants/revocation/public sources/failures/async/rollover | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
 | Prompt 08 regressions | Manual/Atlas groups, sharing, challenge/response, synthesis, separate assignment, privacy | tested — actual direct/peer/passive/neutral rollover, research/grant/revocation/source history, manual/Atlas groups, interruption and retained uncertainty passed |
-| Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | tested — actual engineering, Projects, identity recovery and Prompt 01 passed; exact Ubuntu 256/256 |
-| Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | tested — complete suite, 10 browser checks, nine provisioner tests and actual Linux probes passed |
-| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — offline schema 10→12 and 11→12 preserve all original rows/fields/rowids; fresh deployment check pending |
+| Engineering/Projects | Hierarchy/review/integration/revision/archive/isolation/recovery/publication fixture | tested — actual engineering, Projects, identity recovery and Prompt 01 passed; exact Ubuntu 259/259 |
+| Infrastructure/API | Identity/provisioner, browser boundaries, compatible v1 | tested — complete suite, 11 browser checks, nine provisioner tests and actual Linux probes passed |
+| Migration/preservation | Protected consistent backup, offline migration repeated, integrity/FKs, retained rows/identities | tested — offline schema 10→12 and 11→12 preserve all original rows/fields/rowids; fresh deployment checks passed |
 | Independent review | Separate security/recovery review and semantic real-artifact review; material fixes | tested — security/recovery, semantic, final harness and owner-link reviews passed |
-| Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | implemented — current documentation, tutorial, Decision 022 and detailed validation report; final delivery record pending |
-| Integration/deploy | Normal PR merge, exact local/origin/source/build equality, health/preservation/cleanup | blocked — all prior gates |
+| Documentation | Required current docs, Decision 022 if still unused, architecture/tutorial/validation | implemented — current documentation, tutorial, Decision 022 and detailed validation/delivery report |
+| Integration/deploy | Normal PR merge, exact local/origin/source/build equality, health/preservation/cleanup | tested — PR #10 normal merge; exact application deployment, browser/idle, original/fresh preservation and seven temporary HQs stopped |
 | Prompt 10/11 | Computer Use and live external/business operation | intentionally out of scope — separate numbered milestones |
 
 ## Execution sequence
@@ -102,8 +102,9 @@ A blocked gate below means its listed prerequisite is still outstanding, not a p
 
 ## Remaining work
 
-Actual broad and two-cycle acceptance passed; the GitHub follow-up fixes, final review and release gates remain open. Do not mark Prompt 09 complete
-or Prompt 10 next until the complete acceptance matrix passes.
+All implementation, actual acceptance, review and production application delivery gates passed.
+Prompt 09 is complete and Prompt 10 is next. This completion record is integrated normally;
+its exact final documentation deployment receipt is retained outside Git after verification.
 
 ## Implementation checkpoint (2026-10-05)
 
@@ -271,3 +272,25 @@ clock time in the trusted mandate zone. Owner absolute-time callers remain compa
 Vancouver daily reviews over spring gaps and autumn repeats. The full local suite passes 258/259 with only the Linux-specific check skipped. Independent
 follow-up review found no material regression. Exact-candidate Ubuntu validation and release
 remain pending; production remains unchanged.
+
+## Accepted production delivery — October 5
+
+PR #10 merged normally as `9c9bdce50f5ec3bb7ec4931979dc9eed70bff260`. Local integration main, origin/main,
+production source and health matched; the independently built candidate and installed runtime/public
+manifest matched across 197 files. The integrated build passed Ubuntu 259/259 before
+service startup. Runtime is ready, service identity is botsquad, and the listener is loopback-only.
+Actual Chrome loaded Mandates and passive draft controls without a POST; 30 idle seconds retained
+exactly 48 Tasks and 65 executions. Eight workers, one original grant and pause=false are preserved.
+All seven new strategic domain tables are empty. No production demonstration or new permission exists.
+
+Protected schema 10→12 migration reopened twice, preserving all 2,231 original rows, every original
+field and rowid, integrity and foreign keys. Fresh preservation covers 55 databases, 44,415 original
+rows, 337 account/group mappings, 557 root records and 167 worker homes; the original task preflight
+comparison also passed. Only the established heartbeat field workers.updated_at is excluded.
+Seven task-owned temporary HQs are stopped and snapshots retained; original five validation tunnels
+are closed. The production verification tunnel is closed after final documentation release checks.
+
+See [the delivery report](../validation/PROMPT_09_VALIDATION.md) for receipts, independent review,
+known limitations and the final handoff boundary. No remaining Prompt 09 product work is blocked.
+The initial 8–14-hour estimate included conservative allowance for real-model diagnosis/retesting;
+completion was faster after resolving the tool-envelope contract and the final review findings.

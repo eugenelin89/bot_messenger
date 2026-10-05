@@ -1,0 +1,106 @@
+{
+  "revision": "9c9bdce50f5ec3bb7ec4931979dc9eed70bff260",
+  "protected_backup": "/var/backups/botsquad/prompt09-delivery-20261005-first",
+  "source": "9c9bdce50f5ec3bb7ec4931979dc9eed70bff260",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "9c9bdce50f5ec3bb7ec4931979dc9eed70bff260"
+  },
+  "build": {
+    "files": 197,
+    "manifest_sha256": "3ba1149a6733e2f99d22891d49c2f11ed05a8593ac62ea4f640bcffd21ed2f02",
+    "expected_matches_running_tree": true
+  },
+  "offline_migration": {
+    "offline": true,
+    "previous_schema": 10,
+    "schema": 12,
+    "repeat_open_preserved": true,
+    "tables": 69,
+    "original_rows": 2231,
+    "rowids_and_every_original_field_preserved": true,
+    "foreign_keys": "ok",
+    "integrity": "ok"
+  },
+  "preservation_fresh": {
+    "preserved": true,
+    "original_databases": 55,
+    "original_rows": 44415,
+    "account_and_group_mappings": 337,
+    "root_records": 557,
+    "worker_homes": 167,
+    "only_excluded_field": "workers.updated_at"
+  },
+  "preservation_original": {
+    "preserved": true,
+    "original_databases": 43,
+    "original_rows": 33607,
+    "account_and_group_mappings": 293,
+    "root_records": 484,
+    "worker_homes": 145,
+    "only_excluded_field": "workers.updated_at"
+  },
+  "no_pending_work": {
+    "conversation_requests": 0,
+    "executions": 0,
+    "integrations": 0,
+    "project_operations": 0,
+    "projects": 0,
+    "protected_operations": 0,
+    "retirement_revocations": 0,
+    "tasks": 0
+  },
+  "strategy_counts": {
+    "initiatives": 0,
+    "mandate_observations": 0,
+    "mandates": 0,
+    "operating_cycles": 0,
+    "review_occurrences": 0,
+    "review_schedules": 0,
+    "strategic_decisions": 0
+  },
+  "production": {
+    "workers": [
+      {
+        "name": "Atlas",
+        "enabled": 1
+      },
+      {
+        "name": "Nix",
+        "enabled": 1
+      },
+      {
+        "name": "Maya",
+        "enabled": 1
+      },
+      {
+        "name": "Turing",
+        "enabled": 1
+      },
+      {
+        "name": "Linus",
+        "enabled": 1
+      },
+      {
+        "name": "Ada",
+        "enabled": 1
+      },
+      {
+        "name": "Grace",
+        "enabled": 1
+      },
+      {
+        "name": "Scout",
+        "enabled": 1
+      }
+    ],
+    "tasks": 48,
+    "executions": 65,
+    "paused": false
+  },
+  "running_process": "MainPID=392678\nExecMainStartTimestamp=Mon 2026-10-05 20:39:15 UTC\nActiveState=active\nActiveEnterTimestamp=Mon 2026-10-05 20:39:15 UTC\n"
+}

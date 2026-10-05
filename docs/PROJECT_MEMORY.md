@@ -1,6 +1,6 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-01
+**Updated:** 2026-10-05
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
 ## What we are building
@@ -40,16 +40,14 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Complete the remaining Prompt 09 acceptance and release gates in
-[the active execution plan](exec-plans/prompt-09.md). Its strategic operating loop and durable
-clock are implemented on the owned branch, but release is not complete. Reuse accepted Prompt 07 continuity, WE-01 authority and Prompt 08 deliberation,
-shared evidence, immutable synthesis and explicit assignment boundaries. Cover both a broad
-mandate and the bounded Asymmetri Motion reference scenario with two evidence-based cycles.
-Do not imply live marketing/publication authority or implement Computer Use early. Preserve
-09 → 10 → 11 and the single-company evidence gate before federation. Verify current main,
-active worktrees and the delivery receipt; never discard concurrent work.
+Prompt 09 is complete and deployed. Prompt 10 — Bounded Computer Use — is next; Prompt 11
+later owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
+Reuse accepted Prompt 07 continuity, WE-01 authority, Prompt 08 deliberation and Prompt 09
+bounded mandates, evidence and durable clock. Do not imply live marketing/publication,
+spending or Computer Use authority from a strategic mandate. Verify current main, active
+worktrees and the delivery receipt before future work; preserve concurrent writers.
 
-WE-01 completed and deployed the first public-research/standing-knowledge slice from Decision 019. Read [Decision 020](decisions/decision_020_scoped_public_research.md), the [completed execution plan](exec-plans/worker-empowerment-01.md), [validation record](validation/worker-empowerment-01.md) and [owner tutorial](operations/PUBLIC_RESEARCH_TUTORIAL.md). All six gates passed; PR #5 merged and its exact application revision was deployed and verified on October 1. Separate owner activation is required at the retained HQ; do not confuse deployed code with active permission. At that historical WE-01 release, the retained HQ had zero grants and was unpaused with no runnable work; the fresh Prompt 08 state below supersedes its grant count. Atlas and Maya are present; Scout was the isolated validation researcher and is not yet in the retained roster. Broader empowerment remains future work.
+WE-01 completed and deployed the first public-research/standing-knowledge slice from Decision 019. Read [Decision 020](decisions/decision_020_scoped_public_research.md), the [completed execution plan](exec-plans/worker-empowerment-01.md), [validation record](validation/worker-empowerment-01.md) and [owner tutorial](operations/PUBLIC_RESEARCH_TUTORIAL.md). All six gates passed; PR #5 merged and its exact application revision was deployed and verified on October 1. Separate owner activation is required at the retained HQ; do not confuse deployed code with active permission. At that historical WE-01 release, the retained HQ had zero grants and was unpaused with no runnable work; the fresh Prompt 08 state below supersedes its grant count. At that WE-01 release, Atlas and Maya were present and Scout was only an isolated validation researcher; the October 5 state below includes Scout in production. Broader empowerment remains future work.
 
 ## Maintaining this record
 
@@ -86,20 +84,33 @@ remain. No OS/provisioner upgrade, public ingress or production demonstration wa
 Read the [validation report](validation/PROMPT_08_VALIDATION.md),
 [execution plan](exec-plans/prompt-08.md), [Decision 021](decisions/decision_021_bounded_working_groups.md),
 [technical guide](architecture/WORKING_GROUPS.md) and [tutorial](tutorials/working-groups.md).
-**Prompt 09 is in progress; WE-01 remains complete.**
+This October 1 checkpoint is historical; the October 5 Prompt 09 acceptance below supersedes it.
 
 
-## Prompt 09 implementation checkpoint — October 5
+## Prompt 09 accepted and deployed — October 5
 
-The current implementation is on `codex/prompt09-company-operating-loop`, based on retained
-production/main `ccf8562`. Schema 12 adds durable strategic records, schedules and private
-internal Task contexts without activating domain work. Actual production preflight found eight
-workers including Scout, 48 Tasks, 65 executions and one retained Atlas research grant; this
-supersedes older October 1 roster/grant counts. Production remains unchanged at this checkpoint.
+PR #10 merged as `9c9bdce50f5ec3bb7ec4931979dc9eed70bff260` and was deployed with exact source/build/health
+identity. Schema 12 adds bounded owner-activated mandates, private analysis Tasks, original
+source-backed decisions, labelled observations and one-time/interval/daily review schedules.
+C09-1..C09-4 passed: one broad company cycle and two real Asymmetri cycles, with the second
+started by a durable occurrence. Baseline and intervening 7/3/2 case evidence were explicitly
+`simulated_fixture`; Cycle 2 retained a weak setup-clarity hypothesis and stopped at the owner
+cycle limit without asserting causal lift or executing an external action.
 
-Three real failed broad attempts are retained with their unknown fences. The diagnosed failure
-was a generated pagination loop reading domain fields on wrapped dynamic-tool responses.
-Candidate `c6690a5` corrects the contract and completed a broad real cycle. Asymmetri two-cycle
-acceptance and other release gates remain open. Independent security review cleared the
-candidate; semantic review remains required. See Decision 022, the architecture/tutorial and
-execution plan for authoritative progress. Do not infer full completion from this checkpoint.
+Latest tests: Ubuntu 259/259, local 258 plus one Linux-only skip, Chrome 11/11, original links
+21/21, provisioner Python 9/9, plus actual direct/peer/research/group/engineering/Projects and
+recovery regressions. Independent security/recovery and semantic reviews passed. All three
+GitHub P2 findings were fixed and revalidated. Earlier failed company attempts, ambiguous
+provider fences and validation reports remain retained. One worker summary misattributes a
+Scout Task to Maya; original Task/artifact provenance is authoritative. The generic inspector
+still offers Retry for an internal Task, then presents the explicit one-shot rejection.
+
+Production preserves eight workers including Scout, 48 Tasks, 65 executions, one Atlas public
+grant and pause=false. No production mandate, schedule, observation or model execution was
+created. Backups, repeated offline migration and original/fresh preservation passed; seven
+owned validation HQs are stopped with protected consistent evidence snapshots. The exact final
+completion-documentation SHA/build receipt is recorded outside Git in the delivery handoff and
+protected HQ journal after its deployment. See [validation](validation/PROMPT_09_VALIDATION.md),
+[completed plan](exec-plans/prompt-09.md), [architecture](architecture/COMPANY_OPERATING_LOOP.md)
+and [tutorial](operations/COMPANY_OPERATING_LOOP_TUTORIAL.md). Prompt 10 is next; Prompt 11
+remains the live-business evidence gate.
