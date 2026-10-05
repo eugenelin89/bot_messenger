@@ -8,7 +8,8 @@ Before drafting or revising a substantive milestone prompt, read:
 2. `docs/product/ROADMAP.md` for current sequence/status;
 3. Decisions 016 and 017 for accepted company behavior, priorities and authority boundaries;
 4. `docs/product/SINGLE_COMPANY_OPERATIONS.md` for detailed operating/continuity acceptance;
-5. `prompts/MILESTONE_REQUIREMENTS.md` for the applicable acceptance IDs.
+5;
+6. `docs/agents/README.md` and Decision 023 for development-time Codex specialist routing. `prompts/MILESTONE_REQUIREMENTS.md` for the applicable acceptance IDs.
 
 Verify current main and active implementation plans before relying on a status recap.
 
@@ -31,3 +32,21 @@ read Decision 020 and its actual acceptance report before repeating older blanke
 that workers have no public-information tools. Keep ordinary native shell/browser/MCP
 restrictions, independent broker uncertainty and explicit retained-HQ activation. Public
 research is not outreach, account access, spending, publication or Computer Use authority.
+
+
+## Codex specialist routing in future prompts
+
+Substantive implementation prompts should explicitly tell the parent Codex thread to use
+the relevant project-scoped read-only specialists from `.codex/agents/` when the changed
+risk warrants them. Do not require all specialists mechanically. The parent remains the
+sole writer, Git owner, integrator and deployer; specialist findings are advisory and
+must be dispositioned with evidence.
+
+Name the likely reviewers from the changed surface rather than from milestone number alone.
+For example, Prompt 10 Computer Use will normally warrant `security_reviewer`,
+`control_plane_architect`, `recovery_reviewer` and `test_reviewer`; add
+`product_strategy_reviewer` only when product/business scope or roadmap boundaries are
+actually being decided. Low-risk documentation work can omit specialists.
+
+A future prompt should give each selected specialist a focused review packet and should
+distinguish subagent review from product-level BotSquad workers and working groups.

@@ -125,6 +125,52 @@ git branch -vv
 
 If another writer owns the intended branch/worktree, coordinate or create an isolated worktree. Do not move or overwrite the other writer's state to make progress.
 
+## Codex Specialist Subagents
+
+Project-scoped Codex development specialists live in `.codex/agents/`; detailed routing
+and review-packet guidance lives in [docs/agents/README.md](docs/agents/README.md) and
+[Decision 023](docs/decisions/decision_023_codex_specialist_subagents.md).
+
+These are **development-time Codex subagents**, not BotSquad runtime workers, employees,
+working-group participants, or provider subagents used by the BotSquad product.
+
+Use them by changed risk surface rather than by habit:
+
+- `control_plane_architect` — domain/execution ownership, dispatcher/runtime boundaries,
+  tool-schema compatibility, worker/session isolation, and control-plane architecture.
+- `security_reviewer` — authority, grants, approvals, secrets, network/external actions,
+  prompt injection, client trust, and Computer Use boundaries.
+- `recovery_reviewer` — SQLite migrations, idempotency, async callback ownership,
+  restart/lost-response reconciliation, uncertainty fences, scheduler occurrences, and
+  crash windows.
+- `product_strategy_reviewer` — milestone/product boundary, one-company-first sequencing,
+  generic-engine versus reference-fixture choices, and avoiding premature platform scope.
+- `test_reviewer` — acceptance claims, real-versus-simulated evidence, preservation,
+  runtime/browser/Linux coverage, and unproven requirements before completion.
+
+Do not invoke every specialist mechanically. Documentation-only or low-risk changes often
+need none. A material authority/network/Computer Use change should normally use
+`security_reviewer`; a persistence/recovery/scheduler change should normally use
+`recovery_reviewer`; a new execution/domain boundary should normally use
+`control_plane_architect`; substantial milestone acceptance should normally use
+`test_reviewer`. Use `product_strategy_reviewer` when roadmap/business/product scope is
+actually changing.
+
+The parent Codex agent is the sole writer and integration owner. Specialists are advisory
+and read-only: they must not edit files, stage, commit, change branches/worktrees, deploy,
+or share overlapping write responsibility. Independent read-only specialists may review
+in parallel when their risk surfaces are separable.
+
+Give each specialist the smallest sufficient packet: objective and non-goals; changed
+risk surface; relevant requirements/acceptance IDs; exact changed files/diff/commit;
+applicable decisions; validation already run; open questions or suspected failure modes.
+Let the specialist expand context only when evidence requires it. Do not preload the full
+repository history or ask a reviewer to restate the prompt.
+
+Resolve evidence-backed blocking findings before completion and record the disposition of
+important findings. Subagent review does not replace deterministic tests, real-runtime
+acceptance, security enforcement, or the parent agent's final integration judgment.
+
 ## Product Invariants
 
 BotSquad is an **operator-controlled, self-hosted coordination and orchestration control plane**. The primary operating direction is an always-on Ubuntu headquarters under the operator's control; the human workstation is primarily a bootstrap, administration and development client. Decision 009 clarifies the older `local-first` wording. Preserve these invariants unless an accepted decision explicitly changes them.
@@ -484,6 +530,8 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 
 - Front door: `README.md`
 - Agent instructions: `AGENTS.md`
+- Codex specialist configs: `.codex/agents/`
+- Codex specialist guide: `docs/agents/README.md`
 - Product vision: `docs/product/PROJECT_VISION.md`
 - Intelligent company north star: `docs/product/INTELLIGENT_COMPANY_MODEL.md`
 - Canonical prompt roadmap: `docs/product/ROADMAP.md`

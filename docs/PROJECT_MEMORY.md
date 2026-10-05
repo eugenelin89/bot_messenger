@@ -37,11 +37,17 @@ Always reread current main, relevant execution plans and active branches before 
 - [Decision 016](decisions/decision_016_intelligent_company_model.md) and [Intelligent Company Operating Model](product/INTELLIGENT_COMPANY_MODEL.md): employee-like initiative, broad/specific mandates and authority distinctions.
 - [Future milestone prompt requirements](../prompts/MILESTONE_REQUIREMENTS.md): requirements that must flow into Codex prompts.
 - [Current State](operations/CURRENT_STATE.md) and [decision index](decisions/README.md): implementation evidence and accepted boundaries.
+- [Codex specialist guide](agents/README.md) and [Decision 023](decisions/decision_023_codex_specialist_subagents.md): risk-routed read-only development reviewers; the parent Codex thread remains sole writer/integrator.
 
 ## Next planning action
 
 Prompt 09 is complete and deployed. Prompt 10 — Bounded Computer Use — is next; Prompt 11
 later owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
+Future Codex implementation prompts now use project-scoped read-only specialists when the
+changed risk warrants them. Prompt 10 should normally use the control-plane, security,
+recovery and validation reviewers; product-strategy review is added only if the milestone
+actually changes product/business scope. These Codex subagents are development reviewers,
+not BotSquad runtime workers, and they never share write ownership with the parent thread.
 Reuse accepted Prompt 07 continuity, WE-01 authority, Prompt 08 deliberation and Prompt 09
 bounded mandates, evidence and durable clock. Do not imply live marketing/publication,
 spending or Computer Use authority from a strategic mandate. Verify current main, active

@@ -29,6 +29,37 @@ Define deterministic invariant tests and, where authorized, real bounded runtime
 
 Update affected product/architecture docs, decision records and the execution plan. Require relevant tests and an explicit security review when authority/runtime boundaries change. Use normal reviewed integration to main when the task authorizes it and checks permit it; stop at a clear blocker rather than bypass checks. Push and verify the exact resulting commit. Deploy only when explicitly included in the task; documentation integration alone is not deployment. State implemented versus deferred behavior and checks not run. Leave a concise continuation handoff.
 
+## Development-time Codex specialist review
+
+For substantial implementation work, route development-time Codex subagents according to
+the changed risk surface using [the specialist guide](../docs/agents/README.md) and
+[Decision 023](../docs/decisions/decision_023_codex_specialist_subagents.md).
+
+The parent Codex thread remains the only writer/integrator. Specialists are read-only and
+advisory. Do not create parallel writers or let a specialist stage, commit, merge, deploy,
+or mutate retained BotSquad state.
+
+Use specialists when they materially improve the work:
+
+- `control_plane_architect` for new domain/execution origins, dispatcher/runtime/tool
+  boundaries, or major control-plane architecture.
+- `security_reviewer` for permissions, approvals, secrets, network/external actions,
+  Computer Use, client trust, or prompt-injection-sensitive surfaces.
+- `recovery_reviewer` for migrations, durable scheduling, async callbacks, idempotency,
+  retries, restart/reconciliation, or ambiguous-provider outcomes.
+- `product_strategy_reviewer` for material product/business/roadmap boundaries, generic
+  engine versus reference-fixture choices, and scope sequencing.
+- `test_reviewer` before closing substantial milestone/production work when acceptance
+  claims could exceed the evidence.
+
+Do not invoke all reviewers by habit. A prompt should name the likely applicable reviewers,
+allow the parent to add/remove one when the actual changed risk differs, and record any
+non-obvious omission. Review packets should be minimal and source-bound. Reviewer requests
+for extra validation must identify the concrete risk and smallest sufficient check.
+
+Subagent review supplements but never replaces the milestone's deterministic invariants,
+real-runtime acceptance, independent product evidence, or trusted security enforcement.
+
 ## Milestone-specific required acceptance
 
 | ID | Applies to | Requirement |
