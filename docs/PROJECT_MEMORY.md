@@ -41,7 +41,7 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prompt 09 is complete and deployed. Prompt 10 — Bounded Computer Use — is in final acceptance; Prompt 11
+Prompt 10 — Bounded Computer Use — is complete and deployed; Prompt 11
 later owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
 Future Codex implementation prompts now use project-scoped read-only specialists when the
 changed risk warrants them. Prompt 10 should normally use the control-plane, security,
@@ -121,7 +121,7 @@ protected HQ journal after its deployment. See [validation](validation/PROMPT_09
 and [tutorial](operations/COMPANY_OPERATING_LOOP_TUTORIAL.md). Prompt 10 follows that historical release; Prompt 11
 remains the live-business evidence gate.
 
-## Prompt 10 implementation and acceptance — October 5
+## Prompt 10 accepted deployment — October 5
 
 Owner-only Computer Operators perform ordinary bounded Tasks in isolated headless Chromium.
 The worker receives structured rendered snapshots; PNGs are private human evidence. Exact
@@ -132,8 +132,17 @@ four screenshots and a useful report; exact approval produced one effect. Denial
 Chromium death, application restart and lost-receipt no-replay gates passed in isolated state.
 No production operator/session/grant exists. Retained full roster and pause are unchanged.
 
-[Validation](validation/PROMPT_10_VALIDATION.md), [active plan](exec-plans/prompt-10.md),
+[Validation](validation/PROMPT_10_VALIDATION.md), [completed plan](exec-plans/prompt-10.md),
 [Decision 024](decisions/decision_024_bounded_computer_use.md) and [tutorial](operations/COMPUTER_USE_TUTORIAL.md)
-are authoritative for current acceptance/release status. Final specialist/regression and
-production delivery gates are still required; do not infer completion from implementation.
-Prompt 11 still requires approved real action, receipt, observed business result and review.
+record C10-1 and all four specialist reviews. PR #13 merged normally as
+`a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4`; that exact revision passed 294/294 Ubuntu tests,
+matched all 228 independently built files and was deployed with runtime ready. Repeated
+browser service installation replaced its PID and passed readiness. The private Computer
+Sessions UI and 30.27-second idle gate created zero work. All 53,670 original rows across
+74 retained databases, 381 account/group mappings, 634 root records and 189 homes were
+preserved (live comparison excludes only workers.updated_at heartbeat; offline migration
+preserves every field/rowid). The original eight workers, grant and pause=false remain;
+computer grants/sessions/operators and Chromium processes are all zero. Temporary validation
+services are stopped. Final documentation revision identity is in the delivery handoff and
+protected host journal. Prompt 11 is Next and requires approved real action, receipt,
+observed business result and review.

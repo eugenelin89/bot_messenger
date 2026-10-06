@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Through Prompt 10 implementation; release gates in milestone validation records
+**Status:** Through completed and deployed Prompt 10; evidence in milestone validation records
 **Updated:** 2026-10-05
 
 ## Runtime topology: implemented baseline and accepted target

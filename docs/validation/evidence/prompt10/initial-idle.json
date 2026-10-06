@@ -1,0 +1,229 @@
+{
+  "before": {
+    "at": 1791248525.54052,
+    "source_revision": "a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4"
+    },
+    "counts": {
+      "workers": 8,
+      "tasks": 48,
+      "executions": 65,
+      "standing_grants": 1,
+      "worker_os_identities": 7,
+      "mandates": 0,
+      "operating_cycles": 0,
+      "review_schedules": 0,
+      "review_occurrences": 0,
+      "computer_sessions": 0,
+      "computer_grants": 0,
+      "computer_contexts": 0,
+      "computer_intents": 0,
+      "computer_evidence": 0
+    },
+    "workers": [
+      {
+        "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "display_name": "Atlas",
+        "role": "ceo",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+        "display_name": "Nix",
+        "role": "devops",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "display_name": "Maya",
+        "role": "product_manager",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+        "display_name": "Turing",
+        "role": "cto",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+        "display_name": "Linus",
+        "role": "engineer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+        "display_name": "Ada",
+        "role": "engineer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+        "display_name": "Grace",
+        "role": "reviewer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_25313ecb-e017-44ba-a8d0-c361da021d4b",
+        "display_name": "Scout",
+        "role": "researcher",
+        "status": "idle",
+        "enabled": 1
+      }
+    ],
+    "pause": "false",
+    "research_grants": [
+      {
+        "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "capability": "public_research",
+        "modes": "[\"task\",\"conversation\"]",
+        "revoked_at": null
+      }
+    ],
+    "computer_operators": 0,
+    "integrity": "ok",
+    "foreign_keys": "ok",
+    "listener": "LISTEN 0      511    127.0.0.1:4310 0.0.0.0:*",
+    "service_main_pid": 501394,
+    "browser_uid_processes": [
+      {
+        "pid": 501369,
+        "executable": "/opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node"
+      }
+    ],
+    "chromium_processes": 0,
+    "build_files": 228,
+    "build_manifest_sha256": "6eef9de5aef95f74bea5ef3da4b408d3ef41fab08103db942955f17dcf8abc04",
+    "hq_unit_sha256": "b3b89e0b2454ad9ea1de054fbdd794af023187bca7e13095f6e5d97e09a0e21a"
+  },
+  "after": {
+    "at": 1791248555.813668,
+    "source_revision": "a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4"
+    },
+    "counts": {
+      "workers": 8,
+      "tasks": 48,
+      "executions": 65,
+      "standing_grants": 1,
+      "worker_os_identities": 7,
+      "mandates": 0,
+      "operating_cycles": 0,
+      "review_schedules": 0,
+      "review_occurrences": 0,
+      "computer_sessions": 0,
+      "computer_grants": 0,
+      "computer_contexts": 0,
+      "computer_intents": 0,
+      "computer_evidence": 0
+    },
+    "workers": [
+      {
+        "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "display_name": "Atlas",
+        "role": "ceo",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_6e4d2e0a-3574-4386-83c8-9d3c8b1ee388",
+        "display_name": "Nix",
+        "role": "devops",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "display_name": "Maya",
+        "role": "product_manager",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_394966d5-571d-4706-9b5a-70eb81e8b5d7",
+        "display_name": "Turing",
+        "role": "cto",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_65c26d53-7f48-44a8-bb3c-b22ed8d113a8",
+        "display_name": "Linus",
+        "role": "engineer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_db8bec3a-61e1-4690-b42a-de6456f63a7d",
+        "display_name": "Ada",
+        "role": "engineer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+        "display_name": "Grace",
+        "role": "reviewer",
+        "status": "idle",
+        "enabled": 1
+      },
+      {
+        "worker_id": "worker_25313ecb-e017-44ba-a8d0-c361da021d4b",
+        "display_name": "Scout",
+        "role": "researcher",
+        "status": "idle",
+        "enabled": 1
+      }
+    ],
+    "pause": "false",
+    "research_grants": [
+      {
+        "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "capability": "public_research",
+        "modes": "[\"task\",\"conversation\"]",
+        "revoked_at": null
+      }
+    ],
+    "computer_operators": 0,
+    "integrity": "ok",
+    "foreign_keys": "ok",
+    "listener": "LISTEN 0      511    127.0.0.1:4310 0.0.0.0:*",
+    "service_main_pid": 501394,
+    "browser_uid_processes": [
+      {
+        "pid": 501369,
+        "executable": "/opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node"
+      }
+    ],
+    "chromium_processes": 0,
+    "build_files": 228,
+    "build_manifest_sha256": "6eef9de5aef95f74bea5ef3da4b408d3ef41fab08103db942955f17dcf8abc04",
+    "hq_unit_sha256": "b3b89e0b2454ad9ea1de054fbdd794af023187bca7e13095f6e5d97e09a0e21a"
+  },
+  "seconds": 30.27314805984497,
+  "new_executions": 0,
+  "new_computer_sessions": 0,
+  "new_computer_grants": 0,
+  "chromium_processes": 0,
+  "owned_temporary_services_running": [],
+  "ui_inspection_started_no_work": true
+}

@@ -1,6 +1,6 @@
 # Decision 024 — Bounded browser-first Computer Use
 
-**Status:** Proposed implementation; final C10-1/review/release gates pending
+**Status:** Accepted and implemented; C10-1, specialist review and production release gates passed
 **Date:** 2026-10-05
 
 Decision 023 was the latest record when this number was allocated. Prompt 10 needs real

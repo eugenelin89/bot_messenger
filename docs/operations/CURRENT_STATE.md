@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompt 09 and WE-01 deployed; Prompt 10 implemented with final release gates pending
+**Status:** Prompts 01–10 and WE-01 complete; Prompt 10 deployed and inactive; Prompt 11 next
 **Updated:** 2026-10-05
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -8,14 +8,28 @@ For implementation details, see the [system architecture](../architecture/SYSTEM
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
 
-## Prompt 10 candidate state
+## Prompt 10 accepted production state — October 5
 
 [Bounded Computer Use](../architecture/COMPUTER_USE.md) adds a separate non-root headless
 Chromium broker, owner-created operator and immutable Task/session grant. Model observation
 is structured rendered text; real private PNGs supply human evidence. The [C10-1 record](../validation/PROMPT_10_VALIDATION.md)
 contains real worker safe/approval/denial, interruption, injection, restart and unknown-effect
-proof. This candidate is not deployed until its release gates pass. Production retains the
-state below, with zero Computer Use grants, sessions and operators. See the [tutorial](COMPUTER_USE_TUTORIAL.md).
+proof. [PR #13](https://github.com/eugenelin89/bot_messenger/pull/13) merged normally as
+`a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4`. This exact revision passed 294/294 Ubuntu tests,
+was built independently and deployed with all 228 build/public files matching, runtime ready,
+loopback-only listener and unchanged HQ service restrictions. The browser installer passed
+twice and replaced the active broker process with readiness confirmation.
+
+Production preserves eight enabled idle workers, 48 Tasks, 65 completed executions, the
+existing Atlas Task/direct Public Research grant, seven identities and pause=false. Mandates,
+schedules, Computer Use grants, sessions and operators are zero. The private UI opens
+passively, and a 30.27-second idle check created no model or browser work. No Chromium
+process exists; the private broker waits for explicitly authorized work. Full retained-state
+comparison and offline repeated migration passed. Temporary validation services are stopped.
+See the [tutorial](COMPUTER_USE_TUTORIAL.md), [inactive UI](../validation/evidence/prompt10/production-inactive.jpg)
+and [release receipts](../validation/PROMPT_10_VALIDATION.md#preservation-and-release-gates).
+The final documentation revision's exact source/build/health identity is in the delivery
+handoff and protected release journal. Older dated sections are historical evidence.
 
 ## Prompt 09 accepted production state — October 5
 

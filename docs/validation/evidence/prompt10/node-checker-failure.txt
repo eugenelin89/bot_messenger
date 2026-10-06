@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/var/tmp/botsquad-prompt10-release-gates.py", line 33, in <module>
+    assert len(processes)==1 and processes[0]['executable']=='/opt/botsquad-runtime/node/bin/node',processes
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [{'pid': 501369, 'executable': '/opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node'}]

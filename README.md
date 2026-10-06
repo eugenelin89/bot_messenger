@@ -19,7 +19,7 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 10 — Bounded Computer Use — is implemented and in final acceptance.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) tracks the remaining review and delivery gates. Prompt 09 remains the deployed baseline until those gates pass.
+**Prompt 10 — Bounded Computer Use — is Complete and deployed.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) records C10-1, independent review, exact deployment and retained-state verification. Production has zero ComputerSessions, computer grants and Computer Operators. **Prompt 11 — Single-company business operations and measured pilot — is Next.**
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and

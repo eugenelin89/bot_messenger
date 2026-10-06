@@ -1,7 +1,7 @@
 # BotSquad — Computer Use Model
 
-**Status:** Prompt 10 browser-first implementation; broader desktop concepts remain future scope
-**Updated:** 2026-09-29
+**Status:** Prompt 10 complete and deployed; broader desktop concepts remain future scope
+**Updated:** 2026-10-05
 
 ## Implemented Prompt 10 slice
 

@@ -98,7 +98,7 @@ and asynchronous callback ownership. Read the WE-01 acceptance report for the cu
 live status. Do not assume every worker is granted, enable production permissions through
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
-worker fence; ordinary source failures do not. Prompt 09 is accepted; Prompt 10 — Bounded Computer Use — is implemented with final acceptance/release tracked in its validation record.
+worker fence; ordinary source failures do not. Prompt 10 — Bounded Computer Use — is Complete and deployed, with C10-1 and release evidence in its validation record. Prompt 11 — Single-company business operations and measured pilot — is Next.
 
 ## Prompt 08 implementation reference
 
