@@ -50,8 +50,10 @@ checkpoint, deployment-recovery qualification and subsequent delivery identity b
 
 [Stabilization 02](../validation/PERSONAL_OPERATOR_STABILIZATION_02.md) adds explicit browser
 readiness, safe immediate navigation, recoverable loading failures and retained state on
-reconnect. The validation record distinguishes fixture acceptance from exact production
-delivery. No backend authority, schema or capability changes.
+reconnect. PR #19 is deployed; exact Ubuntu checks passed, followed by eight real tunnel
+hard reloads across desktop/narrow views and native reconnect with zero errors or writes.
+Production history, pause state and idle counts are preserved. No backend authority, schema
+or capability changes. The validation record owns exact delivery evidence.
 
 ## Historical Prompt 11 implementation deployment — before live pilot
 

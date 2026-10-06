@@ -60,8 +60,8 @@ future work; these are candidates, not committed numbered milestones or a giant 
 [stabilization plan](../exec-plans/personal-operator-stabilization-01.md) and
 [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
 
-**Stabilization 02:** immediate navigation, explicit startup readiness and recoverable
-loading; [acceptance and delivery](../validation/PERSONAL_OPERATOR_STABILIZATION_02.md).
+**Completed stabilization 02:** immediate navigation, explicit startup readiness and
+recoverable loading, including deployed desktop/narrow tunnel acceptance; [acceptance and delivery](../validation/PERSONAL_OPERATOR_STABILIZATION_02.md).
 
 **Next candidates:** clearer loading/status/error presentation beyond startup; pending approvals and blocked-work overview; simpler
 common operator flows; credential lifecycle/rotation/revocation UX; backup/update/health

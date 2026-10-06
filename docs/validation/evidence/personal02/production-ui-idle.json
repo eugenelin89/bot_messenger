@@ -1,0 +1,8 @@
+{
+  "revision": "ee4f0992603b21c902f06e348db0bc88a479c802",
+  "post_ui_idle_seconds": 30,
+  "all_counts_unchanged_after_ui_and_idle": true,
+  "pause_preserved": true,
+  "all_active_work_checks_zero": true,
+  "runtime": "ready"
+}

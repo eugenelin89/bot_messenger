@@ -1,0 +1,35 @@
+✔ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (696.108739ms)
+✔ SSE emits durable-state changes without model polling (249.605829ms)
+✔ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (171.554741ms)
+✔ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (247.973899ms)
+✔ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (474.964697ms)
+✔ standing permissions require browser owner authority and do not extend device routes or state (207.688817ms)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (5425.557394ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (4286.346084ms)
+✔ initial session failure recovers through ready (3348.604066ms)
+✔ initial session failure recovers through retry (3215.334477ms)
+✔ initial state failure recovers through ready (2895.889656ms)
+✔ initial state failure recovers through retry (3083.964929ms)
+✔ boot controls cannot send writes while session or state is unavailable (3059.899438ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (2999.655853ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (3565.379824ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (3342.081825ms)
+✔ first direct auxiliary load is explicit and recovers independently (3407.446771ms)
+✔ first groups auxiliary load is explicit and recovers independently (3427.213766ms)
+✔ first mandates auxiliary load is explicit and recovers independently (3567.911261ms)
+✔ first computers auxiliary load is explicit and recovers independently (3665.847399ms)
+✔ first devices auxiliary load is explicit and recovers independently (4480.236326ms)
+✔ auxiliary failure remains visible without converting company state to empty (3501.156461ms)
+✔ changed events and rapid tab switches coalesce state requests (3682.904441ms)
+✔ closed worker inspector cannot be reopened by late discovery (3577.921211ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (3686.300879ms)
+✔ late failed worker discovery cannot replace a newer inspector (3349.872902ms)
+✔ late conversation index cannot overwrite a changed worker filter (3702.231711ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 78604.441321
