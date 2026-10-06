@@ -545,3 +545,13 @@ not described as provider protections. A source's retrieval time is not its obse
 time. The [tutorial](../operations/PUBLIC_RESEARCH_TUTORIAL.md) and
 [validation report](../validation/worker-empowerment-01.md) distinguish user operation,
 synthetic fault tests, real worker evidence and retained-HQ activation.
+
+## Bounded business operations (Prompt 11)
+
+The [business control plane and typed adapter](BUSINESS_OPERATIONS.md) add distinct immutable
+external intents, exact owner approvals, durable preparing/transmitting attempts, trusted
+receipts and mode-labelled business observations. The mandate coordinator waits without a
+model slot; one independent executor revalidates current scope and retains callbacks after
+model settlement. Unknown effects fence their canonical target and never blindly replay.
+Credentials stay service-private. Existing worker roles, Computer Use and Client API v1 gain
+no implicit authority. Migration 14 is additive and inert. Live acceptance is a separate gate.

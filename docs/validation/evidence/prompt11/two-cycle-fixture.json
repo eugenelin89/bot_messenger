@@ -1,0 +1,860 @@
+{
+  "mode": "simulated_fixture",
+  "real_runtime": true,
+  "implementation_source": "95bd394712a0caaddfea38b1aca4022b6d3eb637",
+  "validation_source": "9baa9bd9077b6484de83097673c85efc42bf80b8",
+  "live_gate_passed": false,
+  "mandate": {
+    "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+    "owner_id": "human",
+    "title": "Fieldnote operations \u2014 SIMULATED external provider acceptance",
+    "objective": "Improve the usefulness and clarity of the approved operating document. Decide which evidence, participants, alternatives and correction are worth pursuing.",
+    "success_criteria": "Investigate the supplied source, compare reasonable alternatives, record an attributable initiative and decision. Propose at most one useful exact document correction if justified, wait for separate owner approval, inspect its receipt and observed state, schedule and complete a second evidence-driven review.",
+    "stop_criteria": "Stop after the second scheduled review, or if no useful safe correction can be justified. Never invent business impact.",
+    "constraints": "All product/provider data is SIMULATED. No actual repository, website, customer, money, account or release is accessible. Only the exact fixture document grant exists. Internal analysis or a working group is optional where useful. The company chooses the conclusion and literal edit. After a confirmed fixture action, retrieve an operational observation and persist a follow-up 90\u2013120 seconds after the first cycle closes; use current clock_now. Cycle 2 must read prior decision, exact receipt and new observation, assess costs/limitations and decide continue/iterate/pivot/stop. Stop this two-cycle test after the review; a stop decision is an acceptance resource bound, not a required favorable business conclusion.",
+    "resources": "At most 40 reserved model executions per cycle; one group and two internal analysis Tasks. No public research grant or spending. Model token usage is retained when available; monetary cost is unknown.",
+    "envelope": "{\"internal_tasks\":true,\"working_groups\":true,\"public_research\":false,\"worker_schedules\":true,\"max_executions\":40,\"max_tasks\":2,\"max_groups\":1,\"max_research_operations\":16,\"max_pending_work\":2,\"max_cycle_minutes\":45,\"max_cycles\":2,\"min_interval_seconds\":30,\"max_horizon_days\":1,\"max_occurrences\":2,\"max_active_schedules\":1,\"timezone\":\"America/Vancouver\",\"evidence_modes\":[\"simulated_fixture\",\"owner_provided\"]}",
+    "coordinator_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+    "status": "stopped",
+    "version": 1,
+    "activated_at": "2026-10-06T06:48:06.889Z",
+    "current_cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+    "strategic_state": "Retain the approved deduplication without further edits; stop after this second scheduled review under the two-cycle resource bound.",
+    "created_at": "2026-10-06T06:47:49.982Z",
+    "updated_at": "2026-10-06T06:55:02.025Z"
+  },
+  "envelope": {
+    "internal_tasks": true,
+    "working_groups": true,
+    "public_research": false,
+    "worker_schedules": true,
+    "max_executions": 40,
+    "max_tasks": 2,
+    "max_groups": 1,
+    "max_research_operations": 16,
+    "max_pending_work": 2,
+    "max_cycle_minutes": 45,
+    "max_cycles": 2,
+    "min_interval_seconds": 30,
+    "max_horizon_days": 1,
+    "max_occurrences": 2,
+    "max_active_schedules": 1,
+    "timezone": "America/Vancouver",
+    "evidence_modes": [
+      "simulated_fixture",
+      "owner_provided"
+    ]
+  },
+  "cycles": [
+    {
+      "cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "mandate_version": 1,
+      "number": 2,
+      "occurrence_id": "occurrence_c21df050c5ad6b1a34a7fb77c18ec3ae57b253e44ff260942b6473d22a48cb13",
+      "state": "closed",
+      "trigger": "durable_schedule",
+      "executions_reserved": 1,
+      "tasks_created": 0,
+      "groups_created": 0,
+      "failures": 0,
+      "retry_at": null,
+      "deadline": "2026-10-06T07:39:00.035Z",
+      "summary": "Second scheduled review completed; mandate ends under two-cycle bound. Decision decision_7d2d3535-9a86-4b9b-81cf-356b080b18a4 retains approved correction with no additional action or schedule. Read original initiative and prior decision, baseline business_evidence_899befa2-a001-47c7-8628-85ca576b2064, exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 and first post-action evidence business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba. Fresh SIMULATED_FIXTURE observation business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130 at 06:54:15.135Z matches receipt and prior post-action hash: one status line, 393 characters versus 424 baseline, all other text preserved. Supports original text-state hypothesis at sampled times only. Compared retention with restoration, broader edits and continued monitoring; no evidence warrants further changes. Reader/business benefit unmeasured; token totals and monetary costs unknown, not zero. No internal work pending. Stop is an acceptance resource bound, not a claim of real business success.",
+      "error": null,
+      "created_at": "2026-10-06T06:54:00.035Z",
+      "closed_at": "2026-10-06T06:55:02.017Z"
+    },
+    {
+      "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "mandate_version": 1,
+      "number": 1,
+      "occurrence_id": null,
+      "state": "closed",
+      "trigger": "owner_activation",
+      "executions_reserved": 2,
+      "tasks_created": 0,
+      "groups_created": 0,
+      "failures": 0,
+      "retry_at": null,
+      "deadline": "2026-10-06T07:33:06.890Z",
+      "summary": "SIMULATED-only cycle 1 complete. Evaluated original deduplication hypothesis and prior decision; exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 confirms fixture execution. Fresh operational evidence business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba matches receipt hash and baseline business_evidence_899befa2-a001-47c7-8628-85ca576b2064 except removal of one duplicated 31-character status line (424 to 393 characters). Decision decision_5c27947c-d288-44c2-82df-525b589db630 retains correction over restoration or unsupported expansion. Reader/business benefit unmeasured; monetary costs and token totals unavailable. No internal work needed or outstanding. Final evidence-driven review persisted as schedule_caf23a54-2af9-402b-a715-87dbcba63739 for 06:54:00Z, approximately 95 seconds after closure; cycle 2 must refresh observation, review receipt and prior decisions, assess costs/limitations and stop under resource bound.",
+      "error": null,
+      "created_at": "2026-10-06T06:48:06.890Z",
+      "closed_at": "2026-10-06T06:52:34.161Z"
+    }
+  ],
+  "initiatives": [
+    {
+      "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+      "title": "Remove duplicated pilot status without changing operating commitments",
+      "mechanism": "Replace the adjacent identical status lines with one line, reducing redundancy while preserving every substantive statement and all simulation and measurement caveats.",
+      "expected_outcome": "One occurrence of the pilot status in the approved fixture document; all other bytes unchanged. Reader benefit remains a hypothesis.",
+      "assumptions": "The adjacent identical status lines are unintended redundancy. No evidence supports changing the service target or request requirements; no real business outcomes are observable.",
+      "status": "stopped",
+      "created_by": "principal_c34317ab-31f7-466c-8794-28e1177bc2ac",
+      "execution_id": "execution_29953931-6a11-414e-91bb-eef98a0e6da5",
+      "created_at": "2026-10-06T06:48:21.962Z"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "decision_7d2d3535-9a86-4b9b-81cf-356b080b18a4",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+      "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+      "previous_id": "decision_5c27947c-d288-44c2-82df-525b589db630",
+      "disposition": "stop",
+      "recommendation": "Retain the approved deduplication without further edits; stop after this second scheduled review under the two-cycle resource bound.",
+      "rationale": "Reviewed initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1 and prior decision_5c27947c-d288-44c2-82df-525b589db630 as context, not evidence. Baseline observed 06:47:50.045Z has two status lines and 424 characters. Simulated receipt recorded 06:51:25.481Z confirms execution only. Operational observations at 06:51:48.745Z and 06:54:15.135Z (latest retrieved 06:54:15.161Z) show identical 393-character documents matching receipt hash 0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb. Original text-state prediction is supported: one 31-character duplicate removed, all substantive statements and caveats preserved. Reader usefulness remains hypothetical. Coordinator-only comparison suffices; optional internal work cannot supply missing reader measurements. Stop is a resource-bound conclusion, not business success.",
+      "alternatives": "Retain and stop (chosen: expected text state observed and bound reached); restore duplicate (no observed damage); broaden wording (unsupported); continue monitoring or scale (outside scope and no impact evidence).",
+      "evidence_ids": "[\"business_evidence_899befa2-a001-47c7-8628-85ca576b2064\",\"business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137\",\"business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba\",\"business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130\"]",
+      "contrary_evidence": "No reader tests establish harm from duplication or benefit from removal. Matching snapshots do not establish uninterrupted persistence or real-world success.",
+      "unknowns": "SIMULATED_FIXTURE only. Reader behavior, adoption, revenue, conversion and outcome lag unmeasured. Token totals and monetary model/provider/repository costs unavailable, not zero; no ROI claim. Actual repository commit age unknown.",
+      "missing_evidence": "No reader study, customer analytics, continuous state history or measured monetary costs supplied or authorized.",
+      "worker_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+      "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+      "created_at": "2026-10-06T06:54:50.210Z"
+    },
+    {
+      "decision_id": "decision_5c27947c-d288-44c2-82df-525b589db630",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+      "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+      "previous_id": "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+      "disposition": "continue",
+      "recommendation": "Retain the single approved fixture correction; no further proposal. Schedule cycle 2 to read prior decision and exact receipt, retrieve a fresh observation, evaluate persistence and costs/limitations, then stop under the two-cycle bound.",
+      "rationale": "Reviewed prior decision decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b and the initiative as context, not measurements. The SIMULATED receipt recorded 06:51:25.481Z confirms fixture execution. Operational observation at 06:51:48.745Z, retrieved 06:51:48.778Z, matches receipt content hash. Comparing full 424-character baseline with 393-character result shows only one repeated 31-character status line removed. This supports the original exact text-state prediction, not measured usefulness.",
+      "alternatives": "Retain deduplication and perform bounded follow-up; restore redundancy (no observed damage); or broaden wording changes (unsupported). Choose retention and review.",
+      "evidence_ids": "[\"business_evidence_899befa2-a001-47c7-8628-85ca576b2064\",\"business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137\",\"business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba\"]",
+      "contrary_evidence": "No reader tests establish harm from duplication or benefit from removal. One fixture read cannot establish lasting state or business impact.",
+      "unknowns": "Reader usefulness hypothetical; adoption, revenue and conversion unmeasured. Monetary repository/provider/model cost and token totals unavailable, not zero. Synthetic fixture only, no production inference.",
+      "missing_evidence": null,
+      "worker_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+      "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+      "created_at": "2026-10-06T06:52:21.138Z"
+    },
+    {
+      "decision_id": "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+      "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+      "previous_id": null,
+      "disposition": "iterate",
+      "recommendation": "Propose a single exact deletion of the duplicated status line, subject to separate owner approval. Coordinator-only review is sufficient for this mechanical change; optional internal Tasks and deliberation would not resolve missing reader-impact evidence.",
+      "rationale": "The fully delivered 424-character SIMULATED_FIXTURE baseline contains two adjacent identical status lines. Deduplication preserves pilot status, service-target qualification, request instructions and unknown-impact caveats. This is a text consistency improvement, not measured reader benefit.",
+      "alternatives": "Leave unchanged: safest operationally but retains obvious redundancy. Deduplicate only: minimal, reversible and directly supported by source. Rewrite request guidance or service target: potentially useful but unsupported and risks changing commitments; rejected.",
+      "evidence_ids": "[\"business_evidence_899befa2-a001-47c7-8628-85ca576b2064\"]",
+      "contrary_evidence": "No reader complaints or usability tests establish harm from duplication. The baseline already states status unambiguously; the expected gain is small.",
+      "unknowns": "Reader behavior, adoption, revenue, conversion and monetary model/provider/repository cost are unknown. Single fixture read observed 2026-10-06T06:47:50.045Z, retrieved 06:47:50.048Z; repository commit time unknown. No production inference is warranted.",
+      "missing_evidence": null,
+      "worker_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+      "execution_id": "execution_29953931-6a11-414e-91bb-eef98a0e6da5",
+      "created_at": "2026-10-06T06:48:31.929Z"
+    }
+  ],
+  "schedules": [
+    {
+      "schedule_id": "schedule_caf23a54-2af9-402b-a715-87dbcba63739",
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+      "owner_id": "human",
+      "creator_id": "principal_c34317ab-31f7-466c-8794-28e1177bc2ac",
+      "purpose": "Required second and final review: reread prior decisions, exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 and baseline/post-action evidence; obtain fresh granted fixture observation and assess original deduplication prediction, persistence, monetary-cost unknowns and impact limitations. No additional correction; stop the two-cycle mandate after review.",
+      "coordinator_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+      "timezone": "America/Vancouver",
+      "recurrence": "{\"kind\":\"once\"}",
+      "end_at": "2026-10-06T06:56:00.000Z",
+      "occurrence_limit": 1,
+      "consumed": 1,
+      "version": 1,
+      "status": "exhausted",
+      "next_due": null,
+      "overlap_policy": "hold_one",
+      "missed_policy": "coalesce",
+      "created_at": "2026-10-06T06:52:21.209Z",
+      "updated_at": "2026-10-06T06:54:00.003Z"
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrence_id": "occurrence_c21df050c5ad6b1a34a7fb77c18ec3ae57b253e44ff260942b6473d22a48cb13",
+      "schedule_id": "schedule_caf23a54-2af9-402b-a715-87dbcba63739",
+      "schedule_version": 1,
+      "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+      "due_at": "2026-10-06T06:54:00.000Z",
+      "through_at": "2026-10-06T06:54:00.000Z",
+      "missed_count": 0,
+      "state": "completed",
+      "cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+      "reason": null,
+      "created_at": "2026-10-06T06:54:00.003Z",
+      "completed_at": "2026-10-06T06:55:02.021Z"
+    }
+  ],
+  "business": {
+    "grants": [
+      {
+        "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "worker_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+        "provider": "github",
+        "adapter": "fixture-markdown-v1",
+        "target": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "policy_version": "github-markdown-v1",
+        "mode": "simulated_fixture",
+        "max_actions": 3,
+        "expires_at": "2026-10-07T06:47:40.001Z",
+        "created_at": "2026-10-06T06:47:50.013Z",
+        "issued_by": "human",
+        "revoked_at": null
+      }
+    ],
+    "actions": [
+      {
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "mandate_version": 1,
+        "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+        "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+        "decision_id": "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+        "worker_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+        "execution_id": "execution_29953931-6a11-414e-91bb-eef98a0e6da5",
+        "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+        "provider": "github",
+        "adapter": "fixture-markdown-v1",
+        "action_type": "replace_existing_markdown",
+        "target": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "credential_ref": "SIMULATED",
+        "policy_version": "github-markdown-v1",
+        "baseline_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "expected_blob": "9080d482f61434cb3a8f686ef54758a45a30eba5",
+        "expected_head": "74e46c5dbf7ad735e00ef5e0b719beedd7152dd2",
+        "previous_content": "# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+        "content": "# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+        "content_sha256": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+        "content_blob": "bbefcc540abbe974fff4c3d965a9aca78fc2ebc2",
+        "edit": "{\"old_text\":\"Current status: private pilot.\\nCurrent status: private pilot.\",\"new_text\":\"Current status: private pilot.\"}",
+        "commit_message": "docs: remove duplicate private pilot status\n\nBotSquad-Action: action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "rationale": "Remove a uniquely matched adjacent duplicate while preserving operating commitments and caveats, as selected in the initiative-linked decision.",
+        "measurement": "After terminal execution, inspect exact receipt and retrieve fresh fixture observation. Compare against original 424-character baseline: one status line and all other bytes unchanged (expected 394 characters). Then schedule second review 90\u2013120 seconds after first-cycle closure to check persistence. No business impact inferred.",
+        "risk": "Low textual risk, small and unmeasured reader benefit; stale baseline or unexpected provider state must block success claims. Only trusted executor with separate owner approval can apply.",
+        "compensation": "If restoration is necessary, propose restoring the deleted adjacent status line with fresh evidence and separate exact owner approval; no automatic rollback.",
+        "privacy": "Synthetic fixture document only; no customer or production data.",
+        "estimated_cost": "One simulated document replacement; no authorized spending. Model token usage retained when available; model, provider and repository monetary cost unknown.",
+        "idempotency_key": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+        "expires_at": "2026-10-06T07:20:00.000Z",
+        "created_at": "2026-10-06T06:48:41.333Z",
+        "status": "succeeded",
+        "updated_at": "2026-10-06T06:51:25.485Z",
+        "error": null,
+        "compensation_for": null
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "cycle_id": null,
+        "action_id": null,
+        "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+        "mode": "simulated_fixture",
+        "category": "baseline",
+        "provider": "github",
+        "source_identity": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "observed_at": "2026-10-06T06:47:50.045Z",
+        "period": "Point-in-time baseline before any proposed action",
+        "retrieved_at": "2026-10-06T06:47:50.048Z",
+        "metric": "document_state",
+        "value": "9080d482f61434cb3a8f686ef54758a45a30eba5",
+        "unit": "git_blob_sha",
+        "baseline": "{\"outcome\":\"Clarity and consistency of the approved operating document\",\"measurement_source\":\"SIMULATED document blob; no customer analytics\",\"window\":\"Point-in-time baseline before any proposed action\",\"unit\":\"document\",\"denominator\":null,\"freshness\":\"Retrieved now from isolated fixture\",\"missing_fields\":\"Reader benefit, adoption, revenue and monetary model costs unknown\",\"privacy\":\"Synthetic document only; no private business/customer data\",\"expected_lag\":\"Immediate fixture state; business outcome unmeasured\",\"attribution_limitations\":\"A document correction can establish text presence, not customer or revenue impact\"}",
+        "segmentation": "Exact configured repository, branch and document",
+        "missingness": "Reader benefit, adoption, revenue and monetary model costs unknown",
+        "freshness": "Retrieved now from isolated fixture",
+        "privacy_scope": "Synthetic document only; no private business/customer data",
+        "reliability": "One provider read; repository commit time is unknown. A document correction can establish text presence, not customer or revenue impact",
+        "source_ref": "fixture:SIMULATED:74e46c5dbf7ad735e00ef5e0b719beedd7152dd2:README.md",
+        "source_hash": "74e46c5dbf7ad735e00ef5e0b719beedd7152dd281c0cbb5034f30a2630ab72a",
+        "body": "SIMULATED_FIXTURE baseline. Exact document source, first 424 of 424 characters:\n# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+        "sha256": "25baad31bdaab0e8c1eb70d839cca56a6c4d8ce5c26d7f78d538e8d37a82de41",
+        "admitted_by": "trusted_adapter",
+        "withdrawn_at": null
+      },
+      {
+        "evidence_id": "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+        "mode": "simulated_fixture",
+        "category": "operational",
+        "provider": "github",
+        "source_identity": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "observed_at": "2026-10-06T06:51:48.745Z",
+        "period": "Point-in-time post-execution observation compared with baseline observed 2026-10-06T06:47:50.045Z and receipt provider time 2026-10-06T06:51:25.446Z.",
+        "retrieved_at": "2026-10-06T06:51:48.778Z",
+        "metric": "approved_document_present",
+        "value": "true",
+        "unit": "boolean",
+        "baseline": "{\"outcome\":\"Verify single pilot-status line with all other document bytes preserved against the 424-character baseline.\",\"measurement_source\":\"Exact granted fixture/fieldnote-operations pilot README.md through fixture-markdown-v1; SIMULATED_FIXTURE only.\",\"window\":\"Point-in-time post-execution observation compared with baseline observed 2026-10-06T06:47:50.045Z and receipt provider time 2026-10-06T06:51:25.446Z.\",\"unit\":\"document\",\"denominator\":null,\"freshness\":\"Fresh adapter read following confirmed fixture action; actual repository commit age otherwise unknown.\",\"missing_fields\":\"Reader benefit, adoption, revenue, conversion, token totals and monetary model/provider/repository costs unknown.\",\"privacy\":\"Synthetic fixture document only; no customer or production data.\",\"expected_lag\":\"Immediate fixture state; no measured business-outcome lag.\",\"attribution_limitations\":\"Receipt confirms fixture execution only. Text comparison can establish deduplication, not usefulness to readers or business impact.\"}",
+        "segmentation": "Exact configured repository, branch and document",
+        "missingness": "Reader benefit, adoption, revenue, conversion, token totals and monetary model/provider/repository costs unknown.",
+        "freshness": "Fresh adapter read following confirmed fixture action; actual repository commit age otherwise unknown.",
+        "privacy_scope": "Synthetic fixture document only; no customer or production data.",
+        "reliability": "One provider read; repository commit time is unknown. Receipt confirms fixture execution only. Text comparison can establish deduplication, not usefulness to readers or business impact.",
+        "source_ref": "fixture:SIMULATED:6865ace21c7a25a8e143f4d7ea89d307c0774881:README.md",
+        "source_hash": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+        "body": "SIMULATED_FIXTURE operational. Exact document source, first 393 of 393 characters:\n# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+        "sha256": "a56ce04fcbbe1f1640d8ec976bd3da2f14c3bf6499c4c6ab9b97ef05b0672442",
+        "admitted_by": "trusted_adapter",
+        "withdrawn_at": null
+      },
+      {
+        "evidence_id": "business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+        "mode": "simulated_fixture",
+        "category": "operational",
+        "provider": "github",
+        "source_identity": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "observed_at": "2026-10-06T06:54:15.135Z",
+        "period": "Second scheduled review point-in-time read versus baseline 2026-10-06T06:47:50.045Z and first post-action read 2026-10-06T06:51:48.745Z.",
+        "retrieved_at": "2026-10-06T06:54:15.161Z",
+        "metric": "approved_document_present",
+        "value": "true",
+        "unit": "boolean",
+        "baseline": "{\"outcome\":\"Check persistence of one status line and preservation of all other bytes against original 424-character baseline and 393-character post-action result.\",\"measurement_source\":\"SIMULATED fixture-markdown-v1, fixture/fieldnote-operations pilot README.md only.\",\"window\":\"Second scheduled review point-in-time read versus baseline 2026-10-06T06:47:50.045Z and first post-action read 2026-10-06T06:51:48.745Z.\",\"unit\":\"document\",\"denominator\":null,\"freshness\":\"Fresh adapter read for final scheduled review; no continuous monitoring.\",\"missing_fields\":\"Reader usefulness, adoption, revenue, conversion, token totals and monetary model/provider/repository costs unavailable.\",\"privacy\":\"Synthetic fixture only; no customer or production data.\",\"expected_lag\":\"Immediate fixture text state; business effects unmeasured.\",\"attribution_limitations\":\"Receipt establishes simulated execution only; repeated text-state observations do not establish continuous persistence, reader benefit or business impact.\"}",
+        "segmentation": "Exact configured repository, branch and document",
+        "missingness": "Reader usefulness, adoption, revenue, conversion, token totals and monetary model/provider/repository costs unavailable.",
+        "freshness": "Fresh adapter read for final scheduled review; no continuous monitoring.",
+        "privacy_scope": "Synthetic fixture only; no customer or production data.",
+        "reliability": "One provider read; repository commit time is unknown. Receipt establishes simulated execution only; repeated text-state observations do not establish continuous persistence, reader benefit or business impact.",
+        "source_ref": "fixture:SIMULATED:6865ace21c7a25a8e143f4d7ea89d307c0774881:README.md",
+        "source_hash": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+        "body": "SIMULATED_FIXTURE operational. Exact document source, first 393 of 393 characters:\n# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+        "sha256": "921139509cd9c86be918fecda80ba8927744287904f769b2f466e5121640aaa4",
+        "admitted_by": "trusted_adapter",
+        "withdrawn_at": null
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "attempt_id": "business_attempt_183dbf23-cc65-4c73-a1ce-ce0ac6543b76",
+        "provider": "github",
+        "adapter": "fixture-markdown-v1",
+        "mode": "simulated_fixture",
+        "target": "{\"repository\":\"fixture/fieldnote-operations\",\"repository_id\":110011,\"branch\":\"pilot\",\"path\":\"README.md\"}",
+        "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+        "content_sha256": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+        "operation_id": "6865ace21c7a25a8e143f4d7ea89d307c0774881",
+        "provider_time": "2026-10-06T06:51:25.446Z",
+        "recorded_at": "2026-10-06T06:51:25.481Z",
+        "result": "{\"commit\":\"6865ace21c7a25a8e143f4d7ea89d307c0774881\",\"blob\":\"bbefcc540abbe974fff4c3d965a9aca78fc2ebc2\",\"parent\":\"74e46c5dbf7ad735e00ef5e0b719beedd7152dd2\",\"provider_time\":\"2026-10-06T06:51:25.446Z\",\"request_id\":\"SIMULATED:action_1890964e-3e4b-473c-86e6-b225be0601c4\",\"confirmation\":\"provider_response\"}",
+        "sha256": "c0c1271bea672831100878cf0c572899823e6c4e3263edcfc51247b980c27c98"
+      }
+    ],
+    "owner_controls": [],
+    "note": "Bounded catalog of IDs and lifecycle only. Read originals before citing. Compensation requests are passive; a new exact action, current grant and owner approval are required.",
+    "approvals": [
+      {
+        "approval_id": "business_approval_5d776358-c400-4107-a350-fa3e23cce66d",
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+        "decision": "approved",
+        "decided_by": "human",
+        "decided_at": "2026-10-06T06:51:25.321Z",
+        "expires_at": "2026-10-06T07:20:00.000Z"
+      }
+    ],
+    "reconciliations": [],
+    "attempts": [
+      {
+        "attempt_id": "business_attempt_183dbf23-cc65-4c73-a1ce-ce0ac6543b76",
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+        "state": "settled",
+        "started_at": "2026-10-06T06:51:25.410Z",
+        "transmitted_at": "2026-10-06T06:51:25.437Z",
+        "finished_at": "2026-10-06T06:51:25.484Z",
+        "error": null
+      }
+    ],
+    "controls": [],
+    "limitations": "One exact document replacement; blob CAS is not branch-head CAS. Operational publication is not business growth. Provider/model monetary costs remain unknown unless separately observed."
+  },
+  "runtime_proof": {
+    "mode": "simulated_fixture",
+    "real_runtime": true,
+    "source_sha": "9baa9bd9077b6484de83097673c85efc42bf80b8",
+    "runtime": [
+      {
+        "execution": {
+          "execution_id": "execution_29953931-6a11-414e-91bb-eef98a0e6da5",
+          "generation": 1,
+          "status": "completed",
+          "model": "gpt-6-astra",
+          "reasoning_effort": "medium"
+        },
+        "context_sha256": "2bb6e9147f4b1c408949571729820ca65a887431df690f7a6caed41d80fcc3ee",
+        "tool_names": [
+          "read_mandate_record",
+          "propose_initiative",
+          "record_strategic_decision",
+          "propose_markdown_action",
+          "wait_for_external_action"
+        ],
+        "retrieved_originals": [
+          "business_evidence_899befa2-a001-47c7-8628-85ca576b2064"
+        ],
+        "business_reads": [],
+        "runtime_usage_events": [
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 8042,
+            "output_tokens": 48,
+            "total_tokens": 8090,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 9007,
+            "output_tokens": 117,
+            "total_tokens": 9124,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 9413,
+            "output_tokens": 324,
+            "total_tokens": 9737,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 10241,
+            "output_tokens": 357,
+            "total_tokens": 10598,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 11500,
+            "output_tokens": 226,
+            "total_tokens": 11726,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ff8-3cf9-7ad0-a134-f2c08845c039",
+            "input_tokens": 11760,
+            "output_tokens": 33,
+            "total_tokens": 11793,
+            "context_window": 258400
+          }
+        ]
+      },
+      {
+        "execution": {
+          "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+          "generation": 2,
+          "status": "completed",
+          "model": "gpt-6-astra",
+          "reasoning_effort": "medium"
+        },
+        "context_sha256": "e4558b2f6abfd599fcb055ba71eb8ff0cf8c5003e3e78d499e0106169e099401",
+        "tool_names": [
+          "read_mandate_record",
+          "read_mandate_record",
+          "read_mandate_record",
+          "read_mandate_record",
+          "observe_business_document",
+          "read_mandate_record",
+          "record_strategic_decision",
+          "record_strategic_decision",
+          "schedule_review",
+          "complete_cycle"
+        ],
+        "retrieved_originals": [
+          "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+          "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+          "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+          "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+          "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba"
+        ],
+        "business_reads": [
+          {
+            "evidence_id": "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+            "mode": "simulated_fixture",
+            "category": "operational",
+            "metric": "approved_document_present",
+            "retrieved_at": "2026-10-06T06:51:48.778Z",
+            "source_hash": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+            "next_action": "Read this evidence_id through read_mandate_record before citing; this response is metadata only."
+          }
+        ],
+        "runtime_usage_events": [
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 8626,
+            "output_tokens": 168,
+            "total_tokens": 8794,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 11399,
+            "output_tokens": 281,
+            "total_tokens": 11680,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 11832,
+            "output_tokens": 46,
+            "total_tokens": 11878,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 12972,
+            "output_tokens": 473,
+            "total_tokens": 13445,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 13498,
+            "output_tokens": 582,
+            "total_tokens": 14080,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 15040,
+            "output_tokens": 264,
+            "total_tokens": 15304,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffb-4579-7e42-96bc-f52dd76c8332",
+            "input_tokens": 15338,
+            "output_tokens": 49,
+            "total_tokens": 15387,
+            "context_window": 258400
+          }
+        ]
+      },
+      {
+        "execution": {
+          "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+          "generation": 3,
+          "status": "completed",
+          "model": "gpt-6-astra",
+          "reasoning_effort": "medium"
+        },
+        "context_sha256": "8ff8632ba73465e951383870229d4ef7fd946fb0e0c572245869bd3ae4a9c5d9",
+        "tool_names": [
+          "read_mandate_record",
+          "read_mandate_record",
+          "read_mandate_record",
+          "read_mandate_record",
+          "read_mandate_record",
+          "observe_business_document",
+          "read_mandate_record",
+          "record_strategic_decision",
+          "record_strategic_decision",
+          "complete_cycle"
+        ],
+        "retrieved_originals": [
+          "decision_5c27947c-d288-44c2-82df-525b589db630",
+          "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+          "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+          "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+          "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+          "business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130"
+        ],
+        "business_reads": [
+          {
+            "evidence_id": "business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130",
+            "mode": "simulated_fixture",
+            "category": "operational",
+            "metric": "approved_document_present",
+            "retrieved_at": "2026-10-06T06:54:15.161Z",
+            "source_hash": "0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb",
+            "next_action": "Read this evidence_id through read_mandate_record before citing; this response is metadata only."
+          }
+        ],
+        "runtime_usage_events": [
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 9698,
+            "output_tokens": 198,
+            "total_tokens": 9896,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 13677,
+            "output_tokens": 279,
+            "total_tokens": 13956,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 14113,
+            "output_tokens": 51,
+            "total_tokens": 14164,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 15254,
+            "output_tokens": 605,
+            "total_tokens": 15859,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 15894,
+            "output_tokens": 577,
+            "total_tokens": 16471,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 17231,
+            "output_tokens": 296,
+            "total_tokens": 17527,
+            "context_window": 258400
+          },
+          {
+            "turn_id": "01a10ffd-9de5-7360-ba1c-c77cb9017420",
+            "input_tokens": 17561,
+            "output_tokens": 46,
+            "total_tokens": 17607,
+            "context_window": 258400
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "external_actions": 1,
+      "business_approvals": 1,
+      "business_attempts": 1,
+      "business_receipts": 1,
+      "operating_cycles": 2,
+      "review_occurrences": 1
+    },
+    "provider": {
+      "content": "# Fieldnote operations \u2014 SIMULATED provider fixture\n\nCurrent status: private pilot.\n\nRequests are reviewed within two business days. This is a service target, not measured delivery.\n\nA request should include a concise description and expected outcome. No customer or production information is present in this fixture. Reader behavior, revenue, conversion and monetary model costs are unknown.\n",
+      "head": "6865ace21c7a25a8e143f4d7ea89d307c0774881",
+      "receipt": {
+        "commit": "6865ace21c7a25a8e143f4d7ea89d307c0774881",
+        "blob": "bbefcc540abbe974fff4c3d965a9aca78fc2ebc2",
+        "parent": "74e46c5dbf7ad735e00ef5e0b719beedd7152dd2",
+        "provider_time": "2026-10-06T06:51:25.446Z",
+        "request_id": "SIMULATED:action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "confirmation": "provider_response"
+      },
+      "effects": 1
+    },
+    "complete_original_deliveries": [
+      {
+        "execution_id": "execution_29953931-6a11-414e-91bb-eef98a0e6da5",
+        "record_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "241cf0a5a0d9c5f849fc30e420c8b90b091acb73ab54e44bd60819cc4d4bfec5",
+        "created_at": "2026-10-06T06:48:16.153Z"
+      },
+      {
+        "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+        "record_id": "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "007ebea77a014752da7a9ad6042fe1ed9d15be826440a6b3886b3fd0df651435",
+        "created_at": "2026-10-06T06:51:39.575Z"
+      },
+      {
+        "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+        "record_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "241cf0a5a0d9c5f849fc30e420c8b90b091acb73ab54e44bd60819cc4d4bfec5",
+        "created_at": "2026-10-06T06:51:39.657Z"
+      },
+      {
+        "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+        "record_id": "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "28032f45d5445efb5199270e6dc4f9eccf4a07b54c83baa77e3959b9fe55351f",
+        "created_at": "2026-10-06T06:51:39.718Z"
+      },
+      {
+        "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+        "record_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "268c671222d09e2887afa8f209e34637c72d2c02240a4c591326e4f90301994e",
+        "created_at": "2026-10-06T06:51:39.793Z"
+      },
+      {
+        "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+        "record_id": "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "d55e251bd2acf968df81736d99ba9bd03e3ab167ea1a197ba428e71a654ddd93",
+        "created_at": "2026-10-06T06:51:51.442Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "decision_5c27947c-d288-44c2-82df-525b589db630",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "83db019896ea6f61f95b15ad86b56165c6572df6d1504acb5fbe0e53e8641698",
+        "created_at": "2026-10-06T06:54:07.209Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "268c671222d09e2887afa8f209e34637c72d2c02240a4c591326e4f90301994e",
+        "created_at": "2026-10-06T06:54:07.291Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "28032f45d5445efb5199270e6dc4f9eccf4a07b54c83baa77e3959b9fe55351f",
+        "created_at": "2026-10-06T06:54:07.386Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "241cf0a5a0d9c5f849fc30e420c8b90b091acb73ab54e44bd60819cc4d4bfec5",
+        "created_at": "2026-10-06T06:54:07.462Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "d55e251bd2acf968df81736d99ba9bd03e3ab167ea1a197ba428e71a654ddd93",
+        "created_at": "2026-10-06T06:54:07.544Z"
+      },
+      {
+        "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+        "record_id": "business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130",
+        "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+        "sha256": "f5218026efac6a0f662fda70dd03658e7bfe49b98487255f54ec3130faea71b6",
+        "created_at": "2026-10-06T06:54:17.784Z"
+      }
+    ],
+    "costs": "Runtime usage telemetry retained; monetary model/provider cost unknown. Fixture provider does not establish actual GitHub charges."
+  },
+  "acceptance": {
+    "mode": "simulated_fixture",
+    "real_runtime": true,
+    "started_at": "2026-10-06T06:47:49.768Z",
+    "attempts": [],
+    "phases": {
+      "prepare": {
+        "passive": true,
+        "baseline_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+        "mode": "simulated_fixture"
+      },
+      "propose": {
+        "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+        "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+        "no_effect": true,
+        "slot_released": true
+      },
+      "approve": {
+        "approval_id": "business_approval_5d776358-c400-4107-a350-fa3e23cce66d",
+        "cycle": {
+          "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+          "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+          "mandate_version": 1,
+          "number": 1,
+          "occurrence_id": null,
+          "state": "closed",
+          "trigger": "owner_activation",
+          "executions_reserved": 2,
+          "tasks_created": 0,
+          "groups_created": 0,
+          "failures": 0,
+          "retry_at": null,
+          "deadline": "2026-10-06T07:33:06.890Z",
+          "summary": "SIMULATED-only cycle 1 complete. Evaluated original deduplication hypothesis and prior decision; exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 confirms fixture execution. Fresh operational evidence business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba matches receipt hash and baseline business_evidence_899befa2-a001-47c7-8628-85ca576b2064 except removal of one duplicated 31-character status line (424 to 393 characters). Decision decision_5c27947c-d288-44c2-82df-525b589db630 retains correction over restoration or unsupported expansion. Reader/business benefit unmeasured; monetary costs and token totals unavailable. No internal work needed or outstanding. Final evidence-driven review persisted as schedule_caf23a54-2af9-402b-a715-87dbcba63739 for 06:54:00Z, approximately 95 seconds after closure; cycle 2 must refresh observation, review receipt and prior decisions, assess costs/limitations and stop under resource bound.",
+          "error": null,
+          "created_at": "2026-10-06T06:48:06.890Z",
+          "closed_at": "2026-10-06T06:52:34.161Z"
+        },
+        "schedules": [
+          {
+            "schedule_id": "schedule_caf23a54-2af9-402b-a715-87dbcba63739",
+            "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+            "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+            "owner_id": "human",
+            "creator_id": "principal_c34317ab-31f7-466c-8794-28e1177bc2ac",
+            "purpose": "Required second and final review: reread prior decisions, exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 and baseline/post-action evidence; obtain fresh granted fixture observation and assess original deduplication prediction, persistence, monetary-cost unknowns and impact limitations. No additional correction; stop the two-cycle mandate after review.",
+            "coordinator_id": "worker_0db17d53-b727-44ad-a1fb-f8052bf4a631",
+            "timezone": "America/Vancouver",
+            "recurrence": "{\"kind\":\"once\"}",
+            "end_at": "2026-10-06T06:56:00.000Z",
+            "occurrence_limit": 1,
+            "consumed": 0,
+            "version": 1,
+            "status": "active",
+            "next_due": "2026-10-06T06:54:00.000Z",
+            "overlap_policy": "hold_one",
+            "missed_policy": "coalesce",
+            "created_at": "2026-10-06T06:52:21.209Z",
+            "updated_at": "2026-10-06T06:52:21.209Z"
+          }
+        ]
+      },
+      "review": {
+        "cycle": {
+          "cycle_id": "cycle_eb8f1234-ae0d-4f38-bce3-772fb4971af0",
+          "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+          "mandate_version": 1,
+          "number": 2,
+          "occurrence_id": "occurrence_c21df050c5ad6b1a34a7fb77c18ec3ae57b253e44ff260942b6473d22a48cb13",
+          "state": "closed",
+          "trigger": "durable_schedule",
+          "executions_reserved": 1,
+          "tasks_created": 0,
+          "groups_created": 0,
+          "failures": 0,
+          "retry_at": null,
+          "deadline": "2026-10-06T07:39:00.035Z",
+          "summary": "Second scheduled review completed; mandate ends under two-cycle bound. Decision decision_7d2d3535-9a86-4b9b-81cf-356b080b18a4 retains approved correction with no additional action or schedule. Read original initiative and prior decision, baseline business_evidence_899befa2-a001-47c7-8628-85ca576b2064, exact receipt business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137 and first post-action evidence business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba. Fresh SIMULATED_FIXTURE observation business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130 at 06:54:15.135Z matches receipt and prior post-action hash: one status line, 393 characters versus 424 baseline, all other text preserved. Supports original text-state hypothesis at sampled times only. Compared retention with restoration, broader edits and continued monitoring; no evidence warrants further changes. Reader/business benefit unmeasured; token totals and monetary costs unknown, not zero. No internal work pending. Stop is an acceptance resource bound, not a claim of real business success.",
+          "error": null,
+          "created_at": "2026-10-06T06:54:00.035Z",
+          "closed_at": "2026-10-06T06:55:02.017Z"
+        },
+        "decision_ids": [
+          "decision_7d2d3535-9a86-4b9b-81cf-356b080b18a4"
+        ],
+        "provider_effects": 1,
+        "mode": "simulated_fixture",
+        "live_business_gate": false
+      },
+      "idle": {
+        "seconds": 30,
+        "executions": 5,
+        "no_idle_model_work": true
+      }
+    },
+    "mandate_id": "mandate_e72cf8b0-c484-4b7f-84a6-9380c92e54b4",
+    "grant_id": "business_grant_b5361489-d1ab-4b18-82d4-3337108abafd",
+    "baseline_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+    "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+    "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a"
+  },
+  "record_delivery_note": "Observation, Decision and receipt delivery hashes bind immutable originals. Initiative hashes bind the lifecycle at delivery (active), while final exported initiative state is stopped.",
+  "worker_rejections": "Two hypothesis-as-evidence citations were rejected and corrected; see worker-tool-rejections.json. acceptance.attempts records harness failures only."
+}

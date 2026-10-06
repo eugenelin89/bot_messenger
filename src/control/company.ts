@@ -1,5 +1,6 @@
 import { Mandates } from './mandates.js';
 import { Computers } from './computers.js';
+import { BusinessOperations } from './business.js';
 import { Infrastructure, INFRASTRUCTURE_TOOLS } from './infrastructure.js';
 import { Conversations } from './conversations.js';
 import { Research } from './research.js';
@@ -48,6 +49,7 @@ export class Company extends EventEmitter {
   readonly discussions: Discussions;
   readonly mandates: Mandates;
   readonly computers: Computers;
+  readonly business: BusinessOperations;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
     super();
@@ -65,6 +67,7 @@ export class Company extends EventEmitter {
     this.discussions = new Discussions(this);
     this.mandates = new Mandates(this);
     this.computers = new Computers(this);
+    this.business = new BusinessOperations(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -291,7 +294,7 @@ export class Company extends EventEmitter {
         AND NOT EXISTS (SELECT 1 FROM research_operations ro WHERE ro.worker_id=w.worker_id AND ro.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => !this.computers.unknown(candidate.assignee_worker_id) && this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate) && this.computers.eligible(candidate));
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => !this.business.reserved(candidate.assignee_worker_id) && !this.computers.unknown(candidate.assignee_worker_id) && this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate) && this.computers.eligible(candidate));
   }
   claimNext(maxActive = 2): { task: Task; worker: Worker; execution: TaskExecution; context: ExecutionContext } | undefined {
     return this.store.transaction(() => {
@@ -317,6 +320,7 @@ export class Company extends EventEmitter {
       if (execution.status !== 'running') return;
       requireThat(!this.research.hasPending(executionId),'Cannot complete while research callbacks are unfinished.');
       requireThat(!this.computers.hasPending(executionId),'Cannot complete while browser callbacks are unfinished.');
+      requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
       if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
       if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
@@ -370,6 +374,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.business.recover();
     this.computers.recover();
     this.research.recover();
     this.store.run("UPDATE mandate_task_sessions SET state='blocked' WHERE state IN ('creating','prepared')");

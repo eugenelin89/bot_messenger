@@ -1,8 +1,8 @@
 # Single-Company Business Operations
 
-**Status:** Accepted future requirements; not implemented  
-**Updated:** 2026-09-29  
-**Authority:** [Decision 017](../decisions/decision_017_single_company_first.md)  
+**Status:** Continuity, deliberation and scheduling implemented; Prompt 11 bounded action slice in progress, live gate pending
+**Updated:** 2026-10-06
+**Authority:** [Decision 017](../decisions/decision_017_single_company_first.md)
 **Companion model:** [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md)
 
 ## Product priority
@@ -151,3 +151,13 @@ envelope. No production account credentials, files, publication, customer outrea
 are available. The protected fixture POST is not a real business receipt. Use the
 [operator tutorial](../operations/COMPUTER_USE_TUTORIAL.md) for the supported boundary;
 Prompt 11 remains responsible for measured live operations.
+
+## Prompt 11 implementation boundary
+
+The [bounded business adapter](../architecture/BUSINESS_OPERATIONS.md) connects a trusted
+document baseline and current initiative-linked Decision to one exact owner-approved GitHub
+Markdown replacement, retained receipt, observation and scheduled review. Existing coordinators
+use explicit scoped grants; no employee role gains general business authority. Credential,
+source withdrawal, unknown-effect and compensation boundaries remain enforced. The
+[acceptance record](../validation/PROMPT_11_VALIDATION.md) still requires the real action and
+scheduled real outcome before C11-2/3/4 or the milestone can be complete.

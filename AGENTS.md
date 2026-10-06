@@ -499,7 +499,7 @@ Screenshots are owner-private evidence; model understanding is structured render
 Client API v1 gains no related administration/content. See [Decision 024](docs/decisions/decision_024_bounded_computer_use.md),
 [architecture](docs/architecture/COMPUTER_USE.md) and [C10-1 evidence](docs/validation/PROMPT_10_VALIDATION.md).
 Prompt 10 is complete and deployed with zero retained production computer authority.
-Prompt 11 is next; browser capability does not complete its real business-action gate.
+Prompt 11 is in progress; browser capability does not complete its real business-action gate.
 
 ## Execution Plans
 
@@ -587,3 +587,18 @@ This map should evolve with the implementation; keep it current.
   accessing pagination fields on wrapped returns; preserve hard runtime and retrieval limits.
 - Prompt 09 release status belongs to its validation/plan. Do not mark complete before all gates.
   Prompt 10 Computer Use and Prompt 11 real business operations remain separate work.
+
+## Bounded business operations
+
+- Preserve [Decision 025](docs/decisions/decision_025_bounded_business_operations.md): distinct
+  evidence, Decision, action, exact human approval, trusted attempt and receipt. No model,
+  message, group or ComputerSession grants provider authority. Existing roles remain unchanged.
+- One exact document scope per owner grant; protected repository-restricted service credential;
+  no arbitrary HTTP or worker-selected secret/path. Recheck current authority and source before
+  durable transmission. Unknown effects fence the canonical target and never blindly replay.
+- Approval waits release model slots. Pending reads drain before commitment; shutdown closes
+  admission immediately. Late receipts survive revocation/stop and retain intervention history.
+- Scope withdrawal also invalidates prior Decisions/actions before transmission. Keep private
+  source prose out of catalogs, public research and public acceptance exports. v1 stays unchanged.
+- Migration/deployment create zero authority. Prompt 11 is incomplete until its separately
+  approved real action and scheduled outcome evidence exist; fixtures never satisfy C11-2.

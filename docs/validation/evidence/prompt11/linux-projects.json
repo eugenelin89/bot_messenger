@@ -1,0 +1,372 @@
+{
+  "result": "PASS",
+  "started": "2026-10-06T07:08:10.632Z",
+  "finished": "2026-10-06T07:15:30.464Z",
+  "source_sha": "9baa9bd9077b6484de83097673c85efc42bf80b8",
+  "execution_overlap_ms": 27266,
+  "runtime_turn_overlap_ms": 24258,
+  "operator_readiness_admission": {
+    "purpose": "Operator-controlled readiness admission before real overlap acceptance; not unconstrained production priority ordering",
+    "released_at": "2026-10-06T07:10:55.652Z",
+    "infrastructure_tasks": [
+      {
+        "task_id": "task_06e3f898-12dd-4fa2-a611-a5321a44b578",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_3a63c316-3f4d-497d-b107-4d3064316a04",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_473e3310-ea05-44bb-bbfe-dea283a0704c",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_8674252f-aa8e-4c86-b62a-2c6ce36c629a",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_995c6166-3bff-440c-9b84-bb3e6cc8b672",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_c4337116-57ed-4d51-99b8-3931f690a7e8",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_c3d9ae97-0c95-4c3c-8ed4-5c9811a8bda3",
+        "status": "completed"
+      },
+      {
+        "task_id": "task_2fb1a69c-0349-4abc-9403-28fbb18b9aef",
+        "status": "completed"
+      }
+    ],
+    "infrastructure_executions": [
+      {
+        "execution_id": "execution_804bc13c-f19e-442b-8856-898e19f811b8",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:08:24.606Z"
+      },
+      {
+        "execution_id": "execution_4fa765d6-8d5f-48bf-8468-271fd7135ad9",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:08:36.052Z"
+      },
+      {
+        "execution_id": "execution_19f1ef2b-3319-4a1d-b75d-96ff67d99854",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:08:44.198Z"
+      },
+      {
+        "execution_id": "execution_252ebd61-bbe1-4d8c-9694-aaaedb41264c",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:08:52.131Z"
+      },
+      {
+        "execution_id": "execution_60830fb0-be63-4e83-8cbe-3c63f1f1d5ec",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:08.940Z"
+      },
+      {
+        "execution_id": "execution_0f9556b0-5e24-439d-abaa-2ef48671e4a3",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:16.528Z"
+      },
+      {
+        "execution_id": "execution_b7c842cd-1082-425d-a164-2b1a1353f0c7",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:27.435Z"
+      },
+      {
+        "execution_id": "execution_2a3f70ba-e489-4c55-813c-3eaa16e93aef",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:37.351Z"
+      },
+      {
+        "execution_id": "execution_ee74c002-4fc9-428d-bea8-5a3e35bd6904",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:44.919Z"
+      },
+      {
+        "execution_id": "execution_0a46ed22-c0d9-4f18-95de-9b8900c01af8",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:09:51.653Z"
+      },
+      {
+        "execution_id": "execution_4a1c5bbe-196c-49e4-8836-5a6daaf6cdac",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:01.645Z"
+      },
+      {
+        "execution_id": "execution_591df0b3-fd5f-4ac2-96cb-97372d04bcdf",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:13.997Z"
+      },
+      {
+        "execution_id": "execution_00385a47-2463-48c9-85b3-a41aa755caad",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:23.655Z"
+      },
+      {
+        "execution_id": "execution_b2a35d61-6208-4234-8578-a3c6b6bdc571",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:35.853Z"
+      },
+      {
+        "execution_id": "execution_678a108b-b418-4588-acb3-d5a891d4b409",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:46.366Z"
+      },
+      {
+        "execution_id": "execution_c7050002-60f6-45cd-8fda-791a6d258d8d",
+        "status": "completed",
+        "finished_at": "2026-10-06T07:10:55.441Z"
+      }
+    ],
+    "original_eligibility_preserved": true,
+    "max_employee_slots": 2
+  },
+  "integration": {
+    "integration_id": "integration_c59b88c5-de28-4587-85ee-2fc5772b5be1",
+    "repository_id": "repository_0730d395-b158-475b-864a-e5809f3e926b",
+    "review_id": "review_5a0197da-8031-4391-8e2e-359748024c4d",
+    "base_commit": "3b215c3861b7ec255521e4ff4370abdc8f5ac184",
+    "source_commits": "[\"277b43ea115d185a71f65d0b7d4d11bc76be2e3e\",\"2bf6aff2d806f409e700636ef6dec4d2f3becd51\"]",
+    "candidate_commit": "e77c3520e539849fa71982a097b0a2b8b019b09c",
+    "final_commit": "e77c3520e539849fa71982a097b0a2b8b019b09c",
+    "strategy": "cherry-pick-then-fast-forward",
+    "validation": "{\"passed\":true,\"recipes\":[{\"recipe_id\":\"full\",\"command\":\"confined-node recipe:full\",\"passed\":true,\"exit_code\":0,\"output\":\"TAP version 13\\n# Subtest: integrated balance\\nok 1 - integrated balance\\n  ---\\n  duration_ms: 3.953401\\n  type: 'test'\\n  ...\\n# Subtest: reject malformed and nonfinite amounts\\nok 2 - reject malformed and nonfinite amounts\\n  ---\\n  duration_ms: 3.391193\\n  type: 'test'\\n  ...\\n1..2\\n# tests 2\\n# suites 0\\n# pass 2\\n# fail 0\\n# cancelled 0\\n# skipped 0\\n# todo 0\\n# duration_ms 166.126271\\n\",\"checked_at\":\"2026-10-06T07:14:05.443Z\"}]}",
+    "status": "completed",
+    "error": null,
+    "requested_by": "worker_77c5fbac-9572-4651-ba11-45f294791181",
+    "execution_id": "execution_06eb7d5e-d081-43da-8906-4fcc9fd4c3b7",
+    "created_at": "2026-10-06T07:13:58.280Z",
+    "updated_at": "2026-10-06T07:14:05.517Z",
+    "round_id": "round_7f94b0ca-34e5-46ec-9ca7-d5a5f5942ee5",
+    "submission_ids": "[\"submission_017c62cb-d0d8-46fe-8806-08edbe9a1dcf\",\"submission_1cfd091c-224f-4157-a753-286d61071035\"]",
+    "delivery_task_id": "task_a83456eb-9658-4e9a-8ce8-d847d1f0951e"
+  },
+  "recovery": [
+    {
+      "stage": "pending_identity_approval",
+      "preserved": true
+    },
+    {
+      "stage": "submissions",
+      "at": "2026-10-06T07:11:54.463Z",
+      "executions": 22,
+      "submissions": 2,
+      "rounds": 0,
+      "integrations": []
+    },
+    {
+      "stage": "revision",
+      "at": "2026-10-06T07:12:32.098Z",
+      "executions": 24,
+      "submissions": 2,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "resubmission",
+      "at": "2026-10-06T07:13:27.055Z",
+      "executions": 25,
+      "submissions": 3,
+      "rounds": 1,
+      "integrations": []
+    },
+    {
+      "stage": "integration",
+      "at": "2026-10-06T07:14:03.483Z",
+      "executions": 28,
+      "submissions": 3,
+      "rounds": 2,
+      "integrations": [
+        {
+          "id": "integration_c59b88c5-de28-4587-85ee-2fc5772b5be1",
+          "status": "queued"
+        }
+      ]
+    },
+    {
+      "stage": "accepted_remote_lost_response",
+      "operation_id": "operation_c27d86d1-18e7-4a37-99ca-7e8ad9e2451c",
+      "receipt_count": 1,
+      "publish_attempts": 1
+    },
+    {
+      "stage": "archived",
+      "preserved": true,
+      "new_work_rejected": true
+    }
+  ],
+  "remote": {
+    "identity": "botsquad-validation/ledger-publication",
+    "initial": "3b215c3861b7ec255521e4ff4370abdc8f5ac184",
+    "new": "e77c3520e539849fa71982a097b0a2b8b019b09c",
+    "operation": {
+      "operation_id": "operation_c27d86d1-18e7-4a37-99ca-7e8ad9e2451c",
+      "approval_id": "approval_4a9d3e74-b81f-47fc-8036-31864c7f0b2c",
+      "operation_type": "remote_push",
+      "project_id": "project_25702abb-23d3-44e0-afbe-dfc60619037d",
+      "repository_id": "repository_0730d395-b158-475b-864a-e5809f3e926b",
+      "envelope": "{\"approval_id\":\"approval_4a9d3e74-b81f-47fc-8036-31864c7f0b2c\",\"expected_old_sha\":\"3b215c3861b7ec255521e4ff4370abdc8f5ac184\",\"identity\":\"botsquad-validation/ledger-publication\",\"integration_id\":\"integration_c59b88c5-de28-4587-85ee-2fc5772b5be1\",\"new_sha\":\"e77c3520e539849fa71982a097b0a2b8b019b09c\",\"operation_id\":\"operation_c27d86d1-18e7-4a37-99ca-7e8ad9e2451c\",\"operation_type\":\"remote_push\",\"project_id\":\"project_25702abb-23d3-44e0-afbe-dfc60619037d\",\"provider\":\"github\",\"repository_id\":\"repository_0730d395-b158-475b-864a-e5809f3e926b\",\"target_branch\":\"trunk\",\"url\":\"https://github.com/botsquad-validation/ledger-publication.git\"}",
+      "envelope_hash": "217f479d7c192e91005739388e73309456fb3c94233345002847320a31d91de7",
+      "reason": "Explicitly authorized disposable Prompt 05 remote fixture publication",
+      "status": "completed",
+      "requested_at": "2026-10-06T07:15:22.587Z",
+      "result": "{\"remote_sha\":\"e77c3520e539849fa71982a097b0a2b8b019b09c\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+      "error": null
+    },
+    "approvals": [
+      {
+        "approval_id": "approval_4a9d3e74-b81f-47fc-8036-31864c7f0b2c",
+        "operation_id": "operation_c27d86d1-18e7-4a37-99ca-7e8ad9e2451c",
+        "envelope_hash": "217f479d7c192e91005739388e73309456fb3c94233345002847320a31d91de7",
+        "status": "consumed",
+        "requested_at": "2026-10-06T07:15:22.587Z",
+        "expires_at": "2026-10-06T08:15:22.589Z",
+        "decided_at": "2026-10-06T07:15:22.658Z",
+        "decided_by": "human",
+        "consumed_at": "2026-10-06T07:15:22.761Z"
+      }
+    ],
+    "receipts": [
+      {
+        "operation_id": "operation_c27d86d1-18e7-4a37-99ca-7e8ad9e2451c",
+        "envelope_hash": "217f479d7c192e91005739388e73309456fb3c94233345002847320a31d91de7",
+        "result": "{\"remote_sha\":\"e77c3520e539849fa71982a097b0a2b8b019b09c\",\"reconciled\":true,\"executor\":\"trusted_service\",\"root_operation\":false}",
+        "recorded_at": "2026-10-06T07:15:24.279Z"
+      }
+    ],
+    "publish_attempts": 1,
+    "divergence_blocked": true,
+    "live_authenticated_github_push": "unvalidated"
+  },
+  "scope_denials": [
+    {
+      "event_id": "event_5657cfea-667f-4465-8706-d9752b42d0eb",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+      "task_id": "task_18411f0a-86fe-4f99-8759-8eac32020b68",
+      "execution_id": "execution_294acb4a-ce58-474d-b347-649f555f0fca",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-06T07:11:03.440Z"
+    },
+    {
+      "event_id": "event_2e250737-e04f-45eb-a044-8e872f3fdf40",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+      "task_id": "task_18411f0a-86fe-4f99-8759-8eac32020b68",
+      "execution_id": "execution_294acb4a-ce58-474d-b347-649f555f0fca",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-06T07:11:03.716Z"
+    },
+    {
+      "event_id": "event_d12df0b1-0a99-4d09-ae00-469f9b53a3e2",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+      "task_id": "task_18411f0a-86fe-4f99-8759-8eac32020b68",
+      "execution_id": "execution_294acb4a-ce58-474d-b347-649f555f0fca",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-06T07:11:04.034Z"
+    },
+    {
+      "event_id": "event_6ee0c353-9caa-471d-9a36-7896b9b0344e",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+      "task_id": "task_18411f0a-86fe-4f99-8759-8eac32020b68",
+      "execution_id": "execution_294acb4a-ce58-474d-b347-649f555f0fca",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-06T07:11:04.308Z"
+    },
+    {
+      "event_id": "event_19b9cb25-d801-47f9-98dc-f150f8a892a8",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+      "task_id": "task_de8d6d0c-3d75-4595-b483-ac040b5328ce",
+      "execution_id": "execution_daa3cc5a-063a-4fbe-8ef7-20aa63ecda39",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-06T07:11:05.487Z"
+    },
+    {
+      "event_id": "event_00489b7a-69b8-48ed-91b8-a26464397f26",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+      "task_id": "task_de8d6d0c-3d75-4595-b483-ac040b5328ce",
+      "execution_id": "execution_daa3cc5a-063a-4fbe-8ef7-20aa63ecda39",
+      "detail": "{\"reason\":\"Path outside assigned write scope or protected\"}",
+      "created_at": "2026-10-06T07:11:05.763Z"
+    },
+    {
+      "event_id": "event_2b3ae2d3-019b-4bf1-ba83-9bf67ff50a60",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+      "task_id": "task_de8d6d0c-3d75-4595-b483-ac040b5328ce",
+      "execution_id": "execution_daa3cc5a-063a-4fbe-8ef7-20aa63ecda39",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-06T07:11:06.066Z"
+    },
+    {
+      "event_id": "event_f66d7670-9542-4d56-b7c5-4ef1f8d4982d",
+      "type": "tool_rejected",
+      "actor_principal_id": "system",
+      "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+      "task_id": "task_de8d6d0c-3d75-4595-b483-ac040b5328ce",
+      "execution_id": "execution_daa3cc5a-063a-4fbe-8ef7-20aa63ecda39",
+      "detail": "{\"reason\":\"Path outside repository scope\"}",
+      "created_at": "2026-10-06T07:11:06.338Z"
+    }
+  ],
+  "mode": "real Ubuntu runtime and Linux isolation; local controlled repositories/remotes, no live GitHub publication",
+  "raw_evidence_sha256": "4a58ab1d692cbd55c3f26f8c3358426ef62579101629b4ece1ec7ba9164691ef",
+  "review_count": 2,
+  "submission_count": 3,
+  "review_round_count": 2,
+  "archive_isolation": {
+    "result": "PASS",
+    "checks": [
+      {
+        "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+        "allocation_id": "allocation_8a087a03-5ea4-409e-83eb-72d9d0b0c068",
+        "uid": 20210,
+        "action": "read",
+        "denied": true,
+        "clone_preserved": true
+      },
+      {
+        "worker_id": "worker_ff9b81b3-9c84-4fae-8043-8e88dc70ddb6",
+        "allocation_id": "allocation_8a087a03-5ea4-409e-83eb-72d9d0b0c068",
+        "uid": 20210,
+        "action": "write",
+        "denied": true,
+        "clone_preserved": true
+      },
+      {
+        "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+        "allocation_id": "allocation_b708ca8d-9920-4cac-a814-933ab88282af",
+        "uid": 20211,
+        "action": "read",
+        "denied": true,
+        "clone_preserved": true
+      },
+      {
+        "worker_id": "worker_3df0df93-30f2-4876-bcdb-106ab3130d58",
+        "allocation_id": "allocation_b708ca8d-9920-4cac-a814-933ab88282af",
+        "uid": 20211,
+        "action": "write",
+        "denied": true,
+        "clone_preserved": true
+      }
+    ]
+  },
+  "operator_isolation_checks": 100
+}

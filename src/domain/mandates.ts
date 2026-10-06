@@ -1,6 +1,6 @@
 /** Strategic direction and typed trusted bounds are separate. Prose never grants tools. */
 export const MANDATE_SCHEMA = 'mandate-review-v1';
-export const EVIDENCE_MODES = ['real_read_only','public_source','owner_provided','sanitized_snapshot','simulated_fixture'] as const;
+export const EVIDENCE_MODES = ['real_read_only','public_source','owner_provided','sanitized_snapshot','simulated_fixture','real_live'] as const;
 export type EvidenceMode = typeof EVIDENCE_MODES[number];
 export type MandateStatus = 'draft'|'active'|'paused'|'blocked'|'completed'|'stopped'|'cancelled';
 export interface MandateEnvelope {

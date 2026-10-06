@@ -1,0 +1,18 @@
+{
+  "before": {
+    "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+    "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+    "status": "awaiting_approval",
+    "effects": 0,
+    "executions": 3
+  },
+  "after": {
+    "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
+    "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a",
+    "status": "awaiting_approval",
+    "effects": 0,
+    "executions": 3
+  },
+  "preserved": true,
+  "mode": "simulated_fixture"
+}

@@ -103,3 +103,9 @@ session transitions. Acceptance and retained activation remain explicit separate
 - [Decision 023 — Risk-routed read-only Codex specialist subagents](decision_023_codex_specialist_subagents.md) — accepted development workflow; parent remains sole writer/integrator.
 
 - [Decision 024 — Bounded browser-first Computer Use](decision_024_bounded_computer_use.md) — accepted, implemented and deployed; C10-1 and delivery evidence recorded in Prompt 10 validation.
+
+## Prompt 11 bounded implementation
+
+| ID | Decision | Status | Date |
+| --- | --- | --- | --- |
+| [025](decision_025_bounded_business_operations.md) | Exact supervised business actions and attributable outcome review | Implemented on milestone branch; delivery/live gates pending | 2026-10-06 |

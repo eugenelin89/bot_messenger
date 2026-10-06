@@ -1,0 +1,53 @@
+{
+  "mode": "simulated_fixture",
+  "rejected_worker_tool_attempts": [
+    {
+      "execution_id": "execution_14089bf2-a522-4675-aba3-4a97d478f0be",
+      "tool": "record_strategic_decision",
+      "call_id": "exec-1e1eed28-9e08-4d9d-9091-33b2e7e1cf00",
+      "arguments": {
+        "disposition": "stop",
+        "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+        "recommendation": "Retain the approved deduplication without further edits; stop the mandate after this second scheduled review under the acceptance resource bound.",
+        "rationale": "Reassessed the original initiative and prior continue decision. Baseline at 06:47:50.045Z contains two identical status lines (424 characters). Exact simulated receipt recorded 06:51:25.481Z confirms execution only. First operational read at 06:51:48.745Z and fresh final read at 06:54:15.135Z (retrieved 06:54:15.161Z) contain the same 393-character document and match receipt content hash 0b489e99590fe6cc832b33287622a6cd8dbb23a5724994cf0e0c0373b87d35fb. The original text-state prediction is supported: one 31-character duplicate removed, substantive statements and caveats preserved. Reader usefulness remains untested. Coordinator-only comparison suffices; internal work would not supply unavailable reader measurements. Stopping reflects the two-cycle bound, not a business-success finding.",
+        "alternatives": "Retain correction and stop (chosen: predicted state observed, mandate bound reached); restore duplicate (no observed damage justifies restoration); iterate or broaden wording (no evidence justifies additional changes); continue monitoring or scale (outside two-cycle scope and no impact evidence).",
+        "evidence_ids": [
+          "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+          "decision_5c27947c-d288-44c2-82df-525b589db630",
+          "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+          "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+          "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+          "business_evidence_864bdc7b-4a3b-406a-b8e9-fb764633c130"
+        ],
+        "contrary_evidence": "No reader tests demonstrate that duplication was harmful or removal improves usefulness. Two matching post-action snapshots cannot establish uninterrupted persistence or real-world success.",
+        "unknowns": "All provider data is SIMULATED_FIXTURE, not production. Reader behavior, adoption, revenue, conversion and business-outcome lag unmeasured. Token totals and model/provider/repository monetary costs unavailable, not zero; no ROI claim. Actual repository commit age unknown.",
+        "missing_evidence": "No customer analytics, reader study, continuous state history or measured monetary cost evidence is supplied or authorized."
+      },
+      "error": "Error: A hypothesis is not supporting evidence; cite observations or internal results"
+    },
+    {
+      "execution_id": "execution_49f0fa15-c26b-49cb-b190-169cf77419a6",
+      "tool": "record_strategic_decision",
+      "call_id": "exec-bfd4cd1d-9fb9-41b7-aa51-87b7491fb6e8",
+      "arguments": {
+        "alternatives": "Retain the verified deduplication and perform the required bounded follow-up; restore the redundant line (no evidence of damage justifies compensation); or broaden wording changes (unsupported and outside the single-correction objective). Choose retention and review.",
+        "contrary_evidence": "No usability evidence shows the duplication harmed readers or its removal helped. This fixture cannot establish adoption or revenue, and one read does not establish lasting state.",
+        "disposition": "continue",
+        "evidence_ids": [
+          "decision_ba0dbf9d-a6cd-43f9-ae43-4554b3b3db7b",
+          "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
+          "business_receipt_ab5c9269-7de1-4f0c-8541-c8ac8ee03137",
+          "business_evidence_b5efe054-dbdd-48c1-8409-d22629d465ba",
+          "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1"
+        ],
+        "initiative_id": "initiative_2d70e9cb-f9bc-4881-b109-ba48a291dbe1",
+        "missing_evidence": null,
+        "rationale": "The SIMULATED fixture receipt recorded 06:51:25.481Z confirms provider execution, and the independent operational read observed 06:51:48.745Z/retrieved 06:51:48.778Z matches its content hash. Comparing the fully delivered 424-character baseline with the 393-character result shows one 31-character repeated status line removed and all other text preserved. This supports the initiative's exact text-state prediction only.",
+        "recommendation": "Retain the single approved fixture correction, make no additional proposal, and schedule cycle 2 to reread this decision and exact receipt, obtain a fresh observation, assess persistence, costs and limitations, then stop under the two-cycle bound.",
+        "unknowns": "Reader usefulness remains hypothetical; adoption, revenue and conversion unmeasured. Monetary repository/provider/model cost and token totals unavailable here, not zero. Only synthetic fixture data was inspected; no production result is implied."
+      },
+      "error": "Error: A hypothesis is not supporting evidence; cite observations or internal results"
+    }
+  ],
+  "harness_attempts_are_separate": true
+}

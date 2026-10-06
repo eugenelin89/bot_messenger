@@ -1,4 +1,5 @@
 import type {Observation} from '../domain/mandates.js';
+import type {BusinessEvidence} from '../domain/business.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {Company,ExecutionContext,TaskInput} from './company.js';
 import {requireThat,strictObject,textField} from '../domain/model.js';
@@ -56,10 +57,12 @@ export class Discussions {
       const result=this.group(g);this.append(result,`${topic}\nDesired output: ${desired}\nConstraints: ${constraints}`,'charter',undefined,[],[],creator);this.audit('created',result,{draft_only:true});const created=this.group(g);this.db.run('INSERT INTO discussion_receipts VALUES (?,?,?,?)',receiptKey,g,hash(a),JSON.stringify(created));return created;
     });
   }
-  createForMandate(context:ExecutionContext,input:{topic:string;desired_output:string;constraints:string;participant_ids:string[];facilitator_id:string;synthesizer_id:string;allow_research:boolean},observations:Observation[]){
+  createForMandate(context:ExecutionContext,input:{topic:string;desired_output:string;constraints:string;participant_ids:string[];facilitator_id:string;synthesizer_id:string;allow_research:boolean},observations:(Observation|BusinessEvidence)[]){
     const v=this.company.mandates.verify(context);requireThat(v.mandate.status==='active'&&!v.turn.output,'Active mandate coordinator required');
     const group=this.createAuthorized({...input,organize_with_atlas:false,allow_incomplete:true,receipt_key:`mandate_${randomUUID()}`},context);
-    for(const o of observations){const content=JSON.stringify({mode:o.mode,name:o.name,value:o.value,unit:o.unit,observed_at:o.observed_at,period:o.period,recorded_at:o.recorded_at,body:o.body,missingness:o.missingness,limitations:o.limitations});
+    for(const original of observations){
+      const o='evidence_id' in original?{...original,observation_id:original.evidence_id,name:original.metric,recorded_at:original.retrieved_at,body:original.body.slice(0,2500),limitations:`Selected source excerpt: first ${Math.min(original.body.length,2500)} of ${original.body.length} characters. ${original.reliability}`,source:original.source_ref,provenance:JSON.stringify({provider:original.provider,source_hash:original.source_hash,baseline:JSON.parse(original.baseline),privacy_scope:original.privacy_scope})}:original;
+      const content=JSON.stringify({mode:o.mode,name:o.name,value:o.value,unit:o.unit,observed_at:o.observed_at,period:o.period,recorded_at:o.recorded_at,body:o.body,missingness:o.missingness,limitations:o.limitations});
       requireThat(content.length<=L.evidenceChars,'Observation exceeds the 6000-character group excerpt bound; select a concise admitted observation');
       this.evidence(group,'owner_material',`${o.mode.toUpperCase()}: ${o.name}`,content,{observation_id:o.observation_id,mandate_id:o.mandate_id,provenance:o.provenance,source:o.source,export_authority:'active_mandate_envelope',coordinator_execution_id:context.executionId,audience_worker_ids:input.participant_ids},null);}
     this.requireMembers(group);this.db.run("UPDATE working_groups SET state='active',started_at=?,deadline=?,updated_at=? WHERE group_id=?",now(),v.cycle.deadline,now(),group.group_id);this.openings(this.group(group.group_id));

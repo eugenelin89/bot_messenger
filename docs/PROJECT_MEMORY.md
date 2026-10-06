@@ -42,7 +42,7 @@ Always reread current main, relevant execution plans and active branches before 
 ## Next planning action
 
 Prompt 10 — Bounded Computer Use — is complete and deployed; Prompt 11
-later owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
+is in progress and owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
 Future Codex implementation prompts now use project-scoped read-only specialists when the
 changed risk warrants them. Prompt 10 should normally use the control-plane, security,
 recovery and validation reviewers; product-strategy review is added only if the milestone
@@ -144,5 +144,17 @@ preserved (live comparison excludes only workers.updated_at heartbeat; offline m
 preserves every field/rowid). The original eight workers, grant and pause=false remain;
 computer grants/sessions/operators and Chromium processes are all zero. Temporary validation
 services are stopped. Final documentation revision identity is in the delivery handoff and
-protected host journal. Prompt 11 is Next and requires approved real action, receipt,
+protected host journal. Prompt 11 remains incomplete and requires approved real action, receipt,
 observed business result and review.
+
+## Prompt 11 implementation in progress — October 6
+
+The bounded GitHub existing-Markdown adapter and local owner UI are implemented on the
+milestone branch. Exact immutable approval, protected service credentials, durable attempts,
+unknown target fencing, labelled reconciliation, source withdrawal and passive compensation
+requests are separate from strategic Decisions. No retained employee profiles or Client API v1
+authority expand. Schema 14 is additive and creates zero authority. See [Decision 025](decisions/decision_025_bounded_business_operations.md),
+[architecture](architecture/BUSINESS_OPERATIONS.md), [plan](exec-plans/prompt-11.md) and
+[validation](validation/PROMPT_11_VALIDATION.md). Local checks pass; Ubuntu, delivery and live
+evidence are pending. The owner designated Asymmetri GitHub for read-only discovery only.
+Credentials, branch workflow and exact action approval remain separate prerequisites.

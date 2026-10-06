@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-06T06:52:36.271317+00:00",
+  "before": {
+    "cycles": [
+      {
+        "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+        "number": 1,
+        "state": "closed",
+        "trigger": "owner_activation",
+        "occurrence_id": null
+      }
+    ],
+    "schedules": [
+      {
+        "schedule_id": "schedule_caf23a54-2af9-402b-a715-87dbcba63739",
+        "next_due": "2026-10-06T06:54:00.000Z",
+        "status": "active"
+      }
+    ],
+    "effects": 1
+  },
+  "after": {
+    "cycles": [
+      {
+        "cycle_id": "cycle_f86620ff-8a1e-4f42-9aab-f5593760a22d",
+        "number": 1,
+        "state": "closed",
+        "trigger": "owner_activation",
+        "occurrence_id": null
+      }
+    ],
+    "schedules": [
+      {
+        "schedule_id": "schedule_caf23a54-2af9-402b-a715-87dbcba63739",
+        "next_due": "2026-10-06T06:54:00.000Z",
+        "status": "active"
+      }
+    ],
+    "effects": 1
+  },
+  "preserved": true,
+  "mode": "simulated_fixture"
+}

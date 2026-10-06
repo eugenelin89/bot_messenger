@@ -98,7 +98,7 @@ and asynchronous callback ownership. Read the WE-01 acceptance report for the cu
 live status. Do not assume every worker is granted, enable production permissions through
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
-worker fence; ordinary source failures do not. Prompt 10 — Bounded Computer Use — is Complete and deployed, with C10-1 and release evidence in its validation record. Prompt 11 — Single-company business operations and measured pilot — is Next.
+worker fence; ordinary source failures do not. Prompt 10 — Bounded Computer Use — is Complete and deployed, with C10-1 and release evidence in its validation record. Prompt 11 — Single-company business operations and measured pilot — is in progress; its real-business gates remain pending.
 
 ## Prompt 08 implementation reference
 
@@ -133,3 +133,13 @@ headless browser, owner-only immutable session grants, no personal desktop, disa
 transfer, trusted exact fixture approval and unknown-effect fencing. Do not count the fixture
 POST as Prompt 11's real action/receipt/measured-result gate or claim screenshot vision when
 the model receives only structured rendered snapshots.
+
+## Prompt 11 implementation reference
+
+Read [business architecture](../docs/architecture/BUSINESS_OPERATIONS.md),
+[tutorial](../docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md),
+[Decision 025](../docs/decisions/decision_025_bounded_business_operations.md) and
+[validation](../docs/validation/PROMPT_11_VALIDATION.md). Preserve separate evidence/Decision/
+action/approval/attempt/receipt objects, exact immutable scope, protected credential boundary,
+no blind replay and withdrawal rules. A real-runtime fixture or code deployment never passes
+the real C11-2 effect, scheduled C11-3 loop or evidence-driven C11-4 outcome by itself.
