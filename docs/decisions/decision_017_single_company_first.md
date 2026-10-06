@@ -108,3 +108,11 @@ This record updates project knowledge in Git. It does not claim to modify ChatGP
 ## Consequences
 
 The product sequence now favors demonstrated customer/business usefulness over organizational scale. Runtime continuity and scheduling receive earlier explicit engineering and recovery tests. Asymmetri Motion supplies a realistic test without making BotSquad product-specific. Multi-company and federation are delayed, not rejected. Strategic freedom remains distinct from operational authority, and no financial credential or spending permission is granted by this decision.
+
+## October 6 priority clarification — append-preserved
+
+[Decision 026](decision_026_personal_operator_stabilization.md) clarifies the priority after
+Prompt 11's bounded supervised completion: stabilize one owner's Personal Operator / Daily
+Driver before further capability expansion. This supersedes any inference of automatic
+post-gate expansion; the original context, milestone requirements and security constraints
+above remain historical/architectural records. There is no automatic Prompt 12.

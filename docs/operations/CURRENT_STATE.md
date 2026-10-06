@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompts 01–10 and WE-01 complete; Prompt 11 implementation deployed and inactive; live acceptance pending
+**Status:** Prompts 01–11 and WE-01 complete; Prompt 11 bounded supervised; Personal Operator stabilization is current priority
 **Updated:** 2026-10-06
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -8,7 +8,46 @@ For implementation details, see the [system architecture](../architecture/SYSTEM
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
 
-## Prompt 11 implementation deployed — October 6
+## Bounded supervised live closure — October 6, 2026
+
+**Prompt 11 is Complete for the bounded supervised single-company milestone.**
+C11-1 PASS; C11-2 PASS; C11-3 PASS within supervised scope; C11-4 PASS.
+
+One company-selected, exact owner-approved GitHub README clarification executed on an
+isolated Asymmetri Motion pilot branch: one immutable approval, one transmission attempt,
+one provider receipt and independent read-back of the exact approved result. There was no
+PR, merge, release or app-source modification. Main and release/1.1 stayed unchanged; the
+pilot branch remains unmerged acceptance evidence. Its disposition requires separate owner
+authorization; do not modify, delete, merge, revert or add a commit to it.
+
+A durable schedule initiated real Cycle 2 in a fresh runtime context. The company reviewed
+original evidence and chose STOP, with no further review scheduled. Final idle verification
+created no model, browser or business work. This was supervised: the owner corrected one
+company-created zero-width due/end window through the normal schedule edit path, and one
+failed model turn recovered through bounded backoff. Both records remain retained.
+
+This proves a narrow action/approval/receipt/observation/reassessment loop, not adoption,
+readability improvement, customer benefit, revenue, production website effect, arbitrary
+GitHub operations or broad unattended company operation. Readability benefit is unmeasured;
+monetary model/provider cost is unknown. No further external authority follows. The detailed
+exit packet and protected host evidence remain private; only this bounded summary is public.
+
+## Current credential and production checkpoint
+
+The exact temporary Prompt 11 GitHub token is revoked. Its one pilot grant is revoked,
+service credential removed, and provider configuration retired. Safe restart preserved
+pause state and 2,624 original rows across 102 tables (apart from the explicit grant
+revocation and ordinary startup timestamps). Eight workers, 48 Tasks, 69 executions,
+two closed cycles, one completed scheduled occurrence and the successful action/receipt
+remain retained; zero ComputerSessions and no active business provider. Runtime/dispatcher
+are healthy, listening only on loopback. The scheduler fix's delivery status and latest
+verification belong to [Personal Operator stabilization](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
+
+## Historical Prompt 11 implementation deployment — before live pilot
+
+This section preserves the earlier zero-authority deployment snapshot. The live closure
+and retirement checkpoint above supersede its pending/empty-table statements.
+
 
 The [bounded business operations slice](../architecture/BUSINESS_OPERATIONS.md) is implemented,
 reviewed and deployed from [PR #15](https://github.com/eugenelin89/bot_messenger/pull/15),
@@ -558,12 +597,13 @@ See [Native iOS Remote Client and Secure Remote Access](../product/IOS_REMOTE_CL
 The numbered implementation roadmap is maintained in
 [BotSquad Roadmap](../product/ROADMAP.md).
 
-Conversations/continuity, working groups, the company operating loop/clock and the authenticated Client API are implemented. The next milestones are:
+Conversations/continuity, working groups, the company operating loop/clock and the authenticated Client API are implemented. The current sequencing is:
 
 ~~~text
 10 Bounded Computer Use — complete
-11 Single-company business operations and measured Asymmetri Motion pilot
---- deferred / unnumbered after single-company evidence ---
+11 Single-company business operations — complete within bounded supervised scope
+Current: Personal Operator / Daily Driver stabilization — unnumbered, no Prompt 12
+--- deferred; reconsider only from demonstrated owner need ---
 Multi-company, company collaboration, Telegram / external identities, federation
 ~~~
 
@@ -572,7 +612,7 @@ the private browser over SSH tunnel remains acceptable.
 
 See the roadmap for dependencies and acceptance themes.
 
-## Prompt 11 branch state — October 6
+## Historical Prompt 11 branch state — before implementation deployment
 
 The [business slice](../architecture/BUSINESS_OPERATIONS.md) is implemented and locally tested
 on its dedicated branch. Retained production is still the verified Prompt 10 baseline until

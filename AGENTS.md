@@ -499,7 +499,7 @@ Screenshots are owner-private evidence; model understanding is structured render
 Client API v1 gains no related administration/content. See [Decision 024](docs/decisions/decision_024_bounded_computer_use.md),
 [architecture](docs/architecture/COMPUTER_USE.md) and [C10-1 evidence](docs/validation/PROMPT_10_VALIDATION.md).
 Prompt 10 is complete and deployed with zero retained production computer authority.
-Prompt 11 implementation is complete and deployed; its separately approved real business-action gate remains pending.
+Prompt 11 is complete for the bounded supervised single-company milestone; see its qualified live closure. The current priority is the unnumbered Personal Operator / Daily Driver phase under Decision 026. Do not create Prompt 12 or infer further external authority.
 
 ## Execution Plans
 
@@ -600,5 +600,5 @@ This map should evolve with the implementation; keep it current.
   admission immediately. Late receipts survive revocation/stop and retain intervention history.
 - Scope withdrawal also invalidates prior Decisions/actions before transmission. Keep private
   source prose out of catalogs, public research and public acceptance exports. v1 stays unchanged.
-- Migration/deployment create zero authority. Prompt 11 is incomplete until its separately
-  approved real action and scheduled outcome evidence exist; fixtures never satisfy C11-2.
+- Migration/deployment create zero authority. Prompt 11 separately completed its bounded
+  supervised live gate; fixtures alone never satisfy C11-2. No further external action follows.

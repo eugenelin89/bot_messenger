@@ -1,11 +1,22 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompts 01–10 and WE-01 complete; Prompt 11 implementation deployed; live gate pending
+**Status:** Product vision; Prompts 01–10 and WE-01 complete; Prompt 11 complete within bounded supervised scope
 **Updated:** 2026-10-05
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
 current repository status. [Decision 017](../decisions/decision_017_single_company_first.md)
 and the [canonical roadmap](ROADMAP.md) define the accepted single-company-first priority.
+
+## Current priority after Prompt 11
+
+The owner currently wants BotSquad primarily as a personal daily tool. Reliability,
+operator clarity, smooth workflows, maintenance simplicity and polish take priority over
+feature expansion. This is an unnumbered Personal Operator / Daily Driver phase, not
+Prompt 12. [Decision 026](../decisions/decision_026_personal_operator_stabilization.md)
+clarifies sequencing while retaining the long-term model below and all authority boundaries.
+Prompt 11 is complete at bounded supervised scope; [qualified closure](../validation/PROMPT_11_VALIDATION.md)
+records the one real action, receipt/read-back, scheduled STOP, operator timing correction,
+failed model turn/backoff and unknown business benefit/costs. No further action is authorized.
 
 ## One-sentence vision
 
@@ -578,7 +589,7 @@ The earlier M1–M7 capability list above is the project's original capability f
 The current implementation plan is tracked by numbered prompts in the
 [BotSquad Roadmap](ROADMAP.md), which is the single sequence/status authority.
 
-Prompts 01–06 are complete. The accepted future delivery order is:
+Prompts 01–11 are complete, with Prompt 11 qualified to bounded supervised scope. Current sequencing is:
 
 | Prompt | Milestone | Status |
 | --- | --- | --- |
@@ -586,7 +597,8 @@ Prompts 01–06 are complete. The accepted future delivery order is:
 | 08 | Collaborative working groups and deliberation | Complete |
 | 09 | Strategic company loop, minimal durable scheduler and Asymmetri Motion reference acceptance | Complete |
 | 10 | Bounded Computer Use | Complete |
-| 11 | Single-company business operations and measured Asymmetri Motion pilot | In progress; live gate pending |
+| 11 | Single-company business operations and measured Asymmetri Motion pilot | Complete within bounded supervised scope |
+| — | Personal Operator / Daily Driver stabilization | Current priority; unnumbered, no Prompt 12 |
 | — | Multi-company, company collaboration, generic Telegram identities and federation | Deferred / unnumbered |
 | — | Native iOS / no-tunnel mobile access | Deferred |
 | — | Broader business, infrastructure and treasury platforms | Later / scope by demonstrated need |

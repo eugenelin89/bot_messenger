@@ -7,9 +7,10 @@ Codex execution.
 The primary deployment is now an **always-on Ubuntu headquarters** under the operator's
 control. Your Mac/PC is the bootstrap, administration, development, and browser client.
 
-**Product priority:** prove one AI company can actually operate a real business before
-building multiple companies or federation. This is an accepted direction, not a claim
-that the current runtime already operates a business autonomously.
+**Current product priority:** make one BotSquad a dependable, clear and pleasant personal
+daily tool for its owner. Reliability, smooth workflows and simple maintenance come before
+feature expansion. The [Personal Operator / Daily Driver phase](docs/product/ROADMAP.md#personal-operator--daily-driver-phase)
+is intentionally unnumbered; no Prompt 12 is implied.
 
 **Continuing from another chat or Codex task?** Read
 [Project Memory](docs/PROJECT_MEMORY.md), the [canonical roadmap](docs/product/ROADMAP.md)
@@ -19,7 +20,7 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 10 — Bounded Computer Use — is Complete and deployed.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) records C10-1, independent review, exact deployment and retained-state verification. Production has zero ComputerSessions, computer grants and Computer Operators. **Prompt 11 implementation is complete and deployed; live-business acceptance is incomplete.** The new typed GitHub document evidence/action slice, exact approvals and outcome review are described in [business operations](docs/architecture/BUSINESS_OPERATIONS.md), the [operator tutorial](docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md) and [validation](docs/validation/PROMPT_11_VALIDATION.md). Deployment alone creates no authority.
+**Prompt 10 — Bounded Computer Use — is Complete and deployed.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) records C10-1, independent review, exact deployment and retained-state verification. Production has zero ComputerSessions, computer grants and Computer Operators. **Prompt 11 is complete for the bounded supervised single-company milestone.** One exact approved real GitHub document action, receipt/read-back and durable Cycle 2 ended in STOP. The pilot branch stayed unmerged; one timing correction and one failed model turn/backoff are retained. No business improvement or broad unattended operation was proven, and no further external authority follows. The new typed GitHub document evidence/action slice, exact approvals and outcome review are described in [business operations](docs/architecture/BUSINESS_OPERATIONS.md), the [operator tutorial](docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md) and [validation](docs/validation/PROMPT_11_VALIDATION.md). Deployment alone creates no authority.
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and
@@ -142,7 +143,7 @@ The roadmap therefore prioritizes:
 09 strategic company loop + durable scheduling + Asymmetri Motion reference test
 10 bounded Computer Use
 11 practical single-company business operations + measured live pilot
---- single-company evidence gate and demonstrated need ---
+--- current: unnumbered Personal Operator / Daily Driver stabilization ---
 later: multi-company / company collaboration / federation
 ~~~
 
@@ -441,13 +442,13 @@ Current important limits include:
 - no cross-HQ federation;
 - no Telegram/external-identity implementation;
 - no autonomous financial authority;
-- planned conversation rollover, company scheduling and real-business pilot acceptance remain future work.
+- the live pilot proves one bounded supervised loop; readability/business improvement and monetary costs remain unknown.
 
 Nix, exact human grants and private Unix identities are implemented. Project policy,
 remote publication and archive remain trusted human operations. SquadStatus remains a
 regression fixture using the generalized engineering engine.
 
-A later native-client milestone will add a secure iPhone/iPad dashboard that connects
+A possible later native client could add a secure iPhone/iPad dashboard that connects
 to BotSquad without requiring a manual SSH tunnel for normal mobile use. The HQ remains
 private by default; the mobile architecture uses a stable authenticated client API and
 a separate secure transport layer rather than exposing port 4310 publicly. See
