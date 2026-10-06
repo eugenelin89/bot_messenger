@@ -56,7 +56,7 @@ backup/update/credential maintenance; and operator UX polish. Consider easier re
 access only when actual usage shows the SSH tunnel is painful. Real owner experience chooses
 future work; these are candidates, not committed numbered milestones or a giant backlog.
 
-**Current task:** scheduler due/end validation and reliable bounded dispatch windows. See
+**Completed stabilization 01:** scheduler due/end validation and reliable bounded dispatch windows. See
 [stabilization plan](../exec-plans/personal-operator-stabilization-01.md) and
 [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
 

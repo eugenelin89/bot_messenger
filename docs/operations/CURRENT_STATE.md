@@ -40,8 +40,11 @@ pause state and 2,624 original rows across 102 tables (apart from the explicit g
 revocation and ordinary startup timestamps). Eight workers, 48 Tasks, 69 executions,
 two closed cycles, one completed scheduled occurrence and the successful action/receipt
 remain retained; zero ComputerSessions and no active business provider. Runtime/dispatcher
-are healthy, listening only on loopback. The scheduler fix's delivery status and latest
-verification belong to [Personal Operator stabilization](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
+are healthy, listening only on loopback. Scheduler stabilization 01 is deployed from PR #17:
+new/edited schedules require a 30-second first-due window. Real isolated review/restart/idle
+acceptance passed with one occurrence and no timing repair. Production preservation passed
+for 59,909 original rows in 82 databases; its final idle interval added no work. The code
+checkpoint, deployment-recovery qualification and subsequent delivery identity belong to [Personal Operator stabilization](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
 
 ## Historical Prompt 11 implementation deployment — before live pilot
 

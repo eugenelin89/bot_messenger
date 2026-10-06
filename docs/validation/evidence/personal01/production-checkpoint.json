@@ -1,0 +1,36 @@
+{
+  "revision": "ecdbe7561c53d3d02ec3fef4f267095e678f364e",
+  "previous_revision": "4a05ba46a78d44bc836c26043bd846c6a00e6749",
+  "exact_merged_build": true,
+  "independent_build_files": 251,
+  "consistent_protected_backup": true,
+  "preservation": {
+    "preserved": true,
+    "original_databases": 82,
+    "original_rows": 59909,
+    "account_and_group_mappings": 427,
+    "root_records": 702,
+    "worker_homes": 212,
+    "only_excluded_field": "workers.updated_at"
+  },
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "ecdbe7561c53d3d02ec3fef4f267095e678f364e"
+  },
+  "loopback_only": true,
+  "pause_preserved": true,
+  "provider_configured": false,
+  "temporary_credential_absent": true,
+  "all_retained_business_grants_revoked": true,
+  "work_counts_unchanged_on_restart_and_idle": true,
+  "idle_seconds": 30,
+  "worker_count": 8,
+  "tasks": 48,
+  "executions": 69,
+  "business_receipts": 1,
+  "computer_sessions": 0
+}
