@@ -56,6 +56,9 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}
+        if(path==='/api/computers'){json(200,company.computers.inspect());return;}
+        if(path.startsWith('/api/computer-evidence/')){const bytes=company.computers.evidence(decodeURIComponent(path.slice('/api/computer-evidence/'.length)));res.writeHead(200,{...securityHeaders,'Content-Type':'image/png','Content-Length':bytes.length});res.end(bytes);return;}
+        if(path.startsWith('/api/computers/')){json(200,company.computers.inspect(decodeURIComponent(path.slice('/api/computers/'.length))));return;}
         if(path.startsWith('/api/mandates/')){json(200,company.mandates.inspect(decodeURIComponent(path.slice('/api/mandates/'.length))));return;}
         if(path==='/api/groups') {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group query');json(200,company.discussions.list(q.has('before')?Number(q.get('before')):undefined));return;}
         if(path.startsWith('/api/groups/')) {const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>k==='before'),'Invalid group history query');json(200,company.discussions.inspect(decodeURIComponent(path.slice('/api/groups/'.length)),q.has('before')?Number(q.get('before')):undefined));return;}
@@ -79,7 +82,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           const content = company.artifactContent(decodeURIComponent(path.slice('/api/artifacts/'.length)));
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/plain; charset=utf-8' }); res.end(content); return;
         }
-        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/mandates.js':['mandates.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
+        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/mandates.js':['mandates.js','text/javascript'], '/computers.js':['computers.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
         const file = staticFiles[path];
         if (file) { res.writeHead(200, { ...securityHeaders, 'Content-Type': `${file[1]}; charset=utf-8` }); res.end(readFileSync(join(publicDir, file[0]))); return; }
         json(404, { error: 'Not found' }); return;
@@ -91,6 +94,11 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
+      else if(path==='/api/computers/operator'){json(201,company.initializeComputerOperator(body));}
+      else if(path==='/api/computers/request'){json(201,company.computers.request(body));}
+      else if(path==='/api/computers/authorize'){json(200,company.computers.authorize(body));}
+      else if(path==='/api/computers/decide'){json(200,company.computers.decide(body));}
+      else if(path==='/api/computers/control'){json(200,await company.computers.control(body));}
       else if(path==='/api/mandates/create'){json(201,company.mandates.create(body));}
       else if(path==='/api/mandates/control'){json(200,company.mandates.control(body));}
       else if(path==='/api/mandates/observations'){json(201,company.mandates.admitObservation(body));}

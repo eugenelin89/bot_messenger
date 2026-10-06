@@ -1,0 +1,42 @@
+[
+  {
+    "name": "ordinary worker denied before browser creation",
+    "at": "2026-10-05T23:49:34.692Z"
+  },
+  {
+    "name": "close during connection establishment has no late browser",
+    "at": "2026-10-05T23:49:34.750Z"
+  },
+  {
+    "name": "revocation during actual Chromium provisioning confirms termination",
+    "at": "2026-10-05T23:49:35.714Z"
+  },
+  {
+    "name": "IPC closure during launch retains singleton until cleanup",
+    "at": "2026-10-05T23:49:36.660Z"
+  },
+  {
+    "name": "wall-clock deadline closes real browser",
+    "at": "2026-10-05T23:49:49.897Z"
+  },
+  {
+    "name": "screenshot count bound closes real browser",
+    "at": "2026-10-05T23:49:53.356Z"
+  },
+  {
+    "name": "actual document navigation count closes browser",
+    "at": "2026-10-05T23:49:56.352Z"
+  },
+  {
+    "name": "overridden page fetch cannot fabricate the trusted mutation receipt",
+    "at": "2026-10-05T23:50:00.719Z"
+  },
+  {
+    "name": "changed page and exact POST timer cannot redeem stale approval",
+    "at": "2026-10-05T23:50:08.439Z"
+  },
+  {
+    "name": "fault evidence integrity",
+    "at": "2026-10-05T23:50:08.445Z"
+  }
+]

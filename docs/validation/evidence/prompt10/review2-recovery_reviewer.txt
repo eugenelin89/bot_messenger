@@ -1,0 +1,37 @@
+Reviewed the uncommitted candidate above `b8f4120` on `feature/prompt-10-computer-use`. The previously reported blockers are fixed in the inspected code. Three important issues remain.
+
+**BLOCKING**
+
+None identified.
+
+**IMPORTANT**
+
+1. **Cleanup reconciliation can expire before broker recovery.** [computers.ts:291](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:291>) makes five attempts, one second apart. On HQ restart during hung provisioning/teardown, these can finish before the broker’s [five-second watchdog](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:28>) plus [three-second restart delay](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/deploy/systemd/botsquad-browser.service:17>). `shutdown_confirmed=0` then continues blocking all Computer Use after the broker becomes idle. Owner interrupt/revoke cannot retry reconciliation because [terminal-session stop returns immediately](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:263>).
+
+   **Smallest fix/test:** permit an owner-triggered cleanup recheck for terminal, unconfirmed sessions, retaining the reservation until actual confirmation. Test broker unavailability beyond the retry window, subsequent recovery, and replacement admission without another HQ restart or clearing provider/effect fences.
+
+2. **`computer_finish` reports success without confirmed shutdown.** [computers.ts:188](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:188>) ignores the returned session and unconditionally emits `{completed:true}`. Teardown can return normally with `shutdown_confirmed=0`; the session was already labelled completed before close. A lost acknowledgement therefore produces a successful tool receipt despite unconfirmed cleanup. The later Task settlement guard correctly prevents final Task completion, limiting the consequence.
+
+   **Smallest fix/test:** require confirmed shutdown and the expected terminal state before returning successful completion; otherwise report cleanup pending/failure while retaining the reservation. Inject `close() => false` with unsuccessful idle confirmation and assert neither session nor tool claims successful completion.
+
+3. **Historical intent receipts bypass the bounded context projection.** [computers.ts:82](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:82>) selects every intent field, including the complete response persisted at [line 149](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:149>). A permitted 256-KiB fixture response becomes roughly 341 KiB in base64: subsequent status calls fail the 192-KiB output ceiling. Fresh-generation preparation also includes these complete responses without that ceiling. The recursive-operation defect is fixed, but legitimate receipt size can still break status and inflate continuation input.
+
+   **Smallest fix/test:** retain full receipts durably while projecting bounded receipt metadata/excerpts into worker context, preserving exact actionable approval envelopes. Test status and a subsequent approved generation after a 256-KiB response.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+The retained records support the 12 Chromium gates, 10 fault probes, distinct real continuation provider references, pending-intent restart cancellation, and one transmitted effect followed by an unknown fence and zero replay.
+
+Still required:
+
+- Focused fault evidence for the findings above.
+- Consumption committed/before-send and receipt committed/before-delivery fault cases, including revocation and retained receipt inspection.
+- Screenshot publication-failure evidence.
+- Completed Ubuntu suite and schedule acceptance, mapped to the exact final source/build.
+- WAL-safe retained-production migration comparison and deployment verification preserving eight workers, 48 Tasks, 65 executions, the Atlas research grant, `pause=false`, and zero automatic Computer Use activation.
+
+These outstanding release gates are not source defects. No edits, tests, staging, commits, service/network calls, or other agents were used. `git diff --check` passed.

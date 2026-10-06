@@ -142,3 +142,12 @@ production delivery passed; see [the completed plan](../exec-plans/prompt-09.md)
 An initiative's recommendation is not approval for a Project change or business operation.
 Scale is a strategic disposition only. Simulated evidence proves no customer, revenue or
 marketing outcome. Prompt 11 still needs approved real action, receipt and measured result.
+
+## Prompt 10 implementation boundary
+
+The bounded browser is headless Chromium on isolated HQ infrastructure. Explicit owner
+session authority enables one specialized operator Task; it does not flow from the mandate
+envelope. No production account credentials, files, publication, customer outreach or money
+are available. The protected fixture POST is not a real business receipt. Use the
+[operator tutorial](../operations/COMPUTER_USE_TUTORIAL.md) for the supported boundary;
+Prompt 11 remains responsible for measured live operations.

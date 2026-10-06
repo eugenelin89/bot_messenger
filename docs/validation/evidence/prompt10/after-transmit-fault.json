@@ -1,0 +1,25 @@
+{
+  "fault": "Deliberate process exit after real fixture response before durable computer receipt",
+  "request": {
+    "url": "http://127.0.0.1:43991/save",
+    "method": "POST",
+    "headers": {
+      "user-agent": "BotSquad/0.1 bounded-browser",
+      "accept": "*/*",
+      "accept-encoding": "identity",
+      "content-type": "application/json",
+      "origin": "http://127.0.0.1:43991"
+    },
+    "body": "eyJzZXR0aW5nIjoiYW1iZXIifQ=="
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json",
+      "cache-control": "no-store",
+      "content-security-policy": "object-src 'none'; worker-src 'none'; frame-src 'none'; base-uri 'none'"
+    },
+    "body": "eyJzYXZlZCI6dHJ1ZSwiYm9keSI6IntcInNldHRpbmdcIjpcImFtYmVyXCJ9In0="
+  },
+  "at": "2026-10-05T23:55:32.666Z"
+}

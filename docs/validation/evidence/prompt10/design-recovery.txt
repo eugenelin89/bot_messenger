@@ -1,0 +1,31 @@
+Reviewed the design packet and recovery specialist configuration against `b8f4120`. Three recovery design gaps need resolution.
+
+**BLOCKING**
+
+1. **Pausing the Task inside `request-protected-action` conflicts with runtime settlement.** [Company.verifyContext](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/company.ts:136>) requires `task.status='working'`; subsequent runtime events would fail after an early transition to `awaiting_approval`. Normal completion also cannot transition an already-awaiting Task to completed. Persist the protected intent and disable further browser actions immediately, then atomically settle the requesting execution and move the Task to awaiting approval. Approval must wait for confirmed settlement and queue exactly one linked continuation. Test immediate approval/denial, duplicate decisions, and crashes between settlement and continuation creation.
+
+2. **External-effect uncertainty needs its own durable fence and settlement rules.** Current [provider fences](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/company.ts:174>) cover Codex and research outcomes. A browser mutation needs an independent operation identity that survives continuation, retry, and generation changes. Atomically consume approval and record transmission intent before I/O; preserve uncertainty after response loss, even when Codex completes successfully. Ordinary retry, rollover, regrant, or a new Task must not bypass it. Do not copy [infrastructure reconciliation](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/infrastructure.ts:250>), which resends to a receiver with durable deduplication. Without that receiver guarantee, specify **at-most-once transmission with possible unknown outcome**; “exactly one” is a successful-fixture assertion, not a general crash guarantee.
+
+3. **A separate browser broker requires explicit ownership and shutdown reconciliation.** The packet promises one active session and closure on HQ restart, but [Dispatcher.start](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/dispatcher.ts:28>) currently performs synchronous recovery before dispatch. HQ death can leave a separate broker/browser alive; marking its database session closed does not prove termination. Define a broker ownership epoch, session identity, bounded disconnect cleanup, and acknowledgement of browser termination before admitting a replacement. Unconfirmed cleanup must retain the reservation. Test HQ death while the broker survives, broker death during an action, lost close acknowledgements, and delayed commands from the previous epoch.
+
+**IMPORTANT**
+
+- **Separate receipt retention from worker delivery.** [Design line 9](/tmp/botsquad-prompt10-design.txt:9) denies late uncommitted output after revocation. If the fixture has already mutated, a late trusted receipt must still settle the original operation for owner inspection without reaching the revoked worker. Extend the existing [dispatcher drain and completion checks](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/dispatcher.ts:92>) to browser callbacks. Test remote success followed by revocation, timeout, and parent completion before receipt delivery.
+
+- **Define pending-intent disposition after browser loss.** Restart destroys the ephemeral page/session whose fingerprint authorized the request. Retain the old intent as history, but make it visibly non-executable; a reconstructed page needs a new intent and approval. Distinguish browser-session identity from provider-generation identity so normal approved continuation does not invalidate its own authorization.
+
+- **Persist bounds and screenshot publication state.** Reserve action/navigation/screenshot budgets before work and retain consumption across failed attempts and fresh generations. Pending approval must preserve the original absolute deadline. For screenshot files, define durable publication before committing a readable evidence reference, plus recovery for orphaned or missing files. Hash attribution alone does not establish crash-safe retention.
+
+**OPTIONAL**
+
+No additional recovery scope recommended.
+
+**REQUIRED EVIDENCE**
+
+- Fault injection before transmission-intent commit, after commit/before send, after remote effect/before receipt, and after receipt/before tool delivery. Assert fixture effect counts, retained uncertainty, and zero automatic resend.
+- Approval races with requesting-turn completion, cancellation, expiry, and duplicate callbacks; one continuation and no held model slot.
+- Independent HQ/broker/browser crashes, including pending approval and stale generations.
+- Migration/reopen checks preserving retained IDs, receipts, provider references, fences, budgets, and v1 behavior, with zero new grants or browser/model work.
+- Screenshot publication failures and deadline enforcement while no model execution is active.
+
+No files changed, tests executed, or network access performed. Concurrent package/deployment additions appeared during review and were outside this design assessment.

@@ -83,11 +83,15 @@ git -C /opt/botsquad merge-base --is-ancestor HEAD "$revision" || { echo 'Reques
 # Never replace dependencies or build files beneath a running dispatcher.
 # Graceful shutdown retains interrupted work for inspection; it does not replay it.
 if systemctl is-active --quiet botsquad.service; then systemctl stop botsquad.service; fi
+if systemctl is-active --quiet botsquad-browser.service; then systemctl stop botsquad-browser.service; fi
 git -C /opt/botsquad checkout --detach "$revision"
 cd /opt/botsquad
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 chmod -R go-w /opt/botsquad
+# Reproducible browser-first optional resource. It starts only the private broker;
+# Chromium itself requires an explicit authorized ComputerSession.
+bash scripts/bootstrap-browser.sh --service
 # A service-only copy receives userns admission; global Ubuntu restrictions stay on.
 # Never overwrite a separately administered policy with this name.
 if [[ -e /etc/apparmor.d/botsquad-bwrap && ! -f /etc/botsquad/apparmor-managed ]]; then

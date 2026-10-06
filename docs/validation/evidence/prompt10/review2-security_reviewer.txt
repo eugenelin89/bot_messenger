@@ -1,0 +1,34 @@
+Reviewed the uncommitted candidate above `b8f4120` on `feature/prompt-10-computer-use`. The previously reported authority and lifecycle blockers appear fixed. **Two important result-handling defects remain.**
+
+**BLOCKING**
+
+None found. The trusted transmission path prevents page callbacks from consuming approval, preserves unknown outcomes, and avoids replay. Pending-launch ownership, callback draining, recovery reservations, and reentrant teardown are addressed.
+
+**IMPORTANT**
+
+1. **`computer_finish` reports completion without confirmed teardown.**
+   [computers.ts:188](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:188>) ignores the session returned by `stop()` and unconditionally returns `completed:true`. Yet [computers.ts:272](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:272>) explicitly permits `close()` to return false.
+
+   **Consequence:** a lost teardown acknowledgement produces a successful worker-facing completion receipt while cleanup remains unconfirmed. Later Task settlement rejects completion and the reservation remains held, so this does **not** release authority prematurely.
+
+   **Smallest fix/test:** require confirmed shutdown before reporting completion; otherwise return an explicit cleanup-unconfirmed result. Cover `close() === false` with unsuccessful idle reconciliation and verify no successful finish receipt.
+
+2. **Full protected-response bodies still escape the context-size boundary.**
+   [computers.ts:149](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:149>) persists the complete response, which can contain a two-MiB body. [computers.ts:82](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:82>) includes every intent’s full `result` in status and continuation context. The ceiling at [computers.ts:221](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:221>) applies only to tool results; fresh dispatcher context bypasses it.
+
+   **Consequence:** an allowed 256-KiB response makes subsequent status serialization fail, while later approval generations receive oversized historical receipts. Recursive operation results are fixed, but this separate amplification path remains.
+
+   **Smallest fix/test:** expose compact completed-intent receipt summaries to workers, retain full receipts for owner inspection, and bound serialized continuation context. Cover a large successful response followed by status and another approval generation.
+
+**OPTIONAL**
+
+- [broker.ts:102](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:102>) compares raw `type` attributes case-sensitively. HTML inputs using `type="PASSWORD"` or `type="FILE"` bypass that explicit control check. Normalize the input type and cover uppercase variants. This alone does not enable uploading host files; the independent upload restrictions remain.
+
+**REQUIRED EVIDENCE**
+
+- Targeted regressions for the two important findings above.
+- Abrupt connection loss during provisioning: [faults.ts:29](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/faults.ts:29>) labels its probe “IPC closure” but calls graceful `close()`. The retained HQ SIGKILL evidence covers an established environment, not pending launch.
+- Forwarder-specific evidence for DNS pinning/private DNS answers, credential/control redirects, and request/concurrency/response-byte exhaustion. The retained browser probes primarily exercise literal loopback destinations and action/navigation/screenshot/time limits.
+- Final Ubuntu suite and schedule results, exact tested revision confirmation, and retained-production migration/deployment preservation. These are pending release gates, **not source defects**.
+
+The retained worker records support distinct approval-continuation provider references; restart and unknown-recovery evidence support cancellation and no replay. No edits, tests, service/SSH/network calls, or other agents were used. `git diff --check` passed.

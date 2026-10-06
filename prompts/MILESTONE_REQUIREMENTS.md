@@ -98,7 +98,7 @@ and asynchronous callback ownership. Read the WE-01 acceptance report for the cu
 live status. Do not assume every worker is granted, enable production permissions through
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
-worker fence; ordinary source failures do not. Prompt 09 is accepted; Prompt 10 — Bounded Computer Use — is the next numbered step.
+worker fence; ordinary source failures do not. Prompt 09 is accepted; Prompt 10 — Bounded Computer Use — is implemented with final acceptance/release tracked in its validation record.
 
 ## Prompt 08 implementation reference
 
@@ -122,3 +122,14 @@ mandate/clock boundary. C09-1 through C09-4 remain individual acceptance gates i
 Later prompts must preserve worker/cycle identity, evidence modes and delivery proof,
 private Task contexts, durable occurrence/version semantics, consumed bounds and unknown
 provider fences. Prompt 10 owns Computer Use; Prompt 11 owns measured live operations.
+
+## Prompt 10 implementation reference
+
+[Architecture](../docs/architecture/COMPUTER_USE.md), [tutorial](../docs/operations/COMPUTER_USE_TUTORIAL.md),
+[Decision 024](../docs/decisions/decision_024_bounded_computer_use.md) and
+[C10-1 validation](../docs/validation/PROMPT_10_VALIDATION.md) distinguish real browser/worker
+proof, synthetic tests, injected faults and production inactivity. Preserve one bounded
+headless browser, owner-only immutable session grants, no personal desktop, disabled file
+transfer, trusted exact fixture approval and unknown-effect fencing. Do not count the fixture
+POST as Prompt 11's real action/receipt/measured-result gate or claim screenshot vision when
+the model receives only structured rendered snapshots.

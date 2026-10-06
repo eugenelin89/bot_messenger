@@ -1,8 +1,9 @@
 import type { AIProfile, Priority } from './ai-profile.js';
-export const CAPABILITIES = ['internal_message', 'create_task', 'create_worker', 'read_workspace', 'write_workspace', 'run_local_tools', 'manage_repository', 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result', 'review_repository_change', 'request_integration', 'inspect_host_health', 'request_worker_identity', 'request_project_access'] as const;
+export const CAPABILITIES = ['internal_message', 'create_task', 'create_worker', 'read_workspace', 'write_workspace', 'run_local_tools', 'manage_repository', 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result', 'review_repository_change', 'request_integration', 'inspect_host_health', 'request_worker_identity', 'request_project_access', 'computer_use_sandboxed', 'submit_artifact'] as const;
 export type Capability = typeof CAPABILITIES[number];
 // Prompt 01 deliberately grants no arbitrary local process execution.
-export const COMPANY_CEILING: readonly Capability[] = CAPABILITIES.filter(c => c !== 'run_local_tools');
+export const COMPANY_CEILING: readonly Capability[] = CAPABILITIES.filter(c => !['run_local_tools','computer_use_sandboxed','submit_artifact'].includes(c));
+export const COMPUTER_CAPABILITIES: readonly Capability[] = ['internal_message','computer_use_sandboxed','submit_artifact'];
 export const RESEARCH_CAPABILITIES: readonly Capability[] = ['internal_message', 'read_workspace', 'write_workspace'];
 export const ENGINEER_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABILITIES, 'repository_read', 'repository_write_owned', 'run_repo_tests', 'inspect_git_status', 'submit_engineering_result'];
 export const REVIEWER_CAPABILITIES: readonly Capability[] = [...RESEARCH_CAPABILITIES, 'review_repository_change'];
@@ -33,7 +34,7 @@ export interface Task {
   task_id: string; requester: string; assignee_worker_id: string; objective: string;
   acceptance_criteria: string; constraints: string; parent_task_id: string | null;
   status: TaskStatus; blocking_reason: string | null; result_summary: string | null;
-  kind: 'research' | 'product' | 'spec' | 'delivery' | 'engineering' | 'review' | 'infrastructure'; created_execution_id: string | null;
+  kind: 'research' | 'product' | 'spec' | 'delivery' | 'engineering' | 'review' | 'infrastructure' | 'computer'; created_execution_id: string | null;
   dispatch_reason: string; created_at: string; updated_at: string;
 }
 interface ExecutionFields {

@@ -1,0 +1,15 @@
+{
+  "samples": 45,
+  "elapsed_seconds": 89.10776281356812,
+  "max_cgroup_memory_bytes": 269680640,
+  "max_processes": 15,
+  "max_rss_sum_kib": 1109740,
+  "rss_note": "Sum includes shared mappings; cgroup bytes is the useful aggregate",
+  "cpu_seconds": 3.744131,
+  "cpu_fraction_of_one_core": 0.04201801147037545,
+  "max_health_ms": 144.98,
+  "all_production_healthy": true,
+  "runtime_disk_mib": 398,
+  "startup_probe_ms": 4077,
+  "source": "resources.json; launch-probe5; host du"
+}

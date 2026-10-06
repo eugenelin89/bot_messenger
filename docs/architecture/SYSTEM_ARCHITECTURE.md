@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
-**Status:** Prompt 07 complete and Ubuntu validated
-**Updated:** 2026-09-29
+**Status:** Through Prompt 10 implementation; release gates in milestone validation records
+**Updated:** 2026-10-05
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -64,7 +64,7 @@ Creating, messaging, assigning and executing remain separate operations.
 | Deterministic and real validation | `test/`, `scripts/real-e2e.ts`, `scripts/real-engineering.ts`, `scripts/real-projects.ts` |
 
 Node 24 supplies HTTP, SQLite, process control and tests. TypeScript checks the code.
-The only runtime dependency is the pinned official Codex CLI. No distributed queue
+Runtime dependencies are the pinned official Codex CLI and Playwright core for the isolated browser adapter. No distributed queue
 or frontend framework is needed.
 
 ## Persistent domain
@@ -335,15 +335,16 @@ it never imports private control-plane mutation functions or receives worker cre
 The isolated browser records the same session. Exact scenario checks restrict automated
 approval decisions while the existing trusted service/provisioner enforces authority.
 
-Decision 006 remains authoritative: worker Computer Use is still disabled after Prompt 07;
-Prompt 10 is the planned bounded Computer Use milestone after Prompt 07 conversations,
-Prompt 08 deliberation and Prompt 09's strategic company operating loop. Engineering
-tools, Demo Operator and paired remote-human devices
-grant no worker GUI/desktop authority. Exact approval supports bounded host
-infrastructure and non-root repository publication. General environments, physical
-cleanup, scalable history, payments, outreach, deployment and distributed orchestration
-remain deferred.
+Decision 006 is implemented for bounded browser work by Decision 024. An owner-created
+Computer Operator may receive an immutable Task/session grant. A separate headless Chromium
+broker has its own UID, namespace/filesystem/network boundary and resource limits. Trusted
+HQ forwarding gates every request; exact protected fixture requests need owner approval and
+unknown outcomes never replay. The model sees structured rendered snapshots; real PNGs are
+private owner evidence. Native worker tools, engineering, Demo Operator and remote devices
+grant no general GUI/desktop authority. See [Computer Use](COMPUTER_USE.md).
 
+Business actions, personal accounts, secrets, payments and outreach remain separate Prompt 11
+or later integrations. No full desktop or workstation access is part of this adapter.
 
 ## Worker configuration, migration and dispatch
 
@@ -391,7 +392,7 @@ The installer, service account, root-owned source, persistent swap and systemd h
 are specified in [Decision 011](../decisions/decision_011_ubuntu_hq_profiles.md) and the
 [operator guide](../bootstrap/UBUNTU_BOOTSTRAP.md). [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md)
 defines worker Unix accounts, infrastructure approvals and provisioning. Broad approval
-grants and Computer Use remain deferred.
+grants remain deferred; Computer Use has its separate Decision 024 boundary.
 
 ## Worker infrastructure and trusted approvals
 

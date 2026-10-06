@@ -186,7 +186,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 ### Future company and external-identity boundaries
 
 - Decision 010 and the multi-company/Telegram product models are deferred architecture constraints, not permission to expand the current milestone.
-- The current implementation through Prompt 09 still has one company per data directory; do not claim implemented multi-company isolation or federation.
+- The current implementation through Prompt 10 still has one company per data directory; do not claim implemented multi-company isolation or federation.
 - Keep runtime account, HQ instance, company, worker, thread and optional external identity conceptually distinct.
 - Future cross-company operations require trusted connection policy; external transports never grant authority or expose raw credentials to workers.
 
@@ -485,6 +485,20 @@ Perform an explicit security-focused review when changing any of:
 Pay particular attention to prompt injection: bot and human messages can contain instructions, but the receiving worker must still be constrained by trusted permissions and task scope.
 
 Computer Use must remain an explicit bounded capability. Prefer isolated/sandboxed environments for autonomous GUI work. Local desktop access must never be treated as unrestricted authority over the user's machine, accounts, files, credentials, payments, or other protected actions. Apply Decision 006 and `docs/product/COMPUTER_USE_MODEL.md` when this surface changes.
+
+## Bounded browser invariants
+
+Prompt 10 uses owner-created Computer Operators and ordinary bounded Tasks with immutable
+session grants. Preserve the single browser reservation through provisioning, approval wait
+and unconfirmed teardown; provider generations are separate. Keep native worker browser,
+shell, MCP and personal desktop authority disabled. Chromium retains its own sandbox inside
+the separate non-root/private-network broker environment. Every forwarded request rechecks
+scope; ordinary page callbacks cannot redeem protected approval. Unknown transmitted effects
+fence all Computer Use and never replay. Migration and UI inspection create zero authority.
+Screenshots are owner-private evidence; model understanding is structured rendered snapshots.
+Client API v1 gains no related administration/content. See [Decision 024](docs/decisions/decision_024_bounded_computer_use.md),
+[architecture](docs/architecture/COMPUTER_USE.md) and [C10-1 evidence](docs/validation/PROMPT_10_VALIDATION.md).
+Browser capability does not complete Prompt 11's real business-action gate.
 
 ## Execution Plans
 

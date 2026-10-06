@@ -1,0 +1,103 @@
+{
+  "kind": "Scripted actual browser, not worker acceptance",
+  "checks": [
+    {
+      "name": "actual typing checkbox clicks rendered completion and attributable PNG",
+      "detail": {
+        "evidence_id": "computerevidence_7938ded2-177a-4173-9b87-fcc3d649f323",
+        "sha256": "1024a748ae6bf8b222d5ef21e46f795a654f50de9b0437e8c5e6fd27f287d073",
+        "bytes": 42332,
+        "visibility": "owner_private"
+      },
+      "at": "2026-10-05T23:38:06.522Z"
+    },
+    {
+      "name": "typed forbidden origins schemes and private addresses denied",
+      "at": "2026-10-05T23:38:06.606Z"
+    },
+    {
+      "name": "page injection cannot authorize metadata Gmail IPv6 or forbidden-origin fetch",
+      "at": "2026-10-05T23:38:08.624Z"
+    },
+    {
+      "name": "file chooser and attachment response denied",
+      "at": "2026-10-05T23:38:10.429Z"
+    },
+    {
+      "name": "redirect subresource popup service worker websocket bypass denied",
+      "detail": [
+        {
+          "url": "http://127.0.0.1:43992/forbidden",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://169.254.169.254/latest/meta-data/",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "https://mail.google.com/",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://[::1]:43992/private",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://127.0.0.1:43992/exfiltrate",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://127.0.0.1:43991/download",
+          "detail": "Downloads are disabled"
+        },
+        {
+          "url": "http://127.0.0.1:43992/xhr",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://127.0.0.1:43992/image",
+          "detail": "URL origin is outside the approved policy"
+        },
+        {
+          "url": "http://127.0.0.1:43991/redirect",
+          "detail": "Redirect origin denied"
+        }
+      ],
+      "at": "2026-10-05T23:38:11.610Z"
+    },
+    {
+      "name": "forbidden recorder and unapproved effect count zero",
+      "at": "2026-10-05T23:38:11.989Z"
+    },
+    {
+      "name": "denied protected request zero effects",
+      "at": "2026-10-05T23:38:16.194Z"
+    },
+    {
+      "name": "fresh generation exact approval one effect with duplicate replay suppressed",
+      "detail": {
+        "intent_id": "computerintent_d6c67b0d-b5c0-4be3-af60-4f99f4811c3b",
+        "status": 200,
+        "body": "{\"saved\":true,\"body\":\"{\\\"setting\\\":\\\"violet\\\"}\"}",
+        "source": "trusted_http_receipt"
+      },
+      "at": "2026-10-05T23:38:20.499Z"
+    },
+    {
+      "name": "action bound destroys real browser",
+      "at": "2026-10-05T23:38:23.939Z"
+    },
+    {
+      "name": "idle deadline destroys real browser",
+      "at": "2026-10-05T23:38:32.230Z"
+    },
+    {
+      "name": "revocation denies stale context and confirms browser shutdown",
+      "at": "2026-10-05T23:38:35.460Z"
+    },
+    {
+      "name": "database integrity",
+      "at": "2026-10-05T23:38:35.465Z"
+    }
+  ]
+}

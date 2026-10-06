@@ -1,0 +1,46 @@
+[Unit]
+Description=BotSquad isolated browser broker (inactive until owner-authorized work)
+After=local-fs.target
+
+[Service]
+Type=simple
+User=botsquad-browser
+Group=botsquad-browser
+WorkingDirectory=/opt/botsquad
+ExecStart=/opt/botsquad-runtime/node/bin/node /opt/botsquad/dist/src/computer/broker.js
+ExecStartPost=/opt/botsquad-runtime/node/bin/node /opt/botsquad/dist/scripts/computer/ready.js
+Environment=BOT_BROWSER_SOCKET=/run/botsquad-browser/control.sock
+Environment=HOME=/nonexistent
+Environment=PATH=/usr/bin:/bin
+UMask=0007
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+TimeoutStopSec=8
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/botsquad-browser
+PrivateNetwork=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+CapabilityBoundingSet=
+MemoryMax=768M
+MemorySwapMax=128M
+CPUQuota=75%
+TasksMax=128
+LimitNOFILE=1024
+LimitCORE=0
+# Chromium requires a fresh proc mount and nested user namespaces. These are
+# confined inside launch.py. ProtectKernelLogs masks /proc/kmsg and prevents
+# unprivileged creation of that proc mount; the broker remains non-root with no
+# capabilities, and Chromium sees only its private PID namespace.
+# The separate HQ service restrictions are unchanged.
+
+[Install]
+WantedBy=multi-user.target

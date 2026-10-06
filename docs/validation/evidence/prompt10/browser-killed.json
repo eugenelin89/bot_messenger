@@ -1,0 +1,10 @@
+{
+  "label": "Deliberate SIGKILL of isolated Chromium after real navigation/screenshot",
+  "pid": 419539,
+  "scope": {
+    "session_id": "computer_15daefad-8537-442b-9ca9-61019ee55aa8",
+    "task_id": "task_b443653c-d635-46b8-8414-30d79031f103",
+    "label": "Explicit operator SIGKILL after real worker navigation and screenshot"
+  },
+  "at": 1791244334.587031
+}

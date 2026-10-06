@@ -27,3 +27,5 @@
 .evidence-mode.simulated { color: #805100; background: #fff2cd; }
 #mandate-form, #observation-form, #review-form { display: grid; gap: 12px; }
 #mandate-form textarea, #observation-form textarea, #review-form input { width: 100%; }
+
+.computer-evidence-image { max-width: 100%; height: auto; }

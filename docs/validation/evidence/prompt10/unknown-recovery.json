@@ -1,0 +1,112 @@
+{
+  "label": "Deliberate exit after real transmission/response and before local receipt commit",
+  "session": {
+    "session": {
+      "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+      "worker_id": "worker_d3b098d4-6f59-4e84-9184-33a3f7f789f9",
+      "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+      "policy": "{\"version\":\"computer-v1\",\"environment\":\"isolated-chromium\",\"origins\":[\"http://127.0.0.1:43991\"],\"fixtureOrigins\":[\"http://127.0.0.1:43991\"],\"mutationPaths\":[\"/save\"],\"actions\":[\"snapshot\",\"navigate\",\"click\",\"type\",\"press\",\"scroll\",\"request_protected_action\",\"execute_approved\",\"finish\"],\"uploads\":\"deny\",\"downloads\":\"deny\",\"maxRuntimeSeconds\":900,\"idleSeconds\":300,\"maxActions\":100,\"maxNavigations\":20,\"maxScreenshots\":12,\"maxScreenshotBytes\":10485760,\"maxRequests\":200,\"maxNetworkBytes\":16777216,\"expiresAt\":\"2026-10-06T00:55:04.124Z\"}",
+      "policy_hash": "100e0a3e2e748d26a3e5b599917cbfd31691fd2ebbb7bde76116d25ef95de813",
+      "state": "unknown",
+      "generation": 2,
+      "active_execution_id": null,
+      "process_identity": "{\"epoch\":\"5c6943ea-2628-4777-a45e-55a6841ce655\",\"browser\":\"153.0.8010.12\",\"viewport\":{\"width\":1024,\"height\":768}}",
+      "created_at": "2026-10-05T23:55:04.186Z",
+      "started_at": "2026-10-05T23:55:08.669Z",
+      "stopped_at": "2026-10-05T23:56:03.684Z",
+      "deadline": "2026-10-06T00:10:08.669Z",
+      "last_action_at": "2026-10-05T23:55:32.159Z",
+      "actions": 7,
+      "navigations": 1,
+      "screenshots": 1,
+      "screenshot_bytes": 50345,
+      "requests": 3,
+      "network_bytes": 2098247,
+      "current_url": "http://127.0.0.1:43991/d",
+      "page_hash": "e42c1c5c455110115eb6b7f3b5f4df1d6d6782941b7bf094966a4e6ca108f410",
+      "error": "Application restart closed the old environment; approvals cannot restore its page",
+      "shutdown_confirmed": 1
+    },
+    "grant": {
+      "grant_id": "computergrant_5694f3af-9a77-443e-90e7-0c0b84b0ac1e",
+      "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+      "worker_id": "worker_d3b098d4-6f59-4e84-9184-33a3f7f789f9",
+      "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+      "policy_hash": "100e0a3e2e748d26a3e5b599917cbfd31691fd2ebbb7bde76116d25ef95de813",
+      "issued_by": "human",
+      "created_at": "2026-10-05T23:55:04.237Z",
+      "expires_at": "2026-10-06T00:55:04.124Z",
+      "revoked_at": null
+    },
+    "intents": [
+      {
+        "intent_id": "computerintent_76ca6d8d-0256-458c-bc1f-ba4d690ee5c8",
+        "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+        "worker_id": "worker_d3b098d4-6f59-4e84-9184-33a3f7f789f9",
+        "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+        "execution_id": "execution_8b7c8d55-75a8-4b5a-98e7-4d34e6ec625f",
+        "generation": 1,
+        "policy_hash": "100e0a3e2e748d26a3e5b599917cbfd31691fd2ebbb7bde76116d25ef95de813",
+        "request": "{\"url\":\"http://127.0.0.1:43991/save\",\"method\":\"POST\",\"headers\":{\"user-agent\":\"BotSquad/0.1 bounded-browser\",\"accept\":\"*/*\",\"accept-encoding\":\"identity\",\"content-type\":\"application/json\",\"origin\":\"http://127.0.0.1:43991\"},\"body\":\"eyJzZXR0aW5nIjoiYW1iZXIifQ==\"}",
+        "request_hash": "e6aef26060cee2d8ea14894050505108d500ffa0ba6547a546660a9024792998",
+        "page_hash": "e42c1c5c455110115eb6b7f3b5f4df1d6d6782941b7bf094966a4e6ca108f410",
+        "state": "unknown",
+        "reason": "The authorized disposable setting form is set to amber; this exact captured POST to /save is required to complete the task.",
+        "created_at": "2026-10-05T23:55:17.536Z",
+        "expires_at": "2026-10-06T00:00:17.536Z",
+        "decided_at": "2026-10-05T23:55:27.502Z",
+        "decided_by": "human",
+        "consumed_execution_id": "execution_dc1ad52a-cfe8-4a9d-8ca6-cc3fa03624a0",
+        "result": null
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "computerevidence_43d9ea20-7c80-43a1-9dc6-c2a7efd0f0ea",
+        "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+        "worker_id": "worker_d3b098d4-6f59-4e84-9184-33a3f7f789f9",
+        "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+        "execution_id": "execution_8b7c8d55-75a8-4b5a-98e7-4d34e6ec625f",
+        "generation": 1,
+        "url": "http://127.0.0.1:43991/d",
+        "viewport": "{\"width\":1024,\"height\":768}",
+        "action_sequence": 5,
+        "captured_at": "2026-10-05T23:55:21.086Z",
+        "sha256": "b0009931290a32980d3243f6da1c55d813b8738064fb9eaec263b8f1f684badc",
+        "bytes": 50345,
+        "visibility": "owner_private"
+      }
+    ],
+    "network": [
+      {
+        "event_id": "computernet_70827ac4-715f-436e-ba36-682a02036791",
+        "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+        "execution_id": "execution_8b7c8d55-75a8-4b5a-98e7-4d34e6ec625f",
+        "operation_id": "computerop_9a58adb5-4a44-4fc8-823a-2842c5e34c1f",
+        "url": "http://127.0.0.1:43991/save",
+        "method": "POST",
+        "disposition": "blocked",
+        "detail": "Protected fixture request captured as computerintent_76ca6d8d-0256-458c-bc1f-ba4d690ee5c8; zero transmission",
+        "created_at": "2026-10-05T23:55:17.558Z"
+      },
+      {
+        "event_id": "computernet_bab5a713-2a52-470e-b485-618d2d6465ce",
+        "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+        "execution_id": "execution_8b7c8d55-75a8-4b5a-98e7-4d34e6ec625f",
+        "operation_id": "computerop_b128b19d-b42d-4a3d-b7a7-024a7b632818",
+        "url": "http://127.0.0.1:43991/d",
+        "method": "GET",
+        "disposition": "forwarded",
+        "detail": "HTTP 200",
+        "created_at": "2026-10-05T23:55:11.924Z"
+      }
+    ]
+  },
+  "effects_before": 4,
+  "effects_after": 5,
+  "new_session_denial": {
+    "error": "Uncertain protected effect blocks new Computer Use"
+  },
+  "no_replay_seconds": 30,
+  "executions": 9
+}

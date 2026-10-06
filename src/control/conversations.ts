@@ -275,6 +275,7 @@ export class Conversations {
     const {worker,session}=this.verify(context);
     requireThat(binding.worker_id===worker.worker_id&&binding.runtime_type===worker.runtime_type,'Runtime owner mismatch');this.company.verifyWorkspace(worker,binding.workspace_path);
     requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a task context');
+    requireThat(!this.db.get('SELECT 1 FROM computer_contexts WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a computer context');
     requireThat(!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a private mandate context');
     requireThat(!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',binding.runtime_reference)&&!this.db.get('SELECT 1 FROM research_operations WHERE runtime_reference=?',binding.runtime_reference),'Conversation cannot reuse a research context');
     if(session.state==='active'){requireThat(session.runtime_reference===binding.runtime_reference&&session.thread_name===(binding.thread_name??null),'Cannot implicitly replace active context');return;}

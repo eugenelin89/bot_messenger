@@ -280,3 +280,25 @@ test('research authority and private activity add no device capability, route, D
     const response=await f.request(path,device.token);assert.equal(response.status,200);assert.doesNotMatch(JSON.stringify(await response.json()),/standing_grants|research_operations|PRIVATE_RESEARCH_SENTINEL|public_research|company_knowledge/);
   }
 });
+
+test('paired device cannot inspect or control Computer Use through hidden IDs or local owner routes', async t => {
+  const f=await httpFixture(t);const device=await f.pair();
+  const created=await f.admin('computers/operator',{display_name:'Private browser operator'});assert.equal(created.status,201);const worker=await created.json() as {worker_id:string};
+  const request={worker_id:worker.worker_id,...objective,policy:{origins:['https://example.com'],expiresAt:new Date(Date.now()+600000).toISOString()}};
+  const response=await f.admin('computers/request',request);assert.equal(response.status,201);const session=await response.json() as {session_id:string;task_id:string;policy_hash:string};
+  assert.equal((await f.admin('computers/authorize',{session_id:session.session_id,policy_hash:session.policy_hash,decision:'approve'})).status,200);
+  f.company.pause(false);const claim=f.company.claimNext()!;assert.ok(claim);f.company.computers.prepare(claim.context);f.company.pause(true);
+  f.company.callTool(claim.context,'computer-private-report','submit_artifact',{content:'OWNER_PRIVATE_BROWSER_SENTINEL',description:'Private computer report'});
+  f.company.callTool(claim.context,'computer-private-message','message_worker',{recipient_worker_id:null,body:'OWNER_PRIVATE_BROWSER_SENTINEL'});
+  for(const collection of ['/tasks','/executions','/artifacts','/messages']){
+    const v=await f.request(collection,device.token);assert.equal(v.status,200);const text=await v.text();assert.ok(!text.includes(session.task_id)&&!text.includes(claim.execution.execution_id)&&!text.includes('OWNER_PRIVATE_BROWSER_SENTINEL'));
+  }
+  for(const resource of ['/tasks/'+session.task_id,'/executions/'+claim.execution.execution_id])assert.equal((await f.request(resource,device.token)).status,404);
+  const interrupt=await f.request('/executions/'+claim.execution.execution_id+'/interrupt',device.token,{},keyId());assert.equal(interrupt.status,404);
+  for(const path of ['computers','computers/'+session.session_id,'computer-evidence/computerevidence_00000000-0000-0000-0000-000000000000'])assert.equal((await fetch(f.base+'/api/'+path,{headers:{Authorization:'Bearer '+device.token}})).status,403);
+  for(const path of ['/computers/authorize','/computers/decide','/computers/control'])assert.equal((await f.request(path,device.token,{},keyId())).status,404);
+  assert.equal((await fetch(f.base+'/api/computers/operator',{method:'POST',headers:{'content-type':'application/json','x-botsquad-token':'forged'},body:'{"display_name":"Forged"}'})).status,403);
+  assert.equal((await fetch(f.base+'/api/computers',{headers:{Origin:'https://untrusted.example'}})).status,403);
+  assert.equal(f.company.execution(claim.execution.execution_id).status,'running');assert.equal(f.company.computers.session(session.session_id).actions,0);
+  await f.company.computers.control({session_id:session.session_id,action:'revoke'});f.company.finish(claim.execution.execution_id,{status:'interrupted',settled:true,error:'HTTP boundary test ended'});
+});

@@ -7,6 +7,7 @@ import { migrateConversations, migration8 } from './conversations-migration.js';
 import { migration9 } from './research-migration.js';
 import { migration10 } from './discussions-migration.js';
 import { migrateMandates, migration12 } from './mandates-migration.js';
+import { migration13 } from './computer-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -248,6 +249,7 @@ export class Store {
       }
       if (mandateMigration) { migrateMandates(this.db); this.run('INSERT INTO schema_migrations VALUES (11,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=12')) { this.db.exec(migration12); this.run('INSERT INTO schema_migrations VALUES (12,?)', new Date().toISOString()); }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=13')) { this.db.exec(migration13); this.run('INSERT INTO schema_migrations VALUES (13,?)', new Date().toISOString()); }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }
