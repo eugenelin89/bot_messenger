@@ -260,3 +260,18 @@ test('late conversation index cannot overwrite a changed worker filter',async t=
   assert.equal(await page.getByText('STALE old filter index',{exact:true}).count(),0);
   assert.equal(await page.locator('#conversation-worker').inputValue(),worker.worker_id);
 });
+
+test('stream interruption reports reconnecting even when a state request failed first',async t=>{
+  const {page,open,signal,selected}=await setup(t);
+  await open();await signal('ready');await page.locator('#compose').waitFor();
+  await page.locator('[data-tab=organization]').click();
+  await page.route('**/api/state',route=>route.abort('connectionfailed'),{times:1});
+  await signal('changed');await page.locator('#load-status[role=alert]').waitFor();
+  assert.equal(await page.locator('#connection').textContent(),'Could not refresh headquarters');
+  await signal('error');
+  assert.equal(await page.locator('#connection').textContent(),'Reconnecting to headquarters…');
+  assert.equal(await page.locator('#pause').isDisabled(),true);
+  assert.match(await page.locator('#view').textContent(),/Atlas/);await selected('organization');
+  await signal('ready');await page.getByText('Connected to headquarters',{exact:true}).waitFor();
+  assert.equal(await page.locator('#load-status').isHidden(),true);await selected('organization');
+});

@@ -1,9 +1,9 @@
 {
-  "public/app.js": "9ac52b05381760c2f183ca7966529c9b8925e999e996e302d0d677f6fcece44f",
+  "public/app.js": "43a1aaedfc191ef714a36d8806d3fedf11ef8a5b0917b7592925366075bc1777",
   "public/index.html": "1541a6f57793e6563caf90cf1ca839dfef58b8a8e2d60999850f100a6eb3a437",
   "public/styles.css": "43f7454c74b5f8dfac44b42b3940c67ee26466dbc9e8a194b7ee8a4909e2dc64",
   "public/computers.js": "ce2dac70155b73f6e375c9ef6b41b66527bde7ceecb040a1a93b18cc0daf2b50",
   "public/groups.js": "d1b26f64b5f4ac10f3793bc373cc01d43d2a932cfb2a443570dacc2ae1f10e5b",
   "public/mandates.js": "340dc413e4870a26d9ecc2f04f2e02f9a8de6c54739bedaed45d298cfa2a121b",
-  "test/startup-ui.browser.mjs": "9437e2846212dcc0236d5e46f4c0377cf262ea6ef1cac770f8fe66ebf792a91d"
+  "test/startup-ui.browser.mjs": "c00fc1870c4aad0e863b03e38926b34b57229fab97bc0792572ce81f4d87d5a7"
 }

@@ -108,9 +108,28 @@ or private record content was exported. The task-owned tunnel was stopped afterw
 An additional [30-second post-UI idle check](evidence/personal02/production-ui-idle.json)
 confirmed every table count and pause state stayed unchanged, with all active-work checks zero.
 
-This is the executed code-deployment checkpoint. The documentation completion merge keeps
-the same application/test/dependency trees; its final local/origin/deployed equality is
-verified separately in the final handoff and protected completion receipt.
+This is the executed code-deployment checkpoint. The documentation completion merge `ad0d105120e113367902b1e11b9cb1a72122bc5e` kept
+the same application/test/dependency trees and passed exact build/preservation/idle checks.
+The final application differs by the bounded status-order follow-up below; final
+local/origin/deployed equality is verified in the handoff and protected delivery receipt.
+
+## Final reconnect-status ordering follow-up
+
+The [final documentation-revision browser rerun](evidence/personal02/production-final-reconnect-timeout.txt)
+ended in an assertion timeout waiting for the exact reconnect label; that incomplete run is
+not counted as a pass. A [deterministic regression](evidence/personal02/reconnect-status-baseline.txt)
+confirmed that a failed state request immediately before EventSource error left “Could not
+refresh headquarters” masking the active reconnect status. Cached state and write gates
+remained safe. One precedence condition now reports Reconnecting while the stream is
+reconnecting, retaining the request-error alert until successful recovery.
+
+[Follow-up affected browser run](evidence/personal02/browser-status-final.txt): **33/33 pass**,
+including **22 startup cases** and 11 existing cases. The new case explicitly orders failed
+state → stream error → ready and verifies cached content, tab, disabled writes and recovery.
+The read-only test reviewer found no blocker in this correction. The original timeout is
+retained. Exact follow-up merge/build, Ubuntu, production tunnel and idle results accompany
+the final delivery receipt; they must not be inferred from the earlier code checkpoint.
+No backend, dependency or authority change was added.
 
 ## Limits and next candidates
 
