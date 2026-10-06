@@ -88,7 +88,7 @@ The [production checkpoint](evidence/personal02/production-checkpoint.json) conf
 were stopped for a protected full backup retaining ownership/ACLs and account mappings.
 No bootstrap, credential change, migration or demonstration was used for deployment.
 
-Preservation passed for **59,909 original rows in 82 databases**, **212 worker homes**,
+Preservation passed for **59,909 original rows in 82 databases**, **212 worker-home ownership/mode/ACL records**,
 **702 root records**, and **427 account/group mappings**, excluding only ordinary
 `workers.updated_at`. This includes Prompt 11's failed model turn/backoff, both schedule
 versions, completed occurrence, evidence, approved action/attempt/receipt and final STOP.

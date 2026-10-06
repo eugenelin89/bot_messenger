@@ -51,7 +51,7 @@ baseline result. Apply the same sequence at desktop and narrow widths after the 
 - Production preflight healthy and idle; pause=false, 8 workers/48 Tasks/69 executions retained.
 - PR #19 merged normally: ee4f0992603b21c902f06e348db0bc88a479c802. Exact Ubuntu rerun 27/27.
 - Exact production build: 251 compiled/public files match independent build. Protected backup
-  and preservation of 59,909 original rows/82 databases, 212 homes, 702 root records, 427 mappings.
+  and preservation of 59,909 original rows/82 databases, 212 worker-home ownership/mode/ACL records, 702 root records, 427 mappings.
 - Real tunnel acceptance: 8 hard reloads, 13 tabs, desktop/narrow, native tunnel reconnect,
   zero pageerrors/mutation requests; active tab and cached content preserved.
 - Pause=false; 8 workers/48 Tasks/69 executions/1 business receipt retained; zero ComputerSessions.
