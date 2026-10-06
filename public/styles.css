@@ -35,3 +35,9 @@
 
 /* Readiness gates inherited form controls without changing their own disabled state. */
 .load-controls { border:0; padding:0; margin:0; min-width:0; }
+
+.attention-categories { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:16px; }
+.attention-item h3 { margin:0; }
+.attention-item small { overflow-wrap:anywhere; }
+.attention-item header, #view > .task-card > header { flex-wrap:wrap; gap:10px; }
+[data-attention-source]:focus, [data-computer-detail]:focus, [data-mandate-detail]:focus { outline:2px solid var(--accent, #6577b8); outline-offset:3px; }

@@ -73,7 +73,10 @@ for(const viewport of viewports)test(`historical undefined-state race: all early
     mkdirSync(process.env.BOTSQUAD_STARTUP_SCREENSHOTS,{recursive:true});
     await page.screenshot({path:join(process.env.BOTSQUAD_STARTUP_SCREENSHOTS,`loading-${viewport.width}.png`)});
   }
-  state.release();await signal('ready');
+  // Finish the held boot before renewing the session. Cancellation before release
+  // is exercised by the dedicated reconnect regression below.
+  state.release();await page.locator('#new-mandate').waitFor();await selected('mandates');
+  await signal('ready');await page.waitForFunction(()=>document.querySelector('#connection').textContent==='Connected to headquarters');
   await page.locator('#new-mandate').waitFor();await selected('mandates');
   assert.equal(await page.locator('#connection').textContent(),'Connected to headquarters');
 });

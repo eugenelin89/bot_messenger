@@ -9,6 +9,7 @@ import { DomainError, requireThat, strictObject, textField } from '../domain/mod
 import {DEFAULT_POLICY,HARD_BOUNDS} from '../domain/projects.js';
 import { ClientAPI } from './client-api.js';
 import { ClientError } from '../client/protocol.js';
+import { ownerAttention } from '../control/attention.js';
 
 const securityHeaders = {
   'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
@@ -53,6 +54,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path === '/api/session') { json(200, { csrfToken: token, defaultObjective: DEFAULT_OBJECTIVE }); return; }
         if (path === '/api/devices') { json(200, clientAPI.trust.adminState()); return; }
         if (path === '/api/state') { json(200, { ...company.snapshot(), supportsInterrupt: dispatcher.adapter.supportsInterrupt }); return; }
+        if (path === '/api/attention') { json(200, ownerAttention(company.store)); return; }
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}

@@ -1,0 +1,46 @@
+(node:74528) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Attention during held company and attention boot loads (1440px) (1561.4535ms)
+✔ Attention during held company and attention boot loads (390px) (737.043041ms)
+✔ real SSE startup resolves verified zero (769.567208ms)
+✔ mixed categories, stable order and exact Task navigation (1440px) (790.8315ms)
+✔ mixed categories, stable order and exact Task navigation (390px) (830.551625ms)
+✔ exact infrastructure approval navigation, owner denial and Attention source resolution (923.806709ms)
+✔ historical failed execution under completed Task stays out of browser Attention (848.228333ms)
+✔ auxiliary Attention error preserves company state and recovers without false zero (905.803ms)
+✔ reconnect retains last Attention, aborts stale read and preserves final navigation (961.441375ms)
+✔ Computer, group, mandate, publication and device items select existing source surfaces (1638.203833ms)
+✔ business item opens exact existing action inspector, late load cannot steal navigation (1005.150167ms)
+✔ cached zero remains unverified after reconnect until the Attention read succeeds (818.853083ms)
+(node:74529) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (1990.825667ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (1414.860416ms)
+✔ initial session failure recovers through ready (833.743708ms)
+✔ initial session failure recovers through retry (798.493125ms)
+✔ initial state failure recovers through ready (875.586417ms)
+✔ initial state failure recovers through retry (863.714458ms)
+✔ boot controls cannot send writes while session or state is unavailable (776.346666ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (824.646042ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (767.226416ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (886.264125ms)
+✔ first direct auxiliary load is explicit and recovers independently (923.617917ms)
+✔ first groups auxiliary load is explicit and recovers independently (936.583375ms)
+✔ first mandates auxiliary load is explicit and recovers independently (710.471667ms)
+✔ first computers auxiliary load is explicit and recovers independently (683.22275ms)
+✔ first devices auxiliary load is explicit and recovers independently (731.592125ms)
+✔ auxiliary failure remains visible without converting company state to empty (699.571917ms)
+✔ changed events and rapid tab switches coalesce state requests (717.737542ms)
+✔ closed worker inspector cannot be reopened by late discovery (663.902125ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (729.905542ms)
+✔ late failed worker discovery cannot replace a newer inspector (683.362625ms)
+✔ late conversation index cannot overwrite a changed worker filter (721.04075ms)
+✔ stream interruption reports reconnecting even when a state request failed first (648.989209ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19149.244708
