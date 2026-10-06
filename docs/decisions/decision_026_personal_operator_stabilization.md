@@ -1,7 +1,7 @@
 # Decision 026 — Single-owner Personal Operator stabilization before further feature expansion
 
-**Date:** 2026-10-06  
-**Status:** Accepted owner priority  
+**Date:** 2026-10-06
+**Status:** Accepted owner priority
 **Clarifies:** [Decision 017](decision_017_single_company_first.md)'s sequencing after the
 bounded Prompt 11 gate; preserves Decisions 016, 019 and all existing security boundaries.
 
