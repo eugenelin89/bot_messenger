@@ -9,7 +9,7 @@ export function companyOperations({request,refresh,render,inspect,showError,esca
   const data=form=>Object.fromEntries(new FormData(form));
   const format=value=>value?new Date(value).toLocaleString():'Unknown';
   const reference=(id,label=id)=>`<button class="task-link" ${id.startsWith('artifact_')?'data-artifact':id.startsWith('task_')?'data-task':'data-strategy-record'}="${escape(id)}">${escape(label)}</button>`;
-  async function load(){const g=generation;list=await request('mandates');if(selected){const id=selected,d=await request(`mandates/${encodeURIComponent(id)}`);if(g===generation&&id===selected)detail=d;}}
+  async function load(signal){const g=generation,result=await request('mandates',undefined,signal);if(g!==generation)return;list=result;if(selected){const id=selected,d=await request(`mandates/${encodeURIComponent(id)}`,undefined,signal);if(g===generation&&id===selected)detail=d;}}
   async function select(id){selected=id;detail=null;generation++;render();await refresh();}
   function html(){const m=detail?.mandate;
     const index=`<section class="panel task-card"><header><h3>Company mandates</h3><button id="new-mandate" class="button primary" ${list.defaults?'':'disabled'}>New mandate</button></header><p>Set an ongoing objective, internal authority and limits. The company chooses useful work and schedules its reviews.</p>${list.items.map(x=>`<button class="conversation-entry ${selected===x.mandate_id?'selected':''}" data-mandate="${escape(x.mandate_id)}"><strong>${escape(x.title)}</strong><small>${escape(x.status)} · ${escape(x.strategic_state.slice(0,150))}</small></button>`).join('')||'<p class="muted">No mandates. Startup alone starts no company work.</p>'}</section>`;

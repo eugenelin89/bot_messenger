@@ -32,3 +32,6 @@
 
 .business-panel p, .business-review { overflow-wrap: anywhere; }
 .business-review pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Readiness gates inherited form controls without changing their own disabled state. */
+.load-controls { border:0; padding:0; margin:0; min-width:0; }

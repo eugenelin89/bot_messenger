@@ -18,25 +18,26 @@
       <button data-tab="groups" class="nav-item"><span>◎</span> Working Groups</button>
       <button data-tab="organization" class="nav-item"><span>⌘</span> Organization</button>
       <button data-tab="products" class="nav-item"><span>⬡</span> Projects & repositories</button>
-      <button data-tab="tasks" class="nav-item"><span>▤</span> Tasks <b id="task-count">0</b></button>
+      <button data-tab="tasks" class="nav-item"><span>▤</span> Tasks <b id="task-count">…</b></button>
       <button data-tab="executions" class="nav-item"><span>▷</span> Executions</button>
-      <button data-tab="approvals" class="nav-item"><span>✓</span> Approvals <b id="approval-count">0</b></button>
+      <button data-tab="approvals" class="nav-item"><span>✓</span> Approvals <b id="approval-count">…</b></button>
       <button data-tab="infrastructure" class="nav-item"><span>◇</span> Infrastructure</button>
       <button data-tab="devices" class="nav-item"><span>▣</span> Devices / Remote Clients</button>
       <button data-tab="audit" class="nav-item"><span>◷</span> Audit history</button>
     </nav>
-    <div class="nav-label team-label">YOUR TEAM <span id="worker-count">0</span></div>
-    <div id="workers" class="workers"></div>
-    <div class="rail-footer"><span class="presence" id="connection-dot"></span><span id="connection">Connecting…</span><small>Idle workers stay asleep.</small></div>
+    <div class="nav-label team-label">YOUR TEAM <span id="worker-count">…</span></div>
+    <div id="workers" class="workers"><p class="muted">Loading company state…</p></div>
+    <div class="rail-footer"><span class="presence" id="connection-dot"></span><span id="connection">Loading headquarters…</span><small>Idle workers stay asleep.</small></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="view-title">Executive channel</strong></div><div class="top-actions"><span class="local-badge">◉ Private HQ</span><button id="pause" class="button secondary">Pause new dispatch</button></div></header>
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="view-title">Executive channel</strong></div><div class="top-actions"><span class="local-badge">◉ Private HQ</span><button id="pause" disabled class="button secondary">Pause new dispatch</button></div></header>
     <div id="error" class="error" role="alert" hidden></div>
+    <div id="load-status" class="pause-banner" role="status" hidden><span id="load-message"></span> <button id="retry-load" class="button secondary small">Retry loading</button></div>
     <div id="pause-banner" class="pause-banner" hidden>New dispatch is paused. Active executions continue; queued tasks and conversation replies will wait.</div>
     <main>
-      <section class="heading"><div><div class="eyebrow">YOUR ORGANIZATION, IN MOTION</div><h1 id="heading">The executive channel</h1><p id="subtitle">Give Atlas a direction. Follow the work from assignment to evidence.</p></div><button id="initialize" class="button primary">Initialize Atlas</button></section>
+      <section class="heading"><div><div class="eyebrow">YOUR ORGANIZATION, IN MOTION</div><h1 id="heading">The executive channel</h1><p id="subtitle">Give Atlas a direction. Follow the work from assignment to evidence.</p></div><button id="initialize" disabled class="button primary">Initialize Atlas</button></section>
       <section class="metrics" id="metrics" aria-label="Company overview"></section>
-      <div class="content-grid"><section id="view" class="view" aria-live="polite"></section><aside class="context-panel" id="context-panel"></aside></div>
+      <div class="content-grid"><section id="view" class="view" aria-live="polite" aria-busy="true"><div class="panel empty" role="status"><strong>Loading company state…</strong>You can choose a section while headquarters loads.</div></section><aside class="context-panel" id="context-panel"></aside></div>
     </main>
   </div>
   <dialog id="inspect"><div class="dialog-heading"><h2 id="inspect-title">Details</h2><button class="icon-button" id="close-inspect" aria-label="Close details">×</button></div><div id="inspect-content"></div></dialog>

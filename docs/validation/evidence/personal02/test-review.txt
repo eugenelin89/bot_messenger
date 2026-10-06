@@ -1,0 +1,18 @@
+Read-only project test_reviewer, pre-merge follow-up, 2026-10-06
+
+BLOCKING
+None found before PR merge. Both material findings are resolved:
+- Obsolete reads are aborted on connection changes; the reconnect test now requires
+  recovery before releasing the held request.
+- Fieldset gating preserves intrinsic control state; the intercepted-write test verifies
+  disabled controls during disconnect, blocked forced submission, retained draft, and
+  successful recovery.
+Inspector replacement and changed conversation-filter coverage now match their claims.
+
+REQUIRED EVIDENCE
+Reviewed retained results: 32/32 browser, 21/21 latest startup, 6/6 HTTP, and 21/21
+Ubuntu startup. Earlier failures remain retained. Before delivery completion, record
+exact-merge Ubuntu rerun, source/build/deployment identity, read-only production navigation,
+preserved history and idle checks. Update plan and failure dispositions, including the
+cancelled-route harness failure. Qualify Ubuntu's two later test additions until rerun.
+No further material code finding. Reviewer performed only read-only inspection.

@@ -1,0 +1,48 @@
+(node:12228) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ historical undefined-state race: all early tabs preserve intent (1440px) (7.996916ms)
+✖ historical undefined-state race: all early tabs preserve intent (390px) (3.292791ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294.397625
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:54:33
+✖ historical undefined-state race: all early tabs preserve intent (1440px) (7.996916ms)
+  Error: disk I/O error
+      at new Store (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/dist/src/persistence/store.js:200:17)
+      at fixture (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/dist/test/helpers.js:66:19)
+      at setup (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:12:11)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:55:55)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 4874,
+    errstr: 'disk I/O error'
+  }
+
+test at test/startup-ui.browser.mjs:54:33
+✖ historical undefined-state race: all early tabs preserve intent (390px) (3.292791ms)
+  Error: disk I/O error
+      at new Store (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/dist/src/persistence/store.js:200:17)
+      at fixture (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/dist/test/helpers.js:66:19)
+      at setup (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:12:11)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:55:55)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 4874,
+    errstr: 'disk I/O error'
+  }

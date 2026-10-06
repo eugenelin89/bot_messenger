@@ -46,6 +46,13 @@ acceptance passed with one occurrence and no timing repair. Production preservat
 for 59,909 original rows in 82 databases; its final idle interval added no work. The code
 checkpoint, deployment-recovery qualification and subsequent delivery identity belong to [Personal Operator stabilization](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
 
+## Startup and navigation stabilization
+
+[Stabilization 02](../validation/PERSONAL_OPERATOR_STABILIZATION_02.md) adds explicit browser
+readiness, safe immediate navigation, recoverable loading failures and retained state on
+reconnect. The validation record distinguishes fixture acceptance from exact production
+delivery. No backend authority, schema or capability changes.
+
 ## Historical Prompt 11 implementation deployment — before live pilot
 
 This section preserves the earlier zero-authority deployment snapshot. The live closure

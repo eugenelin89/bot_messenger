@@ -1,0 +1,41 @@
+(node:14629) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (1074.807209ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (1063.925291ms)
+✔ initial session failure recovers through ready (682.63725ms)
+✔ initial session failure recovers through retry (582.148708ms)
+✔ initial state failure recovers through ready (601.504083ms)
+✔ initial state failure recovers through retry (584.721958ms)
+✔ boot controls cannot send writes while session or state is unavailable (462.131625ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (519.70125ms)
+✖ reconnect retains state, tab and draft; a stale response cannot declare readiness (613.857375ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (666.46625ms)
+✔ first direct auxiliary load is explicit and recovers independently (735.545459ms)
+✔ first groups auxiliary load is explicit and recovers independently (719.808459ms)
+✔ first mandates auxiliary load is explicit and recovers independently (769.558667ms)
+✔ first computers auxiliary load is explicit and recovers independently (797.320917ms)
+✔ first devices auxiliary load is explicit and recovers independently (822.076791ms)
+✔ auxiliary failure remains visible without converting company state to empty (760.053959ms)
+✔ changed events and rapid tab switches coalesce state requests (769.852042ms)
+✔ closed worker inspector cannot be reopened by late discovery (683.5635ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (763.739125ms)
+✔ late failed worker discovery cannot replace a newer inspector (720.132583ms)
+✔ late conversation index cannot overwrite a changed worker filter (765.97475ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 20
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15382.4735
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:116:1
+✖ reconnect retains state, tab and draft; a stale response cannot declare readiness (613.857375ms)
+  route.continue: Route is already handled!
+      at page.route.times (/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:34:113) {
+    name: 'Error',
+    log: []
+  }

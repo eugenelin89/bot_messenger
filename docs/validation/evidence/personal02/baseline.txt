@@ -1,0 +1,58 @@
+(node:12064) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ historical undefined-state race: all early tabs preserve intent (1440px) (6926.952041ms)
+✖ historical undefined-state race: all early tabs preserve intent (390px) (536.616959ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7784.628334
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:54:33
+✖ historical undefined-state race: all early tabs preserve intent (1440px) (6926.952041ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+  + [
+  +   "Cannot read properties of undefined (reading 'workers')"
+  + ]
+  - []
+
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:60:12)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processImmediate (node:internal/timers:473:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ "Cannot read properties of undefined (reading 'workers')" ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/startup-ui.browser.mjs:54:33
+✖ historical undefined-state race: all early tabs preserve intent (390px) (536.616959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+  + [
+  +   "Cannot read properties of undefined (reading 'workers')"
+  + ]
+  - []
+
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:60:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ "Cannot read properties of undefined (reading 'workers')" ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
