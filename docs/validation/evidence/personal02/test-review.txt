@@ -31,3 +31,6 @@ No blocker in the one-condition follow-up. The state-failure-before-stream-error
 reproduces the status issue; the new failure/error/ready regression and affected browser
 run pass 33/33. Cached state, error alert and mutation gating remain intact. Exact follow-up
 deployment/tunnel/idle evidence remain final delivery gates; prior timeout stays retained.
+
+Boot-test scheduling follow-up — read-only test_reviewer:
+Accepted separation: retain forced-control assertions while session/state are independently held; await initial compose before emitting ready. Dedicated reconnect test retains abort-before-release/recovery-before-release. Do not claim a proven CDP cause; retain failed traces and unresolved transport attribution. Exact real-SSE startup and un-routed production reconnect required. Buffered failure confirmed renewed session GET never reached fixture server.

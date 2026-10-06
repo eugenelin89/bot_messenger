@@ -131,6 +131,27 @@ retained. Exact follow-up merge/build, Ubuntu, production tunnel and idle result
 the final delivery receipt; they must not be inferred from the earlier code checkpoint.
 No backend, dependency or authority change was added.
 
+## Boot-test scheduling follow-up
+
+The first exact PR #21 Ubuntu run passed 27/28; the boot mutation case timed out after
+simultaneously releasing an intercepted state read and emitting ready. The
+[failed run](evidence/personal02/ubuntu-boot-timeout.txt) and
+[buffered diagnostic](evidence/personal02/ubuntu-boot-diagnostic.txt) are retained.
+The diagnostic reproduced one failure in ten: the browser issued a renewed session GET,
+but neither that request nor the released state request reached the fixture server before
+timeout. No page error or unintended write occurred. Exact transport attribution remains
+unresolved; this is not proof of a general browser defect or a harmless production failure.
+
+The boot mutation test now completes initial loading before separately emitting ready.
+Both blocked-session and blocked-state forced-control assertions remain unchanged.
+The dedicated reconnect case still requires aborting the held old read and recovering
+before releasing it. This is test scheduling stabilization, with no added sleeps, extended
+timeouts or application change. Read-only specialist review accepted that separation.
+Final exact Ubuntu real-SSE startup and production reconnect on an un-routed browser
+context are required in the delivery receipt, alongside the normal repeated navigation.
+The [affected browser rerun](evidence/personal02/browser-test-order-final.txt) passes **33/33**
+(22 startup plus 11 existing cases); application code remains exactly PR #21.
+
 ## Limits and next candidates
 
 No general offline mode, responsive redesign, full accessibility audit or live-agent

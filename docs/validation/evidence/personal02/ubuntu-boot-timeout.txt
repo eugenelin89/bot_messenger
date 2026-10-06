@@ -1,0 +1,49 @@
+✔ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (633.672175ms)
+✔ SSE emits durable-state changes without model polling (222.098058ms)
+✔ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (176.005942ms)
+✔ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (275.452588ms)
+✔ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (345.722833ms)
+✔ standing permissions require browser owner authority and do not extend device routes or state (204.073629ms)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (6298.68135ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (4470.274588ms)
+✔ initial session failure recovers through ready (2974.795394ms)
+✔ initial session failure recovers through retry (4418.018079ms)
+✔ initial state failure recovers through ready (4076.949845ms)
+✔ initial state failure recovers through retry (3565.270274ms)
+✖ boot controls cannot send writes while session or state is unavailable (13435.978247ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (3617.341352ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (3861.169542ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (3596.399491ms)
+✔ first direct auxiliary load is explicit and recovers independently (3913.369772ms)
+✔ first groups auxiliary load is explicit and recovers independently (3801.681501ms)
+✔ first mandates auxiliary load is explicit and recovers independently (3998.819135ms)
+✔ first computers auxiliary load is explicit and recovers independently (3760.750485ms)
+✔ first devices auxiliary load is explicit and recovers independently (4167.665319ms)
+✔ auxiliary failure remains visible without converting company state to empty (3815.3423ms)
+✔ changed events and rapid tab switches coalesce state requests (4757.855343ms)
+✔ closed worker inspector cannot be reopened by late discovery (3992.85101ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (4245.032529ms)
+✔ late failed worker discovery cannot replace a newer inspector (4276.780038ms)
+✔ late conversation index cannot overwrite a changed worker filter (3506.528621ms)
+✔ stream interruption reports reconnecting even when a state request failed first (3924.41508ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 101691.153347
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:97:1
+✖ boot controls cannot send writes while session or state is unavailable (13435.978247ms)
+  locator.waitFor: Timeout 10000ms exceeded.
+  Call log:
+    - waiting for locator('#compose') to be visible
+  
+      at TestContext.<anonymous> (/opt/botsquad-personal02-followup/test/startup-ui.browser.mjs:108:72) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#compose') to be visible" ]
+  }

@@ -64,6 +64,12 @@ baseline result. Apply the same sequence at desktop and narrow widths after the 
   condition fixes it, with 33/33 affected browser tests (22 startup) and read-only reviewer
   acceptance. Final branch: codex/personal-operator-stabilization-02-reconnect-status.
   The final exact deployment receipt distinguishes this application follow-up from PR #19.
+- Exact PR #21 Ubuntu run exposed a boot-test release/cancellation overlap (27/28).
+  Buffered diagnostics show the renewed request did not reach the fixture server;
+  transport attribution remains unresolved. Separate boot-control completion from ready
+  renewal without weakening the dedicated abort-before-release reconnect case. Preserve
+  failure/trace; rerun affected tests and exact Ubuntu, plus un-routed native production
+  reconnect before closure. Test-only branch: codex/personal-operator-stabilization-02-test-order.
 
 Detailed evidence and retained failed attempts: ../validation/PERSONAL_OPERATOR_STABILIZATION_02.md.
 
