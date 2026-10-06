@@ -80,7 +80,8 @@ export function baselineDefinition(value: unknown): BusinessBaseline {
 }
 export function exactEdit(previous: string, value: unknown) {
   const a=strictObject(value,['old_text','new_text']);
-  const old=textField(a,'old_text',8000);
+  requireThat(typeof a.old_text==='string'&&a.old_text.length>0&&a.old_text.length<=8000,'Expected bounded literal old text');
+  const old=a.old_text;
   requireThat(typeof a.new_text==='string'&&a.new_text.length<=8000,'Replacement must be bounded text');
   requireThat(previous.indexOf(old)>=0 && previous.indexOf(old)===previous.lastIndexOf(old),'Exact old text must occur once in the baseline');
   const content=previous.replace(old,()=>a.new_text as string);

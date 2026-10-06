@@ -19,6 +19,8 @@ test('bounded typed target and exact edit deny authority expansion and invalid b
   assert.throws(()=>exactEdit('twice twice',{old_text:'twice',new_text:'one'}));
   assert.throws(()=>exactEdit('old',{old_text:'old',new_text:'\ud800'}));
   assert.throws(()=>exactEdit('old',{old_text:'old',new_text:'old'}));
+  assert.equal(exactEdit('before\n  indented\n\nafter',{old_text:'  indented\n\n',new_text:''}).content,'before\nafter');
+  assert.throws(()=>exactEdit('before indented after',{old_text:'  indented\n',new_text:''}),/occur once/);
 });
 test('proposal is passive and immutable; exact approval cannot be forged by a worker tool',async t=>{
   const f=await setup();t.after(()=>f.close());const a=f.propose();assert.equal(f.adapter.puts,0);
