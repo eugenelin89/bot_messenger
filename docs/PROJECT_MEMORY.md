@@ -42,7 +42,7 @@ Always reread current main, relevant execution plans and active branches before 
 ## Next planning action
 
 Prompt 10 — Bounded Computer Use — is complete and deployed; Prompt 11
-is in progress and owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
+implementation is complete and deployed. Its real action, receipt and scheduled outcome acceptance remain pending.
 Future Codex implementation prompts now use project-scoped read-only specialists when the
 changed risk warrants them. Prompt 10 should normally use the control-plane, security,
 recovery and validation reviewers; product-strategy review is added only if the milestone
@@ -147,14 +147,12 @@ services are stopped. Final documentation revision identity is in the delivery h
 protected host journal. Prompt 11 remains incomplete and requires approved real action, receipt,
 observed business result and review.
 
-## Prompt 11 implementation in progress — October 6
+## Prompt 11 implementation delivered — October 6
 
-The bounded GitHub existing-Markdown adapter and local owner UI are implemented on the
-milestone branch. Exact immutable approval, protected service credentials, durable attempts,
+The bounded GitHub existing-Markdown adapter and local owner UI are implemented and deployed from normally merged PR #15 (`7fd7733a25dc97544f2b0182e6845144657979ed`). Exact immutable approval, protected service credentials, durable attempts,
 unknown target fencing, labelled reconciliation, source withdrawal and passive compensation
 requests are separate from strategic Decisions. No retained employee profiles or Client API v1
 authority expand. Schema 14 is additive and creates zero authority. See [Decision 025](decisions/decision_025_bounded_business_operations.md),
 [architecture](architecture/BUSINESS_OPERATIONS.md), [plan](exec-plans/prompt-11.md) and
-[validation](validation/PROMPT_11_VALIDATION.md). Local checks pass; Ubuntu, delivery and live
-evidence are pending. The owner designated Asymmetri GitHub for read-only discovery only.
+[validation](validation/PROMPT_11_VALIDATION.md). The final-source Ubuntu suite passed 372/372; actual Ubuntu workers completed two scheduled fixture cycles with two restarts, and engineering/Projects/Linux isolation and recovery passed. Production retained eight idle workers, 48 Tasks, 65 executions, one Public Research grant, seven identities and zero business/mandate/computer authority. All 251 build/public files match the independent build; original and fresh inventories and the idle-no-work check passed. The final documentation revision is recorded in the handoff/protected host journal. Live evidence remains pending. The owner designated Asymmetri GitHub for read-only discovery only.
 Credentials, branch workflow and exact action approval remain separate prerequisites.

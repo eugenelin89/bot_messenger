@@ -19,7 +19,7 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 10 — Bounded Computer Use — is Complete and deployed.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) records C10-1, independent review, exact deployment and retained-state verification. Production has zero ComputerSessions, computer grants and Computer Operators. **Prompt 11 is in progress; live-business acceptance is incomplete.** The new typed GitHub document evidence/action slice, exact approvals and outcome review are described in [business operations](docs/architecture/BUSINESS_OPERATIONS.md), the [operator tutorial](docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md) and [validation](docs/validation/PROMPT_11_VALIDATION.md). Deployment alone creates no authority.
+**Prompt 10 — Bounded Computer Use — is Complete and deployed.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) records C10-1, independent review, exact deployment and retained-state verification. Production has zero ComputerSessions, computer grants and Computer Operators. **Prompt 11 implementation is complete and deployed; live-business acceptance is incomplete.** The new typed GitHub document evidence/action slice, exact approvals and outcome review are described in [business operations](docs/architecture/BUSINESS_OPERATIONS.md), the [operator tutorial](docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md) and [validation](docs/validation/PROMPT_11_VALIDATION.md). Deployment alone creates no authority.
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and

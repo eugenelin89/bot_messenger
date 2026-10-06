@@ -34,7 +34,7 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 10 is Complete; Prompt 11 is in progress; its live gate is pending.** See the [actual Prompt 10 acceptance and deployment](../validation/PROMPT_10_VALIDATION.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 10 is Complete; Prompt 11 implementation is deployed; its live gate is pending.** See the [actual Prompt 10 acceptance and deployment](../validation/PROMPT_10_VALIDATION.md).
 
 **Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
 WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
@@ -774,7 +774,7 @@ not a mandatory technical dependency for every adapter.
 
 ## Prompt 11 — Single-company business operations and measured pilot
 
-**Status:** In progress. Typed document evidence/action, exact approvals and scheduled review are implemented on the milestone branch; live acceptance remains pending. See [validation](../validation/PROMPT_11_VALIDATION.md).
+**Status:** Implementation complete and deployed. Typed document evidence/action, exact approvals and scheduled review passed independent validation; C11-2 and live C11-3/C11-4 remain pending. Prompt 11 is NOT complete. See [validation](../validation/PROMPT_11_VALIDATION.md).
 
 Make one company useful in the real world before multiplying companies. Implement a small
 vertical slice connecting **evidence → decision → approved action → receipt → observed

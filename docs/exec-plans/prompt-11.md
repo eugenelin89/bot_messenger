@@ -1,12 +1,12 @@
 # Execution Plan — Prompt 11 business operations and measured live pilot
 
-**Status:** Active implementation; live target designated read-only; exact action/credential/branch workflow pending
+**Status:** Implementation complete, reviewed, merged and deployed; C11-2 and live C11-3/C11-4 pending; Prompt 11 NOT complete
 **Owner:** Parent Codex chat, sole writer, integrator and deployer; specialists read-only
-**Branch:** `feature/prompt-11-business-operations`
+**Branches:** implementation `feature/prompt-11-business-operations` (PR #15 merged); delivery record `codex/prompt11-implementation-delivery`
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt11`
 **Started:** 2026-10-05 (America/Vancouver)
 **Initial ETA:** 6–10 hours implementation/validation/review/deployment, plus owner authorization and the real observation window
-**Current ETA (07:05 UTC):** Approximately 1–2 more hours for remaining Linux regressions, final review and deployment, plus exact live authorization and observation window.
+**Current ETA:** Implementation/deployment/preservation complete. Final documentation integration and equality verification remain; live work awaits credential/branch setup, exact owner authorization and an observation window. The estimate was revised during specialist reviews and actual Linux runtime regressions; all failed attempts remain recorded.
 
 ## Objective and acceptance
 
@@ -116,7 +116,7 @@ one effect/receipt, two restarts, one company-scheduled occurrence, fresh eviden
 30-second idle passed. Source/authority/evidence details and retained failures are in the
 validation record. Offline production migration preserved every field/rowid across three opens
 (92 original tables, 2,234 rows), with no new authority. Linux receipt recovery/canary passed;
-engineering/identity and Projects reruns passed, with actual isolation/retirement/archive denial. Final-source Ubuntu suite at `15be496`: 372 passed, no failures/skips; all source/evidence specialist reviews complete. Normal Git integration and exact deployment/preservation remain.
+engineering/identity and Projects reruns passed, with actual isolation/retirement/archive denial. Final-source Ubuntu suite at `15be496`: 372 passed, no failures/skips; all source/evidence specialist reviews complete. PR #15 merged normally as `7fd7733`; exact deployment, independent 251-file build identity, repeat offline migration, original/fresh preservation and 30.458-second idle checks passed. Eight workers/48 Tasks/65 executions/one research grant/seven identities remain; no business provider, grants or actions exist. Owned validation units are inactive with all histories retained. A documentation-only follow-up records delivery; final exact SHA belongs in the handoff/protected host journal.
 The private Asymmetri candidate packet is prepared, but no real effect is approved or attempted.
 
 ## Completion boundary

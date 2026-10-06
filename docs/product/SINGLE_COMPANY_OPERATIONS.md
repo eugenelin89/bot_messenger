@@ -1,6 +1,6 @@
 # Single-Company Business Operations
 
-**Status:** Continuity, deliberation and scheduling implemented; Prompt 11 bounded action slice in progress, live gate pending
+**Status:** Continuity, deliberation and scheduling implemented; Prompt 11 bounded action slice deployed, live gate pending
 **Updated:** 2026-10-06
 **Authority:** [Decision 017](../decisions/decision_017_single_company_first.md)
 **Companion model:** [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md)

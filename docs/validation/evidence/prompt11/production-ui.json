@@ -1,0 +1,13 @@
+{
+  "real_browser": true,
+  "production_passive": true,
+  "waited_for_initial_state": true,
+  "page_errors": [],
+  "mutations": [],
+  "business": {
+    "configured": false,
+    "policy": "github-markdown-v1",
+    "grants": [],
+    "actions": []
+  }
+}

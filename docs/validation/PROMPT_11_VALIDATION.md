@@ -1,14 +1,14 @@
 # Prompt 11 validation — business operations
 
-**Status:** Implementation and acceptance in progress; not a completed live milestone.
-**Branch:** `feature/prompt-11-business-operations`
+**Status:** Implementation complete, normally merged and deployed. **Prompt 11 NOT complete:** C11-2 and live C11-3/C11-4 remain pending.
+**Delivery:** [Implementation PR #15](https://github.com/eugenelin89/bot_messenger/pull/15), merge `7fd7733a25dc97544f2b0182e6845144657979ed`; subsequent documentation-only delivery recorded in the handoff/protected host journal.
 **Evidence modes:** local deterministic, real browser and real Ubuntu workers with a
 SIMULATED provider. Real external-business acceptance remains pending. No private Asymmetri
 source or credential is here.
 
 | ID | Required evidence | Status |
 | --- | --- | --- |
-| C11-1 | Useful bounded evidence/capabilities and reviewed authority | Implemented and reviewed; local/Ubuntu/real-runtime fixture gates passed |
+| C11-1 | Useful bounded evidence/capabilities and reviewed authority | Passed implementation/review/local/Ubuntu/real-runtime fixture and deployment gates |
 | C11-2 | Exact approved real external action, provider receipt, observed real effect | Pending credential, repository workflow and exact owner approval |
 | C11-3 | Real two-cycle scheduled pilot, restart/context recovery and supervision | Real Ubuntu workers passed two fixture cycles and restarts; live-business pilot pending |
 | C11-4 | Real baseline, sources, usage/costs/unknowns and evidence-driven next decision | Model schema and fixture checks implemented; live evidence/decision pending |
@@ -159,7 +159,70 @@ workflow, costs/risks/measurement and compensation limits. It is not an executab
 credential provisioning, refreshed current baseline, company selection and exact owner approval
 remain required. Private source/content is deliberately absent from this public record.
 
-Remaining delivery gates: normal PR merge, exact merged build/deployment equality, postdeployment inventory comparison, idle/no-work check and cleanup of owned validation processes. All independent source/evidence reviews and the applicable local/Ubuntu acceptance runs are complete.
+### Completed implementation delivery
+
+[PR #15](https://github.com/eugenelin89/bot_messenger/pull/15) merged normally at
+`7fd7733a25dc97544f2b0182e6845144657979ed`; local main, origin/main, deployed source and
+running health matched at the [accepted release](evidence/prompt11/deployment-accepted.json).
+The merged product/test/runner source is identical to final Ubuntu-tested `15be496`.
+An independent fresh Ubuntu checkout and production build matched all **251 dist/public files**,
+manifest SHA-256 `e0df7f062f7c26a15207f766e2122621c2bd9146c7c201494eeea69c054580d9`.
+Node 24.21.0, Codex 0.157.0, dependency lockfile, HQ/browser units and service restrictions
+remain unchanged. Runtime is ready, DB/dispatcher healthy, listener only `127.0.0.1:4310`.
+
+A fresh protected backup at `/var/backups/botsquad/prompt11-delivery-20261006` preceded
+production migration. The exact merged build repeated the offline 13→14 migration three
+times with every original field/rowid retained, zero authority and no model invocation.
+[Original preservation](evidence/prompt11/preservation-original.json) verifies **75 databases,
+53,718 rows, 189 homes, 634 root records and 381 account/group mappings**.
+[Fresh preservation](evidence/prompt11/preservation-fresh.json) also verifies all newly retained
+validation history: **81 databases, 59,245 rows, 212 homes, 702 records and 427 mappings**.
+The live comparison excludes only `workers.updated_at`, which startup refreshes; the separate
+offline proof compares every original field including that timestamp. Integrity/FKs pass.
+
+Production remains eight enabled idle workers, 48 Tasks (30 completed, 17 cancelled, one
+blocked), 65 completed executions, one existing Atlas Task/conversation research grant,
+seven ready identities and pause=false. Mandates, cycles, schedules, occurrences, Computer
+Operators/grants/sessions and all ten business tables are zero. No business provider credential
+is configured. Browser UID has one broker Node process and zero Chromium processes.
+The [30.458-second idle sample](evidence/prompt11/production-idle.json), sampled 30 times,
+retained every count and produced zero model/browser/business work. A [real Chrome passive
+production check](evidence/prompt11/production-ui.json) passed after initial state loaded,
+with no mutation requests or JavaScript errors and an unconfigured empty business surface.
+
+Two earlier passive browser attempts are retained as failures: an alternate SSH tunnel port
+was correctly rejected by the Host guard (403), and clicking navigation before initial state
+loaded exposed the pre-existing `public/app.js` undefined-state render race. The latter exists
+unchanged in baseline `34c6a29`; waiting for the initial worker roster passed. It has no effect
+or approval consequence and remains a known UI readiness limitation, not a weakened assertion.
+All owned Ubuntu validation units are inactive; failed unit status and protected raw evidence,
+homes, receipts and uncertainty fences remain. Task-owned local browser/tunnel processes are
+closed at final handoff. No production or Asymmetri acceptance demonstration was fabricated.
+
+The follow-up documentation revision records these observations. Its final exact source and
+build equality are recorded outside Git in the final handoff and protected host journal to
+avoid a self-referential commit hash. No additional runtime test is needed for documentation
+alone; exact source/build/health identity and retained state are checked after delivery.
+
+### Real pilot exit ledger — pending
+
+| Required item | Actual live status |
+| --- | --- |
+| Target / usefulness | Owner-designated Asymmetri Motion GitHub; private README clarity candidate removes a duplicated operations statement |
+| Real source / baseline | Owner-authorized read-only discovery retained privately; must refresh through the deployed adapter before company selection |
+| Owner mandate / envelope / credential | Not activated; restricted service credential and an existing approved pilot branch remain prerequisites |
+| Company alternatives / team work / Decision | None for the live pilot; fixture choices above are not substituted |
+| Exact live action / human approval / receipt | None proposed through the production company, none approved, none executed |
+| Reversibility / impact | Candidate could be compensated by another approved commit; Git history/notifications/automation cannot be erased; no business benefit proven |
+| Real observation / scheduled occurrence / Cycle 2 | None; these await the approved action and company-scheduled review |
+| Cost / usage | No live execution or provider action usage; no spending authorized. Model/provider billing and business impact unknown |
+| Interventions / failures | Owner designated read-only target; developer prepared a private candidate. Validation interventions/failures are listed above |
+| Next review | No company live review exists yet. Provision exact scope, let company inspect/choose, approve the exact intent, then observe and schedule |
+
+**Recommendation:** finish this one narrow live loop before adding connectors or considering
+multi-company/federation. Follow up separately on the legacy early-navigation UI race and the
+advertised-default model's legacy recipe-discovery limitation. Neither justifies broader authority.
+
 
 The real pilot exit packet must still record original mandate/envelope, exact authorized
 target, actual baseline/source, company-selected alternatives/work/Decision, exact owner
