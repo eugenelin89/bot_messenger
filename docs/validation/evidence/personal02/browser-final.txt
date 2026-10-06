@@ -1,0 +1,54 @@
+(node:15107) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client (3593.412792ms)
+(node:15108) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage (3935.46225ms)
+✔ delayed history page cannot be appended to another selected conversation (1692.934625ms)
+(node:15109) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ live updates preserve the approval being inspected and expanded exact scope (3301.215375ms)
+(node:15110) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ new group waits for the initial eligible roster before opening the charter (3043.2035ms)
+✔ working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation (2368.301667ms)
+✔ group drafts and delayed history stay attached to the original group (1260.003084ms)
+✔ blocked group owner selects an unfenced existing participant for explicit incomplete finish (1136.890875ms)
+(node:15111) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (3867.469708ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (3086.908125ms)
+(node:15112) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes (4494.241833ms)
+(node:15113) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (3763.956416ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (1792.085667ms)
+✔ initial session failure recovers through ready (902.294125ms)
+✔ initial session failure recovers through retry (765.163ms)
+✔ initial state failure recovers through ready (765.395375ms)
+✔ initial state failure recovers through retry (595.626792ms)
+✔ boot controls cannot send writes while session or state is unavailable (615.019333ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (581.191459ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (790.836709ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (730.514458ms)
+✔ first direct auxiliary load is explicit and recovers independently (732.909958ms)
+✔ first groups auxiliary load is explicit and recovers independently (719.762667ms)
+✔ first mandates auxiliary load is explicit and recovers independently (742.084583ms)
+✔ first computers auxiliary load is explicit and recovers independently (730.400667ms)
+✔ first devices auxiliary load is explicit and recovers independently (653.195167ms)
+✔ auxiliary failure remains visible without converting company state to empty (738.392542ms)
+✔ changed events and rapid tab switches coalesce state requests (796.903459ms)
+✔ closed worker inspector cannot be reopened by late discovery (634.412833ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (700.237166ms)
+✔ late failed worker discovery cannot replace a newer inspector (599.591209ms)
+✔ late conversation index cannot overwrite a changed worker filter (737.328042ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19542.918

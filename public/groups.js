@@ -4,7 +4,7 @@ export function workingGroups({request,refresh,render,inspect,showError,escape,l
   let list={items:[],eligible:[]},listLoaded=false,selected=null,detail=null,selectionVersion=0,renderedGroup=null;
   const drafts=new Map(),pendingKeys=new Map(),finishSelections=new Map();let selection=null;
   function capture(){const input=$('#group-note');if(input&&renderedGroup){drafts.set(renderedGroup,{body:input.value,kind:$('#group-note-kind').value});selection=document.activeElement===input?[input.selectionStart,input.selectionEnd]:null;}}
-  async function load(){const version=selectionVersion;const result=await request('groups');if(version!==selectionVersion)return;list=result;listLoaded=true;const requested=selected;if(requested){const d=await request(`groups/${encodeURIComponent(requested)}`);if(version===selectionVersion&&requested===selected)detail=d;}}
+  async function load(signal){const version=selectionVersion;const result=await request('groups',undefined,signal);if(version!==selectionVersion)return;list=result;listLoaded=true;const requested=selected;if(requested){const d=await request(`groups/${encodeURIComponent(requested)}`,undefined,signal);if(version===selectionVersion&&requested===selected)detail=d;}}
   async function select(group){capture();selectionVersion++;selected=group;detail=null;render();await refresh();}
   const button=(action,label,disabled=false)=>`<button class="button secondary" data-group-action="${action}" ${disabled?'disabled':''}>${label}</button>`;
   function html(){

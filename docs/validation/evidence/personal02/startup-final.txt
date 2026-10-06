@@ -1,0 +1,31 @@
+(node:15980) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (5680.569208ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (1074.561042ms)
+✔ initial session failure recovers through ready (658.032541ms)
+✔ initial session failure recovers through retry (607.741125ms)
+✔ initial state failure recovers through ready (859.620542ms)
+✔ initial state failure recovers through retry (842.191625ms)
+✔ boot controls cannot send writes while session or state is unavailable (706.583583ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (615.410792ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (703.294791ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (767.236584ms)
+✔ first direct auxiliary load is explicit and recovers independently (817.139625ms)
+✔ first groups auxiliary load is explicit and recovers independently (783.243958ms)
+✔ first mandates auxiliary load is explicit and recovers independently (743.675833ms)
+✔ first computers auxiliary load is explicit and recovers independently (792.139958ms)
+✔ first devices auxiliary load is explicit and recovers independently (839.692041ms)
+✔ auxiliary failure remains visible without converting company state to empty (723.838584ms)
+✔ changed events and rapid tab switches coalesce state requests (746.654ms)
+✔ closed worker inspector cannot be reopened by late discovery (654.405333ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (780.501542ms)
+✔ late failed worker discovery cannot replace a newer inspector (729.069167ms)
+✔ late conversation index cannot overwrite a changed worker filter (689.122291ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21073.811833

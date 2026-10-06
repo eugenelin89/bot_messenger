@@ -38,15 +38,47 @@ const status = value => `<span class="status ${escape(value)}">${escape(value.re
 const avatar = name => `<span class="avatar ${escape(name.toLowerCase())}">${escape(name.slice(0, 2).toUpperCase())}</span>`;
 let selectedProject = null;
 const chatDrafts = new Map(); let renderedChatConversation = null;
-let conversationList = {items:[]}, selectedConversation = null, conversationDetail = null, conversationWorker = '', chatDraft = '', chatSending = false, chatReceipt = null;
-let state, token, activeTab = 'conversation', draft = '', loading = false, refreshAgain = false, submitting = false;
+let conversationList = {items:[]}, conversationListWorker = null, selectedConversation = null, conversationDetail = null, conversationWorker = '', chatDraft = '', chatSending = false, chatReceipt = null;
+let state, token, activeTab = 'conversation', draft = '', loading = null, refreshAgain = false, submitting = false;
+// An absent snapshot is loading, never an empty company. Keep the last snapshot on failure.
+let phase = 'booting', connection = 'connecting', loadError = null;
+let sessionNeeded = true, connectionVersion = 0, defaultDraftLoaded = false, refreshController;
+const auxiliaryLoaded = new Set(), auxiliaryErrors = new Map();
+class RequestError extends Error {}
+const canMutate = () => phase === 'ready' && !!state && !!token && !sessionNeeded && !auxiliaryErrors.has(activeTab);
+function syncControls() {
+  $('#pause').disabled = !canMutate();
+  $('#initialize').disabled = !canMutate();
+  for (const controls of document.querySelectorAll('.load-controls')) controls.disabled = !canMutate();
+}
+function loadingView(message) { return `<div class="panel empty" role="status"><strong>${escape(message)}</strong>Your selected section will appear when its data is available.</div>`; }
+function renderReadiness() {
+  const title = titles[activeTab];
+  $('#view-title').textContent = title[0]; $('#heading').textContent = title[1]; $('#subtitle').textContent = title[2];
+  document.querySelectorAll('[data-tab]').forEach(button => {
+    button.classList.toggle('selected', button.dataset.tab === activeTab);
+    if (button.dataset.tab === activeTab) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+  const error = loadError ?? auxiliaryErrors.get(activeTab);
+  $('#connection').textContent = !state ? (loadError ? 'Could not load headquarters' : 'Loading headquarters…')
+    : phase === 'degraded' ? (loadError ? 'Could not refresh headquarters' : 'Reconnecting to headquarters…')
+    : connection === 'connected' ? 'Connected to headquarters' : 'Connecting to headquarters…';
+  $('#connection-dot').classList.toggle('online', phase === 'ready' && connection === 'connected');
+  $('#load-status').hidden = !error && phase !== 'degraded';
+  $('#load-status').setAttribute('role', error ? 'alert' : 'status');
+  $('#load-message').textContent = error ?? (state ? 'Reconnecting to headquarters… Showing the last loaded state. Controls will recover after a successful refresh.' : 'Reconnecting to headquarters… Waiting for company state.');
+  $('#view').setAttribute('aria-busy', String(Boolean(!state || (auxiliaryLoads[activeTab] && !auxiliaryLoaded.has(activeTab) && !error))));
+  syncControls();
+}
+
 let renderedView = '';
 let deviceState = null;
 let deviceScopes = new Set(['state:read']);
 function updateView(html) {
   if (html === renderedView) return;
   const expanded = new Set([...document.querySelectorAll('#view details[open][data-disclosure]')].map(element => element.dataset.disclosure));
-  $('#view').innerHTML = html;
+  $('#view').innerHTML = `<fieldset class="load-controls" aria-label="Selected section">${html}</fieldset>`;
   for (const element of document.querySelectorAll('#view details[data-disclosure]')) element.open = expanded.has(element.dataset.disclosure);
   renderedView = html;
 }
@@ -55,10 +87,13 @@ const groups=workingGroups({request,refresh,render,inspect,showError,escape,link
 const computers=computerSessions({request,refresh,render,inspect,showError,escape,status,workers:()=>state?.workers??[]});
 const mandates=companyOperations({request,refresh,render,inspect,showError,escape,status,workers:()=>state?.workers??[],openGroup:async id=>{activeTab='groups';await groups.select(id);},isActive:()=>activeTab==='mandates'});
 const titles = { computers:['Computer Sessions','Bounded browser work','Exact owner policies, private evidence and protected fixture approvals.'], mandates:['Company Mandates','An ongoing company objective','Bounded internal work, labelled evidence and durable reviews.'], groups:['Working Groups','Reason together','Bounded discussions, shared evidence and recommendations. Implementation requires a separate assignment.'], direct:['Conversations','Talk with your team','Request a bounded reply or leave a passive message. Conversations remain separate from assignments.'], devices: ['Devices / Remote Clients', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
-async function loadConversations() {
-  conversationList = await request(`conversations${conversationWorker ? `?worker_id=${encodeURIComponent(conversationWorker)}` : ''}`);
-  const requestedConversation=selectedConversation;
-  if(requestedConversation){const detail=await request(`conversations/${encodeURIComponent(requestedConversation)}`);if(selectedConversation===requestedConversation)conversationDetail=detail;}
+async function loadConversations(signal) {
+  const filter=conversationWorker, requestedConversation=selectedConversation;
+  const list=await request(`conversations${filter ? `?worker_id=${encodeURIComponent(filter)}` : ''}`, undefined, signal);
+  if(filter!==conversationWorker)return;
+  conversationList=list; conversationListWorker=filter;
+  if(requestedConversation){const detail=await request(`conversations/${encodeURIComponent(requestedConversation)}`, undefined, signal);if(filter===conversationWorker&&selectedConversation===requestedConversation)conversationDetail=detail;}
+
 }
 async function openWorkerConversations(workerId) {
   $('#inspect').close(); conversationWorker=workerId; selectedConversation=null; conversationDetail=null; chatDraft=''; chatReceipt=null; activeTab='direct';
@@ -66,11 +101,12 @@ async function openWorkerConversations(workerId) {
 }
 function renderDirect() {
   const d=conversationDetail, c=d?.conversation;
+  const list=conversationListWorker===conversationWorker?conversationList:null;
   const history=d?.history;
   const participants=d?.participants??[];
   const names=participants.map(p=>p.display_name).join(' ↔ ');
   const canSend=c&&c.state!=='archived'&&participants.some(p=>p.principal_id==='human'&&p.active);
-  return `<div class="panel task-card"><label>Participant <select id="conversation-worker"><option value="">All conversations</option>${state.workers.map(w=>`<option value="${escape(w.worker_id)}" ${conversationWorker===w.worker_id?'selected':''}>${escape(w.display_name)} · ${escape(w.title)}</option>`).join('')}</select></label><div class="card-actions"><button id="new-conversation" class="button primary" ${!conversationWorker?'disabled':''}>New direct conversation</button></div><p class="muted">Private to current participants. The human owner can inspect all conversations, including peer exchanges.</p>${conversationList.items.map(item=>`<button class="conversation-entry ${selectedConversation===item.conversation_id?'selected':''}" data-conversation="${escape(item.conversation_id)}"><strong>${escape(item.purpose)}</strong><small>${escape(item.participants.map(p=>p.display_name).join(' ↔ '))} · ${escape(item.state)}</small></button>`).join('')||'<p class="muted">Choose a worker and start a conversation.</p>'}${conversationList.next_cursor?`<button id="older-conversations" class="button secondary">Older conversations</button>`:''}</div>
+  return `<div class="panel task-card"><label>Participant <select id="conversation-worker"><option value="">All conversations</option>${state.workers.map(w=>`<option value="${escape(w.worker_id)}" ${conversationWorker===w.worker_id?'selected':''}>${escape(w.display_name)} · ${escape(w.title)}</option>`).join('')}</select></label><div class="card-actions"><button id="new-conversation" class="button primary" ${!conversationWorker?'disabled':''}>New direct conversation</button></div><p class="muted">Private to current participants. The human owner can inspect all conversations, including peer exchanges.</p>${(list?.items??[]).map(item=>`<button class="conversation-entry ${selectedConversation===item.conversation_id?'selected':''}" data-conversation="${escape(item.conversation_id)}"><strong>${escape(item.purpose)}</strong><small>${escape(item.participants.map(p=>p.display_name).join(' ↔ '))} · ${escape(item.state)}</small></button>`).join('')||`<p class="muted">${list?'Choose a worker and start a conversation.':'Loading conversations…'}</p>`}${list?.next_cursor?`<button id="older-conversations" class="button secondary">Older conversations</button>`:''}</div>
     ${c?`<div class="panel"><div class="panel-title">${escape(names)} <span>${status(c.state)}</span></div><div class="context-content"><h3>${escape(c.purpose)}</h3><small>Conversation ${short(c.conversation_id)}</small>${state.paused?'<p class="pause-banner">HQ dispatch is paused. Reply requests queue until you resume dispatch.</p>':''}<div class="card-actions">${c.state!=='active'?'<button class="button secondary" data-conversation-state="active">Resume conversation</button>':'<button class="button secondary" data-conversation-state="muted">Mute reply dispatch</button>'}${c.state!=='archived'?'<button class="button secondary" data-conversation-state="archived">Archive</button>':''}${participants.filter(p=>p.worker_id&&p.active).map(p=>`<button class="button secondary" data-rollover="${escape(p.worker_id)}">Replace ${escape(p.display_name)}’s context</button>`).join('')}</div><p class="muted">Mute holds reply dispatch; archive also prevents new messages. Interrupt an active reply before either action. History is retained.</p></div>
     <div class="messages">${history.next_cursor?'<button id="older-chat" class="button secondary">Earlier messages</button>':''}${history.items.map(m=>`<article class="message">${avatar(participants.find(p=>p.principal_id===m.sender_principal_id)?.display_name??'Worker')}<div class="message-main"><div class="message-meta"><strong>${escape(participants.find(p=>p.principal_id===m.sender_principal_id)?.display_name??'Worker')}</strong><time>${time(m.created_at)}</time>${m.response_to?'<span>Reply</span>':''}</div><div class="message-body">${linkedText(m.body)}</div>${m.execution_id?`<button class="task-link" data-chat-execution="${escape(m.execution_id)}">Execution ${short(m.execution_id)}</button>`:''}</div></article>`).join('')||'<div class="empty">No messages yet.</div>'}</div>
     ${canSend?`<form id="chat-compose" data-conversation-id="${escape(c.conversation_id)}" class="composer"><label for="chat-body">TO ${escape(participants.find(p=>p.worker_id)?.display_name??'WORKER')}</label><textarea id="chat-body" maxlength="8000" required placeholder="Discuss a question with this worker"></textarea><div class="composer-footer"><small>Send & request reply invokes one bounded worker turn. Passive message invokes no model.</small><div class="composer-actions"><button id="chat-passive" type="button" class="button secondary" ${chatSending?'disabled':''}>Send passive message</button><button type="submit" class="button primary" ${chatSending||c.state!=='active'?'disabled':''}>Send & request reply</button></div></div></form>`:'<p class="context-content muted">Owner oversight: peer transcripts are read-only. Resume an archived direct conversation to send.</p>'}</div>
@@ -107,19 +143,71 @@ function wireConversations() {
 const principal = id => state.principals.find(p => p.principal_id === id);
 const artifacts = taskId => state.artifacts.filter(a => a.task_id === taskId);
 function showError(error) { $('#error').textContent = error.message; $('#error').hidden = false; }
-async function request(path, data) {
-  const response = await fetch(`/api/${path}`, data === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) });
-  const body = await response.json(); if (!response.ok) throw new Error(body.error ?? 'Request failed'); return body;
+async function request(path, data, signal) {
+  // All browser writes share this prerequisite, including module/inspector forms.
+  if (data !== undefined && !canMutate()) throw new RequestError('Wait for headquarters to finish loading before making changes.');
+  let response, body;
+  try {
+    response = await fetch(`/api/${path}`, data === undefined ? { signal } : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-BotSquad-Token': token }, body: JSON.stringify(data) });
+    body = await response.json();
+  } catch { throw new RequestError('Could not reach headquarters or read its response.'); }
+  if (!response.ok) throw new RequestError(body.error ?? 'Request failed');
+  return body;
 }
 async function mutate(path, body) { $('#error').hidden = true; try { const result = await request(path, body); await refresh(); return result; } catch (error) { showError(error); throw error; } }
-async function refresh() {
-  if (loading) { refreshAgain = true; return; }
-  loading = true;
-  try { state = await request('state'); if (activeTab === 'devices') deviceState = await request('devices'); if (activeTab === 'direct') await loadConversations(); if(activeTab==='groups')await groups.load(); if(activeTab==='mandates')await mandates.load(); if(activeTab==='computers')await computers.load(); render(); }
-  catch (error) { showError(error); }
-  finally { loading = false; if (refreshAgain) { refreshAgain = false; void refresh(); } }
+const auxiliaryLoads = {devices: async signal => { deviceState = await request('devices', undefined, signal); }, direct: loadConversations, groups: groups.load, mandates: mandates.load, computers: computers.load};
+function refresh() {
+  if (loading) { refreshAgain = true; return loading; }
+  // A single owner loads snapshots in order. Events/navigation request one more pass.
+  loading = refreshLoop().finally(() => { loading = null; });
+  return loading;
+}
+async function refreshLoop() {
+  do {
+    refreshAgain = false;
+    const version = connectionVersion;
+    refreshController = new AbortController();
+    const {signal} = refreshController;
+    try {
+      if (sessionNeeded) {
+        const session = await request('session', undefined, signal);
+        if (version !== connectionVersion) continue;
+        token = session.csrfToken; sessionNeeded = false;
+        if (!defaultDraftLoaded) { draft = session.defaultObjective; defaultDraftLoaded = true; }
+      }
+      const snapshot = await request('state', undefined, signal);
+      if (version !== connectionVersion) continue;
+      state = snapshot; loadError = null;
+      phase = connection === 'reconnecting' ? 'degraded' : 'ready';
+    } catch (error) {
+      if (!(error instanceof RequestError)) throw error;
+      if (version !== connectionVersion) continue;
+      phase = 'degraded'; loadError = `${state ? 'Could not refresh' : 'Could not load'} headquarters. ${error.message} Retry or wait for reconnection.`;
+      render(); continue;
+    }
+    render();
+    const tab = activeTab;
+    if (auxiliaryLoads[tab]) {
+      try {
+        await auxiliaryLoads[tab](signal);
+        if (version !== connectionVersion) continue;
+        auxiliaryLoaded.add(tab); auxiliaryErrors.delete(tab);
+      } catch (error) {
+        if (!(error instanceof RequestError)) throw error;
+        if (version !== connectionVersion) continue;
+        auxiliaryErrors.set(tab, `Could not load ${titles[tab][0]}. ${error.message} Retry to refresh this section.`);
+      }
+      render(); // Always render the current destination, never the captured tab.
+    }
+  } while (refreshAgain);
 }
 function render() {
+  renderReadiness();
+  if (!state) {
+    updateView(loadingView(loadError ? 'Company state unavailable' : 'Loading company state…'));
+    syncControls();
+    return;
+  }
   groups.capture();
   const chatComposer = $('#chat-body'); if (chatComposer && renderedChatConversation) chatDrafts.set(renderedChatConversation,chatComposer.value);
   chatDraft=chatDrafts.get(selectedConversation)??'';
@@ -137,9 +225,9 @@ function render() {
   $('#workers').innerHTML = state.workers.length ? state.workers.map(w => `<button class="worker-button" data-worker="${escape(w.worker_id)}">${avatar(w.display_name)}<span>${escape(w.display_name)}<small>${escape(w.title)}</small></span><span class="dot ${escape(w.status)}" title="${escape(w.status)}"></span></button>`).join('') : '<p class="muted">Initialize Atlas to begin.</p>';
   const active = state.executions.filter(e => e.status === 'running').length;
   $('#metrics').innerHTML = [['Team members', state.workers.length, 'persistent identities'], ['Active now', active, 'executions'], ['Queued tasks', state.tasks.filter(t => t.status === 'queued').length, 'assignments'], ['Evidence saved', state.artifacts.length+(state.group_synthesis_count??0), (state.group_synthesis_count??0)?'Task + group results':'artifacts']].map(([label, value, note]) => `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value}<small>${note}</small></div></div>`).join('');
-  const title = titles[activeTab]; $('#view-title').textContent = title[0]; $('#heading').textContent = title[1]; $('#subtitle').textContent = title[2];
-  document.querySelectorAll('[data-tab]').forEach(button => button.classList.toggle('selected', button.dataset.tab === activeTab));
-  updateView(({ computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
+  // Working Groups already distinguishes its unloaded roster and disables creation.
+  const waiting = activeTab !== 'groups' && auxiliaryLoads[activeTab] && !auxiliaryLoaded.has(activeTab);
+  updateView(waiting ? loadingView(auxiliaryErrors.has(activeTab) ? `${titles[activeTab][0]} unavailable` : `Loading ${titles[activeTab][0]}…`) : ({ computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
   $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>05</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews and requests revisions', 'Full recipes gate queued integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run for assignments or explicit conversation reply requests. Task results can wake their manager. Passive messages never invoke a model.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Public research and company documents require separate standing permissions. Computer Use requires a specialized operator, explicit Task and exact owner-approved session policy.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Use <strong>Assign objective</strong> for a Task or <strong>Send &amp; request reply</strong> for one conversation turn. Passive messages remain communication.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
   if(activeTab==='groups')$('#context-panel').innerHTML=`<div class="panel"><div class="panel-title">A bounded discussion <span>08</span></div><div class="context-content">${['Owner reviews charter and audience','Explicit start invokes the team','Employees contribute and respond','Facilitator chooses useful follow-ups','Draft synthesis gets one review','Owner reads the recommendation'].map((s,i)=>`<div class="flow-step"><span>${i+1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Scope and authority</div><div class="context-content"><p>Only the group transcript and selected evidence packet are shared. Each employee speaks through their own execution.</p><p>Membership grants no research, implementation or approval powers. Public research needs an explicit individual grant and charter permission.</p><p>A saved recommendation becomes a Task only after a separate owner preview and submission.</p><span class="status ${state.paused?'blocked':'completed'}">${state.paused?'HQ dispatch paused':'HQ dispatch enabled'}</span></div></div>`;
   if ($('#objective')) { $('#objective').value = draft; if (selection) { $('#objective').focus(); $('#objective').setSelectionRange(...selection); } }
@@ -148,6 +236,7 @@ function render() {
   renderedChatConversation = activeTab==='direct' ? conversationDetail?.conversation.conversation_id ?? null : null;
   if ($('#chat-body')) { $('#chat-body').value = chatDrafts.get(renderedChatConversation)??''; if(chatSelection){$('#chat-body').focus();$('#chat-body').setSelectionRange(...chatSelection);} }
   wireView();
+  syncControls();
 }
 function renderConversation() {
   return `<div class="panel"><div class="panel-title"># executive <span>${state.messages.length} messages · durable history</span></div><div class="messages">${state.messages.length ? state.messages.map(m => {
@@ -203,7 +292,7 @@ function renderAudit() {
   return `<div class="panel"><div class="panel-title">Append-only event history <span>${state.audit.length} events</span></div>${[...state.audit].reverse().map(e => `<div class="audit-row"><span class="audit-marker">◇</span><div><strong>${escape(e.type.replaceAll('_', ' '))}</strong><p>${escape(principal(e.actor_principal_id)?.display_name)}${e.worker_id ? ` · ${escape(worker(e.worker_id)?.display_name)}` : ''}${e.task_id ? ` · task ${short(e.task_id)}` : ''}</p><p>${escape(e.detail)}</p></div><time title="${escape(e.created_at)}">${time(e.created_at)}</time></div>`).join('') || '<div class="empty">Company lifecycle events will appear here.</div>'}</div>`;
 }
 function details(object) { return `<dl class="inspect-grid">${Object.entries(object).map(([k, v]) => `<dt>${escape(k.replaceAll('_', ' '))}</dt><dd>${escape(v && typeof v === 'object' ? JSON.stringify(v, null, 2) : v ?? '—')}</dd>`).join('')}</dl>`; }
-function inspect(title, html) { researchView++; $('#inspect-title').textContent = title; $('#inspect-content').innerHTML = html; if (!$('#inspect').open) $('#inspect').showModal(); wireActions($('#inspect')); }
+function inspect(title, html) { researchView++; $('#inspect-title').textContent = title; $('#inspect-content').innerHTML = `<fieldset class="load-controls" aria-label="Inspector details">${html}</fieldset>`; if (!$('#inspect').open) $('#inspect').showModal(); wireActions($('#inspect')); syncControls(); }
 function inspectTask(id) {
   const t = state.tasks.find(t => t.task_id === id); if (!t) return;
   const parent = state.tasks.find(p => p.task_id === t.parent_task_id);
@@ -223,9 +312,10 @@ async function inspectWorker(id) {
   const binding = state.bindings.find(r => r.worker_id === id);
   const last = [...state.executions].reverse().find(e => e.worker_id === id && e.provenance_status === 'recorded');
   inspect(`${w.display_name} — ${w.title}`, '<p>Loading runtime model choices…</p>');
+  const version = researchView;
   let catalog;
-  try { catalog = await request('runtime'); } catch (error) { inspect(`${w.display_name} — ${w.title}`, `<p role="alert">Runtime discovery failed. Complete Codex sign-in on the headquarters host, then reopen these settings.</p>${details({ unix_identity:state.infrastructure.identities.find(i => i.worker_id === id), state:w.status, role:w.role, model:w.ai_model ?? "inherit", reasoning:w.reasoning_effort ?? "inherit", priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? "Not run", last_effective_reasoning:last?.reasoning_effort ?? "Not run", thread_name:binding?.thread_name ?? "Not started" })}`); showError(error); return; }
-  if (!$('#inspect').open) return;
+  try { catalog = await request('runtime'); } catch (error) { if(version!==researchView||!$('#inspect').open)return; inspect(`${w.display_name} — ${w.title}`, `<p role="alert">Runtime discovery failed. Complete Codex sign-in on the headquarters host, then reopen these settings.</p>${details({ unix_identity:state.infrastructure.identities.find(i => i.worker_id === id), state:w.status, role:w.role, model:w.ai_model ?? "inherit", reasoning:w.reasoning_effort ?? "inherit", priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? "Not run", last_effective_reasoning:last?.reasoning_effort ?? "Not run", thread_name:binding?.thread_name ?? "Not started" })}`); showError(error); return; }
+  if (version !== researchView || !$('#inspect').open) return;
   const option = (value, label, selected) => `<option value="${escape(value)}"${selected ? ' selected' : ''}>${escape(label)}</option>`;
   const models = [option('', `Inherit (${catalog.defaultModel})`, w.ai_model === null), ...catalog.models.map(m => option(m.model, m.displayName, m.model === w.ai_model))];
   if (w.ai_model && !catalog.models.some(m => m.model === w.ai_model)) models.push(option(w.ai_model, `${w.ai_model} — unavailable`, true));
@@ -295,20 +385,29 @@ function wireView() {
     $('#send-message').onclick = () => void submit('messages');
   }
 }
-document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { activeTab = button.dataset.tab; render(); if (['devices','direct','groups','mandates'].includes(activeTab)) void refresh(); });
+document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { activeTab = button.dataset.tab; render(); if (state && auxiliaryLoads[activeTab]) void refresh(); });
 $('#close-inspect').onclick = () => $('#inspect').close();
+$('#inspect').addEventListener('close', () => { researchView++; });
 $('#initialize').onclick = async () => { try { await mutate('initialize', {}); } catch {} };
-$('#pause').onclick = async () => { try { await mutate('pause', { paused: !state.paused }); } catch {} };
-try {
-  const session = await request('session'); token = session.csrfToken; draft = session.defaultObjective; await refresh();
-  const events = new EventSource('/api/events');
-  events.addEventListener('ready', async () => {
-    try { token = (await request('session')).csrfToken; $('#connection').textContent = 'Connected to headquarters'; $('#connection-dot').classList.add('online'); await refresh(); }
-    catch (error) { showError(error); }
-  });
-  events.addEventListener('changed', () => void refresh());
-  events.onerror = () => { $('#connection').textContent = 'Reconnecting to headquarters…'; $('#connection-dot').classList.remove('online'); };
-} catch (error) { showError(error); }
+$('#pause').onclick = async () => { if (!canMutate()) return; try { await mutate('pause', { paused: !state.paused }); } catch {} };
+$('#retry-load').onclick = () => { sessionNeeded = true; void refresh(); };
+// Install recovery even when the first session/state request fails. Reconnect renews
+// the session before trusting a new snapshot; late pre-disconnect responses cannot win.
+const events = new EventSource('/api/events');
+events.addEventListener('ready', () => {
+  connection = 'connected'; connectionVersion++; sessionNeeded = true;
+  refreshController?.abort();
+  if (state) phase = 'degraded';
+  render(); void refresh();
+});
+events.addEventListener('changed', () => void refresh());
+events.onerror = () => {
+  connection = 'reconnecting'; connectionVersion++; sessionNeeded = true; phase = 'degraded';
+  refreshController?.abort();
+  render();
+};
+render();
+void refresh();
 
 function projectHeader() {
   const projects=state.projects??[];

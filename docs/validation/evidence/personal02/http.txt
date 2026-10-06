@@ -1,0 +1,16 @@
+(node:15073) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (109.079375ms)
+✔ SSE emits durable-state changes without model polling (113.108333ms)
+✔ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (45.276292ms)
+✔ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (53.334625ms)
+✔ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (164.450917ms)
+✔ standing permissions require browser owner authority and do not extend device routes or state (58.319917ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 611.784125

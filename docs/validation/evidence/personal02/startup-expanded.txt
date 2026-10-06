@@ -1,0 +1,49 @@
+(node:12459) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (1735.987416ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (930.161792ms)
+✔ initial session failure recovers through ready (562.511041ms)
+✔ initial session failure recovers through retry (551.045625ms)
+✔ initial state failure recovers through ready (599.8465ms)
+✔ initial state failure recovers through retry (585.933458ms)
+✔ boot controls cannot send writes while session or state is unavailable (498.83175ms)
+✖ normal startup uses real SSE and loaded empty state is distinct from boot (498.451417ms)
+✔ reconnect retains state, tab, draft and inspector; a stale response cannot declare readiness (600.073584ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (599.770916ms)
+✔ first direct auxiliary load is explicit and recovers independently (600.458916ms)
+✔ first groups auxiliary load is explicit and recovers independently (612.801125ms)
+✔ first mandates auxiliary load is explicit and recovers independently (619.853084ms)
+✔ first computers auxiliary load is explicit and recovers independently (632.588792ms)
+✔ first devices auxiliary load is explicit and recovers independently (618.048958ms)
+✔ auxiliary failure remains visible without converting company state to empty (632.867042ms)
+✔ changed events and rapid tab switches coalesce state requests (649.348334ms)
+✔ closed or replaced worker inspector cannot be reopened by late discovery (550.79875ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12330.911375
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:103:1
+✖ normal startup uses real SSE and loaded empty state is distinct from boot (498.451417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'undefined'
+  - 'false'
+
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:109:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'false',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
