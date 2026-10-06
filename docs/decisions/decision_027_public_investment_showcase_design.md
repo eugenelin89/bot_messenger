@@ -1,7 +1,9 @@
 # Decision 027 — Public BotSquad investment showcase design
 
 **Date:** 2026-10-06
-**Status:** Owner-requested design recorded; implementation and activation remain planned
+**Status:** Owner-requested design recorded; implementation and activation remain planned. Visitor interaction/publication-only scope partially amended by [Decision 028](decision_028_ask_botsquad_public_questions.md).
+
+**October 6 amendment:** The owner subsequently added Ask BotSquad. [Its specification](../experiments/investment/ASK_BOTSQUAD.md) permits bounded general or contextual public questions answered by one real relevant employee, using anonymous-session privacy and separate HQ-initiated question retrieval. This does not grant visitor trading/Task/private-data authority or change this decision's paper-only ledger and protected-publication principles. The original rationale below is preserved as history.
 
 ## Context
 
