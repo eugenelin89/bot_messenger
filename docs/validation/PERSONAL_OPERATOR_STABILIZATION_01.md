@@ -1,6 +1,6 @@
 # Personal Operator stabilization 01 — validation and delivery
 
-**Status:** Implementation and isolated real acceptance passed; production delivery pending.
+**Status:** Complete — bounded closure, credential retirement, scheduler acceptance and production verification passed.
 
 This unnumbered task closes Prompt 11 documentation, retires its exact temporary credential,
 corrects schedule admission and records the owner priority in Decision 026. No new external
@@ -81,6 +81,48 @@ artifacts and accepted the narrow live result with no blockers. The test used pr
 timing and a graceful pre-due restart; it does not prove autonomous timing selection,
 in-flight recovery or sustained unattended reliability.
 
-Production scheduler deployment is pending. Before delivery: full diff/check, fresh main,
-normal PR/merge, exact merged build, protected consistent backup and inventory, safe restart,
-retained Prompt 01–11 record verification, provider retirement recheck and final idle interval.
+## Production delivery checkpoint
+
+[PR #17](https://github.com/eugenelin89/bot_messenger/pull/17) merged normally as
+`ecdbe7561c53d3d02ec3fef4f267095e678f364e`. Source, tests, scripts and dependency lock
+are unchanged from the real-acceptance source; subsequent changes record evidence only.
+No configured GitHub status checks/workflows were bypassed; full PR diff/check passed.
+
+The [production checkpoint](evidence/personal01/production-checkpoint.json) records a
+separate exact-merge build matching all **251 compiled/public files**. A protected backup
+was taken with HQ, browser broker and provisioner stopped. The original **59,909 rows in
+82 databases**, **212 worker homes**, **702 root records** and **427 account/group mappings**
+passed preservation, excluding only ordinary `workers.updated_at`. No schema migration.
+This retains the Prompt 01–10 history and Prompt 11's failed model turn, two schedule
+versions (including the owner intervention), completed occurrence, approval/action/receipt,
+evidence and STOP. Private originals and backup remain in protected operator storage.
+
+Production: eight idle workers, 48 Tasks, 69 executions, two closed cycles, one completed
+occurrence, one successful external action/approval/attempt/receipt, zero ComputerSessions.
+Pause=false survived restart. Runtime, database and dispatcher are healthy on loopback.
+The exact temporary credential and provider configuration are absent, no provider is
+configured, and the retained business grant is revoked. All work counts stayed unchanged
+through restart and a **30-second final idle interval**. No new external action occurred.
+Task-owned validation services are stopped; no task-owned tunnel remains.
+
+Delivery failures were preserved rather than hidden. The clean-checkout preflight first
+stopped on generated Python bytecode; it was moved intact to protected storage. The first
+startup then failed because the private operator script's `umask 077` propagated into Git,
+making updated public runtime files unreadable by the service. Four Git-verified public
+runtime files were narrowly made service-group-readable; private state/credential permissions
+were untouched. A proposed broader repair was rejected by automatic approval review and
+was not applied. The corrected operator script creates application/build files with normal
+readable permissions and checks service readability before starting the verified build.
+The successful health, preservation and idle evidence above was collected after recovery.
+
+This is an executed code-delivery checkpoint, not an inference that a future documentation
+HEAD is deployed. Final documentation-only merge/source equality is verified separately in
+the operator handoff and protected completion journal.
+
+## Remaining work candidates
+
+No acceptance blocker remains. The likely next Personal Operator task is the existing
+early-navigation/initial-state UI race, followed by clearer loading/status/error presentation
+as real owner usage warrants. The race was not changed here. Decision 026 keeps feature
+expansion deferred and creates no Prompt 12. Monetary model/provider cost and the earlier
+pilot's readability/business benefit remain unknown or unmeasured.

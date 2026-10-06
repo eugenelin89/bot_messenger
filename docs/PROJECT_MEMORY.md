@@ -8,7 +8,7 @@
 [Decision 026](decisions/decision_026_personal_operator_stabilization.md) makes one-owner
 reliability, operator clarity, daily workflows, maintenance and polish the current priority.
 No automatic Prompt 12. Multi-company/federation/integration expansion remains deferred;
-future work comes from actual owner use. Scheduler stabilization is current; the likely
+future work comes from actual owner use. Scheduler stabilization 01 is deployed; the likely
 next candidate is the existing early-navigation/initial-state UI race, not implemented here.
 
 Prompt 11 is complete for bounded supervised scope: one exact approved real GitHub README
