@@ -59,9 +59,11 @@ or capability changes. The validation record owns exact delivery evidence.
 
 [Stabilization 03](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md) implements a deterministic
 local-owner Attention overview with exact approval/uncertainty/workflow classification,
-source links and explicit loading/stale counts. Local checks and specialist reviews pass;
-Ubuntu/deployment/real tunnel gates remain pending in its validation record. The retained
-unprovisioned-identity coordination Task is genuinely unresolved, not merely expired history.
+source links and explicit loading/stale counts. PR #23 is deployed; exact Ubuntu 292/292
+domain and 34/34 browser checks, real desktop/narrow tunnel acceptance, preservation and
+idle gates pass. Production shows one genuinely unresolved unprovisioned-identity
+coordination Task; its expired approval and resolved historical failures add no extra items.
+No authority/schema/v1 change. Its validation record owns final delivery evidence.
 
 ## Historical Prompt 11 implementation deployment — before live pilot
 

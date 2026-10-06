@@ -1,6 +1,6 @@
 # Personal Operator Stabilization 03 — Owner Attention
 
-**Status: implementation and local acceptance passed; Ubuntu, merge and production gates pending.**
+**Status: Complete and deployed — code, exact Ubuntu/browser validation, preservation and real private UI acceptance passed.**
 **Date:** 2026-10-06. Decision 026 applies; this is not Prompt 12.
 
 ## Definition and architecture
@@ -92,9 +92,29 @@ research ownership; coordinator-owned group/parent duplicate; expired unstarted 
 blocked no-cycle occurrence; stale cached count across reconnect; business lifecycle filters;
 unsupported Computer generic retry. Tests cover the fixes. Security and architecture reviews
 closed with no material findings. Test review requested exact group selection (strengthened)
-and final host/deployment evidence, which remains a delivery gate. Parent is sole writer.
+and final host/deployment evidence, now supplied below. Parent is sole writer.
 
-## Production classification and remaining gates
+Ubuntu candidate verification exposed two fixture-order assumptions. The first domain run
+was 290/292: the coordinator tests had assumed UUID-dependent group roster order. Explicit
+coordinator priority preserves every original assertion; corrected Ubuntu focused checks
+pass 52/52. Initial Ubuntu browser run was 33/34: the narrow held-startup test timed out
+waiting for Mandates while renewing the session during release. The fixture now verifies
+boot completion before renewal; the separate held-read reconnect cancellation test is
+unchanged. The precise original release/abort mechanism is unproven. The new narrow status
+wait reads text because its footer is intentionally hidden; final local startup is 22/22.
+The original failed Ubuntu logs are retained alongside successful results. Test reviewer
+confirmed both fixture changes preserve coverage and do not weaken assertions.
+
+Exact code integration: [PR #23](https://github.com/eugenelin89/bot_messenger/pull/23),
+merge `c6c8f0b47f59a02ebb5142361e2d396a4f075dc5`. Exact merged Ubuntu check/build and
+[292/292 domain checks](evidence/personal03/ubuntu-merged-domains.txt) and
+[34/34 browser checks](evidence/personal03/ubuntu-merged-browser.txt) pass with no skips. Node 24.21.0,
+existing Chromium bundle, non-root `botsquad`, isolated fixture directory and development
+identity backend; no production fixture or live model run. Concurrent PR #24 added separate
+investment design documents on main; those are preserved. No runtime/test/dependency
+change came from that concurrent merge, and this task did not create its Decision 027.
+
+## Production classification and acceptance
 
 Read-only baseline investigation found one genuinely unresolved retained Task:
 `task_cae78898-23c9-4e76-b6e5-4440e4fa8fdf`, infrastructure coordination assigned to Nix.
@@ -102,12 +122,43 @@ Its create-worker-identity request expired; target remains enabled and has no OS
 with no later resolving operation. The expired approval is historical and excluded; the
 unresolved coordination has a supported Task inspection/cancellation path. Cancellation
 allows a fresh request; generic retry cannot grant host authority. Do not cancel it for
-acceptance or revive the old approval. Its expected Attention count is **1 blocked item**.
+acceptance or revive the old approval. The deployed projection and real UI both confirm **1 blocked item**.
 
-Pending: exact Ubuntu checks, reviewed PR integration, protected consistent backup,
-independent exact merged build, original-row/home/account/root-record preservation, real
-private tunnel hard reload/source/back/narrow/native reconnect with no mutations and final
-30-second idle sample. Completion receipt will be added after actual acceptance.
+[Deployment receipt](evidence/personal03/deployment.json): exact merge `c6c8f0b47f59a02ebb5142361e2d396a4f075dc5`,
+259 independently rebuilt dist/public files match; dependency lock unchanged. Consistent
+root-private backup made with services stopped, at
+`/var/backups/botsquad/personal03-20261006-production`. Runtime/dispatcher ready, loopback
+only, pause=false preserved, provider unconfigured and temporary credential absent. No
+schema/authority activation. Original **59,909 rows across 82 databases**, **212 homes**,
+**702 root records** and **427 account/group mappings** passed comparison. Only the existing
+`workers.updated_at` startup-timestamp exclusion applies; normal startup audit rows append.
+Prompt 11 action/approval/attempt/receipt and Stabilization 01/02 evidence remain intact.
+
+[Real private UI acceptance](evidence/personal03/production-ui.json) passed through the normal
+port-4310 SSH tunnel, native SSE and real production records, at 1440×1100 and 390×844.
+Each viewport used an uncached hard reload with a held real company read: immediate
+Attention rendered loading and `…`, then verified `1`. Its sole item opened the exact Task
+inspector with legitimate cancellation, no unsupported generic retry; Attention → source →
+back and width checks passed. Actual tunnel termination/recreation retained `1*` and the
+last item, then recovered to `1`. **Zero page errors and zero non-GET requests**. The Task
+was not changed. No private screenshots or record bodies were exported. The acceptance
+[driver](evidence/personal03/production-ui.mjs) records only sanitized outcomes; its import
+is package-relative for reuse. An initial alternate-port probe was rejected by the existing
+Host boundary before UI work; the normal port was used without changing that boundary.
+Local locked dependencies were restored in the dedicated worktree after the shared
+dependency directory disappeared; package/lock files did not change.
+
+[Post-UI preservation and idle](evidence/personal03/production-ui-idle.json) passed another
+30-second sample: all table counts and pause state unchanged; zero running/queued work,
+ComputerSessions, active schedules, pending reads/reconciliations or business attempts.
+The complete original-record/home/account/root-record comparison passed again after UI.
+Production retains 8 workers, 48 Tasks, 69 executions, 2 closed cycles and 1 business receipt.
+
+The documentation completion follow-up changes no source, public asset, test or dependency.
+Its final merged deployment identity is recorded in the protected completion receipt and
+final handoff; it uses the same accepted implementation with an independent exact-revision
+build and a repeated read-only tunnel/idle check. This avoids embedding a commit's own hash
+inside its content. No remaining product or acceptance gate is deferred.
 
 ## Limits and next candidate
 

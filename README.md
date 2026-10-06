@@ -37,6 +37,7 @@ BotSquad currently supports:
 
 - a non-root, boot-enabled Ubuntu `botsquad.service`;
 - durable SQLite company/task/message/execution state;
+- deterministic owner Attention with current approvals, uncertainty and recoverable work linked to existing controls;
 - persistent logical workers with resumable Codex threads;
 - direct human/worker and bounded peer conversations, separate from Tasks;
 - explicit reply requests, passive messages, pause/cancel/interrupt and retained transcripts;

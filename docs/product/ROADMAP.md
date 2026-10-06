@@ -63,8 +63,8 @@ future work; these are candidates, not committed numbered milestones or a giant 
 **Completed stabilization 02:** immediate navigation, explicit startup readiness and
 recoverable loading, including deployed desktop/narrow tunnel acceptance; [acceptance and delivery](../validation/PERSONAL_OPERATOR_STABILIZATION_02.md).
 
-**Stabilization 03 in delivery validation:** deterministic owner Attention, exact source links,
-privacy and deduplication; [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md).
+**Completed stabilization 03:** deterministic owner Attention, exact source links, privacy
+and deduplication; deployed with real tunnel/preservation/idle acceptance; [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md).
 
 **Next candidates:** clearer loading/status/error presentation beyond startup; simpler
 common operator flows; credential lifecycle/rotation/revocation UX; backup/update/health

@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
 **Status:** Through Prompt 11 bounded supervised completion; evidence in milestone validation records
-**Updated:** 2026-10-05
+**Updated:** 2026-10-06
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -297,6 +297,15 @@ The entire database is not sent to a worker. Task content and selected evidence 
 sent to the external model service; self-hosted/operator-controlled describes the control plane and durable coordination state.
 
 ## Human UI and host security
+
+The local-owner `GET /api/attention` projection (`src/control/attention.ts`) classifies
+current authoritative domain records using SELECTs only. It returns up to 200 sanitized
+source/destination summaries with exact totals, without a second database model, dismissal,
+model invocation or consequential controls. Existing inspectors resolve each source.
+Uncertainty/approval/domain ownership prevents duplicate Task/execution badges; closed
+history is excluded unless a separate unresolved fence remains. The browser preserves
+unknown versus verified-zero counts and marks cached results stale across connection
+generations. Client API v1 is unchanged. See the [classification and validation record](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md).
 
 The browser shows organization, durable messages, tasks, executions, artifacts, audit,
 Projects/repositories, policy/recipes, scopes, submission history, exact review rounds,

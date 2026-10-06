@@ -12,10 +12,11 @@ future work comes from actual owner use. Scheduler stabilization 01 is deployed.
 [Startup stabilization 02](validation/PERSONAL_OPERATOR_STABILIZATION_02.md) fixes immediate
 navigation and readiness/recovery and is deployed from PR #19 with real tunnel acceptance;
 its validation record owns exact delivery evidence.
-[Owner Attention stabilization 03](validation/PERSONAL_OPERATOR_STABILIZATION_03.md) is implemented
-and locally verified; Ubuntu/deployment acceptance remains pending. It derives owner actions
-without new authority or dismissal. Next candidates are broader status clarity and common
-workflow simplification.
+[Owner Attention stabilization 03](validation/PERSONAL_OPERATOR_STABILIZATION_03.md) is complete
+and deployed from PR #23, with exact Ubuntu and real tunnel acceptance, retained-state
+preservation and zero-work idle. Production shows one real unresolved infrastructure Task;
+its expired approval is excluded. Attention derives owner actions without new authority or
+dismissal. Next candidates are broader status clarity and common workflow simplification.
 
 Prompt 11 is complete for bounded supervised scope: one exact approved real GitHub README
 action, receipt/read-back and durable fresh-context Cycle 2, then evidence-linked STOP.

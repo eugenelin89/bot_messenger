@@ -1,0 +1,42 @@
+✔ Attention during held company and attention boot loads (1440px) (3725.586872ms)
+✔ Attention during held company and attention boot loads (390px) (3268.748097ms)
+✔ real SSE startup resolves verified zero (3459.716986ms)
+✔ mixed categories, stable order and exact Task navigation (1440px) (5103.991658ms)
+✔ mixed categories, stable order and exact Task navigation (390px) (4627.63721ms)
+✔ exact infrastructure approval navigation, owner denial and Attention source resolution (4348.5508ms)
+✔ historical failed execution under completed Task stays out of browser Attention (3755.796434ms)
+✔ auxiliary Attention error preserves company state and recovers without false zero (3907.146324ms)
+✔ reconnect retains last Attention, aborts stale read and preserves final navigation (4997.928002ms)
+✔ Computer, group, mandate, publication and device items select existing source surfaces (6911.968322ms)
+✔ business item opens exact existing action inspector, late load cannot steal navigation (5208.433587ms)
+✔ cached zero remains unverified after reconnect until the Attention read succeeds (4113.025531ms)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (6279.928392ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (5244.326587ms)
+✔ initial session failure recovers through ready (3939.082235ms)
+✔ initial session failure recovers through retry (3703.040167ms)
+✔ initial state failure recovers through ready (4298.200195ms)
+✔ initial state failure recovers through retry (4378.495797ms)
+✔ boot controls cannot send writes while session or state is unavailable (4016.556861ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (4036.107489ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (4531.849977ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (4061.762373ms)
+✔ first direct auxiliary load is explicit and recovers independently (4448.155347ms)
+✔ first groups auxiliary load is explicit and recovers independently (4112.070389ms)
+✔ first mandates auxiliary load is explicit and recovers independently (4209.967982ms)
+✔ first computers auxiliary load is explicit and recovers independently (3853.932015ms)
+✔ first devices auxiliary load is explicit and recovers independently (4303.814812ms)
+✔ auxiliary failure remains visible without converting company state to empty (3672.79058ms)
+✔ changed events and rapid tab switches coalesce state requests (3928.513467ms)
+✔ closed worker inspector cannot be reopened by late discovery (3631.00036ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (4296.781579ms)
+✔ late failed worker discovery cannot replace a newer inspector (5457.430766ms)
+✔ late conversation index cannot overwrite a changed worker filter (4481.48122ms)
+✔ stream interruption reports reconnecting even when a state request failed first (4193.666009ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 150895.786436
