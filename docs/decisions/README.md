@@ -119,3 +119,9 @@ session transitions. Acceptance and retained activation remain explicit separate
 [Decision 027](decision_027_public_investment_showcase_design.md) records the October 6 owner request for a public paper-investment demonstration of BotSquad. The [design guide](../experiments/investment/README.md) and [detailed INV-01–INV-12 roadmap](../experiments/investment/ROADMAP.md) cover genuine live team discussion, durable public artifacts, a deterministic simulated portfolio and scoped REST publication to Asymmetri.co.
 
 This is a design-only experimental track, not core Prompt 12, deployed functionality or a new production grant. Personal Operator stabilization and the existing private/financial authority boundaries remain unchanged. Use the [single-packet Codex launcher](../../prompts/investment-experiment.md) only when the owner selects the next implementation task.
+
+## Ask BotSquad amendment
+
+[Decision 028](decision_028_ask_botsquad_public_questions.md) partially amends Decision 027's read-only-visitor/publication-only scope. The owner adds a public-access chat for general or transaction-specific questions answered by one relevant actual employee. The [Ask specification](../experiments/investment/ASK_BOTSQUAD.md) defines routing, anonymous-session privacy, scoped outbound HQ question retrieval, independent local quotas and no investment action authority. The [four Ask packets](../experiments/investment/ASK_BOTSQUAD_ROADMAP.md) are integrated before INV-10 in the existing status roadmap.
+
+The investment archive stays public/read-only, while Q&A is separately session-authorized and private by default. No visitor question or chat answer becomes company memory, an investment observation or public artifact automatically. This is a design amendment only; implementation, provider-use checks and explicit public-service activation remain future gates.
