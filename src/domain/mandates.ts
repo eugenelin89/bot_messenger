@@ -1,5 +1,8 @@
 /** Strategic direction and typed trusted bounds are separate. Prose never grants tools. */
 export const MANDATE_SCHEMA = 'mandate-review-v1';
+/** Minimum first-due dispatch window. end_at remains an inclusive hard cutoff;
+ * this admits ordinary timer jitter, not a promise of capacity or an extension. */
+export const MIN_REVIEW_DISPATCH_WINDOW_SECONDS = 30;
 export const EVIDENCE_MODES = ['real_read_only','public_source','owner_provided','sanitized_snapshot','simulated_fixture','real_live'] as const;
 export type EvidenceMode = typeof EVIDENCE_MODES[number];
 export type MandateStatus = 'draft'|'active'|'paused'|'blocked'|'completed'|'stopped'|'cancelled';

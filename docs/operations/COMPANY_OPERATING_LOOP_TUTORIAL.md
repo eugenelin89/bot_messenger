@@ -125,3 +125,12 @@ Global pause retains all schedules and holds dispatch company-wide.
 This exercise establishes bounded internal company review. It does not establish live marketing,
 product operation, publication, customer outreach, revenue improvement, autonomous spending or
 unrestricted computer operation. Prompt 10 and Prompt 11 have separate acceptance gates.
+
+## Choosing a usable review window
+
+A new or edited review must end at least 30 seconds after its first due time. Equal due/end
+times leave no dispatch window and are rejected. Leave longer for busy workers or restart
+downtime. The end is an inclusive hard cutoff for the first execution claim; no extra grace
+is added. Missed recurring times still coalesce within the end/count limits. Daily reviews
+resolve in the mandate timezone using the existing DST rule; server validation is authoritative.
+The owner can inspect retained occurrence reasons, claim audit timestamps and execution history.

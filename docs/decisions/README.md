@@ -108,4 +108,8 @@ session transitions. Acceptance and retained activation remain explicit separate
 
 | ID | Decision | Status | Date |
 | --- | --- | --- | --- |
-| [025](decision_025_bounded_business_operations.md) | Exact supervised business actions and attributable outcome review | Implemented and deployed; live acceptance pending | 2026-10-06 |
+| [025](decision_025_bounded_business_operations.md) | Exact supervised business actions and attributable outcome review | Complete within bounded supervised scope | 2026-10-06 |
+
+## Current priority after Prompt 11
+
+- [Decision 026 — Single-owner Personal Operator stabilization before further feature expansion](decision_026_personal_operator_stabilization.md) — accepted October 6, 2026. Clarifies Decision 017 sequencing: Prompt 11 is complete for bounded supervised scope; the current unnumbered phase prioritizes one owner's daily reliability/usability. No automatic Prompt 12. Capability expansion resumes only from demonstrated need or explicit owner priority.

@@ -1,7 +1,24 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-05
+**Updated:** 2026-10-06
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
+
+## Current owner priority — Personal Operator / Daily Driver
+
+[Decision 026](decisions/decision_026_personal_operator_stabilization.md) makes one-owner
+reliability, operator clarity, daily workflows, maintenance and polish the current priority.
+No automatic Prompt 12. Multi-company/federation/integration expansion remains deferred;
+future work comes from actual owner use. Scheduler stabilization is current; the likely
+next candidate is the existing early-navigation/initial-state UI race, not implemented here.
+
+Prompt 11 is complete for bounded supervised scope: one exact approved real GitHub README
+action, receipt/read-back and durable fresh-context Cycle 2, then evidence-linked STOP.
+No PR/merge/release/app-source change or business improvement is claimed. Pilot branch stays
+unmerged; no future disposition or external action is authorized. The operator timing
+correction, failed model turn/backoff and unknown monetary costs remain qualifications.
+The exact temporary token and service credential/provider are retired; history remains.
+See [closure](validation/PROMPT_11_VALIDATION.md) and
+[stabilization](validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
 
 ## What we are building
 
@@ -41,8 +58,8 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prompt 10 — Bounded Computer Use — is complete and deployed; Prompt 11
-implementation is complete and deployed. Its real action, receipt and scheduled outcome acceptance remain pending.
+Prompts 10 and 11 are complete, with Prompt 11 limited to bounded supervised acceptance.
+Follow the unnumbered Personal Operator priorities above; do not create Prompt 12.
 Future Codex implementation prompts now use project-scoped read-only specialists when the
 changed risk warrants them. Prompt 10 should normally use the control-plane, security,
 recovery and validation reviewers; product-strategy review is added only if the milestone
@@ -144,10 +161,12 @@ preserved (live comparison excludes only workers.updated_at heartbeat; offline m
 preserves every field/rowid). The original eight workers, grant and pause=false remain;
 computer grants/sessions/operators and Chromium processes are all zero. Temporary validation
 services are stopped. Final documentation revision identity is in the delivery handoff and
-protected host journal. Prompt 11 remains incomplete and requires approved real action, receipt,
+protected host journal. At that historical Prompt 10 checkpoint, Prompt 11 remained incomplete and required approved real action, receipt,
 observed business result and review.
 
-## Prompt 11 implementation delivered — October 6
+## Historical Prompt 11 implementation delivery — before live pilot
+
+This preserves the then-pending snapshot; the current closure above supersedes it.
 
 The bounded GitHub existing-Markdown adapter and local owner UI are implemented and deployed from normally merged PR #15 (`7fd7733a25dc97544f2b0182e6845144657979ed`). Exact immutable approval, protected service credentials, durable attempts,
 unknown target fencing, labelled reconciliation, source withdrawal and passive compensation

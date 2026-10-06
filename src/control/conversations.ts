@@ -39,11 +39,11 @@ export class Conversations {
     }
     return p;
   }
-  private authorized(request: ReplyRequest) {
+  private authorized(request: ReplyRequest,claimTime?:number) {
     const c = this.conversation(request.conversation_id);
     requireThat(c.state === 'active' && c.scope_version === request.scope_version, 'Conversation is held or its participant scope changed');
     this.company.discussions.authorize(request);
-    this.company.mandates.authorize(request);
+    this.company.mandates.authorize(request,claimTime);
     this.member(c.conversation_id, request.requester_principal_id);
     this.member(c.conversation_id, this.company.worker(request.target_worker_id).principal_id);
     return c;
@@ -207,7 +207,8 @@ export class Conversations {
       omissions:'Only bounded original messages in this conversation are included. Other conversations, task histories, repository data, artifacts and approvals are omitted. Retrieve earlier messages in this conversation if needed; do not invent missing facts.'};
   }
   claim(r: ReplyRequest) {
-    const c=this.authorized(r); this.company.discussions.beforeClaim(r); const worker=this.company.worker(r.target_worker_id);
+    const claimTime=this.company.mandates.clock.now();
+    const c=this.authorized(r,claimTime); this.company.discussions.beforeClaim(r); const worker=this.company.worker(r.target_worker_id);
     requireThat(r.status==='queued','Reply is not queued');
     requireThat(!this.db.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'",worker.worker_id),'Worker already active');
     requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');
@@ -237,6 +238,7 @@ export class Conversations {
     this.db.run(`INSERT INTO executions (execution_id,task_id,worker_id,status,started_at,execution_priority,provenance_status,origin,request_id,session_id,generation)
       VALUES (?,NULL,?,'running',?,?,'unresolved','conversation',?,?,?)`,executionId,worker.worker_id,now(),worker.execution_priority,r.request_id,session.session_id,session.generation);
     this.db.run("UPDATE conversation_requests SET status='replying',updated_at=? WHERE request_id=?",now(),r.request_id);
+    this.company.mandates.recordScheduleDispatch(r,executionId,claimTime);
     this.company.refreshWorker(worker.worker_id);this.audit('execution_started',{request_id:r.request_id,session_id:session.session_id},worker.worker_id,executionId);
     const execution=this.company.execution(executionId);requireThat(execution.origin==='conversation','Wrong execution origin');
     return {origin:'conversation' as const,request:this.request(r.request_id),worker,execution,context:Object.freeze({executionId,workerId:worker.worker_id,workspacePath:worker.workspace_path})};

@@ -4,7 +4,7 @@ import {requireThat,strictObject,textField,type Task,type RuntimeBinding} from '
 import type {ToolDefinition} from '../runtime/adapter.js';
 import type {ReplyRequest} from '../domain/conversations.js';
 import type {BusinessEvidence} from '../domain/business.js';
-import {DEFAULT_MANDATE_ENVELOPE as DEFAULTS,EVIDENCE_MODES,type MandateEnvelope,type Mandate,type OperatingCycle,type ReviewTurn,type Initiative,type StrategicDecision,type Observation,type ReviewSchedule,type ReviewOccurrence,type Recurrence} from '../domain/mandates.js';
+import {DEFAULT_MANDATE_ENVELOPE as DEFAULTS,EVIDENCE_MODES,MIN_REVIEW_DISPATCH_WINDOW_SECONDS,type MandateEnvelope,type Mandate,type OperatingCycle,type ReviewTurn,type Initiative,type StrategicDecision,type Observation,type ReviewSchedule,type ReviewOccurrence,type Recurrence} from '../domain/mandates.js';
 import {systemClock,timezone,absoluteTime,nextReviewInstant,wallClockInstant,type Clock} from './company-clock.js';
 import {mandateTools} from '../runtime/mandates.js';
 const id=(kind:string)=>`${kind}_${randomUUID()}`;
@@ -59,7 +59,7 @@ export class Mandates {
     });
   }
   list(){this.human();return {items:this.db.all<Mandate>('SELECT * FROM mandates ORDER BY rowid DESC LIMIT 100'),defaults:DEFAULTS,evidence_modes:EVIDENCE_MODES};}
-  inspect(mandateId:string){this.human();const m=this.mandate(mandateId);return {mandate:m,envelope:this.envelope(m),paused:this.company.paused,clock_now:this.now(),
+  inspect(mandateId:string){this.human();const m=this.mandate(mandateId);return {mandate:m,envelope:this.envelope(m),paused:this.company.paused,clock_now:this.now(),minimum_dispatch_window_seconds:MIN_REVIEW_DISPATCH_WINDOW_SECONDS,
     cycles:this.db.all('SELECT * FROM operating_cycles WHERE mandate_id=? ORDER BY number DESC',mandateId),initiatives:this.db.all('SELECT * FROM initiatives WHERE mandate_id=? ORDER BY rowid',mandateId),
     decisions:this.db.all('SELECT * FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),observations:this.db.all('SELECT * FROM mandate_observations WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),
     work:this.db.all('SELECT * FROM mandate_internal_work WHERE mandate_id=? ORDER BY rowid',mandateId),schedules:this.db.all('SELECT * FROM review_schedules WHERE mandate_id=? ORDER BY rowid',mandateId),occurrences:this.db.all('SELECT * FROM review_occurrences WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),
@@ -134,14 +134,23 @@ export class Mandates {
     this.db.run('INSERT INTO mandate_turns VALUES (?,?,?,NULL,0,?)',id('mturn'),c.cycle_id,r.request_id,this.now());
     this.db.run("UPDATE operating_cycles SET state='active',retry_at=NULL WHERE cycle_id=?",c.cycle_id);
   }
-  authorize(r:ReplyRequest){const m=this.forConversation(r.conversation_id);if(!m)return;const t=this.turn(r.request_id);requireThat(t,'Mandate request has no typed turn');const c=this.cycle(t.cycle_id);
+  authorize(r:ReplyRequest,claimTime=this.clock.now()){const m=this.forConversation(r.conversation_id);if(!m)return;const t=this.turn(r.request_id);requireThat(t,'Mandate request has no typed turn');const c=this.cycle(t.cycle_id);
     requireThat(m.status==='active'||m.status==='paused'&&r.status!=='queued','Mandate is held or ended');
     requireThat(c.state==='active'&&c.mandate_version===m.version&&m.coordinator_id===r.target_worker_id,'Mandate cycle or coordinator authority changed');
-    requireThat(Date.parse(c.deadline)>this.clock.now(),'Mandate cycle deadline expired');
-    const scheduled=this.unstartedSchedule(c);if(scheduled){requireThat(scheduled.schedule.version===scheduled.occurrence.schedule_version&&scheduled.schedule.status!=='cancelled'&&scheduled.schedule.status!=='paused'&&Date.parse(scheduled.schedule.end_at)>=this.clock.now(),'Scheduled review is paused, expired or superseded');}
+    requireThat(Date.parse(c.deadline)>claimTime,'Mandate cycle deadline expired');
+    const scheduled=this.unstartedSchedule(c);if(scheduled){requireThat(scheduled.schedule.version===scheduled.occurrence.schedule_version&&scheduled.schedule.status!=='cancelled'&&scheduled.schedule.status!=='paused'&&Date.parse(scheduled.schedule.end_at)>=claimTime,'Scheduled review is paused, expired or superseded');}
   }
   private unstartedSchedule(c:OperatingCycle){if(!c.occurrence_id||this.db.get('SELECT 1 FROM executions e JOIN mandate_turns t USING(request_id) WHERE t.cycle_id=?',c.cycle_id))return;
     const occurrence=this.db.get<ReviewOccurrence>('SELECT * FROM review_occurrences WHERE occurrence_id=?',c.occurrence_id)!;return {occurrence,schedule:this.schedule(occurrence.schedule_id)};
+  }
+  /** Called inside the execution claim transaction. Record first dispatch separately
+   * from occurrence queueing; capacity may keep a queued review waiting. */
+  recordScheduleDispatch(request:ReplyRequest,executionId:string,claimTime:number){
+    const turn=this.turn(request.request_id);if(!turn)return;const c=this.cycle(turn.cycle_id);
+    if(!c.occurrence_id||this.db.get<{n:number}>('SELECT count(*) n FROM executions e JOIN mandate_turns t USING(request_id) WHERE t.cycle_id=?',c.cycle_id)!.n!==1)return;
+    const o=this.db.get<ReviewOccurrence>('SELECT * FROM review_occurrences WHERE occurrence_id=?',c.occurrence_id)!;
+    const claimedAt=new Date(claimTime).toISOString(),lateness=claimTime-Date.parse(o.due_at);
+    this.audit('review_dispatched',c.mandate_id,{occurrence_id:o.occurrence_id,schedule_id:o.schedule_id,schedule_version:o.schedule_version,nominal_due_at:o.due_at,claimed_at:claimedAt,recorded_at:this.now(),end_at:this.schedule(o.schedule_id).end_at,lateness_ms:lateness,timing:lateness===0?'on_time':'within_dispatch_window'},'system',executionId);
   }
   held(conversation:string){const direct=this.forConversation(conversation),group=this.company.discussions.forConversation(conversation),work=group?this.internalWork(undefined,group.group_id):undefined,m=direct??(work?this.mandate(work.mandate_id):undefined);if(m?.status==='paused')return true;
     return !!(direct?.current_cycle_id&&this.unstartedSchedule(this.cycle(direct.current_cycle_id))?.schedule.status==='paused');
@@ -153,7 +162,7 @@ export class Mandates {
   private workTerminal(w:Work){return w.task_id?['completed','failed','cancelled'].includes(this.company.task(w.task_id).status):['completed','blocked','stopped','archived'].includes(this.company.discussions.group(w.group_id!).state);}
   private pending(cycle:string){return this.works(cycle).filter(w=>!this.workTerminal(w));}
   context(context:ExecutionContext){const {mandate:m,cycle:c,worker,session}=this.verify(context),withdrawn=this.withdrawal(m.mandate_id);
-    const result={mode:'mandate_review',clock_now:this.now(),mandate:{...m,envelope:this.envelope(m),strategic_state:withdrawn?'Earlier strategic prose is withheld after evidence withdrawal; evaluate currently available originals.':m.strategic_state},cycle:c,
+    const result={mode:'mandate_review',clock_now:this.now(),minimum_dispatch_window_seconds:MIN_REVIEW_DISPATCH_WINDOW_SECONDS,mandate:{...m,envelope:this.envelope(m),strategic_state:withdrawn?'Earlier strategic prose is withheld after evidence withdrawal; evaluate currently available originals.':m.strategic_state},cycle:c,
       session:{session_id:session.session_id,generation:session.generation,previous_session_id:session.previous_session_id},
       worker:{worker_id:worker.worker_id,role:worker.role,display_name:worker.display_name},
       eligible_workers:this.company.discussions.eligible().map(w=>({worker_id:w.worker_id,display_name:w.display_name,role:w.role,manager_worker_id:w.manager_worker_id,research_eligible:this.company.research.eligible(w.worker_id)})),
@@ -280,7 +289,8 @@ export class Mandates {
     const scheduleId=optional(a,'schedule_id',100),old=scheduleId?this.schedule(scheduleId):undefined;requireThat(!old||old.mandate_id===m.mandate_id&&old.status!=='cancelled'&&(old.status!=='exhausted'||!!this.db.get("SELECT 1 FROM review_occurrences WHERE schedule_id=? AND state IN ('due','held')",old.schedule_id)),'Schedule is terminal or outside mandate');
     const due=absoluteTime(a.due_at,'due_at'),end=absoluteTime(a.end_at,'end_at'),instant=Date.parse(due);
     requireThat(instant>=this.clock.now()+e.min_interval_seconds*1000&&instant<=this.clock.now()+e.max_horizon_days*86400000,'Review due time is outside the scheduling envelope');
-    requireThat(Date.parse(end)>=instant&&Date.parse(end)<=this.clock.now()+e.max_horizon_days*86400000,'Schedule end is outside the horizon');
+    requireThat(Date.parse(end)-instant>=MIN_REVIEW_DISPATCH_WINDOW_SECONDS*1000,`The review window must end at least ${MIN_REVIEW_DISPATCH_WINDOW_SECONDS} seconds after its due time. Choose a later end_at or an earlier due_at within the scheduling envelope; equal due/end times leave no dispatch window.`);
+    requireThat(Date.parse(end)<=this.clock.now()+e.max_horizon_days*86400000,'Schedule end is outside the horizon');
     requireThat(Number.isInteger(a.occurrence_limit)&&Number(a.occurrence_limit)>0&&Number(a.occurrence_limit)<=e.max_occurrences,'Occurrence count exceeds envelope');
     requireThat(!old||Number(a.occurrence_limit)>old.consumed,'Edit must retain consumed occurrences within its total limit');
     let recurrence:Recurrence;
@@ -347,7 +357,7 @@ export class Mandates {
         if(!reason){
           const c=this.openCycle(m,'durable_schedule',o);
           this.fault?.('after_claim_before_execution');
-          this.db.run("UPDATE review_occurrences SET state='queued',cycle_id=?,reason=NULL WHERE occurrence_id=?",c.cycle_id,o.occurrence_id);this.audit('occurrence_queued',m.mandate_id,{occurrence_id:o.occurrence_id,cycle_id:c.cycle_id});return;
+          this.db.run("UPDATE review_occurrences SET state='queued',cycle_id=?,reason=NULL WHERE occurrence_id=?",c.cycle_id,o.occurrence_id);this.audit('occurrence_queued',m.mandate_id,{occurrence_id:o.occurrence_id,cycle_id:c.cycle_id,nominal_due_at:o.due_at,claimed_at:this.now(),end_at:s.end_at});return;
         }
       }
       if(o.state!==state||o.reason!==reason){this.db.run('UPDATE review_occurrences SET state=?,reason=?,completed_at=? WHERE occurrence_id=?',state,reason,['cancelled','superseded'].includes(state)?this.now():null,o.occurrence_id);this.audit('occurrence_held',m.mandate_id,{occurrence_id:o.occurrence_id,state,reason});}

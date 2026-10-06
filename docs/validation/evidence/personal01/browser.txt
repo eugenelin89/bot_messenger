@@ -1,0 +1,12 @@
+(node:4396) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (1447.683167ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (2120.494791ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3784.018125

@@ -145,6 +145,25 @@ is one-time, fixed elapsed seconds or daily `HH:mm` in the mandate timezone. Spr
 nonexistent wall times resolve to the first valid minute after the gap. Fall-back repeated
 minutes use the earlier instant. Fixed intervals are elapsed seconds across DST.
 
+New and edited schedules require `end_at - first_due_at >= 30 seconds`. This fixed
+minimum dispatch window rejects zero-width, reversed and impractically short windows before
+persistence, for both worker and owner paths. It is independent of recurrence interval and
+exists because deadline timers may wake late. Workers receive correction guidance and the
+owner form validates absolute-time inputs; trusted server validation remains authoritative,
+including daily IANA/DST resolution. The floor is not a capacity guarantee: choose a longer
+window for busy workers or restart downtime. Existing rows are not rewritten or extended.
+
+`end_at` is inclusive: first execution may be claimed at the boundary, never after it.
+Catch-up is bounded by that explicit deadline and occurrence count; there is no extra grace.
+After the first execution claim the existing cycle deadline controls continuation. Later
+recurring dues near/equal to the end may expire; the minimum validates the first due only.
+Undispatched expiry retains a cancelled occurrence and reason. New `occurrence_queued` audit
+records include nominal due and actual occurrence-claim time; `review_dispatched` records
+the first execution claim (`claimed_at`, the authorization snapshot), separate audit-recording
+time (`recorded_at`), lateness and `on_time`/`within_dispatch_window` classification.
+This is separate from provider turn-start telemetry. Both are mandate-prefixed audit events,
+with stable occurrence/cycle/execution references. No schema change is needed.
+
 Occurrence identity is a stable hash of schedule ID, version and due instant. Materializing an
 occurrence and consuming its due interval is atomic. Claiming it, opening its cycle and queuing
 its typed request are atomic. Duplicate callbacks and restarts cannot duplicate a review.

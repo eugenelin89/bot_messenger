@@ -1,17 +1,51 @@
 # Prompt 11 validation — business operations
 
-**Status:** Implementation complete, normally merged and deployed. **Prompt 11 NOT complete:** C11-2 and live C11-3/C11-4 remain pending.
-**Delivery:** [Implementation PR #15](https://github.com/eugenelin89/bot_messenger/pull/15), merge `7fd7733a25dc97544f2b0182e6845144657979ed`; subsequent documentation-only delivery recorded in the handoff/protected host journal.
-**Evidence modes:** local deterministic, real browser and real Ubuntu workers with a
-SIMULATED provider. Real external-business acceptance remains pending. No private Asymmetri
-source or credential is here.
+**Status:** Complete for the bounded supervised single-company milestone.
+**Implementation:** PR #15 and PR #16; private live acceptance used deployed `4a05ba46a78d44bc836c26043bd846c6a00e6749`.
+**Evidence:** Deterministic/fixture records below remain distinct from subsequent real live evidence.
 
-| ID | Required evidence | Status |
+| ID | Required evidence | Current status |
 | --- | --- | --- |
-| C11-1 | Useful bounded evidence/capabilities and reviewed authority | Passed implementation/review/local/Ubuntu/real-runtime fixture and deployment gates |
-| C11-2 | Exact approved real external action, provider receipt, observed real effect | Pending credential, repository workflow and exact owner approval |
-| C11-3 | Real two-cycle scheduled pilot, restart/context recovery and supervision | Real Ubuntu workers passed two fixture cycles and restarts; live-business pilot pending |
-| C11-4 | Real baseline, sources, usage/costs/unknowns and evidence-driven next decision | Model schema and fixture checks implemented; live evidence/decision pending |
+| C11-1 | Useful bounded capability and reviewed authority | PASS |
+| C11-2 | Exact approved real action, provider receipt and independent read-back | PASS |
+| C11-3 | Durable Cycle 2, fresh context, recovery and supervision | PASS within supervised scope |
+| C11-4 | Baseline, unknown costs, observed result and evidence-linked decision | PASS; STOP, no positive business effect claimed |
+
+## Bounded supervised live closure — October 6, 2026
+
+**Prompt 11 is Complete for the bounded supervised single-company milestone.**
+C11-1 PASS; C11-2 PASS; C11-3 PASS within supervised scope; C11-4 PASS.
+
+One company-selected, exact owner-approved GitHub README clarification executed on an
+isolated Asymmetri Motion pilot branch: one immutable approval, one transmission attempt,
+one provider receipt and independent read-back of the exact approved result. There was no
+PR, merge, release or app-source modification. Main and release/1.1 stayed unchanged; the
+pilot branch remains unmerged acceptance evidence. Its disposition requires separate owner
+authorization; do not modify, delete, merge, revert or add a commit to it.
+
+A durable schedule initiated real Cycle 2 in a fresh runtime context. The company reviewed
+original evidence and chose STOP, with no further review scheduled. Final idle verification
+created no model, browser or business work. This was supervised: the owner corrected one
+company-created zero-width due/end window through the normal schedule edit path, and one
+failed model turn recovered through bounded backoff. Both records remain retained.
+
+This proves a narrow action/approval/receipt/observation/reassessment loop, not adoption,
+readability improvement, customer benefit, revenue, production website effect, arbitrary
+GitHub operations or broad unattended company operation. Readability benefit is unmeasured;
+monetary model/provider cost is unknown. No further external authority follows. The detailed
+exit packet and protected host evidence remain private; only this bounded summary is public.
+
+The exact temporary token was subsequently revoked in GitHub settings. The pilot grant was
+revoked through trusted local control; its service credential was removed without reading or
+hashing it, and active/pending provider configurations were retired to protected operator
+storage. The restarted service reports no configured business provider. Receipts and all
+prior history remain intact. See [stabilization evidence](PERSONAL_OPERATOR_STABILIZATION_01.md).
+
+## Historical implementation checkpoints (before live acceptance)
+
+The sections below preserve what was true when implementation was delivered. Statements
+that the pilot was pending, no live action existed, or production tables were empty are
+historical snapshots; the closure above supersedes their current-status interpretation.
 
 ## Local evidence and retained failures
 
@@ -204,7 +238,7 @@ build equality are recorded outside Git in the final handoff and protected host 
 avoid a self-referential commit hash. No additional runtime test is needed for documentation
 alone; exact source/build/health identity and retained state are checked after delivery.
 
-### Real pilot exit ledger — pending
+### Historical pre-live exit ledger — pending at implementation delivery
 
 | Required item | Actual live status |
 | --- | --- |
@@ -219,12 +253,12 @@ alone; exact source/build/health identity and retained state are checked after d
 | Interventions / failures | Owner designated read-only target; developer prepared a private candidate. Validation interventions/failures are listed above |
 | Next review | No company live review exists yet. Provision exact scope, let company inspect/choose, approve the exact intent, then observe and schedule |
 
-**Recommendation:** finish this one narrow live loop before adding connectors or considering
+**Historical recommendation at that checkpoint:** finish this one narrow live loop before adding connectors or considering
 multi-company/federation. Follow up separately on the legacy early-navigation UI race and the
 advertised-default model's legacy recipe-discovery limitation. Neither justifies broader authority.
 
 
-The real pilot exit packet must still record original mandate/envelope, exact authorized
+At that historical checkpoint, the real pilot exit packet still had to record original mandate/envelope, exact authorized
 target, actual baseline/source, company-selected alternatives/work/Decision, exact owner
 approval, action/receipt/result, scheduled occurrence and Cycle 2 decision, usage and cost
 unknowns, failures/interventions, limitations and next review. A fixture cannot fill these rows.

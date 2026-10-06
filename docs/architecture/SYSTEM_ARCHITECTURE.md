@@ -1,6 +1,6 @@
 # BotSquad — System Architecture
 
-**Status:** Through completed and deployed Prompt 10; evidence in milestone validation records
+**Status:** Through Prompt 11 bounded supervised completion; evidence in milestone validation records
 **Updated:** 2026-10-05
 
 ## Runtime topology: implemented baseline and accepted target
@@ -554,4 +554,4 @@ receipts and mode-labelled business observations. The mandate coordinator waits 
 model slot; one independent executor revalidates current scope and retains callbacks after
 model settlement. Unknown effects fence their canonical target and never blindly replay.
 Credentials stay service-private. Existing worker roles, Computer Use and Client API v1 gain
-no implicit authority. Migration 14 is additive and inert. Live acceptance is a separate gate.
+no implicit authority. Migration 14 is additive and inert. Live acceptance was separately completed at bounded supervised scope; see the Prompt 11 validation record. No further external authority follows.

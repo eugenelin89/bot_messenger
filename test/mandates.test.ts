@@ -272,3 +272,88 @@ test('owner daily calendar dates resolve in mandate timezone, including spring g
 ]){const f=setup();try{f.advance(Date.parse(now!)-f.time());activate(f);const args={due_at:null,first_local_date:date,recurrence_kind:'daily',local_time:time,end_at:new Date(f.time()+3*86400000).toISOString(),occurrence_limit:2};const s=schedule(f,args);assert.equal(s.next_due,expected);assert.equal(s.timezone,'America/Vancouver');assert.equal(JSON.parse(s.recurrence).local_time,time);
   assert.throws(()=>schedule(f,{...args,schedule_id:s.schedule_id,due_at:expected}),/without an absolute due time/);assert.throws(()=>schedule(f,{...args,schedule_id:s.schedule_id,first_local_date:'2026-02-30'}),/does not exist/);assert.equal(f.company.mandates.schedule(s.schedule_id).version,1);
 }finally{await f.close();}}});
+
+// Personal Operator stabilization: explicit positive dispatch windows, no implicit grace.
+for(const width of [-1,0,1,29999])test(`owner and worker reject ${width}ms dispatch window atomically and can correct it`,async()=>{
+  const f=setup();try{activate(f);const x=claim(f),due=new Date(f.time()+60000).toISOString();
+    const input={schedule_id:null,purpose:'One bounded internal review',initiative_id:null,due_at:due,recurrence_kind:'once',interval_seconds:null,local_time:null,occurrence_limit:1,end_at:new Date(Date.parse(due)+width).toISOString()};
+    const before=f.store.get<{n:number}>('SELECT count(*) n FROM audit_events')!.n;
+    assert.throws(()=>f.company.mandates.saveOwnerSchedule({mandate_id:f.m.mandate_id,...input}),/at least 30 seconds.*equal due\/end/);
+    assert.throws(()=>f.company.mandates.callTool(x.context,'invalid-window','schedule_review',input),/at least 30 seconds/);
+    for(const table of ['review_schedules','review_schedule_versions','review_occurrences'])assert.equal(f.store.get<{n:number}>(`SELECT count(*) n FROM ${table}`)!.n,0);
+    assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM audit_events')!.n,before);
+    assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',x.execution.execution_id)!.n,0);
+    const corrected=f.company.mandates.callTool(x.context,'corrected-window','schedule_review',{...input,end_at:new Date(Date.parse(due)+30000).toISOString()}) as {next_due:string};
+    assert.equal(corrected.next_due,due);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',x.execution.execution_id)!.n,1);
+  }finally{await f.close();}
+});
+
+for(const delay of [0,2,15000,30000])test(`one-time review dispatches once at due + ${delay}ms within its bounded window`,async()=>{
+  const f=setup();try{activate(f);const s=schedule(f,{end_at:new Date(f.time()+90000).toISOString()});closeCycle(f);
+    f.advance(59999);f.company.mandates.tick();assert.equal(occurrences(f).length,0);assert.equal(f.company.claimWorkNext(),undefined);
+    f.advance(1+delay);f.company.mandates.tick();f.company.mandates.tick();assert.equal(occurrences(f).length,1);assert.equal(occurrences(f)[0]!.state,'queued');
+    const x=closeCycle(f,true);assert.equal(occurrences(f)[0]!.state,'completed');
+    const detail=JSON.parse(f.store.get<{detail:string}>("SELECT detail FROM audit_events WHERE type='mandate_review_dispatched' AND execution_id=?",x.execution.execution_id)!.detail);
+    assert.equal(detail.nominal_due_at,s.next_due);assert.equal(detail.claimed_at,new Date(f.time()).toISOString());assert.equal(detail.lateness_ms,delay);assert.equal(detail.timing,delay===0?'on_time':'within_dispatch_window');
+    f.advance(3600000);f.company.recover();f.company.mandates.progress();f.company.mandates.tick();assert.equal(f.company.claimWorkNext(),undefined);
+    assert.equal(occurrences(f).length,1);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM executions')!.n,2);assert.equal(f.runtime.calls.length,0);
+  }finally{await f.close();}
+});
+
+for(const queued of [false,true])test(`hard end + 1ms expires ${queued?'queued':'undiscovered'} review without a model call`,async()=>{
+  const f=setup();try{activate(f);schedule(f,{end_at:new Date(f.time()+90000).toISOString()});closeCycle(f);
+    if(queued){f.advance(60000);f.company.mandates.tick();assert.equal(occurrences(f)[0]!.state,'queued');f.advance(30001);}else f.advance(90001);
+    f.company.mandates.progress();assert.equal(occurrences(f)[0]!.state,'cancelled');assert.match(occurrences(f)[0]!.reason!,/end.*(expired|before)/i);
+    assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM executions')!.n,1);assert.equal(f.runtime.calls.length,0);
+  }finally{await f.close();}
+});
+
+for(const downtime of [59000,60002,90001])test(`restart at ${downtime}ms preserves one occurrence and bounded catch-up`,async()=>{
+  const f=setup();let reopened:Store|undefined;try{activate(f);schedule(f,{end_at:new Date(f.time()+90000).toISOString()});closeCycle(f);f.store.close();f.advance(downtime);
+    reopened=new Store(join(f.dir,'company.sqlite'));const company=new Company(reopened,f.dir,process.cwd(),'fake');company.mandates.clock={now:f.time};company.recover();company.mandates.progress();
+    if(downtime<60000){assert.equal(reopened.get<{n:number}>('SELECT count(*) n FROM review_occurrences')!.n,0);f.advance(1002);company.mandates.progress();}
+    company.mandates.progress();assert.equal(reopened.get<{n:number}>('SELECT count(*) n FROM review_occurrences')!.n,1);
+    assert.equal(reopened.get<{state:string}>('SELECT state FROM review_occurrences')!.state,downtime>90000?'cancelled':'queued');
+    const work=company.claimWorkNext();assert.equal(!!work,downtime<=90000);assert.equal(company.claimWorkNext(),undefined);
+    assert.deepEqual(reopened.all('PRAGMA foreign_key_check'),[]);
+  }finally{reopened?.close();await f.dispatcher.stop();}
+});
+
+test('invalid schedule edit preserves original version, consumed work, queued occurrence and audit',async()=>{
+  const f=setup();try{activate(f);const s=schedule(f,{recurrence_kind:'interval',interval_seconds:60,occurrence_limit:3});closeCycle(f);f.advance(60000);f.company.mandates.tick();
+    const snapshot=()=>['review_schedules','review_schedule_versions','review_occurrences','operating_cycles','conversation_requests','audit_events'].map(t=>f.store.all(`SELECT * FROM ${t}`));const before=snapshot();
+    assert.throws(()=>schedule(f,{schedule_id:s.schedule_id,recurrence_kind:'interval',interval_seconds:60,occurrence_limit:3,end_at:new Date(f.time()+60000).toISOString()}),/at least 30 seconds/);assert.deepEqual(snapshot(),before);
+    const edited=schedule(f,{schedule_id:s.schedule_id,recurrence_kind:'interval',interval_seconds:60,occurrence_limit:3,end_at:new Date(f.time()+90000).toISOString()});assert.equal(edited.version,2);assert.equal(edited.consumed,1);assert.equal(occurrences(f)[0]!.state,'superseded');
+    f.advance(60002);f.company.mandates.tick();assert.equal(occurrences(f).filter(o=>o.state==='queued').length,1);assert.equal(occurrences(f)[1]!.schedule_version,2);assert.ok(f.company.claimWorkNext());assert.equal(f.company.claimWorkNext(),undefined);
+  }finally{await f.close();}
+});
+
+test('legacy zero-width schedule is retained and expires without retroactive extension or replay',async()=>{
+  const f=setup();try{activate(f);const s=schedule(f);closeCycle(f);
+    // Reproduce an already-persisted pre-fix record, not an application save path.
+    f.store.run('UPDATE review_schedules SET end_at=next_due WHERE schedule_id=?',s.schedule_id);const before=f.company.mandates.schedule(s.schedule_id);const versions=f.store.all('SELECT * FROM review_schedule_versions');
+    f.advance(60002);f.company.recover();f.company.mandates.progress();assert.equal(occurrences(f)[0]!.state,'cancelled');assert.equal(f.company.mandates.schedule(s.schedule_id).end_at,before.end_at);assert.deepEqual(f.store.all('SELECT * FROM review_schedule_versions'),versions);assert.equal(f.company.claimWorkNext(),undefined);
+  }finally{await f.close();}
+});
+
+for(const revoke of ['cancel_schedule','stop_mandate','disable_coordinator','revoke_participation'])test(`valid jitter window never bypasses ${revoke}`,async()=>{
+  const f=setup();try{activate(f);const s=schedule(f,{end_at:new Date(f.time()+90000).toISOString()});closeCycle(f);f.advance(60002);f.company.mandates.tick();
+    if(revoke==='cancel_schedule')f.company.mandates.controlSchedule({schedule_id:s.schedule_id,action:'cancel'});
+    else if(revoke==='stop_mandate')f.company.mandates.control({mandate_id:f.m.mandate_id,action:'stop'});
+    else if(revoke==='disable_coordinator')f.store.run('UPDATE workers SET enabled=0 WHERE worker_id=?',f.atlas.worker_id);
+    else {const c=f.store.get<{conversation_id:string}>('SELECT conversation_id FROM mandate_conversations WHERE mandate_id=?',f.m.mandate_id)!;f.store.run('UPDATE conversation_participants SET active=0 WHERE conversation_id=? AND principal_id=?',c.conversation_id,f.atlas.principal_id);}
+    f.company.mandates.progress();assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM executions')!.n,1);assert.equal(f.runtime.calls.length,0);
+  }finally{await f.close();}
+});
+
+
+test('first execution audit uses the authorization clock when claim recording crosses the hard end',async()=>{
+  const f=setup();try{activate(f);schedule(f,{end_at:new Date(f.time()+90000).toISOString()});closeCycle(f);f.advance(90000);f.company.mandates.tick();
+    const original=f.company.mandates.recordScheduleDispatch.bind(f.company.mandates);
+    f.company.mandates.recordScheduleDispatch=(r,id,claimTime)=>{f.advance(1);original(r,id,claimTime);};
+    const x=claim(f),detail=JSON.parse(f.store.get<{detail:string}>("SELECT detail FROM audit_events WHERE type='mandate_review_dispatched' AND execution_id=?",x.execution.execution_id)!.detail);
+    assert.equal(detail.claimed_at,detail.end_at);assert.equal(Date.parse(detail.recorded_at),Date.parse(detail.end_at)+1);assert.equal(detail.timing,'within_dispatch_window');
+    f.company.finish(x.execution.execution_id,{status:'failed',settled:true,error:'Known failure after first claim'});f.company.mandates.progress();f.advance(30000);f.company.mandates.progress();assert.ok(f.company.claimWorkNext());
+    assert.equal(f.store.get<{n:number}>("SELECT count(*) n FROM audit_events WHERE type='mandate_review_dispatched'")!.n,1);
+  }finally{await f.close();}
+});

@@ -1,7 +1,7 @@
 # Decision 025 — Exact supervised business actions and attributable outcome review
 
 **Date:** 2026-10-06
-**Status:** Implemented and deployed; separate live acceptance pending
+**Status:** Implemented and deployed; subsequent live acceptance complete within bounded supervised scope
 **Extends:** Decisions 017, 019 and 022; preserves 015, 018, 020, 021 and 024
 
 ## Decision
@@ -39,7 +39,7 @@ and limitations. REAL LIVE, REAL READ ONLY, PUBLIC, OWNER PROVIDED, SANITIZED an
 remain distinct. Original delivery and withdrawal rules apply to business sources and derived
 actions. A document being present is operational evidence, never proof of growth or revenue.
 
-## Delivery and pilot boundary
+## Historical delivery and pilot boundary — before live acceptance
 
 Migration 14 is additive and creates zero grants, actions, approvals, receipts or model work.
 Software deployment does not activate a pilot. C11-2 needs an separately approved real effect
@@ -56,3 +56,12 @@ Defer more adapters, CRM, spending, releases, customer outreach, App Store and f
 See [architecture](../architecture/BUSINESS_OPERATIONS.md),
 [operator tutorial](../operations/BUSINESS_OPERATIONS_TUTORIAL.md),
 [validation](../validation/PROMPT_11_VALIDATION.md) and [plan](../exec-plans/prompt-11.md).
+
+## Subsequent live acceptance — append-preserved
+
+The later protected live pilot passed C11-1/2/4 and C11-3 within supervised scope. One exact
+approved README action, receipt/read-back and scheduled fresh-context Cycle 2 ended in STOP;
+no business improvement is proven. The operator timing correction and failed model turn with
+bounded recovery remain qualifications. See [qualified closure](../validation/PROMPT_11_VALIDATION.md).
+The original pilot requirements above are historical; [Decision 026](decision_026_personal_operator_stabilization.md)
+now prioritizes daily reliability/usability, with no further external authority.

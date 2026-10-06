@@ -1,12 +1,42 @@
 # Execution Plan — Prompt 11 business operations and measured live pilot
 
-**Status:** Implementation complete, reviewed, merged and deployed; C11-2 and live C11-3/C11-4 pending; Prompt 11 NOT complete
+**Status:** Complete for the bounded supervised single-company milestone; C11-1/2/4 PASS, C11-3 PASS within supervised scope
 **Owner:** Parent Codex chat, sole writer, integrator and deployer; specialists read-only
 **Branches:** implementation `feature/prompt-11-business-operations` (PR #15 merged); delivery record `codex/prompt11-implementation-delivery`
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt11`
 **Started:** 2026-10-05 (America/Vancouver)
 **Initial ETA:** 6–10 hours implementation/validation/review/deployment, plus owner authorization and the real observation window
-**Current ETA:** Implementation/deployment/preservation complete. Final documentation integration and equality verification remain; live work awaits credential/branch setup, exact owner authorization and an observation window. The estimate was revised during specialist reviews and actual Linux runtime regressions; all failed attempts remain recorded.
+**Historical implementation ETA:** Implementation/deployment/preservation complete. Final documentation integration and equality verification remain; live work awaits credential/branch setup, exact owner authorization and an observation window. The estimate was revised during specialist reviews and actual Linux runtime regressions; all failed attempts remain recorded.
+
+## Bounded supervised live closure — October 6, 2026
+
+**Prompt 11 is Complete for the bounded supervised single-company milestone.**
+C11-1 PASS; C11-2 PASS; C11-3 PASS within supervised scope; C11-4 PASS.
+
+One company-selected, exact owner-approved GitHub README clarification executed on an
+isolated Asymmetri Motion pilot branch: one immutable approval, one transmission attempt,
+one provider receipt and independent read-back of the exact approved result. There was no
+PR, merge, release or app-source modification. Main and release/1.1 stayed unchanged; the
+pilot branch remains unmerged acceptance evidence. Its disposition requires separate owner
+authorization; do not modify, delete, merge, revert or add a commit to it.
+
+A durable schedule initiated real Cycle 2 in a fresh runtime context. The company reviewed
+original evidence and chose STOP, with no further review scheduled. Final idle verification
+created no model, browser or business work. This was supervised: the owner corrected one
+company-created zero-width due/end window through the normal schedule edit path, and one
+failed model turn recovered through bounded backoff. Both records remain retained.
+
+This proves a narrow action/approval/receipt/observation/reassessment loop, not adoption,
+readability improvement, customer benefit, revenue, production website effect, arbitrary
+GitHub operations or broad unattended company operation. Readability benefit is unmeasured;
+monetary model/provider cost is unknown. No further external authority follows. The detailed
+exit packet and protected host evidence remain private; only this bounded summary is public.
+
+The implementation plan and pending checkpoints below are preserved history, not current
+status. Credential retirement and the separate scheduler correction belong to the
+[unnumbered stabilization plan](personal-operator-stabilization-01.md).
+
+## Historical implementation plan and acceptance checkpoints
 
 ## Objective and acceptance
 

@@ -1,11 +1,13 @@
 # Single-Company Business Operations
 
-**Status:** Continuity, deliberation and scheduling implemented; Prompt 11 bounded action slice deployed, live gate pending
+**Status:** Prompt 11 complete for bounded supervised scope; Personal Operator / Daily Driver stabilization is current priority
 **Updated:** 2026-10-06
 **Authority:** [Decision 017](../decisions/decision_017_single_company_first.md)
 **Companion model:** [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md)
 
-## Product priority
+## Foundational single-company priority
+
+Current sequencing is the unnumbered Personal Operator / Daily Driver phase under Decision 026.
 
 Prove one AI company can do useful, accountable work for a real business before building multiple companies or federation. An organization that can coordinate internally but cannot observe results or perform approved business actions has not yet met this goal.
 
@@ -141,7 +143,7 @@ production delivery passed; see [the completed plan](../exec-plans/prompt-09.md)
 
 An initiative's recommendation is not approval for a Project change or business operation.
 Scale is a strategic disposition only. Simulated evidence proves no customer, revenue or
-marketing outcome. Prompt 11 still needs approved real action, receipt and measured result.
+marketing outcome. Prompt 11 subsequently passed one approved real action, receipt, read-back and scheduled STOP review within supervised scope.
 
 ## Completed Prompt 10 boundary
 
@@ -159,5 +161,10 @@ document baseline and current initiative-linked Decision to one exact owner-appr
 Markdown replacement, retained receipt, observation and scheduled review. Existing coordinators
 use explicit scoped grants; no employee role gains general business authority. Credential,
 source withdrawal, unknown-effect and compensation boundaries remain enforced. The
-[acceptance record](../validation/PROMPT_11_VALIDATION.md) still requires the real action and
-scheduled real outcome before C11-2/3/4 or the milestone can be complete.
+[acceptance record](../validation/PROMPT_11_VALIDATION.md) now records C11-1/2/4 PASS and
+C11-3 PASS within supervised scope. One narrow real README operation remained unmerged;
+receipt/read-back and durable Cycle 2 ended in STOP. One operator schedule-window correction
+and a failed model turn with bounded backoff remain explicit. Readability/business benefit
+is unmeasured; monetary costs unknown. No further external authority follows. The next
+priority is [Personal Operator / Daily Driver](ROADMAP.md#personal-operator--daily-driver-phase),
+not expansion or an automatic Prompt 12.

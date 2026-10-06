@@ -1,7 +1,7 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-10-05
+**Updated:** 2026-10-06
 
 This document defines the current planned sequence of BotSquad implementation prompts.
 
@@ -24,7 +24,8 @@ and their historical evidence retain their original meaning.
 | 08 | Collaborative working groups and deliberation | Complete |
 | 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Complete |
 | 10 | Bounded Computer Use | Complete |
-| 11 | Single-company business operations and a measured Asymmetri Motion pilot | In progress; live gate pending |
+| 11 | Single-company business operations and a measured Asymmetri Motion pilot | Complete for bounded supervised scope |
+| — | Personal Operator / Daily Driver Phase | Current priority; unnumbered |
 | — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
 | — | Company-to-company collaboration | Deferred; after company isolation |
 | — | Generic external identities / Telegram | Deferred; needed narrow business adapters may precede it |
@@ -34,13 +35,47 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 10 is Complete; Prompt 11 implementation is deployed; its live gate is pending.** See the [actual Prompt 10 acceptance and deployment](../validation/PROMPT_10_VALIDATION.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompts 10 and 11 are complete; Prompt 11 is qualified to bounded supervised scope.** See the [actual Prompt 10 acceptance and deployment](../validation/PROMPT_10_VALIDATION.md).
 
 **Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
 WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
 those boundaries. Broader business integrations remain scoped future work.
 
-## Accepted priority: one operational company first
+## Personal Operator / Daily Driver Phase
+
+**Status:** Current priority after Prompt 11 — intentionally unnumbered; no Prompt 12.
+
+Make the existing BotSquad reliable, understandable and pleasant enough that the owner
+naturally uses it as a daily tool. For now it is primarily the owner's personal AI
+company/tool. Optimize in this order: reliability, operator clarity, smooth daily workflows,
+maintenance simplicity, polish, and only then reconsider broader capabilities.
+
+Prioritize actual-use reliability defects; loading/status/error clarity; smoother
+conversations, Tasks, mandates and approvals; what needs owner attention; easier recovery;
+backup/update/credential maintenance; and operator UX polish. Consider easier remote/mobile
+access only when actual usage shows the SSH tunnel is painful. Real owner experience chooses
+future work; these are candidates, not committed numbered milestones or a giant backlog.
+
+**Current task:** scheduler due/end validation and reliable bounded dispatch windows. See
+[stabilization plan](../exec-plans/personal-operator-stabilization-01.md) and
+[validation](../validation/PERSONAL_OPERATOR_STABILIZATION_01.md).
+
+**Next candidates:** the pre-existing early-navigation/initial-state UI race; clearer
+loading/status/error presentation; pending approvals and blocked-work overview; simpler
+common operator flows; credential lifecycle/rotation/revocation UX; backup/update/health
+maintenance UX; possible easier remote/mobile access later if demonstrated friction warrants it.
+
+Feature expansion stays deferred: multi-company, company-to-company collaboration, cross-HQ
+federation, Telegram/external identities, general CRM, broad email, accounting suites,
+autonomous spending, treasury/payment/wallet, broad App Store automation, additional generic
+business connectors, portfolio management, and a native iOS client solely because an older
+roadmap included it. Keep their architecture documents as future possibilities. This changes
+sequencing, not existing security boundaries or the possibility of later features.
+
+[Decision 026](../decisions/decision_026_personal_operator_stabilization.md) records the owner
+priority. Passing Prompt 11 does not automatically trigger capability growth or external actions.
+
+## Foundational priority: one operational company first
 
 **One AI company that can actually operate a real business is more important than
 multiple companies or federation.** BotSquad should become a company of persistent
@@ -774,7 +809,11 @@ not a mandatory technical dependency for every adapter.
 
 ## Prompt 11 — Single-company business operations and measured pilot
 
-**Status:** Implementation complete and deployed. Typed document evidence/action, exact approvals and scheduled review passed independent validation; C11-2 and live C11-3/C11-4 remain pending. Prompt 11 is NOT complete. See [validation](../validation/PROMPT_11_VALIDATION.md).
+**Status:** Complete for the bounded supervised single-company milestone. C11-1/2/4 PASS; C11-3 PASS within supervised scope. See [qualified live closure](../validation/PROMPT_11_VALIDATION.md#bounded-supervised-live-closure--october-6-2026).
+
+One exact approved README action, provider receipt/read-back and durable fresh-context Cycle 2 ended in STOP. The pilot branch is unmerged. One owner timing correction and one failed model turn with bounded backoff are retained; readability/business benefit is unmeasured and monetary costs unknown. No broad unattended operation or further external authority is implied.
+
+The requirements below are the historical milestone contract. They do not create additional work after this bounded acceptance.
 
 Make one company useful in the real world before multiplying companies. Implement a small
 vertical slice connecting **evidence → decision → approved action → receipt → observed
@@ -836,8 +875,8 @@ C11-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md
 # Deferred company scale and external transports
 
 These directions retain their architecture/security constraints but no longer have fixed
-prompt numbers. Reconsider them only after the single-company evidence gate or a later
-explicit owner priority decision. Passing a gate does not itself establish a need to scale.
+prompt numbers. Reconsider them only through demonstrated owner need or a later
+explicit priority change, after Personal Operator stabilization. Passing a gate does not itself establish a need to scale.
 
 ## Multi-company support
 
@@ -1050,7 +1089,9 @@ receipt.
         |
 11 Single-company business operations + measured live pilot
         |
-SINGLE-COMPANY EVIDENCE GATE + demonstrated need / owner priority decision
+Current: Personal Operator / Daily Driver stabilization (unnumbered)
+        |
+Demonstrated owner need / explicit priority change
         |
 Deferred, unnumbered: company isolation -> company collaboration -> cross-HQ federation
 

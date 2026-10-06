@@ -3,6 +3,17 @@
 **Status:** Product north star and future architecture
 **Updated:** 2026-09-29
 
+## Current priority after Prompt 11
+
+The owner currently wants BotSquad primarily as a personal daily tool. Reliability,
+operator clarity, smooth workflows, maintenance simplicity and polish take priority over
+feature expansion. This is an unnumbered Personal Operator / Daily Driver phase, not
+Prompt 12. [Decision 026](../decisions/decision_026_personal_operator_stabilization.md)
+clarifies sequencing while retaining the long-term model below and all authority boundaries.
+Prompt 11 is complete at bounded supervised scope; [qualified closure](../validation/PROMPT_11_VALIDATION.md)
+records the one real action, receipt/read-back, scheduled STOP, operator timing correction,
+failed model turn/backoff and unknown business benefit/costs. No further action is authorized.
+
 ## Purpose
 
 BotSquad is intended to model a **team of intelligent employees operating a company**, not
@@ -692,9 +703,8 @@ Computer Operators can perform explicit bounded browser Tasks in isolated headle
 A strategic mandate, group recommendation or peer message does not grant this capability or
 approve a mutation. Owner session policy and exact fixture approval remain separate trusted
 records. Structured rendered observations and attributable private screenshots establish
-browser evidence; a harmless fixture POST establishes enforcement only. Prompt 11 still
-requires a real authorized business action, external receipt, observed result and scheduled
-review. See [Computer Use](../architecture/COMPUTER_USE.md).
+browser evidence; a harmless fixture POST establishes enforcement only. Prompt 11 subsequently proved one authorized action, receipt, read-back and scheduled
+STOP review within bounded supervised scope. See [Computer Use](../architecture/COMPUTER_USE.md).
 
 ## Prompt 11 bounded operation
 
@@ -703,4 +713,4 @@ evidence, external intent, exact human approval, executor attempt and provider r
 existing mandate loop. Waiting for approval releases model capacity; a receipt resumes one
 bounded company review. Strategic choice remains with the employees, consequential authority
 with trusted owner controls. Operational publication is not a business-growth claim. See the
-[validation boundary](../validation/PROMPT_11_VALIDATION.md); live acceptance remains pending.
+[validation boundary](../validation/PROMPT_11_VALIDATION.md); live acceptance is complete within bounded supervised scope.
