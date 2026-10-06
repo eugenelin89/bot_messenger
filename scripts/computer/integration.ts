@@ -31,7 +31,7 @@ try{
  view=await success(r,'navigate',{url:origin+'/e'});assert.equal((await call(r,'click',{ref:ref(view,'Upload fixture file')})).ok,false);view=await success(r,'snapshot');await success(r,'click',{ref:ref(view,'Probe attachment response')});check('file chooser and attachment response denied');
  const sw=await fetch(origin+'/sw.js');assert.equal(sw.status,200);assert.match(sw.headers.get('content-type')??'',/application\/javascript/);assert.match(await sw.text(),/addEventListener/);
  const boundary=store.get<{n:number}>('SELECT coalesce(max(rowid),0) n FROM computer_network_events')!.n;
- view=await success(r,'navigate',{url:origin+'/bypass'});await success(r,'click',{ref:ref(view,'Exercise each bypass')});await new Promise(r=>setTimeout(r,500));view=await success(r,'snapshot');
+ view=await success(r,'navigate',{url:origin+'/bypass'});await success(r,'click',{ref:ref(view,'Exercise each bypass')});await new Promise(r=>setTimeout(r,4500));view=await success(r,'snapshot');
  for(const name of ['redirect','xhr','image','websocket','serviceworker','popup'])assert.match(view.snapshot.text,new RegExp(name+' denied'),name+' has no observed denial');assert.doesNotMatch(view.snapshot.text,/UNEXPECTED|attempted/);
  const blocked=store.all<any>("SELECT * FROM computer_network_events WHERE session_id=? AND rowid>? AND disposition='blocked'",r.session.session_id,boundary);
  for(const url of [origin+'/redirect','http://127.0.0.1:43992/xhr','http://127.0.0.1:43992/image'])assert.ok(blocked.some(x=>x.url===url),'Missing attributable denial: '+url);

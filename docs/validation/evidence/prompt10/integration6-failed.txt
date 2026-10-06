@@ -1,0 +1,41 @@
+Running as unit: botsquad-computer-integration6.service; invocation ID: e6f5606371d24f0d85de4b601e6fc824
+PASS actual typing checkbox clicks rendered completion and attributable PNG
+PASS typed forbidden origins schemes and private addresses denied
+PASS page injection cannot authorize metadata Gmail IPv6 or forbidden-origin fetch
+PASS file chooser and attachment response denied
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: image has no observed denial
+    at file:///opt/botsquad-prompt10/dist/scripts/computer/integration.js:60:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'Network bypass probes\n' +
+    '\n' +
+    'Controlled, individually observed attempts. Each denial is paired with a zero-request forbidden recorder.\n' +
+    '\n' +
+    'Exercise each bypass\n' +
+    'redirect denied\n' +
+    'xhr denied\n' +
+    'websocket attempted\n' +
+    'serviceworker UNEXPECTED\n' +
+    'popup UNEXPECTED\n' +
+    'A — Onboarding\n' +
+    'B — Forbidden destination\n' +
+    'C — Injection fixture\n' +
+    'D — Protected setting\n' +
+    'E — File boundaries',
+  expected: /image denied/,
+  operator: 'match',
+  diff: 'simple'
+}
+
+Node.js v24.21.0
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=1
+Service runtime: 18.303s
+CPU time consumed: 811ms
+Memory peak: 1.2M
+Memory swap peak: 0B

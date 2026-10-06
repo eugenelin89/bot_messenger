@@ -79,6 +79,11 @@ Use** also revokes the scoped grant. Verify **Browser shutdown confirmed: Yes**.
 **Pause** only prevents new dispatch; use interruption to stop an active environment.
 Neither action reverses a request already transmitted or recalls data already delivered.
 
+If shutdown remains unconfirmed, the browser reservation stays held. Once the broker has
+recovered, use **Recheck browser cleanup** on the terminal session, including after a grant
+was revoked. This only confirms cleanup; it does not restore the grant, restart work or clear
+an uncertain effect/provider outcome.
+
 The browser closes on runtime, idle, action, navigation, request/byte or screenshot bounds.
 A browser crash becomes a failure; completion is never inferred. Restart closes an old
 active or waiting environment and cancels untransmitted intents, preserving policy and

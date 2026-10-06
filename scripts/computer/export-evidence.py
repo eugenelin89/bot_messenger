@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """Explicit disposable C10-1 data export. Never enumerate credentials/provider state."""
-import hashlib,json,pathlib,shutil,sqlite3,os
-root=pathlib.Path('/var/lib/botsquad/validation/computer-20261005-worker2')
+import hashlib,json,pathlib,shutil,sqlite3,os,sys
+run=sys.argv[1] if len(sys.argv)>1 else '2'
+assert run in ['2','3'], 'Only explicitly created acceptance roots may be exported'
+root=pathlib.Path('/var/lib/botsquad/validation/computer-20261005-worker'+run)
 assert json.loads((root/'validation-manifest.json').read_text())['purpose']=='C10-1 isolated real worker'
 out=root/'public-evidence';out.mkdir(exist_ok=True,mode=0o700)
 def save(name,value):
@@ -21,7 +23,10 @@ contexts=[c for c in values['computer_contexts'] if c['session_id']==protected['
 assert len(contexts)==2 and len(set(c['runtime_reference'] for c in contexts))==2 and all(c['runtime_reference'] for c in contexts)
 values['fresh_approval_contexts_verified']=True
 save('worker-state.json',values)
-for name in ['acceptance.json','restart-evidence.json','unknown-recovery.json','browser-killed.json','after-transmit-fault.json']:
+names=['acceptance.json','fixture.json','validation-manifest.json']
+if run=='2':names+=['restart-evidence.json','unknown-recovery.json','browser-killed.json','after-transmit-fault.json']
+else:names+=['cleanup-ack-fault.json','cleanup-ui.json']
+for name in names:
  copy(name,root/name)
 transcript=[]
 for file in sorted((root/'runtime-inputs').glob('*.jsonl')):
@@ -37,9 +42,10 @@ for item in values['computer_evidence']:
 for item in values['artifacts']:
  p=pathlib.Path(item['path_or_reference']).resolve();assert p.is_relative_to(root) and p.stat().st_size<100000;copy(item['artifact_id']+'.txt',p)
 records=pathlib.Path('/var/lib/botsquad/validation/computer-20261005-records')
-copy('resources.json',records/'resources.json')
+if run=='2':copy('resources.json',records/'resources.json')
 copy('fixture-effects.jsonl',records/'effects.jsonl')
 assert not (records/'forbidden.jsonl').exists();save('forbidden-recorder.json',{'received_requests':0,'file_absent':True,'checked_at':__import__('time').time()})
-copy('fault-results.json','/var/lib/botsquad/validation/computer-20261005-fault3/fault-results.json')
-copy('integration-results.json','/var/lib/botsquad/validation/computer-20261005-integration5/integration-results.json')
+if run=='2':
+ copy('fault-results.json','/var/lib/botsquad/validation/computer-20261005-fault3/fault-results.json')
+ copy('integration-results.json','/var/lib/botsquad/validation/computer-20261005-integration5/integration-results.json')
 print(json.dumps({'export':str(out),'files':len(list(out.iterdir())),'fresh_provider_generations':True,'evidence_hashes_verified':True}))
