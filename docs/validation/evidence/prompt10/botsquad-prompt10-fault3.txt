@@ -1,0 +1,17 @@
+Running as unit: botsquad-computer-fault3.service
+PASS ordinary worker denied before browser creation
+PASS close during connection establishment has no late browser
+PASS revocation during actual Chromium provisioning confirms termination
+PASS IPC closure during launch retains singleton until cleanup
+PASS wall-clock deadline closes real browser
+PASS screenshot count bound closes real browser
+PASS actual document navigation count closes browser
+PASS overridden page fetch cannot fabricate the trusted mutation receipt
+PASS changed page and exact POST timer cannot redeem stale approval
+PASS fault evidence integrity
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 34.297s
+CPU time consumed: 879ms
+Memory peak: 1.3M
+Memory swap peak: 0B

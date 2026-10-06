@@ -1,0 +1,24 @@
+Running as unit: botsquad-computer-fault4.service; invocation ID: b5859218a7374b3083d8d4f1574dfad8
+PASS ordinary worker denied before browser creation
+PASS close during connection establishment has no late browser
+PASS revocation during actual Chromium provisioning confirms termination
+PASS IPC closure during launch retains singleton until cleanup
+PASS abrupt IPC socket loss during pending Chromium launch leaves no orphan
+PASS wall-clock deadline closes real browser
+PASS screenshot count bound closes real browser
+PASS actual document navigation count closes browser
+PASS overridden page fetch cannot fabricate the trusted mutation receipt
+PASS changed page and exact POST timer cannot redeem stale approval
+PASS uppercase and mixed-case password/file controls denied
+PASS real request-attempt exhaustion closes environment
+PASS real aggregate-byte reservation exhaustion closes environment
+PASS real streamed response overflow denied at two MiB
+PASS real credential/control redirect blocked before destination request
+PASS real eight-request burst forwards four and denies four concurrent requests
+PASS fault evidence integrity
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 1min 40.834s
+CPU time consumed: 1.392s
+Memory peak: 29.0M
+Memory swap peak: 0B

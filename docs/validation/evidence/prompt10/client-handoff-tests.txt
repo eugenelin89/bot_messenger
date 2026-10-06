@@ -1,0 +1,41 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+✔ idle confirmation and cancelled connect acknowledge reservation release before immediate replacement (4.916875ms)
+(node:27660) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ computer policy rejects scheme/origin/private-network expansion, unsupported file access and bounds (4.6645ms)
+✔ protected request identity includes fixed headers and rejects upload or unexpected methods (0.733917ms)
+✔ migration and startup create no computer authority, operator or environment and preserve old fields (27.568667ms)
+✔ owner-created operator has minimal capabilities and session authorization is explicit and immutable (26.878708ms)
+✔ ordinary/forged/cross-worker/stale tool callers cannot provision a browser (26.829209ms)
+✔ one computer reservation prevents a second model claim before browser creation (31.198166ms)
+✔ attributable evidence and call IDs remain bound to their execution (46.945333ms)
+✔ protected mutation has zero effect before approval, frees execution, then sends exactly once (35.578458ms)
+✔ denial and revocation after an approval wait produce zero effects and stop the browser (30.842958ms)
+✔ unknown transmitted mutation survives model settlement and fences retry, rollover and new sessions (32.040583ms)
+✔ restart cancels pre-transmission intent, retains policy/evidence and never restores browser state (32.46375ms)
+✔ request policy blocks malicious page destinations and background requests after the action (30.838125ms)
+✔ Computer Use stays private to local owner API projections and device event stream (25.005833ms)
+✔ exhausted action bounds close the environment and stale access remains denied (31.530625ms)
+✔ synchronous runtime interruption cannot re-enter browser teardown twice (25.939458ms)
+✔ status reconstruction is bounded and never recursively embeds receipt results (46.267167ms)
+✔ restart releases prelaunch and already-closed reservations without erasing provider uncertainty (29.959916ms)
+✔ page callbacks cannot redeem an approved intent before the trusted checkpoint passes (32.787083ms)
+✔ action failure drains in-flight network callbacks before ownership can be reused (30.804167ms)
+✔ public browser reads reject credential and control URLs (0.720416ms)
+✔ unconfirmed finish cannot report success and owner can recheck delayed broker cleanup (5242.814625ms)
+✔ large durable protected receipts are bounded in status and later approval generations (66.090542ms)
+✔ consumed intent before any transmission is conservatively unknown and cannot replay (33.584458ms)
+✔ committed effect receipt survives revocation before worker delivery without becoming unknown (38.39125ms)
+✔ evidence publication failure consumes its attempt without a fabricated screenshot receipt (30.073583ms)
+✔ computer provider references cannot cross ordinary Task or direct conversation bindings in either direction (34.367083ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6052.070041

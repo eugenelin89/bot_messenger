@@ -1,0 +1,37 @@
+Reviewed the candidate above `b8f4120`, committed by the parent as `d39b7c7` during review, plus the subsequent bootstrap stop-guard edit. **Review2’s material findings are corrected; one broker handoff race remains.**
+
+**BLOCKING**
+
+None identified in the reviewed authority paths.
+
+Confirmed corrections:
+
+- Finish requires confirmed teardown; terminal cleanup permits owner recheck, and shutdown awaits cleanup work: [computers.ts:197](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:197>).
+- Worker context preserves exact actionable requests, bounds historical receipt excerpts and total serialization, and retains full database receipts: [computers.ts:86](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:86>).
+- Trusted receipts commit before delivery; subsequent revocation preserves them without fabricating an unknown outcome: [computers.ts:158](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:158>).
+- Bootstrap now stops installed services—including pending automatic restarts—before replacement, then restarts the broker with readiness checking: [bootstrap-ubuntu-host.sh:85](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/bootstrap-ubuntu-host.sh:85>).
+
+**IMPORTANT**
+
+**Idle confirmation does not acknowledge release of the status connection’s reservation.**
+
+[client.ts:39](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/client.ts:39>) returns true after locally destroying its status socket. The broker reserves its singleton for every connection and releases it only when disconnect cleanup runs: [broker.ts:18](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:18>). Meanwhile, [computers.ts:305](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:305>) clears the durable reservation and wakes dispatch.
+
+An immediate replacement connection can therefore encounter `occupied=true` and fail provisioning. This is a fail-closed availability race, inferred from source; I did not reproduce it.
+
+**Smallest fix/gate:** after an idle status response, await the broker’s existing `close` acknowledgement before returning true. Add a focused immediate-replacement check that delays server-side disconnect handling; require successful launch without a compensating sleep.
+
+**OPTIONAL**
+
+None additional. Input-type normalization addresses the prior casing finding.
+
+**REQUIRED EVIDENCE**
+
+- Resolve or explicitly disposition the handoff race above.
+- Execute the added [real-browser probes](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/faults.ts:30>). For abrupt launch loss, establish that launch remains unresolved at disconnect; elapsed 50 ms alone does not prove that condition.
+- Obtain fresh worker confirmation on the final revision: approval continuation, committed receipt, and confirmed finish.
+- Complete exact-revision Ubuntu build/tests, repeat-install readiness, normal integration/deployment, and the already-defined whole-host preservation gate. Existing unaffected acceptance need not be repeated.
+
+The retained [local regression log](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/local-regression4.txt>) reports **292 passed, one skipped, zero failures**, including the new targeted regressions. This does not establish final revision or deployment acceptance.
+
+No edits, tests, Git mutations, network/service calls, or other agents were used. No release-completion claim is made.

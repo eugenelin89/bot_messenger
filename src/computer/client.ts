@@ -13,7 +13,6 @@ export class BrowserClient implements BrowserEnvironment {
   private expectedClose=false;
   private closing?:Promise<boolean>;
   private connecting?:Promise<ComputerRPC>;
-  private launchRequested=false;
   constructor(readonly socketPath=process.env.BOT_BROWSER_SOCKET??'/run/botsquad-browser/control.sock'){}
   private async connect() {
     const socket=createConnection(this.socketPath);const rpc=new ComputerRPC(socket);
@@ -22,11 +21,12 @@ export class BrowserClient implements BrowserEnvironment {
     return rpc;
   }
   async launch(sessionId:string,seconds:number,onNetwork:(request:BrowserRequest)=>Promise<BrowserResponse|null>,onLost:()=>void) {
-    this.expectedClose=false;this.closing=undefined;this.launchRequested=false;this.connecting=this.connect();const rpc=await this.connecting;
-    if(this.expectedClose){rpc.close();throw new Error('Browser connection cancelled');}this.rpc=rpc;
+    this.expectedClose=false;this.closing=undefined;this.connecting=this.connect();const rpc=await this.connecting;
+    // close() owns the connection release handshake even if no launch was sent.
+    if(this.expectedClose)throw new Error('Browser connection cancelled');this.rpc=rpc;
     this.rpc.handler=async(method,a)=>{if(method!=='network'||a.session_id!==sessionId)throw new Error('Unknown browser callback');return onNetwork(a);};
     this.rpc.on('closed',()=>{if(!this.expectedClose)onLost();});
-    this.launchRequested=true;return this.rpc.call<{epoch:string;browser:string;viewport:{width:number;height:number}}>('launch',{session_id:sessionId,maxRuntimeSeconds:seconds});
+    return this.rpc.call<{epoch:string;browser:string;viewport:{width:number;height:number}}>('launch',{session_id:sessionId,maxRuntimeSeconds:seconds});
   }
   action(sessionId:string,action:string,args:Record<string,unknown>) {
     if(!this.rpc)throw new Error('Browser is unavailable');
@@ -34,8 +34,8 @@ export class BrowserClient implements BrowserEnvironment {
   }
   close():Promise<boolean>{
     this.expectedClose=true;if(this.closing)return this.closing;
-    this.closing=(async()=>{let rpc:ComputerRPC|undefined;try{rpc=this.rpc??await this.connecting;this.rpc=undefined;if(!rpc||!this.launchRequested)return true;return (await rpc.call('close',{},6000)).shutdown_confirmed===true;}catch{return false;}finally{rpc?.close();}})();return this.closing;
+    this.closing=(async()=>{let rpc:ComputerRPC|undefined;try{rpc=this.rpc??await this.connecting;this.rpc=undefined;if(!rpc)return true;return (await rpc.call('close',{},6000)).shutdown_confirmed===true;}catch{return false;}finally{rpc?.close();}})();return this.closing;
   }
-  async confirmIdle(){let rpc:ComputerRPC|undefined;try{rpc=await this.connect();const s=await rpc.call('status');return s.active===false&&s.session===null;}catch{return false;}finally{rpc?.close();}}
+  async confirmIdle(){let rpc:ComputerRPC|undefined;try{rpc=await this.connect();const s=await rpc.call('status');if(s.active!==false||s.session!==null)return false;return (await rpc.call('close',{},6000)).shutdown_confirmed===true;}catch{return false;}finally{rpc?.close();}}
 }
 export type {CanonicalRequest};

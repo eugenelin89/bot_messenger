@@ -1,0 +1,37 @@
+Reviewed the fixed candidate above `b8f4120`, committed by the parent during review as `d39b7c7`. I made no changes and ran no tests, network/service operations, or agents.
+
+**BLOCKING**
+
+None identified in the inspected implementation. This is not C10-1 completion or release approval.
+
+The retained evidence supports actual worker-chosen browser actions, distinct approval-continuation provider references, trusted HTTP receipts, restart cancellation, and unknown-outcome fencing. The four exported PNG hashes match their durable records. Model understanding was rendered text/DOM; PNGs were owner evidence.
+
+**IMPORTANT**
+
+1. **Delayed cleanup recovery is inaccessible through the UI after revocation.**
+   [public/computers.js:12](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/public/computers.js:12>) hides Interrupt for terminal sessions and Revoke after grant revocation. Consequently, revoke → unconfirmed shutdown → exhausted automatic retries leaves no UI control for the backend recheck added at [computers.ts:272](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:272>). The reservation remains safely held, but recovery requires an undocumented API call or restart.
+
+   **Smallest gate:** expose cleanup recheck whenever shutdown is unconfirmed; exercise the revoked terminal case after delayed broker recovery, preserving effect/provider fences.
+
+2. **The combined browser-bypass assertion can pass without proving each claimed mechanism.**
+   [integration.ts:32](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/integration.ts:32>) counts blocked events from all preceding probes; those already satisfy its threshold. Also, [fixture.mjs:16](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/fixture.mjs:16>) attempts service-worker registration against `/sw.js`, which has no successful fixture response. A zero-request forbidden recorder alone cannot establish that every intended path was exercised.
+
+   **Smallest gate:** add attributable per-mechanism assertions, with a valid service-worker fixture and observable attempted/denied outcomes. Run that focused browser gate; no full worker replay is necessary.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+- **Execute the newly added browser faults.** [faults.ts:30](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/faults.ts:30>) and subsequent probes remain unexecuted evidence: abrupt IPC loss, input casing, request/byte exhaustion, streaming overflow, control redirect, and concurrency. For abrupt launch loss, assert launch is still unresolved when disconnect occurs; the current delay and `rpc` check do not establish that crash window.
+
+- **Finish exact-revision validation and provenance.** The retained local suite now shows **292 passed, one skipped, zero failed**; focused coverage is **26/26**, forwarder coverage **7/7**. These include synthetic browser and mocked DNS/transport evidence. Complete the candidate Ubuntu suite and bind reused browser/worker evidence to source/build identities. Validate repeat installation replaces the running broker and passes readiness.
+
+- **Close the Projects reporting gate.** Newly exported identity/isolation/recovery evidence passes. [Projects attempt 1](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/linux/projects-attempt1.log>) fails during final Git provenance collection after behavioral/isolation checks. Preserve that failure and obtain the source-identified final report. The schedule ledger already supports two cycles and 30 seconds idle; it need not be repeated merely because earlier documentation called it pending.
+
+- **Complete the finding/evidence ledger.** [finding-disposition.md:9](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/finding-disposition.md:9>) still lists several now-demonstrated paths as pending. Link the review2 fixes and actual results. Add a sanitized recovery/state receipt for the first failed worker root: its local recovery log is empty, while successful acceptance uses a separate root.
+
+- **Complete retained-production delivery gates.** The offline migration receipt supports two schema upgrades preserving 85 tables and 2,233 original rows/fields/rowids. Still required: fresh whole-host inventory, normal PR merge, exact merged deployment identity, broker replacement/readiness, preserved roster/grants/pause, zero automatic Computer Use authority, production idle observation, and temporary-service cleanup.
+
+These pending delivery gates are evidence requirements, not additional implementation blockers.

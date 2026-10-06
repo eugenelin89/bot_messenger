@@ -102,8 +102,9 @@ call ownership, single reservation, screenshot integrity, stale context, protect
 model-slot release, unknown fencing, recovery, private device projections and async teardown.
 The synthetic browser is explicitly labelled and is not used as C10-1 proof.
 
-The updated local suite passed **292/293, zero failures, one Linux-only skip**; focused
-Computer Use coverage passed 26/26 and the pinned forwarder passed 7/7. Exact candidate
+The updated local suite passed **293/294, zero failures, one Linux-only skip**; focused
+Computer Use coverage passed 26/26, the Unix handoff test passed 1/1, and the pinned
+forwarder passed 7/7. Exact candidate
 Ubuntu confirmation remains a release gate. The earlier full local candidate passed 278
 with one existing Linux-only skip (279 total). The first Ubuntu upload passed 273/273; it preceded six additional focused test
 cases, so it is not the final test-count claim. Provisioner protocol tests passed 9/9.
@@ -121,8 +122,9 @@ suites revalidate provider uncertainty and asynchronous research withdrawal/reco
 ## Independent findings and retained failures
 
 Read-only `control_plane_architect`, `security_reviewer` and `recovery_reviewer` design and
-implementation reviews are retained in this evidence directory. Final rereviews and
-`test_reviewer` acceptance disposition remain pending. The [finding ledger](evidence/prompt10/finding-disposition.md)
+implementation reviews are retained in this evidence directory. All four required specialists completed source/evidence review. The final review found no
+blocking authority defect; its material lifecycle and evidence gaps are fixed with final
+real-browser/UI confirmation pending. The [finding ledger](evidence/prompt10/finding-disposition.md)
 links each material issue to the fix and required evidence.
 
 Material fixes already exercised: pending-connect/launch teardown, page callback approval

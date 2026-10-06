@@ -1,0 +1,26 @@
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'
+Running as unit: botsquad-computer-fault1.service; invocation ID: 504b21398e16413183181567bf3a4c2e
+node:fs:1410
+  const result = binding.mkdir(
+                         ^
+
+Error: EACCES: permission denied, mkdir '/var/lib/botsquad/validation/computer-20261005-fault1'
+    at mkdirSync (node:fs:1410:26)
+    at file:///opt/botsquad-prompt10/dist/scripts/computer/faults.js:13:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'mkdir',
+  path: '/var/lib/botsquad/validation/computer-20261005-fault1'
+}
+
+Node.js v24.21.0
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=1
+Service runtime: 443ms
+CPU time consumed: 246ms
+Memory peak: 1.4M
+Memory swap peak: 0B

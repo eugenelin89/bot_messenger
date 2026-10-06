@@ -1,0 +1,10 @@
+{
+  "kind": "Controlled isolated broker SIGKILL during auto-restart delay",
+  "old_pid": 447315,
+  "observed_substate": "auto-restart",
+  "stopped_for_seconds": 4,
+  "queued_restart_cancelled": true,
+  "replacement_pid": 467136,
+  "readiness": "active",
+  "source_revision": "d39b7c7bf74aac091741387da16d77a80b2ac67c"
+}

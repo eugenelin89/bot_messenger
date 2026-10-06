@@ -82,8 +82,13 @@ git -C /opt/botsquad cat-file -e "${revision}^{commit}"
 git -C /opt/botsquad merge-base --is-ancestor HEAD "$revision" || { echo 'Requested update does not preserve deployed history' >&2; exit 1; }
 # Never replace dependencies or build files beneath a running dispatcher.
 # Graceful shutdown retains interrupted work for inspection; it does not replay it.
-if systemctl is-active --quiet botsquad.service; then systemctl stop botsquad.service; fi
-if systemctl is-active --quiet botsquad-browser.service; then systemctl stop botsquad-browser.service; fi
+for unit in botsquad.service botsquad-browser.service; do
+  # An auto-restart delay is not "active", but its queued start must be cancelled
+  # before replacing source, dependencies or compiled files.
+  if [[ $(systemctl show "$unit" --property=LoadState --value) != not-found ]]; then
+    systemctl stop "$unit"
+  fi
+done
 git -C /opt/botsquad checkout --detach "$revision"
 cd /opt/botsquad
 npm ci --ignore-scripts --no-audit --no-fund

@@ -7,6 +7,7 @@ import {acquireDataLock} from '../../src/persistence/lock.js';
 import {Company} from '../../src/control/company.js';
 import {Dispatcher} from '../../src/control/dispatcher.js';
 import {CodexRuntime} from '../../src/runtime/codex.js';
+import {BrowserClient} from '../../src/computer/client.js';
 import type {RuntimeInput} from '../../src/runtime/adapter.js';
 import {requireThat} from '../../src/domain/model.js';
 import {createHttpServer} from '../../src/http/server.js';
@@ -15,6 +16,13 @@ const data=resolve(process.env.BOT_DATA_DIR??''),port=Number(process.env.PORT);
 requireThat(process.env.BOT_VALIDATION_COMPUTER==='1'&&/^\/var\/lib\/botsquad\/validation\/computer-20261005-worker(?:[2-9])?$/.test(data)&&port===4314,'Explicit isolated C10-1 configuration required');
 requireThat(JSON.parse(readFileSync(join(data,'validation-manifest.json'),'utf8')).purpose==='C10-1 isolated real worker','Wrong validation manifest');
 const unlock=acquireDataLock(data),store=new Store(join(data,'company.sqlite')),company=new Company(store,data,root);
+// Operator-armed lost-acknowledgement UI probe. The real browser is closed, but
+// its acknowledgement is deliberately withheld until the operator releases it.
+class CleanupFaultClient extends BrowserClient {
+  override async close(){const confirmed=await super.close();if(existsSync(join(data,'arm-cleanup-ack.json'))&&!existsSync(join(data,'release-cleanup-ack'))){writeFileSync(join(data,'cleanup-ack-fault.json'),JSON.stringify({fault:'Deliberately withheld real browser close acknowledgement',actual_shutdown_confirmed:confirmed,at:new Date().toISOString()}),{mode:0o600});return false;}return confirmed;}
+  override async confirmIdle(){if(existsSync(join(data,'arm-cleanup-ack.json'))&&!existsSync(join(data,'release-cleanup-ack')))return false;return super.confirmIdle();}
+}
+company.computers.factory=()=>new CleanupFaultClient();
 const inputs=join(data,'runtime-inputs');mkdirSync(inputs,{recursive:true,mode:0o700});
 class RecordingRuntime extends CodexRuntime {
   override async run(input:RuntimeInput,signal:AbortSignal){

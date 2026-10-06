@@ -1,0 +1,16 @@
+{"alive":true,"database":true,"dispatcher":true,"runtime":"ready","version":"0.1.0","commit":"2185a71d968bc22e32a37160972a399f62262922"}node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+[TypeError: fetch failed] {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:4314
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 4314
+  }
+}
+
+Node.js v24.21.0

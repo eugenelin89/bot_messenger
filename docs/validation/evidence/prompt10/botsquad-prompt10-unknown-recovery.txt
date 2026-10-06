@@ -1,0 +1,3 @@
+Result=exit-code
+ExecMainStatus=75
+PASS unknown effect fenced with one observed effect and zero replay for 30 seconds
