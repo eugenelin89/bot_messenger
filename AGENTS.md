@@ -498,7 +498,8 @@ fence all Computer Use and never replay. Migration and UI inspection create zero
 Screenshots are owner-private evidence; model understanding is structured rendered snapshots.
 Client API v1 gains no related administration/content. See [Decision 024](docs/decisions/decision_024_bounded_computer_use.md),
 [architecture](docs/architecture/COMPUTER_USE.md) and [C10-1 evidence](docs/validation/PROMPT_10_VALIDATION.md).
-Browser capability does not complete Prompt 11's real business-action gate.
+Prompt 10 is complete and deployed with zero retained production computer authority.
+Prompt 11 is next; browser capability does not complete its real business-action gate.
 
 ## Execution Plans
 

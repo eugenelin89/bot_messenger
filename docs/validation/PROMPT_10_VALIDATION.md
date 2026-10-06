@@ -1,6 +1,6 @@
 # Prompt 10 — Bounded Computer Use validation
 
-**Status:** C10-1 runtime/security/UI checks passed; independent pre-release acceptance passed; production release gates pending.
+**Status:** Complete — C10-1, independent specialist acceptance, normal merge, exact production deployment, preservation and idle gates passed.
 **Date:** 2026-10-05 (America/Vancouver; some UTC receipts are October 6).
 **Scope:** One company, one explicitly authorized browser resource, disposable fixtures only.
 
@@ -87,7 +87,7 @@ keys, and absence of `/var/lib/botsquad`, worker/service homes, root home, `/etc
 | Lost local receipt | [Unknown recovery](evidence/prompt10/unknown-recovery.json): actual approved POST, injected exit after response before durable receipt; one effect observed, unknown fence, new session denied, zero replay for 30 seconds |
 | Bounds | Real wall-clock, idle, action, navigation and screenshot limits terminate; request/byte admission and all configured resource limits are inspected/tested |
 | Private evidence / v1 | Owner UI shows real PNGs; deterministic DTO/event tests plus authenticated HTTP requests deny hidden IDs and all owner controls to paired devices |
-| No automatic authority | Additive schema 13; repeated offline migration creates zero operators/grants/sessions; production release check is a separate gate below |
+| No automatic authority | Additive schema 13; repeated offline migration and actual production deployment create zero operators/grants/sessions; production UI/idle receipt below |
 
 Real worker reports: [onboarding and usability](evidence/prompt10/artifact_f6cd52de-8c95-432c-8302-d83778845f35.txt).
 The [owner UI screenshot](evidence/prompt10/owner-computer-session.png) shows actual private
@@ -139,6 +139,11 @@ contracts. Provisioner protocol tests passed 9/9. [Exact candidate mapping](evid
 [local output](evidence/prompt10/local-regression5.txt) retain the measured counts. Earlier
 273/273 Ubuntu and 278/279 local runs are historical, not the final count.
 
+After normal PR #13 merge, the exact `a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4`
+revision independently passed **294/294 on Ubuntu, zero failures/skips, 204.21 seconds**
+under the HQ service restrictions. [Merged-revision output](evidence/prompt10/linux/merged-deterministic.txt)
+is separate from candidate results. All 228 deployed build/public files match that build.
+
 Actual same-code isolated regressions passed direct reply/peer exchange, passive-message
 no-dispatch, neutral context replacement, real public search/open and grant revocation,
 shared-material group deliberation/synthesis, and a separately owner-assigned Atlas artifact.
@@ -156,7 +161,8 @@ suites revalidate provider uncertainty and asynchronous research withdrawal/reco
 Read-only `control_plane_architect`, `security_reviewer` and `recovery_reviewer` design and
 implementation reviews are retained in this evidence directory. All four required specialists completed source/evidence review. The final review found no
 blocking authority defect; its material lifecycle and evidence gaps are fixed with actual
-real-browser/UI confirmation complete; final test review supports normal merge/deployment; production release gates remain. The [finding ledger](evidence/prompt10/finding-disposition.md)
+real-browser/UI confirmation complete; final test review supported normal merge/deployment,
+and the production release gates below now pass. The [finding ledger](evidence/prompt10/finding-disposition.md)
 links each material issue to the fix and required evidence.
 
 Material fixes already exercised: pending-connect/launch teardown, page callback approval
@@ -187,23 +193,55 @@ reentrant shutdown crash. Earlier attempts are evidence, not discarded runs:
 - Initial sandboxed local checks lacked loopback/process permissions. The approved proper-
   environment run passed. Four existing schema-count assertions advanced 12→13 while retaining
   their original row/field preservation checks.
+- The first deployment verification helper confused `ss`'s wildcard peer column with its
+  listening address, then compared the Node symlink to `/proc`'s canonical executable path.
+  Both checker failures are retained ([listener](evidence/prompt10/listener-checker-failure.txt),
+  [canonical path](evidence/prompt10/node-checker-failure.txt)). Exact-column/canonical-path
+  checks pass; no service or isolation control was changed to satisfy them.
 
 ## Preservation and release gates
 
-Production is still untouched by the application deployment at this writing. Preflight has
-8 enabled idle workers (Atlas, Nix, Maya, Turing, Linus, Ada, Grace, Scout), 48 Tasks,
-65 executions, one existing Atlas Task/direct Public Research grant, pause=false, seven
-OS identities, zero mandates/schedules and no running work.
+Implementation [PR #13](https://github.com/eugenelin89/bot_messenger/pull/13) merged normally
+as **`a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4`**. Local main, origin/main, deployed source
+and running health identity all matched this revision at initial release. The independent
+and production builds matched all **228 files** with manifest SHA-256
+`6eef9de5aef95f74bea5ef3da4b408d3ef41fab08103db942955f17dcf8abc04`.
+[Release receipt](evidence/prompt10/initial-release.json) records runtime ready, database/
+dispatcher healthy and loopback-only `127.0.0.1:4310`. The existing HQ unit's byte hash
+remains unchanged. [Read-only gate source](evidence/prompt10/release-gates.py) is retained.
+
+The actual production browser installer ran twice successfully: broker PID **500829→501369**,
+old process exited, and both startup readiness checks passed. No package was upgraded in
+either service-install run. [Receipt](evidence/prompt10/repeat-installer.json),
+[first run](evidence/prompt10/browser-install-1.txt) and
+[repeat run](evidence/prompt10/browser-install-2.txt) preserve this check.
+
+Production preserves **8 enabled idle workers** (Atlas, Nix, Maya, Turing, Linus, Ada, Grace,
+Scout), **48 Tasks / 65 completed executions**, the existing Atlas Task/direct Public Research
+grant, **pause=false**, seven OS identities and zero mandates/schedules. Computer grants,
+sessions, contexts, intents, evidence and Computer Operators are all **zero**. The broker
+waits without a Chromium process. Actual [owner UI](evidence/prompt10/production-inactive.jpg)
+inspection followed by a [30.27-second idle gate](evidence/prompt10/initial-idle.json) created
+no model execution, browser work or authority. All task-owned validation HQs, browser brokers,
+fixture services and model drivers were stopped; retained roots and uncertainty fences remain.
 
 A protected consistent backup at `/var/backups/botsquad/prompt10-preflight-20261005` was
 migrated offline twice: **85 original tables, 2,233 rows, every original field and rowid**,
 integrity and foreign keys all preserved; schema 12→13; zero new computer authority.
 A fresh protected inventory/backup at `/var/backups/botsquad/prompt10-delivery-20261005-first`
 covers **74 retained databases, 634 provisioner records and 189 worker homes**. Its production
-copy independently passed the same two-open migration comparison. Normal PR merge,
-exact merged build, production inactive-state verification, idle observation and temporary
-service cleanup are required before completion. Final exact source/build/health identities
-belong in the delivery handoff and protected release journal, avoiding a self-referential SHA.
+copy independently passed the same two-open migration comparison. Postdeployment comparison
+preserved **53,670 original rows**, all **381 account/group mappings**, all root records and
+homes, with integrity/foreign-key checks passing. The live comparison excludes only the
+existing `workers.updated_at` heartbeat field; the offline migration excluded no original
+field or rowid. [Preservation receipt](evidence/prompt10/postdeploy-preservation.json) records
+the result. Backups/inventories remain root-private and are not committed.
+
+This completion record follows the accepted application deployment. The final documentation
+revision is normally merged, built and deployed separately; its exact source/build/health
+identities and final preservation/idle receipts belong in the delivery handoff and protected
+release journal, avoiding a self-referential SHA in Git. No application code changes in the
+completion record; source identity and the complete build manifest are reverified at delivery.
 
 ## Limits and next milestone
 
@@ -214,6 +252,7 @@ unknown effects; no generic fence bypass exists. The full retained roster is not
 A fixture proves enforcement, not visual reasoning, semantic safety of arbitrary GETs,
 real business operation or performance guarantees.
 
-Prompt 11 remains the next **after all Prompt 10 delivery gates pass**: approved real business
+**Prompt 10 is Complete. Prompt 11 — Single-company business operations and measured pilot —
+is Next:** approved real business
 action → external receipt → observed result → scheduled review. No live Asymmetri Motion,
 marketing, customer contact, spending or publication is claimed here.

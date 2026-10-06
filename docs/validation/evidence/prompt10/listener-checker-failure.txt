@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/var/tmp/botsquad-prompt10-release-gates.py", line 25, in <module>
+    listener=run('ss','-H','-lnt','sport = :4310');assert '127.0.0.1:4310' in listener and '0.0.0.0' not in listener
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,6 +1,6 @@
 # BotSquad — Project Vision
 
-**Status:** Product vision; Prompts 01–09 and WE-01 complete; Prompt 10 next
+**Status:** Product vision; Prompts 01–10 and WE-01 complete; Prompt 11 next
 **Updated:** 2026-10-05
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify

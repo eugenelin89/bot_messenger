@@ -1,12 +1,13 @@
 # Execution Plan — Prompt 10 bounded Computer Use
 
-**Status:** Active — implementation and actual Ubuntu validation; C10-1 not yet accepted
+**Status:** Complete — C10-1 and application release accepted; final documentation identity recorded in delivery handoff
 **Owner:** Parent Codex chat, sole writer/integrator/deployer; specialists read-only
-**Branch:** `feature/prompt-10-computer-use`
+**Branches:** `feature/prompt-10-computer-use` (implementation PR #13); `codex/prompt10-completion-record` (verified completion record)
 **Worktree:** `bot_messenger-prompt10`
 **Started:** 2026-10-05 15:43 America/Vancouver
 **Initial ETA:** 4–8 hours, subject to browser isolation and real Ubuntu acceptance
-**Current ETA:** Approximately 1–2 hours remaining at 17:40 Vancouver, subject to final worker/UI and release gates
+**Application release accepted:** 2026-10-05 18:03 America/Vancouver, about 2 hours 20 minutes after start
+**ETA outcome:** Faster than the initial 4–8 hour range; the existing typed-tool path and bounded Chromium environment worked without a desktop. Final completion-document delivery follows the accepted release.
 
 ## Objective and scope
 
@@ -87,17 +88,20 @@ advisory; inspect the installed 0.157.0 schema before choosing its observation f
 | Gate | Result | Evidence |
 | --- | --- | --- |
 | Live preflight | PASS | Read-only SSH health/version/resources and SQLite inventory above |
-| C10-1 | Runtime/UI and pre-release review PASS | Final real employee, 12 integration and 18 fault gates; private evidence packet |
-| Specialist review | Four required roles reviewed; pre-release acceptance PASS | Security handoff finding closed; actual UI/bypass evidence complete; release gates separate |
-| Migration/preservation | Offline PASS; final inventory pending | 85 tables / 2,233 original rows, all fields/rowids; production untouched |
-| Merge/deployment | PENDING | No milestone changes deployed |
+| C10-1 | PASS | Final real employee, 12 integration and 18 fault gates; private evidence packet |
+| Specialist review | PASS — four required roles | Every material finding closed; source and actual UI/bypass evidence reviewed |
+| Migration/preservation | PASS | Offline 85 tables / 2,233 rows, every field/rowid; production 74 databases / 53,670 original rows, 381 account/group mappings, 634 root records, 189 homes |
+| Merge/deployment | PASS | Normal PR #13 merge a4cfbc4, independent 294/294 Ubuntu, all 228 built files identical, exact source/health identity and ready private HQ |
+| Repeat install / inactive / idle | PASS | Broker PID replacement and readiness; actual private UI; 30.27 seconds no model/browser work; zero production computer authority |
 
 ## Remaining work and handoff
 
-Implementation and actual runtime/UI checks pass. Final Ubuntu suite: 294/294; local:
-293 passes and one Linux-only skip. Normal merge, exact
-production build/deployment, retained-state comparison and idle verification remain.
-No production Computer Use authority may be activated by this milestone.
+Implementation, actual runtime/UI acceptance, independent review and production delivery pass.
+Final Ubuntu suite and independently merged revision: 294/294 each; local: 293 passes and
+one Linux-only skip. The completion-documentation PR carries the verified release evidence;
+its exact final source/build/health receipt is recorded outside Git in the delivery handoff
+and protected host journal. That revision must also be normally merged and deployed before
+the final handoff. No production Computer Use authority is activated by this milestone.
 
 ## Progress — 16:29 Vancouver
 
@@ -164,3 +168,26 @@ recheck passed after 55.37 seconds without authority restoration or effect. All 
 services are stopped. Fresh protected inventory covers 74 databases, 634 provisioner records
 and 189 worker homes; offline migration preserves all2,233 original fields/rows/rowids.
 PR13 will progress through normal merge; production/inactive/idle gates remain open.
+
+### Accepted production deployment — 2026-10-05 18:03 Vancouver
+
+PR #13 merged normally as a4cfbc40ffe1929ddc6c84f7da92166a55eac9b4. The exact merged revision
+passed 294/294 Ubuntu tests under the service restrictions; independent and production
+dist/public manifests match all 228 files. Local main, origin/main, deployed checkout and
+running health identity matched. The narrow browser service installer ran twice, replacing
+PID 500829 with 501369 and confirming readiness; no OS/package upgrade occurred in either run.
+The retained HQ unit is byte-identical, runtime ready, listener only 127.0.0.1:4310.
+
+The actual private UI opens Computer Sessions without a session, operator or model execution.
+The 30.27-second idle gate preserves all counts and PIDs with zero Chromium processes.
+All eight workers remain enabled/idle; 48 Tasks, 65 completed executions, one original
+research grant, seven identities, pause=false, zero mandates/schedules and all computer
+tables empty. All task-owned temporary services are stopped. The 74-database preservation
+comparison passes for 53,670 original rows, account/group mappings, homes and root records;
+only the live workers.updated_at heartbeat is excluded. Offline migration preserves every field.
+
+Two verification-helper mistakes (ss peer column; symlink versus canonical Node path) are
+retained and corrected without changing production or weakening the asserted boundaries.
+Current-facing docs now mark Prompt 10 Complete and Prompt 11 Next. The final docs-only
+merge/deployment uses the same application/build and repeats identity, preservation and idle
+gates. Final exact SHA is supplied by the handoff/protected journal to avoid self-reference.

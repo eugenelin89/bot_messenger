@@ -23,8 +23,8 @@ and their historical evidence retain their original meaning.
 | 07 | First-class conversations, direct worker interaction and context continuity | Complete |
 | 08 | Collaborative working groups and deliberation | Complete |
 | 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Complete |
-| 10 | Bounded Computer Use | In final acceptance |
-| 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
+| 10 | Bounded Computer Use | Complete |
+| 11 | Single-company business operations and a measured Asymmetri Motion pilot | Next |
 | — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
 | — | Company-to-company collaboration | Deferred; after company isolation |
 | — | Generic external identities / Telegram | Deferred; needed narrow business adapters may precede it |
@@ -34,7 +34,7 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 09 is Complete; Prompt 10 is in final acceptance.** See the [actual Prompt 09 acceptance and deployment](../validation/PROMPT_09_VALIDATION.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 10 is Complete; Prompt 11 is Next.** See the [actual Prompt 10 acceptance and deployment](../validation/PROMPT_10_VALIDATION.md).
 
 **Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
 WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
@@ -730,7 +730,7 @@ C09-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md
 
 ## Prompt 10 — Bounded Computer Use
 
-**Status:** Implemented; final acceptance/release gates in [Prompt 10 validation](../validation/PROMPT_10_VALIDATION.md).
+**Status:** Complete and deployed; C10-1 and delivery evidence in [Prompt 10 validation](../validation/PROMPT_10_VALIDATION.md).
 
 The implemented slice uses owner-created Computer Operators, immutable ordinary Task/session
 grants, isolated headless Chromium, structured rendered snapshots and private real PNGs.
@@ -774,7 +774,7 @@ not a mandatory technical dependency for every adapter.
 
 ## Prompt 11 — Single-company business operations and measured pilot
 
-**Status:** Planned
+**Status:** Next
 
 Make one company useful in the real world before multiplying companies. Implement a small
 vertical slice connecting **evidence → decision → approved action → receipt → observed

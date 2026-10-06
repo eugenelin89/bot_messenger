@@ -1,0 +1,31 @@
+Hit:1 http://mirrors.digitalocean.com/ubuntu noble InRelease
+Hit:2 http://mirrors.digitalocean.com/ubuntu noble-updates InRelease
+Hit:3 http://mirrors.digitalocean.com/ubuntu noble-backports InRelease
+Hit:4 https://repos-droplet.digitalocean.com/apt/droplet-agent main InRelease
+Hit:5 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:6 https://repos.insights.digitalocean.com/apt/do-agent main InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+libnspr4 is already the newest version (2:4.35-1.1build1).
+libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+libxkbcommon0 is already the newest version (1.6.0-1build1).
+libxcomposite1 is already the newest version (1:0.4.5-1build3).
+libxdamage1 is already the newest version (1:1.1.6-1build1).
+libxfixes3 is already the newest version (1:6.0.0-2build1).
+libxrandr2 is already the newest version (2:1.5.2-2build1).
+libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+libcairo2 is already the newest version (1.18.0-3build1).
+libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+fonts-liberation is already the newest version (1:2.1.5-3).
+bubblewrap is already the newest version (0.9.0-1ubuntu0.3).
+apparmor is already the newest version (4.0.1really4.0.1-0ubuntu0.24.04.8).
+0 upgraded, 0 newly installed, 0 to remove and 7 not upgraded.
+Bounded Chromium runtime installed; no session or grant created.

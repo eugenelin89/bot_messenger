@@ -1,0 +1,45 @@
+Hit:1 http://mirrors.digitalocean.com/ubuntu noble InRelease
+Get:2 http://mirrors.digitalocean.com/ubuntu noble-updates InRelease [126 kB]
+Get:3 http://mirrors.digitalocean.com/ubuntu noble-backports InRelease [126 kB]
+Hit:4 https://repos.insights.digitalocean.com/apt/do-agent main InRelease
+Hit:5 https://repos-droplet.digitalocean.com/apt/droplet-agent main InRelease
+Hit:6 http://security.ubuntu.com/ubuntu noble-security InRelease
+Get:7 http://mirrors.digitalocean.com/ubuntu noble-updates/main amd64 Packages [1370 kB]
+Get:8 http://mirrors.digitalocean.com/ubuntu noble-updates/main Translation-en [305 kB]
+Get:9 http://mirrors.digitalocean.com/ubuntu noble-updates/main amd64 Components [181 kB]
+Get:10 http://mirrors.digitalocean.com/ubuntu noble-updates/universe amd64 Packages [1701 kB]
+Get:11 http://mirrors.digitalocean.com/ubuntu noble-updates/universe Translation-en [341 kB]
+Get:12 http://mirrors.digitalocean.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+Get:13 http://mirrors.digitalocean.com/ubuntu noble-updates/restricted amd64 Packages [1728 kB]
+Get:14 http://mirrors.digitalocean.com/ubuntu noble-updates/restricted Translation-en [395 kB]
+Get:15 http://mirrors.digitalocean.com/ubuntu noble-updates/multiverse Translation-en [13.3 kB]
+Get:16 http://mirrors.digitalocean.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:17 http://mirrors.digitalocean.com/ubuntu noble-backports/main amd64 Components [5764 B]
+Get:18 http://mirrors.digitalocean.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+Fetched 6694 kB in 4s (1909 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+libnspr4 is already the newest version (2:4.35-1.1build1).
+libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+libxkbcommon0 is already the newest version (1.6.0-1build1).
+libxcomposite1 is already the newest version (1:0.4.5-1build3).
+libxdamage1 is already the newest version (1:1.1.6-1build1).
+libxfixes3 is already the newest version (1:6.0.0-2build1).
+libxrandr2 is already the newest version (2:1.5.2-2build1).
+libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+libcairo2 is already the newest version (1.18.0-3build1).
+libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+fonts-liberation is already the newest version (1:2.1.5-3).
+bubblewrap is already the newest version (0.9.0-1ubuntu0.3).
+apparmor is already the newest version (4.0.1really4.0.1-0ubuntu0.24.04.8).
+0 upgraded, 0 newly installed, 0 to remove and 7 not upgraded.
+Created symlink /etc/systemd/system/multi-user.target.wants/botsquad-browser.service → /etc/systemd/system/botsquad-browser.service.
+Bounded Chromium runtime installed; no session or grant created.
