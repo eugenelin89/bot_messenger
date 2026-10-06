@@ -1,0 +1,32 @@
+(node:77860) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (1124.383542ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (914.554709ms)
+✔ initial session failure recovers through ready (546.953416ms)
+✔ initial session failure recovers through retry (518.771333ms)
+✔ initial state failure recovers through ready (580.234791ms)
+✔ initial state failure recovers through retry (552.238583ms)
+✔ boot controls cannot send writes while session or state is unavailable (501.181292ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (480.022125ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (569.6995ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (599.605542ms)
+✔ first direct auxiliary load is explicit and recovers independently (648.83725ms)
+✔ first groups auxiliary load is explicit and recovers independently (615.616917ms)
+✔ first mandates auxiliary load is explicit and recovers independently (633.71475ms)
+✔ first computers auxiliary load is explicit and recovers independently (618.370667ms)
+✔ first devices auxiliary load is explicit and recovers independently (658.058ms)
+✔ auxiliary failure remains visible without converting company state to empty (661.040583ms)
+✔ changed events and rapid tab switches coalesce state requests (649.5775ms)
+✔ closed worker inspector cannot be reopened by late discovery (568.714333ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (630.982292ms)
+✔ late failed worker discovery cannot replace a newer inspector (563.793917ms)
+✔ late conversation index cannot overwrite a changed worker filter (568.791959ms)
+✔ stream interruption reports reconnecting even when a state request failed first (531.968208ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13947.591042

@@ -1,0 +1,55 @@
+✔ Attention during held company and attention boot loads (1440px) (3537.258725ms)
+✔ Attention during held company and attention boot loads (390px) (3197.11821ms)
+✔ real SSE startup resolves verified zero (3920.430804ms)
+✔ mixed categories, stable order and exact Task navigation (1440px) (4867.491804ms)
+✔ mixed categories, stable order and exact Task navigation (390px) (3635.049659ms)
+✔ exact infrastructure approval navigation, owner denial and Attention source resolution (3307.928497ms)
+✔ historical failed execution under completed Task stays out of browser Attention (3501.342778ms)
+✔ auxiliary Attention error preserves company state and recovers without false zero (3517.178506ms)
+✔ reconnect retains last Attention, aborts stale read and preserves final navigation (3444.254818ms)
+✔ Computer, group, mandate, publication and device items select existing source surfaces (5496.648404ms)
+✔ business item opens exact existing action inspector, late load cannot steal navigation (4020.965058ms)
+✔ cached zero remains unverified after reconnect until the Attention read succeeds (4197.201947ms)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (5488.260816ms)
+✖ historical undefined-state race: all early tabs preserve intent (390px) (14618.415176ms)
+✔ initial session failure recovers through ready (3145.275235ms)
+✔ initial session failure recovers through retry (3245.624186ms)
+✔ initial state failure recovers through ready (3258.491516ms)
+✔ initial state failure recovers through retry (2926.381193ms)
+✔ boot controls cannot send writes while session or state is unavailable (2954.022402ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (3322.870777ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (3478.424556ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (3061.736877ms)
+✔ first direct auxiliary load is explicit and recovers independently (3433.229675ms)
+✔ first groups auxiliary load is explicit and recovers independently (3765.657877ms)
+✔ first mandates auxiliary load is explicit and recovers independently (4250.900024ms)
+✔ first computers auxiliary load is explicit and recovers independently (4833.634747ms)
+✔ first devices auxiliary load is explicit and recovers independently (4282.208243ms)
+✔ auxiliary failure remains visible without converting company state to empty (3722.62662ms)
+✔ changed events and rapid tab switches coalesce state requests (4141.552753ms)
+✔ closed worker inspector cannot be reopened by late discovery (3975.316121ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (8720.775985ms)
+✔ late failed worker discovery cannot replace a newer inspector (9077.216811ms)
+✔ late conversation index cannot overwrite a changed worker filter (8686.598215ms)
+✔ stream interruption reports reconnecting even when a state request failed first (5692.213584ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 33
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159224.576317
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:59:33
+✖ historical undefined-state race: all early tabs preserve intent (390px) (14618.415176ms)
+  locator.waitFor: Timeout 10000ms exceeded.
+  Call log:
+    - waiting for locator('#new-mandate') to be visible
+  
+      at TestContext.<anonymous> (/opt/botsquad-personal03/test/startup-ui.browser.mjs:77:38) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for locator('#new-mandate') to be visible" ]
+  }

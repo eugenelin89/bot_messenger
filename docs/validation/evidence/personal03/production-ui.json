@@ -1,0 +1,47 @@
+{
+  "revision": "c6c8f0b47f59a02ebb5142361e2d396a4f075dc5",
+  "production_attention_count": 1,
+  "source_id": "task_cae78898-23c9-4e76-b6e5-4440e4fa8fdf",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1100
+      },
+      "hard_reload": true,
+      "held_real_company_read": true,
+      "boot_count": "…",
+      "verified_count": 1,
+      "exact_task_inspected": true,
+      "cancel_supported": true,
+      "generic_retry_absent": true,
+      "source_and_back": true,
+      "no_horizontal_overflow": true,
+      "native_tunnel_reconnect": true,
+      "stale_count": "1*",
+      "recovered_count": 1
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "hard_reload": true,
+      "held_real_company_read": true,
+      "boot_count": "…",
+      "verified_count": 1,
+      "exact_task_inspected": true,
+      "cancel_supported": true,
+      "generic_retry_absent": true,
+      "source_and_back": true,
+      "no_horizontal_overflow": true,
+      "native_tunnel_reconnect": true,
+      "stale_count": "1*",
+      "recovered_count": 1
+    }
+  ],
+  "page_errors": 0,
+  "mutation_requests": 0,
+  "private_screenshots": false,
+  "real_sse": true
+}
