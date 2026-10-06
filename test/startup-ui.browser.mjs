@@ -105,7 +105,10 @@ test('boot controls cannot send writes while session or state is unavailable',as
     assert.equal(await page.locator('#compose').count(),0);
   };
   await attempt();session.release();await state.entered;await attempt();
-  state.release();await signal('ready');await page.locator('#compose').waitFor();
+  // Finish this boot-control check before exercising session renewal. The reconnect
+  // case below separately requires cancellation and recovery before releasing its read.
+  state.release();await page.locator('#compose').waitFor();
+  await signal('ready');await page.getByText('Connected to headquarters',{exact:true}).waitFor();
   assert.equal(await page.locator('#initialize').isEnabled(),true);
   assert.match(await page.locator('#workers').textContent(),/Initialize Atlas/);
 });

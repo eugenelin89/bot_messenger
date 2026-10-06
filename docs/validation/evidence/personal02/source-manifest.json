@@ -5,5 +5,5 @@
   "public/computers.js": "ce2dac70155b73f6e375c9ef6b41b66527bde7ceecb040a1a93b18cc0daf2b50",
   "public/groups.js": "d1b26f64b5f4ac10f3793bc373cc01d43d2a932cfb2a443570dacc2ae1f10e5b",
   "public/mandates.js": "340dc413e4870a26d9ecc2f04f2e02f9a8de6c54739bedaed45d298cfa2a121b",
-  "test/startup-ui.browser.mjs": "c00fc1870c4aad0e863b03e38926b34b57229fab97bc0792572ce81f4d87d5a7"
+  "test/startup-ui.browser.mjs": "2439e3fcae647d320ad404f7b6a61f44d35e15659a4cdf7814a7dfa6cc73e81d"
 }

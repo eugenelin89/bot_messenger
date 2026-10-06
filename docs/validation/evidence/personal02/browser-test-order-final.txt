@@ -1,0 +1,222 @@
+TAP version 13
+# (node:47784) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client
+ok 1 - real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client
+  ---
+  duration_ms: 5707.778625
+  type: 'test'
+  ...
+# (node:47785) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage
+ok 2 - browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage
+  ---
+  duration_ms: 6252.966416
+  type: 'test'
+  ...
+# Subtest: delayed history page cannot be appended to another selected conversation
+ok 3 - delayed history page cannot be appended to another selected conversation
+  ---
+  duration_ms: 1750.260458
+  type: 'test'
+  ...
+# (node:47786) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: live updates preserve the approval being inspected and expanded exact scope
+ok 4 - live updates preserve the approval being inspected and expanded exact scope
+  ---
+  duration_ms: 4963.467625
+  type: 'test'
+  ...
+# (node:47787) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: new group waits for the initial eligible roster before opening the charter
+ok 5 - new group waits for the initial eligible roster before opening the charter
+  ---
+  duration_ms: 4605.791042
+  type: 'test'
+  ...
+# Subtest: working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation
+ok 6 - working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation
+  ---
+  duration_ms: 3205.473208
+  type: 'test'
+  ...
+# Subtest: group drafts and delayed history stay attached to the original group
+ok 7 - group drafts and delayed history stay attached to the original group
+  ---
+  duration_ms: 1771.178541
+  type: 'test'
+  ...
+# Subtest: blocked group owner selects an unfenced existing participant for explicit incomplete finish
+ok 8 - blocked group owner selects an unfenced existing participant for explicit incomplete finish
+  ---
+  duration_ms: 1186.407333
+  type: 'test'
+  ...
+# (node:47788) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: owner browser creates passive mandate, admits visibly simulated evidence and controls schedules
+ok 9 - owner browser creates passive mandate, admits visibly simulated evidence and controls schedules
+  ---
+  duration_ms: 6586.019166
+  type: 'test'
+  ...
+# Subtest: UTC browser creates and edits Vancouver daily reviews across normal and DST dates
+ok 10 - UTC browser creates and edits Vancouver daily reviews across normal and DST dates
+  ---
+  duration_ms: 3530.876167
+  type: 'test'
+  ...
+# (node:47789) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes
+ok 11 - browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes
+  ---
+  duration_ms: 6382.435333
+  type: 'test'
+  ...
+# (node:47790) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: historical undefined-state race: all early tabs preserve intent (1440px)
+ok 12 - historical undefined-state race: all early tabs preserve intent (1440px)
+  ---
+  duration_ms: 5116.104709
+  type: 'test'
+  ...
+# Subtest: historical undefined-state race: all early tabs preserve intent (390px)
+ok 13 - historical undefined-state race: all early tabs preserve intent (390px)
+  ---
+  duration_ms: 2694.964208
+  type: 'test'
+  ...
+# Subtest: initial session failure recovers through ready
+ok 14 - initial session failure recovers through ready
+  ---
+  duration_ms: 1292.7085
+  type: 'test'
+  ...
+# Subtest: initial session failure recovers through retry
+ok 15 - initial session failure recovers through retry
+  ---
+  duration_ms: 1139.325958
+  type: 'test'
+  ...
+# Subtest: initial state failure recovers through ready
+ok 16 - initial state failure recovers through ready
+  ---
+  duration_ms: 728.9365
+  type: 'test'
+  ...
+# Subtest: initial state failure recovers through retry
+ok 17 - initial state failure recovers through retry
+  ---
+  duration_ms: 583.22575
+  type: 'test'
+  ...
+# Subtest: boot controls cannot send writes while session or state is unavailable
+ok 18 - boot controls cannot send writes while session or state is unavailable
+  ---
+  duration_ms: 558.679875
+  type: 'test'
+  ...
+# Subtest: normal startup uses real SSE and loaded empty state is distinct from boot
+ok 19 - normal startup uses real SSE and loaded empty state is distinct from boot
+  ---
+  duration_ms: 517.838
+  type: 'test'
+  ...
+# Subtest: reconnect retains state, tab and draft; a stale response cannot declare readiness
+ok 20 - reconnect retains state, tab and draft; a stale response cannot declare readiness
+  ---
+  duration_ms: 700.326416
+  type: 'test'
+  ...
+# Subtest: failed refresh retains prior state and disables writes until retry succeeds
+ok 21 - failed refresh retains prior state and disables writes until retry succeeds
+  ---
+  duration_ms: 857.6205
+  type: 'test'
+  ...
+# Subtest: first direct auxiliary load is explicit and recovers independently
+ok 22 - first direct auxiliary load is explicit and recovers independently
+  ---
+  duration_ms: 760.421208
+  type: 'test'
+  ...
+# Subtest: first groups auxiliary load is explicit and recovers independently
+ok 23 - first groups auxiliary load is explicit and recovers independently
+  ---
+  duration_ms: 702.619916
+  type: 'test'
+  ...
+# Subtest: first mandates auxiliary load is explicit and recovers independently
+ok 24 - first mandates auxiliary load is explicit and recovers independently
+  ---
+  duration_ms: 729.729083
+  type: 'test'
+  ...
+# Subtest: first computers auxiliary load is explicit and recovers independently
+ok 25 - first computers auxiliary load is explicit and recovers independently
+  ---
+  duration_ms: 766.280333
+  type: 'test'
+  ...
+# Subtest: first devices auxiliary load is explicit and recovers independently
+ok 26 - first devices auxiliary load is explicit and recovers independently
+  ---
+  duration_ms: 713.933334
+  type: 'test'
+  ...
+# Subtest: auxiliary failure remains visible without converting company state to empty
+ok 27 - auxiliary failure remains visible without converting company state to empty
+  ---
+  duration_ms: 672.056083
+  type: 'test'
+  ...
+# Subtest: changed events and rapid tab switches coalesce state requests
+ok 28 - changed events and rapid tab switches coalesce state requests
+  ---
+  duration_ms: 755.387625
+  type: 'test'
+  ...
+# Subtest: closed worker inspector cannot be reopened by late discovery
+ok 29 - closed worker inspector cannot be reopened by late discovery
+  ---
+  duration_ms: 642.851
+  type: 'test'
+  ...
+# Subtest: inspector draft and submit recover after an intercepted write fails during disconnect
+ok 30 - inspector draft and submit recover after an intercepted write fails during disconnect
+  ---
+  duration_ms: 724.62425
+  type: 'test'
+  ...
+# Subtest: late failed worker discovery cannot replace a newer inspector
+ok 31 - late failed worker discovery cannot replace a newer inspector
+  ---
+  duration_ms: 643.321208
+  type: 'test'
+  ...
+# Subtest: late conversation index cannot overwrite a changed worker filter
+ok 32 - late conversation index cannot overwrite a changed worker filter
+  ---
+  duration_ms: 712.469458
+  type: 'test'
+  ...
+# Subtest: stream interruption reports reconnecting even when a state request failed first
+ok 33 - stream interruption reports reconnecting even when a state request failed first
+  ---
+  duration_ms: 653.634542
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23087.224375

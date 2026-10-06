@@ -1,0 +1,89 @@
+TAP version 13
+# Subtest: boot controls diagnostic iteration 1
+ok 1 - boot controls diagnostic iteration 1
+  ---
+  duration_ms: 4120.799165
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 2
+ok 2 - boot controls diagnostic iteration 2
+  ---
+  duration_ms: 3804.249062
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 3
+ok 3 - boot controls diagnostic iteration 3
+  ---
+  duration_ms: 4529.276437
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 4
+ok 4 - boot controls diagnostic iteration 4
+  ---
+  duration_ms: 4003.29382
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 5
+ok 5 - boot controls diagnostic iteration 5
+  ---
+  duration_ms: 3873.323218
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 6
+ok 6 - boot controls diagnostic iteration 6
+  ---
+  duration_ms: 3824.560634
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 7
+ok 7 - boot controls diagnostic iteration 7
+  ---
+  duration_ms: 3681.142751
+  type: 'test'
+  ...
+# Subtest: boot controls diagnostic iteration 8
+ok 8 - boot controls diagnostic iteration 8
+  ---
+  duration_ms: 3858.873325
+  type: 'test'
+  ...
+# TRACE [["SERVER","GET","/"],["SERVER_FINISH","/",200],["SERVER","GET","/styles.css"],["SERVER_FINISH","/styles.css",200],["SERVER","GET","/app.js"],["SERVER_FINISH","/app.js",200],["SERVER","GET","/computers.js"],["SERVER_FINISH","/computers.js",200],["SERVER","GET","/mandates.js"],["SERVER_FINISH","/mandates.js",200],["SERVER","GET","/groups.js"],["SERVER_FINISH","/groups.js",200],["SERVER","GET","/business.js"],["SERVER_FINISH","/business.js",200],["NETWORK","request","/api/session",null],["GATE_ENTER","session"],["GATE_RELEASE","session",null],["GATE_CONTINUE","session"],["GATE_CONTINUED","session"],["SERVER","GET","/api/session"],["SERVER_FINISH","/api/session",200],["RESPONSE","/api/session",200],["NETWORK","requestfinished","/api/session",null],["NETWORK","request","/api/state",null],["GATE_ENTER","state"],["GATE_RELEASE","state",null],["GATE_CONTINUE","state"],["GATE_CONTINUED","state"],["NETWORK","request","/api/session",null],["NETWORK","requestfailed","/api/state",{"errorText":"net::ERR_ABORTED"}]]
+# DIAG {
+#   connection: 'Loading headquarters…',
+#   load: 'Reconnecting to headquarters… Waiting for company state.',
+#   view: 'Loading company state…Your selected section will appear when its data is available.',
+#   error: 'Wait for headquarters to finish loading before making changes.',
+#   events: 1
+# }
+# Subtest: boot controls diagnostic iteration 9
+not ok 9 - boot controls diagnostic iteration 9
+  ---
+  duration_ms: 13529.209308
+  type: 'test'
+  location: '/opt/botsquad-personal02-followup/test/personal02-boot-buffered.browser.mjs:64:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('#compose') to be visible
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/opt/botsquad-personal02-followup/test/personal02-boot-buffered.browser.mjs:75:76)
+  ...
+# Subtest: boot controls diagnostic iteration 10
+ok 10 - boot controls diagnostic iteration 10
+  ---
+  duration_ms: 3456.148919
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 50014.190663
