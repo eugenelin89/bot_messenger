@@ -1,0 +1,1 @@
+{"export": "/var/lib/botsquad/validation/computer-20261005-worker3/public-evidence", "files": 16, "fresh_provider_generations": true, "evidence_hashes_verified": true}

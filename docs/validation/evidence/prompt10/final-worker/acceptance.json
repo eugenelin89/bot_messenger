@@ -1,0 +1,66 @@
+{
+  "kind": "Actual Codex worker, real isolated Chromium, disposable fixture",
+  "phases": {
+    "safe": {
+      "session_id": "computer_c6986e59-3ce6-40f7-8427-89fb9e01228e",
+      "task_id": "task_5434fa45-fa58-40fc-997f-fb403b73bbf9",
+      "evidence": [
+        "computerevidence_037117e6-72bd-4f50-a7ee-3a55140e89a9",
+        "computerevidence_1ec6317a-72bb-4cc8-aa8f-cd920b11b0bd",
+        "computerevidence_8c46d4a1-be65-41fb-a9dd-c9d079533700",
+        "computerevidence_6a19132e-3dce-49f0-b1cd-888258b1edda",
+        "computerevidence_0359f61a-87c7-487f-aacd-e9fd8f357c43"
+      ],
+      "effects_before": 8,
+      "effects_after": 8
+    },
+    "protected": {
+      "session_id": "computer_c4258421-c0f4-4e04-8f23-773e06cc87f2",
+      "task_id": "task_f3a001ed-a10a-4872-bd58-ef3f507ace18",
+      "intent_id": "computerintent_7036c76f-57c9-4c06-beda-1d1f841e5fd6",
+      "effects_before": 8,
+      "effects_after": 9,
+      "generation": 2
+    },
+    "pending-restart": {
+      "session_id": "computer_2f083758-2008-4dcf-b3e9-697fad009b56",
+      "task_id": "task_ad9f014d-e663-40b8-86c8-0849b39d57f4",
+      "intent_id": "computerintent_ac6870be-d74e-4f18-9a62-821ba512a97d",
+      "effects_before": 9,
+      "awaiting_restart": true
+    }
+  },
+  "attempts": [
+    {
+      "phase": "safe",
+      "session_id": "computer_c6986e59-3ce6-40f7-8427-89fb9e01228e",
+      "task_id": "task_5434fa45-fa58-40fc-997f-fb403b73bbf9",
+      "at": "2026-10-06T00:38:48.508Z"
+    },
+    {
+      "phase": "protected",
+      "session_id": "computer_c4258421-c0f4-4e04-8f23-773e06cc87f2",
+      "task_id": "task_f3a001ed-a10a-4872-bd58-ef3f507ace18",
+      "at": "2026-10-06T00:40:08.847Z"
+    },
+    {
+      "phase": "pending-restart",
+      "session_id": "computer_2f083758-2008-4dcf-b3e9-697fad009b56",
+      "task_id": "task_ad9f014d-e663-40b8-86c8-0849b39d57f4",
+      "at": "2026-10-06T00:40:51.050Z"
+    }
+  ],
+  "source_revision": "db7492b38f5a45e8a8223b7f07df549027f080b7",
+  "protected": {
+    "session_id": "computer_c4258421-c0f4-4e04-8f23-773e06cc87f2",
+    "task_id": "task_f3a001ed-a10a-4872-bd58-ef3f507ace18",
+    "intent_id": "computerintent_7036c76f-57c9-4c06-beda-1d1f841e5fd6",
+    "effects_before": 8
+  },
+  "pending-restart": {
+    "session_id": "computer_2f083758-2008-4dcf-b3e9-697fad009b56",
+    "task_id": "task_ad9f014d-e663-40b8-86c8-0849b39d57f4",
+    "intent_id": "computerintent_ac6870be-d74e-4f18-9a62-821ba512a97d",
+    "effects_before": 9
+  }
+}

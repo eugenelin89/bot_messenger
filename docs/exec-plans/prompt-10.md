@@ -6,7 +6,7 @@
 **Worktree:** `bot_messenger-prompt10`
 **Started:** 2026-10-05 15:43 America/Vancouver
 **Initial ETA:** 4–8 hours, subject to browser isolation and real Ubuntu acceptance
-**Current ETA:** Unchanged
+**Current ETA:** Approximately 1–2 hours remaining at 17:40 Vancouver, subject to final worker/UI and release gates
 
 ## Objective and scope
 
@@ -87,17 +87,17 @@ advisory; inspect the installed 0.157.0 schema before choosing its observation f
 | Gate | Result | Evidence |
 | --- | --- | --- |
 | Live preflight | PASS | Read-only SSH health/version/resources and SQLite inventory above |
-| C10-1 | Functional gates PASS; final review pending | Real employee, 12 integration and 10 fault gates; private evidence packet |
-| Specialist review | Rereview active | Three design + two implementation reviews; fixes retained; three final reviews active |
+| C10-1 | Runtime/UI and pre-release review PASS | Final real employee, 12 integration and 18 fault gates; private evidence packet |
+| Specialist review | Four required roles reviewed; pre-release acceptance PASS | Security handoff finding closed; actual UI/bypass evidence complete; release gates separate |
 | Migration/preservation | Offline PASS; final inventory pending | 85 tables / 2,233 original rows, all fields/rowids; production untouched |
 | Merge/deployment | PENDING | No milestone changes deployed |
 
 ## Remaining work and handoff
 
-Core implementation and UI are present. Local regression: 272 passed, zero failed, one platform skip (273 total). Real Chromium launch/render/input/screenshot and namespace/seccomp status probes passed. Full browser/worker/fault acceptance and delivery remain. Do not infer completion from this
-plan. Final handoff must identify exact revision equality, architecture and limits,
-worker observation format, real evidence and resources, findings/dispositions, actual
-test counts, retained failures, production preservation and temporary-process cleanup.
+Implementation and actual runtime/UI checks pass. Final Ubuntu suite: 294/294; local:
+293 passes and one Linux-only skip. Normal merge, exact
+production build/deployment, retained-state comparison and idle verification remain.
+No production Computer Use authority may be activated by this milestone.
 
 ## Progress — 16:29 Vancouver
 
@@ -139,3 +139,28 @@ Current overall ETA remains 4–8 hours. Normal PR/review/preservation/deploymen
 - Security/recovery correction reviews and independent acceptance review are running.
 - Production application remains unchanged. Initial 4–8 hour estimate remains appropriate;
   exact candidate browser/fault/Projects confirmation, merge and preserved deployment remain.
+
+### Final candidate gates — 2026-10-05 17:40 Vancouver
+
+- Four required specialist reviews found no blocking authority defect. Their material
+  lifecycle/UI/evidence findings are fixed and tracked separately from release acceptance.
+- Product revision fc775af passed 294/294 Ubuntu tests, 293 local passes plus one Linux-only
+  skip, 18 actual browser fault gates including pending launch loss and immediate handoff.
+- db7492b preserves all tested product/deployment/unit sources and corrects only fixture
+  observation/provenance. All 12 real browser integration gates now pass with per-mechanism
+  redirect, XHR, image, WebSocket, valid service-worker and popup denial evidence. Failed
+  integration6 remains; fixture DOM-ID collision and asynchronous status interpretation
+  were corrected without changing the browser policy or weakening assertions.
+- Exact-checkout Projects passed with 104 UID/archive checks; all existing-mode real
+  regressions are complete. Fresh worker3 safe/approved continuation and UI lost-close-ack
+  confirmation are in progress. PR #13 is draft; production is still the baseline revision.
+
+### Pre-release acceptance — 2026-10-05 17:48 Vancouver
+
+Security and test final reviews close all material implementation/runtime evidence findings.
+Test reviewer explicitly supports normal merge/deployment. Final worker3 safe22actions/five
+PNGs and exact approved one-effect continuation passed; actual owner UI lost-ack cleanup
+recheck passed after 55.37 seconds without authority restoration or effect. All validation
+services are stopped. Fresh protected inventory covers 74 databases, 634 provisioner records
+and 189 worker homes; offline migration preserves all2,233 original fields/rows/rowids.
+PR13 will progress through normal merge; production/inactive/idle gates remain open.

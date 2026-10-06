@@ -1,6 +1,6 @@
 # Prompt 10 — Bounded Computer Use validation
 
-**Status:** C10-1 functional evidence collected; final specialist, regression and release gates pending.
+**Status:** C10-1 runtime/security/UI checks passed; independent pre-release acceptance passed; production release gates pending.
 **Date:** 2026-10-05 (America/Vancouver; some UTC receipts are October 6).
 **Scope:** One company, one explicitly authorized browser resource, disposable fixtures only.
 
@@ -94,6 +94,35 @@ The [owner UI screenshot](evidence/prompt10/owner-computer-session.png) shows ac
 PNG rendering, attribution and request denials. [The denied proposal](evidence/prompt10/owner-denied-policy.png)
 was created and denied through the browser UI, with zero model/browser actions.
 
+## Final candidate confirmation
+
+Product/deployment/unit sources at `fc775af` are identical to the `db7492b` confirmation
+checkout; only fixture observation, export/provenance and documentation changed. The final
+[18 actual browser fault gates](evidence/prompt10/final-fault-results.json) and
+[12 integration gates](evidence/prompt10/final-integration-results.json) include pending-launch
+socket loss, three immediate replacements without a sleep, each separately observed bypass,
+mixed-case private controls, request/byte/stream/concurrency bounds and exact protected effects.
+The valid service-worker script is checked independently; browser registration returns no
+registration, and the forbidden recorder remains empty. Fixtures are test evidence only.
+
+The [fresh final real-worker ledger](evidence/prompt10/final-worker/acceptance.json) records
+22 safe actions, four navigations, five verified PNGs and a useful report, with effects 8→8.
+A separate protected Task waited at zero new effect, resumed in a distinct actual provider
+context, committed one trusted HTTP receipt (8→9), and finished with shutdown confirmed.
+The [state/attribution export](evidence/prompt10/final-worker/worker-state.json) and
+[typed transcript](evidence/prompt10/final-worker/worker-tool-transcript.json) preserve this.
+
+The [owner UI recovery receipt](evidence/prompt10/final-worker/cleanup-ui.json) uses a third
+real worker-requested pending intent. A labelled adapter deliberately withholds the real
+close acknowledgement after UI revocation. After 55.37 seconds and exhausted automatic
+retries, the UI's recheck confirms cleanup. All other session fields and the revoked grant
+remain unchanged; the intent stays cancelled/unconsumed and effects stay 9→9.
+[Before](evidence/prompt10/owner-cleanup-unconfirmed.jpg) and
+[after](evidence/prompt10/owner-cleanup-confirmed.jpg) screenshots show the actual controls.
+The driver's historical `pending-restart` phase label means it created a pending intent;
+this final instance was resolved by UI revocation, as recorded by the separate cleanup receipt.
+Earlier actual restart acceptance remains in `restart-evidence.json`.
+
 ## Deterministic coverage and current regressions
 
 The focused suite covers policy/capability/grants, immutable scope, expiry/revocation,
@@ -102,12 +131,13 @@ call ownership, single reservation, screenshot integrity, stale context, protect
 model-slot release, unknown fencing, recovery, private device projections and async teardown.
 The synthetic browser is explicitly labelled and is not used as C10-1 proof.
 
-The updated local suite passed **293/294, zero failures, one Linux-only skip**; focused
-Computer Use coverage passed 26/26, the Unix handoff test passed 1/1, and the pinned
-forwarder passed 7/7. Exact candidate
-Ubuntu confirmation remains a release gate. The earlier full local candidate passed 278
-with one existing Linux-only skip (279 total). The first Ubuntu upload passed 273/273; it preceded six additional focused test
-cases, so it is not the final test-count claim. Provisioner protocol tests passed 9/9.
+The final product candidate passed **294/294 tests on Ubuntu, zero failures/skips** and
+**293 passed / one Linux-only skip / zero failures locally** (294 total). The focused
+Computer Use suite contains 26 tests, with one separate Unix handoff test and seven forwarder
+contracts. Provisioner protocol tests passed 9/9. [Exact candidate mapping](evidence/prompt10/candidate-provenance.json),
+[Ubuntu output](evidence/prompt10/linux/final-deterministic.txt), and
+[local output](evidence/prompt10/local-regression5.txt) retain the measured counts. Earlier
+273/273 Ubuntu and 278/279 local runs are historical, not the final count.
 
 Actual same-code isolated regressions passed direct reply/peer exchange, passive-message
 no-dispatch, neutral context replacement, real public search/open and grant revocation,
@@ -115,16 +145,18 @@ shared-material group deliberation/synthesis, and a separately owner-assigned At
 Two mandate/schedule cycles and a 30-second idle observation passed. Linux identity and
 identity-recovery acceptance passed. The first Projects run passed workflow, restart, remote
 reconciliation and 104 isolation/archive checks, then failed in final provenance collection
-because the uploaded source was not a Git checkout. That failed attempt is retained; a fresh
-exact-checkout run is required. Existing deterministic
+because the uploaded source was not a Git checkout. That failed attempt is retained. The
+[fresh exact-checkout run passed](evidence/prompt10/linux/projects.json), including 104
+UID/archive checks, actual review/revision/integration, lost remote response reconciliation
+and archival. Real engineer executions overlapped 19,439 ms; actual turns overlapped 17,396 ms. Existing deterministic
 suites revalidate provider uncertainty and asynchronous research withdrawal/recovery.
 
 ## Independent findings and retained failures
 
 Read-only `control_plane_architect`, `security_reviewer` and `recovery_reviewer` design and
 implementation reviews are retained in this evidence directory. All four required specialists completed source/evidence review. The final review found no
-blocking authority defect; its material lifecycle and evidence gaps are fixed with final
-real-browser/UI confirmation pending. The [finding ledger](evidence/prompt10/finding-disposition.md)
+blocking authority defect; its material lifecycle and evidence gaps are fixed with actual
+real-browser/UI confirmation complete; final test review supports normal merge/deployment; production release gates remain. The [finding ledger](evidence/prompt10/finding-disposition.md)
 links each material issue to the fix and required evidence.
 
 Material fixes already exercised: pending-connect/launch teardown, page callback approval
@@ -166,7 +198,9 @@ OS identities, zero mandates/schedules and no running work.
 A protected consistent backup at `/var/backups/botsquad/prompt10-preflight-20261005` was
 migrated offline twice: **85 original tables, 2,233 rows, every original field and rowid**,
 integrity and foreign keys all preserved; schema 12→13; zero new computer authority.
-Fresh whole-host retained database/identity/home/provisioner inventory, normal PR merge,
+A fresh protected inventory/backup at `/var/backups/botsquad/prompt10-delivery-20261005-first`
+covers **74 retained databases, 634 provisioner records and 189 worker homes**. Its production
+copy independently passed the same two-open migration comparison. Normal PR merge,
 exact merged build, production inactive-state verification, idle observation and temporary
 service cleanup are required before completion. Final exact source/build/health identities
 belong in the delivery handoff and protected release journal, avoiding a self-referential SHA.

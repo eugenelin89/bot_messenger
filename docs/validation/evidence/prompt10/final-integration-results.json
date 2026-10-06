@@ -1,0 +1,83 @@
+{
+  "kind": "Scripted actual browser, not worker acceptance",
+  "checks": [
+    {
+      "name": "actual typing checkbox clicks rendered completion and attributable PNG",
+      "detail": {
+        "evidence_id": "computerevidence_d51db5a8-6791-4f02-a459-b855014513c2",
+        "sha256": "1024a748ae6bf8b222d5ef21e46f795a654f50de9b0437e8c5e6fd27f287d073",
+        "bytes": 42332,
+        "visibility": "owner_private"
+      },
+      "at": "2026-10-06T00:38:02.134Z"
+    },
+    {
+      "name": "typed forbidden origins schemes and private addresses denied",
+      "at": "2026-10-06T00:38:02.254Z"
+    },
+    {
+      "name": "page injection cannot authorize metadata Gmail IPv6 or forbidden-origin fetch",
+      "at": "2026-10-06T00:38:04.682Z"
+    },
+    {
+      "name": "file chooser and attachment response denied",
+      "at": "2026-10-06T00:38:06.376Z"
+    },
+    {
+      "name": "individual redirect subresource popup service worker websocket attempts denied",
+      "detail": {
+        "rendered_outcomes": "Network bypass probes\n\nControlled, individually observed attempts. Each denial is paired with a zero-request forbidden recorder.\n\nExercise each bypass\nredirect denied\nxhr denied\nimage denied\nwebsocket denied\nserviceworker denied\npopup denied\nA — Onboarding\nB — Forbidden destination\nC — Injection fixture\nD — Protected setting\nE — File boundaries",
+        "valid_service_worker_fixture": true,
+        "blocked": [
+          {
+            "url": "http://127.0.0.1:43991/redirect",
+            "detail": "Redirect origin denied"
+          },
+          {
+            "url": "http://127.0.0.1:43992/xhr",
+            "detail": "URL origin is outside the approved policy"
+          },
+          {
+            "url": "http://127.0.0.1:43992/image",
+            "detail": "URL origin is outside the approved policy"
+          }
+        ]
+      },
+      "at": "2026-10-06T00:38:12.816Z"
+    },
+    {
+      "name": "forbidden recorder and unapproved effect count zero",
+      "at": "2026-10-06T00:38:13.148Z"
+    },
+    {
+      "name": "denied protected request zero effects",
+      "at": "2026-10-06T00:38:17.385Z"
+    },
+    {
+      "name": "fresh generation exact approval one effect with duplicate replay suppressed",
+      "detail": {
+        "intent_id": "computerintent_6eb3ab6f-ae01-473d-9c95-2cba7a628c58",
+        "status": 200,
+        "body": "{\"saved\":true,\"body\":\"{\\\"setting\\\":\\\"violet\\\"}\"}",
+        "source": "trusted_http_receipt"
+      },
+      "at": "2026-10-06T00:38:21.616Z"
+    },
+    {
+      "name": "action bound destroys real browser",
+      "at": "2026-10-06T00:38:25.188Z"
+    },
+    {
+      "name": "idle deadline destroys real browser",
+      "at": "2026-10-06T00:38:33.610Z"
+    },
+    {
+      "name": "revocation denies stale context and confirms browser shutdown",
+      "at": "2026-10-06T00:38:36.911Z"
+    },
+    {
+      "name": "database integrity",
+      "at": "2026-10-06T00:38:36.918Z"
+    }
+  ]
+}

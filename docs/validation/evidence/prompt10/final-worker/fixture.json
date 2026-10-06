@@ -1,0 +1,7 @@
+{
+  "purpose": "Trusted normal owner-created operator, no browser grant or model run yet",
+  "operator": "worker_910392fd-5c8e-4c76-b427-d7d306ef4bed",
+  "data_root": "/var/lib/botsquad/validation/computer-20261005-worker3",
+  "revision": "fc775afe6feb56ab05b66e5256b8bbf8426b3511",
+  "model": "gpt-6-sol"
+}
