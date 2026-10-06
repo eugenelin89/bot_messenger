@@ -25,3 +25,9 @@ worker-home comparison checks directory ownership/mode/ACL records, not recursiv
 content equality; protected backup separately retains contents. Post-UI idle receipt and
 final documentation-only merge identity remained delivery gates. Reviewer was read-only.
 Parent disposition: wording narrowed; post-UI idle passed with every count unchanged.
+
+Final reconnect-status ordering review
+No blocker in the one-condition follow-up. The state-failure-before-stream-error baseline
+reproduces the status issue; the new failure/error/ready regression and affected browser
+run pass 33/33. Cached state, error alert and mutation gating remain intact. Exact follow-up
+deployment/tunnel/idle evidence remain final delivery gates; prior timeout stays retained.

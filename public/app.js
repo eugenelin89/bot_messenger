@@ -62,6 +62,7 @@ function renderReadiness() {
   });
   const error = loadError ?? auxiliaryErrors.get(activeTab);
   $('#connection').textContent = !state ? (loadError ? 'Could not load headquarters' : 'Loading headquarters…')
+    : connection === 'reconnecting' ? 'Reconnecting to headquarters…'
     : phase === 'degraded' ? (loadError ? 'Could not refresh headquarters' : 'Reconnecting to headquarters…')
     : connection === 'connected' ? 'Connected to headquarters' : 'Connecting to headquarters…';
   $('#connection-dot').classList.toggle('online', phase === 'ready' && connection === 'connected');

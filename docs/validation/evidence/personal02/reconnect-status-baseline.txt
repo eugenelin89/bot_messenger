@@ -1,0 +1,32 @@
+(node:45658) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ stream interruption reports reconnecting even when a state request failed first (1428.854875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1711.459833
+
+✖ failing tests:
+
+test at test/startup-ui.browser.mjs:264:1
+✖ stream interruption reports reconnecting even when a state request failed first (1428.854875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'Could not refresh headquarters'
+  - 'Reconnecting to headquarters…'
+
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal02/test/startup-ui.browser.mjs:272:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Could not refresh headquarters',
+    expected: 'Reconnecting to headquarters…',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

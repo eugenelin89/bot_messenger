@@ -58,7 +58,12 @@ baseline result. Apply the same sequence at desktop and narrow widths after the 
   Provider remains unconfigured/credential absent/grant revoked. Post-restart and post-UI
   30-second idle intervals left every table count and pause state unchanged.
 - Completion documentation is a separate normal PR; final exact identity receipt is recorded
-  in the protected delivery journal and final handoff. Application/test/dependency trees unchanged.
+  in the protected delivery journal and final handoff. That documentation merge preserved application/test/dependency trees.
+- Its final tunnel rerun exposed a reconnect-label ordering case; a deterministic red test
+  confirms failed-state before stream-error masks the reconnect label. One status-priority
+  condition fixes it, with 33/33 affected browser tests (22 startup) and read-only reviewer
+  acceptance. Final branch: codex/personal-operator-stabilization-02-reconnect-status.
+  The final exact deployment receipt distinguishes this application follow-up from PR #19.
 
 Detailed evidence and retained failed attempts: ../validation/PERSONAL_OPERATOR_STABILIZATION_02.md.
 
