@@ -50,10 +50,11 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.business.progress();
     this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=[this.company.discussions.deadline(),this.company.mandates.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    const deadline=[this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
     if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
@@ -85,7 +86,7 @@ export class Dispatcher {
             configured:config=>this.company.recordRuntimeConfig(context,config),
             prepareBinding:binding=>this.company.conversations.prepareBinding(context,binding),
             bind:binding=>{this.company.conversations.prepareBinding(context,binding);this.company.conversations.activateBinding(context);},
-            callTool:(callId,name,args,signal)=>(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.conversations.callTool(context,callId,name,args),
+            callTool:(callId,name,args,signal)=>(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.conversations.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal),
             event:(type,detail)=>this.company.conversations.event(context,type,detail),
           } : { mode:'task', worker, task:claim.task, execution:claim.execution, context: {...this.company.context(context),computer_use:computerContext,research_authority:claim.task.kind==='research'?this.company.research.context(context):undefined},
             binding: computerContext?undefined:privateSession?this.company.mandates.taskBinding(privateSession):session?this.company.research.taskBinding(session):this.company.binding(worker.worker_id), tools: taskTools,
@@ -98,6 +99,7 @@ export class Dispatcher {
           const result = await this.adapter.run(input, controller.signal);
           await this.company.research.drain(execution.execution_id);
           await this.company.computers.drain(execution.execution_id);
+          await this.company.business.drain(execution.execution_id);
           providerSettled=result.settled===true||result.status==='completed';
           // Researchers must supply evidence, not only status prose.
           if (claim.origin === 'task' && result.status === 'completed' && (['researcher', 'product_manager'].includes(worker.role)||worker.role==='computer_operator'&&this.company.computers.forTask(claim.task.task_id)?.state!=='awaiting_approval') && !this.company.artifacts(claim.task.task_id).length) {
@@ -108,6 +110,7 @@ export class Dispatcher {
           controller.abort('Runtime ended without awaiting its research callbacks');
           await this.company.research.drain(execution.execution_id);
           await this.company.computers.drain(execution.execution_id);
+          await this.company.business.drain(execution.execution_id);
           this.company.finish(execution.execution_id, { status: 'failed', settled:providerSettled, error: error instanceof Error ? error.message : 'Runtime failed' });
         }
       })().finally(() => { if(deadlineAbort)clearTimeout(deadlineAbort);this.running.delete(execution.execution_id); this.kick(); });
@@ -127,11 +130,13 @@ export class Dispatcher {
   }
   get activeCount() { return this.running.size; }
   async stop() {
+    this.company.business.beginShutdown();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
     this.company.off('computer_interrupt',this.onComputerInterrupt);
     for (const { controller } of this.running.values()) controller.abort('Application shutdown');
     await Promise.all([...this.running.values()].map(r => r.done));
     await this.company.computers.shutdown();
+    await this.company.business.shutdown();
   }
 }

@@ -1,6 +1,6 @@
 # BotSquad — Current State
 
-**Status:** Prompts 01–10 and WE-01 complete; Prompt 10 deployed and inactive; Prompt 11 next
+**Status:** Prompts 01–10 and WE-01 complete; Prompt 10 deployed and inactive; Prompt 11 implementation in progress; live acceptance pending
 **Updated:** 2026-10-05
 
 This document is the short operational snapshot of what BotSquad can do **today**.
@@ -528,7 +528,7 @@ The numbered implementation roadmap is maintained in
 Conversations/continuity, working groups, the company operating loop/clock and the authenticated Client API are implemented. The next milestones are:
 
 ~~~text
-10 Bounded Computer Use
+10 Bounded Computer Use — complete
 11 Single-company business operations and measured Asymmetri Motion pilot
 --- deferred / unnumbered after single-company evidence ---
 Multi-company, company collaboration, Telegram / external identities, federation
@@ -538,3 +538,12 @@ Native iOS / no-tunnel mobile transport is intentionally deferred and unnumbered
 the private browser over SSH tunnel remains acceptable.
 
 See the roadmap for dependencies and acceptance themes.
+
+## Prompt 11 branch state — October 6
+
+The [business slice](../architecture/BUSINESS_OPERATIONS.md) is implemented and locally tested
+on its dedicated branch. Retained production is still the verified Prompt 10 baseline until
+the deployment record below is updated. Migration/startup create no business grant, action,
+approval, receipt, credential or model work. The [Prompt 11 validation record](../validation/PROMPT_11_VALIDATION.md)
+separates deterministic/fixture/browser evidence from actual Ubuntu and live business gates.
+No real Asymmetri change is currently authorized or performed.

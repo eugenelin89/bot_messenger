@@ -3,6 +3,7 @@ import type {Company,ExecutionContext} from './company.js';
 import {requireThat,strictObject,textField,type Task,type RuntimeBinding} from '../domain/model.js';
 import type {ToolDefinition} from '../runtime/adapter.js';
 import type {ReplyRequest} from '../domain/conversations.js';
+import type {BusinessEvidence} from '../domain/business.js';
 import {DEFAULT_MANDATE_ENVELOPE as DEFAULTS,EVIDENCE_MODES,type MandateEnvelope,type Mandate,type OperatingCycle,type ReviewTurn,type Initiative,type StrategicDecision,type Observation,type ReviewSchedule,type ReviewOccurrence,type Recurrence} from '../domain/mandates.js';
 import {systemClock,timezone,absoluteTime,nextReviewInstant,wallClockInstant,type Clock} from './company-clock.js';
 import {mandateTools} from '../runtime/mandates.js';
@@ -20,7 +21,7 @@ export class Mandates {
   get db(){return this.company.store;}
   now(){return new Date(this.clock.now()).toISOString();}
   private human(){this.company.conversations.human();}
-  private withdrawal(mandate:string){return this.db.get<{at:string|null}>('SELECT max(withdrawn_at) at FROM mandate_observations WHERE mandate_id=?',mandate)?.at??'';}
+  private withdrawal(mandate:string){return this.db.get<{at:string|null}>('SELECT max(withdrawn_at) at FROM (SELECT withdrawn_at FROM mandate_observations WHERE mandate_id=? UNION ALL SELECT withdrawn_at FROM business_evidence WHERE mandate_id=?)',mandate,mandate)?.at??'';}
   private requireDerived(m:Mandate,createdAt:string){requireThat(createdAt>this.withdrawal(m.mandate_id),'Derived record predates evidence withdrawal; retained for owner history, unavailable for future worker delivery');}
   private audit(type:string,mandate:string,detail:object={},actor='system',execution:string|null=null){this.company.audit(`mandate_${type}`,actor,{mandate_id:mandate,...detail},null,null,execution);}
   mandate(value:string){const m=this.db.get<Mandate>('SELECT * FROM mandates WHERE mandate_id=?',value);requireThat(m,'Mandate not found');return m;}
@@ -62,7 +63,7 @@ export class Mandates {
     cycles:this.db.all('SELECT * FROM operating_cycles WHERE mandate_id=? ORDER BY number DESC',mandateId),initiatives:this.db.all('SELECT * FROM initiatives WHERE mandate_id=? ORDER BY rowid',mandateId),
     decisions:this.db.all('SELECT * FROM strategic_decisions WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),observations:this.db.all('SELECT * FROM mandate_observations WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),
     work:this.db.all('SELECT * FROM mandate_internal_work WHERE mandate_id=? ORDER BY rowid',mandateId),schedules:this.db.all('SELECT * FROM review_schedules WHERE mandate_id=? ORDER BY rowid',mandateId),occurrences:this.db.all('SELECT * FROM review_occurrences WHERE mandate_id=? ORDER BY rowid DESC LIMIT 100',mandateId),
-    executions:this.db.all('SELECT e.*,t.cycle_id FROM executions e JOIN mandate_turns t USING(request_id) JOIN operating_cycles c USING(cycle_id) WHERE c.mandate_id=? ORDER BY e.rowid DESC LIMIT 100',mandateId)};}
+    business:this.company.business.inspect(mandateId),executions:this.db.all('SELECT e.*,t.cycle_id FROM executions e JOIN mandate_turns t USING(request_id) JOIN operating_cycles c USING(cycle_id) WHERE c.mandate_id=? ORDER BY e.rowid DESC LIMIT 100',mandateId)};}
   control(input:unknown){this.human();const a=strictObject(input,['mandate_id','action']);const m=this.mandate(textField(a,'mandate_id',100)),action=textField(a,'action',30);
     return this.db.transaction(()=>{
       if(action==='activate'){requireThat(m.status==='draft','Only a draft can activate');this.coordinator(m);this.db.run("UPDATE mandates SET status='active',activated_at=?,updated_at=? WHERE mandate_id=?",this.now(),this.now(),m.mandate_id);this.openCycle(this.mandate(m.mandate_id),'owner_activation');}
@@ -87,6 +88,7 @@ export class Mandates {
     }
   }
   admitObservation(input:unknown){this.human();const a=strictObject(input,['mandate_id','cycle_id','initiative_id','mode','name','value','unit','observed_at','period','source','provenance','limitations','missingness','body']);const m=this.mandate(textField(a,'mandate_id',100));
+    requireThat(a.mode!=='real_live','REAL LIVE observations require the trusted business adapter');
     requireThat(this.envelope(m).evidence_modes.includes(a.mode as Observation['mode']),'Evidence mode is outside this mandate policy');
     const cycle=optional(a,'cycle_id',100),initiative=optional(a,'initiative_id',100);
     if(cycle)requireThat(this.cycle(cycle).mandate_id===m.mandate_id,'Cycle belongs to another mandate');
@@ -97,9 +99,9 @@ export class Mandates {
     this.db.run("INSERT INTO mandate_observations VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?, 'mandate_private',?,?,?,?,'human',NULL)",oid,m.mandate_id,cycle,initiative,String(a.mode),textField(a,'name',200),optional(a,'value',500),optional(a,'unit',100),observed,optional(a,'period',300),this.now(),textField(a,'source',1000),textField(a,'provenance',1500),textField(a,'limitations',1500),textField(a,'missingness',1000),body,hash(body));
     this.audit('observation_admitted',m.mandate_id,{observation_id:oid,mode:a.mode,observed_at:observed},'human');return this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',oid)!;
   }
-  withdrawObservation(input:unknown){this.human();const a=strictObject(input,['observation_id']);const o=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',textField(a,'observation_id',100));requireThat(o,'Observation not found');return this.db.transaction(()=>{
+  withdrawObservation(input:unknown){this.human();const a=strictObject(input,['observation_id']),ref=textField(a,'observation_id',100);const business=this.db.get<{evidence_id:string;mandate_id:string;withdrawn_at:string|null}>('SELECT * FROM business_evidence WHERE evidence_id=?',ref);const o=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=?',ref)??(business?{...business,observation_id:business.evidence_id}:undefined);requireThat(o,'Observation not found');return this.db.transaction(()=>{
     if(o.withdrawn_at)return {withdrawn:true};
-    this.db.run('UPDATE mandate_observations SET withdrawn_at=coalesce(withdrawn_at,?) WHERE observation_id=?',this.now(),o.observation_id);
+    this.db.run(business?'UPDATE business_evidence SET withdrawn_at=coalesce(withdrawn_at,?) WHERE evidence_id=?':'UPDATE mandate_observations SET withdrawn_at=coalesce(withdrawn_at,?) WHERE observation_id=?',this.now(),o.observation_id);
     // Models can quote observations into free-form derivatives without preserving
     // every dependency. Invalidate all earlier derived worker material conservatively,
     // while retaining the owner's complete historical records and provider fences.
@@ -162,10 +164,12 @@ export class Mandates {
       internal_work:this.db.all<Work>('SELECT * FROM mandate_internal_work WHERE mandate_id=? ORDER BY rowid DESC LIMIT 30',m.mandate_id).map(w=>({...w,status:w.task_id?this.company.task(w.task_id).status:this.company.discussions.group(w.group_id!).state,result_ids:w.task_id?this.company.artifacts(w.task_id).map(a=>a.artifact_id):this.db.all<{synthesis_id:string}>("SELECT synthesis_id FROM group_syntheses WHERE group_id=? AND state='final'",w.group_id!).map(s=>s.synthesis_id)})),
       schedules:this.db.all<ReviewSchedule>('SELECT * FROM review_schedules WHERE mandate_id=? ORDER BY rowid DESC LIMIT 12',m.mandate_id).map(s=>({...s,purpose:s.created_at>withdrawn?s.purpose:'Purpose withheld after evidence withdrawal; owner history remains available'})),
       pending_occurrences:this.db.all("SELECT * FROM review_occurrences WHERE mandate_id=? AND state IN ('due','held','queued','blocked') LIMIT 12",m.mandate_id),
-      authority:'Only typed internal mandate tools. No hiring, grants, protected approvals, repository writes, publication, spending or Computer Use. Public research uses independently granted Task/discussion paths. Catalogs/previews are not evidence delivery; retrieve original records before citing. Unknown values remain unknown. Summaries are fallible and never permission.'};
+      business:this.company.business.catalog(m.mandate_id),
+      authority:'Typed internal mandate tools and only separately owner-granted business observation/proposal. No hiring, grants, protected approvals, direct writes, publication, spending or Computer Use. Exact owner approval and trusted executor alone can cause a business effect. Public research uses independently granted Task/discussion paths. Catalogs/previews are not evidence delivery; retrieve original records before citing. Unknown values remain unknown. Summaries are fallible and never permission.'};
     requireThat(JSON.stringify(result).length<=48000,'Mandate context exceeds its bounded budget');return result;
   }
   private record(m:Mandate,recordId:string):unknown {
+    const business=this.company.business.workerRecord(m,recordId);if(business)return business;
     const observation=this.db.get<Observation>('SELECT * FROM mandate_observations WHERE observation_id=? AND mandate_id=?',recordId,m.mandate_id);
     if(observation){requireThat(!observation.withdrawn_at&&this.envelope(m).evidence_modes.includes(observation.mode),'Observation was withdrawn or its mode is outside policy');requireThat(!observation.observed_at||Date.parse(observation.observed_at)<=this.clock.now(),'Future observation denied');return observation;}
     for(const [table,key] of [['strategic_decisions','decision_id'],['initiatives','initiative_id']] as const){const row=this.db.get<{created_at:string}>(`SELECT * FROM ${table} WHERE ${key}=? AND mandate_id=?`,recordId,m.mandate_id);if(row){this.requireDerived(m,row.created_at);return row;}}
@@ -179,6 +183,7 @@ export class Mandates {
   }
   private delivered(context:ExecutionContext,m:Mandate,recordId:string){const original=this.record(m,recordId),receipt=this.db.get<{sha256:string}>('SELECT sha256 FROM mandate_evidence_delivery WHERE execution_id=? AND record_id=? AND mandate_id=?',context.executionId,recordId,m.mandate_id);requireThat(receipt?.sha256===hash(original),'Citation requires the complete current original record delivered in this execution');return original;}
   private substantiveEvidence(ref:string){
+    if(this.db.get('SELECT 1 FROM business_evidence WHERE evidence_id=?',ref)||this.db.get('SELECT 1 FROM business_receipts WHERE receipt_id=?',ref))return true;
     if(this.db.get('SELECT 1 FROM mandate_observations WHERE observation_id=?',ref)||this.db.get("SELECT 1 FROM group_syntheses WHERE synthesis_id=? AND state='final'",ref))return true;
     const task=this.db.get<{task_id:string}>("SELECT task_id FROM tasks WHERE task_id=? UNION SELECT task_id FROM artifacts WHERE artifact_id=?",ref,ref);
     return !!(task&&this.db.get("SELECT 1 FROM tasks t JOIN executions e USING(task_id) WHERE t.task_id=? AND t.status='completed' AND e.status='completed' AND (t.result_summary IS NOT NULL OR EXISTS(SELECT 1 FROM artifacts a WHERE a.task_id=t.task_id))",task.task_id));
@@ -193,18 +198,25 @@ export class Mandates {
     return {record_id:recordId,offset,content,next_offset:offset+content.length<serialized.length?offset+content.length:null,total_characters:serialized.length,fully_delivered:end>=serialized.length,sha256:digest,next_action:end>=serialized.length?'Complete original delivered. Do not reread it this execution. Read a different needed record or make your next decision.':'Continue with the returned next_offset.',remaining_retrieval_characters:48000-used-content.length};
   }
   private commitTurn(context:ExecutionContext,output:object,summary:string){const {turn,request,worker}=this.acting(context),message=id('cmessage');
+    requireThat(!this.company.business.hasPending(context.executionId),'Await the pending business read before committing this turn');
     this.db.run('UPDATE mandate_turns SET output=? WHERE turn_id=?',JSON.stringify(output),turn.turn_id);
     this.db.run('INSERT INTO conversation_messages VALUES (?,?,?,?,?,?,?,?,?)',message,request.conversation_id,worker.principal_id,worker.worker_id,context.executionId,summary,request.request_id,request.request_id,this.now());
     this.db.run("UPDATE conversation_requests SET response_message_id=?,status='completed',updated_at=? WHERE request_id=?",message,this.now(),request.request_id);return {committed:true,end_turn:true};
   }
-  callTool(context:ExecutionContext,callId:string,name:string,input:unknown):unknown {
+  callTool(context:ExecutionContext,callId:string,name:string,input:unknown,signal?:AbortSignal):unknown {
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
+    if(name==='observe_business_document'){
+      this.acting(context);requireThat(!this.db.get('SELECT 1 FROM tool_receipts WHERE execution_id=? AND call_id=?',context.executionId,callId),'Tool replay mismatch');
+      requireThat(this.db.get('SELECT 1 FROM business_reads WHERE execution_id=? AND call_id=?',context.executionId,callId)||this.db.get<{n:number}>('SELECT (SELECT count(*) FROM tool_receipts WHERE execution_id=?)+(SELECT count(*) FROM business_reads WHERE execution_id=?) n',context.executionId,context.executionId)!.n<20,'Mandate tool budget exhausted');
+      return this.company.business.observe(input,context,callId,signal).then(e=>({evidence_id:e.evidence_id,mode:e.mode,category:e.category,metric:e.metric,retrieved_at:e.retrieved_at,source_hash:e.source_hash,next_action:'Read this evidence_id through read_mandate_record before citing; this response is metadata only.'}));
+    }
     return this.db.transaction(()=>{
       const v=this.verify(context),m=v.mandate,c=v.cycle,e=this.envelope(m),digest=hash([name,input]);
       const old=this.db.get<{request_hash:string;result:string}>('SELECT * FROM tool_receipts WHERE execution_id=? AND call_id=?',context.executionId,callId);if(old){requireThat(old.request_hash===digest,'Tool replay mismatch');return JSON.parse(old.result);}
+      requireThat(!this.db.get('SELECT 1 FROM business_reads WHERE execution_id=? AND call_id=?',context.executionId,callId),'Tool replay mismatch');
       this.acting(context);
       requireThat(mandateTools().some(t=>t.name===name),'Tool is outside mandate authority');
-      requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',context.executionId)!.n<20,'Mandate tool budget exhausted');let result:unknown;
+      requireThat(this.db.get<{n:number}>('SELECT (SELECT count(*) FROM tool_receipts WHERE execution_id=?)+(SELECT count(*) FROM business_reads WHERE execution_id=?) n',context.executionId,context.executionId)!.n<20,'Mandate tool budget exhausted');let result:unknown;
       if(name==='inspect_mandate'){strictObject(input,[]);result=this.context(context);}
       else if(name==='read_mandate_record')result=this.read(context,m,input);
       else if(name==='propose_initiative'){
@@ -233,13 +245,19 @@ export class Mandates {
         this.db.run('UPDATE operating_cycles SET tasks_created=tasks_created+1 WHERE cycle_id=?',c.cycle_id);result={task_id:task.task_id,status:task.status};
       }else if(name==='convene_working_group'){
         const a=strictObject(input,['topic','desired_output','constraints','participant_ids','facilitator_id','synthesizer_id','observation_ids','allow_research']);requireThat(e.working_groups&&c.groups_created<e.max_groups,'Group envelope exhausted or disabled');requireThat(this.pending(c.cycle_id).length<e.max_pending_work,'Pending internal work limit reached');requireThat(typeof a.allow_research==='boolean'&&(!a.allow_research||e.public_research),'Public research is outside mandate envelope');
-        const observations=ids(a.observation_ids,8).map(ref=>{const o=this.delivered(context,m,ref) as Observation;requireThat(o.observation_id===ref,'Only admitted observations can be exported');return o;});
+        const observations=ids(a.observation_ids,8).map(ref=>{const o=this.delivered(context,m,ref) as Observation|BusinessEvidence;requireThat(('observation_id' in o&&o.observation_id===ref)||('evidence_id' in o&&o.evidence_id===ref),'Only admitted observations can be exported');return o;});
         this.reserve(this.cycle(c.cycle_id),24);const group=this.company.discussions.createForMandate(context,{topic:textField(a,'topic',300),desired_output:textField(a,'desired_output',2000),constraints:textField(a,'constraints',2000),participant_ids:ids(a.participant_ids,6),facilitator_id:textField(a,'facilitator_id',100),synthesizer_id:textField(a,'synthesizer_id',100),allow_research:a.allow_research},observations);
         this.db.run('INSERT INTO mandate_internal_work VALUES (?,?,?,NULL,NULL,?,?,0,?)',id('internal'),m.mandate_id,c.cycle_id,group.group_id,context.executionId,this.now());this.db.run('UPDATE operating_cycles SET groups_created=groups_created+1 WHERE cycle_id=?',c.cycle_id);result={group_id:group.group_id,state:group.state};
       }else if(name==='schedule_review')result=this.saveSchedule(input,m,v.worker.principal_id,context);
+      else if(name==='propose_markdown_action')result=this.company.business.propose(context,input);
+      else if(name==='wait_for_external_action'){
+        const a=strictObject(input,['action_id','summary']),action=this.company.business.actionWait(context,textField(a,'action_id',100)),summary=textField(a,'summary',4000);
+        result=this.commitTurn(context,{action:'action_wait',action_id:action.action_id,summary},summary);
+      }
       else if(name==='wait_for_internal_work'){
         const a=strictObject(input,['summary']);requireThat(this.works(c.cycle_id).some(w=>!w.delivered),'No unreviewed internal work; model polling is not allowed');const summary=textField(a,'summary',4000);result=this.commitTurn(context,{action:'wait',summary},summary);
       }else{
+        requireThat(!this.company.business.pendingCycle(c.cycle_id),'External action is pending; commit an explicit action wait first');
         const a=strictObject(input,['summary','stop']);requireThat(typeof a.stop==='boolean','Choose explicit stop state');requireThat(!this.pending(c.cycle_id).length,'Internal work is not settled');requireThat(!this.works(c.cycle_id).some(w=>!w.delivered),'Wait for trusted result delivery and evaluate internal work before closing');
         requireThat(this.db.get('SELECT 1 FROM strategic_decisions WHERE cycle_id=?',c.cycle_id),'Record a strategic decision before closing');
         requireThat(a.stop||this.db.get("SELECT 1 FROM review_schedules WHERE mandate_id=? AND status='active' AND next_due IS NOT NULL",m.mandate_id)||this.db.get("SELECT 1 FROM review_occurrences WHERE mandate_id=? AND state IN ('due','held')",m.mandate_id),'Persist a future review or explicitly stop');
@@ -365,8 +383,12 @@ export class Mandates {
         if(c.failures>=2){this.block(c,'Known review failure retry allowance exhausted; inspect retained attempts');return;}
         this.db.run("UPDATE operating_cycles SET state='waiting',failures=failures+1,retry_at=?,error='Known failed review; bounded backoff' WHERE cycle_id=?",new Date(this.clock.now()+30000*2**c.failures).toISOString(),c.cycle_id);this.audit('review_backoff',m.mandate_id,{cycle_id:c.cycle_id,attempt:c.failures+1});return;
       }
-      const output=JSON.parse(turn.output) as {action:'wait'|'close';summary:string;stop?:boolean};
-      if(output.action==='wait'){
+      const output=JSON.parse(turn.output) as {action:'wait'|'close'|'action_wait';action_id?:string;summary:string;stop?:boolean};
+      if(output.action==='action_wait'){
+        if(this.company.business.isPending(output.action_id!)){this.db.run("UPDATE operating_cycles SET state='waiting' WHERE cycle_id=?",c.cycle_id);return;}
+        this.db.run('UPDATE mandate_turns SET advanced=1 WHERE turn_id=?',turn.turn_id);
+        try{this.enqueue(c);}catch(error){this.block(c,String(error));}
+      }else if(output.action==='wait'){
         if(this.pending(c.cycle_id).length){this.db.run("UPDATE operating_cycles SET state='waiting' WHERE cycle_id=?",c.cycle_id);return;}
         this.db.run('UPDATE mandate_internal_work SET delivered=1 WHERE cycle_id=?',c.cycle_id);this.db.run('UPDATE mandate_turns SET advanced=1 WHERE turn_id=?',turn.turn_id);
         try{this.enqueue(c);}catch(error){this.block(c,String(error));}

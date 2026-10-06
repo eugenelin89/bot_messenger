@@ -174,6 +174,7 @@ export class Conversations {
       WHERE r.status='queued' AND c.state='active' AND NOT EXISTS(SELECT 1 FROM working_groups g WHERE g.conversation_id=c.conversation_id AND g.state!='active') AND NOT EXISTS(SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running')
       ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,r.created_at,r.rowid`)) {
       if(this.company.mandates.held(r.conversation_id))continue;
+      if(this.company.business.reserved(r.target_worker_id))continue;
       try {
         requireThat(!this.company.providerUnresolved(r.target_worker_id),'Prior provider outcome is unresolved; worker blocked for inspection');
         this.authorized(r);return r;
@@ -210,6 +211,7 @@ export class Conversations {
     requireThat(r.status==='queued','Reply is not queued');
     requireThat(!this.db.get("SELECT 1 FROM executions WHERE worker_id=? AND status='running'",worker.worker_id),'Worker already active');
     requireThat(!this.company.providerUnresolved(worker.worker_id),'Prior provider outcome is unresolved');
+    requireThat(!this.company.business.reserved(worker.worker_id),'Worker reserved by bounded business executor');
     let session=this.db.get<ConversationSession>("SELECT * FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state='active'",worker.worker_id,c.conversation_id);
     const group=this.company.discussions.forConversation(c.conversation_id);
     const mandate=this.company.mandates.forConversation(c.conversation_id);
@@ -343,8 +345,8 @@ export class Conversations {
     this.db.run("INSERT INTO conversation_deliveries VALUES (?,?,?,'waiting',NULL,?)",request.request_id,worker.worker_id,continuation.request_id,now());
     return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'One reserved continuation delivers the answer in the peer conversation. Now submit_reply with your own brief explanation of the question you asked and any initial reasoning, then end this turn. Do not wait or poll, and do not claim the peer has answered yet.'};
   }
-  callTool(context: ExecutionContext,callId: string,name: string,input: unknown) {
-    const {request}=this.verify(context);if(this.company.mandates.forConversation(request.conversation_id))return this.company.mandates.callTool(context,callId,name,input);if(this.company.discussions.forConversation(request.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
+  callTool(context: ExecutionContext,callId: string,name: string,input: unknown,signal?:AbortSignal) {
+    const {request}=this.verify(context);if(this.company.mandates.forConversation(request.conversation_id))return this.company.mandates.callTool(context,callId,name,input,signal);if(this.company.discussions.forConversation(request.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
     requireThat(!this.company.research.hasPending(context.executionId),'Await pending research before replying or using another tool.');
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
     return this.db.transaction(()=>{

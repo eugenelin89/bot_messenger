@@ -695,3 +695,12 @@ records. Structured rendered observations and attributable private screenshots e
 browser evidence; a harmless fixture POST establishes enforcement only. Prompt 11 still
 requires a real authorized business action, external receipt, observed result and scheduled
 review. See [Computer Use](../architecture/COMPUTER_USE.md).
+
+## Prompt 11 bounded operation
+
+[Decision 025](../decisions/decision_025_bounded_business_operations.md) adds distinct business
+evidence, external intent, exact human approval, executor attempt and provider receipt to the
+existing mandate loop. Waiting for approval releases model capacity; a receipt resumes one
+bounded company review. Strategic choice remains with the employees, consequential authority
+with trusted owner controls. Operational publication is not a business-growth claim. See the
+[validation boundary](../validation/PROMPT_11_VALIDATION.md); live acceptance remains pending.

@@ -410,3 +410,9 @@ screenshots. Related computer Tasks, executions, messages, artifacts and event p
 are omitted; guessing a hidden ID cannot interrupt or read it. Only the existing trusted
 local owner surface can manage or inspect these records. Its screenshot route verifies
 canonical file ownership and stored integrity. Ordinary device behavior remains unchanged.
+
+## Business operations privacy boundary (Prompt 11)
+
+Business evidence, grants, external intents, approvals, attempts, provider receipts and
+reconciliation are local-owner/mandate-only. No v1 route, scope or notification exposes them.
+Device Authorization is rejected at the browser business endpoints; messages cannot approve.

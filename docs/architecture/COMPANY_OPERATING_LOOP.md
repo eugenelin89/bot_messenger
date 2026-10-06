@@ -189,3 +189,13 @@ in isolated validation data directories.
 Prompt 10 owns bounded Computer Use. Prompt 11 owns approved real external action, receipts and
 measured business outcomes. Prompt 09 simulated strategic acceptance proves neither live
 marketing/product operation nor revenue improvement, outreach, publication or spending.
+
+## Prompt 11 external-action continuation
+
+`wait_for_external_action` commits a distinct `action_wait` outcome. The original execution
+settles, releases its slot and cannot approve or execute the proposal. A terminal trusted
+action result advances that turn atomically and enqueues one fresh coordinator generation;
+receipt/source evidence must be read before citation. Cycle deadlines and execution budgets
+do not extend during approval. The company persists its next Prompt 09 review. See
+[Business Operations](BUSINESS_OPERATIONS.md) for provider authority, provenance, cancellation,
+resource fencing and recovery. This path is distinct from internal Tasks and ComputerSessions.

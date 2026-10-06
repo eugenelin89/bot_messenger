@@ -6,6 +6,7 @@ import { Company } from './control/company.js';
 import { Dispatcher } from './control/dispatcher.js';
 import { CodexRuntime } from './runtime/codex.js';
 import { createHttpServer } from './http/server.js';
+import { GithubMarkdownAdapter } from './business/github-markdown.js';
 
 // Compiled entrypoint is dist/src/main.js.
 const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
@@ -15,6 +16,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invali
 const unlock = acquireDataLock(dataDir);
 const store = new Store(join(dataDir, 'company.sqlite'));
 const company = new Company(store, dataDir, projectRoot);
+if(process.env.BOTSQUAD_BUSINESS_CONFIG) company.business.adapter=new GithubMarkdownAdapter(process.env.BOTSQUAD_BUSINESS_CONFIG);
 const runtime = new CodexRuntime();
 const dispatcher = new Dispatcher(company, runtime);
 const http = createHttpServer(company, dispatcher, join(projectRoot, 'public'));
