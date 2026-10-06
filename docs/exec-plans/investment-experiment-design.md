@@ -1,56 +1,71 @@
 # Execution Plan — Investment experiment design
 
-**Status:** Active
+**Status:** Complete — design/documentation only; implementation remains planned
 **Owner:** ChatGPT documentation task requested by the repository owner
 **Branch:** `feature/investment-experiment-design`
 **Worktree:** GitHub connector branch; no access to the owner's Mac worktrees
-**Started:** 2026-10-06
+**Started / design completed:** 2026-10-06
 
 ## Objective
 
-Document a complete, maintainable BotSquad paper-investment showcase and a prompt-by-prompt implementation roadmap. The public Asymmetri page must explain BotSquad and the experiment, show genuine team discussions, link to durable artifacts, and display portfolio results and trade reasoning.
+Document a complete, maintainable BotSquad paper-investment showcase and a prompt-by-prompt implementation roadmap. The public Asymmetri page must explain BotSquad and the experiment, show genuine team discussion, link durable artifacts, and display portfolio results and trade reasoning.
 
-## Scope
+## Scope and outcome
 
-Design and documentation in `eugenelin89/bot_messenger` only. Review the website repository to define cross-repository responsibilities. No application implementation, live server changes, worker changes, provider subscriptions, credentials, grants, simulated trades or public activation.
+Documentation in `eugenelin89/bot_messenger` only. The package contains twelve subject-organized files under `docs/experiments/investment/`, a single-packet Codex launcher, Decision 027 and a decision-index navigation entry. This execution plan records delivery and validation limits.
 
-The owner has approved documentation of this specific experiment. Existing Personal Operator stabilization priorities and deferred real financial authority remain unchanged. This is an experiment-local roadmap, not core Prompt 12.
+No application implementation, website edits, live server changes, worker changes, provider subscriptions, credentials, grants, schedules, simulated trades or public activation. Personal Operator stabilization priorities and deferred real financial authority remain unchanged. The separate INV-01–INV-12 roadmap does not create core Prompt 12.
 
-## Baseline and relevant records
+## Baseline and source review
 
 BotSquad main: `ce99212c882327ad8e04fd3603867ac18428e1a4`.
+Website reference: `c8908b144c7e26aa737f0a74ed92b6fa08fc1309`; matching README blob `4ca8d95cddde51694cbc8ad7b18d2abf064e705c`.
 
-Read `AGENTS.md`, the README, Project Vision, Intelligent Company Operating Model, System Architecture, Project Memory, canonical roadmap, decision index and the execution-plan template. Review existing worker/capability types and the Asymmetri README/deployment context. Preserve Decisions 016, 020, 021, 022, 025 and 026 and the separation between work, discussion, decision, action and approval.
+Reviewed AGENTS, README, Project Vision, Intelligent Company Operating Model, System Architecture, Project Memory, canonical roadmap, decision index, execution-plan template and actual worker/capability domain types. Website README and documented deployment context ground cross-repository boundaries; no fresh SSH verification is claimed. Primary technical sources and their role are listed in the design references.
 
-## Steps
+## Completed steps
 
-1. Confirm current repository state and documentation conventions.
-2. Create a subject-organized design guide with stable links and one normative home per topic.
-3. Define the simulator, public REST contract, permission boundary, real discussion export and artifact lifecycle.
-4. Add incremental build packets with dependencies, acceptance, non-goals and deployment gates.
-5. Link the design into repository navigation and record the owner-requested planning boundary.
-6. Review consistency, links, source claims and the complete documentation diff.
-7. Integrate through the repository's normal branch/review workflow and report exact results.
+1. Confirmed baseline, scope and documentation conventions.
+2. Created the design hub and owner requirements R01–R08.
+3. Specified public experience, architecture, deterministic simulator, API/signing/delivery, audience permissions, discussions, artifacts, worker operation and recovery.
+4. Added twelve build packets with dependencies, deliverables, acceptance IDs, non-goals and reusable Codex task briefs.
+5. Added the prompt launcher, Decision 027 and decision-index entry.
+6. Reviewed requirement coverage, linked document ownership, proposed-versus-current claims and remote change scope.
+7. Prepared normal branch/PR integration; exact integration result belongs in the final handoff rather than a self-referential commit hash.
 
-## Invariants and risk review
+## Design-review findings resolved
 
-No real trading mode or financial credentials. No public access to HQ. Genuine contributions only; no fabricated transcript or provider reasoning export. Existing unrelated worker/project/private data stays private. Every experiment deliverable is accounted for, including safe withheld states. Accounting is deterministic and independent of model prose. Simulations, private trials and official public runs remain distinct.
-
-## Validation plan
-
-Documentation-only checks: inspect paths and links, reconcile requirement IDs with build packets and acceptance tests, review current-versus-proposed claims, inspect diff and whitespace. No runtime or live-market test is required or claimed for a documentation-only change. The local container could not resolve github.com for a clone, so use the authenticated GitHub connector for repository reads/writes; do not claim local Git or SSH validation that did not run.
+- The experiment is a BotSquad showcase; live discussion/artifacts cannot be deferred behind a portfolio-only MVP.
+- Existing worker role names do not authorize financial Tasks; INV-08 must implement the minimum scoped capability explicitly.
+- Research/group sharing and public publication are separate permissions; private histories are excluded.
+- Earlier suggested capital/risk/benchmark settings remain proposed, with explicit launch decisions.
+- Financial accounting is deterministic, with next-opening commitment deadlines, corporate actions, missing-data states and no hindsight fills.
+- Simple benchmark-relative return is excess return, not alpha.
+- The API uses immutable event batches and financial consistency watermarks rather than a racing mutable snapshot write.
+- Genuine contributions, artifact derivatives, versioned corrections and exceptional privacy withdrawals have distinct semantics.
+- Producer, receiver, website and Mac development responsibilities remain separate; no runtime dependence on an awake Mac.
 
 ## Evidence ledger
 
 | Check | Result |
 | --- | --- |
-| Current main fetched through GitHub | Confirmed baseline above |
-| Asymmetri README fetched | Confirmed current site has no experiment backend |
-| Documentation/implementation fit review | In progress |
-| Requirement and roadmap coverage | Pending |
-| Final repository read-back | Pending |
-| Runtime tests / server access | Not run; outside design scope |
+| GitHub main and website references | Read and confirmed as above |
+| Actual capability/role and current architecture fit | Reviewed; missing investment/publication capabilities explicitly planned |
+| R01–R08 coverage | Mapped to A01–A12 and INV packets in VALIDATION.md |
+| Roadmap | Twelve bounded packets, dependency/status table, gates and continuation instructions present |
+| New document paths | GitHub directory read-back confirmed all twelve investment documents |
+| Cross-links/document ownership | Manually reviewed; public API and security/delivery ownership separated in guide |
+| Remote change scope | Comparison at `a4af45751b4ab0d62af2e3dcfeff79c20cd7d291` showed sixteen Markdown paths, no application changes and no deletion of existing decision-index content; subsequent edits refine the guide and this plan |
+| Runtime/live-market/SSH tests | Not run; outside documentation scope |
+| Local automated Git diff/Markdown/link checks | Not run; local GitHub retrieval was unavailable and a later container attempt failed; do not represent manual review as automated validation |
+| Independent specialist review | Not performed for this documentation-only delivery; implementation packets require risk-appropriate review |
 
-## Remaining work
+Initial GitHub content writes experienced a timeout/rule-validation timeout and upstream errors. Failed paths were checked before retrying; later writes succeeded and the directory was read back. No repeated financial/runtime effects were involved.
 
-Complete and review the design package. Implementation and activation remain future owner-selected work.
+## Remaining implementation decisions
+
+Capital/universe/benchmark/risk/horizon, provider/data rights and cost, receiver runtime/host capacity, exact eligible worker mapping, budgets/grants and official start remain explicitly tracked in `DECISIONS.md`. Machine-readable schemas/signature vectors are INV-01 outputs, not falsely claimed implemented by prose design.
+
+## Completion handoff
+
+Start at [the design guide](../experiments/investment/README.md), then [the detailed roadmap](../experiments/investment/ROADMAP.md). The first future task is INV-01 using [the launcher](../../prompts/investment-experiment.md). All implementation rows remain Planned. No deployment or activation occurred in this design task.
