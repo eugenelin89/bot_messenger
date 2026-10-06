@@ -1,0 +1,14 @@
+Oct 06 06:47:00 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Started botsquad-business-20261006b.service - BotSquad local AI headquarters.
+Oct 06 06:47:02 ubuntu-s-1vcpu-2gb-nyc1 node[508001]: Isolated Prompt 11 ready: real workers; SIMULATED provider only
+Oct 06 06:50:32 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Stopping botsquad-business-20261006b.service - BotSquad local AI headquarters...
+Oct 06 06:50:32 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: botsquad-business-20261006b.service: Deactivated successfully.
+Oct 06 06:50:32 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Stopped botsquad-business-20261006b.service - BotSquad local AI headquarters.
+Oct 06 06:50:32 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: botsquad-business-20261006b.service: Consumed 3.473s CPU time, 81.8M memory peak, 0B memory swap peak.
+Oct 06 06:50:32 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Started botsquad-business-20261006b.service - BotSquad local AI headquarters.
+Oct 06 06:50:33 ubuntu-s-1vcpu-2gb-nyc1 node[513501]: Isolated Prompt 11 ready: real workers; SIMULATED provider only
+Oct 06 06:52:35 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Stopping botsquad-business-20261006b.service - BotSquad local AI headquarters...
+Oct 06 06:52:35 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: botsquad-business-20261006b.service: Deactivated successfully.
+Oct 06 06:52:35 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Stopped botsquad-business-20261006b.service - BotSquad local AI headquarters.
+Oct 06 06:52:35 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: botsquad-business-20261006b.service: Consumed 3.627s CPU time, 153.2M memory peak, 0B memory swap peak.
+Oct 06 06:52:35 ubuntu-s-1vcpu-2gb-nyc1 systemd[1]: Started botsquad-business-20261006b.service - BotSquad local AI headquarters.
+Oct 06 06:52:36 ubuntu-s-1vcpu-2gb-nyc1 node[522895]: Isolated Prompt 11 ready: real workers; SIMULATED provider only

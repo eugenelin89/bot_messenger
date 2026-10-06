@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "worker_id": "worker_18419f36-643c-4f5b-9103-7e4450c0e31b",
+  "uid": 20199,
+  "probe_pid": 530551,
+  "exit_signal": 9,
+  "operation_id": "operation_3248e25a-68f1-492c-899c-ad483a7273e6",
+  "history_preserved": true,
+  "project_access_revoked": true,
+  "home_preserved": true,
+  "retired_home_access_denied": true
+}

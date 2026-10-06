@@ -6,7 +6,7 @@
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt11`
 **Started:** 2026-10-05 (America/Vancouver)
 **Initial ETA:** 6–10 hours implementation/validation/review/deployment, plus owner authorization and the real observation window
-**Current ETA (06:28 UTC):** Approximately 4–6 more hours for Ubuntu execution, final review/documentation and deployment, plus exact live authorization and observation window.
+**Current ETA (07:05 UTC):** Approximately 1–2 more hours for remaining Linux regressions, final review and deployment, plus exact live authorization and observation window.
 
 ## Objective and acceptance
 
@@ -16,9 +16,9 @@ Prompt 09 scheduled reassessment. Implementation/deployment and live activation 
 
 | ID | Required proof | Current status |
 | --- | --- | --- |
-| C11-1 | Useful typed business evidence/baseline and reviewed bounded capabilities | Implemented; deterministic/browser checks and specialist findings addressed; Ubuntu pending |
+| C11-1 | Useful typed business evidence/baseline and reviewed bounded capabilities | Implemented/reviewed; local, browser and real Ubuntu worker fixture passed |
 | C11-2 | Explicitly approved real external action, trusted receipt and observed effect | Read-only target designated; credential/branch/exact approval pending; fixtures cannot pass |
-| C11-3 | Two scheduled cycles, restart/context continuity, denial/revoke, deduplication or unknown fencing, human controls | Pending deterministic/Ubuntu and live evidence |
+| C11-3 | Two scheduled cycles, restart/context continuity, denial/revoke, deduplication or unknown fencing, human controls | Deterministic and real Ubuntu worker fixture passed; actual live pilot pending |
 | C11-4 | Baseline/sources, costs or explicit unknowns, outcomes/limitations, evidence-driven next decision | Pending real evidence and Cycle 2 |
 
 ## Preflight and preserved baseline
@@ -109,9 +109,15 @@ approval in the trusted application path. An unanswered question is never approv
 Read-only design and implementation reviews completed for product, control plane, security,
 recovery and tests. Material findings and fixes are in the validation record. Initial failures
 remain recorded. Current local suite: 367 tests, 366 passed, zero failed, one expected Linux-only
-skip. Focused business suite: 73 passed. Real local Chrome approval/receipt/compensation UI passed
-with a SIMULATED provider. Ubuntu harness and offline preservation runner are implemented;
-actual Ubuntu run, final evidence review, Git delivery and real pilot remain pending.
+skip. Focused business suite: 78 passed. Real local Chrome approval/receipt/compensation UI passed
+with a SIMULATED provider. Ubuntu full suite at `9baa9bd`: 368 passed, no failures/skips.
+Three actual `gpt-6-astra` coordinator generations completed two fixture cycles; exact approval,
+one effect/receipt, two restarts, one company-scheduled occurrence, fresh evidence review and
+30-second idle passed. Source/authority/evidence details and retained failures are in the
+validation record. Offline production migration preserved every field/rowid across three opens
+(92 original tables, 2,234 rows), with no new authority. Linux receipt recovery/canary passed;
+engineering/identity rerun, Projects, final evidence review and Git delivery remain in progress.
+The private Asymmetri candidate packet is prepared, but no real effect is approved or attempted.
 
 ## Completion boundary
 
