@@ -65,6 +65,13 @@ existing role policy. No model or business action ran. Its database/journal are 
 The harness now uses separate product/research setup Tasks through the unchanged authority
 path. Host regression paths were also aligned with the existing operator path guards before use.
 
+The first Linux engineering/identity run used the advertised default `gpt-6-astra`, while
+the retained historical runner pins `gpt-6-sol`. Its CTO created the local fixture repository
+then declined allocation because it could not inspect recipe IDs with the available legacy
+tools. Completion was correctly rejected for missing trusted integration. Retain this model/
+legacy-workflow limitation; the regression runner now matches the historical model configuration
+and repeats in a fresh directory, without changing production tools or weakening assertions.
+
 Acceptance remains pending. Isolated harness under `scripts/business/` refuses retained production paths and
 uses real Codex workers with a visibly SIMULATED persistent provider. Risky fault tests are
 fixture-only. No production grants, private target writes or live approvals have occurred.

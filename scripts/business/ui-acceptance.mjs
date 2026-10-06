@@ -17,9 +17,11 @@ try{
   await page.locator(`[data-business-inspect="${a.action_id}"]`).click();await page.locator('#business-reviewed').waitFor();
   assert.equal(await page.locator('#business-approve').isDisabled(),true);assert.match(await page.locator('#inspect').innerText(),/SIMULATED|fixture/i);
   assert.ok((await page.locator('#inspect').innerText()).includes(a.intent_hash));assert.ok((await page.locator('#inspect').innerText()).includes(a.expected_blob));
-  await page.screenshot({path:join(dir,'exact-action-desktop.png'),fullPage:true});
-  await page.setViewportSize({width:420,height:900});await page.screenshot({path:join(dir,'exact-action-mobile.png'),fullPage:true});
-  await page.locator('#business-reviewed').check();await page.locator('#business-approve').click();
+  await page.screenshot({path:join(dir,'exact-action-desktop.png')});
+  await page.setViewportSize({width:420,height:900});await page.locator('#inspect').evaluate(d=>{d.scrollTop=0;});
+  const layout=await page.locator('#inspect').evaluate(d=>({width:d.clientWidth,contentWidth:d.scrollWidth,left:d.getBoundingClientRect().left,right:d.getBoundingClientRect().right}));assert.ok(layout.contentWidth<=layout.width&&layout.left>=0&&layout.right<=420,'Exact review must fit mobile width');
+  await page.screenshot({path:join(dir,'exact-action-mobile.png')});
+  await page.locator('#business-reviewed').check();await page.screenshot({path:join(dir,'exact-approval-mobile.png')});await page.locator('#business-approve').click();
   assert.equal(f.company.business.action(a.action_id).status,'approved');assert.equal(f.adapter.puts,0);
   f.company.business.progress();const deadline=Date.now()+4000;while(f.company.business.action(a.action_id).status!=='succeeded'&&Date.now()<deadline)await new Promise(r=>setTimeout(r,20));
   assert.equal(f.adapter.puts,1);assert.equal(f.company.business.action(a.action_id).status,'succeeded');
