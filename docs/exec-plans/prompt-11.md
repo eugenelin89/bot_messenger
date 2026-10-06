@@ -116,7 +116,7 @@ one effect/receipt, two restarts, one company-scheduled occurrence, fresh eviden
 30-second idle passed. Source/authority/evidence details and retained failures are in the
 validation record. Offline production migration preserved every field/rowid across three opens
 (92 original tables, 2,234 rows), with no new authority. Linux receipt recovery/canary passed;
-engineering/identity rerun, Projects, final evidence review and Git delivery remain in progress.
+engineering/identity and Projects reruns passed, with actual isolation/retirement/archive denial. Final-source Ubuntu suite at `15be496`: 372 passed, no failures/skips; all source/evidence specialist reviews complete. Normal Git integration and exact deployment/preservation remain.
 The private Asymmetri candidate packet is prepared, but no real effect is approved or attempted.
 
 ## Completion boundary

@@ -63,7 +63,7 @@ Parent remains sole writer/deployer. Project-scoped specialists operated read-on
 Final security, recovery and architecture source reviews found no remaining source blockers.
 The architecture review briefly reported a missing reverse-order worker check, then retracted
 it after direct reinspection; the check already existed and an additional passing regression
-now proves it. Final independent runtime/evidence review follows the packet below.
+now proves it. Final independent product, recovery and acceptance reviews also found no implementation blocker. The acceptance reviewer independently recomputed the intent, content, receipt and immutable delivery hashes, and verified the two-cycle packet; mutable initiative-context hashes are explicitly distinguished below.
 
 ## Ubuntu, deployment and live evidence
 
@@ -127,7 +127,7 @@ zero skips/failures, in 232.4 seconds under actual HQ confinement. It includes c
 research, group, mandate/scheduler, Computer Use, engineering, infrastructure and v1 privacy
 regressions. Later focused additions bring business checks to 78. The only later product delta
 preserves literal old-text whitespace instead of trimming it; exact-byte regression passed.
-Final-source Ubuntu confirmation remains a delivery gate.
+The [final-source Ubuntu suite](evidence/prompt11/ubuntu-final-suite.txt) at `15be496ad65277213cb8c821af86fcb23bba53b4` passed **372/372**, zero failures/skips, in 318.1 seconds. It includes all later authority tests and the literal whitespace correction.
 
 [Real Linux lost-response recovery](evidence/prompt11/linux-recovery.json) passed: a consumed
 approval reconciled the existing host identity receipt after restart; exact replay returned the
@@ -137,7 +137,7 @@ execution and 30.459-second runtime-turn overlap, independent review/trusted int
 [Linux isolation](evidence/prompt11/linux-isolation.json) and [retirement denial](evidence/prompt11/linux-retirement.json).
 The first Projects run failed in the provider turn before the CTO made any tool call; exact
 cause was unavailable through the redacted adapter error. Its history is retained and one fresh
-bounded rerun is pending. This failure is not erased by later success.
+bounded [Projects rerun](evidence/prompt11/linux-projects.json) passed: two review rounds, three submissions, trusted integration, restart/recovery, controlled remote publication/reconciliation, 100 isolation and four archive-denial checks. Execution/runtime overlap was 27.266/24.258 seconds. No live GitHub publication was performed. The first failure is not erased by later success.
 
 A [harmless credential canary](evidence/prompt11/credential-canary.json) was service-readable
 and denied to all seven retained ready worker UIDs. Two operator-script mistakes (UID conversion
@@ -159,9 +159,7 @@ workflow, costs/risks/measurement and compensation limits. It is not an executab
 credential provisioning, refreshed current baseline, company selection and exact owner approval
 remain required. Private source/content is deliberately absent from this public record.
 
-Remaining delivery gates: finish Linux regressions and independent evidence review, normal PR
-merge, exact merged build/deployment equality, postdeployment inventory comparison, idle/no-work
-check and cleanup of owned validation processes.
+Remaining delivery gates: normal PR merge, exact merged build/deployment equality, postdeployment inventory comparison, idle/no-work check and cleanup of owned validation processes. All independent source/evidence reviews and the applicable local/Ubuntu acceptance runs are complete.
 
 The real pilot exit packet must still record original mandate/envelope, exact authorized
 target, actual baseline/source, company-selected alternatives/work/Decision, exact owner

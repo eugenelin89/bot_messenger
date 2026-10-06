@@ -854,5 +854,7 @@
     "baseline_id": "business_evidence_899befa2-a001-47c7-8628-85ca576b2064",
     "action_id": "action_1890964e-3e4b-473c-86e6-b225be0601c4",
     "intent_hash": "d705876724f170a593338e2cad1e8a3e4aa7e2f8f09253d8ceb93ddb1be61b9a"
-  }
+  },
+  "record_delivery_note": "Observation, Decision and receipt delivery hashes bind immutable originals. Initiative hashes bind the lifecycle at delivery (active), while final exported initiative state is stopped.",
+  "worker_rejections": "Two hypothesis-as-evidence citations were rejected and corrected; see worker-tool-rejections.json. acceptance.attempts records harness failures only."
 }
