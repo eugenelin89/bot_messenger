@@ -113,3 +113,9 @@ session transitions. Acceptance and retained activation remain explicit separate
 ## Current priority after Prompt 11
 
 - [Decision 026 — Single-owner Personal Operator stabilization before further feature expansion](decision_026_personal_operator_stabilization.md) — accepted October 6, 2026. Clarifies Decision 017 sequencing: Prompt 11 is complete for bounded supervised scope; the current unnumbered phase prioritizes one owner's daily reliability/usability. No automatic Prompt 12. Capability expansion resumes only from demonstrated need or explicit owner priority.
+
+## Owner-requested experimental design — investment showcase
+
+[Decision 027](decision_027_public_investment_showcase_design.md) records the October 6 owner request for a public paper-investment demonstration of BotSquad. The [design guide](../experiments/investment/README.md) and [detailed INV-01–INV-12 roadmap](../experiments/investment/ROADMAP.md) cover genuine live team discussion, durable public artifacts, a deterministic simulated portfolio and scoped REST publication to Asymmetri.co.
+
+This is a design-only experimental track, not core Prompt 12, deployed functionality or a new production grant. Personal Operator stabilization and the existing private/financial authority boundaries remain unchanged. Use the [single-packet Codex launcher](../../prompts/investment-experiment.md) only when the owner selects the next implementation task.
