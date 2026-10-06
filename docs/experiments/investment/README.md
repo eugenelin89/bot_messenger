@@ -32,7 +32,8 @@ Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and
 | [Product and public experience](PRODUCT_AND_UX.md) | Purpose, page hierarchy, live desk, visitor journeys and charts |
 | [Architecture](ARCHITECTURE.md) | Repository responsibilities, integration, ownership and trust boundaries |
 | [Simulation rules](SIMULATION_RULES.md) | Orders, accounting, market evidence, risk, benchmark and metrics |
-| [Public API](PUBLIC_API.md) | REST routes, payloads, authentication, ordering, receipts and errors |
+| [Public API](PUBLIC_API.md) | REST resources, event payloads, artifact references and version compatibility |
+| [API security and delivery](API_SECURITY_AND_DELIVERY.md) | Signing, authorization, atomic acceptance, ordering, receipts, retries and errors |
 | [Publication and artifacts](PUBLICATION_AND_ARTIFACTS.md) | Audience consent, discussion export, file storage, versions and withdrawals |
 | [Team and operations](TEAM_AND_OPERATIONS.md) | Worker fit, grants, daily loop, controls, backup and recovery |
 | [Validation](VALIDATION.md) | Requirement-linked acceptance, failure and security scenarios |
@@ -58,7 +59,7 @@ Use experiment-local IDs `INV-01`–`INV-12`. This is not core Prompt 12 and doe
 
 ## Updating the design
 
-Each topic has one normative home above. Link instead of duplicating field definitions and rules. API fields belong in `PUBLIC_API.md`, calculations in `SIMULATION_RULES.md`, and implementation status in the roadmap table.
+Each topic has one normative home above. Link instead of duplicating field definitions and rules. API fields belong in `PUBLIC_API.md`, delivery/security semantics in `API_SECURITY_AND_DELIVERY.md`, calculations in `SIMULATION_RULES.md`, and implementation status in the roadmap table.
 
 Each build prompt updates its roadmap row, evidence links and affected specification. Record exact tested commits for both repositories; never claim an atomic cross-repository deployment. Durable scope/security changes also require an ADR. After official launch, methodology changes require a visible versioned amendment or a new run.
 
