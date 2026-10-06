@@ -1,6 +1,6 @@
 # Personal Operator stabilization 01 — validation and delivery
 
-**Status:** Active; implementation/local focused tests passed, real acceptance and delivery pending.
+**Status:** Implementation and isolated real acceptance passed; production delivery pending.
 
 This unnumbered task closes Prompt 11 documentation, retires its exact temporary credential,
 corrects schedule admission and records the owner priority in Decision 026. No new external
@@ -32,8 +32,20 @@ timing is inferred from an execution claim.
   bounded backoff, idle, recurring coalescing and timezone/DST tests remain intact.
 - [Owner browser suite](evidence/personal01/browser.txt): **2/2 pass**, including invalid-window feedback, corrected save and retained cross-timezone/DST cases. Initial sandbox launch was blocked; authorized rerun exposed a test-only wall-time conversion error, corrected without weakening assertions.
 - [Relevant regressions](evidence/personal01/regressions-before-clock-audit.txt): **293/293 pass** across conversations, WE-01 research/revocation, working groups, schedules, business actions, Computer Use authority, HTTP, profiles and infrastructure. After the audit review fix, [affected final-source rerun](evidence/personal01/affected-final.txt): **186/186 pass**. These are overlapping suites, not additive unique-test counts.
+- [Ubuntu affected/infrastructure regression](evidence/personal01/ubuntu-affected.txt): **206/206 pass**, no skips, under the installed service restrictions with an isolated test data path on the same final application source.
 - Recovery review found audit recording could cross the hard end after authorization. One clock snapshot now governs authorization and `claimed_at`; `recorded_at` is separate. The added boundary/retry test passes and proves one first-claim event. [Focused output](evidence/personal01/scheduler.txt).
-- Real isolated short scheduled review, restart and idle interval: pending.
+- [Real isolated acceptance](evidence/personal01/real-schedule-summary.json): **PASS** on
+  source `50356bb003217d64afac06ff493cba52c67133e3`, using the existing guarded Prompt 09
+  runner with a separate data root and loopback port. A worker created one schedule,
+  version 1, with no timing correction. Due `2026-10-06T09:22:22.123Z`; first execution
+  claimed at `09:22:22.151Z` (**28 ms late**), before explicit end `09:24:22.123Z`.
+  A real provider turn started at `09:22:23.591Z`; two completed review executions had distinct sessions.
+  One occurrence completed, Cycle 2 read the original evidence and chose STOP. The
+  pre-due restart changed PID without changing work counts or pause state. A **30.032 s**
+  final idle interval added no work. Zero business actions and ComputerSessions.
+  The three interrupted roster-fixture executions are separate from the two real reviews;
+  the objective/window were an explicit internal test, and model cost remains unknown.
+  The validation service was stopped after evidence collection.
 
 ## Exact credential retirement
 
@@ -62,8 +74,12 @@ passed. No provider observation/reconciliation or external action was used to te
 
 Recovery: confirmed root cause and recommended explicit positive window without implicit
 authority extension. Architecture: no source blocker; first-claim timing and recurring
-cutoff qualifications are explicit. Security: retirement script/source review found no
-blocker; independent artifact review pending. Product and test reviews pending.
+cutoff qualifications are explicit. Security: independently verified exact retirement artifacts and private GitHub deletion
+screenshot, no blocker. Product: final snapshot passed with no remaining strategy blocker.
+Recovery and test reviewers independently cross-checked the final, timing, restart and idle
+artifacts and accepted the narrow live result with no blockers. The test used prescribed
+timing and a graceful pre-due restart; it does not prove autonomous timing selection,
+in-flight recovery or sustained unattended reliability.
 
 Production scheduler deployment is pending. Before delivery: full diff/check, fresh main,
 normal PR/merge, exact merged build, protected consistent backup and inventory, safe restart,

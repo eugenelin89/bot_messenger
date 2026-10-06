@@ -6,7 +6,7 @@
 **Worktree:** `bot_messenger-personal01`  
 **Started:** 2026-10-06  
 **Initial ETA:** 2–4 hours, dependent on authentication and real runtime acceptance  
-**Current ETA:** Initial estimate unchanged
+**Current ETA:** 30–60 minutes remaining after real acceptance; merge/deployment gates remain
 
 ## Objective and boundaries
 
@@ -78,10 +78,15 @@ capacity/restart tolerance to a longer explicit window. Later recurring dues nea
 may expire. Worker and owner paths share validation; original schedules/history stay intact.
 
 Implementation, public closure and Decision 026 are complete. Focused 68/68, relevant 293/293,
-post-review affected 186/186, browser 2/2 pass (overlapping counts). Recovery audit-boundary
+post-review affected 186/186, Ubuntu affected/infrastructure 206/206, browser 2/2 pass (overlapping counts). Recovery audit-boundary
 finding corrected and re-reviewed; architecture has no blocker. Retirement preserved 2,624
 rows/102 tables and revoked only the exact pilot authority. Browser harness wall-time mistake
 and retirement collector pre-mutation session-key error are retained as failed attempts.
 
-Final specialist dispositions, real isolated acceptance, merge and deployment remain pending. No overall
+Real isolated acceptance passed: worker-created version 1, zero owner corrections, 28 ms
+claim jitter, one completed occurrence, two real executions in fresh sessions, restart before
+due with no work growth, STOP and 30.032 seconds idle. Fixture executions are distinguished.
+Security independently accepted private retirement evidence; product final snapshot passed.
+Recovery and test reviewers independently accepted the live artifacts with no blockers.
+Merge and deployment remain pending. No overall
 completion or production scheduler-fix claim until these gates have actual evidence.
