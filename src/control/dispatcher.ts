@@ -3,6 +3,8 @@ import { requireThat } from '../domain/model.js';
 import { Company } from './company.js';
 import { companyTools, researchTools, type RuntimeAdapter, type RuntimeInput } from '../runtime/adapter.js';
 import { RESEARCH_TOOLS } from '../domain/research.js';
+import { COMPUTER_TOOLS } from './computers.js';
+import { computerTools } from '../runtime/computer.js';
 
 export class Dispatcher {
   private running = new Map<string, { controller: AbortController; done: Promise<void> }>();
@@ -10,6 +12,7 @@ export class Dispatcher {
   private stopped = true;
   private deadlineTimer?: NodeJS.Timeout;
   private readonly onChange = () => this.kick();
+  private readonly onComputerInterrupt=(executionId:string)=>{const active=this.running.get(executionId);active?.controller.abort('Computer session authority ended');};
   runtimeState: 'unknown' | 'ready' | 'degraded' = 'unknown';
   private catalogRequest?: Promise<RuntimeCatalog>;
   constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2) {
@@ -30,6 +33,7 @@ export class Dispatcher {
     this.stopped = false;
     this.company.recover();
     this.company.on('changed', this.onChange);
+    this.company.on('computer_interrupt',this.onComputerInterrupt);
     this.kick();
   }
   kick() {
@@ -69,9 +73,11 @@ export class Dispatcher {
           this.company.verifyWorkspace(worker);
           if (worker.runtime_type !== this.adapter.type) throw new Error('Worker/runtime adapter mismatch');
           const taskTools=companyTools(worker);
+          const computerContext=claim.origin==='task'&&claim.task.kind==='computer'?this.company.computers.prepare(context):undefined;
+          if(computerContext)taskTools.push(...computerTools());
           if(claim.origin==='task'&&claim.task.kind==='research'&&this.company.research.enabled(worker.worker_id))taskTools.push(...researchTools());
           const privateSession=claim.origin==='task'?this.company.mandates.taskSession(context,taskTools):undefined;
-          const session=claim.origin==='task'&&!privateSession?this.company.research.taskSession(context,taskTools):undefined;
+          const session=claim.origin==='task'&&!privateSession&&!computerContext?this.company.research.taskSession(context,taskTools):undefined;
           const callResearch=(callId:string,name:string,args:unknown,signal?:AbortSignal)=>this.company.research.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal);
           const input: RuntimeInput = claim.origin === 'conversation' ? {
             mode:'conversation', worker, request:claim.request, execution:claim.execution,
@@ -81,25 +87,27 @@ export class Dispatcher {
             bind:binding=>{this.company.conversations.prepareBinding(context,binding);this.company.conversations.activateBinding(context);},
             callTool:(callId,name,args,signal)=>(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.conversations.callTool(context,callId,name,args),
             event:(type,detail)=>this.company.conversations.event(context,type,detail),
-          } : { mode:'task', worker, task:claim.task, execution:claim.execution, context: {...this.company.context(context),research_authority:claim.task.kind==='research'?this.company.research.context(context):undefined},
-            binding: privateSession?this.company.mandates.taskBinding(privateSession):session?this.company.research.taskBinding(session):this.company.binding(worker.worker_id), tools: taskTools,
+          } : { mode:'task', worker, task:claim.task, execution:claim.execution, context: {...this.company.context(context),computer_use:computerContext,research_authority:claim.task.kind==='research'?this.company.research.context(context):undefined},
+            binding: computerContext?undefined:privateSession?this.company.mandates.taskBinding(privateSession):session?this.company.research.taskBinding(session):this.company.binding(worker.worker_id), tools: taskTools,
             configured: config => this.company.recordRuntimeConfig(context, config),
-            prepareBinding:privateSession?binding=>this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding):session?binding=>this.company.research.prepareTaskBinding(context,session.session_id,binding):undefined,
-            bind: binding => privateSession?this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding,true):session?this.company.research.prepareTaskBinding(context,session.session_id,binding,true):this.company.setBinding(context, binding),
-            callTool: (callId, name, args,signal) => (RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
+            prepareBinding:computerContext?binding=>this.company.computers.bind(context,binding):privateSession?binding=>this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding):session?binding=>this.company.research.prepareTaskBinding(context,session.session_id,binding):undefined,
+            bind: binding => computerContext?this.company.computers.bind(context,binding):privateSession?this.company.mandates.prepareTaskBinding(context,privateSession.session_id,binding,true):session?this.company.research.prepareTaskBinding(context,session.session_id,binding,true):this.company.setBinding(context, binding),
+            callTool: (callId, name, args,signal) => (COMPUTER_TOOLS as readonly string[]).includes(name)?this.company.computers.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal):(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
           const result = await this.adapter.run(input, controller.signal);
           await this.company.research.drain(execution.execution_id);
+          await this.company.computers.drain(execution.execution_id);
           providerSettled=result.settled===true||result.status==='completed';
           // Researchers must supply evidence, not only status prose.
-          if (claim.origin === 'task' && result.status === 'completed' && ['researcher', 'product_manager'].includes(worker.role) && !this.company.artifacts(claim.task.task_id).length) {
+          if (claim.origin === 'task' && result.status === 'completed' && (['researcher', 'product_manager'].includes(worker.role)||worker.role==='computer_operator'&&this.company.computers.forTask(claim.task.task_id)?.state!=='awaiting_approval') && !this.company.artifacts(claim.task.task_id).length) {
             throw new Error('Research finished without an artifact');
           }
           this.company.finish(execution.execution_id, result);
         } catch (error) {
           controller.abort('Runtime ended without awaiting its research callbacks');
           await this.company.research.drain(execution.execution_id);
+          await this.company.computers.drain(execution.execution_id);
           this.company.finish(execution.execution_id, { status: 'failed', settled:providerSettled, error: error instanceof Error ? error.message : 'Runtime failed' });
         }
       })().finally(() => { if(deadlineAbort)clearTimeout(deadlineAbort);this.running.delete(execution.execution_id); this.kick(); });
@@ -121,7 +129,9 @@ export class Dispatcher {
   async stop() {
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
+    this.company.off('computer_interrupt',this.onComputerInterrupt);
     for (const { controller } of this.running.values()) controller.abort('Application shutdown');
     await Promise.all([...this.running.values()].map(r => r.done));
+    await this.company.computers.shutdown();
   }
 }

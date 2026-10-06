@@ -19,13 +19,13 @@ repository status. Future milestone prompts also use
 
 ## Current state
 
-**Prompt 09 — the strategic company operating loop and durable clock — is complete and deployed. Prompt 10 — Bounded Computer Use — is next.** See [acceptance and delivery evidence](docs/validation/PROMPT_09_VALIDATION.md).
+**Prompt 10 — Bounded Computer Use — is implemented and in final acceptance.** [Its validation record](docs/validation/PROMPT_10_VALIDATION.md) tracks the remaining review and delivery gates. Prompt 09 remains the deployed baseline until those gates pass.
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and
 [active acceptance plan](docs/exec-plans/prompt-09.md) describe owner-activated mandates,
 company-selected internal work, labelled evidence, durable decisions and scheduled reviews.
-These add no publication, outreach, spending or Computer Use authority.
+Mandates add no publication, outreach, spending or Computer Use authority. Browser work has a separate explicit owner policy.
 
 **Worker Empowerment 01 is accepted and deployed:** the scoped public-research and
 standing-knowledge slice passed real Ubuntu acceptance; evidence is in the
@@ -43,6 +43,9 @@ BotSquad currently supports:
 - Atlas → Scout → Atlas research, with optional owner-granted public lookup and scoped company knowledge;
 - Atlas → Maya/Turing → Linus + Ada → Grace engineering coordination;
 - two concurrent real Codex executions;
+- owner-created Computer Operators and immutable bounded browser Task/session grants;
+- isolated headless Chromium, trusted request forwarding, exact fixture approvals and private PNG evidence;
+- interruption, revocation and conservative unknown-effect recovery;
 - first-class software Projects with multiple bounded repositories and configurable branches;
 - local creation, Git-bundle import and trusted public GitHub registration/fetch;
 - explicit non-overlapping write scopes and named focused/full validation recipes;
@@ -432,7 +435,7 @@ Current important limits include:
 - public GitHub fetch only; optional authenticated push remains unvalidated live;
 - no arbitrary deployment or broad permission-granting approval workflow;
 - retained older Codex engineering bindings cannot silently adopt new tool schemas;
-- no general worker Computer Use; the bounded Demo Operator is a separate test client;
+- no general worker desktop access: Computer Use is a separate owner-granted isolated browser capability;
 - no public Internet UI/login;
 - no multi-company runtime implementation yet;
 - no cross-HQ federation;
@@ -555,6 +558,9 @@ business integrations do not depend on first implementing these larger platforms
 - [Multi-Company and Federation Model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
 - [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
+- [Bounded browser architecture](docs/architecture/COMPUTER_USE.md)
+- [Computer Use operator tutorial](docs/operations/COMPUTER_USE_TUTORIAL.md)
+- [Prompt 10 validation](docs/validation/PROMPT_10_VALIDATION.md)
 - [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md)
 
 ### Recorded tutorial

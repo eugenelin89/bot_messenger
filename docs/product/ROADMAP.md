@@ -23,7 +23,7 @@ and their historical evidence retain their original meaning.
 | 07 | First-class conversations, direct worker interaction and context continuity | Complete |
 | 08 | Collaborative working groups and deliberation | Complete |
 | 09 | Strategic company operating loop, durable scheduling and Asymmetri Motion reference acceptance | Complete |
-| 10 | Bounded Computer Use | Next |
+| 10 | Bounded Computer Use | In final acceptance |
 | 11 | Single-company business operations and a measured Asymmetri Motion pilot | Planned |
 | — | Multi-company support on one HQ | Deferred; after single-company evidence gate |
 | — | Company-to-company collaboration | Deferred; after company isolation |
@@ -34,7 +34,7 @@ and their historical evidence retain their original meaning.
 
 Demo Operator 01 is an unnumbered dogfood interlude after Prompt 05. Its bounded browser
 operator and [StudyPlan tutorial](../tutorials/demo-01-studyplan/README.md) exercise the
-existing development HQ. It remains an unnumbered historical interlude. **Prompt 09 is Complete; Prompt 10 is Next.** See the [actual Prompt 09 acceptance and deployment](../validation/PROMPT_09_VALIDATION.md).
+existing development HQ. It remains an unnumbered historical interlude. **Prompt 09 is Complete; Prompt 10 is in final acceptance.** See the [actual Prompt 09 acceptance and deployment](../validation/PROMPT_09_VALIDATION.md).
 
 **Completed first empowerment slice after Prompt 07:** [give bots appropriate power and authority](#near-term-task--give-bots-appropriate-power-and-authority).
 WE-01 supplied bounded public research and approved company knowledge; Prompt 08 reuses
@@ -730,10 +730,13 @@ C09-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md
 
 ## Prompt 10 — Bounded Computer Use
 
-**Status:** Next
+**Status:** Implemented; final acceptance/release gates in [Prompt 10 validation](../validation/PROMPT_10_VALIDATION.md).
 
-Add explicit Computer Use capability after worker OS identity, approvals and the core
-interaction model are reliable.
+The implemented slice uses owner-created Computer Operators, immutable ordinary Task/session
+grants, isolated headless Chromium, structured rendered snapshots and private real PNGs.
+Only one bounded environment is reserved per HQ. Uploads/downloads are disabled; trusted
+forwarding gates every request; exact disposable fixture approval never becomes business
+authority. See [architecture](../architecture/COMPUTER_USE.md) and [tutorial](../operations/COMPUTER_USE_TUTORIAL.md).
 
 Preferred autonomous model:
 

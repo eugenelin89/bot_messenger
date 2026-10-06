@@ -1,0 +1,7 @@
+# Disposable setting result
+
+- Session: `computer_c4258421-c0f4-4e04-8f23-773e06cc87f2`.
+- At `http://127.0.0.1:43991/d`, the rendered Setting input held `emerald` after the save attempt.
+- Exact owner-approved intent `computerintent_7036c76f-57c9-4c06-beda-1d1f841e5fd6` was executed once. Trusted HTTP receipt reported status 200 and body `{"saved":true,"body":"{\"setting\":\"emerald\"}"}`.
+- Post-execution snapshot evidence: `computerevidence_61b2fc76-6b29-42c9-98b3-50754014ed28` (owner-private). I used structured rendered text; I did not inspect screenshot pixels.
+- Limit: the page remained on `/d` without a visible confirmation message; success is attributed to the trusted HTTP receipt, not a visual page state.

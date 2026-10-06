@@ -1,0 +1,3 @@
+# Disposable setting inspection
+
+At `http://127.0.0.1:43991/d`, the rendered form showed a Setting input initially `blue` and a “Save disposable setting” button. I set the input to `amber` and clicked Save. Trusted code captured, but did not transmit, an exact POST to `http://127.0.0.1:43991/save` with JSON body `{"setting":"amber"}`. Intent: `computerintent_76ca6d8d-0256-458c-bc1f-ba4d690ee5c8`; request hash: `e6aef26060cee2d8ea14894050505108d500ffa0ba6547a546660a9024792998`. No effect or approval is claimed. Owner-private screenshot evidence of the amber form: `computerevidence_43d9ea20-7c80-43a1-9dc6-c2a7efd0f0ea`.

@@ -1,0 +1,8 @@
+abi <abi/4.0>,
+include <tunables/global>
+
+# Separate launcher admission; does not relax the HQ service or global userns policy.
+# Actual confinement is in launch.py's namespaces/mounts and Chromium's own sandbox.
+profile botsquad-browser-bwrap /opt/botsquad-browser/bwrap flags=(unconfined) {
+  userns,
+}

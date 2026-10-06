@@ -1,0 +1,19 @@
+Running as unit: botsquad-computer-integration.service
+PASS actual typing checkbox clicks rendered completion and attributable PNG
+PASS typed forbidden origins schemes and private addresses denied
+PASS page injection cannot authorize metadata Gmail IPv6 or forbidden-origin fetch
+PASS file chooser and attachment response denied
+PASS redirect subresource popup service worker websocket bypass denied
+PASS forbidden recorder and unapproved effect count zero
+PASS denied protected request zero effects
+PASS fresh generation exact approval one effect with duplicate replay suppressed
+PASS action bound destroys real browser
+PASS idle deadline destroys real browser
+PASS revocation denies stale context and confirms browser shutdown
+PASS database integrity
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 35.724s
+CPU time consumed: 1.059s
+Memory peak: 1.0M
+Memory swap peak: 0B

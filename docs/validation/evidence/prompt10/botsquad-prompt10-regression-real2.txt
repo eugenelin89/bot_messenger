@@ -1,0 +1,17 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: groups/control: {"error":"Invalid discussion receipt key"}
+    at post (file:///opt/botsquad-prompt10/scripts/computer/regression.mjs:13:208)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///opt/botsquad-prompt10/scripts/computer/regression.mjs:36:549 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

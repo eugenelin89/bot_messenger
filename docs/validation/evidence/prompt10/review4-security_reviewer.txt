@@ -1,0 +1,28 @@
+Reviewed `fc775af` product code at HEAD `db7492b`; the specified product/deployment/test/bootstrap paths are identical.
+
+**BLOCKING**
+
+None identified in this focused correction review.
+
+**IMPORTANT**
+
+Review3’s handoff finding is resolved:
+
+- [client.ts:23](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/client.ts:23>) leaves cancelled connection cleanup with `close()`. Both cancellation cleanup and idle confirmation await the explicit acknowledgement; failures return false.
+- [broker.ts:23](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:23>) clears occupancy before acknowledging and memoizes cleanup. A delayed old disconnect cannot release a replacement’s reservation.
+- The [delayed-disconnect test](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/test/computer-ipc.test.ts:11>) covers immediate replacement after idle confirmation and cancellation. The [actual fault evidence](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-fault-results.json:18>) supports unresolved launch at disconnect and three immediate Chromium replacements without sleep, matching the inspected driver.
+
+The [final integration evidence](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-integration-results.json>) closes the individual bypass-observation gap. Fixture corrections preserve denial assertions, zero forbidden-recorder checks, and exact approval/one-effect/duplicate suppression.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+Only the already-planned security acceptance remains:
+
+- Finish fresh worker safe/protected continuation evidence: distinct provider generations, committed trusted receipt, confirmed finish; finish owner cleanup UI evidence after lost acknowledgement. These remain [in progress](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/exec-plans/prompt-10.md:154>).
+- Complete retained deployment/preservation evidence: intended broker build/readiness, retained records and identities, existing grants and `pause=false`, zero automatic Computer Use authority, idle behavior and temporary-service cleanup. These are [release gates](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/PROMPT_10_VALIDATION.md:159>), not source defects.
+
+No edits, tests, Git mutations, network/service access, or other agents were used. Results were inspected, not independently rerun.

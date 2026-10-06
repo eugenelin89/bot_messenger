@@ -402,3 +402,11 @@ transcripts, evidence, syntheses and related audit payloads do not enter v1 proj
 A separately submitted synthesis assignment is an ordinary Task under existing device
 visibility rules. Coarse worker availability can reflect group activity without revealing
 its content. No group research grant is implied by device access.
+
+## Computer Use privacy boundary (Prompt 10)
+
+Device scopes do not gain ComputerSession administration, grants, protected approvals or
+screenshots. Related computer Tasks, executions, messages, artifacts and event projections
+are omitted; guessing a hidden ID cannot interrupt or read it. Only the existing trusted
+local owner surface can manage or inspect these records. Its screenshot route verifies
+canonical file ownership and stored integrity. Ordinary device behavior remains unchanged.

@@ -29,7 +29,7 @@ export interface RuntimeAdapter {
 }
 
 const string = { type: 'string' };
-function tool(name: string, description: string, properties: Record<string, unknown>): ToolDefinition {
+export function tool(name: string, description: string, properties: Record<string, unknown>): ToolDefinition {
   return { name, description, inputSchema: { type: 'object', properties, required: Object.keys(properties), additionalProperties: false } };
 }
 export function researchTools(): ToolDefinition[] {
@@ -68,7 +68,7 @@ export function companyTools(worker: Worker): ToolDefinition[] {
     }));
   if (worker.capability_profile.includes('read_workspace')) tools.push(tool('read_document',
     'Read one approved product/architecture reference document. Use paths from reference_documents in the task context.', { path: string }));
-  if (worker.capability_profile.includes('write_workspace')) tools.push(tool('submit_artifact',
+  if (worker.capability_profile.includes('write_workspace')||worker.capability_profile.includes('submit_artifact')) tools.push(tool('submit_artifact',
     'Save a short Markdown report in the controlled artifact store and return its durable reference. Provide content, never a filesystem path.', { description: string, content: string }));
   const engineering = (capability: string, name: string, description: string, properties: Record<string, unknown>) => {
     if (worker.capability_profile.some(c => c === capability)) tools.push(tool(name, description, properties));

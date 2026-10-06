@@ -1,0 +1,15 @@
+✔ forwarder pins validated DNS answers into the actual socket lookup callback (1.934125ms)
+✔ mixed public/private DNS answers deny before authority consumption or HTTP invocation (0.492292ms)
+✔ private IPv6 DNS and revoked pre-send authority fail without network transmission (0.302292ms)
+✔ pre-send recheck can revoke after successful DNS and before any socket request (0.277292ms)
+✔ same-origin credential/control redirect is denied before a second request (0.3175ms)
+✔ declared and streamed oversized responses both fail the two-MiB response ceiling (0.546541ms)
+✔ untrusted content-length cannot admit a declared oversized response (0.213333ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 51.544667

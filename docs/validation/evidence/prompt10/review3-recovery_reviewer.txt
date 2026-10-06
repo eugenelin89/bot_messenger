@@ -1,0 +1,32 @@
+Reviewed the fixed, uncommitted candidate above `b8f4120` on `feature/prompt-10-computer-use`. The three review2 findings are corrected. One deployment lifecycle issue remains.
+
+**BLOCKING**
+
+None identified in the revisited recovery paths.
+
+- Finish now requires confirmed shutdown; terminal owner controls can recheck cleanup; shutdown cancels and awaits the shared reconciliation work. See [computers.ts](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:265>).
+- Context preserves actionable requests while bounding historical summaries and receipt excerpts, with a serialized ceiling. Full receipts remain in SQLite. See [context projection](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:84>).
+- Consumption precedes transmission, and receipt commitment precedes delivery authorization. Revocation after commitment preserves the known receipt rather than creating uncertainty. See [receipt handling](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:152>).
+
+The [added tests](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/test/computer.test.ts:162>) cover false close acknowledgement, cleanup after the retry window, large receipts and later approval context, consumption-before-send, receipt-before-delivery revocation, and screenshot publication failure.
+
+**IMPORTANT**
+
+**Bootstrap can miss a broker awaiting automatic restart.** [bootstrap-ubuntu-host.sh:86](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/bootstrap-ubuntu-host.sh:86>) stops the broker only when `systemctl is-active` succeeds. During `activating (auto-restart)`, that check fails, but the [configured restart](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/deploy/systemd/botsquad-browser.service:16>) remains queued. The broker can consequently start during checkout, dependency replacement, or build.
+
+Smallest fix: stop an installed broker unit regardless of its active state, cancelling pending restart jobs before replacement. Apply the same treatment to the adjacent HQ stop guard. The subsequent explicit restart and readiness gate are correctly present.
+
+Smallest validation: begin the update during broker restart delay; verify it stays stopped throughout replacement, then starts the intended build and passes readiness.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+- The focused deployment lifecycle probe above.
+- Execute the newly added [real-browser fault probes](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/computer/faults.ts:30>) and fresh worker confirmation on the final candidate, retaining confirmed cleanup, exact receipt, and provider-generation evidence.
+- Record build and required Ubuntu checks against the exact final revision. The inspected [local regression log](</tmp/botsquad-prompt10-regression4.log:340>) now reports **292 passed, 1 skipped, 0 failed**. Existing schedule evidence already records a completed scheduled occurrence and two closed cycles; that gate need not be repeated absent further affected changes.
+- Complete the planned merge/deployment and whole-host preservation comparison: retained records and identities, Atlas research grant, `pause=false`, zero automatic Computer Use authority, idle behavior, and temporary-service cleanup.
+
+No tests, edits, Git mutations, network/service actions, or other agents were used. `git diff --check` passed. This review does not claim release completion.

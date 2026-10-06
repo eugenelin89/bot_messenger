@@ -1,0 +1,2 @@
+Prepared exact pending + unstarted authorized sessions; dispatch paused
+PASS actual restart cancels pending intent with zero effect; exact unstarted policy retained without dispatch

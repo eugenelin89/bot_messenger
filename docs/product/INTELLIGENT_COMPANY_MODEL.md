@@ -685,3 +685,13 @@ BotSquad's destination is:
 > communicate, form working groups, investigate, debate, plan, delegate, execute, review,
 > learn from outcomes and adapt strategy toward broad or specific human-defined goals,
 > while trusted systems enforce real authority, resources and accountability.**
+
+## Prompt 10 implementation boundary
+
+Computer Operators can perform explicit bounded browser Tasks in isolated headless Chromium.
+A strategic mandate, group recommendation or peer message does not grant this capability or
+approve a mutation. Owner session policy and exact fixture approval remain separate trusted
+records. Structured rendered observations and attributable private screenshots establish
+browser evidence; a harmless fixture POST establishes enforcement only. Prompt 11 still
+requires a real authorized business action, external receipt, observed result and scheduled
+review. See [Computer Use](../architecture/COMPUTER_USE.md).

@@ -1,0 +1,32 @@
+{
+  "full_ubuntu_suite_revision": "fc775afe6feb56ab05b66e5256b8bbf8426b3511",
+  "full_ubuntu_tests": {
+    "total": 294,
+    "pass": 294,
+    "fail": 0,
+    "skip": 0
+  },
+  "local_suite": {
+    "total": 294,
+    "pass": 293,
+    "fail": 0,
+    "skip": 1,
+    "skip_reason": "Linux-only recipe containment"
+  },
+  "real_fault_revision": "fc775afe6feb56ab05b66e5256b8bbf8426b3511",
+  "real_fault_gates": 18,
+  "individual_browser_integration_revision": "db7492b38f5a45e8a8223b7f07df549027f080b7",
+  "integration_gates": 12,
+  "real_worker_confirmation_revision": "db7492b38f5a45e8a8223b7f07df549027f080b7",
+  "unchanged_validated_paths": [
+    "src",
+    "public",
+    "deploy",
+    "test",
+    "package.json",
+    "package-lock.json",
+    "scripts/bootstrap-browser.sh",
+    "scripts/bootstrap-ubuntu-host.sh"
+  ],
+  "basis": "git diff is empty for the product, deployment and deterministic test sources; subsequent changes are validation fixtures, provenance export and documentation"
+}

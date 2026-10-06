@@ -1,0 +1,1 @@
+{"offline":true,"previous_schema":12,"schema":13,"repeat_open_preserved":true,"tables":85,"original_rows":2233,"rowids_and_every_original_field_preserved":true,"foreign_keys":"ok","integrity":"ok"}

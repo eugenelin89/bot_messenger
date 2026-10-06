@@ -1,7 +1,23 @@
 # BotSquad — Computer Use Model
 
-**Status:** Planned Prompt 10 architecture; worker Computer Use is not implemented
+**Status:** Prompt 10 browser-first implementation; broader desktop concepts remain future scope
 **Updated:** 2026-09-29
+
+## Implemented Prompt 10 slice
+
+The implemented environment is isolated headless Chromium on Ubuntu, controlled through
+narrow typed tools. A ComputerSession belongs to one ordinary Task and owner-created
+Computer Operator, with an immutable explicit owner grant. One environment per HQ, fresh
+profiles, deny-by-default forwarding, disabled uploads/downloads, exact disposable fixture
+POST approvals, private PNG evidence and conservative unknown-effect fencing are enforced
+outside model text. Workers receive structured rendered snapshots, not screenshot pixels.
+No migration creates an operator, session or grant. The retained full roster is unchanged.
+
+[Architecture](../architecture/COMPUTER_USE.md), [tutorial](../operations/COMPUTER_USE_TUTORIAL.md),
+[Decision 024](../decisions/decision_024_bounded_computer_use.md) and
+[C10-1 record](../validation/PROMPT_10_VALIDATION.md) specify this supported slice. The broader
+browser/desktop/VM/local-workstation examples below are design possibilities, not implemented
+permissions. General business actions and measured outcomes remain Prompt 11.
 
 ## Purpose
 
@@ -41,7 +57,7 @@ A local-desktop worker remains a valid special mode when a task genuinely requir
 The Ubuntu HQ itself is not a license for unrestricted desktop/shell authority. Neither
 Demo Operator's bounded Playwright test client nor Prompt 06's paired remote-human Client
 API grants GUI authority to AI workers. Computer Use remains a separate explicit
-capability governed by Decision 006 and is currently planned for Prompt 10, after
+capability governed by Decisions 006 and 024, implemented in Prompt 10 after
 Prompt 07 direct conversations, Prompt 08 collaborative deliberation and Prompt 09's
 strategic company operating loop.
 
@@ -384,7 +400,7 @@ Prove workers, hierarchy, tasks, dispatch, persistence, and Codex runtime execut
 CEO -> CTO -> engineering workers
 ```
 
-Implemented in Prompt 02: managed local repositories, separate branches/worktrees, concurrent engineers, independent read-only review and tested trusted integration. Prompt 03 moves the headquarters/runtime toward Ubuntu. Computer Use remains disabled.
+Implemented in Prompt 02: managed local repositories, separate branches/worktrees, concurrent engineers, independent read-only review and tested trusted integration. Prompt 03 moves the headquarters/runtime toward Ubuntu. Computer Use remained disabled at that historical milestone.
 
 ### Post-Ubuntu infrastructure milestone
 
@@ -394,9 +410,9 @@ Computer Operator + bounded Computer Use
 
 Add GUI/browser environments only after the Ubuntu runtime, task, authority, audit, Linux isolation and approval boundaries are reliable. Prefer isolated remote environments; use the human workstation only when the task specifically requires it.
 
-## Acceptance criteria for a future Computer Use milestone
+## Acceptance criteria for Computer Use
 
-A future implementation should not be considered complete until it proves:
+Implementation is complete only when the validation record proves:
 
 1. Computer Use is represented as an explicit capability.
 2. A worker without the capability cannot obtain a computer session.

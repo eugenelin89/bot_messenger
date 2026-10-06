@@ -1,0 +1,30 @@
+**BLOCKING**
+
+None identified. **C10-1 pre-release evidence supports progressing to normal merge and deployment.** No additional pre-release runtime acceptance gap or material incorrect claim was found in this focused review.
+
+**IMPORTANT**
+
+The previous acceptance gaps are closed:
+
+- [Cleanup evidence](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-worker/cleanup-ui.json>) and inspected screenshots demonstrate owner recheck after 55.37 seconds, unchanged revoked authority, cancelled/unconsumed intent, and effects 9→9.
+- [Integration evidence](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-integration-results.json>) supports individual bypass denials. Fixture corrections preserve denial assertions; integration6’s failure remains retained. The [18 browser fault gates](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-fault-results.json>) cover unresolved launch loss and immediate replacement.
+- [Final worker state](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/final-worker/worker-state.json>) supports actual worker actions, distinct approval-continuation provider references, one trusted effect and confirmed finish. All five exported safe-flow PNGs match their recorded hashes and sizes.
+
+Git independently confirms the stated `fc775af`→`db7492b` product/deployment/test equality. Retained failed-worker recovery and exact-checkout Projects evidence close the earlier reporting gaps. The final third session is correctly described as UI revocation cleanup, without claiming another restart run.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+Only the already-planned release gates remain:
+
+1. Retain and commit the final evidence/disposition; obtain the fresh whole-host inventory and consistent backup.
+2. Complete normal merge, build and deploy the exact merged revision; record source/build/health identity.
+3. Demonstrate repeat installation replaces the broker and passes readiness.
+4. Verify retained database records, identities/homes/provisioner state, Atlas research grant and pause state; zero automatic Computer Use authority; private owner UI, production idle behavior and temporary-service cleanup.
+
+These remain prerequisites to claiming release completion, as the [validation record](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/PROMPT_10_VALIDATION.md:188>) acknowledges. No unaffected historical gate needs repetition absent a relevant change.
+
+Read-only review completed: no tests, edits, Git mutations, network/SSH, service operations or other agents. `git diff --check` passed.

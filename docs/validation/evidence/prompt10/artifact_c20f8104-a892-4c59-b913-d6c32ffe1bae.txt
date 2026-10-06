@@ -1,0 +1,5 @@
+# Disposable setting save
+- At `http://127.0.0.1:43991/d`, the rendered Setting input contained `emerald` before and after execution.
+- The exact owner-approved intent `computerintent_1a2d0b82-0202-41c5-b8af-7f7553030da8` was executed once. Trusted HTTP receipt: status 200; body `{"saved":true,"body":"{\"setting\":\"emerald\"}"}`.
+- Owner-private rendered-page screenshots: pre-save `computerevidence_acaf99e6-3cda-4f8a-9767-20b143504c20`; post-execution `computerevidence_044c992b-e728-40ad-891c-d6e419ea3337`.
+- The page did not display a separate confirmation; the save result is supported by the trusted HTTP receipt, not screenshot pixels.

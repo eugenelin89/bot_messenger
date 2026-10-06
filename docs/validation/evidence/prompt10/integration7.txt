@@ -1,0 +1,27 @@
+From /var/tmp/botsquad-prompt10-candidate3.bundle
+ * branch            feature/prompt-10-computer-use -> FETCH_HEAD
+Previous HEAD position was fc775af Confirm browser release and strengthen acceptance evidence
+HEAD is now at db7492b Record exact candidate provenance and individual bypass outcomes
+
+> botsquad@0.1.0 build
+> tsc
+
+Running as unit: botsquad-computer-integration7.service
+PASS actual typing checkbox clicks rendered completion and attributable PNG
+PASS typed forbidden origins schemes and private addresses denied
+PASS page injection cannot authorize metadata Gmail IPv6 or forbidden-origin fetch
+PASS file chooser and attachment response denied
+PASS individual redirect subresource popup service worker websocket attempts denied
+PASS forbidden recorder and unapproved effect count zero
+PASS denied protected request zero effects
+PASS fresh generation exact approval one effect with duplicate replay suppressed
+PASS action bound destroys real browser
+PASS idle deadline destroys real browser
+PASS revocation denies stale context and confirms browser shutdown
+PASS database integrity
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 41.046s
+CPU time consumed: 1.182s
+Memory peak: 1.0M
+Memory swap peak: 0B

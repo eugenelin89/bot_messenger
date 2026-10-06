@@ -1,0 +1,21 @@
+Running as unit: botsquad-computer-fault2.service
+<anonymous_script>:1
+[http://127.0.0.1:43991]
+ ^
+
+SyntaxError: Unexpected token 'h', "[http://127"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at new Computers (file:///opt/botsquad-prompt10/dist/src/control/computers.js:21:50)
+    at new Company (file:///opt/botsquad-prompt10/dist/src/control/company.js:56:26)
+    at file:///opt/botsquad-prompt10/dist/scripts/computer/faults.js:15:66
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.21.0
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=1
+Service runtime: 427ms
+CPU time consumed: 368ms
+Memory peak: 1.3M
+Memory swap peak: 0B

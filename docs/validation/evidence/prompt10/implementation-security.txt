@@ -1,0 +1,33 @@
+Reviewed the uncommitted implementation on `feature/prompt-10-computer-use`, baseline `b8f4120`. **Two blocking defects remain. This is an implementation review, not acceptance.**
+
+**BLOCKING**
+
+- **B1 — Shutdown can acknowledge cleanup before a pending browser launch finishes.** In [broker `close`/`launch`](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:22>), disconnect clears the deadline and releases `occupied` while `chromium.launch()` may still be pending. A late browser result survives because subsequent `close()` calls return immediately on `closing`. [BrowserClient.close](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/client.ts:31>) similarly returns `true` while `connect()` is pending and `this.rpc` is unset. Revocation can therefore leave a browser alive with a false shutdown receipt.
+  **Smallest fix:** track pending connection/launch promises, close every late result, and retain occupancy until termination is confirmed. Test interruption and connection loss before connection completion and during Chromium startup; verify actual process disappearance.
+
+- **B2 — Page callbacks can consume approval before page freshness passes.** [Computer execution setup](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:198>) sets `approvedIntent` and changes the session to `active` before [the broker’s freshness check](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:77>). During that asynchronous check, a page timer can issue the captured POST. `performNetwork()` consumes it on request-hash equality without proof that freshness succeeded. The broker can subsequently reject the changed page after the effect occurred.
+  **Smallest fix:** prevent ordinary page callbacks from redeeming approval; use a distinct trusted transmission path gated by successful freshness validation. Test a page changed during approval wait that repeatedly emits the exact captured POST. The stale-page rejection must produce zero effects.
+
+**IMPORTANT**
+
+- **I1 — Restart can permanently retain the singleton reservation.** [Recovery](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:263>) omits `ready` sessions with `active_execution_id` set and `shutdown_confirmed=1`. Crashing after `prepare()` but before browser launch leaves that pointer intact. Company recovery interrupts the execution, but subsequent session eligibility remains blocked globally. The same gap covers an already-closed browser whose worker has not settled.
+  **Smallest fix:** reconcile every retained execution reservation, preserving provider uncertainty separately. Test both crash windows and confirm another eligible worker can obtain the browser reservation without replaying old work.
+
+- **I2 — An untrusted page can fabricate mutation success.** [The approved execution](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:80>) invokes page-world `fetch`, which page JavaScript can replace with a fabricated successful response. [The controller](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:203>) returns that `mutation` and records operation completion without requiring a completed trusted intent receipt.
+  **Smallest fix:** derive mutation outcome from the committed forwarding receipt; report an unconsumed intent as failure. Test a replaced `window.fetch` returning synthetic HTTP 200 and verify that no successful mutation result is delivered.
+
+- **I3 — Public GETs admit credential and control URLs.** [computerUrl/canonicalBrowserRequest](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/domain/computer.ts:76>) accepts any path/query on an approved origin. A page-generated GET to `/unsubscribe?token=…` or another bearer-authorized control endpoint bypasses the POST approval mechanism. Full URLs also enter network evidence. Decision 020’s existing [credential/control URL checks](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/research/public-fetch.ts:29>) are absent here.
+  **Smallest fix:** apply those conservative exclusions and sanitize retained URLs. Where zero effects are required, constrain reads to vetted routes or disposable fixtures; HTTP method alone cannot establish that guarantee. Test automatic subrequests and redirects to control/token URLs against recorders.
+
+**OPTIONAL**
+
+No additional recommendations.
+
+**REQUIRED EVIDENCE**
+
+- Targeted reproductions and regression evidence for the findings above.
+- Recorder-backed approval fault cases: before consumption, after transmission, lost response, duplicate execution, revocation, and restart; preserve receipts and unknown fences.
+- Final-profile Ubuntu isolation and teardown probes, including pending launch, browser/broker/HQ loss, inaccessible credentials, direct-network denial, and resource bounds.
+- Completed real-worker C10-1 evidence showing fresh Task generations, private screenshots, unchanged v1 authority, and zero automatic production activation.
+
+No files, Git state, services, or authority were changed. No tests, network/SSH operations, or other agents were used; the supplied validation results were not independently reproduced.

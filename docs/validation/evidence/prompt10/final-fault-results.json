@@ -1,0 +1,78 @@
+[
+  {
+    "name": "ordinary worker denied before browser creation",
+    "at": "2026-10-06T00:32:15.946Z"
+  },
+  {
+    "name": "close during connection establishment has no late browser",
+    "at": "2026-10-06T00:32:16.015Z"
+  },
+  {
+    "name": "revocation during actual Chromium provisioning confirms termination",
+    "at": "2026-10-06T00:32:17.776Z"
+  },
+  {
+    "name": "IPC closure during launch retains singleton until cleanup",
+    "at": "2026-10-06T00:32:19.123Z"
+  },
+  {
+    "name": "abrupt IPC socket loss during pending Chromium launch leaves no orphan",
+    "detail": {
+      "launch_pending_at_disconnect": true,
+      "launch_rejected": true
+    },
+    "at": "2026-10-06T00:32:20.755Z"
+  },
+  {
+    "name": "idle acknowledgement permits immediate real-browser replacement without a sleep",
+    "at": "2026-10-06T00:32:30.295Z"
+  },
+  {
+    "name": "wall-clock deadline closes real browser",
+    "at": "2026-10-06T00:32:45.325Z"
+  },
+  {
+    "name": "screenshot count bound closes real browser",
+    "at": "2026-10-06T00:32:50.830Z"
+  },
+  {
+    "name": "actual document navigation count closes browser",
+    "at": "2026-10-06T00:32:55.777Z"
+  },
+  {
+    "name": "overridden page fetch cannot fabricate the trusted mutation receipt",
+    "at": "2026-10-06T00:33:02.947Z"
+  },
+  {
+    "name": "changed page and exact POST timer cannot redeem stale approval",
+    "at": "2026-10-06T00:33:11.458Z"
+  },
+  {
+    "name": "uppercase and mixed-case password/file controls denied",
+    "at": "2026-10-06T00:33:16.934Z"
+  },
+  {
+    "name": "real request-attempt exhaustion closes environment",
+    "at": "2026-10-06T00:33:21.570Z"
+  },
+  {
+    "name": "real aggregate-byte reservation exhaustion closes environment",
+    "at": "2026-10-06T00:33:26.786Z"
+  },
+  {
+    "name": "real streamed response overflow denied at two MiB",
+    "at": "2026-10-06T00:33:30.548Z"
+  },
+  {
+    "name": "real credential/control redirect blocked before destination request",
+    "at": "2026-10-06T00:33:34.374Z"
+  },
+  {
+    "name": "real eight-request burst forwards four and denies four concurrent requests",
+    "at": "2026-10-06T00:33:49.171Z"
+  },
+  {
+    "name": "fault evidence integrity",
+    "at": "2026-10-06T00:33:49.187Z"
+  }
+]

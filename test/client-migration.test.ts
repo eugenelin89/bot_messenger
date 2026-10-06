@@ -37,5 +37,5 @@ test('migration 6 preserves every original Prompt 05 row/field and performs no d
   for (const table of tables) assert.deepEqual(migrated.all(`SELECT ${originalColumns[table]!.join(',')} FROM ${table} ORDER BY 1`),before[table],table);
   assert.deepEqual(tree(),paths);assert.equal(migrated.all('PRAGMA foreign_key_check').length,0);
   for(const table of ['client_hq','remote_devices','client_pairings','client_challenges','client_tokens','client_receipts','client_events'])assert.equal(migrated.all(`SELECT * FROM ${table}`).length,0,table);
-  assert.equal(migrated.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,12);
+  assert.equal(migrated.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,13);
 });

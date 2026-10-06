@@ -41,7 +41,7 @@ Always reread current main, relevant execution plans and active branches before 
 
 ## Next planning action
 
-Prompt 09 is complete and deployed. Prompt 10 — Bounded Computer Use — is next; Prompt 11
+Prompt 09 is complete and deployed. Prompt 10 — Bounded Computer Use — is in final acceptance; Prompt 11
 later owns approved real business actions, receipts and measured Asymmetri Motion outcomes.
 Future Codex implementation prompts now use project-scoped read-only specialists when the
 changed risk warrants them. Prompt 10 should normally use the control-plane, security,
@@ -118,5 +118,22 @@ owned validation HQs are stopped with protected consistent evidence snapshots. T
 completion-documentation SHA/build receipt is recorded outside Git in the delivery handoff and
 protected HQ journal after its deployment. See [validation](validation/PROMPT_09_VALIDATION.md),
 [completed plan](exec-plans/prompt-09.md), [architecture](architecture/COMPANY_OPERATING_LOOP.md)
-and [tutorial](operations/COMPANY_OPERATING_LOOP_TUTORIAL.md). Prompt 10 is next; Prompt 11
+and [tutorial](operations/COMPANY_OPERATING_LOOP_TUTORIAL.md). Prompt 10 follows that historical release; Prompt 11
 remains the live-business evidence gate.
+
+## Prompt 10 implementation and acceptance — October 5
+
+Owner-only Computer Operators perform ordinary bounded Tasks in isolated headless Chromium.
+The worker receives structured rendered snapshots; PNGs are private human evidence. Exact
+immutable grants, a one-environment reservation, fresh model contexts, trusted pinned request
+forwarding, disabled uploads/downloads, exact fixture approvals and unknown-effect fences are
+implemented. A real employee completed onboarding/injection/file-boundary probes, produced
+four screenshots and a useful report; exact approval produced one effect. Denial, interruption,
+Chromium death, application restart and lost-receipt no-replay gates passed in isolated state.
+No production operator/session/grant exists. Retained full roster and pause are unchanged.
+
+[Validation](validation/PROMPT_10_VALIDATION.md), [active plan](exec-plans/prompt-10.md),
+[Decision 024](decisions/decision_024_bounded_computer_use.md) and [tutorial](operations/COMPUTER_USE_TUTORIAL.md)
+are authoritative for current acceptance/release status. Final specialist/regression and
+production delivery gates are still required; do not infer completion from implementation.
+Prompt 11 still requires approved real action, receipt, observed business result and review.

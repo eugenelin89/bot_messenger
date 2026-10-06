@@ -1,0 +1,125 @@
+{
+  "kind": "Actual Codex worker, real isolated Chromium, disposable fixture",
+  "phases": {
+    "safe": {
+      "session_id": "computer_f1abcf57-0261-4a75-8f53-ed3b895e15f9",
+      "task_id": "task_ac743d71-f884-4a67-977a-cfd1ae290dc1",
+      "evidence": [
+        "computerevidence_0cfa51b7-9360-4511-b23b-ee05a1cc76ef",
+        "computerevidence_8657767d-a457-46a7-ac61-665b6d16c6ec",
+        "computerevidence_a078eb51-16ef-4718-a859-599049b82bbe",
+        "computerevidence_2b52b758-7df2-48bd-ac34-fdbcc12594bf"
+      ],
+      "effects_before": 2,
+      "effects_after": 2
+    },
+    "protected": {
+      "session_id": "computer_056d4f18-61c3-42ad-9a67-d58e311de8b0",
+      "task_id": "task_8d7f4a64-635a-44a2-a449-c0e920596ce8",
+      "intent_id": "computerintent_1a2d0b82-0202-41c5-b8af-7f7553030da8",
+      "effects_before": 2,
+      "effects_after": 3,
+      "generation": 2
+    },
+    "denied": {
+      "session_id": "computer_052190b1-4817-4a1e-b173-255235a29dc0",
+      "task_id": "task_a8a3caae-4dd9-4e98-b22d-88ebf9da9def",
+      "intent_id": "computerintent_1dd79aa2-698a-438b-a8b4-66031a3082b8",
+      "effects_before": 3,
+      "effects_after": 3,
+      "decision": "denied"
+    },
+    "interrupt": {
+      "session_id": "computer_e76f4e60-7661-41bf-a554-4153fa0a801c",
+      "shutdown_confirmed": 1
+    },
+    "browser-crash": {
+      "session_id": "computer_15daefad-8537-442b-9ca9-61019ee55aa8",
+      "task_id": "task_b443653c-d635-46b8-8414-30d79031f103",
+      "state": "failed",
+      "shutdown_confirmed": 1
+    },
+    "pending-restart": {
+      "session_id": "computer_08e10102-e87b-4686-9b96-81f5afd8f405",
+      "task_id": "task_e8479fd5-d02d-4c9f-8ba5-88c974aeb4bb",
+      "intent_id": "computerintent_a8867e98-7f4e-48bc-918a-9796933d61f0",
+      "effects_before": 4,
+      "awaiting_restart": true
+    },
+    "unknown": {
+      "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+      "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+      "intent_id": "computerintent_76ca6d8d-0256-458c-bc1f-ba4d690ee5c8",
+      "effects_before": 4,
+      "awaiting_crash": true
+    }
+  },
+  "attempts": [
+    {
+      "phase": "safe",
+      "session_id": "computer_f1abcf57-0261-4a75-8f53-ed3b895e15f9",
+      "task_id": "task_ac743d71-f884-4a67-977a-cfd1ae290dc1",
+      "at": "2026-10-05T23:39:24.341Z"
+    },
+    {
+      "phase": "protected",
+      "session_id": "computer_056d4f18-61c3-42ad-9a67-d58e311de8b0",
+      "task_id": "task_8d7f4a64-635a-44a2-a449-c0e920596ce8",
+      "at": "2026-10-05T23:41:19.566Z"
+    },
+    {
+      "phase": "denied",
+      "session_id": "computer_052190b1-4817-4a1e-b173-255235a29dc0",
+      "task_id": "task_a8a3caae-4dd9-4e98-b22d-88ebf9da9def",
+      "at": "2026-10-05T23:44:38.525Z"
+    },
+    {
+      "phase": "interrupt",
+      "session_id": "computer_e76f4e60-7661-41bf-a554-4153fa0a801c",
+      "task_id": "task_ae1b3c77-2821-40f3-b249-5d533ae8d89b",
+      "at": "2026-10-05T23:45:00.412Z"
+    },
+    {
+      "phase": "browser-crash",
+      "session_id": "computer_15daefad-8537-442b-9ca9-61019ee55aa8",
+      "task_id": "task_b443653c-d635-46b8-8414-30d79031f103",
+      "at": "2026-10-05T23:52:04.679Z"
+    },
+    {
+      "phase": "pending-restart",
+      "session_id": "computer_08e10102-e87b-4686-9b96-81f5afd8f405",
+      "task_id": "task_e8479fd5-d02d-4c9f-8ba5-88c974aeb4bb",
+      "at": "2026-10-05T23:52:31.917Z"
+    },
+    {
+      "phase": "unknown",
+      "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+      "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+      "at": "2026-10-05T23:55:04.208Z"
+    }
+  ],
+  "protected": {
+    "session_id": "computer_056d4f18-61c3-42ad-9a67-d58e311de8b0",
+    "task_id": "task_8d7f4a64-635a-44a2-a449-c0e920596ce8",
+    "intent_id": "computerintent_1a2d0b82-0202-41c5-b8af-7f7553030da8",
+    "effects_before": 2
+  },
+  "denied": {
+    "session_id": "computer_052190b1-4817-4a1e-b173-255235a29dc0",
+    "task_id": "task_a8a3caae-4dd9-4e98-b22d-88ebf9da9def",
+    "intent_id": "computerintent_1dd79aa2-698a-438b-a8b4-66031a3082b8",
+    "effects_before": 3
+  },
+  "pending-restart": {
+    "session_id": "computer_08e10102-e87b-4686-9b96-81f5afd8f405",
+    "task_id": "task_e8479fd5-d02d-4c9f-8ba5-88c974aeb4bb",
+    "intent_id": "computerintent_a8867e98-7f4e-48bc-918a-9796933d61f0",
+    "effects_before": 4
+  },
+  "unknown": {
+    "session_id": "computer_9579e26a-f480-4642-b3ec-8f447f9d49f6",
+    "task_id": "task_bc84147a-5d94-4a0e-8f7e-75cde682bfee",
+    "intent_id": "computerintent_76ca6d8d-0256-458c-bc1f-ba4d690ee5c8",
+    "effects_before": 4
+  }
+}

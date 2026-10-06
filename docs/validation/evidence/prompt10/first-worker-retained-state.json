@@ -1,0 +1,115 @@
+{
+  "kind": "Original failed real worker; retained read-only recovery inspection",
+  "data_root": "/var/lib/botsquad/validation/computer-20261005-worker",
+  "integrity": "ok",
+  "foreign_keys": [],
+  "computer_sessions": [
+    {
+      "session_id": "computer_52e40783-8c13-4f46-9e46-02801c16a966",
+      "worker_id": "worker_b71c65e2-ca9c-4576-a22d-67eaee577013",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "policy": "{\"version\":\"computer-v1\",\"environment\":\"isolated-chromium\",\"origins\":[\"http://127.0.0.1:43991\"],\"fixtureOrigins\":[\"http://127.0.0.1:43991\"],\"mutationPaths\":[\"/save\"],\"actions\":[\"snapshot\",\"navigate\",\"click\",\"type\",\"press\",\"scroll\",\"request_protected_action\",\"execute_approved\",\"finish\"],\"uploads\":\"deny\",\"downloads\":\"deny\",\"maxRuntimeSeconds\":900,\"idleSeconds\":300,\"maxActions\":100,\"maxNavigations\":20,\"maxScreenshots\":12,\"maxScreenshotBytes\":10485760,\"maxRequests\":200,\"maxNetworkBytes\":16777216,\"expiresAt\":\"2026-10-06T00:28:18.786Z\"}",
+      "policy_hash": "9fe99e1e6d0dc14dd64e6fe03e615b8c2b75567620739fb3ad317c0f32b626e7",
+      "state": "failed",
+      "generation": 1,
+      "active_execution_id": null,
+      "process_identity": "{\"epoch\":\"bfa66d3b-403b-4885-9523-189dd1790ce4\",\"browser\":\"153.0.8010.12\",\"viewport\":{\"width\":1024,\"height\":768}}",
+      "created_at": "2026-10-05T23:28:18.823Z",
+      "started_at": "2026-10-05T23:28:23.864Z",
+      "stopped_at": "2026-10-05T23:31:54.598Z",
+      "deadline": "2026-10-05T23:43:23.864Z",
+      "last_action_at": "2026-10-05T23:28:50.313Z",
+      "actions": 11,
+      "navigations": 2,
+      "screenshots": 2,
+      "screenshot_bytes": 101842,
+      "requests": 4,
+      "network_bytes": 2547,
+      "current_url": "http://127.0.0.1:43991/b",
+      "page_hash": "900adf59381500effa2edb0424ee65660f25e3d13644177996245010cca87070",
+      "error": "Application restart closed the old environment; approvals cannot restore its page",
+      "shutdown_confirmed": 1
+    }
+  ],
+  "computer_grants": [
+    {
+      "grant_id": "computergrant_8c33e728-1638-4b95-a8b7-bc4ceedd72ea",
+      "session_id": "computer_52e40783-8c13-4f46-9e46-02801c16a966",
+      "worker_id": "worker_b71c65e2-ca9c-4576-a22d-67eaee577013",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "policy_hash": "9fe99e1e6d0dc14dd64e6fe03e615b8c2b75567620739fb3ad317c0f32b626e7",
+      "issued_by": "human",
+      "created_at": "2026-10-05T23:28:18.852Z",
+      "expires_at": "2026-10-06T00:28:18.786Z",
+      "revoked_at": null
+    }
+  ],
+  "computer_contexts": [
+    {
+      "context_id": "computercontext_316e0cdf-1841-42d3-a0e8-8f36fd07fd87",
+      "session_id": "computer_52e40783-8c13-4f46-9e46-02801c16a966",
+      "worker_id": "worker_b71c65e2-ca9c-4576-a22d-67eaee577013",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "execution_id": "execution_dae23e9f-176c-4d49-99e5-7d41dced71e6",
+      "generation": 1,
+      "runtime_reference": "01a10e65-9146-75b2-bfff-f099351d0216",
+      "thread_name": "BotSquad \u00b7 Cora \u00b7 Computer Operator",
+      "created_at": "2026-10-05T23:28:18.944Z"
+    }
+  ],
+  "computer_evidence": [
+    {
+      "evidence_id": "computerevidence_0624396d-c97a-4b35-8728-4586e095be46",
+      "session_id": "computer_52e40783-8c13-4f46-9e46-02801c16a966",
+      "worker_id": "worker_b71c65e2-ca9c-4576-a22d-67eaee577013",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "execution_id": "execution_dae23e9f-176c-4d49-99e5-7d41dced71e6",
+      "generation": 1,
+      "url": "http://127.0.0.1:43991/b",
+      "viewport": "{\"width\":1024,\"height\":768}",
+      "action_sequence": 8,
+      "captured_at": "2026-10-05T23:28:43.596Z",
+      "sha256": "96e3555dcd254b145edcd58044e04df4fd98fda00148fee27711d176de382d34",
+      "bytes": 50833,
+      "visibility": "owner_private"
+    },
+    {
+      "evidence_id": "computerevidence_af9ba349-635c-4430-8e0d-64132386adf9",
+      "session_id": "computer_52e40783-8c13-4f46-9e46-02801c16a966",
+      "worker_id": "worker_b71c65e2-ca9c-4576-a22d-67eaee577013",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "execution_id": "execution_dae23e9f-176c-4d49-99e5-7d41dced71e6",
+      "generation": 1,
+      "url": "http://127.0.0.1:43991/b",
+      "viewport": "{\"width\":1024,\"height\":768}",
+      "action_sequence": 10,
+      "captured_at": "2026-10-05T23:28:48.418Z",
+      "sha256": "e832f09b9e99ab2b6930d54aa2a680cbf9f4a0b1d84328b3928fede2d3290da1",
+      "bytes": 51009,
+      "visibility": "owner_private"
+    }
+  ],
+  "execution_runtime_attempts": [
+    {
+      "execution_id": "execution_dae23e9f-176c-4d49-99e5-7d41dced71e6",
+      "unresolved": 1
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "status": "blocked",
+      "blocking_reason": "Interrupted by restart. Inspect existing executions, artifacts and child tasks before retry.",
+      "result_summary": null
+    }
+  ],
+  "executions": [
+    {
+      "execution_id": "execution_dae23e9f-176c-4d49-99e5-7d41dced71e6",
+      "task_id": "task_34190cba-d551-4b6f-ba41-c9f972c15adc",
+      "status": "interrupted",
+      "runtime_reference": "01a10e65-9146-75b2-bfff-f099351d0216",
+      "error": null
+    }
+  ]
+}

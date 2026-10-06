@@ -1,0 +1,31 @@
+Reviewed the design against `b8f4120` on `feature/prompt-10-computer-use`, following the security reviewer configuration. One blocking design gap and three important integration requirements remain.
+
+**BLOCKING**
+
+- **B1 — The approval envelope does not yet identify the complete effective request.** [Design line 7](/tmp/botsquad-prompt10-design.txt:7) binds method, URL and body hash, but leaves headers and cookie state unspecified. `Content-Type`, method-override headers or session cookies can change server behavior without changing those three fields. Origin validation alone also must not authorize forwarding an approved mutation through a redirect.
+  **Smallest fix:** construct a canonical request with a fixed header policy; reject unsupported credentials/method overrides, and bind any permitted session state. Send only that captured request, with automatic retries and mutation redirects disabled. Test header/cookie substitution, 307/308 responses and duplicate approval execution using server-side recorders.
+
+**IMPORTANT**
+
+- **I1 — Session control must survive the end of the model execution.** The design retains browsers while awaiting approval, but [Dispatcher.interrupt](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/dispatcher.ts:112) only addresses executions in its active map. [Company.cancel/retry](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:376) currently have no browser lifecycle hooks. Merely ending the worker turn would leave page timers and background activity outside those controls.
+  **Smallest fix:** define session-scoped stop/revoke/deadline enforcement independent of active executions. Deny forwarding while awaiting approval; cancel must close the session, and generic retry must not bypass pending approval or uncertainty. The separate broker must fail closed on loss of its controlling connection. Test all of these after the dispatcher slot has been released.
+
+- **I2 — Bound browser-generated requests, not just worker actions.** [Design lines 3–5](/tmp/botsquad-prompt10-design.txt:3) enumerate action/navigation/screenshot limits but do not specify aggregate network limits. One permitted navigation can generate many subrequests or a continuing fetch loop, consuming parent-side forwarding resources outside Chromium’s process limits.
+  **Smallest fix:** specify request-count, concurrency, request-body, response-byte, aggregate-byte and timeout bounds covering subframes, redirects and background requests. Reserve before forwarding, retain consumed attempts across continuations, and either reject compression or bound decompressed output. Test a request storm and oversized/slow responses while checking HQ responsiveness.
+
+- **I3 — Keep the new capability outside default delegation.** [COMPANY_CEILING](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/domain/model.ts:5) includes every capability except `run_local_tools`; [initializeCEO](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:95) copies that ceiling into Atlas’s delegatable capabilities. Simply adding Computer Use to `CAPABILITIES` would therefore widen newly initialized CEOs’ delegation. Also, `submit_artifact` is currently a tool guarded by `write_workspace`, rather than a separate capability.
+  **Smallest fix:** explicitly exclude owner-only Computer Use from default delegation and define the intended narrow artifact permission. Test fresh initialization, retained-state migration, forged hire requests and direct tool calls. This is an implementation hazard; current code has no browser authority.
+
+**OPTIONAL**
+
+No additional recommendations.
+
+**REQUIRED EVIDENCE**
+
+- Actual Ubuntu launch under the final service profile: Chromium sandbox enabled, isolated namespaces, inaccessible HQ credentials/worker homes, no reachable CDP listener, and direct network denial.
+- Recorder-backed rejection of forbidden origins, private-address redirects, DNS changes and attempts to reach HQ’s browser/admin listener through the fixture exception. [The local session endpoint](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/http/server.ts:53) makes that last denial particularly important.
+- Approval fault tests before consumption, before transmission and after transmission. Uncertain effects must remain fenced without replay; approval cannot guarantee delivery across every crash window.
+- Independent browser/worker/HQ termination, approval-wait revocation, stale-generation callbacks and resource exhaustion.
+- Real worker completion with attributable screenshots; unchanged native-tool confinement and v1 authority; no credentials in snapshots, errors or audit output.
+
+No files were written, and no tests, network calls or service operations were performed. Concurrent package/bootstrap edits appeared during review and were outside this design assessment.

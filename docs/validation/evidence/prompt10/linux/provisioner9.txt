@@ -1,0 +1,21 @@
+✔ Projects persist, contain multiple repositories, use configurable branches and archive without deleting Git (307.060883ms)
+✔ bounded bundle import preserves history and rejects host paths, unsupported refs, symlinks and oversized inputs (841.587225ms)
+✔ paths, overlap, protected instructions, remote identities and recipe argv fail closed (2.548347ms)
+✔ allocation rejects overlap and protected scopes before provisioning; guidance cannot grant writes (1054.343113ms)
+✔ source TAP and forged completion cannot pass generic or legacy validation without actual completion (1935.446045ms)
+✔ archived Project workers retain compatible bindings when reused on another Project (6196.21456ms)
+✔ generic read/write/delete and multi-commit submission retain immutable Git-derived paths (2339.811346ms)
+✔ real Git revision, exact second review, durable queue, second delivery and archive preserve history (10634.317915ms)
+✔ review-round ceiling escalates to human and never queues an unbounded revision (3042.299668ms)
+✔ generic validation permits scratch writes only in disposable copy and denies host, process and network (672.406499ms)
+✔ generic recipe deadline and output limits fail closed without accepting early exit (771.287753ms)
+✔ Linux generic recipes cap large buffers and the disposable build filesystem (550.508626ms)
+398M	/opt/botsquad-browser
+472K	/var/lib/botsquad/validation/computer-20261005-worker2/computer-evidence
+.....{"operation_id":"operation_12345678-1234-1234-1234-123456789abc","result":"completed","timestamp":1791244663,"type":"create_worker_identity","worker_id":"worker_12345678-1234-1234-1234-123456789abc"}
+.{"operation_id":"operation_12345678-1234-1234-1234-123456789abc","result":"completed","timestamp":1791244663,"type":"create_worker_identity","worker_id":"worker_12345678-1234-1234-1234-123456789abc"}
+...
+----------------------------------------------------------------------
+Ran 9 tests in 0.063s
+
+OK

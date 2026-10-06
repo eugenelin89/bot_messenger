@@ -1,0 +1,36 @@
+Reviewed the uncommitted candidate above `b8f4120`. No edits, tests, service/network calls or other agents were used.
+
+**BLOCKING**
+
+None found. Source inspection supports the reported fixes for late-launch cleanup, premature approval consumption, callback draining, stranded reservations, fabricated receipts and reentrant teardown. Existing evidence corroborates these paths; I did not reproduce it.
+
+**IMPORTANT**
+
+1. **Finish reports success before cleanup is confirmed.** [computers.ts:188](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:188>) ignores the returned shutdown state and unconditionally returns `{completed:true}`. [Teardown:272](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:272>) explicitly permits `shutdown_confirmed=0`. The later Task settlement guard prevents successful Task completion, but the worker receives a false completion receipt.
+
+   **Smallest fix/test:** require confirmed shutdown before returning completion; otherwise report unresolved cleanup while retaining the reservation. Test `close() → false` with unsuccessful idle reconciliation.
+
+2. **Historical HTTP receipts bypass the bounded context projection.** [computers.ts:82](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:82>) selects entire intent rows, including response bodies stored at line 149. A permitted 2 MiB response becomes approximately 2.8 MB of base64. Subsequent status calls fail the 192 KiB output limit, while fresh continuations pass this oversized context directly through [codex.ts:337](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/runtime/codex.ts:337>).
+
+   **Smallest fix/test:** project completed intents into bounded receipt summaries, retaining full receipts for owner inspection. Enforce a total computer-context ceiling. Test a large valid response followed by status and another approved continuation.
+
+3. **Repeat bootstrap leaves the broker running old code.** [bootstrap-ubuntu-host.sh:85](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/bootstrap-ubuntu-host.sh:85>) stops only HQ before replacing source/dependencies. [bootstrap-browser.sh:38](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/bootstrap-browser.sh:38>) uses `enable --now`, which does not restart an active broker. Updated HQ can therefore communicate with the previous broker implementation.
+
+   **Smallest fix/test:** stop the broker before replacing its dependencies/source, then start it and require readiness afterward. Validate repeat deployment with a running broker and confirm replacement process/build identity.
+
+4. **HTML input-type casing bypasses the control denial.** [broker.ts:102](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:102>) compares raw `getAttribute('type')` values case-sensitively. Valid HTML such as `type="PASSWORD"` permits filling a password control; `type="FILE"` bypasses the explicit click denial. Private mounts and upload APIs remain restricted, so this does not itself establish file exfiltration.
+
+   **Smallest fix/test:** use the normalized DOM input type or lowercase the attribute. Cover uppercase and mixed-case password/file controls.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+- Focused regressions for the findings above, plus negative provider-reference collision checks in both directions between computer and existing work modes. Distinct successful continuation references establish the positive path only.
+- Completed Ubuntu full-suite and schedule acceptance, including the newly added authenticated Computer Use HTTP test, tied to the final candidate.
+- Retained-production backup and repeat migration comparisons preserving eight workers, 48 Tasks, 65 executions, the Atlas research grant and `paused=false`, with zero automatic computer authority.
+- Exact deployed source/build equality, broker replacement/readiness, preservation and idle checks.
+
+The pending release gates are evidence requirements, not additional source defects.

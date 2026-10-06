@@ -1,12 +1,21 @@
 # BotSquad — Current State
 
-**Status:** Prompt 09 and WE-01 complete and deployed; Prompt 10 — Bounded Computer Use — next
+**Status:** Prompt 09 and WE-01 deployed; Prompt 10 implemented with final release gates pending
 **Updated:** 2026-10-05
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
+
+## Prompt 10 candidate state
+
+[Bounded Computer Use](../architecture/COMPUTER_USE.md) adds a separate non-root headless
+Chromium broker, owner-created operator and immutable Task/session grant. Model observation
+is structured rendered text; real private PNGs supply human evidence. The [C10-1 record](../validation/PROMPT_10_VALIDATION.md)
+contains real worker safe/approval/denial, interruption, injection, restart and unknown-effect
+proof. This candidate is not deployed until its release gates pass. Production retains the
+state below, with zero Computer Use grants, sessions and operators. See the [tutorial](COMPUTER_USE_TUTORIAL.md).
 
 ## Prompt 09 accepted production state — October 5
 

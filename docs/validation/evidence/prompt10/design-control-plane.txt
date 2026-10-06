@@ -1,0 +1,41 @@
+Reviewed the packet and specialist configuration against `b8f4120`. **The Task-owned ComputerSession boundary is coherent, but four contracts need resolution before implementation is considered complete.**
+
+**BLOCKING**
+
+1. **Approval suspension needs a trusted Task lifecycle.** [Company.finish/retry](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:297) currently completes ordinary Tasks after successful turns; generic retry accepts `awaiting_approval`. Conversely, changing the Task to awaiting approval inside a tool would invalidate subsequent callbacks through `verifyContext`.
+
+   Persist the protected intent, immediately deny further browser actions, then transition the Task after confirmed turn settlement. Queue exactly one approval-linked continuation only after settlement and owner approval. Generic retry must not release it. Test approval arriving before turn completion, duplicate decisions, denial, cancellation, and retry.
+
+2. **Browser lifetime and action authority must be separate.** The browser may survive a turn, but [CodexRuntime.run](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/runtime/codex.ts:196) aborts tool signals when that turn finishes. Meanwhile, [Dispatcher.drain](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/dispatcher.ts:47) has no browser-capacity admission or browser deadline.
+
+   Specify a durable singleton session lease, separate per-execution action authority, and deadline enforcement while awaiting approval or dispatch is paused. A retained browser must not continue forwarding background requests under the finished execution. A separate broker also needs an HQ connection/epoch contract that closes orphaned sessions. Waiting for browser capacity must not consume model turns.
+
+3. **Browser callbacks need independent settlement and uncertainty handling.** [Company.callTool](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:427) uses synchronous receipt handling; dispatcher draining and completion guards currently cover research only.
+
+   Add an asynchronous computer-operation path with durable reservations, execution-wide call-ID collision checks, shared duplicate promises, cancellation, and draining before execution release. Preserve mutation uncertainty independently of confirmed model settlement. Define its fence scope so retry, a new call ID, or a replacement session cannot replay an uncertain effect. Test early model completion and transport loss while browser callbacks remain pending.
+
+4. **Define Task-generation ownership without repurposing conversation fields.** [The execution SQL invariant](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/persistence/conversations-migration.ts:68) requires Task executions to have null `session_id` and `generation`. The packet also binds approval to the “current generation” while requiring a fresh continuation generation.
+
+   Use a separate Task-context generation record with immutable Task/worker/execution ownership. Distinguish the intent’s originating generation from the one authorized to consume it. Preserve the original approval envelope. Extend provider-reference exclusion checks in both directions across ordinary, research, conversation, mandate, and computer contexts; changing only the new binding path is insufficient.
+
+**IMPORTANT**
+
+- **Owner-only capabilities need explicit separation from delegation.** [COMPANY_CEILING](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/domain/model.ts:5) automatically includes newly added capabilities and supplies fresh Atlas delegation ceilings. Also, `submit_artifact` is currently a tool gated by `write_workspace`, not a capability. Define the operator’s narrow artifact permission and exclude computer authority from automatic manager delegation.
+
+- **The retained roster cannot currently accept another worker.** [Company.provision](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:118) caps total retained workers at eight; the packet reports eight already. Disabled workers still count. Explicitly resolve operator creation under Decision 013’s ceiling without deleting history or silently broadening hiring limits.
+
+- **Screenshot storage and visibility need a separate contract.** [artifactContent](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/control/company.ts:405) assumes UTF-8 Markdown; [client DTOs](/Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-prompt10/src/client/dto.ts:68) expose ordinary artifact metadata. Define binary screenshot storage, authenticated retrieval, and permitted v1 metadata exposure. Keep private page details out of generic descriptions/events unless deliberately authorized.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+- Real Ubuntu launch under the selected broker service restrictions, retaining Chromium sandboxing and existing HQ restrictions.
+- Approval suspension frees dispatcher capacity; idle expiry closes the browser without invoking a model.
+- Cross-Task, cross-worker, stale-generation, and reverse provider-binding substitution tests.
+- Fault tests around reservation, transmission, response loss, settlement, and HQ/broker restart; external fixture receipts establish zero denied effects and one successful approved effect.
+- Retained-state migration and v1 regression evidence. Structured snapshots establish rendered-content access; screenshots alone do not establish model image input.
+
+No files changed, tests executed, or network access used. Concurrent implementation files appeared during review; this assessment covers the design and baseline source, not those additions.

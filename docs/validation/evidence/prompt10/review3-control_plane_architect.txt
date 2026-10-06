@@ -1,0 +1,28 @@
+No remaining material architecture defect found in the focused paths. Reviewed `d39b7c7` and the subsequently observed uncommitted client/bootstrap fixes; release gates remain open.
+
+**BLOCKING**
+
+None identified.
+
+**IMPORTANT**
+
+Review2’s source findings are resolved in the inspected code:
+
+- **Confirmed finish and cleanup:** [computers.ts:197](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:197>) withholds completion unless shutdown is confirmed. Terminal cleanup supports owner recheck; reconciliation is shared and awaited/cancelled during shutdown. The new [client handshake](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/client.ts:36>) also waits for broker occupancy release.
+- **Bounded context and committed receipts:** [computers.ts:84](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:84>) preserves exact actionable requests, bounds historical summaries and enforces the serialized ceiling. [Receipt commitment](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:152>) precedes delivery authorization checks; revocation cannot erase a confirmed outcome.
+- **Ownership:** [generation preparation/binding](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:76>) preserves one ComputerSession/Task while creating separate execution/provider generations. Callback checks, SQL ownership constraints and reverse binding checks prevent cross-mode reuse.
+- **Deployment and input casing:** [bootstrap](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/scripts/bootstrap-ubuntu-host.sh:85>) stops installed units before replacement, including restart-delay states; broker restart includes readiness. [Input denial](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:102>) now normalizes casing.
+
+Recorded focused tests cover the corrections, including delayed cleanup, large receipts, receipt retention and binding collisions. These are inspected results, not independently reproduced runs.
+
+**OPTIONAL**
+
+None.
+
+**REQUIRED EVIDENCE**
+
+- Run the added real-browser probes, especially pending-launch IPC loss, immediate replacement after idle acknowledgement, and mixed-case controls. Complete the planned fresh worker continuation/finish confirmation with attributable receipt, distinct provider generation and confirmed shutdown.
+- Exercise repeat deployment from both an active broker and restart delay. Record replacement process/epoch, exact build identity and readiness.
+- Commit the final follow-ups and validate that exact revision. The inspected [local regression log](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/docs/validation/evidence/prompt10/local-regression4.txt>) reports **292 passed, zero failures, one Linux-only skip**, but predates the observed client change. Complete the pending Ubuntu/build, merge/deploy and whole-host preservation gates.
+
+No edits, tests, Git mutation, network/service calls or other agents were used. Read-only `git diff --check` passed.

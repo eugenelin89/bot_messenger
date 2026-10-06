@@ -1,0 +1,41 @@
+Reviewed the uncommitted implementation on `feature/prompt-10-computer-use`, baseline `b8f4120`. These are source findings, not final acceptance results.
+
+**BLOCKING**
+
+1. **Shutdown can acknowledge success while Chromium is still launching.** In [broker.ts:49](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:49>), `close` bypasses `busy`, clears the deadline, and acknowledges shutdown when `browser` is still undefined during `await chromium.launch()`. Disconnect cleanup then releases `occupied`; the pending launch can subsequently create an orphan browser without its deadline, allowing another session alongside it. [BrowserClient.close():31](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/client.ts:31>) has the equivalent window while `connect()` is pending.
+
+   **Smallest fix:** retain the connecting/launching promise and a terminal cancellation flag. Closing must await or terminate provisioning and confirm process exit before acknowledging shutdown or releasing occupancy.
+
+2. **Action failures release ownership before network callbacks settle.** [Computers.callTool():203](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:203>) drains `networkPending` only after a successful browser action. If an approved POST starts and navigation destroys the page’s evaluation context, the action rejects; `finally` clears operation ownership and removes `pending` while transmission remains outstanding.
+
+   A subsequent `computer_finish` can mark the session completed before aborting that transmission. Its callback records `unknown`, but `stop()`’s terminal-state return at line 247 prevents updating the completed session, and `settled()` at line 242 can accept Task completion. **The durable unknown fence survives, but completion and callback-lifetime accounting are incorrect.**
+
+   **Smallest fix:** deny new networking and drain outstanding callbacks on every exit path before releasing operation ownership. Completion must reject transmitting/unknown intents; late uncertainty must remain visible even after browser closure.
+
+**IMPORTANT**
+
+3. **Restart can permanently strand the global reservation.** [Computers.recover():263](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:263>) excludes `ready` or terminal sessions with `shutdown_confirmed=1`, even when `active_execution_id` remains set. Crash after `prepare()` but before browser launch—or after browser closure but before provider settlement—and that pointer survives recovery. The [unique reservation index](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/persistence/computer-migration.ts:12>) and eligibility check then block every new Computer session. Owner stop/revoke does not clear it.
+
+   **Smallest fix:** reconcile every retained execution reservation, independently of browser state, while preserving provider uncertainty and unconfirmed process-cleanup fences.
+
+4. **Protected-action output can be fabricated by page JavaScript.** [broker.ts:80](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/computer/broker.ts:80>) uses the page’s replaceable `fetch`. A page can let the first call capture an intent, then return a fabricated successful response during approved execution. No POST is transmitted, but [Computers.callTool():208](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:208>) returns that `mutation` without requiring a committed network receipt. Finishing subsequently cancels the still-approved intent while allowing Task success.
+
+   **Smallest fix:** require the exact intent’s committed transmission receipt and derive mutation status/body from that trusted receipt. Keep page-reported output explicitly separate.
+
+5. **Status reconstruction recursively embeds previous status receipts.** [Computers.context():79](</Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-prompt10/src/control/computers.ts:79>) includes previous operation `result` strings. Each `computer_status` stores that entire context as another result, including preceding status contexts. Repeated calls therefore produce rapidly growing nested JSON, persisted rows, and provider payloads despite the action-count limit. This can exhaust HQ memory or storage.
+
+   **Smallest fix:** return bounded, nonrecursive operation summaries and impose serialized output/context byte limits.
+
+**OPTIONAL**
+
+No additional scope recommended.
+
+**REQUIRED EVIDENCE**
+
+- Interrupt/revoke/disconnect during both connection establishment and delayed Chromium launch; verify actual process exit before shutdown acknowledgement or replacement admission.
+- Start an approved fixture POST, destroy its evaluation context before response delivery, then attempt finish/shutdown. Assert callback draining, retained receipt or uncertainty, no successful completion with uncertainty, and no retransmission.
+- Restart immediately after reservation and immediately after browser closure. Verify another eligible operator can proceed once cleanup is confirmed without clearing provider fences.
+- Override page `fetch` to fabricate success and alter response content; verify only trusted receipts determine the reported mutation outcome.
+- Repeat status calls and reconstruct a fresh generation; assert bounded database and context sizes.
+
+No files changed, tests run, Git mutations, services, SSH/network access, or other agents used. The reported regression and Ubuntu results were treated as supplied evidence.

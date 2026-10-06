@@ -1,0 +1,15 @@
+{
+  "kind": "Actual owner UI revoke and cleanup recheck with deliberately withheld close acknowledgement",
+  "session_id": "computer_2f083758-2008-4dcf-b3e9-697fad009b56",
+  "source_revision": "db7492b38f5a45e8a8223b7f07df549027f080b7",
+  "automatic_retry_window_elapsed_seconds": 55.366389989852905,
+  "before_shutdown_confirmed": 0,
+  "after_shutdown_confirmed": 1,
+  "all_other_session_fields_preserved": true,
+  "revoked_grant_unchanged": true,
+  "intent_state": "cancelled",
+  "intent_never_consumed": true,
+  "effects_before": 9,
+  "effects_after": 9,
+  "observed_at": 1791247404.5945265
+}
