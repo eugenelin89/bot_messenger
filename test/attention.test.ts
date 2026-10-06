@@ -82,6 +82,8 @@ for(const condition of ['deadline','current_cycle','withdrawal'])test(`business 
 for(const uncertainty of ['provider','research'])test(`mandate coordinator ${uncertainty} uncertainty in its internal group is one problem before and after stop`,async t=>{
  const {hire}=await import('./helpers.js');const f=setup(t),w=f.company.initializeCEO();f.company.assignObjective(objective);const hireRun=f.company.claimNext()!;
  const scout=f.company.callTool(hireRun.context,'hire','hire_worker',hire) as {worker_id:string};f.company.finish(hireRun.execution.execution_id,{status:'completed',settled:true,summary:'Fixture roster'});
+ // Choose the coordinator turn explicitly; roster UUID ordering may enqueue the specialist first.
+ f.store.run("UPDATE workers SET execution_priority='high' WHERE worker_id=?",w.worker_id);
  const m=mandate(f);f.company.mandates.control({mandate_id:m.mandate_id,action:'activate'});const review=f.company.claimWorkNext()!;assert.equal(review.origin,'conversation');f.company.conversations.context(review.context);
  const g=f.company.mandates.callTool(review.context,'group','convene_working_group',{topic:'Bounded fixture',desired_output:'Compare alternatives',constraints:'No effect',participant_ids:[w.worker_id,scout.worker_id],facilitator_id:w.worker_id,synthesizer_id:scout.worker_id,observation_ids:[],allow_research:false}) as {group_id:string};
  f.company.mandates.callTool(review.context,'wait','wait_for_internal_work',{summary:'Wait for group'});f.company.finish(review.execution.execution_id,{status:'completed',settled:true,summary:'Waiting'});f.company.mandates.progress();
