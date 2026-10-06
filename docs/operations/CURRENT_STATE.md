@@ -55,6 +55,14 @@ hard reloads across desktop/narrow views and native reconnect with zero errors o
 Production history, pause state and idle counts are preserved. No backend authority, schema
 or capability changes. The validation record owns exact delivery evidence.
 
+## Owner attention stabilization
+
+[Stabilization 03](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md) implements a deterministic
+local-owner Attention overview with exact approval/uncertainty/workflow classification,
+source links and explicit loading/stale counts. Local checks and specialist reviews pass;
+Ubuntu/deployment/real tunnel gates remain pending in its validation record. The retained
+unprovisioned-identity coordination Task is genuinely unresolved, not merely expired history.
+
 ## Historical Prompt 11 implementation deployment — before live pilot
 
 This section preserves the earlier zero-authority deployment snapshot. The live closure

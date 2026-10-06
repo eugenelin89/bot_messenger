@@ -1,0 +1,69 @@
+(node:72286) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Attention during held company and attention boot loads (1440px) (5446.031542ms)
+✔ Attention during held company and attention boot loads (390px) (2398.156625ms)
+✔ real SSE startup resolves verified zero (1268.664833ms)
+✔ mixed categories, stable order and exact Task navigation (1440px) (2060.963333ms)
+✔ mixed categories, stable order and exact Task navigation (390px) (1462.086333ms)
+✔ exact infrastructure approval navigation, owner denial and Attention source resolution (1305.806959ms)
+✔ historical failed execution under completed Task stays out of browser Attention (905.963666ms)
+✔ auxiliary Attention error preserves company state and recovers without false zero (991.247417ms)
+✔ reconnect retains last Attention, aborts stale read and preserves final navigation (1071.015458ms)
+✔ Computer, group, mandate, publication and device items select existing source surfaces (1751.626542ms)
+✔ business item opens exact existing action inspector, late load cannot steal navigation (1080.099875ms)
+✔ cached zero remains unverified after reconnect until the Attention read succeeds (1006.275125ms)
+(node:72287) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real Devices UI creates, fingerprints, confirms, denies and revokes an independent reference client (7332.875ms)
+(node:72288) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage (8794.077625ms)
+✔ delayed history page cannot be appended to another selected conversation (2211.22725ms)
+(node:72289) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ live updates preserve the approval being inspected and expanded exact scope (5439.3345ms)
+(node:72290) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ new group waits for the initial eligible roster before opening the charter (5146.07675ms)
+✔ working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation (3911.422625ms)
+✔ group drafts and delayed history stay attached to the original group (2290.280791ms)
+✔ blocked group owner selects an unfenced existing participant for explicit incomplete finish (1604.04025ms)
+(node:72291) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (7442.473041ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (4422.103209ms)
+(node:72292) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser grants public and knowledge separately, runs bounded research, inspects safe links and revokes (7442.870917ms)
+(node:72293) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (5419.658042ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (3228.616291ms)
+✔ initial session failure recovers through ready (1699.008417ms)
+✔ initial session failure recovers through retry (1304.865667ms)
+✔ initial state failure recovers through ready (1211.90025ms)
+✔ initial state failure recovers through retry (1259.43ms)
+✔ boot controls cannot send writes while session or state is unavailable (893.091833ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (802.41275ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (1002.41175ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (853.898ms)
+✔ first direct auxiliary load is explicit and recovers independently (1036.607834ms)
+✔ first groups auxiliary load is explicit and recovers independently (999.858208ms)
+✔ first mandates auxiliary load is explicit and recovers independently (1113.685834ms)
+✔ first computers auxiliary load is explicit and recovers independently (762.573792ms)
+✔ first devices auxiliary load is explicit and recovers independently (812.749ms)
+✔ auxiliary failure remains visible without converting company state to empty (712.622166ms)
+✔ changed events and rapid tab switches coalesce state requests (766.868ms)
+✔ closed worker inspector cannot be reopened by late discovery (662.728084ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (769.6115ms)
+✔ late failed worker discovery cannot replace a newer inspector (666.205833ms)
+✔ late conversation index cannot overwrite a changed worker filter (714.097083ms)
+✔ stream interruption reports reconnecting even when a state request failed first (684.450333ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27926.612916

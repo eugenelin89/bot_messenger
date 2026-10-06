@@ -39,6 +39,8 @@ const avatar = name => `<span class="avatar ${escape(name.toLowerCase())}">${esc
 let selectedProject = null;
 const chatDrafts = new Map(); let renderedChatConversation = null;
 let conversationList = {items:[]}, conversationListWorker = null, selectedConversation = null, conversationDetail = null, conversationWorker = '', chatDraft = '', chatSending = false, chatReceipt = null;
+let attentionVersion = -1;
+let attentionState = null, attentionPending = false, attentionFocus = null;
 let state, token, activeTab = 'conversation', draft = '', loading = null, refreshAgain = false, submitting = false;
 // An absent snapshot is loading, never an empty company. Keep the last snapshot on failure.
 let phase = 'booting', connection = 'connecting', loadError = null;
@@ -54,6 +56,9 @@ function syncControls() {
 function loadingView(message) { return `<div class="panel empty" role="status"><strong>${escape(message)}</strong>Your selected section will appear when its data is available.</div>`; }
 function renderReadiness() {
   const title = titles[activeTab];
+  const attentionStale = attentionState && (phase !== 'ready' || attentionVersion !== connectionVersion || auxiliaryErrors.has('attention'));
+  $('#attention-count').textContent = attentionState ? `${attentionState.total > 9 ? '9+' : attentionState.total}${attentionStale ? '*' : ''}` : auxiliaryErrors.has('attention') ? '?' : '…';
+  $('#attention-count').title = attentionStale ? 'Last loaded count; refresh unavailable' : attentionState ? `${attentionState.total} need attention` : 'Owner attention has not loaded';
   $('#view-title').textContent = title[0]; $('#heading').textContent = title[1]; $('#subtitle').textContent = title[2];
   document.querySelectorAll('[data-tab]').forEach(button => {
     button.classList.toggle('selected', button.dataset.tab === activeTab);
@@ -69,7 +74,7 @@ function renderReadiness() {
   $('#load-status').hidden = !error && phase !== 'degraded';
   $('#load-status').setAttribute('role', error ? 'alert' : 'status');
   $('#load-message').textContent = error ?? (state ? 'Reconnecting to headquarters… Showing the last loaded state. Controls will recover after a successful refresh.' : 'Reconnecting to headquarters… Waiting for company state.');
-  $('#view').setAttribute('aria-busy', String(Boolean(!state || (auxiliaryLoads[activeTab] && !auxiliaryLoaded.has(activeTab) && !error))));
+  $('#view').setAttribute('aria-busy', String(Boolean(!state || ((auxiliaryLoads[activeTab] || activeTab === 'attention') && !auxiliaryLoaded.has(activeTab) && !error))));
   syncControls();
 }
 
@@ -79,7 +84,7 @@ let deviceScopes = new Set(['state:read']);
 function updateView(html) {
   if (html === renderedView) return;
   const expanded = new Set([...document.querySelectorAll('#view details[open][data-disclosure]')].map(element => element.dataset.disclosure));
-  $('#view').innerHTML = `<fieldset class="load-controls" aria-label="Selected section">${html}</fieldset>`;
+  $('#view').innerHTML = activeTab === 'attention' ? html : `<fieldset class="load-controls" aria-label="Selected section">${html}</fieldset>`;
   for (const element of document.querySelectorAll('#view details[data-disclosure]')) element.open = expanded.has(element.dataset.disclosure);
   renderedView = html;
 }
@@ -87,7 +92,7 @@ const worker = id => state.workers.find(w => w.worker_id === id);
 const groups=workingGroups({request,refresh,render,inspect,showError,escape,linkedText,safeLink,status,worker,isActive:()=>activeTab==='groups'});
 const computers=computerSessions({request,refresh,render,inspect,showError,escape,status,workers:()=>state?.workers??[]});
 const mandates=companyOperations({request,refresh,render,inspect,showError,escape,status,workers:()=>state?.workers??[],openGroup:async id=>{activeTab='groups';await groups.select(id);},isActive:()=>activeTab==='mandates'});
-const titles = { computers:['Computer Sessions','Bounded browser work','Exact owner policies, private evidence and protected fixture approvals.'], mandates:['Company Mandates','An ongoing company objective','Bounded internal work, labelled evidence and durable reviews.'], groups:['Working Groups','Reason together','Bounded discussions, shared evidence and recommendations. Implementation requires a separate assignment.'], direct:['Conversations','Talk with your team','Request a bounded reply or leave a passive message. Conversations remain separate from assignments.'], devices: ['Devices / Remote Clients', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
+const titles = { attention:['Attention','Does anything need you right now?','Current owner decisions and unresolved work, with links to their controls.'], computers:['Computer Sessions','Bounded browser work','Exact owner policies, private evidence and protected fixture approvals.'], mandates:['Company Mandates','An ongoing company objective','Bounded internal work, labelled evidence and durable reviews.'], groups:['Working Groups','Reason together','Bounded discussions, shared evidence and recommendations. Implementation requires a separate assignment.'], direct:['Conversations','Talk with your team','Request a bounded reply or leave a passive message. Conversations remain separate from assignments.'], devices: ['Devices / Remote Clients', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
 async function loadConversations(signal) {
   const filter=conversationWorker, requestedConversation=selectedConversation;
   const list=await request(`conversations${filter ? `?worker_id=${encodeURIComponent(filter)}` : ''}`, undefined, signal);
@@ -187,6 +192,16 @@ async function refreshLoop() {
       render(); continue;
     }
     render();
+    // Refresh attention on every company refresh so the navigation badge is useful
+    // before opening the section. It shares the connection generation and abort signal.
+    attentionPending = true;
+    const attentionRead = request('attention', undefined, signal).then(result => {
+      if(version !== connectionVersion) return;
+      attentionState = result; attentionVersion = version; auxiliaryLoaded.add('attention'); auxiliaryErrors.delete('attention');
+    }).catch(error => {
+      if(!(error instanceof RequestError)) throw error;
+      if(version === connectionVersion) auxiliaryErrors.set('attention', 'Could not load owner attention. Retry to refresh this section.');
+    }).finally(() => { if(version === connectionVersion) { attentionPending = false; render(); } });
     const tab = activeTab;
     if (auxiliaryLoads[tab]) {
       try {
@@ -200,12 +215,13 @@ async function refreshLoop() {
       }
       render(); // Always render the current destination, never the captured tab.
     }
+    await attentionRead;
   } while (refreshAgain);
 }
 function render() {
   renderReadiness();
   if (!state) {
-    updateView(loadingView(loadError ? 'Company state unavailable' : 'Loading company state…'));
+    updateView(loadingView(loadError ? 'Company state unavailable' : activeTab === 'attention' ? 'Loading owner attention…' : 'Loading company state…'));
     syncControls();
     return;
   }
@@ -228,7 +244,7 @@ function render() {
   $('#metrics').innerHTML = [['Team members', state.workers.length, 'persistent identities'], ['Active now', active, 'executions'], ['Queued tasks', state.tasks.filter(t => t.status === 'queued').length, 'assignments'], ['Evidence saved', state.artifacts.length+(state.group_synthesis_count??0), (state.group_synthesis_count??0)?'Task + group results':'artifacts']].map(([label, value, note]) => `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value}<small>${note}</small></div></div>`).join('');
   // Working Groups already distinguishes its unloaded roster and disables creation.
   const waiting = activeTab !== 'groups' && auxiliaryLoads[activeTab] && !auxiliaryLoaded.has(activeTab);
-  updateView(waiting ? loadingView(auxiliaryErrors.has(activeTab) ? `${titles[activeTab][0]} unavailable` : `Loading ${titles[activeTab][0]}…`) : ({ computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
+  updateView(waiting ? loadingView(auxiliaryErrors.has(activeTab) ? `${titles[activeTab][0]} unavailable` : `Loading ${titles[activeTab][0]}…`) : ({ attention:renderAttention, computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
   $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>05</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews and requests revisions', 'Full recipes gate queued integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run for assignments or explicit conversation reply requests. Task results can wake their manager. Passive messages never invoke a model.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Public research and company documents require separate standing permissions. Computer Use requires a specialized operator, explicit Task and exact owner-approved session policy.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Use <strong>Assign objective</strong> for a Task or <strong>Send &amp; request reply</strong> for one conversation turn. Passive messages remain communication.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
   if(activeTab==='groups')$('#context-panel').innerHTML=`<div class="panel"><div class="panel-title">A bounded discussion <span>08</span></div><div class="context-content">${['Owner reviews charter and audience','Explicit start invokes the team','Employees contribute and respond','Facilitator chooses useful follow-ups','Draft synthesis gets one review','Owner reads the recommendation'].map((s,i)=>`<div class="flow-step"><span>${i+1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Scope and authority</div><div class="context-content"><p>Only the group transcript and selected evidence packet are shared. Each employee speaks through their own execution.</p><p>Membership grants no research, implementation or approval powers. Public research needs an explicit individual grant and charter permission.</p><p>A saved recommendation becomes a Task only after a separate owner preview and submission.</p><span class="status ${state.paused?'blocked':'completed'}">${state.paused?'HQ dispatch paused':'HQ dispatch enabled'}</span></div></div>`;
   if ($('#objective')) { $('#objective').value = draft; if (selection) { $('#objective').focus(); $('#objective').setSelectionRange(...selection); } }
@@ -236,7 +252,9 @@ function render() {
   if ($('.messages')) $('.messages').scrollTop = wasAtBottom ? $('.messages').scrollHeight : scroll ?? 0;
   renderedChatConversation = activeTab==='direct' ? conversationDetail?.conversation.conversation_id ?? null : null;
   if ($('#chat-body')) { $('#chat-body').value = chatDrafts.get(renderedChatConversation)??''; if(chatSelection){$('#chat-body').focus();$('#chat-body').setSelectionRange(...chatSelection);} }
+  if(activeTab==='attention') $('#context-panel').innerHTML='<div class="panel task-card"><h3>Only what needs you</h3><p>Active work may still be running. This view shows conditions requiring owner intervention.</p><p>Items disappear when their source workflow is resolved. Review details and take action in the existing control surface.</p></div>';
   wireView();
+  focusAttentionSource();
   syncControls();
 }
 function renderConversation() {
@@ -282,7 +300,7 @@ function renderApprovals() {
     const op = state.infrastructure.operations.find(op => op.operation_id === a.operation_id);
     const execution = state.executions.find(e => e.execution_id === op.requesting_execution_id);
     const canDecide = a.status === 'pending';
-    return `<article class="panel task-card"><header><strong>${escape(op.operation_type.replaceAll('_', ' '))}</strong>${status(a.status)}</header><h3>${escape(worker(op.target_worker_id)?.display_name)}</h3>${details({ requester: worker(op.requester_worker_id)?.display_name ?? 'Human — initial Nix bootstrap', task: op.task_id, execution: op.requesting_execution_id, reason: op.reason, requested: a.requested_at, expires: a.expires_at, identity_now: state.infrastructure.identities.find(i => i.worker_id === op.target_worker_id), operation_status: op.status, result: op.result ? JSON.parse(op.result) : null, error: op.error })}<details data-disclosure="${escape(a.approval_id)}"><summary>Exact parameters and preconditions</summary><pre>${escape(JSON.stringify({ operation_id: op.operation_id, approval_id: a.approval_id, parameters: JSON.parse(op.parameters), parameter_hash: op.parameter_hash, preconditions: JSON.parse(op.preconditions) }, null, 2))}</pre></details>${canDecide ? `<div class="card-actions"><button class="button primary" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="approve" ${execution && execution.status !== 'completed' ? 'disabled' : ''}>Approve</button><button class="button danger" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="deny">Deny</button></div><p class="muted">Approval executes this exact operation once. Current preconditions are rechecked by the server.${execution && execution.status !== 'completed' ? ' Waiting for Nix to finish its request turn.' : ''}</p>` : ''}</article>`;
+    return `<article class="panel task-card" data-attention-source="${escape(a.approval_id)}"><header><strong>${escape(op.operation_type.replaceAll('_', ' '))}</strong>${status(a.status)}</header><h3>${escape(worker(op.target_worker_id)?.display_name)}</h3>${details({ requester: worker(op.requester_worker_id)?.display_name ?? 'Human — initial Nix bootstrap', task: op.task_id, execution: op.requesting_execution_id, reason: op.reason, requested: a.requested_at, expires: a.expires_at, identity_now: state.infrastructure.identities.find(i => i.worker_id === op.target_worker_id), operation_status: op.status, result: op.result ? JSON.parse(op.result) : null, error: op.error })}<details data-disclosure="${escape(a.approval_id)}"><summary>Exact parameters and preconditions</summary><pre>${escape(JSON.stringify({ operation_id: op.operation_id, approval_id: a.approval_id, parameters: JSON.parse(op.parameters), parameter_hash: op.parameter_hash, preconditions: JSON.parse(op.preconditions) }, null, 2))}</pre></details>${canDecide ? `<div class="card-actions"><button class="button primary" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="approve" ${execution && execution.status !== 'completed' ? 'disabled' : ''}>Approve</button><button class="button danger" data-approval="${escape(a.approval_id)}" data-operation="${escape(op.operation_id)}" data-decision="deny">Deny</button></div><p class="muted">Approval executes this exact operation once. Current preconditions are rechecked by the server.${execution && execution.status !== 'completed' ? ' Waiting for Nix to finish its request turn.' : ''}</p>` : ''}</article>`;
   }).join('') : '<div class="panel empty">No protected host operations awaiting review.</div>');
 }
 function renderInfrastructure() {
@@ -298,7 +316,8 @@ function inspectTask(id) {
   const t = state.tasks.find(t => t.task_id === id); if (!t) return;
   const parent = state.tasks.find(p => p.task_id === t.parent_task_id);
   const retryEligible = ['blocked', 'failed', 'awaiting_approval'].includes(t.status) && t.blocking_reason !== 'waiting_children';
-  const retryLimit = t.kind === 'infrastructure' ? 'Inspect Approvals for the human decision. Use Infrastructure to reconcile an interrupted host operation; runtime retry cannot grant authority.'
+  const retryLimit = t.kind === 'computer' ? 'Inspect the Computer Session. Computer Tasks cannot use generic retry; an unstarted expired request can be cancelled.'
+    : t.kind === 'infrastructure' ? 'Inspect Approvals for the human decision. Use Infrastructure to reconcile an interrupted host operation; runtime retry cannot grant authority.'
     : state.allocations?.some(a => a.task_id === id && a.status === 'blocked') ? 'This allocation requires Git inspection. Automatic reactivation is unavailable.'
     : !worker(t.assignee_worker_id)?.enabled ? 'This worker has retired. Assign a new objective for further work.'
     : parent && ((parent.dispatch_reason === 'child_results' && parent.blocking_reason !== 'waiting_children') || ['completed', 'failed', 'cancelled'].includes(parent.status)) ? 'This result has been handed back to the manager. Assign a new objective for further work.'
@@ -363,6 +382,8 @@ function wireActions(root) {
   root.querySelectorAll('[data-cancel]').forEach(b => b.onclick = async () => { try { await mutate('cancel', { task_id: b.dataset.cancel }); $('#inspect').close(); } catch {} });
 }
 function wireView() {
+  document.querySelectorAll('[data-attention]').forEach(b => b.onclick = () => { const item=attentionState?.items.find(i=>i.attention_id===b.dataset.attention); if(item) void openAttentionSource(item); });
+  if($('#refresh-attention')) $('#refresh-attention').onclick=()=>void refresh();
   wireActions(document);
   wireDevices();
   wireConversations();
@@ -386,7 +407,7 @@ function wireView() {
     $('#send-message').onclick = () => void submit('messages');
   }
 }
-document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { activeTab = button.dataset.tab; render(); if (state && auxiliaryLoads[activeTab]) void refresh(); });
+document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { attentionFocus = null; activeTab = button.dataset.tab; render(); if (state && (auxiliaryLoads[activeTab] || activeTab === 'attention')) void refresh(); });
 $('#close-inspect').onclick = () => $('#inspect').close();
 $('#inspect').addEventListener('close', () => { researchView++; });
 $('#initialize').onclick = async () => { try { await mutate('initialize', {}); } catch {} };
@@ -424,7 +445,7 @@ function repositoryControls(repo) {
 function projectApprovals() {
   return [...(state.project_approvals??[])].reverse().map(a=>{
     const op=state.project_operations.find(o=>o.operation_id===a.operation_id);const e=JSON.parse(op.envelope);const integration=state.integrations.find(i=>i.integration_id===e.integration_id);
-    return `<article class="panel task-card"><header><strong>Publish integrated repository commit</strong>${status(a.status)}</header><p>Trusted service operation · no root access</p>${details({repository:e.identity,branch:e.target_branch,expected_remote_sha:e.expected_old_sha,new_integrated_sha:e.new_sha,project:e.project_id,integration:e.integration_id,review:integration?.review_id,reason:op.reason,expires:a.expires_at,status:op.status,error:op.error,result:op.result?JSON.parse(op.result):null})}<details data-disclosure="${escape(a.approval_id)}"><summary>Exact approval envelope</summary><pre>${escape(JSON.stringify(e,null,2))}</pre></details><div class="card-actions">${a.status==='pending'?`<button class="button primary" data-project-approval="${escape(a.approval_id)}" data-approved="true">Approve exact publication</button><button class="button danger" data-project-approval="${escape(a.approval_id)}" data-approved="false">Deny</button>`:''}${op.status==='running'?`<button class="button secondary" data-publication-retry="${escape(op.operation_id)}">Reconcile & retry this operation</button>`:''}</div></article>`;
+    return `<article class="panel task-card" data-attention-source="${escape(a.approval_id)}"><header><strong>Publish integrated repository commit</strong>${status(a.status)}</header><p>Trusted service operation · no root access</p>${details({repository:e.identity,branch:e.target_branch,expected_remote_sha:e.expected_old_sha,new_integrated_sha:e.new_sha,project:e.project_id,integration:e.integration_id,review:integration?.review_id,reason:op.reason,expires:a.expires_at,status:op.status,error:op.error,result:op.result?JSON.parse(op.result):null})}<details data-disclosure="${escape(a.approval_id)}"><summary>Exact approval envelope</summary><pre>${escape(JSON.stringify(e,null,2))}</pre></details><div class="card-actions">${a.status==='pending'?`<button class="button primary" data-project-approval="${escape(a.approval_id)}" data-approved="true">Approve exact publication</button><button class="button danger" data-project-approval="${escape(a.approval_id)}" data-approved="false">Deny</button>`:''}${op.status==='running'?`<button class="button secondary" data-publication-retry="${escape(op.operation_id)}">Reconcile & retry this operation</button>`:''}</div></article>`;
   }).join('');
 }
 const field=(label,name,value='',type='text')=>`<label>${escape(label)}${type==='textarea'?`<textarea name="${name}" required>${escape(value)}</textarea>`:`<input name="${name}" type="${type}" value="${escape(value)}" required>`}</label>`;
@@ -514,4 +535,39 @@ function wireDevices() {
   });
   document.querySelectorAll('[data-device-deny]').forEach(button => button.onclick = async () => { button.disabled = true; try { await mutate('devices/decide', { device_id: button.dataset.deviceDeny, decision: 'deny' }); } catch { button.disabled = false; } });
   document.querySelectorAll('[data-device-revoke]').forEach(button => button.onclick = async () => { button.disabled = true; try { await mutate('devices/revoke', { device_id: button.dataset.deviceRevoke }); } catch { button.disabled = false; } });
+}
+
+
+function renderAttention() {
+  if(!attentionState) return loadingView(auxiliaryErrors.has('attention') ? 'Owner attention unavailable' : 'Loading owner attention…');
+  const labels={uncertain:'Uncertain outcomes',approval:'Approvals',blocked:'Blocked work',failed:'Failed work',identity:'Device identities'};
+  const stale=phase!=='ready'||attentionVersion!==connectionVersion||auxiliaryErrors.has('attention');
+  return `<section class="panel task-card"><header><h2>${attentionState.total ? `${attentionState.total} ${attentionState.total===1?'thing needs':'things need'} your attention` : 'Nothing needs your attention right now.'}</h2><button id="refresh-attention" class="button secondary small" ${attentionPending?'disabled':''}>Refresh</button></header><p class="muted">${stale?'Showing last loaded attention. The current count is unverified.':attentionPending?'Refreshing owner attention…':'Active work may still be running. This view only shows conditions requiring owner intervention.'}</p><small>Last checked ${escape(new Date(attentionState.as_of).toLocaleString())}</small><div class="attention-categories">${Object.entries(labels).filter(([key])=>attentionState.counts[key]).map(([key,label])=>`<span>${attentionState.counts[key]} ${label}</span>`).join('')}</div>${attentionState.truncated?`<p>Showing the first ${attentionState.limit} of ${attentionState.total}. Resolve items through their existing controls to reveal later items.</p>`:''}</section>` + attentionState.items.map(item=>`<article class="panel task-card attention-item" data-attention-id="${escape(item.attention_id)}"><header><h3>${escape(item.title)}</h3><span class="status">${escape(labels[item.category])}</span></header><p>${escape(item.summary)}</p><small>${escape(item.source_type.replaceAll('_',' '))} · ${escape(short(item.source_id))} · since ${escape(new Date(item.created_at).toLocaleString())}</small><div class="card-actions"><button class="button secondary" data-attention="${escape(item.attention_id)}">${escape(item.owner_action)}</button></div></article>`).join('');
+}
+async function openAttentionSource(item) {
+  attentionFocus=item;
+  activeTab=item.destination==='research'?'organization':item.destination;
+  if(item.destination==='tasks') { attentionFocus=null; render(); inspectTask(item.destination_record_id); return; }
+  if(item.destination==='executions') { attentionFocus=null; render(); const e=state.executions.find(e=>e.execution_id===item.detail_record_id); if(e)inspect('Execution evidence',details(e)); return; }
+  if(item.destination==='research') { attentionFocus=null; render(); try { await inspectResearchOperation(item.destination_record_id); } catch(e) {showError(e);} return; }
+  if(item.destination==='direct') {conversationWorker=''; selectedConversation=item.destination_record_id;conversationDetail=null;}
+  if(item.destination==='products') selectedProject=item.destination_record_id;
+  if(item.destination==='computers') { await computers.select(item.destination_record_id); return; }
+  if(item.destination==='mandates') { await mandates.select(item.destination_record_id); return; }
+  if(item.destination==='groups') { await groups.select(item.destination_record_id); return; }
+  render(); if(auxiliaryLoads[activeTab]) await refresh();
+}
+function focusAttentionSource() {
+  const item=attentionFocus;if(!item||activeTab!==item.destination)return;
+  if(item.source_type==='external_action') { if(mandates.inspectAction(item.destination_record_id,item.detail_record_id)) attentionFocus=null; return; }
+  let element;
+  if(item.destination==='approvals') element=document.querySelector(`[data-attention-source="${CSS.escape(item.destination_record_id)}"]`);
+  if(item.destination==='devices') element=document.querySelector(`[data-device="${CSS.escape(item.destination_record_id)}"]`);
+  if(item.destination==='computers') element=document.querySelector(`[data-computer-detail="${CSS.escape(item.destination_record_id)}"]`);
+  if(item.destination==='mandates') element=document.querySelector(`[data-mandate-detail="${CSS.escape(item.destination_record_id)}"]`);
+  if(item.destination==='infrastructure') {
+    attentionFocus=null;const op=state.infrastructure.operations.find(o=>o.operation_id===item.source_id);
+    if(op)inspect('Infrastructure operation',details(op));return;
+  }
+  if(element) { attentionFocus=null;element.tabIndex=-1;element.focus({preventScroll:true});element.scrollIntoView({block:'center'}); }
 }
