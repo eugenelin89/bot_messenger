@@ -1,7 +1,7 @@
 # Decision 025 — Exact supervised business actions and attributable outcome review
 
 **Date:** 2026-10-06
-**Status:** Implemented on the Prompt 11 branch; delivery and live acceptance pending
+**Status:** Implemented and deployed; separate live acceptance pending
 **Extends:** Decisions 017, 019 and 022; preserves 015, 018, 020, 021 and 024
 
 ## Decision

@@ -108,4 +108,4 @@ session transitions. Acceptance and retained activation remain explicit separate
 
 | ID | Decision | Status | Date |
 | --- | --- | --- | --- |
-| [025](decision_025_bounded_business_operations.md) | Exact supervised business actions and attributable outcome review | Implemented on milestone branch; delivery/live gates pending | 2026-10-06 |
+| [025](decision_025_bounded_business_operations.md) | Exact supervised business actions and attributable outcome review | Implemented and deployed; live acceptance pending | 2026-10-06 |

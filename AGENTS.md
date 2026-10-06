@@ -186,7 +186,7 @@ BotSquad is an **operator-controlled, self-hosted coordination and orchestration
 ### Future company and external-identity boundaries
 
 - Decision 010 and the multi-company/Telegram product models are deferred architecture constraints, not permission to expand the current milestone.
-- The current implementation through Prompt 10 still has one company per data directory; do not claim implemented multi-company isolation or federation.
+- The current implementation through Prompt 11 still has one company per data directory; do not claim implemented multi-company isolation or federation.
 - Keep runtime account, HQ instance, company, worker, thread and optional external identity conceptually distinct.
 - Future cross-company operations require trusted connection policy; external transports never grant authority or expose raw credentials to workers.
 
@@ -499,7 +499,7 @@ Screenshots are owner-private evidence; model understanding is structured render
 Client API v1 gains no related administration/content. See [Decision 024](docs/decisions/decision_024_bounded_computer_use.md),
 [architecture](docs/architecture/COMPUTER_USE.md) and [C10-1 evidence](docs/validation/PROMPT_10_VALIDATION.md).
 Prompt 10 is complete and deployed with zero retained production computer authority.
-Prompt 11 is in progress; browser capability does not complete its real business-action gate.
+Prompt 11 implementation is complete and deployed; its separately approved real business-action gate remains pending.
 
 ## Execution Plans
 

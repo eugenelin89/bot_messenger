@@ -1,12 +1,45 @@
 # BotSquad — Current State
 
-**Status:** Prompts 01–10 and WE-01 complete; Prompt 10 deployed and inactive; Prompt 11 implementation in progress; live acceptance pending
-**Updated:** 2026-10-05
+**Status:** Prompts 01–10 and WE-01 complete; Prompt 11 implementation deployed and inactive; live acceptance pending
+**Updated:** 2026-10-06
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
+
+## Prompt 11 implementation deployed — October 6
+
+The [bounded business operations slice](../architecture/BUSINESS_OPERATIONS.md) is implemented,
+reviewed and deployed from [PR #15](https://github.com/eugenelin89/bot_messenger/pull/15),
+merge `7fd7733a25dc97544f2b0182e6845144657979ed`. It adds scoped document evidence,
+exact owner approval, a trusted GitHub executor, durable receipt/reconciliation and scheduled
+outcome review. **Prompt 11 is NOT complete:** C11-2 and live C11-3/C11-4 still require the
+separately approved real pilot. No actual Asymmetri Motion write was made.
+
+The final-source Ubuntu suite passed **372/372**, with no failures/skips; 78 focused business
+checks, real Chrome, real Ubuntu engineering/Projects/isolation/recovery and five read-only
+specialist reviews passed. Real workers completed the two-cycle acceptance with a clearly
+labelled SIMULATED provider. Those receipts do not satisfy real business acceptance.
+
+The [production receipt](../validation/evidence/prompt11/deployment-accepted.json) records
+schema 14, ready runtime, unchanged service restrictions, loopback-only listener and all
+**251 build/public files** matching an independent exact-revision build. Retained production
+has eight enabled idle workers, 48 Tasks, 65 completed executions, the existing Atlas
+Task/conversation Public Research grant, seven ready identities and pause=false. Mandates,
+schedules, Computer Operators/sessions/grants, business grants/evidence/actions/approvals/
+attempts/receipts and configured business providers are zero. The broker is one idle Node
+process with zero Chromium processes. Deployment activated no authority.
+
+Both original and fresh retained-state inventories passed, including **81 databases, 59,245
+predeployment rows, 212 homes, 702 root records and 427 account/group mappings** in the fresh
+inventory. Offline migration preserved every original field/rowid across three openings.
+The [30.458-second idle probe](../validation/evidence/prompt11/production-idle.json) created
+zero model, browser or external-action work. All task-owned Ubuntu validation runs are inactive;
+failed/successful histories and uncertainty records remain. See the [validation record](../validation/PROMPT_11_VALIDATION.md)
+and [operator tutorial](BUSINESS_OPERATIONS_TUTORIAL.md). Final documentation-revision equality
+is recorded in the delivery handoff and protected host journal to avoid a self-referential SHA.
+Older dated sections below remain historical.
 
 ## Prompt 10 accepted production state — October 5
 

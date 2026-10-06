@@ -1,0 +1,26 @@
+{
+  "all_owned_validation_units_inactive": true,
+  "remaining_failed_units_retained": [
+    {
+      "unit": "botsquad-business-20261006a.service",
+      "state": "failed"
+    },
+    {
+      "unit": "botsquad-business-20261006b-identity-operator.service",
+      "state": "failed"
+    },
+    {
+      "unit": "botsquad-business-20261006b-identity.service",
+      "state": "failed"
+    },
+    {
+      "unit": "botsquad-business-20261006b-projects-operator.service",
+      "state": "failed"
+    },
+    {
+      "unit": "botsquad-business-20261006b-projects.service",
+      "state": "failed"
+    }
+  ],
+  "histories_and_homes_deleted": false
+}
