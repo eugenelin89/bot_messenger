@@ -76,7 +76,7 @@ for(const viewport of viewports)test(`historical undefined-state race: all early
   // Finish the held boot before renewing the session. Cancellation before release
   // is exercised by the dedicated reconnect regression below.
   state.release();await page.locator('#new-mandate').waitFor();await selected('mandates');
-  await signal('ready');await page.getByText('Connected to headquarters',{exact:true}).waitFor();
+  await signal('ready');await page.waitForFunction(()=>document.querySelector('#connection').textContent==='Connected to headquarters');
   await page.locator('#new-mandate').waitFor();await selected('mandates');
   assert.equal(await page.locator('#connection').textContent(),'Connected to headquarters');
 });
