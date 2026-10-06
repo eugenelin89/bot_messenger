@@ -1,6 +1,6 @@
 # Personal Operator stabilization 02 — startup and navigation
 
-**Status:** Frontend/browser acceptance passed; exact merged deployment and production acceptance pending.
+**Status:** Complete — exact merged code deployed; startup/navigation, native reconnect and retained-state acceptance passed.
 
 This is unnumbered Daily Driver work under Decision 026. No Prompt 12, backend semantic
 change, schema migration, dependency, worker authority or new product capability.
@@ -52,7 +52,9 @@ recover without a permanently disabled submit button. No initialization mutation
 - [HTTP checks](evidence/personal02/http.txt): **6/6 pass**; TypeScript `npm run check` passes.
 - [Ubuntu browser run](evidence/personal02/ubuntu-reviewed.txt): **21/21 pass**, installed
   Node **24.21.0** and Chromium, non-root `botsquad`, isolated fixture servers/data on Ubuntu
-  24.04. Final two test-only assertions will be included in exact-merge verification.
+  24.04. [Exact-merge rerun](evidence/personal02/ubuntu-exact-merge.txt): **27/27 pass**
+  (21 latest startup + 6 HTTP), including both final test additions. Chrome for Testing
+  **153.0.8010.12**, exact merge `ee4f0992603b21c902f06e348db0bc88a479c802`.
 - Desktop/narrow loading and narrow error screenshots were visually checked; no navigation,
   loading text or recovery control is hidden. Screenshots contain synthetic fixture UI only.
 - New navigation scenarios produce zero model calls, executions, ComputerSessions and
@@ -79,10 +81,36 @@ Read-only preflight: baseline revision healthy, pause=false, eight idle workers,
 attempt/receipt, zero ComputerSessions, no runnable work or active provider. Prompt 11
 history, revoked grant and retired credential remain intact. Protected preflight is outside Git.
 
-Pending: normal PR merge, exact-revision build/Ubuntu verification, protected full backup,
-deployment identity/preservation, repeated real private SSH-tunnel hard reload/navigation,
-normal loaded navigation, reconnect and final idle verification. Do not infer deployment
-from local or fixture acceptance.
+[PR #19](https://github.com/eugenelin89/bot_messenger/pull/19) merged normally as
+`ee4f0992603b21c902f06e348db0bc88a479c802`. No configured status/workflow check was bypassed.
+The [production checkpoint](evidence/personal02/production-checkpoint.json) confirms all
+**251 compiled/public files** equal a separate exact-revision build. HQ, broker and provisioner
+were stopped for a protected full backup retaining ownership/ACLs and account mappings.
+No bootstrap, credential change, migration or demonstration was used for deployment.
+
+Preservation passed for **59,909 original rows in 82 databases**, **212 worker-home ownership/mode/ACL records**,
+**702 root records**, and **427 account/group mappings**, excluding only ordinary
+`workers.updated_at`. This includes Prompt 11's failed model turn/backoff, both schedule
+versions, completed occurrence, evidence, approved action/attempt/receipt and final STOP.
+Pause=false, eight idle workers, 48 Tasks, 69 executions, one receipt and zero ComputerSessions
+remain. The provider stays unconfigured, the retained business grant revoked and temporary
+credential absent. Runtime/database/dispatcher are healthy on loopback. A **30-second idle**
+interval added no work and preserved all counts after restart.
+
+[Real production browser acceptance](evidence/personal02/production-ui.json) passed through
+a task-owned SSH tunnel at **1440×1100** and **390×844**: **eight uncached hard reloads**,
+immediate rapid navigation on six and controlled held-state navigation on two, all **13 tabs**
+before release and after loaded state, with **zero page errors and zero mutation requests**.
+Company Mandates remained selected after startup. A real tunnel termination/recreation
+proved native EventSource reconnect, retained content/tab, disabled stale controls and recovery.
+Only non-sensitive boolean/count/identity evidence was captured; no production screenshots
+or private record content was exported. The task-owned tunnel was stopped afterward.
+An additional [30-second post-UI idle check](evidence/personal02/production-ui-idle.json)
+confirmed every table count and pause state stayed unchanged, with all active-work checks zero.
+
+This is the executed code-deployment checkpoint. The documentation completion merge keeps
+the same application/test/dependency trees; its final local/origin/deployed equality is
+verified separately in the final handoff and protected completion receipt.
 
 ## Limits and next candidates
 

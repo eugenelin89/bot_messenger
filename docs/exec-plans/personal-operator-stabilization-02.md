@@ -1,8 +1,8 @@
 # Personal Operator stabilization 02 — startup and navigation
 
-**Status:** Active
+**Status:** Complete — code deployment and production acceptance passed
 **Owner:** Parent Codex task (sole writer/integrator/deployer)
-**Branch:** `codex/personal-operator-stabilization-02`
+**Branch:** implementation `codex/personal-operator-stabilization-02`; evidence completion `codex/personal-operator-stabilization-02-completion`
 **Worktree:** `bot_messenger-personal02`
 **Started:** 2026-10-06
 **Initial ETA:** 2–3 hours including browser/runtime checks, review and deployment.
@@ -49,7 +49,16 @@ baseline result. Apply the same sequence at desktop and narrow widths after the 
 - Test reviewer found transient disabled-button restoration and held obsolete request blocking
   reconnect; both fixed with specific regressions. Follow-up review found no pre-merge blocker.
 - Production preflight healthy and idle; pause=false, 8 workers/48 Tasks/69 executions retained.
-- Remaining: PR/merge, exact Ubuntu rerun, protected backup/deploy, tunnel acceptance and idle.
+- PR #19 merged normally: ee4f0992603b21c902f06e348db0bc88a479c802. Exact Ubuntu rerun 27/27.
+- Exact production build: 251 compiled/public files match independent build. Protected backup
+  and preservation of 59,909 original rows/82 databases, 212 worker-home ownership/mode/ACL records, 702 root records, 427 mappings.
+- Real tunnel acceptance: 8 hard reloads, 13 tabs, desktop/narrow, native tunnel reconnect,
+  zero pageerrors/mutation requests; active tab and cached content preserved.
+- Pause=false; 8 workers/48 Tasks/69 executions/1 business receipt retained; zero ComputerSessions.
+  Provider remains unconfigured/credential absent/grant revoked. Post-restart and post-UI
+  30-second idle intervals left every table count and pause state unchanged.
+- Completion documentation is a separate normal PR; final exact identity receipt is recorded
+  in the protected delivery journal and final handoff. Application/test/dependency trees unchanged.
 
 Detailed evidence and retained failed attempts: ../validation/PERSONAL_OPERATOR_STABILIZATION_02.md.
 

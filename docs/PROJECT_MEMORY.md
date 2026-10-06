@@ -10,7 +10,8 @@ reliability, operator clarity, daily workflows, maintenance and polish the curre
 No automatic Prompt 12. Multi-company/federation/integration expansion remains deferred;
 future work comes from actual owner use. Scheduler stabilization 01 is deployed.
 [Startup stabilization 02](validation/PERSONAL_OPERATOR_STABILIZATION_02.md) fixes immediate
-navigation and readiness/recovery; its validation record owns delivery status. Next candidates
+navigation and readiness/recovery and is deployed from PR #19 with real tunnel acceptance;
+its validation record owns exact delivery evidence. Next candidates
 are owner attention/pending actions, broader status clarity and common workflow simplification.
 
 Prompt 11 is complete for bounded supervised scope: one exact approved real GitHub README
