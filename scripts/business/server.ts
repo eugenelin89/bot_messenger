@@ -26,12 +26,15 @@ class RecordingRuntime extends CodexRuntime {
 const runtime=new RecordingRuntime(),catalog=await runtime.catalog(data),fixturePath=join(data,'fixture.json');
 if(!existsSync(fixturePath)){
   requireThat(company.workers().length===0,'Fresh isolated roster required');const atlas=company.initializeCEO();
-  const task=company.createTask('human',atlas,{objective:'Isolated Prompt 11 roster setup',acceptance_criteria:'Persistent specialists through normal hierarchy',constraints:'Trusted setup only; no provider invocation or scripted employee answer'},null,'product'),claim=company.claimNext()!;
-  const hired=['product_manager','researcher'].map((profile,i)=>company.callTool(claim.context,`setup-${profile}`,'hire_worker',{display_name:i?'Scout':'Maya',title:profile,profile,mission:'Assess evidence and alternative improvements within current bounded authority.',capabilities:[...PROFILES[profile as 'product_manager'|'researcher']],lifecycle:'persistent',justification:'Explicit isolated business acceptance roster'}) as Worker);
-  company.finish(claim.execution.execution_id,{status:'interrupted',settled:true,error:'Trusted roster setup; no model invoked'});company.cancel(task.task_id);
+  const setupTasks:string[]=[];
+  const hired=(['product_manager','researcher'] as const).map((profile,i)=>{
+    const task=company.createTask('human',atlas,{objective:'Isolated Prompt 11 roster setup',acceptance_criteria:'Persistent specialists through normal hierarchy',constraints:'Trusted setup only; no provider invocation or scripted employee answer'},null,i?'research':'product'),claim=company.claimNext()!;
+    const worker=company.callTool(claim.context,`setup-${profile}`,'hire_worker',{display_name:i?'Scout':'Maya',title:profile,profile,mission:'Assess evidence and alternative improvements within current bounded authority.',capabilities:[...PROFILES[profile]],lifecycle:'persistent',justification:'Explicit isolated business acceptance roster'}) as Worker;
+    company.finish(claim.execution.execution_id,{status:'interrupted',settled:true,error:'Trusted roster setup; no model invoked'});company.cancel(task.task_id);setupTasks.push(task.task_id);return worker;
+  });
   const model=catalog.models.find(m=>m.model===catalog.defaultModel)??catalog.models.find(m=>m.isDefault);requireThat(model,'Advertised default runtime model required');
   for(const worker of company.workers())company.updateWorkerAIProfile(worker.worker_id,{ai_model:model.model,reasoning_effort:model.defaultReasoningEffort,execution_priority:'normal',ai_profile_locked:true},catalog);
-  company.pause(true);writeFileSync(fixturePath,JSON.stringify({mode:'simulated_fixture',real_runtime:true,data_root:data,revision:process.env.BOT_DEPLOYED_SHA,atlas:atlas.worker_id,maya:hired[0]!.worker_id,scout:hired[1]!.worker_id,setup_task_id:task.task_id,target:fixtureTarget},null,2),{mode:0o600,flag:'wx'});
+  company.pause(true);writeFileSync(fixturePath,JSON.stringify({mode:'simulated_fixture',real_runtime:true,data_root:data,revision:process.env.BOT_DEPLOYED_SHA,atlas:atlas.worker_id,maya:hired[0]!.worker_id,scout:hired[1]!.worker_id,setup_task_ids:setupTasks,target:fixtureTarget},null,2),{mode:0o600,flag:'wx'});
 }
 const dispatcher=new Dispatcher(company,runtime),http=createHttpServer(company,dispatcher,join(root,'public'));
 let stopping=false;async function stop(){if(stopping)return;stopping=true;await dispatcher.stop();await http.close();store.close();unlock();}

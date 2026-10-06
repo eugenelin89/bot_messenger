@@ -14,6 +14,7 @@ esac
 unit=botsquad-business-$validation_label-$mode
 source_root=/opt/botsquad-business-$validation_label
 report=/var/lib/botsquad/validation/business-p11-$validation_label-$mode
+[[ $mode == deterministic ]] || report=/var/lib/botsquad/validation/$mode-prompt11-$validation_label
 runner=/run/$unit
 [[ ! -e $report && ! -e $runner && -f $source_root/dist/src/main.js ]] || exit 1
 install -d -o botsquad -g botsquad -m 700 "$report"

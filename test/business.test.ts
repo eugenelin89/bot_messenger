@@ -165,6 +165,13 @@ test('business preflight reserves only its worker and uses no model execution sl
   assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.company.business.reserved(f.atlas.worker_id),true);assert.equal(f.store.get<{n:number}>("SELECT count(*) n FROM executions WHERE status='running'")!.n,0);
   release();await until(()=>f.company.business.action(a.action_id).status==='succeeded');const next=f.company.claimWorkNext();assert.ok(next?.origin==='task');assert.equal(next.task.task_id,queued.task_id);
 });
+test('an already claimed model execution delays approved effect until that work settles',async t=>{
+  const f=await setup();t.after(()=>f.close());const a=f.propose();f.wait(a);
+  f.company.createTask('human',f.atlas,{objective:'Existing internal work',acceptance_criteria:'Bounded result',constraints:'No external effect'},null,'product');
+  const claimed=f.company.claimWorkNext();assert.ok(claimed?.origin==='task');assert.equal(f.company.providerUnresolved(f.atlas.worker_id),false);
+  f.approve(a);f.company.business.progress();assert.equal(f.company.business.action(a.action_id).status,'approved');assert.equal(f.adapter.puts,0);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM business_attempts')!.n,0);
+  f.company.finish(claimed.execution.execution_id,{status:'interrupted',settled:true,error:'Controlled settled internal work'});f.company.business.progress();await until(()=>f.company.business.action(a.action_id).status==='succeeded');assert.equal(f.adapter.puts,1);
+});
 test('unknown effect fences the canonical target across another mandate and grant',async t=>{
   const f=await setup();t.after(()=>f.close());const a=f.propose();f.wait(a);f.approve(a);f.adapter.unknown=true;f.company.business.progress();await until(()=>f.company.business.action(a.action_id).status==='outcome_unknown');
   const m=f.company.mandates.create({title:'Second scope',objective:'Another correction',success_criteria:'Explicit evidence',stop_criteria:'Unknown effects',constraints:'SIMULATED only',resources:'No spending',coordinator_id:f.atlas.worker_id,envelope:{}});

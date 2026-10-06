@@ -59,7 +59,13 @@ Final source/evidence review follows Ubuntu validation; no pending live gate is 
 
 ## Ubuntu, deployment and live evidence
 
-Pending. Isolated harness under `scripts/business/` refuses retained production paths and
+First Ubuntu attempt (`20261006a`, source `95bd394`) failed during isolated roster setup:
+the harness attempted to hire a researcher from a product Task, correctly rejected by the
+existing role policy. No model or business action ran. Its database/journal are retained.
+The harness now uses separate product/research setup Tasks through the unchanged authority
+path. Host regression paths were also aligned with the existing operator path guards before use.
+
+Acceptance remains pending. Isolated harness under `scripts/business/` refuses retained production paths and
 uses real Codex workers with a visibly SIMULATED persistent provider. Risky fault tests are
 fixture-only. No production grants, private target writes or live approvals have occurred.
 
