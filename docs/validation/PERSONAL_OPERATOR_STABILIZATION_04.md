@@ -11,7 +11,8 @@ BotSquad baseline `18ecded2d5274ed022030618e77a7372cda5d629`; website source-onl
 Read the website portrait provenance before copying. Seven exact 384 × 384 WebP files,
 131,666 bytes total; SHA-256 and Git blob identity match source/destination.
 [Full manifest](evidence/personal04/portraits.json) records paths, blobs, sizes and hashes.
-Nix has no approved source portrait; initials remain. No website write or deployment.
+At original acceptance Nix had no approved source portrait and retained initials.
+The post-Stabilization-04 sync below records the later approval. No website write or deployment.
 
 ## Local evidence
 
@@ -98,7 +99,48 @@ merged deployment and read-only acceptance without changing the accepted runtime
 Its final source/build/health identity is recorded in the protected completion receipt at
 `/var/backups/botsquad/personal04-20261007-completion/result.json` and final handoff.
 
-Nix has no approved source portrait; Nix, custom/future workers, Human, System and Computer
-Operators retain safe initials. No appearance was invented. Production has no peer/group
+At original acceptance Nix had no approved source portrait and retained initials.
+After the follow-up below, custom/future workers, Human, System and Computer Operators
+continue to retain safe initials. No appearance was invented. Production has no peer/group
 history to inspect beyond its honest empty state. No Prompt 12, schema, Client API v1,
 worker identity/role/profile, authority or runtime change was introduced.
+
+
+## Post-Stabilization-04 Nix portrait sync
+
+October 8, 2026 follow-up; this is neither Stabilization 05 nor Prompt 12.
+Both repositories were fetched before editing: BotSquad main
+`cb2fd43b8ffbec274df294f483d242a90385765e`, website main
+`322b67acd785735dd2ffac9c5c082c684fbee836`. The website was read only.
+
+Nix is added to the existing canonical registry and exact local static allowlist at
+`public/images/workers/nix.webp`. [Provenance](evidence/personal04-nix/portraits.json):
+blob `624172e3eb7767e8e12cfa8f55366f26eaf04141`, 14,912 bytes, source and destination
+SHA-256 `977687061d10f7df1bc9379bb76b731039f4c5fadcb9b0ee9be6a37fa026fc12`.
+The original seven assets and their historical acceptance manifest remain unchanged.
+Human/System/custom/unknown/Computer Operator fallback and broken-image initials remain.
+No per-view rendering, schema, worker identity/role, authority, Client API, scheduling or
+runtime change. Validation and delivery are tracked in the
+[follow-up plan](../exec-plans/post-stabilization-04-nix-portrait.md).
+
+
+Follow-up local checks:
+
+- [Build](evidence/personal04-nix/local-build.txt): passed using the unchanged dependency lock.
+- [Static/HTTP/Attention](evidence/personal04-nix/local-http.txt): **63/63** passed,
+  including all eight exact WebP responses, unknown/Human 404 and traversal/symlink denial.
+- [Portrait browser](evidence/personal04-nix/local-portraits.txt): **4/4** passed at
+  1440 × 1100 and 390 × 844, including actual Nix Executive/direct/peer/group senders,
+  Nix Task/execution/organization/inspector, Human/custom/operator fallback, failed-image
+  Nix initials and zero external portrait requests/mutations/model calls.
+- [Startup/reconnect, Attention and secondary browser regressions](evidence/personal04-nix/local-browser-regressions.txt): **43/43** passed.
+- [Source integrity](evidence/personal04-nix/source-integrity.json): Nix exact source/destination
+  bytes and all seven previous assets unchanged against the BotSquad baseline and website main.
+- Initial HTTP tests could not bind sandboxed loopback listeners; the
+  [environment failure](evidence/personal04-nix/initial-sandbox-listener-denial.txt) is retained.
+  The same tests passed with listener permission; no assertions were weakened.
+
+The existing read-only production acceptance script accepts the Nix manifest as its fourth
+argument; its original seven-portrait behavior remains available. Exact merged Ubuntu and
+production results are recorded after merge in the protected deployment receipt and final
+handoff (the source cannot contain its own eventual merge SHA).

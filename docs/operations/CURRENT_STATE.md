@@ -11,8 +11,9 @@ For implementation details, see the [system architecture](../architecture/SYSTEM
 ## Worker portraits — Stabilization 04
 
 [Worker portraits stabilization 04](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md) is complete
-and deployed from PR #28. Seven exact approved website portraits identify Task assignees,
-message senders and other responsible workers; Nix/custom workers retain initials. No
+and deployed from PR #28. The [post-Stabilization-04 Nix sync](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md#post-stabilization-04-nix-portrait-sync)
+extends the original seven approved local portraits to all eight canonical AI workers.
+Human, System, custom/unknown workers and Computer Operators retain initials. No
 identity/authority change or external image dependency. Real desktop/narrow tunnel
 acceptance and production preservation passed; peer/group history remains fixture-verified
 because retained production has none.

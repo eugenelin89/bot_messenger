@@ -1,0 +1,251 @@
+(node:27742) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ Attention HTTP is SELECT-only, sanitized, bounded and uses existing browser boundaries (64.097167ms)
+(node:27743) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ clean company is verified zero and reads leave every table unchanged (40.215166ms)
+✔ ordinary blocked Task has one inspection item and authoritative cancellation removes it (29.837125ms)
+✔ ordinary failed Task has one inspection item and authoritative cancellation removes it (28.485792ms)
+✔ ordinary awaiting_approval Task has one inspection item and authoritative cancellation removes it (29.49375ms)
+✔ queued Task is not attention (31.065833ms)
+✔ working Task is not attention (27.218625ms)
+✔ completed Task is not attention (30.964375ms)
+✔ cancelled Task is not attention (30.360208ms)
+✔ waiting_children is automated waiting, not attention (29.099ms)
+✔ failed execution under recovered Task does not accumulate badges (36.052834ms)
+✔ child failure already handed back to completed parent is retained history (47.119708ms)
+✔ pending infrastructure approval suppresses related Task and execution; denial retains only unresolved coordination (38.881833ms)
+✔ expired historical infrastructure Task counts only while its desired binding is unresolved (31.675ms)
+✔ interrupted consumed host operation is one uncertainty, normal running operation is not attention (31.445583ms)
+✔ pending project approval is one item; real denial removes it (331.440041ms)
+✔ expired approval filtering writes no expiry or audit rows (307.99375ms)
+✔ Computer proposed policy is one approval and existing deny removes it (27.924ms)
+✔ Computer exact pending intent, unknown, and resolved states supersede generic Task (28.313458ms)
+✔ confirmed historical Computer completed is not attention (24.621542ms)
+✔ confirmed historical Computer denied is not attention (25.122292ms)
+✔ confirmed historical Computer interrupted is not attention (27.483459ms)
+✔ confirmed historical Computer expired is not attention (26.400792ms)
+✔ confirmed historical Computer failed is not attention (25.056833ms)
+✔ terminal unconfirmed browser cleanup is actionable (26.359083ms)
+✔ business approval deduplicates waiting cycle and real denial removes item (62.776375ms)
+✔ business unknown survives revoke/stop; confirmed reconciliation removes it (54.222291ms)
+✔ working group blocked classification (26.170041ms)
+✔ working group paused classification (25.883334ms)
+✔ working group stopped classification (24.939083ms)
+✔ working group completed classification (26.529667ms)
+✔ working group archived classification (26.880042ms)
+✔ blocked current cycle is one item; stopped mandate and retained occurrence are history (27.598833ms)
+✔ waiting backoff and healthy future review do not require babysitting (28.515709ms)
+✔ only claimed unexpired device identity requires owner attention; denial resolves it (29.454791ms)
+✔ active then revoked device and unclaimed pairing do not count (25.977666ms)
+✔ direct failed request stays an obligation after newer success; cancel or archive resolves ordinary attention (32.410042ms)
+✔ normal active model intent is not attention; retained fence survives cancelled Task (27.179584ms)
+✔ metadata is sanitized, deterministically ordered and response bounded without lying about total (115.107792ms)
+✔ shared conversation session uncertainty points only to latest unknown turn after archive (40.862167ms)
+✔ expired unstarted Computer requested requires cancellation or inspection (24.876625ms)
+✔ expired unstarted Computer ready requires cancellation or inspection (24.759417ms)
+✔ blocked current occurrence without a cycle is actionable; cancellation removes it (26.675792ms)
+✖ generalized queued integration waiting is ordinary automated work (924.862584ms)
+✔ unknown research owns blocked direct attention and survives workflow closure (34.686333ms)
+✔ unknown research owns blocked group attention and survives workflow closure (33.151041ms)
+✔ unknown research owns blocked mandate attention and survives workflow closure (31.522166ms)
+✔ business approval read excludes stale deadline without changing its source (41.248958ms)
+✔ business approval read excludes stale current_cycle without changing its source (40.109583ms)
+✔ business approval read excludes stale withdrawal without changing its source (42.202417ms)
+✔ mandate coordinator provider uncertainty in its internal group is one problem before and after stop (46.022625ms)
+✔ mandate coordinator research uncertainty in its internal group is one problem before and after stop (45.215833ms)
+(node:27744) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (52.452208ms)
+✖ SSE emits durable-state changes without model polling (39.414ms)
+✖ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (37.205834ms)
+✖ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (37.964375ms)
+✖ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (35.621792ms)
+✖ standing permissions require browser owner authority and do not extend device routes or state (37.701542ms)
+(node:27745) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ all eight approved portrait routes serve exact source bytes, hashes, MIME and security headers (53.315709ms)
+✖ unknown files, prototype names and raw or encoded traversal cannot escape fixed routes (39.40375ms)
+✖ portrait serving rejects a symlinked images component (63.453875ms)
+✖ portrait serving rejects a symlinked workers component (61.75125ms)
+✖ portrait serving rejects a symlinked file component (64.427667ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 50
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3290.361875
+
+✖ failing tests:
+
+test at dist/test/attention-http.test.js:9:1
+✖ Attention HTTP is SELECT-only, sanitized, bounded and uses existing browser boundaries (64.097167ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/attention.test.js:78:1
+✖ generalized queued integration waiting is ordinary automated work (924.862584ms)
+  Error: Focused tests failed; fix the implementation before submitting
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/src/domain/model.js:22:15)
+      at Engineering.execute (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/src/control/engineering.js:395:13)
+      at perform (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/src/control/company.js:625:47)
+      at Company.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/src/control/company.js:634:100)
+      at call (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/test/engineering-helpers.js:17:22)
+      at submitGeneric (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/test/projects-helpers.js:71:12)
+      at file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/test/projects-helpers.js:77:41
+      at Array.map (<anonymous>)
+      at readyGeneric (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/test/projects-helpers.js:77:32)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-nix-portrait/dist/test/attention.test.js:81:29)
+
+test at dist/test/http.test.js:7:1
+✖ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (52.452208ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/http.test.js:47:1
+✖ SSE emits durable-state changes without model polling (39.414ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/http.test.js:63:1
+✖ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (37.205834ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/http.test.js:88:1
+✖ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (37.964375ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/http.test.js:109:1
+✖ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (35.621792ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/http.test.js:135:1
+✖ standing permissions require browser owner authority and do not extend device routes or state (37.701542ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/worker-portraits.test.js:21:1
+✖ all eight approved portrait routes serve exact source bytes, hashes, MIME and security headers (53.315709ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/worker-portraits.test.js:38:1
+✖ unknown files, prototype names and raw or encoded traversal cannot escape fixed routes (39.40375ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/worker-portraits.test.js:46:5
+✖ portrait serving rejects a symlinked images component (63.453875ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/worker-portraits.test.js:46:5
+✖ portrait serving rejects a symlinked workers component (61.75125ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at dist/test/worker-portraits.test.js:46:5
+✖ portrait serving rejects a symlinked file component (64.427667ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+      at listenInCluster (node:net:1997:12)
+      at node:net:2206:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }

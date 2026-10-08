@@ -6,7 +6,7 @@ remain identity and authority. No schema field, API v1 contract or runtime behav
 
 ## Source and mapping
 
-Source: [eugenelin89/asymmetri](https://github.com/eugenelin89/asymmetri), commit
+Original seven portraits: [eugenelin89/asymmetri](https://github.com/eugenelin89/asymmetri), commit
 `f572e31254079a493dac98279e161d85172bab29`.
 [Website provenance](https://github.com/eugenelin89/asymmetri/blob/f572e31254079a493dac98279e161d85172bab29/docs/BOTSQUAD_PORTRAITS.md).
 
@@ -19,11 +19,22 @@ Source: [eugenelin89/asymmetri](https://github.com/eugenelin89/asymmetri), commi
 | Ada | `public/images/botsquad/ada.webp` | `public/images/workers/ada.webp` |
 | Grace | `public/images/botsquad/grace.webp` | `public/images/workers/grace.webp` |
 | Scout | `public/images/botsquad/scout.webp` | `public/images/workers/scout.webp` |
+| Nix | `public/images/botsquad/nix.webp` | `public/images/workers/nix.webp` |
 
-All seven 384 × 384 WebP files are copied byte-for-byte (131,666 bytes total), without
+The original seven 384 × 384 WebP files are copied byte-for-byte (131,666 bytes total), without
 recompression. [Manifest](../validation/evidence/personal04/portraits.json) records each
 Git blob, size and SHA-256; the [execution plan](../exec-plans/personal-operator-stabilization-04.md)
 records source, destination and validation provenance.
+
+**Post-Stabilization-04 portrait sync (October 8, 2026):** Nix was copied from website
+commit `322b67acd785735dd2ffac9c5c082c684fbee836`, blob
+`624172e3eb7767e8e12cfa8f55366f26eaf04141`, without resizing or recompression.
+The [Nix manifest](../validation/evidence/personal04-nix/portraits.json) records its
+14,912 bytes and identical source/destination SHA-256. All eight 384 × 384 WebP files
+total 146,578 bytes; the original seven are unchanged. The website
+[provenance](https://github.com/eugenelin89/asymmetri/blob/322b67acd785735dd2ffac9c5c082c684fbee836/docs/BOTSQUAD_PORTRAITS.md)
+records the alt text “Illustrated portrait of Nix, a BotSquad AI worker.” BotSquad keeps
+its existing decorative-image semantics beside visible worker names.
 
 ## Display and fallback
 
@@ -33,8 +44,8 @@ name matches a pictured employee. Principal callers first resolve the actual bot
 Human, System and unmatched principals keep fallback. Names are safely escaped and remain
 visible alongside decorative (`alt=""`, `aria-hidden="true"`) portraits/initials.
 
-Nix has no approved website portrait at this source revision. Nix, future/custom employees
-and unknown workers use initials. A failed image request removes only the image and reveals
+Nix now uses his approved local portrait. Future/custom employees and unknown workers
+use initials. A failed image request removes only the image and reveals
 initials; it changes no readiness, Attention, authority or model state. No remote fallback.
 Normal avatars are 34px; dense actor labels use 26px and the inspector uses 48px.
 
@@ -46,7 +57,7 @@ facilitator/synthesizer. Select options, compact history metadata and raw eviden
 
 ## Serving and replacement
 
-The HQ serves an exact allowlist of seven local image routes and the helper module.
+The HQ serves an exact allowlist of eight local image routes and the helper module.
 WebP has `image/webp` without a charset, existing security headers/cache policy remain,
 and unknown paths, normalized traversal aliases and symlinked portrait components are denied.
 There is no public-website/GitHub/CDN dependency after deployment.
