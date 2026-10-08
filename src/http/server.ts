@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, lstatSync } from 'node:fs';
 import { join } from 'node:path';
 import { Company, DEFAULT_OBJECTIVE } from '../control/company.js';
 import { Dispatcher } from '../control/dispatcher.js';
@@ -45,7 +45,9 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       const expectedOrigin = `http://${req.headers.host}`;
       if (req.headers.origin && req.headers.origin !== expectedOrigin) { json(403, { error: 'Cross-origin request denied' }); return; }
       if (req.headers['sec-fetch-site'] === 'cross-site') { json(403, { error: 'Cross-site request denied' }); return; }
+      const rawPath = (req.url ?? '/').split('?')[0]!;
       const path = new URL(req.url ?? '/', expectedOrigin).pathname;
+      if (rawPath !== path) { json(404, { error: 'Not found' }); return; }
       if (path.startsWith('/api/') && req.headers.authorization) { json(403, { error: 'Device authorization is not a local browser session' }); return; }
       if (req.method === 'GET') {
         if (path === '/api/health') { json(200, { alive: true, database: !!company.store.get('SELECT 1'), dispatcher: dispatcher.initialized, runtime: dispatcher.runtimeState, version: '0.1.0', commit: deployedCommit }); return; }
@@ -86,9 +88,36 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           const content = company.artifactContent(decodeURIComponent(path.slice('/api/artifacts/'.length)));
           res.writeHead(200, { ...securityHeaders, 'Content-Type': 'text/plain; charset=utf-8' }); res.end(content); return;
         }
-        const staticFiles: Record<string, [string, string]> = { '/': ['index.html', 'text/html'], '/app.js': ['app.js', 'text/javascript'], '/groups.js':['groups.js','text/javascript'], '/mandates.js':['mandates.js','text/javascript'], '/business.js':['business.js','text/javascript'], '/computers.js':['computers.js','text/javascript'], '/styles.css': ['styles.css', 'text/css'] };
-        const file = staticFiles[path];
-        if (file) { res.writeHead(200, { ...securityHeaders, 'Content-Type': `${file[1]}; charset=utf-8` }); res.end(readFileSync(join(publicDir, file[0]))); return; }
+        const staticFiles: Record<string, [string, string]> = {
+          '/': ['index.html', 'text/html; charset=utf-8'],
+          '/app.js': ['app.js', 'text/javascript; charset=utf-8'],
+          '/groups.js': ['groups.js', 'text/javascript; charset=utf-8'],
+          '/mandates.js': ['mandates.js', 'text/javascript; charset=utf-8'],
+          '/business.js': ['business.js', 'text/javascript; charset=utf-8'],
+          '/computers.js': ['computers.js', 'text/javascript; charset=utf-8'],
+          '/worker-portraits.js': ['worker-portraits.js', 'text/javascript; charset=utf-8'],
+          '/styles.css': ['styles.css', 'text/css; charset=utf-8'],
+          '/images/workers/atlas.webp': ['images/workers/atlas.webp', 'image/webp'],
+          '/images/workers/maya.webp': ['images/workers/maya.webp', 'image/webp'],
+          '/images/workers/turing.webp': ['images/workers/turing.webp', 'image/webp'],
+          '/images/workers/linus.webp': ['images/workers/linus.webp', 'image/webp'],
+          '/images/workers/ada.webp': ['images/workers/ada.webp', 'image/webp'],
+          '/images/workers/grace.webp': ['images/workers/grace.webp', 'image/webp'],
+          '/images/workers/scout.webp': ['images/workers/scout.webp', 'image/webp'],
+        };
+        // Match original request bytes, never a decoded/normalized filesystem path.
+        const file = Object.hasOwn(staticFiles, rawPath) ? staticFiles[rawPath] : undefined;
+        if (file) {
+          if (file[1] === 'image/webp') {
+            // All components are fixed above; refuse symlinked asset directories/files.
+            const components = [publicDir, join(publicDir, 'images'), join(publicDir, 'images/workers'), join(publicDir, file[0])];
+            if (components.some(p => !lstatSync(p, { throwIfNoEntry: false }) || lstatSync(p).isSymbolicLink()) || !lstatSync(components[3]!).isFile()) {
+              json(404, { error: 'Not found' }); return;
+            }
+          }
+          const content = readFileSync(join(publicDir, file[0]));
+          res.writeHead(200, { ...securityHeaders, 'Content-Type': file[1] }); res.end(content); return;
+        }
         json(404, { error: 'Not found' }); return;
       }
       if (req.method !== 'POST') { json(405, { error: 'Method not allowed' }); return; }
