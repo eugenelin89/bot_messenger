@@ -1,0 +1,79 @@
+(node:21047) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Attention during held company and attention boot loads (1440px) (1902.987042ms)
+✔ Attention during held company and attention boot loads (390px) (1645.45775ms)
+✔ real SSE startup resolves verified zero (1371.156875ms)
+✔ mixed categories, stable order and exact Task navigation (1440px) (1589.128791ms)
+✔ mixed categories, stable order and exact Task navigation (390px) (1157.381667ms)
+✔ exact infrastructure approval navigation, owner denial and Attention source resolution (1068.859542ms)
+✔ historical failed execution under completed Task stays out of browser Attention (698.677375ms)
+✔ auxiliary Attention error preserves company state and recovers without false zero (743.099167ms)
+✔ reconnect retains last Attention, aborts stale read and preserves final navigation (953.020625ms)
+✔ Computer, group, mandate, publication and device items select existing source surfaces (1555.789459ms)
+✔ business item opens exact existing action inspector, late load cannot steal navigation (926.167959ms)
+✔ cached zero remains unverified after reconnect until the Attention read succeeds (816.237458ms)
+(node:21048) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ browser direct conversations preserve drafts by recipient, show passive/queued replies, safe text, controls and lineage (3859.50725ms)
+✔ delayed history page cannot be appended to another selected conversation (2400.387833ms)
+(node:21049) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ new group waits for the initial eligible roster before opening the charter (2379.236667ms)
+✔ working group browser drafts, safe evidence, explicit start, pause/stop and routing isolation (3276.720375ms)
+✔ group drafts and delayed history stay attached to the original group (1810.159375ms)
+✔ blocked group owner selects an unfenced existing participant for explicit incomplete finish (1335.756542ms)
+(node:21050) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (2361.230958ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (4420.151084ms)
+(node:21051) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ historical undefined-state race: all early tabs preserve intent (1440px) (3013.1085ms)
+✔ historical undefined-state race: all early tabs preserve intent (390px) (2594.4985ms)
+✔ initial session failure recovers through ready (1464.941667ms)
+✔ initial session failure recovers through retry (892.30975ms)
+✔ initial state failure recovers through ready (1018.436ms)
+✔ initial state failure recovers through retry (810.430084ms)
+✔ boot controls cannot send writes while session or state is unavailable (771.099875ms)
+✔ normal startup uses real SSE and loaded empty state is distinct from boot (674.564083ms)
+✔ reconnect retains state, tab and draft; a stale response cannot declare readiness (752.440792ms)
+✔ failed refresh retains prior state and disables writes until retry succeeds (811.713541ms)
+✔ first direct auxiliary load is explicit and recovers independently (867.8395ms)
+✔ first groups auxiliary load is explicit and recovers independently (833.278ms)
+✔ first mandates auxiliary load is explicit and recovers independently (680.880209ms)
+✔ first computers auxiliary load is explicit and recovers independently (685.838041ms)
+✔ first devices auxiliary load is explicit and recovers independently (684.879416ms)
+✔ auxiliary failure remains visible without converting company state to empty (660.895291ms)
+✔ changed events and rapid tab switches coalesce state requests (696.108625ms)
+✔ closed worker inspector cannot be reopened by late discovery (621.149583ms)
+✔ inspector draft and submit recover after an intercepted write fails during disconnect (694.6555ms)
+✔ late failed worker discovery cannot replace a newer inspector (617.5845ms)
+✔ late conversation index cannot overwrite a changed worker filter (655.934458ms)
+✔ stream interruption reports reconnecting even when a state request failed first (596.249125ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 41
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21432.7465
+
+✖ failing tests:
+
+test at test/mandates-ui.browser.mjs:8:1
+✖ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (2361.230958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/mandates-ui.browser.mjs:10:647)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

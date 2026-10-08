@@ -41,3 +41,14 @@
 .attention-item small { overflow-wrap:anywhere; }
 .attention-item header, #view > .task-card > header { flex-wrap:wrap; gap:10px; }
 [data-attention-source]:focus, [data-computer-detail]:focus, [data-mandate-detail]:focus { outline:2px solid var(--accent, #6577b8); outline-offset:3px; }
+
+/* Worker portraits are optional decoration; the adjacent text owns identity. */
+.avatar{position:relative;overflow:hidden;flex-shrink:0;display:inline-flex;vertical-align:middle}
+.avatar .worker-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.avatar-compact{width:26px;height:26px;font-size:9px}.avatar-large{width:48px;height:48px}
+.worker-identity{display:inline-flex;align-items:center;gap:8px;vertical-align:middle;max-width:100%}
+.worker-identity>span:last-child{overflow-wrap:anywhere;min-width:0}
+.task-ownership{min-width:0}.task-ownership>strong{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.task-ownership>small{display:block;margin-top:7px;font-size:10px}.task-card header{flex-wrap:wrap;align-items:flex-start}
+.worker-profile{margin:0 0 18px}.org-node{flex-wrap:wrap}.org-node>div{min-width:0;overflow-wrap:anywhere}
+@media(max-width:720px){.org-tree{padding:16px}.org-children{margin-left:12px;padding-left:12px}.org-node{gap:8px}}

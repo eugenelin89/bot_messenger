@@ -1,0 +1,62 @@
+{
+  "source_repository": "eugenelin89/asymmetri",
+  "source_commit": "f572e31254079a493dac98279e161d85172bab29",
+  "portraits": [
+    {
+      "name": "Atlas",
+      "source": "public/images/botsquad/atlas.webp",
+      "destination": "public/images/workers/atlas.webp",
+      "git_blob": "af1b589bbb6505b556701ae240fc375071446df8",
+      "bytes": 15844,
+      "sha256": "76bf6d9e4c9f79676da9e1836bf22ff042a9867e845ca2a21ea799fe59970e01"
+    },
+    {
+      "name": "Maya",
+      "source": "public/images/botsquad/maya.webp",
+      "destination": "public/images/workers/maya.webp",
+      "git_blob": "567f74b9fdf3849f2bfc549f82cf6017b2dc741c",
+      "bytes": 20636,
+      "sha256": "4c1ab0fba07ae7f79e2aee6c8ab0539ba6e5b7002b80ce81f38e2f304202b514"
+    },
+    {
+      "name": "Turing",
+      "source": "public/images/botsquad/turing.webp",
+      "destination": "public/images/workers/turing.webp",
+      "git_blob": "5cbc70fd230e67b0ddb2fe796ececd0873490d07",
+      "bytes": 19742,
+      "sha256": "d8e3c490d4c01b6ea82646f8da6903a027763dc91d1b860a1973b9b54559d16f"
+    },
+    {
+      "name": "Linus",
+      "source": "public/images/botsquad/linus.webp",
+      "destination": "public/images/workers/linus.webp",
+      "git_blob": "4bb5e75915f68bd9264a77b0a9fa501640056ba3",
+      "bytes": 19000,
+      "sha256": "da69e895eb3291a1999ae18c1f4cb38c48c57d1468007c4130f1188d560999fd"
+    },
+    {
+      "name": "Ada",
+      "source": "public/images/botsquad/ada.webp",
+      "destination": "public/images/workers/ada.webp",
+      "git_blob": "6644825bd8ec94ddaf494475ac5cdebdea312e99",
+      "bytes": 18174,
+      "sha256": "fdbbd2a6224d8891fbfa358f9b32aeb2617e3f3d30df828e2344743194b08834"
+    },
+    {
+      "name": "Grace",
+      "source": "public/images/botsquad/grace.webp",
+      "destination": "public/images/workers/grace.webp",
+      "git_blob": "7a4ac913e854510fcbb80ae205ab5c737fe3e855",
+      "bytes": 19860,
+      "sha256": "f87f7b472a13f9fcfeaea754c66c2c10a87b1e16ddbd5dce85431ce7234bdeab"
+    },
+    {
+      "name": "Scout",
+      "source": "public/images/botsquad/scout.webp",
+      "destination": "public/images/workers/scout.webp",
+      "git_blob": "2e4c659c2c39d4beeda8cb4759c2d8d6599d7842",
+      "bytes": 18410,
+      "sha256": "d485a4e498683a0a1715b9587b6b5278b5396da41988a943e2a03198569982fa"
+    }
+  ]
+}
