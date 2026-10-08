@@ -1,0 +1,17 @@
+{
+  "scope": "Post-Stabilization-04 Nix portrait sync",
+  "source_repository": "eugenelin89/asymmetri",
+  "source_commit": "322b67acd785735dd2ffac9c5c082c684fbee836",
+  "portraits": [
+    {
+      "name": "Nix",
+      "source": "public/images/botsquad/nix.webp",
+      "destination": "public/images/workers/nix.webp",
+      "git_blob": "624172e3eb7767e8e12cfa8f55366f26eaf04141",
+      "bytes": 14912,
+      "sha256": "977687061d10f7df1bc9379bb76b731039f4c5fadcb9b0ee9be6a37fa026fc12",
+      "source_sha256": "977687061d10f7df1bc9379bb76b731039f4c5fadcb9b0ee9be6a37fa026fc12",
+      "source_alt_text": "Illustrated portrait of Nix, a BotSquad AI worker."
+    }
+  ]
+}

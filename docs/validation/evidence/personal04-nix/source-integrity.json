@@ -1,0 +1,63 @@
+{
+  "website_source_commit": "322b67acd785735dd2ffac9c5c082c684fbee836",
+  "source_destination_byte_equality": true,
+  "website_read_only": true,
+  "assets": [
+    {
+      "name": "Atlas",
+      "git_blob": "af1b589bbb6505b556701ae240fc375071446df8",
+      "sha256": "76bf6d9e4c9f79676da9e1836bf22ff042a9867e845ca2a21ea799fe59970e01",
+      "bytes": 15844,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Maya",
+      "git_blob": "567f74b9fdf3849f2bfc549f82cf6017b2dc741c",
+      "sha256": "4c1ab0fba07ae7f79e2aee6c8ab0539ba6e5b7002b80ce81f38e2f304202b514",
+      "bytes": 20636,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Turing",
+      "git_blob": "5cbc70fd230e67b0ddb2fe796ececd0873490d07",
+      "sha256": "d8e3c490d4c01b6ea82646f8da6903a027763dc91d1b860a1973b9b54559d16f",
+      "bytes": 19742,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Linus",
+      "git_blob": "4bb5e75915f68bd9264a77b0a9fa501640056ba3",
+      "sha256": "da69e895eb3291a1999ae18c1f4cb38c48c57d1468007c4130f1188d560999fd",
+      "bytes": 19000,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Ada",
+      "git_blob": "6644825bd8ec94ddaf494475ac5cdebdea312e99",
+      "sha256": "fdbbd2a6224d8891fbfa358f9b32aeb2617e3f3d30df828e2344743194b08834",
+      "bytes": 18174,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Grace",
+      "git_blob": "7a4ac913e854510fcbb80ae205ab5c737fe3e855",
+      "sha256": "f87f7b472a13f9fcfeaea754c66c2c10a87b1e16ddbd5dce85431ce7234bdeab",
+      "bytes": 19860,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Scout",
+      "git_blob": "2e4c659c2c39d4beeda8cb4759c2d8d6599d7842",
+      "sha256": "d485a4e498683a0a1715b9587b6b5278b5396da41988a943e2a03198569982fa",
+      "bytes": 18410,
+      "unchanged_from_botsquad_baseline": true
+    },
+    {
+      "name": "Nix",
+      "git_blob": "624172e3eb7767e8e12cfa8f55366f26eaf04141",
+      "sha256": "977687061d10f7df1bc9379bb76b731039f4c5fadcb9b0ee9be6a37fa026fc12",
+      "bytes": 14912,
+      "unchanged_from_botsquad_baseline": false
+    }
+  ]
+}

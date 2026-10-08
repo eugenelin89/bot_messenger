@@ -3,7 +3,7 @@ const portraits = Object.freeze({
   Atlas: '/images/workers/atlas.webp', Maya: '/images/workers/maya.webp',
   Turing: '/images/workers/turing.webp', Linus: '/images/workers/linus.webp',
   Ada: '/images/workers/ada.webp', Grace: '/images/workers/grace.webp',
-  Scout: '/images/workers/scout.webp',
+  Scout: '/images/workers/scout.webp', Nix: '/images/workers/nix.webp',
 });
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 export function portraitForWorker(worker) {

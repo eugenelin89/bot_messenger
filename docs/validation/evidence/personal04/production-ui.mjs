@@ -5,9 +5,10 @@ import {writeFileSync,readFileSync,mkdirSync} from 'node:fs';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
 import {chromium} from 'playwright';
-const [revision,out,screens]=process.argv.slice(2),url='http://127.0.0.1:4310';
+const [revision,out,screens,additionalManifest]=process.argv.slice(2),url='http://127.0.0.1:4310';
 assert.match(revision,/^[a-f0-9]{40}$/);let tunnel,browser;
 const manifest=JSON.parse(readFileSync(new URL('./portraits.json',import.meta.url)));
+if(additionalManifest)manifest.portraits.push(...JSON.parse(readFileSync(additionalManifest)).portraits);
 const mapping=Object.fromEntries(manifest.portraits.map(p=>[p.name,'/'+p.destination.slice(7)]));
 const errors=[],writes=[],external=[],runs=[],assetChecks=[];
 async function get(path){const r=await fetch(url+'/api/'+path);assert.equal(r.status,200);return r.json();}
@@ -37,7 +38,7 @@ try{
   await page.locator('[data-tab=organization]').click();assert.equal(await page.locator('.org-node').count(),state.workers.length+1);await healthyImages(page);await layout(page);
   for(const w of state.workers){const node=page.locator('.org-node').filter({has:page.locator(`[data-worker="${w.worker_id}"]`)});assert.deepEqual(await portraitSources(node),[expected(w)]);assert.ok((await node.textContent()).includes(w.display_name));}
   if(screens)await page.locator('.org-tree').screenshot({path:join(screens,`organization-${viewport.width}.png`)});
-  const atlas=state.workers.find(w=>w.display_name==='Atlas');await page.locator(`#view [data-worker="${atlas.worker_id}"]`).click();await page.locator('.worker-profile').waitFor();assert.deepEqual(await portraitSources(page.locator('.worker-profile')),[mapping.Atlas]);await page.locator('#close-inspect').click();
+  for(const name of ['Atlas','Nix']){const w=state.workers.find(w=>w.display_name===name);if(!w)continue;await page.locator(`#view [data-worker="${w.worker_id}"]`).click();await page.locator('.worker-profile').waitFor();assert.deepEqual(await portraitSources(page.locator('.worker-profile')),[expected(w)]);await healthyImages(page);await page.locator('#close-inspect').click();}
   await page.locator('[data-tab=direct]').click();await page.locator('#conversation-worker').waitFor();const conversations=await get('conversations');let directMessages=0,peerMessages=0;
   for(const c of conversations.items){await page.locator(`[data-conversation="${c.conversation_id}"]`).click();const detail=await get('conversations/'+c.conversation_id);await page.waitForFunction(id=>document.querySelector('#view')?.textContent.includes('Conversation '+id.split('_')[1].slice(0,8)),c.conversation_id);await page.waitForFunction(n=>document.querySelectorAll('.message').length===n,detail.history.items.length);assert.deepEqual(await portraitSources(page.locator('.message')),detail.history.items.map(m=>expected(sender(m.sender_principal_id))));await healthyImages(page);await layout(page);if(detail.participants.some(p=>p.principal_id==='human'))directMessages+=detail.history.items.length;else peerMessages+=detail.history.items.length;}
   await page.locator('[data-tab=groups]').click();await page.locator('#new-group').waitFor();const groups=await get('groups');let groupMessages=0,groupWorkerMessages=0;
@@ -45,7 +46,7 @@ try{
   await page.locator('[data-tab=attention]').click();await page.waitForFunction(n=>document.querySelector('#attention-count').textContent===String(n),attention.total);await layout(page);
   assert.equal(await page.locator('.attention-item').count(),attention.total);assert.equal(await page.locator('#pause').isEnabled(),true);
   assert.deepEqual([...imageRequests].sort(),Object.values(mapping).sort());
-  runs.push({viewport,roster:state.workers.length,executive_worker_portraits:executive,tasks:state.tasks.length,executions:state.executions.length,organization_workers:state.workers.length,worker_inspector:true,direct_messages:directMessages,peer_messages:peerMessages,groups:groups.items.length,group_messages:groupMessages,group_worker_messages:groupWorkerMessages,attention_count:attention.total,nix_fallback:true,no_document_overflow:true,decoded_images:true,local_image_paths:[...imageRequests].sort()});await page.close();
+  runs.push({viewport,roster:state.workers.length,executive_worker_portraits:executive,tasks:state.tasks.length,executions:state.executions.length,organization_workers:state.workers.length,worker_inspector:true,direct_messages:directMessages,peer_messages:peerMessages,groups:groups.items.length,group_messages:groupMessages,group_worker_messages:groupWorkerMessages,attention_count:attention.total,nix_fallback:!mapping.Nix,nix_portrait:mapping.Nix??null,no_document_overflow:true,decoded_images:true,local_image_paths:[...imageRequests].sort()});await page.close();
  }
  assert.deepEqual(errors,[]);assert.deepEqual(writes,[]);assert.deepEqual(external,[]);
  const result={revision,health,asset_checks:assetChecks,runs,page_errors:0,mutation_requests:0,external_portrait_requests:0,screenshots:screens?'Organization only; no private messages/objectives':'none',production_data_mutated:false};writeFileSync(out,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

@@ -104,6 +104,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           '/images/workers/ada.webp': ['images/workers/ada.webp', 'image/webp'],
           '/images/workers/grace.webp': ['images/workers/grace.webp', 'image/webp'],
           '/images/workers/scout.webp': ['images/workers/scout.webp', 'image/webp'],
+          '/images/workers/nix.webp': ['images/workers/nix.webp', 'image/webp'],
         };
         // Match original request bytes, never a decoded/normalized filesystem path.
         const file = Object.hasOwn(staticFiles, rawPath) ? staticFiles[rawPath] : undefined;

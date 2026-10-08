@@ -1,0 +1,14 @@
+(node:27893) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ correct local portraits across all core surfaces at 1440px (5525.167083ms)
+✔ correct local portraits across all core surfaces at 390px (1406.156542ms)
+✔ custom names are escaped, exact mapping never follows role, humans/System/operators keep fallback (500.2055ms)
+✔ image failure reveals initials and never changes readiness, Attention or creates model work (617.394959ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8289.493334
