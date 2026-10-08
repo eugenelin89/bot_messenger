@@ -1,7 +1,7 @@
 # BotSquad — Current State
 
 **Status:** Prompts 01–11 and WE-01 complete; Prompt 11 bounded supervised; Personal Operator stabilization is current priority
-**Updated:** 2026-10-06
+**Updated:** 2026-10-07
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
@@ -557,7 +557,7 @@ company state and Codex service-account authentication/history.
 The following are documented future directions, not current capabilities:
 
 - broad trusted human approval grants;
-- general worker Computer Use (the bounded Demo Operator is a separate test client);
+- general desktop/account access (Prompt 10 implements separately granted bounded browser Tasks; the Demo Operator remains a separate test client);
 - public Internet UI/login;
 - generalized remote server fleets;
 - provider API provisioning;
@@ -600,8 +600,9 @@ separate non-root boundary for remote Git. See Decision 014.
 ## Future native mobile access
 
 A native iPhone/iPad client remains an accepted future architecture direction, but it is
-explicitly deferred while BotSquad fixes direct worker conversation and collaborative
-deliberation. It is not implemented yet.
+deferred until demonstrated owner need under Decision 026. Conversations and working
+groups are complete; native iOS/mobile transport is not implemented. Personal Operator
+reliability remains the current priority.
 
 The intended design keeps the Ubuntu HQ private and makes the iOS app another
 authenticated BotSquad client rather than a WebView or SSH wrapper. The app should use a

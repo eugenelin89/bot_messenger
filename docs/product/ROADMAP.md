@@ -1,9 +1,12 @@
 # BotSquad Roadmap
 
 **Status:** Canonical prompt roadmap  
-**Updated:** 2026-10-06
+**Updated:** 2026-10-07
 
-This document defines the current planned sequence of BotSquad implementation prompts.
+This document defines BotSquad milestone sequencing and status. The
+[canonical specification index](../../prompts/milestones/README.md) links Prompts 01–11 to
+provenance, execution, validation and decisions; the [stabilization index](../../prompts/stabilizations/README.md)
+covers unnumbered Personal Operator work. Those indexes provide navigation, not a competing roadmap.
 
 Prompt numbers are roadmap identifiers, not product version numbers. A prompt may contain
 multiple commits and may be split internally if evidence requires it. Decision 017
@@ -98,7 +101,7 @@ reasoning may be broad; authority remains enforced outside model-authored text. 
 [Decision 017](../decisions/decision_017_single_company_first.md),
 [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
 [Project Memory](../PROJECT_MEMORY.md) and
-[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+[Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ### Numbering change
 
@@ -512,7 +515,7 @@ cannot assign Ada a Task if the hierarchy forbids it.
 
 The browser/SSH path is sufficient for this milestone. Do not build iOS merely to expose
 these semantics. Apply C07-1 through C07-4 in
-[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+[Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ---
 
@@ -762,7 +765,7 @@ outcome while leaving meaningful organizational choices to the team.
 
 See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md),
 [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md), and C09-1 through
-C09-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+C09-4 in [Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ---
 
@@ -873,7 +876,7 @@ smaller pilot rather than broaden permissions merely to pass a test.
 
 See [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
 [Decision 017](../decisions/decision_017_single_company_first.md), and C11-1 through
-C11-4 in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+C11-4 in [Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ---
 
@@ -1008,7 +1011,7 @@ When a milestone changes organization behavior, its Codex prompt should ask whet
 
 Where relevant, include both an open-ended company scenario and the Asymmetri Motion
 specific-product scenario. Read [Project Memory](../PROJECT_MEMORY.md) and apply the
-acceptance IDs in [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+acceptance IDs in [Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ## Human agency
 
@@ -1112,7 +1115,7 @@ in parallel once its actual trust/data dependencies are proven and scope is auth
 
 - [Project Memory](../PROJECT_MEMORY.md)
 - [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md)
-- [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md)
+- [Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md)
 - [Current State](../operations/CURRENT_STATE.md)
 - [Project Vision](PROJECT_VISION.md)
 - [System Architecture](../architecture/SYSTEM_ARCHITECTURE.md)

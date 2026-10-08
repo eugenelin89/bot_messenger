@@ -35,5 +35,8 @@ across a service restart and second bootstrap. A reboot may be performed after p
 operations finish, state is durable, service is enabled and SSH recovery is expected;
 wait with a bounded retry loop and verify automatic startup afterward.
 
-Print the SSH tunnel command and URL. State any unexercised gate accurately. Nix,
-per-worker Unix accounts, approval grants, public hosting and Computer Use are deferred.
+Print the SSH tunnel command and URL. State any unexercised gate accurately. The current
+installer includes infrastructure needed by later milestones; Nix, per-worker identity and
+bounded Computer Use are implemented capabilities with separate activation/acceptance
+boundaries. This bootstrap prompt does not authorize creating worker identities, activating
+grants or running those later acceptance scenarios. Public hosting remains deferred.

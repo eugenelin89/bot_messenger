@@ -1,7 +1,7 @@
 # BotSquad — System Architecture
 
 **Status:** Through Prompt 11 bounded supervised completion; evidence in milestone validation records
-**Updated:** 2026-10-06
+**Updated:** 2026-10-07
 
 ## Runtime topology: implemented baseline and accepted target
 
@@ -352,8 +352,10 @@ unknown outcomes never replay. The model sees structured rendered snapshots; rea
 private owner evidence. Native worker tools, engineering, Demo Operator and remote devices
 grant no general GUI/desktop authority. See [Computer Use](COMPUTER_USE.md).
 
-Business actions, personal accounts, secrets, payments and outreach remain separate Prompt 11
-or later integrations. No full desktop or workstation access is part of this adapter.
+Prompt 11’s separate typed business adapter completed one supervised real document action;
+it does not extend Computer Use authority. Personal accounts, payments, broad outreach and
+general business integrations remain deferred. No full desktop or workstation access is
+part of this adapter.
 
 ## Worker configuration, migration and dispatch
 
@@ -451,7 +453,7 @@ See [Decision 013](../decisions/decision_013_trusted_worker_infrastructure.md).
 
 ## Future company and external-identity boundaries
 
-The implementation through Prompt 08 still has one company per configured data directory. The service UID, Codex
+The implementation through Prompt 11 and stabilizations 01–03 still has one company per configured data directory. The service UID, Codex
 account, logical worker and thread remain distinct; current worker priority is local
 to this control plane. No multi-company isolation or cross-HQ quota coordinator is
 implemented or implied by the Ubuntu deployment.
@@ -465,7 +467,8 @@ inbound content; they never replace internal records or grant authority.
 
 See [Multi-company and federation](../product/MULTI_COMPANY_AND_FEDERATION.md) and
 [External identities and Telegram](../product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md).
-These requirements constrain future work; they are not implemented through Prompt 06.
+These requirements remain deferred and unnumbered under Decisions 017 and 026.
+The current priority is Personal Operator reliability, not company/federation expansion.
 
 
 ## Stable native-client boundary

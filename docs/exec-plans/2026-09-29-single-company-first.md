@@ -86,7 +86,7 @@ A repository-backed memory/handoff is the durable continuation mechanism for thi
 
 ## Documentation freshness
 
-Updated the canonical roadmap, README, vision, decision index and Decisions 010/016. Added Decision 017, `docs/PROJECT_MEMORY.md`, `docs/product/SINGLE_COMPANY_OPERATIONS.md`, `prompts/MILESTONE_REQUIREMENTS.md` and `prompts/AGENTS.md`. Earlier completed execution plans and validation reports remain unchanged. The implemented architecture/current-state records are not rewritten as though planned features exist; the new companion and Decision 017 describe their future extensions.
+Updated the canonical roadmap, README, vision, decision index and Decisions 010/016. Added Decision 017, `docs/PROJECT_MEMORY.md`, `docs/product/SINGLE_COMPANY_OPERATIONS.md`, the milestone-authoring guidance (now at `prompts/authoring/MILESTONE_REQUIREMENTS.md`) and `prompts/AGENTS.md`. Earlier completed execution plans and validation reports remain unchanged. The implemented architecture/current-state records are not rewritten as though planned features exist; the new companion and Decision 017 describe their future extensions.
 
 Current-facing sequence authority is the roadmap. Older future-numbering summaries are superseded explicitly rather than silently reinterpreted as current implementation. No claim of a repository-wide historical documentation audit is made.
 

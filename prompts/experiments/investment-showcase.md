@@ -1,8 +1,11 @@
 # Codex launcher — BotSquad investment showcase and Ask BotSquad
 
-**Status:** Future implementation prompt template. Reading this file starts no work.
+**Status:** Optional experiment launcher, outside the core BotSquad milestone roadmap. Reading this file starts no work.
 
-Use this launcher with exactly one packet from [the main roadmap](../docs/experiments/investment/ROADMAP.md). The first packet remains INV-01 — Contracts and feasibility. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
+Personal Operator / Daily Driver remains the separate current core priority under
+[Decision 026](../../docs/decisions/decision_026_personal_operator_stabilization.md).
+
+Use this launcher with exactly one packet from [the main roadmap](../../docs/experiments/investment/ROADMAP.md). The first packet remains INV-01 — Contracts and feasibility. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
 
 ## Owner selection
 

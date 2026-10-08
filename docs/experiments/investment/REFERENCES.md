@@ -19,7 +19,7 @@ Reviewed main: `ce99212c882327ad8e04fd3603867ac18428e1a4`.
 - [Decision 025](../../decisions/decision_025_bounded_business_operations.md): bounded supervised business-action scope; not a generic publication grant.
 - [Decision 026](../../decisions/decision_026_personal_operator_stabilization.md): Personal Operator priority and no automatic core Prompt 12.
 - [Canonical product roadmap](../../product/ROADMAP.md): completed core milestones and current priority.
-- [Milestone prompt requirements](../../../prompts/MILESTONE_REQUIREMENTS.md): acceptance and preservation conventions for future Codex work.
+- [Milestone prompt requirements](../../../prompts/authoring/MILESTONE_REQUIREMENTS.md): acceptance and preservation conventions for future Codex work.
 
 ### Asymmetri website
 

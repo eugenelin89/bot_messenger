@@ -1,7 +1,7 @@
 # AI Organization Model
 
-**Status:** Product model; bounded research and engineering organization validated on Ubuntu HQ
-**Updated:** 2026-09-29
+**Status:** Product model; conversations, working groups, company loop and bounded supervised business operation implemented; broader organization concepts remain future scope
+**Updated:** 2026-10-07
 
 ## Purpose
 
@@ -28,7 +28,7 @@ The motivating example is a virtual software startup:
 The organizational hierarchy is a coordination model. It is not, by itself, a security boundary.
 
 The hierarchy is also **not the only thinking topology**. It defines responsibility,
-assignment and escalation, while direct conversations and future working groups allow
+assignment and escalation, while implemented direct conversations and bounded working groups allow
 cross-functional reasoning.
 
 See [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md) and
@@ -213,8 +213,10 @@ assignments. Release evidence and limits are in the [validation record](../valid
 and [Decision 021](../decisions/decision_021_bounded_working_groups.md).
 
 Direct conversations, task delegation and **bounded group discussion** are implemented,
-with explicit membership and synthesis. Prompt 09 implements the next bounded company-loop
-layer; its completed release acceptance is recorded in the execution plan.
+with explicit membership and synthesis. Prompt 09’s bounded company loop and durable
+scheduler are also complete; [the execution plan](../exec-plans/prompt-09.md) records acceptance.
+Prompt 11’s supervised real path is complete, and [Decision 026](../decisions/decision_026_personal_operator_stabilization.md)
+prioritizes Personal Operator reliability before further expansion.
 
 Hierarchy should govern responsibility, assignment authority and protected actions. It
 should not prevent peers or cross-functional specialists from reasoning together.

@@ -1,6 +1,10 @@
 # Set Up a Minimal Ubuntu Host for BotSquad
 
-**Status:** Current Ubuntu host-preparation guide; validated through Prompt 06
+**Status:** Current Ubuntu host-preparation guide; topology used through Prompt 11 and Personal Operator stabilizations 01–03
+
+Later [milestone](../../prompts/milestones/README.md) and [stabilization](../../prompts/stabilizations/README.md)
+validation covers those changed surfaces, not a fresh certification of every bootstrap
+dimension. Hardware measurements below remain tied to their historical acceptance runs.
 **Audience:** Anyone preparing a machine for the BotSquad Ubuntu bootstrap prompt
 
 ## Goal
@@ -287,7 +291,7 @@ SSH configuration to configure the remote Ubuntu machine.
 
 From your local BotSquad checkout, open:
 
-    prompts/bootstrap-ubuntu.md
+    prompts/operations/bootstrap-ubuntu.md
 
 Set the SSH target near the top, for example:
 

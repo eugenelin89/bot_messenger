@@ -1,7 +1,7 @@
 # BotSquad — Native iOS Remote Client and Secure Remote Access
 
-**Status:** Prompt 06 protocol/device foundation accepted on Ubuntu; native iOS/mobile transport explicitly deprioritized while interaction and company-operating semantics mature
-**Updated:** 2026-09-29
+**Status:** Prompt 06 protocol/device foundation accepted; native iOS/mobile transport deferred until demonstrated owner need under Decision 026
+**Updated:** 2026-10-07
 
 ## Purpose
 
@@ -776,35 +776,28 @@ See [External Identities and Telegram Integration](EXTERNAL_IDENTITIES_AND_TELEG
 
 ## Recommended implementation sequence
 
-The protocol foundation is complete, but native mobile is no longer the immediate next
-step. The operator is comfortable using the private browser over SSH while BotSquad's
-worker interaction model is improved.
+The protocol foundation is complete. Prompts 07–10 are complete and Prompt 11 is complete
+within bounded supervised scope. Personal Operator stabilizations 01–03 are deployed.
+The private SSH-tunnel browser remains the supported operator path. Native iOS and easier
+mobile transport are deferred until actual owner use demonstrates a need; they are not
+an automatic next milestone.
 
 Current direction:
 
 ~~~text
-Prompt 04 — complete
-Nix + trusted approvals + per-worker Linux identity
+Prompts 01–10 — complete
         ↓
-Prompt 05 — complete
-Generalized project/repository lifecycle
+Prompt 11 — complete within bounded supervised scope
         ↓
-Prompt 06 — complete
-Stable/versioned authenticated remote client API + device pairing
+Personal Operator / Daily Driver — current, unnumbered
+Stabilizations 01–03 — complete and deployed
         ↓
-Prompt 07 — next
-Direct conversations + worker interaction
-        ↓
-Prompt 08
-Collaborative working groups + deliberation
-        ↓
-Prompt 09
-Strategic company operating loop
-        ↓
-... core organization roadmap ...
-        ↓
-Native iOS Remote MVP when interaction/company semantics are stable
+Further work selected from demonstrated owner need
+Native iOS / no-tunnel mobile access — deferred, unnumbered
 ~~~
+
+[Decision 026](../decisions/decision_026_personal_operator_stabilization.md) owns the current
+priority; the future mobile architecture below does not change device authority.
 
 The canonical numbered sequence is maintained in the [roadmap](ROADMAP.md). The
 important sequencing principle is:

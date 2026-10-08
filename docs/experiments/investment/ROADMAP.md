@@ -8,7 +8,7 @@
 
 ## How to use this roadmap
 
-Run one packet at a time with the [shared prompt launcher](../../../prompts/investment-experiment.md). Read its linked specifications, inspect current code and previous evidence, implement only that packet, validate it, and record the handoff before proceeding. A packet may be split as `INV-05A`, `INV-05B` when necessary; retain its original acceptance requirements and mark the parent incomplete until all children pass.
+Run one packet at a time with the [shared prompt launcher](../../../prompts/experiments/investment-showcase.md). Read its linked specifications, inspect current code and previous evidence, implement only that packet, validate it, and record the handoff before proceeding. A packet may be split as `INV-05A`, `INV-05B` when necessary; retain its original acceptance requirements and mark the parent incomplete until all children pass.
 
 The documentation here is the cross-repository source of truth. BotSquad code belongs in `eugenelin89/bot_messenger`; the receiver and public page belong in `eugenelin89/asymmetri`. Follow each repository's own AGENTS/Git/release workflow. Never assume both repos use the same branch policy or that one commit deploys both.
 

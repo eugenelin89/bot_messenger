@@ -68,4 +68,4 @@ Capital/universe/benchmark/risk/horizon, provider/data rights and cost, receiver
 
 ## Completion handoff
 
-Start at [the design guide](../experiments/investment/README.md), then [the detailed roadmap](../experiments/investment/ROADMAP.md). The first future task is INV-01 using [the launcher](../../prompts/investment-experiment.md). All implementation rows remain Planned. No deployment or activation occurred in this design task.
+Start at [the design guide](../experiments/investment/README.md), then [the detailed roadmap](../experiments/investment/ROADMAP.md). The first future task is INV-01 using [the launcher](../../prompts/experiments/investment-showcase.md). All implementation rows remain Planned. No deployment or activation occurred in this design task.

@@ -1,9 +1,12 @@
 # Single-Company Business Operations
 
 **Status:** Prompt 11 complete for bounded supervised scope; Personal Operator / Daily Driver stabilization is current priority
-**Updated:** 2026-10-06
-**Authority:** [Decision 017](../decisions/decision_017_single_company_first.md)
+**Updated:** 2026-10-07
+**Authority:** [Decision 017](../decisions/decision_017_single_company_first.md), with current sequencing clarified by [Decision 026](../decisions/decision_026_personal_operator_stabilization.md)
 **Companion model:** [Intelligent Company Operating Model](INTELLIGENT_COMPANY_MODEL.md)
+
+Personal Operator stabilizations 01–03 are complete and deployed; the
+[stabilization index](../../prompts/stabilizations/README.md) links their specifications and evidence.
 
 ## Foundational single-company priority
 
@@ -120,7 +123,7 @@ Only after this packet supports a useful bounded operating company should multi-
 
 ## Future prompt checklist and continuity
 
-Use [Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) to carry these requirements into executable Codex tasks. Start new planning sessions with [Project Memory](../PROJECT_MEMORY.md), then verify current repository status rather than trusting a stale chat recap. Preserve earlier milestone evidence; accepted future requirements must never be presented as completed implementation.
+Use [Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md) to carry these requirements into executable Codex tasks. Start new planning sessions with [Project Memory](../PROJECT_MEMORY.md), then verify current repository status rather than trusting a stale chat recap. Preserve earlier milestone evidence; accepted future requirements must never be presented as completed implementation.
 
 ## Deliberation boundary for later operating cycles
 
@@ -128,8 +131,8 @@ Prompt 08's accepted working groups can compare options using explicitly shared 
 and granted public research, then save a traceable recommendation. The owner separately
 selects and submits that artifact as a normal Task. This capability alone does not create
 an operating mandate, recurring schedule, outreach permission or measured business result.
-Prompt 09 must reuse these ownership, evidence, budget and uncertainty boundaries while
-adding its separately accepted durable loop. See [working-group semantics](../architecture/WORKING_GROUPS.md).
+Prompt 09 reuses these ownership, evidence, budget and uncertainty boundaries in
+its separately accepted durable loop. See [working-group semantics](../architecture/WORKING_GROUPS.md).
 
 
 ## Prompt 09 implementation boundary

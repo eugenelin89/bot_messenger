@@ -15,8 +15,10 @@ is intentionally unnumbered; no Prompt 12 is implied.
 **Continuing from another chat or Codex task?** Read
 [Project Memory](docs/PROJECT_MEMORY.md), the [canonical roadmap](docs/product/ROADMAP.md)
 and [Decision 017](docs/decisions/decision_017_single_company_first.md), then verify current
-repository status. Future milestone prompts also use
-[Milestone Prompt Requirements](prompts/MILESTONE_REQUIREMENTS.md).
+repository status. [Decision 026](docs/decisions/decision_026_personal_operator_stabilization.md)
+owns current sequencing. Find canonical specs in the [prompt directory guide](prompts/README.md).
+Future milestone prompts also use
+[Milestone Prompt Requirements](prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ## Current state
 
@@ -24,7 +26,7 @@ repository status. Future milestone prompts also use
 
 The [operating-loop architecture](docs/architecture/COMPANY_OPERATING_LOOP.md),
 [learn-by-doing tutorial](docs/operations/COMPANY_OPERATING_LOOP_TUTORIAL.md) and
-[active acceptance plan](docs/exec-plans/prompt-09.md) describe owner-activated mandates,
+[completed execution plan](docs/exec-plans/prompt-09.md) describe owner-activated mandates,
 company-selected internal work, labelled evidence, durable decisions and scheduled reviews.
 Mandates add no publication, outreach, spending or Computer Use authority. Browser work has a separate explicit owner policy.
 
@@ -85,11 +87,12 @@ The bounded [Demo Operator](docs/product/DEMO_OPERATOR.md) exercises the real we
 and records the [StudyPlan tutorial](docs/tutorials/demo-01-studyplan/README.md). It is an
 interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is unchanged.
 
-The roadmap builds on conversation and durable context continuity with team deliberation,
-a strategic loop with a minimal durable scheduler, and useful single-company business
-operations. The existing SSH-tunnel browser remains the preferred operator path for now;
-native iOS and multi-company/federation are deferred. None of these future requirements
-is marked implemented without its acceptance evidence.
+Completed milestones provide conversation/context continuity, team deliberation, a strategic
+loop with durable scheduling and one bounded supervised business path. Personal Operator
+stabilizations 01–03 are complete and deployed: scheduler reliability, startup/navigation
+and owner Attention. See the [stabilization index](prompts/stabilizations/README.md). The
+SSH-tunnel browser remains the preferred operator path; native iOS and multi-company/federation
+remain deferred under Decision 026.
 
 Use the worker inspector or **Conversations** tab to open a direct conversation.
 **Request reply** queues bounded model work; **Passive message** only records context.
@@ -136,7 +139,7 @@ and let the organization decide what to research, who should discuss the problem
 Projects/experiments to run, how to review the result, and whether to continue, iterate,
 pivot, stop or scale.
 
-The roadmap therefore prioritizes:
+The implemented sequence and current priority are:
 
 ~~~text
 07 direct conversations + runtime-context continuity
@@ -152,11 +155,10 @@ Worker and BotSquad Conversation identities must outlive replaceable provider se
 Due reviews/follow-ups belong to trusted durable scheduling, not idle model polling.
 Asymmetri Motion is a reference configuration, never a hard-coded engine assumption.
 
-Prompt 09 may use clearly labelled read-only/sanitized/fixture evidence. Prompt 11 must
-close a real approved action → receipt → observation → scheduled review loop before
-claiming live business operation. Implement the smallest useful capability set, not every
-business connector at once. Strategic reasoning can be broad; operational authority
-remains bounded by trusted capabilities and approvals. No profitability is guaranteed.
+Prompt 09’s acceptance used clearly labelled fixture evidence. Prompt 11 subsequently
+closed one real approved action → receipt → observation → scheduled review loop within
+bounded supervised scope. That result proves no profitability or broad unattended
+operation. Strategic reasoning remains separate from trusted capabilities and approvals.
 
 See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md),
 [Single-Company Business Operations](docs/product/SINGLE_COMPANY_OPERATIONS.md),
@@ -300,7 +302,7 @@ Linux sandboxing on the server.
 Open:
 
 ```text
-prompts/bootstrap-ubuntu.md
+prompts/operations/bootstrap-ubuntu.md
 ```
 
 Set:
@@ -523,7 +525,10 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 ### Start here
 
 - [Project Memory and Continuation Handoff](docs/PROJECT_MEMORY.md)
-- [Milestone Prompt Requirements](prompts/MILESTONE_REQUIREMENTS.md)
+- [Prompt Directory and Documentation Map](prompts/README.md)
+- [Core Milestone Specifications 01–11](prompts/milestones/README.md)
+- [Personal Operator Stabilizations 01–03](prompts/stabilizations/README.md)
+- [Milestone Prompt Requirements](prompts/authoring/MILESTONE_REQUIREMENTS.md)
 - [BotSquad Engineer Primer — From Demo Operator to Prompt 05](docs/guides/BOTSQUAD_ENGINEER_PRIMER.md)
 - [Current State](docs/operations/CURRENT_STATE.md)
 - [Access and Operations](docs/operations/ACCESS_AND_OPERATIONS.md)
@@ -538,6 +543,10 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Technical White Paper](docs/WHITEPAPER.md)
 - [技術白皮書｜台灣繁體中文版](docs/WHITEPAPER_ZH_TW.md)
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
+- [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
+- [Bounded browser architecture](docs/architecture/COMPUTER_USE.md)
+- [Computer Use operator tutorial](docs/operations/COMPUTER_USE_TUTORIAL.md)
+- [Prompt 10 validation](docs/validation/PROMPT_10_VALIDATION.md)
 - [Project Vision](docs/product/PROJECT_VISION.md)
 - [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL.md)
 - [Single-Company Business Operations](docs/product/SINGLE_COMPANY_OPERATIONS.md)
@@ -559,10 +568,6 @@ business integrations do not depend on first implementing these larger platforms
 
 - [Multi-Company and Federation Model](docs/product/MULTI_COMPANY_AND_FEDERATION.md)
 - [External Identities and Telegram Integration](docs/product/EXTERNAL_IDENTITIES_AND_TELEGRAM.md)
-- [Computer Use Model](docs/product/COMPUTER_USE_MODEL.md)
-- [Bounded browser architecture](docs/architecture/COMPUTER_USE.md)
-- [Computer Use operator tutorial](docs/operations/COMPUTER_USE_TUTORIAL.md)
-- [Prompt 10 validation](docs/validation/PROMPT_10_VALIDATION.md)
 - [Native iOS Remote Client and Secure Remote Access](docs/product/IOS_REMOTE_CLIENT.md)
 
 ### Recorded tutorial

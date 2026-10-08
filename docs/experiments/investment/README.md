@@ -44,7 +44,7 @@ Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and
 | [Decisions](DECISIONS.md) | Resolved design choices, open configuration and amendments |
 | [References](REFERENCES.md) | Baseline repository evidence and primary external references; Ask adds its checked sources in its own specification |
 
-Read the product guide, Ask specification, architecture and roadmap. Implementers then read the relevant technical specifications before running one build packet. The [prompt launcher](../../../prompts/investment-experiment.md) supplies shared instructions. The [original documentation execution plan](../../exec-plans/investment-experiment-design.md) and [Ask amendment plan](../../exec-plans/ask-botsquad-design.md) record design-only work.
+Read the product guide, Ask specification, architecture and roadmap. Implementers then read the relevant technical specifications before running one build packet. The [prompt launcher](../../../prompts/experiments/investment-showcase.md) supplies shared instructions. The [original documentation execution plan](../../exec-plans/investment-experiment-design.md) and [Ask amendment plan](../../exec-plans/ask-botsquad-design.md) record design-only work.
 
 ## Version 1.1 amendment and precedence
 

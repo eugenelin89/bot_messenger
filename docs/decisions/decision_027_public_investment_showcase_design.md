@@ -13,7 +13,7 @@ The principal purpose is demonstrating persistent, accountable AI teamwork, not 
 
 ## Decision
 
-Record a detailed subject-organized [design guide](../experiments/investment/README.md) and [INV-01–INV-12 build roadmap](../experiments/investment/ROADMAP.md), with a [shared Codex launcher](../../prompts/investment-experiment.md). The roadmap is an owner-selected experimental track, not core Prompt 12 and not a renumbering of completed milestones.
+Record a detailed subject-organized [design guide](../experiments/investment/README.md) and [INV-01–INV-12 build roadmap](../experiments/investment/ROADMAP.md), with a [shared Codex launcher](../../prompts/experiments/investment-showcase.md). The roadmap is an owner-selected experimental track, not core Prompt 12 and not a renumbering of completed milestones.
 
 BotSquad HQ remains authoritative for organization state and a new deterministic paper ledger. Workers reason; trusted code enforces accounting and constraints. A separately owner-granted publisher sends only approved public projections and artifact copies to a bounded Asymmetri REST receiver/archive. The website cannot command HQ. Genuine discussion and durable artifact links are required in the first public release.
 

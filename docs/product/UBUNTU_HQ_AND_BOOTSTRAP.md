@@ -1,7 +1,7 @@
 # BotSquad — Ubuntu HQ and Bootstrap Model
 
-**Status:** Prompt 06 complete and validated on Ubuntu 24.04 x86_64
-**Updated:** 2026-09-29
+**Status:** Current Ubuntu topology; used through Prompt 11 and Personal Operator stabilizations 01–03
+**Updated:** 2026-10-07
 
 Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SETUP_UBUNTU_HOST.md).
 
@@ -9,7 +9,10 @@ Before starting, see [Set Up a Minimal Ubuntu Host for BotSquad](../bootstrap/SE
 
 Prompt 04 remains an accepted historical baseline; Prompt 05 extends its Project lifecycle,
 and Prompt 06 adds the stable authenticated Client API/device trust layer while preserving
-the private Ubuntu deployment. For operational truth and current acceptance status, use:
+the private Ubuntu deployment. Prompts 07–11 and Personal Operator stabilizations 01–03
+also run on this topology. Their acceptance records cover their changed surfaces; they do
+not re-certify every original bootstrap dimension or historical resource measurement.
+For operational truth and current acceptance status, use:
 
 - [Current State](../operations/CURRENT_STATE.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
@@ -451,7 +454,7 @@ Expected artifacts may include:
 
 ```text
 docs/bootstrap/UBUNTU_BOOTSTRAP.md
-prompts/bootstrap-ubuntu.md
+prompts/operations/bootstrap-ubuntu.md
 scripts/bootstrap-ubuntu.sh
 deploy/systemd/botsquad.service
 ```
@@ -542,8 +545,10 @@ was validated by an exact-revision reinstall and full host reboot, preserving ol
 protocol-1 grants and all production state. Prompt 06 then added stable `/api/v1/`,
 durable HQ/device identity, explicit local pairing/revocation, short-lived device
 authentication, idempotent mutations and reconnectable events without opening a public
-listener. Its restart/reboot acceptance preserved retained HQ state. **Prompt 07 — first-class
-conversations and direct worker interaction — is now next; Prompt 08 adds collaborative
-working groups/deliberation, and Prompt 09 adds the strategic company operating loop.**
-Native iOS/no-tunnel mobile access is deferred while the private SSH-tunnel browser remains
-the supported operator path.
+listener. Its restart/reboot acceptance preserved retained HQ state. Prompts 07–10 later
+completed conversations/continuity, working groups, company scheduling and bounded Computer
+Use. Prompt 11 completed one supervised real business path. Stabilizations 01–03 are complete
+and deployed on this topology. See [Current State](../operations/CURRENT_STATE.md) and
+[the stabilization index](../../prompts/stabilizations/README.md) for scoped evidence.
+Decision 026 keeps Personal Operator the current priority; native iOS/no-tunnel mobile
+access remains deferred until demonstrated owner need.

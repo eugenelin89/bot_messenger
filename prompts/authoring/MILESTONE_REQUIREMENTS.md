@@ -1,9 +1,9 @@
 # Requirements for Future BotSquad Milestone Prompts
 
 **Status:** Accepted prompt-authoring guidance; not an executable milestone  
-**Updated:** 2026-09-29
+**Updated:** 2026-10-07
 
-Read the root `AGENTS.md`, [Project Memory](../docs/PROJECT_MEMORY.md), the [canonical roadmap](../docs/product/ROADMAP.md), [Decision 016](../docs/decisions/decision_016_intelligent_company_model.md), [Decision 017](../docs/decisions/decision_017_single_company_first.md) and the [single-company operating requirements](../docs/product/SINGLE_COMPANY_OPERATIONS.md) before authoring or revising an organization milestone.
+Read the root `AGENTS.md`, [Project Memory](../../docs/PROJECT_MEMORY.md), the [canonical roadmap](../../docs/product/ROADMAP.md), [Decision 016](../../docs/decisions/decision_016_intelligent_company_model.md), [Decision 017](../../docs/decisions/decision_017_single_company_first.md) and the [single-company operating requirements](../../docs/product/SINGLE_COMPANY_OPERATIONS.md) before authoring or revising an organization milestone.
 
 This guide is a requirements source, not permission to implement every future feature now. Preserve the requested milestone's scope and current repository evidence. A historical or already-running prompt is not silently rewritten by this document.
 
@@ -32,8 +32,8 @@ Update affected product/architecture docs, decision records and the execution pl
 ## Development-time Codex specialist review
 
 For substantial implementation work, route development-time Codex subagents according to
-the changed risk surface using [the specialist guide](../docs/agents/README.md) and
-[Decision 023](../docs/decisions/decision_023_codex_specialist_subagents.md).
+the changed risk surface using [the specialist guide](../../docs/agents/README.md) and
+[Decision 023](../../docs/decisions/decision_023_codex_specialist_subagents.md).
 
 The parent Codex thread remains the only writer/integrator. Specialists are read-only and
 advisory. Do not create parallel writers or let a specialist stage, commit, merge, deploy,
@@ -84,7 +84,7 @@ Use these IDs in each applicable execution plan's acceptance matrix. Mark a requ
 
 ## Priority guard
 
-Prompts 01–06 remain completed history. Preserve 07 conversations/continuity → 08 deliberation → 09 company loop/scheduler → 10 bounded Computer Use → 11 real single-company operations.
+Prompts 01–10 are complete. Prompt 11 is complete within bounded supervised scope. Preserve the historical 07 conversations/continuity → 08 deliberation → 09 company loop/scheduler → 10 bounded Computer Use → 11 single-company operations sequence. The current priority is the unnumbered Personal Operator / Daily Driver phase under [Decision 026](../../docs/decisions/decision_026_personal_operator_stabilization.md); stabilizations 01–03 are complete and deployed. No automatic Prompt 12 follows.
 
 The old future assignments of 11 multi-company, 12 company collaboration, 13 Telegram and 14 federation are superseded by Decision 017. Those directions are deferred and unnumbered. Minimal scheduling belongs in 09; minimal business evidence and external-action adapters belong in 11, not behind federation. Broader CRM/accounting/cloud/payment platforms remain later unless a new explicit owner decision changes scope.
 
@@ -98,36 +98,36 @@ and asynchronous callback ownership. Read the WE-01 acceptance report for the cu
 live status. Do not assume every worker is granted, enable production permissions through
 migration, send internal documents to public search, or confuse provider-internal actions
 with hard application broker limits. Unknown research invocations preserve the shared
-worker fence; ordinary source failures do not. Prompt 10 — Bounded Computer Use — is Complete and deployed, with C10-1 and release evidence in its validation record. Prompt 11 — Single-company business operations and measured pilot — has a complete, deployed implementation; its real-business gates remain pending.
+worker fence; ordinary source failures do not. Prompt 10 — Bounded Computer Use — is Complete and deployed, with C10-1 and release evidence in its validation record. Prompt 11 — Single-company business operations and measured pilot — is complete within bounded supervised scope: **C11-1 PASS; C11-2 PASS; C11-3 PASS within supervised scope; C11-4 PASS.** Its one approved action, receipt/read-back and scheduled STOP do not prove business improvement or broad unattended operation. The owner timing correction, failed model turn/backoff and unknown costs remain qualifications in the [validation](../../docs/validation/PROMPT_11_VALIDATION.md).
 
 ## Prompt 08 implementation reference
 
 The accepted working-group implementation records its actual acceptance and deployment in
-[Decision 021](../docs/decisions/decision_021_bounded_working_groups.md),
-[technical semantics](../docs/architecture/WORKING_GROUPS.md), and
-[Prompt 08 validation](../docs/validation/PROMPT_08_VALIDATION.md). Later prompts must
+[Decision 021](../../docs/decisions/decision_021_bounded_working_groups.md),
+[technical semantics](../../docs/architecture/WORKING_GROUPS.md), and
+[Prompt 08 validation](../../docs/validation/PROMPT_08_VALIDATION.md). Later prompts must
 preserve group execution ownership, explicit sharing and grant-mode opt-in, actual seen
 checkpoints, versioned recommendations, separate assignments and uncertainty fences.
 A failed model attempt remains failed even when a separately authorized incomplete
-result or fresh isolated regression succeeds. Check the validation report's open gates
-before changing the canonical roadmap's completion status.
+result or fresh isolated regression succeeds. The validation record establishes completion
+without erasing failed attempts or broadening its acceptance scope.
 
 
 ## Prompt 09 implementation reference
 
-[Decision 022](../docs/decisions/decision_022_company_operating_loop.md) and
-[the architecture](../docs/architecture/COMPANY_OPERATING_LOOP.md) define the implemented
-mandate/clock boundary. C09-1 through C09-4 remain individual acceptance gates in
-[the active plan](../docs/exec-plans/prompt-09.md); implementation is not release completion.
+[Decision 022](../../docs/decisions/decision_022_company_operating_loop.md) and
+[the architecture](../../docs/architecture/COMPANY_OPERATING_LOOP.md) define the implemented
+mandate/clock boundary. C09-1 through C09-4 passed; the
+[completed plan](../../docs/exec-plans/prompt-09.md) retains individual acceptance and delivery evidence.
 Later prompts must preserve worker/cycle identity, evidence modes and delivery proof,
 private Task contexts, durable occurrence/version semantics, consumed bounds and unknown
 provider fences. Prompt 10 owns Computer Use; Prompt 11 owns measured live operations.
 
 ## Prompt 10 implementation reference
 
-[Architecture](../docs/architecture/COMPUTER_USE.md), [tutorial](../docs/operations/COMPUTER_USE_TUTORIAL.md),
-[Decision 024](../docs/decisions/decision_024_bounded_computer_use.md) and
-[C10-1 validation](../docs/validation/PROMPT_10_VALIDATION.md) distinguish real browser/worker
+[Architecture](../../docs/architecture/COMPUTER_USE.md), [tutorial](../../docs/operations/COMPUTER_USE_TUTORIAL.md),
+[Decision 024](../../docs/decisions/decision_024_bounded_computer_use.md) and
+[C10-1 validation](../../docs/validation/PROMPT_10_VALIDATION.md) distinguish real browser/worker
 proof, synthetic tests, injected faults and production inactivity. Preserve one bounded
 headless browser, owner-only immutable session grants, no personal desktop, disabled file
 transfer, trusted exact fixture approval and unknown-effect fencing. Do not count the fixture
@@ -136,10 +136,20 @@ the model receives only structured rendered snapshots.
 
 ## Prompt 11 implementation reference
 
-Read [business architecture](../docs/architecture/BUSINESS_OPERATIONS.md),
-[tutorial](../docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md),
-[Decision 025](../docs/decisions/decision_025_bounded_business_operations.md) and
-[validation](../docs/validation/PROMPT_11_VALIDATION.md). Preserve separate evidence/Decision/
+Read [business architecture](../../docs/architecture/BUSINESS_OPERATIONS.md),
+[tutorial](../../docs/operations/BUSINESS_OPERATIONS_TUTORIAL.md),
+[Decision 025](../../docs/decisions/decision_025_bounded_business_operations.md) and
+[validation](../../docs/validation/PROMPT_11_VALIDATION.md). Preserve separate evidence/Decision/
 action/approval/attempt/receipt objects, exact immutable scope, protected credential boundary,
 no blind replay and withdrawal rules. A real-runtime fixture or code deployment never passes
 the real C11-2 effect, scheduled C11-3 loop or evidence-driven C11-4 outcome by itself.
+
+
+## Specification preservation and documentation freshness
+
+Follow [the prompt directory guide](../README.md) for placement, historical provenance,
+the documentation map and the lightweight freshness checklist. Save approved substantial
+task specifications before or during execution whenever practical; link separate execution
+and validation records. Classify search hits before editing: current-facing status should
+be current, historical records retain their time-bound truth, and future architecture stays
+explicitly deferred. Record scan counts and dispositions in the task execution plan.

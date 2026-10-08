@@ -69,8 +69,9 @@ owner UI. This is a harmless enforcement fixture, not business-action authority.
 
 Approval is not a reusable permission. Text saying “approved” is ineffective. Do not infer
 success from the page's own JavaScript; the durable trusted receipt and fixture recorder
-are the evidence. Production publication, spending, outreach and account actions need a
-separately reviewed future integration.
+are the evidence. The separate [business-action adapter](BUSINESS_OPERATIONS_TUTORIAL.md)
+supports one exact approved document scope; it grants no browser authority. Broader
+publication, spending, outreach and account actions require separately reviewed authority.
 
 ## Stop, revoke and recover
 
@@ -96,5 +97,7 @@ request, effect recorder and retained history. There is no generic force-retry o
 button. Reconcile externally before designing any separate recovery action; never replay
 an unknown mutation just to obtain a success message.
 
-Prompt 10 supplies a bounded browser. Prompt 11 must separately demonstrate approved real
-business action, external receipt, measured result and scheduled review.
+Prompt 10 supplies a bounded browser. Prompt 11 separately completed one approved real
+document action, trusted receipt, independent read-back and scheduled STOP review within
+bounded supervised scope. [Its validation](../validation/PROMPT_11_VALIDATION.md) retains
+the supervision/failure qualifications and makes no business-improvement claim.

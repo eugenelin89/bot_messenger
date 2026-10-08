@@ -205,9 +205,11 @@ no fence. Production delivery requires a protected consistent backup, repeated o
 full retained-state comparison and exact source/build verification. Demonstrations belong only
 in isolated validation data directories.
 
-Prompt 10 owns bounded Computer Use. Prompt 11 owns approved real external action, receipts and
-measured business outcomes. Prompt 09 simulated strategic acceptance proves neither live
-marketing/product operation nor revenue improvement, outreach, publication or spending.
+Prompt 10 completed bounded Computer Use. Prompt 11 separately completed one approved real
+document action, receipt/read-back and scheduled STOP within supervised scope;
+[its validation](../validation/PROMPT_11_VALIDATION.md) claims no business improvement.
+Prompt 09’s simulated strategic acceptance alone proves neither live marketing/product
+operation nor revenue improvement, outreach, publication or spending.
 
 ## Prompt 11 external-action continuation
 

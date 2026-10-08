@@ -14,8 +14,12 @@ This is an explanatory primer, not the source of truth for current milestone sta
 - [BotSquad Roadmap](../product/ROADMAP.md)
 - [System Architecture](../architecture/SYSTEM_ARCHITECTURE.md)
 
-**Implementation update — 2026-09-29:** Prompt 05 and its independent audit are complete;
-Prompt 06 is also complete and Ubuntu/restart/reboot validated, and Prompt 07 is next.
+**Historical implementation update — 2026-09-29:** Prompt 05 and its independent audit were complete;
+Prompt 06 was also complete and Ubuntu/restart/reboot validated, and Prompt 07 was next.
+For today’s status, Prompts 01–10 are complete, Prompt 11 is complete within bounded
+supervised scope, and Personal Operator stabilizations 01–03 are complete and deployed.
+The [roadmap](../product/ROADMAP.md) remains authoritative; the rest of this primer retains
+its historical explanatory scope.
 Multiple repositories, scoped revision/review, durable integration, trusted remote
 operations and archive/release are implemented. Prompt 06 adds the stable authenticated
 `/api/v1/` client contract, durable HQ/device identity, explicit local pairing/revocation,
@@ -1181,11 +1185,16 @@ Bounded Computer Use
         |
         v
 
-Prompt 11+
-Multi-company / collaboration / external identities / federation
+Prompt 11 — complete within bounded supervised scope
+Single-company business operations
+        |
+        v
+Personal Operator / Daily Driver — current, unnumbered
+Stabilizations 01–03 complete
 
+Multi-company / collaboration / external identities / federation
 Native iOS / no-tunnel mobile access
-        -> deferred until interaction semantics stabilize
+        -> deferred and unnumbered; revisit only from demonstrated owner need
 ~~~
 
 ---
