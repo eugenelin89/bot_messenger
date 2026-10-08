@@ -42,7 +42,10 @@ Identity remains worker/principal based. No migrations or runtime acceptance wor
   source/destination byte equality. Narrow synthetic Working Group screenshot inspected.
 - First HTTP run hit sandbox listener EPERM; the same suite passed with listener permission.
 
+- PR #30 opened; independent test reviewer found no merge blocker. Historical/current
+  acceptance wording clarified as requested; postmerge gates remain explicit.
+
 ## Remaining work
 
-Review/PR/merge, exact merged build, protected backup/deployment,
+Normal merge, exact merged build, protected backup/deployment,
 production UI and preservation/idle, final delivery identity receipt.

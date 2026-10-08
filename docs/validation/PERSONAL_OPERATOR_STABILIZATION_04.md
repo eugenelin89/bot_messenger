@@ -1,6 +1,8 @@
 # Personal Operator Stabilization 04 — Validation
 
-**Status:** Complete and deployed — exact merged Ubuntu validation, production UI acceptance and preservation passed.
+**Original Stabilization 04 status:** Complete and deployed — exact merged Ubuntu validation, production UI acceptance and preservation passed.
+
+**Post-Stabilization-04 Nix sync:** Local validation passed; exact merged Ubuntu and production delivery gates pending.
 
 [Specification](../../prompts/stabilizations/personal-operator-04.md) · [Execution plan](../exec-plans/personal-operator-stabilization-04.md) · [Portrait semantics](../product/WORKER_PORTRAITS.md)
 

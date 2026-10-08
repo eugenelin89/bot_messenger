@@ -1,7 +1,7 @@
 # BotSquad — Current State
 
 **Status:** Prompts 01–11 and WE-01 complete; Prompt 11 bounded supervised; Personal Operator stabilization is current priority
-**Updated:** 2026-10-07
+**Updated:** 2026-10-08
 
 This document is the short operational snapshot of what BotSquad can do **today**.
 For implementation details, see the [system architecture](../architecture/SYSTEM_ARCHITECTURE.md),
@@ -14,9 +14,10 @@ For implementation details, see the [system architecture](../architecture/SYSTEM
 and deployed from PR #28. The [post-Stabilization-04 Nix sync](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md#post-stabilization-04-nix-portrait-sync)
 extends the original seven approved local portraits to all eight canonical AI workers.
 Human, System, custom/unknown workers and Computer Operators retain initials. No
-identity/authority change or external image dependency. Real desktop/narrow tunnel
-acceptance and production preservation passed; peer/group history remains fixture-verified
-because retained production has none.
+identity/authority change or external image dependency. Original seven-portrait desktop/narrow
+tunnel acceptance and production preservation passed. Nix local checks have passed; its exact
+merged Ubuntu checks, deployment, real UI and preservation/idle gates are pending. Peer/group
+history remains fixture-verified because retained production has none.
 
 ## Bounded supervised live closure — October 6, 2026
 
