@@ -1,0 +1,15 @@
+(node:23571) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ all seven approved portrait routes serve exact source bytes, hashes, MIME and security headers (49.0285ms)
+✔ unknown files, prototype names and raw or encoded traversal cannot escape fixed routes (41.916833ms)
+✔ portrait serving rejects a symlinked images component (57.327625ms)
+✔ portrait serving rejects a symlinked workers component (59.437166ms)
+✔ portrait serving rejects a symlinked file component (57.304167ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 325.827125

@@ -1,0 +1,51 @@
+(node:22181) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owner browser creates passive mandate, admits visibly simulated evidence and controls schedules (2091.737667ms)
+✔ UTC browser creates and edits Vancouver daily reviews across normal and DST dates (2135.545375ms)
+(node:22182) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ correct local portraits across all core surfaces at 1440px (1806.532459ms)
+✖ correct local portraits across all core surfaces at 390px (10647.41325ms)
+✔ custom names are escaped, exact mapping never follows role, humans/System/operators keep fallback (483.064084ms)
+✔ image failure reveals initials and never changes readiness, Attention or creates model work (606.317333ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13803.485167
+
+✖ failing tests:
+
+test at test/worker-portraits-ui.browser.mjs:58:73
+✖ correct local portraits across all core surfaces at 1440px (1806.532459ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 1
+
+      at portrait (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:56:99)
+      at async TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:69:130)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/worker-portraits-ui.browser.mjs:58:73
+✖ correct local portraits across all core surfaces at 390px (10647.41325ms)
+  locator.waitFor: Timeout 10000ms exceeded.
+  Call log:
+    - waiting for getByText('Connected to headquarters', { exact: true }) to be visible
+      24 × locator resolved to hidden <span id="connection">Connected to headquarters</span>
+
+      at setup (/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:53:86)
+      at async TestContext.<anonymous> (/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:59:10) {
+    name: 'TimeoutError',
+    log: [ "  - waiting for getByText('Connected to headquarters', { exact: true }) to be visible", '    24 × locator resolved to hidden <span id="connection">Connected to headquarters</span>' ]
+  }

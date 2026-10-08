@@ -1,0 +1,58 @@
+(node:20990) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ correct local portraits across all core surfaces at 1440px (29.630333ms)
+✖ correct local portraits across all core surfaces at 390px (25.282375ms)
+✔ custom names are escaped, exact mapping never follows role, humans/System/operators keep fallback (5314.84675ms)
+✖ image failure reveals initials and never changes readiness, Attention or creates model work (24.836125ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5627.697041
+
+✖ failing tests:
+
+test at test/worker-portraits-ui.browser.mjs:55:73
+✖ correct local portraits across all core surfaces at 1440px (29.630333ms)
+  Error: Disallowed role creation
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/domain/model.js:22:15)
+      at perform (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:538:21)
+      at Store.transaction (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/persistence/store.js:279:28)
+      at Company.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:634:123)
+      at call (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:17:22)
+      at hireProfile (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:20:12)
+      at seed (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:16:13)
+      at setup (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:41:12)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:56:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+
+test at test/worker-portraits-ui.browser.mjs:55:73
+✖ correct local portraits across all core surfaces at 390px (25.282375ms)
+  Error: Disallowed role creation
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/domain/model.js:22:15)
+      at perform (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:538:21)
+      at Store.transaction (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/persistence/store.js:279:28)
+      at Company.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:634:123)
+      at call (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:17:22)
+      at hireProfile (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:20:12)
+      at seed (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:16:13)
+      at setup (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:41:12)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:56:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+
+test at test/worker-portraits-ui.browser.mjs:78:1
+✖ image failure reveals initials and never changes readiness, Attention or creates model work (24.836125ms)
+  Error: Disallowed role creation
+      at requireThat (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/domain/model.js:22:15)
+      at perform (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:538:21)
+      at Store.transaction (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/persistence/store.js:279:28)
+      at Company.callTool (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/src/control/company.js:634:123)
+      at call (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:17:22)
+      at hireProfile (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/dist/test/engineering-helpers.js:20:12)
+      at seed (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:16:13)
+      at setup (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:41:12)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-personal04/test/worker-portraits-ui.browser.mjs:79:21)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
