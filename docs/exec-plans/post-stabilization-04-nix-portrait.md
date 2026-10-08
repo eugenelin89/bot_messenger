@@ -1,10 +1,10 @@
 # Post-Stabilization-04 — Approved Nix portrait sync
 
-**Status:** Active  
-**Owner:** Parent Codex, sole writer/integrator/deployer  
-**Branch:** `codex/post-stabilization-04-nix-portrait`  
-**Worktree:** `bot_messenger-nix-portrait`  
-**Started:** October 8, 2026  
+**Status:** Active
+**Owner:** Parent Codex, sole writer/integrator/deployer
+**Branch:** `codex/post-stabilization-04-nix-portrait`
+**Worktree:** `bot_messenger-nix-portrait`
+**Started:** October 8, 2026
 **Initial ETA:** 45–75 minutes
 
 ## Objective and scope
