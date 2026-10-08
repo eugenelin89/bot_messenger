@@ -18,6 +18,13 @@ preservation and zero-work idle. Production shows one real unresolved infrastruc
 its expired approval is excluded. Attention derives owner actions without new authority or
 dismissal. Next candidates are broader status clarity and common workflow simplification.
 
+[Worker portraits stabilization 04](validation/PERSONAL_OPERATOR_STABILIZATION_04.md) is complete
+and deployed from PR #28. Seven exact approved website portraits identify Task assignees,
+message senders and other responsible workers; Nix/custom workers retain initials. No
+identity/authority change or external image dependency. Real desktop/narrow tunnel
+acceptance and production preservation passed; peer/group history remains fixture-verified
+because retained production has none.
+
 Prompt 11 is complete for bounded supervised scope: one exact approved real GitHub README
 action, receipt/read-back and durable fresh-context Cycle 2, then evidence-linked STOP.
 No PR/merge/release/app-source change or business improvement is claimed. Pilot branch stays

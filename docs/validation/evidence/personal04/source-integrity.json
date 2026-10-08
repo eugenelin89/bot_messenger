@@ -1,0 +1,12 @@
+{
+  "source_repository": "eugenelin89/asymmetri",
+  "selected_commit": "f572e31254079a493dac98279e161d85172bab29",
+  "verified_remote_main": "f572e31254079a493dac98279e161d85172bab29",
+  "source_handling": "Temporary bare Git clone; no website working tree, commit, push, PR or deployment",
+  "botsquad_baseline": "18ecded2d5274ed022030618e77a7372cda5d629",
+  "implementation_pr": 28,
+  "implementation_merge": "21e8def939126828bf4c472a2cb19131dd5ad62a",
+  "source_destination_hashes_match": true,
+  "assets": 7,
+  "total_bytes": 131666
+}

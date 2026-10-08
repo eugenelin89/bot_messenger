@@ -1,6 +1,6 @@
 # Personal Operator Stabilization 04 — Worker portraits
 
-**Status:** Active — implementation accepted locally; production acceptance pending
+**Status:** Complete and deployed; documentation-only delivery in progress
 **Owner:** Parent Codex, sole writer/integrator/deployer
 **Branch:** `codex/personal-operator-stabilization-04-worker-portraits`
 **Worktree:** `bot_messenger-personal04`
@@ -66,7 +66,7 @@ WebP MIME has no charset, existing security headers remain. No external requests
 
 ## Remaining work
 
-Normal merge, exact merged Ubuntu validation/deployment, real production acceptance and completion documentation.
+Documentation-only completion PR and exact final deployment/identity verification. All product acceptance gates passed.
 No completion claim until all gates pass.
 
 ## Local evidence and review
@@ -83,3 +83,30 @@ identity and protected approval target, research-operation inspector, ComputerSe
 operator, mandate coordinator and group facilitator/synthesizer. Decision histories,
 selectors, audit strings, session metadata and raw details remain textual to avoid clutter.
 No independent persistent image field or new decision record is warranted.
+
+## Production acceptance and delivery
+
+PR #28 merge `21e8def939126828bf4c472a2cb19131dd5ad62a`; exact merged Ubuntu tests
+63/63 HTTP/static/Attention and 38/38 portrait/startup/Attention browser. Independent build
+269 files matches deployed output. Protected consistent backup, twice-opened offline database
+copy unchanged, source/build/health matched, pause=false preserved. Original 59,909 rows across
+82 databases, 427 account/group mappings, 702 infrastructure records and 212 homes preserved.
+Real desktop/narrow tunnel accepted 37 Executive worker portraits, 48 Tasks, 69 executions,
+10 direct messages, roster/org/inspector, seven local asset SHA-256 matches and Attention 1.
+Zero external images/mutations/page errors or new model/business/computer work. No retained
+production peers/groups; tested their actual sender/contributions using isolated fixtures.
+Parent inspected non-sensitive organization screenshots. Post-UI 30s idle repeats preservation.
+See [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md) for all evidence links.
+
+Current ETA at deployment was 20–30 minutes for acceptance/completion, within initial 2–3 hours.
+No product expansion or website changes. Final docs-only delivery repeats backup, build,
+health, real UI and idle verification so local/origin/deployed identities converge.
+
+## Documentation freshness
+
+Reviewed README, Project Memory, Current State, Roadmap, Project Vision and prompt indexes.
+Freshness search matched 43 lines across seven current-facing files (2/7/7/11/7/7/2).
+Classified hits as current boundaries, historical qualified evidence, future/deferred work
+and search instructions; no obsolete roadmap restored. Updated stabilization status only
+after production acceptance; preserved historical milestone/decision evidence. New/changed
+relative documentation links checked, original approved spec kept distinct from plan/evidence.
