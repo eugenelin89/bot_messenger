@@ -2,7 +2,7 @@
 
 **Original Stabilization 04 status:** Complete and deployed — exact merged Ubuntu validation, production UI acceptance and preservation passed.
 
-**Post-Stabilization-04 Nix sync:** Local validation passed; exact merged Ubuntu and production delivery gates pending.
+**Post-Stabilization-04 Nix sync:** Complete and deployed from PR #30; exact merged Ubuntu, real UI, preservation and idle gates passed.
 
 [Specification](../../prompts/stabilizations/personal-operator-04.md) · [Execution plan](../exec-plans/personal-operator-stabilization-04.md) · [Portrait semantics](../product/WORKER_PORTRAITS.md)
 
@@ -146,3 +146,52 @@ The existing read-only production acceptance script accepts the Nix manifest as 
 argument; its original seven-portrait behavior remains available. Exact merged Ubuntu and
 production results are recorded after merge in the protected deployment receipt and final
 handoff (the source cannot contain its own eventual merge SHA).
+
+
+### Nix follow-up — exact merge and production acceptance
+
+[PR #30](https://github.com/eugenelin89/bot_messenger/pull/30) merged normally as
+`cd43d4ffef96d1892123259d1025d950b59d8a4d`. [Read-only review](evidence/personal04-nix/review.md)
+found no merge blocker after clarifying historical acceptance wording. Exact Ubuntu
+[build](evidence/personal04-nix/ubuntu-merged-build.txt), **63/63**
+[static/HTTP/Attention](evidence/personal04-nix/ubuntu-merged-http.txt) and **38/38**
+[portrait/startup/reconnect/Attention browser](evidence/personal04-nix/ubuntu-merged-browser.txt)
+checks passed before deployment. No new dependencies or schema changes.
+
+[Deployment](evidence/personal04-nix/deployment.json) created the consistent root-private
+backup `/var/backups/botsquad/personal04-nix-20261008-production`, opened an offline SQLite
+copy twice without changing logical rows, and matched all **270 compiled/public files**
+between independent and deployed builds. Source, health and deployment receipt matched the
+merge; only the application service restarted, pause=false preserved, listener loopback-only.
+All **59,909 original rows across 82 databases**, 427 account/group mappings, 702 root
+records and 212 worker homes were preserved, with only the existing `workers.updated_at`
+exclusion. Eight workers, 48 Tasks, 69 executions, the retained Prompt 11 receipt/STOP,
+retired provider/credential/grant, and zero ComputerSessions remained unchanged.
+
+[Real tunnel UI](evidence/personal04-nix/production-ui.json) passed at **1440 × 1100** and
+**390 × 844**: all eight local WebPs decoded at 384px, including Nix roster, Organization
+and inspector; **62 worker-authored Executive portraits**, **48 Task cards**, **69 execution
+rows**, and **10 retained direct messages** matched their actual persisted actors.
+Human retains the existing fallback; Attention remains 1. There were **zero external
+portrait requests, zero mutations, zero page errors and no document overflow**.
+Production still has no retained peer/group history; Nix peer/group rendering is proven
+by isolated browser fixtures, not claimed as live-history evidence. Parent visually
+inspected [desktop](evidence/personal04-nix/organization-1440.png) and
+[narrow](evidence/personal04-nix/organization-390.png) Organization captures, including Nix
+and the Human “HU” fallback; no private messages or objectives were captured.
+
+[Production static checks](evidence/personal04-nix/production-static.json) confirm Nix
+200 / `image/webp` / 14,912 exact bytes and expected SHA-256, with unknown/Human and raw or
+encoded traversal/alias paths rejected as 404. All seven previous portrait hashes remain
+unchanged. Final read-only website fetch still reports source
+`322b67acd785735dd2ffac9c5c082c684fbee836`; no website edits, commits, PRs, pushes or deployment.
+
+[Post-UI preservation/idle](evidence/personal04-nix/production-ui-idle.json) repeats full
+preservation and an independent **30-second idle sample**: all counts and pause unchanged,
+every active-work check zero. Deployment's own 30-second idle sample also passed.
+
+The completion documentation is delivered separately with unchanged application bytes.
+Its final merge/source/build/health identity, repeated protected backup, read-only UI and
+idle results are recorded outside Git in the final handoff and protected
+`/var/backups/botsquad/personal04-nix-20261008-completion/result.json`, avoiding a
+self-referential commit SHA. No Stabilization 05 or Prompt 12 was created.

@@ -15,9 +15,10 @@ and deployed from PR #28. The [post-Stabilization-04 Nix sync](../validation/PER
 extends the original seven approved local portraits to all eight canonical AI workers.
 Human, System, custom/unknown workers and Computer Operators retain initials. No
 identity/authority change or external image dependency. Original seven-portrait desktop/narrow
-tunnel acceptance and production preservation passed. Nix local checks have passed; its exact
-merged Ubuntu checks, deployment, real UI and preservation/idle gates are pending. Peer/group
-history remains fixture-verified because retained production has none.
+tunnel acceptance and production preservation passed. The Nix follow-up is also deployed from
+[PR #30](https://github.com/eugenelin89/bot_messenger/pull/30): exact merged Ubuntu checks,
+real desktop/narrow UI and preservation/idle passed. Peer/group history remains fixture-verified
+because retained production has none.
 
 ## Bounded supervised live closure — October 6, 2026
 

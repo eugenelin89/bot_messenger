@@ -1,0 +1,35 @@
+{
+  "preservation_after_ui": {
+    "preserved": true,
+    "original_databases": 82,
+    "original_rows": 59909,
+    "account_and_group_mappings": 427,
+    "root_records": 702,
+    "worker_homes": 212,
+    "only_excluded_field": "workers.updated_at"
+  },
+  "revision": "cd43d4ffef96d1892123259d1025d950b59d8a4d",
+  "all_counts_unchanged_after_ui_and_idle": true,
+  "all_active_work_checks_zero": true,
+  "pause_preserved": true,
+  "idle_seconds": 30,
+  "checks": {
+    "running_executions": 0,
+    "queued_tasks": 0,
+    "queued_requests": 0,
+    "active_computers": 0,
+    "active_schedules": 0,
+    "unsettled_occurrences": 0,
+    "executing_business": 0,
+    "inflight_attempts": 0,
+    "pending_reads": 0,
+    "pending_reconciliations": 0
+  },
+  "retained_counts": {
+    "workers": 8,
+    "tasks": 48,
+    "executions": 69,
+    "computer_sessions": 0,
+    "business_receipts": 1
+  }
+}
