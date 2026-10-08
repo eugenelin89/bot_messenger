@@ -1,14 +1,15 @@
 # BotSquad — External Identities and Telegram Integration
 
 **Status:** Future product architecture; not yet implemented
-**Updated:** 2026-09-29
+**Updated:** 2026-10-07
 
-The implementation through Prompt 06 still has one company per data directory. Prompt 06
-adds paired **human client devices** for the stable Client API, but those devices are not
-worker/company external identities and do not implement Telegram. This document sets
-future constraints; multi-company, federation and external-identity capabilities remain
-unimplemented. The canonical intelligent-company roadmap currently places External Identities and
-Telegram at Prompt 13.
+The current implementation through Prompt 11 and Personal Operator stabilizations 01–03
+remains single-company. Prompt 06’s paired **human client devices** are not worker/company
+external identities and do not implement Telegram. Generic external identities and Telegram
+remain **deferred and unnumbered** under [Decision 017](../decisions/decision_017_single_company_first.md)
+and [Decision 026](../decisions/decision_026_personal_operator_stabilization.md). The existing
+typed business-action adapter does not implement this broader transport model. Preserve the
+future constraints below; use the [roadmap](ROADMAP.md) for current sequencing.
 
 ## Goal
 
@@ -139,7 +140,7 @@ Telegram API
 
 The AI requests an action. Trusted BotSquad code selects the credential, validates policy, sends the request and records the result.
 
-This is the same architectural principle planned for SSH/infrastructure credentials.
+This preserves the credential-separation principle used by the existing trusted infrastructure boundary.
 
 ## Managed bots
 

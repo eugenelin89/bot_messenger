@@ -160,6 +160,6 @@ For everyday use, the path is simpler than all those names:
 
 ### Documentation references
 
-This guide describes the task-based research workflow, not a direct conversation reply or a claim that future autonomous-company features are already available. Interface labels and behaviour are based on the [web UI source](../../public/app.js), [current repository overview](../../README.md), and [operator guide](../operations/ACCESS_AND_OPERATIONS.md). The source reference at the time of writing was commit `542a867dcd3d7e61fff2be7d47425f4f11af8ec2` (Prompt 07-era interface).
+This guide covers only the task-based research workflow. Direct conversations, working groups, mandates/scheduling, bounded Computer Use and supervised business operations have separate tutorials and acceptance records; see the [milestone index](../../prompts/milestones/README.md). Interface labels and behaviour are based on the [web UI source](../../public/app.js), [current repository overview](../../README.md), and [operator guide](../operations/ACCESS_AND_OPERATIONS.md). The source reference at the time of writing was commit `542a867dcd3d7e61fff2be7d47425f4f11af8ec2` (Prompt 07-era interface).
 
 [Back to tutorials](README.md)

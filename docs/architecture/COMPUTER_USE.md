@@ -84,7 +84,9 @@ the network namespace. Worker navigation and element links deny non-HTTP(S)/unap
 GET/HEAD are not inherently free of effects. This adapter cannot infer a site's business
 semantics. Grant only vetted unauthenticated read-only sites; do not authorize account,
 control or production business endpoints. Conservative URL filtering reduces common hazards
-but is not a semantic proof. Prompt 11 needs a separately reviewed typed action integration.
+but is not a semantic proof. Prompt 11 implemented a separately reviewed
+[typed business-action integration](BUSINESS_OPERATIONS.md) and completed one bounded
+supervised real path. That does not broaden browser authority.
 
 Uploads and downloads are disabled. File/password controls are unavailable; no arbitrary
 path or file chooser API exists. Attachment responses and browser downloads are cancelled.

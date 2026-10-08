@@ -6,7 +6,10 @@ Unix identities and independent engineering clones. Prompt 05 adds generic alloc
 manifests, bounded Project recipes, revision/integration and trusted remote Git. Prompt 06
 adds the stable authenticated `/api/v1/` client contract, persistent HQ/device identity,
 local pairing/revocation, durable retries and reconnectable events while keeping the
-listener private.
+listener private. Prompts 07–11 and Personal Operator stabilizations 01–03 also use this
+Ubuntu topology; [Current State](../operations/CURRENT_STATE.md) links their acceptance.
+Those runs do not re-certify every fresh-host bootstrap dimension. Resource measurements
+remain attached to their original runs.
 See the [Prompt 06 validation record](../validation/prompt-06-remote-client-api.md),
 [Decision 015](../decisions/decision_015_remote_client_trust.md),
 [Prompt 05 validation record](../validation/prompt-05-general-projects.md),
@@ -20,7 +23,7 @@ workstation provides SSH, administration and development.
 - [Current State](../operations/CURRENT_STATE.md)
 - [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md)
 - [Prepare a New Ubuntu Host](SETUP_UBUNTU_HOST.md)
-- [Bootstrap Prompt](../../prompts/bootstrap-ubuntu.md)
+- [Bootstrap Prompt](../../prompts/operations/bootstrap-ubuntu.md)
 
 ## Starting contract
 
@@ -32,7 +35,7 @@ acceptance at the current two-active-execution ceiling; see the validation recor
 before applying that sizing to larger work. No provider API
 or hard-coded address is used. Existing conflicting paths/accounts fail clearly.
 
-Run [the bootstrap prompt](../../prompts/bootstrap-ubuntu.md), or inspect and invoke:
+Run [the bootstrap prompt](../../prompts/operations/bootstrap-ubuntu.md), or inspect and invoke:
 
 ```sh
 git fetch origin
@@ -147,7 +150,9 @@ its 10-second deadline.
 Prompt 04 added Nix, worker Unix identities/clones and exact-scope infrastructure
 approvals. Prompt 05 added generalized Projects and trusted repository lifecycle;
 Prompt 06 added device-authenticated Client API v1 without public ingress. General
-remote fleets, financial authority, customer deployment and Computer Use remain future milestones. Development identities are simulated and
+remote fleets, financial authority and customer deployment remain deferred. Prompt 10
+implemented separately granted bounded Computer Use, and Prompt 11 completed one supervised
+business path; neither is activated by bootstrap. Development identities are simulated and
 make no Linux isolation claim.
 
 ## Acceptance under the production service restrictions

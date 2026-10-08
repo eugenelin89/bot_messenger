@@ -4,8 +4,11 @@ Durable product, architecture, security, data, and workflow decisions belong her
 
 For a fresh chat or Codex task, first read [Project Memory](../PROJECT_MEMORY.md), then
 verify current implementation/status against the repository. For future milestone order,
-use the [canonical roadmap](../product/ROADMAP.md) and Decision 017 rather than an older
-numbered table.
+use the [canonical roadmap](../product/ROADMAP.md) and Decision 026’s current priority,
+which clarifies Decision 017. Prompts 01–10 are complete; Prompt 11 is complete within
+bounded supervised scope; Personal Operator stabilizations 01–03 are complete and deployed.
+See [specification navigation](../../prompts/README.md). Historical decision bodies retain
+their acceptance-time wording; current interpretations below do not rewrite those records.
 
 ## Rules
 
@@ -34,21 +37,21 @@ numbered table.
 | [013](decision_013_trusted_worker_infrastructure.md) | Trusted approvals, Nix and isolated worker infrastructure | Implemented; Ubuntu validated | 2026-09-26 |
 | [014](decision_014_generalized_projects.md) | Generalized software Projects, scoped revisions, integration and remote lifecycle | Implemented; Ubuntu validated | 2026-09-28 |
 | [015](decision_015_remote_client_trust.md) | Stable client API, explicit device trust, durable retries and reconnect | Implemented; Ubuntu/restart/reboot validated | 2026-09-29 |
-| [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted future architecture; extended by 017 | 2026-09-29 |
-| [017](decision_017_single_company_first.md) | One operational company first; runtime continuity, durable scheduling and Asymmetri Motion pilot | Accepted future priority/requirements; not implemented | 2026-09-29 |
-| [018](decision_018_conversations_context_continuity.md) | Direct conversations, bounded replies and scoped provider-context continuity | Implemented; acceptance pending | 2026-09-29 |
-| [019](decision_019_near_term_worker_empowerment.md) | Useful worker capabilities and standing authority as a very near-term priority | Accepted priority; implementation planned | 2026-09-29 |
+| [016](decision_016_intelligent_company_model.md) | Intelligent company operating model; hierarchy governs authority, not thought | Accepted north star; bounded slices implemented in 018/021/022/025 | 2026-09-29 |
+| [017](decision_017_single_company_first.md) | One operational company first; runtime continuity, durable scheduling and Asymmetri Motion pilot | Accepted foundation; milestones 07–11 complete (11 supervised); sequencing clarified by 026 | 2026-09-29 |
+| [018](decision_018_conversations_context_continuity.md) | Direct conversations, bounded replies and scoped provider-context continuity | Implemented; Prompt 07 acceptance complete | 2026-09-29 |
+| [019](decision_019_near_term_worker_empowerment.md) | Useful worker capabilities and standing authority as a very near-term priority | Accepted priority; WE-01 slice complete; broader empowerment deferred | 2026-09-29 |
 
 ## Current deployment interpretation
 
-Decision 009 is the current deployment-direction authority: BotSquad is moving from the Prompt 01/02 workstation-local topology to an always-on, self-hosted Ubuntu headquarters.
+Decision 009 is the deployment-direction authority: BotSquad moved from the Prompt 01/02 workstation-local topology to the implemented always-on, self-hosted Ubuntu headquarters.
 
 Decision 001 remains important for control-plane ownership and persistence, but its term **local-first** now means operator-controlled/self-hosted state rather than “must run on the operator's laptop.”
 
 Historical Prompt 01/02 decisions and validation records should remain unchanged unless a later decision explicitly supersedes their architectural lesson. They describe what was actually validated at those milestones.
 
 Decision 010 defines deferred multi-company/federation boundaries. The implementation
-through Prompt 06 remains one company per data directory and does not implement those
+through Prompt 11 and stabilizations 01–03 remains one company per data directory and does not implement those
 boundaries, Telegram or external identities. Decision 011 records the Ubuntu/service/profile
 choices and their real-runtime acceptance evidence; Decision 013 records the trusted
 approval, Nix, provisioner and isolated worker-infrastructure boundary. Decision 014
@@ -72,21 +75,21 @@ Decision 017 makes **one useful operating AI company** the priority before multi
 or federation. It extends 016 and supersedes the previous post-Prompt-10 future order,
 without discarding Decision 010's eventual isolation/security constraints.
 
-Prompt 07 must include runtime-context rollover; Prompt 09 must include a minimal durable
-scheduler and both broad-mandate and Asymmetri Motion acceptance. Prompt 11 is now a small
-practical single-company operating capability set and measured live pilot. The old future
+Prompt 07 delivered runtime-context rollover; Prompt 09 delivered a minimal durable
+scheduler and both broad-mandate and Asymmetri Motion reference acceptance. Prompt 11
+completed a small practical single-company capability set and bounded supervised live pilot. The old future
 11–14 multi-company/collaboration/Telegram/federation assignments are deferred/unnumbered.
 
-These are planned requirements, not completed implementation or deployment evidence.
+The [milestone index](../../prompts/milestones/README.md) links the actual implementation,
+acceptance and deployment records; Decision 026 now prioritizes unnumbered Personal Operator work.
 Read [Single-Company Business Operations](../product/SINGLE_COMPANY_OPERATIONS.md) and
-[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md) when generating
+[Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md) when generating
 future work. Maintain [Project Memory](../PROJECT_MEMORY.md) when accepted decisions or
 verified milestone state change so the project can continue after a chat context ends.
 
-Decision 019 adds a very near-term follow-up after Prompt 07: give workers useful tools,
-public research and appropriate standing authority for routine work. Plan it alongside
-Prompt 08 preparation without deferring basic public research to Prompt 11. It preserves
-the numbered milestone order and records planned work, not implemented permission grants.
+Decision 019 requested useful worker tools, public research and standing authority after
+Prompt 07. WE-01 completed the first slice under Decision 020 before Prompt 08. Broader
+empowerment remains deferred; deployed capabilities require separate explicit owner grants.
 
 ## Decision 020 — Scoped public research and standing knowledge authority
 
@@ -118,7 +121,7 @@ session transitions. Acceptance and retained activation remain explicit separate
 
 [Decision 027](decision_027_public_investment_showcase_design.md) records the October 6 owner request for a public paper-investment demonstration of BotSquad. The [design guide](../experiments/investment/README.md) and [detailed INV-01–INV-12 roadmap](../experiments/investment/ROADMAP.md) cover genuine live team discussion, durable public artifacts, a deterministic simulated portfolio and scoped REST publication to Asymmetri.co.
 
-This is a design-only experimental track, not core Prompt 12, deployed functionality or a new production grant. Personal Operator stabilization and the existing private/financial authority boundaries remain unchanged. Use the [single-packet Codex launcher](../../prompts/investment-experiment.md) only when the owner selects the next implementation task.
+This is a design-only experimental track, not core Prompt 12, deployed functionality or a new production grant. Personal Operator stabilization and the existing private/financial authority boundaries remain unchanged. Use the [single-packet Codex launcher](../../prompts/experiments/investment-showcase.md) only when the owner selects the next implementation task.
 
 ## Ask BotSquad amendment
 

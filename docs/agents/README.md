@@ -60,15 +60,15 @@ performance, database, or business-ops specialist yet. Add a new persistent spec
 only when repeated work shows a distinct, durable review domain that is not being covered
 well by the current set.
 
-## Likely routing for upcoming milestones
+## Likely routing by changed risk surface
 
 These are defaults, not mandatory fixed rosters:
 
-- **Prompt 10 — Bounded Computer Use:** normally
+- **Computer Use changes:** normally
   `security_reviewer` + `control_plane_architect` + `recovery_reviewer` +
   `test_reviewer`. Add `product_strategy_reviewer` only if the work starts deciding
   business-connector/product scope rather than merely implementing the bounded capability.
-- **Prompt 11 — real single-company operations:** normally
+- **Business/external-action changes:** normally
   `security_reviewer` + `recovery_reviewer` + `test_reviewer`, plus
   `product_strategy_reviewer` for business-operating scope and
   `control_plane_architect` when new typed adapters/execution origins change the core

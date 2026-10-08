@@ -1,7 +1,10 @@
 # BotSquad — Intelligent Company Operating Model
 
 **Status:** Product north star and future architecture
-**Updated:** 2026-09-29
+**Updated:** 2026-10-07
+
+Personal Operator stabilizations 01–03 are complete and deployed; the
+[stabilization index](../../prompts/stabilizations/README.md) links their specifications and evidence.
 
 ## Current priority after Prompt 11
 
@@ -563,8 +566,9 @@ worker/conversation context generations. The authoritative state is the transcri
 source-linked bookmarks and structured requests, with a shared unresolved-provider
 fence across work modes. See [Decision 018](../decisions/decision_018_conversations_context_continuity.md)
 and the [acceptance record](../validation/prompt-07-conversations-continuity.md).
-This establishes communication and continuity; it does not implement recurring company
-operation, deliberation groups, Computer Use or live business authority.
+Prompt 07 itself established communication and continuity. Later completed milestones
+separately added deliberation, recurring company operation, bounded Computer Use and the
+supervised business-action path; those are not original Prompt 07 capabilities.
 
 ## Implications for Prompt 08
 
@@ -573,7 +577,7 @@ than a side effect of chat or Tasks. Actual employees cite earlier contributions
 to challenges, and can revise positions. The owner approves the charter and evidence
 sharing audience, not every speaker. A synthesis records a recommendation with dissent,
 missing evidence and next approvals; it does not authorize implementation. See
-[actual evidence and remaining gates](../validation/PROMPT_08_VALIDATION.md).
+[completed acceptance evidence](../validation/PROMPT_08_VALIDATION.md).
 
 Prompt 08 establishes team reasoning:
 

@@ -2,7 +2,7 @@
 
 **Design version:** 1.1 | **Updated:** 2026-10-06 | **Status:** All packets Planned
 
-[Feature specification](ASK_BOTSQUAD.md) · [Main implementation status](ROADMAP.md) · [Prompt launcher](../../../prompts/investment-experiment.md)
+[Feature specification](ASK_BOTSQUAD.md) · [Main implementation status](ROADMAP.md) · [Prompt launcher](../../../prompts/experiments/investment-showcase.md)
 
 ## Sequence and ownership
 
@@ -101,4 +101,4 @@ Deliver operator controls and runbook: enable/disable admission, local Ask dispa
 
 ## Documentation and continuation
 
-Update the status/evidence rows in ROADMAP.md, the relevant contract and normative Ask sections, and the selected validation record. Retain stable IDs and previously tested evidence. Do not rewrite base ledger methodology for this feature. The [single-packet launcher](../../../prompts/investment-experiment.md) applies equally to INV-ASK-NN, including separate repository release rules and no automatic deployment or grant activation.
+Update the status/evidence rows in ROADMAP.md, the relevant contract and normative Ask sections, and the selected validation record. Retain stable IDs and previously tested evidence. Do not rewrite base ledger methodology for this feature. The [single-packet launcher](../../../prompts/experiments/investment-showcase.md) applies equally to INV-ASK-NN, including separate repository release rules and no automatic deployment or grant activation.

@@ -550,6 +550,9 @@ Do not create prompt archives, release branches, or elaborate process artifacts 
 - Product vision: `docs/product/PROJECT_VISION.md`
 - Intelligent company north star: `docs/product/INTELLIGENT_COMPANY_MODEL.md`
 - Canonical prompt roadmap: `docs/product/ROADMAP.md`
+- Prompt/specification navigation and freshness rules: `prompts/README.md`
+- Core milestone index: `prompts/milestones/README.md`
+- Personal Operator stabilization index: `prompts/stabilizations/README.md`
 - Technical white paper: `docs/WHITEPAPER.md`
 - Architecture: `docs/architecture/SYSTEM_ARCHITECTURE.md`
 - Current operational state: `docs/operations/CURRENT_STATE.md`
@@ -585,8 +588,10 @@ This map should evolve with the implementation; keep it current.
   isolated; production delivery preserves the actual retained state.
 - Tool response envelopes contain text JSON, not raw domain objects. Do not rely on model code
   accessing pagination fields on wrapped returns; preserve hard runtime and retrieval limits.
-- Prompt 09 release status belongs to its validation/plan. Do not mark complete before all gates.
-  Prompt 10 Computer Use and Prompt 11 real business operations remain separate work.
+- Prompt 09 acceptance is complete; preserve its validation/plan as evidence. Prompt 10
+  Computer Use and Prompt 11 bounded supervised business acceptance are also complete,
+  each with separate authority. Personal Operator stabilizations 01–03 are complete and
+  deployed; Decision 026 keeps the current phase unnumbered.
 
 ## Bounded business operations
 

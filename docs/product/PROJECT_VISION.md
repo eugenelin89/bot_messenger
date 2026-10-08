@@ -1,11 +1,15 @@
 # BotSquad — Project Vision
 
 **Status:** Product vision; Prompts 01–10 and WE-01 complete; Prompt 11 complete within bounded supervised scope
-**Updated:** 2026-10-05
+**Updated:** 2026-10-07
 
 For a fresh planning session, read [Project Memory](../PROJECT_MEMORY.md), then verify
 current repository status. [Decision 017](../decisions/decision_017_single_company_first.md)
-and the [canonical roadmap](ROADMAP.md) define the accepted single-company-first priority.
+and the [canonical roadmap](ROADMAP.md) define the accepted single-company-first foundation;
+[Decision 026](../decisions/decision_026_personal_operator_stabilization.md) owns current sequencing.
+
+Personal Operator stabilizations 01–03 are complete and deployed; the
+[stabilization index](../../prompts/stabilizations/README.md) links their specifications and evidence.
 
 ## Current priority after Prompt 11
 
@@ -115,7 +119,7 @@ credentials or permission to publish merely to pass acceptance.
 
 See [Single-Company Business Operations](SINGLE_COMPANY_OPERATIONS.md),
 [Decision 017](../decisions/decision_017_single_company_first.md) and
-[Milestone Prompt Requirements](../../prompts/MILESTONE_REQUIREMENTS.md).
+[Milestone Prompt Requirements](../../prompts/authoring/MILESTONE_REQUIREMENTS.md).
 
 ## Primary use case
 
@@ -538,8 +542,8 @@ Prompt 09's strategic loop, durable company clock and Asymmetri Motion reference
 ## Native mobile operator client — deferred
 
 BotSquad should eventually support a native iPhone/iPad application as a first-class
-operator client, but it is no longer the next milestone. The private browser over SSH
-tunnel is sufficient while conversation and useful single-company operation are proven.
+operator client, deferred until demonstrated owner need under Decision 026. The private
+browser over SSH remains the supported path during Personal Operator stabilization.
 
 The native app should provide mobile access to company status, workers, tasks,
 executions, messages, model/reasoning/priority settings, and trusted approvals without

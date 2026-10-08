@@ -1,13 +1,16 @@
 # BotSquad — Multi-Company and Federation Model
 
 **Status:** Future product architecture; not yet implemented
-**Updated:** 2026-09-29
+**Updated:** 2026-10-07
 
-The implementation through Prompt 06 still has one company per data directory. Prompt 06
-adds durable HQ/device identity for authenticated clients, but it does **not** add
-multi-company state, company-to-company connections or cross-HQ federation. This document
-sets future constraints for those layers. The canonical intelligent-company roadmap currently places multi-company at Prompt 11,
-company-to-company collaboration at Prompt 12 and cross-HQ federation at Prompt 14.
+The current implementation through Prompt 11 and Personal Operator stabilizations 01–03
+still has one company per data directory. Prompt 06’s HQ/device identity does not add
+company isolation or federation. Prompt 11 completed bounded supervised single-company
+business operations. Multi-company, company collaboration and cross-HQ federation remain
+**deferred and unnumbered** under [Decision 017](../decisions/decision_017_single_company_first.md).
+[Decision 026](../decisions/decision_026_personal_operator_stabilization.md) prioritizes
+Personal Operator reliability before expansion. The design below preserves future constraints;
+use the [roadmap](ROADMAP.md) for current sequencing.
 
 ## Goal
 

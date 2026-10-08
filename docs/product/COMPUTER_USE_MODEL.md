@@ -1,7 +1,7 @@
 # BotSquad — Computer Use Model
 
 **Status:** Prompt 10 complete and deployed; broader desktop concepts remain future scope
-**Updated:** 2026-10-05
+**Updated:** 2026-10-07
 
 ## Implemented Prompt 10 slice
 
@@ -17,7 +17,10 @@ No migration creates an operator, session or grant. The retained full roster is 
 [Decision 024](../decisions/decision_024_bounded_computer_use.md) and
 [C10-1 record](../validation/PROMPT_10_VALIDATION.md) specify this supported slice. The broader
 browser/desktop/VM/local-workstation examples below are design possibilities, not implemented
-permissions. General business actions and measured outcomes remain Prompt 11.
+permissions. Prompt 11 separately completed one approved real document action, receipt,
+read-back and scheduled STOP review within bounded supervised scope; see its
+[validation](../validation/PROMPT_11_VALIDATION.md). General business authority and broader
+desktop access remain outside this Computer Use adapter.
 
 ## Purpose
 

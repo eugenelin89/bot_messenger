@@ -9,6 +9,20 @@
 
 > 本文為英文版技術白皮書的台灣繁體中文版。內容與章節結構忠於原文，但在措辭、語序與技術用語上，依台灣讀者的閱讀習慣做了適度轉譯，而非逐字直譯。
 
+## 歷史快照說明 — 2026 年 10 月 7 日補註
+
+0.4 版是 2026 年 9 月 29 日的歷史架構快照，主要反映約 Prompt 06 階段的實作，
+以及當時的未來設計。正文中的「目前」狀態與未來編號應依發表當時的脈絡閱讀，
+不代表今天的產品狀態。本補註不表示 0.4 版原本已記載後續實作，也不另立 0.5 版。
+
+後續已實作的能力包括直接對話與脈絡延續、公開研究與公司知識、工作小組、
+策略 mandate 與持久化排程、有界 Computer Use、一次受監督且範圍受限的真實商務操作，
+以及 Personal Operator 穩定化 01–03。最新狀態請見 [Current State](operations/CURRENT_STATE.md)、
+[正式 roadmap](product/ROADMAP.md)、[Decision 026](decisions/decision_026_personal_operator_stabilization.md)
+與 [Prompt 11 驗證](validation/PROMPT_11_VALIDATION.md)。Prompts 01–10 已完成；
+Prompt 11 在受監督且範圍受限的條件下完成，並未證明商業成效提升或廣泛無人監督運作。
+目前優先事項是未編號的 Personal Operator 階段；不會自動接續 Prompt 12，功能擴張仍延後。
+
 ## 摘要
 
 BotSquad 是一套自架式（self-hosted）控制平面，用來把持續存在的 AI 工作者組織成可觀察、受控、可稽核的團隊。

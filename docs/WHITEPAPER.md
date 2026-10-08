@@ -7,6 +7,23 @@
 **Repository:** eugenelin89/bot_messenger  
 **Traditional Chinese (Taiwan):** [台灣繁體中文版](WHITEPAPER_ZH_TW.md)
 
+## Historical snapshot notice — added October 7, 2026
+
+Version 0.4 is a historical architecture snapshot dated September 29, 2026, substantially
+reflecting Prompt-06-era implementation plus future design. Its present-tense status and
+future numbering describe that publication context, not today’s product. This notice does
+not claim that Version 0.4 originally documented later implementations or create Version 0.5.
+
+Subsequent implemented capabilities include direct conversations/context continuity,
+public research/company knowledge, working groups, strategic mandates/durable scheduling,
+bounded Computer Use, one bounded supervised real business operation, and Personal Operator
+stabilizations 01–03. See [Current State](operations/CURRENT_STATE.md), the
+[canonical roadmap](product/ROADMAP.md), [Decision 026](decisions/decision_026_personal_operator_stabilization.md)
+and [Prompt 11 validation](validation/PROMPT_11_VALIDATION.md). Prompts 01–10 are complete;
+Prompt 11 is complete within bounded supervised scope, without a business-improvement or
+broad unattended-operation claim. Personal Operator is the current unnumbered priority;
+there is no automatic Prompt 12 and expansion remains deferred.
+
 ## Abstract
 
 BotSquad is a self-hosted control plane for organizing persistent AI workers into

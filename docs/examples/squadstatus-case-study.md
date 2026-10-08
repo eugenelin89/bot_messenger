@@ -163,7 +163,7 @@ failing combined tests. Those failure cases leave the product's default branch u
 - [Product test output and commit evidence](../validation/artifacts/prompt-02-acceptance.json)
 - [Complete run record](../validation/prompt-02.md) and [machine-readable evidence](../validation/prompt-02-evidence.json)
 
-To run a new example, follow the [README setup and requirements](../../README.md#local-development-and-prompt-02-demo),
+To run a new example, follow the [README setup and requirements](../../README.md#local-development),
 then select **Build SquadStatus** and **Assign objective**. Watch **Organization**,
 **Products & engineering**, **Tasks** and **Executions**; open the specification,
 submission evidence, review and integration results as they appear.

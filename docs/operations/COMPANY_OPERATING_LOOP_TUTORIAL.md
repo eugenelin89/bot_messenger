@@ -124,7 +124,9 @@ Global pause retains all schedules and holds dispatch company-wide.
 
 This exercise establishes bounded internal company review. It does not establish live marketing,
 product operation, publication, customer outreach, revenue improvement, autonomous spending or
-unrestricted computer operation. Prompt 10 and Prompt 11 have separate acceptance gates.
+unrestricted computer operation. Prompt 10’s bounded browser and Prompt 11’s supervised
+real action path passed separate acceptance gates; [Prompt 11 validation](../validation/PROMPT_11_VALIDATION.md)
+records their limits. This tutorial remains an internal-review exercise.
 
 ## Choosing a usable review window
 
