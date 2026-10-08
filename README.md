@@ -89,8 +89,8 @@ interlude between Prompt 05 and Prompt 06; worker desktop/browser authority is u
 
 Completed milestones provide conversation/context continuity, team deliberation, a strategic
 loop with durable scheduling and one bounded supervised business path. Personal Operator
-stabilizations 01–03 are complete and deployed: scheduler reliability, startup/navigation
-and owner Attention. See the [stabilization index](prompts/stabilizations/README.md). The
+stabilizations 01–04 are complete and deployed: scheduler reliability, startup/navigation,
+owner Attention and worker portraits. See the [stabilization index](prompts/stabilizations/README.md). The
 SSH-tunnel browser remains the preferred operator path; native iOS and multi-company/federation
 remain deferred under Decision 026.
 
@@ -527,7 +527,7 @@ Run real-model scenarios only when you intentionally want to consume Codex usage
 - [Project Memory and Continuation Handoff](docs/PROJECT_MEMORY.md)
 - [Prompt Directory and Documentation Map](prompts/README.md)
 - [Core Milestone Specifications 01–11](prompts/milestones/README.md)
-- [Personal Operator Stabilizations 01–03](prompts/stabilizations/README.md)
+- [Personal Operator Stabilizations 01–04](prompts/stabilizations/README.md)
 - [Milestone Prompt Requirements](prompts/authoring/MILESTONE_REQUIREMENTS.md)
 - [BotSquad Engineer Primer — From Demo Operator to Prompt 05](docs/guides/BOTSQUAD_ENGINEER_PRIMER.md)
 - [Current State](docs/operations/CURRENT_STATE.md)

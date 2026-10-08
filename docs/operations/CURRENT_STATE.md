@@ -8,6 +8,15 @@ For implementation details, see the [system architecture](../architecture/SYSTEM
 [Decision 018](../decisions/decision_018_conversations_context_continuity.md), and the
 [Prompt 07 validation record](../validation/prompt-07-conversations-continuity.md).
 
+## Worker portraits — Stabilization 04
+
+[Worker portraits stabilization 04](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md) is complete
+and deployed from PR #28. Seven exact approved website portraits identify Task assignees,
+message senders and other responsible workers; Nix/custom workers retain initials. No
+identity/authority change or external image dependency. Real desktop/narrow tunnel
+acceptance and production preservation passed; peer/group history remains fixture-verified
+because retained production has none.
+
 ## Bounded supervised live closure — October 6, 2026
 
 **Prompt 11 is Complete for the bounded supervised single-company milestone.**

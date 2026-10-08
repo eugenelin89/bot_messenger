@@ -69,6 +69,12 @@ recoverable loading, including deployed desktop/narrow tunnel acceptance; [accep
 **Completed stabilization 03:** deterministic owner Attention, exact source links, privacy
 and deduplication; deployed with real tunnel/preservation/idle acceptance; [validation](../validation/PERSONAL_OPERATOR_STABILIZATION_03.md).
 
+**Completed stabilization 04:** the seven approved website employee portraits now identify
+Task assignees, messages, executions, roster, hierarchy and worker inspectors. Local exact
+assets, decorative accessibility and initials fallback preserve identity/authority.
+[Validation](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md) records exact merged
+deployment, desktop/narrow acceptance and retained production state. Nix has no portrait.
+
 **Next candidates:** clearer loading/status/error presentation beyond startup; simpler
 common operator flows; credential lifecycle/rotation/revocation UX; backup/update/health
 maintenance UX; possible easier remote/mobile access later if demonstrated friction warrants it.

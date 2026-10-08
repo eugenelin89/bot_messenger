@@ -8,7 +8,7 @@ current repository status. [Decision 017](../decisions/decision_017_single_compa
 and the [canonical roadmap](ROADMAP.md) define the accepted single-company-first foundation;
 [Decision 026](../decisions/decision_026_personal_operator_stabilization.md) owns current sequencing.
 
-Personal Operator stabilizations 01–03 are complete and deployed; the
+Personal Operator stabilizations 01–04 are complete and deployed; the
 [stabilization index](../../prompts/stabilizations/README.md) links their specifications and evidence.
 
 ## Current priority after Prompt 11

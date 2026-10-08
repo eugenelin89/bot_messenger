@@ -590,7 +590,7 @@ This map should evolve with the implementation; keep it current.
   accessing pagination fields on wrapped returns; preserve hard runtime and retrieval limits.
 - Prompt 09 acceptance is complete; preserve its validation/plan as evidence. Prompt 10
   Computer Use and Prompt 11 bounded supervised business acceptance are also complete,
-  each with separate authority. Personal Operator stabilizations 01–03 are complete and
+  each with separate authority. Personal Operator stabilizations 01–04 are complete and
   deployed; Decision 026 keeps the current phase unnumbered.
 
 ## Bounded business operations

@@ -1,6 +1,6 @@
 # Personal Operator Stabilization 04 — Validation
 
-**Status:** Implementation accepted locally; exact merged production acceptance pending.
+**Status:** Complete and deployed — exact merged Ubuntu validation, production UI acceptance and preservation passed.
 
 [Specification](../../prompts/stabilizations/personal-operator-04.md) · [Execution plan](../exec-plans/personal-operator-stabilization-04.md) · [Portrait semantics](../product/WORKER_PORTRAITS.md)
 
@@ -40,8 +40,65 @@ zero runtime calls. Parent visually inspected fixture Tasks and Groups screensho
 Initial failures are retained beside the passing logs; assertions were not weakened to
 hide product defects. No runtime, schema, Client API v1 or authority change occurred.
 
-## Production gates
+## Exact merged Ubuntu and production acceptance
 
-Pending normal PR merge, exact merged Ubuntu build/tests, active-work inspection,
-protected backup, retained-state comparison, source/build/health identity, real SSH-tunnel
-read-only desktop/narrow portrait acceptance, and idle verification. No completion claim.
+[PR #28](https://github.com/eugenelin89/bot_messenger/pull/28) merged normally as
+`21e8def939126828bf4c472a2cb19131dd5ad62a`. Local and origin/main matched that revision.
+Ubuntu separately built the exact merge using unchanged locked dependencies: **63/63**
+[static/HTTP/Attention tests](evidence/personal04/ubuntu-merged-http.txt) and **38/38**
+[portrait/startup/Attention browser tests](evidence/personal04/ubuntu-merged-browser.txt).
+
+[Deployment receipt](evidence/personal04/deployment.json): protected backup at
+`/var/backups/botsquad/personal04-20261007-production`; only the application service was
+stopped/restarted. No running/queued work before deployment; pause=false preserved.
+Two offline Store openings preserved the database's logical rows; persistence source and
+schema unchanged. Independent and deployed builds match across **269 files**; source,
+health and deployment receipt report the exact merged SHA. Listener remains loopback-only.
+
+All **59,909 original rows across 82 databases**, 427 account/group mappings,
+702 infrastructure records and 212 worker homes are preserved (only the existing
+`workers.updated_at` exclusion). Retained production has eight workers, 48 Tasks,
+69 executions, one Prompt 11 action/approval/attempt/receipt, two closed operating cycles
+and one completed scheduled occurrence. Its provider/temporary credential and grant remain
+retired; zero ComputerSessions. No new business/computer/research authority.
+
+[Real private-tunnel UI evidence](evidence/personal04/production-ui.json), driven by the
+[read-only acceptance script](evidence/personal04/production-ui.mjs), passed at **1440 × 1100**
+and **390 × 844** using native production HTTP/SSE. Both checked:
+
+- Eight roster/organization workers and the worker inspector; seven exact local portraits,
+  Nix initials, visible names, decorative semantics and fully decoded 384px images.
+- **37 worker-authored Executive messages**, **48 Task assignee cards**, **69 execution rows**
+  and **10 retained direct messages** against their actual persisted worker/principal IDs.
+- Correct Attention count **1**, responsive navigation and no document overflow.
+- All seven deployed responses: status 200, `image/webp`, exact byte count and SHA-256.
+- **Zero external portrait requests, zero mutation requests, zero page errors.**
+
+Production has **no retained peer-conversation or Working Group history**. Those tabs were
+inspected without creating data. Peer actual-sender and attributable group/owner rendering
+are proven by isolated desktop/narrow browser fixtures, not claimed as live-history evidence.
+
+Parent visually inspected non-sensitive production [desktop](evidence/personal04/organization-1440.png)
+and [narrow](evidence/personal04/organization-390.png) organization captures; private Tasks/messages
+were not screenshotted. Synthetic [Task](evidence/personal04/fixture-tasks-390.png) and
+[Group](evidence/personal04/fixture-groups-1440.png) captures show those layouts without private data.
+
+[Post-UI preservation/idle](evidence/personal04/production-ui-idle.json) repeats full original-row
+preservation and a separate 30-second idle sample: every count and pause value unchanged,
+all active-work checks zero. Deployment's own 30-second idle sample also passed.
+
+[Source integrity](evidence/personal04/source-integrity.json): website main still
+`f572e31254079a493dac98279e161d85172bab29`; temporary bare clone was source-only.
+No website commit, PR, push, working-tree edit or deployment. Source/destination checks 7/7.
+
+## Completion delivery and limitations
+
+The evidence/current-status follow-up is documentation-only; it will repeat protected exact
+merged deployment and read-only acceptance without changing the accepted runtime bytes.
+Its final source/build/health identity is recorded in the protected completion receipt at
+`/var/backups/botsquad/personal04-20261007-completion/result.json` and final handoff.
+
+Nix has no approved source portrait; Nix, custom/future workers, Human, System and Computer
+Operators retain safe initials. No appearance was invented. Production has no peer/group
+history to inspect beyond its honest empty state. No Prompt 12, schema, Client API v1,
+worker identity/role/profile, authority or runtime change was introduced.

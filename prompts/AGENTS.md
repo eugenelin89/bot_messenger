@@ -21,7 +21,7 @@ identities and federation are deferred and unnumbered.
 Keep Prompt 07 context rollover, Prompt 09 minimal durable scheduling and Asymmetri Motion
 reference acceptance, and Prompt 11's approved live-business evidence gate explicit in the
 applicable historical specification. Prompts 01–10 are complete, Prompt 11 is complete
-within bounded supervised scope, and Personal Operator stabilizations 01–03 are complete.
+within bounded supervised scope, and Personal Operator stabilizations 01–04 are complete.
 Do not fold deferred features into the current task or mislabel completed capabilities
 as future work. Preserve broad and specific mandates, meaningful team choices,
 scoped memory, bounded model work, independent evidence and trusted human authority.
@@ -66,4 +66,4 @@ before or during execution whenever practical, separately from its plan and vali
 Never label reconstructed material an original prompt; record exact provenance when available.
 Run the guide’s lightweight freshness gate, classify hits before editing, and preserve
 historical plans, evidence and accepted decision rationale. Decision 026 remains current;
-there is no automatic Prompt 12 or stabilization 04.
+there is no automatic Prompt 12 or next stabilization.

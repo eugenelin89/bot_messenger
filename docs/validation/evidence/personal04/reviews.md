@@ -37,3 +37,12 @@ Production acceptance is a separate mandatory gate and was not claimed from fixt
 
 Final local checks: TypeScript build, static 5/5, HTTP/Attention 58/58, affected browser
 47/47, focused portraits 4/4 after System fix. Logs are beside this record.
+
+## Final acceptance review
+
+After exact merged deployment, test_reviewer read the 63/63 Ubuntu static/HTTP log,
+38/38 Ubuntu browser log, deployment/production UI/hash evidence, both production
+organization screenshots and post-UI idle/preservation receipt. No remaining material
+acceptance gap for PR #28 revision `21e8def`. Production peer/group history is absent
+and clearly distinguished from passing isolated coverage. Documentation-only delivery
+requires final source/build/health identity receipt; no broader regression rerun requested.

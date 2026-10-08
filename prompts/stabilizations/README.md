@@ -12,7 +12,7 @@ Stabilization 04 for worker portraits.
 | 02 | Startup and navigation reliability | Complete and deployed | [Reconstructed spec](personal-operator-02.md) | [Plan](../../docs/exec-plans/personal-operator-stabilization-02.md) | [Validation](../../docs/validation/PERSONAL_OPERATOR_STABILIZATION_02.md) | [026](../../docs/decisions/decision_026_personal_operator_stabilization.md) |
 | 03 | Owner Attention and pending-action overview | Complete and deployed | [Reconstructed spec](personal-operator-03.md) | [Plan](../../docs/exec-plans/personal-operator-stabilization-03.md) | [Validation](../../docs/validation/PERSONAL_OPERATOR_STABILIZATION_03.md) | [026](../../docs/decisions/decision_026_personal_operator_stabilization.md) |
 
-| 04 | Worker portraits and visual employee identity | Implementation validated; production acceptance pending | [Approved specification](personal-operator-04.md) | [Plan](../../docs/exec-plans/personal-operator-stabilization-04.md) | [Validation](../../docs/validation/PERSONAL_OPERATOR_STABILIZATION_04.md) | [026](../../docs/decisions/decision_026_personal_operator_stabilization.md) |
+| 04 | Worker portraits and visual employee identity | Complete and deployed | [Approved specification](personal-operator-04.md) | [Plan](../../docs/exec-plans/personal-operator-stabilization-04.md) | [Validation](../../docs/validation/PERSONAL_OPERATOR_STABILIZATION_04.md) | [026](../../docs/decisions/decision_026_personal_operator_stabilization.md) |
 
 For Stabilizations 01–03, no exact original task prompts were recoverable from inspected Git history. Those three files
 prominently identify their reconstruction and sources. Execution plans and validation

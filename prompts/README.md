@@ -7,14 +7,14 @@ prompt-authoring guidance. Reading a specification or launcher does not start wo
 Prompts 01–10 are complete. Prompt 11 is complete **within bounded supervised scope**.
 Personal Operator / Daily Driver is the current unnumbered priority under
 [Decision 026](../docs/decisions/decision_026_personal_operator_stabilization.md), with
-stabilizations 01–03 complete and deployed. There is no Prompt 12. Expansion remains deferred.
+stabilizations 01–04 complete and deployed. There is no Prompt 12. Expansion remains deferred.
 
 ## Find the right kind of prompt
 
 | Location | Purpose and placement rule |
 | --- | --- |
 | [milestones/](milestones/README.md) | Core numbered BotSquad milestone specifications only; index for Prompts 01–11 |
-| [stabilizations/](stabilizations/README.md) | Unnumbered Personal Operator stabilization task specifications; 01–03 are not Prompts 12–14 |
+| [stabilizations/](stabilizations/README.md) | Unnumbered Personal Operator stabilization task specifications; 01–04 do not continue core milestone numbering |
 | [operations/](operations/bootstrap-ubuntu.md) | Reusable operator/bootstrap/maintenance prompts, bounded to their explicit operational task |
 | [experiments/](experiments/investment-showcase.md) | Optional experiment launchers outside the core roadmap |
 | [authoring/](authoring/MILESTONE_REQUIREMENTS.md) | Rules and acceptance guidance for writing future prompts |
@@ -68,7 +68,7 @@ provides the source commit and digest rather than duplicating or modernizing it.
 
 A **reconstructed canonical specification** is a concise editorial account derived only
 from the accepted roadmap, applicable decisions, execution plan, validation and committed
-requirements/evidence. The other ten milestone files and all three stabilization files
+requirements/evidence. The other ten milestone files and the first three stabilization files
 carry a prominent historical note: they are not byte-for-byte original prompts. The
 [history audit](../docs/exec-plans/repository-documentation-prompt-cleanup.md#provenance-audit)
 records what was searched and recovered. Do not silently back-port later requirements.
