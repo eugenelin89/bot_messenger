@@ -5,7 +5,9 @@
 Personal Operator / Daily Driver remains the separate current core priority under
 [Decision 026](../../docs/decisions/decision_026_personal_operator_stabilization.md).
 
-Use this launcher with exactly one packet from [the main roadmap](../../docs/experiments/investment/ROADMAP.md). The first packet remains INV-01 — Contracts and feasibility. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
+Use this launcher with exactly one owner-selected packet from [the main roadmap](../../docs/experiments/investment/ROADMAP.md). INV-01 is complete; select the next packet only on a new owner request. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
+
+**Required preflight for every new investment-showcase Codex prompt:** read [Decision 029 — Zero-cost market data](../../docs/decisions/decision_029_zero_cost_market_data.md), the [investment decision register](../../docs/experiments/investment/DECISIONS.md), [simulation market-data rules](../../docs/experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing), and the [current implementation roadmap](../../docs/experiments/investment/ROADMAP.md). This also applies to Asymmetri website, public-data, Ask BotSquad, test, trial and activation tasks. The owner has fixed market-data acquisition/licensing spend at **US$0**.
 
 ## Owner selection
 
@@ -14,7 +16,7 @@ Before execution, the actual user request identifies:
 - one selected `INV-NN` or `INV-ASK-NN` packet and any explicit sub-scope;
 - target repository or repositories;
 - whether deployment, read-only server inspection, private trial, official investment activation or public Ask activation is included;
-- resolved configuration, provider-use, privacy and budget decisions.
+- resolved configuration, provider-use, privacy and budget decisions; **market-data spending is already fixed at US$0 under Decision 029** and is not open for automatic upgrade.
 
 Do not infer permission for purchases, accounts, credential changes, production grants or activation. Missing launch choices may remain blockers while clearly synthetic contract/UI work proceeds. Never ask the owner to paste a secret into a prompt or journal.
 
@@ -31,6 +33,22 @@ concurrent work before editing. Preserve unrelated work. Read
 and the selected packet from ROADMAP.md, or ASK_BOTSQUAD_ROADMAP.md for an
 INV-ASK packet. Read all linked normative specifications, actual current
 implementation and required predecessor evidence.
+
+MANDATORY: Before editing, review docs/decisions/decision_029_zero_cost_market_data.md,
+docs/experiments/investment/DECISIONS.md,
+docs/experiments/investment/SIMULATION_RULES.md (section 7), and
+docs/experiments/investment/ROADMAP.md. This applies to every packet, including
+Asymmetri website, publication, Ask BotSquad, validation and launch tasks.
+The owner requires US$0 incremental market-data acquisition/licensing spend.
+Use only free APIs and permitted, low-frequency web extraction/scraping. Check
+current source automation, storage, public/derived-use rights and rate limits.
+Never assume a free-to-read page permits automated collection or redistribution.
+Do not bypass access restrictions or quietly choose a paid provider. If a
+reliable permissible free source or publication right is unavailable, leave
+the affected live/public function blocked and explain safe alternatives.
+Preserve data provenance and the no-lookahead fill rule; any change to the
+frozen price/timing method requires a separate owner-approved amendment.
+Market-data $0 does not erase separate model, hosting or Ask service budgets.
 
 The purpose is to showcase BotSquad as a persistent, accountable AI team.
 The public introduction, genuine discussion, linked artifacts and evidence
@@ -98,9 +116,7 @@ Replace SELECTED_PACKET_ID with one exact selected identifier, not a range. Deta
 
 ## Starting and continuing
 
-The first implementation request can be:
-
-> Execute INV-01 from the investment showcase roadmap using this launcher, including the Ask BotSquad amendment. Contracts and feasibility only; no production deployment or activation.
+INV-01 is already complete, with its documented contract and feasibility evidence. For any later task, the owner must explicitly select one planned packet from the current roadmap; this launcher itself is not authorization. Future selected packets must review Decision 029 and should not treat INV-01's historical paid-provider survey as an approved procurement path.
 
 For a later Ask task, select an exact INV-ASK packet after its dependencies pass. This addition does not authorize skipping simulator/publication safety gates or running the entire roadmap in one task.
 
