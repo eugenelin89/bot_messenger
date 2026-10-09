@@ -90,6 +90,5 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | --- | --- | --- |
 | 2026-10-06 | 1.0 | Initial owner-requested investment design and roadmap; implementation planned |
 | 2026-10-06 | 1.1 | R09 Ask BotSquad; actual employee routing, session-private chat, scoped outbound question retrieval and four required pre-launch packets; no runtime activation |
-
 | 2026-10-08 | 1.2 | INV-01 wire foundation and observed feasibility; concrete unapproved defaults, host/data/account gates; no runtime activation |
 | 2026-10-09 | 1.3 | Owner sets US$0 market-data budget; free APIs/permitted scraping replace paid feed path; data access and public display rights remain required (Decision 029) |
