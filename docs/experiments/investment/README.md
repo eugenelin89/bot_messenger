@@ -1,15 +1,15 @@
 # BotSquad Investment Team — design and build guide
 
-**Version:** 1.4 | **Updated:** 2026-10-09
+**Version:** 1.5 | **Updated:** 2026-10-09
 
-**Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
+**Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. [INFRA-02](../../validation/investment/INFRA-02.md) adds private Linux installation and synthetic acceptance, ending stopped with empty authority/data. No public activation or subscriptions.
 
 The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
 record INFRA-01 migration cancelled/deferred and verified cleanup/snapshot deletion.
 The existing Ubuntu 22.10 server remains under the time-limited
 [owner exception](../../decisions/decision_030_defer_ubuntu_migration.md). INFRA-02
-may be separately planned on it, subject to explicit deployment authority and actual
-host acceptance. No Django retirement, receiver activation or next milestone occurred.
+was explicitly selected and privately accepted on it. No Django retirement, real
+publisher activation or next feature milestone occurred.
 
 ## The idea
 
@@ -67,7 +67,7 @@ The portfolio publication channel stays one-way. A separate HQ-initiated outboun
 
 The original reviewed BotSquad baseline is `ce99212c882327ad8e04fd3603867ac18428e1a4`; this amendment was based on main `c6c8f0b47f59a02ebb5142361e2d396a4f075dc5` with intervening Personal Operator work preserved. Persistent workers, Tasks, private conversations, working groups, scoped research, artifacts, mandates and scheduling do not by themselves implement the proposed paper ledger, public publisher or anonymous employee Q&A adapter.
 
-The reviewed Asymmetri website has a Next.js production site, a `/botsquad` product page and documented Mac-to-server deployment access. INV-02 now implements the isolated experiment API/archive locally; it is not deployed. Private chat storage, public investment pages and Ask BotSquad remain planned. Repository documentation is not a fresh SSH verification. See [References](REFERENCES.md).
+The reviewed Asymmetri website has a Next.js production site, a `/botsquad` product page and documented Mac-to-server deployment access. INV-02 implements the isolated experiment API/archive; INFRA-02 installs and validates it privately, stopped/default disabled. Private chat storage, public investment pages and Ask BotSquad remain planned. The [INFRA-02 record](../../validation/investment/INFRA-02.md) links dated actual-host evidence; documentation alone is not a new SSH verification. See [References](REFERENCES.md).
 
 ## First-release boundary
 

@@ -5,7 +5,7 @@
 
 ## Investment contract foundation
 
-Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. INV-01 made no runtime/server/permission changes. [INV-02](validation/investment/INV-02.md) now implements the Asymmetri public REST receiver/archive at `457f9354b3f8daf5c4c75b8f5ac1946433da3ce0`, default disabled and locally validated (183 tests on Node 22/24, both website builds, three read-only reviews). No server/HQ changes or live authority. INV-03 local work is ready only on a new explicit request; the documented OS-exception review, fresh resources, Linux/proxy/recovery and real rights gates remain before deployment. All later investment/Ask packets remain planned.
+Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. INV-01 made no runtime/server/permission changes. [INV-02](validation/investment/INV-02.md) now implements the Asymmetri public REST receiver/archive at `457f9354b3f8daf5c4c75b8f5ac1946433da3ce0`, default disabled and locally validated (183 tests on Node 22/24, both website builds, three read-only reviews). INV-02 itself made no server/HQ changes. The separate [INFRA-02 checkpoint](validation/investment/INFRA-02.md) now installs and synthetically validates it on the retained Ubuntu 22.10 host, stopped/default disabled with no live authority. INV-03 local work is ready only on a new explicit request; public HTTP/TLS, representative capacity, backups/retention, HQ authority/reconciliation and real rights gates remain before activation. All later investment/Ask packets remain planned.
 
 The owner [cancelled/deferred INFRA-01](decisions/decision_030_defer_ubuntu_migration.md)
 and retained the original Ubuntu 22.10 Droplet/IP, all websites and services.
@@ -13,9 +13,11 @@ The migration snapshot was deleted after verified recovery checks; disposable cl
 is complete. Both encrypted recovery sets remain off-server. Django retirement was
 evaluated, not executed. No private production data went to BotSquad; its rehearsal
 resources remain cleaned. The unsupported-OS exception must be reviewed before the
-next deployment or new public exposure. INFRA-02 may be separately planned against
-the current host with actual compatibility, security, capacity and recovery acceptance;
-accepted migration is no longer an automatic prerequisite. INFRA-02 has not started.
+next deployment or new public exposure. Owner-selected INFRA-02 passed actual Linux
+compatibility, isolation, recovery and bounded-load acceptance; its installed receiver
+is stopped with an empty private archive. Transparent local nginx passed; the tested
+HTTP proxy failed duplicate-header preservation and remains an activation gate.
+Accepted migration is no longer an automatic prerequisite.
 Investment status and retained HQ authority are unchanged. See the
 [infrastructure checkpoints](experiments/investment/ROADMAP.md#separate-infrastructure-checkpoints).
 
