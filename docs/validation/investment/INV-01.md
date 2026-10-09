@@ -117,3 +117,8 @@ The initial sandbox run had57 failures: existing local HTTP tests could not bind
 Development-only exact pins: Ajv8.20.0/formats3.0.1 for strict2020-12 validation, json-schema-to-typescript15.0.4 for generated types, canonicalize2.1.0 for JCS, jsonc-parser3.3.1 for strict duplicate-key inspection. These are reviewed conformance-tool versions, not an implicit latest-version policy; lockfile/audit/type/vector checks cover the chosen set. Production dependencies remain unchanged.
 
 Pre-integration recheck: remote main still a72cee0; primary checkout and Asymmetri clean; active worktrees preserved; no competing writer/open PR. Implementation is on `codex/inv01-contracts-feasibility`. The linked PR and Git history record exact candidate/merge commits; no server deployment follows integration.
+
+
+Source implementation commit: `5ea318f41cfd9c87b8d7f1a2afa467b7b7045aee`. Reviewed integration: [PR32](https://github.com/eugenelin89/bot_messenger/pull/32), targeting main from `codex/inv01-contracts-feasibility`; its final merge status/SHA is authoritative. A following documentation-only commit records this link and checks. GitHub reported no configured checks/statuses for the tested implementation head; local full validation and independent specialist reviews provide this packet's acceptance evidence, not a fabricated CI approval.
+
+Contract manifest SHA-256: `7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31`. Vendor the package from the final merged commit containing this unchanged manifest. No production deployment is part of PR32.

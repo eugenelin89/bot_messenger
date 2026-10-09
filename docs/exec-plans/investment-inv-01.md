@@ -1,6 +1,6 @@
 # Execution Plan — INV-01 contracts and feasibility
 
-**Status:** Implementation, validation and specialist review complete; PR integration in progress  
+**Status:** Implementation, validation and specialist review complete; integration tracked by [PR32](https://github.com/eugenelin89/bot_messenger/pull/32)
 **Owner:** Codex primary writer, chat 01a11eb5-9782-7f31-8481-70d7a5351d37  
 **Branch:** codex/inv01-contracts-feasibility  
 **Worktree:** bot_messenger-inv01 (sibling of the primary checkout)  
@@ -62,7 +62,7 @@ JSON Schema. Contract generation and manifest checks must detect drift.
 
 ## Remaining work / blockers
 
-Contract implementation, focused/full validation and specialist reviews complete. PR integration remains. Provider licensing,
+Contract implementation, focused/full validation and specialist reviews complete. Source integration and final merge identity are tracked in PR32; no later implementation packet is authorized. Provider licensing,
 anonymous service account rights and launch configuration may block future live
 milestones; none prevents synthetic contract work. No future packet will be started.
 
@@ -75,3 +75,6 @@ Initial sandbox regression could not bind loopback ports and included two newly 
 ## Final validation checkpoint
 
 Focused175/175; full624 tests:623 pass,0 fail,1 expected Linux-only skip. Type and generated-contract checks pass. Audit0 vulnerabilities;251 document links/920 schema references valid; diff whitespace clean. All specialist findings resolved, including equal UTC timestamp representations. Evidence explicitly distinguishes actual source/host inspection from synthetic finance/model examples. No production dependencies, domain/runtime/migration/grant/scheduler or server state changed. Source merge only remains; initial ETA did not increase.
+
+
+Implementation source `5ea318f41cfd9c87b8d7f1a2afa467b7b7045aee` pushed and PR32 opened/attached. GitHub reported no configured CI checks/statuses. Exact tested code is unchanged by the final documentation handoff. Normal merge uses expected head SHA and current clean base; do not bypass any subsequently configured branch protection.
