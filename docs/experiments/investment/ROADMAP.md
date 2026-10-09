@@ -42,13 +42,13 @@ The website fixture track (02–04) and simulator track (05–06) can proceed in
 ## Separate infrastructure checkpoints
 
 Infrastructure acceptance is separate from investment feature implementation.
-The [Asymmetri migration runbook](https://github.com/eugenelin89/asymmetri/blob/f2964bdef68779b7c5d6e4d136821c78e30e7cb4/docs/INFRA-01-UBUNTU-MIGRATION.md)
-and [validation record](https://github.com/eugenelin89/asymmetri/blob/f2964bdef68779b7c5d6e4d136821c78e30e7cb4/docs/INFRA-01-VALIDATION.md)
-own operational evidence, pinned to same-Droplet continuation commit `f2964bdef68779b7c5d6e4d136821c78e30e7cb4`.
+The [Asymmetri migration runbook](https://github.com/eugenelin89/asymmetri/blob/2ee9f53bca5ce924ff0a383ce6e4ba66517b3251/docs/INFRA-01-UBUNTU-MIGRATION.md)
+and [validation record](https://github.com/eugenelin89/asymmetri/blob/2ee9f53bca5ce924ff0a383ce6e4ba66517b3251/docs/INFRA-01-VALIDATION.md)
+own operational evidence, pinned to retirement/recovery continuation commit `2ee9f53bca5ce924ff0a383ce6e4ba66517b3251`.
 
 | Checkpoint | Scope | Depends on | Current status |
 | --- | --- | --- | --- |
-| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Clean Ubuntu 24.04 rebuild of the existing Droplet, retaining its public IP; preserve every site, service, data set and access boundary | Verified independent recovery and snapshot evidence; separate explicit destructive-rebuild and outage approval | Blocked — recovery gaps remain; live snapshot created, no rebuild or production LTS acceptance claimed |
+| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Clean Ubuntu 24.04 rebuild of the existing Droplet, retaining its public IP; preserve surviving sites/data/access and approve archival Django retirement behavior | Verified independent recovery, approved retirement response/service changes and snapshot evidence; separate explicit destructive-rebuild and outage approval | Recovery partially verified — Django retirement prepared, console/custody/target gates and approvals remain; no rebuild or retirement executed |
 | INFRA-02 — Investment receiver deployment and Linux acceptance | Separately authorized receiver deployment and Linux, proxy, service-isolation, capacity and recovery acceptance | Accepted INFRA-01 and a separate owner-selected task | Planned; not selected or started |
 
 The owner selected the existing-Droplet/IP strategy; no new Droplet is authorized.
@@ -58,6 +58,24 @@ not a final write-frozen recovery point. Creation, runtime recovery and rebuild
 acceptance are separate states. Delete only the migration snapshot(s) after healthy
 production observation and tested **current post-rebuild** recovery satisfy the
 mandatory cleanup gate. Snapshot approval does not authorize a rebuild or outage.
+
+The owner now selects **Django retirement and PG archival preservation** within
+INFRA-01. No other active app dependency was found; the live peer uses SQLite and
+the dormant draft declares PostgreSQL. Preserve all source/settings/static/data and
+the complete PG cluster plus its TLS supplement. Actual-data Mac read recovery and
+case-sensitive file restoration passed; Linux Django/PG checks used synthetic data.
+A static 410 retirement notice and service/socket changes await approval; production
+still serves the original site. Omit unused application runtimes on the future target,
+while preserving shared users, OS Python, DNS and certificates. See the pinned
+[retirement proposal](https://github.com/eugenelin89/asymmetri/blob/2ee9f53bca5ce924ff0a383ce6e4ba66517b3251/docs/INFRA-01-DJANGO-RETIREMENT.md).
+
+The combined synthetic Next/Gunicorn/Nginx test passed 337 requests under one 512 MiB
+memory cap, with 130.71 MiB kernel peak and no swap/OOM. This supports a provisional
+1 GB target with 2 GiB swap; it is not whole-host peak/build acceptance. Cleanup at
+19:24:58 UTC removed the second rehearsal tree/processes; HQ service, listeners and
+package inventory were unchanged. No private production payload was transferred to
+BotSquad; transfer to that host is prohibited in this workstream. Emergency
+console authentication/bootstrap and separate-device custody still need resolution.
 
 INFRA-01 preserves the verified existing website release; it does not deploy the
 newer INV-02 receiver or start investment activity. INFRA-02 is a separate future

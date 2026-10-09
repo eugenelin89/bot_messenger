@@ -11,7 +11,12 @@ The owner selected INFRA-01 as a clean Ubuntu 24.04 LTS rebuild of the existing
 Asymmetri Droplet with its existing public IP; no new Droplet is authorized.
 [Infrastructure checkpoints](experiments/investment/ROADMAP.md#separate-infrastructure-checkpoints)
 record the bounded snapshot approval, completed live snapshot, recovery gaps and
-still-pending destructive-rebuild/outage approval. INFRA-02 requires accepted
+still-pending destructive-rebuild/outage approval. The latest amendment prepares
+archival Django retirement and omits unused Django/PG runtimes from the target;
+static 410 behavior and service/socket changes still require approval. Copied SQLite read checks and case-sensitive archive restoration passed on the Mac;
+synthetic Linux checks and BotSquad cleanup are verified. Actual PG runtime recovery
+remains unperformed. No live retirement/rebuild occurred. No private production payload
+was transferred to BotSquad; that transfer is prohibited in this workstream. INFRA-02 requires accepted
 INFRA-01 and separate owner selection; it has not started. Investment milestone
 status, the disabled receiver and retained HQ authority are unchanged.
 

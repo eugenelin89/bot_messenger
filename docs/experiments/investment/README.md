@@ -7,7 +7,10 @@
 The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
 track INFRA-01 existing-Droplet/IP clean LTS rebuild and the later, separately selected
 INFRA-02 receiver deployment/Linux acceptance. Infrastructure preparation does
-not change feature status or authorize receiver activation.
+not change feature status or authorize receiver activation. The current INFRA-01
+amendment prepares Django retirement and PG archival retention; service/domain
+changes and destructive rebuild remain separately unapproved. Recovery evidence
+and verified BotSquad cleanup are linked from the roadmap.
 
 ## The idea
 

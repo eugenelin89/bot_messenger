@@ -6,7 +6,7 @@
 **Worktree:** Dedicated `botsquad-infra01-docs` checkout, separate from all existing writers
 **Started:** 2026-10-09
 **Initial ETA:** 25–40 minutes for remaining cross-repository preparation/review
-**Current ETA:** Documentation and public-source rehearsal complete; private recovery and destructive-operation gates prevent a reliable migration ETA
+**Current ETA:** Retirement/recovery documentation ready for review; production retirement and migration ETA depend on explicit windows, console/custody and target acceptance gates
 
 ## Objective and scope
 
@@ -63,13 +63,17 @@ infrastructure later must not change investment feature statuses without their o
 acceptance. Product Vision and System Architecture were reviewed and need no edits
 because their runtime/product truth is unchanged.
 
-## October 9 same-Droplet continuation
+## October 9 same-Droplet continuation — historical phase
+
+The retirement amendment below supersedes this phase’s active Django/PG runtime
+acceptance requirements and unanswered private-transfer question. Its checks remain
+historical evidence; current operational guidance is linked by the roadmap.
 
 The owner superseded the replacement-Droplet proposal: keep the existing Droplet
 identity/IP and DNS, rebuild its disk with Ubuntu 24.04 only after demonstrated
 recovery and explicit outage/destructive approval. No new Droplet or permanent
 hosting increase is authorized. Initial Asymmetri evidence at 50fb207 remains
-historical; current runbook/validation are pinned to `f2964bdef68779b7c5d6e4d136821c78e30e7cb4`.
+historical; then-current runbook/validation were pinned to `f2964bdef68779b7c5d6e4d136821c78e30e7cb4`.
 
 Snapshot storage is approved up to US$1.50/month. The authorized live snapshot
 completed at 11.23 GB, approximately US$0.67/month before tax; independent application
@@ -101,3 +105,52 @@ Validation preserves the entire INV/INV-ASK status table, Decision 029, contract
 completed INV-01/02 technical records. This continuation updates four documentation
 files only, with one primary writer and read-only specialist review. PR #35 remains
 open for review; document readiness does not complete INFRA-01 or start INFRA-02.
+
+
+## October 9 retirement amendment and further recovery verification
+
+Continue the same INFRA-01 workstream and existing PR #35. The owner selected retirement
+of the active peer Django application, preserving source, SQLite, settings, static
+files and recovery instructions. The dormant draft selects PostgreSQL; retain the
+entire cleanly stopped cluster and supplemental TLS files without installing PG on
+the future target. No other active dependency was found. Shared application users,
+OS Python, surviving sites, all DNS records and the snapshot remain protected.
+
+Actual copied SQLite passed 10 read-only Django journeys on the Mac; all 216 current
+non-DB source/settings/static files match the encrypted archive. Case-sensitive
+Mac restoration verified 42,605 retained members and 66 filename collisions. Numeric
+Linux ownership tests and Django/PG runtime checks used synthetic fixtures only.
+No private production archives, real records/settings or TLS keys went to HQ.
+The latest prohibition supersedes the earlier unanswered transfer-permission question.
+
+The pinned Next release rebuilt on Ubuntu; combined Next/Gunicorn/Nginx passed 337
+synthetic requests under an aggregate 512 MiB limit. In-unit kernel memory peak was
+130.71 MiB with zero swap/OOM; 4 rps is not sustained four-way concurrency or whole-host
+stress acceptance. Retirement saves roughly 36 MiB current charged RAM and 20 MiB swap;
+dormant PG saves no current runtime memory. Existing 1 GB + 2 GiB swap is provisionally
+reasonable, subject to target/build/headroom validation. Original data is not a disk
+cleanup candidate. Application runtime omission reduces maintenance obligations.
+
+A small static 410 notice is recommended, retaining domains/DNS/TLS. Actual response,
+write-freeze window and stop/disable of **both** active service and socket require
+approval and a final verified SQLite/file checkpoint. Neither retirement nor rebuild
+has occurred. Original domain responses remain until approval; original baseline
+history is preserved. Full private runtime recovery is an explicit archival limitation,
+not a requirement to run unused applications on the new target.
+
+BotSquad cleanup at 19:24:58 UTC removed 44,984 files/1,733,402,849 regular bytes, with no
+remaining task processes/units and unchanged HQ service/listeners/package inventory.
+Mac temporary restore volume/key/plaintext/runtime were removed; encrypted recovery
+archives and receipts remain. No host package installation or HQ configuration change.
+
+DigitalOcean offered Ubuntu 24.04 x64 and the retained snapshot in the existing
+Droplet's rebuild selector; the form was cancelled. Root/admin console password
+entries are locked and original custom user-data empty. Usable console/bootstrap,
+separate-device custody, final target acceptance and separate outage/rebuild approval
+remain. Snapshot deletion is still a post-success mandatory gate, not authorized now.
+
+Review corrected the main run sheet to stop the socket with its service and separated
+private file/owner-metadata evidence from synthetic Linux ownership application.
+The INV/INV-ASK table, Decision 029, contracts and feature/runtime authority are unchanged.
+Current Asymmetri evidence is pinned in the roadmap to the implementation commit;
+the prompt journal is a separate commit. PR #35 stays open and unmerged.
