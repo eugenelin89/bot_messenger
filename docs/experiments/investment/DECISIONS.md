@@ -1,6 +1,6 @@
 # Design decisions and launch configuration
 
-**Version:** 1.3 | **Updated:** 2026-10-09 | [Guide](README.md)
+**Version:** 1.4 | **Updated:** 2026-10-09 | [Guide](README.md)
 
 ## Status discipline
 
@@ -33,8 +33,9 @@ The owner authorized INV-01 contracts, feasibility, validation and normal source
 | D17 | At most one bounded low-priority Ask execution within existing shared capacity | Protect owner/market-deadline work; public traffic must not create unlimited cost |
 | D18 | US$0 incremental market-data spend is a hard owner constraint | Free API access or permitted web extraction only; no paid source, license, upgrade or subscription without a new explicit owner decision ([Decision 029](../../decisions/decision_029_zero_cost_market_data.md)) |
 | D19 | Data availability and public rights are separately verified | Never evade scraping restrictions, invent fill prices, substitute unverified quotes, or publish fields without applicable source rights; degrade visibly or block live/public gates |
+| D20 | Existing Ubuntu 22.10 retained under a time-limited owner exception | [Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md): INFRA-01 cancelled; INFRA-02 needs separate authorization and actual host acceptance, without an automatic migration prerequisite |
 
-D01–D19 are accepted design requirements; only the INV-01 wire foundation is implemented. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
+D01–D19 are accepted design requirements; INV-01 contracts and the INV-02 receiver/archive are implemented and locally validated, with the receiver default disabled and undeployed. D20 records the accepted infrastructure exception. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
 
 ## Configuration still requiring resolution
 
@@ -42,7 +43,7 @@ D01–D19 are accepted design requirements; only the INV-01 wire foundation is i
 | --- | --- | --- |
 | O01 | Capital/currency, universe, benchmark, risk limits and horizon | INV-01 specification; explicit owner approval before official activation |
 | O02 | Select permitted free API/source or allowed web scraper; verify internal/automated use, display/derived/archive rights, timestamps, retention, correction quality and limits | Market-data budget is fixed at US$0 by D18; INV-06 must prove actual free-source suitability, otherwise block live/public fields and escalate a methodology/display choice instead of spending |
-| O03 | Actual receiver host capacity, runtime/SQLite driver, identity, port and service paths | INV-01 read-only preflight; provision only when deployment is authorized |
+| O03 | Actual receiver host capacity, runtime/SQLite driver, identity, port and service paths | Fresh actual-host compatibility/capacity and Decision 030 exception review; provision only when deployment is authorized |
 | O04 | Eligible real investment roster, research/group grants and scoped paper-order capability | INV-08; do not rename roles to imply authority |
 | O05 | Finite investment model/research/operation budgets and schedule/end conditions | INV-09 and owner activation |
 | O06 | Investment publication audience, classes, expiry, withdrawals and retention | INV-07 owner review; no implicit consent from implementation |
@@ -73,12 +74,12 @@ Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). W
 | Investment usage |32 executions/cycle, 64/day, 3, 840/run; 32 broker calls/day, 1, 920/run; recommend$10/day, $600/run ceiling | Owner budget and enforceable metering required. Default group reservation is24 plus coordinator; prior12/cycle was insufficient. Caps are ceilings, not scheduled consumption |
 | Ask admission |2, 000 chars, 5/hour and20/day/session, one outstanding, queue50, TTL10min; 24 h absolute session | Owner privacy/abuse approval; network/global limits and authenticated session ownership separately enforced |
 | Ask worker/model budget | One active shared slot, 25% rolling duty ceiling, 20 questions/day globally; one answer, deterministic router initially, 0 optional research calls; 240s deadline, 8k input/1.5k output per execution, 200k tokens/day, proposed$2/day | New approved API account/adapter/model and hard reservations. Unknown token/cost usage disables paid admission. Optional model router/research require separate cap/grant review |
-| Retention/storage | Public archive/history for approved permanent duration; CAS1 GiB initial total cap, staging24 h; Ask raw<=7days in operator-controlled stores or earlier deletion; provider retention separately disclosed/approved, non-content suppression30days | Provider perpetual rights unresolved; host disk remediation first. Encrypted daily backups, Ask backup expiry<=7days, 30-day control suppression on restore; measure RPO24 h/RTO4h before adopting |
+| Retention/storage | Public archive/history for approved permanent duration; CAS1 GiB initial total cap, staging24 h; Ask raw<=7days in operator-controlled stores or earlier deletion; provider retention separately disclosed/approved, non-content suppression30days | Provider perpetual rights unresolved; fresh host/storage headroom acceptance required. Encrypted daily backups, Ask backup expiry<=7days, 30-day control suppression on restore; measure RPO24 h/RTO4h before adopting |
 | Stop conditions | Owner pause/revocation; expired grant/budget; uncertain provider outcome; missing/stale/unsupported market action; ledger conflict; drawdown threshold; outbox/storage cap; Ask stale control barrier or unverified costs | Stop affected admission, retain durable evidence, show owner action; never erase trades or automatically retry uncertain model work |
 
 Resolved INV-01 choices: canonical schema plus generated types, exact named endpoint DTOs, signed generation fence, decimal/rational representation, durable identity/receipt semantics, private Ask namespace and current host/runtime integration plan. Source implementation does not approve the rows above. Changes to official frozen methodology require an explicit amendment/new run.
 
-External blockers apply to later gates: website OS/disk before deployment; **permitted zero-cost acquisition and separately verified public/derived-data rights** before corresponding live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
+External blockers apply to later gates: actual website-host compatibility/capacity, recovery and the Decision 030 OS-exception review before deployment; **permitted zero-cost acquisition and separately verified public/derived-data rights** before corresponding live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
 
 ## Amendment process
 
@@ -92,3 +93,4 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-06 | 1.1 | R09 Ask BotSquad; actual employee routing, session-private chat, scoped outbound question retrieval and four required pre-launch packets; no runtime activation |
 | 2026-10-08 | 1.2 | INV-01 wire foundation and observed feasibility; concrete unapproved defaults, host/data/account gates; no runtime activation |
 | 2026-10-09 | 1.3 | Owner sets US$0 market-data budget; free APIs/permitted scraping replace paid feed path; data access and public display rights remain required (Decision 029) |
+| 2026-10-09 | 1.4 | Owner cancels INFRA-01 migration, deletes its verified snapshot and retains Ubuntu 22.10 under a time-limited exception; INFRA-02 remains unstarted and separately authorized (Decision 030) |

@@ -1,5 +1,35 @@
 # Execution Plan — INFRA-01 infrastructure checkpoint handoff
 
+## Current closure — October 9, 2026
+
+**Status:** Migration cancelled/deferred; snapshot deletion and cleanup verified;
+documentation reviewed. INFRA-02 remains not started.
+**Owner/branch:** Same primary writer, `feature/infra01-documentation-handoff`;
+existing dedicated worktree, specialists read-only; PR #35 open and unmerged.
+**Closure ETA:** Initially 25–40 minutes for audit, deletion, cleanup and documentation.
+
+The owner explicitly cancelled migration, authorized exact snapshot deletion after
+backup verification, and retained current Ubuntu 22.10 production. Decision 030
+records the exception and future readiness gates. The roadmap pins Asymmetri closure commit
+`f229c05d8cfad7a8fd71edef48bc6f7df74f8580`. All historic attempts below remain evidence only; their
+rebuild, retirement and snapshot-retention gates no longer govern this workstream.
+
+Actual closure evidence: all 12 archive copies verified; 11.23 GB snapshot removed
+with account absence confirmed 20:05:58 UTC; 198 requests/15 hosts and DNS/TLS passed;
+production identities/configs unchanged. Mac 48 KiB allocated disposable files removed;
+no new HQ/production deletion. Encrypted backups and private evidence preserved.
+No deployment, new authority, public behavior change, expense or next milestone.
+
+Validation for this update: focused Markdown/link checks, unchanged INV/INV-ASK rows,
+contract and Decision 029 bytes, complete diff and independent read-only scope/security
+review. No runtime tests or unavailable paid automated review are claimed for docs.
+PR #35 is updated on its owned branch, not merged; other writers/worktrees are untouched.
+
+## Historical preparation and continuation record
+
+Everything below records earlier preparation; current scope/status above supersedes
+its active instructions. Earlier failed tests, risks and commit references remain.
+
 **Status:** Complete for the documentation change; infrastructure acceptance pending
 **Owner:** Primary INFRA-01 integration agent; specialists read-only
 **Branch:** feature/infra01-documentation-handoff

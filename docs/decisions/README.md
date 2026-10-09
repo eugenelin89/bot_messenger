@@ -134,3 +134,13 @@ The investment archive stays public/read-only, while Q&A is separately session-a
 [Decision 029 — Zero-cost market-data sourcing](decision_029_zero_cost_market_data.md) records the owner's October 9, 2026 instruction: **US$0 incremental market-data acquisition/licensing budget**, with free APIs and permitted low-frequency website scraping. It supersedes the conditional paid-provider recommendation in INV-01 as the implementation direction, without rewriting its historical findings or relaxing requirements for source automation, storage, public/derived use, attribution, price integrity or no-lookahead fills. If compliant free data cannot support a particular feature, that feature's live/public gate stays blocked; no paid substitution or unauthorized scraping.
 
 Every future investment-showcase Codex prompt must review Decision 029, the [investment decision register](../experiments/investment/DECISIONS.md), the [market observation rules](../experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing) and the [current investment roadmap](../experiments/investment/ROADMAP.md), via the [shared launcher](../../prompts/experiments/investment-showcase.md). Investment and Ask public-service model/infrastructure budgets remain separately controlled.
+
+
+## Owner infrastructure exception — Investment Showcase
+
+[Decision 030 — Defer Ubuntu migration](decision_030_defer_ubuntu_migration.md)
+records cancellation of INFRA-01, verified deletion of its migration snapshot and
+retention of the current Ubuntu 22.10 host under a time-limited risk exception.
+Review before future deployment/public exposure; do not restore an automatic LTS
+prerequisite. INFRA-02 still needs explicit selection, deployment authority and
+actual host acceptance. INV statuses, contract 1.0 and Decision 029 are unchanged.

@@ -5,12 +5,11 @@
 **Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
 
 The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
-track INFRA-01 existing-Droplet/IP clean LTS rebuild and the later, separately selected
-INFRA-02 receiver deployment/Linux acceptance. Infrastructure preparation does
-not change feature status or authorize receiver activation. The current INFRA-01
-amendment prepares Django retirement and PG archival retention; service/domain
-changes and destructive rebuild remain separately unapproved. Recovery evidence
-and verified BotSquad cleanup are linked from the roadmap.
+record INFRA-01 migration cancelled/deferred and verified cleanup/snapshot deletion.
+The existing Ubuntu 22.10 server remains under the time-limited
+[owner exception](../../decisions/decision_030_defer_ubuntu_migration.md). INFRA-02
+may be separately planned on it, subject to explicit deployment authority and actual
+host acceptance. No Django retirement, receiver activation or next milestone occurred.
 
 ## The idea
 
