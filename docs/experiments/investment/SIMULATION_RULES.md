@@ -1,12 +1,14 @@
 # Simulation rules and market evidence
 
-**Version:** 1.0 | **Status:** Proposed rules; owner configuration required | [Guide](README.md)
+**Version:** 1.1 | **Status:** Proposed rules; owner configuration required | [Guide](README.md)
 
 ## 1. Scope and objective
 
 This is a forward-running experiment with pretend money and observed market data, not a backtest, brokerage client or stock-recommendation service. There is no real-money mode, account connector or configurable real-trading endpoint.
 
 Two independent questions are evaluated: can BotSquad coordinate accountable work, and how did its paper portfolio perform under the published assumptions? Profits alone do not establish coordination quality or investment skill. No particular return, strategy, trade or conclusion is required to pass software acceptance.
+
+**Market-data budget is already decided:** the owner sets US$0 incremental spend. Follow [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) for free APIs, permitted web extraction/scraping, evidence, public-display restrictions and blocked-source behavior. INV-01's paid Tiingo example is historical feasibility research, not a selected procurement plan. Other model/infrastructure budgets remain separate.
 
 ## 2. Frozen run configuration
 
@@ -23,6 +25,7 @@ The following is a design proposal, not an approved launch configuration.
 | Quantity | Whole shares for discretionary orders | Corporate-action fractional handling still required |
 | Slippage/commission | 10 basis points adverse slippage; zero modeled commission | Explicit assumptions; never claim these model actual broker costs |
 | Benchmark | A named S&P 500-tracking ETF proxy | Exact instrument, rights and total-return convention; do not call it the index itself |
+| Market-data source / spend | **US$0 incremental acquisition and licensing**, from verified free services or permitted low-frequency scraping | Confirm rights for automated internal collection and separately for each public/derived output; select actual source and fallback policy under Decision 029 |
 | Cash | No interest, no tax, immediate simulated settlement | Disclose simplification; this is not a realistic cash-account compliance model |
 | Official duration | Proposed 60 trading sessions | Owner chooses horizon; operational completion does not require a profitable result |
 | Review budget | Proposed32 model executions per cycle,64 per session,3,840 per60-session run | Existing group reservation is24 plus coordinator; requires explicit finite grant/owner approval |
@@ -58,7 +61,7 @@ Use the first verified raw opening observation for that target session. Apply ad
 
 The order is already locked before the price event occurs. A delayed feed may cause processing later, but record both market-effective time and actual processing time and label the delayed simulation. Evidence and analysis learned after the deadline must not change the already locked order.
 
-An observation must be the provider's documented raw regular-session open, not an adjusted historical bar, article price, midpoint, extended-hours trade or invented “official” price. A missing/halted/unsupported opening observation leaves a visible pending/data-blocked state until its finite deadline, then expires. No fallback provider without explicit policy/version change.
+An observation must be the provider's documented raw regular-session open, not an adjusted historical bar, article price, midpoint, extended-hours trade or invented “official” price. A missing/halted/unsupported opening observation leaves a visible pending/data-blocked state until its finite deadline, then expires. No substitute close, adjusted bar, article quote or alternative free site unless that exact field/source transition is already allowed by the frozen, versioned policy or receives a separately approved methodology amendment. A paid fallback is prohibited by Decision 029.
 
 Risk checks at execution need valid contemporaneous marks for relevant holdings. Incomplete marks block new-risk orders. An explicitly authorized risk-reducing sale may proceed only under a separately specified degraded-data policy; v1 has no such exception by default. No discretionary partial fills in v1; fill all or reject, with the liquidity simplification disclosed.
 
@@ -100,7 +103,13 @@ Price data comes from a structured trusted adapter. Public-research output suppl
 
 Store exchange calendar versions with holidays, early closes and timezone `America/New_York`; do not equate weekdays with trading days. The UI may also show the owner's `America/Vancouver` time. Check calendar freshness and unexpected closures; do not infer an open market from a cron schedule.
 
-Provider selection must establish internal use, non-display/automated use, public display, redistribution, derived-data and storage rights separately, including whether portfolio values, execution records and historical charts can be published. Delayed or freely accessible data is not automatically licensed for redistribution. Record the reviewed terms, plan, limits, attribution, delay and evidence in the launch decision. No provider purchase or account is assumed.
+**Zero-cost source policy:** No fee-based market-data API tier, redistribution license, paid trial with auto-billing or other incremental market-data spend is an option without a new explicit owner decision. Prefer free documented APIs/public open data and then permitted low-frequency extraction/scraping from publicly accessible webpages. Check current provider/site terms, automated-use rules, robots directives where relevant, licensing and rate limits; do not bypass authentication, paywalls, CAPTCHAs, anti-bot limits or blocks. A source being free to view or technically scrape does not establish permission to use it automatically or to retain and redistribute its output.
+
+Source selection must separately establish **internal/non-display/automated use**, **retention**, **public display/redistribution**, and **derived-data/archival rights**, including portfolio values, simulated fill records, per-security and benchmark histories, charts, JSON/downloads and retained artifacts. Record access terms and last verification, approved endpoints or page selectors, exchange/field semantics, source attribution, publication delay, rate bounds, available corporate actions, correction policy and expected data freshness. No published field becomes permitted merely because the trades are fictional or the website links to its source.
+
+The adapter should support a **small frozen universe and daily exchange-session observations**, cache bounded source responses, back off politely on rate limits, detect HTML/layout changes, and optionally compare with independent permitted sources. Capture the exact observed value and provenance, not an AI worker's paraphrase. Alternate sources may be used only under a frozen versioned source-selection policy with equivalent rights/semantics; otherwise require an explicit owner-approved policy/methodology change before use. More sources cannot be combined opportunistically to manufacture missing information.
+
+A free source offering only delayed daily closes might not meet the planned **next-open raw price** execution rule. Do not silently change to same-day/previous-day close, fill after seeing a favorable movement or retroactively change commitment timing. If no reliable free source provides the necessary fields, leave affected fills unavailable/expired, or propose a different no-lookahead execution convention for explicit owner approval and new methodology version **before** an operational run. If valid free data or public derived-display rights cannot be established, keep corresponding live/public gates blocked; show missing/stale labels or omit restricted fields rather than paying or scraping against restrictions. External AI and infrastructure budgets are separate from this market-data constraint.
 
 News and filing records retain publication/event/retrieval times, sources, excerpts and limitations. A recently fetched old article is not new evidence. Prefer primary company releases/filings for factual financial claims; distinguish secondary interpretation. SEC APIs are possible filing sources, not a replacement for a market-price feed. See [References](REFERENCES.md).
 
