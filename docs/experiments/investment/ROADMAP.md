@@ -1,8 +1,8 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.5 | **Updated:** 2026-10-09 | [Design guide](README.md)
+**Version:** 1.6 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
-**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is privately installed and validated by INFRA-02, stopped/default disabled with no public or real publisher activation. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
+**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 artifact/discussion/archive and human views are now validated in source and on the disabled private receiver; INV-04 onward and all Ask packets remain planned. The receiver is privately installed and validated by INFRA-02, stopped/default disabled with no public or real publisher activation. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
@@ -22,8 +22,8 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | --- | --- | --- | --- | --- | --- |
 | INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Complete, not deployed | [INV-01 evidence](../../validation/investment/INV-01.md) |
 | INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Complete; private install accepted separately, activation disabled | [INV-02 evidence](../../validation/investment/INV-02.md); [INFRA-02](../../validation/investment/INFRA-02.md) |
-| INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Planned | — |
-| INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Planned | — |
+| INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Complete; private installation validated, activation disabled | [INV-03 evidence](../../validation/investment/INV-03.md) |
+| INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Ready for separate owner selection; not started | — |
 | INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Planned | — |
 | INV-06 | Zero-cost free-source market evidence, permitted scraping and calendar adapter | BotSquad | 05; Decision 029 and source-use/quality gate | Planned | — |
 | INV-07 | Scoped HQ publisher and durable delivery | BotSquad | 01–03, 05 | Planned | — |
@@ -58,9 +58,9 @@ is historical, not the current execution plan.
 The exact 11.23 GB migration snapshot was deleted after all 12 retained encrypted
 archive copies passed fresh checks; absence confirmed October 9 at 13:05:58 PDT /
 20:05:58 UTC. Approximately US$0.6738/month before tax is eliminated; already accrued
-usage is not yet itemized and no refund is claimed. Independent recovery material
-remains protected. Both copies are on the same Mac; separate-device custody remains
-unverified. No paid migration resource remains and no new hosting expense is approved.
+usage is not yet itemized and no refund is claimed. A later owner-approved Mac cleanup deleted both backup copies and their recovery
+records/keys. Current independent custody is unverified; the earlier check is history,
+not evidence of a recoverable copy now. No paid migration resource remains and no new hosting expense is approved.
 
 All 198 baseline requests/15 hosts, DNS/TLS and production service/configuration
 checks pass. Django/service/socket/SQLite and dormant PG data remain unchanged;
@@ -73,16 +73,17 @@ or new public exposure; no calendar expiry was supplied. Actual Node.js/SQLite,
 Nginx signed-request behavior, least-privilege service/storage, CPU/RAM/swap/disk,
 backups/restore and site preservation were tested in INFRA-02 for private synthetic
 scope. The HTTP proxy profile failed duplicate-Connection preservation; accepted
-stream transport does not prove real HTTP/TLS ingress. Representative sustained
-capacity, backup/retention policy and real authority/rights remain activation gates.
+stream transport does not prove real HTTP/TLS ingress. INV-03 subsequently passed isolated TLS, stronger bounded sustained capacity and
+complete synthetic restore. Shared443/public capacity, live backup custody/policy and
+real authority/rights remain activation gates; the rejected HTTP profile stays rejected.
 The authorized private controls do not replace OS patches.
-Publishing stays default disabled. Local INV-03 work may proceed when separately
-requested; this cleanup starts no next packet, market collection or Ask service.
+Publishing stays default disabled. INV-03 was subsequently selected and completed; INV-04 needs a separate request.
+No record here starts market collection or an Ask service.
 A future OS upgrade or Django retirement is an independent owner decision.
 
 ## Common completion contract
 
-Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01, INV-02 and private INFRA-02 evidence now exists; later feature-packet evidence remains to be produced.
+Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01–03 and private INFRA-02 evidence now exists; later feature-packet evidence remains to be produced.
 
 A useful status is “implemented, not deployed” or “blocked by data rights,” not an unsupported “complete.” No runtime tests are claimed from documentation review; no real-worker acceptance from stubs; no official public experiment from a synthetic demo. Never require profits or a predetermined BUY to pass acceptance. A separate chatbot falsely labelled as an employee cannot pass Ask acceptance.
 
@@ -129,7 +130,7 @@ INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Actua
 
 **Codex task:** “Execute INV-02 only in the Asymmetri repository using the version-pinned BotSquad contract. Implement and validate the bounded receiver; preserve existing site/runtime boundaries and leave production publication disabled.”
 
-INV-02 handoff: [Asymmetri implementation 457f935](https://github.com/eugenelin89/asymmetri/commit/457f9354b3f8daf5c4c75b8f5ac1946433da3ce0), migration 001, exact contract manifest `7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31`. **183/183 local synthetic tests pass on Node 22.23.1 and 24.10.0**, both website builds and production audits pass, and three independent read-only reviewers accepted the corrected source. INV-03 local work is ready on a new explicit request; public downloads/pages and all production activation remain deferred. See the [complete evidence and deployment gates](../../validation/investment/INV-02.md).
+Historical INV-02 handoff (superseded for current archive/download status by INV-03 below): [Asymmetri implementation 457f935](https://github.com/eugenelin89/asymmetri/commit/457f9354b3f8daf5c4c75b8f5ac1946433da3ce0), migration 001, exact contract manifest `7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31`. **183/183 local synthetic tests pass on Node 22.23.1 and 24.10.0**, both website builds and production audits pass, and three independent read-only reviewers accepted the corrected source. INV-03 local work is ready on a new explicit request; public downloads/pages and all production activation remain deferred. See the [complete evidence and deployment gates](../../validation/investment/INV-02.md).
 
 ## INV-03 — Artifacts and discussion archive
 
@@ -142,6 +143,14 @@ INV-02 handoff: [Asymmetri implementation 457f935](https://github.com/eugenelin8
 **Not included:** PDF/office rendering, arbitrary attachments, third-party object storage or public access to private HQ content.
 
 **Codex task:** “Execute INV-03 only. Build the durable discussion/artifact archive and prove safe lifecycle and relationship behavior. Use clearly synthetic content and retain earlier versions and failures.”
+
+INV-03 handoff: [accepted evidence](../../validation/investment/INV-03.md) pins source,
+journal, schema002 and disabled installed state. 200 local and 200 actual Node22 tests,
+62 TLS tests, complete restore and 228 site-preservation probes pass. The HTTP proxy
+profile remains rejected (48/52); public ingress/custody/rights/HQ gates are explicit.
+INV-04 can proceed on labelled fixtures only when separately selected. Its website
+read authority must be reconciled with any future public signed authority before
+combined activation; do not relax strict receiver Host verification.
 
 ## INV-04 — BotSquad public showcase
 

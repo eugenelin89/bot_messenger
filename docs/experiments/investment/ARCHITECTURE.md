@@ -1,6 +1,6 @@
 # Architecture and integration boundaries
 
-**Version:** 1.2 | **Status:** Proposed, not implemented | [Guide](README.md)
+**Version:** 1.2 | **Status:** INV-01–03 receiver/archive implemented; HQ/Ask integration remains planned | [Guide](README.md)
 
 **Ask BotSquad:** [The feature specification](ASK_BOTSQUAD.md) owns the added general/contextual public-question lane, routing, private session store and `/api/ask/v1` protocol. Portfolio publication below remains separate. Visitors request scoped answers, never trades or owner commands. [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) records the explicit boundary amendment.
 
@@ -122,7 +122,7 @@ Use public-only `experiments`, `runs`, `publishers`, `events`, `snapshots`, `dis
 
 Accepted immutable events/artifact versions are public history; read models can be rebuilt. A snapshot is a versioned observation, not a balance-reset command. Enforce scoped uniqueness, references and monotonic view advancement. Corrections preserve earlier records; exceptional withdrawals are separately audited.
 
-Proposed investment paths: `/var/lib/asymmetri-experiments/archive.sqlite` and `/var/lib/asymmetri-experiments/content/`. Verify/authorize actual paths before deployment. Ask requires a distinct private store, response authorization and separate backup/retention policy; see its normative specification. Runtime databases, credentials and generated artifacts never belong in Git, `.next/` or build output.
+Installed private investment paths are `/var/lib/asymmetri-investment/archive.sqlite` and private CAS under `/var/lib/asymmetri-investment/objects/`; source is `/opt/asymmetri-receiver/receiver`. The service remains disabled. Earlier `/var/lib/asymmetri-experiments` paths were proposals, not current installed paths. Ask requires a distinct private store, response authorization and separate backup/retention policy; see its normative specification. Runtime databases, credentials and generated artifacts never belong in Git, `.next/` or build output.
 
 ## 6. State boundaries
 
@@ -152,6 +152,12 @@ No federation, multi-company tenancy, visitor accounts, general webhooks, object
 
 Read [feasibility evidence](../../validation/investment/INV-01.md) for exact source/host versions, read-only observations, proposed module locations and limitations. Existing research contexts are private and reused per worker; current Conversations include private knowledge/peer tools and incompatible immutable retention. Both public investment and Ask require explicit new audience-scoped contexts; Ask also needs separate storage/deletion and shared-dispatcher fairness/uncertainty integration. No current capability was changed.
 
-This plan is now implemented by [INV-02](../../validation/investment/INV-02.md) in Asymmetri commit `457f9354b3f8daf5c4c75b8f5ac1946433da3ce0`: independent default-disabled loopback Node service, SQLite migration 001 and private CAS, exact contract 1.0. `better-sqlite3` 13.0.3/SQLite 3.53.4 and 183 tests passed on macOS arm64 Node 22.23.1 and 24.10.0. Next/Vinext stay separate; a type/location read interface has no fetch/startup side effects. Public content downloads/pages and private Ask store/unit are deferred.
+This plan is now implemented by [INV-02](../../validation/investment/INV-02.md) in Asymmetri commit `457f9354b3f8daf5c4c75b8f5ac1946433da3ce0`: independent default-disabled loopback Node service, SQLite migration 001 and private CAS, exact contract 1.0. `better-sqlite3` 13.0.3/SQLite 3.53.4 and 183 tests passed on macOS arm64 Node 22.23.1 and 24.10.0. Next/Vinext stay separate. INV-03 extends the server-only read interface with bounded, explicitly configured loopback reads and adds exact artifact downloads/discussion/record pages. The public website remains unchanged; private Ask store/unit remains deferred.
 
-The owner retained Ubuntu 22.10 under [Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md); review this time-limited risk exception before the next deployment/public exposure. Migration is no longer an automatic prerequisite. INV-01's 96%-used root is historical: Asymmetri's October 9 maintenance record documents separate cleanup (~13.63 GiB free, 44% used then); INV-02 did not inspect or change the server. Fresh disk/RAM/OS checks, Linux native/proxy validation, separate identity/storage, verified backup/restore and explicit activation are still required. Source independence preserves Decision 029's US$0 acquisition policy. Trusted rights approvals for the exact frozen configuration are required before observed-paper publication; none was created operationally.
+The owner retained Ubuntu 22.10 under [Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md); review this time-limited risk exception before the next deployment/public exposure. Migration is no longer an automatic prerequisite. INV-01's 96%-used root is historical: Asymmetri's October 9 maintenance record documents separate cleanup (~13.63 GiB free, 44% used then); INV-02 did not inspect or change the server. INV-03 now records fresh disk/RAM/OS checks, native/isolation acceptance, isolated TLS, bounded capacity and complete synthetic restore. Public topology/authority/certificate/renewal/capacity, independently verified backup custody and explicit activation remain required. Source independence preserves Decision 029's US$0 acquisition policy. Trusted rights approvals for the exact frozen configuration are required before observed-paper publication; none was created operationally.
+
+[INV-03 acceptance](../../validation/investment/INV-03.md) pins additive schema002 and exact
+installed source. Owner controls, exact artifact rights, restore read holds and stale
+backup suppression do not change contract1.0 or create publisher authority. Future
+public authority must be reconciled with the current website loopback Host using trusted
+server configuration and tests; preserve strict receiver authority verification.
