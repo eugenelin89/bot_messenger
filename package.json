@@ -19,10 +19,18 @@
     "validate:prompt01": "npm run build && node dist/scripts/real-e2e.js",
     "demo:tutorial": "npm run build && node dist/scripts/demo-operator/run.js",
     "validate:conversations": "npm run build && node scripts/conversations/acceptance.mjs",
-    "validate:discussions": "npm run build && node scripts/discussions/acceptance.mjs"
+    "validate:discussions": "npm run build && node scripts/discussions/acceptance.mjs",
+    "contracts:generate": "node scripts/investment-contracts/generate.mjs",
+    "contracts:check": "node scripts/investment-contracts/generate.mjs --check",
+    "contracts:test": "npm run contracts:check && npm run build && node --test dist/test/investment-contracts.test.js"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "canonicalize": "2.1.0",
+    "json-schema-to-typescript": "15.0.4",
+    "jsonc-parser": "3.3.1",
     "playwright": "1.63.0",
     "typescript": "^5.9.0"
   },

@@ -1,0 +1,2670 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "BotSquad Investment Showcase and private Ask contracts",
+    "version": "1.0.0",
+    "description": "INV-01 specification only; no live endpoints or activation. All component records are canonical external JSON Schema refs. Service and browser authorities are disjoint."
+  },
+  "servers": [
+    {
+      "url": "https://asymmetri.co"
+    }
+  ],
+  "paths": {
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/events": {
+      "post": {
+        "operationId": "publishEventBatch",
+        "summary": "publishEventBatch",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PublicationReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Identical authenticated retry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PublicationReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "events:write",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/EventBatch"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      },
+      "get": {
+        "operationId": "readEventPage",
+        "summary": "readEventPage",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/EventPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/content/{sha256}": {
+      "put": {
+        "operationId": "stageArtifactContent",
+        "summary": "stageArtifactContent",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ContentReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "content:write",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "maxLength": 4194304
+              }
+            },
+            "text/markdown": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "maxLength": 4194304
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "maxLength": 4194304
+              }
+            },
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "maxLength": 4194304
+              }
+            },
+            "text/csv": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "maxLength": 4194304
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Hash"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/heartbeat": {
+      "post": {
+        "operationId": "publishHeartbeat",
+        "summary": "publishHeartbeat",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/HeartbeatReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "heartbeat:write",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/Heartbeat"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/receipts/{batchId}": {
+      "get": {
+        "operationId": "readPublicationReceipt",
+        "summary": "readPublicationReceipt",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PublicationReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "receipts:read",
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/status": {
+      "get": {
+        "operationId": "readPublicStatus",
+        "summary": "readPublicStatus",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PublicStatus"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/snapshot": {
+      "get": {
+        "operationId": "readSnapshotResponse",
+        "summary": "readSnapshotResponse",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/SnapshotResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/performance": {
+      "get": {
+        "operationId": "readPerformancePage",
+        "summary": "readPerformancePage",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PerformancePage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Date"
+            }
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "daily"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/discussions": {
+      "get": {
+        "operationId": "readDiscussionPage",
+        "summary": "readDiscussionPage",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/DiscussionPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/discussions/{id}": {
+      "get": {
+        "operationId": "readDiscussionDetail",
+        "summary": "readDiscussionDetail",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/DiscussionDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/decisions/{id}": {
+      "get": {
+        "operationId": "readDecisionDetail",
+        "summary": "readDecisionDetail",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/DecisionDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/artifacts": {
+      "get": {
+        "operationId": "readArtifactPage",
+        "summary": "readArtifactPage",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ArtifactPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/artifacts/{id}/versions/{version}": {
+      "get": {
+        "operationId": "readArtifactDetail",
+        "summary": "readArtifactDetail",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/ArtifactDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/transactions": {
+      "get": {
+        "operationId": "readTransactionPage",
+        "summary": "readTransactionPage",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/TransactionPage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "order",
+                "transaction"
+              ]
+            }
+          },
+          {
+            "name": "instrumentId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "validated",
+                "pending",
+                "filled",
+                "rejected",
+                "expired",
+                "cancelled"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}": {
+      "get": {
+        "operationId": "readExperiment",
+        "summary": "readExperiment",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/PublicExperiment"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/artifacts/{id}/versions/{version}/content": {
+      "get": {
+        "operationId": "readPublishedArtifactBytes",
+        "summary": "readPublishedArtifactBytes",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Only bytes resolved through published non-withdrawn metadata; guessed digest is never authority. Content-Type, nosniff and restrictive CSP required.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/api/experiments/v1/experiments/{experimentId}/runs/{runId}/records/{kind}/{id}/versions/{version}": {
+      "get": {
+        "operationId": "readExactPublicRecord",
+        "summary": "readExactPublicRecord",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/RecordDetail"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "experimentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "event",
+                "discussion",
+                "contribution",
+                "decision",
+                "review",
+                "order",
+                "transaction",
+                "artifact",
+                "valuation",
+                "corporate_action",
+                "instrument"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/roster": {
+      "get": {
+        "operationId": "readAskPublicRoster",
+        "summary": "readAskPublicRoster",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskRoster"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask/v1/availability": {
+      "get": {
+        "operationId": "askAvailability",
+        "summary": "askAvailability",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskAvailability"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask/v1/sessions": {
+      "post": {
+        "operationId": "createAskSession",
+        "summary": "createAskSession",
+        "security": [],
+        "responses": {
+          "201": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskSession"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskSessionCreate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          }
+        ],
+        "description": "Same-origin and anti-abuse gate. Set __Host-botsquad_ask random secret cookie; Secure; HttpOnly; SameSite=Strict; Path=/; absolute expiry. Store secret hash only; response sessionId is not a credential. No models."
+      }
+    },
+    "/api/ask/v1/conversations": {
+      "post": {
+        "operationId": "createAskConversation",
+        "summary": "createAskConversation",
+        "security": [
+          {
+            "visitorSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskConversation"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskConversationCreate"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 128,
+              "minLength": 32
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/conversations/{id}/questions": {
+      "post": {
+        "operationId": "submitAskQuestion",
+        "summary": "submitAskQuestion",
+        "security": [
+          {
+            "visitorSession": []
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskAdmission"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskQuestionInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 128,
+              "minLength": 32
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/conversations/{id}": {
+      "get": {
+        "operationId": "readOwnAskConversation",
+        "summary": "readOwnAskConversation",
+        "security": [
+          {
+            "visitorSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskConversationPage"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteOwnAskConversation",
+        "summary": "deleteOwnAskConversation",
+        "security": [
+          {
+            "visitorSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskControlReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 128,
+              "minLength": 32
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/questions/{id}/cancel": {
+      "post": {
+        "operationId": "cancelOwnAskQuestion",
+        "summary": "cancelOwnAskQuestion",
+        "security": [
+          {
+            "visitorSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskControlReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskCancel"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 128,
+              "minLength": 32
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/claims": {
+      "post": {
+        "operationId": "claimAskQuestion",
+        "summary": "claimAskQuestion",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskClaimPage"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "claim",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskClaimInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/claims/{id}/renew": {
+      "post": {
+        "operationId": "renewAskClaim",
+        "summary": "renewAskClaim",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskClaim"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "claim",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskRenewInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/questions/{id}/status": {
+      "post": {
+        "operationId": "deliverAskStatus",
+        "summary": "deliverAskStatus",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskStatus"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "status",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskStatusDelivery"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/questions/{id}/answer": {
+      "post": {
+        "operationId": "deliverAskAnswer",
+        "summary": "deliverAskAnswer",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskAnswerReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "answer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskAnswerDelivery"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/answers/{answerId}/receipt": {
+      "get": {
+        "operationId": "readAskAnswerReceipt",
+        "summary": "readAskAnswerReceipt",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskAnswerReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "receipt",
+        "parameters": [
+          {
+            "name": "answerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          }
+        ]
+      }
+    },
+    "/api/ask/v1/hq/control-sync": {
+      "post": {
+        "operationId": "syncAskPrivacyControls",
+        "summary": "syncAskPrivacyControls",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskControlSync"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "control_sync",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schema.json#/$defs/AskControlSyncInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Id"
+            }
+          },
+          {
+            "name": "Content-Digest",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^sha-256=:[A-Za-z0-9+/]{43}=:$"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "httpSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Signature",
+        "description": "RFC 9421 Ed25519 profile, not a bearer API key. Required Signature-Input + current scope + freshness/nonce validation; exact profile in PROTOCOL.md."
+      },
+      "visitorSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-botsquad_ask",
+        "description": "Anonymous opaque session secret. IDs alone never authorize access; CSRF + exact Origin on writes."
+      }
+    }
+  }
+}

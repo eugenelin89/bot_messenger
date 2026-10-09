@@ -230,3 +230,9 @@ Checked 2026-10-06. These support risk controls, not a claim that the proposed s
 - [OWASP CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html): SameSite is defense in depth, not a replacement for appropriate CSRF defenses.
 
 Do not use this document as provider-subscription approval. Implementation must verify that the configured runtime and provider terms permit anonymous third-party service use and fit the owner's account/plan before enabling Ask BotSquad. Preserve the existing licensed/approved account boundary; do not assume a development login automatically authorizes a public AI service.
+
+## INV-01 contract and feasibility result
+
+[Contract 1.0](../../../contracts/investment/v1/PROTOCOL.md) supplies private Ask DTOs/OpenAPI, session ownership, claims/control sync, routing/actual-worker response identity, general public-source citations, exact contextual records, suppression receipts and offline recovery cases. It also adds a safe eligible-worker roster route. Complete paginated control application/acknowledgment is required before dispatch/release; immutable answers survive refreshed delivery wrappers without another model call. Withdrawn original question context suppresses output even when citations omit it.
+
+The observed HQ runtime is ChatGPT-authenticated and is not cleared for anonymous third-party use. A separately approved API-backed adapter/account with verifiable token/cost/retention controls is the recommended prerequisite; current private worker sessions and CompanyKnowledge tools are unsuitable. [Evidence and official terms](../../validation/investment/INV-01.md) distinguish verified facts from pending approval. Actual worker identity remains mandatory. No public Ask runtime or provider execution was activated; INV-ASK packets remain planned.

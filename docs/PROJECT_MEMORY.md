@@ -1,7 +1,11 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-07
+**Updated:** 2026-10-08
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
+
+## Investment contract foundation
+
+Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. No runtime/server/permission changes. Local disabled INV-02 is ready when requested; host OS/disk, market licensing and anonymous Ask provider/account/budget gates remain before applicable live stages. All later investment/Ask packets remain planned.
 
 ## Current owner priority — Personal Operator / Daily Driver
 

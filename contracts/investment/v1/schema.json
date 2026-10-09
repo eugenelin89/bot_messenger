@@ -1,0 +1,6521 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asymmetri.co/contracts/investment/1.0/schema.json",
+  "title": "InvestmentShowcaseContract",
+  "description": "INV-01 v1.0 wire contracts. Synthetic fixtures do not authorize a run or service. Public portfolio and private Ask roots remain disjoint. All decimals are exact strings. Semantic requirements are in PROTOCOL.md.",
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+    },
+    "Version": {
+      "const": "1.0",
+      "type": "string"
+    },
+    "Hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "Time": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 24,
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z$"
+    },
+    "Date": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 10,
+      "format": "date"
+    },
+    "Decimal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 24,
+      "pattern": "^(0|[1-9][0-9]{0,11})(\\.[0-9]{1,6})?$"
+    },
+    "SignedDecimal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 25,
+      "pattern": "^-?(0|[1-9][0-9]{0,11})(\\.[0-9]{1,6})?$"
+    },
+    "Sequence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 18,
+      "pattern": "^[1-9][0-9]{0,17}$"
+    },
+    "Quantity": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 9,
+      "pattern": "^[1-9][0-9]{0,8}$"
+    },
+    "Text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8000
+    },
+    "HttpsUrl": {
+      "type": "string",
+      "minLength": 9,
+      "maxLength": 2048,
+      "format": "uri",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "Mode": {
+      "type": "string",
+      "enum": [
+        "synthetic_fixture",
+        "observed_paper"
+      ]
+    },
+    "RunState": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "configured",
+        "private_trial",
+        "ready_for_public",
+        "active",
+        "paused",
+        "ended",
+        "archived"
+      ]
+    },
+    "Actor": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "system",
+                "owner"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "worker",
+              "type": "string"
+            },
+            "workerId": {
+              "$ref": "#/$defs/Id"
+            }
+          },
+          "required": [
+            "kind",
+            "workerId"
+          ]
+        }
+      ]
+    },
+    "RecordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "event",
+            "discussion",
+            "contribution",
+            "decision",
+            "review",
+            "order",
+            "transaction",
+            "artifact",
+            "valuation",
+            "corporate_action",
+            "instrument"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/Id"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "challenges",
+            "summarizes",
+            "supersedes",
+            "reviews",
+            "results_in",
+            "produced_by"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version",
+        "relation"
+      ]
+    },
+    "ContextRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "record": {
+          "$ref": "#/$defs/RecordRef"
+        }
+      },
+      "required": [
+        "experimentId",
+        "runId",
+        "record"
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "url": {
+          "$ref": "#/$defs/HttpsUrl"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "publishedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eventAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrievedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 2000
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "minItems": 0,
+          "maxItems": 10
+        },
+        "rights": {
+          "type": "string",
+          "enum": [
+            "public_link",
+            "licensed_summary",
+            "owner_authored"
+          ]
+        }
+      },
+      "required": [
+        "sourceId",
+        "url",
+        "title",
+        "publisher",
+        "publishedAt",
+        "eventAt",
+        "retrievedAt",
+        "summary",
+        "limitations",
+        "rights"
+      ]
+    },
+    "Instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16,
+          "pattern": "^[A-Z0-9. -]+$"
+        },
+        "venue": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12
+        },
+        "currency": {
+          "const": "USD",
+          "type": "string"
+        },
+        "sector": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "classificationSource": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "symbolHistory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16
+              },
+              "effectiveFrom": {
+                "$ref": "#/$defs/Date"
+              },
+              "effectiveTo": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "symbol",
+              "effectiveFrom",
+              "effectiveTo"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "instrumentId",
+        "symbol",
+        "venue",
+        "currency",
+        "sector",
+        "classificationSource",
+        "symbolHistory"
+      ]
+    },
+    "RunConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "configurationVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "methodologyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "methodologyHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "universeVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "universe": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Instrument"
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "initialCapital": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "currency": {
+          "const": "USD",
+          "type": "string"
+        },
+        "benchmarkInstrument": {
+          "$ref": "#/$defs/Instrument"
+        },
+        "benchmarkConvention": {
+          "const": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "type": "string"
+        },
+        "calendarVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "calendarTimezone": {
+          "const": "America/New_York",
+          "type": "string"
+        },
+        "marketProvider": {
+          "$ref": "#/$defs/Id"
+        },
+        "feed": {
+          "$ref": "#/$defs/Id"
+        },
+        "openingFieldDefinition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "executionRule": {
+          "const": "next_regular_open",
+          "type": "string"
+        },
+        "cutoffMinutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        },
+        "slippageBps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "commission": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "quantityRule": {
+          "const": "whole_discretionary_six_decimal_actions",
+          "type": "string"
+        },
+        "rounding": {
+          "const": "half_even_6",
+          "type": "string"
+        },
+        "costBasis": {
+          "const": "weighted_average",
+          "type": "string"
+        },
+        "longOnly": {
+          "const": true,
+          "type": "boolean"
+        },
+        "leverage": {
+          "const": false,
+          "type": "boolean"
+        },
+        "cashConvention": {
+          "const": "no_interest_no_tax_immediate_simulated_settlement",
+          "type": "string"
+        },
+        "positionLimitBps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "sectorLimitBps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "drawdownStopBps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "decisionCadence": {
+          "const": "one_review_per_regular_session",
+          "type": "string"
+        },
+        "officialSessions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "cycleExecutionBudget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "dailyExecutionBudget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "runExecutionBudget": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "publicationHeartbeatSeconds": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 3600
+        },
+        "publicationStaleSeconds": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 86400
+        },
+        "maxOutboxAgeSeconds": {
+          "type": "integer",
+          "minimum": 60,
+          "maximum": 604800
+        },
+        "maxOutboxBytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 1073741824
+        },
+        "dataDelaySeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "rightsEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HttpsUrl"
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "configurationStatus": {
+          "type": "string",
+          "enum": [
+            "synthetic_only",
+            "owner_approved"
+          ]
+        },
+        "approvalRecordId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "maxOpeningWaitSeconds": {
+          "type": "integer",
+          "minimum": 60,
+          "maximum": 172800
+        }
+      },
+      "required": [
+        "configurationVersion",
+        "methodologyVersion",
+        "methodologyHash",
+        "universeVersion",
+        "universe",
+        "initialCapital",
+        "currency",
+        "benchmarkInstrument",
+        "benchmarkConvention",
+        "calendarVersion",
+        "calendarTimezone",
+        "marketProvider",
+        "feed",
+        "openingFieldDefinition",
+        "executionRule",
+        "cutoffMinutes",
+        "slippageBps",
+        "commission",
+        "quantityRule",
+        "rounding",
+        "costBasis",
+        "longOnly",
+        "leverage",
+        "cashConvention",
+        "positionLimitBps",
+        "sectorLimitBps",
+        "drawdownStopBps",
+        "decisionCadence",
+        "officialSessions",
+        "cycleExecutionBudget",
+        "dailyExecutionBudget",
+        "runExecutionBudget",
+        "publicationPolicyVersion",
+        "publicationHeartbeatSeconds",
+        "publicationStaleSeconds",
+        "maxOutboxAgeSeconds",
+        "maxOutboxBytes",
+        "dataDelaySeconds",
+        "attribution",
+        "rightsEvidence",
+        "configurationStatus",
+        "approvalRecordId",
+        "limitations",
+        "maxOpeningWaitSeconds"
+      ]
+    },
+    "RunPublished": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "runKind": {
+          "type": "string",
+          "enum": [
+            "fixture",
+            "private_trial",
+            "official"
+          ]
+        },
+        "state": {
+          "$ref": "#/$defs/RunState"
+        },
+        "configuration": {
+          "$ref": "#/$defs/RunConfiguration"
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "startsAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "endsAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "previousRunId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "purpose",
+        "objective",
+        "runKind",
+        "state",
+        "configuration",
+        "configurationHash",
+        "startsAt",
+        "endsAt",
+        "previousRunId"
+      ]
+    },
+    "Worker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "available",
+            "busy",
+            "unavailable",
+            "retired"
+          ]
+        }
+      },
+      "required": [
+        "workerId",
+        "name",
+        "role",
+        "responsibilities",
+        "status"
+      ]
+    },
+    "TeamPublished": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rosterVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "workers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Worker"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        }
+      },
+      "required": [
+        "rosterVersion",
+        "workers"
+      ]
+    },
+    "RunStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/RunState"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "nextReviewAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "reason",
+        "effectiveAt",
+        "nextReviewAt"
+      ]
+    },
+    "WorkerActivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "activityId": {
+          "$ref": "#/$defs/Id"
+        },
+        "workerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "activity": {
+          "type": "string",
+          "enum": [
+            "research",
+            "discussion",
+            "decision",
+            "review",
+            "idle",
+            "blocked"
+          ]
+        },
+        "work": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "finishedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      },
+      "required": [
+        "activityId",
+        "workerId",
+        "activity",
+        "work",
+        "startedAt",
+        "finishedAt",
+        "summary"
+      ]
+    },
+    "DiscussionOpened": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "discussionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "topic": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "charter": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "audiencePolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "discussionId",
+        "topic",
+        "charter",
+        "audiencePolicyVersion",
+        "participants"
+      ]
+    },
+    "Contribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contributionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "discussionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "ordinal": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "body": {
+          "$ref": "#/$defs/Text"
+        },
+        "replyTo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "contributionId",
+        "discussionId",
+        "ordinal",
+        "body",
+        "replyTo",
+        "evidence"
+      ]
+    },
+    "DiscussionClosed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "discussionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "dissent": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "synthesis": {
+          "$ref": "#/$defs/ArtifactRef"
+        }
+      },
+      "required": [
+        "discussionId",
+        "outcome",
+        "dissent",
+        "unresolved",
+        "synthesis"
+      ]
+    },
+    "ArtifactState": {
+      "type": "string",
+      "enum": [
+        "registered",
+        "awaiting_publication",
+        "published",
+        "withheld",
+        "failed",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "ContentType": {
+      "type": "string",
+      "enum": [
+        "text/plain",
+        "text/markdown",
+        "application/json",
+        "image/png",
+        "text/csv"
+      ]
+    },
+    "ArtifactRegistered": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/Id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "author": {
+          "$ref": "#/$defs/Actor"
+        },
+        "status": {
+          "$ref": "#/$defs/ArtifactState"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "artifactId",
+        "title",
+        "author",
+        "status",
+        "reason",
+        "relationships"
+      ]
+    },
+    "ArtifactVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/Id"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "author": {
+          "$ref": "#/$defs/Actor"
+        },
+        "createdAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "publishedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "contentType": {
+          "$ref": "#/$defs/ContentType"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4194304
+        },
+        "sha256": {
+          "$ref": "#/$defs/Hash"
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "rights": {
+          "type": "string",
+          "enum": [
+            "owner_authored",
+            "licensed_publication"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "derivative": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "artifactId",
+        "version",
+        "title",
+        "author",
+        "createdAt",
+        "publishedAt",
+        "contentType",
+        "sizeBytes",
+        "sha256",
+        "relationships",
+        "sources",
+        "rights",
+        "limitations",
+        "supersedes",
+        "derivative"
+      ]
+    },
+    "IndependentReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewId": {
+          "$ref": "#/$defs/Id"
+        },
+        "reviewerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "proposalHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "proposalRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "reviewedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "disposition": {
+          "type": "string",
+          "enum": [
+            "approve",
+            "reject",
+            "revise"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3000
+        },
+        "dissent": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "reviewId",
+        "reviewerId",
+        "proposalHash",
+        "proposalRevision",
+        "reviewedAt",
+        "disposition",
+        "rationale",
+        "dissent",
+        "evidence"
+      ]
+    },
+    "DecisionProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decisionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "BUY",
+            "SELL",
+            "HOLD"
+          ]
+        },
+        "instrumentId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "targetSession": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priceGuard": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidenceCutoff": {
+          "$ref": "#/$defs/Time"
+        },
+        "committedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "invalidationCondition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "decisionId",
+        "revision",
+        "action",
+        "instrumentId",
+        "quantity",
+        "targetSession",
+        "priceGuard",
+        "evidenceCutoff",
+        "committedAt",
+        "rationale",
+        "alternatives",
+        "risks",
+        "invalidationCondition",
+        "evidence",
+        "sources"
+      ]
+    },
+    "DecisionPublished": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposal": {
+          "$ref": "#/$defs/DecisionProposal"
+        },
+        "proposalHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "review": {
+          "$ref": "#/$defs/IndependentReview"
+        }
+      },
+      "required": [
+        "proposal",
+        "proposalHash",
+        "review"
+      ]
+    },
+    "PaperOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "orderId": {
+          "$ref": "#/$defs/Id"
+        },
+        "decisionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "decisionRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "proposalHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "orderIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "previousEventId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "side": {
+          "type": "string",
+          "enum": [
+            "BUY",
+            "SELL"
+          ]
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "targetSession": {
+          "$ref": "#/$defs/Date"
+        },
+        "deadline": {
+          "$ref": "#/$defs/Time"
+        },
+        "priceGuard": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "validated",
+            "pending",
+            "filled",
+            "rejected",
+            "expired",
+            "cancelled"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "expectedLedgerVersion": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "reservedCash": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "reservedQuantity": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "orderId",
+        "decisionId",
+        "decisionRevision",
+        "proposalHash",
+        "orderIndex",
+        "revision",
+        "previousEventId",
+        "instrumentId",
+        "side",
+        "quantity",
+        "targetSession",
+        "deadline",
+        "priceGuard",
+        "status",
+        "reason",
+        "configurationHash",
+        "expectedLedgerVersion",
+        "reservedCash",
+        "reservedQuantity",
+        "expiresAt"
+      ]
+    },
+    "MarketObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "observationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "venue": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12
+        },
+        "currency": {
+          "const": "USD",
+          "type": "string"
+        },
+        "provider": {
+          "$ref": "#/$defs/Id"
+        },
+        "feed": {
+          "$ref": "#/$defs/Id"
+        },
+        "field": {
+          "type": "string",
+          "enum": [
+            "regular_open",
+            "regular_close"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "adjustment": {
+          "const": "raw",
+          "type": "string"
+        },
+        "session": {
+          "$ref": "#/$defs/Date"
+        },
+        "marketAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "availableAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrievedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "calendarVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "delaySeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800
+        }
+      },
+      "required": [
+        "observationId",
+        "instrumentId",
+        "venue",
+        "currency",
+        "provider",
+        "feed",
+        "field",
+        "value",
+        "adjustment",
+        "session",
+        "marketAt",
+        "availableAt",
+        "retrievedAt",
+        "calendarVersion",
+        "sourceVersion",
+        "delaySeconds"
+      ]
+    },
+    "CorporateAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "providerActionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "split",
+            "dividend_accrual",
+            "dividend_payment",
+            "ticker_change",
+            "unsupported"
+          ]
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "exDate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paymentDate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "denominator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cashPerShare": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entitledQuantity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fractionalEntitlement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Rational"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "newSymbol": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "actionId",
+        "providerActionId",
+        "instrumentId",
+        "sourceVersion",
+        "kind",
+        "effectiveAt",
+        "exDate",
+        "paymentDate",
+        "numerator",
+        "denominator",
+        "cashPerShare",
+        "entitledQuantity",
+        "fractionalEntitlement",
+        "newSymbol",
+        "source"
+      ]
+    },
+    "JournalEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "type": "string",
+          "enum": [
+            "cash",
+            "quantity",
+            "book_cost",
+            "realized_pnl",
+            "fee",
+            "income",
+            "receivable",
+            "liability",
+            "capital"
+          ]
+        },
+        "instrumentId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "amount": {
+          "$ref": "#/$defs/SignedDecimal"
+        },
+        "currency": {
+          "const": "USD",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "instrumentId",
+        "amount",
+        "currency"
+      ]
+    },
+    "Fill": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "orderId": {
+          "$ref": "#/$defs/Id"
+        },
+        "orderRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "decisionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "decisionRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "side": {
+          "type": "string",
+          "enum": [
+            "BUY",
+            "SELL"
+          ]
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "price": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "fee": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "releasedBasis": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "roundingAdjustment": {
+          "$ref": "#/$defs/SignedDecimal",
+          "description": "Additional posted cash correction in USD; v1 fill requires zero. Sub-micro residuals are separately exact rationals in micro-USD."
+        },
+        "observation": {
+          "$ref": "#/$defs/MarketObservation"
+        },
+        "priceRoundingResidual": {
+          "$ref": "#/$defs/Rational"
+        },
+        "basisRoundingResidual": {
+          "$ref": "#/$defs/Rational"
+        }
+      },
+      "required": [
+        "orderId",
+        "orderRevision",
+        "decisionId",
+        "decisionRevision",
+        "instrumentId",
+        "side",
+        "quantity",
+        "price",
+        "fee",
+        "releasedBasis",
+        "roundingAdjustment",
+        "observation",
+        "priceRoundingResidual",
+        "basisRoundingResidual"
+      ]
+    },
+    "LedgerTransaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transactionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "journalSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "previousHash": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "journalHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "previousLedgerVersion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ledgerVersion": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "effect": {
+          "type": "string",
+          "enum": [
+            "initialization",
+            "fill",
+            "split",
+            "dividend_accrual",
+            "dividend_payment",
+            "correction"
+          ]
+        },
+        "sourceOperationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JournalEntry"
+          },
+          "minItems": 1,
+          "maxItems": 30
+        },
+        "fill": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Fill"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "corporateAction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CorporateAction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correctionOf": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TransactionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "transactionId",
+        "journalSequence",
+        "previousHash",
+        "journalHash",
+        "previousLedgerVersion",
+        "ledgerVersion",
+        "configurationHash",
+        "effect",
+        "sourceOperationId",
+        "effectiveAt",
+        "recordedAt",
+        "entries",
+        "fill",
+        "corporateAction",
+        "correctionOf"
+      ]
+    },
+    "Holding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16
+        },
+        "sector": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "quantity": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "bookCost": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "mark": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MarketObservation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "marketValue": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unrealizedPnl": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "missingReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "instrumentId",
+        "symbol",
+        "sector",
+        "quantity",
+        "bookCost",
+        "mark",
+        "marketValue",
+        "unrealizedPnl",
+        "missingReason"
+      ]
+    },
+    "Benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instrumentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "convention": {
+          "const": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "type": "string"
+        },
+        "session": {
+          "$ref": "#/$defs/Date"
+        },
+        "units": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "cash": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "receivables": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "mark": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MarketObservation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "equity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "totalReturn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "missingReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "instrumentId",
+        "convention",
+        "session",
+        "units",
+        "cash",
+        "receivables",
+        "mark",
+        "equity",
+        "totalReturn",
+        "missingReason"
+      ]
+    },
+    "PortfolioSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "valuationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "valuationSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValuationRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "journalSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "journalHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "markSetId": {
+          "$ref": "#/$defs/Id"
+        },
+        "valuationAsOf": {
+          "$ref": "#/$defs/Time"
+        },
+        "session": {
+          "$ref": "#/$defs/Date"
+        },
+        "currency": {
+          "const": "USD",
+          "type": "string"
+        },
+        "cash": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "receivables": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "liabilities": {
+          "$ref": "#/$defs/Decimal"
+        },
+        "holdings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Holding"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "equity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "realizedPnl": {
+          "$ref": "#/$defs/SignedDecimal"
+        },
+        "unrealizedPnl": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "totalReturn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dailyReturn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previousComparableEquity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "peakEquity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drawdown": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxDrawdown": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "benchmark": {
+          "$ref": "#/$defs/Benchmark"
+        },
+        "excessReturn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedDecimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quality": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "stale",
+            "blocked"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "valuationId",
+        "valuationSequence",
+        "revision",
+        "supersedes",
+        "journalSequence",
+        "journalHash",
+        "configurationHash",
+        "markSetId",
+        "valuationAsOf",
+        "session",
+        "currency",
+        "cash",
+        "receivables",
+        "liabilities",
+        "holdings",
+        "equity",
+        "realizedPnl",
+        "unrealizedPnl",
+        "totalReturn",
+        "dailyReturn",
+        "previousComparableEquity",
+        "peakEquity",
+        "drawdown",
+        "maxDrawdown",
+        "benchmark",
+        "excessReturn",
+        "quality",
+        "limitations"
+      ]
+    },
+    "OutcomeReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewId": {
+          "$ref": "#/$defs/Id"
+        },
+        "originalDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DecisionRef"
+          },
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "nextDisposition": {
+          "type": "string",
+          "enum": [
+            "continue",
+            "revise",
+            "pause",
+            "stop"
+          ]
+        },
+        "asOf": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "reviewId",
+        "originalDecisions",
+        "observations",
+        "interpretation",
+        "limitations",
+        "nextDisposition",
+        "asOf"
+      ]
+    },
+    "Correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prior": {
+          "$ref": "#/$defs/RecordRef"
+        },
+        "replacement": {
+          "$ref": "#/$defs/RecordRef"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "prior",
+        "replacement",
+        "reason"
+      ]
+    },
+    "PublicationNotice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "noticeId": {
+          "$ref": "#/$defs/Id"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "omission",
+            "delay",
+            "rights",
+            "withdrawal",
+            "correction"
+          ]
+        },
+        "affected": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "noticeId",
+        "kind",
+        "affected",
+        "reason",
+        "effectiveAt"
+      ]
+    },
+    "RunPublishedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "run.published",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/RunPublished"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "TeamPublishedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "team.published",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/TeamPublished"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "RunStatusEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "run.status",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/RunStatus"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "WorkerActivityEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "worker.activity",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/WorkerActivity"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "DiscussionOpenedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "discussion.opened",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/DiscussionOpened"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "ContributionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "discussion.contribution",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/Contribution"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "DiscussionClosedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "discussion.closed",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/DiscussionClosed"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "ArtifactRegisteredEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "artifact.registered",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/ArtifactRegistered"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "ArtifactVersionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "artifact.published",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/ArtifactVersion"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "DecisionPublishedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "decision.published",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/DecisionPublished"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "PaperOrderEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "paper.order",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/PaperOrder"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "LedgerTransactionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "paper.ledger_transaction",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/LedgerTransaction"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "PortfolioSnapshotEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "portfolio.snapshot",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/PortfolioSnapshot"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "OutcomeReviewEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "review.published",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/OutcomeReview"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "CorrectionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "content.corrected",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/Correction"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "PublicationNoticeEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "const": "publication.notice",
+          "type": "string"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/PublicationNotice"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "Event": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RunPublishedEvent"
+        },
+        {
+          "$ref": "#/$defs/TeamPublishedEvent"
+        },
+        {
+          "$ref": "#/$defs/RunStatusEvent"
+        },
+        {
+          "$ref": "#/$defs/WorkerActivityEvent"
+        },
+        {
+          "$ref": "#/$defs/DiscussionOpenedEvent"
+        },
+        {
+          "$ref": "#/$defs/ContributionEvent"
+        },
+        {
+          "$ref": "#/$defs/DiscussionClosedEvent"
+        },
+        {
+          "$ref": "#/$defs/ArtifactRegisteredEvent"
+        },
+        {
+          "$ref": "#/$defs/ArtifactVersionEvent"
+        },
+        {
+          "$ref": "#/$defs/DecisionPublishedEvent"
+        },
+        {
+          "$ref": "#/$defs/PaperOrderEvent"
+        },
+        {
+          "$ref": "#/$defs/LedgerTransactionEvent"
+        },
+        {
+          "$ref": "#/$defs/PortfolioSnapshotEvent"
+        },
+        {
+          "$ref": "#/$defs/OutcomeReviewEvent"
+        },
+        {
+          "$ref": "#/$defs/CorrectionEvent"
+        },
+        {
+          "$ref": "#/$defs/PublicationNoticeEvent"
+        },
+        {
+          "$ref": "#/$defs/CorporateActionEvent"
+        },
+        {
+          "$ref": "#/$defs/InstrumentUpdateEvent"
+        }
+      ]
+    },
+    "EventBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "batchId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Event"
+          },
+          "minItems": 1,
+          "maxItems": 50
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "batchId",
+        "experimentId",
+        "runId",
+        "events"
+      ]
+    },
+    "Watermark": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "journalSequence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "journalHash": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceSequence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceGaps": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "journalSequence",
+        "journalHash",
+        "sourceSequence",
+        "sourceGaps"
+      ]
+    },
+    "Freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lastActivityAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lastPublicationAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lastHeartbeatAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "valuationAsOf": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expectedMarkSession": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown",
+            "market_closed"
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "lastActivityAt",
+        "lastPublicationAt",
+        "lastHeartbeatAt",
+        "valuationAsOf",
+        "expectedMarkSession",
+        "status",
+        "reason"
+      ]
+    },
+    "PublicationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "batchId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "bodyDigest": {
+          "$ref": "#/$defs/Hash"
+        },
+        "receiptId": {
+          "$ref": "#/$defs/Id"
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "acceptedIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 0,
+          "maxItems": 50
+        },
+        "duplicateIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 0,
+          "maxItems": 50
+        },
+        "receiverCursor": {
+          "$ref": "#/$defs/Id"
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "batchId",
+        "experimentId",
+        "runId",
+        "bodyDigest",
+        "receiptId",
+        "receivedAt",
+        "acceptedIds",
+        "duplicateIds",
+        "receiverCursor",
+        "watermark"
+      ]
+    },
+    "ContentReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "uploadId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sha256": {
+          "$ref": "#/$defs/Hash"
+        },
+        "contentType": {
+          "$ref": "#/$defs/ContentType"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4194304
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "state": {
+          "const": "staged_private",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "uploadId",
+        "experimentId",
+        "runId",
+        "sha256",
+        "contentType",
+        "sizeBytes",
+        "receivedAt",
+        "state"
+      ]
+    },
+    "Heartbeat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "heartbeatId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sentAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "lastSourceSequence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Sequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "$ref": "#/$defs/RunState"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "heartbeatId",
+        "experimentId",
+        "runId",
+        "sentAt",
+        "lastSourceSequence",
+        "state"
+      ]
+    },
+    "HeartbeatReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "heartbeatId": {
+          "$ref": "#/$defs/Id"
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "heartbeatId",
+        "receivedAt"
+      ]
+    },
+    "PublicStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "state": {
+          "$ref": "#/$defs/RunState"
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        },
+        "notices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PublicationNotice"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "state",
+        "watermark",
+        "freshness",
+        "notices"
+      ]
+    },
+    "PublicExperiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "officialRunId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "runId": {
+                "$ref": "#/$defs/Id"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "fixture",
+                  "private_trial",
+                  "official"
+                ]
+              },
+              "state": {
+                "$ref": "#/$defs/RunState"
+              },
+              "methodologyVersion": {
+                "$ref": "#/$defs/Id"
+              }
+            },
+            "required": [
+              "runId",
+              "kind",
+              "state",
+              "methodologyVersion"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "title",
+        "purpose",
+        "objective",
+        "officialRunId",
+        "runs",
+        "nextCursor"
+      ]
+    },
+    "ReceivedEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "$ref": "#/$defs/Event"
+        },
+        "eventHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "receiverSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "receiptId": {
+          "$ref": "#/$defs/Id"
+        }
+      },
+      "required": [
+        "event",
+        "eventHash",
+        "receivedAt",
+        "receiverSequence",
+        "receiptId"
+      ]
+    },
+    "EventPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReceivedEvent"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "items",
+        "nextCursor",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "DiscussionPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DiscussionOpened"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "items",
+        "nextCursor",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "ArtifactPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArtifactRegistryEntry"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "items",
+        "nextCursor",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "TransactionPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "order",
+                    "type": "string"
+                  },
+                  "event": {
+                    "$ref": "#/$defs/PaperOrderEvent"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "event"
+                ]
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "transaction",
+                    "type": "string"
+                  },
+                  "event": {
+                    "$ref": "#/$defs/LedgerTransactionEvent"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "event"
+                ]
+              }
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "items",
+        "nextCursor",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "PerformancePage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PortfolioSnapshot"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "items",
+        "nextCursor",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "DiscussionDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "discussion": {
+          "$ref": "#/$defs/DiscussionOpened"
+        },
+        "contributions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContributionEvent"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "closure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DiscussionClosed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "discussion",
+        "contributions",
+        "closure",
+        "nextCursor",
+        "freshness"
+      ]
+    },
+    "DecisionDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "decision": {
+          "$ref": "#/$defs/DecisionPublishedEvent"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PaperOrder"
+          },
+          "minItems": 0,
+          "maxItems": 50
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "decision",
+        "orders",
+        "transactions",
+        "reviews",
+        "freshness"
+      ]
+    },
+    "SnapshotResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "snapshot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PortfolioSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "watermark": {
+          "$ref": "#/$defs/Watermark"
+        },
+        "freshness": {
+          "$ref": "#/$defs/Freshness"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "snapshot",
+        "watermark",
+        "freshness"
+      ]
+    },
+    "ArtifactDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "artifactId": {
+          "$ref": "#/$defs/Id"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "status": {
+          "$ref": "#/$defs/ArtifactState"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "safeReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "artifactId",
+        "version",
+        "status",
+        "metadata",
+        "safeReason"
+      ]
+    },
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "INVALID_REQUEST",
+        "UNSUPPORTED_VERSION",
+        "UNAUTHENTICATED",
+        "FORBIDDEN",
+        "NOT_FOUND",
+        "CONFLICT",
+        "DEPENDENCY_NOT_READY",
+        "SEQUENCE_GAP",
+        "REPLAY",
+        "TOO_LARGE",
+        "UNSUPPORTED_MEDIA",
+        "INVALID_SCHEMA",
+        "RATE_LIMITED",
+        "UNAVAILABLE",
+        "OUTCOME_UNKNOWN",
+        "CURSOR_RESET",
+        "EXPIRED",
+        "CANCELLED",
+        "WITHDRAWN",
+        "BUDGET_EXHAUSTED"
+      ]
+    },
+    "Problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "requestId": {
+          "$ref": "#/$defs/Id"
+        },
+        "status": {
+          "type": "integer",
+          "minimum": 400,
+          "maximum": 599
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "retryAfterSeconds": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3600
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resync": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "status_snapshot_page"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "code",
+        "requestId",
+        "status",
+        "retryable",
+        "detail",
+        "retryAfterSeconds",
+        "resync"
+      ]
+    },
+    "AskAvailability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "available",
+            "paused",
+            "busy",
+            "disabled"
+          ]
+        },
+        "retryAfterSeconds": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3600
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "privacyNoticeVersion": {
+          "$ref": "#/$defs/Id"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "state",
+        "retryAfterSeconds",
+        "privacyNoticeVersion"
+      ]
+    },
+    "AskSessionCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "privacyNoticeVersion": {
+          "$ref": "#/$defs/Id"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "privacyNoticeVersion"
+      ]
+    },
+    "AskSession": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sessionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "createdAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "privacyNoticeVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "csrfToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "sessionId",
+        "createdAt",
+        "expiresAt",
+        "privacyNoticeVersion",
+        "csrfToken"
+      ]
+    },
+    "AskConversationCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        }
+      },
+      "required": [
+        "schemaVersion"
+      ]
+    },
+    "AskConversation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "conversationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "createdAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "open",
+            "closed",
+            "deleted",
+            "expired"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "conversationId",
+        "createdAt",
+        "expiresAt",
+        "state"
+      ]
+    },
+    "AskQuestionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ContextRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priorQuestionId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 35,
+          "pattern": "^[a-zA-Z]{2,8}(-[a-zA-Z0-9]{1,8})*$"
+        },
+        "preferredWorkerId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "text",
+        "context",
+        "priorQuestionId",
+        "language"
+      ]
+    },
+    "AskQuestionState": {
+      "type": "string",
+      "enum": [
+        "admitted",
+        "queued",
+        "routed",
+        "answering",
+        "answered",
+        "declined",
+        "expired",
+        "cancelled",
+        "failed",
+        "outcome_unknown"
+      ]
+    },
+    "AskQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sessionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "conversationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "revision": {
+          "type": "integer",
+          "const": 1
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "input": {
+          "$ref": "#/$defs/AskQuestionInput"
+        },
+        "priorOwnedQuestionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 0,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "sessionId",
+        "conversationId",
+        "questionId",
+        "revision",
+        "questionHash",
+        "input",
+        "priorOwnedQuestionIds",
+        "receivedAt",
+        "expiresAt"
+      ]
+    },
+    "AskAdmission": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "conversationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "revision": {
+          "type": "integer",
+          "const": 1
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "state": {
+          "$ref": "#/$defs/AskQuestionState"
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "conversationId",
+        "questionId",
+        "revision",
+        "questionHash",
+        "state",
+        "receivedAt",
+        "expiresAt"
+      ]
+    },
+    "AskRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "record_provenance",
+            "follow_up",
+            "topic",
+            "generalist",
+            "fallback"
+          ]
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "routingPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "previousWorkerId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "workerId",
+        "reason",
+        "explanation",
+        "routingPolicyVersion",
+        "previousWorkerId"
+      ]
+    },
+    "AskStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "state": {
+          "$ref": "#/$defs/AskQuestionState"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AskRoute"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "safeReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "questionId",
+        "questionHash",
+        "state",
+        "route",
+        "updatedAt",
+        "safeReason"
+      ]
+    },
+    "AskAnswer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "answerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "conversationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionRevision": {
+          "type": "integer",
+          "const": 1
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "workerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "routingPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "generatedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "text": {
+          "$ref": "#/$defs/Text"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContextRef"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "knowledgeAsOf": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "interpretation": {
+          "type": "string",
+          "enum": [
+            "general_answer",
+            "historical_record_explanation",
+            "new_interpretation",
+            "clarification",
+            "refusal"
+          ]
+        },
+        "publicSources": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/Source"
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "answerId",
+        "conversationId",
+        "questionId",
+        "questionRevision",
+        "questionHash",
+        "workerId",
+        "routingPolicyVersion",
+        "generatedAt",
+        "text",
+        "evidence",
+        "knowledgeAsOf",
+        "limitations",
+        "interpretation",
+        "publicSources"
+      ]
+    },
+    "AskTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "input": {
+          "$ref": "#/$defs/AskQuestionInput"
+        },
+        "status": {
+          "$ref": "#/$defs/AskStatus"
+        },
+        "answer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AskAnswer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "questionId",
+        "input",
+        "status",
+        "answer"
+      ]
+    },
+    "AskConversationPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "conversation": {
+          "$ref": "#/$defs/AskConversation"
+        },
+        "turns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AskTurn"
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "conversation",
+        "turns",
+        "nextCursor"
+      ]
+    },
+    "AskCancel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "visitor_cancelled"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "reason"
+      ]
+    },
+    "AskControlReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "controlId": {
+          "$ref": "#/$defs/Id"
+        },
+        "conversationId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "cancel",
+            "delete",
+            "expire"
+          ]
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "purgeBy": {
+          "$ref": "#/$defs/Time"
+        },
+        "suppressionUntil": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "controlId",
+        "conversationId",
+        "questionId",
+        "action",
+        "effectiveAt",
+        "purgeBy",
+        "suppressionUntil"
+      ]
+    },
+    "AskClaimInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "claimRequestId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "capacity": {
+          "type": "integer",
+          "const": 1
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "claimRequestId",
+        "consumerGeneration",
+        "capacity"
+      ]
+    },
+    "AskClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "claimId": {
+          "$ref": "#/$defs/Id"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "leaseExpiresAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "question": {
+          "$ref": "#/$defs/AskQuestion"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "claimId",
+        "serviceId",
+        "consumerGeneration",
+        "leaseExpiresAt",
+        "question"
+      ]
+    },
+    "AskClaimPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "claimRequestId": {
+          "$ref": "#/$defs/Id"
+        },
+        "claim": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AskClaim"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retryAfterSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "claimRequestId",
+        "claim",
+        "retryAfterSeconds"
+      ]
+    },
+    "AskRenewInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "consumerGeneration",
+        "questionId",
+        "questionHash"
+      ]
+    },
+    "AskAnswerDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "claimId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "lastControlSyncId": {
+          "$ref": "#/$defs/Id"
+        },
+        "answer": {
+          "$ref": "#/$defs/AskAnswer"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "claimId",
+        "consumerGeneration",
+        "lastControlSyncId",
+        "answer"
+      ]
+    },
+    "AskStatusDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "claimId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "lastControlSyncId": {
+          "$ref": "#/$defs/Id"
+        },
+        "status": {
+          "$ref": "#/$defs/AskStatus"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "claimId",
+        "consumerGeneration",
+        "lastControlSyncId",
+        "status"
+      ]
+    },
+    "AskAnswerReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "answerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Id"
+        },
+        "questionHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "answerDigest": {
+          "$ref": "#/$defs/Hash"
+        },
+        "receiptId": {
+          "$ref": "#/$defs/Id"
+        },
+        "receivedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "disposition": {
+          "type": "string",
+          "enum": [
+            "accepted",
+            "discarded_cancelled",
+            "discarded_deleted",
+            "discarded_expired",
+            "withheld_evidence"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "answerId",
+        "questionId",
+        "questionHash",
+        "answerDigest",
+        "receiptId",
+        "receivedAt",
+        "disposition"
+      ]
+    },
+    "AskControlSyncInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "syncId": {
+          "$ref": "#/$defs/Id"
+        },
+        "acknowledgedControlIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "consumerGeneration",
+        "syncId",
+        "acknowledgedControlIds",
+        "after"
+      ]
+    },
+    "AskControlSync": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "syncId": {
+          "$ref": "#/$defs/Id"
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AskControlReceipt"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "checkedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "validUntil": {
+          "$ref": "#/$defs/Time"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "syncId",
+        "controls",
+        "nextCursor",
+        "checkedAt",
+        "validUntil"
+      ]
+    },
+    "AskLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "configurationStatus": {
+          "type": "string",
+          "enum": [
+            "synthetic_only",
+            "owner_approved"
+          ]
+        },
+        "approvalRecordId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "questionCharacters": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "requestBytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 16384
+        },
+        "answerCharacters": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8000
+        },
+        "historyTurns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "sessionHourlyQuestions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "sessionDailyQuestions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "outstandingPerSession": {
+          "type": "integer",
+          "const": 1
+        },
+        "queueCapacity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "queueTtlSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "sessionTtlSeconds": {
+          "type": "integer",
+          "minimum": 60,
+          "maximum": 86400
+        },
+        "rawRetentionSeconds": {
+          "type": "integer",
+          "minimum": 60,
+          "maximum": 604800
+        },
+        "suppressionRetentionSeconds": {
+          "type": "integer",
+          "minimum": 604800,
+          "maximum": 2592000
+        },
+        "maxActiveAsk": {
+          "type": "integer",
+          "const": 1
+        },
+        "maxAnswerExecutions": {
+          "type": "integer",
+          "const": 1
+        },
+        "maxRouterExecutions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "maxResearchCalls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "executionDeadlineSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 240
+        },
+        "dailyExecutions": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "dailyTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000
+        },
+        "maxInputTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32000
+        },
+        "maxOutputTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4000
+        },
+        "dailyBudgetUsd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "monetaryEnforcement": {
+          "type": "string",
+          "enum": [
+            "verified_cap",
+            "unavailable_disable_paid_admission"
+          ]
+        },
+        "dutyCycleBps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "controlFreshnessSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "configurationStatus",
+        "approvalRecordId",
+        "questionCharacters",
+        "requestBytes",
+        "answerCharacters",
+        "historyTurns",
+        "sessionHourlyQuestions",
+        "sessionDailyQuestions",
+        "outstandingPerSession",
+        "queueCapacity",
+        "queueTtlSeconds",
+        "sessionTtlSeconds",
+        "rawRetentionSeconds",
+        "suppressionRetentionSeconds",
+        "maxActiveAsk",
+        "maxAnswerExecutions",
+        "maxRouterExecutions",
+        "maxResearchCalls",
+        "executionDeadlineSeconds",
+        "dailyExecutions",
+        "dailyTokens",
+        "maxInputTokens",
+        "maxOutputTokens",
+        "dailyBudgetUsd",
+        "monetaryEnforcement",
+        "dutyCycleBps",
+        "controlFreshnessSeconds"
+      ]
+    },
+    "AskWorkerEligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workerId": {
+          "$ref": "#/$defs/Id"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 30
+        },
+        "publicKnowledge": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HttpsUrl"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "researchEnabled": {
+          "type": "boolean"
+        },
+        "fallbackOrder": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "workerId",
+        "topics",
+        "publicKnowledge",
+        "researchEnabled",
+        "fallbackOrder",
+        "enabled"
+      ]
+    },
+    "PublisherScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "publisherId": {
+          "$ref": "#/$defs/Id"
+        },
+        "keyId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "eventTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "run.published",
+              "team.published",
+              "run.status",
+              "worker.activity",
+              "discussion.opened",
+              "discussion.contribution",
+              "discussion.closed",
+              "artifact.registered",
+              "artifact.published",
+              "decision.published",
+              "paper.order",
+              "paper.ledger_transaction",
+              "portfolio.snapshot",
+              "review.published",
+              "content.corrected",
+              "publication.notice",
+              "market.action",
+              "instrument.updated"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 18,
+          "uniqueItems": true
+        },
+        "contentTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContentType"
+          },
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "generation": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "writesPerMinute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        },
+        "bytesPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1073741824
+        }
+      },
+      "required": [
+        "publisherId",
+        "keyId",
+        "experimentId",
+        "runId",
+        "eventTypes",
+        "contentTypes",
+        "publicationPolicyVersion",
+        "expiresAt",
+        "enabled",
+        "generation",
+        "writesPerMinute",
+        "bytesPerDay"
+      ]
+    },
+    "AskServiceScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "keyId": {
+          "$ref": "#/$defs/Id"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "claim",
+              "control_sync",
+              "status",
+              "answer",
+              "receipt"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "serviceId",
+        "keyId",
+        "permissions",
+        "consumerGeneration",
+        "expiresAt",
+        "enabled"
+      ]
+    },
+    "AskRoster": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "rosterVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "workers": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "worker": {
+                "$ref": "#/$defs/Worker"
+              },
+              "topics": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 30,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                }
+              },
+              "researchAvailable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "worker",
+              "topics",
+              "researchAvailable"
+            ]
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "rosterVersion",
+        "workers"
+      ]
+    },
+    "RecordDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "record": {
+          "$ref": "#/$defs/RecordRef"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "published",
+            "withdrawn",
+            "withheld"
+          ]
+        },
+        "event": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReceivedEvent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "safeReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 1000,
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "experimentId",
+        "runId",
+        "record",
+        "visibility",
+        "event",
+        "safeReason"
+      ]
+    },
+    "InstrumentUpdate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instrument": {
+          "$ref": "#/$defs/Instrument"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "effectiveAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 1000,
+          "minLength": 1
+        },
+        "action": {
+          "$ref": "#/$defs/CorporateActionRef"
+        }
+      },
+      "required": [
+        "instrument",
+        "version",
+        "effectiveAt",
+        "reason",
+        "action"
+      ]
+    },
+    "CorporateActionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "type": "string",
+          "const": "market.action"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/CorporateAction"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "InstrumentUpdateEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/Version"
+        },
+        "eventId": {
+          "$ref": "#/$defs/Id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "runId": {
+          "$ref": "#/$defs/Id"
+        },
+        "sourceSequence": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "type": {
+          "type": "string",
+          "const": "instrument.updated"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "recordedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "publicationPolicyVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "evidenceMode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordRef"
+          },
+          "minItems": 0,
+          "maxItems": 30
+        },
+        "payload": {
+          "$ref": "#/$defs/InstrumentUpdate"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "experimentId",
+        "runId",
+        "sourceSequence",
+        "type",
+        "occurredAt",
+        "recordedAt",
+        "actor",
+        "publicationPolicyVersion",
+        "evidenceMode",
+        "references",
+        "payload"
+      ]
+    },
+    "Rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "numerator": {
+          "type": "string",
+          "pattern": "^-?(0|[1-9][0-9]{0,35})$",
+          "maxLength": 37
+        },
+        "denominator": {
+          "$ref": "#/$defs/Sequence"
+        }
+      }
+    },
+    "AskVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "ArtifactRegistryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registration",
+        "status",
+        "currentPublishedVersion",
+        "publishedReference",
+        "safeReason"
+      ],
+      "properties": {
+        "registration": {
+          "$ref": "#/$defs/ArtifactRegistered"
+        },
+        "status": {
+          "$ref": "#/$defs/ArtifactState"
+        },
+        "currentPublishedVersion": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "publishedReference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "safeReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "ArtifactRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RecordRef"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "artifact"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    },
+    "DecisionRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RecordRef"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "decision"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    },
+    "ValuationRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RecordRef"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "valuation"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    },
+    "TransactionRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RecordRef"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "transaction"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    },
+    "CorporateActionRef": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RecordRef"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "corporate_action"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/EventBatch"
+    },
+    {
+      "$ref": "#/$defs/PublicationReceipt"
+    },
+    {
+      "$ref": "#/$defs/ContentReceipt"
+    },
+    {
+      "$ref": "#/$defs/Heartbeat"
+    },
+    {
+      "$ref": "#/$defs/HeartbeatReceipt"
+    },
+    {
+      "$ref": "#/$defs/PublicStatus"
+    },
+    {
+      "$ref": "#/$defs/PublicExperiment"
+    },
+    {
+      "$ref": "#/$defs/EventPage"
+    },
+    {
+      "$ref": "#/$defs/DiscussionPage"
+    },
+    {
+      "$ref": "#/$defs/ArtifactPage"
+    },
+    {
+      "$ref": "#/$defs/TransactionPage"
+    },
+    {
+      "$ref": "#/$defs/PerformancePage"
+    },
+    {
+      "$ref": "#/$defs/DiscussionDetail"
+    },
+    {
+      "$ref": "#/$defs/DecisionDetail"
+    },
+    {
+      "$ref": "#/$defs/SnapshotResponse"
+    },
+    {
+      "$ref": "#/$defs/ArtifactDetail"
+    },
+    {
+      "$ref": "#/$defs/Problem"
+    },
+    {
+      "$ref": "#/$defs/AskAvailability"
+    },
+    {
+      "$ref": "#/$defs/AskSessionCreate"
+    },
+    {
+      "$ref": "#/$defs/AskSession"
+    },
+    {
+      "$ref": "#/$defs/AskConversationCreate"
+    },
+    {
+      "$ref": "#/$defs/AskConversation"
+    },
+    {
+      "$ref": "#/$defs/AskQuestionInput"
+    },
+    {
+      "$ref": "#/$defs/AskQuestion"
+    },
+    {
+      "$ref": "#/$defs/AskAdmission"
+    },
+    {
+      "$ref": "#/$defs/AskRoute"
+    },
+    {
+      "$ref": "#/$defs/AskStatus"
+    },
+    {
+      "$ref": "#/$defs/AskAnswer"
+    },
+    {
+      "$ref": "#/$defs/AskTurn"
+    },
+    {
+      "$ref": "#/$defs/AskConversationPage"
+    },
+    {
+      "$ref": "#/$defs/AskCancel"
+    },
+    {
+      "$ref": "#/$defs/AskControlReceipt"
+    },
+    {
+      "$ref": "#/$defs/AskClaimInput"
+    },
+    {
+      "$ref": "#/$defs/AskClaim"
+    },
+    {
+      "$ref": "#/$defs/AskClaimPage"
+    },
+    {
+      "$ref": "#/$defs/AskRenewInput"
+    },
+    {
+      "$ref": "#/$defs/AskAnswerDelivery"
+    },
+    {
+      "$ref": "#/$defs/AskStatusDelivery"
+    },
+    {
+      "$ref": "#/$defs/AskAnswerReceipt"
+    },
+    {
+      "$ref": "#/$defs/AskControlSyncInput"
+    },
+    {
+      "$ref": "#/$defs/AskControlSync"
+    },
+    {
+      "$ref": "#/$defs/AskLimits"
+    },
+    {
+      "$ref": "#/$defs/AskWorkerEligibility"
+    },
+    {
+      "$ref": "#/$defs/AskServiceScope"
+    },
+    {
+      "$ref": "#/$defs/PublisherScope"
+    },
+    {
+      "$ref": "#/$defs/AskRoster"
+    },
+    {
+      "$ref": "#/$defs/RecordDetail"
+    }
+  ]
+}

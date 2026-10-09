@@ -86,7 +86,7 @@ Keep the Vinext/Cloudflare build working. Do not import local SQLite drivers int
 
 At the original reviewed baseline `ce99212c882327ad8e04fd3603867ac18428e1a4`, `src/domain/model.ts` has fixed capability profiles and Task kinds, not investment or public-Q&A tools. Changing a worker's display title cannot create the missing capability. This amendment was prepared from `c6c8f0b47f59a02ebb5142361e2d396a4f075dc5`, preserving intervening Personal Operator work.
 
-The documented baseline has eight workers, three direct reports per manager, two hierarchy edges, two global execution slots and one active execution per worker. Recheck implementation constants in INV-01. Reuse eligible workers with experiment/public-service responsibilities; preserve their normal roles. Ask uses at most one shared slot and finite low-priority budgets; do not increase capacity or let public traffic starve owner/market-deadline work.
+INV-01 verified eight workers, three ordinary direct reports (the CEO may have Nix as a fourth), two hierarchy edges, two global execution slots and one active execution per worker at `a72cee0`. Reuse eligible workers with experiment/public-service responsibilities; preserve their normal roles. Ask uses at most one shared slot and finite low-priority budgets; do not increase capacity or let public traffic starve owner/market-deadline work.
 
 Public research, group evidence sharing, Company Knowledge, paper-order authority, public publication and Ask answering are separate permissions. Membership in a discussion or the public-service roster grants none of the others. Existing device Client API v1 and private owner boundaries remain unchanged.
 
@@ -145,3 +145,9 @@ A compromised receiver can alter its displayed archive or submit hostile questio
 On prolonged investment publication failure, retain history and stop new risk at configured backlog/time limits. Do not discard unacknowledged records, fill disk, regenerate decisions or replay successful model work. Accounting uncertainty stops new orders. Unsupported corporate actions visibly degrade valuation. Ask overload expires/rejects queued questions under its own budgets rather than stealing investment capacity.
 
 No federation, multi-company tenancy, visitor accounts, general webhooks, object-storage platform or treasury framework is required. The narrow Ask exception admits questions and returns answers; it does not authorize public tasks, company-wide transcript access or automatic promotion of visitor content into investment evidence.
+
+## INV-01 verified integration plan
+
+Read [feasibility evidence](../../validation/investment/INV-01.md) for exact source/host versions, read-only observations, proposed module locations and limitations. Existing research contexts are private and reused per worker; current Conversations include private knowledge/peer tools and incompatible immutable retention. Both public investment and Ask require explicit new audience-scoped contexts; Ask also needs separate storage/deletion and shared-dispatcher fairness/uncertainty integration. No current capability was changed.
+
+Recommend separate small Node 22-compatible loopback publication receiver/SQLite/CAS on Asymmetri, with a later separately owned Ask unit/store using the same package. Candidate driver `better-sqlite3` 13.0.3 requires isolated ABI validation. Website has an EOL OS and96%-used root; remediate before deployment. Keep existing Next/Vinext build paths free of receiver imports/network dependencies. Local disabled fixture receiver work can start; production provision/deploy and all account/grant/activation actions remain separate.

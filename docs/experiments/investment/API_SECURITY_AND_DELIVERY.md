@@ -1,14 +1,14 @@
 # API security, consistency and delivery
 
-**Version:** 1.0 | **Status:** Proposed | [API resources](PUBLIC_API.md) | [Guide](README.md)
+**Version:** 1.0 | **Status:** Contract 1.0 implemented; runtime enforcement pending | [API resources](PUBLIC_API.md) | [Guide](README.md)
 
 ## 1. Authentication profile
 
-Use HTTPS and a narrowly profiled implementation of RFC 9421 HTTP Message Signatures with Ed25519, and RFC 9530 Content-Digest using SHA-256. Review the primary specifications and cross-runtime test vectors in INV-01; do not invent delimiter-based signature canonicalization. [References](REFERENCES.md) lists the sources.
+Use HTTPS and a narrowly profiled implementation of RFC 9421 HTTP Message Signatures with Ed25519, and RFC 9530 Content-Digest using SHA-256. The exact [INV-01 profile and vectors](../../../contracts/investment/v1/PROTOCOL.md) are implemented and tested; do not invent delimiter-based signature canonicalization. [References](REFERENCES.md) lists the sources.
 
-For writes, sign `@method`, `@authority`, `@path`, `content-type`, `content-digest` and `idempotency-key`. The path includes experiment/run identity. Forbid query strings on writes. Authenticated receipt GETs sign method, authority and path, carry no body/query and use the same key/freshness rules. The receiver validates the configured public authority through its trusted reverse-proxy configuration, not arbitrary forwarded headers.
+For writes, sign `@method`, `@authority`, `@path`, `botsquad-generation`, `content-type`, `content-digest` and `idempotency-key`. The path includes experiment/run identity. Forbid query strings on writes. Authenticated receipt GETs sign method, authority, path and `botsquad-generation`, carry no body/query and use the same key/freshness rules. The receiver validates the configured public authority through its trusted reverse-proxy configuration, not arbitrary forwarded headers.
 
-Require signature parameters `created`, `expires`, `keyid` and a cryptographically random per-attempt nonce. Proposed validity is at most 300 seconds with at most 60 seconds clock tolerance. Check current key activation, algorithm, run/event scope, nonce and expiry before returning an idempotent receipt. Keep nonce records for the full accepted freshness interval; retries use fresh signatures/nonces over the original frozen body.
+Require signature parameters `created`, `expires`, `keyid`, `alg="ed25519"` and a cryptographically random per-attempt nonce. Validity is at most 300 seconds with at most 60 seconds clock tolerance. Check current key activation, algorithm, run/event scope, nonce and expiry before returning an idempotent receipt. Keep nonce records for the full accepted freshness interval; retries use fresh signatures/nonces over the original frozen body.
 
 The trusted HQ publisher holds its signing credential outside worker access. The receiver holds verification material, not HQ's signing credential. Key rotation allows a deliberate overlap under the same stable publisher identity; retire the old key explicitly. Revoked keys cannot fetch receipts or replay accepted writes. Never place credentials/signatures in worker context, public errors, logs, repository fixtures or screenshots. Generate disposable test keys during tests rather than committing operational secrets.
 
@@ -96,3 +96,7 @@ Deploy compatible receiver before producer and activate separately. Both reposit
 Use SQLite-supported consistent backup methods with content manifests; an arbitrary copy of a live database without its transactional context is not a verified backup. Test isolated restore, content hashes, cursor-epoch reset, duplicate reconciliation and publisher generation fencing. See [Operations](TEAM_AND_OPERATIONS.md) and [Validation](VALIDATION.md).
 
 Required tests include wrong-run identity, altered bodies, expired/revoked keys, nonce replay, concurrent duplicate batches, changed-content conflict, out-of-order snapshots, missing artifact content, lost response after commit, crash before receipt, key rotation, receiver outage and restore without duplicated paper effects.
+
+## INV-01 conformance boundary
+
+The versioned profile defines canonical serialization, current generation/key checks, exact hash recipes, no-store for every protected response, immutable answer versus delivery-wrapper identity and vendor pinning. Offline helpers are not an HTTP server or durable nonce store. INV-02 must prove raw-header/proxy behavior, commit-time scope/nonce/receipt atomicity, concurrent uniqueness, restore/cursor fencing and production-safe rendering. See [evidence](../../validation/investment/INV-01.md).
