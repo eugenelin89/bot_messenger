@@ -1,11 +1,11 @@
 # Execution Plan — INV-01 contracts and feasibility
 
 **Status:** Implementation, validation and specialist review complete; integration tracked by [PR32](https://github.com/eugenelin89/bot_messenger/pull/32)
-**Owner:** Codex primary writer, chat 01a11eb5-9782-7f31-8481-70d7a5351d37  
-**Branch:** codex/inv01-contracts-feasibility  
-**Worktree:** bot_messenger-inv01 (sibling of the primary checkout)  
-**Started:** 2026-10-08 (America/Vancouver)  
-**Initial ETA:** 2–4 hours, including research, contract implementation, review and integration  
+**Owner:** Codex primary writer, chat 01a11eb5-9782-7f31-8481-70d7a5351d37
+**Branch:** codex/inv01-contracts-feasibility
+**Worktree:** bot_messenger-inv01 (sibling of the primary checkout)
+**Started:** 2026-10-08 (America/Vancouver)
+**Initial ETA:** 2–4 hours, including research, contract implementation, review and integration
 **Current ETA:** About30–60 minutes for final regression, source review and PR integration (04:20UTC checkpoint); initial2–4-hour range remains sufficient
 
 ## Objective and scope
