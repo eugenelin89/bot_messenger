@@ -1,6 +1,6 @@
 # BotSquad Investment Team — design and build guide
 
-**Version:** 1.2 | **Updated:** 2026-10-08
+**Version:** 1.3 | **Updated:** 2026-10-09
 
 **Status:** INV-01 contracts and feasibility implemented; [evidence and next prerequisites](../../validation/investment/INV-01.md). All runtime/website packets remain planned. No deployment, subscriptions or public activation.
 
@@ -9,6 +9,8 @@
 Show an actual BotSquad organization doing useful, persistent work. Its first public experiment is a simulated stock-investment team: workers research public information, discuss alternatives, challenge proposals, make accountable decisions and review outcomes. A deterministic simulator keeps the pretend money honest. Asymmetri.co gives visitors a readable, near-live window into the team, its work and the results.
 
 **BotSquad is the product being demonstrated. Investment performance is one observable outcome, not the sole definition of success.** Genuine discussion and linked artifacts are first-release requirements, not optional dashboard enhancements. **Ask BotSquad** adds a direct visitor conversation: ask a general question or ask about a specific transaction, and one relevant actual employee responds.
+
+**Owner-approved market-data policy:** [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) fixes the incremental market-data budget at **US$0**. The experiment must use free APIs and permitted low-frequency web extraction/scraping, with real-source provenance and separately verified public-display rights. INV-01's paid-provider market survey is historical research only; no paid provider is approved.
 
 ## Owner requirements
 
@@ -23,8 +25,9 @@ Show an actual BotSquad organization doing useful, persistent work. Its first pu
 | R07 | Give every investment-team deliverable an artifact link and retain an accessible public copy, or an explicit safe withheld record. |
 | R08 | Maintain a detailed design and incremental prompt-by-prompt roadmap in this repository. |
 | R09 | Offer Ask BotSquad: public access to general or transaction-specific questions, one relevant real employee answer per question, evidence links and contextual follow-up. |
+| R10 | Market-data acquisition must cost US$0 incrementally: free APIs/permitted low-frequency scraping with reliable timestamped observations; no paid fallback, no unpermitted automated access, and no public/derived display without applicable rights. |
 
-Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and benchmark are proposed defaults, not owner-confirmed settings. See [Decisions](DECISIONS.md). Ask-specific quotas, retention and provider-use approval are likewise launch decisions, not activated defaults.
+Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and benchmark are proposed defaults, not owner-confirmed settings. **The US$0 market-data budget is confirmed, not a suggestion.** Free-source selection and public rights verification remain open. See [Decisions](DECISIONS.md). Ask-specific quotas, retention and provider-use approval are likewise launch decisions, not activated defaults.
 
 ## Documentation map
 
@@ -45,7 +48,7 @@ Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and
 | [Decisions](DECISIONS.md) | Resolved design choices, open configuration and amendments |
 | [References](REFERENCES.md) | Baseline repository evidence and primary external references; Ask adds its checked sources in its own specification |
 
-Read the product guide, Ask specification, architecture and roadmap. Implementers then read the relevant technical specifications before running one build packet. The [prompt launcher](../../../prompts/experiments/investment-showcase.md) supplies shared instructions. The [original documentation execution plan](../../exec-plans/investment-experiment-design.md) and [Ask amendment plan](../../exec-plans/ask-botsquad-design.md) record design-only work.
+Read the product guide, Ask specification, architecture and roadmap. **Every future investment-showcase Codex prompt must review Decision 029, DECISIONS.md, SIMULATION_RULES.md section 7 and ROADMAP.md**, including Asymmetri website/publication and Ask tasks. Implementers then read the relevant technical specifications before running one build packet. The [prompt launcher](../../../prompts/experiments/investment-showcase.md) supplies shared instructions. The [original documentation execution plan](../../exec-plans/investment-experiment-design.md) and [Ask amendment plan](../../exec-plans/ask-botsquad-design.md) record design-only work.
 
 ## Version 1.1 amendment and precedence
 
@@ -61,7 +64,7 @@ The reviewed Asymmetri website has a Next.js production site, a `/botsquad` prod
 
 ## First-release boundary
 
-One owner, one company, one simulated portfolio, one published experiment and one market-data provider. Visitors may read the showcase and use **Ask BotSquad** through bounded anonymous-session chat. They cannot command trades, assign work, post into the investment discussion, administer workers or browse private company/other visitor data. There is no brokerage integration, real-money mode, public HQ listener or required visitor account.
+One owner, one company, one simulated portfolio, one published experiment and one documented **primary free market-data source**, with only explicit, versioned, rights-verified fallback sources. Visitors may read the showcase and use **Ask BotSquad** through bounded anonymous-session chat. They cannot command trades, assign work, post into the investment discussion, administer workers or browse private company/other visitor data. There is no brokerage integration, real-money mode, public HQ listener or required visitor account.
 
 The first release includes the introduction, actual roster, genuine live team discussion, durable investment artifact pages, decisions and dissent, holdings, benchmark/performance/drawdown charts, transaction journal, methodology, freshness/health and general/contextual Ask BotSquad. Visitor chats are private to their session by default, not public broadcasts; the operator/provider processing and retention are disclosed. Competing portfolios, intraday trading, SSE, arbitrary uploads, global public chatrooms and public Q&A sharing remain later options.
 

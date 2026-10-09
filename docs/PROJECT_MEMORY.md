@@ -1,11 +1,13 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-08
+**Updated:** 2026-10-09
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
 ## Investment contract foundation
 
-Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. No runtime/server/permission changes. Local disabled INV-02 is ready when requested; host OS/disk, market licensing and anonymous Ask provider/account/budget gates remain before applicable live stages. All later investment/Ask packets remain planned.
+Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. No runtime/server/permission changes. Local disabled INV-02 is ready when requested; host OS/disk and anonymous Ask provider/account/budget gates remain before applicable live stages. All later investment/Ask packets remain planned.
+
+**New accepted owner constraint (2026-10-09):** [Decision 029 — US$0 investment market-data budget](decisions/decision_029_zero_cost_market_data.md) supersedes the conditional paid Tiingo option reported in INV-01. Future market data comes from verified free APIs and permitted low-frequency web scraping/extraction; automated access, retention and public/derived-display rights must still be checked per source. No paid fallback, unpermitted scraping, invented prices or hindsight fills. If a suitable free source or publication permission is missing, block the affected feature instead of spending. **Every future investment-showcase Codex task** must read Decision 029, [DECISIONS.md](experiments/investment/DECISIONS.md), [SIMULATION_RULES.md section 7](experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing) and the [investment roadmap](experiments/investment/ROADMAP.md) before editing. Market-data cost $0 is separate from model/hosting/Ask budgets.
 
 ## Current owner priority — Personal Operator / Daily Driver
 

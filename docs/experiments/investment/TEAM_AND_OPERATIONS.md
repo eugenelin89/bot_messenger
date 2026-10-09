@@ -42,11 +42,11 @@ The initial model is one bounded decision cycle per exchange trading session, no
 
 | Stage | Trusted behavior | Model behavior |
 | --- | --- | --- |
-| Prior session completes | Admit licensed closing observations and publish quality-labelled valuation | Review holdings/results when authorized work is due |
+| Prior session completes | Admit verified observations from an allowed free source and publish only permitted quality-labelled valuation fields | Review holdings/results when authorized work is due |
 | Research window | Admit only scoped source evidence; enforce budgets | Choose questions, research and discuss useful alternatives |
 | Before target opening cutoff | Enforce exact deadline, review/configuration and order reservations | Commit BUY/SELL/HOLD decisions with rationale |
 | Target regular-session open | Fill already locked valid orders from verified raw observations; record delays and guards | No retrospective decision change using the known fill price |
-| Session marking | Reprice under the licensed convention without model calls | No model needed merely for a moving chart |
+| Session marking | Reprice under the frozen, permitted free-source methodology without model calls | No model needed merely for a moving chart |
 | Later review | Dispatch a real durable scheduled occurrence | Evaluate intervening observations; continue, revise, HOLD or stop |
 
 The proposed submission cutoff is 30 minutes before the target open; exact rules are in [Simulation rules](SIMULATION_RULES.md). Missed deadlines cannot be repaired by backdating. An expired decision may lead to a new future-session decision, not a replay at the missed price.
@@ -78,7 +78,7 @@ On accounting uncertainty, essential stale data, unsupported corporate action, e
 ## 6. Operator workflow
 
 1. Create a passive draft run and review proposed configuration, roster and evidence scope.
-2. Verify provider rights/access, budgets and finite calendar horizon; choose trial mode first.
+2. Verify **Decision 029's US$0 market-data budget**, that free API or permitted web extraction meets source rights/quality rules, separate model/hosting budgets and finite calendar horizon; choose trial mode first.
 3. Preview public projections, artifact formats and receiving destination.
 4. Activate separately required research, paper and publication authority through trusted UI.
 5. Start the mandate/run explicitly; watch actual work and receipts, not only status prose.
@@ -102,7 +102,7 @@ Owner health shows runtime readiness, due/blocked work, grant expiry, last marke
 
 Proposed stop-new-risk backlog limits are one trading session without a confirmed financial publication or a finite byte quota, whichever occurs first; choose actual thresholds in configuration. Never drop committed/unacknowledged records to fit the quota. A bounded operational heartbeat has no model charge by itself; do not invent cost totals when usage accounting is unavailable.
 
-Report model executions and tokens where actually available, provider requests and measured monetary expenses separately. Subscription-inclusive costs may be unknown; unknown is not free. Do not subtract operational subscription costs from paper equity without a separately published methodology.
+Report model executions and tokens where actually available, free-source API/scraping requests, and any separate model/hosting monetary expenses. **Market-data acquisition is fixed at US$0 under Decision 029, not merely assumed free because a site is readable.** Unknown non-data operating costs are not zero. Do not subtract operational service costs from paper equity without a separately published methodology.
 
 Before launch, set explicit soft/hard storage limits and alert thresholds based on measured host capacity. Logs are bounded/rotated and contain safe identifiers, not private bodies or credentials. Published artifacts/history are retained by policy; orphan staging cleanup checks dependencies and grace periods.
 

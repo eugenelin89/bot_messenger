@@ -1,6 +1,6 @@
 # Validation and acceptance matrix
 
-**Version:** 1.0 | **Status:** Required future checks, not test results | [Guide](README.md)
+**Version:** 1.1 | **Status:** Required future checks, not test results | [Guide](README.md)
 
 ## Evidence rules
 
@@ -20,6 +20,7 @@ No investment gain, chosen stock or predetermined conclusion is required for sof
 | R06 Genuine live discussion and history | A03, A04, A10 | INV-03, 04, 08, 09, 10 |
 | R07 Durable links for deliverables | A03, A06, A07 | INV-03, 07, 08, 10 |
 | R08 Maintainable design and build roadmap | A09, A12 | All packets |
+| R10 US$0 market-data budget; permitted free collection/scraping and public-use rights | A01, A05, A08, A12 | INV-06, 10, 11, 12 |
 
 ## A01 — Configuration and methodology
 
@@ -84,9 +85,11 @@ Test service restart, host restart where authorized, forced context rollover and
 
 ## A08 — Real market evidence and rights
 
-Record provider product/plan and primary rights evidence for internal, automated, public display, redistribution, derived data, history and retention. Delayed/free data is not assumed redistributable. Document required attribution, allowed publication granularity, budget and expiry. No subscription purchase is part of a test without separate authorization.
+Under [Decision 029](../../decisions/decision_029_zero_cost_market_data.md), assert **US$0 incremental market-data spend**: no paid plan, paid trial, subscription, license, fee-based API fallback or account action leading to charges. Evaluate free documented APIs, public open data and only **permitted low-frequency webpage extraction/scraping**; record each source's actual automated-access permission, site restrictions, robots directives where relevant, request budget, retention, public display, redistribution, derived-data, history/archive rights and attribution requirements. Free/delayed/visible information is not automatically redistributable or automatically scrapeable. Check no bypass of access controls, paywalls, CAPTCHAs or anti-bot restrictions. Document unknown permissions as explicit blocks, not assumed authorization.
 
-An authorized read-only live probe confirms actual raw opening/close fields, source times, availability delay and instrument identity. Test holidays, early closes, DST, unexpected closures, halts, stale bars, provider corrections, corporate actions and unavailable sources. Fresh retrieval of an old article is not recent news. Research text never supplies the execution price.
+For each intended public field—including simulated fill prices, holdings, benchmark/portfolio series, derived returns, JSON and historical charts—verify the source permits the associated disclosure. Run negative tests showing that a restricted source or missing right causes a withheld/limited public projection, not automatic release or paid substitution.
+
+An actually permitted **free read-only observation** should confirm available raw opening/close fields, source times, availability delay and instrument identity. Test holidays, early closes, DST, unexpected closures, halts, stale bars, provider corrections, corporate actions, rate limits, site-layout changes and unavailable/conflicting sources. A free close-only feed cannot silently substitute for the frozen next-open fill rule; require a separately approved versioned methodology change if necessary. Verify no retrospective pricing, made-up values, default-to-paid calls or unauthorized scraping on failure. Fresh retrieval of an old article is not recent news. Research text never supplies the execution price.
 
 ## A09 — Existing-system preservation
 
@@ -112,7 +115,7 @@ Retain all trades/HOLDs, missed deadlines, source failures, artifacts, intervent
 
 ## A12 — Release and operator handoff
 
-Verify explicit owner deployment/activation scope, data rights, frozen official configuration, finite grants/budgets, compatible exact commits, current server state, backups and rollback. Create a new official run; never erase trial history. Deploying code alone creates no authority.
+Verify explicit owner deployment/activation scope, **Decision 029's zero-dollar market-data rule**, actual permitted automated source use and public/derived rights, frozen official configuration, finite grants/budgets, compatible exact commits, current server state, backups and rollback. Create a new official run; never erase trial history. Deploying code alone creates no authority.
 
 Read back the first actual public configuration, discussion, artifact and financial records; inspect browser links/status and protected site continuity. Deliver a runbook with pause/stop/revoke/withdrawal, expiry/rotation, restore and known limitations. Publish the project's purpose, goals, methodology and distinction between coordination evidence and investment performance.
 

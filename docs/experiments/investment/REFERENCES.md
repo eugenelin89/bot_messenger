@@ -47,7 +47,7 @@ Repository access is not fresh SSH verification. This design task did not inspec
 | [NYSE market-data policies and contracts](https://www.nyse.com/market-data/pricing-policies-contracts-guidelines) | Market-data use/display/redistribution rights require specific review; public accessibility alone is insufficient |
 | [Alpaca paper-trading documentation](https://docs.alpaca.markets/us/docs/paper-trading) | Example of a provider explicitly distinguishing paper behavior and limitations from live execution |
 
-Alpaca is a limitations reference, not a selected provider or required account. The local simulator described here does not depend on a brokerage paper account. No market-data plan, price or right is presumed from these links. INV-01 must document the actual selected provider and rights for the exact public fields, charts, artifact excerpts and retained history.
+Alpaca is a limitations reference, not a selected provider or required account. The local simulator described here does not depend on a brokerage paper account. No market-data plan, price or right is presumed from these links. INV-01 documented historical candidate providers but did not select an operational market-data source. **[Decision 029](../../decisions/decision_029_zero_cost_market_data.md) now requires a US$0 incremental market-data budget and permits only rights-verified free APIs or bounded lawful web extraction.** INV-06 must establish actual free-source automated/internal use and separate public/derived/storage rights for the exact fields, charts, excerpts and retained history. Historical INV-01 paid-provider prices remain provenance, not the selected sourcing plan.
 
 ## Source discipline
 

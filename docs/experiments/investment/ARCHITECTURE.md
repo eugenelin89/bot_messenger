@@ -1,8 +1,10 @@
 # Architecture and integration boundaries
 
-**Version:** 1.1 | **Status:** Proposed, not implemented | [Guide](README.md)
+**Version:** 1.2 | **Status:** Proposed, not implemented | [Guide](README.md)
 
 **Ask BotSquad:** [The feature specification](ASK_BOTSQUAD.md) owns the added general/contextual public-question lane, routing, private session store and `/api/ask/v1` protocol. Portfolio publication below remains separate. Visitors request scoped answers, never trades or owner commands. [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) records the explicit boundary amendment.
+
+**Market-data collection:** [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) fixes a US$0 incremental market-data budget. The trusted price adapter must use verifiably free APIs and/or permitted low-frequency webpage extraction with strict provenance, source permissions, timing and missing-data handling. Paid-market-data assumptions in earlier feasibility notes are historical, not future architecture.
 
 ## 1. Ownership
 
@@ -22,7 +24,7 @@ A receiver outage does not undo a paper trade. A public receipt does not create 
 ## 2. Runtime shape
 
 ```text
-Public news/filings              Structured licensed market data
+Public news/filings             Verified free market observations
         |                                     |
 scoped research broker                 trusted price adapter
         |                                     |
