@@ -64,7 +64,7 @@ The reviewed Asymmetri website has a Next.js production site, a `/botsquad` prod
 
 ## First-release boundary
 
-One owner, one company, one simulated portfolio, one published experiment and one market-data provider. Visitors may read the showcase and use **Ask BotSquad** through bounded anonymous-session chat. They cannot command trades, assign work, post into the investment discussion, administer workers or browse private company/other visitor data. There is no brokerage integration, real-money mode, public HQ listener or required visitor account.
+One owner, one company, one simulated portfolio, one published experiment and one documented **primary free market-data source**, with only explicit, versioned, rights-verified fallback sources. Visitors may read the showcase and use **Ask BotSquad** through bounded anonymous-session chat. They cannot command trades, assign work, post into the investment discussion, administer workers or browse private company/other visitor data. There is no brokerage integration, real-money mode, public HQ listener or required visitor account.
 
 The first release includes the introduction, actual roster, genuine live team discussion, durable investment artifact pages, decisions and dissent, holdings, benchmark/performance/drawdown charts, transaction journal, methodology, freshness/health and general/contextual Ask BotSquad. Visitor chats are private to their session by default, not public broadcasts; the operator/provider processing and retention are disclosed. Competing portfolios, intraday trading, SSE, arbitrary uploads, global public chatrooms and public Q&A sharing remain later options.
 
