@@ -4,6 +4,13 @@
 
 **Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
 
+The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
+record INFRA-01 migration cancelled/deferred and verified cleanup/snapshot deletion.
+The existing Ubuntu 22.10 server remains under the time-limited
+[owner exception](../../decisions/decision_030_defer_ubuntu_migration.md). INFRA-02
+may be separately planned on it, subject to explicit deployment authority and actual
+host acceptance. No Django retirement, receiver activation or next milestone occurred.
+
 ## The idea
 
 Show an actual BotSquad organization doing useful, persistent work. Its first public experiment is a simulated stock-investment team: workers research public information, discuss alternatives, challenge proposals, make accountable decisions and review outcomes. A deterministic simulator keeps the pretend money honest. Asymmetri.co gives visitors a readable, near-live window into the team, its work and the results.

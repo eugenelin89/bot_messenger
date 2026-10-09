@@ -1,6 +1,6 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.4 | **Updated:** 2026-10-09 | [Design guide](README.md)
+**Version:** 1.5 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
 **Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is default disabled and not deployed. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
@@ -39,6 +39,43 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 
 The website fixture track (02–04) and simulator track (05–06) can proceed independently after 01 with separate writers/checkouts. The default sequence is INV-01–INV-09, INV-ASK-01–INV-ASK-04, then INV-10–INV-12. Earlier parallel Ask work may follow its actual dependencies. Do not build a polished financial dashboard while leaving genuine discussion, linked artifacts or the newly requested employee Q&A to an unspecified later phase.
 
+## Separate infrastructure checkpoints
+
+Infrastructure acceptance is separate from investment feature implementation.
+[Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md) records the
+owner's cancellation of migration and time-limited Ubuntu 22.10 exception.
+The [Asymmetri closure record](https://github.com/eugenelin89/asymmetri/blob/f229c05d8cfad7a8fd71edef48bc6f7df74f8580/docs/INFRA-01-CANCELLATION.md)
+owns current operational evidence; its linked history preserves earlier plans and
+test failures. Earlier preparation at `2ee9f53bca5ce924ff0a383ce6e4ba66517b3251`
+is historical, not the current execution plan.
+
+| Checkpoint | Scope | Depends on | Current status |
+| --- | --- | --- | --- |
+| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Owner retains original Ubuntu 22.10 Droplet/IP; closes migration preparation and removes disposable resources | Owner cancellation supersedes rebuild and snapshot-retention gates | Cancelled/deferred; exact snapshot deleted, cleanup verified; no migration or Django retirement |
+| INFRA-02 — Investment receiver deployment and Linux acceptance | May be planned on existing Ubuntu 22.10 with receiver, proxy, service-isolation, capacity and recovery acceptance | Separate owner selection/deployment authority, Linux compatibility, OS-exception review and operational acceptance; no automatic INFRA-01 prerequisite | Planned; not selected or started |
+
+The exact 11.23 GB migration snapshot was deleted after all 12 retained encrypted
+archive copies passed fresh checks; absence confirmed October 9 at 13:05:58 PDT /
+20:05:58 UTC. Approximately US$0.6738/month before tax is eliminated; already accrued
+usage is not yet itemized and no refund is claimed. Independent recovery material
+remains protected. Both copies are on the same Mac; separate-device custody remains
+unverified. No paid migration resource remains and no new hosting expense is approved.
+
+All 198 baseline requests/15 hosts, DNS/TLS and production service/configuration
+checks pass. Django/service/socket/SQLite and dormant PG data remain unchanged;
+retirement was evaluated, not executed. HQ rehearsal cleanup remains complete;
+its previous 1.73 GB deletion is not counted as new savings. New Mac cleanup removed
+48 KiB of allocated files; new HQ/production reclamation is zero.
+
+Ubuntu 22.10 remains unsupported. Review the exception before the next deployment
+or new public exposure; no calendar expiry was supplied. Actual Node.js/SQLite,
+Nginx signed-request behavior, least-privilege service/storage, CPU/RAM/swap/disk,
+backups/restore and site preservation must pass on the chosen host before activation.
+Compensating controls require separate authorization and do not replace OS patches.
+Publishing stays default disabled. Local INV-03 work may proceed when separately
+requested; this cleanup starts no next packet, market collection or Ask service.
+A future OS upgrade or Django retirement is an independent owner decision.
+
 ## Common completion contract
 
 Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 and INV-02 evidence now exists; later packet evidence remains to be produced.
@@ -72,7 +109,7 @@ Create versioned JSON Schema/OpenAPI, shared types and golden fixtures covering 
 
 **Codex task:** “Execute INV-01 only. Produce the contract/feasibility package including the Ask amendment, test its golden fixtures, update open decisions and handoff evidence. Do not infer launch consent or build subsequent packets.”
 
-INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host OS/disk remediation is a deployment gate; market rights and Ask-account approval gate later live operation. **Decision 029, accepted after INV-01, supersedes the former conditional paid-provider recommendation without altering historic evidence or wire contract 1.0.** None authorizes starting the next packet automatically.
+INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Actual host compatibility/capacity and the Decision 030 OS-exception review are deployment gates; market rights and Ask-account approval gate later live operation. **Decision 029, accepted after INV-01, supersedes the former conditional paid-provider recommendation without altering historic evidence or wire contract 1.0.** None authorizes starting the next packet automatically.
 
 ## INV-02 — Public REST receiver
 
