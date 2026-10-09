@@ -1,12 +1,14 @@
 # Design decisions and launch configuration
 
-**Version:** 1.2 | **Updated:** 2026-10-08 | [Guide](README.md)
+**Version:** 1.3 | **Updated:** 2026-10-09 | [Guide](README.md)
 
 ## Status discipline
 
 The owner authorized INV-01 contracts, feasibility, validation and normal source integration. That packet creates no runtime authority, deployment, account, subscription or launch approval. Personal Operator stabilization remains current; local INV and INV-ASK identifiers do not create core Prompt 12.
 
 [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) and the [Ask amendment table](ASK_BOTSQUAD.md#2-explicit-amendment-to-the-original-design) supersede only the original read-only-visitor/publication-only scope. Visitors may request a bounded answer; they still cannot command investments or access private company state.
+
+**Owner-approved market-data constraint:** [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) sets a hard **US$0 incremental market-data budget** and requires free APIs or permitted low-frequency web extraction. It supersedes INV-01's conditional paid Tiingo recommendation as the forward implementation path. It does not waive automated-access/public-display rights or authorize any scraping or launch by itself.
 
 ## Selected design baseline
 
@@ -29,15 +31,17 @@ The owner authorized INV-01 contracts, feasibility, validation and normal source
 | D15 | Anonymous-session-private Q&A by default | Public access does not imply broadcasting a visitor's conversation or publishing it as an artifact |
 | D16 | HQ independently admits questions through outbound retrieval under a separate Ask grant | No inbound HQ API, owner impersonation, action authority or automatic influence on investment memory |
 | D17 | At most one bounded low-priority Ask execution within existing shared capacity | Protect owner/market-deadline work; public traffic must not create unlimited cost |
+| D18 | US$0 incremental market-data spend is a hard owner constraint | Free API access or permitted web extraction only; no paid source, license, upgrade or subscription without a new explicit owner decision ([Decision 029](../../decisions/decision_029_zero_cost_market_data.md)) |
+| D19 | Data availability and public rights are separately verified | Never evade scraping restrictions, invent fill prices, substitute unverified quotes, or publish fields without applicable source rights; degrade visibly or block live/public gates |
 
-D01–D17 are accepted design requirements; only the INV-01 wire foundation is implemented. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
+D01–D19 are accepted design requirements; only the INV-01 wire foundation is implemented. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
 
 ## Configuration still requiring resolution
 
 | ID | Item | Resolve by |
 | --- | --- | --- |
 | O01 | Capital/currency, universe, benchmark, risk limits and horizon | INV-01 specification; explicit owner approval before official activation |
-| O02 | Market-data provider, internal/public/derived-data rights, delay, retention, fees and budget | INV-01; live-data/public gates remain blocked without evidence |
+| O02 | Select permitted free API/source or allowed web scraper; verify internal/automated use, display/derived/archive rights, timestamps, retention, correction quality and limits | Market-data budget is fixed at US$0 by D18; INV-06 must prove actual free-source suitability, otherwise block live/public fields and escalate a methodology/display choice instead of spending |
 | O03 | Actual receiver host capacity, runtime/SQLite driver, identity, port and service paths | INV-01 read-only preflight; provision only when deployment is authorized |
 | O04 | Eligible real investment roster, research/group grants and scoped paper-order capability | INV-08; do not rename roles to imply authority |
 | O05 | Finite investment model/research/operation budgets and schedule/end conditions | INV-09 and owner activation |
@@ -63,7 +67,7 @@ Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). W
 | Risk | Long-only/no leverage; 15% position, 30% sector at new-risk admission; 10% observed drawdown stops new risk | Owner approves classification and limits; price moves may exceed limits; no guaranteed loss bound |
 | Cadence/horizon | One review per regular exchange session; close valuation; weekly outcome review; 60 official sessions, separately authorized5-session private trial | Owner selects dates and calendar; missed deadlines coalesce/expire, never backdate |
 | Execution | Next regular opening after commitment at least30min before open; whole discretionary shares; 10bps adverse slippage, zero commission; 24 h maximum data wait after target open | Verify exact provider field/availability/halts; expire if missing; six-decimal half-even weighted-average basis, explicit action entitlements |
-| Market data | Conditional Tiingo EOD Startup redistribution, budget floor$250/month; Massive business EOD quote as alternative | Written automated/display/derived/permanent archive rights and all-in price; no provider approved/purchased |
+| Market data | **Current owner decision:** US$0 incremental fees; use verified free APIs and permitted low-frequency web collection, with documented provenance and no silent paid fallback. **Historical INV-01 finding:** Tiingo EOD Startup paid redistribution was conditionally suggested, but is now superseded by Decision 029 | INV-06 must verify free-source automation/internal-use rights, raw price and action quality, publishable derived/display/archive fields, availability and rate limits. If none qualifies, stop the affected live/public gate; do not buy a feed |
 | Publication | Authorized contribution batches every<=15s when active; heartbeat60s, stale180s; daily financial valuations after provider readiness | Measure30s visible-tab target; respect licensed delay and owner audience/expiry. Stop new risk if outbox>24 h or64 MiB |
 | Discussions/artifacts | Actual scoped group contributions, dissent, exact synthesis and every deliverable registry entry; approved public derivatives or safe withheld reason | No private transcript export. Text/Markdown/JSON/CSV/normalized PNG only; existing HQ lower limits prevail |
 | Investment usage |32 executions/cycle, 64/day, 3, 840/run; 32 broker calls/day, 1, 920/run; recommend$10/day, $600/run ceiling | Owner budget and enforceable metering required. Default group reservation is24 plus coordinator; prior12/cycle was insufficient. Caps are ceilings, not scheduled consumption |
@@ -74,7 +78,7 @@ Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). W
 
 Resolved INV-01 choices: canonical schema plus generated types, exact named endpoint DTOs, signed generation fence, decimal/rational representation, durable identity/receipt semantics, private Ask namespace and current host/runtime integration plan. Source implementation does not approve the rows above. Changes to official frozen methodology require an explicit amendment/new run.
 
-External blockers apply to later gates: website OS/disk before deployment; written market rights before live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
+External blockers apply to later gates: website OS/disk before deployment; **permitted zero-cost acquisition and separately verified public/derived-data rights** before corresponding live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
 
 ## Amendment process
 
@@ -88,3 +92,4 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-06 | 1.1 | R09 Ask BotSquad; actual employee routing, session-private chat, scoped outbound question retrieval and four required pre-launch packets; no runtime activation |
 
 | 2026-10-08 | 1.2 | INV-01 wire foundation and observed feasibility; concrete unapproved defaults, host/data/account gates; no runtime activation |
+| 2026-10-09 | 1.3 | Owner sets US$0 market-data budget; free APIs/permitted scraping replace paid feed path; data access and public display rights remain required (Decision 029) |
