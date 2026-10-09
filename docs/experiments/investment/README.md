@@ -4,6 +4,11 @@
 
 **Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
 
+The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
+track INFRA-01 existing-site LTS migration and the later, separately selected
+INFRA-02 receiver deployment/Linux acceptance. Infrastructure preparation does
+not change feature status or authorize receiver activation.
+
 ## The idea
 
 Show an actual BotSquad organization doing useful, persistent work. Its first public experiment is a simulated stock-investment team: workers research public information, discuss alternatives, challenge proposals, make accountable decisions and review outcomes. A deterministic simulator keeps the pretend money honest. Asymmetri.co gives visitors a readable, near-live window into the team, its work and the results.

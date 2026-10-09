@@ -39,6 +39,24 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 
 The website fixture track (02–04) and simulator track (05–06) can proceed independently after 01 with separate writers/checkouts. The default sequence is INV-01–INV-09, INV-ASK-01–INV-ASK-04, then INV-10–INV-12. Earlier parallel Ask work may follow its actual dependencies. Do not build a polished financial dashboard while leaving genuine discussion, linked artifacts or the newly requested employee Q&A to an unspecified later phase.
 
+## Separate infrastructure checkpoints
+
+Infrastructure acceptance is separate from investment feature implementation.
+The [Asymmetri migration runbook](https://github.com/eugenelin89/asymmetri/blob/50fb207ffbd752ebd1d3d2a0e35c3612826b16dd/docs/INFRA-01-UBUNTU-MIGRATION.md)
+and [validation record](https://github.com/eugenelin89/asymmetri/blob/50fb207ffbd752ebd1d3d2a0e35c3612826b16dd/docs/INFRA-01-VALIDATION.md)
+own operational evidence, pinned to preparation commit `50fb207ffbd752ebd1d3d2a0e35c3612826b16dd`.
+
+| Checkpoint | Scope | Depends on | Current status |
+| --- | --- | --- | --- |
+| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Fresh supported LTS host; preserve every existing site, service, data set and access boundary; verified recovery and existing-site acceptance | Explicit resource approval, recovery acceptance and later production cutover approval | Prepared — resource or migration approval required; no staging acceptance or production cutover claimed |
+| INFRA-02 — Investment receiver deployment and Linux acceptance | Separately authorized receiver deployment and Linux, proxy, service-isolation, capacity and recovery acceptance | Accepted INFRA-01 and a separate owner-selected task | Planned; not selected or started |
+
+INFRA-01 preserves the verified existing website release; it does not deploy the
+newer INV-02 receiver or start investment activity. INFRA-02 is a separate future
+task and is not authorized by preparing or completing INFRA-01. Neither checkpoint
+changes an INV/INV-ASK milestone status, contract 1.0, Decision 029, publication
+consent or retained BotSquad HQ authority. Nix gains no host-administration authority.
+
 ## Common completion contract
 
 Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 and INV-02 evidence now exists; later packet evidence remains to be produced.

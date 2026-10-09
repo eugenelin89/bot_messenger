@@ -7,6 +7,12 @@
 
 Owner-selected [INV-01](validation/investment/INV-01.md) provides version1.0 schemas/OpenAPI/generated types, synthetic conformance tests and read-only HQ/website/provider feasibility. INV-01 made no runtime/server/permission changes. [INV-02](validation/investment/INV-02.md) now implements the Asymmetri public REST receiver/archive at `457f9354b3f8daf5c4c75b8f5ac1946433da3ce0`, default disabled and locally validated (183 tests on Node 22/24, both website builds, three read-only reviews). No server/HQ changes or live authority. INV-03 local work is ready only on a new explicit request; supported OS, fresh resources, Linux/proxy/recovery and real rights gates remain before deployment. All later investment/Ask packets remain planned.
 
+The owner selected INFRA-01 for the separate Asymmetri host migration.
+[Infrastructure checkpoints](experiments/investment/ROADMAP.md#separate-infrastructure-checkpoints)
+record its preparation and outstanding approval gates. INFRA-02 depends on accepted
+INFRA-01 and requires separate owner selection; it has not started. Investment
+milestone status, the disabled receiver and retained HQ authority are unchanged.
+
 **New accepted owner constraint (2026-10-09):** [Decision 029 — US$0 investment market-data budget](decisions/decision_029_zero_cost_market_data.md) supersedes the conditional paid Tiingo option reported in INV-01. Future market data comes from verified free APIs and permitted low-frequency web scraping/extraction; automated access, retention and public/derived-display rights must still be checked per source. No paid fallback, unpermitted scraping, invented prices or hindsight fills. If a suitable free source or publication permission is missing, block the affected feature instead of spending. **Every future investment-showcase Codex task** must read Decision 029, [DECISIONS.md](experiments/investment/DECISIONS.md), [SIMULATION_RULES.md section 7](experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing) and the [investment roadmap](experiments/investment/ROADMAP.md) before editing. Market-data cost $0 is separate from model/hosting/Ask budgets.
 
 ## Current owner priority — Personal Operator / Daily Driver
