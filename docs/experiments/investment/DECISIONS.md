@@ -1,10 +1,10 @@
 # Design decisions and launch configuration
 
-**Version:** 1.1 | **Updated:** 2026-10-06 | [Guide](README.md)
+**Version:** 1.2 | **Updated:** 2026-10-08 | [Guide](README.md)
 
 ## Status discipline
 
-The owner requested design/roadmap and then added Ask BotSquad, not implementation or launch. No new runtime authority follows. Personal Operator stabilization remains current; local INV and INV-ASK identifiers do not create core Prompt 12.
+The owner authorized INV-01 contracts, feasibility, validation and normal source integration. That packet creates no runtime authority, deployment, account, subscription or launch approval. Personal Operator stabilization remains current; local INV and INV-ASK identifiers do not create core Prompt 12.
 
 [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) and the [Ask amendment table](ASK_BOTSQUAD.md#2-explicit-amendment-to-the-original-design) supersede only the original read-only-visitor/publication-only scope. Visitors may request a bounded answer; they still cannot command investments or access private company state.
 
@@ -30,7 +30,7 @@ The owner requested design/roadmap and then added Ask BotSquad, not implementati
 | D16 | HQ independently admits questions through outbound retrieval under a separate Ask grant | No inbound HQ API, owner impersonation, action authority or automatic influence on investment memory |
 | D17 | At most one bounded low-priority Ask execution within existing shared capacity | Protect owner/market-deadline work; public traffic must not create unlimited cost |
 
-These are proposed implementation decisions within the requested design, not evidence that code exists or every parameter is owner-approved. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
+D01–D17 are accepted design requirements; only the INV-01 wire foundation is implemented. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
 
 ## Configuration still requiring resolution
 
@@ -51,6 +51,31 @@ These are proposed implementation decisions within the requested design, not evi
 
 No placeholder authorizes spending, accounts or hidden defaults. Synthetic contract/UI work can proceed while live rights or public-service terms are blocked. Public activation cannot. Public transcript sharing remains deferred; a different audience would need a separately consented design amendment.
 
+## INV-01 recommendations and unresolved gates
+
+Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). Wire version 1.0 and its [profile](../../../contracts/investment/v1/PROTOCOL.md) are selected implementation decisions; fixtures are not launch settings.
+
+| Item | Recommended default | Approval or external prerequisite |
+| --- | --- | --- |
+| Capital/currency | 100, 000 USD, no deposits/withdrawals during official run | Owner approval; v1 USD only |
+| Initial universe | Ten candidate liquid US common stocks: AAPL, MSFT, AMZN, GOOGL, META, NVDA, JPM, JNJ, XOM, PG | Proposal, not investment advice or approved membership. Freeze provider stable IDs, listing/sector classification and availability before run; no scraped symbol resolution |
+| Benchmark | SPY ETF proxy; raw prices plus explicit dividend receivables/payment and next eligible opening reinvestment, fractional units, zero benchmark commission/slippage | Verify instrument/feed/rights, freeze initial units and residual cash; do not call it the S&P500 index itself |
+| Risk | Long-only/no leverage; 15% position, 30% sector at new-risk admission; 10% observed drawdown stops new risk | Owner approves classification and limits; price moves may exceed limits; no guaranteed loss bound |
+| Cadence/horizon | One review per regular exchange session; close valuation; weekly outcome review; 60 official sessions, separately authorized5-session private trial | Owner selects dates and calendar; missed deadlines coalesce/expire, never backdate |
+| Execution | Next regular opening after commitment at least30min before open; whole discretionary shares; 10bps adverse slippage, zero commission; 24 h maximum data wait after target open | Verify exact provider field/availability/halts; expire if missing; six-decimal half-even weighted-average basis, explicit action entitlements |
+| Market data | Conditional Tiingo EOD Startup redistribution, budget floor$250/month; Massive business EOD quote as alternative | Written automated/display/derived/permanent archive rights and all-in price; no provider approved/purchased |
+| Publication | Authorized contribution batches every<=15s when active; heartbeat60s, stale180s; daily financial valuations after provider readiness | Measure30s visible-tab target; respect licensed delay and owner audience/expiry. Stop new risk if outbox>24 h or64 MiB |
+| Discussions/artifacts | Actual scoped group contributions, dissent, exact synthesis and every deliverable registry entry; approved public derivatives or safe withheld reason | No private transcript export. Text/Markdown/JSON/CSV/normalized PNG only; existing HQ lower limits prevail |
+| Investment usage |32 executions/cycle, 64/day, 3, 840/run; 32 broker calls/day, 1, 920/run; recommend$10/day, $600/run ceiling | Owner budget and enforceable metering required. Default group reservation is24 plus coordinator; prior12/cycle was insufficient. Caps are ceilings, not scheduled consumption |
+| Ask admission |2, 000 chars, 5/hour and20/day/session, one outstanding, queue50, TTL10min; 24 h absolute session | Owner privacy/abuse approval; network/global limits and authenticated session ownership separately enforced |
+| Ask worker/model budget | One active shared slot, 25% rolling duty ceiling, 20 questions/day globally; one answer, deterministic router initially, 0 optional research calls; 240s deadline, 8k input/1.5k output per execution, 200k tokens/day, proposed$2/day | New approved API account/adapter/model and hard reservations. Unknown token/cost usage disables paid admission. Optional model router/research require separate cap/grant review |
+| Retention/storage | Public archive/history for approved permanent duration; CAS1 GiB initial total cap, staging24 h; Ask raw<=7days in operator-controlled stores or earlier deletion; provider retention separately disclosed/approved, non-content suppression30days | Provider perpetual rights unresolved; host disk remediation first. Encrypted daily backups, Ask backup expiry<=7days, 30-day control suppression on restore; measure RPO24 h/RTO4h before adopting |
+| Stop conditions | Owner pause/revocation; expired grant/budget; uncertain provider outcome; missing/stale/unsupported market action; ledger conflict; drawdown threshold; outbox/storage cap; Ask stale control barrier or unverified costs | Stop affected admission, retain durable evidence, show owner action; never erase trades or automatically retry uncertain model work |
+
+Resolved INV-01 choices: canonical schema plus generated types, exact named endpoint DTOs, signed generation fence, decimal/rational representation, durable identity/receipt semantics, private Ask namespace and current host/runtime integration plan. Source implementation does not approve the rows above. Changes to official frozen methodology require an explicit amendment/new run.
+
+External blockers apply to later gates: website OS/disk before deployment; written market rights before live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
+
 ## Amendment process
 
 Record date, decision ID, reason, affected documents, owner authorization where required and comparability impact. Before launch, update versioned baseline/contracts. After launch, retain prior methodology and append amendments or start a new run. Security fixes do not erase investment history. New visitor Q&A interpretations cannot retroactively change a trade's original rationale.
@@ -61,3 +86,5 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | --- | --- | --- |
 | 2026-10-06 | 1.0 | Initial owner-requested investment design and roadmap; implementation planned |
 | 2026-10-06 | 1.1 | R09 Ask BotSquad; actual employee routing, session-private chat, scoped outbound question retrieval and four required pre-launch packets; no runtime activation |
+
+| 2026-10-08 | 1.2 | INV-01 wire foundation and observed feasibility; concrete unapproved defaults, host/data/account gates; no runtime activation |

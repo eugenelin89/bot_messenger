@@ -567,3 +567,7 @@ model slot; one independent executor revalidates current scope and retains callb
 model settlement. Unknown effects fence their canonical target and never blindly replay.
 Credentials stay service-private. Existing worker roles, Computer Use and Client API v1 gain
 no implicit authority. Migration 14 is additive and inert. Live acceptance was separately completed at bounded supervised scope; see the Prompt 11 validation record. No further external authority follows.
+
+## Investment and Ask contract boundary (INV-01)
+
+The [version 1.0 package](../../contracts/investment/v1/PROTOCOL.md) and [feasibility record](../validation/investment/INV-01.md) are offline foundations only. Production domain, persistence, dispatch, tools and grants are unchanged. Future public investment projection and private Ask service require separate audience/context/authority boundaries while reusing existing durable execution ownership; no receiver/model capability is implied by the schemas.

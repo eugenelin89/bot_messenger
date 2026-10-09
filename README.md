@@ -587,3 +587,7 @@ business integrations do not depend on first implementing these larger platforms
 
 BotSquad is open source under the [MIT License](LICENSE).
 Copyright (c) 2026 Eugene Lin. Third-party dependencies retain their own licenses.
+
+## Investment showcase contract foundation
+
+[INV-01 evidence](docs/validation/investment/INV-01.md) records contract1.0, offline tests and read-only feasibility for the paper investment showcase and private Ask BotSquad. Run `npm run contracts:test` to check the canonical package. Runtime/receiver work, deployment, data licenses and anonymous-model activation remain later gates; this foundation creates no operational authority.

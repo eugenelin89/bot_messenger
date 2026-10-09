@@ -1,8 +1,8 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.1 | **Updated:** 2026-10-06 | [Design guide](README.md)
+**Version:** 1.2 | **Updated:** 2026-10-08 | [Design guide](README.md)
 
-**Implementation status:** All build packets below are planned. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
+**Implementation status:** INV-01 contract/feasibility foundation is implemented and validated locally; all later packets remain planned. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
@@ -18,7 +18,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 
 | Packet | Deliverable | Repository | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Planned | — |
+| INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Complete, not deployed | [INV-01 evidence](../../validation/investment/INV-01.md) |
 | INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Planned | — |
 | INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Planned | — |
 | INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Planned | — |
@@ -39,7 +39,7 @@ The website fixture track (02–04) and simulator track (05–06) can proceed in
 
 ## Common completion contract
 
-Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. This directory is a planned output, not pre-existing evidence.
+Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 evidence now exists; later packet evidence remains to be produced.
 
 A useful status is “implemented, not deployed” or “blocked by data rights,” not an unsupported “complete.” No runtime tests are claimed from documentation review; no real-worker acceptance from stubs; no official public experiment from a synthetic demo. Never require profits or a predetermined BUY to pass acceptance. A separate chatbot falsely labelled as an employee cannot pass Ask acceptance.
 
@@ -69,6 +69,8 @@ Create versioned JSON Schema/OpenAPI, shared types and golden fixtures covering 
 **Not included:** Application implementation beyond contract validation fixtures; production grants, purchases, accounts, service changes or active runs.
 
 **Codex task:** “Execute INV-01 only. Produce the contract/feasibility package including the Ask amendment, test its golden fixtures, update open decisions and handoff evidence. Do not infer launch consent or build subsequent packets.”
+
+INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host OS/disk remediation is a deployment gate; market rights and Ask-account approval gate later live operation. None authorizes starting the next packet automatically.
 
 ## INV-02 — Public REST receiver
 

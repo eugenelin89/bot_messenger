@@ -1,8 +1,8 @@
 # Public Experiment API v1 — resources and payloads
 
-**Version:** 1.0 design | **Status:** Not implemented | [Guide](README.md)
+**Version:** 1.0 | **Status:** Contracts implemented; receiver not implemented | [Guide](README.md)
 
-This is the normative publication contract. [Security and delivery](API_SECURITY_AND_DELIVERY.md) owns signing, receipts, ordering, errors and limits. INV-01 turns both specifications into versioned JSON Schema/OpenAPI, types and golden fixtures before implementation.
+This document specifies publication resources; [schema/OpenAPI and protocol](../../../contracts/investment/v1/PROTOCOL.md) own exact wire definitions. [Security and delivery](API_SECURITY_AND_DELIVERY.md) owns signing, receipts, ordering, errors and limits. INV-01 supplies versioned JSON Schema/OpenAPI, generated types and disposable golden fixtures.
 
 ## 1. Scope and routes
 
@@ -27,6 +27,7 @@ Below, `{prefix}` means `/experiments/{experimentId}/runs/{runId}`. Experiment i
 | `GET {prefix}/artifacts` | Public | Deliverable registry including safe withheld records |
 | `GET {prefix}/artifacts/{id}/versions/{version}` | Public | Exact artifact metadata |
 | `GET {prefix}/artifacts/{id}/versions/{version}/content` | Public | Published, non-withdrawn bytes only |
+| `GET {prefix}/records/{kind}/{id}/versions/{version}` | Public | Exact typed record or safe tombstone |
 | `GET {prefix}/transactions` | Public | Paginated paper orders and journal with typed filters |
 
 Unsupported methods return 405. Receipt GETs are not anonymous. No arbitrary URL fetcher, filesystem browser, SQL endpoint or public administration. Owner control stays local/private.
@@ -75,6 +76,8 @@ Money, quantities, percentages and large sequences use bounded decimal strings. 
 | `portfolio.snapshot` | Valuation revision, journal watermark/hash, marks, cash/holdings/equity, returns, benchmark, quality and source times |
 | `review.published` | Original decisions, observations, interpretation, limitations, next disposition |
 | `content.corrected` | Prior record/version, replacement reference and reason |
+| `market.action` | Provider action evidence, including ticker changes; no duplicate journal mutation |
+| `instrument.updated` | Stable identity, action-linked effective symbol history |
 | `publication.notice` | Safe omission/delay/rights/withdrawal notice |
 
 A fill is a ledger transaction with effect type `fill`; do not also apply a second financial mutation named “trade executed.” Other journal effects include initialization, dividends, splits and corrections. Feed labels can say BUY or SELL without changing ledger semantics.
@@ -85,18 +88,7 @@ A snapshot includes `valuationSequence`, `revision`, `journalSequence`, `journal
 
 ## 4. Example contribution payload
 
-This is a synthetic illustration, not a real worker statement. INV-01 supplies executable fixtures with valid IDs and prerequisite run, roster and discussion events.
-
-```json
-{
-  "discussionId": "fixture-topic-001",
-  "ordinal": "1",
-  "replyTo": null,
-  "body": "The evidence is incomplete. I recommend no new position until the missing data is verified."
-}
-```
-
-Attach this payload to an authenticated `discussion.contribution` envelope with its actual public author and `synthetic_fixture` mode. Do not publish it as an observed live discussion.
+The complete synthetic contribution, with required `contributionId`, ordinal, sources, evidence and prerequisite records, is in [golden.json](../../../contracts/investment/v1/golden.json). Use that named-schema-valid fixture rather than copying a partial illustrative object. It is not a real worker statement and must never be published as observed activity.
 
 ## 5. Artifacts and references
 

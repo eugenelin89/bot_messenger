@@ -1,8 +1,8 @@
 # BotSquad Investment Team — design and build guide
 
-**Version:** 1.1 | **Updated:** 2026-10-06
+**Version:** 1.2 | **Updated:** 2026-10-08
 
-**Status:** Design baseline. Implementation, deployment, subscriptions and public activation are not completed or authorized by this document.
+**Status:** INV-01 contracts and feasibility implemented; [evidence and next prerequisites](../../validation/investment/INV-01.md). All runtime/website packets remain planned. No deployment, subscriptions or public activation.
 
 ## The idea
 
@@ -33,6 +33,7 @@ Earlier suggestions of $100,000, USD, universe size, sector limits, schedule and
 | [Product and public experience](PRODUCT_AND_UX.md) | Purpose, page hierarchy, live desk, visitor journeys and charts |
 | [Architecture](ARCHITECTURE.md) | Repository responsibilities, integration, ownership and trust boundaries |
 | [Simulation rules](SIMULATION_RULES.md) | Orders, accounting, market evidence, risk, benchmark and metrics |
+| [Contract 1.0](../../../contracts/investment/v1/PROTOCOL.md) | Canonical schema/OpenAPI, generated types, fixtures, signature/hash profile and vendor pinning |
 | [Public API](PUBLIC_API.md) | Portfolio-publication resources, event payloads, artifact references and version compatibility |
 | [API security and delivery](API_SECURITY_AND_DELIVERY.md) | Publication signing, authorization, atomic acceptance, ordering, receipts, retries and errors |
 | [Publication and artifacts](PUBLICATION_AND_ARTIFACTS.md) | Public investment audience consent, discussion export, file storage, versions and withdrawals |

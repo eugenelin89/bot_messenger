@@ -1,0 +1,1471 @@
+{
+  "label": "SYNTHETIC DISPOSABLE CONTRACT FIXTURE \u2014 NEVER IMPORT INTO OPERATIONAL STATE",
+  "batch": {
+    "schemaVersion": "1.0",
+    "batchId": "fixture-batch",
+    "experimentId": "fixture-experiment",
+    "runId": "fixture-run",
+    "events": [
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-01",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "1",
+        "type": "run.published",
+        "occurredAt": "2026-01-05T12:00:00Z",
+        "recordedAt": "2026-01-05T12:00:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "title": "SYNTHETIC BotSquad contract run",
+          "purpose": "Validate persistent employee attribution contracts using disposable data.",
+          "objective": "Test evidence relationships and bounded authority.",
+          "runKind": "fixture",
+          "state": "private_trial",
+          "configuration": {
+            "configurationVersion": "fixture-config-1",
+            "methodologyVersion": "fixture-method-1",
+            "methodologyHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "universeVersion": "fixture-universe-1",
+            "universe": [
+              {
+                "instrumentId": "fixture-stock",
+                "symbol": "SYNTH",
+                "venue": "XNYS",
+                "currency": "USD",
+                "sector": "Synthetic",
+                "classificationSource": "synthetic fixture",
+                "symbolHistory": [
+                  {
+                    "symbol": "SYNTH",
+                    "effectiveFrom": "2026-01-01",
+                    "effectiveTo": null
+                  }
+                ]
+              }
+            ],
+            "initialCapital": "1000",
+            "currency": "USD",
+            "benchmarkInstrument": {
+              "instrumentId": "fixture-benchmark",
+              "symbol": "SYNB",
+              "venue": "XNYS",
+              "currency": "USD",
+              "sector": "Synthetic benchmark",
+              "classificationSource": "synthetic fixture",
+              "symbolHistory": [
+                {
+                  "symbol": "SYNB",
+                  "effectiveFrom": "2026-01-01",
+                  "effectiveTo": null
+                }
+              ]
+            },
+            "benchmarkConvention": "raw_prices_explicit_dividends_next_open_reinvestment",
+            "calendarVersion": "fixture-calendar-1",
+            "calendarTimezone": "America/New_York",
+            "marketProvider": "fixture-provider",
+            "feed": "fixture-feed",
+            "openingFieldDefinition": "SYNTHETIC regular-session opening observation; no real feed",
+            "executionRule": "next_regular_open",
+            "cutoffMinutes": 30,
+            "slippageBps": 0,
+            "commission": "0",
+            "quantityRule": "whole_discretionary_six_decimal_actions",
+            "rounding": "half_even_6",
+            "costBasis": "weighted_average",
+            "longOnly": true,
+            "leverage": false,
+            "cashConvention": "no_interest_no_tax_immediate_simulated_settlement",
+            "positionLimitBps": 5000,
+            "sectorLimitBps": 7500,
+            "drawdownStopBps": 1000,
+            "decisionCadence": "one_review_per_regular_session",
+            "officialSessions": 60,
+            "cycleExecutionBudget": 32,
+            "dailyExecutionBudget": 64,
+            "runExecutionBudget": 3840,
+            "publicationPolicyVersion": "fixture-policy-1",
+            "publicationHeartbeatSeconds": 60,
+            "publicationStaleSeconds": 180,
+            "maxOutboxAgeSeconds": 3600,
+            "maxOutboxBytes": 10485760,
+            "dataDelaySeconds": 0,
+            "attribution": "Synthetic data; no actual employee statement or market price.",
+            "rightsEvidence": [
+              "https://example.com/synthetic-rights"
+            ],
+            "configurationStatus": "synthetic_only",
+            "approvalRecordId": null,
+            "limitations": [
+              "Disposable conformance fixture only. No operational run, trade, model or publication."
+            ],
+            "maxOpeningWaitSeconds": 86400
+          },
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "startsAt": "2026-01-05T12:00:00Z",
+          "endsAt": "2026-04-01T00:00:00Z",
+          "previousRunId": null
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-02",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "2",
+        "type": "team.published",
+        "occurredAt": "2026-01-05T12:01:00Z",
+        "recordedAt": "2026-01-05T12:01:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "rosterVersion": "fixture-roster-1",
+          "workers": [
+            {
+              "workerId": "fixture-author",
+              "name": "Synthetic Author",
+              "role": "researcher",
+              "responsibilities": [
+                "Synthetic research"
+              ],
+              "status": "available"
+            },
+            {
+              "workerId": "fixture-reviewer",
+              "name": "Synthetic Reviewer",
+              "role": "reviewer",
+              "responsibilities": [
+                "Synthetic independent review"
+              ],
+              "status": "available"
+            }
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-03",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "3",
+        "type": "paper.ledger_transaction",
+        "occurredAt": "2026-01-05T12:02:00Z",
+        "recordedAt": "2026-01-05T12:02:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "transactionId": "fixture-tx-1",
+          "journalSequence": "1",
+          "previousHash": null,
+          "previousLedgerVersion": null,
+          "ledgerVersion": "1",
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "effect": "initialization",
+          "sourceOperationId": "fixture-operation-1",
+          "effectiveAt": "2026-01-05T12:02:00Z",
+          "recordedAt": "2026-01-05T12:02:00Z",
+          "entries": [
+            {
+              "account": "cash",
+              "instrumentId": null,
+              "amount": "1000",
+              "currency": "USD"
+            },
+            {
+              "account": "capital",
+              "instrumentId": null,
+              "amount": "1000",
+              "currency": "USD"
+            }
+          ],
+          "fill": null,
+          "corporateAction": null,
+          "correctionOf": null,
+          "journalHash": "11e91bc2ed1cf1af109155eb210335351751e0f38ab9dd9b30ef042b3fd4ad23"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-04",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "4",
+        "type": "discussion.opened",
+        "occurredAt": "2026-01-05T12:03:00Z",
+        "recordedAt": "2026-01-05T12:03:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "discussionId": "fixture-discussion",
+          "topic": "Synthetic investment deliberation",
+          "charter": "Public-audience synthetic evidence only",
+          "audiencePolicyVersion": "fixture-policy-1",
+          "participants": [
+            "fixture-author",
+            "fixture-reviewer"
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-05",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "5",
+        "type": "worker.activity",
+        "occurredAt": "2026-01-05T12:05:00Z",
+        "recordedAt": "2026-01-05T12:05:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "activityId": "fixture-activity",
+          "workerId": "fixture-author",
+          "activity": "research",
+          "work": {
+            "kind": "discussion",
+            "id": "fixture-discussion",
+            "version": 1,
+            "relation": "supports"
+          },
+          "startedAt": "2026-01-05T12:04:00Z",
+          "finishedAt": "2026-01-05T12:05:00Z",
+          "summary": "Synthetic activity, not live work."
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-06",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "6",
+        "type": "artifact.registered",
+        "occurredAt": "2026-01-05T12:06:00Z",
+        "recordedAt": "2026-01-05T12:06:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "artifactId": "fixture-artifact",
+          "title": "SYNTHETIC research and synthesis",
+          "author": {
+            "kind": "worker",
+            "workerId": "fixture-author"
+          },
+          "status": "registered",
+          "reason": null,
+          "relationships": [
+            {
+              "kind": "discussion",
+              "id": "fixture-discussion",
+              "version": 1,
+              "relation": "supports"
+            }
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-07",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "7",
+        "type": "artifact.published",
+        "occurredAt": "2026-01-05T12:07:00Z",
+        "recordedAt": "2026-01-05T12:07:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "artifactId": "fixture-artifact",
+          "version": 1,
+          "title": "SYNTHETIC research and synthesis",
+          "author": {
+            "kind": "worker",
+            "workerId": "fixture-author"
+          },
+          "createdAt": "2026-01-05T12:06:00Z",
+          "publishedAt": "2026-01-05T12:07:00Z",
+          "contentType": "text/plain",
+          "sizeBytes": 94,
+          "sha256": "75f15ffb86a840746f503df8acf38135761c41f9cad255a6d643e05447cb4cbe",
+          "relationships": [
+            {
+              "kind": "discussion",
+              "id": "fixture-discussion",
+              "version": 1,
+              "relation": "supports"
+            }
+          ],
+          "sources": [
+            {
+              "sourceId": "fixture-source",
+              "url": "https://example.com/synthetic-source",
+              "title": "Synthetic source",
+              "publisher": "Fixture",
+              "publishedAt": null,
+              "eventAt": null,
+              "retrievedAt": "2026-01-05T12:05:00Z",
+              "summary": "Synthetic evidence only.",
+              "limitations": [
+                "Not market data."
+              ],
+              "rights": "owner_authored"
+            }
+          ],
+          "rights": "owner_authored",
+          "limitations": [
+            "Synthetic fixture."
+          ],
+          "supersedes": null,
+          "derivative": false
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-08",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "8",
+        "type": "discussion.contribution",
+        "occurredAt": "2026-01-05T12:08:00Z",
+        "recordedAt": "2026-01-05T12:08:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "contributionId": "fixture-contribution-1",
+          "discussionId": "fixture-discussion",
+          "ordinal": "1",
+          "body": "SYNTHETIC: the test proposal uses a two-share purchase.",
+          "replyTo": null,
+          "evidence": [
+            {
+              "kind": "artifact",
+              "id": "fixture-artifact",
+              "version": 1,
+              "relation": "supports"
+            }
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-09",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "9",
+        "type": "discussion.contribution",
+        "occurredAt": "2026-01-05T12:09:00Z",
+        "recordedAt": "2026-01-05T12:09:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-reviewer"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "contributionId": "fixture-contribution-2",
+          "discussionId": "fixture-discussion",
+          "ordinal": "2",
+          "body": "SYNTHETIC: this fixture proves arithmetic, not a sound investment.",
+          "replyTo": "fixture-contribution-1",
+          "evidence": [
+            {
+              "kind": "artifact",
+              "id": "fixture-artifact",
+              "version": 1,
+              "relation": "supports"
+            }
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-10",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "10",
+        "type": "discussion.closed",
+        "occurredAt": "2026-01-05T12:10:00Z",
+        "recordedAt": "2026-01-05T12:10:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "discussionId": "fixture-discussion",
+          "outcome": "Synthetic recommendation recorded.",
+          "dissent": [
+            "No real-world inference supported."
+          ],
+          "unresolved": [
+            "Provider license unresolved."
+          ],
+          "synthesis": {
+            "kind": "artifact",
+            "id": "fixture-artifact",
+            "version": 1,
+            "relation": "supports"
+          }
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-11",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "11",
+        "type": "decision.published",
+        "occurredAt": "2026-01-05T13:11:00Z",
+        "recordedAt": "2026-01-05T13:11:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "proposal": {
+            "decisionId": "fixture-decision",
+            "revision": 1,
+            "action": "BUY",
+            "instrumentId": "fixture-stock",
+            "quantity": "2",
+            "targetSession": "2026-01-05",
+            "priceGuard": "120",
+            "evidenceCutoff": "2026-01-05T12:59:00Z",
+            "committedAt": "2026-01-05T13:00:00Z",
+            "rationale": "SYNTHETIC: exercise the contract.",
+            "alternatives": [
+              "HOLD"
+            ],
+            "risks": [
+              "Synthetic input does not establish market performance."
+            ],
+            "invalidationCondition": "Missing required evidence.",
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ],
+            "sources": [
+              {
+                "sourceId": "fixture-source",
+                "url": "https://example.com/synthetic-source",
+                "title": "Synthetic source",
+                "publisher": "Fixture",
+                "publishedAt": null,
+                "eventAt": null,
+                "retrievedAt": "2026-01-05T12:05:00Z",
+                "summary": "Synthetic evidence only.",
+                "limitations": [
+                  "Not market data."
+                ],
+                "rights": "owner_authored"
+              }
+            ]
+          },
+          "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+          "review": {
+            "reviewId": "fixture-decision-review",
+            "reviewerId": "fixture-reviewer",
+            "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+            "proposalRevision": 1,
+            "reviewedAt": "2026-01-05T13:10:00Z",
+            "disposition": "approve",
+            "rationale": "Independent synthetic review of exact revision.",
+            "dissent": [],
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-12",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "12",
+        "type": "paper.order",
+        "occurredAt": "2026-01-05T13:12:00Z",
+        "recordedAt": "2026-01-05T13:12:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "orderId": "fixture-order",
+          "decisionId": "fixture-decision",
+          "decisionRevision": 1,
+          "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+          "orderIndex": 0,
+          "revision": 1,
+          "previousEventId": null,
+          "instrumentId": "fixture-stock",
+          "side": "BUY",
+          "quantity": "2",
+          "targetSession": "2026-01-05",
+          "deadline": "2026-01-05T14:00:00Z",
+          "priceGuard": "120",
+          "status": "proposed",
+          "reason": null,
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "expectedLedgerVersion": "1",
+          "reservedCash": "0",
+          "reservedQuantity": "0",
+          "expiresAt": "2026-01-06T14:30:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-13",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "13",
+        "type": "paper.order",
+        "occurredAt": "2026-01-05T13:12:00Z",
+        "recordedAt": "2026-01-05T13:12:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "orderId": "fixture-order",
+          "decisionId": "fixture-decision",
+          "decisionRevision": 1,
+          "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+          "orderIndex": 0,
+          "revision": 2,
+          "previousEventId": "fixture-event-12",
+          "instrumentId": "fixture-stock",
+          "side": "BUY",
+          "quantity": "2",
+          "targetSession": "2026-01-05",
+          "deadline": "2026-01-05T14:00:00Z",
+          "priceGuard": "120",
+          "status": "validated",
+          "reason": null,
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "expectedLedgerVersion": "1",
+          "reservedCash": "240",
+          "reservedQuantity": "0",
+          "expiresAt": "2026-01-06T14:30:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-14",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "14",
+        "type": "paper.order",
+        "occurredAt": "2026-01-05T13:12:00Z",
+        "recordedAt": "2026-01-05T13:12:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "orderId": "fixture-order",
+          "decisionId": "fixture-decision",
+          "decisionRevision": 1,
+          "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+          "orderIndex": 0,
+          "revision": 3,
+          "previousEventId": "fixture-event-13",
+          "instrumentId": "fixture-stock",
+          "side": "BUY",
+          "quantity": "2",
+          "targetSession": "2026-01-05",
+          "deadline": "2026-01-05T14:00:00Z",
+          "priceGuard": "120",
+          "status": "pending",
+          "reason": null,
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "expectedLedgerVersion": "1",
+          "reservedCash": "240",
+          "reservedQuantity": "0",
+          "expiresAt": "2026-01-06T14:30:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-15",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "15",
+        "type": "paper.ledger_transaction",
+        "occurredAt": "2026-01-05T14:30:00Z",
+        "recordedAt": "2026-01-05T14:30:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "transactionId": "fixture-tx-2",
+          "journalSequence": "2",
+          "previousHash": "11e91bc2ed1cf1af109155eb210335351751e0f38ab9dd9b30ef042b3fd4ad23",
+          "previousLedgerVersion": "1",
+          "ledgerVersion": "2",
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "effect": "fill",
+          "sourceOperationId": "fixture-operation-2",
+          "effectiveAt": "2026-01-05T14:30:00Z",
+          "recordedAt": "2026-01-05T14:30:00Z",
+          "entries": [
+            {
+              "account": "cash",
+              "instrumentId": null,
+              "amount": "-200",
+              "currency": "USD"
+            },
+            {
+              "account": "quantity",
+              "instrumentId": "fixture-stock",
+              "amount": "2",
+              "currency": "USD"
+            },
+            {
+              "account": "book_cost",
+              "instrumentId": "fixture-stock",
+              "amount": "200",
+              "currency": "USD"
+            }
+          ],
+          "fill": {
+            "orderId": "fixture-order",
+            "orderRevision": 3,
+            "decisionId": "fixture-decision",
+            "decisionRevision": 1,
+            "instrumentId": "fixture-stock",
+            "side": "BUY",
+            "quantity": "2",
+            "price": "100",
+            "fee": "0",
+            "releasedBasis": "0",
+            "roundingAdjustment": "0",
+            "observation": {
+              "observationId": "fixture-mark-fixture-stock-regular_open",
+              "instrumentId": "fixture-stock",
+              "venue": "XNYS",
+              "currency": "USD",
+              "provider": "fixture-provider",
+              "feed": "fixture-feed",
+              "field": "regular_open",
+              "value": "100",
+              "adjustment": "raw",
+              "session": "2026-01-05",
+              "marketAt": "2026-01-05T14:30:00Z",
+              "availableAt": "2026-01-05T14:30:00Z",
+              "retrievedAt": "2026-01-05T14:30:00Z",
+              "calendarVersion": "fixture-calendar-1",
+              "sourceVersion": "fixture-source-v1",
+              "delaySeconds": 0
+            },
+            "priceRoundingResidual": {
+              "numerator": "0",
+              "denominator": "10000"
+            },
+            "basisRoundingResidual": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "corporateAction": null,
+          "correctionOf": null,
+          "journalHash": "d47d9fcfbfc59c28539da898df1d9b443f091f46717ffbb52133fe0658bd9391"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-16",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "16",
+        "type": "paper.order",
+        "occurredAt": "2026-01-05T14:31:00Z",
+        "recordedAt": "2026-01-05T14:31:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "orderId": "fixture-order",
+          "decisionId": "fixture-decision",
+          "decisionRevision": 1,
+          "proposalHash": "a916ea0c6c1a5ccd7c558fa79fa6268bbd045480dfa284e69a133d9247d8931b",
+          "orderIndex": 0,
+          "revision": 4,
+          "previousEventId": "fixture-event-14",
+          "instrumentId": "fixture-stock",
+          "side": "BUY",
+          "quantity": "2",
+          "targetSession": "2026-01-05",
+          "deadline": "2026-01-05T14:00:00Z",
+          "priceGuard": "120",
+          "status": "filled",
+          "reason": null,
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "expectedLedgerVersion": "1",
+          "reservedCash": "0",
+          "reservedQuantity": "0",
+          "expiresAt": "2026-01-06T14:30:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-17",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "17",
+        "type": "portfolio.snapshot",
+        "occurredAt": "2026-01-05T21:01:00Z",
+        "recordedAt": "2026-01-05T21:01:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "valuationId": "fixture-valuation",
+          "valuationSequence": "1",
+          "revision": 1,
+          "supersedes": null,
+          "journalSequence": "2",
+          "journalHash": "d47d9fcfbfc59c28539da898df1d9b443f091f46717ffbb52133fe0658bd9391",
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "markSetId": "fixture-markset",
+          "valuationAsOf": "2026-01-05T21:00:00Z",
+          "session": "2026-01-05",
+          "currency": "USD",
+          "cash": "800",
+          "receivables": "0",
+          "liabilities": "0",
+          "holdings": [
+            {
+              "instrumentId": "fixture-stock",
+              "symbol": "SYNTH",
+              "sector": "Synthetic",
+              "quantity": "2",
+              "bookCost": "200",
+              "mark": {
+                "observationId": "fixture-mark-fixture-stock-regular_close",
+                "instrumentId": "fixture-stock",
+                "venue": "XNYS",
+                "currency": "USD",
+                "provider": "fixture-provider",
+                "feed": "fixture-feed",
+                "field": "regular_close",
+                "value": "110",
+                "adjustment": "raw",
+                "session": "2026-01-05",
+                "marketAt": "2026-01-05T21:00:00Z",
+                "availableAt": "2026-01-05T21:00:00Z",
+                "retrievedAt": "2026-01-05T21:00:00Z",
+                "calendarVersion": "fixture-calendar-1",
+                "sourceVersion": "fixture-source-v1",
+                "delaySeconds": 0
+              },
+              "marketValue": "220",
+              "unrealizedPnl": "20",
+              "missingReason": null
+            }
+          ],
+          "equity": "1020",
+          "realizedPnl": "0",
+          "unrealizedPnl": "20",
+          "totalReturn": "0.02",
+          "dailyReturn": null,
+          "previousComparableEquity": null,
+          "peakEquity": "1020",
+          "drawdown": "0",
+          "maxDrawdown": "0",
+          "benchmark": {
+            "instrumentId": "fixture-benchmark",
+            "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+            "session": "2026-01-05",
+            "units": "10",
+            "cash": "0",
+            "receivables": "0",
+            "mark": {
+              "observationId": "fixture-mark-fixture-benchmark-regular_close",
+              "instrumentId": "fixture-benchmark",
+              "venue": "XNYS",
+              "currency": "USD",
+              "provider": "fixture-provider",
+              "feed": "fixture-feed",
+              "field": "regular_close",
+              "value": "110",
+              "adjustment": "raw",
+              "session": "2026-01-05",
+              "marketAt": "2026-01-05T21:00:00Z",
+              "availableAt": "2026-01-05T21:00:00Z",
+              "retrievedAt": "2026-01-05T21:00:00Z",
+              "calendarVersion": "fixture-calendar-1",
+              "sourceVersion": "fixture-source-v1",
+              "delaySeconds": 0
+            },
+            "equity": "1100",
+            "totalReturn": "0.1",
+            "missingReason": null
+          },
+          "excessReturn": "-0.08",
+          "quality": "complete",
+          "limitations": [
+            "Synthetic fixture only."
+          ]
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-18",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "18",
+        "type": "review.published",
+        "occurredAt": "2026-01-05T21:02:00Z",
+        "recordedAt": "2026-01-05T21:02:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-reviewer"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "reviewId": "fixture-outcome-review",
+          "originalDecisions": [
+            {
+              "kind": "decision",
+              "id": "fixture-decision",
+              "version": 1,
+              "relation": "supports"
+            }
+          ],
+          "observations": [
+            {
+              "kind": "valuation",
+              "id": "fixture-valuation",
+              "version": 1,
+              "relation": "supports"
+            }
+          ],
+          "interpretation": "SYNTHETIC 2 percent portfolio return; benchmark 10 percent.",
+          "limitations": [
+            "No real market outcome."
+          ],
+          "nextDisposition": "stop",
+          "asOf": "2026-01-05T21:02:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-19",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "19",
+        "type": "decision.published",
+        "occurredAt": "2026-01-05T21:03:00Z",
+        "recordedAt": "2026-01-05T21:03:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "proposal": {
+            "decisionId": "fixture-hold",
+            "revision": 1,
+            "action": "HOLD",
+            "instrumentId": null,
+            "quantity": null,
+            "targetSession": null,
+            "priceGuard": null,
+            "evidenceCutoff": "2026-01-05T12:59:00Z",
+            "committedAt": "2026-01-05T13:00:00Z",
+            "rationale": "SYNTHETIC: exercise the contract.",
+            "alternatives": [
+              "HOLD"
+            ],
+            "risks": [
+              "Synthetic input does not establish market performance."
+            ],
+            "invalidationCondition": "Missing required evidence.",
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ],
+            "sources": [
+              {
+                "sourceId": "fixture-source",
+                "url": "https://example.com/synthetic-source",
+                "title": "Synthetic source",
+                "publisher": "Fixture",
+                "publishedAt": null,
+                "eventAt": null,
+                "retrievedAt": "2026-01-05T12:05:00Z",
+                "summary": "Synthetic evidence only.",
+                "limitations": [
+                  "Not market data."
+                ],
+                "rights": "owner_authored"
+              }
+            ]
+          },
+          "proposalHash": "4bbdb59018864d181a4d1313f05c03e5d2421f66da344ada24475f61df0bd987",
+          "review": {
+            "reviewId": "fixture-hold-review",
+            "reviewerId": "fixture-reviewer",
+            "proposalHash": "4bbdb59018864d181a4d1313f05c03e5d2421f66da344ada24475f61df0bd987",
+            "proposalRevision": 1,
+            "reviewedAt": "2026-01-05T13:10:00Z",
+            "disposition": "approve",
+            "rationale": "Independent synthetic review of exact revision.",
+            "dissent": [],
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-20",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "20",
+        "type": "decision.published",
+        "occurredAt": "2026-01-05T21:04:00Z",
+        "recordedAt": "2026-01-05T21:04:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "proposal": {
+            "decisionId": "fixture-reject",
+            "revision": 1,
+            "action": "SELL",
+            "instrumentId": "fixture-stock",
+            "quantity": "99",
+            "targetSession": "2026-01-05",
+            "priceGuard": "80",
+            "evidenceCutoff": "2026-01-05T12:59:00Z",
+            "committedAt": "2026-01-05T13:00:00Z",
+            "rationale": "SYNTHETIC: exercise the contract.",
+            "alternatives": [
+              "HOLD"
+            ],
+            "risks": [
+              "Synthetic input does not establish market performance."
+            ],
+            "invalidationCondition": "Missing required evidence.",
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ],
+            "sources": [
+              {
+                "sourceId": "fixture-source",
+                "url": "https://example.com/synthetic-source",
+                "title": "Synthetic source",
+                "publisher": "Fixture",
+                "publishedAt": null,
+                "eventAt": null,
+                "retrievedAt": "2026-01-05T12:05:00Z",
+                "summary": "Synthetic evidence only.",
+                "limitations": [
+                  "Not market data."
+                ],
+                "rights": "owner_authored"
+              }
+            ]
+          },
+          "proposalHash": "3472b23ce53c5ccfdf4577f6ffb0933c5846ff8f5f4148c610563022dfa9d590",
+          "review": {
+            "reviewId": "fixture-reject-review",
+            "reviewerId": "fixture-reviewer",
+            "proposalHash": "3472b23ce53c5ccfdf4577f6ffb0933c5846ff8f5f4148c610563022dfa9d590",
+            "proposalRevision": 1,
+            "reviewedAt": "2026-01-05T13:10:00Z",
+            "disposition": "reject",
+            "rationale": "Independent synthetic review of exact revision.",
+            "dissent": [],
+            "evidence": [
+              {
+                "kind": "artifact",
+                "id": "fixture-artifact",
+                "version": 1,
+                "relation": "supports"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-21",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "21",
+        "type": "paper.order",
+        "occurredAt": "2026-01-05T21:05:00Z",
+        "recordedAt": "2026-01-05T21:05:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "orderId": "fixture-rejected-order",
+          "decisionId": "fixture-reject",
+          "decisionRevision": 1,
+          "proposalHash": "3472b23ce53c5ccfdf4577f6ffb0933c5846ff8f5f4148c610563022dfa9d590",
+          "orderIndex": 0,
+          "revision": 1,
+          "previousEventId": null,
+          "instrumentId": "fixture-stock",
+          "side": "SELL",
+          "quantity": "99",
+          "targetSession": "2026-01-05",
+          "deadline": "2026-01-05T14:00:00Z",
+          "priceGuard": "80",
+          "status": "rejected",
+          "reason": "Insufficient simulated shares.",
+          "configurationHash": "39f5f758e8cc70cda9fa25fd7cfc691580e40b00195cdf25f87f1e1f8e575d0e",
+          "expectedLedgerVersion": "2",
+          "reservedCash": "0",
+          "reservedQuantity": "0",
+          "expiresAt": "2026-01-06T14:30:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-22",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "22",
+        "type": "artifact.published",
+        "occurredAt": "2026-01-05T21:20:00Z",
+        "recordedAt": "2026-01-05T21:20:00Z",
+        "actor": {
+          "kind": "worker",
+          "workerId": "fixture-author"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "artifactId": "fixture-artifact",
+          "version": 2,
+          "title": "SYNTHETIC research and synthesis",
+          "author": {
+            "kind": "worker",
+            "workerId": "fixture-author"
+          },
+          "createdAt": "2026-01-05T12:06:00Z",
+          "publishedAt": "2026-01-05T21:20:00Z",
+          "contentType": "text/plain",
+          "sizeBytes": 140,
+          "sha256": "4ea30469404d3e8a9afdae85ad39183c2a3e41a2fe8ca2cdcd4ad1d9e7d8c5ff",
+          "relationships": [
+            {
+              "kind": "discussion",
+              "id": "fixture-discussion",
+              "version": 1,
+              "relation": "supports"
+            }
+          ],
+          "sources": [
+            {
+              "sourceId": "fixture-source",
+              "url": "https://example.com/synthetic-source",
+              "title": "Synthetic source",
+              "publisher": "Fixture",
+              "publishedAt": null,
+              "eventAt": null,
+              "retrievedAt": "2026-01-05T12:05:00Z",
+              "summary": "Synthetic evidence only.",
+              "limitations": [
+                "Not market data."
+              ],
+              "rights": "owner_authored"
+            }
+          ],
+          "rights": "owner_authored",
+          "limitations": [
+            "Synthetic fixture."
+          ],
+          "supersedes": {
+            "kind": "artifact",
+            "id": "fixture-artifact",
+            "version": 1,
+            "relation": "supersedes"
+          },
+          "derivative": false
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-23",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "23",
+        "type": "content.corrected",
+        "occurredAt": "2026-01-05T21:21:00Z",
+        "recordedAt": "2026-01-05T21:21:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "prior": {
+            "kind": "artifact",
+            "id": "fixture-artifact",
+            "version": 1,
+            "relation": "supports"
+          },
+          "replacement": {
+            "kind": "artifact",
+            "id": "fixture-artifact",
+            "version": 2,
+            "relation": "supports"
+          },
+          "reason": "Clarified synthetic wording; original remains."
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-24",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "24",
+        "type": "publication.notice",
+        "occurredAt": "2026-01-05T21:22:00Z",
+        "recordedAt": "2026-01-05T21:22:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "noticeId": "fixture-notice",
+          "kind": "delay",
+          "affected": [
+            {
+              "kind": "artifact",
+              "id": "fixture-artifact",
+              "version": 2,
+              "relation": "supports"
+            }
+          ],
+          "reason": "Synthetic delivery notice.",
+          "effectiveAt": "2026-01-05T21:22:00Z"
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-25",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "25",
+        "type": "run.status",
+        "occurredAt": "2026-01-05T21:23:00Z",
+        "recordedAt": "2026-01-05T21:23:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "state": "paused",
+          "reason": "Synthetic fixture ended.",
+          "effectiveAt": "2026-01-05T21:23:00Z",
+          "nextReviewAt": null
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-26",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "26",
+        "type": "market.action",
+        "occurredAt": "2026-01-05T21:23:00Z",
+        "recordedAt": "2026-01-05T21:23:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "actionId": "fixture-ticker-change",
+          "providerActionId": "fixture-provider-action",
+          "instrumentId": "fixture-stock",
+          "sourceVersion": "fixture-action-v1",
+          "kind": "ticker_change",
+          "effectiveAt": "2026-01-06T14:30:00Z",
+          "exDate": null,
+          "paymentDate": null,
+          "numerator": null,
+          "denominator": null,
+          "cashPerShare": null,
+          "entitledQuantity": null,
+          "fractionalEntitlement": null,
+          "newSymbol": "SYNNEW",
+          "source": {
+            "sourceId": "fixture-source",
+            "url": "https://example.com/synthetic-source",
+            "title": "Synthetic source",
+            "publisher": "Fixture",
+            "publishedAt": null,
+            "eventAt": null,
+            "retrievedAt": "2026-01-05T12:05:00Z",
+            "summary": "Synthetic evidence only.",
+            "limitations": [
+              "Not market data."
+            ],
+            "rights": "owner_authored"
+          }
+        }
+      },
+      {
+        "schemaVersion": "1.0",
+        "eventId": "fixture-event-27",
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "sourceSequence": "27",
+        "type": "instrument.updated",
+        "occurredAt": "2026-01-05T21:23:00Z",
+        "recordedAt": "2026-01-05T21:23:00Z",
+        "actor": {
+          "kind": "system"
+        },
+        "publicationPolicyVersion": "fixture-policy-1",
+        "evidenceMode": "synthetic_fixture",
+        "references": [],
+        "payload": {
+          "instrument": {
+            "instrumentId": "fixture-stock",
+            "symbol": "SYNNEW",
+            "venue": "XNYS",
+            "currency": "USD",
+            "sector": "Synthetic",
+            "classificationSource": "synthetic fixture",
+            "symbolHistory": [
+              {
+                "symbol": "SYNTH",
+                "effectiveFrom": "2026-01-01",
+                "effectiveTo": "2026-01-06"
+              },
+              {
+                "symbol": "SYNNEW",
+                "effectiveFrom": "2026-01-06",
+                "effectiveTo": null
+              }
+            ]
+          },
+          "version": 1,
+          "effectiveAt": "2026-01-06T14:30:00Z",
+          "reason": "SYNTHETIC ticker history fixture; stable instrument identity unchanged.",
+          "action": {
+            "kind": "corporate_action",
+            "id": "fixture-ticker-change",
+            "version": 1,
+            "relation": "supports"
+          }
+        }
+      }
+    ]
+  },
+  "content": [
+    {
+      "text": "SYNTHETIC FIXTURE: no real employee, market observation, trade, or investment recommendation.\n",
+      "sha256": "75f15ffb86a840746f503df8acf38135761c41f9cad255a6d643e05447cb4cbe",
+      "contentType": "text/plain"
+    },
+    {
+      "text": "SYNTHETIC FIXTURE: no real employee, market observation, trade, or investment recommendation.\nVersion 2 clarifies the synthetic limitation.\n",
+      "sha256": "4ea30469404d3e8a9afdae85ad39183c2a3e41a2fe8ca2cdcd4ad1d9e7d8c5ff",
+      "contentType": "text/plain"
+    }
+  ],
+  "askQuestion": {
+    "schemaVersion": "1.0",
+    "serviceId": "fixture-ask",
+    "sessionId": "fixture-session-a",
+    "conversationId": "fixture-conversation-a",
+    "questionId": "fixture-question-a",
+    "revision": 1,
+    "input": {
+      "schemaVersion": "1.0",
+      "text": "SYNTHETIC: why does this simulated transaction have this price?",
+      "context": {
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "record": {
+          "kind": "transaction",
+          "id": "fixture-tx-2",
+          "version": 1,
+          "relation": "supports"
+        }
+      },
+      "priorQuestionId": null,
+      "language": "en"
+    },
+    "priorOwnedQuestionIds": [],
+    "receivedAt": "2026-01-05T21:30:00Z",
+    "expiresAt": "2026-01-05T21:40:00Z",
+    "questionHash": "09ffae195e1cdbc8bb5cfdb0b58b1c9fd62c5b7ae1121f478c2b0aa48e07f701"
+  },
+  "askRoute": {
+    "workerId": "fixture-author",
+    "reason": "record_provenance",
+    "explanation": "Synthetic original author routing.",
+    "routingPolicyVersion": "fixture-routing-1",
+    "previousWorkerId": null
+  },
+  "askAnswer": {
+    "schemaVersion": "1.0",
+    "serviceId": "fixture-ask",
+    "answerId": "fixture-answer-a",
+    "conversationId": "fixture-conversation-a",
+    "questionId": "fixture-question-a",
+    "questionRevision": 1,
+    "questionHash": "09ffae195e1cdbc8bb5cfdb0b58b1c9fd62c5b7ae1121f478c2b0aa48e07f701",
+    "workerId": "fixture-author",
+    "routingPolicyVersion": "fixture-routing-1",
+    "generatedAt": "2026-01-05T21:31:00Z",
+    "text": "SYNTHETIC: the fixed test observation was 100 USD. This is a contract fixture, not an employee response.",
+    "evidence": [
+      {
+        "experimentId": "fixture-experiment",
+        "runId": "fixture-run",
+        "record": {
+          "kind": "transaction",
+          "id": "fixture-tx-2",
+          "version": 1,
+          "relation": "supports"
+        }
+      }
+    ],
+    "knowledgeAsOf": "2026-01-05T14:30:00Z",
+    "limitations": [
+      "No real employee execution or market data."
+    ],
+    "interpretation": "historical_record_explanation",
+    "publicSources": []
+  },
+  "askLimits": {
+    "schemaVersion": "1.0",
+    "configurationStatus": "synthetic_only",
+    "approvalRecordId": null,
+    "questionCharacters": 2000,
+    "requestBytes": 16384,
+    "answerCharacters": 8000,
+    "historyTurns": 8,
+    "sessionHourlyQuestions": 5,
+    "sessionDailyQuestions": 20,
+    "outstandingPerSession": 1,
+    "queueCapacity": 50,
+    "queueTtlSeconds": 600,
+    "sessionTtlSeconds": 86400,
+    "rawRetentionSeconds": 604800,
+    "suppressionRetentionSeconds": 2592000,
+    "maxActiveAsk": 1,
+    "maxAnswerExecutions": 1,
+    "maxRouterExecutions": 1,
+    "maxResearchCalls": 0,
+    "executionDeadlineSeconds": 240,
+    "dailyExecutions": 100,
+    "dailyTokens": 100000,
+    "maxInputTokens": 8000,
+    "maxOutputTokens": 1000,
+    "dailyBudgetUsd": null,
+    "monetaryEnforcement": "unavailable_disable_paid_admission",
+    "dutyCycleBps": 2500,
+    "controlFreshnessSeconds": 60
+  }
+}

@@ -25,14 +25,14 @@ The following is a design proposal, not an approved launch configuration.
 | Benchmark | A named S&P 500-tracking ETF proxy | Exact instrument, rights and total-return convention; do not call it the index itself |
 | Cash | No interest, no tax, immediate simulated settlement | Disclose simplification; this is not a realistic cash-account compliance model |
 | Official duration | Proposed 60 trading sessions | Owner chooses horizon; operational completion does not require a profitable result |
-| Review budget | Proposed 12 model executions per cycle, 24 per session | Below existing work/grant ceilings; total run budget remains finite |
+| Review budget | Proposed32 model executions per cycle,64 per session,3,840 per60-session run | Existing group reservation is24 plus coordinator; requires explicit finite grant/owner approval |
 | Loss attention threshold | Proposed 10% observed drawdown | Hold new risk and notify owner; not a guaranteed loss limit |
 
 Store an immutable configuration version/hash, universe version, methodology version, provider/feed identifier, calendar version, fees, limits, publication policy and consent. Dates are actual selected dates, not inferred from these examples. A rule change during an official run requires a visible amendment and analysis of comparability, or a new run. Never silently reset capital/history.
 
 ## 3. Deterministic records and arithmetic
 
-Represent monetary amounts and prices as decimal strings in APIs; use fixed-point integer arithmetic internally. Proposed precision is six decimal places for USD and six for position quantities. Submitted discretionary quantity is a positive whole-share integer. Never use binary floating point for ledger balances, fees or cost allocation.
+Represent monetary amounts and prices as decimal strings in APIs; use fixed-point integer arithmetic internally. Contract 1.0 precision is six decimal places for USD and six for position quantities. Submitted discretionary quantity is a positive whole-share integer. Never use binary floating point for ledger balances, fees or cost allocation.
 
 Use round-half-even at defined monetary posting boundaries; retain raw values and rounding adjustments. Any unrepresentable corporate-action quantity becomes an explicit unresolved fractional entitlement, not silently discarded wealth. Money fields include currency; numeric strings disallow NaN, infinity, exponent notation and excess precision.
 
@@ -129,3 +129,7 @@ Evaluate position/sector ceilings on admission and again at fills, including pen
 Pause new orders for unknown accounting state, unavailable essential data, unsupported corporate action, expired authority, exhausted budget, excessive publication backlog or owner stop. The proposed drawdown threshold triggers attention and blocks new risk, not a guarantee against further losses. Existing holdings still move in value.
 
 Freeze the method before official launch. Preserve losses, failed proposals and human interventions. The public methodology states all simplifications and that simulated outcomes do not establish executable real-world returns.
+
+## INV-01 wire foundation
+
+[Contract 1.0](../../../contracts/investment/v1/PROTOCOL.md) freezes decimal/JCS hash recipes, journal/order/valuation identities, finite order expiry, typed action references and exact rational residuals. Split fractional entitlement is in shares; price/basis rounding residual is in micro-USD. Ticker changes preserve stable instrument identity and half-open symbol-history dates; snapshots resolve the symbol effective at valuation time. The disposable oracle checks representative consistency only. Full reservation/risk/concurrency, market-calendar and benchmark/correction replay acceptance remains INV-05/06. No operational ledger exists from INV-01.

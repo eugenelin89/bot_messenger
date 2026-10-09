@@ -1,0 +1,38 @@
+{
+  "label": "SYNTHETIC disposable Ed25519 key. Private key never retained. Not a valid event batch.",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAx/UgmiIS5fmc3SE1Bmsjb8oQlX7uNEJy21fgsE1KFog=\n-----END PUBLIC KEY-----\n",
+  "request": {
+    "method": "POST",
+    "authority": "asymmetri.co",
+    "path": "/api/experiments/v1/experiments/fixture-experiment/runs/fixture-run/events",
+    "headers": [
+      [
+        "botsquad-generation",
+        "1"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-digest",
+        "sha-256=:e/ptMMdxeSL4K0IyO7G66fcfu0iyJkgODvkPGzUWKi8=:"
+      ],
+      [
+        "idempotency-key",
+        "fixture-batch"
+      ],
+      [
+        "signature-input",
+        "sig1=(\"@method\" \"@authority\" \"@path\" \"botsquad-generation\" \"content-type\" \"content-digest\" \"idempotency-key\");created=1767657600;expires=1767657900;keyid=\"fixture-vector-key\";nonce=\"fixture0123456789abcdefgh\";alg=\"ed25519\""
+      ],
+      [
+        "signature",
+        "sig1=:8No1CXkRStCwL9eeDTuMD0ni2rYU7qekNfmPJVb787XMIhaaWMCo5RlIKX4WSjPjpbwzhUMmFF01I1TPQzztBA==:"
+      ]
+    ],
+    "bodyUtf8": "{\"schemaVersion\":\"1.0\",\"message\":\"SYNTHETIC € signature vector\"}"
+  },
+  "signatureBaseUtf8": "\"@method\": POST\n\"@authority\": asymmetri.co\n\"@path\": /api/experiments/v1/experiments/fixture-experiment/runs/fixture-run/events\n\"botsquad-generation\": 1\n\"content-type\": application/json\n\"content-digest\": sha-256=:e/ptMMdxeSL4K0IyO7G66fcfu0iyJkgODvkPGzUWKi8=:\n\"idempotency-key\": fixture-batch\n\"@signature-params\": (\"@method\" \"@authority\" \"@path\" \"botsquad-generation\" \"content-type\" \"content-digest\" \"idempotency-key\");created=1767657600;expires=1767657900;keyid=\"fixture-vector-key\";nonce=\"fixture0123456789abcdefgh\";alg=\"ed25519\"",
+  "verifyAt": 1767657700
+}
