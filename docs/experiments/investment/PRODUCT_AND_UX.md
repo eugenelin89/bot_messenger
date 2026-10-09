@@ -107,6 +107,8 @@ Never expose local paths, private task URLs, provider thread IDs or a company-wi
 
 The simulator supplies numbers and calculation metadata. The website formats and plots; it never infers balances from prose or chat answers.
 
+Under [Decision 029](../../decisions/decision_029_zero_cost_market_data.md), underlying market observations must come from verified free APIs or permitted low-frequency extraction. Show the observed source, market session, delay and valuation quality; do not imply real-time exchange data. **Source rights are checked separately for public raw prices, transaction records, per-security/benchmark charts and derived portfolio results.** Withhold unsupported public values or display an honest unavailable/stale state rather than rendering unlicensed or fabricated charts. The site does not quietly rely on a paid data feed.
+
 Required figures: initial capital, equity, cash, total return, daily change when comparable marks exist, realized/unrealized P&L, dividend income/receivables where applicable, benchmark return, excess return in percentage points, maximum drawdown and valuation coverage. Model/data/service expenses are separate from paper returns; unknown expense is not zero. Ask usage has its own bounded operating budget and does not alter portfolio equity.
 
 | Chart | Required semantics |
