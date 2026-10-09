@@ -1,6 +1,6 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.4 | **Updated:** 2026-10-09 | [Design guide](README.md)
+**Version:** 1.5 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
 **Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is default disabled and not deployed. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
@@ -42,14 +42,22 @@ The website fixture track (02–04) and simulator track (05–06) can proceed in
 ## Separate infrastructure checkpoints
 
 Infrastructure acceptance is separate from investment feature implementation.
-The [Asymmetri migration runbook](https://github.com/eugenelin89/asymmetri/blob/50fb207ffbd752ebd1d3d2a0e35c3612826b16dd/docs/INFRA-01-UBUNTU-MIGRATION.md)
-and [validation record](https://github.com/eugenelin89/asymmetri/blob/50fb207ffbd752ebd1d3d2a0e35c3612826b16dd/docs/INFRA-01-VALIDATION.md)
-own operational evidence, pinned to preparation commit `50fb207ffbd752ebd1d3d2a0e35c3612826b16dd`.
+The [Asymmetri migration runbook](https://github.com/eugenelin89/asymmetri/blob/f2964bdef68779b7c5d6e4d136821c78e30e7cb4/docs/INFRA-01-UBUNTU-MIGRATION.md)
+and [validation record](https://github.com/eugenelin89/asymmetri/blob/f2964bdef68779b7c5d6e4d136821c78e30e7cb4/docs/INFRA-01-VALIDATION.md)
+own operational evidence, pinned to same-Droplet continuation commit `f2964bdef68779b7c5d6e4d136821c78e30e7cb4`.
 
 | Checkpoint | Scope | Depends on | Current status |
 | --- | --- | --- | --- |
-| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Fresh supported LTS host; preserve every existing site, service, data set and access boundary; verified recovery and existing-site acceptance | Explicit resource approval, recovery acceptance and later production cutover approval | Prepared — resource or migration approval required; no staging acceptance or production cutover claimed |
+| INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Clean Ubuntu 24.04 rebuild of the existing Droplet, retaining its public IP; preserve every site, service, data set and access boundary | Verified independent recovery and snapshot evidence; separate explicit destructive-rebuild and outage approval | Blocked — recovery gaps remain; live snapshot created, no rebuild or production LTS acceptance claimed |
 | INFRA-02 — Investment receiver deployment and Linux acceptance | Separately authorized receiver deployment and Linux, proxy, service-isolation, capacity and recovery acceptance | Accepted INFRA-01 and a separate owner-selected task | Planned; not selected or started |
+
+The owner selected the existing-Droplet/IP strategy; no new Droplet is authorized.
+Migration snapshot storage is approved up to US$1.50/month. A live snapshot completed
+at 11.23 GB (approximately US$0.67/month before tax); this is supplemental protection,
+not a final write-frozen recovery point. Creation, runtime recovery and rebuild
+acceptance are separate states. Delete only the migration snapshot(s) after healthy
+production observation and tested **current post-rebuild** recovery satisfy the
+mandatory cleanup gate. Snapshot approval does not authorize a rebuild or outage.
 
 INFRA-01 preserves the verified existing website release; it does not deploy the
 newer INV-02 receiver or start investment activity. INFRA-02 is a separate future

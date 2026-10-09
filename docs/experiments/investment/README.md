@@ -5,7 +5,7 @@
 **Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
 
 The separate [infrastructure checkpoints](ROADMAP.md#separate-infrastructure-checkpoints)
-track INFRA-01 existing-site LTS migration and the later, separately selected
+track INFRA-01 existing-Droplet/IP clean LTS rebuild and the later, separately selected
 INFRA-02 receiver deployment/Linux acceptance. Infrastructure preparation does
 not change feature status or authorize receiver activation.
 
