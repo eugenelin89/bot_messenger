@@ -5,6 +5,16 @@ receiver is installed on the owner-selected Ubuntu 22.10 Asymmetri host, with
 an empty operational archive and a stopped/default-disabled service. Public
 publishing and real HQ traffic remain disabled. No INV-03 or Ask work began.
 
+## Subsequent INV-03 disposition
+
+This is a historical INFRA-02 checkpoint. [INV-03](INV-03.md) supersedes current
+installed source/schema and records remediation. PR35 merged at
+`7cd52672ab1de1dc687d6aeebc718919760ac2e5`; PR36 was corrected/retargeted and merged at
+`8a150eb47cd1f1cbc9b5cb3178775ae656052fdf`. The original unmerged-branch description
+below remains provenance. Later owner-approved Mac cleanup deleted the earlier backup
+copies and keys; historical checks do not establish current custody. INV-03's synthetic
+restore proves mechanisms, not offsite operational backup availability.
+
 ## Exact evidence and Git boundary
 
 - [Asymmetri implementation](https://github.com/eugenelin89/asymmetri/commit/2e663dd3f4281e29aa7e45bf34fbc54ad8a59559): hardened unit, explicit acceptance utilities and operational documentation.

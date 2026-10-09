@@ -1,6 +1,14 @@
 # Publication, discussion and artifacts
 
-**Version:** 1.0 | **Status:** Proposed, not implemented | [Guide](README.md)
+**Version:** 1.1 | **Status:** INV-03 receiver/archive implemented; HQ integration remains planned | [Guide](README.md)
+
+[INV-03 acceptance](../../validation/investment/INV-03.md) verifies synthetic exact
+versions, all registry states, worker/owner/system discussion actors, safe formats,
+current-control withdrawal, correction releases and complete fenced restore. Human
+pages exist in Asymmetri source; the public site is unchanged. Actual employee/HQ
+publication below remains an INV-07/08 dependency, never inferred from fixtures.
+Owner controls are local only; rights approval binds exact artifact metadata and
+never follows from a valid publisher signature. Source collection remains INV-06.
 
 ## 1. Public by deliberate scope
 

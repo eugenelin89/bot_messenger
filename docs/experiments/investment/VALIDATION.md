@@ -1,6 +1,14 @@
 # Validation and acceptance matrix
 
-**Version:** 1.1 | **Status:** Required future checks, not test results | [Guide](README.md)
+**Version:** 1.2 | **Status:** Acceptance specification; executed packet evidence linked below | [Guide](README.md)
+
+## Executed packet evidence
+
+[INV-01](../../validation/investment/INV-01.md), [INV-02](../../validation/investment/INV-02.md),
+[INFRA-02](../../validation/investment/INFRA-02.md) and [INV-03](../../validation/investment/INV-03.md)
+record their actual scope. INV-03 covers A03/A06/A07 artifact/discussion mechanisms
+with A02/A09 regressions using synthetic fixtures. It does not pass A08/A10 real
+employee behavior, actual HQ recovery or official live/public launch gates.
 
 ## Evidence rules
 
@@ -123,4 +131,6 @@ Read back the first actual public configuration, discussion, artifact and financ
 
 For each `docs/validation/investment/INV-NN.md`, record status/date, objective, both source commits and contract digest, environment/evidence modes, requirement IDs, checks/results, review findings, failed attempts, state preservation, actual external effects, what was not tested, blockers and next step. Never include credentials, raw private contexts or unnecessary sensitive transcripts.
 
-The current documentation task should report only documentation checks; all acceptance above remains pending implementation.
+A documentation-only handoff reports documentation checks and links executed packet evidence;
+it does not rerun or imply runtime acceptance. INV-01–03/INFRA-02 results above cover only
+their stated scope. All unimplemented HQ/market/Ask/launch acceptance remains pending.
