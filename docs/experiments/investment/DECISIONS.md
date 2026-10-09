@@ -1,6 +1,6 @@
 # Design decisions and launch configuration
 
-**Version:** 1.4 | **Updated:** 2026-10-09 | [Guide](README.md)
+**Version:** 1.5 | **Updated:** 2026-10-09 | [Guide](README.md)
 
 ## Status discipline
 
@@ -35,7 +35,7 @@ The owner authorized INV-01 contracts, feasibility, validation and normal source
 | D19 | Data availability and public rights are separately verified | Never evade scraping restrictions, invent fill prices, substitute unverified quotes, or publish fields without applicable source rights; degrade visibly or block live/public gates |
 | D20 | Existing Ubuntu 22.10 retained under a time-limited owner exception | [Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md): INFRA-01 cancelled; INFRA-02 needs separate authorization and actual host acceptance, without an automatic migration prerequisite |
 
-D01–D19 are accepted design requirements; INV-01 contracts and the INV-02 receiver/archive are implemented and locally validated, with the receiver default disabled and undeployed. D20 records the accepted infrastructure exception. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
+D01–D19 are accepted design requirements; INV-01 contracts and the INV-02 receiver/archive are implemented and locally validated, with the receiver default disabled. [INFRA-02](../../validation/investment/INFRA-02.md) subsequently installs it privately and validates synthetic Linux operation, finishing stopped with an empty operational archive. D20 records the accepted infrastructure exception. Operational values below remain recommendations requiring approval. The feature specification owns precise routing, API, retention, recovery and acceptance semantics.
 
 ## Configuration still requiring resolution
 
@@ -43,7 +43,7 @@ D01–D19 are accepted design requirements; INV-01 contracts and the INV-02 rece
 | --- | --- | --- |
 | O01 | Capital/currency, universe, benchmark, risk limits and horizon | INV-01 specification; explicit owner approval before official activation |
 | O02 | Select permitted free API/source or allowed web scraper; verify internal/automated use, display/derived/archive rights, timestamps, retention, correction quality and limits | Market-data budget is fixed at US$0 by D18; INV-06 must prove actual free-source suitability, otherwise block live/public fields and escalate a methodology/display choice instead of spending |
-| O03 | Actual receiver host capacity, runtime/SQLite driver, identity, port and service paths | Fresh actual-host compatibility/capacity and Decision 030 exception review; provision only when deployment is authorized |
+| O03 | Representative live capacity and exact public ingress | INFRA-02 accepted private Node22/SQLite, identity/paths/loopback, recovery and bounded load; HTTP/TLS ingress, sustained full-archive sizing and backup/retention policy still require acceptance before activation |
 | O04 | Eligible real investment roster, research/group grants and scoped paper-order capability | INV-08; do not rename roles to imply authority |
 | O05 | Finite investment model/research/operation budgets and schedule/end conditions | INV-09 and owner activation |
 | O06 | Investment publication audience, classes, expiry, withdrawals and retention | INV-07 owner review; no implicit consent from implementation |
@@ -79,7 +79,7 @@ Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). W
 
 Resolved INV-01 choices: canonical schema plus generated types, exact named endpoint DTOs, signed generation fence, decimal/rational representation, durable identity/receipt semantics, private Ask namespace and current host/runtime integration plan. Source implementation does not approve the rows above. Changes to official frozen methodology require an explicit amendment/new run.
 
-External blockers apply to later gates: actual website-host compatibility/capacity, recovery and the Decision 030 OS-exception review before deployment; **permitted zero-cost acquisition and separately verified public/derived-data rights** before corresponding live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
+INFRA-02 subsequently accepted private actual-host compatibility, recovery and bounded capacity under Decision030. Remaining activation gates include exact public HTTP/TLS ingress, sustained representative sizing and reviewed backup/retention; **permitted zero-cost acquisition and separately verified public/derived-data rights** before corresponding live/public data; approved API-backed runtime/account plus metering/retention before anonymous Ask. They **do not block local disabled INV-02**. Required sequence refinements are documented in the evidence record.
 
 ## Amendment process
 
@@ -94,3 +94,4 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-08 | 1.2 | INV-01 wire foundation and observed feasibility; concrete unapproved defaults, host/data/account gates; no runtime activation |
 | 2026-10-09 | 1.3 | Owner sets US$0 market-data budget; free APIs/permitted scraping replace paid feed path; data access and public display rights remain required (Decision 029) |
 | 2026-10-09 | 1.4 | Owner cancels INFRA-01 migration, deletes its verified snapshot and retains Ubuntu 22.10 under a time-limited exception; INFRA-02 remains unstarted and separately authorized (Decision 030) |
+| 2026-10-09 | 1.5 | Owner-selected INFRA-02 completes private Linux installation and synthetic acceptance; final receiver stopped/default disabled, public HTTP/TLS and real publisher/HQ activation remain gated ([evidence](../../validation/investment/INFRA-02.md)) |

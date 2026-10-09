@@ -2,7 +2,7 @@
 
 **Version:** 1.5 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
-**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is default disabled and not deployed. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
+**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is privately installed and validated by INFRA-02, stopped/default disabled with no public or real publisher activation. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
@@ -21,7 +21,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | Packet | Deliverable | Repository | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Complete, not deployed | [INV-01 evidence](../../validation/investment/INV-01.md) |
-| INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Complete, not deployed | [INV-02 evidence](../../validation/investment/INV-02.md) |
+| INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Complete; private install accepted separately, activation disabled | [INV-02 evidence](../../validation/investment/INV-02.md); [INFRA-02](../../validation/investment/INFRA-02.md) |
 | INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Planned | — |
 | INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Planned | — |
 | INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Planned | — |
@@ -45,14 +45,15 @@ Infrastructure acceptance is separate from investment feature implementation.
 [Decision 030](../../decisions/decision_030_defer_ubuntu_migration.md) records the
 owner's cancellation of migration and time-limited Ubuntu 22.10 exception.
 The [Asymmetri closure record](https://github.com/eugenelin89/asymmetri/blob/f229c05d8cfad7a8fd71edef48bc6f7df74f8580/docs/INFRA-01-CANCELLATION.md)
-owns current operational evidence; its linked history preserves earlier plans and
+owns INFRA-01 closure evidence; [INFRA-02](../../validation/investment/INFRA-02.md)
+records the later private receiver installation. Linked history preserves earlier plans and
 test failures. Earlier preparation at `2ee9f53bca5ce924ff0a383ce6e4ba66517b3251`
 is historical, not the current execution plan.
 
 | Checkpoint | Scope | Depends on | Current status |
 | --- | --- | --- | --- |
 | INFRA-01 — Ubuntu LTS migration and existing-site acceptance | Owner retains original Ubuntu 22.10 Droplet/IP; closes migration preparation and removes disposable resources | Owner cancellation supersedes rebuild and snapshot-retention gates | Cancelled/deferred; exact snapshot deleted, cleanup verified; no migration or Django retirement |
-| INFRA-02 — Investment receiver deployment and Linux acceptance | May be planned on existing Ubuntu 22.10 with receiver, proxy, service-isolation, capacity and recovery acceptance | Separate owner selection/deployment authority, Linux compatibility, OS-exception review and operational acceptance; no automatic INFRA-01 prerequisite | Planned; not selected or started |
+| INFRA-02 — Investment receiver deployment and Linux acceptance | Installed on existing Ubuntu 22.10; actual native SQLite, isolated loopback nginx, confinement, bounded load and recovery | Owner selection, Decision030 review and actual-host acceptance; no automatic INFRA-01 prerequisite | [Complete for private synthetic scope](../../validation/investment/INFRA-02.md); installed, static/stopped, config disabled, empty archive; HTTP/TLS/public/HQ activation deferred |
 
 The exact 11.23 GB migration snapshot was deleted after all 12 retained encrypted
 archive copies passed fresh checks; absence confirmed October 9 at 13:05:58 PDT /
@@ -70,15 +71,18 @@ its previous 1.73 GB deletion is not counted as new savings. New Mac cleanup rem
 Ubuntu 22.10 remains unsupported. Review the exception before the next deployment
 or new public exposure; no calendar expiry was supplied. Actual Node.js/SQLite,
 Nginx signed-request behavior, least-privilege service/storage, CPU/RAM/swap/disk,
-backups/restore and site preservation must pass on the chosen host before activation.
-Compensating controls require separate authorization and do not replace OS patches.
+backups/restore and site preservation were tested in INFRA-02 for private synthetic
+scope. The HTTP proxy profile failed duplicate-Connection preservation; accepted
+stream transport does not prove real HTTP/TLS ingress. Representative sustained
+capacity, backup/retention policy and real authority/rights remain activation gates.
+The authorized private controls do not replace OS patches.
 Publishing stays default disabled. Local INV-03 work may proceed when separately
 requested; this cleanup starts no next packet, market collection or Ask service.
 A future OS upgrade or Django retirement is an independent owner decision.
 
 ## Common completion contract
 
-Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 and INV-02 evidence now exists; later packet evidence remains to be produced.
+Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01, INV-02 and private INFRA-02 evidence now exists; later feature-packet evidence remains to be produced.
 
 A useful status is “implemented, not deployed” or “blocked by data rights,” not an unsupported “complete.” No runtime tests are claimed from documentation review; no real-worker acceptance from stubs; no official public experiment from a synthetic demo. Never require profits or a predetermined BUY to pass acceptance. A separate chatbot falsely labelled as an employee cannot pass Ask acceptance.
 

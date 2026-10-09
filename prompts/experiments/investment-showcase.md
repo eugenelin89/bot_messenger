@@ -5,7 +5,7 @@
 Personal Operator / Daily Driver remains the separate current core priority under
 [Decision 026](../../docs/decisions/decision_026_personal_operator_stabilization.md).
 
-Use this launcher with exactly one owner-selected packet from [the main roadmap](../../docs/experiments/investment/ROADMAP.md). INV-01 and INV-02 are complete locally; select the next packet only on a new owner request. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
+Use this launcher with exactly one owner-selected packet from [the main roadmap](../../docs/experiments/investment/ROADMAP.md). INV-01 and INV-02 are complete locally; [INFRA-02](../../docs/validation/investment/INFRA-02.md) adds privately validated Linux installation, ending stopped/default disabled. Select the next packet only on a new owner request. For INV-ASK-01 through INV-ASK-04, read the exact packet in [the Ask roadmap](../../docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md). These identifiers do not replace the core roadmap or create core Prompt 12.
 
 **Required preflight for every new investment-showcase Codex prompt:** read [Decision 029 — Zero-cost market data](../../docs/decisions/decision_029_zero_cost_market_data.md), the [investment decision register](../../docs/experiments/investment/DECISIONS.md), [simulation market-data rules](../../docs/experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing), and the [current implementation roadmap](../../docs/experiments/investment/ROADMAP.md). This also applies to Asymmetri website, public-data, Ask BotSquad, test, trial and activation tasks. The owner has fixed market-data acquisition/licensing spend at **US$0**.
 
@@ -116,7 +116,7 @@ Replace SELECTED_PACKET_ID with one exact selected identifier, not a range. Deta
 
 ## Starting and continuing
 
-INV-01 and INV-02 are already complete locally, with documented contract, feasibility and receiver evidence; the receiver remains default disabled and not deployed. For any later task, the owner must explicitly select one planned packet from the current roadmap; this launcher itself is not authorization. Future selected packets must review Decision 029 and should not treat INV-01's historical paid-provider survey as an approved procurement path.
+INV-01 and INV-02 are already complete locally, with documented contract, feasibility and receiver evidence; INFRA-02 privately installs and validates the receiver, finishing stopped/default disabled with no real publication. For any later task, the owner must explicitly select one planned packet from the current roadmap; this launcher itself is not authorization. Future selected packets must review Decision 029 and should not treat INV-01's historical paid-provider survey as an approved procurement path.
 
 For a later Ask task, select an exact INV-ASK packet after its dependencies pass. This addition does not authorize skipping simulator/publication safety gates or running the entire roadmap in one task.
 
