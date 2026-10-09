@@ -1,8 +1,8 @@
 # BotSquad Investment Team — design and build guide
 
-**Version:** 1.3 | **Updated:** 2026-10-09
+**Version:** 1.4 | **Updated:** 2026-10-09
 
-**Status:** INV-01 contracts and feasibility implemented; [evidence and next prerequisites](../../validation/investment/INV-01.md). All runtime/website packets remain planned. No deployment, subscriptions or public activation.
+**Status:** INV-01 contracts and INV-02 Asymmetri receiver/archive are implemented and locally validated; [INV-02 evidence and next prerequisites](../../validation/investment/INV-02.md). Receiver is default disabled. INV-03 onward and all Ask packets remain planned. No deployment, subscriptions or public activation.
 
 ## The idea
 
@@ -60,7 +60,7 @@ The portfolio publication channel stays one-way. A separate HQ-initiated outboun
 
 The original reviewed BotSquad baseline is `ce99212c882327ad8e04fd3603867ac18428e1a4`; this amendment was based on main `c6c8f0b47f59a02ebb5142361e2d396a4f075dc5` with intervening Personal Operator work preserved. Persistent workers, Tasks, private conversations, working groups, scoped research, artifacts, mandates and scheduling do not by themselves implement the proposed paper ledger, public publisher or anonymous employee Q&A adapter.
 
-The reviewed Asymmetri website has a Next.js production site, a `/botsquad` product page and documented Mac-to-server deployment access. An experiment API, private chat store, investment page and Ask BotSquad are planned here, not claimed deployed. Repository documentation is not a fresh SSH verification. See [References](REFERENCES.md).
+The reviewed Asymmetri website has a Next.js production site, a `/botsquad` product page and documented Mac-to-server deployment access. INV-02 now implements the isolated experiment API/archive locally; it is not deployed. Private chat storage, public investment pages and Ask BotSquad remain planned. Repository documentation is not a fresh SSH verification. See [References](REFERENCES.md).
 
 ## First-release boundary
 
