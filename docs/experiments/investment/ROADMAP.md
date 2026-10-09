@@ -66,7 +66,7 @@ A useful status is “implemented, not deployed” or “blocked by data rights,
 
 Create versioned JSON Schema/OpenAPI, shared types and golden fixtures covering every event, receipt, error, order, valuation and artifact relationship. Include signature/canonicalization vectors, version compatibility and duplicate/conflict cases. Include the separate Q&A namespace, session-owned visibility and question/answer identity in the contract plan; INV-ASK-01 completes its executable intake/lease/privacy cases. Store canonical contract artifacts under a documented BotSquad directory and define how the website vendors the exact version/hash. Freeze synthetic test configuration; retain owner choices as unresolved launch gates, not silent defaults.
 
-**Acceptance:** A01, A02, A06, A09, A12 in [Validation](VALIDATION.md), plus Ask contract and provider-use requirements. All R01–R09 map to later gates. Contract tests reject unknown/identity-bearing fields and unsupported versions. Provider rights or runtime uncertainty is explicitly blocked. Fixture work may pass G0 while live-data/public-service gates remain blocked.
+**Acceptance:** A01, A02, A06, A09, A12 in [Validation](VALIDATION.md), plus Ask contract and provider-use requirements. All R01–R10 map to applicable later gates; R10 is a post-INV-01 owner decision and is required for future source/publication implementation. Contract tests reject unknown/identity-bearing fields and unsupported versions. Provider rights or runtime uncertainty is explicitly blocked. Fixture work may pass G0 while live-data/public-service gates remain blocked.
 
 **Not included:** Application implementation beyond contract validation fixtures; production grants, purchases, accounts, service changes or active runs.
 
