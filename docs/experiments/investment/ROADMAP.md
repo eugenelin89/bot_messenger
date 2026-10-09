@@ -1,14 +1,16 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.2 | **Updated:** 2026-10-08 | [Design guide](README.md)
+**Version:** 1.3 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
 **Implementation status:** INV-01 contract/feasibility foundation is implemented and validated locally; all later packets remain planned. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
+**Owner market-data decision:** [Decision 029 — zero-cost sourcing](../../decisions/decision_029_zero_cost_market_data.md) fixes the investment experiment's market-data budget at **US$0 incremental spend**, with free APIs and permitted low-frequency webpage scraping/extraction. Paid Tiingo or other fee-based access is **not** an approved fallback. Source automation and public/derived data rights remain separately required; missing permission or reliable prices blocks affected live/public features, not local synthetic work.
+
 ## How to use this roadmap
 
-Run one packet at a time with the [shared prompt launcher](../../../prompts/experiments/investment-showcase.md). Read its linked specifications, inspect current code and previous evidence, implement only that packet, validate it, and record the handoff before proceeding. A packet may be split as `INV-05A`, `INV-05B` when necessary; retain its original acceptance requirements and mark the parent incomplete until all children pass.
+Run one packet at a time with the [shared prompt launcher](../../../prompts/experiments/investment-showcase.md). **Every future showcase Codex prompt must explicitly require review of Decision 029, DECISIONS.md, SIMULATION_RULES.md and this roadmap before editing**, including Asymmetri/Ask/website prompts that could affect public market-derived data. Read linked specifications, inspect current code and previous evidence, implement only that packet, validate it, and record the handoff before proceeding. A packet may be split as `INV-05A`, `INV-05B` when necessary; retain its original acceptance requirements and mark the parent incomplete until all children pass.
 
 The documentation here is the cross-repository source of truth. BotSquad code belongs in `eugenelin89/bot_messenger`; the receiver and public page belong in `eugenelin89/asymmetri`. Follow each repository's own AGENTS/Git/release workflow. Never assume both repos use the same branch policy or that one commit deploys both.
 
@@ -23,7 +25,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Planned | — |
 | INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Planned | — |
 | INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Planned | — |
-| INV-06 | Structured market evidence and calendar adapter | BotSquad | 05; provider gate | Planned | — |
+| INV-06 | Zero-cost free-source market evidence, permitted scraping and calendar adapter | BotSquad | 05; Decision 029 and source-use/quality gate | Planned | — |
 | INV-07 | Scoped HQ publisher and durable delivery | BotSquad | 01–03, 05 | Planned | — |
 | INV-08 | Real investment-team capability and discussion integration | BotSquad | 05–07 | Planned | — |
 | INV-09 | Daily operating loop and owner controls | BotSquad | 08 | Planned | — |
@@ -47,12 +49,12 @@ A useful status is “implemented, not deployed” or “blocked by data rights,
 
 - **G0 — Contract-ready:** strict portfolio and Q&A schemas/fixtures, authority boundaries and unresolved launch configuration documented.
 - **G1 — Public surface-ready:** API, artifact/discussion archive and accessible showcase work with clearly labelled fixtures.
-- **G2 — Simulator-ready:** ledger, data quality, calendar, actions and benchmark pass deterministic and provider checks.
+- **G2 — Simulator-ready:** ledger, data quality, calendar, actions and benchmark pass deterministic and **permitted zero-cost source** checks, without assumed paid feeds.
 - **G3 — Organization-ready:** genuine scoped workers discuss, produce artifacts, decide and review under enforced bounds.
 - **G-ASK — Employee Q&A-ready:** actual relevant-employee general/contextual answers; session privacy, independent HQ quotas, no action authority and safe recovery proven by ASK-A01–ASK-A12.
 - **G4 — Recovery-ready:** both systems survive ambiguity/restart/revocation without duplicate financial effects, duplicated accepted answers or private disclosure.
-- **G5 — Trial-ready:** authorized private trial has valid data/provider-use rights and bounded costs; not an official experiment.
-- **G6 — Public-ready:** explicit owner-approved configuration, audience, budgets, data/provider-use rights, privacy settings, deployment and separate portfolio/Ask activation records.
+- **G5 — Trial-ready:** authorized private trial has valid free-source automated-use rights and reliable observations, US$0 market-data charges, and separately bounded non-data costs; not an official experiment.
+- **G6 — Public-ready:** explicit owner-approved configuration, audience, budgets, **zero-dollar market-data acquisition and verified public/derived use rights**, privacy settings, deployment and separate portfolio/Ask activation records.
 
 ## INV-01 — Contracts and feasibility
 
@@ -70,7 +72,7 @@ Create versioned JSON Schema/OpenAPI, shared types and golden fixtures covering 
 
 **Codex task:** “Execute INV-01 only. Produce the contract/feasibility package including the Ask amendment, test its golden fixtures, update open decisions and handoff evidence. Do not infer launch consent or build subsequent packets.”
 
-INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host OS/disk remediation is a deployment gate; market rights and Ask-account approval gate later live operation. None authorizes starting the next packet automatically.
+INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host OS/disk remediation is a deployment gate; market rights and Ask-account approval gate later live operation. **Decision 029, accepted after INV-01, supersedes the former conditional paid-provider recommendation without altering historic evidence or wire contract 1.0.** None authorizes starting the next packet automatically.
 
 ## INV-02 — Public REST receiver
 
@@ -126,15 +128,15 @@ INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host 
 
 ## INV-06 — Market evidence and calendar
 
-**Outcome:** Prices and corporate actions come from attributable structured observations, not an AI answer or article snippet.
+**Outcome:** Prices and corporate actions come from attributable **zero-cost, permitted, verifiable free resources or low-frequency website extraction**, not an AI answer or article snippet.
 
-**Work:** Add one approved provider adapter, stable instruments, raw-price/adjustment semantics, event/availability/retrieval times, delay/rights metadata, calendar holidays/early closes and quality/expiry behavior. Implement explicit raw opening fills and matched valuation marks; normalize supported corporate actions; halt/flag unsupported events. Store provider corrections without rewriting the original evidence. Respect request quotas and real costs.
+**Work:** Follow [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) and [simulation section 7](SIMULATION_RULES.md#7-market-observations-and-licensing). Evaluate free documented APIs, open data and limited permitted scraping/structured extraction; select no paid source or trial. Record site/API automation, retention, public/derived/archive rights, attribution, rate limits, source fields and reliability evidence. Implement a provider-independent bounded collector with stable instruments, raw-price/adjustment semantics, original event/availability/retrieval times, deterministic field validation, optional explicitly versioned fallback sources, caching/rate backoff, calendar holidays/early closes, quality/expiry and layout-change detection. Preserve the planned no-lookahead next-open rule unless an explicit approved methodology revision changes it; a free close-only source does not authorize inventing a raw open. Normalize supported corporate actions; halt/flag unsupported events and retain provider corrections.
 
-**Acceptance:** A01, A05, A08. Fixture holiday/DST/early-close/gap/halt/correction cases; no retrospective fill after a missed cutoff; no adjusted-price double counting; missing data cannot become a confident equity number. An authorized read-only live provider probe proves field semantics and timestamps. Without rights/access, mark the live gate blocked and keep fixtures visibly separate.
+**Acceptance:** A01, A05, A08. Fixture holiday/DST/early-close/gap/halt/correction cases; no retrospective fill after a missed cutoff; no adjusted-price double counting; missing or conflicting free-source data cannot become a confident equity number. Use a **permitted no-cost read-only observation** to prove field semantics, market timestamps, rate/backoff and layout-change handling where possible. Record separate automation/internal/retention/public-derived rights for public output; if unverified, mark that gate blocked. Tests also prove no fallback to a paid service, an unpermitted scraper or a made-up substitute fill.
 
-**Not included:** A provider marketplace, unapproved account creation/subscription, intraday strategies, arbitrary fallback feeds or scraped-price substitution.
+**Not included:** Paid providers, trials that can bill, purchases, unapproved accounts, scraping behind access restrictions or against source permissions, high-volume extraction, a provider marketplace, intraday strategies, arbitrary fallback providers, or substituting closing/article prices for the defined opening fill.
 
-**Codex task:** “Execute INV-06 only. Integrate the selected licensed structured data source with explicit semantics and failure behavior. Stop the live-data gate when rights, credentials or actual field behavior cannot be verified.”
+**Codex task:** “Execute INV-06 only. First read Decision 029, DECISIONS.md, SIMULATION_RULES.md and this roadmap. Build a zero-market-data-cost adapter using free APIs and permitted bounded scraping, with source/rights provenance, quality checks and honest unavailability. Never buy a feed or relax the frozen fill model without a separate owner-approved change. Block live/public outputs when rights or data cannot be verified.”
 
 ## INV-07 — HQ public publication adapter
 
@@ -194,7 +196,7 @@ G-ASK requires genuine answers to general and transaction-specific questions, ap
 
 **Outcome:** Observe actual bounded team behavior over market sessions without presenting test activity as an official public run.
 
-**Prerequisites:** Explicit trial authorization, real provider rights/access, finite budgets and an isolated trial run. The selected task must define whether the receiver is private staging or local; a production URL is not assumed private merely because it is unlinked. Authorize private Ask test sessions and provider use separately; no general public admission yet.
+**Prerequisites:** Explicit trial authorization, real **permitted zero-cost source** access and separately checked public/derived rights where publication is involved, finite non-data budgets and an isolated trial run. The selected task must define whether the receiver is private staging or local; a production URL is not assumed private merely because it is unlinked. Authorize private Ask test sessions and provider use separately; no general public admission yet.
 
 **Work:** Proposed observation window is five trading sessions, owner-adjustable. Let real workers research, discuss, decide and review new observations. Record missed deadlines, HOLDs, failures, interventions, publication lag, artifacts, accounting quality and usage/cost. Require at least two genuine operating cycles with an actual scheduled review and intervening observations; do not require a profit or a pivot. Continue through a bounded planned restart when safe. Exercise general, transaction-specific, follow-up and disallowed-action visitor questions while observing shared capacity, session privacy and the absence of contamination of investment evidence.
 
@@ -208,7 +210,7 @@ G-ASK requires genuine answers to general and transaction-specific questions, ap
 
 **Outcome:** Start a clearly described official paper experiment and Ask BotSquad service with auditable consent and reliable operating procedures.
 
-**Prerequisites:** G0–G5 and G-ASK passed; explicit owner instruction to deploy/activate the official run and public-question service; frozen capital/universe/benchmark/risk/horizon; publication audience and expiry; data and model-provider-use rights; separate finite investment/Ask cost budgets; final copy/disclosures, session/retention/moderation settings; verified backup/restore; exact website and HQ release candidates.
+**Prerequisites:** G0–G5 and G-ASK passed; explicit owner instruction to deploy/activate the official run and public-question service; frozen capital/universe/benchmark/risk/horizon; publication audience and expiry; **Decision 029's US$0 market-data budget, actual permitted automated collection and public/derived archival rights**; model-provider-use rights; separate finite investment/Ask cost budgets; final copy/disclosures, session/retention/moderation settings; verified backup/restore; exact website and HQ release candidates.
 
 **Work:** Follow each repository's real release workflow, inspect server state, preserve existing data and protected site routes, deploy receiver compatibility before publisher changes, and verify exact identities. Create a new official run rather than reset the trial. Activate separately scoped paper/research/publication and Ask authority, publish configuration and initial cash state, then verify actual discussion, artifact, decision and valuation links. Verify one authorized real general question and one contextual question through the visitor interface without disclosing session contents publicly. Publish methodology and limitations with realistic freshness labels. Supply owner runbook, emergency investment pause, independent Ask shutoff, revoke/withdraw/delete procedures, key rotation and rollback instructions.
 
