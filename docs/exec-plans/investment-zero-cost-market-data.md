@@ -1,6 +1,6 @@
 # Execution Plan — Zero-cost market-data policy for Investment Showcase
 
-**Status:** Active — documentation decision only
+**Status:** Complete — documentation change prepared for normal PR integration; no runtime/source deployment
 **Owner:** ChatGPT, on direct instruction from repository owner
 **Branch:** `feature/inv-zero-cost-market-data-policy`
 **Worktree:** Remote GitHub branch; no local/Mac worktree access
@@ -40,8 +40,13 @@ Started from `ba3dd74bc6be495f655b5ad1e6e4ba3fdf85b755` on a dedicated remote br
 
 ## Validation and evidence
 
-Documentation-only: inspect relevant source text, relative links and coverage across decision, roadmap and launcher; review GitHub changed-file listing for unrelated modifications. No runtime, scraper, site, data-provider or licensing acceptance is claimed.
+- Reviewed GitHub compare from `ba3dd74bc6be495f655b5ad1e6e4ba3fdf85b755`: 15 documentation/instruction paths only, no application source, secret or release file changes.
+- Fetched the complete feature branch tree (883 paths) and checked **212 relative Markdown links across all 15 changed files: zero broken links**, with trailing newline present in every changed file.
+- Verified that the formal Decision 029, source/fill methodology, D18/D19, R10, INVESTMENT roadmap INV-06 and G5/G6 gates, launcher, AGENTS.md and PROJECT_MEMORY.md all carry the accepted policy.
+- Historical INV-01 validation and the versioned contract are unmodified. No market-data provider has been activated or scraping performed.
+- Runtime tests, actual provider/site rights verification, HTTP/SQL integration and live website checks were **not performed** for this documentation-only task.
+- PR/merge state should be reported from GitHub in the final handoff; do not claim deployment.
 
 ## Completion handoff
 
-Report decision path, changed documents, PR/merge and checks, and whether the accepted market-data constraint is reflected in future prompt preflight. All implementation statuses remain unchanged.
+Report Decision 029, updated requirement and mandatory future prompt preflight; final PR/merge receipts belong in the user handoff. INV-01 remains complete; INV-02 and all subsequent packets remain planned. No implementation or activation was requested.
