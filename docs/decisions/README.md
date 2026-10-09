@@ -142,5 +142,7 @@ Every future investment-showcase Codex prompt must review Decision 029, the [inv
 records cancellation of INFRA-01, verified deletion of its migration snapshot and
 retention of the current Ubuntu 22.10 host under a time-limited risk exception.
 Review before future deployment/public exposure; do not restore an automatic LTS
-prerequisite. INFRA-02 still needs explicit selection, deployment authority and
-actual host acceptance. INV statuses, contract 1.0 and Decision 029 are unchanged.
+prerequisite. [INFRA-02](../validation/investment/INFRA-02.md) subsequently completed
+owner-authorized private installation and actual-host synthetic acceptance. The
+receiver remains stopped/default disabled with no real authority or public ingress.
+Public activation gates remain explicit; contract 1.0 and Decision 029 are unchanged.

@@ -1,6 +1,6 @@
 # Design decisions and launch configuration
 
-**Version:** 1.4 | **Updated:** 2026-10-09 | [Guide](README.md)
+**Version:** 1.5 | **Updated:** 2026-10-09 | [Guide](README.md)
 
 ## Status discipline
 
