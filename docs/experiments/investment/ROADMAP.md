@@ -1,8 +1,8 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.3 | **Updated:** 2026-10-09 | [Design guide](README.md)
+**Version:** 1.4 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
-**Implementation status:** INV-01 contract/feasibility foundation is implemented and validated locally; all later packets remain planned. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
+**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 onward and all Ask packets remain planned. The receiver is default disabled and not deployed. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
@@ -21,7 +21,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | Packet | Deliverable | Repository | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Complete, not deployed | [INV-01 evidence](../../validation/investment/INV-01.md) |
-| INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Planned | — |
+| INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Complete, not deployed | [INV-02 evidence](../../validation/investment/INV-02.md) |
 | INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Planned | — |
 | INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Planned | — |
 | INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Planned | — |
@@ -41,7 +41,7 @@ The website fixture track (02–04) and simulator track (05–06) can proceed in
 
 ## Common completion contract
 
-Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 evidence now exists; later packet evidence remains to be produced.
+Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01 and INV-02 evidence now exists; later packet evidence remains to be produced.
 
 A useful status is “implemented, not deployed” or “blocked by data rights,” not an unsupported “complete.” No runtime tests are claimed from documentation review; no real-worker acceptance from stubs; no official public experiment from a synthetic demo. Never require profits or a predetermined BUY to pass acceptance. A separate chatbot falsely labelled as an employee cannot pass Ask acceptance.
 
@@ -87,6 +87,8 @@ INV-01 handoff: contract 1.0 is ready to vendor for local disabled INV-02. Host 
 **Handoff:** Receiver commit, contract digest, migration version, exact route behavior, local test evidence and explicitly unconfigured production settings.
 
 **Codex task:** “Execute INV-02 only in the Asymmetri repository using the version-pinned BotSquad contract. Implement and validate the bounded receiver; preserve existing site/runtime boundaries and leave production publication disabled.”
+
+INV-02 handoff: [Asymmetri implementation 457f935](https://github.com/eugenelin89/asymmetri/commit/457f9354b3f8daf5c4c75b8f5ac1946433da3ce0), migration 001, exact contract manifest `7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31`. **183/183 local synthetic tests pass on Node 22.23.1 and 24.10.0**, both website builds and production audits pass, and three independent read-only reviewers accepted the corrected source. INV-03 local work is ready on a new explicit request; public downloads/pages and all production activation remain deferred. See the [complete evidence and deployment gates](../../validation/investment/INV-02.md).
 
 ## INV-03 — Artifacts and discussion archive
 

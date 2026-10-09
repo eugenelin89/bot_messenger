@@ -4,6 +4,8 @@
 
 This document specifies publication resources; [schema/OpenAPI and protocol](../../../contracts/investment/v1/PROTOCOL.md) own exact wire definitions. [Security and delivery](API_SECURITY_AND_DELIVERY.md) owns signing, receipts, ordering, errors and limits. INV-01 supplies versioned JSON Schema/OpenAPI, generated types and disposable golden fixtures.
 
+Implementation status: [INV-02 receiver evidence](../../validation/investment/INV-02.md) records the exact Asymmetri consumer commit, manifest digest and supported route behavior. Public investment reads, signed ingestion/receipts/heartbeat and private content staging work locally; artifact byte downloads explicitly remain unavailable until INV-03. No Ask endpoints or production listener are activated.
+
 ## 1. Scope and routes
 
 Base path: `/api/experiments/v1` on Asymmetri.co.
