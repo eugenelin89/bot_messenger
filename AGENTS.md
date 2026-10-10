@@ -99,6 +99,12 @@ See [Intelligent Company Operating Model](docs/product/INTELLIGENT_COMPANY_MODEL
 - Do not weaken approval, audit, sandbox, identity, or idempotency controls merely to make an automated demonstration pass.
 - For **any BotSquad Investment Showcase** task, including Asymmetri publication/website work and Ask BotSquad, explicitly review [Decision 029](docs/decisions/decision_029_zero_cost_market_data.md), [the investment decision log](docs/experiments/investment/DECISIONS.md), [simulation market-data rules](docs/experiments/investment/SIMULATION_RULES.md#7-market-observations-and-licensing), and [the current investment roadmap](docs/experiments/investment/ROADMAP.md) before editing. The owner has set a hard **US$0 incremental market-data budget**: use free APIs and permitted bounded web scraping, not paid feeds; verify source automation/publication rights, and never fabricate a price or silently change the fill model. This does not waive separate AI/infrastructure costs or approve implementation/deployment.
 
+## Cross-repository investment ownership
+
+This repository is the authoritative private HQ, simulator, employee-execution, publication-grant, and canonical `contracts/investment/v1/` source. The separate [Asymmetri website repository](https://github.com/eugenelin89/asymmetri) implements public UI, standalone signed receiver and archive, and later session-private public Ask services. The [Asymmetri integration map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md) and this repository's [investment roadmap](docs/experiments/investment/ROADMAP.md) are the living navigation points. Read the counterpart's current `AGENTS.md` and relevant runbook when a packet touches its surface; never silently modify the other project's runtime, privileges or deployment while implementing an HQ packet.
+
+As of INV-04, the website UI is implemented **only in source/local synthetic acceptance**; the private Ubuntu 22.10 receiver remains disabled and the public website has not been released with it. INV-05 deterministic HQ simulation is next, not yet implemented; market data, publishing and real public Ask are later independently authorized stages. Protocol changes require a pinned canonical version and coordinated consumer review. Do not label Git code, a fixture or a private installation as live public operation.
+
 ## Git And Writer Ownership
 
 Use a lightweight mainline model.

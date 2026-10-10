@@ -4,7 +4,7 @@
 
 ## Status discipline
 
-The owner authorized INV-01 contracts, feasibility, validation and normal source integration. That packet creates no runtime authority, deployment, account, subscription or launch approval. Personal Operator stabilization remains current; local INV and INV-ASK identifiers do not create core Prompt 12.
+The owner separately selected INV-01 through INV-04 for their documented contract, receiver/archive and labelled synthetic website-source scopes. [INV-04 acceptance](../../validation/investment/INV-04.md) is complete locally but no public website release or real HQ investment simulator/publisher/Ask authority exists; INV-05 is the next owner-selectable BotSquad work. These selections create no active production publisher, brokerage authority, provider subscription or launch approval. Personal Operator stabilization remains a separate core priority; local INV and INV-ASK identifiers do not create core Prompt 12.
 
 [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) and the [Ask amendment table](ASK_BOTSQUAD.md#2-explicit-amendment-to-the-original-design) supersede only the original read-only-visitor/publication-only scope. Visitors may request a bounded answer; they still cannot command investments or access private company state.
 

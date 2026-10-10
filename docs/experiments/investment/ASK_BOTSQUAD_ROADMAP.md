@@ -8,7 +8,7 @@
 
 Keep existing INV-01–INV-12 identities stable. Add four feature packets, INV-ASK-01 through INV-ASK-04, before INV-10's integrated acceptance. The main roadmap table owns status and evidence; this file owns the detailed Ask packet briefs.
 
-INV-01 must read the Ask design and capture versioned Q&A schemas/provider-use prerequisites alongside the portfolio contracts. No existing publisher key, deployment or research grant automatically enables Ask. INV-04 can reserve/render labelled inactive fixture UI, but public chat is not functional until all Ask packets and explicit activation pass.
+INV-01 captured Ask design/Q&A contract and provider-use prerequisites alongside the portfolio contract. No existing publisher key, deployment or research grant automatically enables Ask. INV-04 has now implemented general, embedded and contextual **disabled, labelled Ask previews in Asymmetri website source** ([acceptance](../../validation/investment/INV-04.md)); public chat remains unimplemented until the Ask packets and explicit activation pass.
 
 | Packet | Repository | Depends on | Main result |
 | --- | --- | --- | --- |

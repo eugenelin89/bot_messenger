@@ -1,6 +1,8 @@
 # API security, consistency and delivery
 
-**Version:** 1.0 | **Status:** Contract 1.0 implemented; runtime enforcement pending | [API resources](PUBLIC_API.md) | [Guide](README.md)
+**Version:** 1.1 | **Status:** Contract 1.0 and Asymmetri receiver HTTP signature/receipt enforcement implemented for private synthetic scope (INV-02/03); trusted HQ outbox delivery and public ingress remain planned | [API resources](PUBLIC_API.md) | [Guide](README.md)
+
+The [Asymmetri receiver runbook](https://github.com/eugenelin89/asymmetri/blob/main/docs/INVESTMENT_RECEIVER.md) and [private ingress tests](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-03-INGRESS.md) describe actual consumer-side enforcement. Their accepted isolated TLS stream test is **not** an accepted shared-443 public ingress; HQ publishing/grant enforcement belongs to INV-07.
 
 ## 1. Authentication profile
 

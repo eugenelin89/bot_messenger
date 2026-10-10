@@ -1,6 +1,6 @@
 # Architecture and integration boundaries
 
-**Version:** 1.2 | **Status:** INV-01–03 receiver/archive implemented; HQ/Ask integration remains planned | [Guide](README.md)
+**Version:** 1.3 | **Status:** INV-01–04 contract, receiver/archive and showcase implemented for documented synthetic/source/private scopes; website not released, HQ simulator/publisher and real Ask planned | [Guide](README.md)
 
 **Ask BotSquad:** [The feature specification](ASK_BOTSQUAD.md) owns the added general/contextual public-question lane, routing, private session store and `/api/ask/v1` protocol. Portfolio publication below remains separate. Visitors request scoped answers, never trades or owner commands. [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) records the explicit boundary amendment.
 
@@ -72,15 +72,15 @@ This repository owns the cross-repository specification and contract version. Su
 
 Reuse the dispatcher, mandate scheduler, working groups, scoped evidence and context continuity. No second agent scheduler or independent investment-agent service. Paper-order tools are available only in eligible, explicitly granted execution contexts. Publication transport is trusted code, not a model calling arbitrary HTTP. Ask contexts have read-only answering tools and cannot inherit those paper-order or engineering tools.
 
-### Asymmetri — `eugenelin89/asymmetri`
+### Asymmetri — [`eugenelin89/asymmetri`](https://github.com/eugenelin89/asymmetri)
 
-The dashboard extends current `app/` routes and design tokens. The preferred investment backend is a small dedicated receiver behind Nginx at `/api/experiments/v1/`, with a dedicated non-root identity and owned database/content directory. This remains a REST API on Asymmetri.co; the split is an implementation boundary.
+The [INV-04 showcase](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-04-VALIDATION.md) is implemented in `app/botsquad/investment/` and `components/investment/`, while the [INV-02/03 signed archive](https://github.com/eugenelin89/asymmetri/blob/main/docs/INVESTMENT_RECEIVER.md) is implemented independently in `receiver/` with an isolated non-root SQLite/CAS installation. The private receiver is stopped/default disabled on the existing Ubuntu 22.10 host; the live website has not been released with the showcase. An accepted isolated stream/TLS test does **not** imply that public Nginx shared-443 ingress is enabled or approved. The contract consumer is pinned from BotSquad `contracts/investment/v1/`; follow the [cross-repo ownership and compatibility map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md). This remains a REST publication boundary, not a shared private database or HQ runtime.
 
 Add `/api/ask/v1` as a separately authorized Q&A surface with a private session/queue/response store. Public investment GET routes must never expose its rows. Anonymous-session access, necessary cookies, short-lived abuse controls, retention/deletion and operator/provider processing require explicit website disclosures. No visitor account, global chatroom or marketing tracking is required.
 
 Next.js reads public investment data and owns neither the archive database nor publisher signing authority. The receiver gets no SSH/deployment credentials or access to unrelated websites. Avoid the existing broad website deployment identity for this new stateful service. Session-owned Q&A reads must be no-store/private and cannot pass through the public caching layer.
 
-INV-01 must inspect the actual host and select a supported minimal runtime, SQLite driver and unused loopback port. Do not silently upgrade the existing Node 22 website or assume HQ's SQLite API works on every runtime. Pin/test the chosen runtime and driver. Provisioning belongs to explicit deployment authorization. Ask provider/public-service use must also be verified before activation.
+INV-01 feasibility and the later INFRA-02 actual-host acceptance selected a Node 22 receiver, native SQLite driver and private loopback port. These are completed scoped checks, not blanket live-public acceptance. Do not silently upgrade the existing Node 22 website or assume HQ's SQLite API works on every runtime. Future provisioning, receiver/site compatibility changes and public exposure each require explicit deployment authorization. Ask provider/public-service use must also be verified before activation.
 
 Keep the Vinext/Cloudflare build working. Do not import local SQLite drivers into edge page code. Narrow configured public-read and private-session clients support production, fixture and disabled states; builds must not require live network access. No Cloudflare backend/storage deployment is implied.
 
