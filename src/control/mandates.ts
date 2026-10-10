@@ -327,6 +327,7 @@ export class Mandates {
   /** Due discovery and consumption are one transaction; crash after it safely leaves
    * durable due work. Claim+cycle+request are a second atomic transaction. */
   tick(){
+    this.company.investmentLoop.tick();
     const time=this.clock.now();
     for(const s of this.db.all<ReviewSchedule>("SELECT * FROM review_schedules WHERE status='active' AND next_due IS NOT NULL AND next_due<=? ORDER BY next_due",this.now())){
       this.db.transaction(()=>{
@@ -414,6 +415,7 @@ export class Mandates {
     this.tick();
   }
   nextWake(){const candidates=[
+    this.company.investmentLoop.nextWake(),
     this.db.get<{time:string|null}>("SELECT min(next_due) time FROM review_schedules WHERE status='active'")?.time,
     this.db.get<{time:string|null}>("SELECT min(retry_at) time FROM operating_cycles c JOIN mandates m USING(mandate_id) WHERE c.state='waiting' AND m.status='active'")?.time,
     this.db.get<{time:string|null}>("SELECT min(deadline) time FROM operating_cycles WHERE state IN ('active','waiting')")?.time,

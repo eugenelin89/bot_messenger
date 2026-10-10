@@ -36,3 +36,7 @@ Owner-authored fixture excerpts qualify only the tested permission. A trusted `l
 ## Integration and next packet
 
 Final checks and specialist dispositions are recorded. Commit/PR/merge verification remains pending. Under the original owner authorization, accept only the tested source subset, verify origin/main after a normal expected-head merge, then author and immediately execute INV-09 from that actual result. Genuine model/rights gates remain pending and cannot be waived by the successor prompt. No recurring demonstration remains running after tests.
+
+### INV-08 integration receipt — 2026-10-10T09:08:30Z
+
+PR[#43](https://github.com/eugenelin89/bot_messenger/pull/43) merged `50f576d47ace8dad746fda33c413a53d508212d5` as `79b45fd18239dddcbda5f745d289787fd72745f1`. Exact head/base/mergeability and empty remote status/workflow/review/thread lists verified; normal expected-head merge accepted with no bypass. Fetched main equals merge and reviewed tree. Source only, no deployment. INV-09 full successor and owning worktree were created afterward; genuine model/rights/protocol gates carry forward.

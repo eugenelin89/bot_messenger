@@ -4,7 +4,7 @@ import { requireThat } from '../domain/model.js';
 export const ATTENTION_LIMIT = 200;
 export const ATTENTION_CATEGORIES = ['uncertain', 'approval', 'blocked', 'failed', 'identity'] as const;
 type Category = typeof ATTENTION_CATEGORIES[number];
-type Destination = 'approvals'|'infrastructure'|'products'|'tasks'|'direct'|'groups'|'mandates'|'computers'|'devices'|'executions'|'research';
+type Destination = 'approvals'|'infrastructure'|'products'|'tasks'|'direct'|'groups'|'mandates'|'computers'|'devices'|'executions'|'research'|'investment-run';
 export interface AttentionItem {
   attention_id: string; kind: string; category: Category; source_type: string; source_id: string;
   title: string; summary: string; owner_action: string; created_at: string; updated_at: string;
@@ -31,6 +31,8 @@ export function ownerAttention(db: Store, time = new Date().toISOString()) {
       destination_record_id: record, detail_record_id: detail});
   };
 
+  for(const l of db.all<Identity>(`SELECT l.loop_id id,l.created_at created,l.updated_at updated FROM investment_loops l WHERE l.state='blocked' OR (l.state='active' AND EXISTS(SELECT 1 FROM investment_loop_occurrences o WHERE o.loop_id=l.loop_id AND o.state='blocked'))`))
+    add(l,'investment_loop','blocked','investment_loop_blocked','Investment run needs attention','A finite investment stage or usage bound is blocked. Local receipts and completed fills are retained.','Inspect Investment run','investment-run');
   // Effect/session state owns Computer Tasks, including retained unknown intents after cancellation.
   for (const s of db.all<Identity & {task_id:string; state:string; shutdown_confirmed:number; approval:number; unknown:number; expired:number}>(`
     SELECT s.session_id id,s.task_id,s.state,s.shutdown_confirmed,s.created_at created,

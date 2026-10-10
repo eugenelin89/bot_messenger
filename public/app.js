@@ -553,6 +553,7 @@ function renderAttention() {
 }
 async function openAttentionSource(item) {
   attentionFocus=item;
+  if(item.destination==='investment-run'){window.location.assign('/investment-run');return;}
   activeTab=item.destination==='research'?'organization':item.destination;
   if(item.destination==='tasks') { attentionFocus=null; render(); inspectTask(item.destination_record_id); return; }
   if(item.destination==='executions') { attentionFocus=null; render(); const e=state.executions.find(e=>e.execution_id===item.detail_record_id); if(e)inspect('Execution evidence',details(e)); return; }

@@ -61,6 +61,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}
+        if(path==='/api/investment-run'){json(200,company.investmentLoop.inspect());return;}
         if(path==='/api/investment-team'){json(200,company.investmentTeam.inspect());return;}
         if(path==='/api/investment-publication'){json(200,company.publication.inspect());return;}
         if(path==='/api/business'){json(200,company.business.inspect());return;}
@@ -97,6 +98,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           '/groups.js': ['groups.js', 'text/javascript; charset=utf-8'],
           '/mandates.js': ['mandates.js', 'text/javascript; charset=utf-8'],
           '/business.js': ['business.js', 'text/javascript; charset=utf-8'],
+          '/investment-run': ['investment-run.html', 'text/html; charset=utf-8'],
+          '/investment-run.js': ['investment-run.js', 'text/javascript; charset=utf-8'],
           '/investment-team': ['investment-team.html', 'text/html; charset=utf-8'],
           '/investment-team.js': ['investment-team.js', 'text/javascript; charset=utf-8'],
           '/investment-publication': ['publication.html', 'text/html; charset=utf-8'],
@@ -135,6 +138,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
+      else if(path==='/api/investment-run/preview'){json(201,company.investmentLoop.preview(body));}
+      else if(path==='/api/investment-run/control'){json(200,company.investmentLoop.control(body));company.changed();}
       else if(path==='/api/investment-team/preview'){json(201,company.investmentTeam.preview(body));}
       else if(path==='/api/investment-team/consent'){json(201,company.investmentTeam.consent(body));company.changed();}
       else if(path==='/api/investment-team/control'){json(200,company.investmentTeam.control(body));company.changed();}

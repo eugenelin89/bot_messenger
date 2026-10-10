@@ -1,3 +1,4 @@
+import type { InvestmentUsage } from '../domain/investment-loop/types.js';
 import type { TurnLimits } from '../domain/investment-team/types.js';
 import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js';
 import { PROFILES } from '../domain/model.js';
@@ -20,7 +21,7 @@ export type RuntimeInput = RuntimeInputFields & (
   { mode: 'task'; task: Task; execution: TaskExecution } |
   { mode: 'conversation'; request: ReplyRequest; execution: ConversationExecution; prepareBinding(binding: RuntimeBinding): void }
 );
-export interface RuntimeResult { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
+export interface RuntimeResult { investmentUsage?:InvestmentUsage; status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;

@@ -162,3 +162,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Scoped investment team — INV-08
 
 [Decision034](decision_034_scoped_investment_team.md) records owner-scoped existing employees, mandatory bounded runtime entry, exact source/proposal/review attribution, BUY publication admission and committed public derivatives. [Evidence](../validation/investment/INV-08.md) is partial source acceptance; actual employee runs and production remain held.
+
+## Finite investment operating loop — INV-09
+
+[Decision035](decision_035_finite_investment_loop.md) binds one immutable team/run to exact finite calendar stages, permanent usage reservations, measured/unknown costs and precise run controls through the existing scheduler. [Evidence](../validation/investment/INV-09.md) distinguishes isolated source acceptance from pending genuine/live cycles.
