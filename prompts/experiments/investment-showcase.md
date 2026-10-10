@@ -1,5 +1,7 @@
 # Codex launcher — BotSquad investment showcase and Ask BotSquad
 
+**2026-10-10 sequence exception:** The owner expressly selected INV-06→09 source development in one dedicated chat. See the [controlling sequence ledger](../../docs/exec-plans/investment-autonomous-sequence-06-09.md). For that authorization only, continue after each reviewed source integration with an evidence-based successor prompt; preserve separate packets and all blocked live gates. This launcher otherwise keeps its one-selected-packet rule.
+
 **Status:** Optional experiment launcher, outside the core BotSquad milestone roadmap. Reading this file starts no work.
 
 Personal Operator / Daily Driver remains the separate current core priority under

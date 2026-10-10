@@ -1,0 +1,17 @@
+# Decision032 — Market evidence and scheduled exchange calendar
+
+**Date:** 2026-10-10. **Status:** Accepted for synthetic source scope after independent review; operational price gates blocked.
+
+The owner authorized the bounded source sequence INV-06→09. Its [control ledger](../exec-plans/investment-autonomous-sequence-06-09.md) overrides the usual next-packet user-message requirement only within that sequence, without production activation, source account creation, expenditure or public authority.
+
+Keep market evidence separate from employee prose and financial accounting. Schema16 adds empty immutable policy/instrument/calendar/price/action records and collection attempt/result receipts. Trusted code reserves finite source attempts before I/O, preserves actual retrieval and original unknown source availability, deduplicates provider versions, and checks correction lineage under the same write lock as evidence/result commit. Unknown interrupted requests retain consumed allowance and cannot replay under their old request ID. No timer or startup collection exists.
+
+`MarketFixtureSimulator` is the market-admitted synthetic integration boundary. It imports original/correction lineage atomically, checks exact frozen source-policy identity, and fences undelivered corrections/conflicts/current permissions before price-dependent operations. A known opening correction blocks pending use; already committed fills never change. The underlying INV-05 `FixtureSimulator` remains the disconnected legacy fixture facade and is not an operational bypass. Source availability may be null; its conservative first-retrieval knowledge bound is explicitly distinct from a claimed provider availability timestamp.
+
+The only price adapter is strict synthetic JSON through a literal loopback endpoint. No live price adapter is accepted by the collector. The single-purpose OpenFIGI adapter maps the provider's documented identifier example without an account or key, with finite request/time/body limits. Its probe establishes identifiers only. [Source research](../validation/investment/INV-06-SOURCES.md) found no current price source with all required project permissions and frozen opening semantics verified. All live/public market-derived gates remain blocked under Decision029.
+
+The finite2026 reference calendar cites NYSE/Nasdaq schedules, computes UTC times using New York timezone, and supports immutable exceptional-closure revisions. A scheduled session is not evidence of an opening event or absence of halts. No future calendar year, dynamic closure feed or real corporate-action completeness is claimed.
+
+Eight permission states remain independent: automation, internal calculation, retention, public raw display, derived portfolio, benchmark, exports and permanent archive. The publisher must check exact current policy and audience rights; a synthetic pass does not establish real redistribution rights. Corporate-action source corrections require explicit reconciliation; no missing payment date or cash-in-lieu value is invented.
+
+Canonical public v1 bytes and accounting methodology stay unchanged. No Company/worker tool, runtime dispatch, listener, operational configuration, source grant, publisher or schedule is activated by import/migration. INV-07 can proceed with synthetic records after reviewed source integration; INV-06 live acceptance remains partial/blocked rather than falsely complete.

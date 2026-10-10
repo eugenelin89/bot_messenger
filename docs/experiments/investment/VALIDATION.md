@@ -142,3 +142,7 @@ their stated scope. All unimplemented HQ/market/Ask/launch acceptance remains pe
 ## INV-05 executed scope
 
 [INV-05 acceptance](../../validation/investment/INV-05.md) executes A01 configuration/methodology, A05 deterministic ledger/orders/risk, A07 local process-crash/replay and A09 populated-schema/system-preservation checks in synthetic mode. This does not establish real source rights/completeness, live-host backup/retention recovery, real employee behavior, deployment or public activation. Its private disabled outbox is not a public export.
+
+## 2026-10-10 INV-06 source-scope amendment
+
+[INV-06 acceptance](../../validation/investment/INV-06.md) and [Decision032](../../decisions/decision_032_market_evidence_boundary.md) record typed immutable market evidence, independent source-use rights, bounded fixture collection, scheduled exchange calendar, correction-aware simulator admission, additive schema16 and actual crash recovery. A01/A05/A08 pass only for the documented synthetic scope; OpenFIGI proves identifiers only. Live raw-opening/action completeness, operational calendar updates and public-derived/export/archive rights remain blocked. The owner-authorized [INV-06→09 sequence](../../exec-plans/investment-autonomous-sequence-06-09.md) permits reviewed source integration and subsequent independent synthetic work, not production activation or a claim of complete live INV-06 acceptance. Historical selection wording above remains provenance.

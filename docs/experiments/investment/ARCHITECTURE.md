@@ -171,3 +171,11 @@ Configuration hashes bind the complete envelope. Request and semantic identities
 Valuation revisions preserve originals. Financial `ledgerVersion`/`ledgerHash` bind the accepted accounting-history prefix; `asOf` filters effective-time postings. `journalVersion`/`journalHash` bind the prior committed journal anchor; the enclosing journal commits the new snapshot. Saved orders and dated uncertainty prevent later reservations/actions leaking backward. This avoids self-referential hashes during atomic late-effect revisions.
 
 The immutable `inv05-private-projection-v1` outbox contains private domain evidence. It is **not** a contract1.0 public payload, signing input, publication grant or content export. INV-07 must implement those boundaries separately. See [Decision031](../../decisions/decision_031_deterministic_paper_simulator.md) and [acceptance](../../validation/investment/INV-05.md).
+
+## INV-06 market-evidence boundary
+
+`src/domain/market/` owns source permissions, stable identities, versioned scheduled calendars, strict price/action normalization and use-time rights checks. `src/control/market/` owns immutable schema16 records/attempts/results, one-shot bounded collection, the loopback fixture transport, and a fixed OpenFIGI identifier probe. No import/startup creates a collector, timer, worker or authority.
+
+`MarketFixtureSimulator` is the explicit market-admitted synthetic boundary over INV-05. It imports correction lineage atomically, checks the frozen source policy, and fences stored-but-undelivered corrections/conflicts and expired permissions before order risk or financial price use. Repeated source versions retain first retrieval/knowledge and identity. Public rights remain independent of technical validity. The old raw `FixtureSimulator` remains for disconnected INV-05 fixtures, not a runtime bypass.
+
+[Source evidence](../../validation/investment/INV-06-SOURCES.md) records a successful account-free identity probe and a finite2026 official scheduled calendar. No real price feed is selected: exact raw opening, corporate-action completeness, internal/retention and public financial rights remain gated. The calendar does not assert real market opening or absence of halts. Canonical v1 and fill methodology are unchanged. See [Decision032](../../decisions/decision_032_market_evidence_boundary.md).
