@@ -10,6 +10,8 @@ publication below remains an INV-07/08 dependency, never inferred from fixtures.
 Owner controls are local only; rights approval binds exact artifact metadata and
 never follows from a valid publisher signature. Source collection remains INV-06.
 
+The consumer implementation is in [Asymmetri `receiver/`](https://github.com/eugenelin89/asymmetri/tree/main/receiver) with [operations](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-03-OPERATIONS.md) and the [cross-repo map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md). BotSquad HQ projection/grant machinery is still INV-07; the approved artifact rights checks on the receiver do not confer source-use rights or authorization to publish actual HQ documents.
+
 ## 1. Public by deliberate scope
 
 Existing BotSquad conversations, working groups, research histories and artifacts are private unless explicitly shared under their current rules. The investment experiment adds a separate **public audience permission**. A research grant, group membership, strategic mandate, prior GitHub-document approval or model-authored `public: true` is insufficient.

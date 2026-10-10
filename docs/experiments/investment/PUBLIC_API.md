@@ -6,6 +6,8 @@ This document specifies publication resources; [schema/OpenAPI and protocol](../
 
 Implementation status: [INV-02 receiver evidence](../../validation/investment/INV-02.md) records the exact Asymmetri consumer commit, manifest digest and supported route behavior. Public investment reads, signed ingestion/receipts/heartbeat and private content staging work locally; INV-03 now implements exact-version SHA256-verified byte downloads with current rights/visibility rechecks, alias suppression and no-store headers. [INV-03 evidence](../../validation/investment/INV-03.md) records tested behavior and inactive private installation. No Ask endpoints or public receiver listener are activated. This document revision does not change wire contract1.0.
 
+The [website receiver's implementation and status](https://github.com/eugenelin89/asymmetri/blob/main/docs/INVESTMENT_RECEIVER.md) and the [cross-repository map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md) are maintained in Asymmetri. INV-04's source-only frontend expects the visibility/cursor headers added in that repository, without changing this canonical v1 JSON contract. The privately installed receiver has not been coordinated with the public website for real traffic.
+
 ## 1. Scope and routes
 
 Base path: `/api/experiments/v1` on Asymmetri.co.

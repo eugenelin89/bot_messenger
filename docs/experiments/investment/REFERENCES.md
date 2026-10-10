@@ -4,6 +4,17 @@
 
 These references support current implementation facts and implementation constraints. The proposed investment design is not evidence that those new features already exist. Verify changing provider terms, software/runtime support and live deployment state again before implementation or activation.
 
+## Current cross-repository implementation (October 9, 2026)
+
+The dated 2026-10-06 repository snapshots below are historical feasibility baselines, not current implementation status. For living ownership and accepted handoffs, use:
+
+- [BotSquad investment roadmap](ROADMAP.md) — authoritative milestone status and dependency sequence; INV-05 is next but not started.
+- [BotSquad canonical contract](../../../contracts/investment/v1/PROTOCOL.md) — contract 1.0; the Asymmetri receiver vendors nine matching pinned files.
+- [Asymmetri website and receiver repo](https://github.com/eugenelin89/asymmetri) and [cross-repo integration map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md) — current consumer code, runtime boundaries, operational state and release gates.
+- [Asymmetri receiver runbook](https://github.com/eugenelin89/asymmetri/blob/main/docs/INVESTMENT_RECEIVER.md) — Ed25519, SQLite/CAS and disabled private installation.
+- [INV-04 accepted Asymmetri validation](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-04-VALIDATION.md) and [BotSquad milestone handoff](../../validation/investment/INV-04.md) — the full synthetic UI exists in source, not on the public production website.
+- [INV-03 private TLS ingress record](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-03-INGRESS.md) — isolated stream profile accepted, public shared-443 exposure unapproved.
+
 ## Repository baseline
 
 ### BotSquad

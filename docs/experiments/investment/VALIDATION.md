@@ -5,10 +5,14 @@
 ## Executed packet evidence
 
 [INV-01](../../validation/investment/INV-01.md), [INV-02](../../validation/investment/INV-02.md),
-[INFRA-02](../../validation/investment/INFRA-02.md) and [INV-03](../../validation/investment/INV-03.md)
+[INFRA-02](../../validation/investment/INFRA-02.md), [INV-03](../../validation/investment/INV-03.md)
+and [INV-04](../../validation/investment/INV-04.md)
 record their actual scope. INV-03 covers A03/A06/A07 artifact/discussion mechanisms
-with A02/A09 regressions using synthetic fixtures. It does not pass A08/A10 real
-employee behavior, actual HQ recovery or official live/public launch gates.
+with A02/A09 regressions using synthetic fixtures; INV-04 exercises A04/A09 browser,
+financial presentation, evidence navigation and protected-route preservation with
+permanently labelled synthetic data. Neither passes A08/A10 real employee behavior,
+actual HQ recovery or official live/public launch gates. The [website validation](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-04-VALIDATION.md)
+links the acceptance source and browser evidence.
 
 ## Evidence rules
 
