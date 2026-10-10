@@ -1,3 +1,4 @@
+import {investmentInstructions} from './investment-team.js';
 import {mandateInstructions} from './mandates.js';
 import {computerInstructions} from './computer.js';
 import {DISCUSSION_LIMITS} from '../domain/discussions.js';
@@ -301,7 +302,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if (signal.aborted || finished) return await result;
       input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
-        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?discussionInstructions:conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
+        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?(discussionInstructions+(input.tools.some(t=>t.name==='paper_propose')?'\n'+investmentInstructions:'')):conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
         developerInstructions: `Trusted BotSquad worker identity: ${input.worker.worker_id}. Use only the supplied ${input.mode} context.`,
         model, allowProviderModelFallback: false };
       let thread: ThreadResponse;

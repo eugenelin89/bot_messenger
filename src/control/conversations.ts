@@ -43,6 +43,7 @@ export class Conversations {
     const c = this.conversation(request.conversation_id);
     requireThat(c.state === 'active' && c.scope_version === request.scope_version, 'Conversation is held or its participant scope changed');
     this.company.discussions.authorize(request);
+    this.company.investmentTeam.authorize(request);
     this.company.mandates.authorize(request,claimTime);
     this.member(c.conversation_id, request.requester_principal_id);
     this.member(c.conversation_id, this.company.worker(request.target_worker_id).principal_id);
@@ -225,12 +226,12 @@ export class Conversations {
     if (!session||strategicCheckpoint||session.rollover_requested||session.completed_turns>=LIMIT.turnsPerSession||session.input_chars>=LIMIT.inputCharsPerSession||session.scope_version!==c.scope_version||session.tool_hash!==toolHash||JSON.parse(session.handoff).scope_hash!==scope) {
       requireThat(!this.db.get("SELECT 1 FROM conversation_sessions WHERE worker_id=? AND conversation_id=? AND state IN ('creating','prepared')",worker.worker_id,c.conversation_id),'Pending handoff requires inspection');
       const generation=this.db.get<{n:number}>('SELECT coalesce(max(generation),0)+1 n FROM conversation_sessions WHERE worker_id=? AND conversation_id=?',worker.worker_id,c.conversation_id)!.n;
-      const handoff={version:1,scope_hash:scope,worker:{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},conversation_id:c.conversation_id,purpose:c.purpose,
+      const handoff={version:1,scope_hash:scope,worker:this.company.investmentTeam.identity(c.conversation_id,worker)??{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},conversation_id:c.conversation_id,purpose:c.purpose,
         summary:'Extractive handoff from immutable original messages; conclusions are attributed claims, not verified facts or authority. Structured requests remain authoritative.',...this.sources(r),
         disposition:'No in-flight execution at checkpoint. Pending requests retain ownership and consumed causal budgets.',constraints:'Conversation only; no assignment, filesystem, repository, infrastructure, approval or external authority.'};
       const sessionId=id('session');
       this.db.run(`INSERT INTO conversation_sessions (session_id,worker_id,conversation_id,generation,scope_version,mode,tool_schema,tool_hash,previous_session_id,state,reason,handoff,handoff_hash,handoff_version,created_at)
-        VALUES (?,?,?,?,?,'conversation',?,?,?,'creating',?,?,?,1,?)`,sessionId,worker.worker_id,c.conversation_id,generation,c.scope_version,mandate?MANDATE_SCHEMA:group?DISCUSSION_SCHEMA:CONVERSATION_SCHEMA,toolHash,old?.session_id??null,
+        VALUES (?,?,?,?,?,'conversation',?,?,?,'creating',?,?,?,1,?)`,sessionId,worker.worker_id,c.conversation_id,generation,c.scope_version,mandate?MANDATE_SCHEMA:group?(this.company.investmentTeam.schema(c.conversation_id)??DISCUSSION_SCHEMA):CONVERSATION_SCHEMA,toolHash,old?.session_id??null,
         !old?'initial_context':old.rollover_requested?'operator_requested':old.scope_version!==c.scope_version||JSON.parse(old.handoff).scope_hash!==scope?'scope_changed':strategicCheckpoint?'strategic_turn_checkpoint':'conservative_context_limit',JSON.stringify(handoff),hash(handoff),now());
       session=this.session(sessionId); this.audit('handoff_checkpoint',{session_id:sessionId,previous_session_id:old?.session_id??null,generation,source_range:handoff.source_range},worker.worker_id);
     }
@@ -239,6 +240,7 @@ export class Conversations {
       VALUES (?,NULL,?,'running',?,?,'unresolved','conversation',?,?,?)`,executionId,worker.worker_id,now(),worker.execution_priority,r.request_id,session.session_id,session.generation);
     this.db.run("UPDATE conversation_requests SET status='replying',updated_at=? WHERE request_id=?",now(),r.request_id);
     this.company.mandates.recordScheduleDispatch(r,executionId,claimTime);
+    this.company.investmentTeam.reserve(r,executionId);
     this.company.refreshWorker(worker.worker_id);this.audit('execution_started',{request_id:r.request_id,session_id:session.session_id},worker.worker_id,executionId);
     const execution=this.company.execution(executionId);requireThat(execution.origin==='conversation','Wrong execution origin');
     return {origin:'conversation' as const,request:this.request(r.request_id),worker,execution,context:Object.freeze({executionId,workerId:worker.worker_id,workspacePath:worker.workspace_path})};
@@ -252,7 +254,7 @@ export class Conversations {
     this.authorized(r);this.company.verifyWorkspace(worker,context.workspacePath);
     const group=this.company.discussions.forConversation(r.conversation_id);
     const mandate=this.company.mandates.forConversation(r.conversation_id);
-    requireThat((mandate?session.tool_schema===MANDATE_SCHEMA&&session.tool_hash===hash(this.company.mandates.tools()):group?session.tool_schema===DISCUSSION_SCHEMA&&session.tool_hash===hash(this.company.discussions.toolsFor(r)):session.tool_schema===CONVERSATION_SCHEMA&&[hash(conversationTools()),hash(conversationTools(true))].includes(session.tool_hash))&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
+    requireThat((mandate?session.tool_schema===MANDATE_SCHEMA&&session.tool_hash===hash(this.company.mandates.tools()):group?session.tool_schema===(this.company.investmentTeam.schema(r.conversation_id)??DISCUSSION_SCHEMA)&&session.tool_hash===hash(this.company.discussions.toolsFor(r)):session.tool_schema===CONVERSATION_SCHEMA&&[hash(conversationTools()),hash(conversationTools(true))].includes(session.tool_hash))&&session.scope_version===r.scope_version,'Runtime mode/schema/scope mismatch');
     const handoff=JSON.parse(session.handoff);requireThat(hash(handoff)===session.handoff_hash&&handoff.scope_hash===this.scope(r.conversation_id),'Handoff integrity or source authorization changed');
     return {execution,worker,request:r,session};
   }

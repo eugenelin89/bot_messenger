@@ -48,3 +48,7 @@ There is no real price feed, real employee execution, official configuration, au
 ## Continuation
 
 Accept only the reviewed source subset; leave full INV-07/live gates partial. After accepted source integration and verified main, author INV-08 from actual commit/PR/test evidence and continue the owner-authorized sequence. Retain protocol/rights/custody limitations through INV-08/09 and the final readiness proposal; do not waive them to activate an experiment.
+
+## Integration receipt — 2026-10-10T08:19:21Z
+
+PR[#42](https://github.com/eugenelin89/bot_messenger/pull/42) merged reviewed source `cc11527b48f011c7084df37276aa73fd1e77fca8` as `61287e51c64706a1120b6a94e0009e98a6eb90c3`. Exact remote head/base, mergeability and status/workflow/review/thread lists checked; normal merge without bypass. Fetched main equals merge and reviewed tree. Source subset accepted; full/live gates remain partial. [INV-08 successor](../../../prompts/experiments/investment-inv-08.md) continues authorized work; no deployment.

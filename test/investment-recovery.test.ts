@@ -73,7 +73,7 @@ test('missing reference, future schema and corrupt file fail closed',t=>{
   const f=setup();t.after(f.close);
   f.store.db.exec("PRAGMA foreign_keys=OFF;DROP TRIGGER investment_receipts_immutable;UPDATE investment_receipts SET journal_version=999;PRAGMA foreign_keys=ON");
   assert.throws(()=>new FixtureSimulator(f.store,f.clock,'fixture-owner'),/missing_reference/);
-  f.store.run('INSERT INTO schema_migrations VALUES (?,?)',18,'future');assert.throws(()=>new Store(f.path),/newer|Unsupported|schema/i);
+  f.store.run('INSERT INTO schema_migrations VALUES (?,?)',19,'future');assert.throws(()=>new Store(f.path),/newer|Unsupported|schema/i);
   const path=join(f.dir,'corrupt.sqlite');writeFileSync(path,'This is not a SQLite database.');assert.throws(()=>new Store(path),/database/);
 });
 test('same-command receipt corruption cannot exchange blocked and successful outcomes',t=>{

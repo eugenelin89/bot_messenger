@@ -1,9 +1,10 @@
+import {removeEmptyTeamMigration} from './fixtures/investment/schema.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Store } from '../src/persistence/store.js';
 import { publicationFixture } from './fixtures/publication/support.js';
 test('populated v16 including ledger and market evidence survives additive v17 with zero publication authority',t=>{
- const f=publicationFixture();t.after(f.cleanup);f.complete();
+ const f=publicationFixture();t.after(f.cleanup);f.complete();removeEmptyTeamMigration(f.store);
  const added=f.store.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'investment_public_%' ORDER BY rowid DESC").map(r=>r.name);
  for(const name of added){assert.equal(f.store.get<{n:number}>(`SELECT count(*) n FROM ${name}`)!.n,0);f.store.db.exec(`DROP TABLE ${name}`);}f.store.db.exec('DROP TRIGGER investment_public_capture');f.store.run('DELETE FROM schema_migrations WHERE version=17');
  const tables=f.store.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").map(r=>r.name),before=Object.fromEntries(tables.map(name=>[name,f.store.all(`SELECT rowid original_rowid,* FROM ${name} ORDER BY rowid`)]));

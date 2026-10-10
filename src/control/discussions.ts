@@ -122,6 +122,7 @@ export class Discussions {
       else if(action==='stop'){requireThat(g.state!=='archived','Archived group is read-only');queued();this.db.run("UPDATE working_groups SET state='stopped',error='Stopped by owner; no automatic synthesis' WHERE group_id=?",g.group_id);}
       else if(action==='archive'){requireThat(!active.length&&['completed','stopped','blocked','draft'].includes(g.state),'Stop and settle work before archiving');queued();this.db.run("UPDATE working_groups SET state='archived' WHERE group_id=?",g.group_id);}
       else if(action==='extend'){
+        requireThat(!this.company.investmentTeam.forGroup(g.group_id)||!this.db.get("SELECT 1 FROM group_syntheses WHERE group_id=? AND state='final'",g.group_id),'A final investment discussion cannot reopen under canonical v1');
         requireThat(!this.company.mandates.internalWork(undefined,g.group_id),'Mandate groups cannot extend beyond their reserved envelope');
         requireThat(g.state!=='draft'&&g.state!=='archived'&&!active.length,'Extension requires a started, unarchived, idle group');this.requireMembers(g);requireThat(!this.members(g).some(w=>this.company.providerUnresolved(w.worker_id)),'Provider uncertainty blocks extension');
         requireThat(g.extensions_used<L.extensions&&g.turn_limit+L.extensionTurns<=L.hardTurns&&g.round_limit+1<=L.hardRounds,'Maximum explicit extension allowance reached');
@@ -130,6 +131,7 @@ export class Discussions {
         this.db.run('UPDATE discussion_turns SET advanced=1 WHERE group_id=?',g.group_id);
         this.enqueue(this.group(g.group_id),g.facilitator_id,'facilitate','The owner explicitly authorized one more bounded round. Address unaddressed interjections and remaining concerns. Prior usage and finalized artifacts are retained.');
       }else if(action==='finish'){
+        requireThat(!this.company.investmentTeam.forGroup(g.group_id)||!this.db.get("SELECT 1 FROM group_syntheses WHERE group_id=? AND state='final'",g.group_id),'A final investment discussion cannot reopen under canonical v1');
         requireThat(!active.length&&!['draft','archived','completed'].includes(g.state),'Finish requires settled started work');this.requireMembers(g);const target=a.synthesizer_id===undefined?g.synthesizer_id:textField(a,'synthesizer_id',100);requireThat(this.members(g).some(w=>w.worker_id===target),'Synthesizer must be a current charter participant');requireThat(target===g.synthesizer_id||g.state==='blocked'&&g.allow_incomplete===1,'Replacement requires a blocked group and an incomplete-result charter');requireThat(!this.company.providerUnresolved(target),'Synthesizer provider outcome is unresolved');if(target!==g.synthesizer_id){this.db.run('UPDATE working_groups SET synthesizer_id=? WHERE group_id=?',target,g.group_id);this.audit('owner_synthesizer_selected',g,{previous_worker_id:g.synthesizer_id,worker_id:target,notice:'Explicit incomplete finalization; prior worker uncertainty fences retained'});}
         requireThat(g.allow_incomplete||!this.db.get("SELECT 1 FROM discussion_turns t JOIN conversation_requests r USING(request_id) WHERE group_id=? AND r.status IN ('blocked','failed','interrupted') AND response_message_id IS NULL",g.group_id),'Charter does not permit incomplete participation');
         requireThat(g.deadline&&Date.parse(g.deadline)>Date.now(),'Deadline expired; request a bounded extension first');queued();this.db.run("UPDATE working_groups SET state='active',error=NULL WHERE group_id=?",g.group_id);this.db.run('UPDATE discussion_turns SET advanced=1 WHERE group_id=?',g.group_id);
@@ -190,7 +192,7 @@ export class Discussions {
       }catch(e){this.db.db.exec('ROLLBACK TO discussion_progress; RELEASE discussion_progress');this.block(g,`Progression could not schedule safely: ${String(e)}`);}
     });
   }
-  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return discussionTools(t.kind,this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize');}
+  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return [...discussionTools(t.kind,this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize'),...this.company.investmentTeam.tools(r)];}
   private verify(context:ExecutionContext){const v=this.company.conversations.verify(context);const g=this.forConversation(v.request.conversation_id),t=this.turn(v.request.request_id);requireThat(g&&t,'Discussion execution required');return {...v,group:g,turn:t};}
   context(context:ExecutionContext){
     const {worker,session,group:g,turn:t}=this.verify(context);
@@ -199,7 +201,8 @@ export class Discussions {
     const packet=this.db.all<GroupEvidence>('SELECT * FROM group_evidence WHERE group_id=? ORDER BY revision',g.group_id).map(e=>({evidence_id:e.evidence_id,title:e.title.slice(0,80),omitted_title_characters:Math.max(0,e.title.length-80),kind:e.kind,sha256:e.sha256,revision:e.revision,retained_characters:e.content.length,body_in_context:false}));
     const latest=this.db.get<GroupSynthesis>('SELECT * FROM group_syntheses WHERE group_id=? ORDER BY version DESC LIMIT 1',g.group_id);
     const result={mode:'discussion',group_id:g.group_id,question:g.topic,desired_output:g.desired_output,constraints:g.constraints,
-      worker:{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},participants:this.members(g).map(w=>({worker_id:w.worker_id,display_name:w.display_name,role:w.role})),
+      worker:this.company.investmentTeam.identity(g.conversation_id,worker)??{worker_id:worker.worker_id,display_name:worker.display_name,role:worker.role,mission:worker.mission},participants:this.members(g).map(w=>this.company.investmentTeam.identity(g.conversation_id,w)??({worker_id:w.worker_id,display_name:w.display_name,role:w.role})),
+      investment:this.company.investmentTeam.context(g.conversation_id),
       session:{session_id:session.session_id,generation:session.generation,predecessor:session.previous_session_id,reason:session.reason},
       turn:{turn_id:t.turn_id,kind:t.kind,prompt:t.prompt,round:t.round,contribution_ids:JSON.parse(t.contribution_ids),evidence_ids:JSON.parse(t.evidence_ids)},
       checkpoint:{transcript_revision:g.revision,evidence_revision:g.evidence_revision,scope_version:g.scope_version},
@@ -247,7 +250,8 @@ export class Discussions {
       requireThat(!t.output,'Turn contribution already committed; end this execution');
       requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',context.executionId)!.n<L.toolCalls,'Discussion tool budget exhausted');
       let result:unknown;
-      if(name==='read_discussion'){strictObject(input,[]);this.db.run('INSERT INTO discussion_retrieval_usage VALUES (?,0,1) ON CONFLICT(execution_id) DO UPDATE SET refreshes=refreshes+1',context.executionId);result=this.context(context);}
+      if(this.company.investmentTeam.isTool(name)){result=this.company.investmentTeam.call(context,name,input);}
+      else if(name==='read_discussion'){strictObject(input,[]);this.db.run('INSERT INTO discussion_retrieval_usage VALUES (?,0,1) ON CONFLICT(execution_id) DO UPDATE SET refreshes=refreshes+1',context.executionId);result=this.context(context);}
       else if(name==='read_group_history'){
         const a=strictObject(input,['before']);requireThat(a.before===null||Number.isSafeInteger(a.before)&&Number(a.before)>0,'Invalid group history cursor');
         const rows=this.db.all<{revision:number;message_id:string;worker_id:string|null;body:string}>('SELECT c.revision,c.message_id,m.worker_id,substr(m.body,1,600) body FROM discussion_contributions c JOIN conversation_messages m USING(message_id) WHERE c.group_id=? AND c.revision<=? AND c.revision<? ORDER BY c.revision DESC LIMIT 6',g.group_id,t.seen_revision!,a.before===null?Number.MAX_SAFE_INTEGER:Number(a.before));result={items:rows.slice(0,5),next_cursor:rows.length>5?rows[4]!.revision:null,omissions:'Only 600 characters per record. Read the original by message ID.'};

@@ -2,8 +2,8 @@
 
 **Status:** Active. **Owner:** dedicated BotSquad Codex chat `01a12494-249b-7ef2-b76f-56ad33b7cef0`; sole implementation writer.
 **Started:** 2026-10-09 America/Vancouver. **Initial ETA:** 6–10 hours, revised as evidence develops.
-**Active packet:** INV-07. **Accepted source packets:** INV-06 (live acceptance partial).
-**Owned worktree:** `../bot_messenger-inv07`; branch `codex/inv07-scoped-publisher`.
+**Active packet:** INV-08. **Accepted source packets:** INV-06 and INV-07 (full/live acceptance partial).
+**Owned worktree:** `../bot_messenger-inv08`; branch `codex/inv08-investment-team`.
 
 ## Original owner authorization (durable scope record)
 
@@ -50,13 +50,13 @@ Live source/rights/field/calendar evidence, official configuration, eligible emp
 | Packet | Source status | Tests | Review | PR / implementation / merge | Live readiness |
 | --- | --- | --- | --- | --- | --- |
 | INV-06 | Synthetic source scope validated |760 total;759 pass,1 skip | Security/recovery clear | PR#41;35fe638→e6f27ec | Live price/public rights blocked |
-| INV-07 | Partial synthetic source validated; integration pending |795 total794pass1skip;62 focused pass | Security/recovery/architecture/test | Pending | Blocked pending live/protocol gates |
-| INV-08 | Authorized, waiting for predecessor assessment | — | — | — | Blocked pending gates |
+| INV-07 | Partial synthetic source merged |795 total794pass1skip;62 focused pass | Security/recovery/architecture/test clear | PR#42;cc11527→61287e5 | Blocked pending live/protocol gates |
+| INV-08 | Scoped-team source validated; integration pending |852 total851pass1skip;34 focused pass | Security/recovery/architecture/test clear | Pending | Genuine execution held |
 | INV-09 | Authorized, waiting for predecessor assessment | — | — | — | Blocked pending gates |
 
 ## Next action and resume procedure
 
-Finish INV-07 receiver/recovery/browser validation, review and source integration; then author and execute INV-08 and INV-09 from their actual accepted predecessors. At each checkpoint update this ledger and milestone evidence. After compaction/resume: read this file, owning plan, latest validation, mandatory Decisions029/031, DECISIONS, SIMULATION_RULES §7 and ROADMAP; verify worktree/status/heads/PR receipts and actual code before continuing. Never assume remembered tests or merge status.
+Execute INV-08 scoped team capability and reviewed source integration, then author and execute INV-09 from the actual accepted predecessor. At each checkpoint update this ledger and milestone evidence. After compaction/resume: read this file, owning plan, latest validation, mandatory Decisions029/031, DECISIONS, SIMULATION_RULES §7 and ROADMAP; verify worktree/status/heads/PR receipts and actual code before continuing. Never assume remembered tests or merge status.
 
 **Final stop reason:** none; sequence active.
 
@@ -77,3 +77,11 @@ PR[#41](https://github.com/eugenelin89/bot_messenger/pull/41) merged reviewed im
 ### INV-07 final source validation — 2026-10-10
 
 Final focused62/62 pass,0skip (15270ms), full serial795 total794pass0fail1existingLinuxskip (170309ms). Three initial legacy schema assertions corrected; their first failing run remains recorded. Invalid receipts, post-consent expiry and each public permission denial tested. Backlog health is explicitly a signal awaiting INV-08/09 admission enforcement. Final review dispositions in [INV-07](../validation/investment/INV-07.md). Next: exact remote PR/merge checks, verified main, full08 successor and immediate continuation. No production activation.
+
+### INV-07 integration receipt — 2026-10-10T08:19:21Z
+
+PR[#42](https://github.com/eugenelin89/bot_messenger/pull/42) merged `cc11527b48f011c7084df37276aa73fd1e77fca8` as `61287e51c64706a1120b6a94e0009e98a6eb90c3`. Verified exact head/base, mergeability, empty remote status/workflow/review/thread lists; normal merge with expected head, no bypass. Fetched main equals merge and reviewed tree. No deployment. INV-08 owning worktree created from verified main; [full successor specification](../../prompts/experiments/investment-inv-08.md) and [plan](investment-inv-08.md) authored afterward. Carry health admission signal, protocol/rights limits and actual employee model-budget gate forward.
+
+### INV-08 final source validation — 2026-10-10
+
+Final focused34/34,0skip,25251ms; full852 total851pass0fail1existingLinux-only skip,194269ms. Exact bounded team consent, immutable reservations/provenance, independent revision review, atomic paper/public-intent receipts, BUY health checks and committed public derivatives pass source acceptance. Four read-only specialists clear. Current Codex lacks enforceable usage budgets, so real employee execution remains held. No real source/public rights or deployment claim. Next: normal reviewed source integration, verified main, full09 successor and immediate continuation.

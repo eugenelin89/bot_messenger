@@ -1,9 +1,10 @@
+import {removeEmptyTeamMigration} from './fixtures/investment/schema.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Store } from '../src/persistence/store.js';
 import { setup,buyTwo } from './fixtures/investment/support.js';
 test('populated schema15 ledger survives additive16 and repeated reopen byte-for-field; no authority is seeded',t=>{
- const f=setup();t.after(f.close);buyTwo(f);
+ const f=setup();t.after(f.close);buyTwo(f);removeEmptyTeamMigration(f.store);
  for(const row of f.store.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'investment_public_%' ORDER BY rowid DESC")){assert.equal(f.store.get<{n:number}>(`SELECT count(*) n FROM ${row.name}`)!.n,0);f.store.db.exec(`DROP TABLE ${row.name}`);}
  f.store.db.exec('DROP TRIGGER investment_public_capture');f.store.run('DELETE FROM schema_migrations WHERE version=17');
  const added=['investment_market_records','investment_market_attempts','investment_market_results'];

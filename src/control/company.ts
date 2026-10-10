@@ -1,3 +1,4 @@
+import { InvestmentTeam } from './investment-team/service.js';
 import { PublicationService, type PublicationOptions } from './publication/service.js';
 import { Mandates } from './mandates.js';
 import { Computers } from './computers.js';
@@ -52,6 +53,7 @@ export class Company extends EventEmitter {
   readonly computers: Computers;
   readonly business: BusinessOperations;
   readonly publication: PublicationService;
+  readonly investmentTeam: InvestmentTeam;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -71,6 +73,7 @@ export class Company extends EventEmitter {
     this.computers = new Computers(this);
     this.business = new BusinessOperations(this);
     this.publication = new PublicationService(store,publicationOptions);
+    this.investmentTeam = new InvestmentTeam(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());

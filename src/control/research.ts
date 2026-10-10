@@ -177,6 +177,7 @@ export class Research {
   }
   private reserve(context:ExecutionContext,callId:string,name:string,input:unknown,grant:StandingGrant,requestHash:string) {
     this.company.mandates.researchAuthority(context,true);
+    this.company.investmentTeam.research(context,name);
     const s=this.authorize(context,grant.capability);requireThat(s.grant.grant_id===grant.grant_id,'Standing permission changed.');
     requireThat(!this.hasPending(context.executionId),'A lookup is already pending; await its result before another operation.');
     requireThat(!this.db.get('SELECT 1 FROM research_operations WHERE worker_id=? AND unresolved=1',s.worker.worker_id),'Prior research provider outcome is unresolved; further lookup actions are fenced.');

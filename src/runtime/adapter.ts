@@ -1,3 +1,4 @@
+import type { TurnLimits } from '../domain/investment-team/types.js';
 import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js';
 import { PROFILES } from '../domain/model.js';
 import type { Worker, Task, TaskExecution, ConversationExecution, RuntimeBinding } from '../domain/model.js';
@@ -26,6 +27,9 @@ export interface RuntimeAdapter {
   researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
+  /** Optional trusted adapter contract: enforce all supplied limits before/between provider effects.
+   * Absence holds investment work; callers must never fall back to run. */
+  runBoundedInvestment?(input: RuntimeInput, signal: AbortSignal, limits: TurnLimits): Promise<RuntimeResult>;
 }
 
 const string = { type: 'string' };
