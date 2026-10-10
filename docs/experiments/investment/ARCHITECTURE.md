@@ -1,6 +1,6 @@
 # Architecture and integration boundaries
 
-**Version:** 1.3 | **Status:** INV-01–04 contract, receiver/archive and showcase implemented for documented synthetic/source/private scopes; website not released, HQ simulator/publisher and real Ask planned | [Guide](README.md)
+**Version:** 1.4 | **Status:** INV-01–05 implemented for documented scopes; HQ simulator synthetic-only/source-local, website not released; publisher and real Ask planned | [Guide](README.md)
 
 **Ask BotSquad:** [The feature specification](ASK_BOTSQUAD.md) owns the added general/contextual public-question lane, routing, private session store and `/api/ask/v1` protocol. Portfolio publication below remains separate. Visitors request scoped answers, never trades or owner commands. [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) records the explicit boundary amendment.
 
@@ -161,3 +161,13 @@ installed source. Owner controls, exact artifact rights, restore read holds and 
 backup suppression do not change contract1.0 or create publisher authority. Future
 public authority must be reconciled with the current website loopback Host using trusted
 server configuration and tests; preserve strict receiver authority verification.
+
+## Implemented INV-05 boundary
+
+`src/control/investment.ts` exposes the internal fixture facade over `src/domain/investment/{types,arithmetic,identity,policy,accounting,valuation,reducer}.ts`. It has no Company/runtime/HTTP/scheduler integration. `src/persistence/investment-migration.ts` adds empty schema15 tables. The existing Store imports only this migration and creates no activity/authority.
+
+Configuration hashes bind the complete envelope. Request and semantic identities converge retries. Short SQLite transactions serialize reservations, replay history and atomically commit journal, receipt, head checkpoint and frozen disabled outbox. Portfolio and benchmark have separate books; journal sequence and financial ledger version are distinct. Reads verify configuration, original receipt linkage, predecessor/operation identity, replay checkpoint and outbox dependency/hash.
+
+Valuation revisions preserve originals. Financial `ledgerVersion`/`ledgerHash` bind the accepted accounting-history prefix; `asOf` filters effective-time postings. `journalVersion`/`journalHash` bind the prior committed journal anchor; the enclosing journal commits the new snapshot. Saved orders and dated uncertainty prevent later reservations/actions leaking backward. This avoids self-referential hashes during atomic late-effect revisions.
+
+The immutable `inv05-private-projection-v1` outbox contains private domain evidence. It is **not** a contract1.0 public payload, signing input, publication grant or content export. INV-07 must implement those boundaries separately. See [Decision031](../../decisions/decision_031_deterministic_paper_simulator.md) and [acceptance](../../validation/investment/INV-05.md).

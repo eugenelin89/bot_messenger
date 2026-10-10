@@ -4,7 +4,7 @@
 
 ## Status discipline
 
-The owner separately selected INV-01 through INV-04 for their documented contract, receiver/archive and labelled synthetic website-source scopes. [INV-04 acceptance](../../validation/investment/INV-04.md) is complete locally but no public website release or real HQ investment simulator/publisher/Ask authority exists; INV-05 is the next owner-selectable BotSquad work. These selections create no active production publisher, brokerage authority, provider subscription or launch approval. Personal Operator stabilization remains a separate core priority; local INV and INV-ASK identifiers do not create core Prompt 12.
+The owner separately selected INV-01 through INV-05 for their documented contract, receiver/archive and labelled synthetic website-source scopes. [INV-04 acceptance](../../validation/investment/INV-04.md) is complete locally but no public website release or real HQ investment simulator/publisher/Ask authority exists; [INV-05](../../validation/investment/INV-05.md) adds deterministic synthetic-only HQ accounting without deployment; INV-06 is the next owner-selectable BotSquad work. These selections create no active production publisher, brokerage authority, provider subscription or launch approval. Personal Operator stabilization remains a separate core priority; local INV and INV-ASK identifiers do not create core Prompt 12.
 
 [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) and the [Ask amendment table](ASK_BOTSQUAD.md#2-explicit-amendment-to-the-original-design) supersede only the original read-only-visitor/publication-only scope. Visitors may request a bounded answer; they still cannot command investments or access private company state.
 
@@ -96,3 +96,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-09 | 1.4 | Owner cancels INFRA-01 migration, deletes its verified snapshot and retains Ubuntu 22.10 under a time-limited exception; INFRA-02 remains unstarted and separately authorized (Decision 030) |
 | 2026-10-09 | 1.5 | Owner-selected INFRA-02 completes private Linux installation and synthetic acceptance; final receiver stopped/default disabled, public HTTP/TLS and real publisher/HQ activation remain gated ([evidence](../../validation/investment/INFRA-02.md)) |
 | 2026-10-09 | 1.6 | Owner-selected INV-03 completes artifact/discussion archive, disabled schema002 private installation, isolated TLS and stronger synthetic capacity/recovery; public topology, custody, rights and HQ gates retained; prior backup deletion corrected ([evidence](../../validation/investment/INV-03.md)) |
+
+## INV-05 implementation decision
+
+[Decision031](../../decisions/decision_031_deterministic_paper_simulator.md) freezes the delivered synthetic method and local integrity boundary. Schema15 adds no authority; the private outbox is not a public v1 projection. No official configuration, live source, employee execution, scheduler or transport is activated. [INV-05](../../validation/investment/INV-05.md) records actual accounting, process-kill, concurrency, migration and review evidence. INV-06 remains separately selectable.

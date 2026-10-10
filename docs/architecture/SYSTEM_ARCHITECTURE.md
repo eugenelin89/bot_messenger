@@ -571,3 +571,7 @@ no implicit authority. Migration 14 is additive and inert. Live acceptance was s
 ## Investment and Ask contract boundary (INV-01)
 
 The [version 1.0 package](../../contracts/investment/v1/PROTOCOL.md) and [feasibility record](../validation/investment/INV-01.md) are offline foundations only. Production domain, persistence, dispatch, tools and grants are unchanged. Future public investment projection and private Ask service require separate audience/context/authority boundaries while reusing existing durable execution ownership; no receiver/model capability is implied by the schemas.
+
+## INV-05 internal paper simulator
+
+The [investment architecture](../experiments/investment/ARCHITECTURE.md) includes a disconnected synthetic-only `FixtureSimulator`, pure fixed-point accounting/reducer and additive schema15 journal/receipts/disabled outbox. It has no Company, worker, runtime, HTTP or scheduler entry point. [Decision031](../decisions/decision_031_deterministic_paper_simulator.md) and [INV-05 evidence](../validation/investment/INV-05.md) define local acceptance and future activation gates. This source change is not deployed to HQ.
