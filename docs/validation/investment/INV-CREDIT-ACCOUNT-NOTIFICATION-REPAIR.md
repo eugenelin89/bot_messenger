@@ -1,8 +1,11 @@
 # INV-CREDIT-ACCOUNT-NOTIFICATION-REPAIR
 
-**Date:** 2026-10-10  
-**Scope:** Source repair and deterministic acceptance only; no real model inference  
-**Starting main:** `90fdc3d22d6469a82d05dcd2f83ce50e4c373979` (PR47)  
+**Date:** 2026-10-10
+
+**Scope:** Source repair and deterministic acceptance only; no real model inference
+
+**Starting main:** `90fdc3d22d6469a82d05dcd2f83ce50e4c373979` (PR47)
+
 **Status:** Source accepted for integration; genuine employee inference remains unproven
 
 ## Incident and preserved outcome

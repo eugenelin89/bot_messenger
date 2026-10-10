@@ -1,11 +1,17 @@
 # Execution plan — Credit pilot account notification repair
 
-**Status:** Source acceptance complete; integration receipt tracked in PR/final handoff  
-**Owner:** Parent Codex, sole writer; specialists read-only  
-**Branch:** `fix/credit-account-notifications`  
-**Worktree:** `bot_messenger-credit-pilot`  
-**Started:** 2026-10-10  
-**Base:** `90fdc3d22d6469a82d05dcd2f83ce50e4c373979`  
+**Status:** Source acceptance complete; integration receipt tracked in PR/final handoff
+
+**Owner:** Parent Codex, sole writer; specialists read-only
+
+**Branch:** `fix/credit-account-notifications`
+
+**Worktree:** `bot_messenger-credit-pilot`
+
+**Started:** 2026-10-10
+
+**Base:** `90fdc3d22d6469a82d05dcd2f83ce50e4c373979`
+
 **Initial ETA:** 1–2 hours for pinned protocol investigation, repair, serial validation and reviewed integration. Final validation finished within that estimate; integration remains a short final step.
 
 ## Objective and boundaries
