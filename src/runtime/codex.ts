@@ -1,3 +1,5 @@
+import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,creditAccountFingerprint,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
+import {eligibleCreditSubscription,type ActivityPolicy} from '../domain/usage/policy.js';
 import {investmentInstructions} from './investment-team.js';
 import {mandateInstructions} from './mandates.js';
 import {computerInstructions} from './computer.js';
@@ -107,8 +109,8 @@ interface ThreadResponse { modelProvider?:string; serviceTier?:string|null;
   thread: { id: string; cwd: string; name?: string | null; status?: { type: string } };
   model?: string; approvalPolicy?: string; sandbox?: { type: string; networkAccess: boolean };
 }
-interface ConfigResponse { config: { features?: Record<string, unknown>; mcp_servers?: Record<string, unknown> } }
-interface Options { command?: string; model?: string; timeoutMs?: number }
+interface ConfigResponse { config: { [key:string]:unknown; features?: Record<string, unknown>; mcp_servers?: Record<string, unknown> } }
+interface Options { command?: string; model?: string; timeoutMs?: number; creditPilot?:CreditRuntimeOptions }
 
 export function validateBinding(input: RuntimeInput) {
   requireThat(realpathSync(input.worker.workspace_path) === input.worker.workspace_path, 'Runtime workspace is not canonical');
@@ -123,8 +125,13 @@ export class CodexRuntime implements RuntimeAdapter {
   readonly command: string;
   readonly model?: string;
   readonly timeoutMs: number;
+  private readonly creditPilot?:CreditRuntimeOptions;
+  declare readonly runSubscriptionInvestment?:RuntimeAdapter['runSubscriptionInvestment'];
+  subscriptionPolicySupported(policy:ActivityPolicy){return !!this.creditPilot&&policy.mode==='credit_approved_private_pilot'&&policy.pilotId===this.creditPilot.pilotId;}
   researchProvider(workspace: string) { return new CodexResearchProvider(this.command,workspace); }
   constructor(options: Options = {}) {
+    this.creditPilot=options.creditPilot?Object.freeze({...options.creditPilot}):undefined;
+    if(this.creditPilot)this.runSubscriptionInvestment=async(input,signal,policy)=>{validateCreditInput(this.creditPilot!,input,policy);return this.runTurn(input,signal,policy);};
     this.command = options.command ?? process.env.CODEX_BIN ?? 'codex';
     this.model = options.model ?? process.env.BOT_MODEL;
     this.timeoutMs = options.timeoutMs ?? 240000;
@@ -132,25 +139,29 @@ export class CodexRuntime implements RuntimeAdapter {
   }
   checkVersion(): string {
     let version: string;
-    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000 }).trim(); }
+    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot?creditEnvironment():process.env }).trim(); }
     catch { throw new Error('Codex CLI unavailable. Install the documented version and run codex login.'); }
     requireThat(version === `codex-cli ${SUPPORTED_CODEX_VERSION}`, `Adapter requires validated Codex CLI ${SUPPORTED_CODEX_VERSION}; installed ${version}`);
     return version;
   }
-  private connect(workspace: string) {
-    return new AppServerRpc(this.command, ['app-server', '--listen', 'stdio://',
-      ...DISABLED_FEATURES.flatMap(f => ['--disable', f]), '-c', 'web_search="disabled"',
+  private connect(workspace: string,credit=false,skills?:DisabledSkill[]) {
+    return new AppServerRpc(this.command, ['app-server', '--listen', 'stdio://', ...(credit?['--strict-config',...CREDIT_DISABLED_FEATURES.flatMap(f=>['--disable',f]),...Object.entries(CREDIT_CONFIG).flatMap(([k,v])=>['-c',`${k}=${JSON.stringify(v)}`])]:[]),
+      ...(skills?['-c','skills.config='+skillOverride(skills)]:[]),...DISABLED_FEATURES.flatMap(f => ['--disable', f]), '-c', 'web_search="disabled"',
       '-c', 'project_doc_max_bytes=0', '-c', 'notify=[]', '-c', 'shell_environment_policy.inherit="none"',
-    ], workspace);
+    ], workspace,credit?creditEnvironment():process.env);
   }
-  private async initialize(rpc: AppServerRpc) {
+  private async initialize(rpc: AppServerRpc,credit=false,workspace?:string,expectedSkills?:DisabledSkill[]) {
     await rpc.request('initialize', { clientInfo: { name: 'botsquad', title: 'BotSquad', version: '0.1.0' }, capabilities: { experimentalApi: true, optOutNotificationMethods:['rawResponseItem/completed'] } });
     rpc.send({ method: 'initialized', params: {} });
+    const creditConfig=credit?(await rpc.request<ConfigResponse>('config/read',{...(workspace?{cwd:workspace}:{})})).config:undefined;if(creditConfig)validateCreditConfig(creditConfig);
+    const skills=credit?disabledSkills(await rpc.request('skills/list',{cwds:[workspace!],forceReload:true}),workspace!,expectedSkills):undefined;
     const account = await rpc.request<{ account: { type: string } | null; requiresOpenaiAuth: boolean }>('account/read', { refreshToken: false });
     requireThat(account.account || !account.requiresOpenaiAuth, 'Codex authentication is missing. Run codex login.');
-    const { config } = await rpc.request<ConfigResponse>('config/read', {});
+    if(credit)requireThat(account.account?.type==='chatgpt'&&account.requiresOpenaiAuth===true,'Private pilot requires ChatGPT authentication; API-key/provider mode denied');
+    const config=creditConfig??(await rpc.request<ConfigResponse>('config/read', {})).config;
     requireThat(DISABLED_FEATURES.every(f => config.features?.[f] === false), 'Codex tool confinement configuration was not applied');
     // Disable every inherited MCP server individually: an empty table may merge with user config.
+    if(credit)requireThat(Object.keys(config.mcp_servers??{}).every(n=>/^[a-zA-Z0-9_-]+$/.test(n)),'Unsupported inherited MCP identifier; pilot blocked');
     const overrides = Object.fromEntries(Object.keys(config.mcp_servers ?? {}).map(name => [`mcp_servers.${name}.enabled`, false]));
     const models: RuntimeModel[] = []; let cursor: string | null = null;
     const cursors = new Set<string>();
@@ -167,12 +178,17 @@ export class CodexRuntime implements RuntimeAdapter {
       authMode: account.account?.type ?? 'provider', defaultModel: selected?.model ?? this.model!,
       models: models.map(m => ({ id: m.id, model: m.model, displayName: m.displayName ?? m.model,
         isDefault: m.isDefault, defaultReasoningEffort: m.defaultReasoningEffort, supportedReasoningEfforts: m.supportedReasoningEfforts })) };
-    return { overrides, catalog };
+    return { overrides:{...overrides,...(skills?{'skills.config':skills}:{})}, catalog,skills,accountIdentity:credit?creditAccountFingerprint(account,this.creditPilot!.pilotId):undefined };
+  }
+  private async isolateSkills(workspace:string,deadline=Date.now()+60000,signal?:AbortSignal){
+    rejectGlobalInstructions();const rpc=this.connect(workspace,true),abort=()=>rpc.close(),timer=setTimeout(abort,Math.max(1,deadline-Date.now()));signal?.addEventListener('abort',abort,{once:true});
+    rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during isolation preflight'}}));
+    try{requireThat(!signal?.aborted,'Pilot stopped before isolation');return (await this.initialize(rpc,true,workspace)).skills!;}finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
   }
   async catalog(workspace: string): Promise<RuntimeCatalog> {
-    this.checkVersion(); const rpc = this.connect(workspace);
+    this.checkVersion();const skills=this.creditPilot?await this.isolateSkills(workspace):undefined,rpc=this.connect(workspace,!!this.creditPilot,skills);
     rpc.on('request', (m: RpcMessage) => rpc.send({ id: m.id, error: { code: -32601, message: 'Unavailable during preflight' } }));
-    try { return (await this.initialize(rpc)).catalog; }
+    try { return (await this.initialize(rpc,!!this.creditPilot,workspace,skills)).catalog; }
     finally { rpc.close(); }
   }
   async preflight(workspace: string) {
@@ -180,14 +196,18 @@ export class CodexRuntime implements RuntimeAdapter {
     resolveAIProfile({ ai_model: null, reasoning_effort: null, execution_priority: 'normal', ai_profile_locked: 1 }, catalog);
     return { ...catalog, model: catalog.defaultModel, transport: 'stdio', supportsInterrupt: true, dynamicTools: 'experimental' };
   }
-  // No subscription capability is exposed until the pinned provider can uphold this contract.
+  // Included-only mode stays blocked. The separate private credit pilot is opt-in only.
   // Built-in OpenAI retry overrides are ignored in 0.157.0; no included-only request switch exists.
-  readonly subscriptionBlockReason = 'Codex 0.157.0 cannot establish included-only execution or disable uncertain transport retries. Subscription investment execution is blocked.';
+  get subscriptionBlockReason(){return this.creditPilot?'Included-only mode remains blocked. Credit-approved execution is restricted to the exact disposable pilot and supervisor release.':'Codex 0.157.0 cannot establish included-only execution or disable uncertain transport retries. Subscription investment execution is blocked.';}
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {
+    requireThat(!this.creditPilot,'Credit pilot runtime cannot execute ordinary work');return this.runTurn(input,signal);
+  }
+  private async runTurn(input:RuntimeInput,signal:AbortSignal,policy?:ActivityPolicy):Promise<RuntimeResult>{
     requireThat(input.worker.runtime_type === this.type, 'Worker/runtime adapter mismatch');
     validateBinding(input); this.checkVersion();
     if (signal.aborted) return { status: 'interrupted', error: 'Interrupted before runtime start' };
-    const rpc = this.connect(input.worker.workspace_path);
+    const skills=policy?await this.isolateSkills(input.worker.workspace_path,Date.parse(input.localDeadline!),signal):undefined;
+    const rpc = this.connect(input.worker.workspace_path,!!policy,skills);
     let threadId: string | undefined; let turnId: string | undefined;
     let starting = false; let toolCalls = 0; let stopping=false;
     const pendingEvents: RpcMessage[] = [];
@@ -217,7 +237,7 @@ export class CodexRuntime implements RuntimeAdapter {
       }, 6000);
     };
     signal.addEventListener('abort', interrupt, { once: true });
-    const timeout = setTimeout(() => { finish({ status: 'failed', error: 'Bounded runtime deadline exceeded; inspect evidence before retry' }); rpc.close(); }, this.timeoutMs);
+    const timeout = setTimeout(() => { if(policy){interrupt();return;}finish({ status: 'failed', error: 'Bounded runtime deadline exceeded; inspect evidence before retry' }); rpc.close(); }, policy?Math.max(1,Date.parse(input.localDeadline!)-Date.now()):this.timeoutMs);
     rpc.on('closed', (error: Error) => finish({ status: signal.aborted ? 'interrupted' : 'failed', error: error.message }));
     const handleRequest = async (message: RpcMessage) => {
       try {
@@ -253,6 +273,7 @@ export class CodexRuntime implements RuntimeAdapter {
         }
       } catch (error) {
         try {
+          if(policy){approvalDenied=true;interrupt();}
           input.event('tool_rejected', { reason: error instanceof Error ? error.message : 'Tool rejected' });
           rpc.send({ id: message.id, result: { contentItems: [{ type: 'inputText', text: error instanceof Error ? error.message : 'Tool rejected' }], success: false } });
         } catch { finish({status:'failed',error:'Runtime callback authority revoked'}); rpc.close(); }
@@ -263,6 +284,7 @@ export class CodexRuntime implements RuntimeAdapter {
     const notification = (message: RpcMessage) => {
       try {
       const p = message.params ?? {};
+      if(policy&&message.method==='account/updated'&&!finished){approvalDenied=true;input.event('runtime_account_changed',{});interrupt();return;}
       if (p.threadId !== threadId || !threadId || finished) return;
       if (starting && !turnId) { requireThat(pendingEvents.length < 256, 'Runtime event buffer exceeded');pendingEvents.push(message);return; }
       const eventTurn = p.turnId ?? (p.turn as {id?:string}|undefined)?.id;
@@ -271,7 +293,8 @@ export class CodexRuntime implements RuntimeAdapter {
         input.event('runtime_turn_started', { runtime_reference: threadId, turn_id: turnId });
         if (stopping || signal.aborted) interrupt();
       }
-      if (message.method === 'item/completed') {
+      if (policy&&message.method==='error'){input.event('runtime_provider_retry_observed',{will_retry:p.willRetry===true});if(p.willRetry===true)input.usage?.({kind:'provider_retry',threadId,turnId});}
+      if (message.method === 'item/completed'||policy&&message.method==='item/started') {
         const item = p.item as { type?: string; text?: string; phase?: string; name?: string };
         if (item.type === 'agentMessage' && typeof item.text === 'string' && item.phase !== 'commentary') {
           requireThat(item.text.length <= (input.mode === 'conversation' ? CONVERSATION_LIMITS.replyChars : 20000), 'Runtime output bound exceeded'); finalText = item.text;
@@ -283,7 +306,7 @@ export class CodexRuntime implements RuntimeAdapter {
         }
       }
       if(message.method==='rawResponse/completed')input.usage?.({kind:'response',threadId,turnId,responseId:String(p.responseId??''),usage:p.usage});
-      if(message.method==='model/rerouted')input.usage?.({kind:'model_changed',threadId,turnId});
+      if(message.method==='model/rerouted'){input.usage?.({kind:'model_changed',threadId,turnId});if(policy){approvalDenied=true;interrupt();}}
       if (message.method === 'thread/tokenUsage/updated') {
         const snapshot=p.tokenUsage as {total?:unknown;last?:unknown};
         input.usage?.({kind:'snapshot',threadId,turnId,total:snapshot?.total,last:snapshot?.last});
@@ -295,6 +318,7 @@ export class CodexRuntime implements RuntimeAdapter {
         const turn = p.turn as { id: string; status: string; error?: { message: string } };
         if (turn.id !== turnId) return;
         if (approvalDenied) finish({ status: 'awaiting_approval', settled:true, error: 'Runtime requested an unavailable approval. No permissions granted.' });
+        else if (policy&&stopping) finish({status:'interrupted',settled:true,error:'Local pilot stop preceded provider settlement'});
         else if (turn.status === 'completed') finish({ status: 'completed', settled:true, summary: finalText });
         else if (turn.status === 'interrupted') finish({ status: 'interrupted', settled:true, error: 'Codex confirmed turn interruption' });
         else finish({ status: 'failed', settled:true, error: 'Codex turn failed; check authentication, model access and connectivity with codex:preflight' });
@@ -303,15 +327,15 @@ export class CodexRuntime implements RuntimeAdapter {
     };
     rpc.on('notification', notification);
     try {
-      const { overrides, catalog } = await this.initialize(rpc);
+      const { overrides, catalog,accountIdentity } = await this.initialize(rpc,!!policy,input.worker.workspace_path,skills);
       const effective = resolveAIProfile(input.worker, catalog);
       const model = effective.model;
       if (signal.aborted || finished) return await result;
-      input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).length });
+      input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).filter(k=>k.startsWith('mcp_servers.')).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
         approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?(discussionInstructions+(input.tools.some(t=>t.name==='paper_propose')?'\n'+investmentInstructions:'')):conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
         developerInstructions: `Trusted BotSquad worker identity: ${input.worker.worker_id}. Use only the supplied ${input.mode} context.`,
-        model, allowProviderModelFallback: false };
+        model, ...(policy?{modelProvider:'openai',serviceTier:'default'}:{}), allowProviderModelFallback: false };
       let thread: ThreadResponse;
       if (input.binding) {
         const stored = await rpc.request<ThreadResponse>('thread/read', { threadId: input.binding.runtime_reference, includeTurns: false });
@@ -332,6 +356,7 @@ export class CodexRuntime implements RuntimeAdapter {
       threadId = thread.thread.id;
       const threadName = input.binding?.thread_name ?? (input.binding ? null : `BotSquad · ${input.worker.display_name} · ${input.worker.title}${input.mode === 'conversation' ? ` · ${input.request.conversation_id} · generation ${input.execution.generation}` : ''}`);
       requireThat(thread.model === effective.model, 'Runtime selected a different model; refusing silent fallback');
+      if(policy)requireThat(thread.modelProvider==='openai'&&thread.serviceTier==='default'&&effective.model===this.creditPilot!.model,'Private pilot provider/model/tier mismatch');
       const binding = { worker_id: input.worker.worker_id, runtime_type: this.type, runtime_reference: threadId, workspace_path: input.worker.workspace_path, created_at: input.binding?.created_at ?? new Date().toISOString(), thread_name: threadName };
       // Persist the known provider identity before another awaited setup operation.
       // Activation is separate, after naming/configuration checks have succeeded.
@@ -342,9 +367,10 @@ export class CodexRuntime implements RuntimeAdapter {
       input.bind(binding);
       input.event(input.binding ? 'worker_resumed' : 'runtime_started', { runtime_reference: threadId, model: thread.model ?? 'configured' });
       if (signal.aborted || finished) return { status: 'interrupted', error: 'Interrupted before turn start' };
-      const contextText = JSON.stringify(input.context);
+      const contextText = policy?privateContext(input.context):JSON.stringify(input.context);
       input.usage?.({kind:'start',identity:{threadId,model:effective.model,provider:thread.modelProvider??'unknown',serviceTier:thread.serviceTier==='default'?'standard':thread.serviceTier??null,freshThread:!input.binding}});
       input.event('runtime_turn_starting', {runtime_reference:threadId,context_chars:contextText.length});
+      if(policy){live();rejectGlobalInstructions();const account=await rpc.request('account/read',{refreshToken:false});const limits=await rpc.request('account/rateLimits/read',{});const eligibility=eligibleCreditSubscription(account,limits);requireThat(creditAccountFingerprint(account,this.creditPilot!.pilotId)===accountIdentity,'Pilot account identity changed during setup');live();requireThat(Date.now()<Date.parse(input.localDeadline!),'Pilot deadline expired before admission');input.admitSubscription!({threadId,model:effective.model,accountFingerprint:accountIdentity,eligibility});}
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
         input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?'strategic mandate review':'conversation reply') : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
@@ -357,6 +383,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if (stopping || signal.aborted) interrupt();
       return await result;
     } catch (error) {
+      if(policy&&stopping)return await result;
       if (signal.aborted) return { status: 'interrupted', error: 'Interrupted during runtime startup; inspect evidence before retry' };
       if (finished) return await result;
       throw error;

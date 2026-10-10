@@ -29,7 +29,7 @@ export class InvestmentLoop {
  envelope(l:Loop){const e=JSON.parse(l.envelope) as LoopEnvelope;requireThat(hash({envelope:e,scope:this.company.investmentTeam.scope(l.scope_id).digest})===l.digest,'Loop envelope integrity failed');return e;}
  private scope(l:Loop){return this.company.investmentTeam.scope(l.scope_id);}
  private team(l:Loop){return this.company.investmentTeam.envelope(this.scope(l));}
- private configuration(l:Loop){return this.company.investmentTeam.configuration(this.scope(l));}
+ private configuration(l:Loop){requireThat(this.team(l).audience!=='private_synthetic','Private pilot cannot use scheduled investment loops');return this.company.investmentTeam.configuration(this.scope(l));}
  private sim(l:Loop){const c=this.configuration(l);return new FixtureSimulator(this.db,{now:()=>this.now()},c.authorization.fixtureOperator);}
  private market(l:Loop){return this.company.investmentTeam.market(this.scope(l));}
  private rawMarket(l:Loop){return new MarketFixtureSimulator(new MarketStore(this.db),{now:()=>this.now()},this.configuration(l).authorization.fixtureOperator);}
@@ -40,6 +40,7 @@ export class InvestmentLoop {
  preview(input:unknown){this.company.conversations.human();return this.db.transaction(()=>{
   const a=strictObject(input,['scopeId','sessions','researchMinutes','maxCycleExecutions','maxDailyExecutions','maxRunExecutions','dailyLimits','runLimits','maxStageAttempts','retrySeconds']);
   const scope=this.company.investmentTeam.scope(textField(a,'scopeId',100)),team=this.company.investmentTeam.envelope(scope),c=this.company.investmentTeam.configuration(scope),g=this.company.discussions.group(scope.group_id);
+  requireThat(team.audience!=='private_synthetic','Private pilot cannot use scheduled investment loops');
   requireThat(scope.state==='active'&&g.state==='draft'&&!this.db.get('SELECT 1 FROM investment_team_executions WHERE scope_id=?',scope.scope_id),'Select an approved fresh team with no execution history');
   requireThat(time(this.now())<time(team.expiresAt)&&this.simForScope(scope.scope_id).inspect(scope.run_id).lifecycle==='active','Current finite team and run authority required');
   requireThat(Array.isArray(a.sessions)&&a.sessions.length>=1&&a.sessions.length<=8&&a.sessions.every(s=>typeof s==='string')&&new Set(a.sessions).size===a.sessions.length,'Choose one to eight explicit calendar sessions');

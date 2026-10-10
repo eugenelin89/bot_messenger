@@ -1133,3 +1133,7 @@ in parallel once its actual trust/data dependencies are proven and scope is auth
 - [Computer Use Model](COMPUTER_USE_MODEL.md)
 - [Decision index](../decisions/README.md)
 - [Demo Operator and Guided Tutorials](DEMO_OPERATOR.md)
+
+## 2026-10-10 — Finite private credit pilot
+
+The owner authorized [Decision037](../decisions/decision_037_credit_approved_private_pilot.md), an isolated four-turn synthetic discussion using existing credits, after review/integration and reload confirmation. [Acceptance](../validation/investment/INV-CREDIT-PILOT.md) tracks actual inference separately from source. This does not advance official investment operations, Ask, production/public release or RECOVERY-01.

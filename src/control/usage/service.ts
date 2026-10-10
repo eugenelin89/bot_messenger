@@ -30,6 +30,7 @@ export class AIUsage {
  requireThat(r.thread_id===event.threadId,'Usage thread mismatch');
  if(event.kind==='turn'){requireThat(!r.turn_id||r.turn_id===event.turnId,'Usage turn changed');this.db.run('UPDATE ai_usage SET turn_id=? WHERE usage_id=?',event.turnId,usageId);return;}
  requireThat(r.turn_id===event.turnId,'Usage turn mismatch');
+ if(event.kind==='provider_retry'){this.reason(usageId,'Provider retry observed; failed-attempt token coverage unavailable');this.refresh(usageId);return;}
  if(event.kind==='model_changed'){this.db.run('UPDATE ai_usage SET model_changed=1 WHERE usage_id=?',usageId);this.reason(usageId,'Provider changed model');this.refresh(usageId);return;}
  try {
  if(event.kind==='response'){

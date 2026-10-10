@@ -138,6 +138,7 @@ export class Discussions {
         requireThat(g.deadline&&Date.parse(g.deadline)>this.company.investmentLoop.clockForGroup(g.group_id),'Deadline expired; request a bounded extension first');queued();this.db.run("UPDATE working_groups SET state='active',error=NULL WHERE group_id=?",g.group_id);this.db.run('UPDATE discussion_turns SET advanced=1 WHERE group_id=?',g.group_id);
         this.enqueue(this.group(g.group_id),target,'finalize','Owner explicitly requests one final synthesis using current evidence. Report incomplete participation, unanswered questions, dissent and uncertainty. No new research.');
       }else requireThat(false,'Unknown group control');
+      if(['pause','stop'].includes(action)&&this.company.creditPilot.get()?.scope_id===this.company.investmentTeam.forGroup(g.group_id)?.scope_id)this.company.creditPilot.stop();
       this.audit(`owner_${action}`,g,{active_work:active.length,pause_clock:'Wall-clock deadline continues while paused'});for(const w of this.members(g))this.company.refreshWorker(w.worker_id);return this.group(g.group_id);
     });
   }
@@ -203,7 +204,7 @@ export class Discussions {
       }catch(e){this.db.db.exec('ROLLBACK TO discussion_progress; RELEASE discussion_progress');this.block(g,`Progression could not schedule safely: ${String(e)}`);}
     });
   }
-  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return [...discussionTools(t.kind,this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize'),...this.company.investmentTeam.tools(r)];}
+  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return [...discussionTools(t.kind,(!this.company.investmentTeam.forGroup(g.group_id)||this.company.investmentTeam.envelope(this.company.investmentTeam.forGroup(g.group_id)!).audience!=='private_synthetic')&&this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize'),...this.company.investmentTeam.tools(r)];}
   private verify(context:ExecutionContext){const v=this.company.conversations.verify(context);const g=this.forConversation(v.request.conversation_id),t=this.turn(v.request.request_id);requireThat(g&&t,'Discussion execution required');return {...v,group:g,turn:t};}
   context(context:ExecutionContext){
     const {worker,session,group:g,turn:t}=this.verify(context);

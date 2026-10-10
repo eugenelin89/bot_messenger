@@ -170,3 +170,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Subscription activity and usage reporting
 
 [Decision036](decision_036_subscription_activity_usage.md) amends034/035 with a separately approved private activity policy and common usage/reference-cost reporting. Pinned Codex admission remains blocked; [acceptance](../validation/investment/INV-SUBSCRIPTION-USAGE.md) distinguishes fake local controls from provider feasibility.
+
+- [Decision 037 — Credit-approved supervised private pilot](decision_037_credit_approved_private_pilot.md): dated owner exception for existing credits/internal retries, four total turns in disposable private synthetic state; no ordinary activation.

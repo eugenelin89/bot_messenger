@@ -24,6 +24,7 @@ export type UsageObservation =
  | {kind:'turn';threadId:string;turnId:string}
  | {kind:'snapshot';threadId:string;turnId:string;total:unknown;last:unknown}
  | {kind:'response';threadId:string;turnId:string;responseId:string;usage:unknown}
+ | {kind:'provider_retry';threadId:string;turnId:string}
  | {kind:'model_changed';threadId:string;turnId:string};
 export function addTokens(a:Tokens,b:Tokens):Tokens {
  const result={} as Record<keyof Tokens,number|null>;

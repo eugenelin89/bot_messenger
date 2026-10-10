@@ -11,10 +11,10 @@ import type { ResearchProvider } from '../domain/research.js';
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
 interface RuntimeInputFields {
   worker: Worker; binding?: RuntimeBinding;
-  /** Absolute local supervision cutoff; subscription adapters must include finite termination within it. */
+  /** Absolute local interruption deadline; subscription adapters must use finite termination after it. */
   localDeadline?: string;
   usage?(observation:UsageObservation):void;
-  admitSubscription?(identity:{threadId:string;model:string;eligibility:SubscriptionEligibility}):void;
+  admitSubscription?(identity:{threadId:string;model:string;accountFingerprint?:string;eligibility:SubscriptionEligibility}):void;
   context: unknown; tools: ToolDefinition[];
   // Network tools may be asynchronous. Adapters MUST await before serialization/settlement.
   callTool(callId: string, name: string, args: unknown, signal?: AbortSignal): unknown | Promise<unknown>;
@@ -32,10 +32,11 @@ export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
   readonly subscriptionBlockReason?: string;
+  subscriptionPolicySupported?(policy:ActivityPolicy):boolean;
   researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
-  /** Optional trusted subscription contract: obtain fresh supported no-paid eligibility,
+  /** Optional trusted subscription contract: obtain fresh supported eligibility for the exact approved policy,
    * call admitSubscription immediately before the single supervised turn, honor the
    * absolute local deadline with finite termination, and never retry uncertain work.
    * Absence holds investment work; callers must never fall back to run. */
