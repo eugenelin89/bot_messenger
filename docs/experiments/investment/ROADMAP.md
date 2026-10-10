@@ -1,8 +1,8 @@
 # Investment showcase — prompt-by-prompt build roadmap
 
-**Version:** 1.6 | **Updated:** 2026-10-09 | [Design guide](README.md)
+**Version:** 1.7 | **Updated:** 2026-10-09 | [Design guide](README.md)
 
-**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 artifact/discussion/archive and human views are now validated in source and on the disabled private receiver; INV-04 onward and all Ask packets remain planned. The receiver is privately installed and validated by INFRA-02, stopped/default disabled with no public or real publisher activation. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
+**Implementation status:** INV-01 contracts and INV-02 Asymmetri REST receiver/archive are implemented and validated locally; INV-03 artifact/discussion/archive and human views are now validated in source and on the disabled private receiver; INV-04 is complete in source and local synthetic/browser validation, not deployed; INV-05 is ready for separate selection and not started, with later investment and all Ask packets planned. The receiver is privately installed and validated by INFRA-02, stopped/default disabled with no public or real publisher activation. Documentation is not implementation, deployment, publication consent or authority to spend money. Use experiment-local `INV` identifiers; this is not core Prompt 12. Personal Operator reliability work and existing security boundaries remain in force.
 
 **Ask BotSquad amendment:** R09 adds general and transaction-context public questions answered by one relevant real employee. Read [the feature specification](ASK_BOTSQUAD.md) and [the four detailed Ask packets](ASK_BOTSQUAD_ROADMAP.md). They amend the original read-only-visitor scope through [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md), without granting visitors investment or owner authority. The status table below remains authoritative for both tracks.
 
@@ -23,8 +23,8 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | INV-01 | Frozen contracts, configuration and feasibility gate | BotSquad; read-only website review | Design baseline including R09 | Complete, not deployed | [INV-01 evidence](../../validation/investment/INV-01.md) |
 | INV-02 | Authenticated public receiver and durable archive | Asymmetri | 01 | Complete; private install accepted separately, activation disabled | [INV-02 evidence](../../validation/investment/INV-02.md); [INFRA-02](../../validation/investment/INFRA-02.md) |
 | INV-03 | Artifact publication and discussion archive | Asymmetri | 02 | Complete; private installation validated, activation disabled | [INV-03 evidence](../../validation/investment/INV-03.md) |
-| INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Ready for separate owner selection; not started | — |
-| INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Planned | — |
+| INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Complete; source/local validation only, not deployed or activated | [INV-04 evidence](../../validation/investment/INV-04.md) |
+| INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Ready for separate owner selection; not started | — |
 | INV-06 | Zero-cost free-source market evidence, permitted scraping and calendar adapter | BotSquad | 05; Decision 029 and source-use/quality gate | Planned | — |
 | INV-07 | Scoped HQ publisher and durable delivery | BotSquad | 01–03, 05 | Planned | — |
 | INV-08 | Real investment-team capability and discussion integration | BotSquad | 05–07 | Planned | — |
@@ -77,13 +77,13 @@ stream transport does not prove real HTTP/TLS ingress. INV-03 subsequently passe
 complete synthetic restore. Shared443/public capacity, live backup custody/policy and
 real authority/rights remain activation gates; the rejected HTTP profile stays rejected.
 The authorized private controls do not replace OS patches.
-Publishing stays default disabled. INV-03 was subsequently selected and completed; INV-04 needs a separate request.
+Publishing stays default disabled. INV-03 and INV-04 were subsequently selected and completed for their documented scope; INV-05 requires a separate request.
 No record here starts market collection or an Ask service.
 A future OS upgrade or Django retirement is an independent owner decision.
 
 ## Common completion contract
 
-Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01–03 and private INFRA-02 evidence now exists; later feature-packet evidence remains to be produced.
+Each packet supplies: exact starting and ending commit(s); changed files; implemented requirement IDs; focused and regression checks; actual-versus-fixture evidence; review findings/dispositions; preserved production state; remaining limitations; and the next packet's prerequisites. Record these under `docs/validation/investment/INV-NN.md` or `INV-ASK-NN.md` in BotSquad, linking website evidence and exact commit when applicable. INV-01–04 and private INFRA-02 evidence now exists; later feature-packet evidence remains to be produced.
 
 A useful status is “implemented, not deployed” or “blocked by data rights,” not an unsupported “complete.” No runtime tests are claimed from documentation review; no real-worker acceptance from stubs; no official public experiment from a synthetic demo. Never require profits or a predetermined BUY to pass acceptance. A separate chatbot falsely labelled as an employee cannot pass Ask acceptance.
 
@@ -148,9 +148,10 @@ INV-03 handoff: [accepted evidence](../../validation/investment/INV-03.md) pins 
 journal, schema002 and disabled installed state. 200 local and 200 actual Node22 tests,
 62 TLS tests, complete restore and 228 site-preservation probes pass. The HTTP proxy
 profile remains rejected (48/52); public ingress/custody/rights/HQ gates are explicit.
-INV-04 can proceed on labelled fixtures only when separately selected. Its website
-read authority must be reconciled with any future public signed authority before
-combined activation; do not relax strict receiver Host verification.
+INV-04 was subsequently selected and completed on labelled fixtures; its evidence
+below owns the current handoff. Website read authority must still be reconciled
+with any future public signed authority before combined activation; do not relax
+strict receiver Host verification.
 
 ## INV-04 — BotSquad public showcase
 
@@ -165,6 +166,15 @@ combined activation; do not relax strict receiver Host verification.
 **Not included:** Official experiment announcement, actual public-question processing before the Ask gates, live-trading claims or unscheduled production publication.
 
 **Codex task:** “Execute INV-04 only. Implement the BotSquad-first showcase against the public experience specification and reserve the Ask entry points. Demonstrate the journey with permanent synthetic labels and document visual/accessibility evidence.”
+
+INV-04 handoff: [accepted evidence](../../validation/investment/INV-04.md) pins the
+Asymmetri source/journal, 202 receiver tests, three focused tests, six browser widths,
+exact evidence journey, withdrawal/recovery/cursor acceptance and preserved production
+state. Both build paths pass through the documented Next webpack fallback; the
+Turbopack sandbox failure is retained. Canonical v1/schema002 are unchanged. Additive
+visibility/latest-window headers require a separately authorized coordinated receiver
+and website release. The full synthetic UI and disabled Ask preview do not prove real
+employees, source rights, operating capacity or readiness for public activation.
 
 ## INV-05 — Deterministic paper simulator
 
