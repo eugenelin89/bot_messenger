@@ -218,3 +218,7 @@ Credentials, branch workflow and exact action approval remain separate prerequis
 ## Investment source sequence — INV-08, 2026-10-10
 
 [INV-08](validation/investment/INV-08.md) adds scoped existing-employee paper tools and committed public evidence, preserving global roles/history and the shared dispatcher. Schema18 is passive; no deployment occurred. Genuine employee acceptance is held because the current Codex adapter cannot enforce the required investment token/cost envelope. [Decision034](decisions/decision_034_scoped_investment_team.md) documents partial source boundaries. Owner-authorized source work continues through INV-09; Ask, INV10–12, official activation and production remain separate.
+
+## Investment source sequence — INV-09, 2026-10-10
+
+[INV-09](validation/investment/INV-09.md) adds a finite calendar loop and private owner run controls using the existing clock and two-slot dispatcher. Schema19 is passive; token/cost reservations remain cumulative, unknown usage blocks new work, and controls preserve filled trades and uncertainty. Source acceptance includes real SIGKILL and elapsed deadline mechanisms, not real employee or exchange-session acceptance. No production change occurred. The authorized sequence ends after normal source integration; [readiness](operations/INVESTMENT_READINESS.md) is a proposal only.

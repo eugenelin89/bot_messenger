@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {join} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {loopFixture} from './fixtures/investment-loop/support.js';
+import {Dispatcher} from '../src/control/dispatcher.js';
+import {createHttpServer} from '../src/http/server.js';
+test('run owner API rejects device, cross-site and invented approval; exact controls remain passive until due',async t=>{
+ const f=loopFixture(),d=new Dispatcher(f.company,f.bounded),http=createHttpServer(f.company,d,join(process.cwd(),'public'));await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await d.stop();await f.close();});const root=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`,token=(await(await fetch(root+'/api/session')).json() as {csrfToken:string}).csrfToken;assert.equal((await fetch(root+'/investment-run')).status,200);const post=(path:string,input:unknown,extra:Record<string,string>={})=>fetch(root+'/api/investment-run'+path,{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':token,...extra},body:JSON.stringify(input)});for(const h of [{'X-BotSquad-Token':'forged'},{Origin:'https://invalid.example'},{'Sec-Fetch-Site':'cross-site'},{Authorization:'Bearer device'}] as Record<string,string>[])assert.equal((await post('/preview',f.input,h)).status,403);const preview=await post('/preview',f.input);assert.equal(preview.status,201);const p=await preview.json() as {loopId:string;digest:string},control={loopId:p.loopId,action:'start',digest:p.digest,receiptId:randomUUID(),orderId:null};assert.equal((await post('/control',{...control,owner:'human'})).status,400);assert.equal((await post('/control',control)).status,200);assert.equal(f.store.all('SELECT * FROM investment_loop_requests').length,0);assert.equal(f.runtime.calls.length,0);assert.equal((await post('/control',{...control,action:'pause',receiptId:randomUUID()})).status,200);assert.equal(f.sim.inspect(f.config.runId).lifecycle,'paused');
+});

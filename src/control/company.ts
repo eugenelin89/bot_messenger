@@ -1,3 +1,5 @@
+import { InvestmentLoop } from './investment-loop/service.js';
+import type { RuntimeResult } from '../runtime/adapter.js';
 import { InvestmentTeam } from './investment-team/service.js';
 import { PublicationService, type PublicationOptions } from './publication/service.js';
 import { Mandates } from './mandates.js';
@@ -54,6 +56,7 @@ export class Company extends EventEmitter {
   readonly business: BusinessOperations;
   readonly publication: PublicationService;
   readonly investmentTeam: InvestmentTeam;
+  readonly investmentLoop: InvestmentLoop;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -74,6 +77,7 @@ export class Company extends EventEmitter {
     this.business = new BusinessOperations(this);
     this.publication = new PublicationService(store,publicationOptions);
     this.investmentTeam = new InvestmentTeam(this);
+    this.investmentLoop = new InvestmentLoop(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -320,7 +324,7 @@ export class Company extends EventEmitter {
         context: Object.freeze({ executionId, workerId: worker.worker_id, workspacePath: worker.workspace_path }) };
     });
   }
-  finish(executionId: string, outcome: { status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }) {
+  finish(executionId: string, outcome: RuntimeResult) {
     this.store.transaction(() => {
       const execution = this.execution(executionId);
       if (execution.status !== 'running') return;
@@ -328,7 +332,7 @@ export class Company extends EventEmitter {
       requireThat(!this.computers.hasPending(executionId),'Cannot complete while browser callbacks are unfinished.');
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
       if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
-      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); return; }
+      if (execution.origin === 'conversation') { this.investmentLoop.settle(executionId,outcome.investmentUsage); this.conversations.finish(execution, outcome); return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const computerSettlement=this.computers.settled(task,outcome.status);
       if(task.kind==='computer'&&outcome.status==='completed'&&computerSettlement!=='completed')outcome={...outcome,status:computerSettlement==='awaiting_approval'?'awaiting_approval':'failed',error:computerSettlement==='awaiting_approval'?'Exact protected browser action awaits owner approval':'Bounded browser session did not complete safely'};

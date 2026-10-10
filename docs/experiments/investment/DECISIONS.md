@@ -112,3 +112,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 ## INV-08 source boundary amendment — 2026-10-10
 
 [Decision034](../../decisions/decision_034_scoped_investment_team.md) implements exact existing-worker scopes, bounded runtime reservations, independent paper review and committed public discussion/artifact projections. [Evidence](../../validation/investment/INV-08.md) remains partial: current Codex has no enforceable investment token/cost envelope, so actual employee acceptance is held. Canonical price-evidence and earlier financial gaps remain explicit. No deployment, operational grant or official run follows; INV-09 may continue independent source work under the recorded sequence.
+
+## INV-09 source boundary amendment — 2026-10-10
+
+[Decision035](../../decisions/decision_035_finite_investment_loop.md) adds finite owner-approved calendar stages on the existing scheduler, irreversible usage reservations and precise run/order controls. [Evidence](../../validation/investment/INV-09.md) remains source/local-fixture acceptance: genuine employees, two real elapsed exchange cycles and live rights remain pending. The authorized source sequence ends after reviewed integration; the [readiness proposal](../../operations/INVESTMENT_READINESS.md) does not authorize deployment, Ask or INV-10–12.
