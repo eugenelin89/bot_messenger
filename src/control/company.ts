@@ -1,3 +1,4 @@
+import { PublicationService, type PublicationOptions } from './publication/service.js';
 import { Mandates } from './mandates.js';
 import { Computers } from './computers.js';
 import { BusinessOperations } from './business.js';
@@ -50,8 +51,9 @@ export class Company extends EventEmitter {
   readonly mandates: Mandates;
   readonly computers: Computers;
   readonly business: BusinessOperations;
+  readonly publication: PublicationService;
   readonly referenceDocs: ReadonlyMap<string, string>;
-  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport) {
+  constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
     mkdirSync(dataDir, { recursive: true, mode: 0o700 });
     this.dataDir = realpathSync(dataDir);
@@ -68,6 +70,7 @@ export class Company extends EventEmitter {
     this.mandates = new Mandates(this);
     this.computers = new Computers(this);
     this.business = new BusinessOperations(this);
+    this.publication = new PublicationService(store,publicationOptions);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());

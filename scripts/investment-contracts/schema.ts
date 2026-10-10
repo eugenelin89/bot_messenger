@@ -1,5 +1,5 @@
-/** Offline INV-01 conformance helpers. Not wired to HTTP, HQ, persistence or dispatch. */
-import { readFileSync } from 'node:fs';
+/** Pinned v1 validation/canonicalization reused by INV-07 trusted publication code. */
+import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import addFormatsModule from 'ajv-formats';
@@ -9,7 +9,9 @@ import type { ErrorCode, Problem } from '../../contracts/investment/v1/types.js'
 
 const addFormats = addFormatsModule as unknown as typeof import('ajv-formats').default;
 const canonicalize = canonicalizeModule as unknown as (value: unknown) => string | undefined;
-export const schema = JSON.parse(readFileSync('contracts/investment/v1/schema.json', 'utf8'));
+// Fixed source/compiled locations, independent of the caller's working directory.
+const sourceSchema = new URL('../../contracts/investment/v1/schema.json', import.meta.url);
+export const schema = JSON.parse(readFileSync(existsSync(sourceSchema) ? sourceSchema : new URL('../../../contracts/investment/v1/schema.json', import.meta.url), 'utf8'));
 const ajv = new Ajv2020({ strict: true, allErrors: false, validateFormats: true });
 addFormats(ajv);
 ajv.addSchema(schema);

@@ -154,3 +154,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Trusted market evidence — INV-06
 
 [Decision032](decision_032_market_evidence_boundary.md) separates source permissions, scheduled calendars, immutable evidence and one-shot collection from workers/accounting. Synthetic integration is implemented; live price permissions/semantics and public financial rights remain blocked. The [authorized sequence](../exec-plans/investment-autonomous-sequence-06-09.md) permits source work through INV-09 without production activation.
+
+## Scoped synthetic publisher — INV-07
+
+[Decision 033](decision_033_scoped_investment_publisher.md) records owner preview/consent, opt-in bounded capture, opaque public projections, immutable schema17, signed delivery/current-head restore fencing and explicit v1 coverage limitations. [Acceptance](../validation/investment/INV-07.md) remains source/synthetic-only and partial; no production authority follows.

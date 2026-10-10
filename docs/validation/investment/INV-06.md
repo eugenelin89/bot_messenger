@@ -58,3 +58,7 @@ No HQ host was contacted/deployed/migrated; no website/receiver source or config
 Canonical v1 pin stays `ba3dd74bc6be495f655b5ad1e6e4ba3fdf85b755`, manifest SHA256 `7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31`. No real market result or publication permission is inferred from fixtures.
 
 After reviewed source integration, inspect actual merged main, record its receipt and author the complete INV-07 successor prompt. INV-07 may implement privacy-reviewed synthetic public projections and isolated transport without resolving live market-data rights; live/public financial activation remains blocked. The owner's source sequence continues through INV-09. Ask and INV-10–12, official activation, spending and production deployment remain outside scope.
+
+### INV-06 integration receipt — 2026-10-10T07:20:54Z
+
+PR[#41](https://github.com/eugenelin89/bot_messenger/pull/41) merged reviewed implementation `35fe63805596d0d7e8ed3b5273c1360713d473ab` as `e6f27ec6164936d92015bc83d2df2e53fe92931f`. Exact head/base and empty remote status/workflow/review-thread lists were checked; normal GitHub merge accepted without bypass. Fetched origin/main equals merge, and its tree equals reviewed head. No deployment. INV-07 successor [specification](../../../prompts/experiments/investment-inv-07.md) was authored after this verification and the new owning worktree starts at that merge. Live price/public-rights gates remain blocked.

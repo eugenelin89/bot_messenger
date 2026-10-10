@@ -1,6 +1,6 @@
 # Execution Plan — INV-06 market evidence and calendar
 
-**Status:** Active. **Owner:** sequence parent, sole writer. **Branch:** `codex/inv06-market-evidence`.
+**Status:** Source integrated; live acceptance partial. **Owner:** sequence parent, sole writer. **Branch:** `codex/inv06-market-evidence`.
 **Worktree:** `../bot_messenger-inv06`. **Started:** 2026-10-09 America/Vancouver.
 **Initial packet ETA:** 90–150 minutes plus review. **Sequence ETA:** 6–10 hours.
 
@@ -30,8 +30,8 @@ Repository AGENTS, README, PROJECT_MEMORY, product vision/intelligent-company mo
 - [x] Deterministic malformed/quality/rights/correction/DST/holiday/early-close/cutoff/failure/quota/cache/HTTP/restart/no-lookahead/action tests.
 - [x] TypeScript, full regression, pinned contracts, populated migration preservation, privacy/secrets and whitespace checks. Use serial test execution to limit Mac load; do not run model tests.
 - [x] Read-only risk review, fix defects, repeat affected tests.
-- [ ] Commit/push/PR; verify exact head/base and checks; merge passing source scope.
-- [ ] Record merge receipt, actual limitations and generated INV-07 prompt; continue.
+- [x] Commit/push/PR; verify exact head/base and checks; merge passing source scope.
+- [x] Record merge receipt, actual limitations and generated INV-07 prompt; continue.
 
 ## Evidence ledger
 
@@ -44,3 +44,7 @@ Live source permissions/raw-field availability, current exceptional-closure/halt
 ### Final source validation — 2026-10-10
 
 760 total tests:759 pass,0 fail,1 existing Linux-only skip;167740ms serial. Focused40 evidence tests pass, including six overlapping-cache regressions added after review. Build/check, nine-file contract pin, populated migration, actual SIGKILL, local Markdown links, diff/whitespace and credential-pattern review pass. One credential-pattern hit was a pre-existing roadmap anchor substring, not a secret. Current-facing investment status was amended in README, PROJECT_MEMORY, investment README/ROADMAP/DECISIONS/VALIDATION and launcher; historical INV-05 evidence/selection wording remains dated history. All read-only security/recovery blockers resolved; live price and public financial rights remain blocked. No production or employee test. Ready for source PR/integration; next prompt must use actual accepted merge.
+
+### INV-06 integration receipt — 2026-10-10T07:20:54Z
+
+PR[#41](https://github.com/eugenelin89/bot_messenger/pull/41) merged reviewed implementation `35fe63805596d0d7e8ed3b5273c1360713d473ab` as `e6f27ec6164936d92015bc83d2df2e53fe92931f`. Exact head/base and empty remote status/workflow/review-thread lists were checked; normal GitHub merge accepted without bypass. Fetched origin/main equals merge, and its tree equals reviewed head. No deployment. INV-07 successor [specification](../../prompts/experiments/investment-inv-07.md) was authored after this verification and the new owning worktree starts at that merge. Live price/public-rights gates remain blocked.
