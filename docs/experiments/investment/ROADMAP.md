@@ -26,7 +26,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | INV-04 | Complete public showcase using labelled fixtures | Asymmetri | 03 | Complete; source/local validation only, not deployed or activated | [INV-04 evidence](../../validation/investment/INV-04.md) |
 | INV-05 | Deterministic HQ paper simulator | BotSquad | 01 | Implemented and locally validated; no deployment/activation | [Evidence](../../validation/investment/INV-05.md) |
 | INV-06 | Zero-cost free-source market evidence, permitted scraping and calendar adapter | BotSquad | 05; Decision 029 and source-use/quality gate | Synthetic source scope implemented; live price/public gates blocked | [Evidence](../../validation/investment/INV-06.md) |
-| INV-07 | Scoped HQ publisher and durable delivery | BotSquad | 01–03, 05 | Owner-authorized source work; predecessor integration pending | — |
+| INV-07 | Scoped HQ publisher and durable delivery | BotSquad | 01–03, 05 | Partial synthetic source acceptance; live/protocol gaps remain blocked | [Evidence](../../validation/investment/INV-07.md) |
 | INV-08 | Real investment-team capability and discussion integration | BotSquad | 05–07 | Planned | — |
 | INV-09 | Daily operating loop and owner controls | BotSquad | 08 | Planned | — |
 | INV-ASK-01 | Q&A contract, private session queue and abuse controls | Both | INV-01, INV-02 | Planned | — |

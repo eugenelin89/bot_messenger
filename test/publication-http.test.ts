@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { join } from 'node:path';
+import { request } from 'node:http';
+import { Company } from '../src/control/company.js';
+import { Dispatcher } from '../src/control/dispatcher.js';
+import { createHttpServer } from '../src/http/server.js';
+import { FakeRuntime } from './helpers.js';
+import { publicationFixture } from './fixtures/publication/support.js';
+test('owner publication API protects preview/consent and rejects device, cross-site, forged and extra-field authority',async t=>{
+ const f=publicationFixture();const runtime=new FakeRuntime(),company=new Company(f.store,f.dir,process.cwd(),'fake',undefined,undefined,{sources:[f.source],destinations:[f.destination],clock:f.clock}),dispatcher=new Dispatcher(company,runtime),http=createHttpServer(company,dispatcher,join(process.cwd(),'public'));
+ await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await dispatcher.stop();f.cleanup();});const url=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`;
+ assert.equal((await fetch(url+'/investment-publication')).status,200);const state=await (await fetch(url+'/api/investment-publication')).json();assert.equal(JSON.stringify(state).includes('PRIVATE KEY'),false);assert.equal(JSON.stringify(state).includes(f.config.runId),false);
+ const {csrfToken}=await (await fetch(url+'/api/session')).json() as {csrfToken:string};const post=(path:string,body:unknown,headers:Record<string,string>={})=>fetch(url+'/api/investment-publication'+path,{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':csrfToken,...headers},body:JSON.stringify(body)});
+ for(const headers of [{'X-BotSquad-Token':'forged'},{Origin:'https://attacker.invalid'},{'Sec-Fetch-Site':'cross-site'},{Authorization:'Bearer device-token'}] as Record<string,string>[])assert.equal((await post('/preview',f.envelope,headers)).status,403);
+ assert.equal((await new Promise<number>(resolve=>{const r=request(url+'/api/investment-publication',{headers:{Host:'attacker.invalid'}},res=>{res.resume();resolve(res.statusCode!);});r.end();})),403);
+ assert.equal((await post('/preview',{...f.envelope,publisherSecret:'denied'})).status,400);
+ const response=await post('/preview',f.envelope);assert.equal(response.status,201);const p=await response.json() as {id:string;digest:string};assert.equal(f.store.all('SELECT * FROM investment_public_jobs').length,0);
+ assert.equal((await post('/consent',{previewId:p.id,digest:p.digest,workerId:'author'})).status,400);assert.equal((await post('/consent',{previewId:p.id,digest:p.digest})).status,201);
+ f.store.run("UPDATE principals SET enabled=0 WHERE principal_id='human'");assert.equal((await fetch(url+'/api/investment-publication')).status,400);assert.equal((await post('/consent',{previewId:p.id,digest:p.digest})).status,400);assert.equal(runtime.calls.length,0);
+});

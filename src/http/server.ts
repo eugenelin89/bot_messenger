@@ -1,3 +1,4 @@
+import { SimulationError } from '../domain/investment/arithmetic.js';
 import { execFileSync } from 'node:child_process';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
@@ -60,6 +61,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}
+        if(path==='/api/investment-publication'){json(200,company.publication.inspect());return;}
         if(path==='/api/business'){json(200,company.business.inspect());return;}
         if(path.startsWith('/api/business/')){json(200,company.business.inspect(decodeURIComponent(path.slice('/api/business/'.length))));return;}
         if(path==='/api/computers'){json(200,company.computers.inspect());return;}
@@ -94,6 +96,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           '/groups.js': ['groups.js', 'text/javascript; charset=utf-8'],
           '/mandates.js': ['mandates.js', 'text/javascript; charset=utf-8'],
           '/business.js': ['business.js', 'text/javascript; charset=utf-8'],
+          '/investment-publication': ['publication.html', 'text/html; charset=utf-8'],
+          '/publication.js': ['publication.js', 'text/javascript; charset=utf-8'],
           '/computers.js': ['computers.js', 'text/javascript; charset=utf-8'],
           '/worker-portraits.js': ['worker-portraits.js', 'text/javascript; charset=utf-8'],
           '/styles.css': ['styles.css', 'text/css; charset=utf-8'],
@@ -128,6 +132,13 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
+      else if(path==='/api/investment-publication/preview'){json(201,company.publication.preview(body));}
+      else if(path==='/api/investment-publication/consent'){json(201,company.publication.consent(body));company.changed();}
+      else if(path==='/api/investment-publication/control'){json(200,company.publication.control(body));company.changed();}
+      else if(path==='/api/investment-publication/deliver'){json(200,await company.publication.deliver(body));company.changed();}
+      else if(path==='/api/investment-publication/reconcile'){json(200,await company.publication.reconcile(body));company.changed();}
+      else if(path==='/api/investment-publication/capture'){json(201,company.publication.capture(body));company.changed();}
+      else if(path==='/api/investment-publication/heartbeat'){json(201,company.publication.heartbeat(body));company.changed();}
       else if(path==='/api/business/grant'){json(201,company.business.authorize(body));}
       else if(path==='/api/business/observe'){json(201,await company.business.observe(body));}
       else if(path==='/api/business/decide'){json(200,company.business.decide(body));}
@@ -211,7 +222,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         const a = strictObject(body, ['task_id']); company.cancel(textField(a, 'task_id', 100)); json(200, { cancelled: true });
       } else json(404, { error: 'Not found' });
     } catch (error) {
-      json(error instanceof ClientError ? error.status : error instanceof DomainError ? 400 : 500, { error: error instanceof DomainError || error instanceof ClientError ? error.message : 'Operation failed. Inspect task and execution history.' });
+      json(error instanceof ClientError ? error.status : error instanceof DomainError || error instanceof SimulationError ? 400 : 500, { error: error instanceof DomainError || error instanceof ClientError || error instanceof SimulationError ? error.message : 'Operation failed. Inspect task and execution history.' });
     }
   });
   server.maxHeadersCount = 64;

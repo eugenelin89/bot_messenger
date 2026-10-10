@@ -52,3 +52,5 @@
 .task-ownership>small{display:block;margin-top:7px;font-size:10px}.task-card header{flex-wrap:wrap;align-items:flex-start}
 .worker-profile{margin:0 0 18px}.org-node{flex-wrap:wrap}.org-node>div{min-width:0;overflow-wrap:anywhere}
 @media(max-width:720px){.org-tree{padding:16px}.org-children{margin-left:12px;padding-left:12px}.org-node{gap:8px}}
+
+.publication-owner{max-width:1120px;margin:32px auto;padding:24px;width:100%;overflow-wrap:anywhere}.publication-owner pre{white-space:pre-wrap;max-height:480px;overflow:auto}.publication-owner label{display:block;margin:12px 0}.publication-owner select,.publication-owner input:not([type=checkbox]){max-width:100%;padding:8px}.publication-owner fieldset{margin:16px 0}.publication-owner .button{margin:8px 8px 8px 0}

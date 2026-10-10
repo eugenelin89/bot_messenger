@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createServer } from 'node:https';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync,readFileSync,rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { FixedPublicationTransport,destinationValid,signedRequest } from '../src/control/publication/transport.js';
+import { publicationFixture } from './fixtures/publication/support.js';
+test('publisher enforces normal TLS trust, fixed authority/paths, no redirect following and bounded responses',async t=>{
+ const f=publicationFixture();t.after(f.cleanup);const dir=mkdtempSync(join(tmpdir(),'botsquad-publisher-tls-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
+ execFileSync('/usr/bin/openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',join(dir,'key.pem'),'-out',join(dir,'cert.pem'),'-days','1','-subj','/CN=localhost','-addext','subjectAltName=DNS:localhost,IP:127.0.0.1'],{stdio:'ignore',timeout:10000});
+ let mode='ok',calls=0;const cert=readFileSync(join(dir,'cert.pem')),server=createServer({key:readFileSync(join(dir,'key.pem')),cert},(req,res)=>{calls++;req.resume();if(mode==='redirect'){res.writeHead(302,{Location:'https://other.invalid/denied','Content-Type':'application/json'});res.end('{}');}else if(mode==='large'){res.writeHead(200,{'Content-Type':'application/json'});res.end('x'.repeat(262145));}else{res.writeHead(200,{'Content-Type':'application/json'});res.end('{}');}});
+ await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve())));
+ const destination={...f.destination,origin:`https://127.0.0.1:${(server.address() as {port:number}).port}`,fixtureLoopback:false},path='/api/experiments/v1/experiments/fixture/runs/run/events',message=signedRequest(destination,f.keys,f.clock.now(),'POST',path,Buffer.from('{}'),'request');
+ await assert.rejects(new FixedPublicationTransport().send(destination,message),/self.signed|certificate/i);assert.equal(calls,0);const transport=new FixedPublicationTransport(cert);assert.equal((await transport.send(destination,message)).status,200);
+ mode='redirect';assert.equal((await transport.send(destination,message)).status,302);assert.equal(calls,2);mode='large';await assert.rejects(transport.send(destination,message),/response_limit/);
+ await assert.rejects(transport.send(destination,{...message,authority:'other.invalid'}),/authority_mismatch/);await assert.rejects(transport.send(destination,{...message,path:'/private-hq'}),/path_denied/);
+ for(const origin of ['http://example.invalid','https://example.invalid/path','https://user:secret@example.invalid','http://localhost:9999'])assert.throws(()=>destinationValid({...destination,origin,fixtureLoopback:true}));
+});
