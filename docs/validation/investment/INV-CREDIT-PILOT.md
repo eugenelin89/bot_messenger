@@ -1,7 +1,7 @@
 # INV-CREDIT-PILOT — Private credit-approved runtime acceptance
 
-**Date:** 2026-10-10  
-**Status:** Deterministic source acceptance complete; integration review in progress; real inference pending owner reload confirmation  
+**Date:** 2026-10-10
+**Status:** Source accepted for integration; genuine pilot pending owner reload confirmation
 **Accepted starting point:** `35409a0127ef735f90ac75b61fe1cd8a46f0f456` (PR46)
 
 ## Authorization and evidence classes
@@ -51,12 +51,26 @@ When authorized gates pass, retain the private manifest, exact accepted source S
 
 ## Integration and operational status
 
-Implementation commit/PR/main receipts pending. Production HQ and Asymmetri are unchanged. No official run, live stock-data acquisition, external brokerage, public publication, additional credit purchase or recurring model schedule has occurred.
+Implementation commit: `394ff8cc90a9b177900bc7587e41756499b24a4a`. Scoped implementation [PR47](https://github.com/eugenelin89/bot_messenger/pull/47). Control-plane, security, recovery, budget/accounting and acceptance roles accepted that exact clean source head with no remaining material findings. This documentation follow-up changes no executable source. The PR merge receipt and final handoff identify the accepted main SHA; it must match clean local/remote main and a fresh build before any later pilot command. Production HQ and Asymmetri are unchanged. No official run, live stock-data acquisition, external brokerage, public publication, additional credit purchase or recurring model schedule has occurred.
 
-The smallest next step is completing review/integration and the explicit automatic-reload-disabled gate, then one genuine supervised synthetic discussion turn. A complete investment cycle needs separately scoped authority after this finite pilot; no quota expansion follows automatically.
+After accepted source integration, the smallest next step is the explicit automatic-reload-disabled confirmation, then one genuine supervised synthetic discussion turn. No actual employee identities were exported and no real pilot was prepared while this gate remained absent. A complete investment cycle needs separately scoped authority after this finite pilot; no quota expansion follows automatically.
 
 ## Review findings and disposition
 
 Control plane, security, recovery, budget/accounting and acceptance roles reviewed source read-only. Material findings fixed: cross-turn account identity binding; account changes during admission; inherited host skills/global instruction context; completed notification arriving after local timeout; retry token coverage falsely appearing complete; and test fixtures whose missing contribution obscured usage-gate coverage. Cross-process stop was verified to poll durable state and abort the owning dispatcher, so the initial contrary finding was withdrawn. Emitted CLI root resolution was verified with the URL API and a compiled inspection smoke test; a contrary path-count finding was also withdrawn.
 
 Confinement now suppresses skill catalog/bundled/search features, enumerates metadata for the exact disposable workspace, relaunches with exact disabled skill paths, and verifies every skill disabled before a thread. Context JSON escapes literal skill sigils while round-tripping unchanged. Nonempty global Codex AGENTS files block the pilot without reading their contents. A trusted compact prompt replaces inherited compaction prose. Account fingerprints retain no raw email/account identifier. Internal retry observations keep reported tokens but mark coverage/estimate partial; absent or conflicting authoritative response telemetry denies continuation. Optional missing cached/cache-write/reasoning categories remain visibly partial but do not alone imply unknown provider settlement.
+
+## Pending live handoff
+
+| Pilot metric | Actual result |
+| --- | --- |
+| Genuine turns / participants |0 / none |
+| Genuine collaboration or completed investment cycle |Not attempted |
+| Per-worker/total model time and reported tokens |No live execution records |
+| API-equivalent pilot USD / attributable purchased-credit deductions |Not recorded / unavailable |
+| Live internal retries, interruptions, unknown outcomes or automatic BotSquad replay |None observed because no live turns ran |
+| Four-turn allowance |Unspent; deterministic fifth-turn denial passed |
+| Remaining active recurring schedule |None |
+
+Source implementation and deterministic acceptance are complete. The finite live demonstration remains pending specifically under the owner's reload-confirmation condition. Reuse the eventual single prepared directory; do not treat preparing another directory as a new allowance. Successful completion of this later private discussion would still not authorize a full operating cycle or public release.

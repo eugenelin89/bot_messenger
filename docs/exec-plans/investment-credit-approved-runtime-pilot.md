@@ -1,6 +1,6 @@
 # Execution Plan — Credit-approved runtime and finite private pilot
 
-**Status:** Active
+**Status:** Source accepted for integration; genuine pilot pending explicit owner reload confirmation
 **Owner:** Codex parent, sole writer; specialists read-only
 **Branch:** `feature/investment-credit-approved-runtime`
 **Worktree:** `bot_messenger-credit-pilot`
@@ -43,9 +43,14 @@ Required: check, build, full tests, contracts, focused runtime/admission/usage/r
 | Browser checks | 8/8 at390/1440px; screenshots inspected |
 | Full serial regression |1,001 pass/1 Linux-only skip/0 fail out of1,002;276.6s |
 | Contracts |175/175 pass |
-| Exact-head review/integration | In progress |
+| Exact-head reviews | All five roles accepted clean394ff8cc90a9b177900bc7587e41756499b24a4a |
+| Integration | [PR47](https://github.com/eugenelin89/bot_messenger/pull/47); final merge/main receipt in PR and handoff |
 | Genuine pilot | Pending reload confirmation; zero real turns |
 
 ## Current decisions and remaining work
 
-Provider-managed retries are accepted only within the new private-test mode. Included-only and strict policies remain unchanged. Read-only control-plane, security, recovery, accounting and acceptance reviews completed; material findings addressed. Final exact-head review follows validation. No actual model turn has run for this pilot.
+Provider-managed retries are accepted only within the new private-test mode. Included-only and strict policies remain unchanged. Read-only control-plane, security, recovery, accounting and acceptance reviews completed; material findings addressed. All five roles accepted the exact source commit; the documentation-only closure is reviewed before merge. No actual model turn has run for this pilot.
+
+## Handoff boundary
+
+No genuine worker roster was exported or live pilot created. Actual BotSquad model turns are0. The unfulfilled owner reload-confirmation gate intentionally leaves PhaseD pending; no model schedule, deployment, purchase, market-data acquisition or publication follows. Required deterministic checks are complete. After source merge, confirm the setting, build exact accepted main and supervise one turn before considering the remaining allowance.

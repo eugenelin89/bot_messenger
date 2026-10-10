@@ -1,7 +1,7 @@
 # Decision 037 — Credit-approved supervised private pilot
 
-**Date:** 2026-10-10  
-**Status:** Owner-authorized policy amendment; implementation acceptance tracked separately  
+**Date:** 2026-10-10
+**Status:** Owner-authorized policy amendment; implementation acceptance tracked separately
 **Scope:** One finite disposable synthetic investment discussion
 
 ## Decision
