@@ -116,3 +116,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 ## INV-09 source boundary amendment — 2026-10-10
 
 [Decision035](../../decisions/decision_035_finite_investment_loop.md) adds finite owner-approved calendar stages on the existing scheduler, irreversible usage reservations and precise run/order controls. [Evidence](../../validation/investment/INV-09.md) remains source/local-fixture acceptance: genuine employees, two real elapsed exchange cycles and live rights remain pending. The authorized source sequence ends after reviewed integration; the [readiness proposal](../../operations/INVESTMENT_READINESS.md) does not authorize deployment, Ask or INV-10–12.
+
+## 2026-10-10 — Activity policy and estimated AI cost
+
+[Decision036](../../decisions/decision_036_subscription_activity_usage.md) records the owner-approved8/rolling24h,24/run,15minute,1 investment/2 global policy. Invocation means a supervised turn including its internal tool loop. Strict mode remains separate; real Codex subscription admission is blocked. Usage/API-equivalent estimates are private reference reporting, separate from portfolio P&L, billing and subscription quota. Decision029 remains unchanged.

@@ -166,3 +166,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Finite investment operating loop — INV-09
 
 [Decision035](decision_035_finite_investment_loop.md) binds one immutable team/run to exact finite calendar stages, permanent usage reservations, measured/unknown costs and precise run controls through the existing scheduler. [Evidence](../validation/investment/INV-09.md) distinguishes isolated source acceptance from pending genuine/live cycles.
+
+## Subscription activity and usage reporting
+
+[Decision036](decision_036_subscription_activity_usage.md) amends034/035 with a separately approved private activity policy and common usage/reference-cost reporting. Pinned Codex admission remains blocked; [acceptance](../validation/investment/INV-SUBSCRIPTION-USAGE.md) distinguishes fake local controls from provider feasibility.

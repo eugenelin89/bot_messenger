@@ -1,8 +1,9 @@
+import {ACTIVITY_MAX} from '../../../src/domain/usage/policy.js';
 import {randomUUID} from 'node:crypto';
 import {teamFixture} from '../investment-team/support.js';
 import type {LoopEnvelope,Occurrence} from '../../../src/domain/investment-loop/types.js';
-export function loopFixture(options:{committed?:boolean}={}){
- const f=teamFixture(options),scope=f.grant();const sessions=f.config.calendar.sessions.filter(s=>s.status==='open'&&Date.parse(s.open)>Date.parse(f.clock.now())+86400000).slice(0,2).map(s=>s.date);
+export function loopFixture(options:{committed?:boolean;activity?:boolean}={}){
+ const f=teamFixture(options);if(options.activity){f.envelope.executionPolicy={...ACTIVITY_MAX};f.bounded.runSubscriptionInvestment=f.runtime.run.bind(f.runtime);}const scope=f.grant();const sessions=f.config.calendar.sessions.filter(s=>s.status==='open'&&Date.parse(s.open)>Date.parse(f.clock.now())+86400000).slice(0,2).map(s=>s.date);
  const input:LoopEnvelope={scopeId:scope.scopeId,sessions,researchMinutes:60,maxCycleExecutions:12,maxDailyExecutions:16,maxRunExecutions:24,dailyLimits:{inputTokens:128000,outputTokens:24000,maxCostMicros:0},runLimits:{inputTokens:192000,outputTokens:36000,maxCostMicros:0},maxStageAttempts:3,retrySeconds:30};
  const loop=f.company.investmentLoop,preview=()=>loop.preview(input),control=(loopId:string,action:string,digest?:string,orderId?:string)=>loop.control({loopId,action,digest:digest??null,receiptId:randomUUID(),orderId:orderId??null});
  const start=()=>{const p=preview();control(p.loopId,'start',p.digest);return p;};

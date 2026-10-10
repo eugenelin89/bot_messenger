@@ -23,3 +23,7 @@ All material still passes the independent exact publisher preview/consent. New p
 [INV-08 validation](../validation/investment/INV-08.md) owns actual test and integration receipts. Fake runtime scripts validate boundaries, not organizational intelligence. Current tests qualify owner-authored fixture excerpts; injected `licensed_publication` is a trusted selection assertion, not verification of any real license. No real feed/employee/rights/deployment acceptance follows.
 
 Canonical v1 is unchanged. Nonempty standalone private price evidence has no faithful public record mapping and fails explicitly. Multiorder decisions, distinct benchmark-only actions and mixed-effective historical valuation prefixes retain prior blockers. No official configuration, source, operational grant/key, schedule, receiver, public site, production database or Ask service is activated. The authorized source sequence may proceed to INV-09 with these gates explicit.
+
+## Later amendment — 2026-10-10
+
+[Decision036](decision_036_subscription_activity_usage.md) adds the owner-approved subscription activity alternative and shared cost reporting. This original strict-mode record remains unchanged; the new policy does not grant runtime capability or activation.

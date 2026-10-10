@@ -174,7 +174,7 @@ export class Conversations {
     for (const r of this.db.all<ReplyRequest>(`SELECT r.* FROM conversation_requests r JOIN workers w ON w.worker_id=r.target_worker_id JOIN conversations c USING(conversation_id)
       WHERE r.status='queued' AND c.state='active' AND NOT EXISTS(SELECT 1 FROM working_groups g WHERE g.conversation_id=c.conversation_id AND g.state!='active') AND NOT EXISTS(SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running')
       ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,r.created_at,r.rowid`)) {
-      if(this.company.mandates.held(r.conversation_id))continue;
+      if(this.company.mandates.held(r.conversation_id)||this.company.investmentActivity.held(r))continue;
       if(this.company.business.reserved(r.target_worker_id))continue;
       try {
         requireThat(!this.company.providerUnresolved(r.target_worker_id),'Prior provider outcome is unresolved; worker blocked for inspection');
@@ -241,6 +241,7 @@ export class Conversations {
     this.db.run("UPDATE conversation_requests SET status='replying',updated_at=? WHERE request_id=?",now(),r.request_id);
     this.company.mandates.recordScheduleDispatch(r,executionId,claimTime);
     this.company.investmentTeam.reserve(r,executionId);
+    this.company.aiUsage.ensure(executionId);
     this.company.refreshWorker(worker.worker_id);this.audit('execution_started',{request_id:r.request_id,session_id:session.session_id},worker.worker_id,executionId);
     const execution=this.company.execution(executionId);requireThat(execution.origin==='conversation','Wrong execution origin');
     return {origin:'conversation' as const,request:this.request(r.request_id),worker,execution,context:Object.freeze({executionId,workerId:worker.worker_id,workspacePath:worker.workspace_path})};

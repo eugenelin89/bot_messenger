@@ -1,3 +1,5 @@
+import type {ActivityPolicy,SubscriptionEligibility} from '../domain/usage/policy.js';
+import type {UsageObservation} from '../domain/usage/tokens.js';
 import type { InvestmentUsage } from '../domain/investment-loop/types.js';
 import type { TurnLimits } from '../domain/investment-team/types.js';
 import type { RuntimeCatalog, EffectiveAIConfig } from '../domain/ai-profile.js';
@@ -9,6 +11,10 @@ import type { ResearchProvider } from '../domain/research.js';
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
 interface RuntimeInputFields {
   worker: Worker; binding?: RuntimeBinding;
+  /** Absolute local supervision cutoff; subscription adapters must include finite termination within it. */
+  localDeadline?: string;
+  usage?(observation:UsageObservation):void;
+  admitSubscription?(identity:{threadId:string;model:string;eligibility:SubscriptionEligibility}):void;
   context: unknown; tools: ToolDefinition[];
   // Network tools may be asynchronous. Adapters MUST await before serialization/settlement.
   callTool(callId: string, name: string, args: unknown, signal?: AbortSignal): unknown | Promise<unknown>;
@@ -25,11 +31,15 @@ export interface RuntimeResult { investmentUsage?:InvestmentUsage; status: 'comp
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
+  readonly subscriptionBlockReason?: string;
   researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
-  /** Optional trusted adapter contract: enforce all supplied limits before/between provider effects.
+  /** Optional trusted subscription contract: obtain fresh supported no-paid eligibility,
+   * call admitSubscription immediately before the single supervised turn, honor the
+   * absolute local deadline with finite termination, and never retry uncertain work.
    * Absence holds investment work; callers must never fall back to run. */
+  runSubscriptionInvestment?(input:RuntimeInput,signal:AbortSignal,policy:ActivityPolicy):Promise<RuntimeResult>;
   runBoundedInvestment?(input: RuntimeInput, signal: AbortSignal, limits: TurnLimits): Promise<RuntimeResult>;
 }
 

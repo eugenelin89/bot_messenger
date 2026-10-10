@@ -103,7 +103,7 @@ Use submit_reply to commit the final answer, then finish. A reply never requests
 Respect the supplied durable pending obligations and request IDs. Never invent a tool receipt,
 approval, source, task result or information omitted from context. Keep the reply below 12000 characters.`;
 
-interface ThreadResponse {
+interface ThreadResponse { modelProvider?:string; serviceTier?:string|null;
   thread: { id: string; cwd: string; name?: string | null; status?: { type: string } };
   model?: string; approvalPolicy?: string; sandbox?: { type: string; networkAccess: boolean };
 }
@@ -144,7 +144,7 @@ export class CodexRuntime implements RuntimeAdapter {
     ], workspace);
   }
   private async initialize(rpc: AppServerRpc) {
-    await rpc.request('initialize', { clientInfo: { name: 'botsquad', title: 'BotSquad', version: '0.1.0' }, capabilities: { experimentalApi: true } });
+    await rpc.request('initialize', { clientInfo: { name: 'botsquad', title: 'BotSquad', version: '0.1.0' }, capabilities: { experimentalApi: true, optOutNotificationMethods:['rawResponseItem/completed'] } });
     rpc.send({ method: 'initialized', params: {} });
     const account = await rpc.request<{ account: { type: string } | null; requiresOpenaiAuth: boolean }>('account/read', { refreshToken: false });
     requireThat(account.account || !account.requiresOpenaiAuth, 'Codex authentication is missing. Run codex login.');
@@ -180,13 +180,16 @@ export class CodexRuntime implements RuntimeAdapter {
     resolveAIProfile({ ai_model: null, reasoning_effort: null, execution_priority: 'normal', ai_profile_locked: 1 }, catalog);
     return { ...catalog, model: catalog.defaultModel, transport: 'stdio', supportsInterrupt: true, dynamicTools: 'experimental' };
   }
+  // No subscription capability is exposed until the pinned provider can uphold this contract.
+  // Built-in OpenAI retry overrides are ignored in 0.157.0; no included-only request switch exists.
+  readonly subscriptionBlockReason = 'Codex 0.157.0 cannot establish included-only execution or disable uncertain transport retries. Subscription investment execution is blocked.';
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {
     requireThat(input.worker.runtime_type === this.type, 'Worker/runtime adapter mismatch');
     validateBinding(input); this.checkVersion();
     if (signal.aborted) return { status: 'interrupted', error: 'Interrupted before runtime start' };
     const rpc = this.connect(input.worker.workspace_path);
     let threadId: string | undefined; let turnId: string | undefined;
-    let starting = false; let toolCalls = 0;
+    let starting = false; let toolCalls = 0; let stopping=false;
     const pendingEvents: RpcMessage[] = [];
     const pendingRequests: RpcMessage[] = [];
     let finalText = ''; let approvalDenied = false; let finished = false; let interruptTimer: NodeJS.Timeout | undefined;
@@ -202,10 +205,10 @@ export class CodexRuntime implements RuntimeAdapter {
       if(value.settled&&pendingTools.size){completing=true;void Promise.allSettled([...pendingTools]).then(()=>finalize(value));}
       else finalize(value);
     };
-    const live = () => requireThat(!finished && !signal.aborted, 'Execution is stopping');
+    const live = () => requireThat(!finished && !stopping && !signal.aborted, 'Execution is stopping');
     const interrupt = () => {
       if (finished) return;
-      toolController.abort('Execution interrupted');
+      stopping=true;toolController.abort('Execution interrupted');
       if (threadId && turnId) {
         void rpc.request('turn/interrupt', { threadId, turnId }, 5000).catch(() => {});
       }
@@ -266,7 +269,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if (!turnId || eventTurn !== turnId) return;
       if (message.method === 'turn/started') {
         input.event('runtime_turn_started', { runtime_reference: threadId, turn_id: turnId });
-        if (signal.aborted) interrupt();
+        if (stopping || signal.aborted) interrupt();
       }
       if (message.method === 'item/completed') {
         const item = p.item as { type?: string; text?: string; phase?: string; name?: string };
@@ -279,7 +282,11 @@ export class CodexRuntime implements RuntimeAdapter {
           finish({ status: 'failed', error: 'Unexpected built-in tool activity; execution quarantined' }); rpc.close();
         }
       }
+      if(message.method==='rawResponse/completed')input.usage?.({kind:'response',threadId,turnId,responseId:String(p.responseId??''),usage:p.usage});
+      if(message.method==='model/rerouted')input.usage?.({kind:'model_changed',threadId,turnId});
       if (message.method === 'thread/tokenUsage/updated') {
+        const snapshot=p.tokenUsage as {total?:unknown;last?:unknown};
+        input.usage?.({kind:'snapshot',threadId,turnId,total:snapshot?.total,last:snapshot?.last});
         const usage = p.tokenUsage as {last?:{inputTokens?:number;outputTokens?:number;totalTokens?:number};modelContextWindow?:number|null};
         const safe = (n: unknown) => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0 ? n : null;
         input.event('runtime_usage',{turn_id:turnId,input_tokens:safe(usage?.last?.inputTokens),output_tokens:safe(usage?.last?.outputTokens),total_tokens:safe(usage?.last?.totalTokens),context_window:safe(usage?.modelContextWindow)});
@@ -317,7 +324,7 @@ export class CodexRuntime implements RuntimeAdapter {
       } else {
         input.event('runtime_context_creating', {mode:input.mode});
         thread = await rpc.request<ThreadResponse>('thread/start', { ...common, environments: [],
-          dynamicTools: input.tools.map(t => ({ type: 'function', ...t })) });
+          experimentalRawEvents:true, dynamicTools: input.tools.map(t => ({ type: 'function', ...t })) });
       }
       live();
       requireThat(thread.thread.cwd === input.worker.workspace_path && thread.approvalPolicy === 'never' && thread.sandbox?.type === 'readOnly' && thread.sandbox.networkAccess === false, 'Codex thread safety configuration mismatch');
@@ -336,16 +343,18 @@ export class CodexRuntime implements RuntimeAdapter {
       input.event(input.binding ? 'worker_resumed' : 'runtime_started', { runtime_reference: threadId, model: thread.model ?? 'configured' });
       if (signal.aborted || finished) return { status: 'interrupted', error: 'Interrupted before turn start' };
       const contextText = JSON.stringify(input.context);
+      input.usage?.({kind:'start',identity:{threadId,model:effective.model,provider:thread.modelProvider??'unknown',serviceTier:thread.serviceTier==='default'?'standard':thread.serviceTier??null,freshThread:!input.binding}});
       input.event('runtime_turn_starting', {runtime_reference:threadId,context_chars:contextText.length});
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
         input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?'strategic mandate review':'conversation reply') : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
         approvalPolicy: 'never', sandboxPolicy: { type: 'readOnly', networkAccess: false } });
       turnId = started.turn.id;
+      input.usage?.({kind:'turn',threadId,turnId});
       starting = false;
       for (const pending of pendingRequests) runtimeRequest(pending);
       for (const pending of pendingEvents) notification(pending);
-      if (signal.aborted) interrupt();
+      if (stopping || signal.aborted) interrupt();
       return await result;
     } catch (error) {
       if (signal.aborted) return { status: 'interrupted', error: 'Interrupted during runtime startup; inspect evidence before retry' };

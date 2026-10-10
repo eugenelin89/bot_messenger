@@ -1,3 +1,5 @@
+import { AIUsage } from './usage/service.js';
+import { InvestmentActivity } from './usage/activity.js';
 import { InvestmentLoop } from './investment-loop/service.js';
 import type { RuntimeResult } from '../runtime/adapter.js';
 import { InvestmentTeam } from './investment-team/service.js';
@@ -57,6 +59,8 @@ export class Company extends EventEmitter {
   readonly publication: PublicationService;
   readonly investmentTeam: InvestmentTeam;
   readonly investmentLoop: InvestmentLoop;
+  readonly aiUsage: AIUsage;
+  readonly investmentActivity: InvestmentActivity;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -78,6 +82,8 @@ export class Company extends EventEmitter {
     this.publication = new PublicationService(store,publicationOptions);
     this.investmentTeam = new InvestmentTeam(this);
     this.investmentLoop = new InvestmentLoop(this);
+    this.aiUsage = new AIUsage(this);
+    this.investmentActivity = new InvestmentActivity(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -316,6 +322,7 @@ export class Company extends EventEmitter {
       this.transition(task, 'working');
       const executionId = id('execution');
       this.store.run("INSERT INTO executions (execution_id,task_id,worker_id,runtime_reference,status,started_at,finished_at,error,interruption_reason,execution_priority,provenance_status) VALUES (?,?,?,NULL,'running',?,NULL,NULL,NULL,?,'unresolved')", executionId, task.task_id, worker.worker_id, now(), worker.execution_priority);
+      this.aiUsage.ensure(executionId);
       this.audit('task_claimed', 'system', { dispatch_reason: task.dispatch_reason }, worker.worker_id, task.task_id, executionId);
       this.audit('execution_started', 'system', {}, worker.worker_id, task.task_id, executionId);
       this.refreshWorker(worker.worker_id);
@@ -332,10 +339,11 @@ export class Company extends EventEmitter {
       requireThat(!this.computers.hasPending(executionId),'Cannot complete while browser callbacks are unfinished.');
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
       if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
-      if (execution.origin === 'conversation') { this.investmentLoop.settle(executionId,outcome.investmentUsage); this.conversations.finish(execution, outcome); return; }
+      if (execution.origin === 'conversation') { this.investmentLoop.settle(executionId,outcome.investmentUsage); this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,!!outcome.settled||outcome.status==='completed');this.investmentActivity.finish(executionId,this.execution(executionId).status,!!outcome.settled||outcome.status==='completed');return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const computerSettlement=this.computers.settled(task,outcome.status);
       if(task.kind==='computer'&&outcome.status==='completed'&&computerSettlement!=='completed')outcome={...outcome,status:computerSettlement==='awaiting_approval'?'awaiting_approval':'failed',error:computerSettlement==='awaiting_approval'?'Exact protected browser action awaits owner approval':'Bounded browser session did not complete safely'};
+      this.aiUsage.finish(executionId,outcome.status,!!outcome.settled||outcome.status==='completed');
       const summary = (outcome.summary ?? '').slice(0, 20000);
       this.store.run('UPDATE executions SET status=?,finished_at=?,error=?,interruption_reason=? WHERE execution_id=?',
         outcome.status, now(), outcome.error ?? null, outcome.status === 'interrupted' ? outcome.error ?? 'Human interruption' : null, executionId);
@@ -384,6 +392,8 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.aiUsage.recover();
+    this.investmentActivity.recover();
     this.business.recover();
     this.computers.recover();
     this.research.recover();

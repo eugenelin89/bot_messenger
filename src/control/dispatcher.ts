@@ -56,7 +56,7 @@ export class Dispatcher {
     this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=[this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    const deadline=[this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
     if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
@@ -70,7 +70,9 @@ export class Dispatcher {
       const internalTask=claim.origin==='task'?this.company.mandates.internalWork(claim.task.task_id):undefined;
       const ordinaryDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:internalTask?this.company.mandates.cycle(internalTask.cycle_id).deadline:group?.deadline;
       const teamScope=group?this.company.investmentTeam.forGroup(group.group_id):undefined;
-      const workDeadline=[ordinaryDeadline,teamScope?this.company.investmentTeam.envelope(teamScope).expiresAt:null].filter((v):v is string=>!!v).sort()[0];
+      const activityPolicy=this.company.investmentActivity.forExecution(execution.execution_id);
+      const activityDeadline=this.company.investmentActivity.deadline(execution.execution_id);
+      const workDeadline=[activityDeadline,ordinaryDeadline,teamScope?this.company.investmentTeam.envelope(teamScope).expiresAt:null].filter((v):v is string=>!!v).sort()[0];
       const deadlineAbort=workDeadline?setTimeout(()=>controller.abort('Bounded work deadline expired'),Math.max(1,Date.parse(workDeadline)-this.company.mandates.clock.now())):undefined;
       const done = (async () => {
         let providerSettled=false;
@@ -102,9 +104,14 @@ export class Dispatcher {
             callTool: (callId, name, args,signal) => (COMPUTER_TOOLS as readonly string[]).includes(name)?this.company.computers.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal):(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
+          input.localDeadline=workDeadline;
+          input.usage=observation=>{this.company.aiUsage.observe(execution.execution_id,observation);if(observation.kind==='turn')this.company.investmentActivity.turn(execution.execution_id,observation.turnId);};
+          input.admitSubscription=identity=>this.company.investmentActivity.admit(context,identity);
+          this.company.aiUsage.ensure(execution.execution_id);
           const investmentLimits=this.company.investmentTeam.limits(execution.execution_id);
-          if(investmentLimits)requireThat(this.adapter.runBoundedInvestment,'Bounded investment runtime unavailable');
-          const result = investmentLimits ? await this.adapter.runBoundedInvestment!(input,controller.signal,investmentLimits) : await this.adapter.run(input, controller.signal);
+          if(activityPolicy)requireThat(this.adapter.runSubscriptionInvestment,'Subscription activity runtime unavailable');
+          else if(investmentLimits)requireThat(this.adapter.runBoundedInvestment,'Bounded investment runtime unavailable');
+          const result = activityPolicy ? await this.adapter.runSubscriptionInvestment!(input,controller.signal,activityPolicy) : investmentLimits ? await this.adapter.runBoundedInvestment!(input,controller.signal,investmentLimits) : await this.adapter.run(input, controller.signal);
           await this.company.research.drain(execution.execution_id);
           await this.company.computers.drain(execution.execution_id);
           await this.company.business.drain(execution.execution_id);

@@ -1,3 +1,4 @@
+import type {UsageObservation} from './usage/tokens.js';
 export const RESEARCH_POLICY = 'public-research-v1';
 export const RESEARCH_LIMITS = Object.freeze({
   callsPerWork: 32, callsPerDay: 120, callsPerMinute: 12, searchesPerWork: 8,
@@ -23,6 +24,7 @@ export interface ResearchResult {
 }
 export interface SearchHooks {
   model?: string;
+  usage?(event:UsageObservation):void;
   prepared(reference: string): void;
   invoking(): void;
   settled(): void;

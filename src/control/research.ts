@@ -149,12 +149,15 @@ export class Research {
       try {
         this.authorize(context,cap);requireThat(!combined.aborted,'Research cancelled.');
         this.db.run("UPDATE research_operations SET state='running' WHERE operation_id=?",op);
+        if(name==='research_search')this.company.aiUsage.ensure(context.executionId,op,'research_broker');
         const result:ResearchResult=name==='research_search'?await this.provider!.search(request,combined,{
           model:s.execution.model??undefined,
+          usage:event=>this.company.aiUsage.observe(context.executionId,event,op),
           prepared:reference=>{requireThat(!this.db.get('SELECT 1 FROM computer_contexts WHERE runtime_reference=?',reference),'Research cannot reuse a computer context');requireThat(!this.db.get('SELECT 1 FROM mandate_task_sessions WHERE runtime_reference=?',reference),'Research provider cannot reuse a private mandate context');requireThat(!this.db.get('SELECT 1 FROM runtime_bindings WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM conversation_sessions WHERE runtime_reference=?',reference)&&!this.db.get('SELECT 1 FROM research_task_sessions WHERE runtime_reference=?',reference),'Research provider context already belongs to another work mode.');this.db.run('UPDATE research_operations SET runtime_reference=? WHERE operation_id=?',reference,op);},
           invoking:()=>{const current=this.authorize(context,cap);requireThat(current.grant.grant_id===s.grant.grant_id&&!combined.aborted,'Research authority changed before provider invocation.');this.db.run('UPDATE research_operations SET unresolved=1 WHERE operation_id=?',op);},
           settled:()=>{this.db.run('UPDATE research_operations SET unresolved=0 WHERE operation_id=?',op);},
         }):{provider:'https-static-reader',sources:[await this.fetcher(request,combined)],outcome:'succeeded'};
+        if(name==='research_search')this.company.aiUsage.finish(context.executionId,result.outcome==='succeeded'?'completed':'failed',true,op);
         return this.db.transaction(()=>{
           const current=this.authorize(context,cap);requireThat(!combined.aborted&&current.grant.grant_id===s.grant.grant_id,'Research authority changed; result withheld.');
           const sources=result.sources.slice(0,L.sourcesPerSearch).map(source=>{
@@ -169,6 +172,7 @@ export class Research {
         });
       }catch(error){
         const unresolved=this.db.get<{unresolved:number}>('SELECT unresolved FROM research_operations WHERE operation_id=?',op)!.unresolved;
+        if(name==='research_search')this.company.aiUsage.finish(context.executionId,unresolved?'unknown':combined.aborted?'interrupted':'failed',!unresolved,op);
         const result={ok:false,operation_id:op,code:unresolved?'provider_unknown':error instanceof ResearchFailure?error.code:combined.aborted?'cancelled':'research_denied',error:unresolved?'Research provider outcome is unresolved. Further worker execution is fenced pending inspection.':error instanceof Error?error.message:'Research unavailable.'};
         this.commit(context,callId,result,unresolved?'unknown':combined.aborted?'withheld':'failed');return result;
       }finally{this.pending.delete(key);this.company.changed();}
