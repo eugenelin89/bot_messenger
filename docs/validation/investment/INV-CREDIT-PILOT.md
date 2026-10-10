@@ -1,5 +1,15 @@
 # INV-CREDIT-PILOT — Private credit-approved runtime acceptance
 
+## 2026-10-10 continuation and source-repair update
+
+The historical PR47 acceptance record below remains unchanged. Its pending reload-confirmation and unspent-allowance statements describe that earlier source-acceptance checkpoint, not the current pilot state.
+
+The owner supplied automatic-reload-OFF confirmation at **06:04 Vancouver (13:04 UTC)**, with provenance as an owner-reported Settings screenshot, not an independently queried billing-setting result. The subsequently authorized Atlas attempt failed during approximately 6.9 seconds of setup on main `90fdc3d22d6469a82d05dcd2f83ce50e4c373979`. A startup account notification triggered an overly broad account-change guard. **One reservation remains consumed, zero genuine model turns are confirmed, no employee response or authoritative usage/estimate exists, Maya was not started, and the original pilot is stopped with its scope revoked.** No attributable credit deduction is claimed.
+
+The [account-notification repair and closure](INV-CREDIT-ACCOUNT-NOTIFICATION-REPAIR.md) records the pinned protocol, authoritative revalidation fix, deterministic tests, independent reviews and evidence preservation. This source-only repair does not reopen the pilot or authorize inference. The current supervisor cannot carry the remaining budget into a successor: any later owner-authorized attempt first needs a reviewed durable mechanism preserving the consumed reservation and cumulative four-reservation ceiling. A fresh four-turn preparation is not a refund or continuation. Decision037 itself is unchanged.
+
+## Historical PR47 source-acceptance checkpoint
+
 **Date:** 2026-10-10
 **Status:** Source accepted for integration; genuine pilot pending owner reload confirmation
 **Accepted starting point:** `35409a0127ef735f90ac75b61fe1cd8a46f0f456` (PR46)
