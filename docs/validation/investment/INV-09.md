@@ -1,6 +1,6 @@
 # INV-09 validation — finite operating loop
 
-**Date:**2026-10-10. **Status:** Source-scope validation passed; integration pending; full/live acceptance remains partial. No production activation. **Base:**`79b45fd18239dddcbda5f745d289787fd72745f1`; branch `codex/inv09-operating-loop`, owning worktree `bot_messenger-inv09`.
+**Date:**2026-10-10. **Status:** Source scope validated and merged; full/live acceptance remains partial. No production activation. **Base:**`79b45fd18239dddcbda5f745d289787fd72745f1`; branch `codex/inv09-operating-loop`, owning worktree `bot_messenger-inv09`.
 
 The [specification](../../../prompts/experiments/investment-inv-09.md), [plan](../../exec-plans/investment-inv-09.md), [Decision035](../../decisions/decision_035_finite_investment_loop.md) and [sequence authorization](../../exec-plans/investment-autonomous-sequence-06-09.md) define this source-only packet. The parent is sole writer. Asymmetri source and its existing receiver build remain read-only.
 
@@ -35,4 +35,8 @@ Canonical v1 remains pinned at `ba3dd74bc6be495f655b5ad1e6e4ba3fdf85b755`, manif
 
 ## Integration and sequence end
 
-Commit/PR/normal expected-head merge and fetched-main verification remain pending. Once source integration is verified, this completes only the authorized/testable INV-06–09 source sequence. No automatic successor is executed. The [operator guide](../../operations/INVESTMENT_RUN_TUTORIAL.md) and [readiness proposal](../../operations/INVESTMENT_READINESS.md) retain the owner decisions needed for any future task. Ask, INV-10–12, official activation, production changes, Ubuntu migration and RECOVERY-01 remain outside scope.
+Normal expected-head source integration and fetched-main verification completed as recorded below. This completes only the authorized/testable INV-06–09 source sequence. No automatic successor is executed. The [operator guide](../../operations/INVESTMENT_RUN_TUTORIAL.md) and [readiness proposal](../../operations/INVESTMENT_READINESS.md) retain the owner decisions needed for any future task. Ask, INV-10–12, official activation, production changes, Ubuntu migration and RECOVERY-01 remain outside scope.
+
+### INV-09 integration receipt — 2026-10-10T09:50:40Z
+
+PR[#44](https://github.com/eugenelin89/bot_messenger/pull/44) merged tested implementation `e570a0241279e201f15cb2edb4e6a5b719fc56ae` as `a8359c2f4e08863a6aa2cbd22b7de360e5a48bd4`. Exact head/base/mergeability and empty remote status/workflow/review/thread lists were checked. Normal expected-head merge accepted without bypass; fetched main equals the merge and its tree equals the tested head. No deployment or production authority. This completes the authorized/testable source sequence through INV-09; full/live acceptance remains partial.
