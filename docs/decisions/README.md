@@ -150,3 +150,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Deterministic paper accounting — INV-05
 
 [Decision 031](decision_031_deterministic_paper_simulator.md) records the synthetic-only simulator, schema15, exact accounting, replay/valuation provenance and disabled private projection. [INV-05 evidence](../validation/investment/INV-05.md) records local acceptance; integration does not deploy or activate it.
+
+## Trusted market evidence — INV-06
+
+[Decision032](decision_032_market_evidence_boundary.md) separates source permissions, scheduled calendars, immutable evidence and one-shot collection from workers/accounting. Synthetic integration is implemented; live price permissions/semantics and public financial rights remain blocked. The [authorized sequence](../exec-plans/investment-autonomous-sequence-06-09.md) permits source work through INV-09 without production activation.

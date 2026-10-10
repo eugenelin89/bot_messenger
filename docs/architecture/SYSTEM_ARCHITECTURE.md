@@ -575,3 +575,7 @@ The [version 1.0 package](../../contracts/investment/v1/PROTOCOL.md) and [feasib
 ## INV-05 internal paper simulator
 
 The [investment architecture](../experiments/investment/ARCHITECTURE.md) includes a disconnected synthetic-only `FixtureSimulator`, pure fixed-point accounting/reducer and additive schema15 journal/receipts/disabled outbox. It has no Company, worker, runtime, HTTP or scheduler entry point. [Decision031](../decisions/decision_031_deterministic_paper_simulator.md) and [INV-05 evidence](../validation/investment/INV-05.md) define local acceptance and future activation gates. This source change is not deployed to HQ.
+
+## INV-06 market evidence
+
+The disconnected investment source slice now includes schema16 immutable market policies/evidence and bounded one-shot fixture collection, a finite2026 New York exchange calendar, and a documented OpenFIGI identifier probe. The market-aware synthetic simulator facade checks provenance/current rights and corrections before price use. No live price adapter, Company/HTTP/worker route, scheduler, deployment or operational authority is enabled. [Decision032](../decisions/decision_032_market_evidence_boundary.md) and the [source report](../validation/investment/INV-06-SOURCES.md) preserve blocked real-price/public-rights gates.

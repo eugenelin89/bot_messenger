@@ -1,0 +1,14 @@
+{
+  "scope": "one documented unauthenticated identity mapping; no price observation or venue verification",
+  "source": "https://api.openfigi.com/v3/mapping",
+  "retrievedAt": "2026-10-10T07:00:14.316Z",
+  "responseHash": "c5557d18c510d57d906050f7f09c2c2d274e8a15c2594d2f1abe59ce608d013d",
+  "count": 1,
+  "identifiers": [
+    {
+      "figi": "BBG000BLNNH6",
+      "compositeFIGI": "BBG000BLNNH6",
+      "shareClassFIGI": "BBG001S5S399"
+    }
+  ]
+}
