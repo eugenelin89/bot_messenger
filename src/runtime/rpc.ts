@@ -8,10 +8,10 @@ export class AppServerRpc extends EventEmitter {
   private ended = false;
   readonly process: ChildProcessWithoutNullStreams;
   private readonly pending = new Map<number, { resolve(value: unknown): void; reject(error: Error): void; timer: NodeJS.Timeout }>();
-  constructor(command: string, args: string[], cwd: string) {
+  constructor(command: string, args: string[], cwd: string, env:NodeJS.ProcessEnv=process.env) {
     super();
     // Credentials stay inside the official runtime; never read auth files or log env/stderr.
-    this.process = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
+    this.process = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'], env });
     this.process.stderr.resume();
     const lines = createInterface({ input: this.process.stdout });
     lines.on('line', line => {

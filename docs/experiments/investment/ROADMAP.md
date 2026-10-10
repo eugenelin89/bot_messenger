@@ -293,3 +293,7 @@ For each packet, change the status table once and link its evidence file. Preser
 ## 2026-10-10 subscription usage source checkpoint
 
 [Decision036](../../decisions/decision_036_subscription_activity_usage.md) and [INV-SUBSCRIPTION-USAGE](../../validation/investment/INV-SUBSCRIPTION-USAGE.md) add private reference-cost reporting and fake-validated activity caps. Genuine Codex subscription execution remains **blocked**: no supported included-only request switch and no verified zero uncertain transport retry control. A separate reviewed capable runtime and explicit small synthetic-price demonstration authorization are required. No deployment, live run, paid credits, Asymmetri change, market-data budget change or RECOVERY-01 milestone follows.
+
+## 2026-10-10 credit-approved private pilot checkpoint
+
+[Decision037](../../decisions/decision_037_credit_approved_private_pilot.md) separately authorizes existing credits and internal provider retries in a four-turn disposable private synthetic discussion. The default included-only/strict blocks remain. [INV-CREDIT-PILOT](../../validation/investment/INV-CREDIT-PILOT.md) distinguishes implemented controls, deterministic tests, pending genuine inference, finite completion and operational/public readiness. No paper orders, market-source change, public delivery, deployment or recurring operation follows.

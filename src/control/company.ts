@@ -1,3 +1,4 @@
+import { CreditPilot } from './usage/credit-pilot.js';
 import { AIUsage } from './usage/service.js';
 import { InvestmentActivity } from './usage/activity.js';
 import { InvestmentLoop } from './investment-loop/service.js';
@@ -61,6 +62,7 @@ export class Company extends EventEmitter {
   readonly investmentLoop: InvestmentLoop;
   readonly aiUsage: AIUsage;
   readonly investmentActivity: InvestmentActivity;
+  readonly creditPilot: CreditPilot;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -84,6 +86,7 @@ export class Company extends EventEmitter {
     this.investmentLoop = new InvestmentLoop(this);
     this.aiUsage = new AIUsage(this);
     this.investmentActivity = new InvestmentActivity(this);
+    this.creditPilot = new CreditPilot(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -289,6 +292,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       this.store.run("UPDATE settings SET value=? WHERE key='paused'", String(paused));
       this.audit(paused ? 'dispatch_paused' : 'dispatch_resumed', 'human', {});
+      if (paused) this.creditPilot.stop();
     }); this.changed();
   }
   claimWorkNext(maxActive = 2) {
