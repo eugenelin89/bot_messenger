@@ -6,7 +6,7 @@
 
 **Implementation commit:** `6df12e852f1780e15ef1e7e1144d808e49d02fcb`
 
-**Integration:** Reviewed feature PR into BotSquad `main`; PR/merge receipt is recorded in the execution-plan handoff and GitHub history.
+**Integration:** [PR40](https://github.com/eugenelin89/bot_messenger/pull/40) into BotSquad `main`; exact reviewed head and merge receipt remain in GitHub history.
 
 ## A. Implementation and boundaries
 

@@ -1,6 +1,6 @@
 # Execution Plan — INV-05 deterministic paper simulator
 
-**Status:** Source/local acceptance complete; reviewed integration in progress
+**Status:** Source/local acceptance complete; accepted for integration via [PR40](https://github.com/eugenelin89/bot_messenger/pull/40)
 
 **Owner:** Codex INV-05 primary writer; specialists read-only
 
@@ -12,7 +12,7 @@
 
 **Initial ETA:** 3–5 hours including implementation, deterministic acceptance, review and PR integration
 
-**Current ETA:** 15–30 minutes for final evidence/PR/merge; implementation and acceptance complete
+**Current ETA:** Final integration only; source, acceptance and specialist reviews complete
 
 ## Objective
 
@@ -50,8 +50,8 @@ AGENTS.md; required repository/product/architecture and investment specification
 3. Implement additive migration and transactional journal/outbox facade. **Done.**
 4. Exercise synthetic acceptance matrix and representative previous-schema preservation. **Done.**
 5. Independent read-only reviews, resolve blockers and rerun relevant checks. **Done.**
-6. Update normative docs and INV-05 evidence, commit/push/PR, inspect final identities and merge.
-7. Verify clean local/remote main; stop before INV-06.
+6. Update normative docs/evidence, commit/push and open [PR40](https://github.com/eugenelin89/bot_messenger/pull/40). **Done.** Exact-head review and merge disposition are retained on the PR.
+7. Verify clean local/remote main after merge; retain the merge receipt in the PR/task handoff and stop before INV-06.
 
 ## Validation plan
 
@@ -92,8 +92,8 @@ Update README, project memory and investment roadmap/guide/rules/architecture/de
 
 ## Remaining work / blockers
 
-Reviewed PR integration and final local/remote main verification remain. Source, documentation and acceptance are complete. No known external blocker.
+No source/local acceptance gaps remain. The linked PR is the authoritative integration/merge receipt; final local/remote main verification is recorded in the task handoff. Operational activation requirements remain separate as documented in INV-05 evidence.
 
 ## Completion handoff
 
-Implementation `6df12e852f1780e15ef1e7e1144d808e49d02fcb`; [INV-05 acceptance](../validation/investment/INV-05.md) contains exact financial values, failed attempts/corrections,91 focused tests,714 full-suite passes and175 contract passes. PR/merge receipt will be linked here before integration. No deployment, Asymmetri change, operational authority or INV-06 work follows merge.
+Implementation `6df12e852f1780e15ef1e7e1144d808e49d02fcb`; [INV-05 acceptance](../validation/investment/INV-05.md) contains exact financial values, failed attempts/corrections,91 focused tests,714 full-suite passes and175 contract passes. [PR40](https://github.com/eugenelin89/bot_messenger/pull/40) retains the exact reviewed head, review disposition and merge receipt; this plan does not fabricate a future merge SHA. No deployment, Asymmetri change, operational authority or INV-06 work follows merge.
