@@ -1,6 +1,8 @@
 # Product and public experience
 
-**Version:** 1.1 | **Status:** Designed, not implemented | [Guide](README.md)
+**Version:** 1.2 | **Status:** INV-04 showcase UI implemented in source and locally synthetically validated; not publicly deployed; real investment employees/publishing and Ask remain planned | [Guide](README.md)
+
+[Current showcase evidence](../../validation/investment/INV-04.md) links the [Asymmetri implementation](https://github.com/eugenelin89/asymmetri/blob/main/docs/INV-04-VALIDATION.md) and actual browser tests. This document still describes the *intended full first public release*; future real discussion, portfolio inputs and one-employee Ask responses remain unimplemented. The INV-04 Ask panel is a disabled preview, not an active chat endpoint.
 
 ## 1. Purpose and success
 
