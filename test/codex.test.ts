@@ -19,6 +19,8 @@ const thread={id:'thread-owned',cwd,name:(mode==='legacy-name'?'Bot Messenger: '
 createInterface({input:process.stdin}).on('line',line=>{
  const m=JSON.parse(line), p=m.params??{};
  if(m.method==='initialize'){if(mode==='usage'&&!p.capabilities.optOutNotificationMethods.includes('rawResponseItem/completed'))throw Error('Raw text must be suppressed');send({id:m.id,result:{}});}
+ else if(m.method==='initialized'){if(mode==='account-snapshot')send({method:'account/updated',params:{authMode:'chatgpt'}});}
+ else if(m.method==='configRequirements/read'||m.method==='account/rateLimits/read')throw Error('Ordinary execution must not acquire credit-pilot requirements');
  else if(m.method==='account/read')send({id:m.id,result:{account:{type:'chatgpt'},requiresOpenaiAuth:true}});
  else if(m.method==='model/list')send({id:m.id,result:{data:[{id:'test-model',model:'test-model',isDefault:true,displayName:'Test Model',defaultReasoningEffort:'medium',supportedReasoningEfforts:[{reasoningEffort:'low'},{reasoningEffort:'medium'}]}]}});
  else if(m.method==='config/read')send({id:m.id,result:{config:{features:mode==='unsafe-config'?{}:features,mcp_servers:{inherited:{}}}}});
@@ -30,6 +32,7 @@ createInterface({input:process.stdin}).on('line',line=>{
   send({id:m.id,result:{thread,model:'test-model',modelProvider:'openai',serviceTier:'default',approvalPolicy:'never',sandbox:{type:'readOnly',networkAccess:false}}});
  } else if(m.method==='thread/name/set'){if(mode==='name-failure'){send({id:m.id,error:{code:-32000,message:'Naming failed'}});return;}if(!p.name.startsWith('BotSquad · Atlas · CEO'))throw new Error('Missing friendly name');send({id:m.id,result:{}});}
  else if(m.method==='turn/start'){
+  if(mode==='account-snapshot')send({method:'account/updated',params:{authMode:'chatgpt'}});
   if(p.environments.length!==0)throw new Error('Environment enabled');
   if(p.model!=='test-model'||p.effort!==(mode==='explicit-effort'?'low':'medium'))throw new Error('Wrong effective AI config');
   turnActive=true;send({method:'turn/started',params:{threadId:thread.id,turn:{id:'turn-1'}}});
@@ -70,6 +73,10 @@ test('App Server transport routes trusted tools, streams completion and resumes 
   assert.ok(f.events.includes('runtime_started'));
   f.input.binding = { worker_id: f.input.worker.worker_id, runtime_type: 'codex-app-server', workspace_path: f.input.worker.workspace_path, runtime_reference: 'thread-owned', created_at: 'now' };
   assert.equal((await adapter.run(f.input, new AbortController().signal)).status, 'completed'); assert.ok(f.events.includes('worker_resumed'));
+});
+
+test('ordinary non-pilot execution retains its existing account notification behavior',async t=>{
+ const f=protocolFixture('account-snapshot');t.after(f.close);const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);assert.equal(result.status,'completed');assert.equal(f.callCount(),1);assert.ok(!f.events.some(e=>e.includes('account_verification')));
 });
 
 test('promise tool results are awaited and an early provider completion cannot release unfinished callbacks',async t=>{
