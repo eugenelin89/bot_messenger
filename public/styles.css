@@ -54,3 +54,13 @@
 @media(max-width:720px){.org-tree{padding:16px}.org-children{margin-left:12px;padding-left:12px}.org-node{gap:8px}}
 
 .publication-owner{max-width:1120px;margin:32px auto;padding:24px;width:100%;overflow-wrap:anywhere}.publication-owner pre{white-space:pre-wrap;max-height:480px;overflow:auto}.publication-owner label{display:block;margin:12px 0}.publication-owner select,.publication-owner input:not([type=checkbox]){max-width:100%;padding:8px}.publication-owner fieldset{margin:16px 0}.publication-owner .button{margin:8px 8px 8px 0}
+
+/* Private usage details retain readable wrapping at narrow widths. */
+.ai-usage { min-width: 0; overflow-wrap: anywhere; }
+.ai-usage .table-scroll { max-width: 100%; overflow-x: auto; }
+.ai-usage table { width: 100%; min-width: 32rem; }
+.ai-usage caption { text-align: left; font-weight: 600; padding: .5rem; }
+.ai-usage td { vertical-align: top; }
+.ai-usage details { max-width: 40rem; }
+.ai-usage dd { margin: 0 0 .6rem; overflow-wrap: anywhere; }
+.usage-model { display: -webkit-box; max-width: 18rem; overflow-wrap: anywhere; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

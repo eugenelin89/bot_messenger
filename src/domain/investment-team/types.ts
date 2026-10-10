@@ -1,8 +1,10 @@
+import type {ExecutionPolicy} from '../usage/policy.js';
 import type { Proposal } from '../investment/types.js';
 export const INVESTMENT_SCHEMA='investment-discussion-v1';
 export const PAPER_TOOLS=['paper_inspect','paper_propose','paper_read_proposal','paper_review','paper_submit'] as const;
 export interface TurnLimits { inputTokens:number; outputTokens:number; maxCostMicros:number }
 export interface TeamEnvelope {
+ executionPolicy?:ExecutionPolicy;
  runId:string; groupId:string; audience:'public_candidate';
  participants:{workerId:string;name:string;responsibility:string}[];
  proposers:string[]; reviewers:string[]; submitters:string[];

@@ -18,21 +18,28 @@ const send=x=>console.log(JSON.stringify(x));let turnActive=false;
 const thread={id:'thread-owned',cwd,name:(mode==='legacy-name'?'Bot Messenger: ':'BotSquad: ')+'${claim.worker.worker_id}',status:{type:'notLoaded'}};
 createInterface({input:process.stdin}).on('line',line=>{
  const m=JSON.parse(line), p=m.params??{};
- if(m.method==='initialize')send({id:m.id,result:{}});
+ if(m.method==='initialize'){if(mode==='usage'&&!p.capabilities.optOutNotificationMethods.includes('rawResponseItem/completed'))throw Error('Raw text must be suppressed');send({id:m.id,result:{}});}
  else if(m.method==='account/read')send({id:m.id,result:{account:{type:'chatgpt'},requiresOpenaiAuth:true}});
  else if(m.method==='model/list')send({id:m.id,result:{data:[{id:'test-model',model:'test-model',isDefault:true,displayName:'Test Model',defaultReasoningEffort:'medium',supportedReasoningEfforts:[{reasoningEffort:'low'},{reasoningEffort:'medium'}]}]}});
  else if(m.method==='config/read')send({id:m.id,result:{config:{features:mode==='unsafe-config'?{}:features,mcp_servers:{inherited:{}}}}});
  else if(m.method==='thread/read')send({id:m.id,result:{thread:{...thread,cwd:mode==='wrong-workspace'?'/tmp/wrong':cwd}}});
  else if(m.method==='thread/start'||m.method==='thread/resume'){
+  if(mode==='usage'&&m.method==='thread/start'&&p.experimentalRawEvents!==true)throw Error('Raw usage not enabled');
   if(p.config['mcp_servers.inherited.enabled']!==false)throw new Error('MCP not disabled');
   if(p.sandbox!=='read-only'||p.approvalPolicy!=='never')throw new Error('Unsafe settings');
-  send({id:m.id,result:{thread,model:'test-model',approvalPolicy:'never',sandbox:{type:'readOnly',networkAccess:false}}});
+  send({id:m.id,result:{thread,model:'test-model',modelProvider:'openai',serviceTier:'default',approvalPolicy:'never',sandbox:{type:'readOnly',networkAccess:false}}});
  } else if(m.method==='thread/name/set'){if(mode==='name-failure'){send({id:m.id,error:{code:-32000,message:'Naming failed'}});return;}if(!p.name.startsWith('BotSquad · Atlas · CEO'))throw new Error('Missing friendly name');send({id:m.id,result:{}});}
  else if(m.method==='turn/start'){
   if(p.environments.length!==0)throw new Error('Environment enabled');
   if(p.model!=='test-model'||p.effort!==(mode==='explicit-effort'?'low':'medium'))throw new Error('Wrong effective AI config');
   turnActive=true;send({method:'turn/started',params:{threadId:thread.id,turn:{id:'turn-1'}}});
   send({id:m.id,result:{turn:{id:'turn-1'}}});
+  if(mode==='usage'){
+   const usage={inputTokens:24500,cachedInputTokens:20000,cacheWriteInputTokens:0,outputTokens:3200,reasoningOutputTokens:1200,totalTokens:27700};
+   for(let i=0;i<2;i++)send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'turn-1',responseId:'response-1',usage}});
+   send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'old-turn',responseId:'stale',usage}});
+   send({method:'thread/tokenUsage/updated',params:{threadId:thread.id,turnId:'turn-1',tokenUsage:{total:usage,last:usage}}});
+  }
   if(mode==='interrupt'||mode==='timeout')return;
   if(mode==='exit'){process.exit(2)}
   if(mode==='approval'){send({id:'approval-1',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'turn-1'}});return;}
@@ -162,4 +169,11 @@ test('an explicit worker model overrides an unavailable global default without s
   const f=protocolFixture('success');t.after(()=>f.close());const adapter=new CodexRuntime({command:f.command,model:'removed-default'});
   f.input.worker.ai_model='test-model';assert.equal((await adapter.run(f.input,new AbortController().signal)).status,'completed');
   f.input.worker.ai_model=null;await assert.rejects(()=>adapter.run(f.input,new AbortController().signal),/not advertised/);
+});
+
+test('supported raw usage protocol opts in, suppresses response text and filters stale identity',async t=>{
+ const f=protocolFixture('usage');t.after(()=>f.close());const events:unknown[]=[];f.input.usage=e=>events.push(e);
+ const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
+ assert.equal(result.status,'completed');assert.deepEqual(events.map(e=>(e as {kind:string}).kind),['start','turn','response','response','snapshot']);
+ assert.equal((events[0] as any).identity.serviceTier,'standard');assert.equal((events[2] as any).usage.totalTokens,27700);assert.doesNotMatch(JSON.stringify(events),/stale/);
 });

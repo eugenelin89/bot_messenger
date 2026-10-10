@@ -50,5 +50,5 @@ export class AppServerRpc extends EventEmitter {
       this.send({ id, method, params });
     });
   }
-  close() { this.process.kill('SIGTERM'); this.fail(new Error('Codex transport closed')); }
+  close() { this.process.kill('SIGTERM');const child=this.process;const timer=setTimeout(()=>{if(child.exitCode===null&&child.signalCode===null)child.kill('SIGKILL');},1000);timer.unref();child.once('exit',()=>clearTimeout(timer));this.fail(new Error('Codex transport closed')); }
 }

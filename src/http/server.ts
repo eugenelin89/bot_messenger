@@ -61,6 +61,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path.startsWith('/api/research/workers/')) {json(200,company.research.status(decodeURIComponent(path.slice('/api/research/workers/'.length))));return;}
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}
+        if(path==='/api/usage'){const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>['executionId','workerId','runId','cycleId'].includes(k)),'Unknown usage filter');json(200,company.aiUsage.report(Object.fromEntries(q)));return;}
         if(path==='/api/investment-run'){json(200,company.investmentLoop.inspect());return;}
         if(path==='/api/investment-team'){json(200,company.investmentTeam.inspect());return;}
         if(path==='/api/investment-publication'){json(200,company.publication.inspect());return;}
@@ -94,6 +95,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         }
         const staticFiles: Record<string, [string, string]> = {
           '/': ['index.html', 'text/html; charset=utf-8'],
+          '/usage.js': ['usage.js', 'text/javascript; charset=utf-8'],
           '/app.js': ['app.js', 'text/javascript; charset=utf-8'],
           '/groups.js': ['groups.js', 'text/javascript; charset=utf-8'],
           '/mandates.js': ['mandates.js', 'text/javascript; charset=utf-8'],

@@ -289,3 +289,7 @@ Consider SSE only after polling is reliable; intraday marks/trading only after l
 ## Updating this roadmap
 
 For each packet, change the status table once and link its evidence file. Preserve original requirements and failed checks. Record amendments in [Decisions](DECISIONS.md) and applicable ADRs. When implementation changes a design, update that subject's normative document and shared contract together rather than add contradictory notes here. Do not mark the full experiment complete while any required introduction, discussion, artifact, Ask, accounting, privacy or recovery gate is missing.
+
+## 2026-10-10 subscription usage source checkpoint
+
+[Decision036](../../decisions/decision_036_subscription_activity_usage.md) and [INV-SUBSCRIPTION-USAGE](../../validation/investment/INV-SUBSCRIPTION-USAGE.md) add private reference-cost reporting and fake-validated activity caps. Genuine Codex subscription execution remains **blocked**: no supported included-only request switch and no verified zero uncertain transport retry control. A separate reviewed capable runtime and explicit small synthetic-price demonstration authorization are required. No deployment, live run, paid credits, Asymmetri change, market-data budget change or RECOVERY-01 milestone follows.
