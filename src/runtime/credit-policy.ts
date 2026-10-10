@@ -35,6 +35,37 @@ export function creditAccountFingerprint(value:unknown,pilotId:string){
  return createHash('sha256').update(JSON.stringify({pilotId,email:email??null,accountId:accountId??null,planType:v.account.planType,backendOrigin:v.workspaceRouting?.backendOrigin??null})).digest('hex');
 }
 
+/** Pinned v0.157.0 requirements. Null means unrestricted; missing/error is not null. */
+export function validateCreditRequirements(value:unknown,account:unknown,config:Record<string,unknown>){
+ const response=value as {requirements?:Record<string,unknown>|null};
+ requireThat(response&&typeof response==='object'&&!Array.isArray(response)&&Object.hasOwn(response,'requirements'),'Account requirements unavailable');
+ const r=response.requirements;
+ requireThat(r===null||!!r&&typeof r==='object'&&!Array.isArray(r),'Account requirements malformed');
+ const requirement=r??{};
+ requireThat(requirement.modelProvider==null||requirement.modelProvider==='openai','Required model provider denied');
+ const providers=requirement.modelProviders;
+ requireThat(providers==null||typeof providers==='object'&&!Array.isArray(providers)&&Object.keys(providers).length===0,'Managed provider definitions unsupported in private pilot');
+ for(const [key,required] of [['allowedLoginMethods','chatgpt'],['allowedApprovalPolicies','never'],['allowedSandboxModes','read-only'],['allowedWebSearchModes','disabled']] as const){
+  const values=requirement[key];requireThat(values==null||Array.isArray(values)&&values.includes(required),'Required account/confinement policy denied');
+ }
+ requireThat(requirement.additionalDeveloperInstructions==null||requirement.additionalDeveloperInstructions==='','Managed instructions prevent synthetic-only pilot context');
+ requireThat(requirement.models==null&&requirement.modelCatalogJson==null,'Managed model overrides unsupported in private pilot');
+ requireThat(requirement.enforceResidency==null||requirement.enforceResidency==='us','Required residency unsupported');
+ const base=requirement.chatgptBaseUrl;
+ if(base!=null){let url:URL|undefined;try{if(typeof base==='string')url=new URL(base);}catch{}requireThat(url?.origin==='https://chatgpt.com'&&!url.username&&!url.password&&!url.search&&!url.hash,'Required account backend denied');}
+ const requiredFeatures=requirement.featureRequirements;
+ if(requiredFeatures!=null){requireThat(typeof requiredFeatures==='object'&&!Array.isArray(requiredFeatures),'Feature requirements malformed');const actual=config.features as Record<string,unknown>|undefined;for(const [key,v] of Object.entries(requiredFeatures))requireThat(typeof v==='boolean'&&actual?.[key]===v,'Required feature policy not applied');}
+ const a=account as {workspaceRouting?:{chatgptAccountId?:unknown;backendOrigin?:unknown;accountRoutingOverride?:unknown}|null};
+ const route=a?.workspaceRouting;
+ requireThat(route==null||typeof route==='object'&&!Array.isArray(route)&&typeof route.chatgptAccountId==='string'&&route.chatgptAccountId.length>0&&route.backendOrigin==='https://chatgpt.com'&&['NO_CONSTRAINT','us','us_cr'].includes(String(route.accountRoutingOverride)),'Account routing unavailable or unsupported');
+ const forced=config.forced_chatgpt_workspace_id;
+ requireThat(forced==null||typeof forced==='string'&&forced.length>0||Array.isArray(forced)&&forced.length>0&&forced.every(x=>typeof x==='string'&&x.length>0),'Required workspace malformed');
+ const workspaces=forced==null?null:typeof forced==='string'?[forced]:forced as string[];
+ requireThat(!workspaces||typeof route?.chatgptAccountId==='string'&&workspaces.includes(route.chatgptAccountId),'Required workspace mismatch');
+ // Separate salted digest preserves the historical identity fingerprint format.
+ return {requiredProvider:requirement.modelProvider??null,requiredBackend:base??null,residency:requirement.enforceResidency??null,workspaces:workspaces?[...workspaces].sort():null,routingOverride:route?.accountRoutingOverride??null,mcpServers:Object.keys(config.mcp_servers??{}).sort()};
+}
+
 export interface DisabledSkill {path:string;enabled:false}
 export function rejectGlobalInstructions(env:NodeJS.ProcessEnv=process.env){
  const home=env.CODEX_HOME??join(env.HOME??homedir(),'.codex');requireThat(isAbsolute(home),'Absolute existing Codex authentication home required');

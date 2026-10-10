@@ -1,5 +1,6 @@
-import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,creditAccountFingerprint,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
-import {eligibleCreditSubscription,type ActivityPolicy} from '../domain/usage/policy.js';
+import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
+import {CreditAccountVerifier,type VerifiedCreditAccount} from './credit-account.js';
+import type {ActivityPolicy} from '../domain/usage/policy.js';
 import {investmentInstructions} from './investment-team.js';
 import {mandateInstructions} from './mandates.js';
 import {computerInstructions} from './computer.js';
@@ -150,19 +151,20 @@ export class CodexRuntime implements RuntimeAdapter {
       '-c', 'project_doc_max_bytes=0', '-c', 'notify=[]', '-c', 'shell_environment_policy.inherit="none"',
     ], workspace,credit?creditEnvironment():process.env);
   }
-  private async initialize(rpc: AppServerRpc,credit=false,workspace?:string,expectedSkills?:DisabledSkill[]) {
+  private async initialize(rpc: AppServerRpc,credit=false,workspace?:string,expectedSkills?:DisabledSkill[],accounts?:CreditAccountVerifier) {
     await rpc.request('initialize', { clientInfo: { name: 'botsquad', title: 'BotSquad', version: '0.1.0' }, capabilities: { experimentalApi: true, optOutNotificationMethods:['rawResponseItem/completed'] } });
     rpc.send({ method: 'initialized', params: {} });
     const creditConfig=credit?(await rpc.request<ConfigResponse>('config/read',{...(workspace?{cwd:workspace}:{})})).config:undefined;if(creditConfig)validateCreditConfig(creditConfig);
     const skills=credit?disabledSkills(await rpc.request('skills/list',{cwds:[workspace!],forceReload:true}),workspace!,expectedSkills):undefined;
-    const account = await rpc.request<{ account: { type: string } | null; requiresOpenaiAuth: boolean }>('account/read', { refreshToken: false });
+    const verified=accounts?await accounts.verify():undefined;
+    const account = verified?{account:{type:'chatgpt'},requiresOpenaiAuth:true}:await rpc.request<{ account: { type: string } | null; requiresOpenaiAuth: boolean }>('account/read', { refreshToken: false });
     requireThat(account.account || !account.requiresOpenaiAuth, 'Codex authentication is missing. Run codex login.');
     if(credit)requireThat(account.account?.type==='chatgpt'&&account.requiresOpenaiAuth===true,'Private pilot requires ChatGPT authentication; API-key/provider mode denied');
     const config=creditConfig??(await rpc.request<ConfigResponse>('config/read', {})).config;
     requireThat(DISABLED_FEATURES.every(f => config.features?.[f] === false), 'Codex tool confinement configuration was not applied');
     // Disable every inherited MCP server individually: an empty table may merge with user config.
     if(credit)requireThat(Object.keys(config.mcp_servers??{}).every(n=>/^[a-zA-Z0-9_-]+$/.test(n)),'Unsupported inherited MCP identifier; pilot blocked');
-    const overrides = Object.fromEntries(Object.keys(config.mcp_servers ?? {}).map(name => [`mcp_servers.${name}.enabled`, false]));
+    const overrides = Object.fromEntries((verified?.mcpNames??Object.keys(config.mcp_servers ?? {})).map(name => [`mcp_servers.${name}.enabled`, false]));
     const models: RuntimeModel[] = []; let cursor: string | null = null;
     const cursors = new Set<string>();
     do {
@@ -178,18 +180,21 @@ export class CodexRuntime implements RuntimeAdapter {
       authMode: account.account?.type ?? 'provider', defaultModel: selected?.model ?? this.model!,
       models: models.map(m => ({ id: m.id, model: m.model, displayName: m.displayName ?? m.model,
         isDefault: m.isDefault, defaultReasoningEffort: m.defaultReasoningEffort, supportedReasoningEfforts: m.supportedReasoningEfforts })) };
-    return { overrides:{...overrides,...(skills?{'skills.config':skills}:{})}, catalog,skills,accountIdentity:credit?creditAccountFingerprint(account,this.creditPilot!.pilotId):undefined };
+    return { overrides:{...overrides,...(skills?{'skills.config':skills}:{})}, catalog,skills,verified };
   }
   private async isolateSkills(workspace:string,deadline=Date.now()+60000,signal?:AbortSignal){
     rejectGlobalInstructions();const rpc=this.connect(workspace,true),abort=()=>rpc.close(),timer=setTimeout(abort,Math.max(1,deadline-Date.now()));signal?.addEventListener('abort',abort,{once:true});
+    const accounts=new CreditAccountVerifier(rpc,{pilotId:this.creditPilot!.pilotId,workspace,deadline,disabledFeatures:DISABLED_FEATURES,checkOpen:()=>requireThat(!signal?.aborted&&Date.now()<deadline,'Pilot stopped before isolation')});
     rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during isolation preflight'}}));
-    try{requireThat(!signal?.aborted,'Pilot stopped before isolation');return (await this.initialize(rpc,true,workspace)).skills!;}finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
+    try{requireThat(!signal?.aborted,'Pilot stopped before isolation');const initialized=await this.initialize(rpc,true,workspace,undefined,accounts);let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();return {skills:initialized.skills!,verified};}finally{accounts.close();clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
   }
   async catalog(workspace: string): Promise<RuntimeCatalog> {
-    this.checkVersion();const skills=this.creditPilot?await this.isolateSkills(workspace):undefined,rpc=this.connect(workspace,!!this.creditPilot,skills);
+    this.checkVersion();const isolated=this.creditPilot?await this.isolateSkills(workspace):undefined,rpc=this.connect(workspace,!!this.creditPilot,isolated?.skills);
+    const deadline=Date.now()+60000;
+    const accounts=this.creditPilot?new CreditAccountVerifier(rpc,{pilotId:this.creditPilot.pilotId,workspace,deadline,disabledFeatures:DISABLED_FEATURES,expected:isolated!.verified,checkOpen:()=>requireThat(Date.now()<deadline,'Pilot preflight deadline expired')}):undefined;
     rpc.on('request', (m: RpcMessage) => rpc.send({ id: m.id, error: { code: -32601, message: 'Unavailable during preflight' } }));
-    try { return (await this.initialize(rpc,!!this.creditPilot,workspace,skills)).catalog; }
-    finally { rpc.close(); }
+    try { const initialized=await this.initialize(rpc,!!this.creditPilot,workspace,isolated?.skills,accounts);if(accounts){let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();}return initialized.catalog; }
+    finally { accounts?.close();rpc.close(); }
   }
   async preflight(workspace: string) {
     const catalog = await this.catalog(workspace);
@@ -206,8 +211,8 @@ export class CodexRuntime implements RuntimeAdapter {
     requireThat(input.worker.runtime_type === this.type, 'Worker/runtime adapter mismatch');
     validateBinding(input); this.checkVersion();
     if (signal.aborted) return { status: 'interrupted', error: 'Interrupted before runtime start' };
-    const skills=policy?await this.isolateSkills(input.worker.workspace_path,Date.parse(input.localDeadline!),signal):undefined;
-    const rpc = this.connect(input.worker.workspace_path,!!policy,skills);
+    const isolated=policy?await this.isolateSkills(input.worker.workspace_path,Date.parse(input.localDeadline!),signal):undefined;
+    const rpc = this.connect(input.worker.workspace_path,!!policy,isolated?.skills);
     let threadId: string | undefined; let turnId: string | undefined;
     let starting = false; let toolCalls = 0; let stopping=false;
     const pendingEvents: RpcMessage[] = [];
@@ -218,7 +223,7 @@ export class CodexRuntime implements RuntimeAdapter {
     const toolController=new AbortController();
     let resolveResult!: (value: RuntimeResult) => void;
     const result = new Promise<RuntimeResult>(resolve => { resolveResult = resolve; });
-    const finalize=(value:RuntimeResult)=>{if(!finished){finished=true;toolController.abort('Runtime finished');resolveResult({...value,settled:providerSettled||value.settled});}};
+    const finalize=(value:RuntimeResult)=>{if(!finished){if(policy&&stopping&&value.status==='completed')value={...value,status:'interrupted',summary:undefined,error:'Local pilot stop preceded final settlement'};finished=true;toolController.abort('Runtime finished');resolveResult({...value,settled:providerSettled||value.settled});}};
     const finish = (value: RuntimeResult) => {
       if(value.settled)providerSettled=true;
       if(finished)return;
@@ -236,6 +241,25 @@ export class CodexRuntime implements RuntimeAdapter {
         finish({ status: approvalDenied ? 'awaiting_approval' : 'interrupted', error: 'Runtime stopped; inspect retained evidence before retry' }); rpc.close();
       }, 6000);
     };
+    const accountEvent=(type:string,detail:Record<string,unknown>)=>{
+      if(finished)return;
+      // Authority may have been revoked before audit. Never let that bypass the stop latch.
+      try{input.event(type,detail);}catch{interrupt();}
+    };
+    const accounts=policy?new CreditAccountVerifier(rpc,{
+      pilotId:this.creditPilot!.pilotId,workspace:input.worker.workspace_path,deadline:Date.parse(input.localDeadline!),disabledFeatures:DISABLED_FEATURES,expected:isolated!.verified,
+      checkOpen:()=>requireThat(!finished&&!signal.aborted&&Date.now()<Date.parse(input.localDeadline!),'Account verification stopped'),
+      invalidated:generation=>{
+        if(finished||stopping||signal.aborted)return;
+        const active=starting||!!turnId;
+        if(active)interrupt();
+        accountEvent('runtime_account_verification_pending',{generation});
+        if(active){
+          // Once transmission starts, even an identical snapshot stops effects. Rechecks never resume it.
+          void accounts!.verify().then(verified=>{if(accounts!.current(verified))accountEvent('runtime_account_reverified',{generation:verified.generation,interrupted:true});}).catch(()=>accountEvent('runtime_account_verification_failed',{}));
+        }
+      },
+    }):undefined;
     signal.addEventListener('abort', interrupt, { once: true });
     const timeout = setTimeout(() => { if(policy){interrupt();return;}finish({ status: 'failed', error: 'Bounded runtime deadline exceeded; inspect evidence before retry' }); rpc.close(); }, policy?Math.max(1,Date.parse(input.localDeadline!)-Date.now()):this.timeoutMs);
     rpc.on('closed', (error: Error) => finish({ status: signal.aborted ? 'interrupted' : 'failed', error: error.message }));
@@ -284,7 +308,6 @@ export class CodexRuntime implements RuntimeAdapter {
     const notification = (message: RpcMessage) => {
       try {
       const p = message.params ?? {};
-      if(policy&&message.method==='account/updated'&&!finished){approvalDenied=true;input.event('runtime_account_changed',{});interrupt();return;}
       if (p.threadId !== threadId || !threadId || finished) return;
       if (starting && !turnId) { requireThat(pendingEvents.length < 256, 'Runtime event buffer exceeded');pendingEvents.push(message);return; }
       const eventTurn = p.turnId ?? (p.turn as {id?:string}|undefined)?.id;
@@ -327,10 +350,11 @@ export class CodexRuntime implements RuntimeAdapter {
     };
     rpc.on('notification', notification);
     try {
-      const { overrides, catalog,accountIdentity } = await this.initialize(rpc,!!policy,input.worker.workspace_path,skills);
+      const { overrides, catalog } = await this.initialize(rpc,!!policy,input.worker.workspace_path,isolated?.skills,accounts);
       const effective = resolveAIProfile(input.worker, catalog);
       const model = effective.model;
       if (signal.aborted || finished) return await result;
+      if(accounts){let verified=await accounts.verify();while(!accounts.current(verified))verified=await accounts.verify();live();}
       input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).filter(k=>k.startsWith('mcp_servers.')).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
         approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?(discussionInstructions+(input.tools.some(t=>t.name==='paper_propose')?'\n'+investmentInstructions:'')):conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
@@ -370,7 +394,16 @@ export class CodexRuntime implements RuntimeAdapter {
       const contextText = policy?privateContext(input.context):JSON.stringify(input.context);
       input.usage?.({kind:'start',identity:{threadId,model:effective.model,provider:thread.modelProvider??'unknown',serviceTier:thread.serviceTier==='default'?'standard':thread.serviceTier??null,freshThread:!input.binding}});
       input.event('runtime_turn_starting', {runtime_reference:threadId,context_chars:contextText.length});
-      if(policy){live();rejectGlobalInstructions();const account=await rpc.request('account/read',{refreshToken:false});const limits=await rpc.request('account/rateLimits/read',{});const eligibility=eligibleCreditSubscription(account,limits);requireThat(creditAccountFingerprint(account,this.creditPilot!.pilotId)===accountIdentity,'Pilot account identity changed during setup');live();requireThat(Date.now()<Date.parse(input.localDeadline!),'Pilot deadline expired before admission');input.admitSubscription!({threadId,model:effective.model,accountFingerprint:accountIdentity,eligibility});}
+      if(accounts){
+        let verified:VerifiedCreditAccount=await accounts.verify();
+        while(!accounts.current(verified))verified=await accounts.verify();
+        live();rejectGlobalInstructions();requireThat(Date.now()<Date.parse(input.localDeadline!),'Pilot deadline expired before admission');
+        input.event('runtime_account_reverified',{generation:verified.generation,interrupted:false});
+        // No await between this check, durable admission and synchronous RPC transmission.
+        requireThat(accounts.current(verified),'Account verification invalidated before admission');
+        input.admitSubscription!({threadId,model:effective.model,accountFingerprint:verified.fingerprint,eligibility:verified.eligibility});
+        live();requireThat(accounts.current(verified),'Account verification invalidated during admission');
+      }
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],
         input: [{ type: 'text', text: `Perform this authorized BotSquad ${input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?'strategic mandate review':'conversation reply') : 'task'}.\n${contextText}` }], effort: effective.reasoning_effort, model: effective.model,
@@ -388,7 +421,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if (finished) return await result;
       throw error;
     } finally {
-      finished = true; clearTimeout(timeout); if (interruptTimer) clearTimeout(interruptTimer);
+      finished = true; accounts?.close();clearTimeout(timeout); if (interruptTimer) clearTimeout(interruptTimer);
       toolController.abort('Runtime closed');
       signal.removeEventListener('abort', interrupt); rpc.close();
     }
