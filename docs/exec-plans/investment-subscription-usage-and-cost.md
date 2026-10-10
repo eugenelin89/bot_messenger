@@ -1,12 +1,12 @@
 # Execution Plan — Investment subscription usage and cost
 
-**Status:** Active
+**Status:** Source implementation and validation complete; genuine subscription admission blocked
 **Owner:** Codex parent, sole writer; independent read-only specialists
 **Branch:** `feature/investment-subscription-usage-cost`
 **Worktree:** `bot_messenger-subscription-usage`
 **Started:** 2026-10-10
 **Initial ETA:** 3–5 hours including validation and review
-**Current ETA:** Validation/reviews finished; Git integration and final verification remain (approximately20–30minutes)
+**Current ETA:** Implementation, validation and reviews finished within the original3–5hour estimate; exact-head Git integration is the final source-only gate.
 
 ## Objective and authorization
 
@@ -52,10 +52,10 @@ quota enforcement. Record exact results in `docs/validation/investment/INV-SUBSC
 - Investment broker already fails closed. All group turn kinds share the dispatcher.
 - Temporary concurrency holds must skip candidates rather than permanently block them.
 
-## Remaining work
+## Source closure
 
-Implementation, decision036/operator documentation and acceptance record are complete. Full suite953 cases:952 passed,1 Linux-only skip; contracts175 passed; focused99 passed; browser6 passed. Control-plane/security/recovery/test and usage-semantics reviews have no remaining source blockers. PR and reviewed integration remain.
-No deployment or activation follows this milestone.
+Implementation, decision036/operator documentation and acceptance record are complete. Full suite953 cases:952 passed,1 Linux-only skip; contracts175 passed; focused99 passed; browser6 passed. Control-plane/security/recovery/test and usage-semantics reviews have no remaining source blockers. [PR46](https://github.com/eugenelin89/bot_messenger/pull/46) carries the reviewed source. Implementation commit: `09c082501fd806905893bf44c2389ef818cee7e6`. PR metadata and the final handoff carry the exact merge receipt.
+No deployment or activation follows this milestone. The remaining genuine-runtime blocker is a separate future authorization, not unfinished source work.
 
 ## Runtime investigation disposition
 

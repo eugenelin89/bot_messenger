@@ -4,7 +4,7 @@
 
 This record accepts source-level activity controls and private usage/reference-cost reporting. It does not accept genuine Codex subscription execution. The owner authorized implementation, deterministic validation, read-only account/protocol investigation, independent review and reviewed Git integration. No production deployment, retained-HQ migration, real employee turn, market workload, account/subscription change, credit purchase or public activation occurred. Asymmetri is read-only.
 
-Base: `0dc32825fee537dc29f41f2bd86130f729f14ed3`; branch `feature/investment-subscription-usage-cost`. [Decision036](../../decisions/decision_036_subscription_activity_usage.md) preserves strict policy and Decision029; [methodology](../../operations/AI_USAGE.md) contains official references and rates. The implementation commit containing this record identifies the tested source; final PR/merge receipts are reported in the handoff.
+Base: `0dc32825fee537dc29f41f2bd86130f729f14ed3`; branch `feature/investment-subscription-usage-cost`. [Decision036](../../decisions/decision_036_subscription_activity_usage.md) preserves strict policy and Decision029; [methodology](../../operations/AI_USAGE.md) contains official references and rates. Implementation: `09c082501fd806905893bf44c2389ef818cee7e6`; [PR46](https://github.com/eugenelin89/bot_messenger/pull/46). This follow-up changes evidence/plan prose only. Exact merge/base/head receipts are in PR metadata and the final handoff.
 
 ## Enforced control-plane boundary
 
