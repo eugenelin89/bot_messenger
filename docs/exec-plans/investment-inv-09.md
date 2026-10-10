@@ -1,6 +1,6 @@
 # INV-09 execution plan
 
-**Status:**Source validation passed; integration pending. **Owner:**sequence parent, sole writer. **Start:**2026-10-10T09:09Z. **Initial ETA:**2–3hours including review, validation and integration. **Branch/worktree:**`codex/inv09-operating-loop`, `../bot_messenger-inv09`. **Verified base:**`79b45fd18239dddcbda5f745d289787fd72745f1`.
+**Status:**Complete for authorized source scope; genuine/live gates remain pending. **Owner:**sequence parent, sole writer. **Start:**2026-10-10T09:09Z. **Initial ETA:**2–3hours including review, validation and integration. **Branch/worktree:**`codex/inv09-operating-loop`, `../bot_messenger-inv09`. **Verified base:**`79b45fd18239dddcbda5f745d289787fd72745f1`.
 
 The [full authored successor](../../prompts/experiments/investment-inv-09.md) follows the actual INV-08 merge under the [sequence authorization](investment-autonomous-sequence-06-09.md). No production authority. All genuine/live gates remain pending.
 
@@ -27,3 +27,9 @@ Decision035, operator guide and bounded readiness proposal are written. Pending:
 ## Final source validation — 2026-10-10
 
 Final focused38/38,0skip,83585.678ms; full888total887pass0fail1existingLinux-only skip,250061.408292ms. Final build/type/contracts/diff/privacy and16-file links pass. Four read-only review dispositions are clear for source scope; no actual model or live-source gate is claimed. All actual local test dispatchers/receivers closed. No deployment or production authority. Next: commit/PR/expected-head normal merge and fetched-main verification, then a documentation-only completion receipt and stop. Initial2–3hour estimate did not increase.
+
+### INV-09 integration receipt — 2026-10-10T09:50:40Z
+
+PR[#44](https://github.com/eugenelin89/bot_messenger/pull/44) merged tested implementation `e570a0241279e201f15cb2edb4e6a5b719fc56ae` as `a8359c2f4e08863a6aa2cbd22b7de360e5a48bd4`. Exact head/base/mergeability and empty remote status/workflow/review/thread lists were checked. Normal expected-head merge accepted without bypass; fetched main equals the merge and its tree equals the tested head. No deployment or production authority. This completes the authorized/testable source sequence through INV-09; full/live acceptance remains partial.
+
+Final completion documentation is owned on `codex/inv09-completion-record` in the same worktree, based on verified INV-09 main. It changes no executable source; source validation receipts remain applicable. The initial2–3hour estimate did not increase.

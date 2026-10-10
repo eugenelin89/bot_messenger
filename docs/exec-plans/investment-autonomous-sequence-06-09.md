@@ -1,9 +1,9 @@
 # Investment autonomous source-development sequence INV-06–09
 
-**Status:** Active. **Owner:** dedicated BotSquad Codex chat `01a12494-249b-7ef2-b76f-56ad33b7cef0`; sole implementation writer.
+**Status:** Complete for authorized/testable source scope; full/live gates remain pending. **Owner:** dedicated BotSquad Codex chat `01a12494-249b-7ef2-b76f-56ad33b7cef0`; sole implementation writer.
 **Started:** 2026-10-09 America/Vancouver. **Initial ETA:** 6–10 hours, revised as evidence develops.
-**Active packet:** INV-09. **Accepted source packets:** INV-06, INV-07 and INV-08 (full/live acceptance partial).
-**Owned worktree:** `../bot_messenger-inv09`; branch `codex/inv09-operating-loop`.
+**Active packet:** None. **Accepted source packets:** INV-06, INV-07, INV-08 and INV-09 (full/live acceptance partial).
+**Owned worktree:** `../bot_messenger-inv09`; branch `codex/inv09-completion-record` (final documentation only; implementation preserved on `codex/inv09-operating-loop`).
 
 ## Original owner authorization (durable scope record)
 
@@ -52,13 +52,13 @@ Live source/rights/field/calendar evidence, official configuration, eligible emp
 | INV-06 | Synthetic source scope validated |760 total;759 pass,1 skip | Security/recovery clear | PR#41;35fe638→e6f27ec | Live price/public rights blocked |
 | INV-07 | Partial synthetic source merged |795 total794pass1skip;62 focused pass | Security/recovery/architecture/test clear | PR#42;cc11527→61287e5 | Blocked pending live/protocol gates |
 | INV-08 | Scoped-team source merged |852 total851pass1skip;34 focused pass | Security/recovery/architecture/test clear | PR#43;50f576d→79b45fd | Genuine execution held |
-| INV-09 | Finite operating-loop source validated |888total887pass1skip;38focused pass | Architecture/security/recovery/test clear | Integration pending | Genuine elapsed cycles held |
+| INV-09 | Finite operating-loop source merged |888total887pass1skip;38focused pass | Architecture/security/recovery/test clear | PR#44;e570a02→a8359c2 | Genuine elapsed cycles held |
 
 ## Next action and resume procedure
 
-Execute the full INV-09 successor from the actual accepted INV-08 merge; finish the authorized source sequence and prepare only the bounded readiness proposal. At each checkpoint update this ledger and milestone evidence. After compaction/resume: read this file, owning plan, latest validation, mandatory Decisions029/031, DECISIONS, SIMULATION_RULES §7 and ROADMAP; verify worktree/status/heads/PR receipts and actual code before continuing. Never assume remembered tests or merge status.
+The authorized source sequence is complete. The bounded readiness proposal is prepared; do not execute another investment/Ask/deployment packet without new owner scope. For evidence review after compaction/resume: read this file, owning plan, latest validation, mandatory Decisions029/031, DECISIONS, SIMULATION_RULES §7 and ROADMAP; verify worktree/status/heads/PR receipts and actual code before continuing. Never assume remembered tests or merge status.
 
-**Final stop reason:** none; sequence active.
+**Final stop reason:** Reached the authorized INV-09 source endpoint. All permitted/testable scopes are complete; real employee/runtime, elapsed exchange-cycle, source/rights and deployment gates remain explicit. No recurring work is scheduled.
 
 ### INV-06 checkpoint — 2026-10-10 00:22 Vancouver
 
@@ -93,3 +93,15 @@ PR[#43](https://github.com/eugenelin89/bot_messenger/pull/43) merged `50f576d47a
 ### INV-09 final source validation — 2026-10-10
 
 Final focused38/38,0skip,83585.678ms; full888total887pass0fail1existingLinux-only skip,250061.408292ms. Exact finite calendar plan, cumulative measured/unknown budgets, cutoff/generation fences, SIGKILL recovery, independent financial outcomes, committed-team publication and owner browser controls pass source acceptance. Four read-only reviews clear; final static/contracts/privacy/links pass. No genuine model/live market/deployment claim. Next: normal source integration, verify main and record final sequence closure; [readiness proposal](../operations/INVESTMENT_READINESS.md) authorizes no further work.
+
+### INV-09 integration receipt — 2026-10-10T09:50:40Z
+
+PR[#44](https://github.com/eugenelin89/bot_messenger/pull/44) merged tested implementation `e570a0241279e201f15cb2edb4e6a5b719fc56ae` as `a8359c2f4e08863a6aa2cbd22b7de360e5a48bd4`. Exact head/base/mergeability and empty remote status/workflow/review/thread lists were checked. Normal expected-head merge accepted without bypass; fetched main equals the merge and its tree equals the tested head. No deployment or production authority. This completes the authorized/testable source sequence through INV-09; full/live acceptance remains partial.
+
+### Final source sequence handoff
+
+All four source packets passed their documented isolated acceptance, independent risk reviews and normal main integration. The integrated flow is market evidence/calendar → finite due occurrence → scoped team proposal/independent review → trusted journal → exact public consent/ordered signed outbox → receiver receipt and next-cycle outcome context.
+
+Production HQ/website/receiver/database/authority remain unchanged. No official capital/universe/benchmark/dates/limits, operational publisher grant/key, real price feed, investment model workload, collector or Ask service was selected or activated. Current Codex lacks enforceable investment usage limits, and source/public rights remain unqualified. Fake-clock cycles and the elapsed cutoff test do not satisfy genuine employee/two-market-session gates.
+
+The [operator guide](../operations/INVESTMENT_RUN_TUTORIAL.md) and [bounded readiness proposal](../operations/INVESTMENT_READINESS.md) are the final deliverables. They require separate owner decisions for future work; Ask, INV-10–12, Ubuntu migration and RECOVERY-01 were not executed. Existing retained project/worktree state and Asymmetri source were preserved.
