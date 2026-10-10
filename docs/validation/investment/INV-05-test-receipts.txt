@@ -1,0 +1,36 @@
+INV-05 observed local test receipts
+Implementation: 6df12e852f1780e15ef1e7e1144d808e49d02fcb
+Node24.10.0 / npm11.6.0 / darwin arm64 / SQLite3.51.3
+
+inv05-full-final.log
+SHA256: a5fe11ac9d504198e1e81581a4ee6f7db809e059a44fe7ebd724d2cfed61fa55
+ℹ tests 715
+ℹ suites 0
+ℹ pass 714
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 109301.091708
+
+inv05-contracts-final.log
+SHA256: e7980da41d4c14726df42d87401e5f6fa2a1da0b5ae6baef2ddb0d4a750fdb5f
+ℹ tests 175
+ℹ suites 0
+ℹ pass 175
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1180.629208
+
+inv05-focused-final.log
+SHA256: 71a3b5d9b651b48d05ffade081805e139424db5a11c71e2787c77e7cd28414cb
+ℹ tests 91
+ℹ suites 0
+ℹ pass 91
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2759.45525

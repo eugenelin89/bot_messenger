@@ -146,3 +146,7 @@ prerequisite. [INFRA-02](../validation/investment/INFRA-02.md) subsequently comp
 owner-authorized private installation and actual-host synthetic acceptance. The
 receiver remains stopped/default disabled with no real authority or public ingress.
 Public activation gates remain explicit; contract 1.0 and Decision 029 are unchanged.
+
+## Deterministic paper accounting — INV-05
+
+[Decision 031](decision_031_deterministic_paper_simulator.md) records the synthetic-only simulator, schema15, exact accounting, replay/valuation provenance and disabled private projection. [INV-05 evidence](../validation/investment/INV-05.md) records local acceptance; integration does not deploy or activate it.

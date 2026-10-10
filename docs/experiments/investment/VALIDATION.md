@@ -138,3 +138,7 @@ For each `docs/validation/investment/INV-NN.md`, record status/date, objective, 
 A documentation-only handoff reports documentation checks and links executed packet evidence;
 it does not rerun or imply runtime acceptance. INV-01–03/INFRA-02 results above cover only
 their stated scope. All unimplemented HQ/market/Ask/launch acceptance remains pending.
+
+## INV-05 executed scope
+
+[INV-05 acceptance](../../validation/investment/INV-05.md) executes A01 configuration/methodology, A05 deterministic ledger/orders/risk, A07 local process-crash/replay and A09 populated-schema/system-preservation checks in synthetic mode. This does not establish real source rights/completeness, live-host backup/retention recovery, real employee behavior, deployment or public activation. Its private disabled outbox is not a public export.

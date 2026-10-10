@@ -1,6 +1,6 @@
 # Simulation rules and market evidence
 
-**Version:** 1.1 | **Status:** Proposed rules; owner configuration required | [Guide](README.md)
+**Version:** 1.2 | **Status:** INV-05 fixture methodology implemented; official owner configuration still required | [Guide](README.md)
 
 ## 1. Scope and objective
 
@@ -141,4 +141,18 @@ Freeze the method before official launch. Preserve losses, failed proposals and 
 
 ## INV-01 wire foundation
 
-[Contract 1.0](../../../contracts/investment/v1/PROTOCOL.md) freezes decimal/JCS hash recipes, journal/order/valuation identities, finite order expiry, typed action references and exact rational residuals. Split fractional entitlement is in shares; price/basis rounding residual is in micro-USD. Ticker changes preserve stable instrument identity and half-open symbol-history dates; snapshots resolve the symbol effective at valuation time. The disposable oracle checks representative consistency only. Full reservation/risk/concurrency, market-calendar and benchmark/correction replay acceptance remains INV-05/06. No operational ledger exists from INV-01.
+[Contract 1.0](../../../contracts/investment/v1/PROTOCOL.md) freezes decimal/JCS hash recipes, journal/order/valuation identities, finite order expiry, typed action references and exact rational residuals. Split fractional entitlement is in shares; price/basis rounding residual is in micro-USD. Ticker changes preserve stable instrument identity and half-open symbol-history dates; snapshots resolve the symbol effective at valuation time. The disposable oracle checks representative consistency only. [INV-05](../../validation/investment/INV-05.md) now implements reservation/risk/concurrency and deterministic fixture calendar, benchmark and correction replay; real source/calendar integration remains INV-06. No operational ledger exists from INV-01.
+
+## INV-05 frozen fixture methodology
+
+The implemented `inv05-v1` envelope is immutable and synthetic-only. `test/fixtures/investment/support.ts` labels invented instruments, prices and calendar. Its $1,000 small arithmetic fixtures and optional policy overrides are not approved production defaults. The proposed $100,000/15%/30%/10bps/10% drawdown envelope above remains subject to a separate official run decision.
+
+- Financial outputs have six decimal places; bounded BigInt millionths, half-even rounding, checked intermediate range and explicit fill price/notional/basis residuals. BUY capitalizes fees; SELL deducts fees from proceeds and releases weighted-average basis. Final exits release all basis residue.
+- BUY/SELL commitments and matching independent review precede the frozen 30-minute cutoff in standard fixtures. Whole shares and guards reserve cash/shares. Missing original raw opening remains data-blocked only until finite expiry (at most24h). Corrections never replace locked fills. Late fills fail closed if later portfolio economic effects prevent accurate opening-time risk.
+- Risk includes pending buys, current marks, sectors, available cash/shares, fee/slippage loss and posttrade concentration. Existing market-created breaches are labelled; drawdown attention blocks added risk, while an otherwise valid reducing SELL remains possible. Pause/end cancels pending orders without forced sales. A stalled outbox cannot send anything and total journal admission is bounded.
+- Split quantity changes retain basis. Unrepresentable fractions remain exact rational shares and block valuation/trading; no guessed cash-in-lieu is booked. Dividends use pre-ex-boundary holdings, accrue receivable/income, then move receivable to cash exactly once at payment. Same-instant split/dividend units, unsupported actions and out-of-order split history remain blocked. Action corrections require future reviewed reconciliation; they do not overwrite evidence.
+- Benchmark initial investment uses the same frozen next eligible session/cutoff as initialization. Dividend reinvestment uses the next regular opening strictly after actual payment time, with zero benchmark fee/slippage. Funding lots prevent future cash funding earlier opens; tiny amounts remain residual cash. Opening/action uncertainty suppresses comparison.
+- Noninitial scheduled valuations require each held instrument's exact session raw close. Portfolio and benchmark match sessions; missing values/comparisons are null, aggregate quality is partial/blocked and last-good retains its timestamp. Returns/drawdowns are decimal ratios; excess return is percentage points. Daily return requires the immediately preceding eligible valuation.
+- Late financial effects and explicit `revise_valuations` append revisions, preserving original books, fills, marks and snapshots. Latest revisions recompute later daily/peak/drawdown values. Financial checkpoint version/hash bind the accepted accounting-history prefix; the prior journal anchor and enclosing journal hash provide noncircular provenance. New historical values reject when present books/reservations/uncertainty would leak backward.
+
+These guarantees are verified only with [deterministic INV-05 acceptance](../../validation/investment/INV-05.md). INV-06 must prove real calendar/source provenance, completeness, freshness and permitted zero-cost use before operational evidence is accepted.

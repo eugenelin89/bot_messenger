@@ -8,7 +8,7 @@ These references support current implementation facts and implementation constra
 
 The dated 2026-10-06 repository snapshots below are historical feasibility baselines, not current implementation status. For living ownership and accepted handoffs, use:
 
-- [BotSquad investment roadmap](ROADMAP.md) — authoritative milestone status and dependency sequence; INV-05 is next but not started.
+- [BotSquad investment roadmap](ROADMAP.md) — authoritative milestone status and dependency sequence; INV-05 is implemented for synthetic-only local acceptance; INV-06 is next and not started.
 - [BotSquad canonical contract](../../../contracts/investment/v1/PROTOCOL.md) — contract 1.0; the Asymmetri receiver vendors nine matching pinned files.
 - [Asymmetri website and receiver repo](https://github.com/eugenelin89/asymmetri) and [cross-repo integration map](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md) — current consumer code, runtime boundaries, operational state and release gates.
 - [Asymmetri receiver runbook](https://github.com/eugenelin89/asymmetri/blob/main/docs/INVESTMENT_RECEIVER.md) — Ed25519, SQLite/CAS and disabled private installation.
