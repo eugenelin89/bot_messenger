@@ -9,6 +9,7 @@ import { migration10 } from './discussions-migration.js';
 import { migrateMandates, migration12 } from './mandates-migration.js';
 import { migration13 } from './computer-migration.js';
 import { migration14 } from './business-migration.js';
+import { migration15 } from './investment-migration.js';
 
 export const migration1 = `
 CREATE TABLE principals (
@@ -203,6 +204,7 @@ export class Store {
     this.db = new DatabaseSync(path);
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
+    if ((this.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n ?? 0) > 15) { this.db.close(); throw new Error('Unsupported future HQ schema'); }
     const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
     const conversationMigration = !this.get('SELECT version FROM schema_migrations WHERE version=7');
     const mandateMigration = !this.get('SELECT version FROM schema_migrations WHERE version=11');
@@ -252,6 +254,7 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=12')) { this.db.exec(migration12); this.run('INSERT INTO schema_migrations VALUES (12,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=13')) { this.db.exec(migration13); this.run('INSERT INTO schema_migrations VALUES (13,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=14')) { this.db.exec(migration14); this.run('INSERT INTO schema_migrations VALUES (14,?)', new Date().toISOString()); }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=15')) { this.db.exec(migration15); this.run('INSERT INTO schema_migrations VALUES (15,?)', new Date().toISOString()); }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }
