@@ -108,3 +108,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 ## INV-07 source boundary amendment — 2026-10-10
 
 [Decision033](../../decisions/decision_033_scoped_investment_publisher.md) implements narrowly scoped owner consent, optional bounded future financial capture, immutable delivery evidence and generation/current-head restore fencing. It selects no operational destination, roster, key, grant, audience budget or official run. [INV-07 evidence](../../validation/investment/INV-07.md) is partial synthetic/source acceptance; v1 benchmark-action/historical-prefix gaps and live rights remain blocked. The authorized sequence may continue independent INV-08/09 source work without relaxing them.
+
+## INV-08 source boundary amendment — 2026-10-10
+
+[Decision034](../../decisions/decision_034_scoped_investment_team.md) implements exact existing-worker scopes, bounded runtime reservations, independent paper review and committed public discussion/artifact projections. [Evidence](../../validation/investment/INV-08.md) remains partial: current Codex has no enforceable investment token/cost envelope, so actual employee acceptance is held. Canonical price-evidence and earlier financial gaps remain explicit. No deployment, operational grant or official run follows; INV-09 may continue independent source work under the recorded sequence.

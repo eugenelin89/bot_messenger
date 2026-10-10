@@ -1,6 +1,6 @@
 # Execution Plan — INV-07 scoped publisher
 
-**Status:** Active, source-only. **Owner:** sequence parent, sole writer. **Started:**2026-10-10. **ETA:**2–3 hours including integration/review. **Branch/worktree:** `codex/inv07-scoped-publisher`, `../bot_messenger-inv07`, base `e6f27ec6164936d92015bc83d2df2e53fe92931f`.
+**Status:** Accepted source subset merged; full/live milestone partial. **Owner:** sequence parent, sole writer. **Started:**2026-10-10. **ETA:**2–3 hours including integration/review. **Branch/worktree:** `codex/inv07-scoped-publisher`, `../bot_messenger-inv07`, base `e6f27ec6164936d92015bc83d2df2e53fe92931f`.
 
 [Authored specification](../../prompts/experiments/investment-inv-07.md) defines requirements and the [sequence ledger](investment-autonomous-sequence-06-09.md) preserves controlling owner authority. INV-06 source was merged after760 tests/759pass/1skip and two reviews; live price/public-rights gates remain blocked. Canonical v1 remains fixed. No production or Asymmetri source change permitted.
 
@@ -25,3 +25,5 @@ Private simulator projection is not canonical wire data. Receiver acknowledgemen
 2026-10-10 01:18 Vancouver checkpoint: actual receiver/restart/backup/content-refresh, browser390/1440, migration, SIGKILL and37 focused tests passed. Full serial795 tests passed794/0fail/1existingLinuxskip (170309ms), after correcting three legacy schema16 assertions. Security/recovery/architecture reviews cleared the documented synthetic scope. Final test reviewer requested malicious receipt and post-consent expiry coverage; added25 focused cases now running. Documentation qualifies newRiskBlocked as a signal pending08/09 admission enforcement. Canonical pin, remote base, links, secret-pattern scan and diff whitespace checked; disk23GiB. Remaining: final focused/test-review closure, source PR/merge and actual08 successor. ETA still within2–3h for07.
 
 Final focused62/62 passed (15270ms), no skips. Review dispositions and full795/794pass/1Linuxskip evidence are in INV-07 validation. No runtime changes after full regression;25 added adversarial tests and two browser widths passed in the final focused run. Ready for source integration, with health enforcement deferred explicitly to08/09 and full milestone/live gates partial.
+
+Integration: PR#42 merged reviewed `cc11527b48f011c7084df37276aa73fd1e77fca8` as `61287e51c64706a1120b6a94e0009e98a6eb90c3` at2026-10-10T08:19:21Z; fetched main/tree verified. INV-08 continues in its new owning worktree. Source development took about58min, below initial2–3h estimate.

@@ -80,6 +80,9 @@ export class PublicationService {
       restoreRequired:this.restoreRequired(c),deliveryBlocked:this.restoreRequired(c)||!g||g.state!=='active'||!!e&&time(at)>=time(e.expiresAt)||pending.some(j=>j.state==='blocked'),
       newRiskBlocked:unstaged.length>0||budgetExhausted||this.restoreRequired(c)||!g||g.state!=='active'||!!e&&(time(at)>=time(e.expiresAt)||age>e.maxAgeSeconds||bytes+unstagedBytes>e.maxQueueBytes)||pending.some(j=>j.state==='blocked'),jobs:jobs.map(j=>({id:j.id,kind:j.kind,state:j.state,digest:j.digest,retryAt:j.retry_at,receipt:j.receipt?JSON.parse(j.receipt):null}))};
   }
+  requireTeamRoster(channelId:string,participants:string[]){const c=this.channel(channelId);ensure(hash([...this.source(c).participants].sort())===hash([...participants].sort()),'publication_team_roster_mismatch');}
+  /** Trusted risk admission; evaluates current rights as well as durable delivery health. */
+  requireNewRisk(channelId:string) {const c=this.channel(channelId);ensure(!this.health(channelId).newRiskBlocked,'publication_health_blocks_risk');this.source(c).checkRights(this.material(c),this.clock.now());}
   preview(input:unknown):Preview {
     this.owner();const e=this.envelope(input);
     return this.db.transaction(()=>{

@@ -13,11 +13,13 @@ export class Dispatcher {
   private deadlineTimer?: NodeJS.Timeout;
   private readonly onChange = () => this.kick();
   private readonly onComputerInterrupt=(executionId:string)=>{const active=this.running.get(executionId);active?.controller.abort('Computer session authority ended');};
+  private readonly onInvestmentInterrupt=(scopeId:string)=>{for(const [executionId,active] of this.running){if(this.company.store.get('SELECT 1 FROM investment_team_executions WHERE execution_id=? AND scope_id=?',executionId,scopeId))active.controller.abort('Investment scope authority ended');}};
   runtimeState: 'unknown' | 'ready' | 'degraded' = 'unknown';
   private catalogRequest?: Promise<RuntimeCatalog>;
   constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2) {
     requireThat(Number.isInteger(maxActive) && maxActive >= 1 && maxActive <= 2, 'Global concurrency must be one or two');
     this.company.research.provider ??= adapter.researchProvider?.(this.company.dataDir);
+    this.company.investmentTeam.runtime=adapter;
   }
   async runtimeCatalog(): Promise<RuntimeCatalog> {
     requireThat(this.adapter.catalog, 'Runtime discovery is unavailable');
@@ -33,7 +35,7 @@ export class Dispatcher {
     this.stopped = false;
     this.company.recover();
     this.company.on('changed', this.onChange);
-    this.company.on('computer_interrupt',this.onComputerInterrupt);
+    this.company.on('computer_interrupt',this.onComputerInterrupt);this.company.on('investment_interrupt',this.onInvestmentInterrupt);
     this.kick();
   }
   kick() {
@@ -66,7 +68,9 @@ export class Dispatcher {
       const group=claim.origin==='conversation'?this.company.discussions.forConversation(claim.request.conversation_id):undefined;
       const mandateTurn=claim.origin==='conversation'?this.company.mandates.turn(claim.request.request_id):undefined;
       const internalTask=claim.origin==='task'?this.company.mandates.internalWork(claim.task.task_id):undefined;
-      const workDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:internalTask?this.company.mandates.cycle(internalTask.cycle_id).deadline:group?.deadline;
+      const ordinaryDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:internalTask?this.company.mandates.cycle(internalTask.cycle_id).deadline:group?.deadline;
+      const teamScope=group?this.company.investmentTeam.forGroup(group.group_id):undefined;
+      const workDeadline=[ordinaryDeadline,teamScope?this.company.investmentTeam.envelope(teamScope).expiresAt:null].filter((v):v is string=>!!v).sort()[0];
       const deadlineAbort=workDeadline?setTimeout(()=>controller.abort('Bounded work deadline expired'),Math.max(1,Date.parse(workDeadline)-this.company.mandates.clock.now())):undefined;
       const done = (async () => {
         let providerSettled=false;
@@ -80,8 +84,10 @@ export class Dispatcher {
           const privateSession=claim.origin==='task'?this.company.mandates.taskSession(context,taskTools):undefined;
           const session=claim.origin==='task'&&!privateSession&&!computerContext?this.company.research.taskSession(context,taskTools):undefined;
           const callResearch=(callId:string,name:string,args:unknown,signal?:AbortSignal)=>this.company.research.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal);
+          const investmentIdentity=claim.origin==='conversation'?this.company.investmentTeam.identity(claim.request.conversation_id,worker):undefined;
+          const conversationWorker=investmentIdentity?{...worker,display_name:investmentIdentity.display_name,mission:investmentIdentity.mission,title:'Investment participant'}:worker;
           const input: RuntimeInput = claim.origin === 'conversation' ? {
-            mode:'conversation', worker, request:claim.request, execution:claim.execution,
+            mode:'conversation', worker:conversationWorker, request:claim.request, execution:claim.execution,
             context:this.company.conversations.context(context),binding:this.company.conversations.binding(context),tools:this.company.conversations.tools(context),
             configured:config=>this.company.recordRuntimeConfig(context,config),
             prepareBinding:binding=>this.company.conversations.prepareBinding(context,binding),
@@ -96,7 +102,9 @@ export class Dispatcher {
             callTool: (callId, name, args,signal) => (COMPUTER_TOOLS as readonly string[]).includes(name)?this.company.computers.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal):(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
-          const result = await this.adapter.run(input, controller.signal);
+          const investmentLimits=this.company.investmentTeam.limits(execution.execution_id);
+          if(investmentLimits)requireThat(this.adapter.runBoundedInvestment,'Bounded investment runtime unavailable');
+          const result = investmentLimits ? await this.adapter.runBoundedInvestment!(input,controller.signal,investmentLimits) : await this.adapter.run(input, controller.signal);
           await this.company.research.drain(execution.execution_id);
           await this.company.computers.drain(execution.execution_id);
           await this.company.business.drain(execution.execution_id);
@@ -133,7 +141,7 @@ export class Dispatcher {
     this.company.business.beginShutdown();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
-    this.company.off('computer_interrupt',this.onComputerInterrupt);
+    this.company.off('computer_interrupt',this.onComputerInterrupt);this.company.off('investment_interrupt',this.onInvestmentInterrupt);
     for (const { controller } of this.running.values()) controller.abort('Application shutdown');
     await Promise.all([...this.running.values()].map(r => r.done));
     await this.company.computers.shutdown();

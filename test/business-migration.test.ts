@@ -36,7 +36,7 @@ test('populated v13 migrates repeatedly preserving every original rowid/field an
   for(let pass=0;pass<3;pass++){const store=new Store(path);try{
     for(const table of tables)assert.deepEqual(store.all(`SELECT rowid AS original_rowid,* FROM ${table} ORDER BY rowid`),originals[table],table);
     assert.deepEqual(store.all('SELECT rowid AS original_rowid,* FROM schema_migrations WHERE version<=13 ORDER BY rowid'),originals.schema_migrations);
-    assert.equal(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,17);
+    assert.equal(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,18);
     for(const table of ['business_grants','business_evidence','external_actions','business_approvals','business_attempts','business_receipts','business_controls','business_reads'])assert.equal(store.get<{n:number}>(`SELECT count(*) n FROM ${table}`)!.n,0,table);
     assert.deepEqual(store.all('PRAGMA foreign_key_check'),[]);assert.equal(store.get<{integrity_check:string}>('PRAGMA integrity_check')!.integrity_check,'ok');assert.deepEqual(files(),paths);
   }finally{store.close();}}

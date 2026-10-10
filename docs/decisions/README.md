@@ -158,3 +158,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Scoped synthetic publisher — INV-07
 
 [Decision 033](decision_033_scoped_investment_publisher.md) records owner preview/consent, opt-in bounded capture, opaque public projections, immutable schema17, signed delivery/current-head restore fencing and explicit v1 coverage limitations. [Acceptance](../validation/investment/INV-07.md) remains source/synthetic-only and partial; no production authority follows.
+
+## Scoped investment team — INV-08
+
+[Decision034](decision_034_scoped_investment_team.md) records owner-scoped existing employees, mandatory bounded runtime entry, exact source/proposal/review attribution, BUY publication admission and committed public derivatives. [Evidence](../validation/investment/INV-08.md) is partial source acceptance; actual employee runs and production remain held.

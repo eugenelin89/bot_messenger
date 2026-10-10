@@ -6,9 +6,9 @@ import type { ActionEvidence, PriceEvidence, SourcePolicy } from '../../domain/m
 import { ensure, decimal, format, multiply } from '../../domain/investment/arithmetic.js';
 import { hash, time } from '../../domain/investment/identity.js';
 import { initialState, reduce } from '../../domain/investment/reducer.js';
-import type { Configuration, Journal, Order, State, ValuationRecord } from '../../domain/investment/types.js';
+import type { Configuration, Journal, Order, State, ValuationRecord, Decision, Review } from '../../domain/investment/types.js';
 import type { Material, Origin, ProjectionContext, PublicationSource, PublicContent } from '../../domain/publication/types.js';
-import type { Actor, CorporateAction, Event, Fill, Instrument, JournalEntry, LedgerTransaction, MarketObservation, PaperOrder, PortfolioSnapshot, RunConfiguration, Source, Worker } from '../../../contracts/investment/v1/types.js';
+import type { Actor, CorporateAction, Event, Fill, Instrument, JournalEntry, LedgerTransaction, MarketObservation, PaperOrder, PortfolioSnapshot, RunConfiguration, Source, Worker, RecordRef } from '../../../contracts/investment/v1/types.js';
 import { canonicalHash, sha256 as hashBytes, validate } from '../../../scripts/investment-contracts/schema.js';
 import { checkContent } from '../../../scripts/investment-contracts/content.js';
 export interface FixtureDecisionCopy {
@@ -16,28 +16,37 @@ export interface FixtureDecisionCopy {
   rationale:string; alternatives:[string,...string[]]; risks:[string,...string[]]; invalidationCondition:string;
   reviewRationale:string; dissent:string[];
 }
-export interface FixturePublicationDescription {
+export interface PublicationDescription {
   title:string; purpose:string; objective:string; openingFieldDefinition:string; attribution:string;
   rightsEvidence:[string,...string[]]; limitations:[string,...string[]];
   cycleExecutionBudget:number; dailyExecutionBudget:number; runExecutionBudget:number;
   heartbeatSeconds:number; staleSeconds:number; maxOutboxAgeSeconds:number; maxOutboxBytes:number; dataDelaySeconds:number;
   workers:Record<string,Omit<Worker,'workerId'>>;
   instrumentClassification:Record<string,string>;
-  decisions:Record<string,FixtureDecisionCopy>;
   actionSources:Record<string,Source>;
   artifacts:{id:string;version:number;title:string;createdAt:string;approvedAt:string;sourceHash:string;bytes:Buffer;contentType:PublicContent['contentType'];limitations:string[]}[];
 }
-/** A real simulator reader with explicitly invented fixture derivatives. It cannot label employees or prices as observed. */
-export class SimulatorPublicationSource implements PublicationSource {
+export interface FixturePublicationDescription extends PublicationDescription {decisions:Record<string,FixtureDecisionCopy>}
+export type ProjectionEmit=(type:Event['type'],payload:unknown,key:string,at:string,origin:Origin,actor?:Actor)=>Event;
+export interface DecisionDerivative {rationale:string;alternatives:[string,...string[]];risks:[string,...string[]];invalidationCondition:string;reviewRationale:string;dissent:string[];evidence:RecordRef[];reviewEvidence:RecordRef[];sources:Source[];origin:Origin}
+/** Shared financial projection. Subclasses must prove the source of every narrative. */
+export abstract class SimulatorProjectionSource implements PublicationSource {
   readonly mode='synthetic_fixture' as const;
   readonly privateRunId:string;
-  constructor(readonly id:string,readonly title:string,private readonly db:Store,private readonly clock:SimulationClock,private readonly fixtureOperator:string,runId:string,private readonly description:FixturePublicationDescription,private readonly readArtifact?:(id:string,version:number)=>Buffer){this.privateRunId=runId;}
+  constructor(readonly id:string,readonly title:string,protected readonly db:Store,protected readonly clock:SimulationClock,protected readonly fixtureOperator:string,runId:string,protected readonly description:PublicationDescription,protected readonly readArtifact?:(id:string,version:number)=>Buffer){this.privateRunId=runId;}
+  protected abstract decisionDerivative(decision:Decision,review:Review,journal:Journal,ctx:ProjectionContext):DecisionDerivative;
+  protected sourceEvidence():unknown{return null;}
+  protected sourceLimitations(){return ['Invented synthetic fixture; no real employee deliberation or observed price is claimed.'];}
+  protected rosterKind(){return 'fixture_roster';}
+  protected validateRoster(c:Configuration){ensure(this.participants.length>0&&this.participants.every(p=>c.authorization.authors.includes(p)||c.authorization.reviewers.includes(p)),'publication_roster_source');}
+  protected extra(_ctx:ProjectionContext,_material:Material,_emit:ProjectionEmit):void{}
+  protected contentRights(material:Material){for(const content of material.contents){ensure(this.readArtifact&&hash({source:hashBytes(this.readArtifact(content.origin.id,Number(content.origin.version))),derivative:hashBytes(content.bytes)})===content.origin.hash,'publication_artifact_source_mismatch');}}
   get participants(){return Object.keys(this.description.workers);}
   private simulator(){return new FixtureSimulator(this.db,this.clock,this.fixtureOperator);}
   checkRights(material:Material,at:string):void {
     const market=new MarketStore(this.db),sim=this.simulator(),c=sim.configuration(this.privateRunId),state=sim.inspect(this.privateRunId);
     ensure(c.evidenceMode==='synthetic_fixture'&&material.events.every(x=>x.event.evidenceMode==='synthetic_fixture'),'publication_observed_gate_closed');
-    for(const content of material.contents){ensure(this.readArtifact&&hash({source:hashBytes(this.readArtifact(content.origin.id,Number(content.origin.version))),derivative:hashBytes(content.bytes)})===content.origin.hash,'publication_artifact_source_mismatch');}
+    this.contentRights(material);
     for(const o of state.observations){const e=market.get<PriceEvidence>(o.id,'price'),p=market.get<SourcePolicy>(e.policyId,'policy');ensure(p.id===c.marketPolicy.id&&e.mode==='synthetic_fixture','publication_source_policy');
       evidenceRights(e,p,['automation','internal_calculation','retention','public_display','derived_portfolio','exports','permanent_archive',...(o.instrumentId===c.benchmark.instrument.id?['benchmark' as const]:[])],at);
     }
@@ -46,7 +55,7 @@ export class SimulatorPublicationSource implements PublicationSource {
   project(ctx:ProjectionContext):Material {
     const sim=this.simulator(),c=sim.configuration(this.privateRunId),journals=sim.journal(this.privateRunId),d=this.description;
     ensure(c.evidenceMode==='synthetic_fixture','publication_observed_gate_closed');
-    const sourceHash=hash({configuration:c,journals:journals.map(j=>j.hash),description:{...d,artifacts:d.artifacts.map(a=>({...a,bytes:a.bytes.toString('base64')}))}});
+    const sourceHash=hash({evidence:this.sourceEvidence(),configuration:c,journals:journals.map(j=>j.hash),description:{...d,artifacts:d.artifacts.map(a=>({...a,bytes:a.bytes.toString('base64')}))}});
     const material:Material={sourceHash,events:[],contents:[]},pub=(kind:string,key:string)=>ctx.identity(kind,key);
     const origin=(kind:string,key:string,version:string,digest:string):Origin=>({kind,id:key,version,hash:digest});
     function emit(type:Event['type'],payload:unknown,key:string,at:string,source:Origin,actor:Actor={kind:'system'}) {
@@ -58,12 +67,13 @@ export class SimulatorPublicationSource implements PublicationSource {
     };
     const configuration:RunConfiguration=validate('RunConfiguration',{
       configurationVersion:pub('configuration',c.version),methodologyVersion:c.methodology,methodologyHash:hash({method:c.methodology,execution:c.execution,cutoff:c.cutoffMinutes,rounding:'half_even_6'}),universeVersion:pub('universe',c.universeVersion),universe:c.instruments.map(instrument),initialCapital:c.initialCapital,currency:c.currency,
-      benchmarkInstrument:instrument(c.benchmark.instrument),benchmarkConvention:c.benchmark.convention,calendarVersion:pub('calendar',c.calendar.version),calendarTimezone:c.calendar.timezone,marketProvider:c.marketPolicy.provider,feed:c.marketPolicy.feed,openingFieldDefinition:d.openingFieldDefinition,executionRule:c.execution,cutoffMinutes:c.cutoffMinutes,slippageBps:c.slippageBps,commission:c.commission,quantityRule:'whole_discretionary_six_decimal_actions',rounding:'half_even_6',costBasis:'weighted_average',longOnly:c.longOnly,leverage:c.leverage,cashConvention:'no_interest_no_tax_immediate_simulated_settlement',positionLimitBps:c.positionLimitBps,sectorLimitBps:c.sectorLimitBps,drawdownStopBps:c.drawdownAttentionBps,decisionCadence:'one_review_per_regular_session',officialSessions:c.calendar.sessions.filter(s=>s.status==='open').length,cycleExecutionBudget:d.cycleExecutionBudget,dailyExecutionBudget:d.dailyExecutionBudget,runExecutionBudget:d.runExecutionBudget,publicationPolicyVersion:ctx.policyVersion,publicationHeartbeatSeconds:d.heartbeatSeconds,publicationStaleSeconds:d.staleSeconds,maxOutboxAgeSeconds:d.maxOutboxAgeSeconds,maxOutboxBytes:d.maxOutboxBytes,dataDelaySeconds:d.dataDelaySeconds,attribution:d.attribution,rightsEvidence:d.rightsEvidence,configurationStatus:'synthetic_only',approvalRecordId:null,limitations:['Invented synthetic fixture; no real employee deliberation or observed price is claimed.',...d.limitations],maxOpeningWaitSeconds:c.maxOpeningWaitSeconds,
+      benchmarkInstrument:instrument(c.benchmark.instrument),benchmarkConvention:c.benchmark.convention,calendarVersion:pub('calendar',c.calendar.version),calendarTimezone:c.calendar.timezone,marketProvider:c.marketPolicy.provider,feed:c.marketPolicy.feed,openingFieldDefinition:d.openingFieldDefinition,executionRule:c.execution,cutoffMinutes:c.cutoffMinutes,slippageBps:c.slippageBps,commission:c.commission,quantityRule:'whole_discretionary_six_decimal_actions',rounding:'half_even_6',costBasis:'weighted_average',longOnly:c.longOnly,leverage:c.leverage,cashConvention:'no_interest_no_tax_immediate_simulated_settlement',positionLimitBps:c.positionLimitBps,sectorLimitBps:c.sectorLimitBps,drawdownStopBps:c.drawdownAttentionBps,decisionCadence:'one_review_per_regular_session',officialSessions:c.calendar.sessions.filter(s=>s.status==='open').length,cycleExecutionBudget:d.cycleExecutionBudget,dailyExecutionBudget:d.dailyExecutionBudget,runExecutionBudget:d.runExecutionBudget,publicationPolicyVersion:ctx.policyVersion,publicationHeartbeatSeconds:d.heartbeatSeconds,publicationStaleSeconds:d.staleSeconds,maxOutboxAgeSeconds:d.maxOutboxAgeSeconds,maxOutboxBytes:d.maxOutboxBytes,dataDelaySeconds:d.dataDelaySeconds,attribution:d.attribution,rightsEvidence:d.rightsEvidence,configurationStatus:'synthetic_only',approvalRecordId:null,limitations:[...this.sourceLimitations(),...d.limitations],maxOpeningWaitSeconds:c.maxOpeningWaitSeconds,
     });
     const configHash=canonicalHash(configuration),configOrigin=origin('configuration',c.runId,c.version,hash(c));
     emit('run.published',{title:d.title,purpose:d.purpose,objective:d.objective,runKind:'fixture',state:'configured',configuration,configurationHash:configHash,startsAt:c.startsAt,endsAt:c.endsAt,previousRunId:null},'run',c.startsAt,configOrigin);
-    ensure(this.participants.length>0&&this.participants.every(p=>c.authorization.authors.includes(p)||c.authorization.reviewers.includes(p)),'publication_roster_source');
-    emit('team.published',{rosterVersion:pub('roster','fixture'),workers:Object.entries(d.workers).map(([privateId,description])=>({...description,workerId:pub('worker',privateId)}))},'team',c.startsAt,origin('fixture_roster',c.runId,'1',hash(d.workers)));
+    this.validateRoster(c);
+    emit('team.published',{rosterVersion:pub('roster','fixture'),workers:Object.entries(d.workers).map(([privateId,description])=>({...description,workerId:pub('worker',privateId)}))},'team',c.startsAt,origin(this.rosterKind(),c.runId,'1',hash(d.workers)));
+    this.extra(ctx,material,emit);
     const market=new MarketStore(this.db);
     const observation=(privateId:string):MarketObservation=>{
       const e=market.get<PriceEvidence>(privateId,'price');ensure(e.value!==null&&e.marketAt!==null&&['verified','corrected'].includes(e.quality),'publication_price_unverified');
@@ -87,11 +97,11 @@ export class SimulatorPublicationSource implements PublicationSource {
       if(j.command.type==='control'&&j.outcome.status!=='rejected')emit('run.status',{state:j.command.state,reason:'Explicit synthetic simulator lifecycle control',effectiveAt:j.recordedAt,nextReviewAt:null},`control:${j.version}`,j.recordedAt,jOrigin);
       if(j.command.type==='review'&&j.outcome.status!=='rejected'){
         const r=j.command.review,decision=state.decisions[`${r.decisionId}:${r.revision}`];ensure(decision,'publication_decision_missing');
-        const copy=d.decisions[`${r.decisionId}:${r.revision}`];ensure(copy&&copy.mode==='synthetic_fixture_derivative'&&copy.proposalHash===decision.hash&&copy.reviewHash===hash(r),'publication_review_derivative_required');
+        const copy=this.decisionDerivative(decision,r,j,ctx);
         ensure(decision.orders.length<=1,'publication_multi_order_derivative_required');const o=decision.orders[0];
-        const proposal={decisionId:pub('decision',decision.decisionId),revision:decision.revision,action:decision.action,instrumentId:o?pub('instrument',o.instrumentId):null,quantity:o?.quantity??null,targetSession:o?.targetSession??null,priceGuard:o?.priceGuard??null,evidenceCutoff:decision.evidenceCutoff,committedAt:decision.committedAt,rationale:copy.rationale,alternatives:copy.alternatives,risks:copy.risks,invalidationCondition:copy.invalidationCondition,evidence:[],sources:[]};
-        ensure(decision.evidence.length===0,'publication_evidence_derivative_required');const proposalHash=canonicalHash(proposal);
-        const event=emit('decision.published',{proposal,proposalHash,review:{reviewId:pub('review',r.id),reviewerId:pub('worker',r.reviewer),proposalHash,proposalRevision:r.revision,reviewedAt:r.reviewedAt,disposition:r.disposition,rationale:copy.reviewRationale,dissent:copy.dissent,evidence:[]}},`decision:${r.decisionId}:${r.revision}`,j.recordedAt,origin('fixture_decision_derivative',j.transactionId,j.version,hash({journal:j.hash,copy})),{kind:'worker',workerId:pub('worker',decision.author)});
+        const proposal={decisionId:pub('decision',decision.decisionId),revision:decision.revision,action:decision.action,instrumentId:o?pub('instrument',o.instrumentId):null,quantity:o?.quantity??null,targetSession:o?.targetSession??null,priceGuard:o?.priceGuard??null,evidenceCutoff:decision.evidenceCutoff,committedAt:decision.committedAt,rationale:copy.rationale,alternatives:copy.alternatives,risks:copy.risks,invalidationCondition:copy.invalidationCondition,evidence:copy.evidence,sources:copy.sources};
+        const proposalHash=canonicalHash(proposal);
+        const event=emit('decision.published',{proposal,proposalHash,review:{reviewId:pub('review',r.id),reviewerId:pub('worker',r.reviewer),proposalHash,proposalRevision:r.revision,reviewedAt:r.reviewedAt,disposition:r.disposition,rationale:copy.reviewRationale,dissent:copy.dissent,evidence:copy.reviewEvidence}},`decision:${r.decisionId}:${r.revision}`,j.recordedAt,copy.origin,{kind:'worker',workerId:pub('worker',decision.author)});
         ensure(event.type==='decision.published','publication_event_type');decisionEvents.set(`${r.decisionId}:${r.revision}`,event);
       }
       for(const o of Object.values(state.orders))for(let n=orderEvents.get(o.id)?.length??0;n<o.transitions.length;n++){if(o.transitions[n]!.status==='filled')break;orderTransition(o,n,j);}
@@ -152,4 +162,13 @@ export class SimulatorPublicationSource implements PublicationSource {
       excessReturn:complete&&v.totalReturn!==null&&v.benchmarkReturn!==null?format(decimal(v.totalReturn)-decimal(v.benchmarkReturn)):null,quality:complete?'complete':v.quality==='blocked'?'blocked':'partial',limitations:complete?[]:['Unavailable or unsupported matched portfolio/benchmark valuation'],
     });
   }
+}
+
+/** Only invented fixture narration; genuine records use CommittedTeamPublicationSource. */
+export class SimulatorPublicationSource extends SimulatorProjectionSource {
+ constructor(id:string,title:string,db:Store,clock:SimulationClock,operator:string,runId:string,private readonly fixture:FixturePublicationDescription,readArtifact?:(id:string,version:number)=>Buffer){super(id,title,db,clock,operator,runId,fixture,readArtifact);}
+ protected decisionDerivative(decision:Decision,r:Review,j:Journal):DecisionDerivative {
+  const copy=this.fixture.decisions[`${r.decisionId}:${r.revision}`];ensure(copy&&copy.mode==='synthetic_fixture_derivative'&&copy.proposalHash===decision.hash&&copy.reviewHash===hash(r),'publication_review_derivative_required');ensure(decision.evidence.length===0,'publication_evidence_derivative_required');
+  return {...copy,evidence:[],reviewEvidence:[],sources:[],origin:{kind:'fixture_decision_derivative',id:j.transactionId,version:j.version,hash:hash({journal:j.hash,copy})}};
+ }
 }

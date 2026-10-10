@@ -1,4 +1,4 @@
-/** Trusted internal INV-05 library. Deliberately absent from Company, HTTP, workers and schedulers. */
+/** Trusted deterministic simulator. INV-08 workers reach only the scoped paper facade, never raw commands. */
 import { Store } from '../persistence/store.js';
 import { ensure, SimulationError } from '../domain/investment/arithmetic.js';
 import { canonical, hash, id, identity, time } from '../domain/investment/identity.js';
@@ -55,7 +55,7 @@ export class FixtureSimulator {
   constructor(private readonly store: Store, private readonly clock: SimulationClock, private readonly fixtureOperator: string,
     private readonly fault?: (phase: 'before_commit' | 'after_commit') => void) {
     id(fixtureOperator);
-    ensure(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n===17,'incompatible_schema');
+    ensure(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n===18,'incompatible_schema');
     ensure(store.get<{integrity_check:string}>('PRAGMA integrity_check')?.integrity_check==='ok','database_corrupt');
     ensure(store.all('PRAGMA foreign_key_check').length===0,'missing_reference');
   }

@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {join} from 'node:path';
+import {teamFixture} from './fixtures/investment-team/support.js';
+import {Dispatcher} from '../src/control/dispatcher.js';
+import {createHttpServer} from '../src/http/server.js';
+test('team owner API denies forged, device and cross-site consent while exact consent remains passive',async t=>{
+ const f=teamFixture(),dispatcher=new Dispatcher(f.company,f.bounded),http=createHttpServer(f.company,dispatcher,join(process.cwd(),'public'));await new Promise<void>(r=>http.server.listen(0,'127.0.0.1',r));t.after(async()=>{await http.close();await dispatcher.stop();await f.close();});const root=`http://127.0.0.1:${(http.server.address() as {port:number}).port}`,token=(await (await fetch(root+'/api/session')).json() as {csrfToken:string}).csrfToken;assert.equal((await fetch(root+'/investment-team')).status,200);const post=(path:string,input:unknown,extra:Record<string,string>={})=>fetch(root+'/api/investment-team'+path,{method:'POST',headers:{'Content-Type':'application/json','X-BotSquad-Token':token,...extra},body:JSON.stringify(input)});for(const h of [{'X-BotSquad-Token':'forged'},{Origin:'https://invalid.example'},{'Sec-Fetch-Site':'cross-site'},{Authorization:'Bearer device'}] as Record<string,string>[])assert.equal((await post('/preview',f.envelope,h)).status,403);const response=await post('/preview',f.envelope);assert.equal(response.status,201);const p=await response.json() as {scopeId:string;digest:string};assert.equal((await post('/consent',{...p,workerId:f.atlas.worker_id})).status,400);assert.equal((await post('/consent',{scopeId:p.scopeId,digest:p.digest})).status,201);assert.equal(f.runtime.calls.length,0);assert.equal(f.store.all('SELECT * FROM investment_team_executions').length,0);assert.equal((await post('/control',{scopeId:p.scopeId,action:'revoke'})).status,200);
+});

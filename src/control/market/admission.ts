@@ -20,7 +20,7 @@ export class MarketAdmission {
  * The raw FixtureSimulator remains available only for the original disconnected INV-05 fixtures. */
 export class MarketFixtureSimulator {
   private readonly simulator:FixtureSimulator;
-  constructor(private readonly store:MarketStore,private readonly clock:SimulationClock,operator:string){this.simulator=new FixtureSimulator(store.db,clock,operator);}
+  constructor(private readonly store:MarketStore,private readonly clock:SimulationClock,operator:string,private readonly riskAdmission?:(runId:string,command:Exclude<Command,{type:'observe'}>)=>void){this.simulator=new FixtureSimulator(store.db,clock,operator);}
   create(configuration:Configuration){return this.simulator.create(configuration);}
   inspect(runId:string){return this.simulator.inspect(runId);}
   observe(runId:string,evidenceId:string){
@@ -39,6 +39,7 @@ export class MarketFixtureSimulator {
       // Exact receipt replay remains valid without repeating any price-dependent effect.
       const replay=this.store.db.get('SELECT 1 FROM investment_receipts WHERE run_id=? AND request_id=?',runId,requestId);
       const terminal=command.type==='fill'&&state.orders[command.orderId]?.status!=='pending';
+      if(!replay&&!terminal)this.riskAdmission?.(runId,command);
       if(!replay&&!terminal&&['submit','fill','benchmark_open','value','revise_valuations'].includes(command.type)){
         const observed=new Set(state.observations.map(o=>o.id));
         for(const observation of state.observations){
