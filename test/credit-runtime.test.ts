@@ -1,14 +1,23 @@
+import {tmpdir} from 'node:os';
+import {PilotLineage,type Successor} from '../src/control/usage/pilot-lineage.js';
+import type {RuntimeInput} from '../src/runtime/adapter.js';
+import type {VerifiedCreditAccount} from '../src/runtime/credit-account.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {writeFileSync,readFileSync} from 'node:fs';
+import {writeFileSync,readFileSync,mkdtempSync,realpathSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
 import {pilotFixture} from './fixtures/credit-pilot.js';
 import {supervisePilot} from '../scripts/credit-pilot/supervise.js';
 import {Store} from '../src/persistence/store.js';
 import {Company} from '../src/control/company.js';
-import {CodexRuntime,DISABLED_FEATURES} from '../src/runtime/codex.js';
+import {CodexRuntime as RealCodexRuntime,DISABLED_FEATURES} from '../src/runtime/codex.js';
 import {AppServerRpc} from '../src/runtime/rpc.js';
 import {CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,privateContext,rejectGlobalInstructions,validateCreditRequirements} from '../src/runtime/credit-policy.js';
+// This subclass is test code only and permits only our generated local fake transport.
+class CodexRuntime extends RealCodexRuntime {
+ authorizeWith?:(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>)=>void;
+ protected override authorizeCredit(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>){assert.ok(this.command.endsWith('/fake-codex.mjs'));assert.ok(readFileSync(this.command,'utf8').includes("from 'node:readline'"));this.authorizeWith?.(input,account);}
+}
 function transport(mode:string,existing?:ReturnType<typeof pilotFixture>){
  const f=existing??pilotFixture(),c=existing?undefined:f.claim(),input=c?f.input(c):undefined,command=join(f.root,'fake-codex.mjs'),trace=join(f.root,'transport.jsonl');
  const config:Record<string,unknown>={features:Object.fromEntries([...DISABLED_FEATURES,...CREDIT_DISABLED_FEATURES].map(k=>[k,false])),mcp_servers:{inherited:{}}};
@@ -177,4 +186,24 @@ test('nonempty global instructions block without reading contents or starting a 
 });
 test('provider completion during local-stop grace preserves settlement but cannot reopen the pilot',async t=>{
  const f=transport('completed-after-timeout');t.after(f.close);f.input.localDeadline=new Date(Date.now()+2000).toISOString();const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.throws(()=>f.release());assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
+});
+
+for(const mode of ['success','notification-no-settlement'])test('durable lineage with fake transport '+mode+' admits exactly once and stops',async t=>{
+ const base=pilotFixture(),f=transport(mode,base),dir=realpathSync(mkdtempSync(join(tmpdir(),'botsquad-transport-lineage-')));
+ const ledger=PilotLineage.create(join(dir,'lineage.sqlite'),{pilotId:'original-fake',scopeId:'revoked-fake',executionId:'failed-fake',model:'test-model',archive:dir,archiveDigest:'f'.repeat(64),rosterHash:'e'.repeat(64),workerId:base.roster[0]!.worker_id,source:'1'.repeat(40),files:{}},new Date().toISOString());
+ t.after(()=>{ledger.close();base.close();rmSync(dir,{recursive:true,force:true});});
+ const s:Successor={pilotId:base.manifest.pilotId,root:base.root,scopeId:base.manifest.scopeId,groupId:base.manifest.groupId,runId:base.manifest.runId,workerId:base.roster[0]!.worker_id,model:'test-model',source:'1'.repeat(40),expiresAt:base.envelope.expiresAt};
+ ledger.prepare(s);ledger.bindAccount(s,await f.runtime.creditPreflight(join(s.root,'workspaces',s.workerId)));base.company.creditPilot.attach(ledger,s);
+ f.runtime.authorizeWith=(input,account)=>{assert.equal(f.methods().includes('turn/start'),false);if(account)ledger.admit(s,input,account);else ledger.check(s,input);};
+ const c=base.claim(),input=base.input(c);assert.equal(ledger.row().consumed,2);
+ const result=await f.runtime.runSubscriptionInvestment!(input,new AbortController().signal,base.policy);base.company.finish(c.execution.execution_id,result);
+ assert.equal(f.methods().filter(m=>m==='turn/start').length,1);assert.equal(ledger.receipts().filter(r=>r.kind==='admission_consumed').length,1);assert.equal(ledger.row().state,'stopped');assert.equal(ledger.row().consumed,2);assert.equal(ledger.row().uncertain,mode==='success'?0:1);
+ f.runtime.authorizeWith=(input,account)=>{if(account)ledger.admit(s,input,account);else ledger.check(s,input);};
+ await assert.rejects(f.runtime.runSubscriptionInvestment!(input,new AbortController().signal,base.policy),/stopped/);assert.equal(f.methods().filter(m=>m==='turn/start').length,1);assert.equal(base.company.claimWorkNext(),undefined);
+});
+
+test('credit notification audit rejection requests interruption before closing transport',async t=>{
+ const f=transport('hang');t.after(f.close);const event=f.input.event;
+ f.input.event=(type,detail)=>{if(type==='runtime_turn_started')throw Error('Fixture revocation at notification');event(type,detail);};
+ const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);assert.ok(f.methods().includes('turn/interrupt'));assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
 });

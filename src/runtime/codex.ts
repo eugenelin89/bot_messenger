@@ -1,3 +1,4 @@
+import {verifyPermit} from '../control/usage/pilot-lineage.js';
 import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
 import {CreditAccountVerifier,type VerifiedCreditAccount} from './credit-account.js';
 import type {ActivityPolicy} from '../domain/usage/policy.js';
@@ -132,12 +133,14 @@ export class CodexRuntime implements RuntimeAdapter {
   researchProvider(workspace: string) { return new CodexResearchProvider(this.command,workspace); }
   constructor(options: Options = {}) {
     this.creditPilot=options.creditPilot?Object.freeze({...options.creditPilot}):undefined;
-    if(this.creditPilot)this.runSubscriptionInvestment=async(input,signal,policy)=>{validateCreditInput(this.creditPilot!,input,policy);return this.runTurn(input,signal,policy);};
+    if(this.creditPilot)this.runSubscriptionInvestment=async(input,signal,policy)=>{validateCreditInput(this.creditPilot!,input,policy);this.authorizeCredit(input);return this.runTurn(input,signal,policy);};
     this.command = options.command ?? process.env.CODEX_BIN ?? 'codex';
     this.model = options.model ?? process.env.BOT_MODEL;
     this.timeoutMs = options.timeoutMs ?? 240000;
     requireThat(this.timeoutMs > 0 && this.timeoutMs <= 600000, 'Runtime deadline must be at most ten minutes');
   }
+  /** Production requires a module-issued durable permit; fake transports override only in test code. */
+  protected authorizeCredit(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>){verifyPermit(this.creditPilot?.permit,input,account);}
   checkVersion(): string {
     let version: string;
     try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot?creditEnvironment():process.env }).trim(); }
@@ -188,12 +191,14 @@ export class CodexRuntime implements RuntimeAdapter {
     rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during isolation preflight'}}));
     try{requireThat(!signal?.aborted,'Pilot stopped before isolation');const initialized=await this.initialize(rpc,true,workspace,undefined,accounts);let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();return {skills:initialized.skills!,verified};}finally{accounts.close();clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
   }
-  async catalog(workspace: string): Promise<RuntimeCatalog> {
+  async catalog(workspace:string):Promise<RuntimeCatalog>{return (await this.catalogResult(workspace)).catalog;}
+  async creditPreflight(workspace:string){requireThat(this.creditPilot,'Private pilot preflight required');const r=await this.catalogResult(workspace);requireThat(r.verified,'Verified account unavailable');return {catalog:r.catalog,fingerprint:r.verified.fingerprint,routingFingerprint:r.verified.routingFingerprint};}
+  private async catalogResult(workspace: string) {
     this.checkVersion();const isolated=this.creditPilot?await this.isolateSkills(workspace):undefined,rpc=this.connect(workspace,!!this.creditPilot,isolated?.skills);
     const deadline=Date.now()+60000;
     const accounts=this.creditPilot?new CreditAccountVerifier(rpc,{pilotId:this.creditPilot.pilotId,workspace,deadline,disabledFeatures:DISABLED_FEATURES,expected:isolated!.verified,checkOpen:()=>requireThat(Date.now()<deadline,'Pilot preflight deadline expired')}):undefined;
     rpc.on('request', (m: RpcMessage) => rpc.send({ id: m.id, error: { code: -32601, message: 'Unavailable during preflight' } }));
-    try { const initialized=await this.initialize(rpc,!!this.creditPilot,workspace,isolated?.skills,accounts);if(accounts){let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();}return initialized.catalog; }
+    try { const initialized=await this.initialize(rpc,!!this.creditPilot,workspace,isolated?.skills,accounts);if(accounts){let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();initialized.verified=verified;}return initialized; }
     finally { accounts?.close();rpc.close(); }
   }
   async preflight(workspace: string) {
@@ -346,7 +351,7 @@ export class CodexRuntime implements RuntimeAdapter {
         else if (turn.status === 'interrupted') finish({ status: 'interrupted', settled:true, error: 'Codex confirmed turn interruption' });
         else finish({ status: 'failed', settled:true, error: 'Codex turn failed; check authentication, model access and connectivity with codex:preflight' });
       }
-      } catch { finish({status:'failed',error:'Runtime notification rejected by authority or output bounds'});rpc.close(); }
+      } catch { if(policy)interrupt();else {finish({status:'failed',error:'Runtime notification rejected by authority or output bounds'});rpc.close();} }
     };
     rpc.on('notification', notification);
     try {
@@ -403,6 +408,8 @@ export class CodexRuntime implements RuntimeAdapter {
         requireThat(accounts.current(verified),'Account verification invalidated before admission');
         input.admitSubscription!({threadId,model:effective.model,accountFingerprint:verified.fingerprint,eligibility:verified.eligibility});
         live();requireThat(accounts.current(verified),'Account verification invalidated during admission');
+        this.authorizeCredit(input,verified);
+        live();requireThat(accounts.current(verified),'Account verification invalidated during lineage admission');
       }
       starting = true;
       const started = await rpc.request<{ turn: { id: string } }>('turn/start', { threadId, environments: [],

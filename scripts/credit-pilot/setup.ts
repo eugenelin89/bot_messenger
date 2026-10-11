@@ -27,3 +27,14 @@ export function preparePilot(roster:PilotWorker[],model:string,repoRoot:string,r
  writeFileSync(join(root,'manifest.json'),JSON.stringify(manifest,null,2),{mode:0o600});
  return {root,store,company,policy,envelope,manifest,group,roster,close:()=>store.close()};
 }
+
+/** One compare-and-swap owns the successor. A losing preparation cannot stop its winner. */
+export function bindPreparedSuccessor(ledger:import('../../src/control/usage/pilot-lineage.js').PilotLineage,f:ReturnType<typeof preparePilot>,source:string){
+ const original=ledger.original();let installed=false;
+ try {
+  const successor={pilotId:f.manifest.pilotId,root:f.root,scopeId:f.manifest.scopeId,groupId:f.manifest.groupId,runId:f.manifest.runId,workerId:original.workerId,model:original.model,source,expiresAt:f.envelope.expiresAt};
+  ledger.prepare(successor);installed=true;f.company.creditPilot.attach(ledger,successor);
+  writeFileSync(join(f.root,'accepted-source.json'),JSON.stringify({sha:source,archiveDigest:original.archiveDigest,originalRosterHash:original.rosterHash}),{mode:0o600});
+  return successor;
+ }catch(error){if(installed)ledger.stop('successor_preparation_failed');throw error;}
+}

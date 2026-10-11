@@ -12,7 +12,7 @@ export async function supervisePilot(company:Company,runtime:RuntimeAdapter,grou
  const deadline=Date.now()+315000;
  while(Date.now()<deadline){
   const p=company.creditPilot.get()!;if(p.execution_id&&p.state!=='running'&&p.state!=='released')break;
-  try{requireThat(!company.paused,'Owner paused');company.investmentTeam.authorize(company.conversations.request(requestId));}catch{company.creditPilot.stop();break;}
+  try{company.creditPilot.assertSupervision();requireThat(!company.paused,'Owner paused');company.investmentTeam.authorize(company.conversations.request(requestId));}catch{company.creditPilot.stop();break;}
   await new Promise(r=>setTimeout(r,50));
  }
  if(['running','released'].includes(company.creditPilot.get()!.state))company.creditPilot.stop();
