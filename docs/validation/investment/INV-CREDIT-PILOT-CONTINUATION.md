@@ -1,7 +1,8 @@
 # INV-CREDIT-PILOT-CONTINUATION — Remaining Decision 037 allowance
 
 **Date:** 2026-10-10 America/Vancouver  
-**Status:** Source implemented and deterministic acceptance passed; integration pending; no new genuine turn yet  
+**Status:** Reviewed and merged; one genuine Atlas turn completed and settled; lineage stopped and scope revoked
+
 **Starting main:** `d1cbbea9f948c58555c59fd960d42caecc8e6b1d` (PR #48)
 
 ## Historical evidence remains unchanged
@@ -50,12 +51,41 @@ The six skips are existing external-receiver fixtures and a Linux-only build cas
 
 ## Reviewed Git integration
 
-Source/tests commit: `478c5b077ca2cbb5ef9e7660520b74a2a71c7c54`, based on `d1cbbea9f948c58555c59fd960d42caecc8e6b1d`. A separate acceptance documentation commit follows. Feature PR, accepted merge, clean local/remote main verification and rebuild remain pending. No inference may run from this feature worktree or unreviewed source. The [execution plan](../../exec-plans/credit-pilot-continuation.md) records progress.
+Source/tests commit: `478c5b077ca2cbb5ef9e7660520b74a2a71c7c54`, based on `d1cbbea9f948c58555c59fd960d42caecc8e6b1d`. Separate acceptance documentation commit: `9c06324b02ee721276bdb31ecfb088e39e3c7559`. All three specialists approved the exact source. [PR #49](https://github.com/eugenelin89/bot_messenger/pull/49) had the expected head/base and was mergeable; GitHub published no commit-status contexts. It merged as **`4db927f02925adb7d86c9a5c7d6e3bbca3f030b5`**.
+
+Clean local and remote main matched that merge, its tree matched the reviewed head exactly, and check/build passed again before registration or provider preflight. The genuine turn used that accepted merge SHA, never the feature worktree. Private integration/build/review receipts are retained. This later outcome documentation changes no executable source. The [execution plan](../../exec-plans/credit-pilot-continuation.md) records the completed sequence.
 
 ## Actual provider execution and usage
 
-Not started. Registration of real authority, successor preparation, official preflight and one Atlas release remain after integration. No fabricated response, model usage or credit deduction is claimed. The eventual private report must include exact execution/request/thread/turn identities, confirmation of `turn/start`, timestamps, duration, settlement, reported input/cached-input/output tokens, API-equivalent USD or unknown/partial status, observed retries, reservation counts and stop reason. Private transcript bytes stay out of Git.
+Official non-inference preflight verified current ChatGPT authentication, confinement/routing and the exact `gpt-6-luna` catalog entry with low reasoning. Durable account/routing fingerprints matched again immediately before the single provider admission. No fallback or account switch occurred.
+
+Atlas then performed the genuine opening analysis of clearly fictional ACME/BETA evidence, comparing HOLD/all cash with a hypothetical small position, identifying missing information and conditions for reconsideration. One genuine contribution was retained privately; its conclusion was not scripted. This establishes one employee response, not two-worker collaboration or a completed investment cycle. Raw task/response bytes, minimal identities and execution/request/thread/turn IDs are retained only in the owner-private evidence directory.
+
+| Actual successor observation | Retained result |
+| --- | --- |
+| Accepted executable source | `4db927f02925adb7d86c9a5c7d6e3bbca3f030b5` |
+| Model / reasoning / runtime | `gpt-6-luna` / low / Codex CLI 0.157.0 |
+| Execution start / finish, UTC | 2026-10-11 06:06:50.537 / 06:07:05.423 |
+| Vancouver local time | October 10, 23:06:50–23:07:05 |
+| Durable one-use admission | 06:06:55.055 UTC; one `turn/start` confirmed with exact thread/turn IDs |
+| Completion / settlement | Completed / settled; no retained uncertainty |
+| Local usage duration, including startup | 14.883 seconds |
+| Input tokens / cached-input subset | 18,878 / 10,752 |
+| Output / total tokens | 538 / 19,416 |
+| Reported token completeness | Complete; no missing-usage reasons reported |
+| API-equivalent USD | **$0.00118912, partial base-token estimate** |
+| Pricing basis | Retained `openai-2026-10-10-fdc607e42c34c9a1`; additional/long-context dimensions unverified |
+| Actual purchased-credit deduction / included allowance use | Unavailable and not attributable |
+| Provider-managed retries | None observed; unreported internal retries cannot be excluded |
+| Atlas / Maya executions | 1 / 0 |
+| Formal proposals / reviews / paper submissions | 0 / 0 / 0 |
+| Final local pilot / external lineage / scope | Stopped / stopped / revoked |
+| Stop reason | Single authorized attempt finished; no renewed release authority |
+
+The reference estimate is not subscription billing or a measured purchased-credit charge. No credit purchase or reload change occurred. Final evidence in the external authority and disposable environment matched. Independent private copies of both databases and their reports, exact task/response, usage summary, confirmation and validation receipts are retained outside Git. Post-stop inspection found one execution, no rejected tools or observed provider-retry events, and a revoked scope. All 47 original historical files remained byte-identical after execution.
 
 ## Residual authority and non-activation
 
-Current historical consumption remains 1/4 until a genuine successor reservation is committed. The current owner request permits at most one new reservation. No Maya turn, automatic follow-up, paper-order mutation, production HQ deployment, official investment activation, live market data, brokerage, Asymmetri publication, new credit purchase, reload change or recurring model schedule is authorized or performed by source acceptance.
+The original historical consumption remains 1/4 with zero original confirmed turns. The successor consumed one further reservation and completed one confirmed turn: **cumulative 2/4, two unused reservations, zero further authorized releases**. Both pilots remain stopped and both scopes revoked. There is no retry, Maya release or automatic use of the unused allowance.
+
+No new credit purchase, billing-setting mutation, production HQ deployment, official investment activation, live market data, brokerage access, public Asymmetri publication, paper-order mutation or recurring model schedule was performed. No execution blocker remains; the continuation is stopped as required. Further inference requires new owner authorization and a separately reviewed mechanism; this implementation exposes no restart/reset path.
