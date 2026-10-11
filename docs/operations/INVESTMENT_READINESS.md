@@ -27,3 +27,7 @@ Only after those results should the owner choose a separately scoped deployment/
 See the [sequence ledger](../exec-plans/investment-autonomous-sequence-06-09.md), [INV-09 validation](../validation/investment/INV-09.md), [operator guide](INVESTMENT_RUN_TUTORIAL.md) and [investment roadmap](../experiments/investment/ROADMAP.md) for source receipts and retained gates.
 
 The Decision037 private pilot is discussion-only, with synthetic evidence, no formal paper mutations and no public audience. Even successful genuine collaboration does not satisfy two elapsed operating cycles, real source rights, deployment or public release gates.
+
+## Decision037 continuation boundary
+
+[Remaining-budget continuation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md) is separately owner-selected after PR48. Its durable private authority inherits the failed pilot's consumed reservation and permits at most one new Atlas turn after accepted source integration. A genuine single-worker response, if achieved, does not establish collaboration, a completed investment cycle, deployed readiness or public activation. Two unused reservations after that attempt remain unreleased.
