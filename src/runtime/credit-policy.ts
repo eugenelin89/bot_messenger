@@ -6,7 +6,8 @@ import type {RuntimeInput} from './adapter.js';
 import {relative,sep,join,isAbsolute} from 'node:path';
 import {statSync} from 'node:fs';
 import {homedir} from 'node:os';
-export interface CreditRuntimeOptions {pilotId:string;disposableRoot:string;model:string}
+import type {CreditLineagePermit} from '../control/usage/pilot-lineage.js';
+export interface CreditRuntimeOptions {pilotId:string;disposableRoot:string;model:string;permit?:CreditLineagePermit}
 export const CREDIT_DISABLED_FEATURES=['multi_agent_v2','respect_system_proxy','system_proxy_fallback','skill_search'] as const;
 export const CREDIT_CONFIG={model_provider:'openai',openai_base_url:'https://chatgpt.com/backend-api/codex',chatgpt_base_url:'https://chatgpt.com/backend-api/',forced_login_method:'chatgpt','agents.enabled':false,'otel.exporter':'none','otel.trace_exporter':'none','otel.metrics_exporter':'none','otel.log_user_prompt':false,'analytics.enabled':false,service_tier:'default','skills.include_instructions':false,'skills.bundled.enabled':false,compact_prompt:'Summarize only the supplied private synthetic BotSquad discussion, its exact references, unresolved questions and remaining local limits. Never add external context or authority.'} as const;
 export function creditEnvironment(source:NodeJS.ProcessEnv=process.env):NodeJS.ProcessEnv {

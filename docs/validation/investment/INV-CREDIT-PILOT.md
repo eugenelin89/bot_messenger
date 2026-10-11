@@ -84,3 +84,7 @@ Confinement now suppresses skill catalog/bundled/search features, enumerates met
 | Remaining active recurring schedule |None |
 
 Source implementation and deterministic acceptance are complete. The finite live demonstration remains pending specifically under the owner's reload-confirmation condition. Reuse the eventual single prepared directory; do not treat preparing another directory as a new allowance. Successful completion of this later private discussion would still not authorize a full operating cycle or public release.
+
+## Later remaining-budget continuation
+
+The owner separately selected [durable continuation](INV-CREDIT-PILOT-CONTINUATION.md). Historical checkpoints above remain unchanged. The original pilot remains stopped/revoked with1/4 consumed and zero confirmed genuine turns. New source carries that count outside disposable state and authorizes only one successor Atlas release after reviewed merge; successful completion cannot release another. The linked record is authoritative for this continuation's actual execution/usage and residual allowance.
