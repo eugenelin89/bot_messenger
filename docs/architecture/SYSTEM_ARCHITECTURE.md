@@ -601,3 +601,11 @@ Common `AIUsage` records are created inside task/conversation claim transactions
 ## Private Decision037 continuation authority
 
 The trusted local supervisor uses an owner-private SQLite lineage outside disposable HQ state. It inherits the original consumed reservation and binds one successor/release, archive digest, exact worker/execution/source, current account/routing hashes and expiry. External reservation and one-time provider admission commit independently of the disposable company transaction, so rollback or restored local state cannot replay them. Active supervision observes durable stop/unavailability; completion never renews this release. Workers and HTTP expose no lineage administration. Ordinary HQ persistence and public contracts are unchanged. See [continuation validation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md).
+
+The one-use Maya amendment adds private authority schema2 without modifying ordinary HQ
+schema or public contracts. It freezes the schema1 Atlas row/receipts, appends Maya-specific
+authorization and receipts, and counts retained 2 plus one irreversible reservation bit.
+Supervisor ownership precedes dispatcher recovery. Exact historical imports, a frozen
+reachable-context projection and execution-checkpoint hash bind Maya's input. Completion,
+restart or uncertainty grants no later release. [Maya validation](../validation/investment/INV-CREDIT-MAYA-REVIEW.md)
+separates source acceptance from genuine inference.

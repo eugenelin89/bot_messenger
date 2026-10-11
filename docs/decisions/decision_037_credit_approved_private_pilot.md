@@ -37,3 +37,18 @@ See [acceptance](../validation/investment/INV-CREDIT-PILOT.md), [execution plan]
 ## Dated continuation amendment — 2026-10-10
 
 The owner explicitly selects a durable remaining-budget continuation after PR48. The original stopped/revoked pilot and one consumed reservation remain historical facts; zero genuine turns were confirmed. A private registry outside disposable state carries cumulative consumption under the same four-reservation authorization. One successor and one new Atlas release are permitted by this request, with one-use external reservation/admission, fresh pinned account/routing verification and no replay after failure or uncertainty. Success also ends this release authority. The two remaining unused reservations after a new reservation are not permission to execute. No reset, replacement four-turn allowance, Maya release or production/public authority follows. Source must pass tests, independent review and accepted merge before inference. See [continuation validation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md).
+
+## Dated Maya amendment — 2026-10-11
+
+The owner now explicitly authorizes one independent Maya review after the settled Atlas
+continuation. The original four-reservation ceiling and historical consumed reservations
+1 and 2 remain unchanged. Additive private authority schema2 freezes the Atlas row/receipts
+and separately permits one Maya preparation, supervisor, release, reservation and admission.
+Reservation 3 remains consumed on failure; the fourth unused reservation has no release
+permission. Both historical scopes stay revoked. Maya receives byte-accurate, attributed
+historical Atlas evidence and the original fictional packet under new local evidence IDs,
+never forged new Atlas speech. Accepted source integration, deterministic validation,
+independent review, applicable reload-OFF confirmation and exact-model official preflight
+must precede inference. Completion or uncertainty permanently ends this authorization.
+See [Maya acceptance](../validation/investment/INV-CREDIT-MAYA-REVIEW.md). No Atlas response,
+purchase, billing change, production/public activation or schedule follows.
