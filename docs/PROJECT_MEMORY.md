@@ -1,6 +1,6 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-10
+**Updated:** 2026-10-11
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
 ## Investment contract foundation
@@ -249,9 +249,19 @@ The continuation source was accepted in PR #49 (`4db927f02925adb7d86c9a5c7d6e3bb
 
 The owner authorizes exactly one Maya turn under the original Decision037 allowance.
 [Maya validation](validation/investment/INV-CREDIT-MAYA-REVIEW.md) and the
-[active plan](exec-plans/credit-pilot-maya-review.md) track deterministic source acceptance,
+[completed plan](exec-plans/credit-pilot-maya-review.md) track deterministic source acceptance,
 reviewed integration and the later genuine execution separately. Private authority schema2
 preserves both prior consumed reservations and Atlas's authentic response, imports complete
 historical evidence under new local IDs, and permits only reservation3. A fourth unused
 reservation remains unauthorized. No real Maya result or operational activation is implied
 until the linked outcome is recorded.
+
+The Maya source was accepted in [PR #51](https://github.com/eugenelin89/bot_messenger/pull/51),
+merge `2f13f931127e1c27dd4aa656c18bddc42e1456e0`, rebuilt on synchronized main. Exactly one Maya
+turn completed/settled, read and cited the authentic full Atlas response and original packet,
+and provided substantive partly agreeing review. Independent outcome assessment confirms
+genuine cross-employee review, not a completed two-way conversation. Count is now **3/4**;
+one unused reservation has **zero release permission**. Pilot stopped, scope revoked,
+all historical evidence preserved. Maya: 22,279 input / 12,800 cached / 677 output / 22,956
+total, 21.508 seconds; partial API-equivalent $0.00141440, actual credit deduction unavailable.
+Production, publication, paper orders and recurring operation remain inactive.

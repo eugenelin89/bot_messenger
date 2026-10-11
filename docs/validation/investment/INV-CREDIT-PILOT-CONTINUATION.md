@@ -1,6 +1,6 @@
 # INV-CREDIT-PILOT-CONTINUATION — Remaining Decision 037 allowance
 
-**Date:** 2026-10-10 America/Vancouver  
+**Date:** 2026-10-10 America/Vancouver
 **Status:** Reviewed and merged; one genuine Atlas turn completed and settled; lineage stopped and scope revoked
 
 **Starting main:** `d1cbbea9f948c58555c59fd960d42caecc8e6b1d` (PR #48)
@@ -98,3 +98,8 @@ an additive schema2 extension rather than reopening the stopped Atlas successor.
 [Maya acceptance](INV-CREDIT-MAYA-REVIEW.md) for source gates and subsequent outcome.
 The new review imports the authentic complete Atlas contribution as explicitly historical
 evidence. It does not rewrite Atlas's execution or authorize a fourth reservation.
+
+Maya subsequently completed and settled one genuine review from PR #51 merge `2f13f93`,
+fully reading/citing both historical records. The [Maya outcome](INV-CREDIT-MAYA-REVIEW.md)
+records 3/4 cumulative reservations, one unused and zero further release authority. Atlas's
+original response, cost, receipts and revoked scope above are unchanged.

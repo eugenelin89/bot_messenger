@@ -2,11 +2,11 @@
 
 **Status:** Implementation, accepted integration and single genuine execution completed; stopped
 
-**Owner:** Parent Codex; specialists read-only  
-**Branch:** `feature/credit-pilot-continuation`  
-**Worktree:** `bot_messenger-credit-continuation`  
-**Started:** 2026-10-10 America/Vancouver  
-**Initial ETA:** 2–4 hours, subject to review and provider gates  
+**Owner:** Parent Codex; specialists read-only
+**Branch:** `feature/credit-pilot-continuation`
+**Worktree:** `bot_messenger-credit-continuation`
+**Started:** 2026-10-10 America/Vancouver
+**Initial ETA:** 2–4 hours, subject to review and provider gates
 **Execution completion:** 2026-10-10 23:07 Vancouver; final evidence and outcome documentation followed
 
 ## Objective and scope
@@ -65,3 +65,6 @@ The Atlas continuation remains complete and stopped. The owner separately reques
 Maya review under the original allowance; its independent plan is
 [credit-pilot-maya-review](credit-pilot-maya-review.md). This addendum does not reopen this
 plan's successor or change any historical count, response or settlement.
+
+The separate Maya plan subsequently completed one genuine settled historical review and
+ended stopped/revoked at 3/4 cumulative consumption. No Atlas response followed.
