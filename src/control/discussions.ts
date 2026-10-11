@@ -7,6 +7,7 @@ import type {ReplyRequest,ConversationMessage} from '../domain/conversations.js'
 import {DISCUSSION_LIMITS as L,type WorkingGroup,type DiscussionTurn,type DiscussionTurnKind,type GroupEvidence,type GroupSynthesis} from '../domain/discussions.js';
 import {discussionTools} from '../runtime/discussions.js';
 import {publicUrl} from '../research/public-fetch.js';
+import {bytesHash,canonicalTextHash,type HistoricalText} from './usage/pilot-history.js';
 
 const now=()=>new Date().toISOString();
 const id=(prefix:string)=>`${prefix}_${randomUUID()}`;
@@ -100,6 +101,20 @@ export class Discussions {
       return this.evidence(g,kind,title,content,{...metadata,audience_worker_ids:this.audience(g),audience_scope_version:g.scope_version},sourceId);});
   }
   private publicMetadata(s:Record<string,unknown>&{content:string},excerpt:string){return {source_id:s.source_id,url:s.url,kind:s.kind,retrieved_at:s.retrieved_at,published_at:s.published_at,observed_at:s.observed_at,freshness:s.freshness,source_sha256:s.sha256,omissions:`${String(s.omissions)}; shared excerpt ${excerpt.length}/${s.content.length} retained characters; private query/operation/history excluded`};}
+  /** Trusted local pilot importer only; deliberately absent from HTTP and worker tools. */
+  importPilotHistory(groupId:string,title:string,source:HistoricalText){
+    this.human();return this.db.transaction(()=>{
+      const g=this.group(groupId),scope=this.company.investmentTeam.forGroup(groupId),p=source.provenance;
+      requireThat(g.state==='draft'&&scope?.state==='active'&&this.company.investmentTeam.envelope(scope).audience==='private_synthetic'&&this.company.investmentTeam.envelope(scope).executionPolicy?.mode==='credit_approved_private_pilot','Historical import requires a draft private credit pilot');
+      this.requireMembers(g);
+      requireThat(['imported_historical_contribution','imported_synthetic_packet'].includes(p.kind)&&source.content.trim().length>0&&source.content.length<=L.evidenceChars&&p.utf8_sha256===bytesHash(source.content)&&p.byte_length===Buffer.byteLength(source.content)&&p.canonical_sha256===canonicalTextHash(source.content),'Complete byte-accurate historical source required');
+      requireThat(p.source_group_id!==g.group_id&&p.source_id.length>0&&Number.isFinite(Date.parse(p.source_timestamp))&&/^[a-f0-9]{64}$/.test(p.archive_sha256),'Historical provenance required');
+      if(p.kind==='imported_historical_contribution')requireThat(!!p.source_execution_id&&!!p.source_worker_id&&!!p.source_model&&this.members(g).some(w=>w.worker_id===p.source_worker_id),'Original employee execution attribution required');
+      requireThat(!this.db.get("SELECT 1 FROM group_evidence WHERE group_id=? AND json_extract(metadata,'$.kind')=?",g.group_id,p.kind),'Historical source already imported');
+      // No normalization and no worker message: local ID is an import, never a new Atlas utterance.
+      return this.evidence(g,'owner_material',title,source.content,{...p,imported_at:now(),omitted_characters:0,export_authority:'explicit_owner_historical_pilot_import',audience_worker_ids:this.audience(g),audience_scope_version:g.scope_version,identity_note:'The local evidence_id identifies this import; source_id identifies the original historical record. This is not new employee speech.'},null);
+    });
+  }
   private enqueue(g:WorkingGroup,worker:string,kind:DiscussionTurnKind,prompt:string,references:string[]=[],evidence:string[]=[]){
     g=this.group(g.group_id);this.worker(worker);requireThat(this.members(g).some(w=>w.worker_id===worker),'Turn target is outside frozen membership');
     requireThat(g.turns_used<g.turn_limit&&(synth(kind)?g.synthesis_used<L.synthesisTurns:g.turns_used<g.turn_limit-L.reservedTurns),'Discussion turn budget exhausted; synthesis allowance is reserved');

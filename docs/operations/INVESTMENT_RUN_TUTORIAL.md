@@ -56,3 +56,23 @@ Source SHA checks do not establish freshness of ignored build output; retain the
 Every reservation survives setup failure, rollback, process exit and deleted temporary state. Every provider admission is one-use. Successful completion ends this release authority too: cumulative2/4 means two unused reservations and zero authorized further turns. Do not reopen, replay, prepare another allowance or treat a successful response as production/public readiness.
 
 Account notifications retain PR48's generation invalidation and authoritative rereads. Unchanged startup identity may proceed; account/routing changes, unresolved notifications, model/provider reroute or failed confinement block admission. Active notifications interrupt conservatively. Use only clearly fictional market observations; no paper orders, research fetching, publication or scheduled loop. Inspect original provider IDs, usage completeness, settlement and API-equivalent estimates privately; shared-account balance observations do not prove attributable credit deduction.
+
+## One explicitly authorized Maya review of historical Atlas evidence
+
+The completed Atlas commands above have no remaining release permission. The narrowly scoped
+[Decision037 Maya amendment](../validation/investment/INV-CREDIT-MAYA-REVIEW.md) uses the same
+fixed authority via `dist/scripts/credit-pilot/maya-review.js`, only from rebuilt clean main
+matching the accepted merge SHA. These actions describe the current owner-selected attempt,
+not reusable permission:
+
+- `authorize <accepted-sha> <retained-atlas-archive> <verified-archive-digest> <retained-owner-request-file> <actual-reload-confirmation-time>` adds schema2 once, preserving schema1 rows/receipts. Never fabricate or renew confirmation timestamps.
+- `prepare <accepted-sha>` binds one inert Maya sandbox and exact complete historical imports. No model runs.
+- `preflight <accepted-sha>` verifies official ChatGPT configuration, exact model/low support and account/routing without inference; count remains 2.
+- `inspect <accepted-sha>` or `inspect-lineage <accepted-sha>` shows private evidence and cumulative counts. Output is sensitive; do not put raw reports in Git.
+- `turn <accepted-sha>` durably claims supervision, selects only Maya, reserves count 3, admits one fresh provider turn, then permanently stops and revokes. Never repeat after an error.
+- `stop` revokes local authority; `stop-lineage` stops external authority even if the sandbox is unavailable. Stop commands require no SHA and cannot reauthorize anything.
+
+No runtime/HTTP tool can administer this continuation. Missing/tampered sources, unrelated
+context, a stale confirmation, unsupported model or unknown account state blocks inference.
+A successful review is one-way historical cross-employee review; no later Atlas response is
+authorized. Preserve the remaining unused reservation rather than trying another employee.

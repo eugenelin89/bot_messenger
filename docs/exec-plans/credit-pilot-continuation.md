@@ -58,3 +58,10 @@ Owner freshly confirmed reload OFF in this chat; provenance remains owner confir
 ## Documentation freshness and remaining work
 
 Update Decision037 by dated amendment, new continuation validation, original repair handoff by additive note, pilot validation, tutorial, readiness, architecture and project memory. Keep original history and private bytes out of Git. Implementation and review fixes are complete. Final validation and exact-source reviews passed. Git integration, accepted-main rebuild, official preflight and the single genuine Atlas turn completed. Private task/response, database snapshots, final reports and usage receipts were retained. All 47 original hashes still match. No further inference is authorized. The [continuation validation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md) separates actual usage and partial reference cost from unavailable billing attribution.
+
+## 2026-10-11 historical addendum
+
+The Atlas continuation remains complete and stopped. The owner separately requested one
+Maya review under the original allowance; its independent plan is
+[credit-pilot-maya-review](credit-pilot-maya-review.md). This addendum does not reopen this
+plan's successor or change any historical count, response or settlement.

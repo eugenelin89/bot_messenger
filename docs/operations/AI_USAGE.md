@@ -45,3 +45,10 @@ An explicitly configured disposable adapter now supports `credit_approved_privat
 This does not provide an exact credit ceiling. Five minutes is the interruption deadline; transport has a six-second settlement grace and one-second kill fallback. Upstream processing/billing may outlive local interruption. API-equivalent USD remains a reference estimate, never actual credit deductions. Shared-account balances cannot attribute charges to this pilot. Automatic reload must be explicitly confirmed disabled before inference; the account API does not establish that setting. See [Decision037](../decisions/decision_037_credit_approved_private_pilot.md) and [separate source/real evidence](../validation/investment/INV-CREDIT-PILOT.md). Ordinary included-only and strict modes remain blocked.
 
 Observable provider retries preserve reported response totals but mark failed-attempt token coverage incomplete. This may make the estimate partial even after known successful settlement; accepted internal retries do not create another local invocation. Missing/conflicting authoritative response telemetry blocks the next pilot release. Optional missing token subcategories remain explicitly partial.
+
+The [Maya continuation](../validation/investment/INV-CREDIT-MAYA-REVIEW.md) retains original
+failed reservation 1 and settled Atlas reservation 2. The separate irreversible Maya bit
+makes cumulative usage 3/4 when reserved; one unused reservation is not permission for a
+future release. Keep Atlas and Maya execution telemetry/cost independently attributable.
+The original failure has no authoritative token usage and must not be priced as zero usage.
+Actual credit deduction remains unavailable unless reliably attributable to that execution.

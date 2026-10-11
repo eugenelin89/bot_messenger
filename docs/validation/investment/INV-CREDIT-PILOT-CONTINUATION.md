@@ -89,3 +89,12 @@ The reference estimate is not subscription billing or a measured purchased-credi
 The original historical consumption remains 1/4 with zero original confirmed turns. The successor consumed one further reservation and completed one confirmed turn: **cumulative 2/4, two unused reservations, zero further authorized releases**. Both pilots remain stopped and both scopes revoked. There is no retry, Maya release or automatic use of the unused allowance.
 
 No new credit purchase, billing-setting mutation, production HQ deployment, official investment activation, live market data, brokerage access, public Asymmetri publication, paper-order mutation or recurring model schedule was performed. No execution blocker remains; the continuation is stopped as required. Further inference requires new owner authorization and a separately reviewed mechanism; this implementation exposes no restart/reset path.
+
+## 2026-10-11 addendum — separately authorized Maya review
+
+The completed Atlas results above remain historical and unchanged. A later owner request
+now authorizes exactly one Maya review from the same remaining allowance, implemented by
+an additive schema2 extension rather than reopening the stopped Atlas successor. See
+[Maya acceptance](INV-CREDIT-MAYA-REVIEW.md) for source gates and subsequent outcome.
+The new review imports the authentic complete Atlas contribution as explicitly historical
+evidence. It does not rewrite Atlas's execution or authorize a fourth reservation.
