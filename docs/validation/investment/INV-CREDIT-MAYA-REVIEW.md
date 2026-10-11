@@ -1,7 +1,7 @@
 # Decision 037 — One-use Maya historical review
 
-**Date:** 2026-10-11  
-**Status:** Source accepted and deterministic validation passed; genuine Maya execution not yet attempted  
+**Date:** 2026-10-11
+**Status:** Complete — genuine cross-employee review demonstrated; pilot stopped and scope revoked
 **Baseline:** `7f949dcae6d621d319a3ecb6b8ac18dd4579b5ac` (PR #50)
 
 ## Authority and preserved history
@@ -98,11 +98,14 @@ was changed.
 
 ## Integration and real-execution gate
 
-Source/test acceptance passed. Integration still requires the documentation commit, scoped PR,
-base/head/mergeability verification, accepted merge, synchronized clean main and rebuild.
-The source-only status above must not be interpreted as completed inference.
+Source/test acceptance passed. [PR #51](https://github.com/eugenelin89/bot_messenger/pull/51)
+contained implementation `9549908be750fb0601554bbd0b8c0192388d6976` and separate policy/acceptance
+commit `e31647940e435059c2c2502d873707f66f48b46e`. Exact base/head and clean mergeability were
+verified before merging as `2f13f931127e1c27dd4aa656c18bddc42e1456e0`. Clean local and remote
+main matched that merge; check/build passed again before the genuine invocation. The
+private build receipt includes the compiled supervisor entry digest.
 
-Before the one real turn, reverify historical bytes, count 2, exact Atlas/Maya roster, exact
+The pre-turn gate required reverifying historical bytes, count 2, exact Atlas/Maya roster, exact
 `gpt-6-luna`/low support, pinned Codex0.157.0 official OpenAI ChatGPT authentication,
 configuration/skills/tool confinement and unchanged verified account/routing. The retained
 owner reload-OFF confirmation must remain within 24 hours and applicable to this invocation;
@@ -119,12 +122,72 @@ local uncertainty and do not reconstruct authority.
 
 ## Outcome and non-activation
 
-Genuine Maya response, teamwork classification, dashboard usage/settlement, final count,
-Git identities and preservation receipts are pending the accepted execution gate. Atlas's
-prior cost remains separately attributable. API-equivalent estimates are not measured
-purchased-credit deductions; unknown usage is not zero.
+At 2026-10-11 07:08 UTC, exactly one genuine Maya turn completed and settled using the
+accepted merge above. Original Atlas/Maya IDs and minimal profiles were preserved. Official
+non-inference preflight confirmed exact `gpt-6-luna`/low support and existing ChatGPT/OpenAI
+routing with confined configuration. The retained owner reload-OFF confirmation was about
+1.7 hours old and explicitly applicable; no billing setting was queried or changed. Count
+remained 2 before release, then the independent reservation committed cumulative count 3.
+
+The private source packet was 884 UTF-8 bytes and the authentic Atlas contribution 1,578
+bytes. Both complete records were delivered through `read_group_record` in Maya's actual
+execution, both local evidence IDs were cited, and Maya accurately identified Atlas's
+original source contribution. The fresh group contains no new Atlas speech. Full response,
+source IDs, tool receipts, usage, account/routing evidence and closed database snapshots
+remain private. Runtime audit was additionally extracted from the archived database,
+including `conversation_runtime_*` events; it proves one provider turn start, account
+re-verification and no observed provider retry event. No local timeout fired.
+
+**Genuine cross-employee review demonstrated.** Maya partially agreed with HOLD as a
+temporary evidence-based default rather than a conclusion that ACME is intrinsically
+unattractive. She distinguished a cash cushion from a valuation floor, challenged growth
+quality and cash-burn uncertainty, noted that small sizing cannot repair negative expected
+value, and declined to call BETA clearly superior without sustainable cash-flow and
+valuation evidence. Her reconsideration test combines acceptable renewal economics with
+sustained independently documented orders/adoption, realized margins and improving cash
+flow. This is substantive but largely convergent: some points refine Atlas's existing
+concerns. An independent read-only outcome review verified response/archive equality and
+both full-read receipts.
+
+Maya's final sentence loosely calls both cited records synthetic. Preserve that original
+wording privately: the **market facts are fictional, while Atlas's and Maya's responses are
+genuine inference**. The result is an asynchronous historical review, not a complete
+two-way discussion; Atlas has not reacted to Maya.
+
+| Metric | Earlier Atlas | Maya | Combined genuine turns |
+| --- | ---: | ---: | ---: |
+| Input tokens | 18,878 | 22,279 | 41,157 |
+| Cached input (subset) | 10,752 | 12,800 | 23,552 |
+| Output tokens | 538 | 677 | 1,215 |
+| Reasoning output reported (subset) | 0 | 0 | 0 |
+| Total tokens | 19,416 | 22,956 | 42,372 |
+| Local recorded duration | 14.883 s | 21.508 s | 36.391 s |
+| API-equivalent USD estimate | $0.00118912 | $0.00141440 | $0.00260352 |
+
+Both use `gpt-6-luna`, low reasoning, standard service tier, complete reported token usage,
+and settled completion. Estimates remain **partial base-token references**, using original
+pricing version `openai-2026-10-10-fdc607e42c34c9a1`; long-context/additional pricing dimensions
+remain unverified. Actual purchased-credit deduction and subscription quota consumption
+are unavailable. The original failed reservation remains consumed and unpriced; missing
+usage is not zero. Combined estimates include only the two genuine completed executions.
+The actual private dashboard `/api/usage` returned HTTP 200; its standard usage component
+was rendered and visually inspected with the dispatcher never started. The temporary
+inspection server and browser are closed.
+
+Final authority: original failure 1 + Atlas 1 + Maya 1 = **3/4 consumed, one unused, zero
+further releases authorized**. Maya's local pilot is stopped, scope revoked and uncertainty
+0. Both historical scopes remain revoked. All 47 original files and every prior retained
+Atlas report/archive file remain byte-identical. The fixed registry file changed only by
+the authorized additive extension; every schema1 field and receipt remains exact. Separate
+Maya evidence files preserve Atlas's original report.
+
+Read-only post-stop checks found zero paper proposals/reviews/submissions, investment loops,
+market records, public jobs, research operations and Tasks in the successor. No purchase,
+reload change, API-key billing, production deployment or additional employee execution
+occurred. No recurring runner remains.
 
 No production deployment, official investment operation, live financial-data collection,
 paper order, brokerage action, public Asymmetri publication, research inference, additional
-employee turn or recurring runner is authorized. A possible final Atlas response would
-require another explicit owner decision and reviewed one-use permission.
+employee turn or recurring runner is authorized. A possible final Atlas response could assess Maya's counterarguments and reconsideration
+criteria using the one remaining original reservation. It requires another explicit owner
+decision and reviewed one-use permission; it was not executed.

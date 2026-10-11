@@ -1,10 +1,10 @@
 # Execution plan — Decision 037 Maya historical review
 
-**Status:** Active — source accepted and validated; no Maya inference yet  
-**Owner:** Parent Codex, sole writer; independent specialists read-only  
-**Branch:** `codex/credit-pilot-maya-review`  
-**Worktree:** `bot_messenger-credit-maya`  
-**Started:** 2026-10-10 America/Vancouver  
+**Status:** Complete — one genuine Maya review, stopped/revoked; no further release
+**Owner:** Parent Codex, sole writer; independent specialists read-only
+**Branch:** `codex/credit-pilot-maya-review`
+**Worktree:** `bot_messenger-credit-maya`
+**Started:** 2026-10-10 America/Vancouver
 **Initial ETA:** 3–5 hours, subject to review, integration and billing gates
 
 ## Objective and scope
@@ -71,10 +71,20 @@ and operator usage instructions. Local source is authoritative for API details.
 | Historical authority/report | Agree: 2 consumed, stopped, settled Atlas |
 | Design review | Additive singleton, frozen history, exact raw imports and supervisor ownership required |
 | Deterministic validation | 1,106 passed / 6 skipped / 0 failed; 175 contracts; check/build/diff PASS |
-| Exact-source reviews/integration | Three specialists accepted implementation `9549908`; integration pending |
-| Genuine Maya execution | Not attempted |
+| Exact-source reviews/integration | Three specialists accepted `9549908`; PR #51 merged as `2f13f93`; exact main rebuilt |
+| Genuine Maya execution | Completed/settled; both full sources read; genuine cross-employee review demonstrated |
 
-## Remaining work
+## Completed outcome
 
-Accepted Git integration, billing/preflight gate, one Maya invocation, permanent stop and
-final outcome documentation. Source and deterministic acceptance are complete.
+One genuine `gpt-6-luna`/low Maya turn completed and settled in 21.508 seconds. She partially
+agreed with HOLD, challenged valuation and cash/growth assumptions, and supplied a falsifiable
+reconsideration test. Both exact historical imports were fully read and cited. Reported
+usage: 22,279 input, 12,800 cached input, 677 output, 22,956 total; partial API-equivalent
+estimate $0.00141440, actual credit deduction unavailable. Independent outcome review accepts
+genuine cross-employee review, with the synthetic-market/genuine-speech distinction and no
+claim of a complete two-way discussion.
+
+Final state is stopped/revoked, 3/4 consumed, one unused and zero further releases. Historical
+files/rows/receipts are preserved; no production/public/order/schedule/billing activation
+occurred. [Validation](../validation/investment/INV-CREDIT-MAYA-REVIEW.md) retains exact source,
+checks, outcome and limits. No further model work remains authorized by this plan.

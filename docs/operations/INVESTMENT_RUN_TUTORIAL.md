@@ -76,3 +76,9 @@ No runtime/HTTP tool can administer this continuation. Missing/tampered sources,
 context, a stale confirmation, unsupported model or unknown account state blocks inference.
 A successful review is one-way historical cross-employee review; no later Atlas response is
 authorized. Preserve the remaining unused reservation rather than trying another employee.
+
+**Completed invocation:** Maya's authorized turn has now completed and settled. The Maya
+commands cannot prepare/release another attempt; both old successors remain stopped and
+revoked. Current allowance is 3/4 consumed, one unused, zero authorized future releases.
+See the [outcome](../validation/investment/INV-CREDIT-MAYA-REVIEW.md). Never rerun a turn to
+reproduce its response or dashboard; inspect retained private records instead.
