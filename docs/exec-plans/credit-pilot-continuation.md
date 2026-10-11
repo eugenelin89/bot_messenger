@@ -1,12 +1,13 @@
 # Execution plan — Decision 037 remaining-budget continuation
 
-**Status:** Active  
+**Status:** Implementation, accepted integration and single genuine execution completed; stopped
+
 **Owner:** Parent Codex; specialists read-only  
 **Branch:** `feature/credit-pilot-continuation`  
 **Worktree:** `bot_messenger-credit-continuation`  
 **Started:** 2026-10-10 America/Vancouver  
 **Initial ETA:** 2–4 hours, subject to review and provider gates  
-**Latest remaining estimate:** 20–35 minutes for remaining regression, integration, one provider attempt and handoff (06:01 UTC)
+**Execution completion:** 2026-10-10 23:07 Vancouver; final evidence and outcome documentation followed
 
 ## Objective and scope
 
@@ -50,9 +51,10 @@ Owner freshly confirmed reload OFF in this chat; provenance remains owner confir
 | Final full suite | 1,059 passed / 6 skipped / 0 failed (1,065 total), 309.293 seconds |
 | Source/test commit | `478c5b077ca2cbb5ef9e7660520b74a2a71c7c54` |
 | Exact-source reviews | Control/security, recovery/accounting and acceptance approved; no material findings |
-| Integration | Pending PR/merge/main rebuild |
-| Actual provider turn | Not started |
+| Integration | PR #49 merged `4db927f02925adb7d86c9a5c7d6e3bbca3f030b5`; clean synchronized main checked/rebuilt |
+| Actual provider turn | One Atlas turn completed/settled; 14.883 seconds; Maya 0 |
+| Final authority | Cumulative 2/4, two unused, zero releases; stopped/revoked |
 
 ## Documentation freshness and remaining work
 
-Update Decision037 by dated amendment, new continuation validation, original repair handoff by additive note, pilot validation, tutorial, readiness, architecture and project memory. Keep original history and private bytes out of Git. Implementation and review fixes are complete. Final validation passed. Exact-source reviews passed. Git integration and the single genuine turn remain pending.
+Update Decision037 by dated amendment, new continuation validation, original repair handoff by additive note, pilot validation, tutorial, readiness, architecture and project memory. Keep original history and private bytes out of Git. Implementation and review fixes are complete. Final validation and exact-source reviews passed. Git integration, accepted-main rebuild, official preflight and the single genuine Atlas turn completed. Private task/response, database snapshots, final reports and usage receipts were retained. All 47 original hashes still match. No further inference is authorized. The [continuation validation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md) separates actual usage and partial reference cost from unavailable billing attribution.
