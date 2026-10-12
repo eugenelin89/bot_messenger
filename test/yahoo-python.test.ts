@@ -69,3 +69,21 @@ for(const endpoint of ['chart','quoteSummary','quote','timeseries'] as const)tes
  const result=await gateway.collect(f.policy.id,request(klass),'bad-symbol');assert.equal(result.reason,'python_source_identity');assert.equal(result.observationId,null);
  assert.ok(f.db.get<{n:number}>('SELECT count(*) n FROM financial_payloads')!.n>0);
 });
+
+for(const failure of ['denial','malformed','empty','container'] as const)test(`actual library HTTP200 ${failure} stops before quote/chunk fallback`,{skip},async()=>{
+ const adapter=new PythonYahooAdapter(),queries:YahooQuery[]=[];
+ const dataClass=failure==='denial'?'fundamentals':'statement';
+ const target=failure==='denial'?'/quoteSummary/':'/timeseries/';
+ let stopped=false;
+ await assert.rejects(()=>adapter.read({symbol:'ACME',request:request(dataClass)},async query=>{
+  assert.equal(stopped,false,'no follow-on exchange after schema/denial');queries.push(query);
+  const response=responseFor(query);
+  if(query.url.includes(target)){
+   stopped=true;
+   response.body=failure==='denial'?JSON.stringify({quoteSummary:{error:{code:'Unauthorized',description:'fixture denial'},result:null}}):
+    failure==='malformed'?'{invalid':failure==='empty'?JSON.stringify({timeseries:{error:null,result:[]}}):JSON.stringify({wrong:{result:[]}});
+  }
+  return response;
+ },new AbortController().signal),/provider_denial|source_schema|source_empty/);
+ assert.equal(stopped,true);assert.ok(queries.at(-1)!.url.includes(target));
+});

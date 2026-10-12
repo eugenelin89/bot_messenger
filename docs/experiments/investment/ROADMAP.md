@@ -315,8 +315,10 @@ contains exact source modules, owner gates and acceptance for these **proposed**
 
 HQ-READY-02 source is implemented; its separate authority remains uncreated/default inactive.
 HQ-READY-03 source/fake integration is implemented on the selected Yahoo/`yfinance` path.
-The [live-probe proposal](../../operations/YAHOO_FINANCIAL_GATEWAY.md) remains separately unauthorized;
-automation/retention/custody, actual field quality and prospective method qualification are pending. Included-only remains blocked; finite existing-credit use is
+The [live-probe proposal](../../operations/YAHOO_FINANCIAL_GATEWAY.md) is now owner-selected as
+[HQ-READY-03B](../../validation/investment/HQ-READY-03B.md): one-time admission/custody and independent
+source validation/integration must precede a single bounded probe. Actual field quality and
+prospective method qualification remain distinct gates. Included-only remains blocked; finite existing-credit use is
 a proposal needing separate approval. The existing private pilot cannot schedule or trade,
 while public-candidate new-risk checks depend on publication;02 supplies a distinct private lane.
 Decision037 stays exhausted4/4. No packet beyond03, production collection or observed trading is started.

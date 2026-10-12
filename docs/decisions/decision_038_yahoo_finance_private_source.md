@@ -93,3 +93,11 @@ remains hard-blocked; the [dossier/probe proposal](../operations/YAHOO_FINANCIAL
 requires separately approved trusted live admission and retention/custody work. No model credit,
 observed fills, public rights or deployment is authorized. The original source-selection reasoning
 and owner-reported evidence above are unchanged.
+
+## Bounded qualification amendment — 2026-10-11
+
+The owner separately selected HQ-READY-03B safeguard implementation, independent validation,
+accepted Git integration/main rebuild and one supervised private probe under the existing
+runbook envelope. [Decision039](decision_039_one_shot_yahoo_qualification.md) records this narrow
+authority and finite custody. Prior source-only history remains unchanged; no broader source,
+retention, employee, trading, deployment or public rights follow.

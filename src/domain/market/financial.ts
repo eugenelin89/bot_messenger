@@ -22,15 +22,15 @@ export interface FinancialRequest {
   adjustment: 'yahoo_unrepaired';
 }
 export interface FinancialScope {
-  id: string; mode: 'synthetic_fixture'; policyIds: string[]; instrumentIds: string[]; calendarId: string;
+  id: string; mode: 'synthetic_fixture' | 'observed'; policyIds: string[]; instrumentIds: string[]; calendarId: string;
   approvedAt: string; expiresAt: string; maxRequests: number; minIntervalMs: number;
   maxResponseBytes: number; maxTotalBytes: number; timeoutMs: number; maxRetries: number;
 }
 export interface YahooQuery { method: 'GET'; url: string; params: Record<string, string | number | boolean>; }
 export interface YahooResponse { status: number; body: string; contentType: string; retryAfter: string | null; }
-/** Only authored fixture transport can be admitted. The HTTPS implementation remains behind a hard live gate. */
+/** Live transport additionally requires a process-bound, consumed owner probe capability. */
 export interface YahooTransport {
-  readonly kind: 'authored_yahoo_fixture';
+  readonly kind: 'authored_yahoo_fixture' | 'yahoo-https-v1';
   exchange(query: YahooQuery, signal: AbortSignal, maxBytes: number): Promise<YahooResponse>;
 }
 export interface YahooAdapterInput { request: FinancialRequest; symbol: string; }

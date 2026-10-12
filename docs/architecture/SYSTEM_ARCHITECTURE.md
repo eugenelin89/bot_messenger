@@ -707,3 +707,13 @@ activation is created. The [dossier/runbook](../operations/YAHOO_FINANCIAL_GATEW
 bounds, exact dependency audit, recovery limits and the separate bounded live-probe proposal.
 [Decision038](../decisions/decision_038_yahoo_finance_private_source.md) remains owner-reported
 verbal personal-use permission, without invented automated/public rights.
+
+## One-shot financial source qualification
+
+[HQ-READY-03B](../validation/investment/HQ-READY-03B.md) is an owner-only local CLI beside the
+default-inactive financial gateway. A create-only OS-account approval/spent anchor issues a
+process-bound capability for exact manifest/reference/source identity and fixed requests. Durable
+request accounting precedes I/O; memory SQLite and encrypted private evidence cannot create
+authority after copying/restoring/deleting custody. Immediate cleanup destroys private data while
+retaining non-data spent receipts. No migration, worker/API route, scheduler or simulator change
+follows; observed employee delivery remains denied. See [Decision039](../decisions/decision_039_one_shot_yahoo_qualification.md).

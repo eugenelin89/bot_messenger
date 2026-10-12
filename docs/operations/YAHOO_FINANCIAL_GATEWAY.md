@@ -1,9 +1,8 @@
-# Yahoo Financial Data Gateway — source dossier and inactive runbook
+# Yahoo Financial Data Gateway — source dossier and bounded qualification runbook
 
 **As of:** 2026-10-11 America/Vancouver; HQ-READY-03 source integration only.
 **Provider/feed:** Yahoo Finance / Python yfinance1.7.0, Python3.12.12.
-**State:** Default inactive; synthetic fixture admission only. No live market-data request,
-employee inference, scheduled collector, deployment, public artifact or trading activation.
+**State:** Default application/employee transport inactive. HQ-READY-03B adds a separately owner-selected one-shot local qualification CLI, pending its acceptance/integration gates. No collector, deployment, public artifact or trading activation.
 
 ## Permission provenance and use assessment
 
@@ -112,9 +111,9 @@ until that separate custody/reconciliation design is reviewed. Existing immutabl
 not a finite-retention deletion system: real probe data must use a disposable, private isolated
 database/capsule, never the production HQ or backups.
 
-## Separate bounded live-probe proposal — not authorized or executed
+## Original bounded live-probe proposal — selected for HQ-READY-03B
 
-Proposed owner decision: one manually started, non-model probe of **AAPL**, mapped to Apple common
+The owner selected this exact proposal for HQ-READY-03B: one manually started, non-model probe of **AAPL**, mapped to Apple common
 stock/XNAS/USD, solely to inspect the selected source's actual schemas, coverage and limitations.
 No employees, order tools, production/scheduler, public output or payments. Owner confirmation
 may remain accurately reported verbal evidence; no mandatory written agreement is imposed.
@@ -141,3 +140,71 @@ field coverage, metadata/statement units, adjustment and availability findings p
 50-request ceiling may end before nine reads complete; incomplete coverage is the result, never
 permission to extend. Approval of this proposal would authorize that bounded qualification work,
 not observed trading, HQ-READY-04, production acquisition or publication.
+
+
+## HQ-READY-03B owner admission and custody
+
+[Decision039](../decisions/decision_039_one_shot_yahoo_qualification.md) and
+[acceptance](../validation/investment/HQ-READY-03B.md) supersede only the earlier unimplemented
+admission/custody status and the proposal's lack of owner selection. All other source and use
+limitations above remain. Source/fixture acceptance, Git integration, main rebuild and actual
+probe completion are separate gates; inspect the acceptance record before executing anything.
+
+Only the dedicated local owner CLI can prepare/consume the fixed OS-account authorization.
+`HOME`, caller-selected paths, modes, environment flags, SQLite data or employee messages cannot
+mint live authority. `prepare` creates the exact ten-minute manifest once; `run` requires it and
+burns a create-only spent marker before DNS. Existing/missing/corrupt/spent authority is never
+reset automatically. Preparation or run failure is not permission to reissue the single probe.
+The manifest includes exact source/build identity, policy/instrument/calendar, all nine requests,
+reviewed statement-family lists/chunks, UTC epochs and limits. Every live request checks both
+existing endpoint qualification and this stricter intersection.
+
+The capsule is `/private/tmp/botsquad-yahoo-HQ-READY-03B`, private0700/files0600 and explicitly
+excluded from Time Machine before provider I/O. The nonvolatile owner anchor is under the native
+OS user's `Library/Application Support/BotSquad-Yahoo-HQ-READY-03B`, independently excluded.
+Normal app/production databases and repository paths are never used. SQLite is memory-only;
+original response bodies and processed observations are encrypted/fsynced with a key held only
+in the original supervisor. Python timezone/cookie/ISIN caches are no-op, data-processing disk
+writes are denied, and child/core/deadline controls are explicit. FileVault, encrypted swap and
+zero core-dump limit are checked inside live capability issuance.
+
+Retain data only during the supervised probe and inspection, then destroy the key and entire
+capsule immediately, including child directories and private report. This tightens the seven-day
+maximum. A ten-minute timer also closes custody; crashed-run ciphertext is not recoverable through
+an application-persisted key and cannot resume. `cleanup` removes any orphan ciphertext and fsyncs
+its deletion while preserving approval/spent/accounting receipts. Same-owner whole-host rollback,
+malicious OS administration and forensic RAM erasure are outside this local trust boundary.
+
+After all review/integration gates and a clean synchronized main build, the authorized operator
+uses these commands **once** (never an employee tool or scheduler):
+
+```sh
+scripts/yahoo-qualification.sh prepare
+scripts/yahoo-qualification.sh run
+scripts/yahoo-qualification.sh status
+# Only for orphan ciphertext after a dead process; never an admission reset:
+scripts/yahoo-qualification.sh cleanup
+```
+
+The gateway records reservations before DNS and distinguishes socket-start intent, known HTTP
+status, bounded application body bytes consumed, full valid Retry-After and provider HTTP Date.
+These byte counts exclude unread discarded buffers and HTTP/TCP/TLS overhead. Unknown/incomplete
+receipts stop and retain conservative charges; they are not successful-response byte claims.
+Next wire creation waits at least five seconds after previous response/receipt completion, which
+is stronger than start spacing and includes DNS/TLS/fsync variation. Two transient retries are a
+ceiling across each complete logical read, within50 total attempts. No401/403/404/429/redirect,
+bootstrap barrier, invalid header/UTF8/schema, unexpected endpoint or unknown outcome is retried.
+HTTP200 provider errors terminate before the library can enter quote/chunk fallback. A valid empty
+actions result with complete validated daily coverage may continue; it is not proof of corporate-action completeness. Other missing-status results stop. Nonempty partial observations may continue with explicit missingness and quality limitations.
+
+The owner explicitly requests a private final quality report: actual attempts/status/bytes/time,
+aggregate coverage/missingness/currency/adjustment and timestamp quality may be reported in this
+private chat. Raw prices, metrics, action amounts, financial rows, payloads and credentials never
+leave private custody. The full private report and originals are deleted; Git retains only
+non-data outcome/request counts and source/test/review evidence. No observed employee delivery,
+historical-simulation admission, observed-price fill, public display or recurring collection follows.
+
+The strict integrated fixture reaches50 requests during the seventh logical read with the
+pinned library's repeated bootstrap and parent-only cookies. Each of all nine operations is also
+validated separately with authored transport. This is a reason to expect partial live coverage,
+not permission to bypass/refill the50-request cap or alter cookie identity to complete the list.
