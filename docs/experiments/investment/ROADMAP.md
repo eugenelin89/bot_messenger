@@ -308,13 +308,14 @@ contains exact source modules, owner gates and acceptance for these **proposed**
 
 | Packet | Outcome | Dependency/authority |
 | --- | --- | --- |
-| HQ-READY-02 | Finite normal-HQ private-paper runtime bridge, trusted run setup and synthetic tests | Owner selects [prepared source-only prompt](../../../prompts/experiments/investment-hq-ready-02.md); zero genuine inference/data/deployment |
+| HQ-READY-02 | Finite normal-HQ private-paper runtime bridge, trusted run setup and synthetic tests | Owner-selected source implementation; [fake acceptance](../../validation/investment/HQ-READY-02.md); zero genuine inference/data/deployment |
 | HQ-READY-03 | Exact US$0 source/action/timestamp qualification and approved prospective financial method, or explicit retained live block | Source/use/retention/probe and methodology decisions; no paid fallback |
 | HQ-READY-04 | Two actual elapsed private scheduled sessions with genuine employees and preserved history |02, new finite credit authority, selected host/recovery; observed variant also03; synthetic variant cannot pass live-data gate |
 | HQ-READY-05 | Exact publication/protocol/deployment readiness for existing INV-10 onward | Separate public rights/audience/release selection; no automatic launch or Ask |
 
-The shortest next task is02, not another open-ended feasibility study. No currently reviewed
+HQ-READY-02 source is implemented; its separate authority remains uncreated/default inactive.
+The recommended next selection is03 source/method qualification. No currently reviewed
 price source is fully qualified. Included-only remains blocked; finite existing-credit use is
 a proposal needing separate approval. The existing private pilot cannot schedule or trade,
-while public-candidate new-risk checks depend on publication;02 adds a distinct private lane.
-Decision037 stays exhausted4/4. No packet beyond01 is started or authorized by this entry.
+while public-candidate new-risk checks depend on publication;02 supplies a distinct private lane.
+Decision037 stays exhausted4/4. No packet beyond02 is started or authorized by this entry.

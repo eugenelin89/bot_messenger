@@ -75,3 +75,28 @@ preserved; actual purchased-credit deduction and Pro quota impact remain unavail
 Reservation 1 is consumed with unverified usage and excluded, never assumed free. No final
 provider retry was observed. Count is permanently 4/4 with no later authorization.
 See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for the full table.
+
+## Finite normal-HQ source mode (HQ-READY-02)
+
+`credit_approved_finite_hq` is independent of the exhausted Decision037 pilot. Its explicit runtime
+capability is absent by default. Source setup does not authorize genuine inference. A later owner
+approval must freeze the exact run/profile/account/routing/expiry and accept existing-credit and
+provider-retry risk. The pin remains Codex0.157.0; no included-only guarantee or fallback is inferred.
+
+Each claimed turn permanently reserves external run/worker/cycle/New York day/rolling capacity,
+including facilitation, synthesis, review, finalization and resumed turns. Local rollback and HQ
+restore cannot refund it. A service journal already present also mirrors other investment modes'
+consumption and uncertainty; those modes retain their existing runtime restrictions. Zero activity
+`turnLimits` is not a zero token/cost ceiling. Complete positive token reports can progress with
+partial reference pricing; actual subscription charges remain unavailable. Missing/conflicting
+required telemetry or unknown provider settlement holds further work and is never priced as zero.
+
+The run and team inspectors show per-worker/run/rolling consumption and remaining turns, profile,
+expiry, reload confirmation and stop reasons, alongside normal token completeness/reference cost.
+Reload-OFF confirmation is authentic owner evidence valid for less than24h, bound to the same
+account/run/authority. Renewal cannot extend expiry or refill allowance. A changed/unavailable
+reload declaration holds and interrupts the run; renewal alone does not resume it. Unknown
+settlement remains a permanent no-replay fence even if later evidence arrives.
+
+See [source acceptance](../validation/investment/HQ-READY-02.md). Genuine, Linux, live-data and
+publication/deployment gates remain separate.

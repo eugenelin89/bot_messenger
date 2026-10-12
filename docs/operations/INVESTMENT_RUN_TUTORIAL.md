@@ -112,3 +112,36 @@ Preserve the owner-private closed archive and registry; read-only evidence inspe
 no new execution. See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).
 No purchases, reload changes, market-data collection, paper orders, deployment or schedule
 were activated. A new readiness task requires separate owner authorization.
+
+## Private finite HQ setup — source workflow only
+
+HQ-READY-02 extends **Investment run** with a private synthetic setup form. Select existing
+employees and their scoped responsibilities, a mandate/output/constraints, two future synthetic
+session dates, capital/fees/risks, finite turn ceilings and an explicit scoped model/reasoning
+profile. The fixture universe is SYNTHA/SYNTHB with SYNETF benchmark; these are invented assets.
+The frozen method remains `inv05-v1`, next regular open, long only, USD, no leverage. This form
+acquires no data, provisions no runtime authority and changes no employee defaults.
+
+1. Preview the complete configuration and actual-consent start rule. Editing invalidates consent;
+   stale previews fail without backdating the run.
+2. Confirm the exact preview. Creation returns immutable configuration/hash and initial cash-only
+   valuation, a private scope, static source original and draft schedule. It starts no model work.
+3. Inspect the mandate, workers, next session, portfolio, proposals/reviews/orders, usage, expiry
+   and source originals. Publication is disabled; disabled simulator outbox records are private
+   audit projections, not public jobs.
+
+Do not attempt operational activation under this source-only authorization. A later selected
+HQ-READY-04 task must provision and approve independent service custody and bind the exact
+finite authority. The optional `BOTSQUAD_FINITE_HQ_AUTHORITY` service selector names that existing
+ID; it cannot select a path or create/reset allowance. Leave it unset for this milestone. Existing
+fixed custody is still discovered for cross-mode accounting/fencing even when that selector is absent.
+
+Once separately authorized, owner pause interrupts model work and cancels pending orders; stop
+is terminal and preserves fills/history. Global model pause remains separate. Reload confirmation
+and exact future-only resume are distinct controls. Recovery cancels/misses old work and requires
+explicit resume of eligible future occurrences; unknown settlement cannot resume. No per-employee
+manual release is required for a healthy approved finite run.
+
+[Readiness and remaining gates](INVESTMENT_READINESS.md#hq-ready-02-source-status) ·
+[Fake acceptance](../validation/investment/HQ-READY-02.md). No next packet or genuine run follows
+automatically. Decision037 stays permanently4/4.

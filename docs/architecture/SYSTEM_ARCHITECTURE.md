@@ -647,3 +647,38 @@ and add trusted owner run creation plus completion-aware budgets. This is a desi
 executable behavior. Included-only/live-source/methodology and genuine elapsed-session gates
 remain blocked. [HQ-READY-02](../../prompts/experiments/investment-hq-ready-02.md) is prepared for
 source-only owner selection; all production/runtime state remains unchanged.
+
+## HQ-READY-02 finite private HQ source
+
+The owner-selected [HQ-READY-02](../../prompts/experiments/investment-hq-ready-02.md) adds
+`credit_approved_finite_hq` and `private_paper` to the existing Company, working-group,
+InvestmentLoop, Mandates clock and shared Dispatcher. Migration22 adds empty immutable setup,
+private-run, reservation and owner-receipt tables. It initializes no runtime authority.
+
+Trusted private HTTP preview/consent freezes a new synthetic `inv05-v1` portfolio and existing
+employee roster. Consent chooses the actual start instant and journals the initial cash valuation
+atomically. The scoped model/reasoning profile leaves employee defaults unchanged. Discussion
+and five typed paper tools are the only employee effects; settled independent paper review is
+separate from ordinary synthesis review. Private financial/source health replaces publication
+health only for `private_paper`. Generic and committed publication projections reject these runs.
+
+Finite authority is a separate service-owned SQLite event journal with independent custody
+checkpoint, outside company restore paths and unrelated to Decision037. An external reservation
+commits before its local claim; admission and a final one-use transmission event bind both stores
+immediately before `turn/start`. Local settlement commits before external fence release. Missing,
+conflicting or unknown settlement cannot refill or replay. Startup discovers existing fixed custody
+for accounting even without a runtime selector; once present, all investment modes mirror their
+consumption/fence externally while retaining their existing permission checks. No discovery path
+creates authority. Only a separately approved fixed authority ID can enable the finite adapter.
+
+Remaining allocation is enforced at both claim and actual discussion planning, protecting future
+sessions and the final synthesis/review/finalization turns. Recovery precedes dispatch and holds
+eligible future work for exact owner resume. Custody loss and owner pause/stop interrupt active
+work. The adapter retains the existing confined Codex0.157.0 transport, account/routing checks,
+absolute deadline, six-second settlement grace and one-second process kill fallback.
+
+This is source and deterministic fake acceptance, not approved operation. Local hashes cannot
+defeat an administrator replacing every authority, custody and HQ copy. Independent offline
+custody and isolated Linux acceptance remain operational gates. See
+[validation](../validation/investment/HQ-READY-02.md) and
+[operational status](../operations/INVESTMENT_READINESS.md#hq-ready-02-source-status).

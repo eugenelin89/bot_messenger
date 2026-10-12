@@ -89,3 +89,34 @@ with HQ-READY-01's stricter timing requirement. No silent methodology change is 
 Private execution readiness is separate from public source rights, canonical-v1 mapping,
 Asymmetri ingress/capacity/backup/deployment and Ask/INV-10–12. Decision030 remains in force;
 RECOVERY-01 stays cancelled. Decision037 is permanently4/4, with no future release.
+
+## HQ-READY-02 source status
+
+The owner selected and authorized the finite private HQ source implementation after HQ-READY-01.
+It now reuses existing workers, conversations, scheduler, dispatcher, usage records and the paper
+simulator. The setup page creates only an inert synthetic run and draft schedule. Separate fixed
+service authority, immutable profile, retained counters, reload attestations, recovery fences and
+explicit runtime capability are implemented; no genuine authority has been provisioned or enabled.
+See [source acceptance](../validation/investment/HQ-READY-02.md).
+
+| Gate | Status after this source milestone |
+| --- | --- |
+| Finite private HQ source and fake/synthetic workflow | Implemented; validation and independent review recorded in acceptance |
+| Genuine employee execution or existing-credit consumption | Not authorized; authority remains uncreated/default inactive |
+| Isolated Linux confinement, custody and offline recovery | Pending a separately selected operational acceptance task |
+| Real two-elapsed-session H1–H9 | Pending explicit HQ-READY-04 authority and prerequisites |
+| Live price/action source and prospective method | Blocked pending separately selected HQ-READY-03 and owner decisions |
+| Public rights, canonical mapping, Asymmetri, deployment | Blocked; unchanged by this packet |
+
+The next recommended task is separately selected **HQ-READY-03 source qualification and
+prospective methodology**, within the US$0 market-data boundary. It is not started here. A later
+HQ-READY-04 selection must explicitly approve the exact account/routing, model/reasoning,
+participants, synthetic evidence or separately qualified source/method, finite limits, expiry,
+provider-retry/existing-credit risk, fresh authentic reload-OFF evidence and Linux/custody acceptance.
+No model prose, setup consent or repeated HTTP request supplies that approval. Local supervision
+cannot promise exact upstream charges or an instantaneous billing cutoff.
+
+Decision037 remains permanently completed and exhausted at **4/4**, with three genuine settled
+historical turns and zero future releases. Its files, archived evidence and historical reports are
+unchanged. No HQ-READY-03/04/05 or INV-10+ work, automation, production activation or public release
+is implied by source acceptance.
