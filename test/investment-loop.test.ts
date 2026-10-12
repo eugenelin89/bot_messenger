@@ -54,7 +54,7 @@ test('global model pause waits for cutoff or an explicit change, without recurri
  const f=loopFixture();t.after(f.close);const p=f.start(),o=f.occurrences(p.loopId).find(o=>o.stage==='research')!;f.company.pause(true);f.at(o);f.loop.tick();assert.equal(f.loop.nextWake(),o.expires_at);assert.equal(f.store.all('SELECT * FROM investment_loop_requests').length,0);f.company.pause(false);f.loop.tick();assert.equal(f.store.all('SELECT * FROM investment_loop_requests').length,2);
 });
 test('preview rejects omission of the frozen initial benchmark session',t=>{
- const f=loopFixture();t.after(f.close);f.input.sessions=f.input.sessions.slice(1);assert.throws(()=>f.preview(),/frozen benchmark/);assert.equal(f.store.all('SELECT * FROM investment_loops').length,0);
+ const f=loopFixture();t.after(f.close);assert.equal(f.input.sessions.length,2);assert.equal(f.input.sessions[0],f.sim.inspect(f.config.runId).benchmarkNextOpen);f.input.sessions=f.input.sessions.slice(1);assert.throws(()=>f.preview(),/frozen benchmark/);assert.equal(f.store.all('SELECT * FROM investment_loops').length,0);
 });
 
 test('draft A to B to A retains separate plan revisions and permits exact restored consent',t=>{

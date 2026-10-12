@@ -12,7 +12,7 @@ export const canonicalTextHash=(value:string)=>bytesHash(JSON.stringify(value));
 export interface HistoricalSource {
  kind:'imported_historical_contribution'|'imported_synthetic_packet';
  source_id:string;source_group_id:string;source_worker_id:string|null;
- source_execution_id:string|null;source_timestamp:string;source_model:string|null;
+ source_execution_id:string|null;source_request_id?:string|null;source_timestamp:string;source_model:string|null;
  utf8_sha256:string;byte_length:number;canonical_sha256:string;
  source_evidence_ids:string[];archive_sha256:string;
 }
@@ -111,11 +111,14 @@ function verifyMayaProgress(db:DatabaseSync,b:MayaContextBinding){
 }
 /** Read actual stored bytes at preflight and both runtime admission checks, never just catalog hashes. */
 export function verifyMayaContext(root:string,binding:MayaContextBinding,context?:unknown,executionId?:string){
+ return verifyHistoricalContext(root,binding,2,context,executionId);
+}
+export function verifyHistoricalContext(root:string,binding:MayaContextBinding,count:2|3,context?:unknown,executionId?:string){
  const file=join(root,'company.sqlite');requireThat(lstatSync(file).isFile()&&!lstatSync(file).isSymbolicLink()&&realpathSync(file)===file,'Maya database missing or redirected');
  const db=new DatabaseSync(file,{readOnly:true});
  try{
   const rows=db.prepare('SELECT * FROM group_evidence ORDER BY revision').all() as unknown as GroupEvidence[];
-  requireThat(rows.length===2&&binding.imports.length===2&&rows.every((r,i)=>{const p=binding.imports[i]!;return r.group_id===binding.groupId&&r.evidence_id===p.evidenceId&&r.content===p.content&&r.metadata===p.metadata&&r.title===p.title&&r.revision===p.revision&&r.sha256===p.sha256&&r.sha256===canonicalTextHash(r.content)&&r.source_id===null&&r.actor==='human'&&r.execution_id===null&&r.kind==='owner_material';}),'Maya imported evidence missing, truncated or tampered');
+  requireThat(rows.length===count&&binding.imports.length===count&&rows.every((r,i)=>{const p=binding.imports[i]!;return r.group_id===binding.groupId&&r.evidence_id===p.evidenceId&&r.content===p.content&&r.metadata===p.metadata&&r.title===p.title&&r.revision===p.revision&&r.sha256===p.sha256&&r.sha256===canonicalTextHash(r.content)&&r.source_id===null&&r.actor==='human'&&r.execution_id===null&&r.kind==='owner_material';}),'Maya imported evidence missing, truncated or tampered');
   requireThat(isolationDigest(db)===binding.isolationDigest,'Maya prepared context content changed');
   verifyMayaProgress(db,binding);
   const group=db.prepare('SELECT * FROM working_groups').all();
@@ -123,7 +126,7 @@ export function verifyMayaContext(root:string,binding:MayaContextBinding,context
   if(context!==undefined){
    requireThat(executionId&&db.prepare('SELECT 1 FROM discussion_checkpoints c JOIN discussion_turns t USING(turn_id) JOIN executions x USING(execution_id) WHERE c.execution_id=? AND c.context_hash=? AND t.group_id=? AND x.worker_id=?').get(executionId,bytesHash(JSON.stringify(context)),binding.groupId,binding.workerId),'Maya runtime context differs from the trusted delivered checkpoint');
    const c=context as {mode?:string;group_id?:string;desired_output?:string;shared_evidence?:{evidence_id:string;sha256:string;retained_characters:number;revision:number}[];worker?:{worker_id:string}};
-   requireThat(c.mode==='discussion'&&c.group_id===binding.groupId&&c.desired_output===binding.desiredOutput&&c.worker?.worker_id===binding.workerId&&c.shared_evidence?.length===2&&c.shared_evidence.every((v,i)=>{const p=binding.imports[i]!;return v.evidence_id===p.evidenceId&&v.sha256===p.sha256&&v.retained_characters===p.content.length&&v.revision===p.revision;}),'Reviewed Maya context does not expose both complete original records');
+   requireThat(c.mode==='discussion'&&c.group_id===binding.groupId&&c.desired_output===binding.desiredOutput&&c.worker?.worker_id===binding.workerId&&c.shared_evidence?.length===count&&c.shared_evidence.every((v,i)=>{const p=binding.imports[i]!;return v.evidence_id===p.evidenceId&&v.sha256===p.sha256&&v.retained_characters===p.content.length&&v.revision===p.revision;}),'Reviewed Maya context does not expose all complete original records');
   }
  }finally{db.close();}
 }

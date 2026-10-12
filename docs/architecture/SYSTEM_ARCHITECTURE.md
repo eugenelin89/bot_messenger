@@ -609,3 +609,17 @@ Supervisor ownership precedes dispatcher recovery. Exact historical imports, a f
 reachable-context projection and execution-checkpoint hash bind Maya's input. Completion,
 restart or uncertainty grants no later release. [Maya validation](../validation/investment/INV-CREDIT-MAYA-REVIEW.md)
 separates source acceptance from genuine inference.
+
+## Decision037 final historical response — 2026-10-11
+
+The owner-only final continuation extends the same private authority to schema3, freezing
+schema1/schema2 rows and receipts and adding separate final Atlas state/receipts. Trusted
+fixed-path permits, independent durable reservation/admission, immutable predecessor accessors,
+winning-supervisor finalization and terminal uncertainty preserve the original four-reservation
+ceiling. The local start is captured before durable reservation, so its deadline is no later
+than five minutes after that reservation.
+No production Company migration or public contract changes. Historical-import identity now
+distinguishes source kind plus original record/group, allowing Atlas and Maya contributions
+as separate complete attributed evidence. Three-source context and execution checkpoints
+remain isolated; prior messages and provider sessions are not imported as fresh speech.
+See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for tests and outcome.

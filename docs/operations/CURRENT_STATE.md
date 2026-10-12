@@ -655,3 +655,12 @@ the deployment record below is updated. Migration/startup create no business gra
 approval, receipt, credential or model work. The [Prompt 11 validation record](../validation/PROMPT_11_VALIDATION.md)
 separates deterministic/fixture/browser evidence from actual Ubuntu and live business gates.
 No real Asymmetri change is currently authorized or performed.
+
+## Decision037 final-response handoff — 2026-10-11
+
+One isolated source change implements the owner-authorized final original reservation for
+Atlas to respond to Maya, preserving all historical evidence and cumulative accounting.
+[Final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) is the current gate/outcome
+record. Until its real outcome is recorded, do not infer that the final turn occurred.
+A committed final reservation makes 4/4 forever; no subsequent model invocation, production
+or public activation, official investment run or recurring schedule is authorized.

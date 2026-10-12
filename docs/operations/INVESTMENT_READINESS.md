@@ -31,3 +31,16 @@ The Decision037 private pilot is discussion-only, with synthetic evidence, no fo
 ## Decision037 continuation boundary
 
 [Remaining-budget continuation](../validation/investment/INV-CREDIT-PILOT-CONTINUATION.md) is separately owner-selected after PR48. Its durable private authority inherits the failed pilot's consumed reservation and permits at most one new Atlas turn after accepted source integration. A genuine single-worker response, if achieved, does not establish collaboration, a completed investment cycle, deployed readiness or public activation. Two unused reservations after that attempt remain unreleased.
+
+## Final private collaboration gate — 2026-10-11
+
+The owner selected one last Atlas response under the original Decision037 budget. Reviewed
+schema3 source can authorize reservation four once; prior scopes remain revoked and no
+later release is possible. [Final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md)
+requires genuine full-source delivery, substantive engagement with Maya and final stop/revoke.
+Even a successful authenticated asynchronous Atlas–Maya–Atlas chain establishes only the
+private synthetic collaboration proof of concept. Finite operational employee execution,
+approved US$0 market-data methodology/rights, elapsed cycles, deterministic paper integration,
+Linux/deployment/recovery and public release still require separate owner-scoped acceptance.
+The smallest next proposal is a bounded HQ readiness specification and isolated acceptance
+plan for those runtime/data gates; it is not started by this authorization.

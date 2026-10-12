@@ -265,3 +265,16 @@ one unused reservation has **zero release permission**. Pilot stopped, scope rev
 all historical evidence preserved. Maya: 22,279 input / 12,800 cached / 677 output / 22,956
 total, 21.508 seconds; partial API-equivalent $0.00141440, actual credit deduction unavailable.
 Production, publication, paper orders and recurring operation remain inactive.
+
+## 2026-10-11 — Decision037 final Atlas authorization
+
+The owner explicitly selects the fourth and last reservation of the original private pilot,
+not a new allowance. Schema3 freezes schema1/schema2 and admits only one fresh Atlas response
+after reviewed source integration, unchanged official account/model/confinement and valid
+reload-OFF evidence. Three authentic complete records are imported as attributed history:
+original fictional ACME/BETA packet, genuine Atlas opening and genuine Maya review. No fake
+employee speech or forced disagreement. Source acceptance and genuine substantive feedback
+are separate gates; see [final acceptance](validation/investment/INV-CREDIT-FINAL-ATLAS.md) and
+[execution plan](exec-plans/credit-pilot-final-atlas.md). Once committed, reservation four remains consumed on
+all outcomes and permanently ends execution authority. No operational/public activation or
+next readiness milestone is implied.

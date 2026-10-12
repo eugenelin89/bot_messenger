@@ -82,3 +82,20 @@ commands cannot prepare/release another attempt; both old successors remain stop
 revoked. Current allowance is 3/4 consumed, one unused, zero authorized future releases.
 See the [outcome](../validation/investment/INV-CREDIT-MAYA-REVIEW.md). Never rerun a turn to
 reproduce its response or dashboard; inspect retained private records instead.
+
+## Final Decision037 continuation boundary — 2026-10-11
+
+The owner's final request permits exactly one Atlas response after accepted source and
+billing gates. The trusted local `scripts/credit-pilot/final-atlas.ts` supervisor authenticates
+the stopped predecessors and imports all three complete historical records into one new
+private group. Its `authorize` operation takes the accepted main SHA, verified Maya archive
+and digest, retained owner-request file, and actual reload-OFF confirmation JSON. `prepare`
+and non-inference `preflight` precede the sole `turn`; each command remains bound to accepted
+source and fixed private authority. These are controlled owner operations, not public API
+or worker tools. Do not invoke earlier turn commands or copy a manifest as a workaround.
+
+The final reservation permanently exhausts the original 4/4 allowance on any outcome.
+Stop/revoke and evidence retention must follow; inspect does not authorize another turn.
+A stale confirmation requires genuine fresh owner evidence, never a guessed timestamp.
+See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for current status.
+No purchase, reload change, paper order, real-data run, public publication or schedule follows.

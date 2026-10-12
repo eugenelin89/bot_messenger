@@ -25,12 +25,12 @@ const send=x=>console.log(JSON.stringify(x)),log=m=>appendFileSync(trace,JSON.st
 const notify=()=>send({method:'account/updated',params:{authMode:'chatgpt',planType:'pro'}});
 const thread={id:'pilot-thread',cwd,name:'Owned fixture thread',status:{type:'notLoaded'}},account={account:{type:mode==='api-key'?'apiKey':'chatgpt',planType:'pro',email:mode==='missing-account-id'?null:'fixture@example.invalid'},requiresOpenaiAuth:true,workspaceRouting:{chatgptAccountId:mode==='missing-account-id'?null:'fixture-account',backendOrigin:mode==='foreign-backend'?'https://untrusted.invalid':'https://chatgpt.com',accountRoutingOverride:'NO_CONSTRAINT'}};
 createInterface({input:process.stdin}).on('line',line=>{const m=JSON.parse(line),p=m.params??{};log(m);
-if(mode==='maya-review'&&typeof m.id==='string'&&m.id.startsWith('maya-read-')){
+if(['maya-review','final-atlas-review'].includes(mode)&&typeof m.id==='string'&&m.id.startsWith('maya-read-')){
  const i=Number(m.id.slice(10)),v=JSON.parse(m.result?.contentItems?.[0]?.text??'null'),e=expectedEvidence[i];
  if(m.result?.success!==true||v.content!==e.content||v.next_offset!==null||v.metadata.source_id!==e.source_id)throw Error('Incomplete or unauthenticated historical tool delivery');
- mayaReads++;if(mayaReads===2)send({id:'maya-submit',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',tool:'submit_contribution',callId:'fixture-maya-submit',arguments:{body:'Deterministic fake Maya review of both complete historical records. Not genuine employee speech.',contribution_ids:[],evidence_ids:expectedEvidence.map(e=>e.record_id),questions:[],answers:[]}}});return;
+ mayaReads++;if(mayaReads===expectedEvidence.length)send({id:'maya-submit',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',tool:'submit_contribution',callId:'fixture-maya-submit',arguments:{body:'Deterministic fake historical response to all complete imported records. Not genuine employee speech.',contribution_ids:[],evidence_ids:expectedEvidence.map(e=>e.record_id),questions:[],answers:[]}}});return;
 }
-if(mode==='maya-review'&&m.id==='maya-submit'){
+if(['maya-review','final-atlas-review'].includes(mode)&&m.id==='maya-submit'){
  if(m.result?.success!==true)throw Error('Fixture contribution rejected');
  send({method:'item/completed',params:{threadId:thread.id,turnId:'pilot-turn',item:{type:'agentMessage',phase:'final_answer',text:'Deterministic fake Maya transport only'}}});
  send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'pilot-turn',status:'completed'}}});return;
@@ -97,9 +97,9 @@ else if(m.method==='turn/start'){
  if(mode==='native'){send({method:'item/started',params:{threadId:thread.id,turnId:'pilot-turn',item:{type:'commandExecution'}}});return;}
  if(mode==='approval'){send({id:'approval',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'pilot-turn'}});return;}
  if(mode==='tool'){send({id:'bad',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'research_search',callId:'bad',arguments:{query:'denied'}}});return;}
- if(mode==='maya-review'){
+ if(['maya-review','final-atlas-review'].includes(mode)){
   const context=JSON.parse(p.input[0].text.slice(p.input[0].text.indexOf('\\n')+1));
-  if(context.shared_evidence.length!==2||context.owner_interjections.length!==0)throw Error('Wrong Maya context');
+  if(context.shared_evidence.length!==(mode==='final-atlas-review'?3:2)||context.owner_interjections.length!==0)throw Error('Wrong Maya context');
   for(const [i,e] of expectedEvidence.entries()){if(!context.shared_evidence.some(c=>c.evidence_id===e.record_id))throw Error('Historical evidence absent from actual provider input');send({id:'maya-read-'+i,method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',tool:'read_group_record',callId:'fixture-maya-read-'+i,arguments:{record_id:e.record_id,offset:0}}});}return;
  }
  send({id:'contribution',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'submit_contribution',callId:'fixture-contribution',arguments:{body:'Deterministic transport contribution, not real dialogue.',contribution_ids:[],evidence_ids:[],questions:[],answers:[]}}});

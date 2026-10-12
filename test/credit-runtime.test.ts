@@ -26,7 +26,24 @@ for(const mode of ['account-change','rerouted','native','approval','tool','exit'
  const f=transport(mode);t.after(f.close);const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.notEqual(result.status,'completed');assert.equal(f.methods().filter(x=>x==='turn/start').length,1);f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.equal(f.company.claimWorkNext(),undefined);
 });
 test('credit deadline requests interruption and missing acknowledgement terminates with uncertainty',async t=>{
- const f=transport('no-settlement');t.after(f.close);f.input.localDeadline=new Date(Date.now()+2000).toISOString();const started=Date.now();const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.notEqual(result.settled,true);assert.ok(Date.now()-started<9500);assert.ok(f.methods().includes('turn/interrupt'));f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.equal(f.company.investmentActivity.counts(f.manifest.runId).active,1);
+ const f=transport('no-settlement');t.after(f.close);
+ const realSetTimeout=globalThis.setTimeout,realClearTimeout=globalThis.clearTimeout,realNow=Date.now;
+ const watchdog=async<T>(pending:Promise<T>)=>{let timer:ReturnType<typeof setTimeout>|undefined;try{return await Promise.race([pending,new Promise<never>((_,reject)=>{timer=realSetTimeout(()=>reject(Error('Fake runtime did not reach the expected deadline phase')),10000);})]);}finally{if(timer)realClearTimeout(timer);}};
+ let started!:()=>void;const ready=new Promise<void>(resolve=>started=resolve),event=f.input.event;
+ f.input.event=(type,detail)=>{event(type,detail);if(type==='runtime_turn_started')started();};
+ // Startup speed is not the deadline assertion. Advance the actual runtime timer
+ // only after its fake provider has started a turn; retain a separate real watchdog.
+ t.mock.timers.enable({apis:['Date','setTimeout'],now:Date.now()});f.input.localDeadline=new Date(Date.now()+300000).toISOString();
+ const controller=new AbortController(),running=f.runtime.runSubscriptionInvestment!(f.input,controller.signal,f.policy);
+ try{
+  await watchdog(Promise.race([ready,running.then(()=>{throw Error('Fake runtime finished before starting a turn');})]));
+  assert.equal(f.methods().filter(m=>m==='turn/start').length,1);assert.equal(f.methods().includes('turn/interrupt'),false);
+  t.mock.timers.tick(299999);await new Promise(resolve=>realSetTimeout(resolve,5));assert.equal(f.methods().includes('turn/interrupt'),false);t.mock.timers.tick(1);
+  const interruptWait=realNow();while(!f.methods().includes('turn/interrupt')&&realNow()-interruptWait<10000)await new Promise(resolve=>realSetTimeout(resolve,5));
+  assert.ok(f.methods().includes('turn/interrupt'));t.mock.timers.tick(6000);
+  const result=await watchdog(running);assert.equal(result.status,'interrupted');assert.notEqual(result.settled,true);
+  f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.equal(f.company.investmentActivity.counts(f.manifest.runId).active,1);assert.equal(f.company.claimWorkNext(),undefined);
+ }finally{controller.abort();t.mock.timers.tick(6000);await watchdog(running.catch(()=>undefined));t.mock.timers.tick(1000);}
 });
 test('credit resumed thread reuses exact identity and starts exactly one newly reserved turn',async t=>{
  const f=transport('success');t.after(f.close);f.input.binding={worker_id:f.input.worker.worker_id,runtime_type:'codex-app-server',runtime_reference:'pilot-thread',workspace_path:f.input.worker.workspace_path,created_at:new Date().toISOString(),thread_name:'Owned fixture thread'};
