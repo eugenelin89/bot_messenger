@@ -1,6 +1,6 @@
 # Execution plan — Yahoo source-selection documentation
 
-**Status:** Documentation accepted; reviewed Git integration pending
+**Status:** Documentation accepted; reviewed integration tracked by [PR #57](https://github.com/eugenelin89/bot_messenger/pull/57)
 
 **Owner:** Parent Codex task, sole writer/integrator
 
@@ -61,6 +61,7 @@ public release. Preserve Decision029 US$0, Decision0374/4 and historical HQ-READ
 
 ## Remaining work and handoff
 
-Complete the scoped PR integration and synchronize main. Upcoming HQ-READY-03 remains **planned**,
+[PR #57](https://github.com/eugenelin89/bot_messenger/pull/57) records the exact final head and merge
+outcome; it is the integration receipt for this accepted documentation task. Upcoming HQ-READY-03 remains **planned**,
 not executed; the next recommended task is its explicitly selected source implementation under the
 prepared plan. Any later bounded live probe/operation needs its applicable separate authorization. No heavy build, browser or native resource reservation is needed for this task.
