@@ -232,3 +232,19 @@ starts with one bounded GET to `https://fc.yahoo.com/`, without nine financial r
 fallbacks. It requires separate owner approval and a new reviewed one-shot capability. It is
 unexecuted and not expressible by reusing the old manifest/CLI. Genuine financial qualification,
 observed fills, employees, recurring operation, production and public delivery remain blocked.
+
+## HQ-READY-03E — separate one-history qualification
+
+[Decision041](../decisions/decision_041_one_shot_aapl_history.md) fixes one AAPL September2026
+OHLCV operation, six ordered underlying requests including repeated cookie bootstrap and one
+metadata chart, query1-only charts, no retry/fallback,1MiB total and a supervised180-second
+process ceiling. [Acceptance](../validation/investment/HQ-READY-03E.md) owns its actual gate status.
+The original03B and03D authorities remain spent; their commands/anchors are never reused.
+
+The new dedicated entrypoint is `scripts/yahoo-history.sh` with `prepare`, `run`, `status` and
+`cleanup`. Preparation is create-only and must follow accepted merge, fresh clean-main build,
+source/host/custody verification. Run only consumes that existing independent approval. `cleanup`
+requires the original data process group gone; it removes only the03E ciphertext capsule and
+retains authority/non-data evidence. No environment or caller path can enable the live transport.
+A denied/empty/unknown result is final; no further run follows. Check the acceptance disposition
+before any operation. No data is admitted to employees, simulation, public outputs or production.

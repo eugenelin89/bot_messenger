@@ -153,3 +153,12 @@ The authorized 03D attempt is complete: verified TLS and HTTP 404 headers, follo
 response-size stop with zero body consumption. The separate authority is permanently spent 1/1;
 non-data cleanup and original 03B preservation are verified. Endpoint/time connectivity is the
 only live conclusion; no repeat or financial read follows.
+
+## Separate historical-data qualification — 2026-10-12
+
+The owner selected HQ-READY-03E, one AAPL September2026 daily OHLCV operation after reviewed
+source integration/rebuild. [Decision041](../../decisions/decision_041_one_shot_aapl_history.md)
+fixes independent one-use custody, exact six-request maximum, no retries/fallback and immediate
+private deletion. [Acceptance](../../validation/investment/HQ-READY-03E.md) separates source,
+offline fixtures, actual provider result and cleanup.03B/03D stay spent; Decision037 exhausted4/4,
+US$0 and all employee/trading/production/public/later-packet gates remain unchanged.
