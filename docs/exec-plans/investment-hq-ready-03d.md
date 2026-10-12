@@ -65,7 +65,7 @@ inferred from the proposal's already-satisfied owner approval requirement.
 
 New decision/acceptance/runbook updates will describe the separate one-shot authority and outcome.
 Product vision, employee capabilities, simulation and public contracts do not change.
-Implementation and source reviews are complete. Final focused/full regression, integration, supervised attempt and final evidence remain. Headers-only handling deliberately consumes zero body bytes. The independent 10-second consumption watchdog is stricter than the 30-second process ceiling; admission requires 10 seconds remaining in the 60-second lifetime.
+Implementation and source reviews are complete. Final focused/full regression passed. Integration, supervised attempt and final evidence remain. Headers-only handling deliberately consumes zero body bytes. The independent 10-second consumption watchdog is stricter than the 30-second process ceiling; admission requires 10 seconds remaining in the 60-second lifetime.
 
 ## Review disposition
 
@@ -75,3 +75,11 @@ elapsed/expiry checks and conservative near-expiry admission. Acceptance request
 real 10-second watchdog test; it was added. All reviewers remain read-only.
 The initial read-only host check could not query FileVault inside the sandbox; host access
 verified Node 24.10.0, FileVault, encrypted swap and disabled core dumps. No 03D authority exists yet.
+
+## Final source acceptance checkpoint
+
+Implementation `8f24393a07b31639fc67b602ce86dc3e1546a4e9`, [PR62](https://github.com/eugenelin89/bot_messenger/pull/62).
+Focused223/223 and full1457 total/1451 passed/0 failed/6 existing skips passed on frozen source.
+Source/build manifests and log hashes are in03D acceptance. No new authority has been prepared.
+Next: exact-head integration, clean synchronized main rebuild, one prepare/run, explicit non-data
+recovery receipt and independent actual-outcome/historical-preservation inspection.

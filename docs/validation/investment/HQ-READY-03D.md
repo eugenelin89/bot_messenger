@@ -3,7 +3,7 @@
 **Started:** 2026-10-11; continued 2026-10-12 America/Vancouver
 **Base:** `e688fdbe94ac425891dbb42e582275908f9b1a50`, clean fetched local/remote main
 **Branch/worktree:** `codex/hq-ready-03d-connectivity` / `../bot_messenger-hq-ready-03d`
-**Status:** Offline validation and independent source review in progress; live approval not prepared or consumed yet
+**Status:** Source/offline acceptance complete; reviewed integration and one supervised attempt pending
 
 [Decision040](../../decisions/decision_040_one_shot_yahoo_connectivity.md) records the owner's
 new one-attempt approval and reported permission. The reviewed [proposal](../../operations/YAHOO_CONNECTIVITY_PROPOSAL.md)
@@ -47,11 +47,11 @@ No generic rollback-proof claim is made for a malicious OS owner restoring the w
 ## Historical preservation and remaining gates
 
 Before edits, all five original 03B approval/spent/accounting/cleanup files were hashed privately;
-noResume was true and the old capsule absent. Final equality will be checked after the actual run.
+noResume was true and the old capsule absent. Read-only equality has been confirmed during final acceptance; it will be rechecked after the actual run.
 Decision037 is unchanged/exhausted at 4/4. No financial data, employee execution, recurring collector,
 spend, production change, public output, Asymmetri deployment or HQ-READY-04 is started.
 
-Remaining: final frozen source/build tests and reviews, reviewed integration/main rebuild,
+Remaining: reviewed integration/main rebuild,
 host checks, one prepare/consume, non-data receipt/cleanup inspection and final historical equality.
 
 Admission additionally requires at least 10 seconds remaining in the 60-second manifest lifetime,
@@ -69,8 +69,39 @@ The [source manifest](HQ-READY-03D-source.sha256) has digest
 The [compiled manifest](HQ-READY-03D-build.sha256) has digest
 `c1aacac3edbe8cfd7cbcf17b40820bba1c4ae98156499dbd6f86dc2968a025bd`.
 Security and recovery independently verified every entry and cleared this source.
-Final focused acceptance passed **223/223**, zero failures/skips,117.952s, including the
+Final focused acceptance passed **223/223**, zero failures/skips, 117.952s, including the
 real loopback TLS/parser variants and pinned Python authored operations. The normal
-30-second supervisor test terminated a blocked child in10.127s, proving its separate
+30-second supervisor test terminated a blocked child in 10.127s, proving its separate
 10-second consumption ceiling. Near-expiry and filesystem-stall tests passed.
-Final typecheck/build and generated contract integrity passed. Full serial regression is running.
+Final typecheck/build and generated contract integrity passed. Full serial regression passed: **1,457 total, 1,451 passed, 0 failed, 6 existing skips**, 684.845s.
+
+The GitHub check API for implementation commit
+`8f24393a07b31639fc67b602ce86dc3e1546a4e9` reports no configured checks/statuses.
+[PR62](https://github.com/eugenelin89/bot_messenger/pull/62) is draft while the full suite runs.
+No remote review submissions or unresolved threads were present at the initial check.
+The local read-only host preflight verified Node 24.10.0, FileVault, encrypted swap and core dumps
+disabled; the 03D approval/spent/accounting/cleanup paths were all absent. The initial sandbox
+FileVault query failed without changing state; the host-level read-only check passed.
+
+## Final full regression and retained evidence
+
+The full suite completed on the frozen compiled source. Its six pre-existing skips are five
+external standalone-receiver variants and one Linux-only filesystem/resource case. No Yahoo,
+connectivity, custody, Python, financial or new recovery test was skipped. Test fixtures remain
+distinct from live Yahoo evidence. Security, recovery and acceptance source reviews are cleared;
+no source blockers remain. No Level3 employee, production or public acceptance is claimed.
+
+Only non-data log hashes are committed; full logs remain local.
+
+| Local log | SHA256 |
+| --- | --- |
+| `hq-ready-03d-full.log` | `f73d511bd2b5cc874b692004ab2a58c4c6f1af76db4bd7ca67fdd9a84a38e380` |
+| `hq-ready-03d-focused-final.log` | `91678c2a2f894acb5b2f600d0f0742a559a4ede82082098530ed86b53bf1650d` |
+| `hq-ready-03d-build-final.log` | `6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047` |
+| `hq-ready-03d-check-final.log` | `c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652` |
+| `hq-ready-03d-contracts.log` | `d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5` |
+
+Implementation commit: `8f24393a07b31639fc67b602ce86dc3e1546a4e9`.
+The follow-up acceptance commit changes documentation only; source/build manifest bytes remain
+fixed. PR62 is ready for integration after exact-head remote checks. Live preparation/consumption
+will occur only after a matching rebuild on clean synchronized main.
