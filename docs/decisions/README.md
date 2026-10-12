@@ -172,3 +172,7 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 [Decision036](decision_036_subscription_activity_usage.md) amends034/035 with a separately approved private activity policy and common usage/reference-cost reporting. Pinned Codex admission remains blocked; [acceptance](../validation/investment/INV-SUBSCRIPTION-USAGE.md) distinguishes fake local controls from provider feasibility.
 
 - [Decision 037 — Credit-approved supervised private pilot](decision_037_credit_approved_private_pilot.md): dated owner exception for existing credits/internal retries, four total turns in disposable private synthetic state; no ordinary activation.
+
+## Owner-selected private financial source
+
+- [Decision 038 — Yahoo Finance for private personal research](decision_038_yahoo_finance_private_source.md): accepted owner selection of Yahoo and preferred Python `yfinance` adapter behind the planned controlled Financial Data Gateway. Permission is **owner-reported verbal permission for personal use**, with no independently verified writing or broader grant. Separately assess automation/retention and public redistribution; US$0 and HQ-READY-02 synthetic acceptance remain intact. [HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) is prepared, not executed.

@@ -162,3 +162,24 @@ These guarantees are verified only with [deterministic INV-05 acceptance](../../
 Market observations now retain separate nullable provider availability and actual first retrieval; when availability is unknown, the internal simulator receives first retrieval as a conservative knowledge bound, not a fabricated provider timestamp. Exact source policy identity and every needed right are checked before admission/use. Original/correction lineage is immutable and atomically deduplicated by provider version. Collected corrections/conflicts fence pending price use even before delivery to the simulator; existing filled orders remain unchanged. Financial execution still uses the frozen next raw opening, never a close/adjusted substitute.
 
 The2026 reference calendar covers scheduled New York equity sessions only; halts and exceptional closures need separate evidence. Corporate-action normalization preserves missing payment dates and rejects automatic correction replacement. No operational price source/permissions or official run follows this source work. [Source feasibility](../../validation/investment/INV-06-SOURCES.md) and [Decision032](../../decisions/decision_032_market_evidence_boundary.md) define limits.
+
+## Yahoo selection and point-in-time qualification — 2026-10-11
+
+[Decision038](../../decisions/decision_038_yahoo_finance_private_source.md) selects Yahoo Finance
+and preferred `yfinance` through the planned controlled Financial Data Gateway for personal private
+research. The owner reports verbal permission from Yahoo for personal use; this is not independent
+written verification or a grant of unrestricted automated access/public redistribution. The source
+choice is settled; use-specific qualification remains separate under the US$0 rule.
+
+The [HQ-READY-03 plan](../../exec-plans/investment-hq-ready-03.md) covers OHLCV, fundamentals,
+statements, splits and dividends as available. Preserve original versions and distinguish event,
+fiscal-period, publication/availability, first-retrieval and normalization times. Current snapshots,
+restatements and backfilled/adjusted historical series cannot become earlier decision evidence.
+Unknown availability stays unknown; first retrieval is a conservative local knowledge bound.
+Library adjustment/repair settings do not by themselves prove raw as-traded prices. Keep adjusted
+returns separate from explicit split/dividend accounting, and incomplete actions visibly blocked.
+
+HQ-READY-02 and `inv05-v1` remain synthetic-only and unchanged. Historical Yahoo bars do not satisfy
+an automatically approved live fill method. A different observed-data method must be owner-approved,
+versioned and prospective, with matching benchmark/valuation semantics and a new scope/run. No
+retrospective favorable fill, silent timing change or public redistribution follows from selection.

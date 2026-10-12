@@ -3,7 +3,22 @@
 **Updated:** 2026-10-11
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
-## HQ-READY-02 finite private HQ source — current handoff
+## Yahoo Finance source selection — current planning handoff
+
+On2026-10-11 America/Vancouver the owner selected Yahoo Finance as the primary financial-data
+source for the personal, non-commercial investment hobby project. Use preferred Python `yfinance`
+behind the planned controlled Financial Data Gateway. [Decision038](decisions/decision_038_yahoo_finance_private_source.md)
+records **owner-reported verbal permission from Yahoo for personal use**, with no independently
+verified writing or broader rights claim. Separately assess automated access/retention and public
+redistribution. US$0 remains fixed; no data call, dependency, collector or production activation.
+
+The [HQ-READY-03 implementation plan](exec-plans/investment-hq-ready-03.md) is prepared only:
+OHLCV/fundamentals/statements/actions as available; immutable original provenance, conservative
+request/cache/retry controls and point-in-time admission. Yahoo research support need not qualify
+observed fills; new method/use authorization remains separate. HQ-READY-02 synthetic acceptance,
+Decision0374/4, runtime limits and all public/deployment gates are unchanged.
+
+## HQ-READY-02 finite private HQ source — accepted handoff
 
 The owner selected [HQ-READY-02](../prompts/experiments/investment-hq-ready-02.md) from clean
 `276d918f07d9dd9919a09f698f6fdae51831a0a9`. Source adds a separate finite authority/custody journal,

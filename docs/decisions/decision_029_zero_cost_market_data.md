@@ -57,3 +57,13 @@ The [shared Codex launcher](../../prompts/experiments/investment-showcase.md) mu
 A zero-dollar data constraint may limit data freshness, instrument coverage, corporate-action completeness, public display rights and reliability. It may require a smaller universe, postponed fills, less-detailed public charts, or a methodology change that the owner separately approves. Those compromises must be visible, not concealed.
 
 This documentation decision authorizes **no scraping execution**, external account change, live provider connection, financial action, public activation or server deployment. Later implementation remains explicitly selected one packet at a time.
+
+## Later source-selection amendment — 2026-10-11
+
+[Decision038](decision_038_yahoo_finance_private_source.md) partially supersedes only the generic
+primary-source preference and pre-selection sequencing above: the owner has selected Yahoo Finance
+with `yfinance` for a personal, non-commercial private project and reports verbal permission from
+Yahoo for personal use. Selection is settled before full technical/use qualification. The report
+is not independently verified writing or unrestricted automated/public rights. All US$0, access,
+retention, provenance, methodology and separate-publication requirements remain binding. Historical
+findings above are preserved; no data collection or activation is authorized by this amendment.

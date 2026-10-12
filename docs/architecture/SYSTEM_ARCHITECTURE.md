@@ -682,3 +682,20 @@ defeat an administrator replacing every authority, custody and HQ copy. Independ
 custody and isolated Linux acceptance remain operational gates. See
 [validation](../validation/investment/HQ-READY-02.md) and
 [operational status](../operations/INVESTMENT_READINESS.md#hq-ready-02-source-status).
+
+## Planned Yahoo Financial Data Gateway — Decision038
+
+The owner selects Yahoo Finance with preferred Python `yfinance` for personal private research.
+[Decision038](../decisions/decision_038_yahoo_finance_private_source.md) records reported verbal
+personal-use permission without independently verified writing or broader automated/public rights.
+The [HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) places the Python adapter behind a
+controlled Financial Data Gateway reusing the existing market policy, collector, immutable store,
+normalization and admission modules. The current collector remains synthetic-only; this section
+is a planned boundary, not implemented support or authority.
+
+Trusted code must own use-specific policy, actual underlying request quotas, caches, bounded
+retries/failure states and original point-in-time provenance. Workers receive admitted scoped
+observations, not arbitrary Python, Yahoo credentials or HTTP. OHLCV, fundamentals, statements and
+splits/dividends need typed records with explicit quality/adjustment/time semantics; current price
+records alone do not cover these data classes. Private source/derived records stay outside public
+projection and Ask. No daemon, production change or dependency installation follows from planning.
