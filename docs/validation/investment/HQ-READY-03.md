@@ -5,6 +5,8 @@
 **Branch/worktree:** `codex/investment-hq-ready-03` / `../bot_messenger-hq-ready-03`; parent sole writer.
 **Status:** Source and deterministic acceptance complete; approved for reviewed Git integration.
 **Reviewed source/test commit:** `150ef9b0b191bcc77ea9a029a81d9a02584dc5f9`.
+**Acceptance documentation:** `76971690853fd28073a90fcc2faf6801dfa26560`; subsequent change only records this integration link/status.
+**Integration:** [PR58](https://github.com/eugenelin89/bot_messenger/pull/58) records the exact final head, merge commit and remote checks; the parent verifies clean synchronized main after merge.
 **Scope:** Explicit owner selection of source, dependencies, inert migration, authored fixtures,
 read-only reviews and accepted Git integration. No live-data or operational acceptance.
 

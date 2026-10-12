@@ -1,6 +1,6 @@
 # HQ-READY-03 — Yahoo evidence gateway source integration
 
-**Status:** Source and deterministic acceptance complete; reviewed Git integration in progress (owner selection2026-10-11)
+**Status:** Source and deterministic acceptance complete; accepted integration through [PR58](https://github.com/eugenelin89/bot_messenger/pull/58) (owner selection2026-10-11)
 
 **Owner:** Parent Codex sole writer/integrator, with read-only security, recovery, architecture and acceptance specialists
 
@@ -23,7 +23,7 @@
 - Dependency audit: exact23-package wheel hash lock and `pip check`/hash-required dry run pass; actual pinned yfinance runs only against authored fixture HTTP.
 - First full sandbox run retained in acceptance record: loopback/nested sandbox failures and one in-progress protocol mismatch. Final fixed-tree host-authorized serial full regression passed1,320/1,326 with0 failures and6 pre-existing environment skips; source kept fixed.
 - Current docs: [dossier/probe](../operations/YAHOO_FINANCIAL_GATEWAY.md), [acceptance](../validation/investment/HQ-READY-03.md) and current-facing status updated. Requirement8 (actual Yahoo probe) remains separately unauthorized, not silently claimed from fakes.
-- Final check/build/contracts passed;175/175 contract tests. Final independent acceptance approved Git integration. Source/test commit `150ef9b0b191bcc77ea9a029a81d9a02584dc5f9`. Remaining: docs commit, scoped PR, exact-head mergeability check, merge and clean main synchronization. Revised remaining ETA approximately10–15 minutes, subject to Git integration results.
+- Final check/build/contracts passed;175/175 contract tests. Final independent acceptance approved Git integration. Source/test commit `150ef9b0b191bcc77ea9a029a81d9a02584dc5f9`. Acceptance docs commit `76971690853fd28073a90fcc2faf6801dfa26560`; [PR58](https://github.com/eugenelin89/bot_messenger/pull/58) is the scoped integration record. Final integration gate verifies exact head, mergeability and clean synchronized main; no source changes follow validation. Live probe and subsequent milestones remain blocked.
 
 **Baseline:** HQ-READY-02 merged at `069f7e442ba20a6d61e636b983cecce1c3ad5863`
 
