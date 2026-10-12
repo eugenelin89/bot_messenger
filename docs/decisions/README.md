@@ -184,3 +184,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision041 — Separate one-shot AAPL history qualification](decision_041_one_shot_aapl_history.md): HQ-READY-03E, one historical operation/six requests, independent one-use custody; prior authorities remain spent.
 
 - [Decision042 — Offline Yahoo bootstrap compatibility](decision_042_yahoo_bootstrap_compatibility.md): narrow fixture-only cookie404 correction with original status and parent cookie validation; no new live authority or rearm. [03F acceptance](../validation/investment/HQ-READY-03F.md) and [future proposal](../operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) distinguish authored success from unqualified actual access.
+
+- [Decision043 — Yahoo qualification feasibility](decision_043_yahoo_qualification_feasibility.md): HQ-READY-03G withholds live admission at the independent technical-evidence gate; distinct offline custody integration and a direct-chart proposal create no owner authority.

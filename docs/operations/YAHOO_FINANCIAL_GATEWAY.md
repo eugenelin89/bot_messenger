@@ -4,6 +4,12 @@
 **Provider/feed:** Yahoo Finance / Python yfinance1.7.0, Python3.12.12.
 **State:** Default application/employee transport inactive. HQ-READY-03B source is integrated; its single authorization is spent after an unknown bootstrap outcome, with no financial data admitted and cleanup verified. No collector, deployment, public artifact or trading activation.
 
+**Current qualification gate:** [HQ-READY-03G](../validation/investment/HQ-READY-03G.md)
+withholds live admission after independent technical review; only an offline custody profile
+is added.03B/03D/03E remain spent and no03G owner authorization is prepared/consumed.
+See [Decision043](../decisions/decision_043_yahoo_qualification_feasibility.md) and the
+separately unexecuted [direct-chart assessment](YAHOO_DIRECT_CHART_PROPOSAL.md).
+
 ## Permission provenance and use assessment
 
 The owner selects Yahoo Finance for this personal, non-commercial hobby project and reports

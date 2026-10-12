@@ -8,6 +8,7 @@ import { acceptedCookie404 } from '../../domain/market/yahoo-bootstrap.js';
 import type { CalendarEvidence, InstrumentIdentity, SourcePolicy } from '../../domain/market/types.js';
 import type { SimulationClock } from '../investment.js';
 import { FinancialStore } from './financial-store.js';
+import { isBootstrapHistoryFixture } from './yahoo-history-custody.js';
 
 const errorCode=(error:unknown)=>error instanceof SimulationError?error.code:error instanceof Error&&/^[a-z][a-z0-9_]{0,100}$/.test(error.message)?error.message:'financial_adapter_failure';
 const classTtl={ohlcv:86400000,actions:86400000,fundamentals:86400000,statement:7*86400000};
@@ -121,7 +122,7 @@ export class FinancialDataGateway {
           }finally{if(attemptTimer)clearTimeout(attemptTimer);controller.signal.removeEventListener('abort',attemptAbort);attemptController.abort();}
           const bytes=Buffer.byteLength(response.body);transportBytes+=bytes;
           // No legacy observed authority can acquire the offline compatibility exception.
-          const cookie404=scope.mode==='synthetic_fixture'&&this.transport.kind==='authored_yahoo_fixture'&&acceptedCookie404(query,response);
+          const cookie404=(scope.mode==='synthetic_fixture'||isBootstrapHistoryFixture(this.store.probe))&&this.transport.kind==='authored_yahoo_fixture'&&acceptedCookie404(query,response);
           let reason='response';let backoff:string|null=null;
           if(response.status===429){reason='yahoo_rate_limited';backoff=retryInstant(response.retryAfter,this.clock.now());}
           else if(response.status===403){reason='yahoo_access_blocked';backoff=scope.expiresAt;}

@@ -61,6 +61,9 @@ export interface WireReceipt {
   status: number | null; receivedBytes: number; complete: boolean; httpDate: string | null;
   retryAfter: string | null; reason: string; completedAt: string;
   diagnostic?: YahooTransportDiagnostic;
+  /** Trusted completed-response classification; never rewrites the original HTTP status. */
+  bootstrapDisposition?: 'accepted_cookie_404' | 'rejected_bootstrap';
+  bodyHash?: string;
 }
 interface Clock { wall(): number; monotonic(): number; }
 const systemClock: Clock = { wall: Date.now, monotonic: () => performance.now() };
