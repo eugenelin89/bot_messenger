@@ -115,6 +115,29 @@ for(const problem of ['html','location','refresh','authentication','oversize','c
  const result=await f.collect();assert.equal(result.status,['oversize','content_length','encoding'].includes(problem)?'unknown':'unavailable',result.reason);assert.equal(f.queries.length,problem==='changed_cookie'?5:1);
  await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/terminal/);
 });
+test('second bootstrap cannot rotate the parent cookie before crumb acquisition',async t=>{
+ const f=setup(t,(reply,_q,n)=>{if(n===2)reply.headers={'set-cookie':[cookie.replace('authored-private-cookie','rotated-before-crumb')]};});
+ const result=await f.collect();assert.equal(result.status,'unavailable',result.reason);assert.equal(result.reason,'yahoo_bootstrap_rejected');assert.equal(f.queries.length,2);
+ assert.deepEqual(f.db.all<{status:number}>('SELECT status FROM financial_attempt_results ORDER BY rowid').map(row=>row.status),[404,404]);
+ assert.equal(f.db.get<{n:number}>('SELECT count(*) n FROM financial_observations')!.n,0);
+ await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/terminal/);assert.equal(f.queries.length,2);
+});
+test('expired first cookie cannot authorize another bootstrap or DNS lookup',async t=>{
+ let now=Date.now();t.mock.method(Date,'now',()=>now);
+ const f=setup(t,reply=>{reply.headers['set-cookie']=[cookie+'; Max-Age=1'];});
+ await f.transport.exchange(cookieQuery,new AbortController().signal,262144);now+=2000;
+ await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/yahoo_destination_denied/);
+ assert.equal(f.queries.length,1);assert.equal(f.dns,1);
+ await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/terminal/);
+});
+test('second bootstrap cannot renew expired state during its response even with the same cookie',async t=>{
+ let now=Date.now();t.mock.method(Date,'now',()=>now);
+ const f=setup(t,(reply,_q,n)=>{reply.headers['set-cookie']=[cookie+'; Max-Age=1'];if(n===2)now+=2000;});
+ const result=await f.collect();assert.equal(result.status,'unavailable',result.reason);assert.equal(result.reason,'yahoo_bootstrap_rejected');assert.equal(f.queries.length,2);
+ assert.deepEqual(f.db.all<{status:number}>('SELECT status FROM financial_attempt_results ORDER BY rowid').map(row=>row.status),[404,404]);
+ assert.equal(f.db.get<{n:number}>('SELECT count(*) n FROM financial_observations')!.n,0);
+ await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/terminal/);
+});
 test('404 exception cannot apply to other endpoint, path, parameters or absent parent verdict',()=>{
  const response:YahooResponse={status:404,body:'Not Found',contentType:'text/plain',retryAfter:null,bootstrapCookiePresent:true};
  for(const body of ['Not Found','Not Found\n','Not Found\r\n','404 Not Found','404 Not Found\n','404 Not Found\r\n'])assert.equal(acceptedCookie404(cookieQuery,{...response,body}),true);

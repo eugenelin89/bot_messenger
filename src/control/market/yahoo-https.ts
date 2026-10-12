@@ -73,7 +73,13 @@ export function yahooPinnedLookup(selected: LookupAddress): LookupFunction {
   };
 }
 function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:FinancialCustody,compatibility=false):YahooTransport {
-  const jar = new CookieJar(); let active = false, terminal = false; let crumb:string|null=null,lastResponse=-Infinity;
+  const jar = new CookieJar(); let active = false, terminal = false; let crumb:string|null=null,lastResponse=-Infinity;let acceptedCookies:string|null=null;
+  // Pin effective cookie headers from the first acceptance, independently of crumb/cache expiry.
+  const cookieIdentity=()=>{
+    const headers=[jar.header(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb')),jar.header(new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`))];
+    ensure(headers.every(header=>header.split('; ').some(pair=>/^A3=.+$/.test(pair))),'yahoo_bootstrap_cookie_missing');
+    return JSON.stringify(headers);
+  };
   return { kind: probe && isOwnerFinancialCustody(probe) ? 'yahoo-https-v1' : 'authored_yahoo_fixture', async exchange(query, signal, maxBytes) {
     ensure(!terminal,'yahoo_bootstrap_terminal');
     ensure(!active, 'yahoo_concurrent_wire'); active = true;
@@ -110,6 +116,7 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
     try {
       const qualified = qualifyYahooQuery(query, typeof financialRequest === 'function' ? financialRequest() : financialRequest, symbol);
       if(compatibility){
+        if(acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
         ensure(isCookieBootstrap(query)||qualified.endpoint==='query1.finance.yahoo.com:crumb'||qualified.endpoint==='query1.finance.yahoo.com:chart','yahoo_endpoint');
         if(!isCookieBootstrap(query))ensure(jar.hasAnonymousCookie(new URL(query.url)),'yahoo_bootstrap_cookie_missing');
         if(qualified.endpoint.endsWith(':chart'))ensure(crumb!==null&&query.params.crumb===crumb,'yahoo_crumb_schema');
@@ -175,8 +182,9 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
         if (combined.aborted) { abort(); return; }
         try {
           // DNS/rate spacing may outlive a cookie. Recheck the actual target immediately before I/O.
+          if(compatibility&&acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
           const cookies = jar.header(url);
-          if(compatibility&&!isCookieBootstrap(query))ensure(cookies.split('; ').some(pair=>/^A3=.+$/.test(pair)),'yahoo_bootstrap_cookie_missing');
+          if(compatibility&&(acceptedCookies!==null||!isCookieBootstrap(query)))ensure(cookies.split('; ').some(pair=>/^A3=.+$/.test(pair)),'yahoo_bootstrap_cookie_missing');
           checkTime();
           req = wire.request(url, { method: 'GET', agent: false, signal: combined, rejectUnauthorized: true,
             servername: url.hostname, ...{ family: selected.family, autoSelectFamily: false }, lookup: yahooPinnedLookup(selected), maxHeaderSize: 16384,
@@ -224,9 +232,11 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
                   ensure(headers.every(h=>!/^\s*(?:T|Y)\s*=/.test(h)),'yahoo_bootstrap_barrier');
                   candidate.accept(url.hostname,headers);
                   ensure(candidate.hasAnonymousCookie(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb'))&&candidate.hasAnonymousCookie(new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`)),'yahoo_bootstrap_cookie_missing');
-                  const previous=jar.header(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb'));
+                  if(acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
                   jar.accept(url.hostname,headers);
-                  ensure(crumb===null||previous===jar.header(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb')),'yahoo_bootstrap_cookie_changed');
+                  const current=cookieIdentity();
+                  ensure(acceptedCookies===null||current===acceptedCookies,'yahoo_bootstrap_cookie_changed');
+                  acceptedCookies??=current;
                   response.bootstrapCookiePresent=true;
                 }else if(qualified.endpoint.endsWith(':crumb')&&response.status===200){
                   ensure(/^text\/plain(?:;\s*charset=utf-8)?$/i.test(response.contentType)&&validCrumb(body),'yahoo_crumb_schema');crumb=body;
