@@ -334,3 +334,8 @@ for owner review only; no new live request or authority is created.
 implement and consume the reviewed one-request connectivity scope. A distinct create-only
 anchor preserves the old spent probe. This tests endpoint connectivity only; genuine financial
 qualification, observed fills, recurring collection and later HQ packets remain gated.
+
+The 03D attempt is now complete: verified TLS and HTTP 404 headers, then a response-size stop
+with zero body bytes consumed. Its independent authority is exhausted 1/1/noResume, cleanup
+is verified and the original 03B evidence is unchanged. Connectivity for this endpoint/time
+is established; financial qualification and all later operational/public gates remain blocked.

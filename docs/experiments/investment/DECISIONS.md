@@ -148,3 +148,8 @@ non-data receipts. The owner confirms their reported personal-use permission cov
 automated test/retention. [Acceptance](../../validation/investment/HQ-READY-03D.md) separates
 implementation/fixtures from the actual outcome.03B remains spent and Decision037 exhausted4/4;
 financial-data quality and all operational/public gates remain blocked.
+
+The authorized 03D attempt is complete: verified TLS and HTTP 404 headers, followed by the
+response-size stop with zero body consumption. The separate authority is permanently spent 1/1;
+non-data cleanup and original 03B preservation are verified. Endpoint/time connectivity is the
+only live conclusion; no repeat or financial read follows.
