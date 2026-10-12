@@ -4,6 +4,7 @@ import {join} from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {repoRoot} from '../scripts/credit-pilot/run.js';
 import {pilotFixture} from './fixtures/credit-pilot.js';
+import {removeEmptyFiniteMigration} from './fixtures/investment/schema.js';
 import {Store} from '../src/persistence/store.js';
 import {Company} from '../src/control/company.js';
 import {ACTIVITY_MAX,executionPolicy,eligibleCreditSubscription} from '../src/domain/usage/policy.js';
@@ -37,7 +38,7 @@ test('owner pause and scope revocation deny a released request without consuming
  const f=pilotFixture();t.after(f.close);f.release();f.company.pause(true);assert.equal(f.company.claimWorkNext(),undefined);f.company.pause(false);f.company.investmentTeam.control({scopeId:f.manifest.scopeId,action:'revoke'});assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.company.creditPilot.count(),0);
 });
 test('populated schema20 migration preserves all old rows and creates no pilot approval',t=>{
- const f=pilotFixture();t.after(f.close);const c=f.claim();f.complete(c);f.store.db.exec('DROP TABLE investment_credit_pilot');f.store.run('DELETE FROM schema_migrations WHERE version=21');const tables=f.store.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").map(x=>x.name),before=Object.fromEntries(tables.map(n=>[n,f.store.all(`SELECT rowid original_rowid,* FROM ${n} ORDER BY rowid`)]));
+ const f=pilotFixture();t.after(f.close);const c=f.claim();f.complete(c);removeEmptyFiniteMigration(f.store);f.store.db.exec('DROP TABLE investment_credit_pilot');f.store.run('DELETE FROM schema_migrations WHERE version=21');const tables=f.store.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").map(x=>x.name),before=Object.fromEntries(tables.map(n=>[n,f.store.all(`SELECT rowid original_rowid,* FROM ${n} ORDER BY rowid`)]));
  for(let i=0;i<2;i++){const db=new Store(join(f.root,'company.sqlite'));try{for(const n of tables)assert.deepEqual(db.all(`SELECT rowid original_rowid,* FROM ${n}${n==='schema_migrations'?' WHERE version<=20':''} ORDER BY rowid`),before[n]);assert.equal(db.all('SELECT * FROM investment_credit_pilot').length,0);assert.deepEqual(db.all('PRAGMA foreign_key_check'),[]);}finally{db.close();}}
 });
 
@@ -54,7 +55,7 @@ test('failed reservation insert rolls back execution, permit and usage together'
 test('private pilot cannot be selected as a committed publication source',async t=>{
  const f=pilotFixture(),template=teamFixture();t.after(f.close);t.after(()=>template.close());const description=structuredClone(template.description);description.artifacts=[];description.workers=Object.fromEntries(f.envelope.participants.map(p=>[p.workerId,{name:p.name,role:'Investment participant',responsibilities:[p.responsibility],status:'unavailable' as const}]));
  const source=new CommittedTeamPublicationSource('private-denial','Private fixture',f.store,{now:()=>new Date().toISOString()},'disposable-pilot-owner',f.manifest.runId,description,{groupId:f.group.group_id,runtimeEvidence:'fake_runtime_fixture',evidenceRights:{}});
- assert.throws(()=>source.project({experimentId:'fixture',runId:'fixture',policyVersion:'1',identity:(_kind,key)=>key,sequence:()=>'1'}),/private_pilot_publication_prohibited/);assert.equal(f.store.all('SELECT * FROM investment_public_attempts').length,0);
+ assert.throws(()=>source.project({experimentId:'fixture',runId:'fixture',policyVersion:'1',identity:(_kind,key)=>key,sequence:()=>'1'}),/private_scope_publication_denied/);assert.equal(f.store.all('SELECT * FROM investment_public_attempts').length,0);
 });
 
 test('pilot binds authentication fingerprint across turns and refuses a changed account',t=>{
