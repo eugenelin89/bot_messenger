@@ -37,7 +37,7 @@ test('real Node HTTPS completes on an authored local TLS server using the produc
   execFileSync('/usr/bin/openssl', ['req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-keyout', join(dir, 'key.pem'),
     '-out', join(dir, 'cert.pem'), '-days', '1', '-subj', '/CN=query2.finance.yahoo.com', '-addext',
     'subjectAltName=DNS:query2.finance.yahoo.com'], { stdio: 'ignore', timeout: 10000 });
-  const cert = readFileSync(join(dir, 'cert.pem')); let calls = 0, trust = true, callbackAll: boolean | undefined;
+  const cert = readFileSync(join(dir, 'cert.pem')); let calls = 0, trust = true, forceAll = false, callbackAll: boolean | undefined;
   const server = createServer({ key: readFileSync(join(dir, 'key.pem')), cert }, (_req, res) => { calls++; res.writeHead(200, { 'Content-Type': 'application/json' }); res.end('{}'); });
   await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
   t.after(() => new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())));
@@ -46,6 +46,7 @@ test('real Node HTTPS completes on an authored local TLS server using the produc
     lookup: (async () => [{ address: '1.1.1.1', family: 4 }]) as unknown as YahooWire['lookup'],
     request: ((url: URL, options: RequestOptions, callback: (res: IncomingMessage) => void) => {
       assert.equal(options.rejectUnauthorized, true); assert.equal(options.servername, 'query2.finance.yahoo.com');
+      assert.equal(options.family, 4); assert.equal((options as RequestOptions & { autoSelectFamily?: boolean }).autoSelectFamily, false);
       const pin = options.lookup!;
       const lookup: LookupFunction = (host, opts, cb) => {
         callbackAll = opts.all;
@@ -56,17 +57,21 @@ test('real Node HTTPS completes on an authored local TLS server using the produc
           else { assert.equal(address, '1.1.1.1'); assert.equal(family, 4); cb(null, '127.0.0.1', 4); }
         });
       };
-      return httpsRequest(url, { ...options, port, lookup, ...{ autoSelectFamily: true }, ...(trust ? { ca: cert } : {}) }, callback);
+      // First exercise unchanged production options; separately force Node24's all:true path.
+      return httpsRequest(url, { ...options, port, lookup, ...(forceAll ? { family: 0, autoSelectFamily: true } : {}), ...(trust ? { ca: cert } : {}) }, callback);
     }) as typeof httpsRequest,
   };
   const transport = yahooOfflineWire(request(), 'ACME', wire);
   const query = { method: 'GET' as const, url: 'https://query2.finance.yahoo.com/v8/finance/chart/ACME', params: { range: '1d', interval: '1d' } };
   assert.equal((await transport.exchange(query, new AbortController().signal, 1024)).status, 200);
-  assert.equal(callbackAll, true); assert.equal(calls, 1);
-  trust = false;
+  assert.notEqual(callbackAll, true); assert.equal(calls, 1);
+  forceAll = true;
+  assert.equal((await transport.exchange(query, new AbortController().signal, 1024)).status, 200);
+  assert.equal(callbackAll, true); assert.equal(calls, 2);
+  forceAll = false; trust = false;
   await assert.rejects(transport.exchange(query, new AbortController().signal, 1024), (error: unknown) => {
     assert.ok(error instanceof YahooTransportError); assert.equal(error.diagnostic.category, 'tls_failure');
     assert.equal(error.diagnostic.lastConfirmed.stage, 'tcp_connected'); return true;
   });
-  assert.equal(calls, 1);
+  assert.equal(calls, 2);
 });
