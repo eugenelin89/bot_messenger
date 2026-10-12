@@ -16,6 +16,7 @@ SETTINGS = dict(auto_adjust=False, back_adjust=False, repair=False, rounding=Fal
                 actions=True, keepna=True, prepost=False, interval="1d")
 MAX_LINE = 600_000
 HISTORY_QUERY1_ONLY = False
+BOOTSTRAP_COMPATIBILITY = False
 
 
 class GatewayStop(BaseException):
@@ -139,8 +140,22 @@ def main():
             if reply.get("error"):
                 raise GatewayStop("python_transport_denied")
             received = reply["response"]
-            if received["status"] != 200:
+            if received.get("bootstrapRejected"):
+                raise GatewayStop("python_bootstrap_rejected")
+            cookie = url in ("https://fc.yahoo.com", "https://fc.yahoo.com/") and not kwargs.get("params")
+            benign404 = (BOOTSTRAP_COMPATIBILITY and cookie and received["status"] == 404
+                         and re.fullmatch(r"text/plain(?:;\s*charset=utf-8)?", received["contentType"], re.I)
+                         and re.fullmatch(r"(?:404 )?Not Found(?:\r?\n)?", received["body"])
+                         and received.get("retryAfter") is None
+                         and received.get("bootstrapCookiePresent") is True)
+            if received["status"] != 200 and not benign404:
                 raise GatewayStop("python_http_denied")
+            if BOOTSTRAP_COMPATIBILITY and cookie and received.get("bootstrapCookiePresent") is not True:
+                raise GatewayStop("python_bootstrap_cookie_missing")
+            if BOOTSTRAP_COMPATIBILITY and url.endswith("/v1/test/getcrumb"):
+                if (not re.fullmatch(r"[A-Za-z0-9._~+/-]{1,256}", received["body"])
+                        or re.search(r"consent|captcha|login|signin|denied|forbidden|unauthori[sz]ed|too.?many.?requests", received["body"], re.I)):
+                    raise GatewayStop("python_crumb_schema")
             # Parent rejects redirects and consent; no requests.Session transport is ever called.
             response = requests.Response()
             response.status_code = received["status"]

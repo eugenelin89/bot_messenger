@@ -4,6 +4,7 @@ import { FINANCIAL_SCHEMA, PYTHON_VERSION, YFINANCE_VERSION, YAHOO_ADAPTER, vali
 import { normalizeFinancial } from '../../domain/market/financial-normalize.js';
 import { bytesHash, immutableIdentity, requireUses, symbolAt } from '../../domain/market/validation.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
+import { acceptedCookie404 } from '../../domain/market/yahoo-bootstrap.js';
 import type { CalendarEvidence, InstrumentIdentity, SourcePolicy } from '../../domain/market/types.js';
 import type { SimulationClock } from '../investment.js';
 import { FinancialStore } from './financial-store.js';
@@ -119,15 +120,20 @@ export class FinancialDataGateway {
             terminal='financial_transport_unknown';throw e;
           }finally{if(attemptTimer)clearTimeout(attemptTimer);controller.signal.removeEventListener('abort',attemptAbort);attemptController.abort();}
           const bytes=Buffer.byteLength(response.body);transportBytes+=bytes;
+          // No legacy observed authority can acquire the offline compatibility exception.
+          const cookie404=scope.mode==='synthetic_fixture'&&this.transport.kind==='authored_yahoo_fixture'&&acceptedCookie404(query,response);
           let reason='response';let backoff:string|null=null;
           if(response.status===429){reason='yahoo_rate_limited';backoff=retryInstant(response.retryAfter,this.clock.now());}
           else if(response.status===403){reason='yahoo_access_blocked';backoff=scope.expiresAt;}
+          else if(cookie404){reason='yahoo_cookie_bootstrap_404';}
           else if([502,503,504].includes(response.status)){reason='yahoo_transient';if(response.retryAfter!==null)backoff=retryInstant(response.retryAfter,this.clock.now());else if(retry>=scope.maxRetries)backoff=new Date(time(this.clock.now())+60000).toISOString();}
           else if(response.status>=300){reason='yahoo_http_or_redirect_denied';backoff=new Date(time(this.clock.now())+60000).toISOString();}
+          if(response.bootstrapRejected&&![403,429].includes(response.status))reason='yahoo_bootstrap_rejected';
           this.store.db.run('INSERT INTO financial_attempt_results VALUES (?,?,?,?,?,?,?)',attemptId,response.status,bytes,bytesHash(response.body),reason,this.clock.now(),backoff);
           if(backoff)retryAt=backoff;
           ensure(transportBytes<=scope.maxTotalBytes,'financial_byte_limit');
-          if(response.status===200){
+          if(response.bootstrapRejected){terminal=reason;throw new Error(reason);}
+          if(response.status===200||cookie404){
             const bootstrap=qualified.endpoint.endsWith(':cookie')||qualified.endpoint.endsWith(':crumb');
             if(!bootstrap){ensure(response.contentType.split(';')[0]?.trim()==='application/json','yahoo_content_type');const raw={attemptId,endpoint:qualified.endpoint,parameters:qualified.params,body:response.body,sha256:bytesHash(response.body),retrievedAt:this.clock.now()};
               this.store.db.transaction(()=>{check();this.store.storageCheck(bytes);this.store.db.run('INSERT INTO financial_payloads VALUES (?,?,?,?,?,?,?)',attemptId,qualified.endpoint,canonical(qualified.params),response.contentType,response.body,raw.sha256,raw.retrievedAt);});rawResponses.push(raw);}
