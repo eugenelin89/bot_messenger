@@ -168,3 +168,12 @@ The corresponding [compiled eight-file build manifest](HQ-READY-03C-build.sha256
 `7dae5b9aaac6ebfb5488d1bf54c60f7ca9e30722f7f0d8f9617a0ee26ef0846d`.
 These hashes identify the JavaScript exercised by the final full suite; generated JavaScript
 itself is not committed. The integrated-main rebuild must match them before this task closes.
+
+## Git integration
+
+Implementation/source acceptance commit: `60caf32cbac330e2e3a4951be73b8cd839b06bc0`.
+[PR61](https://github.com/eugenelin89/bot_messenger/pull/61) records the final reviewed head,
+remote review/status/mergeability disposition and merge identity. The only follow-up change is
+this documentation link and execution-plan handoff; source/test/build manifest bytes remain fixed.
+The parent verifies clean synchronized main and matching rebuilt JavaScript after merge, then
+stops without preparing or executing the connectivity proposal.
