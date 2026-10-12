@@ -248,3 +248,8 @@ requires the original data process group gone; it removes only the03E ciphertext
 retains authority/non-data evidence. No environment or caller path can enable the live transport.
 A denied/empty/unknown result is final; no further run follows. Check the acceptance disposition
 before any operation. No data is admitted to employees, simulation, public outputs or production.
+
+**03E is now permanently closed.** The single attempt received bootstrap HTTP404 and stopped
+before chart access. Its approval is spent1/1/noResume; capsule/key deletion and prior receipts
+are verified. Do not invoke prepare/run again. Only non-data status/cleanup inspection remains;
+any new provider access requires a separately selected and reviewed authority.
