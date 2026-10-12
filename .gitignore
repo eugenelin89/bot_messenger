@@ -7,3 +7,7 @@ dist/
 .DS_Store
 .demo-artifacts/
 .demo-browser-tools/
+
+# Isolated optional Yahoo adapter dependencies; never vendor interpreter/cache.
+adapters/yahoo/.venv
+__pycache__/

@@ -683,19 +683,27 @@ custody and isolated Linux acceptance remain operational gates. See
 [validation](../validation/investment/HQ-READY-02.md) and
 [operational status](../operations/INVESTMENT_READINESS.md#hq-ready-02-source-status).
 
-## Planned Yahoo Financial Data Gateway — Decision038
+## Inactive Yahoo Financial Data Gateway — HQ-READY-03
 
-The owner selects Yahoo Finance with preferred Python `yfinance` for personal private research.
-[Decision038](../decisions/decision_038_yahoo_finance_private_source.md) records reported verbal
-personal-use permission without independently verified writing or broader automated/public rights.
-The [HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) places the Python adapter behind a
-controlled Financial Data Gateway reusing the existing market policy, collector, immutable store,
-normalization and admission modules. The current collector remains synthetic-only; this section
-is a planned boundary, not implemented support or authority.
+[HQ-READY-03](../validation/investment/HQ-READY-03.md) adds a typed one-shot financial research
+facade around existing MarketStore, SourcePolicy, instrument/calendar and immutable SQLite
+boundaries. Schema23 is additive and empty. `FinancialDataGateway` accounts every underlying
+request before I/O; `PythonYahooAdapter` uses a fixed executable, pinned yfinance1.7.0 and a
+bounded stdio protocol. Actual library execution is tested against authored Yahoo-shaped HTTP.
+The dormant HTTPS boundary is tested using fake DNS/HTTPS; production rejects before DNS.
 
-Trusted code must own use-specific policy, actual underlying request quotas, caches, bounded
-retries/failure states and original point-in-time provenance. Workers receive admitted scoped
-observations, not arbitrary Python, Yahoo credentials or HTTP. OHLCV, fundamentals, statements and
-splits/dividends need typed records with explicit quality/adjustment/time semantics; current price
-records alone do not cover these data classes. Private source/derived records stay outside public
-projection and Ask. No daemon, production change or dependency installation follows from planning.
+Financial records are `financial-research-v1`, separate from simulator price/action records.
+They preserve bounded original response text and adapter output, local revision lineage,
+source/request/version hashes, event/period times, unknown provider availability, first retrieval,
+normalization and consumer delivery. Missing sessions/fields, uncertain units/adjustments and
+partial actions remain explicit. Cutoff admission prevents revised/current data entering past
+decisions. No record is execution-qualified. HQ-READY-02 and legacy collector remain synthetic-only.
+
+Only authored-fixture scope is currently admissible. The trusted private admission seam is not
+wired to an employee tool; existing worker shell/network restrictions and public projections
+remain unchanged. Live scope/retention/custody admission needs separate reviewed implementation
+and owner approval, not a mode label or environment toggle. No daemon, scheduler or production
+activation is created. The [dossier/runbook](../operations/YAHOO_FINANCIAL_GATEWAY.md) defines
+bounds, exact dependency audit, recovery limits and the separate bounded live-probe proposal.
+[Decision038](../decisions/decision_038_yahoo_finance_private_source.md) remains owner-reported
+verbal personal-use permission, without invented automated/public rights.

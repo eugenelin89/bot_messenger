@@ -309,14 +309,14 @@ contains exact source modules, owner gates and acceptance for these **proposed**
 | Packet | Outcome | Dependency/authority |
 | --- | --- | --- |
 | HQ-READY-02 | Finite normal-HQ private-paper runtime bridge, trusted run setup and synthetic tests | Owner-selected source implementation; [fake acceptance](../../validation/investment/HQ-READY-02.md); zero genuine inference/data/deployment |
-| HQ-READY-03 | Yahoo Finance / Python `yfinance` through the controlled Financial Data Gateway; qualify private OHLCV/fundamentals/statements/actions and prospective method, or retain explicit live blocks | [Prepared implementation plan](../../exec-plans/investment-hq-ready-03.md), [Decision038](../../decisions/decision_038_yahoo_finance_private_source.md): source selected, verbal personal-use permission owner-reported; automation/retention, probe and public rights assessed separately; US$0, no activation |
+| HQ-READY-03 | Yahoo Finance / Python `yfinance` through the controlled Financial Data Gateway; qualify private OHLCV/fundamentals/statements/actions and prospective method, or retain explicit live blocks | [Source/fake acceptance](../../validation/investment/HQ-READY-03.md), [Decision038](../../decisions/decision_038_yahoo_finance_private_source.md): pinned adapter and inert gateway; actual Yahoo probe, automation/retention/custody and public rights remain blocked; US$0, no activation |
 | HQ-READY-04 | Two actual elapsed private scheduled sessions with genuine employees and preserved history |02, new finite credit authority, selected host/recovery; observed variant also03; synthetic variant cannot pass live-data gate |
 | HQ-READY-05 | Exact publication/protocol/deployment readiness for existing INV-10 onward | Separate public rights/audience/release selection; no automatic launch or Ask |
 
 HQ-READY-02 source is implemented; its separate authority remains uncreated/default inactive.
-The recommended next implementation selection is03 on the Yahoo/`yfinance` path. Yahoo is now
-the owner-selected primary personal private source; complete automation/retention, point-in-time
-price/action and method qualification remains pending. Included-only remains blocked; finite existing-credit use is
+HQ-READY-03 source/fake integration is implemented on the selected Yahoo/`yfinance` path.
+The [live-probe proposal](../../operations/YAHOO_FINANCIAL_GATEWAY.md) remains separately unauthorized;
+automation/retention/custody, actual field quality and prospective method qualification are pending. Included-only remains blocked; finite existing-credit use is
 a proposal needing separate approval. The existing private pilot cannot schedule or trade,
 while public-candidate new-risk checks depend on publication;02 supplies a distinct private lane.
-Decision037 stays exhausted4/4. No packet beyond02 is started or authorized by this entry.
+Decision037 stays exhausted4/4. No packet beyond03, production collection or observed trading is started.

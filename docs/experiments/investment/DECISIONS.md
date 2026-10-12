@@ -11,11 +11,11 @@ The owner separately selected INV-01 through INV-05 for their documented contrac
 **Owner-approved market-data constraint:** [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) sets a hard **US$0 incremental market-data budget** and requires free APIs or permitted low-frequency web extraction. It supersedes INV-01's conditional paid Tiingo recommendation as the forward implementation path. It does not waive automated-access/public-display rights or authorize any scraping or launch by itself.
 
 **Owner-selected primary source:** [Decision038](../../decisions/decision_038_yahoo_finance_private_source.md)
-selects Yahoo Finance with Python `yfinance` behind the planned Financial Data Gateway for the
+selects Yahoo Finance with Python `yfinance` behind the Financial Data Gateway for the
 owner's personal, non-commercial private research. The owner reports verbal permission from Yahoo
 for personal use; no independent written verification or broader automated/public grant is claimed.
-[HQ-READY-03](../../exec-plans/investment-hq-ready-03.md) now plans this path. Source selection is
-settled; implementation, automated-access/retention qualification and all activation remain separate.
+[HQ-READY-03](../../validation/investment/HQ-READY-03.md) implements inert source with authored fixtures. Source selection is
+settled; live automated-access/retention qualification and all activation remain separate.
 
 ## Selected design baseline
 
@@ -104,6 +104,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-09 | 1.5 | Owner-selected INFRA-02 completes private Linux installation and synthetic acceptance; final receiver stopped/default disabled, public HTTP/TLS and real publisher/HQ activation remain gated ([evidence](../../validation/investment/INFRA-02.md)) |
 | 2026-10-09 | 1.6 | Owner-selected INV-03 completes artifact/discussion archive, disabled schema002 private installation, isolated TLS and stronger synthetic capacity/recovery; public topology, custody, rights and HQ gates retained; prior backup deletion corrected ([evidence](../../validation/investment/INV-03.md)) |
 | 2026-10-11 | 1.7 | Owner selects Yahoo Finance / `yfinance` for personal private research; records owner-reported verbal permission only, separate automation/public scope, US$0 and planned HQ-READY-03 (Decision038); no collection or activation |
+| 2026-10-11 | 1.8 | Owner-selected HQ-READY-03 source/fake integration: pinned yfinance1.7.0/Python3.12.12, inert schema23, original vintages and private admission. Live probe, retention/custody, observed fills and public rights remain blocked; US$0 and Decision0374/4 unchanged |
 
 ## INV-05 implementation decision
 

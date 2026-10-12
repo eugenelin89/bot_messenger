@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-11 America/Vancouver
 
-**Status:** Accepted owner source selection and implementation direction; HQ-READY-03 implementation and operational activation remain unstarted
+**Status:** Accepted owner source selection and implementation direction; HQ-READY-03 source/fake integration accepted below, operational activation remains unstarted
 
 **Scope:** The owner's personal, non-commercial BotSquad investment hobby project
 
@@ -83,3 +83,13 @@ provides the relevant price, financial-statement and action interfaces. The
 and [repair documentation](https://ranaroussi.github.io/yfinance/advanced/price_repair.html)
 make adjustment/repair settings a qualification concern. These pages were reviewed on the date
 above without fetching financial data. They do not verify the owner's conversation or its scope.
+
+## Implementation disposition — 2026-10-11
+
+The owner explicitly selected HQ-READY-03 source/dependencies/offline testing and reviewed Git
+integration. [Acceptance](../validation/investment/HQ-READY-03.md) implements a pinned adapter,
+inert schema23 and research gateway without widening this permission report. Production transport
+remains hard-blocked; the [dossier/probe proposal](../operations/YAHOO_FINANCIAL_GATEWAY.md)
+requires separately approved trusted live admission and retention/custody work. No model credit,
+observed fills, public rights or deployment is authorized. The original source-selection reasoning
+and owner-reported evidence above are unchanged.

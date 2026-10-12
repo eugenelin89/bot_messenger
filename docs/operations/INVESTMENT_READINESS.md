@@ -105,12 +105,12 @@ See [source acceptance](../validation/investment/HQ-READY-02.md).
 | Genuine employee execution or existing-credit consumption | Not authorized; authority remains uncreated/default inactive |
 | Isolated Linux confinement, custody and offline recovery | Pending a separately selected operational acceptance task |
 | Real two-elapsed-session H1–H9 | Pending explicit HQ-READY-04 authority and prerequisites |
-| Live price/action source and prospective method | Yahoo / `yfinance` selected below; automated-use/retention and technical/method qualification remain pending HQ-READY-03 |
+| Live price/action source and prospective method | HQ-READY-03 source/fake acceptance below; actual Yahoo, automated-use/retention and prospective method remain blocked |
 | Public rights, canonical mapping, Asymmetri, deployment | Blocked; unchanged by this packet |
 
-The next recommended task is separately selected **HQ-READY-03 source qualification and
+At the HQ-READY-02 checkpoint, the next proposed task was **HQ-READY-03 source qualification and
 prospective methodology** on the selected Yahoo/`yfinance` path, within the US$0 market-data
-boundary. The plan below is prepared; implementation is not started here. A later
+boundary. Its source/fake implementation is now recorded below. A later
 HQ-READY-04 selection must explicitly approve the exact account/routing, model/reasoning,
 participants, synthetic evidence or separately qualified source/method, finite limits, expiry,
 provider-retry/existing-credit risk, fresh authentic reload-OFF evidence and Linux/custody acceptance.
@@ -132,7 +132,7 @@ permission**. No written permission was supplied or independently verified; auto
 retention and public redistribution scope must be assessed separately. Do not infer unrestricted
 public rights or reopen primary-source selection by default.
 
-The [prepared HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) covers historical OHLCV,
+The implemented [HQ-READY-03 source](../validation/investment/HQ-READY-03.md) covers historical OHLCV,
 fundamentals, financial statements, splits/dividends as available, original provenance, bounded
 requests/cache/retries, provider failures and point-in-time correctness. Research suitability and
 eligibility for observed paper fills are separate results. Current/late/restated data must not leak
@@ -144,9 +144,10 @@ into past decisions; Yahoo daily history is not automatically a qualifying prosp
 | Evidence of permission | Owner-reported verbal personal-use permission; no independent written verification |
 | Exact automation, private retention and field quality | Separate HQ-READY-03 assessment; no runtime policy or live probe activated |
 | Public display/derived/export/archive rights | Not established by the report; publication remains blocked |
-| Source implementation / data collection | Plan prepared only; no adapter installed, Yahoo data fetched or collector scheduled |
+| Source implementation / data collection | Pinned adapter/gateway, inert schema23 and deterministic fixtures accepted; production hard-blocked, zero live Yahoo market-data requests or schedules |
 | Budget and previous acceptance | Decision029 US$0 unchanged; HQ-READY-02 synthetic acceptance and Decision0374/4 preserved |
 
-Next: separately select HQ-READY-03 implementation using this plan. Production, recurring
-collectors, paid subscriptions, genuine employee work, observed-run activation and public
-publication require separate applicable authorization. No Asymmetri change is part of this task.
+HQ-READY-03 stops at source integration. The [bounded live-probe proposal](YAHOO_FINANCIAL_GATEWAY.md)
+requires owner authorization and reviewed trusted admission plus retention/restore custody before
+any request. Production, recurring collectors, genuine employee work, observed fills and public
+publication remain separately blocked. No HQ-READY-04, Asymmetri change or new credit authority follows.

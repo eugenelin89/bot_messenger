@@ -1148,3 +1148,12 @@ source packet is [HQ-READY-02](../../prompts/experiments/investment-hq-ready-02.
 HQ worker/runtime bridge using synthetic acceptance. Later source qualification, genuine two
 elapsed-session trial and public readiness are separately gated in the investment roadmap.
 Decision037 is exhausted; no investment service or future packet is activated.
+
+## 2026-10-11 — Yahoo source integration
+
+Owner-selected [HQ-READY-03](../validation/investment/HQ-READY-03.md) implements the inactive
+Yahoo/yfinance financial research gateway, locked dependencies, inert migration and authored
+fixture acceptance. This advances only the investment source packet. The
+[live probe](../operations/YAHOO_FINANCIAL_GATEWAY.md), trusted retention/custody admission,
+observed methodology, HQ-READY-04, production and public release remain separately gated.
+Decision029 US$0 and Decision037 exhausted4/4 remain unchanged.

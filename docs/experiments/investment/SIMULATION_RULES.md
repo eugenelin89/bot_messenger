@@ -166,7 +166,7 @@ The2026 reference calendar covers scheduled New York equity sessions only; halts
 ## Yahoo selection and point-in-time qualification — 2026-10-11
 
 [Decision038](../../decisions/decision_038_yahoo_finance_private_source.md) selects Yahoo Finance
-and preferred `yfinance` through the planned controlled Financial Data Gateway for personal private
+and pinned `yfinance` through the controlled Financial Data Gateway for personal private
 research. The owner reports verbal permission from Yahoo for personal use; this is not independent
 written verification or a grant of unrestricted automated access/public redistribution. The source
 choice is settled; use-specific qualification remains separate under the US$0 rule.
@@ -183,3 +183,9 @@ HQ-READY-02 and `inv05-v1` remain synthetic-only and unchanged. Historical Yahoo
 an automatically approved live fill method. A different observed-data method must be owner-approved,
 versioned and prospective, with matching benchmark/valuation semantics and a new scope/run. No
 retrospective favorable fill, silent timing change or public redistribution follows from selection.
+
+[HQ-READY-03 source/fake acceptance](../../validation/investment/HQ-READY-03.md) adds research-only
+records with immutable original vintages, consumer delivery cutoffs and missing-session checks.
+The production transport is hard-blocked; actual Yahoo qualification and the
+[bounded probe](../../operations/YAHOO_FINANCIAL_GATEWAY.md) remain separately gated. No observed
+fill method, action cash posting, stale substitution or new run authority is introduced.
