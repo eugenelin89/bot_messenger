@@ -723,3 +723,9 @@ and adds non-data, fsynced transport milestones plus closed error classification
 freeze at settlement; uncertain transmission/custody remains consumed and non-replayable. No
 new live owner capability or manifest is created, and the first probe remains spent. The next minimal
 connectivity test is an [unapproved proposal](../operations/YAHOO_CONNECTIVITY_PROPOSAL.md).
+
+HQ-READY-03F adds a fixture-only bootstrap compatibility profile within the existing Yahoo
+transport/gateway/adapter. A nonsecret parent verdict accompanies narrowly validated cookie404s;
+original status, bytes, cookie custody, terminal denials and post-response spacing remain enforced.
+Observed scopes cannot use this exception. No legacy live manifest, issuer, custody fence or
+employee/simulator/public admission changes. See [Decision042](../decisions/decision_042_yahoo_bootstrap_compatibility.md).

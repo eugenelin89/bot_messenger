@@ -350,3 +350,8 @@ HQ-READY-03E is complete and permanently closed: one verified bootstrap HTTP404 
 4,585 application bytes, no AAPL chart request/data and no retry. New authority spent1/1; private
 capsule/key destroyed and all11 historical03B/03D receipt hashes preserved. Financial quality,
 employee delivery, observed fills and public/production/later-packet gates remain blocked.
+
+HQ-READY-03F is source-only bootstrap compatibility work, with authored acceptance and no Yahoo
+requests or new authority. [Decision042](../../decisions/decision_042_yahoo_bootstrap_compatibility.md)
+and the [next AAPL proposal](../../operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) preserve the
+spent03B/03D/03E approvals. Actual-data qualification and all later activation gates remain separate.

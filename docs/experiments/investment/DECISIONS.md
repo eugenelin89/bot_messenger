@@ -167,3 +167,11 @@ HQ-READY-03E is complete and permanently closed: one verified bootstrap HTTP404 
 4,585 application bytes, no AAPL chart request/data and no retry. New authority spent1/1; private
 capsule/key destroyed and all11 historical03B/03D receipt hashes preserved. Financial quality,
 employee delivery, observed fills and public/production/later-packet gates remain blocked.
+
+## Offline bootstrap compatibility — 2026-10-12
+
+HQ-READY-03F confirms pinned-library/bootstrap404 incompatibility and implements only a narrow
+fixture-enabled correction under [Decision042](../../decisions/decision_042_yahoo_bootstrap_compatibility.md).
+Authored AAPL success is not actual-data qualification.03B/03D/03E remain spent and unchanged;
+Decision037 stays4/4. No live authority, employee delivery, fill, collector or publication follows.
+The [next qualification proposal](../../operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) is unapproved.
