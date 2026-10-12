@@ -299,3 +299,26 @@ impact unavailable, failed first reservation excluded with unverified usage. See
 [final acceptance](validation/investment/INV-CREDIT-FINAL-ATLAS.md). Only outcome documentation
 follows; no further provider turn, deployment, paper order, real market data or schedule.
 A bounded HQ runtime/data-readiness specification is recommended but not started.
+
+
+## HQ-READY-01 operational design — 2026-10-11 America/Vancouver
+
+The owner selected a documentation-only source audit and plan after Decision037. Audited main
+was `da64089e12035a3e1ae7bfc504c80798dc4925bf`; [acceptance](validation/investment/HQ-READY-01.md)
+and [design](operations/INVESTMENT_OPERATIONAL_DESIGN.md) record evidence, specialist review and
+remaining gates. Historical reports are unchanged; no model/data/runtime authority was used.
+
+Normal workers/groups/clock/dispatcher/simulator/usage/UI are reusable. The immediate source
+gaps are a new finite operational authority/adapter, a private-paper audience independent of
+public health, trusted run setup and completion-aware budgets. Included-only cannot be
+established on0.157.0; finite existing-credit operation is proposed, never inferred from037.
+No US$0 operational price feed is qualified; public rights are separately blocked. Current
+synthetic delayed-open fills do not meet the new stricter timing instruction; live operation
+needs an owner-approved versioned method and trusted action intake.
+
+Next: owner may select [HQ-READY-02](../prompts/experiments/investment-hq-ready-02.md) for code/fake
+acceptance only. Then03 qualifies source/method,04 separately authorizes/reviews two elapsed
+private sessions,05 prepares exact public dependencies. No genuine turn, purchase/reload change,
+collector, official run, brokerage, deployment, publication or recurring service was activated.
+Decision037 remains permanently4/4 with all prior scopes stopped/revoked. Ask, INV-10–12 and
+Asymmetri release remain separate; no RECOVERY-01 revival or OS migration is authorized.
