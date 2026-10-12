@@ -1,3 +1,5 @@
+import {verifyFinitePermit} from '../control/usage/finite-hq.js';
+import {validateFiniteInput,type FiniteRuntimeOptions} from './finite-policy.js';
 import {verifyPermit} from '../control/usage/pilot-lineage.js';
 import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
 import {CreditAccountVerifier,type VerifiedCreditAccount} from './credit-account.js';
@@ -112,7 +114,7 @@ interface ThreadResponse { modelProvider?:string; serviceTier?:string|null;
   model?: string; approvalPolicy?: string; sandbox?: { type: string; networkAccess: boolean };
 }
 interface ConfigResponse { config: { [key:string]:unknown; features?: Record<string, unknown>; mcp_servers?: Record<string, unknown> } }
-interface Options { command?: string; model?: string; timeoutMs?: number; creditPilot?:CreditRuntimeOptions }
+interface Options { finiteHQ?:FiniteRuntimeOptions; command?: string; model?: string; timeoutMs?: number; creditPilot?:CreditRuntimeOptions }
 
 export function validateBinding(input: RuntimeInput) {
   requireThat(realpathSync(input.worker.workspace_path) === input.worker.workspace_path, 'Runtime workspace is not canonical');
@@ -128,10 +130,16 @@ export class CodexRuntime implements RuntimeAdapter {
   readonly model?: string;
   readonly timeoutMs: number;
   private readonly creditPilot?:CreditRuntimeOptions;
+  private readonly finiteHQ?:FiniteRuntimeOptions;
+  declare readonly runFiniteHQInvestment?:RuntimeAdapter['runFiniteHQInvestment'];
+  finiteHQPolicySupported(policy:import('../domain/usage/policy.js').FiniteHQPolicy){return !!this.finiteHQ&&policy.authorityId===this.finiteHQ.authorityId;}
   declare readonly runSubscriptionInvestment?:RuntimeAdapter['runSubscriptionInvestment'];
   subscriptionPolicySupported(policy:ActivityPolicy){return !!this.creditPilot&&policy.mode==='credit_approved_private_pilot'&&policy.pilotId===this.creditPilot.pilotId;}
   researchProvider(workspace: string) { return new CodexResearchProvider(this.command,workspace); }
   constructor(options: Options = {}) {
+    requireThat(!(options.creditPilot&&options.finiteHQ),'Pilot and finite HQ authorities cannot be combined');
+    this.finiteHQ=options.finiteHQ?Object.freeze({...options.finiteHQ,profile:Object.freeze({...options.finiteHQ.profile})}):undefined;
+    if(this.finiteHQ)this.runFiniteHQInvestment=async(input,signal,policy)=>{validateFiniteInput(this.finiteHQ!,input,policy);this.authorizeFinite(input);return this.runTurn(input,signal,policy);};
     this.creditPilot=options.creditPilot?Object.freeze({...options.creditPilot}):undefined;
     if(this.creditPilot)this.runSubscriptionInvestment=async(input,signal,policy)=>{validateCreditInput(this.creditPilot!,input,policy);this.authorizeCredit(input);return this.runTurn(input,signal,policy);};
     this.command = options.command ?? process.env.CODEX_BIN ?? 'codex';
@@ -141,9 +149,10 @@ export class CodexRuntime implements RuntimeAdapter {
   }
   /** Production requires a module-issued durable permit; fake transports override only in test code. */
   protected authorizeCredit(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>){verifyPermit(this.creditPilot?.permit,input,account);}
+  protected authorizeFinite(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>&{threadId:string;model:string}){verifyFinitePermit(this.finiteHQ?.permit,input,account);}
   checkVersion(): string {
     let version: string;
-    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot?creditEnvironment():process.env }).trim(); }
+    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot||this.finiteHQ?creditEnvironment():process.env }).trim(); }
     catch { throw new Error('Codex CLI unavailable. Install the documented version and run codex login.'); }
     requireThat(version === `codex-cli ${SUPPORTED_CODEX_VERSION}`, `Adapter requires validated Codex CLI ${SUPPORTED_CODEX_VERSION}; installed ${version}`);
     return version;
@@ -185,9 +194,9 @@ export class CodexRuntime implements RuntimeAdapter {
         isDefault: m.isDefault, defaultReasoningEffort: m.defaultReasoningEffort, supportedReasoningEfforts: m.supportedReasoningEfforts })) };
     return { overrides:{...overrides,...(skills?{'skills.config':skills}:{})}, catalog,skills,verified };
   }
-  private async isolateSkills(workspace:string,deadline=Date.now()+60000,signal?:AbortSignal){
+  private async isolateSkills(workspace:string,deadline=Date.now()+60000,signal?:AbortSignal,authorityId=this.creditPilot?.pilotId??this.finiteHQ?.authorityId){
     rejectGlobalInstructions();const rpc=this.connect(workspace,true),abort=()=>rpc.close(),timer=setTimeout(abort,Math.max(1,deadline-Date.now()));signal?.addEventListener('abort',abort,{once:true});
-    const accounts=new CreditAccountVerifier(rpc,{pilotId:this.creditPilot!.pilotId,workspace,deadline,disabledFeatures:DISABLED_FEATURES,checkOpen:()=>requireThat(!signal?.aborted&&Date.now()<deadline,'Pilot stopped before isolation')});
+    const accounts=new CreditAccountVerifier(rpc,{pilotId:authorityId!,workspace,deadline,disabledFeatures:DISABLED_FEATURES,checkOpen:()=>requireThat(!signal?.aborted&&Date.now()<deadline,'Pilot stopped before isolation')});
     rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during isolation preflight'}}));
     try{requireThat(!signal?.aborted,'Pilot stopped before isolation');const initialized=await this.initialize(rpc,true,workspace,undefined,accounts);let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();return {skills:initialized.skills!,verified};}finally{accounts.close();clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
   }
@@ -210,6 +219,7 @@ export class CodexRuntime implements RuntimeAdapter {
   // Built-in OpenAI retry overrides are ignored in 0.157.0; no included-only request switch exists.
   get subscriptionBlockReason(){return this.creditPilot?'Included-only mode remains blocked. Credit-approved execution is restricted to the exact disposable pilot and supervisor release.':'Codex 0.157.0 cannot establish included-only execution or disable uncertain transport retries. Subscription investment execution is blocked.';}
   async run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult> {
+    requireThat(!input.investment&&!input.tools.some(t=>t.name.startsWith('paper_'))&&!(input.context as {investment?:unknown}|null)?.investment,'Investment work requires its explicit bounded runtime capability');
     requireThat(!this.creditPilot,'Credit pilot runtime cannot execute ordinary work');return this.runTurn(input,signal);
   }
   private async runTurn(input:RuntimeInput,signal:AbortSignal,policy?:ActivityPolicy):Promise<RuntimeResult>{
@@ -252,7 +262,7 @@ export class CodexRuntime implements RuntimeAdapter {
       try{input.event(type,detail);}catch{interrupt();}
     };
     const accounts=policy?new CreditAccountVerifier(rpc,{
-      pilotId:this.creditPilot!.pilotId,workspace:input.worker.workspace_path,deadline:Date.parse(input.localDeadline!),disabledFeatures:DISABLED_FEATURES,expected:isolated!.verified,
+      pilotId:policy?.mode==='credit_approved_finite_hq'?this.finiteHQ!.authorityId:this.creditPilot!.pilotId,workspace:input.worker.workspace_path,deadline:Date.parse(input.localDeadline!),disabledFeatures:DISABLED_FEATURES,expected:isolated!.verified,
       checkOpen:()=>requireThat(!finished&&!signal.aborted&&Date.now()<Date.parse(input.localDeadline!),'Account verification stopped'),
       invalidated:generation=>{
         if(finished||stopping||signal.aborted)return;
@@ -385,7 +395,7 @@ export class CodexRuntime implements RuntimeAdapter {
       threadId = thread.thread.id;
       const threadName = input.binding?.thread_name ?? (input.binding ? null : `BotSquad · ${input.worker.display_name} · ${input.worker.title}${input.mode === 'conversation' ? ` · ${input.request.conversation_id} · generation ${input.execution.generation}` : ''}`);
       requireThat(thread.model === effective.model, 'Runtime selected a different model; refusing silent fallback');
-      if(policy)requireThat(thread.modelProvider==='openai'&&thread.serviceTier==='default'&&effective.model===this.creditPilot!.model,'Private pilot provider/model/tier mismatch');
+      if(policy)requireThat(thread.modelProvider==='openai'&&thread.serviceTier==='default'&&effective.model===(policy.mode==='credit_approved_finite_hq'?this.finiteHQ!.profile.model:this.creditPilot!.model),'Private pilot provider/model/tier mismatch');
       const binding = { worker_id: input.worker.worker_id, runtime_type: this.type, runtime_reference: threadId, workspace_path: input.worker.workspace_path, created_at: input.binding?.created_at ?? new Date().toISOString(), thread_name: threadName };
       // Persist the known provider identity before another awaited setup operation.
       // Activation is separate, after naming/configuration checks have succeeded.
@@ -406,9 +416,9 @@ export class CodexRuntime implements RuntimeAdapter {
         input.event('runtime_account_reverified',{generation:verified.generation,interrupted:false});
         // No await between this check, durable admission and synchronous RPC transmission.
         requireThat(accounts.current(verified),'Account verification invalidated before admission');
-        input.admitSubscription!({threadId,model:effective.model,accountFingerprint:verified.fingerprint,eligibility:verified.eligibility});
+        input.admitSubscription!({threadId,model:effective.model,accountFingerprint:verified.fingerprint,routingFingerprint:verified.routingFingerprint,eligibility:verified.eligibility});
         live();requireThat(accounts.current(verified),'Account verification invalidated during admission');
-        this.authorizeCredit(input,verified);
+        if(policy?.mode==='credit_approved_finite_hq')this.authorizeFinite(input,{...verified,threadId,model:effective.model});else this.authorizeCredit(input,verified);
         live();requireThat(accounts.current(verified),'Account verification invalidated during lineage admission');
       }
       starting = true;

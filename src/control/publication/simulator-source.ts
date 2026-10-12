@@ -43,7 +43,9 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
   protected contentRights(material:Material){for(const content of material.contents){ensure(this.readArtifact&&hash({source:hashBytes(this.readArtifact(content.origin.id,Number(content.origin.version))),derivative:hashBytes(content.bytes)})===content.origin.hash,'publication_artifact_source_mismatch');}}
   get participants(){return Object.keys(this.description.workers);}
   private simulator(){return new FixtureSimulator(this.db,this.clock,this.fixtureOperator);}
+  private publicAudience(){ensure(!this.db.get('SELECT 1 FROM investment_private_runs WHERE run_id=?',this.privateRunId),'private_paper_publication_denied');const scope=this.db.get<{envelope:string}>('SELECT envelope FROM investment_team_scopes WHERE run_id=?',this.privateRunId);ensure(!scope||JSON.parse(scope.envelope).audience==='public_candidate','private_scope_publication_denied');}
   checkRights(material:Material,at:string):void {
+    this.publicAudience();
     const market=new MarketStore(this.db),sim=this.simulator(),c=sim.configuration(this.privateRunId),state=sim.inspect(this.privateRunId);
     ensure(c.evidenceMode==='synthetic_fixture'&&material.events.every(x=>x.event.evidenceMode==='synthetic_fixture'),'publication_observed_gate_closed');
     this.contentRights(material);
@@ -53,6 +55,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
     for(const action of state.actions){const rows=this.db.all<{id:string}>("SELECT id FROM investment_market_records WHERE kind='action'");const e=rows.map(r=>market.get<ActionEvidence>(r.id,'action')).find(e=>e.action.id===action.id);ensure(e,'publication_action_evidence_missing');ensure(e.mode==='synthetic_fixture'&&e.policyId===c.marketPolicy.id&&hash(e.action)===hash(action),'publication_action_source_mismatch');evidenceRights(e,market.get<SourcePolicy>(e.policyId,'policy'),['automation','internal_calculation','retention','public_display','derived_portfolio','benchmark','exports','permanent_archive'],at);}
   }
   project(ctx:ProjectionContext):Material {
+    this.publicAudience();
     const sim=this.simulator(),c=sim.configuration(this.privateRunId),journals=sim.journal(this.privateRunId),d=this.description;
     ensure(c.evidenceMode==='synthetic_fixture','publication_observed_gate_closed');
     const sourceHash=hash({evidence:this.sourceEvidence(),configuration:c,journals:journals.map(j=>j.hash),description:{...d,artifacts:d.artifacts.map(a=>({...a,bytes:a.bytes.toString('base64')}))}});

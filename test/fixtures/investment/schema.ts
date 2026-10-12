@@ -3,7 +3,7 @@ import {Store} from '../../../src/persistence/store.js';
 import {migration10} from '../../../src/persistence/discussions-migration.js';
 export function removeUsageMigration(store:Store){
  // Disposable downgrade fixture only: erase the derived v20 reporting tables to recreate v19.
- for(const name of ['investment_credit_pilot','investment_activity_clock','investment_activity_invocations','ai_usage_responses','ai_usage_observations','ai_usage'])store.db.exec(`DROP TABLE IF EXISTS ${name}`);
+ for(const name of ['investment_finite_controls','investment_finite_reservations','investment_private_runs','investment_setup_receipts','investment_setup_previews','investment_credit_pilot','investment_activity_clock','investment_activity_invocations','ai_usage_responses','ai_usage_observations','ai_usage'])store.db.exec(`DROP TABLE IF EXISTS ${name}`);
  store.run('DELETE FROM schema_migrations WHERE version>=20');
 }
 export function removeEmptyLoopMigration(store:Store){

@@ -1,3 +1,5 @@
+import { InvestmentSetup } from './investment-team/setup.js';
+import { FiniteHQ } from './usage/finite-hq.js';
 import { CreditPilot } from './usage/credit-pilot.js';
 import { AIUsage } from './usage/service.js';
 import { InvestmentActivity } from './usage/activity.js';
@@ -63,6 +65,8 @@ export class Company extends EventEmitter {
   readonly aiUsage: AIUsage;
   readonly investmentActivity: InvestmentActivity;
   readonly creditPilot: CreditPilot;
+  readonly finiteHQ: FiniteHQ;
+  readonly investmentSetup: InvestmentSetup;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -87,6 +91,8 @@ export class Company extends EventEmitter {
     this.aiUsage = new AIUsage(this);
     this.investmentActivity = new InvestmentActivity(this);
     this.creditPilot = new CreditPilot(this);
+    this.finiteHQ = new FiniteHQ(this);
+    this.investmentSetup = new InvestmentSetup(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -222,6 +228,7 @@ export class Company extends EventEmitter {
   }
   recordRuntimeConfig(context: ExecutionContext, config: EffectiveAIConfig) {
     const { execution } = this.execution(context.executionId).origin === 'conversation' ? this.conversations.verify(context) : this.verifyContext(context);
+    const scoped=this.finiteHQ.reservation(execution.execution_id);if(scoped)requireThat(config.model===scoped.profile.model&&config.reasoning_effort===scoped.profile.reasoningEffort&&config.runtime_version==='codex-cli '+scoped.profile.cliVersion&&config.runtime_adapter===this.worker(execution.worker_id).runtime_type,'Scoped finite AI profile changed');
     requireThat(execution.provenance_status === 'unresolved', 'Execution provenance already recorded');
     requireThat(config.execution_priority === execution.execution_priority, 'Execution priority changed after claim');
     for (const value of [config.model, config.reasoning_effort, config.runtime_version, config.runtime_adapter]) requireThat(typeof value === 'string' && value.length > 0 && value.length <= 150, 'Invalid runtime provenance');
@@ -342,8 +349,9 @@ export class Company extends EventEmitter {
       requireThat(!this.research.hasPending(executionId),'Cannot complete while research callbacks are unfinished.');
       requireThat(!this.computers.hasPending(executionId),'Cannot complete while browser callbacks are unfinished.');
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
-      if(outcome.settled||outcome.status==='completed')this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
-      if (execution.origin === 'conversation') { this.investmentLoop.settle(executionId,outcome.investmentUsage); this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,!!outcome.settled||outcome.status==='completed');this.investmentActivity.finish(executionId,this.execution(executionId).status,!!outcome.settled||outcome.status==='completed');return; }
+      const providerSettled=this.finiteHQ.reservation(executionId)?outcome.settled===true:!!outcome.settled||outcome.status==='completed';
+      if(providerSettled)this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
+      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,providerSettled);this.investmentLoop.settle(executionId,outcome.investmentUsage);this.investmentActivity.finish(executionId,this.execution(executionId).status,providerSettled);return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const computerSettlement=this.computers.settled(task,outcome.status);
       if(task.kind==='computer'&&outcome.status==='completed'&&computerSettlement!=='completed')outcome={...outcome,status:computerSettlement==='awaiting_approval'?'awaiting_approval':'failed',error:computerSettlement==='awaiting_approval'?'Exact protected browser action awaits owner approval':'Bounded browser session did not complete safely'};
@@ -371,7 +379,7 @@ export class Company extends EventEmitter {
       this.engineering.afterFinish(this.task(task.task_id));
       this.settleParents(); this.refreshWorker(worker.worker_id);
       if (terminal(this.task(task.task_id).status)) this.retireTemporary(worker, task.task_id);
-    }); this.changed();
+    }); this.finiteHQ.finish(executionId); this.changed();
   }
   private children(taskId: string): Task[] { return this.store.all('SELECT * FROM tasks WHERE parent_task_id=? ORDER BY created_at', taskId); }
   private retireTemporary(worker: Worker, taskId: string) {
@@ -396,6 +404,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.finiteHQ.recover();
     this.aiUsage.recover();
     this.investmentActivity.recover();
     this.business.recover();

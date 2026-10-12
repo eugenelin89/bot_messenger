@@ -32,8 +32,8 @@ export class Dispatcher {
   get initialized() { return !this.stopped; }
   start() {
     if (!this.stopped) return;
-    this.stopped = false;
     this.company.recover();
+    this.stopped = false;
     this.company.on('changed', this.onChange);
     this.company.on('computer_interrupt',this.onComputerInterrupt);this.company.on('investment_interrupt',this.onInvestmentInterrupt);
     this.kick();
@@ -71,7 +71,8 @@ export class Dispatcher {
       const ordinaryDeadline=mandateTurn?this.company.mandates.cycle(mandateTurn.cycle_id).deadline:internalTask?this.company.mandates.cycle(internalTask.cycle_id).deadline:group?.deadline;
       const teamScope=group?this.company.investmentTeam.forGroup(group.group_id):undefined;
       const activityPolicy=this.company.investmentActivity.forExecution(execution.execution_id);
-      const activityDeadline=this.company.investmentActivity.deadline(execution.execution_id);
+      const finiteReservation=this.company.finiteHQ.reservation(execution.execution_id);
+      const activityDeadline=finiteReservation?.deadline??this.company.investmentActivity.deadline(execution.execution_id);
       const workDeadline=[activityDeadline,ordinaryDeadline,teamScope?this.company.investmentTeam.envelope(teamScope).expiresAt:null].filter((v):v is string=>!!v).sort()[0];
       const deadlineAbort=workDeadline?setTimeout(()=>controller.abort('Bounded work deadline expired'),Math.max(1,Date.parse(workDeadline)-this.company.mandates.clock.now())):undefined;
       const done = (async () => {
@@ -87,7 +88,7 @@ export class Dispatcher {
           const session=claim.origin==='task'&&!privateSession&&!computerContext?this.company.research.taskSession(context,taskTools):undefined;
           const callResearch=(callId:string,name:string,args:unknown,signal?:AbortSignal)=>this.company.research.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal);
           const investmentIdentity=claim.origin==='conversation'?this.company.investmentTeam.identity(claim.request.conversation_id,worker):undefined;
-          const conversationWorker=investmentIdentity?{...worker,display_name:investmentIdentity.display_name,mission:investmentIdentity.mission,title:'Investment participant'}:worker;
+          const conversationWorker=investmentIdentity?{...worker,...(finiteReservation?{ai_model:finiteReservation.profile.model,reasoning_effort:finiteReservation.profile.reasoningEffort}:{}),display_name:investmentIdentity.display_name,mission:investmentIdentity.mission,title:'Investment participant'}:worker;
           const input: RuntimeInput = claim.origin === 'conversation' ? {
             mode:'conversation', worker:conversationWorker, request:claim.request, execution:claim.execution,
             context:this.company.conversations.context(context),binding:this.company.conversations.binding(context),tools:this.company.conversations.tools(context),
@@ -104,18 +105,20 @@ export class Dispatcher {
             callTool: (callId, name, args,signal) => (COMPUTER_TOOLS as readonly string[]).includes(name)?this.company.computers.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal):(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
+          if(teamScope)input.investment=Object.freeze({scopeId:teamScope.scope_id,policy:activityPolicy?.mode??'strict_provider_enforced',...(activityPolicy?.mode==='credit_approved_finite_hq'?{authorityId:activityPolicy.authorityId}:{})});
           input.localDeadline=workDeadline;
           input.usage=observation=>{this.company.aiUsage.observe(execution.execution_id,observation);if(observation.kind==='turn')this.company.investmentActivity.turn(execution.execution_id,observation.turnId);};
           input.admitSubscription=identity=>this.company.investmentActivity.admit(context,identity);
           this.company.aiUsage.ensure(execution.execution_id);
           const investmentLimits=this.company.investmentTeam.limits(execution.execution_id);
-          if(activityPolicy)requireThat(this.adapter.runSubscriptionInvestment,'Subscription activity runtime unavailable');
+          if(activityPolicy?.mode==='credit_approved_finite_hq')requireThat(this.adapter.runFiniteHQInvestment,'Finite HQ runtime unavailable');
+          else if(activityPolicy)requireThat(this.adapter.runSubscriptionInvestment,'Subscription activity runtime unavailable');
           else if(investmentLimits)requireThat(this.adapter.runBoundedInvestment,'Bounded investment runtime unavailable');
-          const result = activityPolicy ? await this.adapter.runSubscriptionInvestment!(input,controller.signal,activityPolicy) : investmentLimits ? await this.adapter.runBoundedInvestment!(input,controller.signal,investmentLimits) : await this.adapter.run(input, controller.signal);
+          const result = activityPolicy?.mode==='credit_approved_finite_hq'?await this.adapter.runFiniteHQInvestment!(input,controller.signal,activityPolicy): activityPolicy ? await this.adapter.runSubscriptionInvestment!(input,controller.signal,activityPolicy) : investmentLimits ? await this.adapter.runBoundedInvestment!(input,controller.signal,investmentLimits) : await this.adapter.run(input, controller.signal);
           await this.company.research.drain(execution.execution_id);
           await this.company.computers.drain(execution.execution_id);
           await this.company.business.drain(execution.execution_id);
-          providerSettled=result.settled===true||result.status==='completed';
+          providerSettled=activityPolicy?.mode==='credit_approved_finite_hq'?result.settled===true:result.settled===true||result.status==='completed';
           // Researchers must supply evidence, not only status prose.
           if (claim.origin === 'task' && result.status === 'completed' && (['researcher', 'product_manager'].includes(worker.role)||worker.role==='computer_operator'&&this.company.computers.forTask(claim.task.task_id)?.state!=='awaiting_approval') && !this.company.artifacts(claim.task.task_id).length) {
             throw new Error('Research finished without an artifact');
