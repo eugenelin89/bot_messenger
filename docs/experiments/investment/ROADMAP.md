@@ -297,3 +297,24 @@ For each packet, change the status table once and link its evidence file. Preser
 ## 2026-10-10 credit-approved private pilot checkpoint
 
 [Decision037](../../decisions/decision_037_credit_approved_private_pilot.md) separately authorizes existing credits and internal provider retries in a four-turn disposable private synthetic discussion. The default included-only/strict blocks remain. [INV-CREDIT-PILOT](../../validation/investment/INV-CREDIT-PILOT.md) distinguishes implemented controls, deterministic tests, pending genuine inference, finite completion and operational/public readiness. No paper orders, market-source change, public delivery, deployment or recurring operation follows.
+
+
+## HQ operational readiness sequence — 2026-10-11 America/Vancouver
+
+[HQ-READY-01](../../validation/investment/HQ-READY-01.md) is the owner-selected documentation
+audit and operational design. It preserves the completed Decision037 private reasoning proof
+and all INV-05–09 acceptance limits. Its [design](../../operations/INVESTMENT_OPERATIONAL_DESIGN.md)
+contains exact source modules, owner gates and acceptance for these **proposed** next packets:
+
+| Packet | Outcome | Dependency/authority |
+| --- | --- | --- |
+| HQ-READY-02 | Finite normal-HQ private-paper runtime bridge, trusted run setup and synthetic tests | Owner selects [prepared source-only prompt](../../../prompts/experiments/investment-hq-ready-02.md); zero genuine inference/data/deployment |
+| HQ-READY-03 | Exact US$0 source/action/timestamp qualification and approved prospective financial method, or explicit retained live block | Source/use/retention/probe and methodology decisions; no paid fallback |
+| HQ-READY-04 | Two actual elapsed private scheduled sessions with genuine employees and preserved history |02, new finite credit authority, selected host/recovery; observed variant also03; synthetic variant cannot pass live-data gate |
+| HQ-READY-05 | Exact publication/protocol/deployment readiness for existing INV-10 onward | Separate public rights/audience/release selection; no automatic launch or Ask |
+
+The shortest next task is02, not another open-ended feasibility study. No currently reviewed
+price source is fully qualified. Included-only remains blocked; finite existing-credit use is
+a proposal needing separate approval. The existing private pilot cannot schedule or trade,
+while public-candidate new-risk checks depend on publication;02 adds a distinct private lane.
+Decision037 stays exhausted4/4. No packet beyond01 is started or authorized by this entry.

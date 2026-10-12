@@ -598,3 +598,13 @@ Copyright (c) 2026 Eugene Lin. Third-party dependencies retain their own license
 ## Private AI usage and subscription activity policy
 
 Execution history, worker inspectors and investment pages now show recorded usage and versioned **Estimated API-equivalent cost (USD)**. Actual subscription charges and Pro quota remain unavailable. [Decision036](docs/decisions/decision_036_subscription_activity_usage.md) adds a separate activity policy; the pinned Codex subscription path remains blocked because supported included-only/retry guarantees are missing. [Methodology](docs/operations/AI_USAGE.md) and [acceptance](docs/validation/investment/INV-SUBSCRIPTION-USAGE.md) describe source-only evidence. No deployment or activation follows.
+
+
+## Investment operational readiness — 2026-10-11
+
+[HQ-READY-01](docs/validation/investment/HQ-READY-01.md) audits the current source and defines
+a finite private HQ operating path. The [design](docs/operations/INVESTMENT_OPERATIONAL_DESIGN.md)
+separates implemented controls, genuine private reasoning, blocked runtime/data rights and
+proposed work. [HQ-READY-02](prompts/experiments/investment-hq-ready-02.md) is ready for owner
+selection as source-only implementation; no investment operation is activated. Decision037
+remains exhausted at4/4, and private/source acceptance is not public launch readiness.

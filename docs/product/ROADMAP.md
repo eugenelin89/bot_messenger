@@ -1137,3 +1137,14 @@ in parallel once its actual trust/data dependencies are proven and scope is auth
 ## 2026-10-10 — Finite private credit pilot
 
 The owner authorized [Decision037](../decisions/decision_037_credit_approved_private_pilot.md), an isolated four-turn synthetic discussion using existing credits, after review/integration and reload confirmation. [Acceptance](../validation/investment/INV-CREDIT-PILOT.md) tracks actual inference separately from source. This does not advance official investment operations, Ask, production/public release or RECOVERY-01.
+
+
+## 2026-10-11 — Investment HQ operational readiness
+
+[HQ-READY-01](../validation/investment/HQ-READY-01.md) records the owner-selected source audit,
+primary-documentation feasibility and [operational design](../operations/INVESTMENT_OPERATIONAL_DESIGN.md).
+It does not create a core milestone or change Personal Operator priorities. The next proposed
+source packet is [HQ-READY-02](../../prompts/experiments/investment-hq-ready-02.md), a finite private
+HQ worker/runtime bridge using synthetic acceptance. Later source qualification, genuine two
+elapsed-session trial and public readiness are separately gated in the investment roadmap.
+Decision037 is exhausted; no investment service or future packet is activated.

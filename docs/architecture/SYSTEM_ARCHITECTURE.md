@@ -635,3 +635,15 @@ prior/final execution and provider identities remain distinct. Independent read-
 reviews accepted preservation, accounting and substantive asynchronous reasoning. This is
 private acceptance evidence, not a new runtime capability or operational deployment. See
 [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).
+
+
+## HQ-READY-01 proposed operational bridge — 2026-10-11
+
+The [source-audited design](../operations/INVESTMENT_OPERATIONAL_DESIGN.md) distinguishes current
+workers/discussions/scheduler/simulator from the missing normal-HQ investment runtime authority.
+A proposed separate finite-HQ policy/authority and private-paper audience would reuse these
+components, preserve Decision037 unchanged, decouple private financial health from publication,
+and add trusted owner run creation plus completion-aware budgets. This is a design, not new
+executable behavior. Included-only/live-source/methodology and genuine elapsed-session gates
+remain blocked. [HQ-READY-02](../../prompts/experiments/investment-hq-ready-02.md) is prepared for
+source-only owner selection; all production/runtime state remains unchanged.

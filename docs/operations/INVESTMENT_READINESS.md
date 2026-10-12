@@ -60,3 +60,32 @@ budget/deadlines/stop rules; approved US$0 data-source methodology, automation/u
 timestamps/calendar and fill semantics; and an isolated end-to-end paper-cycle acceptance
 plan. Any genuine runtime probes, market-data access, deployment and elapsed-cycle observation
 need their own explicit scope. No such next task, schedule or official run has begun.
+
+
+## HQ-READY-01 current status — 2026-10-11 America/Vancouver
+
+The owner-selected source audit/design milestone supersedes the older proposed-next-discovery
+section above. [Operational design](INVESTMENT_OPERATIONAL_DESIGN.md) and
+[acceptance](../validation/investment/HQ-READY-01.md) provide current source evidence, primary
+runtime/data documentation, proposed controls, two-session acceptance and four implementation
+packets. Historical INV-05–09 and Decision037 outcomes above remain unchanged.
+
+**Proceed next only with separately selected source-only HQ-READY-02:** a distinct finite HQ
+existing-credit policy/authority and private-paper audience, trusted run setup, existing
+dispatcher/scheduler integration and budget-aware review. [Prepared prompt](../../prompts/experiments/investment-hq-ready-02.md).
+No operating policy or genuine turn is approved by this documentation.
+
+Included-only remains unestablished on pinned Codex0.157.0. Existing-credit operation is the
+preferred proposal, with a fresh explicit owner risk/limit/expiry/reload-OFF decision; proposed
+initial ceilings are10/run,8/rolling24h,7/cycle/day/worker,1 investment/2 global,5min/turn. Seven
+is a two-session discussion floor, not guaranteed completion of paper review/submission.
+
+No reviewed US$0 price feed is fully qualified for this project. Alpha Vantage/Massive are
+technical candidates with unresolved/restricted project rights; SEC/OpenFIGI are supplemental
+filing/identifier sources only. Live operation also needs trusted action intake and an approved
+prospective fill/benchmark method: current delayed opening-effective synthetic fills conflict
+with HQ-READY-01's stricter timing requirement. No silent methodology change is accepted.
+
+Private execution readiness is separate from public source rights, canonical-v1 mapping,
+Asymmetri ingress/capacity/backup/deployment and Ask/INV-10–12. Decision030 remains in force;
+RECOVERY-01 stays cancelled. Decision037 is permanently4/4, with no future release.
