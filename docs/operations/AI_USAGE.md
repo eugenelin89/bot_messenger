@@ -52,3 +52,13 @@ makes cumulative usage 3/4 when reserved; one unused reservation is not permissi
 future release. Keep Atlas and Maya execution telemetry/cost independently attributable.
 The original failure has no authoritative token usage and must not be priced as zero usage.
 Actual credit deduction remains unavailable unless reliably attributable to that execution.
+
+## Final Atlas usage boundary — 2026-10-11
+
+Decision037's final continuation preserves both genuine historical usage rows and their
+original pricing snapshots, adding only the actual final execution if it occurs. Three-turn
+aggregates must come from those retained records. Reservation one remains consumed with
+unverified usage, not a zero-priced execution. Complete reported token counts can still
+have a partial API-equivalent estimate; neither establishes actual purchased-credit or Pro
+quota deduction. Missing categories remain unavailable. Reservation four exhausts all
+execution permission regardless of settlement. See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).

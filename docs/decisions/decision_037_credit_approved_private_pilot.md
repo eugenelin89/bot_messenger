@@ -52,3 +52,17 @@ independent review, applicable reload-OFF confirmation and exact-model official 
 must precede inference. Completion or uncertainty permanently ends this authorization.
 See [Maya acceptance](../validation/investment/INV-CREDIT-MAYA-REVIEW.md). No Atlas response,
 purchase, billing change, production/public activation or schedule follows.
+
+## Dated final Atlas amendment — 2026-10-11
+
+The owner authorizes one final Atlas response to the authentic Maya review, only after
+reviewed source integration and applicable billing/account/model gates. Additive private
+schema3 freezes schema1 and schema2 evidence and binds one new Atlas successor, supervisor,
+release, irreversible reservation and provider admission. The retained three reservations
+remain consumed; the final reservation exhausts the original allowance at 4/4 regardless of
+outcome. No subsequent turn or replacement allowance is authorized. The original fictional
+packet and genuine Atlas/Maya responses arrive as complete attributed historical records,
+with verified identities, bytes, reads and citations. No fabricated employee messages or
+forced change to HOLD is permitted. See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).
+This source amendment alone establishes neither genuine final inference nor operational,
+public, financial-data, paper-order, deployment or recurring-service readiness.

@@ -88,3 +88,13 @@ Source implementation and deterministic acceptance are complete. The finite live
 ## Later remaining-budget continuation
 
 The owner separately selected [durable continuation](INV-CREDIT-PILOT-CONTINUATION.md). Historical checkpoints above remain unchanged. The original pilot remains stopped/revoked with1/4 consumed and zero confirmed genuine turns. New source carries that count outside disposable state and authorizes only one successor Atlas release after reviewed merge; successful completion cannot release another. The linked record is authoritative for this continuation's actual execution/usage and residual allowance.
+
+## Final continuation authorization — 2026-10-11
+
+The owner now selects the fourth and last original reservation for Atlas to respond to
+Maya's genuine review. Earlier outcomes above remain historical. The original failed
+reservation is never refunded or assigned zero usage; both genuine predecessors and stopped
+scopes remain unchanged. [Final Atlas acceptance](INV-CREDIT-FINAL-ATLAS.md) records the
+additive schema3 controls, three-source delivery, review/test gates and eventual outcome.
+The final reservation makes 4/4 permanently; no further employee invocation is authorized.
+No source acceptance claim here establishes genuine two-way reasoning before the real result.

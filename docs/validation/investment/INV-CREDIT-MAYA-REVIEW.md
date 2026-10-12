@@ -191,3 +191,14 @@ paper order, brokerage action, public Asymmetri publication, research inference,
 employee turn or recurring runner is authorized. A possible final Atlas response could assess Maya's counterarguments and reconsideration
 criteria using the one remaining original reservation. It requires another explicit owner
 decision and reviewed one-use permission; it was not executed.
+
+## Final Atlas authorization — 2026-10-11
+
+The owner has now explicitly selected the final Atlas response contemplated above. Maya's
+completed authority, original report, complete review, full-read receipts and original
+usage/pricing remain unchanged; schema3 will freeze them when final authorization is
+installed after source integration. The [final acceptance](INV-CREDIT-FINAL-ATLAS.md)
+requires authentic delivery of all three sources and a substantive response to Maya before
+claiming genuine two-way reasoning. The final reservation is number four of the same pilot,
+not a renewed allowance; completion, failure and uncertainty each prohibit any further turn.
+No public/production or official investment operation follows.

@@ -103,3 +103,13 @@ Maya subsequently completed and settled one genuine review from PR #51 merge `2f
 fully reading/citing both historical records. The [Maya outcome](INV-CREDIT-MAYA-REVIEW.md)
 records 3/4 cumulative reservations, one unused and zero further release authority. Atlas's
 original response, cost, receipts and revoked scope above are unchanged.
+
+## Final Atlas authorization — 2026-10-11
+
+The opening Atlas execution and its original pricing, text and identities remain immutable.
+Following the settled Maya review, the owner separately authorizes only the final original
+reservation for an Atlas response after source and runtime gates. Its three full historical
+imports include this authentic opening, the original fictional packet and Maya's actual
+review. [Final acceptance](INV-CREDIT-FINAL-ATLAS.md) distinguishes source delivery and
+substantive asynchronous feedback from synchronous or autonomous operation. No earlier
+stopped scope reopens; cumulative reservation four ends all pilot execution permission.
