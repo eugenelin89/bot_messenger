@@ -1,9 +1,13 @@
 # HQ-READY-03F — offline Yahoo bootstrap compatibility
 
-**Date:** 2026-10-12 America/Vancouver  
-**Base:** `2bca0e7db3d2acb54db45219b8f03684c4d335ee`, fetched clean synchronized main  
-**Branch/worktree:** `codex/hq-ready-03f-bootstrap` / `../bot_messenger-hq-ready-03f`  
-**Implementation commit:** `d6a6fcbe5ab026db259a747a16c6765abffcd7a6`  
+**Date:** 2026-10-12 America/Vancouver
+
+**Base:** `2bca0e7db3d2acb54db45219b8f03684c4d335ee`, fetched clean synchronized main
+
+**Branch/worktree:** `codex/hq-ready-03f-bootstrap` / `../bot_messenger-hq-ready-03f`
+
+**Implementation commit:** `d6a6fcbe5ab026db259a747a16c6765abffcd7a6`
+
 **Status:** Accepted offline source; reviewed Git integration follows this record; no Yahoo I/O or new live authority
 
 The parent is the only implementation writer. Independent architecture, security, recovery and
@@ -112,7 +116,9 @@ and the pinned DNSError/AttributeError diagnostic described above. Scope dates w
 the direct negative test now asserts the actual sanitized failure and one-call termination.
 Those failed logs remain local; they are not acceptance. Independent review then tightened cookie
 path/time-of-use checks, completed-denial accounting, HTTP backoff preservation and exact newline
-grammar. No failure was hidden by skipping tests or relaxing a denial.
+grammar. No failure was hidden by skipping tests or relaxing a denial. Final committed-diff review also
+caught Markdown hard-break trailing whitespace omitted by the earlier unstaged-only check;
+metadata now uses blank lines and the complete base-to-head diff check passes.
 
 | Check | Evidence/result |
 | --- | --- |

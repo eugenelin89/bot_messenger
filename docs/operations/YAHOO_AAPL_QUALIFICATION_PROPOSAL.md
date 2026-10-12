@@ -1,6 +1,7 @@
 # Proposed one-shot AAPL historical qualification after HQ-READY-03F
 
-**Status:** Proposal only — not approved, prepared or executed.  
+**Status:** Proposal only — not approved, prepared or executed.
+
 **Purpose:** One owner-inspected sample of private historical OHLCV through the existing
 FinancialDataGateway, pinned Python adapter and accepted one-shot custody/watchdogs.
 

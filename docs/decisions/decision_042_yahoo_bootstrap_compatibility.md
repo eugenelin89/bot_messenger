@@ -1,7 +1,9 @@
 # Decision042 — Offline Yahoo bootstrap compatibility
 
-**Date:** 2026-10-12 America/Vancouver  
-**Status:** Source-only implementation; independent acceptance tracked separately  
+**Date:** 2026-10-12 America/Vancouver
+
+**Status:** Source-only implementation; independent acceptance tracked separately
+
 **Authority:** HQ-READY-03F authorizes offline investigation, correction, validation and reviewed Git integration only
 
 ## Supported mismatch and boundary

@@ -1,11 +1,17 @@
 # Execution Plan — HQ-READY-03F bootstrap compatibility
 
-**Status:** Offline implementation, validation and independent acceptance complete; final Git integration tracked in the PR/handoff  
-**Owner:** Parent Codex, sole implementation writer; read-only specialist reviewers  
-**Branch:** `codex/hq-ready-03f-bootstrap`  
-**Worktree:** `../bot_messenger-hq-ready-03f`  
-**Started:** 2026-10-12 America/Vancouver  
-**Initial ETA:** 60–90 minutes  
+**Status:** Offline implementation, validation and independent acceptance complete; final Git integration tracked in the PR/handoff
+
+**Owner:** Parent Codex, sole implementation writer; read-only specialist reviewers
+
+**Branch:** `codex/hq-ready-03f-bootstrap`
+
+**Worktree:** `../bot_messenger-hq-ready-03f`
+
+**Started:** 2026-10-12 America/Vancouver
+
+**Initial ETA:** 60–90 minutes
+
 **Current ETA:** Git integration and synchronization remain; approximately5–10 minutes
 
 ## Objective and scope
