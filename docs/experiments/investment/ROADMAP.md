@@ -322,3 +322,10 @@ prospective method qualification remain distinct gates. Included-only remains bl
 a proposal needing separate approval. The existing private pilot cannot schedule or trade,
 while public-candidate new-risk checks depend on publication;02 supplies a distinct private lane.
 Decision037 stays exhausted4/4. No packet beyond03, production collection or observed trading is started.
+
+[HQ-READY-03C](../../validation/investment/HQ-READY-03C.md) diagnoses the completed03B failure
+from source and retained non-data receipts. A local Node lookup defect is reproduced and repaired
+with offline stage diagnostics; the original cause and genuine Yahoo financial qualification
+remain unknown/blocked. The original authority stays spent. A separate
+[one-request connectivity proposal](../../operations/YAHOO_CONNECTIVITY_PROPOSAL.md) is prepared
+for owner review only; no new live request or authority is created.

@@ -60,5 +60,5 @@ test('cookies are ephemeral, secure, bounded and scoped to Yahoo; crumb is exclu
 });
 test('cancellation destroys pending wire and no second simultaneous request is admitted',async()=>{
  const f=fakeWire({pending:true}),wire=yahooOfflineWire(request(),'ACME',f.wire),abort=new AbortController();const pending=wire.exchange(query,abort.signal,1024);await new Promise(r=>setImmediate(r));
- await assert.rejects(()=>wire.exchange(query,new AbortController().signal,1024),/concurrent/);abort.abort();await assert.rejects(()=>pending,/abort/);assert.ok(f.destroyed>0);
+ await assert.rejects(()=>wire.exchange(query,new AbortController().signal,1024),/concurrent/);abort.abort();await assert.rejects(()=>pending,/yahoo_cancelled/);assert.ok(f.destroyed>0);
 });

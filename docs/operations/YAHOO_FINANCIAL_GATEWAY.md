@@ -209,3 +209,26 @@ The strict integrated fixture reaches50 requests during the seventh logical read
 pinned library's repeated bootstrap and parent-only cookies. Each of all nine operations is also
 validated separately with authored transport. This is a reason to expect partial live coverage,
 not permission to bypass/refill the50-request cap or alter cookie identity to complete the list.
+
+## HQ-READY-03C offline diagnosis and subsequent proposal
+
+[Diagnostic acceptance](../validation/investment/HQ-READY-03C.md) records a reproduced Node24
+pinned-lookup callback defect: `all:true` requires an array, whereas the old callback always
+returned a scalar. The repaired transport supports both forms without changing the selected IP,
+TLS verification, endpoint or request allowance. The original failed probe's exact cause remains
+unknown because its exception code and individual connection milestones were not retained.
+Its durable wire intent confirms earlier DNS/public-address validation, not a connected socket
+or transmitted HTTP request. There is no evidence that Yahoo refused the original request.
+
+New non-data receipts preserve fsynced milestone timestamps and allowlisted failure categories
+for DNS/destination, local permission/configuration, TCP/TLS, write/reset, response timeout,
+HTTP refusal/rate limits, cancellation and settlement uncertainty. Request-finish means local
+write completion only. Late callbacks cannot revise settled receipts. Unknown outcomes still
+consume their reservation and never replay; crashes with no terminal receipt stay unsettled.
+No original receipt is rewritten or augmented retrospectively.
+
+The first authority is spent permanently. The [separate second connectivity proposal](YAHOO_CONNECTIVITY_PROPOSAL.md)
+starts with one bounded GET to `https://fc.yahoo.com/`, without nine financial reads, cookies or
+fallbacks. It requires separate owner approval and a new reviewed one-shot capability. It is
+unexecuted and not expressible by reusing the old manifest/CLI. Genuine financial qualification,
+observed fills, employees, recurring operation, production and public delivery remain blocked.

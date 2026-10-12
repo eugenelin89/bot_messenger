@@ -1,7 +1,11 @@
 import { lookup } from 'node:dns/promises';
 import type { LookupAddress } from 'node:dns';
 import { request as httpsRequest } from 'node:https';
-import type { IncomingMessage } from 'node:http';
+import type { ClientRequest, IncomingMessage } from 'node:http';
+import type { LookupFunction } from 'node:net';
+import { isIP } from 'node:net';
+import { performance } from 'node:perf_hooks';
+import { yahooDiagnostic, YahooTransportError, type YahooStage, type YahooStageConfirmation } from './yahoo-diagnostics.js';
 import { ensure } from '../../domain/investment/arithmetic.js';
 import type { FinancialRequest, YahooQuery, YahooResponse, YahooTransport } from '../../domain/market/financial.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
@@ -53,82 +57,173 @@ class CookieJar {
  * The offline factory requires both fake drivers; live issuance verifies host custody.
  * This is not an employee capability or a permission switch.
  */
+/** Honor both Node lookup contracts while returning only the already validated, single pin.
+ * Node24 may request all:true even when the preflight DNS lookup returned a single address.
+ */
+export function yahooPinnedLookup(selected: LookupAddress): LookupFunction {
+  return (_hostname, options, callback) => {
+    if (options.all) callback(null, [{ address: selected.address, family: selected.family }]);
+    else callback(null, selected.address, selected.family);
+  };
+}
 function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:YahooProbeCustody):YahooTransport {
-  const jar=new CookieJar();let active=false;
-  return {kind:probe&&isOwnerProbe(probe)?'yahoo-https-v1':'authored_yahoo_fixture',async exchange(query,signal,maxBytes){
-    ensure(!active,'yahoo_concurrent_wire');active=true;
-    const combined=AbortSignal.any([signal,AbortSignal.timeout(10000)]);
-    let reserved=false,receipt:WireReceipt={status:null,receivedBytes:0,complete:false,httpDate:null,retryAfter:null,reason:'transport_unknown',completedAt:new Date().toISOString()};
-    const captured:Buffer[]=[];let bootstrap=false;
+  const jar = new CookieJar(); let active = false;
+  return { kind: probe && isOwnerProbe(probe) ? 'yahoo-https-v1' : 'authored_yahoo_fixture', async exchange(query, signal, maxBytes) {
+    ensure(!active, 'yahoo_concurrent_wire'); active = true;
+    const deadline = AbortSignal.timeout(10000);
+    const combined = AbortSignal.any([signal, deadline, ...(probe ? [probe.signal] : [])]);
+    const started = performance.now();
+    let last: YahooStageConfirmation = { stage: 'exchange_started', at: new Date().toISOString(), elapsedMs: 0 };
+    const confirmed = new Set<YahooStage>(['exchange_started']);
+    let reserved = false, wireIntent = false, frozen = false, settlementFailed = false;
+    const receipt: WireReceipt = { status: null, receivedBytes: 0, complete: false, httpDate: null,
+      retryAfter: null, reason: 'yahoo_transport_unknown', completedAt: new Date().toISOString() };
+    const captured: Buffer[] = []; let bootstrap = false;
+    const stop = (): 'timeout' | 'cancelled' | null => {
+      if (!combined.aborted) return null;
+      // Gateway deadlines carry fixed reasons; arbitrary caller reasons are never serialized.
+      const reason = combined.reason;
+      return reason === deadline.reason && deadline.aborted || reason instanceof Error &&
+        ['financial_transport_timeout', 'financial_timeout'].includes(reason.message) ? 'timeout' : 'cancelled';
+    };
+    const confirm = (stage: YahooStage): void => {
+      if (frozen || confirmed.has(stage)) return;
+      last = { stage, at: new Date().toISOString(), elapsedMs: Math.floor(performance.now() - started) };
+      confirmed.add(stage);
+      if (probe && reserved) {
+        try { probe.confirmTransportStage(last); }
+        catch (error) { settlementFailed = true; throw error; }
+      }
+    };
+    const diagnose = (error: unknown) => yahooDiagnostic(last, error, receipt.status, wireIntent, stop(), settlementFailed);
     try {
-      const qualified=qualifyYahooQuery(query,typeof financialRequest==='function'?financialRequest():financialRequest,symbol);
-      bootstrap=qualified.endpoint.endsWith(':cookie')||qualified.endpoint.endsWith(':crumb');
-      if(probe){probe.reserve(query,maxBytes);reserved=true;}
-      ensure(!combined.aborted,'yahoo_cancelled');ensure(Number.isSafeInteger(maxBytes)&&maxBytes>0&&maxBytes<=262144,'yahoo_response_limit');
-      const url=new URL(query.url);for(const [key,value] of Object.entries(query.params))url.searchParams.append(key,String(value));
-      const addresses=await new Promise<LookupAddress[]>((resolve,reject)=>{
-        const abort=()=>reject(new Error('yahoo_dns_cancelled'));combined.addEventListener('abort',abort,{once:true});
-        void wire.lookup(url.hostname,{all:true,verbatim:true}).then(resolve,reject).finally(()=>combined.removeEventListener('abort',abort));
+      const qualified = qualifyYahooQuery(query, typeof financialRequest === 'function' ? financialRequest() : financialRequest, symbol);
+      confirm('request_validated'); bootstrap = qualified.endpoint.endsWith(':cookie') || qualified.endpoint.endsWith(':crumb');
+      if (probe) {
+        try { probe.reserve(query, maxBytes); }
+        catch (error) {
+          // A failed durable reservation may have partially written. It is never refundable.
+          // Known custody denials keep their fixed token; unknown I/O failures remain unsettled.
+          if (!(error instanceof Error) || !error.message.startsWith('probe_')) settlementFailed = true;
+          throw error;
+        }
+        reserved = true; confirm('request_reserved');
+      }
+      ensure(!combined.aborted, 'yahoo_cancelled');
+      ensure(Number.isSafeInteger(maxBytes) && maxBytes > 0 && maxBytes <= 262144, 'yahoo_response_limit');
+      const url = new URL(query.url);
+      for (const [key, value] of Object.entries(query.params)) url.searchParams.append(key, String(value));
+      confirm('dns_started');
+      const addresses = await new Promise<LookupAddress[]>((resolve, reject) => {
+        let done = false;
+        const finish = (error: unknown, value?: LookupAddress[]) => {
+          if (done) return; done = true; combined.removeEventListener('abort', abort);
+          if (error) reject(error); else resolve(value!);
+        };
+        const abort = () => finish(new Error('yahoo_cancelled'));
+        combined.addEventListener('abort', abort, { once: true });
+        if (combined.aborted) { abort(); return; }
+        try { void wire.lookup(url.hostname, { all: true, verbatim: true }).then(value => finish(null, value), error => finish(error)); }
+        catch (error) { finish(error); }
       });
-      ensure(!combined.aborted,'yahoo_cancelled');
-      // all:true overload resolves an array; pin the chosen public address on the TLS connection.
-      const resolved=addresses as unknown as {address:string;family:number}[];
-      ensure(resolved.length>0&&resolved.length<=32&&resolved.every(a=>publicAddress(a.address)),'yahoo_protected_address');
-      const selected=resolved[0]!;
-      if(probe)await probe.beforeWire(combined);
-      return await new Promise<YahooResponse>((resolve,reject)=>{
-        const cookies=jar.header(url);
-        const req=wire.request(url,{method:'GET',agent:false,signal:combined,rejectUnauthorized:true,servername:url.hostname,
-          lookup:(_hostname,_options,callback)=>callback(null,selected.address,selected.family),
-          headers:{'User-Agent':'BotSquad/0.1 private personal research','Accept':'application/json, text/plain','Accept-Encoding':'identity',...(cookies?{Cookie:cookies}:{})},
-        },(res:IncomingMessage)=>{
-          let size=0;let failed=false;
-          receipt.status=res.statusCode??null;
-          const rejectResponse=(error:unknown)=>{failed=true;res.destroy();req.destroy();reject(error);};
-          try{
-            if(probe){
-              probe.seal({type:'response_headers',date:res.headers.date??null,retryAfter:res.headers['retry-after']??null});
-              receipt.httpDate=safeHttpDate(res.headers.date);receipt.retryAfter=safeRetryAfter(res.headers['retry-after']);
-            }
-            ensure(!res.headers['content-encoding']||res.headers['content-encoding']==='identity','yahoo_compressed_response');
-            const length=res.headers['content-length'];if(length)ensure(/^\d+$/.test(length)&&Number(length)<=maxBytes,'yahoo_response_size');
-            // Never follow redirects or accept consent. Status is returned to the gateway's durable circuit.
-            if(res.statusCode===200)jar.accept(url.hostname,res.headers['set-cookie']??[]);
-          }catch(e){rejectResponse(e);return;}
-          // Read only bounded application body bytes. Unread socket buffers are discarded on denial.
-          // This is body accounting, not TCP/TLS/header bandwidth accounting.
-          res.on('readable',()=>{
-            while(!failed&&res.readableLength>0){
-              if(size===maxBytes){rejectResponse(new Error('yahoo_response_size'));return;}
-              const chunk=res.read(Math.min(res.readableLength,maxBytes-size)) as Buffer|null;
-              if(!chunk)break;size+=chunk.length;receipt.receivedBytes=size;captured.push(chunk);
-            }
-            if(!failed&&res.readableLength===0)res.read(0);
-          });
-          res.once('error',reject);res.once('aborted',()=>reject(new Error('yahoo_response_aborted')));
-          res.once('end',()=>{
-            if(failed)return;
-            try{
-              const body=new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(captured));
-              if(probe&&res.statusCode===200&&bootstrap){
-                const contentType=res.headers['content-type']??'';
-                ensure(!/html/i.test(contentType)&&!/<(?:!doctype|html|form|script)|consent|captcha|sign.?in|log.?in|access denied/i.test(body),'yahoo_bootstrap_barrier');
-                if(qualified.endpoint.endsWith(':crumb'))ensure(/^[\x21-\x7e]{1,256}$/.test(body)&&!/[<>]/.test(body),'yahoo_crumb_schema');
+      ensure(!combined.aborted, 'yahoo_cancelled'); confirm('dns_resolved');
+      ensure(Array.isArray(addresses) && addresses.length > 0 && addresses.length <= 32 &&
+        addresses.every(a => a && typeof a.address === 'string' && [4, 6].includes(a.family) &&
+          isIP(a.address) === a.family && publicAddress(a.address)), 'yahoo_protected_address');
+      const selected = addresses[0]!; confirm('destination_validated');
+      if (probe) await probe.beforeWire(combined);
+      ensure(!combined.aborted, 'yahoo_cancelled'); wireIntent = true; confirm('wire_intent');
+      return await new Promise<YahooResponse>((resolve, reject) => {
+        let req: ClientRequest | undefined, res: IncomingMessage | undefined;
+        const finish = (error: unknown, value?: YahooResponse) => {
+          if (frozen) return;
+          frozen = true; combined.removeEventListener('abort', abort);
+          if (error) {
+            // Diagnose before destroy emits secondary reset/abort/close events.
+            receipt.diagnostic = diagnose(error); receipt.reason = receipt.diagnostic.code;
+            res?.destroy(); req?.destroy(); reject(new YahooTransportError(receipt.diagnostic));
+          } else { resolve(value!); }
+        };
+        const abort = () => finish(new Error('yahoo_cancelled'));
+        const guarded = (action: () => void) => {
+          if (frozen) return;
+          try { ensure(!combined.aborted, 'yahoo_cancelled'); action(); } catch (error) { finish(error); }
+        };
+        combined.addEventListener('abort', abort, { once: true });
+        if (combined.aborted) { abort(); return; }
+        try {
+          const cookies = jar.header(url);
+          req = wire.request(url, { method: 'GET', agent: false, signal: combined, rejectUnauthorized: true,
+            servername: url.hostname, lookup: yahooPinnedLookup(selected), maxHeaderSize: 16384,
+            headers: { 'User-Agent': 'BotSquad/0.1 private personal research', 'Accept': 'application/json, text/plain',
+              'Accept-Encoding': 'identity', ...(cookies ? { Cookie: cookies } : {}) } }, incoming => {
+            // Attach the error sink even to a response arriving after cancellation.
+            incoming.on('error', error => finish(error));
+            if (frozen) { incoming.destroy(); return; }
+            res = incoming;
+            guarded(() => {
+              receipt.status = Number.isInteger(incoming.statusCode) && incoming.statusCode! >= 100 && incoming.statusCode! <= 599 ? incoming.statusCode! : null;
+              confirm('response_headers'); ensure(receipt.status !== null, 'yahoo_response_schema');
+              if (probe) {
+                receipt.httpDate = safeHttpDate(incoming.headers.date);
+                receipt.retryAfter = safeRetryAfter(incoming.headers['retry-after']);
+                try { probe.seal({ type: 'response_headers', date: receipt.httpDate, retryAfter: receipt.retryAfter }); }
+                catch (error) { settlementFailed = true; throw error; }
               }
-              receipt.complete=true;receipt.reason='response';
-              resolve({status:res.statusCode??0,body,contentType:res.headers['content-type']??'',retryAfter:res.headers['retry-after']??null});
-            }catch(e){rejectResponse(e);}
+              ensure(!incoming.headers['content-encoding'] || incoming.headers['content-encoding'] === 'identity', 'yahoo_compressed_response');
+              const length = incoming.headers['content-length'];
+              if (length) ensure(/^\d+$/.test(length) && Number(length) <= maxBytes, 'yahoo_response_size');
+              if (receipt.status === 200) jar.accept(url.hostname, incoming.headers['set-cookie'] ?? []);
+            });
+            if (frozen) return;
+            incoming.on('readable', () => guarded(() => {
+              while (incoming.readableLength > 0) {
+                ensure(receipt.receivedBytes < maxBytes, 'yahoo_response_size');
+                const chunk = incoming.read(Math.min(incoming.readableLength, maxBytes - receipt.receivedBytes)) as Buffer | null;
+                if (!chunk) break; receipt.receivedBytes += chunk.length; captured.push(chunk);
+              }
+              if (incoming.readableLength === 0) incoming.read(0);
+            }));
+            incoming.once('aborted', () => finish(new Error('yahoo_response_aborted')));
+            incoming.once('close', () => { if (!frozen) finish(new Error('yahoo_response_incomplete')); });
+            incoming.once('end', () => guarded(() => {
+              const body = new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(captured));
+              if (probe && receipt.status === 200 && bootstrap) {
+                const contentType = incoming.headers['content-type'] ?? '';
+                ensure(!/html/i.test(contentType) && !/<(?:!doctype|html|form|script)|consent|captcha|sign.?in|log.?in|access denied/i.test(body), 'yahoo_bootstrap_barrier');
+                if (qualified.endpoint.endsWith(':crumb')) ensure(/^[\x21-\x7e]{1,256}$/.test(body) && !/[<>]/.test(body), 'yahoo_crumb_schema');
+              }
+              confirm('response_complete'); receipt.complete = true;
+              receipt.diagnostic = diagnose(null); receipt.reason = receipt.diagnostic.code;
+              finish(null, { status: receipt.status!, body, contentType: incoming.headers['content-type'] ?? '', retryAfter: incoming.headers['retry-after'] ?? null });
+            }));
           });
-        });
-        req.once('error',reject);req.end();
+          req.on('error', error => finish(error));
+          req.once('close', () => { if (!frozen && !res) finish(new Error('yahoo_response_incomplete')); });
+          req.once('socket', socket => guarded(() => {
+            confirm('socket_assigned');
+            socket.once('connect', () => guarded(() => confirm('tcp_connected')));
+            socket.once('secureConnect', () => guarded(() => confirm('tls_established')));
+          }));
+          req.once('finish', () => guarded(() => confirm('request_finished')));
+          if (frozen) { req.destroy(); return; }
+          confirm('request_created'); req.end();
+        } catch (error) { finish(error); }
       });
-    }catch(error){
-      receipt.reason=error instanceof Error&&/^[a-z][a-z0-9_]{0,100}$/.test(error.message)?error.message:'transport_unknown';throw error;
-    }finally{
-      active=false;receipt.completedAt=new Date().toISOString();
-      if(probe&&reserved)probe.received(receipt,bootstrap?Buffer.alloc(0):Buffer.concat(captured));
+    } catch (error) {
+      frozen = true;
+      receipt.diagnostic ??= diagnose(error); receipt.reason = receipt.diagnostic.code;
+      throw new YahooTransportError(receipt.diagnostic);
+    } finally {
+      frozen = true; receipt.completedAt = new Date().toISOString();
+      try {
+        if (probe && reserved) probe.received(receipt, bootstrap ? Buffer.alloc(0) : Buffer.concat(captured));
+      } catch {
+        // Failure to durably settle never makes a response successful or restores allowance.
+        throw new YahooTransportError(yahooDiagnostic(last, null, receipt.status, wireIntent, null, true));
+      } finally { active = false; }
     }
-  }};
+  } };
 }
 /** Generic application transport remains inactive. The dedicated owner factory below requires
  * a consumed process-local capability; no policy, environment flag or callback enables this class.

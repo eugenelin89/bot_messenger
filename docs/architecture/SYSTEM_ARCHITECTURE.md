@@ -717,3 +717,9 @@ request accounting precedes I/O; memory SQLite and encrypted private evidence ca
 authority after copying/restoring/deleting custody. Immediate cleanup destroys private data while
 retaining non-data spent receipts. No migration, worker/API route, scheduler or simulator change
 follows; observed employee delivery remains denied. See [Decision039](../decisions/decision_039_one_shot_yahoo_qualification.md).
+
+[HQ-READY-03C](../validation/investment/HQ-READY-03C.md) repairs the Node lookup callback contract
+and adds non-data, fsynced transport milestones plus closed error classifications. Late callbacks
+freeze at settlement; uncertain transmission/custody remains consumed and non-replayable. No
+new live owner capability or manifest is created, and the first probe remains spent. The next minimal
+connectivity test is an [unapproved proposal](../operations/YAHOO_CONNECTIVITY_PROPOSAL.md).

@@ -142,7 +142,7 @@ test('short filesystem writes complete fully before DNS and failed fsync prevent
   finally { mock.mock.restore(); syncBuiltinESMExports(); }
   assert.ok(writes > 10); assert.equal(wire.sockets, 1); assert.doesNotThrow(() => f.custody.check());
   const syncMock = t.mock.method(fs, 'fsyncSync', () => { throw new Error('fixture_fsync_failure'); }); syncBuiltinESMExports();
-  try { await assert.rejects(() => transport.exchange(metadata, new AbortController().signal, 262144), /fsync/); }
+  try { await assert.rejects(() => transport.exchange(metadata, new AbortController().signal, 262144), /yahoo_settlement_unknown/); }
   finally { syncMock.mock.restore(); syncBuiltinESMExports(); }
   assert.equal(wire.sockets, 1); assert.equal(wire.dns, 1);
   await assert.rejects(() => transport.exchange(metadata, new AbortController().signal, 262144), /uncertain|busy/);
@@ -250,7 +250,7 @@ test('gateway live fixture retains observed provenance but employee admission st
   f.custody.finish(result, observation);
 });
 
-for (const phase of ['consumed', 'reserved', 'wire_started', 'received'] as const) test(`SIGKILL after ${phase} keeps spent admission and encrypted custody, with no resume`, async t => {
+for (const phase of ['consumed', 'reserved', 'wire_started', 'tcp_connected', 'received'] as const) test(`SIGKILL after ${phase} keeps spent admission and encrypted custody, with no resume`, async t => {
   const parent = realpathSync(mkdtempSync(join(tmpdir(), 'yahoo-crash-'))), root = join(parent, 'anchor');
   t.after(() => rmSync(parent, { recursive: true, force: true }));
   const custodyUrl = new URL('../src/control/market/yahoo-probe-custody.js', import.meta.url).href;
@@ -263,7 +263,8 @@ for (const phase of ['consumed', 'reserved', 'wire_started', 'received'] as cons
     for(const [kind,v] of [['policy',m.policy],['instrument',m.instrument],['calendar',m.calendar]])market.register(v,kind,m.preparedAt);
     store.initialize(m.scope);const transport={kind:'authored_yahoo_fixture',exchange:async()=>{throw Error('fixture_only')}};c.bindTransport(transport);c.begin(store,transport,m.reads[0]);
     if(process.argv[2]!=='consumed')c.reserve(${JSON.stringify(metadata)},262144);
-    if(['wire_started','received'].includes(process.argv[2]))await c.beforeWire(new AbortController().signal);
+    if(['wire_started','tcp_connected','received'].includes(process.argv[2]))await c.beforeWire(new AbortController().signal);
+    if(process.argv[2]==='tcp_connected')c.confirmTransportStage({stage:'tcp_connected',at:new Date().toISOString(),elapsedMs:7});
     if(process.argv[2]==='received')c.received({status:200,receivedBytes:23,complete:true,httpDate:null,retryAfter:null,reason:'response',completedAt:new Date().toISOString()},Buffer.from('private-fixture-payload'));
     process.stdout.write('READY\\n');setInterval(()=>{},1000);`;
   const child = spawn(process.execPath, ['--input-type=module', '-e', script, root, phase], { stdio: ['ignore', 'pipe', 'pipe'] });
