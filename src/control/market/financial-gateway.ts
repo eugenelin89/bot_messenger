@@ -108,7 +108,7 @@ export class FinancialDataGateway {
           let attemptAbort:()=>void=()=>{};
           try {
             response=await Promise.race([this.transport.exchange(structuredClone(query),attemptSignal,Math.min(scope.maxResponseBytes,p.maxBytes)),new Promise<never>((_,reject)=>{
-              attemptTimer=setTimeout(()=>{attemptController.abort();reject(new Error('financial_transport_timeout'));},Math.min(p.timeoutMs,Math.max(1,deadline-Date.now())));
+              attemptTimer=setTimeout(()=>{attemptController.abort(new Error('financial_transport_timeout'));reject(new Error('financial_transport_timeout'));},Math.min(p.timeoutMs,Math.max(1,deadline-Date.now())));
             }),new Promise<never>((_,reject)=>{attemptAbort=()=>reject(new Error('financial_cancelled'));controller.signal.addEventListener('abort',attemptAbort,{once:true});})]);
             check();ensure(!controller.signal.aborted,'financial_cancelled');
             ensure(Number.isInteger(response.status)&&response.status>=100&&response.status<=599&&typeof response.body==='string'&&typeof response.contentType==='string','yahoo_response_schema');
@@ -140,7 +140,7 @@ export class FinancialDataGateway {
     };
     let timer:ReturnType<typeof setTimeout>|undefined;
     try {
-      const body=await Promise.race([this.adapter.read({request,symbol},exchange,controller.signal),new Promise<never>((_,reject)=>{timer=setTimeout(()=>{terminal='financial_timeout';controller.abort();reject(new Error('financial_timeout'));},timeoutMs);}),new Promise<never>((_,reject)=>{controller.signal.addEventListener('abort',()=>reject(new Error('financial_cancelled')),{once:true});})]);
+      const body=await Promise.race([this.adapter.read({request,symbol},exchange,controller.signal),new Promise<never>((_,reject)=>{timer=setTimeout(()=>{terminal='financial_timeout';controller.abort(new Error('financial_timeout'));reject(new Error('financial_timeout'));},timeoutMs);}),new Promise<never>((_,reject)=>{controller.signal.addEventListener('abort',()=>reject(new Error('financial_cancelled')),{once:true});})]);
       ensure(!terminal&&!busy,'financial_adapter_ignored_transport_failure');check();
       ensure(rawResponses.length>0,'financial_original_response_missing');ensure(Buffer.byteLength(body)<=524288,'financial_adapter_size');
       return this.store.db.transaction(()=>{

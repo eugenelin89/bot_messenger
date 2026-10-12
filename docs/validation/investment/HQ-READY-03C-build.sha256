@@ -1,0 +1,8 @@
+f140b8e31e2ccdf9a8b2e5ff35ef0cde33effea16ae74b616726abd98b491497  dist/src/control/market/yahoo-diagnostics.js
+c5a359d6f65b661610f63cd42e8176318fa742836c03e910eea358a41a957238  dist/src/control/market/yahoo-https.js
+6249425fa2470ddc001ae28a888517e8a128ef9ab890ed7bb57e566733331006  dist/src/control/market/yahoo-probe-custody.js
+204efe44ab469ed2d108c16c09d82c02940872833a458a3abe466c3292912b88  dist/src/control/market/financial-gateway.js
+5d22496d6f4d683ce49f3a190604a006601ae1d73c9934c95542c2e3d527cc3a  dist/test/yahoo-diagnostics.test.js
+fad3b8730017eac491c9a70e2fea7d3da556d1f5f663eb8d5849835d7073140f  dist/test/yahoo-transport-local.test.js
+d6ace0e3a08c67d224119e947ef7dd57af0bf3316e823cfdaf8c76a2c89e31c7  dist/test/yahoo-transport.test.js
+db6fb8ef29360d2710e5dbafb34d71a896e28ac99f48d6fe14f421497ee8d688  dist/test/yahoo-probe.test.js

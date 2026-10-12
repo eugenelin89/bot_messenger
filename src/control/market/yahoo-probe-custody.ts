@@ -9,6 +9,7 @@ import type { FinancialStore } from './financial-store.js';
 import { PROBE_ID, verifyProbeManifest, qualifyProbeQuery, type YahooProbeManifest } from './yahoo-probe-manifest.js';
 import { ownerProbeRoot, ownerCapsuleRoot, verifyOwnerProbeHost, probeSourceIdentity, excludeProbePath, assertProbeExcluded } from './yahoo-probe-host.js';
 import { probeMayContinue } from './yahoo-probe-report.js';
+import type { YahooStageConfirmation, YahooTransportDiagnostic } from './yahoo-diagnostics.js';
 export { ownerProbeRoot, ownerCapsuleRoot } from './yahoo-probe-host.js';
 
 // Fixed, nonvolatile host anchor, separate from disposable data. No run ID/path override in owner CLI.
@@ -59,6 +60,7 @@ function prepare(root: string, manifest: YahooProbeManifest, kind: 'live' | 'fix
 export interface WireReceipt {
   status: number | null; receivedBytes: number; complete: boolean; httpDate: string | null;
   retryAfter: string | null; reason: string; completedAt: string;
+  diagnostic?: YahooTransportDiagnostic;
 }
 interface Clock { wall(): number; monotonic(): number; }
 const systemClock: Clock = { wall: Date.now, monotonic: () => performance.now() };
@@ -201,6 +203,12 @@ export class YahooProbeCustody {
     this.check(); ensure(!signal.aborted && this.#clock.monotonic() - this.#lastWire >= 5000, 'probe_wire_interval');
     this.#wire = true; this.#lastWire = this.#clock.monotonic();
     this.record({ type: 'wire_started', ordinal: this.#attempts, at: new Date(this.#clock.wall()).toISOString(), elapsedMs: Math.floor(this.#lastWire - this.#startMono) });
+  }
+  confirmTransportStage(stage: YahooStageConfirmation): void {
+    this.check(); ensure(this.#pending, 'probe_stage_without_reservation');
+    // A crash or immediate custody cleanup can preclude the terminal receipt. Keep the
+    // last durably confirmed non-data stage without inferring a response or replay right.
+    this.record({ type: 'transport_stage', ordinal: this.#attempts, stage: stage.stage, at: stage.at, elapsedMs: stage.elapsedMs });
   }
   received(receipt: WireReceipt, body: Buffer): void {
     ensure(!this.#closed && this.#pending, 'probe_receipt_without_reservation');
