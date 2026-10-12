@@ -1,12 +1,12 @@
 # Execution Plan — HQ-READY-03D one-shot Yahoo connectivity
 
-**Status:** Active
+**Status:** Complete — executed once; authority spent; outcome recorded
 **Owner:** Parent Codex, sole writer; read-only security/recovery/acceptance specialists
-**Branch:** `codex/hq-ready-03d-connectivity`
+**Branch:** `codex/hq-ready-03d-connectivity` for implementation; `codex/hq-ready-03d-outcome` for closure
 **Worktree:** `../bot_messenger-hq-ready-03d`
 **Started:** 2026-10-11 America/Vancouver
 **Initial ETA:** 60–90 minutes for source, offline tests/reviews, integration and one supervised attempt
-**Current ETA:** 20–35 minutes remaining at source freeze; full serial regression, integration and one supervised attempt remain
+**Final timing:** Deadline/recovery review findings and the full serial regression extended the original estimate; no scope expansion or additional live attempt resulted
 
 ## Objective
 
@@ -65,7 +65,7 @@ inferred from the proposal's already-satisfied owner approval requirement.
 
 New decision/acceptance/runbook updates will describe the separate one-shot authority and outcome.
 Product vision, employee capabilities, simulation and public contracts do not change.
-Implementation and source reviews are complete. Final focused/full regression passed. Integration, supervised attempt and final evidence remain. Headers-only handling deliberately consumes zero body bytes. The independent 10-second consumption watchdog is stricter than the 30-second process ceiling; admission requires 10 seconds remaining in the 60-second lifetime.
+Implementation, source reviews, focused/full regression, reviewed integration/main rebuild, the one supervised attempt and independent actual-outcome acceptance are complete. Headers-only handling consumed zero body bytes. The independent 10-second consumption watchdog is stricter than the 30-second process ceiling; admission requires 10 seconds remaining in the 60-second lifetime.
 
 ## Review disposition
 
@@ -74,12 +74,24 @@ Their two deadline findings were fixed with an independent consumption watchdog,
 elapsed/expiry checks and conservative near-expiry admission. Acceptance requested an isolated
 real 10-second watchdog test; it was added. All reviewers remain read-only.
 The initial read-only host check could not query FileVault inside the sandbox; host access
-verified Node 24.10.0, FileVault, encrypted swap and disabled core dumps. No 03D authority exists yet.
+verified Node 24.10.0, FileVault, encrypted swap and disabled core dumps. No03D authority existed at that preflight checkpoint.
 
 ## Final source acceptance checkpoint
 
 Implementation `8f24393a07b31639fc67b602ce86dc3e1546a4e9`, [PR62](https://github.com/eugenelin89/bot_messenger/pull/62).
 Focused223/223 and full1457 total/1451 passed/0 failed/6 existing skips passed on frozen source.
-Source/build manifests and log hashes are in03D acceptance. No new authority has been prepared.
-Next: exact-head integration, clean synchronized main rebuild, one prepare/run, explicit non-data
-recovery receipt and independent actual-outcome/historical-preservation inspection.
+Source/build manifests and log hashes are in03D acceptance. No new authority had been prepared
+at that source checkpoint.
+
+## Execution and closure
+
+PR62 merged as `3b79718c25805c967ec2bee78f359479364ca6dd`. Clean synchronized main rebuilt
+and matched every frozen hash. One prepare/run completed on 2026-10-12 at 07:39:41Z: TLS verified,
+HTTP 404 headers at 146 ms, response-size validator stopped processing, body 0/uninspected.
+Child exited 0 without watchdog kill. Explicit non-data recovery followed process exit;
+the private anchor is backup-excluded and spent permanently 1/1/noResume. Five original 03B
+hashes match, its capsule is absent and Decision037 remains 4/4. No further network action follows.
+The outcome branch changes documentation only; no source or frozen manifest changes.
+The independent acceptance reviewer directly verified the actual six receipts, distinct identity,
+single reservation, ordered stages, process exit, backup exclusion and historical preservation;
+no material blocker remains. The packet ends with this recorded outcome and no further authority.

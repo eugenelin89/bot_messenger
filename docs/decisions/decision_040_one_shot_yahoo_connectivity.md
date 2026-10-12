@@ -1,7 +1,7 @@
 # Decision040 — Separate one-shot Yahoo connectivity
 
 **Date:** 2026-10-12 America/Vancouver
-**Status:** Owner-authorized bounded implementation and one supervised attempt; actual acceptance recorded separately
+**Status:** Completed — one HTTP404 response; separate authority permanently exhausted1/1
 
 The owner explicitly selected HQ-READY-03D, approved the exact
 [reviewed connectivity proposal](../operations/YAHOO_CONNECTIVITY_PROPOSAL.md), and confirmed
@@ -69,3 +69,13 @@ one actual attempt and cleanup. Passing source tests creates no live authority b
 Admission additionally requires at least 10 seconds remaining in the 60-second manifest lifetime,
 so the independent consumption ceiling cannot outlive absolute expiry. Final wall/monotonic
 checks after filesystem reads prevent a synchronous read stall from hiding expiry.
+
+## Actual closure
+
+On 2026-10-12 the separate reservation was consumed once on reviewed synchronized main.
+Normal TLS succeeded and one HTTP 404 response reached the header stage. The response failed
+the size validator; zero body bytes were consumed, and no raw response content was retained.
+The child exited and both cleanup receipts preserve the spent authority. Original 03B file hashes
+remain unchanged, its capsule absent and Decision037 exhausted 4/4. This establishes endpoint/time
+connectivity only; [03D acceptance](../validation/investment/HQ-READY-03D.md) records the bounded
+result and remaining financial/operational/public gates. No further request is authorized.

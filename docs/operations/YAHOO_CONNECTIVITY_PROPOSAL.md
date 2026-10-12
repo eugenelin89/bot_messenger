@@ -62,3 +62,9 @@ its current source, execution and cleanup status. The03C proposal/history above 
 The new implementation tightens body consumption to zero by closing at headers and independently
 bounds consumption through cleanup to10seconds. Body contents/challenges remain uninspected.
 The original03B authorization is never reset or reused.
+
+The 03D authority was consumed once on 2026-10-12: verified TLS and HTTP 404 headers were received,
+then the response size check stopped processing with zero body bytes consumed. The child exited,
+private non-data cleanup is recorded and the new authority is permanently spent 1/1/noResume.
+This proposal is fulfilled and supplies no further request authority. Financial qualification
+remains blocked; the exact evidence and limitations are in the 03D acceptance record.
