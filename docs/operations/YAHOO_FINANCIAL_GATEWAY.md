@@ -1,8 +1,8 @@
 # Yahoo Financial Data Gateway — source dossier and bounded qualification runbook
 
-**As of:** 2026-10-11 America/Vancouver; HQ-READY-03 source integration only.
+**As of:** 2026-10-11 America/Vancouver; HQ-READY-03/03B source and bounded-attempt record.
 **Provider/feed:** Yahoo Finance / Python yfinance1.7.0, Python3.12.12.
-**State:** Default application/employee transport inactive. HQ-READY-03B adds a separately owner-selected one-shot local qualification CLI, pending its acceptance/integration gates. No collector, deployment, public artifact or trading activation.
+**State:** Default application/employee transport inactive. HQ-READY-03B source is integrated; its single authorization is spent after an unknown bootstrap outcome, with no financial data admitted and cleanup verified. No collector, deployment, public artifact or trading activation.
 
 ## Permission provenance and use assessment
 
@@ -175,8 +175,9 @@ an application-persisted key and cannot resume. `cleanup` removes any orphan cip
 its deletion while preserving approval/spent/accounting receipts. Same-owner whole-host rollback,
 malicious OS administration and forensic RAM erasure are outside this local trust boundary.
 
-After all review/integration gates and a clean synchronized main build, the authorized operator
-uses these commands **once** (never an employee tool or scheduler):
+The completed qualification used the following commands after review/integration and a clean
+synchronized main build. **Historical procedure only: the authorization is now spent. Do not run
+prepare/run again.** Cleanup remains available for orphan ciphertext; it cannot restore authority:
 
 ```sh
 scripts/yahoo-qualification.sh prepare

@@ -618,6 +618,7 @@ separate assessments. [HQ-READY-03 source acceptance](docs/validation/investment
 covers daily OHLCV, fundamentals, annual/quarterly statements and actions using authored Yahoo
 fixtures, immutable provenance and conservative point-in-time admission. Owner-selected
 [HQ-READY-03B](docs/validation/investment/HQ-READY-03B.md) adds a separate one-shot local owner
-qualification with finite private custody; actual execution follows reviewed integration and a
-synchronized-main rebuild under the [runbook](docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
+qualification with finite private custody. Its single attempt stopped at bootstrap with an unknown
+transport outcome; no financial data was admitted, cleanup is verified and authority is spent.
+See the [runbook](docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
 US$0, synthetic-only HQ-READY-02 acceptance and inactive production authority are unchanged.
