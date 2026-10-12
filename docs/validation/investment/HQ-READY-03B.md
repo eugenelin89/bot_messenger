@@ -3,7 +3,7 @@
 **Started:** 2026-10-11 America/Vancouver
 **Base:** `96021f94c3ab6b8018ab6415ea12c6d0ba543b7d`, clean synchronized local/remote main
 **Branch/worktree:** `codex/hq-ready-03b` / `../bot_messenger-hq-ready-03b`; parent sole writer
-**Status:** Source/offline validation accepted; integration and synchronized-main rebuild required before the single live probe
+**Status:** Completed one bounded attempt; terminal unknown transport outcome, no live financial observation admitted; authorization spent
 
 The owner selected the existing nine-read AAPL proposal and authorized safeguards, independent
 review, accepted source integration and synchronized-main rebuild before one supervised non-model
@@ -61,9 +61,9 @@ Independent read-only specialist dispositions:
 - Acceptance: no remaining source blocker; distinguishes all-nine isolated fixtures from the
   integrated50-request cutoff, and legitimate empty actions from missing-status history.
 
-Final focused and contract checks passed. Source integration and synchronized-main rebuild remain
-before admission; none of these reviewers created owner authority, sent live Yahoo requests or
-mutated Git.
+Final focused and contract checks passed. At that review freeze, source integration and the
+synchronized-main rebuild remained before admission; their completion is recorded below. None
+of these reviewers created owner authority, sent live Yahoo requests or mutated Git.
 
 Actual pinned Python fixtures use authored values only. The all-nine strict-manifest fixture,
 concurrent admission, crashes at four custody transitions, short-write/fsync faults, HOME isolation,
@@ -83,13 +83,12 @@ The Canadian Yahoo terms fetch returned999 and Finance disclaimer fetch429 durin
 preflight. No retry or bypass was attempted. Current independent terms review remains unavailable;
 the owner's exact reported permission/authorization is recorded without claims of independent
 verification, unrestricted automation or public rights. These documentation fetches are separate
-from the gateway's future counted financial-data probe.
+from the later gateway probe.
 
 Read-only host preflight verified FileVault On and encrypted swap. The initially checked paths were
 included in Time Machine, so source now requires explicit exclusion and verifies it before provider
 I/O. An empty private temporary-directory preflight subsequently passed `tmutil addexclusion` and
-`isexcluded` (`[Excluded]`), then was removed. Actual live-path exclusion/admission/cleanup evidence
-remains pending.
+`isexcluded` (`[Excluded]`), then was removed. Actual live-path exclusion/admission/cleanup was then verified as recorded below.
 
 ## Preserved gates
 
@@ -97,9 +96,8 @@ Decision037 remains exhausted4/4. HQ-READY-02 and `inv05-v1` remain synthetic-on
 paper-trading operation, collector, schedule, production deployment, credit purchase, public
 publication, Asymmetri change, real trade or HQ-READY-04 is authorized or started.
 
-The live probe must follow reviewed source integration and main rebuild. Actual observations and
-cleanup will be reported privately, with only non-data status/request-count disposition retained
-here. A denial or partial result is an outcome, never authority to retry the entire probe.
+The live probe followed reviewed source integration and main rebuild. Actual outcome and cleanup
+are reported privately, with only non-data status/request-count disposition retained here. A denial or partial result is an outcome, never authority to retry the entire probe.
 
 ## Local evidence integrity
 
@@ -111,3 +109,35 @@ Only non-data test log digests are committed; full logs remain local.
 | hq-ready-03b-focused-final.log | `74423eaee3d0aea01524f9be13a7239a621271954bd4122acf98555c91dff07c` |
 | hq-ready-03b-contracts-final.log | `264329f1fe77c4162a2ada252482294ca6cd52a82f08ec70aaa27fd71d6e2b16` |
 | hq-ready-03b-check-final.log | `c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652` |
+
+## Integrated source and bounded outcome
+
+Source commit `22e9c6e58c35036341278b6e54c96008912ceb2c` was independently accepted and
+merged through [PR59](https://github.com/eugenelin89/bot_messenger/pull/59) at
+`6d3e1487177e2c78cdf4306800a7471545a442b3`. Clean local and remote main matched that merge;
+build, typecheck and all15 source-manifest checks passed again before admission. The pinned
+Python3.12.12/yfinance1.7.0 environment was verified. There were no configured GitHub status checks;
+acceptance relies on the recorded local tests and independent specialist reviews.
+
+The owner authorization was prepared once and consumed once. The first logical read stopped with
+an unknown transport outcome after one reserved attempt and one socket-start intent. There was
+no known HTTP response or live financial observation, no retry and no further logical read.
+The exact number of HTTP requests transmitted cannot be established from a start-intent receipt;
+the attempt remains conservatively consumed. Data quality for all nine planned reads is unverified.
+No Yahoo financial data is admitted for research, simulation, observed fills or public display.
+This is a completed bounded failure outcome, not a successful source-quality qualification.
+The independent acceptance reviewer inspected the actual non-data receipts and capsule absence,
+confirmed clean synchronized source, and accepted this stopped outcome with no rearm or retry.
+
+Normal cleanup destroyed the in-memory key and removed the entire private capsule. Independent
+filesystem verification found it absent and the original process exited. The reviewed recovery
+cleanup command also succeeded, retained spent authority and reported no resume. The fixed owner
+anchor remains private0700, each retained file0600, and Time Machine-excluded. Retained files are
+only approval, spent, non-data accounting, normal cleanup and recovery-cleanup receipts. Exact
+operational timestamps, counts/bytes and receipt integrity evidence were reported privately; no
+payload, credential, financial row or private quality report entered Git.
+
+Decision037 remains exhausted4/4, HQ-READY-02 remains synthetic-only, and all employee/model,
+collector, schedule, production, public, payment, trading and HQ-READY-04 gates remain unchanged.
+The single authorization is exhausted. Do not rerun, rearm, delete its anchor or infer ongoing
+collection rights. Any future diagnosis requiring Yahoo I/O needs separate explicit authority.

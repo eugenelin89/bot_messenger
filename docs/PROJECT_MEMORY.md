@@ -9,7 +9,9 @@ Yahoo/yfinance source and fixture integration is accepted under [HQ-READY-03](va
 The owner selected [HQ-READY-03B](validation/investment/HQ-READY-03B.md): implement trusted one-time
 admission and finite private custody, complete independent reviews/tests and source integration,
 rebuild synchronized main, then one bounded AAPL non-model probe. Read that acceptance record for
-current gate/outcome; never infer permission to repeat the probe or delete/reissue its spent anchor.
+current gate/outcome. The one authorized probe has now stopped at bootstrap with an unknown
+transport outcome and no financial data; cleanup is verified and authority is spent. Never repeat
+the probe or delete/reissue its spent anchor.
 
 [Decision038](decisions/decision_038_yahoo_finance_private_source.md) preserves owner-reported
 verbal personal-use permission; [Decision039](decisions/decision_039_one_shot_yahoo_qualification.md)
