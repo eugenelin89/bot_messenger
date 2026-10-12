@@ -24,7 +24,7 @@ function wait(ms:number,signal:AbortSignal):Promise<void>{return new Promise((re
   const timer=setTimeout(()=>{signal.removeEventListener('abort',abort);resolve();},ms);signal.addEventListener('abort',abort,{once:true});
 });}
 
-/** One-shot gateway; default inactive. A fixture transport is the only admitted capability in v1. */
+/** Default inactive. Observed reads require the separately consumed one-shot owner capability. */
 export class FinancialDataGateway {
   constructor(readonly store:FinancialStore,private readonly clock:SimulationClock,private readonly adapter:YahooAdapter,private readonly transport:YahooTransport){}
   async collect(policyId:string,request:FinancialRequest,requestId:string,signal?:AbortSignal):Promise<FinancialResult> {
@@ -34,7 +34,7 @@ export class FinancialDataGateway {
     const denied=(reason:string):FinancialResult=>({requestId,status:'blocked',reason,observationId:null,completedAt:this.clock.now(),retryAt:null,cached:false});
     let scope;
     try {scope=this.store.current(started);}catch(e){return denied(errorCode(e));}
-    ensure(this.adapter.kind===YAHOO_ADAPTER&&this.transport.kind==='authored_yahoo_fixture','live_yahoo_not_authorized');
+    ensure(this.adapter.kind===YAHOO_ADAPTER&&(scope.mode==='observed'?Boolean(this.store.probe):this.transport.kind==='authored_yahoo_fixture'),'live_yahoo_not_authorized');
     const p=this.store.market.get<SourcePolicy>(policyId,'policy'),i=this.store.market.get<InstrumentIdentity>(request.instrumentId,'instrument'),c=this.store.market.get<CalendarEvidence>(scope.calendarId,'calendar');
     const snapshotDate=request.start??started.slice(0,10),symbol=symbolAt(i,snapshotDate);
     if(request.end)ensure(symbolAt(i,new Date(time(`${request.end}T00:00:00Z`)-86400000).toISOString().slice(0,10))===symbol,'financial_symbol_changed_in_range');
@@ -43,7 +43,7 @@ export class FinancialDataGateway {
     const check=()=>{
       const current=this.store.current(this.clock.now());ensure(current.id===scope.id,'financial_scope_changed');
       ensure(current.policyIds.includes(p.id)&&current.instrumentIds.includes(i.id),'financial_scope_mismatch');
-      ensure(p.provider==='yahoo'&&p.feed==='yfinance'&&p.mode==='synthetic_fixture','live_yahoo_not_authorized');
+      ensure(p.provider==='yahoo'&&p.feed==='yfinance'&&p.mode===scope.mode,'live_yahoo_not_authorized');
       ensure(hash(this.store.market.get(p.id,'policy'))===hash(p),'financial_policy_changed');
       requireUses(p,['automation','internal_calculation','retention'],this.clock.now());
       ensure(time(this.clock.now())>=time(started),'financial_clock_reversal');
@@ -67,6 +67,7 @@ export class FinancialDataGateway {
       return null;
     });
     if(previous)return previous;
+    this.store.probe?.begin(this.store,this.transport,request);
     // The scope bounds the complete library operation; policy.timeoutMs bounds EACH wire attempt.
     // Cookie + crumb + data require separate rate-spaced calls and cannot share one socket deadline.
     const timeoutMs=scope.timeoutMs;

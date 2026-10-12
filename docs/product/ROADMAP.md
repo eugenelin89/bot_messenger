@@ -1157,3 +1157,8 @@ fixture acceptance. This advances only the investment source packet. The
 [live probe](../operations/YAHOO_FINANCIAL_GATEWAY.md), trusted retention/custody admission,
 observed methodology, HQ-READY-04, production and public release remain separately gated.
 Decision029 US$0 and Decision037 exhausted4/4 remain unchanged.
+
+HQ-READY-03B separately implements the owner-selected one-shot Yahoo qualification safeguards.
+Its [acceptance](../validation/investment/HQ-READY-03B.md) distinguishes fixtures, reviewed
+integration/main rebuild and one bounded actual probe. This does not start HQ-READY-04, recurring
+collection, observed fills, public publication or production deployment.

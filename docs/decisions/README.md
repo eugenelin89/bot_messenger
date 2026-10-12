@@ -176,3 +176,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 ## Owner-selected private financial source
 
 - [Decision 038 — Yahoo Finance for private personal research](decision_038_yahoo_finance_private_source.md): accepted owner selection of Yahoo and preferred Python `yfinance` adapter behind the planned controlled Financial Data Gateway. Permission is **owner-reported verbal permission for personal use**, with no independently verified writing or broader grant. Separately assess automation/retention and public redistribution; US$0 and HQ-READY-02 synthetic acceptance remain intact. [HQ-READY-03](../validation/investment/HQ-READY-03.md) now has source/fake acceptance; live data and operational authority remain blocked.
+
+- [Decision039 — One-shot private Yahoo qualification](decision_039_one_shot_yahoo_qualification.md): owner-selected HQ-READY-03B admission/custody, reviews and integrated-source gates before a single bounded non-model probe; no ongoing authority.

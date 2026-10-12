@@ -3,20 +3,18 @@
 **Updated:** 2026-10-11
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
-## Yahoo Finance source selection — current planning handoff
+## Yahoo Finance — one-shot qualification handoff
 
-On2026-10-11 America/Vancouver the owner selected Yahoo Finance as the primary financial-data
-source for the personal, non-commercial investment hobby project. Use preferred Python `yfinance`
-behind the planned controlled Financial Data Gateway. [Decision038](decisions/decision_038_yahoo_finance_private_source.md)
-records **owner-reported verbal permission from Yahoo for personal use**, with no independently
-verified writing or broader rights claim. Separately assess automated access/retention and public
-redistribution. US$0 remains fixed; no data call, dependency, collector or production activation.
+Yahoo/yfinance source and fixture integration is accepted under [HQ-READY-03](validation/investment/HQ-READY-03.md).
+The owner selected [HQ-READY-03B](validation/investment/HQ-READY-03B.md): implement trusted one-time
+admission and finite private custody, complete independent reviews/tests and source integration,
+rebuild synchronized main, then one bounded AAPL non-model probe. Read that acceptance record for
+current gate/outcome; never infer permission to repeat the probe or delete/reissue its spent anchor.
 
-The [HQ-READY-03 implementation plan](exec-plans/investment-hq-ready-03.md) is prepared only:
-OHLCV/fundamentals/statements/actions as available; immutable original provenance, conservative
-request/cache/retry controls and point-in-time admission. Yahoo research support need not qualify
-observed fills; new method/use authorization remains separate. HQ-READY-02 synthetic acceptance,
-Decision0374/4, runtime limits and all public/deployment gates are unchanged.
+[Decision038](decisions/decision_038_yahoo_finance_private_source.md) preserves owner-reported
+verbal personal-use permission; [Decision039](decisions/decision_039_one_shot_yahoo_qualification.md)
+records the narrower one-shot envelope and immediate cleanup. US$0, Decision037 exhausted4/4,
+HQ-READY-02 synthetic-only operation and all employee/public/production/trading gates remain.
 
 ## HQ-READY-02 finite private HQ source — accepted handoff
 
@@ -30,8 +28,8 @@ Migration22 is additive/inert. No genuine authority was created, no employee ope
 unapproved market data were consumed, and no deployment/Asymmetri changes occurred.
 Decision037 remains permanently exhausted4/4; historical reports and private evidence are unchanged.
 
-Stop after reviewed source integration. Recommend separately selecting HQ-READY-03 source/method
-qualification; do not start it, HQ-READY-04/05, INV-10+, automations or an official run. Genuine
+Preserve this historical source-only handoff; the separate HQ-READY-03/03B selections above do
+not authorize HQ-READY-04/05, INV-10+, automations or an official run. Genuine
 HQ-READY-04 requires exact new owner authority, fresh reload-OFF evidence, existing-credit/retry
 risk acceptance and separately authorized Linux/custody/elapsed-session acceptance. Source/fakes
 are not an accepted operating policy or live-readiness claim.

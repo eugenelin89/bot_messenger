@@ -1,8 +1,8 @@
 # Pinned Yahoo adapter
 
 HQ-READY-03 implements a one-operation Python adapter behind the trusted Financial Data
-Gateway. Import, migration and application startup never invoke it. Only authored fixture
-transport is admitted; `YahooHttpsTransport.exchange` rejects before DNS. There is no live
+Gateway. Import, migration and application startup never invoke it. The application remains fixture-only; the separate HQ-READY-03B owner CLI requires
+a consumed, exact private manifest and encrypted custody. The generic `YahooHttpsTransport.exchange` rejects before DNS. There is no live
 flag, employee command or collector. See the [dossier and probe proposal](../../docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
 
 ## Reproduce offline validation
@@ -20,11 +20,13 @@ node --test --test-concurrency=1 dist/test/yahoo-python.test.js dist/test/yahoo-
 
 Package installation reaches the package index, never Yahoo. Python fixture tests explicitly
 skip when this environment is absent; those skips cannot establish adapter acceptance.
-The fixed child uses `-I -B`, a temporary working directory/home/cache, a scrubbed environment,
+The fixed child uses `-I -B`, an empty temporary working directory/home, UTC, a scrubbed environment,
 single numerical threads and a bounded JSON-line protocol. No shell or user-selected executable
 is accepted. The audited requests session delegates every HTTP request to the parent; the Python
 audit hook rejects DNS/connect calls. This is defense in depth for the pinned trusted library,
-not an OS sandbox for arbitrary or malicious native Python packages. Child cancellation kills
+not an OS sandbox for arbitrary or malicious native Python packages. Pinned timezone, cookie
+and ISIN caches are disabled; a data-processing audit hook rejects file writes/process spawning.
+Core dumps are disabled and an independent 120-second child alarm survives supervisor death. Child cancellation kills
 the process and waits for close; no stderr/provider diagnostics enter receipts.
 
 ## Dependency and capability audit — 2026-10-11
@@ -68,3 +70,9 @@ Source was inspected in the installed1.7.0 wheel (`data.py`, `scrapers/history.p
 The [project documentation](https://ranaroussi.github.io/yfinance/) and
 [PyPI release](https://pypi.org/project/yfinance/1.7.0/) describe the library; neither its software
 license nor its availability grants Yahoo data automation, retention or redistribution rights.
+
+HQ-READY-03B freezes exact statement types/chunks and UTC epoch bounds from this pinned version.
+HTTP200 provider errors, malformed/empty top-level result envelopes and statement schema failures
+raise a non-catchable gateway stop before quote/chunk fallback. Empty action events within valid
+complete chart rows remain an honest zero-actions result. All such checks use authored fixtures
+before the separately authorized single probe.

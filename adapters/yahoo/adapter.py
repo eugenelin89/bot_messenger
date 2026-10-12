@@ -1,7 +1,7 @@
 """HQ-READY-03. One pinned yfinance operation, with every HTTP call delegated over stdio.
 
-There is deliberately no live transport. This process cannot open sockets; the trusted
-parent owns fixture admission/accounting. Never run a Yahoo convenience accessor directly.
+This process cannot open sockets; the trusted parent owns fixture or one-shot owner
+admission/accounting. Never run a Yahoo convenience accessor directly.
 """
 import json
 import logging
@@ -9,7 +9,7 @@ import math
 import os
 import platform
 import sys
-import tempfile
+import contextlib
 
 PROTOCOL = "yahoo-yfinance-v1"
 SETTINGS = dict(auto_adjust=False, back_adjust=False, repair=False, rounding=False,
@@ -56,14 +56,42 @@ def main():
         raise GatewayStop("python_dependency_version_mismatch")
     import requests
     import yfinance as yf
+    # Pinned cache classes are deliberately no-op: no timezone/cookie/ISIN SQLite or disk cache.
+    # This protects custody even if this child or its parent is killed without finally cleanup.
+    from yfinance import cache as yf_cache
+    yf_cache._TzCacheManager._tz_cache = yf_cache._TzCacheDummy()
+    yf_cache._CookieCacheManager._Cookie_cache = yf_cache._CookieCacheDummy()
+    yf_cache._ISINCacheManager._isin_cache = yf_cache._ISINCacheDummy()
     from yfinance.config import YfConfig
     if yf.__version__ != "1.7.0":
         raise GatewayStop("yfinance_version_mismatch")
+    from yfinance.scrapers.fundamentals import Financials
+    original_payload = Financials._fetch_fundamentals_payload
+    def strict_payload(self, *args, **kwargs):
+        try:
+            return original_payload(self, *args, **kwargs)
+        except Exception:
+            raise GatewayStop("python_statement_schema")
+    Financials._fetch_fundamentals_payload = strict_payload
     YfConfig.network.retries = 0
     YfConfig.network.proxy = None
     YfConfig.debug.hide_exceptions = False
     YfConfig.locale.lang = "en-US"
     YfConfig.locale.region = "US"
+    import resource
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    import signal
+    signal.signal(signal.SIGALRM, lambda *_: os._exit(1))
+    signal.alarm(120)  # Independent child ceiling survives loss of the supervisor.
+    def custody_guard(event, args):
+        if event == "open":
+            mode = args[1] if len(args) > 1 else None
+            flags = args[2] if len(args) > 2 else 0
+            if (isinstance(mode, str) and any(c in mode for c in "wax+")) or (isinstance(flags, int) and flags & (os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC | os.O_APPEND)):
+                raise GatewayStop("python_disk_write_disabled")
+        if event in ("os.mkdir", "os.rename", "os.remove", "os.rmdir", "subprocess.Popen", "os.system"):
+            raise GatewayStop("python_external_effect_disabled")
+    sys.addaudithook(custody_guard)
     envelope = read_line()
     if set(envelope) != {"protocol", "input"} or envelope["protocol"] != PROTOCOL:
         raise GatewayStop("python_protocol")
@@ -111,32 +139,55 @@ def main():
             response.headers["Content-Type"] = received["contentType"]
             # Validate ORIGINAL provider identities before yfinance can overwrite/normalize them.
             if any(path in url for path in ("/chart/", "/quoteSummary/", "/v7/finance/quote", "/timeseries/")):
-                document = response.json()
-                container = "chart" if "/chart/" in url else "quoteSummary" if "/quoteSummary/" in url else "quoteResponse" if "/v7/finance/quote" in url else "timeseries"
-                originals = document.get(container, {}).get("result")
-                if originals is not None:
-                    if not isinstance(originals, list) or len(originals) > 300:
-                        raise GatewayStop("python_source_schema")
+                try:
+                    document = response.json()
+                    container = "chart" if "/chart/" in url else "quoteSummary" if "/quoteSummary/" in url else "quoteResponse" if "/v7/finance/quote" in url else "timeseries"
+                    envelope = document.get(container)
+                    if not isinstance(envelope, dict) or envelope.get("error") is not None:
+                        raise GatewayStop("python_provider_denial_or_schema")
+                    originals = envelope.get("result")
+                    if not isinstance(originals, list) or not originals or len(originals) > 300:
+                        raise GatewayStop("python_source_empty_or_schema")
                     for original in originals:
                         identity = original.get("meta", {}).get("symbol") if container in ("chart", "timeseries") else original.get("symbol")
                         if identity != ([symbol] if container == "timeseries" else symbol):
                             raise GatewayStop("python_source_identity")
-            if "/v8/finance/chart/" in url:
-                document = response.json()
-                result = document.get("chart", {}).get("result")
-                if result:
-                    chart = result[0]
-                    if "timestamp" in chart and chart["timestamp"]:
-                        indicators = chart.get("indicators", {})
-                        quote = (indicators.get("quote") or [{}])[0]
-                        if not all(k in quote for k in ("open", "high", "low", "close", "volume")):
-                            raise GatewayStop("python_chart_schema")
-                        if not indicators.get("adjclose") or "adjclose" not in indicators["adjclose"][0]:
-                            raise GatewayStop("python_chart_adjustment_missing")
-                        arrays = list(quote.values()) + [indicators["adjclose"][0]["adjclose"]]
-                        if any(not isinstance(a, list) or len(a) != len(chart["timestamp"]) for a in arrays):
-                            raise GatewayStop("python_chart_schema")
-                    self.charts.append(chart)
+                        if container == "quoteSummary":
+                            for module in ("financialData", "quoteType", "defaultKeyStatistics", "assetProfile", "summaryDetail"):
+                                if module in original and not isinstance(original[module], dict):
+                                    raise GatewayStop("python_source_schema")
+                        if container == "timeseries":
+                            for key, points in original.items():
+                                if key in ("meta", "timestamp"):
+                                    continue
+                                if not isinstance(points, list):
+                                    raise GatewayStop("python_source_schema")
+                                for point in points:
+                                    if not isinstance(point, dict) or not isinstance(point.get("reportedValue"), dict):
+                                        raise GatewayStop("python_source_schema")
+                                    if "raw" not in point["reportedValue"] or not isinstance(point.get("asOfDate"), str):
+                                        raise GatewayStop("python_source_schema")
+                except (ValueError, TypeError, AttributeError, KeyError):
+                    raise GatewayStop("python_source_schema")
+            try:
+                if "/v8/finance/chart/" in url:
+                    document = response.json()
+                    result = document.get("chart", {}).get("result")
+                    if result:
+                        chart = result[0]
+                        if "timestamp" in chart and chart["timestamp"]:
+                            indicators = chart.get("indicators", {})
+                            quote = (indicators.get("quote") or [{}])[0]
+                            if not all(k in quote for k in ("open", "high", "low", "close", "volume")):
+                                raise GatewayStop("python_chart_schema")
+                            if not indicators.get("adjclose") or "adjclose" not in indicators["adjclose"][0]:
+                                raise GatewayStop("python_chart_adjustment_missing")
+                            arrays = list(quote.values()) + [indicators["adjclose"][0]["adjclose"]]
+                            if any(not isinstance(a, list) or len(a) != len(chart["timestamp"]) for a in arrays):
+                                raise GatewayStop("python_chart_schema")
+                        self.charts.append(chart)
+            except (ValueError, TypeError, AttributeError, KeyError, IndexError):
+                raise GatewayStop("python_chart_schema")
             return response
 
     def cell(value):
@@ -153,8 +204,7 @@ def main():
         return str(value)
 
     # Fresh isolated cache per operation: no home cookies, credentials or persistent yfinance cache.
-    with tempfile.TemporaryDirectory(prefix="yf-private-") as cache:
-        yf.set_tz_cache_location(cache)
+    with contextlib.nullcontext():
         session = BridgeSession()
         ticker = yf.Ticker(symbol, session=session)
         klass = r["dataClass"]

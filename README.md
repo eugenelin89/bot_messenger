@@ -616,6 +616,8 @@ project, with pinned Python `yfinance` behind the controlled Financial Data Gate
 owner-reported verbal personal-use permission; automation/retention and public rights remain
 separate assessments. [HQ-READY-03 source acceptance](docs/validation/investment/HQ-READY-03.md)
 covers daily OHLCV, fundamentals, annual/quarterly statements and actions using authored Yahoo
-fixtures, immutable provenance and conservative point-in-time admission. Live admission remains
-hard-blocked pending the [separate probe proposal](docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
+fixtures, immutable provenance and conservative point-in-time admission. Owner-selected
+[HQ-READY-03B](docs/validation/investment/HQ-READY-03B.md) adds a separate one-shot local owner
+qualification with finite private custody; actual execution follows reviewed integration and a
+synchronized-main rebuild under the [runbook](docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
 US$0, synthetic-only HQ-READY-02 acceptance and inactive production authority are unchanged.

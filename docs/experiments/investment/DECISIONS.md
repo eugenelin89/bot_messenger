@@ -1,6 +1,6 @@
 # Design decisions and launch configuration
 
-**Version:** 1.7 | **Updated:** 2026-10-11 America/Vancouver | [Guide](README.md)
+**Version:** 1.9 | **Updated:** 2026-10-11 America/Vancouver | [Guide](README.md)
 
 ## Status discipline
 
@@ -129,3 +129,13 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 ## 2026-10-10 — Activity policy and estimated AI cost
 
 [Decision036](../../decisions/decision_036_subscription_activity_usage.md) records the owner-approved8/rolling24h,24/run,15minute,1 investment/2 global policy. Invocation means a supervised turn including its internal tool loop. Strict mode remains separate; real Codex subscription admission is blocked. Usage/API-equivalent estimates are private reference reporting, separate from portfolio P&L, billing and subscription quota. Decision029 remains unchanged.
+
+## HQ-READY-03B bounded qualification — owner selection
+
+The owner selected the existing one-shot AAPL proposal, including trusted admission/private
+custody, offline tests, independent reviews, accepted source integration and synchronized-main
+rebuild before any actual data probe. [Decision039](../../decisions/decision_039_one_shot_yahoo_qualification.md)
+and [acceptance](../../validation/investment/HQ-READY-03B.md) distinguish implemented safeguards,
+fixture evidence, actual attempts and cleanup. Permission remains owner-reported personal use;
+no broader automated/retention/public rights follow. All historical simulation, observed fills,
+employee delivery, production and HQ-READY-04 gates remain; Decision037 stays exhausted4/4.
