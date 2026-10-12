@@ -27,7 +27,13 @@ export interface FinancialScope {
   maxResponseBytes: number; maxTotalBytes: number; timeoutMs: number; maxRetries: number;
 }
 export interface YahooQuery { method: 'GET'; url: string; params: Record<string, string | number | boolean>; }
-export interface YahooResponse { status: number; body: string; contentType: string; retryAfter: string | null; }
+export interface YahooResponse {
+  status: number; body: string; contentType: string; retryAfter: string | null;
+  /** Nonsecret parent verdict; no cookie value or claimed logged-in session. Offline profile only. */
+  bootstrapCookiePresent?: true;
+  /** Complete but rejected response in the offline compatibility profile; never transport success. */
+  bootstrapRejected?: true;
+}
 /** Live transport additionally requires a process-bound, consumed owner probe capability. */
 export interface YahooTransport {
   readonly kind: 'authored_yahoo_fixture' | 'yahoo-https-v1';

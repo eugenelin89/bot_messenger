@@ -253,3 +253,18 @@ before any operation. No data is admitted to employees, simulation, public outpu
 before chart access. Its approval is spent1/1/noResume; capsule/key deletion and prior receipts
 are verified. Do not invoke prepare/run again. Only non-data status/cleanup inspection remains;
 any new provider access requires a separately selected and reviewed authority.
+
+## HQ-READY-03F — offline bootstrap correction
+
+[Decision042](../decisions/decision_042_yahoo_bootstrap_compatibility.md) distinguishes a narrow,
+complete plain-text cookie404 with a usable newly received anonymous cookie from terminal
+refusal. The pinned library ignores bootstrap status; BotSquad retains the original404 and
+counts it as an attempt. [Authored acceptance](../validation/investment/HQ-READY-03F.md) covers
+full gateway/Python/normalization behavior. Unrecognized responses, missing cookie/crumb and
+upstream no-crumb/refusal fallbacks remain blocked. The correction is fixture-only: existing
+live custody/issuers and all historical receipts are unchanged and permanently spent.
+
+The [next exact AAPL proposal](YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) requires separate owner
+approval and a reviewed extension of existing custody before any network access. No new
+live authority was prepared or consumed. Fictional success does not classify the destroyed03E
+body, establish today's access conditions, qualify execution prices or grant publication rights.

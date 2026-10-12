@@ -622,3 +622,9 @@ qualification with finite private custody. Its single attempt stopped at bootstr
 transport outcome; no financial data was admitted, cleanup is verified and authority is spent.
 See the [runbook](docs/operations/YAHOO_FINANCIAL_GATEWAY.md).
 US$0, synthetic-only HQ-READY-02 acceptance and inactive production authority are unchanged.
+
+[HQ-READY-03F](docs/validation/investment/HQ-READY-03F.md) investigates pinned bootstrap404
+semantics and adds narrowly qualified **offline-only** compatibility through the existing gateway.
+All three previous Yahoo authorities remain spent; no actual AAPL history is qualified.
+The [next bounded proposal](docs/operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) requires
+separate owner approval and reviewed custody integration before any Yahoo request.

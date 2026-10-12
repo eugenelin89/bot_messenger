@@ -85,3 +85,14 @@ checks each ordinal of the six-call manifest. Three successful cookie-bootstrap 
 crumb, one metadata chart and one historical chart are the audited sequence; every call counts.
 Any non-200 including cookie404 stops. See Decision041 and03E acceptance; source/profile alone
 grants no wire permission, and the old default adapter/authorities retain their original scope.
+
+HQ-READY-03F adds `bootstrap.py`, an **offline-only** compatibility profile through the same
+adapter. It preserves HTTP404 only for an exact parent-qualified cookie-bootstrap response,
+requires actual cookie presence without copying credentials into Python, and rejects missing
+crumbs. All-200 legacy03E behavior and spent custody remain unchanged. The gateway exception
+requires synthetic scope and authored transport; no owner CLI selects this profile. Run
+`node --test dist/test/yahoo-bootstrap.test.js` after build for actual pinned-library authored
+fixtures, including separately isolated upstream no-crumb/fallback tests. The exact six-call
+sequence persists; two calls are charts. [Decision042](../../docs/decisions/decision_042_yahoo_bootstrap_compatibility.md)
+defines the narrow grammar and [acceptance](../../docs/validation/investment/HQ-READY-03F.md)
+records limitations. No404 body from a previous private probe was recovered or used as a fixture.
