@@ -1,12 +1,12 @@
 # Execution Plan — HQ-READY-03E AAPL historical qualification
 
-**Status:** Active  
+**Status:** Complete — single live attempt closed; no data obtained, cleanup verified
 **Owner:** Parent Codex task; sole writer/integration owner  
 **Branch:** `codex/hq-ready-03e`  
 **Worktree:** `../bot_messenger-hq-ready-03e`  
 **Started:** 2026-10-12 America/Vancouver  
 **Initial ETA:** 2–4 hours; adapter audit, safeguards, independent reviews, regression, integration and one supervised attempt  
-**Current ETA:** Approximately20–35 minutes remaining at06:45 local; full-suite fixture correction added a second serial run
+**Final timing:** Execution/cleanup finished at07:02 local. The fixture correction required a second full serial run lasting539.326s; watchdog hardening and independent review also added work to the initial estimate.
 
 ## Objective and authority
 
@@ -62,11 +62,12 @@ production deployment, provider purchase or public delivery. Decision029 remains
 | Source freeze | Runtime `2cdc9e6d449882c27aa54e668febe373dd53ad4e`; test-only follow-up `87ad823b92a606ddad0221ee3923097142b8f041`; 30 source and 20 compiled files pinned |
 | Typecheck/contracts/local TLS | Passed;175 contracts and4 actual loopback tests, zero skips |
 | Full regression | Initial1486pass/1fixture-expectation failure/6existing skips; corrected two-mode local TLS fixture reviewed; final1493 total/1487pass/0fail/6existing skips in539.326s |
-| Live gate | Unprepared and unconsumed; zero Yahoo requests |
+| Integration/live | PR64 merged c63c887; clean-main build/hash checks passed; one fc bootstrap HTTP404,4,585 bytes; no chart or retry |
+| Closure | Process group gone; capsule/key deleted; new spent/noResume retained; all11 historical hashes unchanged |
 
-## Remaining work
+## Closure
 
-Implementation, all required regressions and independent source reviews are complete.
-Acceptance commit, reviewed integration, clean-main rebuild,
-host/custody gates and the single supervised execution remain.
-Live success is not promised; denial, empty result or uncertainty is a terminal outcome.
+Implementation, independent reviews, regressions, reviewed integration, rebuilt-main/source
+verification and the single supervised attempt are complete. Bootstrap404 is terminal; no AAPL
+data was obtained. Immediate destruction and historical preservation are verified. Only the
+non-data outcome record is integrated afterward; no further live operation is authorized.

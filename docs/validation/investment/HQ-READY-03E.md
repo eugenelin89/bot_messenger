@@ -3,7 +3,7 @@
 **Started:** 2026-10-12 America/Vancouver  
 **Base:** `d49c77b9d655413ceb66818eafb1361f91e4c404`, clean freshly fetched local/remote main  
 **Branch/worktree:** `codex/hq-ready-03e` / `../bot_messenger-hq-ready-03e`  
-**Status:** Source/offline acceptance passed; integration and live gates pending; no live authority prepared or Yahoo request made
+**Status:** Complete — one bootstrap HTTP404 response; no AAPL data obtained; authority permanently spent and cleanup verified
 
 [Decision041](../../decisions/decision_041_one_shot_aapl_history.md) records the owner's exact
 new authorization and reported permission. Parent is sole writer; independent reviewers are
@@ -50,7 +50,7 @@ accepted as reported; no independent written terms verification or public rights
 - The crash test previously titled “after durable reservation” actually exercised consumption
   and sealing. Its title is corrected; reservation/transport failures have separate fixtures.
 - Security, recovery, architecture and acceptance specialists report no remaining blocking
-  source defects. Required regression is complete; integration remains pending.
+  source defects. Required regression is complete; integration and live evidence follow below.
 - Initial full serial run:1493 total,1486 passed,1 failed,6 existing skips,591.201s. The local
   TLS fixture expected `all:true` despite the new explicit family4/no-auto-selection production
   options; the HTTP exchange itself succeeded. The corrected fixture separately verifies actual
@@ -61,9 +61,9 @@ accepted as reported; no independent written terms verification or public rights
   zero skips. Full serial rerun:1493 total,1487 passed,0 failed,6 existing skips,539.326s.
 
 All financial values used in fixtures are authored. Live data is never copied to tests/Git.
-All offline validation gates passed. Source integration,
-rebuilt main, single live outcome and cleanup are separate
-uncompleted gates; no source-success claim is a financial-data qualification.
+All offline validation gates passed. Reviewed integration, rebuilt main, the single live
+outcome and cleanup are complete as recorded below. Source acceptance does not establish
+financial-data availability or quality.
 
 ## Frozen source
 
@@ -85,7 +85,8 @@ passed on a new empty temporary directory, then that fixture was deleted. Live a
 exclusion is independently repeated at preparation/consumption; this fixture is no authority.
 All11 original03B/03D files were hashed privately before work, and exact names/bytes match again
 after development. Both authorities remain spent/noResume; Decision037 remains exhausted4/4.
-The03E live anchor and capsule are still absent. No financial data was obtained in testing.
+At this pre-live checkpoint the03E live anchor and capsule were absent. No financial data was
+obtained in testing. The separate actual result is recorded below.
 
 ## Retained validation logs
 
@@ -106,3 +107,91 @@ test was skipped. Runtime source remains commit2cdc9e6; the sole later test corr
 87ad823. Security independently verified all30 source and20 build entries against that commit.
 Architecture/recovery clear the same runtime; acceptance cleared the fixture correction and
 requires the full passing result above. No Level3 employee, public or production run is claimed.
+
+## Reviewed integration and live admission
+
+[PR64](https://github.com/eugenelin89/bot_messenger/pull/64) merged the three reviewed commits as
+`c63c8872db1b9d95bcedb15de1e7bc6e0783f368`. Remote inspection confirmed the expected PR head,
+mergeability, no remote review submissions/unresolved threads and no reported status checks.
+The local independent specialist reviews supply the recorded source acceptance.
+
+Clean primary main was fast-forwarded to that exact remote commit and rebuilt/typechecked.
+All30 source and20 compiled manifest entries matched the reviewed files. Node24.10.0 and14GiB
+available disk were verified, and all11 historical authority hashes still matched. The accepted
+source/build identity was `23b1232057e14705c89ebdddc4e3b6e3364e3f5fa55b6824ea8e300a7acd0649`.
+Preparation and consumption independently enforced host/source/expiry/backup-exclusion gates.
+
+The new approval was prepared at `2026-10-12T14:01:42.246Z` with manifest hash
+`eac1a4911277ad708075cbc82f7a661cded4e6adfc8ea700eb67c0af53a9c513`, expiring ten minutes later.
+Its create-only spent marker records `startedAt=2026-10-12T14:02:11.775Z` and was durably
+written before capsule setup or DNS. The exact six-request maximum was unchanged. No previous authority was used.
+
+## Actual one-shot outcome — 2026-10-12
+
+| Evidence | Actual result |
+| --- | --- |
+| Logical operations | One AAPL historical OHLCV operation admitted; unavailable at bootstrap |
+| Requests | Exactly one GET to `https://fc.yahoo.com/`, no parameters; one DNS invocation and one pinned address attempt |
+| TCP/TLS | `tcp_connected`64ms; verified `tls_established`80ms |
+| Request/response | `request_finished`83ms; HTTP404 headers133ms; `response_complete`142ms |
+| Response time | Completed receipt at `2026-10-12T14:02:23.368Z`; provider HTTP Date14:02:23GMT |
+| Application body | 4,585 bytes, complete; same aggregate total, below both caps |
+| Stop | `http_refused` / `yahoo_http_refused`; gateway `unavailable` / `yahoo_http_or_redirect_denied`; quality=null |
+| Subsequent traffic | Zero; no second bootstrap, crumb, metadata or historical chart request; query1 price endpoint never attempted |
+| Retries/fallback | Zero provider retries, redirects, alternate hosts or replay |
+| Supervisor | Exit0, no watchdog kill, one wire permit,11,901ms total including cleanup; data group gone |
+| Cleanup | Key destroyed, descriptors closed, capsule removed at14:02:23.395Z; post-exit recovery receipt14:02:23.460Z |
+
+The last confirmed transport/provider stage is a **complete HTTP404 response**, not an unknown
+transport outcome. It proves verified endpoint/time connectivity and an unsuccessful bootstrap.
+It does not prove a general automation ban, consent challenge, cookie validity or chart access.
+No raw body/header/cookie content is reproduced here. Body originals existed only in encrypted
+private custody/memory and were immediately destroyed. Byte counts are application payload,
+not total wire bytes. Five-second inter-request spacing was not exercised live because there
+was only one request; authored tests establish that control.
+
+## Financial quality and permitted use
+
+No AAPL daily OHLCV dataset was obtained. The21 scheduled September sessions remain unassessed:
+there are no observed bars from which to classify field missingness, actual session coverage,
+currency/listing metadata, raw/adjusted meanings, timezone/event times or corporate actions.
+Do not mislabel this as21 confirmed missing provider bars or as source qualification.
+
+No historical decision evidence, observed-price paper fill, complete investment run, employee
+input or public Asymmetri data was produced. Current retrieval cannot be backdated; provider
+availability and adjusted execution semantics remain unqualified. Owner-reported verbal
+personal-use permission remains reported, not independently verified writing or public rights.
+US$0 incremental market-data cost is preserved; no employee inference/credits, subscription,
+trade, schedule, production deployment or HQ-READY-04 activation occurred.
+
+## Permanent closure and preserved receipts
+
+The new authority is spent1/1 with permanent `noResume=true`; unused request capacity cannot
+be reused. Direct inspection confirmed the original PID and process group are absent and the
+private capsule no longer exists. The fixed anchor is backup-excluded, mode0700, with six
+non-data files at0600. All11 original03B/03D files retain identical names and hashes; both spent
+markers/no-replay/cleanup records are unchanged. Decision037 remains exhausted4/4.
+
+Only non-data receipt hashes are committed; receipts remain in the independent owner-private
+03E anchor. The sanitized inspection summary remains `/private/tmp/hq-ready-03e-live-summary.json`.
+
+| Private non-data receipt | SHA256 |
+| --- | --- |
+| `accounting.jsonl` | `92c1cba9b48cfc2f6856627ed36c91153eef7ce8a3238a5a991a31762e96aeca` |
+| `approval.json` | `335f72a38e9b5edf0fc6ca84f7532043e0b7085944deb866c2ac4f4d6ea29a20` |
+| `capsule.json` | `d7ec017529a9165b95912b01065a4eeec069c8f99dc33e4ec373fd8eb15e6bce` |
+| `cleanup.json` | `83adb84016cd8e532e1fc69396b6bdb65cb58fd8ac42341cd0c5c4c40c1bc248` |
+| `recovery-cleanup.json` | `fe283ad289f717acd3e0c93da4f56c59b8b41e350040e6c8663338916a21f311` |
+| `spent.json` | `7e4e5ae689f43b54a79e6e0430438a00ada4a078ce16f8bc3adfe097d11bba0f` |
+
+The next focused diagnostic, if separately selected, is an **offline** review of the pinned
+library's cookie-bootstrap HTTP status handling against the strict200-only gateway contract.
+Establish what this404 can and cannot mean before proposing any different capability. This is
+not permission to accept a denial, bypass restrictions, replay this approval or make another
+request. HQ-READY-03E stops permanently after this attempt and verified cleanup.
+
+Independent live acceptance directly verified all six new non-data receipt hashes/modes, backup
+exclusion, capsule absence, original PID/group absence, all11 historical hashes and the30/20
+primary-main manifests. No material outcome/cleanup blocker remains. This follow-up changes
+only documentation; the actual live source is the PR64 merge above, distinct from the later
+documentation-only final-main commit. No further provider request is authorized.

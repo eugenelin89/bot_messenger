@@ -1,7 +1,7 @@
 # Decision041 — Separate one-shot AAPL history qualification
 
 **Date:** 2026-10-12 America/Vancouver  
-**Status:** Owner-selected; source and live gates recorded separately in acceptance
+**Status:** Source accepted; one live bootstrap attempt complete; authority spent1/1, cleanup verified
 
 The owner selects HQ-READY-03E: implement safeguards, offline acceptance and independent
 security/recovery/architecture/acceptance review, integrate accepted source and rebuild clean
