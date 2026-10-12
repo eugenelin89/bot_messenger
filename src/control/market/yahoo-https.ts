@@ -10,7 +10,8 @@ import { ensure } from '../../domain/investment/arithmetic.js';
 import type { FinancialRequest, YahooQuery, YahooResponse, YahooTransport } from '../../domain/market/financial.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
 import { publicAddress } from '../../research/public-fetch.js';
-import { assertProbeCapability, isOwnerProbe, type YahooProbeCustody, type WireReceipt } from './yahoo-probe-custody.js';
+import type { WireReceipt } from './yahoo-probe-custody.js';
+import { assertFinancialCustody, isOwnerFinancialCustody, type FinancialCustody } from './financial-custody.js';
 
 export interface YahooWire {
   lookup: typeof lookup;
@@ -66,9 +67,9 @@ export function yahooPinnedLookup(selected: LookupAddress): LookupFunction {
     else callback(null, selected.address, selected.family);
   };
 }
-function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:YahooProbeCustody):YahooTransport {
+function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:FinancialCustody):YahooTransport {
   const jar = new CookieJar(); let active = false;
-  return { kind: probe && isOwnerProbe(probe) ? 'yahoo-https-v1' : 'authored_yahoo_fixture', async exchange(query, signal, maxBytes) {
+  return { kind: probe && isOwnerFinancialCustody(probe) ? 'yahoo-https-v1' : 'authored_yahoo_fixture', async exchange(query, signal, maxBytes) {
     ensure(!active, 'yahoo_concurrent_wire'); active = true;
     const deadline = AbortSignal.timeout(10000);
     const combined = AbortSignal.any([signal, deadline, ...(probe ? [probe.signal] : [])]);
@@ -80,20 +81,24 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
       retryAfter: null, reason: 'yahoo_transport_unknown', completedAt: new Date().toISOString() };
     const captured: Buffer[] = []; let bootstrap = false;
     const stop = (): 'timeout' | 'cancelled' | null => {
+      if (performance.now() - started >= 10000) return 'timeout';
       if (!combined.aborted) return null;
       // Gateway deadlines carry fixed reasons; arbitrary caller reasons are never serialized.
       const reason = combined.reason;
       return reason === deadline.reason && deadline.aborted || reason instanceof Error &&
         ['financial_transport_timeout', 'financial_timeout'].includes(reason.message) ? 'timeout' : 'cancelled';
     };
+    const checkTime = () => ensure(stop() === null, 'yahoo_cancelled');
     const confirm = (stage: YahooStage): void => {
       if (frozen || confirmed.has(stage)) return;
-      last = { stage, at: new Date().toISOString(), elapsedMs: Math.floor(performance.now() - started) };
-      confirmed.add(stage);
+      const admissionStage = stage === 'request_validated' || stage === 'request_reserved';
+      if (!admissionStage) checkTime();
+      const next = { stage, at: new Date().toISOString(), elapsedMs: Math.floor(performance.now() - started) };
       if (probe && reserved) {
-        try { probe.confirmTransportStage(last); }
+        try { probe.confirmTransportStage(next); }
         catch (error) { settlementFailed = true; throw error; }
       }
+      last = next; confirmed.add(stage); if (!admissionStage) checkTime();
     };
     const diagnose = (error: unknown) => yahooDiagnostic(last, error, receipt.status, wireIntent, stop(), settlementFailed);
     try {
@@ -109,10 +114,11 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
         }
         reserved = true; confirm('request_reserved');
       }
-      ensure(!combined.aborted, 'yahoo_cancelled');
+      checkTime();
       ensure(Number.isSafeInteger(maxBytes) && maxBytes > 0 && maxBytes <= 262144, 'yahoo_response_limit');
       const url = new URL(query.url);
       for (const [key, value] of Object.entries(query.params)) url.searchParams.append(key, String(value));
+      if (probe && 'beforeDns' in probe) await probe.beforeDns(combined);
       confirm('dns_started');
       const addresses = await new Promise<LookupAddress[]>((resolve, reject) => {
         let done = false;
@@ -123,16 +129,16 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
         const abort = () => finish(new Error('yahoo_cancelled'));
         combined.addEventListener('abort', abort, { once: true });
         if (combined.aborted) { abort(); return; }
-        try { void wire.lookup(url.hostname, { all: true, verbatim: true }).then(value => finish(null, value), error => finish(error)); }
+        try { checkTime(); void wire.lookup(url.hostname, { all: true, verbatim: true }).then(value => finish(null, value), error => finish(error)); }
         catch (error) { finish(error); }
       });
-      ensure(!combined.aborted, 'yahoo_cancelled'); confirm('dns_resolved');
+      checkTime(); confirm('dns_resolved');
       ensure(Array.isArray(addresses) && addresses.length > 0 && addresses.length <= 32 &&
         addresses.every(a => a && typeof a.address === 'string' && [4, 6].includes(a.family) &&
           isIP(a.address) === a.family && publicAddress(a.address)), 'yahoo_protected_address');
       const selected = addresses[0]!; confirm('destination_validated');
       if (probe) await probe.beforeWire(combined);
-      ensure(!combined.aborted, 'yahoo_cancelled'); wireIntent = true; confirm('wire_intent');
+      checkTime(); wireIntent = true; confirm('wire_intent');
       return await new Promise<YahooResponse>((resolve, reject) => {
         let req: ClientRequest | undefined, res: IncomingMessage | undefined;
         const finish = (error: unknown, value?: YahooResponse) => {
@@ -147,14 +153,15 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
         const abort = () => finish(new Error('yahoo_cancelled'));
         const guarded = (action: () => void) => {
           if (frozen) return;
-          try { ensure(!combined.aborted, 'yahoo_cancelled'); action(); } catch (error) { finish(error); }
+          try { checkTime(); action(); } catch (error) { finish(error); }
         };
         combined.addEventListener('abort', abort, { once: true });
         if (combined.aborted) { abort(); return; }
         try {
           const cookies = jar.header(url);
+          checkTime();
           req = wire.request(url, { method: 'GET', agent: false, signal: combined, rejectUnauthorized: true,
-            servername: url.hostname, lookup: yahooPinnedLookup(selected), maxHeaderSize: 16384,
+            servername: url.hostname, ...{ family: selected.family, autoSelectFamily: false }, lookup: yahooPinnedLookup(selected), maxHeaderSize: 16384,
             headers: { 'User-Agent': 'BotSquad/0.1 private personal research', 'Accept': 'application/json, text/plain',
               'Accept-Encoding': 'identity', ...(cookies ? { Cookie: cookies } : {}) } }, incoming => {
             // Attach the error sink even to a response arriving after cancellation.
@@ -207,7 +214,7 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
           }));
           req.once('finish', () => guarded(() => confirm('request_finished')));
           if (frozen) { req.destroy(); return; }
-          confirm('request_created'); req.end();
+          confirm('request_created'); checkTime(); req.end();
         } catch (error) { finish(error); }
       });
     } catch (error) {
@@ -238,9 +245,9 @@ export function yahooOfflineWire(request:FinancialRequest,symbol:string,wire:Yah
 }
 
 /** A consumed host capability is required; fixture capabilities cannot select real DNS/HTTPS. */
-export function yahooProbeTransport(probe:YahooProbeCustody,wire?:YahooWire):YahooTransport {
-  assertProbeCapability(probe);
-  if(isOwnerProbe(probe))ensure(wire===undefined,'probe_real_wire_not_injectable');
+export function yahooProbeTransport(probe:FinancialCustody,wire?:YahooWire):YahooTransport {
+  assertFinancialCustody(probe);
+  if(isOwnerFinancialCustody(probe))ensure(wire===undefined,'probe_real_wire_not_injectable');
   else ensure(wire&&wire.lookup!==lookup&&wire.request!==httpsRequest,'probe_fixture_requires_fake_wire');
   const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe);
   probe.bindTransport(transport);return transport;

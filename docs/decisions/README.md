@@ -180,3 +180,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision039 — One-shot private Yahoo qualification](decision_039_one_shot_yahoo_qualification.md): owner-selected HQ-READY-03B admission/custody, reviews and integrated-source gates before a single bounded non-model probe; no ongoing authority.
 
 - [Decision040 — Separate one-shot Yahoo connectivity](decision_040_one_shot_yahoo_connectivity.md): HQ-READY-03D owner approval for one minimal GET with independent private custody and non-data receipts; no rearm of03B, financial reads or ongoing authority.
+
+- [Decision041 — Separate one-shot AAPL history qualification](decision_041_one_shot_aapl_history.md): HQ-READY-03E, one historical operation/six requests, independent one-use custody; prior authorities remain spent.

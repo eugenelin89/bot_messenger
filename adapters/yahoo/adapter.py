@@ -15,6 +15,7 @@ PROTOCOL = "yahoo-yfinance-v1"
 SETTINGS = dict(auto_adjust=False, back_adjust=False, repair=False, rounding=False,
                 actions=True, keepna=True, prepost=False, interval="1d")
 MAX_LINE = 600_000
+HISTORY_QUERY1_ONLY = False
 
 
 class GatewayStop(BaseException):
@@ -65,6 +66,13 @@ def main():
     from yfinance.config import YfConfig
     if yf.__version__ != "1.7.0":
         raise GatewayStop("yfinance_version_mismatch")
+    if HISTORY_QUERY1_ONLY:
+        import yfinance.base as yf_base
+        import yfinance.scrapers.history as yf_history
+        if yf_base._BASE_URL_ != "https://query2.finance.yahoo.com" or yf_history._BASE_URL_ != "https://query2.finance.yahoo.com":
+            raise GatewayStop("python_host_profile_changed")
+        # Fixed before Ticker creation; never a response-triggered host switch.
+        yf_base._BASE_URL_ = yf_history._BASE_URL_ = "https://query1.finance.yahoo.com"
     from yfinance.scrapers.fundamentals import Financials
     original_payload = Financials._fetch_fundamentals_payload
     def strict_payload(self, *args, **kwargs):
@@ -106,6 +114,9 @@ def main():
         raise GatewayStop("python_protocol")
     if r["schemaVersion"] != "financial-research-v1" or r["adjustment"] != "yahoo_unrepaired":
         raise GatewayStop("python_protocol")
+
+    if HISTORY_QUERY1_ONLY and (symbol != "AAPL" or r["dataClass"] != "ohlcv" or r["start"] != "2026-09-01" or r["end"] != "2026-10-01"):
+        raise GatewayStop("python_history_profile")
 
     class BridgeSession(requests.Session):
         def __init__(self):

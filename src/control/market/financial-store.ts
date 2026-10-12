@@ -3,18 +3,18 @@ import { canonical, exact, hash, id, integer, time } from '../../domain/investme
 import { verifyFinancialObservation } from '../../domain/market/financial-normalize.js';
 import type { FinancialObservation, FinancialResult, FinancialScope } from '../../domain/market/financial.js';
 import { MarketStore } from './store.js';
-import { assertProbeCapability, type YahooProbeCustody } from './yahoo-probe-custody.js';
+import { assertFinancialCustody, type FinancialCustody } from './financial-custody.js';
 export class FinancialStore {
   readonly db;
-  constructor(readonly market: MarketStore, readonly probe?: YahooProbeCustody) {
+  constructor(readonly market: MarketStore, readonly probe?: FinancialCustody) {
     this.db=market.db;
-    if(probe){assertProbeCapability(probe);probe.bind(this);}
+    if(probe){assertFinancialCustody(probe);probe.bind(this);}
   }
   /** Explicit setup; observed scope requires consumed owner custody. Never called by startup or employee tools. */
   initialize(scope: FinancialScope): void {
     exact(scope,['id','mode','policyIds','instrumentIds','calendarId','approvedAt','expiresAt','maxRequests','minIntervalMs','maxResponseBytes','maxTotalBytes','timeoutMs','maxRetries']);
     id(scope.id);id(scope.calendarId);
-    if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertProbeCapability(this.probe);this.probe.assertStore(this,scope);}
+    if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertFinancialCustody(this.probe);this.probe.assertStore(this,scope);}
     else ensure(scope.mode==='synthetic_fixture'&&!this.probe,'live_yahoo_not_authorized');
     ensure(Array.isArray(scope.policyIds)&&scope.policyIds.length>0&&scope.policyIds.length<=4&&new Set(scope.policyIds).size===scope.policyIds.length,'financial_scope');
     ensure(Array.isArray(scope.instrumentIds)&&scope.instrumentIds.length>0&&scope.instrumentIds.length<=3&&new Set(scope.instrumentIds).size===scope.instrumentIds.length,'financial_scope');
@@ -44,7 +44,7 @@ export class FinancialStore {
   current(at:string): FinancialScope {
     this.assertClock(at);
     const scope=this.scope();ensure(scope,'financial_gateway_inactive');
-    if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertProbeCapability(this.probe);this.probe.assertStore(this,scope);}
+    if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertFinancialCustody(this.probe);this.probe.assertStore(this,scope);}
     else ensure(scope.mode==='synthetic_fixture'&&!this.probe,'live_yahoo_not_authorized');
     ensure(time(at)>=time(scope.approvedAt)&&time(at)<time(scope.expiresAt),'financial_scope_expired');
     ensure(!this.db.get('SELECT 1 FROM financial_revocations WHERE scope_id=?',scope.id),'financial_scope_revoked');return scope;

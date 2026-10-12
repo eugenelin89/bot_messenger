@@ -76,3 +76,12 @@ HTTP200 provider errors, malformed/empty top-level result envelopes and statemen
 raise a non-catchable gateway stop before quote/chunk fallback. Empty action events within valid
 complete chart rows remain an honest zero-actions result. All such checks use authored fixtures
 before the separately authorized single probe.
+
+HQ-READY-03E adds `history.py`, a separate fixed query1-only profile for exactly AAPL daily
+history September1 inclusive–October1 exclusive2026. It asserts the pinned library's original
+query2 globals, then sets both `yfinance.base._BASE_URL_` and `yfinance.scrapers.history._BASE_URL_`
+to query1 before Ticker creation. This is not response-based fallback. The parent separately
+checks each ordinal of the six-call manifest. Three successful cookie-bootstrap calls, one
+crumb, one metadata chart and one historical chart are the audited sequence; every call counts.
+Any non-200 including cookie404 stops. See Decision041 and03E acceptance; source/profile alone
+grants no wire permission, and the old default adapter/authorities retain their original scope.

@@ -339,3 +339,9 @@ The 03D attempt is now complete: verified TLS and HTTP 404 headers, then a respo
 with zero body bytes consumed. Its independent authority is exhausted 1/1/noResume, cleanup
 is verified and the original 03B evidence is unchanged. Connectivity for this endpoint/time
 is established; financial qualification and all later operational/public gates remain blocked.
+
+[HQ-READY-03E](../../validation/investment/HQ-READY-03E.md) is the separately owner-selected
+one-history qualification: new fixed one-use anchor, one AAPL September2026 OHLCV operation,
+at most six exact requests, strict stop/no fallback, encrypted private custody and immediate
+cleanup after reviewed source integration/rebuild. Prior authorities remain spent. It creates
+no employee, observed-fill, scheduled, production, public or HQ-READY-04 activation.
