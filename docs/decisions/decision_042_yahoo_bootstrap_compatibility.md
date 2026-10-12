@@ -27,7 +27,10 @@ verdict; its cookie jar and persistent cache remain empty. This is anonymous boo
 not proof of a logged-in account or broader access permission. Missing, expired, wrongly scoped
 or changed cookies stop. A valid plain-text crumb must accompany charts. No-crumb fallback,
 consent/login flows, redirects, alternate hosts, and retries after refusals or uncertain outcomes
-are not authorized. Check cookie eligibility again immediately before wire creation after DNS/spacing.
+are not authorized. Pin both effective target cookie headers after the first accepted bootstrap, independently of
+crumb state; never reset identity on expiry. Later bootstraps require continuous identity before
+DNS/wire and before/after accepting refresh headers. Check cookie eligibility again immediately
+before wire creation after DNS/spacing.
 
 Completed rejected responses retain known HTTP status, actual bytes and hash in the gateway
 ledger, without entering financial evidence or reaching yfinance. Incomplete/aborted transport

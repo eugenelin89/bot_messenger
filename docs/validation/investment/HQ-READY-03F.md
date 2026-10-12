@@ -6,9 +6,9 @@
 
 **Branch/worktree:** `codex/hq-ready-03f-bootstrap` / `../bot_messenger-hq-ready-03f`
 
-**Implementation commit:** `d6a6fcbe5ab026db259a747a16c6765abffcd7a6`
+**Implementation commits:** `d6a6fcbe5ab026db259a747a16c6765abffcd7a6` plus cookie-continuity correction `533b412c17d802c6146f43fc990fd6d8101f3cbe`
 
-**Status:** Accepted offline source; reviewed Git integration follows this record; no Yahoo I/O or new live authority
+**Status:** Revised offline source accepted; reviewed Git integration follows this record; no Yahoo I/O or new live authority
 
 The parent is the only implementation writer. Independent architecture, security, recovery and
 acceptance reviewers are read-only development specialists, not BotSquad employees. The owner
@@ -63,7 +63,10 @@ response grammar, requires a freshly received Secure nonempty anonymous A3 valid
 and chart paths, rejects challenge/redirect headers, and validates the actual outgoing cookie
 header after DNS/rate spacing. Cookie values remain in parent memory. The Python response still
 has status404; no cookie is manufactured in the child's empty jar and no logged-in state is asserted.
-A valid parent-owned crumb must match each chart request. Changed cookies stop before chart reuse.
+A valid parent-owned crumb must match each chart request. Both crumb/chart cookie headers are
+pinned after the first accepted bootstrap, independently of crumb acquisition. Later bootstrap
+operations require the same continuously valid identity before DNS/wire and before/after response
+acceptance. Rotation before the crumb and same-value renewal after expiry both stop.
 
 A complete invalid response is returned to trusted accounting with a nonsecret rejection marker:
 original status, actual body bytes and hash are retained; the body is not sent to Python or stored
@@ -125,9 +128,12 @@ metadata now uses blank lines and the complete base-to-head diff check passes.
 | Upstream-only authored sessions | Five Python cases: returned404 without cookie, cookie save/crumb success,429/transient no-crumb charts, target404 alternate-strategy retry despite retries0 |
 | Expanded compatibility checkpoint |60/60 pass,0 failures/skips; `/private/tmp/hq-ready-03f-bootstrap-fourth.log` |
 | Broadened focused checkpoint |250/250 pass,0 failures/skips,126.135s; `/private/tmp/hq-ready-03f-focused.log`; before final newline/backoff generalization |
-| Final exact-source compatibility |68/68 pass,0 failures/skips,49.883s; `/private/tmp/hq-ready-03f-bootstrap-final.log` |
-| Final typecheck/build/contracts | `npm run check` passed; `npm run contracts:test` verifies generated contracts, builds and passes175/175,0 failures/skips; `/private/tmp/hq-ready-03f-check.log`, `/private/tmp/hq-ready-03f-contracts.log` |
-| Full serial regression | `npm test`:1561 tests,1555 pass,0 fail/cancel,6 existing skips,604.284s; `/private/tmp/hq-ready-03f-full.log` |
+| Initial frozen-source compatibility |68/68 pass,0 failures/skips,49.883s; `/private/tmp/hq-ready-03f-bootstrap-final.log` |
+| Final revised-source compatibility |71/71 pass,0 failures/skips,53.467s; `/private/tmp/hq-ready-03f-bootstrap-revised.log` |
+| Initial typecheck/build/contracts | `npm run check` passed; `npm run contracts:test` verifies generated contracts, builds and passes175/175,0 failures/skips; `/private/tmp/hq-ready-03f-check.log`, `/private/tmp/hq-ready-03f-contracts.log` |
+| Initial full serial regression | `npm test`:1561 tests,1555 pass,0 fail/cancel,6 existing skips,604.284s; `/private/tmp/hq-ready-03f-full.log` |
+| Final revised typecheck/build/contracts | `npm run check` passed; contract generation check/build/175 tests passed,0 failures/skips; `/private/tmp/hq-ready-03f-check-revised.log`, `/private/tmp/hq-ready-03f-contracts-revised.log` |
+| Final revised full serial regression | `npm test`:1564 tests,1558 pass,0 fail/cancel,6 existing skips,605.439s; `/private/tmp/hq-ready-03f-full-revised.log` |
 | Historical preservation | All17 private non-data file hashes equal the starting baseline; all three spent/noResume markers intact and capsules absent; `/private/tmp/hq-ready-03f-authority-final.json` |
 
 The six full-suite skips are existing gates: four team publication receiver cases plus one
@@ -157,15 +163,29 @@ loss, encrypted capsule deletion, identity-safe recovery and permanent spent aut
   crash fixture and unchanged live-custody regression, and requires final full/check/contracts and
   receipt equality before integration. Documentation typo about forbidden fallbacks was corrected.
 
-Architecture, security and recovery independently accept frozen source commit
+Architecture, security and recovery initially accepted frozen source commit
 `d6a6fcbe5ab026db259a747a16c6765abffcd7a6` with no material findings remaining. Acceptance
 independently verified the completed full/check/contracts results, manifests and preservation
-summary and found no blocking gap. All required local evidence is complete. The documentation
-commit and exact remote PR head must still match this reviewed source before merging.
+summary and found no blocking gap. The original local evidence was complete; the final revised-source evidence follows the PR finding below.
+The documentation commit and exact remote PR head must match the revised reviewed source before merging.
+
+The automatic review on [PR66](https://github.com/eugenelin89/bot_messenger/pull/66) found a P2:
+slot2 could replace the cookie before a crumb existed. A new regression reproduced the gap
+(the original path made five requests instead of stopping at two). Commit
+`533b412c17d802c6146f43fc990fd6d8101f3cbe` pins the first continuously valid effective cookie
+headers and adds three cases: slot2 rotation, expiry before another bootstrap/DNS, and expiry
+during its response followed by a same-value replacement. An initial targeted assertion used
+the internal cookie error rather than its sanitized `yahoo_destination_denied` diagnostic; the
+assertion now uses that exact public diagnostic while retaining strict DNS/request counts.
+Architecture, security and recovery independently accept the revised source with no material issue.
+The revised71-case suite, full regression, typecheck and contracts pass. Acceptance independently
+reviews these final results and the documentation head before merge; the prior accepted head is
+superseded. All17 historical receipt hashes/noResume states/capsule absence were rechecked after
+the revised full regression and remain unchanged.
 
 The [source manifest](HQ-READY-03F-source.sha256) freezes all nine changed runtime/test files;
 the [build manifest](HQ-READY-03F-build.sha256) freezes their six TypeScript outputs. Both verified
-after the full-suite and contract builds. All355 relative documentation file links resolve;
+after the full-suite and contract builds. All357 relative documentation file links resolve;
 `git diff --check` passes. Environment: Node24.10.0, Python3.12.12, pinned yfinance1.7.0; no
 dependency changes or installations. Local acceptance log SHA256 values are:
 
@@ -175,6 +195,15 @@ c4a6181c8714d3ae73578b04ba60c800f707ac751c2ac529af9646276b7074a6  hq-ready-03f-b
 14a7c3a25c306c9640dd12641e0e9fbff14b05a92cd3f3afc17f0b7b6c76ca43  hq-ready-03f-full.log
 c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652  hq-ready-03f-check.log
 4d20e5be17b2a21dc7a4e56e8d4a608185036fb24fca52ee0139599e9f6ccc93  hq-ready-03f-contracts.log
+```
+
+Final revised-source acceptance log SHA256 values are:
+
+```text
+4c27eb07af3d8ba24c2bd162e8b8b8fe537fc488a41e0b03b39f6f7b4185a9e4  hq-ready-03f-bootstrap-revised.log
+d5294f97e1a5657bf956bc572331c7626927cfa634e30351f15626939942d941  hq-ready-03f-full-revised.log
+c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652  hq-ready-03f-check-revised.log
+1c6578cadaab7ddcc4a6554b6528a2834f1596ec342918cc883c02899f26063c  hq-ready-03f-contracts-revised.log
 ```
 
 ## Preserved authority and remaining qualification

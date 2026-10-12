@@ -1,6 +1,6 @@
 dfe052353624399a733880800f47bff608920955d2079a834b006e41e4611a63  dist/src/control/market/financial-gateway.js
-c722e72b074de53d2249c485ded50a3797071748ab7c756c48b58ab1d0632926  dist/src/control/market/yahoo-https.js
+0741104919e6278a58cd7f978a666b2a4d7c770856039c4713e7b33ec5f329c8  dist/src/control/market/yahoo-https.js
 c9a314385dc7130133e77232c4dfdccc9caa2aef9a125179f68d2c6583acbfa7  dist/src/control/market/yahoo-python.js
 d5389f34a60d4190dc28936d012291e1b4820e3ce6e712900538b15681074b0f  dist/src/domain/market/financial.js
 964bd86dd7fb11a6e188697e2a74e34cbb19b1c9cc04f4855c05adb2907c5885  dist/src/domain/market/yahoo-bootstrap.js
-8ad9ee2cac5feb9fe22ed952538c05fd35848eb7d8daafbe1545ccd884a81634  dist/test/yahoo-bootstrap.test.js
+bc9933258a7a2e1653024324595b6fe248478e7e914e8b42e50871c2a8e40159  dist/test/yahoo-bootstrap.test.js
