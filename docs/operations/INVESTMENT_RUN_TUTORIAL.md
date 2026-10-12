@@ -99,3 +99,16 @@ Stop/revoke and evidence retention must follow; inspect does not authorize anoth
 A stale confirmation requires genuine fresh owner evidence, never a guessed timestamp.
 See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for current status.
 No purchase, reload change, paper order, real-data run, public publication or schedule follows.
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+Decision037 is permanently closed at **4/4** after one genuine final Atlas response. All
+stages are stopped and scopes revoked; zero unused allowance and zero future releases remain.
+Do not invoke `prepare`, `release`, `reserve`, `admit` or any old/final `turn` command to
+continue it. Earlier command instructions above are historical, not current permission.
+One queued Maya request is inert behind exhausted/revoked authority and must not be dispatched.
+Preserve the owner-private closed archive and registry; read-only evidence inspection grants
+no new execution. See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).
+No purchases, reload changes, market-data collection, paper orders, deployment or schedule
+were activated. A new readiness task requires separate owner authorization.

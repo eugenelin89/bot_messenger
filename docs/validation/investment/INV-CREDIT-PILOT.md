@@ -98,3 +98,15 @@ scopes remain unchanged. [Final Atlas acceptance](INV-CREDIT-FINAL-ATLAS.md) rec
 additive schema3 controls, three-source delivery, review/test gates and eventual outcome.
 The final reservation makes 4/4 permanently; no further employee invocation is authorized.
 No source acceptance claim here establishes genuine two-way reasoning before the real result.
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+The original pilot has reached its terminal **4/4** state. Reservation 1 remains consumed
+without confirmed inference; reservations 2, 3 and 4 are genuine completed/settled Atlas,
+Maya and final Atlas turns. Final Atlas read all three complete historical records and
+substantively responded to Maya. Independent review accepts genuine two-way asynchronous
+reasoning. All scopes are revoked; remaining allowance, future authorization and uncertainty
+are zero. Original evidence is preserved. The private collaboration proof of concept is
+complete; no operational/public gate is implied. See [final acceptance](INV-CREDIT-FINAL-ATLAS.md)
+for source PR #53, exact usage and the partial $0.00425440 three-turn reference estimate.

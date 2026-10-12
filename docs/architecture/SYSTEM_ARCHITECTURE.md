@@ -623,3 +623,15 @@ distinguishes source kind plus original record/group, allowing Atlas and Maya co
 as separate complete attributed evidence. Three-source context and execution checkpoints
 remain isolated; prior messages and provider sessions are not imported as fresh speech.
 See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for tests and outcome.
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+The accepted schema3 path completed exactly one final Atlas admission and settled response
+from merged source. Final authority is permanently stopped at 4/4 with revoked scope and
+zero future releases; schema1/schema2 rows and receipts remain unchanged. Three complete
+historical reads plus their citations prove source delivery in a fresh generation, while
+prior/final execution and provider identities remain distinct. Independent read-only outcome
+reviews accepted preservation, accounting and substantive asynchronous reasoning. This is
+private acceptance evidence, not a new runtime capability or operational deployment. See
+[final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).

@@ -44,3 +44,19 @@ approved US$0 market-data methodology/rights, elapsed cycles, deterministic pape
 Linux/deployment/recovery and public release still require separate owner-scoped acceptance.
 The smallest next proposal is a bounded HQ readiness specification and isolated acceptance
 plan for those runtime/data gates; it is not started by this authorization.
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+The [final Atlas outcome](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) establishes
+authenticated substantive Atlas → Maya → Atlas reasoning over the original fictional packet.
+The private Decision037 collaboration proof of concept is complete. Four reservations are
+consumed, three genuine turns settled, all scopes revoked, remaining/future authorization
+zero. This resolves the narrow private collaboration question only; the operational gates
+above remain open.
+
+Recommend one separately authorized bounded HQ readiness specification: finite real-employee
+budget/deadlines/stop rules; approved US$0 data-source methodology, automation/use rights,
+timestamps/calendar and fill semantics; and an isolated end-to-end paper-cycle acceptance
+plan. Any genuine runtime probes, market-data access, deployment and elapsed-cycle observation
+need their own explicit scope. No such next task, schedule or official run has begun.
