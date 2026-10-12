@@ -35,7 +35,7 @@ const validationCodes = ['yahoo_protected_address', 'yahoo_response_limit', 'yah
   'probe_expired_or_clock_reversal', 'probe_private_path', 'probe_anchor_changed',
   'probe_accounting_uncertain', 'probe_accounting_size', 'probe_short_write',
   'probe_logical_scope', 'probe_history_epochs', 'probe_statement_epochs', 'probe_helper_epochs',
-  'probe_statement_fields', 'probe_wire_interval', 'probe_wire_without_reservation'] as const;
+  'probe_statement_fields', 'probe_history_sequence', 'probe_history_crumb', 'probe_wire_interval', 'probe_wire_without_reservation'] as const;
 
 export interface YahooTransportDiagnostic {
   version: 1;

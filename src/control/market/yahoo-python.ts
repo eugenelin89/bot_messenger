@@ -10,12 +10,12 @@ const pythonPath=fileURLToPath(new URL('../../../../adapters/yahoo/.venv/bin/pyt
 /** Fixed executable + script; no shell, native network, inherited credentials, or arbitrary worker arguments. */
 export class PythonYahooAdapter implements YahooAdapter {
   readonly kind=YAHOO_ADAPTER;
-  constructor(private readonly scratchRoot?:string){}
+  constructor(private readonly scratchRoot?:string, private readonly profile?:'hq-ready-03e-query1-only'){}
   read(input:YahooAdapterInput,exchange:(query:YahooQuery)=>Promise<YahooResponse>,signal:AbortSignal):Promise<string> {
     return new Promise((resolve,reject)=>{
       if(signal.aborted){reject(new Error('financial_cancelled'));return;}
       const directory=mkdtempSync(join(this.scratchRoot??tmpdir(),'botsquad-yahoo-'));
-      const child=spawn(pythonPath,['-I','-B',adapterPath],{cwd:directory,env:{PATH:'/usr/bin:/bin',HOME:directory,TMPDIR:directory,LANG:'C.UTF-8',TZ:'UTC',YF_DISABLE_CURL_CFFI:'1',OPENBLAS_NUM_THREADS:'1',OMP_NUM_THREADS:'1'},stdio:['pipe','pipe','pipe']});
+      const child=spawn(pythonPath,['-I','-B',this.profile ? fileURLToPath(new URL('../../../../adapters/yahoo/history.py',import.meta.url)) : adapterPath],{cwd:directory,env:{PATH:'/usr/bin:/bin',HOME:directory,TMPDIR:directory,LANG:'C.UTF-8',TZ:'UTC',YF_DISABLE_CURL_CFFI:'1',OPENBLAS_NUM_THREADS:'1',OMP_NUM_THREADS:'1'},stdio:['pipe','pipe','pipe']});
       let failed:Error|null=null;
       const fail=(error:unknown)=>{failed??=error instanceof Error?error:new Error('python_protocol');child.kill('SIGKILL');};
       const abort=()=>fail(new Error('financial_cancelled'));signal.addEventListener('abort',abort,{once:true});
