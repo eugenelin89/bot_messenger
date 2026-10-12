@@ -1,0 +1,8 @@
+8e08db4d25858b84ce5a641d719674befc86bdf1069e22826991bde297a5511b  dist/src/control/market/yahoo-connectivity.js
+a2651c9e8f0f0b80294b17c00d328cc0e1a2b5467f3cd60c9418f716a0c4b2b2  dist/scripts/yahoo-connectivity.js
+1cc975cc54225e845c821ac91dbae448682ecd7105ec46709d0bb10e1d662532  dist/test/yahoo-connectivity.test.js
+e1830c96609c170c0cccb4f8174c7a90c2b07314b25c8badda02ff78aa5156ff  dist/test/yahoo-connectivity-local.test.js
+c5a359d6f65b661610f63cd42e8176318fa742836c03e910eea358a41a957238  dist/src/control/market/yahoo-https.js
+f140b8e31e2ccdf9a8b2e5ff35ef0cde33effea16ae74b616726abd98b491497  dist/src/control/market/yahoo-diagnostics.js
+15c90ac5ba35f223398f891ada7917fe3dbe601e641217d4766f36fdd8f82973  dist/src/control/market/yahoo-probe-host.js
+15835083a709fa904695263cb7af323f398b755574bcf3fa8fa747d72983e96c  dist/src/research/public-fetch.js

@@ -329,3 +329,8 @@ with offline stage diagnostics; the original cause and genuine Yahoo financial q
 remain unknown/blocked. The original authority stays spent. A separate
 [one-request connectivity proposal](../../operations/YAHOO_CONNECTIVITY_PROPOSAL.md) is prepared
 for owner review only; no new live request or authority is created.
+
+[HQ-READY-03D](../../validation/investment/HQ-READY-03D.md) is separately owner-authorized to
+implement and consume the reviewed one-request connectivity scope. A distinct create-only
+anchor preserves the old spent probe. This tests endpoint connectivity only; genuine financial
+qualification, observed fills, recurring collection and later HQ packets remain gated.

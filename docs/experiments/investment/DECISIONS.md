@@ -139,3 +139,12 @@ and [acceptance](../../validation/investment/HQ-READY-03B.md) distinguish implem
 fixture evidence, actual attempts and cleanup. Permission remains owner-reported personal use;
 no broader automated/retention/public rights follow. All historical simulation, observed fills,
 employee delivery, production and HQ-READY-04 gates remain; Decision037 stays exhausted4/4.
+
+## Separate connectivity approval — 2026-10-12
+
+[Decision040](../../decisions/decision_040_one_shot_yahoo_connectivity.md) records the owner's
+HQ-READY-03D approval for one minimal GET to `fc.yahoo.com`, a new private one-shot anchor and
+non-data receipts. The owner confirms their reported personal-use permission covers this exact
+automated test/retention. [Acceptance](../../validation/investment/HQ-READY-03D.md) separates
+implementation/fixtures from the actual outcome.03B remains spent and Decision037 exhausted4/4;
+financial-data quality and all operational/public gates remain blocked.
