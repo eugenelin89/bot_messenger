@@ -1,8 +1,9 @@
 # Execution plan — Decision 037 final Atlas response
 
-**Status:** Active — source accepted, integration pending; no final reservation or inference yet  
+**Status:** Complete — final Atlas settled; collaboration accepted; permanently stopped at 4/4
 **Owner:** Parent Codex, sole writer; independent specialists read-only  
-**Branch:** `feature/credit-pilot-final-atlas-response`  
+**Source branch:** `feature/credit-pilot-final-atlas-response`
+**Outcome branch:** `codex/credit-pilot-final-atlas-outcome`
 **Worktree:** `bot_messenger-credit-final-atlas`  
 **Started:** 2026-10-11 America/Vancouver  
 **Initial ETA:** 2–4 hours, subject to review, integration and billing gates
@@ -54,7 +55,7 @@ new messages or prescribe whether Atlas must change HOLD.
 7. Stop/revoke permanently, retain raw outcome/usage privately, assess the authentic
    asynchronous reasoning chain, and merge a sanitized documentation-only outcome PR.
 
-## Evidence ledger
+## Pre-execution evidence ledger (retained checkpoint)
 
 | Gate | Result |
 | --- | --- |
@@ -65,7 +66,7 @@ new messages or prescribe whether Atlas must change HOLD.
 | Source/tests/reviews/integration | Four read-only review areas accepted; full 1,167 pass / 6 skip / 0 fail; contracts 175/175; integration pending |
 | Final reservation and genuine Atlas inference | Not attempted |
 
-## Remaining gates and documentation
+## Pre-execution gates and documentation (retained checkpoint)
 
 No inference before accepted-source and billing gates. Update Decision037, prior acceptance
 records, readiness, tutorial, architecture and project memory by dated append. Raw worker,
@@ -97,3 +98,34 @@ Implementation/tests commit: `f22b54adf3596892528a7fa84f96c9267e75db72`. Check/b
 focused 108/108, loop/migration 39/39 and exact runtime-deadline test 1/1 passed. Independent
 review has no remaining blocking or important findings. Diff/privacy/secret/link checks pass.
 Source is held fixed; separate documentation commit and PR integration are next.
+
+
+## Integrated source and terminal outcome — 2026-10-11 America/Vancouver
+
+Source [PR #53](https://github.com/eugenelin89/bot_messenger/pull/53), separate documentation
+commit `5bd0f0ae2318ffafae944ff85cebdc296a300067`, merged as
+`bf33a89760b57c531c9cc339d54390773be092fe`. Clean synchronized main was rebuilt and checked;
+source/executable digests were retained before any real execution. All mandatory source,
+history, model/account/confinement and billing gates passed. The actual reload-OFF statement
+was still within 24 hours (19.209 hours at the final gate).
+
+Exactly one genuine final Atlas turn completed and settled in 14.022 seconds of stored usage.
+All three authentic complete sources were read and cited. Atlas maintained HOLD but narrowed
+and strengthened its rationale in response to Maya. Independent provenance and authority/
+accounting outcome reviews accepted **Genuine two-way cross-employee reasoning demonstrated**.
+The final stage and all prior scopes are stopped/revoked: 4/4 consumed, zero remaining/future
+authorization, uncertainty zero. Original schema1/schema2 rows/receipts and all 47 original
+files remain unchanged; 109 prior files are unchanged, excluding the authorized additive
+registry extension. The closed final archive and raw execution identities remain private.
+
+The [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) contains exact usage,
+source integration, faithful response summary, preservation and non-activation results.
+Three genuine turns total 68,728 tokens and $0.00425440 partial API-equivalent reference cost;
+actual credit impact remains unavailable. The failed first reservation remains consumed with
+unverified usage. No further provider turn is permitted or was run. Only sanitized outcome
+documentation is integrated after the turn; no operational milestone is started.
+
+Validation took longer than the initial estimate because two pre-existing time-sensitive
+test fixtures required reproduction, reviewed corrections and complete serial reruns. The
+accepted final suites remain green. Outcome documentation is checked for links, privacy,
+consistency and a docs-only diff; no unnecessary runtime retest or model call is required.

@@ -62,3 +62,16 @@ unverified usage, not a zero-priced execution. Complete reported token counts ca
 have a partial API-equivalent estimate; neither establishes actual purchased-credit or Pro
 quota deduction. Missing categories remain unavailable. Reservation four exhausts all
 execution permission regardless of settlement. See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md).
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+All three genuine turns are completed/settled with complete reported token categories:
+Atlas opening 19,416 total tokens / 14.883 s / $0.00118912 partial; Maya 22,956 / 21.508 s /
+$0.00141440 partial; final Atlas 26,356 / 14.022 s / $0.00165088 partial. Aggregate: 66,634
+input (38,400 cached subset), 2,094 output, **68,728 total**, 50.413 s,
+**$0.00425440 partial API-equivalent reference estimate**. Original pricing snapshots are
+preserved; actual purchased-credit deduction and Pro quota impact remain unavailable.
+Reservation 1 is consumed with unverified usage and excluded, never assumed free. No final
+provider retry was observed. Count is permanently 4/4 with no later authorization.
+See [final acceptance](../validation/investment/INV-CREDIT-FINAL-ATLAS.md) for the full table.

@@ -113,3 +113,14 @@ imports include this authentic opening, the original fictional packet and Maya's
 review. [Final acceptance](INV-CREDIT-FINAL-ATLAS.md) distinguishes source delivery and
 substantive asynchronous feedback from synchronous or autonomous operation. No earlier
 stopped scope reopens; cumulative reservation four ends all pilot execution permission.
+
+
+## Final Decision037 outcome — 2026-10-11 America/Vancouver
+
+The genuine opening Atlas contribution from this stage remained byte-identical and reached
+both Maya and final Atlas with original identities retained separately from import IDs.
+The [final outcome](INV-CREDIT-FINAL-ATLAS.md) completes the authenticated asynchronous
+Atlas → Maya → Atlas chain. Final Atlas maintained and qualified HOLD after substantive
+engagement. All four original reservations are now consumed; all scopes stopped/revoked,
+uncertainty zero, no further authorization. This stage's usage and private receipts remain
+unchanged. No model turn beyond reservation four or operational activation follows.

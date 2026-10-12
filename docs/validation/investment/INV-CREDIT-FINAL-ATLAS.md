@@ -1,7 +1,7 @@
 # Decision 037 — Final Atlas response
 
 **Date:** 2026-10-11 America/Vancouver  
-**Status:** Source accepted; final genuine inference awaits accepted main integration  
+**Status:** Complete — genuine two-way reasoning demonstrated; permanently stopped at 4/4
 **Baseline:** `9b05f8760375f5fd3e308e5d2a32b8ebbb126c46` (PR #52)
 
 ## Original authorization and final extension
@@ -125,9 +125,9 @@ reasoning, CLI 0.157.0, official ChatGPT authentication, unchanged account/routi
 confinement. No API key, fallback, purchase or billing-setting change is authorized. Provider
 internal retries within the single turn are accepted; BotSquad-level retry is forbidden.
 
-## Outcome acceptance and usage
+## Pre-execution outcome acceptance and usage requirements
 
-Pending actual execution. Classify as exactly one of: **Genuine two-way cross-employee
+At source acceptance, actual execution was pending. Classify as exactly one of: **Genuine two-way cross-employee
 reasoning demonstrated**; **Genuine final Atlas inference, but substantive response not
 established**; or **Final turn blocked, interrupted or uncertain**. Establish the first only
 from full three-source delivery, accurate attribution, substantive response to Maya,
@@ -151,3 +151,126 @@ See [execution plan](../../exec-plans/credit-pilot-final-atlas.md),
 [Maya acceptance](INV-CREDIT-MAYA-REVIEW.md),
 [Decision 037](../../decisions/decision_037_credit_approved_private_pilot.md) and
 [readiness](../../operations/INVESTMENT_READINESS.md).
+
+
+## Accepted integration and genuine outcome — 2026-10-11 America/Vancouver
+
+[PR #53](https://github.com/eugenelin89/bot_messenger/pull/53) merged implementation
+`f22b54adf3596892528a7fa84f96c9267e75db72` and separate source-acceptance documentation
+`5bd0f0ae2318ffafae944ff85cebdc296a300067` as
+`bf33a89760b57c531c9cc339d54390773be092fe`. Clean local and remote main were synchronized,
+check/build passed again, and source plus executable hashes matched the reviewed source
+before the sole real turn. GitHub exposed no commit status checks or PR workflow runs;
+the passing local suites above are the acceptance evidence, not a claimed CI run.
+
+The retained genuine reload-OFF confirmation was 19.209 hours old at the final gate, within
+24 hours. Official non-inference preflight confirmed CLI 0.157.0, `gpt-6-luna`, low reasoning,
+standard tier and the approved confined ChatGPT-account route; runtime reverified the bound
+account before admission. Account/routing digests are successor-pilot scoped: comparison is
+within each stage, not an assertion that different stages have identical fingerprint bytes.
+The read-only account API did not independently verify the reload setting. No API key,
+purchase, billing change, fallback or additional employee invocation occurred.
+
+Exactly one final provider turn was admitted and completed, with one genuine Atlas
+contribution. Execution ran 2026-10-12 00:39:57.045–00:40:11.071 UTC (2026-10-11 in Vancouver).
+The stored usage interval was 00:39:57.050–00:40:11.072 UTC: **14.022 seconds**. The final
+execution has its own request, execution, provider thread/turn and generation-1 session,
+retained privately. Three successful full reads and one contribution tool receipt establish
+actual delivery of all three exact historical bodies and metadata; the final contribution
+cites all three. The response bytes match the closed archived contribution.
+
+### Substantive response and collaboration assessment
+
+**Genuine two-way cross-employee reasoning demonstrated.** Atlas maintained HOLD/all cash,
+explicitly narrowing it to a temporary evidence-based default, not a verdict that ACME is
+an unattractive business. This is a faithful summary of genuine inference over fictional
+inputs, not a reconstructed transcript or real-company investment analysis:
+
+- Maya's strongest improvement was separating business attractiveness, evidence quality,
+  valuation and position sizing. Atlas explicitly said this strengthened his HOLD reasoning.
+- ACME's fictional net cash is a cushion, not necessarily a valuation floor. Burn, working
+  capital, capital expenditure, debt maturities and required operating cash are unknown;
+  the cushion can shrink, and a liquidation/downside floor does not follow.
+- A small hypothetical ACME position could be justified in principle by supported risk/reward
+  and loss sizing. The current facts do not support it: small size limits exposure but cannot
+  repair weak or negative expected value.
+- BETA's positive free cash flow and lower concentration do not automatically make it better;
+  durability, reinvestment and valuation remain uncertain. HOLD avoids a forced ranking.
+- Reconsideration requires acceptable major-customer renewal terms, sustained independently
+  documented product orders/adoption, realized margin recovery, improving cash flow and
+  compelling valuation relative to capital needs. Deterioration reinforces HOLD.
+
+The original synthetic packet reached the first Atlas execution; his authentic complete
+opening and that packet reached Maya; her authentic complete review, his opening and the
+same packet reached final Atlas through verified historical imports. Original identities,
+bytes, hashes and attribution remain distinct from the new local evidence IDs. Two
+independent read-only outcome reviews accepted accurate attribution, substantive response,
+alternative comparison and explicit effect on judgment. This is convergent refinement in an
+authenticated asynchronous Atlas → Maya → Atlas chain. It does not establish synchronous
+conversation, autonomous scheduling, real market research or an end-to-end investment cycle.
+
+### Final authority and preservation
+
+| Original reservation | Provider inference | Terminal outcome |
+| --- | --- | --- |
+| 1 — original Atlas startup | Not confirmed; usage unverified | Failed, consumed, stopped/revoked |
+| 2 — Atlas opening | Genuine, confirmed | Completed and settled; stopped/revoked |
+| 3 — Maya review | Genuine, confirmed | Completed and settled; stopped/revoked |
+| 4 — final Atlas response | Genuine, confirmed | Completed and settled; stopped/revoked |
+
+The fixed authority records **4/4 consumed, 0 unused, 0 authorized unreleased, 0 future
+releases, uncertainty 0**. The final release, reservation, admission and completion each
+occurred once. The terminal reason is `single_authorized_final_atlas_attempt_finished`.
+Repeated stop receipts are idempotent closure evidence, not extra turns. One queued Maya
+request remains inert behind stopped, revoked, exhausted authority; the queue is not empty
+and no queued item has execution permission. No subsequent runtime call was made.
+
+All schema1/schema2 rows and receipts match their pre-extension snapshots. All 47 original
+historical files and all 109 prior inventory files other than the separately authorized
+registry DB extension remain byte-identical. Prior Atlas/Maya reports are unchanged. Eight
+closed final-archive files have verified retained digests. Raw transcripts, identifiers,
+account fingerprints, database copies and provider receipts remain owner-private outside Git.
+
+### Retained usage and reference cost
+
+| Metric | Atlas opening | Maya review | Final Atlas | Three genuine turns |
+| --- | ---: | ---: | ---: | ---: |
+| Input tokens | 18,878 | 22,279 | 25,477 | 66,634 |
+| Cached input, subset of input | 10,752 | 12,800 | 14,848 | 38,400 |
+| Output tokens | 538 | 677 | 879 | 2,094 |
+| Total tokens | 19,416 | 22,956 | 26,356 | 68,728 |
+| Recorded reasoning-output subset | 0 | 0 | 0 | 0 |
+| Recorded cache-write input | 0 | 0 | 0 | 0 |
+| Stored usage duration | 14.883 s | 21.508 s | 14.022 s | 50.413 s |
+| API-equivalent USD, **partial** | $0.00118912 | $0.00141440 | $0.00165088 | **$0.00425440** |
+
+All three are completed/settled `gpt-6-luna`, low reasoning, standard-tier executions with
+complete reported token categories and the unchanged original pricing version
+`openai-2026-10-10-fdc607e42c34c9a1`. Recorded zero subcategories are telemetry, not a claim
+about hidden model reasoning. The estimates are partial base-token API-equivalent references:
+long-context and additional pricing dimensions are unverified. Actual purchased-credit
+deduction and Pro subscription-quota impact remain unavailable. Reservation 1 remains
+consumed with unverified usage and is excluded, never treated as zero-priced model work.
+
+### Reliability, non-activation and completion boundary
+
+Actual telemetry records one final turn start, confirmed settlement, no observed provider
+retry, no tool rejection and no account/model/confinement violation. Absence of an observed
+retry is not proof about invisible upstream internal behavior. The actual turn completed
+within the five-minute deadline. Timeout, process-kill/restart, concurrency, copied state,
+late completion and no-replay guarantees were exercised with deterministic fake transports;
+no real failure/restart inference was attempted. Independent outcome review accepted closure,
+source relationships, accounting and evidence preservation without further provider calls.
+
+The isolated state has zero investment proposals, reviews, submissions, loops, market
+records, public jobs, research operations or Tasks. No purchase, billing-setting change,
+production deployment, official investment run, real prices, brokerage, actual paper order,
+Asymmetri publication, unauthorized worker call or recurring service occurred.
+
+The **private Decision037 collaboration proof of concept is complete**. This outcome change
+is documentation-only and grants no runtime authority. The smallest recommended next task
+is a separately authorized bounded HQ readiness specification: choose a finite real-employee
+execution budget and stop rules, verify approved US$0 market-data methodology/automation and
+use rights, timestamps/calendar and fill semantics, and define isolated end-to-end paper-cycle
+acceptance. Runtime/data feasibility and eventual genuine elapsed cycles remain gates. No
+next milestone, probe, deployment, market-data request or model execution has been started.
