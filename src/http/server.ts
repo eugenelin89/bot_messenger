@@ -142,6 +142,9 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
       else if(path==='/api/investment-run/preview'){json(201,company.investmentLoop.preview(body));}
       else if(path==='/api/investment-run/control'){json(200,company.investmentLoop.control(body));company.changed();}
+      else if(path==='/api/investment-run/setup/preview'){json(201,company.investmentSetup.preview(body));}
+      else if(path==='/api/investment-run/setup/consent'){json(201,company.investmentSetup.consent(body));}
+      else if(path==='/api/investment-run/reload-attestation'){json(200,company.finiteHQ.ownerReload(body));company.changed();}
       else if(path==='/api/investment-team/preview'){json(201,company.investmentTeam.preview(body));}
       else if(path==='/api/investment-team/consent'){json(201,company.investmentTeam.consent(body));company.changed();}
       else if(path==='/api/investment-team/control'){json(200,company.investmentTeam.control(body));company.changed();}

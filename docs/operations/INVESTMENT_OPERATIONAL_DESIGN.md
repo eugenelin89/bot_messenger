@@ -556,3 +556,26 @@ The **one next executable task** is HQ-READY-02 source implementation. It has ex
 authority boundaries and deterministic acceptance in the linked prompt. No further discovery
 milestone is required before coding that synthetic private HQ bridge. Its completion must still
 say genuine operation is unactivated until P2–P5 and the relevant evidence gates are satisfied.
+
+## 12. HQ-READY-02 implementation checkpoint
+
+The proposal above remains the operational decision record; it does not approve live operation.
+The owner subsequently selected its [HQ-READY-02 source packet](../../prompts/experiments/investment-hq-ready-02.md).
+The normal-HQ finite runtime, private-paper lane, truthful owner setup, existing scheduler/group
+integration and recovery accounting are implemented and exercised with fakes. See
+[validation](../validation/investment/HQ-READY-02.md) and
+[current readiness gates](INVESTMENT_READINESS.md#hq-ready-02-source-status).
+
+The source template proposes ten turns per run, eight per rolling24h, seven per cycle and
+New York day, seven cumulatively per worker in the run, five minutes per turn, and one investment
+within two global executions. These are configuration values, not
+permission to consume credits. Lower feasible allocations are supported; seven discussion turns
+alone does not guarantee two typed decisions. The fake HOLD and BUY/SELL paths use nine turns;
+other choices can end incomplete without extending any budget. No employee name or conclusion
+is programmed into the runtime sequence.
+
+The local service must retain its independent authority journal and custody checkpoint beyond
+ordinary company backups. A restore must reconcile offline before dispatch. Missing/replaced/
+corrupt evidence or joint old snapshots disagreeing with custody stay stopped; no repair creates
+fresh allowance. Replacing every retained copy as a local administrator remains outside what local
+hashes can prove. No operational provision/approval command was executed in this milestone.

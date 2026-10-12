@@ -12,6 +12,7 @@ import { migration14 } from './business-migration.js';
 import { migration15 } from './investment-migration.js';
 import { migration16 } from './market-migration.js';
 import { migration21 } from './credit-pilot-migration.js';
+import { migration22 } from './finite-hq-migration.js';
 import { migration20 } from './usage-migration.js';
 import { migration19 } from './investment-loop-migration.js';
 import { migration18 } from './investment-team-migration.js';
@@ -210,7 +211,7 @@ export class Store {
     this.db = new DatabaseSync(path);
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
-    if ((this.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n ?? 0) > 21) { this.db.close(); throw new Error('Unsupported future HQ schema'); }
+    if ((this.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n ?? 0) > 22) { this.db.close(); throw new Error('Unsupported future HQ schema'); }
     const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
     const conversationMigration = !this.get('SELECT version FROM schema_migrations WHERE version=7');
     const mandateMigration = !this.get('SELECT version FROM schema_migrations WHERE version=11');
@@ -267,6 +268,7 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=19')) { this.db.exec(migration19); this.run('INSERT INTO schema_migrations VALUES (19,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=20')) { this.db.exec(migration20); this.run('INSERT INTO schema_migrations VALUES (20,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=21')) { this.db.exec(migration21); this.run('INSERT INTO schema_migrations VALUES (21,?)', new Date().toISOString()); }
+      if (!this.get('SELECT version FROM schema_migrations WHERE version=22')) { this.db.exec(migration22); this.run('INSERT INTO schema_migrations VALUES (22,?)', new Date().toISOString()); }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }

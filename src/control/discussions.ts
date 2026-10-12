@@ -117,7 +117,8 @@ export class Discussions {
   }
   private enqueue(g:WorkingGroup,worker:string,kind:DiscussionTurnKind,prompt:string,references:string[]=[],evidence:string[]=[]){
     g=this.group(g.group_id);this.worker(worker);requireThat(this.members(g).some(w=>w.worker_id===worker),'Turn target is outside frozen membership');
-    requireThat(g.turns_used<g.turn_limit&&(synth(kind)?g.synthesis_used<L.synthesisTurns:g.turns_used<g.turn_limit-L.reservedTurns),'Discussion turn budget exhausted; synthesis allowance is reserved');
+    this.company.investmentLoop.planTurns(g,[{worker,kind}]);
+    requireThat(g.turns_used<g.turn_limit&&((synth(kind)||kind==='review'&&!!this.company.investmentLoop.forGroup(g.group_id)&&!!this.company.finiteHQ.policy(this.company.investmentLoop.forGroup(g.group_id)!.scope_id))?g.synthesis_used<L.synthesisTurns:g.turns_used<g.turn_limit-L.reservedTurns),'Discussion turn budget exhausted; synthesis allowance is reserved');
     requireThat(g.deadline&&Date.parse(g.deadline)>this.company.investmentLoop.clockForGroup(g.group_id),'Discussion deadline expired');
     const request=this.company.conversations.queueDiscussion(g.conversation_id,worker,prompt);
     this.company.investmentLoop.bindRequest(g.group_id,request.request_id);
@@ -205,10 +206,10 @@ export class Discussions {
           requireThat(this.db.get("SELECT 1 FROM group_syntheses WHERE group_id=? AND execution_id=(SELECT execution_id FROM executions WHERE request_id=?) AND state='final'",g.group_id,last.request_id),'Final synthesis receipt missing');
           this.db.run("UPDATE working_groups SET state='completed',error=NULL WHERE group_id=?",g.group_id);this.audit('completed',g);
         }else if(last.kind==='synthesis'){
-          const reviewer=this.members(g).filter(w=>w.worker_id!==g.synthesizer_id).sort((a,b)=>Number(b.role==='reviewer')-Number(a.role==='reviewer'))[0];
+          const reviewer=this.company.investmentLoop.synthesisReviewer(g)??this.members(g).filter(w=>w.worker_id!==g.synthesizer_id).sort((a,b)=>Number(b.role==='reviewer')-Number(a.role==='reviewer'))[0];
           requireThat(reviewer,'No separate synthesis reviewer');this.enqueue(g,reviewer.worker_id,'review','Inspect the draft synthesis for a material omission or misrepresentation. Cite original contributions/evidence. State any unresolved dissent; do not impersonate absent approvals. One review only.');
         }else if(last.kind==='review')this.enqueue(g,g.synthesizer_id,'finalize','Finalize the synthesis after its bounded review. Address material omissions, owner constraints and unresolved concerns; retain genuine disagreement and source limitations.');
-        else if(last.kind==='facilitate'&&output.action==='discuss'&&g.round<g.round_limit&&g.turns_used+3<g.turn_limit-L.reservedTurns){
+        else if(last.kind==='facilitate'&&output.action==='discuss'&&this.company.investmentLoop.canDiscuss(g,output.turns as {worker_id:string}[])&&g.round<g.round_limit&&g.turns_used+3<g.turn_limit-L.reservedTurns){
           this.db.run('UPDATE working_groups SET round=round+1 WHERE group_id=?',g.group_id);
           for(const raw of output.turns as unknown[]){const a=raw as {worker_id:string;prompt:string;contribution_ids:string[];evidence_ids:string[]};this.enqueue(this.group(g.group_id),a.worker_id,'response',a.prompt,a.contribution_ids,a.evidence_ids);}
         }else if(last.kind==='facilitate'||g.turns_used>=g.turn_limit-L.reservedTurns-1||g.round>=g.round_limit){
@@ -219,7 +220,7 @@ export class Discussions {
       }catch(e){this.db.db.exec('ROLLBACK TO discussion_progress; RELEASE discussion_progress');this.block(g,`Progression could not schedule safely: ${String(e)}`);}
     });
   }
-  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return [...discussionTools(t.kind,(!this.company.investmentTeam.forGroup(g.group_id)||this.company.investmentTeam.envelope(this.company.investmentTeam.forGroup(g.group_id)!).audience!=='private_synthetic')&&this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize'),...this.company.investmentTeam.tools(r)];}
+  toolsFor(r:ReplyRequest){const g=this.forConversation(r.conversation_id);requireThat(g,'Discussion required');const t=this.turn(r.request_id);requireThat(t,'Discussion turn missing');return [...discussionTools(t.kind,(!this.company.investmentTeam.forGroup(g.group_id)||this.company.investmentTeam.envelope(this.company.investmentTeam.forGroup(g.group_id)!).audience==='public_candidate')&&this.company.research.enabled(r.target_worker_id)&&!synth(t.kind)&&t.kind!=='review'&&t.kind!=='organize'),...this.company.investmentTeam.tools(r)];}
   private verify(context:ExecutionContext){const v=this.company.conversations.verify(context);const g=this.forConversation(v.request.conversation_id),t=this.turn(v.request.request_id);requireThat(g&&t,'Discussion execution required');return {...v,group:g,turn:t};}
   context(context:ExecutionContext){
     const {worker,session,group:g,turn:t}=this.verify(context);

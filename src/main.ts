@@ -17,13 +17,15 @@ const unlock = acquireDataLock(dataDir);
 const store = new Store(join(dataDir, 'company.sqlite'));
 const company = new Company(store, dataDir, projectRoot);
 if(process.env.BOTSQUAD_BUSINESS_CONFIG) company.business.adapter=new GithubMarkdownAdapter(process.env.BOTSQUAD_BUSINESS_CONFIG);
-const runtime = new CodexRuntime();
+company.finiteHQ.discover();
+const finiteHQ=process.env.BOTSQUAD_FINITE_HQ_AUTHORITY?company.finiteHQ.loadRuntime(process.env.BOTSQUAD_FINITE_HQ_AUTHORITY):undefined;
+const runtime = new CodexRuntime({finiteHQ});
 const dispatcher = new Dispatcher(company, runtime);
 const http = createHttpServer(company, dispatcher, join(projectRoot, 'public'));
 let stopping = false;
 async function shutdown() {
   if (stopping) return; stopping = true;
-  await dispatcher.stop(); await http.close(); store.close(); unlock();
+  await dispatcher.stop(); await http.close(); company.finiteHQ.close(); store.close(); unlock();
 }
 http.server.on('error', (error: NodeJS.ErrnoException) => {
   console.error(`Cannot start local HTTP server (${error.code ?? 'unknown'}).`);

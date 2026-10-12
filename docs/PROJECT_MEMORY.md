@@ -3,6 +3,24 @@
 **Updated:** 2026-10-11
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
 
+## HQ-READY-02 finite private HQ source — current handoff
+
+The owner selected [HQ-READY-02](../prompts/experiments/investment-hq-ready-02.md) from clean
+`276d918f07d9dd9919a09f698f6fdae51831a0a9`. Source adds a separate finite authority/custody journal,
+immutable scoped profile, private-paper setup and five typed paper tools, normal dispatcher and
+scheduler integration, protected finalization allocation, owner controls and restore fences.
+[Validation](validation/investment/HQ-READY-02.md) records exact fake tests/review disposition;
+[readiness](operations/INVESTMENT_READINESS.md#hq-ready-02-source-status) separates remaining gates.
+Migration22 is additive/inert. No genuine authority was created, no employee operation credits or
+unapproved market data were consumed, and no deployment/Asymmetri changes occurred.
+Decision037 remains permanently exhausted4/4; historical reports and private evidence are unchanged.
+
+Stop after reviewed source integration. Recommend separately selecting HQ-READY-03 source/method
+qualification; do not start it, HQ-READY-04/05, INV-10+, automations or an official run. Genuine
+HQ-READY-04 requires exact new owner authority, fresh reload-OFF evidence, existing-credit/retry
+risk acceptance and separately authorized Linux/custody/elapsed-session acceptance. Source/fakes
+are not an accepted operating policy or live-readiness claim.
+
 ## Investment contract foundation
 
 **Repositories:** This [BotSquad HQ](https://github.com/eugenelin89/bot_messenger) repository owns investment protocols, private agents and deterministic HQ financial logic. The [Asymmetri website/receiver](https://github.com/eugenelin89/asymmetri) implements the public read/archive UI and signed receiving side. The [Asymmetri cross-repository guide](https://github.com/eugenelin89/asymmetri/blob/main/docs/BOTSQUAD_INTEGRATION.md) and [BotSquad investment roadmap](experiments/investment/ROADMAP.md) clarify current code ownership and release/activation boundaries. Contract 1.0 lives here under `contracts/investment/v1/` and is pinned as a nine-file verified vendor copy in Asymmetri `receiver/vendor/investment/v1/`. INV-05 now provides a synthetic-only internal simulator and additive schema15, with no production deployment or worker authority.

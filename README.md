@@ -605,6 +605,7 @@ Execution history, worker inspectors and investment pages now show recorded usag
 [HQ-READY-01](docs/validation/investment/HQ-READY-01.md) audits the current source and defines
 a finite private HQ operating path. The [design](docs/operations/INVESTMENT_OPERATIONAL_DESIGN.md)
 separates implemented controls, genuine private reasoning, blocked runtime/data rights and
-proposed work. [HQ-READY-02](prompts/experiments/investment-hq-ready-02.md) is ready for owner
-selection as source-only implementation; no investment operation is activated. Decision037
+proposed work. Owner-selected [HQ-READY-02](docs/validation/investment/HQ-READY-02.md) implements
+the finite private runtime, inert setup and recovery accounting with fake/synthetic acceptance.
+No genuine authority or investment operation is activated. Decision037
 remains exhausted at4/4, and private/source acceptance is not public launch readiness.

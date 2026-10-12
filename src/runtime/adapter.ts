@@ -1,4 +1,4 @@
-import type {ActivityPolicy,SubscriptionEligibility} from '../domain/usage/policy.js';
+import type {ActivityPolicy,FiniteHQPolicy,SubscriptionEligibility} from '../domain/usage/policy.js';
 import type {UsageObservation} from '../domain/usage/tokens.js';
 import type { InvestmentUsage } from '../domain/investment-loop/types.js';
 import type { TurnLimits } from '../domain/investment-team/types.js';
@@ -11,10 +11,11 @@ import type { ResearchProvider } from '../domain/research.js';
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
 interface RuntimeInputFields {
   worker: Worker; binding?: RuntimeBinding;
+  investment?:Readonly<{scopeId:string;policy:string;authorityId?:string}>;
   /** Absolute local interruption deadline; subscription adapters must use finite termination after it. */
   localDeadline?: string;
   usage?(observation:UsageObservation):void;
-  admitSubscription?(identity:{threadId:string;model:string;accountFingerprint?:string;eligibility:SubscriptionEligibility}):void;
+  admitSubscription?(identity:{threadId:string;model:string;accountFingerprint?:string;routingFingerprint?:string;eligibility:SubscriptionEligibility}):void;
   context: unknown; tools: ToolDefinition[];
   // Network tools may be asynchronous. Adapters MUST await before serialization/settlement.
   callTool(callId: string, name: string, args: unknown, signal?: AbortSignal): unknown | Promise<unknown>;
@@ -33,6 +34,9 @@ export interface RuntimeAdapter {
   readonly supportsInterrupt: boolean;
   readonly subscriptionBlockReason?: string;
   subscriptionPolicySupported?(policy:ActivityPolicy):boolean;
+  finiteHQPolicySupported?(policy:FiniteHQPolicy):boolean;
+  /** Separate normal-HQ finite authority; never fall back to ordinary or pilot execution. */
+  runFiniteHQInvestment?(input:RuntimeInput,signal:AbortSignal,policy:FiniteHQPolicy):Promise<RuntimeResult>;
   researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;
