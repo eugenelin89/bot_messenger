@@ -1,14 +1,29 @@
-# Planned HQ-READY-03 — Yahoo evidence gateway and prospective method qualification
+# HQ-READY-03 — Yahoo evidence gateway source integration
 
-**Status:** Planned; implementation not selected or executed by the source-selection task
+**Status:** Source and deterministic acceptance complete; reviewed Git integration in progress (owner selection2026-10-11)
 
-**Owner:** Future sole writer/integrator, with risk-based read-only specialist review
+**Owner:** Parent Codex sole writer/integrator, with read-only security, recovery, architecture and acceptance specialists
 
-**Branch/worktree:** To be created from synchronized main when implementation is selected
+**Branch/worktree:** `codex/investment-hq-ready-03` / `../bot_messenger-hq-ready-03`; other worktrees untouched
 
 **Prepared:** 2026-10-11 America/Vancouver
 
-**Implementation ETA:** Estimate after owner selection and source-scope preflight; no schedule or collector created
+**Implementation ETA:** Initial best effort 3–5 hours for implementation, dependency audit, serial regressions, independent review and integration. No schedule or collector created.
+
+**Verified starting main:** `92916908a409d55c20343890ff73f2ad86a0e890`, clean and equal to freshly fetched `origin/main` before editing.
+
+## Execution ledger
+
+- Preflight: read root instructions, governing decisions, market rules, operational design and HQ-READY-02 acceptance; verified clean synchronized main and isolated one writer.
+- Architecture pre-review: additive financial research tables and a sibling gateway reuse existing MarketStore/policies. Legacy price collector, simulator and employee scopes remain synthetic-only.
+- Dependency qualification: Python 3.12.12 and yfinance 1.7.0 selected for exact source audit and offline execution; no Yahoo financial request authorized.
+- Implemented: pinned isolated Python adapter, research gateway/admission, inert schema23, original payloads/revisions, bounded dormant HTTPS and typed quality/point-in-time records. No live mode, employee tool or scheduler activated.
+- Independent findings resolved: completion/delivery clock high-water, per-attempt versus operation deadlines, delivery replay capacity, omitted sessions, original payload retention, child/wire bounds, reporting/dividend currency, raw provider identity and separate action timestamps.
+- Final focused acceptance:72/72, zero failures/skips; source manifest `05fcb9509cb14653e59bd77927382996c22462494c42b9acef407a4222141163`. Architecture, security, recovery and acceptance source reviews report no remaining material findings.
+- Dependency audit: exact23-package wheel hash lock and `pip check`/hash-required dry run pass; actual pinned yfinance runs only against authored fixture HTTP.
+- First full sandbox run retained in acceptance record: loopback/nested sandbox failures and one in-progress protocol mismatch. Final fixed-tree host-authorized serial full regression passed1,320/1,326 with0 failures and6 pre-existing environment skips; source kept fixed.
+- Current docs: [dossier/probe](../operations/YAHOO_FINANCIAL_GATEWAY.md), [acceptance](../validation/investment/HQ-READY-03.md) and current-facing status updated. Requirement8 (actual Yahoo probe) remains separately unauthorized, not silently claimed from fakes.
+- Final check/build/contracts passed;175/175 contract tests. Final independent acceptance approved Git integration. Source/test commit `150ef9b0b191bcc77ea9a029a81d9a02584dc5f9`. Remaining: docs commit, scoped PR, exact-head mergeability check, merge and clean main synchronization. Revised remaining ETA approximately10–15 minutes, subject to Git integration results.
 
 **Baseline:** HQ-READY-02 merged at `069f7e442ba20a6d61e636b983cecce1c3ad5863`
 

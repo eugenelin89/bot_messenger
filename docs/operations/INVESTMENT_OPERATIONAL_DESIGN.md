@@ -13,7 +13,9 @@ Yahoo Finance / Python `yfinance` for personal private research under
 [Decision038](../decisions/decision_038_yahoo_finance_private_source.md), superseding this document's
 Alpha Vantage-first recommendation. Reported permission is verbal personal-use permission from
 Yahoo as reported by the owner; no independently verified writing or broader rights is claimed.
-The [HQ-READY-03 implementation plan](../exec-plans/investment-hq-ready-03.md) is prepared only.
+The [HQ-READY-03 source/fake acceptance](../validation/investment/HQ-READY-03.md) now implements
+the inert gateway and pinned adapter. The [bounded live-probe proposal](YAHOO_FINANCIAL_GATEWAY.md)
+remains separately unauthorized; live admission, retention/custody and prospective fills stay blocked.
 Earlier HQ-READY-01 audit/status wording remains a dated snapshot; current source direction is
 summarized in §13 and the updated03 packet below. No operational activation follows.
 
@@ -446,8 +448,8 @@ source or installation was changed.
 ## 10. Prioritized implementation packets
 
 These packets originated as HQ-READY-01 proposals. HQ-READY-02 is now source-accepted (§12).
-HQ-READY-03 below reflects the new Yahoo selection and prepared plan; its implementation and
-HQ-READY-04/05 operation remain unstarted and separately authorized.
+HQ-READY-03 below reflects the Yahoo selection; source/fake integration is accepted, while live
+qualification and HQ-READY-04/05 operation remain unstarted and separately authorized.
 
 ### HQ-READY-02 — finite real-employee HQ runtime, synthetic source acceptance
 
@@ -599,11 +601,12 @@ hashes can prove. No operational provision/approval command was executed in this
 ## 13. Yahoo source selection and private scope — 2026-10-11
 
 The primary source is now **Yahoo Finance**, using preferred **Python `yfinance`** behind the
-planned **controlled Financial Data Gateway**. The owner says they spoke directly with Yahoo and
+implemented, inactive **controlled Financial Data Gateway**. The owner says they spoke directly with Yahoo and
 received personal-use permission. Record this as owner-reported verbal permission only: no written
 verification, contact identity, call date or unrestricted automated/public grant is established.
 [Decision038](../decisions/decision_038_yahoo_finance_private_source.md) and the
-[HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) govern the next implementation selection.
+[HQ-READY-03 acceptance](../validation/investment/HQ-READY-03.md) govern source-only integration.
+Live data remains gated by the [dossier/probe proposal](YAHOO_FINANCIAL_GATEWAY.md).
 
 Private research support and observed paper-execution qualification are separate outcomes.
 Fundamentals/statement period end is not publication time; split-adjusted history is not necessarily
