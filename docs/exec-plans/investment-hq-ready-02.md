@@ -1,6 +1,6 @@
 # Execution plan — HQ-READY-02 finite private HQ runtime
 
-**Status:** Source acceptance complete; reviewed integration pending
+**Status:** Complete — source acceptance; final Git receipt is [PR56](https://github.com/eugenelin89/bot_messenger/pull/56)
 **Owner:** Parent Codex task; sole writer and integrator
 **Branch:** `feature/investment-hq-ready-02`
 **Worktree:** `bot_messenger-hq-ready-02`
@@ -55,4 +55,4 @@ Root/prompt AGENTS; README; product vision, intelligent-company and single-compa
 
 ## Remaining work
 
-Implementation, full/focused/browser validation, link/privacy/scope checks and source review are complete. Finalize the [validation record](../validation/investment/HQ-READY-02.md), commit documentation, push/create the scoped PR, verify exact base/head/files/checks and merge accepted code into clean synchronized main. Stop after this integration. Genuine operation remains unauthorized.
+No HQ-READY-02 source work remains. [Acceptance](../validation/investment/HQ-READY-02.md) records the exact source/test/documentation commits, results and reviewer dispositions. [PR56](https://github.com/eugenelin89/bot_messenger/pull/56) is the authoritative final head/merge receipt; the parent verifies exact base/head/files/checks and clean synchronized main at closure. Stop after that integration. Linux/custody, genuine H1–H9, source/method qualification, public rights and deployment remain separately gated; no later task is started.

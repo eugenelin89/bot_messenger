@@ -5,7 +5,9 @@
 **Base:** `276d918f07d9dd9919a09f698f6fdae51831a0a9`
 **Reviewed production source:** `c715085e5fd05fd7c96ef4798462c749afc6ccca`
 **Migration compatibility tests:** `4c5261a02c6f44eb474faa531c60256006e96f87`
-**Status:** Source and deterministic acceptance complete; reviewed Git integration pending. No operational acceptance.
+**Status:** Source and deterministic acceptance complete. No operational acceptance.
+**Integration:** [PR56](https://github.com/eugenelin89/bot_messenger/pull/56) records the final reviewed head, merge commit and remote checks; the parent verifies clean synchronized main after merging.
+**Acceptance documentation:** `8f3445e5064ff950d90c07f49500b97ae7f7dcd6`, followed only by this closure link/status update.
 
 ## Implemented boundary
 
