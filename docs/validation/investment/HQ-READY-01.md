@@ -120,6 +120,15 @@ Public release has separate rights/audience/protocol/deployment gates and is unn
 
 ## Git integration receipt
 
-Pending documentation commit, exact-head PR verification and authorized merge. The final handoff
-will identify the documentation commit, PR, merge and clean synchronized main. No completion of
-runtime/data/public gates follows from a Git merge.
+- Reviewed content commit: `56b86e338817e9403b431b335e50185f5b2e6aed`.
+- Delivery: [PR55](https://github.com/eugenelin89/bot_messenger/pull/55), branch
+  `codex/investment-hq-ready-01` into `main`.
+- Initial exact PR check: base `da64089e12035a3e1ae7bfc504c80798dc4925bf`, head equal to content
+  commit, mergeable, exactly11 expected Markdown files; no review submissions or inline threads.
+- CI visibility: zero status contexts and zero returned PR-triggered workflow runs; this is no
+  reported CI, not successful application testing. Independent specialist acceptance is above.
+- This receipt-only follow-up updates the plan/report. Its final head/scope must be checked again
+  before authorized merge. The terminal merge SHA and clean local/remote main equality are kept
+  in PR metadata and the final owner handoff, not asserted in advance by this pre-merge document.
+
+No completion of runtime/data/public gates follows from a Git merge.
