@@ -609,3 +609,10 @@ proposed work. Owner-selected [HQ-READY-02](docs/validation/investment/HQ-READY-
 the finite private runtime, inert setup and recovery accounting with fake/synthetic acceptance.
 No genuine authority or investment operation is activated. Decision037
 remains exhausted at4/4, and private/source acceptance is not public launch readiness.
+
+Yahoo Finance is now the owner-selected primary source for the personal private investment
+project, with preferred Python `yfinance` behind a planned controlled Financial Data Gateway.
+[Decision038](docs/decisions/decision_038_yahoo_finance_private_source.md) accurately records
+owner-reported verbal personal-use permission; automation/retention and public rights remain
+separate assessments. The [HQ-READY-03 plan](docs/exec-plans/investment-hq-ready-03.md) is prepared
+only. US$0, synthetic-only HQ-READY-02 acceptance and inactive production authority are unchanged.

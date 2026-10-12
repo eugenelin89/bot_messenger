@@ -8,7 +8,16 @@
 [Execution plan](../exec-plans/investment-hq-ready-01.md) ·
 [Proposed next implementation prompt](../../prompts/experiments/investment-hq-ready-02.md)
 
-## 1. Decision-ready outcome
+**Current amendment:** HQ-READY-02 source acceptance is complete (§12). The owner now selects
+Yahoo Finance / Python `yfinance` for personal private research under
+[Decision038](../decisions/decision_038_yahoo_finance_private_source.md), superseding this document's
+Alpha Vantage-first recommendation. Reported permission is verbal personal-use permission from
+Yahoo as reported by the owner; no independently verified writing or broader rights is claimed.
+The [HQ-READY-03 implementation plan](../exec-plans/investment-hq-ready-03.md) is prepared only.
+Earlier HQ-READY-01 audit/status wording remains a dated snapshot; current source direction is
+summarized in §13 and the updated03 packet below. No operational activation follows.
+
+## 1. Decision-ready outcome — HQ-READY-01 snapshot
 
 **Proceed with source-only HQ-READY-02 after owner selection. Block genuine operation now.**
 The shortest path is a distinct finite, existing-credit-approved **private paper** mode in
@@ -154,9 +163,10 @@ model selection are missing and **not authorized**. Create nothing for this comp
 
 ## 4. US$0 market-source assessment
 
-**E/B:** reviewed primary documentation establishes no complete current price/action source with
+**E/B at the HQ-READY-01 audit:** reviewed primary documentation established no complete price/action source with
 all required project-use rights. Free access does not imply automated, organizational, retained,
-derived or public use. The following is a qualification shortlist, not a source selection. No
+derived or public use. The following is the historical qualification shortlist; Decision038 now
+selects Yahoo for the owner’s personal private scope. No
 market-price request, download, account registration or collector was performed by HQ-READY-01.
 All external sources in this section were accessed **2026-10-11 America/Vancouver**.
 
@@ -187,12 +197,14 @@ rows asserts a privately negotiated grant. No provider contact is authorized by 
 | [SEC reuse](https://www.sec.gov/files/about/webmaster-faq.htm) | Allowed subject to fair access | Allowed public filings/government-created material | Allowed same content | Allowed same content | Allowed same content, no market-price claim | Allowed same content; third-party non-filing images/marks not covered | Original issuer/filing/time provenance; do not imply SEC endorsement |
 | [OpenFIGI terms](https://www.openfigi.com/docs/terms-of-service) | Allowed within API limits | Allowed identifier strings | Allowed identifier strings | Allowed identifier strings | Allowed identifier strings | Allowed identifier strings | Preserve mapping provenance; review metadata MIT notices separately |
 
-**Recommendation P:** retain the live market gate. First qualification attempt should examine
-Alpha Vantage's small raw-daily shape only if exact US$0 written project-use/retention permission
-is obtained; Massive is the technically richer alternative only with equivalent no-fee rights.
-Neither currently qualifies, and neither daily-bar route automatically meets the prospective
-method below. Do not spend time building a live adapter before these decisive gates are settled.
-SEC/OpenFIGI are the strongest narrowly reusable supplements; they cannot replace prices.
+**Historical recommendation P — superseded for primary-source selection by Decision038:**
+HQ-READY-01 recommended qualifying Alpha Vantage first, with Massive as an alternative. The owner
+has now selected Yahoo Finance with `yfinance`; focus HQ-READY-03 on that path. The owner reports
+verbal personal-use permission from Yahoo, not independently verified writing or unrestricted
+automated/public rights. Assess automation and retention for the exact private use separately.
+The historical organizational/public-use analysis above must not be treated as an assessment of
+this newly specified personal scope. Source/field/method qualification and public release remain
+separate gates. SEC/OpenFIGI remain possible narrowly scoped supplements, not silent replacements.
 
 Separate outcomes: (1) permitted private observation can proceed only after access/internal/
 retention checks pass; (2) public or derived display requires its own exact field permission;
@@ -433,7 +445,9 @@ source or installation was changed.
 
 ## 10. Prioritized implementation packets
 
-All four packets are **proposals**. Only HQ-READY-01 documentation work is authorized now.
+These packets originated as HQ-READY-01 proposals. HQ-READY-02 is now source-accepted (§12).
+HQ-READY-03 below reflects the new Yahoo selection and prepared plan; its implementation and
+HQ-READY-04/05 operation remain unstarted and separately authorized.
 
 ### HQ-READY-02 — finite real-employee HQ runtime, synthetic source acceptance
 
@@ -464,33 +478,35 @@ All four packets are **proposals**. Only HQ-READY-01 documentation work is autho
   disabled-default capability, exact consent contract and next genuine gate. No production grant.
 - **Owner decision:** select source-only prompt; policy approval and activation remain separate.
 
-### HQ-READY-03 — zero-cost evidence and prospective method qualification
+### HQ-READY-03 — Yahoo evidence gateway and prospective method qualification
 
-- **Objective/dependency:** qualify one exact allowed US$0 source/method or return a finite blocked
-  result. Independent rights work can precede02; integrated financial tests depend on02 interfaces.
-- **Modules:** `src/domain/market/{types,normalize,admission,calendar,validation}.ts`,
-  `src/control/market/{collector,admission,store}.ts`, one selected adapter,
-  `src/domain/investment/{types,policy,reducer,accounting,valuation}.ts`,
-  `src/control/investment-loop/service.ts`, versioned methodology and focused fixtures.
-- **Source changes:** approved observed evidence only after qualified rights; trusted action intake,
-  payment/exception/correction handling; source freshness/calendar maintenance; separately approved
-  prospective fill and matching benchmark/valuation method. Preserve `inv05-v1` regressions.
-- **Authority/expenditure:** US$0; zero models. Before any probe require owner approval of source,
-  existing/free account, bounded endpoint request count and permitted retention. No paid trial,
-  collector schedule or provider contact implied. No live call if rights are unresolved.
-- **Tests:** captured-permitted or authored fixture payloads; stale/future/delayed/duplicate/corrected
-  records, adjusted rejection, corporate-action dates/entitlements, DST/holiday/early close, finite
-  expiry, no historical-price-as-current-fill and matching benchmark returns.
-- **Genuine criterion:** source-specific non-model probe receipts only after separate permission;
-  no inference or two-session claim. A blocked rights report is an honest packet result, not a pass.
-- **Recovery/resources:** append-only raw hashes/corrections, replay equivalence, bounded response
-  sizes and serialized quota use; revoke source and stop intake without rewriting financial history.
-- **Stops:** no exact no-fee project rights, missing new raw event/freshness, unknown action/payment,
-  unsupported method or rights expiry. No indefinite provider search or paid fallback.
-- **Deliverables/DoD:** qualified source dossier and reviewed adapter/method tests, or explicit
-  retained live gate plus synthetic-only fixtures. Unresolved rights are not production readiness.
-- **Owner decisions:** exact source/use/retention and permitted probe; T1 versioned method; universe,
-  benchmark and unsupported-action policy. Public rights remain separately denied.
+- **Objective/dependency:** implement the selected Yahoo Finance / Python `yfinance` path behind
+  the controlled Financial Data Gateway, reusing02/INV-06 boundaries; qualify supported private
+  data and retain explicit gaps. [Full prepared plan](../exec-plans/investment-hq-ready-03.md).
+- **Modules:** existing `src/control/market/{collector,admission,store}.ts` and
+  `src/domain/market/{types,normalize,admission,calendar,validation}.ts`, a narrow versioned Python
+  adapter and typed OHLCV/fundamentals/statement/action records; financial/loop modules only for
+  a separately approved prospective method. This is not an implemented live gateway.
+- **Source changes:** historical OHLCV, company fundamentals, annual/quarterly statements, splits
+  and dividends as available. Preserve original output/source IDs, timestamps, adjustments,
+  quality, missingness and append-only revisions. Current/restated data cannot leak into past decisions.
+- **Authority/expenditure:** Decision038 settles primary-source selection and records owner-reported
+  verbal personal-use permission. Automation/retention scope and each public use are separate.
+  US$0, zero models; source coding requires later selection and live probes need exact bounded
+  request/use/retention authorization. No production, paid subscriptions or recurring collector.
+- **Controls/tests:** conservative aggregate request rate, gateway cache and actual underlying
+  library-request/retry accounting, finite deadlines/bytes, 429/403/provider failure, stale/schema/
+  missing data, concurrent attempts, lost results and restart. No hidden parallel download or bypass.
+  Authored fixtures prove point-in-time decisions, adjustments/actions and private-public separation.
+- **Method:** preserve HQ-READY-02 synthetic-only `inv05-v1`. Yahoo history is useful research but
+  not automatically valid prospective fill evidence. New observed method/run, benchmark and valuation
+  semantics need explicit approval; missing raw/fresh/action evidence leaves execution blocked.
+- **Deliverables/DoD:** reviewed inert adapter/gateway, source dossier with reported versus verified
+  evidence, deterministic tests and explicit private research/live-fill/public gate dispositions.
+  Separately permitted non-model probe receipts may qualify fields; no inferred genuine H1–H9 pass.
+- **Stops:** unresolved automation/retention, cost, unbounded internal I/O, unavailable provenance,
+  unsupported adjustment/action/time or absent method approval. Continue authorized offline work;
+  no indefinite provider search, paid fallback, silent source substitution or public release.
 
 ### HQ-READY-04 — private end-to-end paper cycle
 
@@ -541,7 +557,7 @@ All four packets are **proposals**. Only HQ-READY-01 documentation work is autho
 - **Owner decisions:** public content/audience/retention, protocol amendment if needed, operational
   OS-risk review, exact deployment and separate activation. RECOVERY-01 remains cancelled.
 
-## 11. Exact owner choices and next step
+## 11. Exact owner choices and next step — HQ-READY-01 snapshot
 
 | Proposed choice | Approval needed before dependent effect |
 | --- | --- |
@@ -579,3 +595,23 @@ ordinary company backups. A restore must reconcile offline before dispatch. Miss
 corrupt evidence or joint old snapshots disagreeing with custody stay stopped; no repair creates
 fresh allowance. Replacing every retained copy as a local administrator remains outside what local
 hashes can prove. No operational provision/approval command was executed in this milestone.
+
+## 13. Yahoo source selection and private scope — 2026-10-11
+
+The primary source is now **Yahoo Finance**, using preferred **Python `yfinance`** behind the
+planned **controlled Financial Data Gateway**. The owner says they spoke directly with Yahoo and
+received personal-use permission. Record this as owner-reported verbal permission only: no written
+verification, contact identity, call date or unrestricted automated/public grant is established.
+[Decision038](../decisions/decision_038_yahoo_finance_private_source.md) and the
+[HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) govern the next implementation selection.
+
+Private research support and observed paper-execution qualification are separate outcomes.
+Fundamentals/statement period end is not publication time; split-adjusted history is not necessarily
+raw execution evidence; available dividend history is not guaranteed payment completeness. Keep
+first-retrieval knowledge, provider availability and later corrections distinct, and block unsupported
+financial effects. Reuse trusted source policy and finite collection receipts; workers gain no
+arbitrary network, Python or public-export authority.
+
+The current selection does not fetch data, install dependencies, start a recurring collector,
+change production or authorize public redistribution. US$0, unchanged synthetic HQ-READY-02
+acceptance, permanently exhausted Decision0374/4 and separate genuine/deployment gates remain.

@@ -1,6 +1,6 @@
 # Design decisions and launch configuration
 
-**Version:** 1.6 | **Updated:** 2026-10-09 | [Guide](README.md)
+**Version:** 1.7 | **Updated:** 2026-10-11 America/Vancouver | [Guide](README.md)
 
 ## Status discipline
 
@@ -9,6 +9,13 @@ The owner separately selected INV-01 through INV-05 for their documented contrac
 [Decision 028](../../decisions/decision_028_ask_botsquad_public_questions.md) and the [Ask amendment table](ASK_BOTSQUAD.md#2-explicit-amendment-to-the-original-design) supersede only the original read-only-visitor/publication-only scope. Visitors may request a bounded answer; they still cannot command investments or access private company state.
 
 **Owner-approved market-data constraint:** [Decision 029](../../decisions/decision_029_zero_cost_market_data.md) sets a hard **US$0 incremental market-data budget** and requires free APIs or permitted low-frequency web extraction. It supersedes INV-01's conditional paid Tiingo recommendation as the forward implementation path. It does not waive automated-access/public-display rights or authorize any scraping or launch by itself.
+
+**Owner-selected primary source:** [Decision038](../../decisions/decision_038_yahoo_finance_private_source.md)
+selects Yahoo Finance with Python `yfinance` behind the planned Financial Data Gateway for the
+owner's personal, non-commercial private research. The owner reports verbal permission from Yahoo
+for personal use; no independent written verification or broader automated/public grant is claimed.
+[HQ-READY-03](../../exec-plans/investment-hq-ready-03.md) now plans this path. Source selection is
+settled; implementation, automated-access/retention qualification and all activation remain separate.
 
 ## Selected design baseline
 
@@ -42,7 +49,7 @@ D01–D19 are accepted design requirements; INV-01 contracts and the INV-02 rece
 | ID | Item | Resolve by |
 | --- | --- | --- |
 | O01 | Capital/currency, universe, benchmark, risk limits and horizon | INV-01 specification; explicit owner approval before official activation |
-| O02 | Select permitted free API/source or allowed web scraper; verify internal/automated use, display/derived/archive rights, timestamps, retention, correction quality and limits | Market-data budget is fixed at US$0 by D18; INV-06 must prove actual free-source suitability, otherwise block live/public fields and escalate a methodology/display choice instead of spending |
+| O02 | Yahoo Finance selected as primary private source; preferred `yfinance` gateway adapter. Qualify automated access, retention, field/time/adjustment/action quality and limits; assess public redistribution separately | Decision038 records owner-reported verbal personal-use permission, not independent written verification. HQ-READY-03 follows the selected path under US$0; unsupported live/public fields remain blocked without reopening source selection or spending |
 | O03 | Representative live capacity and exact public ingress | INV-03 passes isolated TLS, 953s bounded synthetic load, complete restore and current-control fencing; shared443 topology/authority/renewal, full-archive/public sizing and actual independent backup custody/policy still gate activation |
 | O04 | Eligible real investment roster, research/group grants and scoped paper-order capability | INV-08; do not rename roles to imply authority |
 | O05 | Finite investment model/research/operation budgets and schedule/end conditions | INV-09 and owner activation |
@@ -68,7 +75,7 @@ Evidence and primary sources: [INV-01](../../validation/investment/INV-01.md). W
 | Risk | Long-only/no leverage; 15% position, 30% sector at new-risk admission; 10% observed drawdown stops new risk | Owner approves classification and limits; price moves may exceed limits; no guaranteed loss bound |
 | Cadence/horizon | One review per regular exchange session; close valuation; weekly outcome review; 60 official sessions, separately authorized5-session private trial | Owner selects dates and calendar; missed deadlines coalesce/expire, never backdate |
 | Execution | Next regular opening after commitment at least30min before open; whole discretionary shares; 10bps adverse slippage, zero commission; 24 h maximum data wait after target open | Verify exact provider field/availability/halts; expire if missing; six-decimal half-even weighted-average basis, explicit action entitlements |
-| Market data | **Current owner decision:** US$0 incremental fees; use verified free APIs and permitted low-frequency web collection, with documented provenance and no silent paid fallback. **Historical INV-01 finding:** Tiingo EOD Startup paid redistribution was conditionally suggested, but is now superseded by Decision 029 | INV-06 must verify free-source automation/internal-use rights, raw price and action quality, publishable derived/display/archive fields, availability and rate limits. If none qualifies, stop the affected live/public gate; do not buy a feed |
+| Market data | **Current owner decision:** Yahoo Finance via preferred Python `yfinance`, behind the controlled Financial Data Gateway, for personal private research; US$0. **Historical INV-01 finding:** paid Tiingo recommendation remains superseded | Decision038 records verbal personal-use permission as owner-reported only. HQ-READY-03 qualifies automation/retention, original observations, adjustments, point-in-time data and bounded requests. Public/derived/export/archive rights and observed fill methodology remain separate gates; no paid fallback |
 | Publication | Authorized contribution batches every<=15s when active; heartbeat60s, stale180s; daily financial valuations after provider readiness | Measure30s visible-tab target; respect licensed delay and owner audience/expiry. Stop new risk if outbox>24 h or64 MiB |
 | Discussions/artifacts | Actual scoped group contributions, dissent, exact synthesis and every deliverable registry entry; approved public derivatives or safe withheld reason | No private transcript export. Text/Markdown/JSON/CSV/normalized PNG only; existing HQ lower limits prevail |
 | Investment usage |32 executions/cycle, 64/day, 3, 840/run; 32 broker calls/day, 1, 920/run; recommend$10/day, $600/run ceiling | Owner budget and enforceable metering required. Default group reservation is24 plus coordinator; prior12/cycle was insufficient. Caps are ceilings, not scheduled consumption |
@@ -96,6 +103,7 @@ Record date, decision ID, reason, affected documents, owner authorization where 
 | 2026-10-09 | 1.4 | Owner cancels INFRA-01 migration, deletes its verified snapshot and retains Ubuntu 22.10 under a time-limited exception; INFRA-02 remains unstarted and separately authorized (Decision 030) |
 | 2026-10-09 | 1.5 | Owner-selected INFRA-02 completes private Linux installation and synthetic acceptance; final receiver stopped/default disabled, public HTTP/TLS and real publisher/HQ activation remain gated ([evidence](../../validation/investment/INFRA-02.md)) |
 | 2026-10-09 | 1.6 | Owner-selected INV-03 completes artifact/discussion archive, disabled schema002 private installation, isolated TLS and stronger synthetic capacity/recovery; public topology, custody, rights and HQ gates retained; prior backup deletion corrected ([evidence](../../validation/investment/INV-03.md)) |
+| 2026-10-11 | 1.7 | Owner selects Yahoo Finance / `yfinance` for personal private research; records owner-reported verbal permission only, separate automation/public scope, US$0 and planned HQ-READY-03 (Decision038); no collection or activation |
 
 ## INV-05 implementation decision
 

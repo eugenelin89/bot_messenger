@@ -105,11 +105,12 @@ See [source acceptance](../validation/investment/HQ-READY-02.md).
 | Genuine employee execution or existing-credit consumption | Not authorized; authority remains uncreated/default inactive |
 | Isolated Linux confinement, custody and offline recovery | Pending a separately selected operational acceptance task |
 | Real two-elapsed-session H1–H9 | Pending explicit HQ-READY-04 authority and prerequisites |
-| Live price/action source and prospective method | Blocked pending separately selected HQ-READY-03 and owner decisions |
+| Live price/action source and prospective method | Yahoo / `yfinance` selected below; automated-use/retention and technical/method qualification remain pending HQ-READY-03 |
 | Public rights, canonical mapping, Asymmetri, deployment | Blocked; unchanged by this packet |
 
 The next recommended task is separately selected **HQ-READY-03 source qualification and
-prospective methodology**, within the US$0 market-data boundary. It is not started here. A later
+prospective methodology** on the selected Yahoo/`yfinance` path, within the US$0 market-data
+boundary. The plan below is prepared; implementation is not started here. A later
 HQ-READY-04 selection must explicitly approve the exact account/routing, model/reasoning,
 participants, synthetic evidence or separately qualified source/method, finite limits, expiry,
 provider-retry/existing-credit risk, fresh authentic reload-OFF evidence and Linux/custody acceptance.
@@ -120,3 +121,32 @@ Decision037 remains permanently completed and exhausted at **4/4**, with three g
 historical turns and zero future releases. Its files, archived evidence and historical reports are
 unchanged. No HQ-READY-03/04/05 or INV-10+ work, automation, production activation or public release
 is implied by source acceptance.
+
+## Yahoo source selection — 2026-10-11
+
+The owner has selected **Yahoo Finance as the primary source** for the personal, non-commercial
+investment hobby project, using Python **`yfinance` behind the controlled Financial Data Gateway**.
+[Decision038](../decisions/decision_038_yahoo_finance_private_source.md) records the owner having
+spoken directly with Yahoo and receiving personal-use permission as **owner-reported verbal
+permission**. No written permission was supplied or independently verified; automated-access,
+retention and public redistribution scope must be assessed separately. Do not infer unrestricted
+public rights or reopen primary-source selection by default.
+
+The [prepared HQ-READY-03 plan](../exec-plans/investment-hq-ready-03.md) covers historical OHLCV,
+fundamentals, financial statements, splits/dividends as available, original provenance, bounded
+requests/cache/retries, provider failures and point-in-time correctness. Research suitability and
+eligibility for observed paper fills are separate results. Current/late/restated data must not leak
+into past decisions; Yahoo daily history is not automatically a qualifying prospective price.
+
+| Gate | Current disposition |
+| --- | --- |
+| Primary source / preferred adapter | Selected: Yahoo Finance / Python `yfinance` |
+| Evidence of permission | Owner-reported verbal personal-use permission; no independent written verification |
+| Exact automation, private retention and field quality | Separate HQ-READY-03 assessment; no runtime policy or live probe activated |
+| Public display/derived/export/archive rights | Not established by the report; publication remains blocked |
+| Source implementation / data collection | Plan prepared only; no adapter installed, Yahoo data fetched or collector scheduled |
+| Budget and previous acceptance | Decision029 US$0 unchanged; HQ-READY-02 synthetic acceptance and Decision0374/4 preserved |
+
+Next: separately select HQ-READY-03 implementation using this plan. Production, recurring
+collectors, paid subscriptions, genuine employee work, observed-run activation and public
+publication require separate applicable authorization. No Asymmetri change is part of this task.
