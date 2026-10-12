@@ -1,7 +1,9 @@
 # Decision 038 — Yahoo Finance for private personal research
 
-**Date:** 2026-10-11 America/Vancouver  
-**Status:** Accepted owner source selection and implementation direction; HQ-READY-03 implementation and operational activation remain unstarted  
+**Date:** 2026-10-11 America/Vancouver
+
+**Status:** Accepted owner source selection and implementation direction; HQ-READY-03 implementation and operational activation remain unstarted
+
 **Scope:** The owner's personal, non-commercial BotSquad investment hobby project
 
 ## Owner decision and evidence

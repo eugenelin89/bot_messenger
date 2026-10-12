@@ -1,10 +1,15 @@
 # Planned HQ-READY-03 — Yahoo evidence gateway and prospective method qualification
 
-**Status:** Planned; implementation not selected or executed by the source-selection task  
-**Owner:** Future sole writer/integrator, with risk-based read-only specialist review  
-**Branch/worktree:** To be created from synchronized main when implementation is selected  
-**Prepared:** 2026-10-11 America/Vancouver  
-**Implementation ETA:** Estimate after owner selection and source-scope preflight; no schedule or collector created  
+**Status:** Planned; implementation not selected or executed by the source-selection task
+
+**Owner:** Future sole writer/integrator, with risk-based read-only specialist review
+
+**Branch/worktree:** To be created from synchronized main when implementation is selected
+
+**Prepared:** 2026-10-11 America/Vancouver
+
+**Implementation ETA:** Estimate after owner selection and source-scope preflight; no schedule or collector created
+
 **Baseline:** HQ-READY-02 merged at `069f7e442ba20a6d61e636b983cecce1c3ad5863`
 
 ## Objective and settled direction
