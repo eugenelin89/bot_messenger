@@ -51,3 +51,14 @@ is approval. No preparation or execution occurred during this task.
 
 If this connectivity test succeeds, stop. A later financial-data qualification still needs its
 own explicit scope, custody and approval, and genuine financial-data qualification remains blocked.
+
+## HQ-READY-03D disposition — 2026-10-12
+
+The owner has now explicitly approved this exact one-attempt scope and confirmed that their
+reported Yahoo permission covers the minimal automated personal-use GET and non-data receipt
+retention, to the best of their understanding. [Decision040](../decisions/decision_040_one_shot_yahoo_connectivity.md)
+records the separate authority; [03D acceptance](../validation/investment/HQ-READY-03D.md) records
+its current source, execution and cleanup status. The03C proposal/history above remains provenance.
+The new implementation tightens body consumption to zero by closing at headers and independently
+bounds consumption through cleanup to10seconds. Body contents/challenges remain uninspected.
+The original03B authorization is never reset or reused.
