@@ -1,6 +1,6 @@
 # Execution plan — INV-ASK-01 contract boundary and private intake
 
-Status: HQ source accepted by architecture, security, recovery and test review; PR integration in progress. Full packet remains partial, with website private intake delegated to its existing chat.
+Status: HQ source accepted by architecture, security, recovery and test review; delivery [PR77](https://github.com/eugenelin89/bot_messenger/pull/77). Full packet remains partial, with website private intake delegated to its existing chat.
 Started: 2026-10-13 05:58 America/Vancouver. Initial ETA: 1–2 hours for the HQ packet,
 subject to review; website execution remains at its own tool-approval boundary.
 Source baseline: `6f7f644aa68df091b5088d6895548d0a76e13b45`.

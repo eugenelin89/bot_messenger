@@ -4,6 +4,9 @@
 The private website session/queue/intake implementation and its acceptance are pending in the
 existing asymmetri.co chat. This packet creates no public chat, runtime execution or authority.
 
+Source commit: `c30727d34b0b1bb9b026c07428144d06f2197535`.
+Delivery PR: [77](https://github.com/eugenelin89/bot_messenger/pull/77).
+
 ## Delivered source
 
 `src/domain/ask/contract.ts` provides six typed operations against the existing Ask 1.0 contract:

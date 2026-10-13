@@ -51,5 +51,13 @@
     }
   ],
   "initialFailure": "First build rejected the test permission-array assignment because canonical permissions is a nonempty tuple; test now checks nonempty before narrowing. Final build/check pass.",
-  "deployment": "No new production deployment; module has no runtime call sites. Private HQ remains d262a8dff59ab82587bd6444b083e5e9b7603cf0."
+  "deployment": "No new production deployment; module has no runtime call sites. Private HQ remains d262a8dff59ab82587bd6444b083e5e9b7603cf0.",
+  "implementationCommit": "c30727d34b0b1bb9b026c07428144d06f2197535",
+  "pullRequest": "https://github.com/eugenelin89/bot_messenger/pull/77",
+  "specialistReview": {
+    "architecture": "accepted after four recovery fixes",
+    "security": "accepted",
+    "recovery": "accepted",
+    "test": "accepted; independently verified source/log hashes; no critical missing test for isolated scope"
+  }
 }

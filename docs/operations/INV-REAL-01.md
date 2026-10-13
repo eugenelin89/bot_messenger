@@ -16,6 +16,7 @@ INV-ASK-01: strict typed claim/renew/status/answer/receipt/control-sync messages
 unchanged canonical1.0 protocol. Build/typecheck/manifest and224/224 focused tests pass.
 Architecture/security/recovery review fixes preserve lease expiry, post-purge receipt recovery
 and historical deletion controls under tighter policy. See [ASK-01 evidence](../validation/investment/INV-ASK-01.md).
+HQ source commit `c30727d34b0b1bb9b026c07428144d06f2197535`, delivery [PR77](https://github.com/eugenelin89/bot_messenger/pull/77).
 No HTTP/model work or runtime activation was added; private deployment stays d262a8d.
 The wake verified the same active service/database/dispatcher and degraded runtime, and did not
 retry the denied login. Website intake remains delegated and pending its actual tool approval.
