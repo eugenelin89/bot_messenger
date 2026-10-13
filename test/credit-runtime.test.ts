@@ -111,7 +111,7 @@ test('nonempty global instructions block without reading contents or starting a 
  const f=pilotFixture();t.after(f.close);writeFileSync(join(f.root,'AGENTS.md'),'private fixture instructions');assert.throws(()=>rejectGlobalInstructions({CODEX_HOME:f.root}),/Global Codex instructions/);
 });
 test('provider completion during local-stop grace preserves settlement but cannot reopen the pilot',async t=>{
- const f=transport('completed-after-timeout');t.after(f.close);f.input.localDeadline=new Date(Date.now()+2000).toISOString();const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.throws(()=>f.release());assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
+ const f=transport('completed-after-timeout');t.after(f.close);f.input.localDeadline=new Date(Date.now()+2000).toISOString();const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);assert.equal(result.providerTurnCompleted,true);f.company.finish(f.c.execution.execution_id,result);assert.equal(f.company.creditPilot.get()!.state,'stopped');assert.throws(()=>f.release());assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
 });
 
 for(const mode of ['success','notification-no-settlement'])test('durable lineage with fake transport '+mode+' admits exactly once and stops',async t=>{
@@ -131,5 +131,5 @@ for(const mode of ['success','notification-no-settlement'])test('durable lineage
 test('credit notification audit rejection requests interruption before closing transport',async t=>{
  const f=transport('hang');t.after(f.close);const event=f.input.event;
  f.input.event=(type,detail)=>{if(type==='runtime_turn_started')throw Error('Fixture revocation at notification');event(type,detail);};
- const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);assert.ok(f.methods().includes('turn/interrupt'));assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
+ const result=await f.runtime.runSubscriptionInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'interrupted');assert.equal(result.settled,true);assert.notEqual(result.providerTurnCompleted,true);assert.ok(f.methods().includes('turn/interrupt'));assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
 });

@@ -1,6 +1,8 @@
 # Persistent observed paper investment — operation and morning handoff
 
-**Current status,2026-10-13:** Source implementation is in progress on`codex/inv-real-01`.
+**Current status, 2026-10-13:** Source is implemented on `codex/inv-real-01`; final regression
+and deployment checks are in progress. [PR75](https://github.com/eugenelin89/bot_messenger/pull/75)
+is open as a draft.
 No INV-REAL-01 production activation or public release has yet occurred. Do not interpret
 this document's setup instructions or fixture tests as a live investment record.
 
@@ -51,16 +53,26 @@ exact canonical contract and signed receiver integration requirements.
 Read-only production preflight found active BotSquad at commit
 `a72cee080989960d2a9e1e74d9236157ce1a0448`, Node24.21.0, Python3.12.3, about36GiB free,
 roughly1.5GiB available memory and configured swap. `/opt/botsquad-runtime/node/bin/node`
-was owned1001:1001 and needs custody correction. No new authority or Python adapter runtime
+was owned1001:1001; it has now been corrected to root:root755. No new authority or Python adapter runtime
 was provisioned at that inspection. Subsequently the official Astral20260203 Linux install-only
 Python3.12.12 archive was downloaded and verified with SHA256
 `67056e6c15ad24fa7b5888f5d78f913eeafb3eebca66139123e800e82e9208d3`, then installed root:root755
-at`/opt/botsquad-runtime/python31212`; version3.12.12 verified. The isolated root-owned venv at`/opt/botsquad-runtime/yahoo-inv-real-01-venv` subsequently installed all hash-locked wheels; `pip check` passed and exact Python3.12.12/yfinance1.7.0 were verified. No service restart or source
-deployment occurred. These are preparation facts, not release evidence.
+at`/opt/botsquad-runtime/python31212`; version3.12.12 verified. The isolated root-owned venv at`/opt/botsquad-runtime/yahoo-inv-real-01-venv` subsequently installed all hash-locked wheels; `pip check` passed and exact Python3.12.12/yfinance1.7.0 were verified. The Linux adapter passed its authored equity/ETF test under the actual service user. A protected
+copy of the production schema14 database also passed migration to25 with three reopen checks,
+preserving all2,626 original rows and fields. No live service restart or source deployment occurred. These are preparation facts, not release evidence.
 
 ## Production account hold
 
-At2026-10-13 approximately10:46UTC the supported App Server `account/read` again returned workspace-routing authentication401 after one supported refresh of the existing login. Zero model turns were sent. A model catalog alone did not verify an authenticated account. Genuine employee activation is held until the service user signs in through the supported Codex login flow and the strict account/routing/eligibility preflight succeeds. Do not copy another user’s credentials or manufacture account/reload attestations. Source deployment can remain inert while this is repaired.
+At2026-10-13 approximately10:46UTC the supported App Server `account/read` again returned workspace-routing authentication401 after one supported refresh of the existing login. Zero model turns were sent. A model catalog alone did not verify an authenticated account. Genuine employee activation is held until the service user signs in through the supported Codex login flow and the strict account/routing/eligibility preflight succeeds. Do not copy another user’s credentials or manufacture account/reload attestations. Source deployment can remain inert while this is repaired. The installed CLI explicitly supports
+`codex login --device-auth`. The owner can restore the service-account login from an interactive
+SSH session using the following command, then resume the strict read-only preflight:
+
+```sh
+ssh -t botsquad 'cd /var/lib/botsquad && runuser -u botsquad -- env HOME=/var/lib/botsquad CODEX_HOME=/var/lib/botsquad/.codex PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin /opt/botsquad/node_modules/.bin/codex login --device-auth'
+```
+
+Complete the displayed official sign-in flow personally; do not paste its temporary code or
+credentials into a project document. No new login flow was initiated while the owner slept.
 
 ## Public release and restart
 
@@ -113,5 +125,29 @@ Its resulting comparator is **cash followed by SPY**, not full-period SPY buy-an
 status and subsequent snapshot limitations disclose both dates. No deferral is allowed after
 any benchmark allocation. Only that scheduled benchmark allocation may recover through a
 benchmark-only missing valuation; discretionary BUY stays blocked until healthy valuation.
-Known-settled employee failures and interruptions remain retained through renewal/restart;
-unknown or incomplete provider outcomes still prohibit it.
+Locally failed or interrupted employee work remains retained through renewal/restart only when
+the trusted adapter confirms the provider completed its turn and every authoritative usage
+category is complete. The execution remains failed/interrupted and its old authority must be
+retired. A settled provider failure alone cannot prove response coverage: missing, retried,
+unknown or incomplete provider outcomes still prohibit renewal. Historical incomplete records
+are never reclassified.
+
+## Continuation objective and next prompt
+
+After the current implementation is accepted and deployed, inspect this handoff, the execution
+plan, the validation record and the latest website-chat result. Generate the next concrete
+prompt from evidence, then execute its authorized work. Keep the same portfolio and retained
+authority history. Route website implementation to the existing asymmetri.co chat. Complete
+the Ask contract/intake, HQ employee routing, visitor interface and cross-system acceptance
+using the existing Ask roadmap and separate finite authority. No canned employee answers.
+
+The shortest activation prompt, once login and website execution are available, is:
+
+> Continue INV-REAL-01 from the accepted main and its operation record. Verify the repaired
+> service-account identity and eligibility, preserve the authentic reload-OFF timestamp, select
+> two future exchange sessions and existing eligible employees, provision the exact finite
+> observed/source/publication scopes, coordinate receiver approval and official-run selection
+> with asymmetri.co, and start the authorized paper operation. Verify real source and model
+> receipts and public read-back; observe both actual sessions without advancing time or
+> resetting the portfolio. Keep Ask BotSquad work and its independent limits visible until
+> the full project is complete. Deployment and release are already owner-authorized.

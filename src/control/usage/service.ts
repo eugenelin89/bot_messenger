@@ -57,12 +57,15 @@ export class AIUsage {
  this.refresh(usageId);
  });}
  private refresh(id:string){const r=this.row(id);const e=estimate(r.tokens?JSON.parse(r.tokens):null,r.price?JSON.parse(r.price):null,r.service_tier,r.completeness==='complete',!!r.model_changed);this.db.run('UPDATE ai_usage SET estimate=? WHERE usage_id=?',json(e),id);}
- finish(executionId:string,status:string,settled:boolean,usageId=executionId){this.db.transaction(()=>{this.ensure(executionId,usageId);const r=this.row(usageId);
+ finish(executionId:string,status:string,settled:boolean,usageId=executionId,providerTurnCompleted=status==='completed'){this.db.transaction(()=>{this.ensure(executionId,usageId);const r=this.row(usageId);
  // A terminal turn alone does not make estimated/replayed cumulative telemetry authoritative.
  const responses=this.db.all<{payload:string}>('SELECT payload FROM ai_usage_responses WHERE usage_id=?',usageId);
  const missing=r.tokens?Object.entries(JSON.parse(r.tokens) as Tokens).filter(([,value])=>value===null).map(([key])=>key):[];
  if(missing.length)this.reason(usageId,'Usage incomplete: missing '+missing.join(', '));
- const complete=missing.length===0&&status==='completed'&&settled&&responses.length>0&&responses.every(p=>p.payload!=='null')&&JSON.parse(r.reasons).length===0;
+ // Only a provider-completed observed turn may retain complete usage after a LOCAL failure.
+ // A settled provider failure can omit a later response's usage and remains incomplete.
+ const completedTelemetry=status==='completed'||providerTurnCompleted&&!!r.run_id&&this.company.observedInvestment.isRun(r.run_id)&&['failed','interrupted'].includes(status);
+ const complete=missing.length===0&&completedTelemetry&&settled&&responses.length>0&&responses.every(p=>p.payload!=='null')&&JSON.parse(r.reasons).length===0;
  this.db.run("UPDATE ai_usage SET status=?,settled=?,finished_at=CASE WHEN ?='unknown' THEN NULL ELSE coalesce(finished_at,?) END,completeness=? WHERE usage_id=?",status,Number(settled),status,this.now(),complete?'complete':'incomplete',usageId);
  if(!complete)this.reason(usageId,responses.length?'Usage incomplete: terminal settlement or categories missing':'Usage incomplete: no authoritative response usage');
  this.refresh(usageId);

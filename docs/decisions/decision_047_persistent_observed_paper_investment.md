@@ -74,7 +74,8 @@ old confirmation as a new check or invent API verification. A reported change, a
 mismatch or expired attestation holds work. This is an explicit usability tradeoff for the
 owner-authorized persistent project, not a real-time billing-state guarantee.
 
-Known settled failures can be retired and a fresh prospective scope authorized, with the
+Local failures after confirmed provider completion and complete usage can be retired and a
+fresh prospective scope authorized, with the
 old attempt still consumed. Unknown settlement never becomes retry authority. Stop works
 for drafts and finished observed scopes, including when damaged external custody prevents
 an external stop receipt. Ordinary and legacy recovery behavior remains unchanged.
@@ -138,5 +139,9 @@ Its resulting comparator is **cash followed by SPY**, not full-period SPY buy-an
 status and subsequent snapshot limitations disclose both dates. No deferral is allowed after
 any benchmark allocation. Only that scheduled benchmark allocation may recover through a
 benchmark-only missing valuation; discretionary BUY stays blocked until healthy valuation.
-Known-settled employee failures and interruptions remain retained through renewal/restart;
-unknown or incomplete provider outcomes still prohibit it.
+Locally failed or interrupted employee work remains retained through renewal/restart only when
+the trusted adapter confirms the provider completed its turn and every authoritative usage
+category is complete. The execution remains failed/interrupted and its old authority must be
+retired. A settled provider failure alone cannot prove response coverage: missing, retried,
+unknown or incomplete provider outcomes still prohibit renewal. Historical incomplete records
+are never reclassified.

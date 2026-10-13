@@ -357,7 +357,7 @@ export class Company extends EventEmitter {
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
       const providerSettled=this.finiteHQ.reservation(executionId)?outcome.settled===true:!!outcome.settled||outcome.status==='completed';
       if(providerSettled)this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
-      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,providerSettled);this.investmentLoop.settle(executionId,outcome.investmentUsage);this.investmentActivity.finish(executionId,this.execution(executionId).status,providerSettled);return; }
+      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,providerSettled,executionId,outcome.status==='completed'||outcome.providerTurnCompleted===true);this.investmentLoop.settle(executionId,outcome.investmentUsage);this.investmentActivity.finish(executionId,this.execution(executionId).status,providerSettled);return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const computerSettlement=this.computers.settled(task,outcome.status);
       if(task.kind==='computer'&&outcome.status==='completed'&&computerSettlement!=='completed')outcome={...outcome,status:computerSettlement==='awaiting_approval'?'awaiting_approval':'failed',error:computerSettlement==='awaiting_approval'?'Exact protected browser action awaits owner approval':'Bounded browser session did not complete safely'};

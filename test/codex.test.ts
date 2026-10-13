@@ -69,7 +69,7 @@ test('App Server transport routes trusted tools, streams completion and resumes 
   const f = protocolFixture('success'); t.after(() => f.close());
   const adapter = new CodexRuntime({ command: f.command });
   const result = await adapter.run(f.input, new AbortController().signal);
-  assert.equal(result.status, 'completed'); assert.equal(result.summary, 'Protocol result'); assert.equal(f.callCount(), 1);
+  assert.equal(result.status, 'completed'); assert.equal(result.providerTurnCompleted,true); assert.equal(result.summary, 'Protocol result'); assert.equal(f.callCount(), 1);
   assert.ok(f.events.includes('runtime_started'));
   f.input.binding = { worker_id: f.input.worker.worker_id, runtime_type: 'codex-app-server', workspace_path: f.input.worker.workspace_path, runtime_reference: 'thread-owned', created_at: 'now' };
   assert.equal((await adapter.run(f.input, new AbortController().signal)).status, 'completed'); assert.ok(f.events.includes('worker_resumed'));
@@ -145,14 +145,14 @@ test('App Server turn interruption is acknowledged distinctly from pause', async
   const f = protocolFixture('interrupt'); t.after(() => f.close()); const controller = new AbortController();
   f.input.event = type => { if (type === 'runtime_turn_started') controller.abort(); };
   const result = await new CodexRuntime({ command: f.command }).run(f.input, controller.signal);
-  assert.equal(result.status, 'interrupted'); assert.match(result.error!, /confirmed/);
+  assert.equal(result.status, 'interrupted'); assert.notEqual(result.providerTurnCompleted,true); assert.match(result.error!, /confirmed/);
 });
 test('App Server unexpected exit and execution deadline terminate without hanging', async t => {
   const f = protocolFixture('exit'); t.after(() => f.close());
   assert.equal((await new CodexRuntime({ command: f.command }).run(f.input, new AbortController().signal)).status, 'failed');
   const timeout = protocolFixture('timeout'); t.after(() => timeout.close());
   const result = await new CodexRuntime({ command: timeout.command, timeoutMs: 300 }).run(timeout.input, new AbortController().signal);
-  assert.equal(result.status, 'failed'); assert.match(result.error!, /deadline/);
+  assert.equal(result.status, 'failed'); assert.notEqual(result.providerTurnCompleted,true); assert.match(result.error!, /deadline/);
 });
 
 

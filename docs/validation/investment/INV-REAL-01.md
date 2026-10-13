@@ -53,8 +53,22 @@ reasoning, financial performance or elapsed live sessions.
   public disclosure and no retroactive allocation or discretionary-risk bypass.
 - Owner UI at390/1440 passed: preview and consent are inert, Stop/renewal keep the same book,
   no page overflow, readable figures, zero external source/model/publication activity.
-- Typecheck/build and canonical contract check pass. Final full regression and added failure,
-  interruption, late-review publication and benchmark recovery cases are being completed.
+- Failure/interruption renewal, idle restart and future operation pass with trusted provider
+  completion and full usage evidence. Five integration negatives preserve the hold for null
+  usage, missing categories, retry, unknown settlement and provider interruption after an earlier
+  complete response. Two legacy negatives retain prior behavior.
+- Late-review publication passes: an earlier proposal reviewed later appends ordinals3/4 while
+  the already-published pair remains byte-identical. Missed initial benchmark recovery passes,
+  including historical reconstruction before/after the deferral and denial after allocation.
+- App Server success/interruption/deadline marker checks pass. Typecheck/build and canonical
+  contract check pass. Final full regression and two finite-policy marker assertions are pending.
+
+The initial1856-test suite had1846passes,6environment-gated skips and4stale schema-version
+expectations; those assertions were updated from24to25. New recovery fixtures exposed a real
+usage-completeness integration defect, now fixed with an independently reviewed provider
+completion marker. Two fixture expectations were also corrected: configuration identity uses
+its canonical hash, and the late-review path takes five actual turns. No financial or safety
+assertion was removed.
 
 ## Independent review and dispositions
 
@@ -74,7 +88,12 @@ Preflight found the retained HQ at schema14,8workers,48tasks and69executions (68
 still `a72cee080989960d2a9e1e74d9236157ce1a0448` before deployment. Python3.12.12 and exact
 hash-locked yfinance1.7.0 dependencies are installed in a root-owned isolated runtime; pip
 checks pass. Node24.21.0 archive ownership has been corrected to root. `LimitCORE=0` is prepared.
-The existing service remains running during preparation.
+The existing service remains running during preparation. A protected SQLite copy of the retained
+schema14 database migrated to25 and reopened three times: all102 original application tables
+and2,626 original rows retained every original rowid/field; integrity and foreign keys pass.
+No investment authority or model runtime was created. The pinned Linux adapter also passed
+its authored equity/ETF test under the actual service user. See the
+[production preflight receipt](../evidence/inv-real01/production-preflight.json).
 
 The production Codex login returns workspace-routing authentication401 after one supported
 refresh. Zero model turns were sent. Genuine activation requires restoring that login and

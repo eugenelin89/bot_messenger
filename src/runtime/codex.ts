@@ -378,8 +378,8 @@ export class CodexRuntime implements RuntimeAdapter {
         const turn = p.turn as { id: string; status: string; error?: { message: string } };
         if (turn.id !== turnId) return;
         if (approvalDenied) finish({ status: 'awaiting_approval', settled:true, error: 'Runtime requested an unavailable approval. No permissions granted.' });
-        else if (policy&&stopping) finish({status:'interrupted',settled:true,error:'Local pilot stop preceded provider settlement'});
-        else if (turn.status === 'completed') finish({ status: 'completed', settled:true, summary: finalText });
+        else if (policy&&stopping) finish({status:'interrupted',settled:true,providerTurnCompleted:turn.status==='completed',error:'Local pilot stop preceded provider settlement'});
+        else if (turn.status === 'completed') finish({ status: 'completed', settled:true, providerTurnCompleted:true, summary: finalText });
         else if (turn.status === 'interrupted') finish({ status: 'interrupted', settled:true, error: 'Codex confirmed turn interruption' });
         else finish({ status: 'failed', settled:true, error: 'Codex turn failed; check authentication, model access and connectivity with codex:preflight' });
       }

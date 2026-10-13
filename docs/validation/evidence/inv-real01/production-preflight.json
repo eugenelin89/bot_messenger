@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-10-13T11:19:00.000Z",
+  "candidateCommit": "59d8ed76c136f6190a8965f733cd63b4a38b5d63",
+  "liveCommitBeforeDeployment": "a72cee080989960d2a9e1e74d9236157ce1a0448",
+  "migrationRehearsal": {
+    "offline": true,
+    "previousSchema": 14,
+    "schema": 25,
+    "repeatedOpens": 3,
+    "originalTablesExcludingSQLiteInternal": 102,
+    "originalRows": 2626,
+    "everyOriginalRowidAndFieldPreserved": true,
+    "zeroNewInvestmentAuthority": true,
+    "integrity": "ok",
+    "foreignKeys": "ok",
+    "runtimeInvoked": false,
+    "protectedHostCopy": "/var/backups/botsquad/inv-real-01-20261013-preflight/offline/company.sqlite"
+  },
+  "linuxAdapterCheck": {
+    "user": "botsquad",
+    "python": "3.12.12",
+    "yfinance": "1.7.0",
+    "hashLockedInstallation": true,
+    "pipCheck": "passed",
+    "test": "reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies",
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 14324.16805,
+    "evidenceMode": "authored_fixture",
+    "realMarketRequests": 0,
+    "modelTurns": 0
+  },
+  "liveActivation": {
+    "accountRead": "workspace-routing authentication 401 after one supported refresh",
+    "modelTurns": 0,
+    "investmentAuthorityCreated": false,
+    "publicReleaseVerified": false
+  }
+}

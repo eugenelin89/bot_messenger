@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Source acceptance in progress; release depends on remaining tests and website tool approval.
+**Current ETA:** Final regression started2026-10-13T11:29UTC; source merge and inert deployment are expected about30–45minutes later if green. Genuine operation remains held by production login401 and the website tool-approval boundary.
 
 ## Objective
 
@@ -55,7 +55,7 @@ connectivity and safety, not genuine reasoning or elapsed real exchange sessions
 
 ## Remaining work
 
-Implemented schema25, observed gateway qualification, persistent finite epochs, existing employee/dispatcher integration, public summaries and owner UI. Original12focused tests passed. Extended standing-delivery/renewal/action/missing-data tests are running; no production release yet. Remaining: finish focused/full/browser gates, final reviews, PR/merge, exact Ubuntu runtime provisioning and deployment, bounded genuine data/employees, signed receiver release, continuation heartbeat. See `docs/operations/INV-REAL-01.md` for the morning handoff.
+Implemented schema25, observed gateway qualification, persistent finite epochs, existing employee/dispatcher integration, public summaries and owner UI. Extended renewal/action/missing-data/publication tests pass. Final recovery tests exposed and fixed the distinction between provider completion and local failure: complete telemetry now requires trusted provider completion, with incomplete/unknown negatives retained. Final serial regression is running; owner browser and two added finite-adapter assertions follow. Draft PR75 is open. Pinned Ubuntu runtime and protected actual schema14→25 rehearsal are complete. Remaining: final checks, normal merge, inert source deployment, genuine activation after login repair, signed receiver release and continuation heartbeat. See `docs/operations/INV-REAL-01.md` for the morning handoff.
 
 ## Overnight continuation
 
