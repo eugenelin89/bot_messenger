@@ -1,0 +1,20 @@
+{
+  "recordedAt": "2026-10-13T19:26:31.525342+00:00",
+  "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+  "service": [
+    "712263",
+    "active"
+  ],
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "degraded",
+    "version": "0.1.0",
+    "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0"
+  },
+  "disk": "Filesystem     1024-blocks     Used Available Capacity Mounted on\n/dev/vda1         49691512 17014736  32660392      35% /",
+  "memory": "total        used        free      shared  buff/cache   available\nMem:            1967         495         559           3        1108        1472\nSwap:           2047          81        1966",
+  "node": "v24.21.0",
+  "note": "Read-only identity/health/resource check. No account/authentication request."
+}

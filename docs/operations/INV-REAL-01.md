@@ -1,53 +1,71 @@
 # Persistent observed paper investment — operation and morning handoff
 
-## Current morning handoff — October 13, 2026, 11:27 America/Vancouver
+## Current morning handoff — October 13, 2026, 12:32 America/Vancouver
 
-**The website pages are live; genuine investment and employee answers are not yet running.**
+**The public pages are running; genuine investment and employee answers remain incomplete.**
 [Investment](https://asymmetri.co/botsquad/investment), [Methodology](https://asymmetri.co/botsquad/investment/methodology)
-and the new [Ask BotSquad](https://asymmetri.co/botsquad/ask) page all independently return
-HTTPS200. Ask says **Questions are not open yet**, has no form/textarea and its availability API
-returns disabled without setting a cookie. Investment remains an unconfigured public archive.
+and [Ask BotSquad](https://asymmetri.co/botsquad/ask) independently returned HTTPS200 at19:14UTC.
+Ask says **Questions are not open yet**, has no form/textarea, and availability is disabled with
+no Set-Cookie. No genuine activity is inferred from a published page.
 
-Website writer reports release at18:24:52UTC from `d51288fc52b0faa4401848ec9d009ad3cc3ae87b`,
-build `vEx_G48mhinsBJBGK839J`, PID2378322. Its Linux build/audit, 34 route/redirect checks and
-112 shared-host/protected-content checks passed; all 16 Nginx file hashes and other service PIDs
-were preserved. Complete predecessor: `/var/www/asymmetri-rollback-20261013-97b4087`.
-The [public read-back](../validation/evidence/inv-perf01/public-readback.json) is independently
-collected; server identity/preservation details are attributed to the website writer. Strict
-shared HTTPS ingress has been released; receiver authority and Ask admission remain disabled,
-with no official portfolio, sessions, questions or answers. The interactive visitor UI has
-synthetic source/browser acceptance only; production deliberately has no question intake.
+The website writer released source `d0c454314d646b74895f4d9e3e4a014c63c666a6` at19:08:31UTC,
+build `P7LP4PKXMUyZ96RJnAgcz`, PID2379577. Implementation is73276d4; documentary main4daa713.
+It reports15 visitor-logic and26 receiver tests, both build paths, audits,37 route/image checks,
+and112 shared-host preservation checks. All15hosts/16Nginxfiles and private-service identities
+were preserved. Complete predecessor: `/var/www/asymmetri-rollback-20261013-d51288f`.
+The [independent public read-back](../validation/evidence/inv-ask-content01/public-readback.json)
+confirms the public responses; server/build/preservation results remain attributed to the
+website writer. Its gap matrix is `docs/ASK-04-READINESS.md`, exact release receipt is
+`docs/ASK-04-RELEASE_2026-10-13.md` in the website repository.
 
-HQ implementation `9a1eb5caf4a0cc3125f9da2ffe9a941cea68c0fc` completes this wake's bounded
-verified-read change and typed synthetic receiver test. Financial/risk/publication checks passed
-156 with four conditional skips; those four subsequently passed against the actual isolated
-receiver. Final snapshot tests passed 8/8. Typed Ask interoperability passed 1/1 with 16 actual
-HTTPS requests and durable deletion suppression; generated keys/tree/listener were removed.
-All 424 final source files matched Linux. Build/typecheck/contracts passed. No employee model ran;
-physical content purge and restoration verification remain false.
+Website changes remove stored pending raw text, retain uncertainty after lost admission,
+separate owned reads/deletion from new intake, honor backoff and require an actual matching
+service/privacy disclosure. The approved production disclosure registry stays empty. Receiver
+session-replay/queue-availability fixes are separately reviewed source; a clear next execution
+prompt has been sent to the existing website chat to release that receiver with intake closed,
+complete rollback, identity/count and host-preservation checks. Receiver rollout is not implied
+by the website release. No keys, roster, official selection or authority were created.
 
-Delivery is [PR82](https://github.com/eugenelin89/bot_messenger/pull/82); its linked GitHub record
-is authoritative for final head and merge identity. Evidence commit is
-`fd875fc68adfb7202dfc7e186a2c0c44a5168d28`, acceptance receipt SHA256
-`9511dc87ad7d237769639195438c0ebafad5018e2338f490a9a8b92cd8fb994c`.
-The exact-head GitHub query reported no configured checks/statuses or submitted GitHub reviews;
-the four advisory specialist reviews and qualified test evidence are recorded in the receipt.
+HQ now implements the dormant [private Ask content foundation](../validation/investment/INV-ASK-CONTENT-01.md):
+additive schema27 metadata, separate raw SQLite, immutable import/answer identities, one atomic
+private answer/outbox, owned history, finite capacity, privacy/expiry cleanup and crash recovery.
+Implementation is `d9e422ea691f25ef79f13ed183bb76f49597e859`. Final458/458 checks pass, including
+59 private-content cases and7 disposable child SIGKILL boundaries. Build/typecheck/contracts
+pass; all416 selected build-input hashes match Linux. Both initial broader failures and their
+fixes are preserved with16 raw logs in the [machine receipt](../validation/evidence/inv-ask-content01/acceptance.json).
+All four specialists accepted the bounded source; final evidence hashes/counts were independently
+verified. Acceptance receipt SHA256 is `b40eac6a6a64cdd451b4ae31f0abb0a1fe407c775331d34ac9a32bdb43a7aa41`. Normal PR integration follows.
+No raw visitor/answer text enters Company SQLite/WAL. This component is not wired to the
+application or an employee. It explicitly proves no backup/filesystem/provider purge or restore.
 
-The mechanical paired-read benchmark improved 57.01%, but **the final Linux observed actions
-workflow still failed its existing 60-second stage bound**. Original and candidate failures are
-retained in [INV-PERF-01](../validation/investment/INV-PERF-01.md) and its
-[receipt](../validation/evidence/inv-perf01/acceptance.json). This is not Linux deployment readiness.
-Production HQ therefore remains d262a8d/PID712263, active with healthy database/dispatcher and
-degraded runtime. The prior strict authentication401 was not retried; no login/routing change,
-new authority, market request, model turn, retained-data reset or HQ deployment occurred.
+Previous PR82 remains merged at7fcb573; its [INV-PERF-01 receipt](../validation/evidence/inv-perf01/acceptance.json)
+retains the final Linux observed actions workflow failure at the original60second stage bound.
+That failure is unresolved and does not become a readiness pass through unrelated storage tests.
+Production HQ remains `d262a8dff59ab82587bd6444b083e5e9b7603cf0`, PID712263, active with healthy
+DB/dispatcher and degraded runtime. Strict account401 was not retried; no login/routing change,
+new authority, market/model call, retained-data reset or HQ deployment occurred this wake.
 
-Next implementable packet: the unwired private Ask content store/import identity/immutable
-answer outbox specified below, followed by separate finite Ask authority and actual employees.
-Linux performance needs another measured profile before any further repair; retain all integrity
-checks and original timing bounds. Genuine activation still requires the supported account
-repair already documented below, future sessions and exact finite authority. Yahoo permission
-remains owner-reported; deployment/public release remain authorized. Motion Prompt169 owns the
-Mac native slot and 15 GB floor. The hourly completion loop is ACTIVE.
+### Concrete next execution prompt
+
+After this storage packet is merged and its exact evidence checked, implement the next bounded
+ASK-02 authority/attempt foundation: inspect existing finite-journal, dispatcher and public-service
+context boundaries; add separately typed finite Ask grants and independent consumed-budget
+custody, exact immutable signed request/attempt identity and lost-result reconciliation. Reuse
+reviewed mechanisms without spending investment allowances. Metadata/prepared wrappers must
+never copy raw text into Company storage. One Ask execution, existing global capacity/uncertainty
+fences, investment deadline priority, exact worker/session ownership, revocation and deadline
+checks must precede any future model or delivery. Keep operational admission unwired until host
+custody, restore generation, actual account eligibility and cross-system acceptance are verified.
+Use read-only specialist review, authored recovery/capacity/negative tests and normal PR/merge;
+record precise limits and a next prompt rather than labeling supplied fixture answers employees.
+Continue the independently delegated receiver rollout and measured Linux performance diagnosis.
+
+Genuine activation still needs the supported account repair documented below, future sessions,
+exact finite authority and genuine market/model/publication receipts. Yahoo permission remains
+owner-reported; deployment/public release remain authorized. Motion Prompt170 released the Mac
+native slot after its selected gates; the shared15GB disk floor still applies. HQ tests run
+serially on isolated Linux. The hourly completion
+loop remains ACTIVE and must continue until all completion gates are verified.
 
 ## Earlier checkpoints retained for provenance
 

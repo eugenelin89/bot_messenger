@@ -1,7 +1,7 @@
 # Decision 048 — Private Ask content custody
 
 **Date:** 2026-10-13
-**Status:** Implemented; final bounded source acceptance pending in INV-ASK-CONTENT-01
+**Status:** Accepted for the dormant source component; operational integration remains incomplete
 **Scope:** Dormant INV-ASK-02 storage component; no operational admission or employee authority
 
 Visitor questions and employee answers must not enter ordinary Company databases, audit logs

@@ -146,3 +146,20 @@ HTTPS200, no Ask form and disabled availability. The operation handoff includes 
 rollback and read-back attribution. Next independent HQ packet is private Ask content custody/
 import identity/answer outbox, then separate finite authority and genuine employee routing;
 Linux performance needs a further measured follow-up. The completion loop remains ACTIVE.
+
+## Private Ask content completion-loop packet — October13,2026
+
+[INV-ASK-CONTENT-01 plan](investment-inv-ask-content-01.md) implements separate raw-content
+custody and passive schema27 metadata in commitd9e422ea691f25ef79f13ed183bb76f49597e859.
+Immutable import/answer reservation, owned history, atomic private answer/outbox, ACKed-control
+reapplication, terminal-receipt purge and retention/uncertainty recovery add no runtime caller
+or authority. Source review findings were fixed; exact final validation/merge is recorded in
+[acceptance](../validation/investment/INV-ASK-CONTENT-01.md) and its machine receipt.
+
+The website writer released d0c4543/buildP7LP4PKXMUyZ96RJnAgcz at19:08:31UTC; independent
+public read-back confirms three200pages, no Ask form and disabled availability/noSetCookie.
+The independent receiver rollout was delegated with complete rollback, disabled authority and
+shared-host preservation. No HQ account retry/deployment/model/market work occurred. The prior
+Linux workflow timeout remains unresolved. Motion released its Mac slot; HQ stays on isolated
+Linux. The operation handoff contains the next separate finite Ask authority/attempt prompt and
+keeps the hourly completion loop active.

@@ -1,7 +1,8 @@
 # INV-ASK-02 — HQ transport component acceptance
 
-**Status, October 13, 2026:** Dormant signed-transport source validated; parent packet remains
-incomplete. Actual website intake, durable HQ admission, employee routing and genuine responses
+**Status, October 13, 2026:** Dormant signed-transport source validated. The later
+[private content component](INV-ASK-CONTENT-01.md) adds durable import/answer custody; the parent
+packet remains incomplete. Actual website intake, finite HQ admission, employee routing and genuine responses
 are not supplied by this component. Production remains on d262a8d with runtime authentication held.
 
 Source commit: `895f3ed36d140a65e385ed5647714349543c3e83`.
