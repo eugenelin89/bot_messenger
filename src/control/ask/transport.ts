@@ -1,14 +1,16 @@
 /** Dormant Ask HTTP delivery adapter. No grant issuance, persistence or model replay. */
 import { randomBytes } from 'node:crypto';
+import { performance } from 'node:perf_hooks';
 import { request as httpsRequest, type RequestOptions } from 'node:https';
 import type { ClientRequest, IncomingMessage } from 'node:http';
 import type { TLSSocket } from 'node:tls';
 import {
   ASK_ORIGIN, ASK_WIRE_BYTES, ASK_PROBLEM_BYTES, reconstructAskRequest, decodeAskResponse,
   type AskOperation, type AskKind, type AskBoundaryContext, type PreparedAskRequest,
-  type DecodedAskResponse, type AskWireResponse,
+  type DecodedAskResponse, type AskWireResponse, type AskReceiptIdentity,
 } from '../../domain/ask/contract.js';
 import { contentDigest, signatureBase, signatureInput, type SignedMessage } from '../../../scripts/investment-contracts/signatures.js';
+import { canonicalHash } from '../../../scripts/investment-contracts/schema.js';
 
 export const ASK_DEADLINE_MS = 10000;
 export const ASK_HEADER_BYTES = 16384;
@@ -22,9 +24,17 @@ export interface AskTransportOptions {
   /** Trusted synchronous integration hook: recheck local grant/controls/stop before send.
    * It returns current wire scope/limits/clock, not proof of any durable grant or model authority. */
   current: () => AskBoundaryContext;
+  /** Trusted synchronous custody transition. The caller persists an attempt before exchange.
+   * A throw or non-void return may follow a committed marker, so the outcome stays unknown.
+   * No raw question, answer, signed header or provider credential crosses this hook. */
+  beforeTransmit?: (proof:Readonly<AskWireProof>) => void;
+}
+export interface AskWireProof {
+  kind:AskKind; serviceId:string; generation:string; requestId:string|null;
+  intentDigest:string; signedWireDigest:string; answerIdentity:Readonly<AskReceiptIdentity>|null;
 }
 export type AskTransportCode = 'busy' | 'cancelled' | 'invalid_intent' | 'key_unavailable'
-  | 'timeout' | 'network' | 'response_headers' | 'response_limit' | 'response_incomplete' | 'response_rejected';
+  | 'timeout' | 'network' | 'custody' | 'response_headers' | 'response_limit' | 'response_incomplete' | 'response_rejected';
 export type AskExchangeResult<K extends AskKind> =
   | { kind:'response'; response:DecodedAskResponse<K> }
   | { kind:'not_sent'|'unknown'; code:AskTransportCode; status:number|null };
@@ -53,13 +63,13 @@ function client(options:AskTransportOptions, wire:AskRequestWire):AskClient {
       // Raw HTTP is deliberately not configurable, including through a supplied operation.
       const target=new URL(ASK_ORIGIN);
       const outcome=await new Promise<AskWireResponse|{kind:'not_sent'|'unknown';code:AskTransportCode;status:number|null}>(resolve=>{
-        let req:ClientRequest|undefined,res:IncomingMessage|undefined,done=false,transmitted=false,status:number|null=null,size=0;
-        const chunks:Buffer[]=[];
+        let req:ClientRequest|undefined,res:IncomingMessage|undefined,done=false,transmitted=false,custodyAttempted=false,status:number|null=null,size=0;
+        const chunks:Buffer[]=[];const deadline=performance.now()+ASK_DEADLINE_MS;
         const finish=(value:AskWireResponse|{kind:'not_sent'|'unknown';code:AskTransportCode;status:number|null})=>{
           if(done)return;done=true;clearTimeout(timer);signal.removeEventListener('abort',abort);
           resolve(value);res?.destroy();req?.destroy();
         };
-        const fail=(code:AskTransportCode)=>finish({kind:transmitted?'unknown':'not_sent',code,status});
+        const fail=(code:AskTransportCode)=>finish({kind:transmitted||custodyAttempted?'unknown':'not_sent',code,status});
         const abort=()=>fail('cancelled');
         const timer=setTimeout(()=>fail('timeout'),ASK_DEADLINE_MS);
         signal.addEventListener('abort',abort,{once:true});
@@ -101,6 +111,7 @@ function client(options:AskTransportOptions, wire:AskRequestWire):AskClient {
             // the whole lease: reauthorize only after a verified connection is ready.
             socket.once('secureConnect',()=>{
               if(done||signal.aborted){fail('cancelled');return;}
+              if(performance.now()>=deadline){fail('timeout');return;}
               if(!(socket as TLSSocket).authorized){fail('network');return;}
               try {
                 const ctx=options.current();request=reconstructAskRequest(snapshot,request,ctx);
@@ -119,11 +130,37 @@ function client(options:AskTransportOptions, wire:AskRequestWire):AskClient {
                 const latest=options.current();reconstructAskRequest(snapshot,request,latest);
                 if(Date.parse(latest.now)>=expires*1000||!options.keys.has(latest.scope.keyId,Math.floor(Date.parse(latest.now)/1000)))throw new Error('expired');
                 if(signal.aborted){fail('cancelled');return;}
+                if(performance.now()>=deadline){fail('timeout');return;}
                 for(const [name,value] of signedHeaders)req!.setHeader(name,value);
-                req!.setHeader('signature-input',input);req!.setHeader('signature',`sig1=:${signature.toString('base64')}:`);
+                const signatureHeader=`sig1=:${signature.toString('base64')}:`;
+                req!.setHeader('signature-input',input);req!.setHeader('signature',signatureHeader);
+                const beforeTransmit=options.beforeTransmit;
+                if(beforeTransmit){
+                  const intentDigest=canonicalHash(request);
+                  const proof:Readonly<AskWireProof>=Object.freeze({kind:request.kind,serviceId:b.serviceId,
+                    generation:b.generation,requestId:request.requestId,intentDigest,
+                    answerIdentity:request.kind==='answer'||request.kind==='receipt'?Object.freeze({serviceId:b.serviceId,answerId:b.answerId!,questionId:b.questionId!,questionHash:b.questionHash!,answerDigest:b.answerDigest!,generatedAt:b.answerGeneratedAt!}):null,
+                    signedWireDigest:canonicalHash({intentDigest,headers:{...headers,...Object.fromEntries(signedHeaders),
+                      'signature-input':input,signature:signatureHeader},bodyHash:request.bodyHash})});
+                  custodyAttempted=true;
+                  // TypeScript permits async functions in void callbacks. Reject them at runtime;
+                  // a completed or delayed custody write is never reusable not-sent evidence.
+                  const returned:unknown=beforeTransmit(proof);
+                  if(returned!==undefined){
+                    // Observe a native Promise rejection without awaiting or authorizing a send.
+                    if(returned instanceof Promise)void returned.catch(()=>{});
+                    fail('custody');return;
+                  }
+                  const afterCustody=options.current();reconstructAskRequest(snapshot,request,afterCustody);
+                  if(Date.parse(afterCustody.now)>=expires*1000||!options.keys.has(afterCustody.scope.keyId,Math.floor(Date.parse(afterCustody.now)/1000)))throw new Error('expired');
+                  if(done||signal.aborted){fail('cancelled');return;}
+                }
+                // A synchronous signer/custody fsync can prevent the timer callback from
+                // running. A monotonic check still prevents a late first HTTP write.
+                if(performance.now()>=deadline){fail('timeout');return;}
                 // Conservative uncertainty boundary: end may partially write then throw.
                 transmitted=true;req!.end(body);
-              }catch{fail(transmitted?'network':'invalid_intent');}
+              }catch{fail(transmitted?'network':custodyAttempted?'custody':'invalid_intent');}
             });
           });
         }catch{fail('network');}

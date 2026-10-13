@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { performance } from 'node:perf_hooks';
 import { generateKeyPairSync, sign } from 'node:crypto';
 import { createServer, request as httpsRequest } from 'node:https';
 import { createSecureContext } from 'node:tls';
@@ -11,7 +12,7 @@ import type { Duplex } from 'node:stream';
 import { askOfflineClient, createAskHttpsClient, type AskRequestWire, type AskTransportOptions } from '../src/control/ask/transport.js';
 import { prepareAskRequest, askReceiptIdentity, type AskOperation, type AskBoundaryContext } from '../src/domain/ask/contract.js';
 import { verifySignedRequest, type SignedMessage } from '../scripts/investment-contracts/signatures.js';
-import { problem } from '../scripts/investment-contracts/schema.js';
+import { canonicalHash, problem } from '../scripts/investment-contracts/schema.js';
 const examples=JSON.parse(readFileSync('contracts/investment/v1/responses.json','utf8')).examples;
 const fixture=<T>(name:string):T=>structuredClone(examples[name]);
 const context=():AskBoundaryContext=>({scope:fixture('AskServiceScope'),limits:fixture('AskLimits'),now:'2026-01-05T21:32:00Z'});
@@ -95,8 +96,9 @@ test('real local TLS exercises the fixed Ask transport without external DNS or s
     if(mode==='end-throw')request.end=(()=>{throw new Error('private test failure');}) as typeof request.end;
     return request;
   };
-  const client=askOfflineClient({keys:{has:k.ring.has,sign:(id,bytes)=>{const signature=k.ring.sign(id,bytes);onSign?.();return signature;}},current:()=>ctx},wire);
-  const reset=(kind:AskOperation['kind']='claim')=>{ctx=context();op=operations().find(v=>v.kind===kind)!;reply=fixture(responseName(kind));mode='ok';trust=true;wrongHostname=false;holdTls=false;k.enable();releaseTls=undefined;onTls=undefined;onRequest=undefined;onSign=undefined;};
+  const transportOptions:AskTransportOptions={keys:{has:k.ring.has,sign:(id,bytes)=>{const signature=k.ring.sign(id,bytes);onSign?.();return signature;}},current:()=>ctx};
+  const client=askOfflineClient(transportOptions,wire);
+  const reset=(kind:AskOperation['kind']='claim')=>{ctx=context();op=operations().find(v=>v.kind===kind)!;reply=fixture(responseName(kind));mode='ok';trust=true;wrongHostname=false;holdTls=false;k.enable();releaseTls=undefined;onTls=undefined;onRequest=undefined;onSign=undefined;delete transportOptions.beforeTransmit;};
   const exchange=()=>client.exchange(op,prepareAskRequest(op,ctx),signal());
   for(const kind of ['claim','renew','status','answer','receipt','control_sync'] as const)await t.test(`${kind} signs exact fixed target and decodes its canonical response`,async()=>{
     reset(kind);const before=wireCalls,result=await exchange();assert.equal(result.kind,'response');assert.equal(wireCalls,before+1);
@@ -127,6 +129,51 @@ test('real local TLS exercises the fixed Ask transport without external DNS or s
     onSign=()=>{if(change==='clock')ctx.now='2026-01-05T21:35:00Z';else k.disable();};
     assert.equal((await exchange()).kind,'not_sent');assert.equal(k.signs,signs+1);
     assert.equal(requestHeaders,headerCount);assert.equal(decryptedBytes,bytes);
+  });
+  await t.test('pre-wire custody receives frozen metadata, stable intent and fresh signed-wire identity',async()=>{
+    reset('answer');const proofs:unknown[]=[],intent=prepareAskRequest(op,ctx);
+    transportOptions.beforeTransmit=proof=>{
+      assert.equal(Object.isFrozen(proof),true);assert.equal(Object.isFrozen(proof.answerIdentity),true);assert.equal(proof.intentDigest,canonicalHash(intent));
+      assert.deepEqual(Object.keys(proof).sort(),['answerIdentity','generation','intentDigest','kind','requestId','serviceId','signedWireDigest']);
+      assert.match(proof.signedWireDigest,/^[a-f0-9]{64}$/);proofs.push(proof);
+    };
+    assert.equal((await exchange()).kind,'response');assert.equal((await exchange()).kind,'response');
+    const [a,b]=proofs as {intentDigest:string;signedWireDigest:string}[];
+    assert.equal(a!.intentDigest,b!.intentDigest);assert.notEqual(a!.signedWireDigest,b!.signedWireDigest);
+    assert.equal(JSON.stringify(proofs).includes(intent.body),false);
+  });
+  for(const mode of ['throw','async','rejected-promise','thenable'] as const)await t.test(`custody ${mode} sends zero HTTP bytes and retains uncertainty`,async()=>{
+    reset('answer');const headers=requestHeaders,bytes=decryptedBytes;
+    transportOptions.beforeTransmit=()=>{
+      if(mode==='throw')throw Error('authored private custody failure');
+      if(mode==='async')return Promise.resolve();
+      if(mode==='rejected-promise')return Promise.reject(Error('authored delayed custody failure'));
+      return {then(){throw Error('must not await an untrusted callback');}};
+    };
+    assert.deepEqual(await exchange(),{kind:'unknown',code:'custody',status:null});
+    assert.equal(requestHeaders,headers);assert.equal(decryptedBytes,bytes);
+  });
+  for(const change of ['clock','key','scope','generation','abort'] as const)await t.test(`post-custody ${change} stops HTTP but cannot refund the attempted marker`,async()=>{
+    reset('answer');const headers=requestHeaders,bytes=decryptedBytes,controller=new AbortController();let markers=0;
+    transportOptions.beforeTransmit=()=>{
+      markers++;
+      if(change==='clock')ctx.now='2026-01-05T21:35:00Z';
+      if(change==='key')k.disable();
+      if(change==='scope')ctx.scope.enabled=false;
+      if(change==='generation')ctx.scope.consumerGeneration='2';
+      if(change==='abort')controller.abort();
+    };
+    assert.equal((await client.exchange(op,prepareAskRequest(op,ctx),controller.signal)).kind,'unknown');
+    assert.equal(markers,1);assert.equal(requestHeaders,headers);assert.equal(decryptedBytes,bytes);
+  });
+  await t.test('synchronous custody delay is bounded by a monotonic deadline before HTTP',async()=>{
+    reset('answer');const headers=requestHeaders,bytes=decryptedBytes;let monotonic=0;
+    const clock=t.mock.method(performance,'now',()=>monotonic);
+    try{
+      transportOptions.beforeTransmit=()=>{monotonic=10001;};
+      assert.deepEqual(await exchange(),{kind:'unknown',code:'timeout',status:null});
+      assert.equal(requestHeaders,headers);assert.equal(decryptedBytes,bytes);
+    }finally{clock.mock.restore();}
   });
   await t.test('operation snapshot resists caller mutation while TLS is held',async()=>{
     reset('answer');holdTls=true;const waiting=new Promise<void>(r=>{onTls=r;}),frozen=prepareAskRequest(op,ctx);
