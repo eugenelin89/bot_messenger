@@ -1,0 +1,731 @@
+{
+  "recordedAt": "2026-10-13T17:28:45.115295+00:00",
+  "baselineCommit": "f79adbefea1f6b7868a341586bd80e5ec9a93a77",
+  "scope": "Dormant non-content ASK02 suppression/control-sync journal and passive schema26; no runtime/network/model caller",
+  "schemaVersion": 26,
+  "applicationVersion": "suppression-journal-v1",
+  "files": {
+    "src/control/ask/control-journal.ts": "d75c03e1e79bf294c1077c334bf22522cf3d442bd9f4332dabc13ff3c4b1e5b6",
+    "src/control/investment.ts": "4e458992a1ea2fb4b608a9eccf92fd740ccf83e38b6ff51bc2a31f3d38d81910",
+    "src/persistence/ask-migration.ts": "06f4b788e7a34189eb71b0e2098e96b100044d02550e8753c2c0079ed52443cb",
+    "src/persistence/store.ts": "57bac50be42ac16e2cf51261245e2fa2bead53cc0ab57389cb7ed6e7f5315f9c",
+    "test/ai-profile.test.ts": "cfe44c53710117253c07137937c88948c259e0e156395dcfd36d884a8c0fa1cb",
+    "test/ask-control-journal.test.ts": "026a8c3782ecf3a022befcb462d344473991aa5bfcc577f4bfef761aae96a6c2",
+    "test/business-migration.test.ts": "a6ec7e9e0ae18261f213f4a5204b8968163ea1e297a59e0b562b7c81ffef762b",
+    "test/client-migration.test.ts": "cd54e52167580fbecace232b9e2ed6b70783e12469ca18b6af81c961dc9bd55d",
+    "test/control.test.ts": "3dd2a23a0ab0ff3d6e954e67c8d3ea880f11e51ab25e149e5d61949c94ca7f89",
+    "test/engineering.test.ts": "ef17e79f151b4f3c33f2e9f0e1c03d8546434cd2202666d822069534ff466659",
+    "test/finite-hq-authority.test.ts": "92269ecd86db7148d5b0693b91f3bec0345d45f6ee8754378da01ccb3830c148",
+    "test/finite-hq-dispatcher.test.ts": "15afbf1712b27d185e715f841ca7e2f7a1fe8f952d97055bbaae7fa412678bf8",
+    "test/finite-hq-financial.test.ts": "dc654604bce3cb3a329e01623e4b972998e4dbc13d2ae8746c6c4607571a0831",
+    "test/finite-hq-isolation.test.ts": "30bc52ab95ae217485222b14aaaceeedfbd2500f19925f17656d9c779f0f536f",
+    "test/finite-hq-migration.test.ts": "3d1f0f5533b147b394aa046bca98f0f558e43a79b6602509a7efb5422d063c39",
+    "test/finite-hq-recovery.test.ts": "bf67e5c9b5fa96d09356d812fdf46bee20f15907c389d3e7673905f1e34aeea8",
+    "test/finite-hq.test.ts": "a943659669e4e99960c6be4a72fcb6ef89c30660a0c04a26efe5add27125e6b8",
+    "test/fixtures/credit-transport.ts": "e1400718c7fa6cc2c43e083dfcd05c52e8e13ea6fe06ee6cc09231f8296e299e",
+    "test/fixtures/finite-hq/crash.ts": "6ecacc171ea7a687cff3bae9f4246c6c2899e12e27c0a94cba405c5926c16351",
+    "test/fixtures/finite-hq/support.ts": "c34075fb1565a7d9b34d039f3dae287677a869fe8883a6e0f3bd22cd1beeecdf",
+    "test/fixtures/finite-hq/transport.ts": "4e60a23a920f8789a56e5af099d74f36247fc237fbdd998894302c033bc0f573",
+    "test/fixtures/investment/schema.ts": "d1a9a617b3dbee52e98bbea178dfa2c0807ce029da2918814778052bd9eb52ef",
+    "test/helpers.ts": "6d6a451d2bd9c7f5459d9c960b0eb003affa0b39033b4aec82c85fb24de6fd61",
+    "test/investment-loop-recovery.test.ts": "efc2a2c288383ddb5e8cd29532a316378c0d30cf7f7c6cb6887f9602f02584a6",
+    "test/investment-migration.test.ts": "4bf4f4b460bb217f6077987e09588770f829c6639d0e02cfdea1df90ef842d58",
+    "test/investment-recovery.test.ts": "d2c51d5a923778c22eac92a955a4901e5e38d44785d80bacde4891aff82df0a1",
+    "test/observed-investment.test.ts": "af386514c0a4d04f2230b0f2bf6922e3c7fb651c5bf773158b359636a477e841",
+    "test/private-research-account.test.ts": "0dc13bf782dcda32a07809d5f20515b65a52df1ef9f1cca7f4fce861f9431a1d",
+    "test/private-research-dispatcher.test.ts": "e94c4032a26c0e99b40b407d4be1ee6c80cfd73416a40da952c51cd7d13247e5",
+    "test/private-research-migration.test.ts": "8ad0857819ae76540de27c8635a3b2d39579804b5b718ac9d4f870f2e87713e8",
+    "test/private-research-recovery.test.ts": "96dcf8ee947dc32815ecf8c0f5898277e11b068408c510bdc1bd0cc5050f4094",
+    "test/usage-migration.test.ts": "92a520a48f11d2bb03c4d59e025f250780db6bb7e356f0270a9c48f497e31ed7"
+  },
+  "canonicalManifestSha256": "7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31",
+  "host": {
+    "directory": "/var/tmp/botsquad-ask-journal-WFPDeH",
+    "user": "botsquad",
+    "node": "v24.21.0",
+    "heapMB": 512,
+    "nice": 10,
+    "beforeFreeDiskKiB": 35890884,
+    "beforeAvailableRamMiB": 1535,
+    "packageLockSha256": "56d732030d68b93a5f530946de1a57d4ab8d938182d97ed18ce93d39dfeefd86",
+    "networkTests": "authored loopback TLS only; no actual market/model/provider request"
+  },
+  "focused": {
+    "total": 120,
+    "pass": 120,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 47311.293765,
+    "journalCases": 33,
+    "sourcePhase": "before synthetic test-clock repair; product source unchanged"
+  },
+  "regression": {
+    "status": "completed_with_failures_retained",
+    "sourcePhase": "before synthetic test-clock repair; product source unchanged",
+    "total": 1989,
+    "passed": 1935,
+    "failed": 48,
+    "cancelled": 1,
+    "skipped": 5,
+    "durationMs": 3993578.506259,
+    "skipReason": "Five conditional standalone receiver tests; receiver checkout/env not supplied in this isolated HQ sweep",
+    "affectedOutcomesByFile": {
+      "dist/test/business-adapter.test.js": 15,
+      "dist/test/finite-hq-authority.test.js": 2,
+      "dist/test/finite-hq-dispatcher.test.js": 1,
+      "dist/test/finite-hq-financial.test.js": 5,
+      "dist/test/finite-hq-recovery.test.js": 1,
+      "dist/test/finite-hq.test.js": 3,
+      "dist/test/investment-loop-recovery.test.js": 1,
+      "dist/test/observed-investment.test.js": 12,
+      "dist/test/private-research-account.test.js": 1,
+      "dist/test/private-research-dispatcher.test.js": 4,
+      "dist/test/private-research-recovery.test.js": 4
+    }
+  },
+  "businessRerun": {
+    "total": 32,
+    "pass": 32,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 1114.894091,
+    "environment": "BOT_BUSINESS_CREDENTIAL_TEST_ROOT set to a newly created botsquad-owned0700 directory under root-owned /opt; empty fixture root removed afterward",
+    "sourceChanged": false,
+    "assertionsChanged": false
+  },
+  "checks": {
+    "build": "pass",
+    "typecheck": "pass",
+    "canonicalManifest": "pass",
+    "all32FinalSourceFilesMatchCorrectedLinuxAndMac": true
+  },
+  "limitations": [
+    "No full content purge, provider retention, restore custody, model-dispatch authority, actual website integration, or genuine employee answer is proven.",
+    "Returned barrier explicitly has contentPurgeVerified:false and restorationVerified:false.",
+    "Generations are not automatically advanced; expired unresolved metadata requires independent recovery before activation.",
+    "Linux observed workflow final-session timeouts remain unresolved; a Mac functional pass does not establish Linux live-workflow readiness."
+  ],
+  "failuresRetained": [
+    "Initial local check could not find tsc through the existing dangling dependency link; a later isolated Mac snapshot installed locked dependencies successfully.",
+    "Initial isolated compiler rejected an untyped test object spread; test typing was corrected.",
+    "First31/32journal run omitted README required by Company fixture; required repository inputs restored in staging.",
+    "Original full run exposed business-adapter protected-ancestor failures; unchanged whole file passed32/32 under the supported protected fixture root. Full1989-test result and affected-outcome inventory retained above.",
+    "Original finite workflow tests mixed fixed FixtureClock with real Date evidence timestamps. node:test Date synchronization repairs authored fixtures only; source point-in-time guards unchanged. Corrected202/203 run had one dispatcher observer failure; unchanged dispatcher whole file later passed4/4.",
+    "Original account notification test expected unconditional rejection of an identical snapshot; security review confirmed supported fresh revalidation is allowed. Authored fixture now deterministically invalidates before closing response and proves a full additional recheck; production verifier unchanged.",
+    "Four SIGKILL recovery children failed writing reports to hardcoded macOS/private/tmp on Linux; test now uses os.tmpdir.",
+    "Elapsed-cutoff test now establishes two active unaborted turns before releasing a1.2s cutoff; private-research completion predicate also waits for normal loop finish. Production timers and all final assertions remain unchanged."
+  ],
+  "review": {
+    "architecture": "accepted dormant metadata-only slice",
+    "security": "accepted after fresh reconciliation and SQL guard fixes",
+    "recovery": "accepted horizons, transitions and retained resolver references",
+    "test": "Independently accepted dormant journal/schema source: verified full Mac27/27 log hash and all32writer/Mac source hashes. Five Linux failures and interrupted log retained; live Linux workflow readiness not accepted."
+  },
+  "production": {
+    "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+    "changed": false,
+    "deniedAuthenticationRetried": false,
+    "lastSafeReadback": {
+      "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+      "pid": 712263,
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "degraded",
+      "checkedAt": "2026-10-13T17:21:00Z",
+      "checkedAtPrecision": "approximately one minute"
+    }
+  },
+  "logs": [
+    {
+      "path": "/tmp/inv-ask-journal-evidence/build-initial.log",
+      "sha256": "d7ebb0ec25dc4c7c579f66667118652385403c3ac1c12884dcf7889fc7c6fcfb"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/build.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/business-corrected.log",
+      "sha256": "438b3cc6ffad1fb9bf6da4c8ade70c020cb032006f7de4ad158438fd0aad4a86"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/business-diagnosis.log",
+      "sha256": "a14f72ff7006d4730decf220641ddb7d1381ef884d202f0b2d09d8b0cfa6b022"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/business-fixture-location.log",
+      "sha256": "19aa37942655a305f01e0feee59dd0caf246e7b079d3b98fb60242642e8ec99d"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/build-final-fixtures.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/build-final.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/build-observed-clock.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/build-observed-final.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/build.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/corrected.log",
+      "sha256": "17d089514292551ff3574b713b8ff21b9540267efdcb7b42cb7d272c9da86b60"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/cutoff-final.log",
+      "sha256": "c53f8ca40b3793423885d23f0665e611aea33fc8c5b0e2a953a763c5fda18bc5"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/manifest-final.log",
+      "sha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/observed-diagnostic.log",
+      "sha256": "e6c514d04de8135eadd56d2157fc7095246c9cb9ec1eb1651b85ff94d8d279cc"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/observed-final-tap.log",
+      "sha256": "f25d9d599c066726a814207e3de083ca784443f92cbc6f3db8c220a9aeb69947"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/repaired-crash.log",
+      "sha256": "0fc06a6c97a710ce5adc3bc8304bab48668b55da6b8d3160025594da3c21fde5"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/repaired-timing.log",
+      "sha256": "bda1bec8735ad488f3dbbcee187d9d6e81a1aef63671ff6beb476abdd75d34f2"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/corrected/typecheck-final.log",
+      "sha256": "c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/finite-diagnosis.log",
+      "sha256": "8e683483be055f798bfde60d992081a1e475ddeb1ed07b8ddfb06c388460b843"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/focused-initial.log",
+      "sha256": "1a974a0d73676918c90cd9f57ae28be9dd951422bf8caf48746ece4b11a6be83"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/focused.log",
+      "sha256": "6dfab6b485c05f8b4c7a86864da69d15913dee41edcf59840e305e457d0365b9"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/journal-initial.log",
+      "sha256": "ba719d9a86f2fde2bca2ffd07e2930a30f36bc4832c28439d5a0e20571a8467b"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/mac/build.log",
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/mac/dependency-install.log",
+      "sha256": "f145ccac393cd5a513f63668d7af32e60ba12173b9a723b440fc2c7b608e639e"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/mac/plain-acceptance.log",
+      "sha256": "fa3cec06c9c5f7336a72fb15893d0f6f8da1763f2c6b670c1a48c5c4686e009c"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/mac/remaining-observed.log",
+      "sha256": "6870d270ebf9be80c867bd8f03bb4027523ebb25b5671755b26dfb95966cace8"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/manifest.log",
+      "sha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/observed-diagnosis.log",
+      "sha256": "3ebae4e7a0f6796a85e6e44d66451acaa4c64eb2c66cbf0334540e919865c861"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/observed-interrupted.log",
+      "sha256": "9067017d7b6fe037e44d595977e464b1b0124f5161f944389cbb1a97993e2c3a"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/regression.log",
+      "sha256": "546359f6b2221893e300168440499b6dd784733ba5d27fe5552dfe2ecb5f279a"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/serial-timing.log",
+      "sha256": "7c15c47a0548630c2bde7206b6910a768d4a64340e90254c6cd8996461c6e4f7"
+    },
+    {
+      "path": "/tmp/inv-ask-journal-evidence/typecheck.log",
+      "sha256": "c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652"
+    }
+  ],
+  "commands": [
+    "npm run build",
+    "node --test --test-concurrency=1 --test-timeout=60000 dist/test/ask-control-journal.test.js dist/test/ask-contract.test.js dist/test/ask-transport.test.js",
+    "npm run check",
+    "npm run contracts:check",
+    "node --test --test-concurrency=1 --test-timeout=60000 dist/test/*.test.js",
+    "BOT_BUSINESS_CREDENTIAL_TEST_ROOT=<new protected fixture directory> node --test --test-concurrency=1 --test-timeout=60000 dist/test/business-adapter.test.js",
+    "node --test --test-reporter=tap --test-concurrency=1 --test-timeout=900000 dist/test/observed-investment.test.js (Linux; stopped after retained failures)",
+    "node --test --test-reporter=tap --test-concurrency=1 --test-timeout=900000 --test-name-pattern='authored observed workflow: plain ' dist/test/observed-investment.test.js (Mac)",
+    "node --test --test-reporter=tap --test-concurrency=1 --test-timeout=900000 --test-name-pattern='^(?!authored observed workflow: plain )' dist/test/observed-investment.test.js (Mac; whole27-case file ran)"
+  ],
+  "preClockRepairFiles": {
+    "src/control/ask/control-journal.ts": "d75c03e1e79bf294c1077c334bf22522cf3d442bd9f4332dabc13ff3c4b1e5b6",
+    "src/control/investment.ts": "4e458992a1ea2fb4b608a9eccf92fd740ccf83e38b6ff51bc2a31f3d38d81910",
+    "src/persistence/ask-migration.ts": "06f4b788e7a34189eb71b0e2098e96b100044d02550e8753c2c0079ed52443cb",
+    "src/persistence/store.ts": "57bac50be42ac16e2cf51261245e2fa2bead53cc0ab57389cb7ed6e7f5315f9c",
+    "test/ai-profile.test.ts": "cfe44c53710117253c07137937c88948c259e0e156395dcfd36d884a8c0fa1cb",
+    "test/ask-control-journal.test.ts": "8da70b369475a9d845e0a4761142b35e55baae84750d47dea51dfbae438bed74",
+    "test/business-migration.test.ts": "a6ec7e9e0ae18261f213f4a5204b8968163ea1e297a59e0b562b7c81ffef762b",
+    "test/client-migration.test.ts": "cd54e52167580fbecace232b9e2ed6b70783e12469ca18b6af81c961dc9bd55d",
+    "test/control.test.ts": "3dd2a23a0ab0ff3d6e954e67c8d3ea880f11e51ab25e149e5d61949c94ca7f89",
+    "test/engineering.test.ts": "ef17e79f151b4f3c33f2e9f0e1c03d8546434cd2202666d822069534ff466659",
+    "test/finite-hq-migration.test.ts": "a97b20ad276ac045a20e3833b60737e42d20a95c8c68bb11a9456f44ff0978a6",
+    "test/fixtures/investment/schema.ts": "d1a9a617b3dbee52e98bbea178dfa2c0807ce029da2918814778052bd9eb52ef",
+    "test/investment-migration.test.ts": "4bf4f4b460bb217f6077987e09588770f829c6639d0e02cfdea1df90ef842d58",
+    "test/investment-recovery.test.ts": "d2c51d5a923778c22eac92a955a4901e5e38d44785d80bacde4891aff82df0a1",
+    "test/usage-migration.test.ts": "92a520a48f11d2bb03c4d59e025f250780db6bb7e356f0270a9c48f497e31ed7"
+  },
+  "correctedAcceptance": {
+    "status": "completed_with_one_observer_failure_resolved_by_unchanged_serial_dispatcher_rerun",
+    "directory": "/var/tmp/botsquad-ask-clock-SXDokc",
+    "scope": "Ask plus all finite-HQ workflow/runtime/crash files and private-research migration",
+    "build": "pass",
+    "all26ChangedSourceFilesMatchRemote": true,
+    "productGuardsChanged": false,
+    "total": 203,
+    "passed": 202,
+    "failed": 1,
+    "skip": 0,
+    "durationMs": 1009652.985306,
+    "failure": "normal dispatcher selects finite capability: final three-turn completion predicate exceeded its existing4s observation wait under concurrent test load"
+  },
+  "serialTimingRerun": {
+    "total": 10,
+    "passed": 7,
+    "failed": 3,
+    "cancelled": 0,
+    "skipped": 0,
+    "durationMs": 86079.985644,
+    "finiteDispatcher": "all4 pass unchanged",
+    "remaining": "elapsed test exhausted admission window; two restarted private-research scenarios reached8turns/groupcompleted/idle before the next normal loop-completion tick"
+  },
+  "repairedTiming": {
+    "total": 22,
+    "pass": 22,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 81080.433084,
+    "sourcePhase": "Before final abort-event timestamp assertion; exact final cutoff receipt recorded separately below"
+  },
+  "repairedCrash": {
+    "total": 4,
+    "pass": 4,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 10416.666083,
+    "scope": "All4SIGKILL recovery release phases with portable report path"
+  },
+  "exactFinalCutoff": {
+    "total": 2,
+    "pass": 2,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 10467.746084,
+    "assertion": "Both actual abort timestamps are at least900ms after clock release; all late callback and final state assertions retained"
+  },
+  "observedInterrupted": {
+    "total": 4,
+    "pass": 2,
+    "fail": 1,
+    "cancelled": 1,
+    "skip": 0,
+    "durationMs": 345218.256118,
+    "stoppedBy": "parent after first new failure to inspect detailed diagnostics",
+    "failure": "Plain day2 research exceeded60s observer after7completed executions without errors; following actions scenario had already advanced beyond same stage"
+  },
+  "observedFinal": {
+    "status": "interrupted_after_repeated_failures_for_bounded_diagnostic",
+    "plainStageObservationMs": 180000,
+    "otherStageObservationMs": 60000,
+    "outerCaseMs": 900000,
+    "productDeadlinesChanged": false,
+    "review": "architecture and test accepted one bounded observer repair; repeated failure requires new diagnosis",
+    "knownFailures": [
+      "plain finalday3research180s observer, case633439.129877ms",
+      "actions_and_revision finalday3research60s observer, case213020.313685ms",
+      "missing_close finalday3research60s observer, case203193.044976ms",
+      "failed_review observer timeout in recovery workflow",
+      "interrupted_review observer timeout in recovery workflow"
+    ],
+    "qualification": "Unresolved Linux acceptance failures. Separate diagnostic demonstrates replay cost and natural advancement in one two-instrument case; it does not turn these failures into passes.",
+    "reportedCompletedTests": 7,
+    "reportedPass": 2,
+    "reportedFail": 5,
+    "finalAggregateFooterPresent": false,
+    "stopReason": "SIGINT to exact isolated runner; preserve five failures, run one diagnostic instead of further repeated observer failures"
+  },
+  "macAcceptance": {
+    "directory": "/private/tmp/botsquad-ask-mac-7r3edjxv",
+    "node": "v24.10.0",
+    "npm": "11.6.0",
+    "python": "3.12.12",
+    "yfinance": "1.7.0",
+    "pandas": "3.0.6",
+    "lockedInstall": "pass;35 packages;0 vulnerabilities",
+    "build": "pass",
+    "all32SourceHashesMatch": true,
+    "plain": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "caseDurationMs": 204529.518083,
+      "durationMs": 204688.927375
+    },
+    "remaining": {
+      "scope": "Whole observed-investment file; parent-name matching also ran plain again",
+      "total": 27,
+      "pass": 27,
+      "fail": 0,
+      "skip": 0,
+      "cancelled": 0,
+      "durationMs": 416627.320917,
+      "plainCaseDurationMs": 205161.785458,
+      "postRun32SourceHashesMatch": true,
+      "slotReleasedToMotion": true,
+      "afterFreeBytes": 19691614208
+    },
+    "beforeFreeBytes": 20308762624,
+    "afterInstallFreeBytes": 19751456768,
+    "sharedCapacity": "Motion released slot; serial Node only; no Xcode/Simulator/phone"
+  },
+  "initialFocusedSourceFilesMatched": 15,
+  "diagnostic": {
+    "scope": "Separate compiled authored actions_and_revision fixture with timing wrappers; not acceptance or production",
+    "total": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skip": 0,
+    "durationMs": 268403.963415,
+    "original60sObserverPreserved": true,
+    "failureStillThrownAfterThreePassiveImmediates": true,
+    "manualDispatcherKickDuringObservations": false,
+    "timeoutSnapshot": {
+      "label": "timeout_before",
+      "monotonicMs": 205849.417162,
+      "scheduled": true,
+      "stopped": false,
+      "activeCount": 0,
+      "stage": "running",
+      "turns": [
+        {
+          "kind": "opening",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "opening",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "facilitate",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "facilitate",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "response",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "facilitate",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "facilitate",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "response",
+          "advanced": 1,
+          "status": "completed"
+        },
+        {
+          "kind": "facilitate",
+          "advanced": 0,
+          "status": "completed"
+        }
+      ],
+      "diagnostic": {
+        "replay": {
+          "calls": 2082,
+          "ms": 126871.54605899942,
+          "maxMs": 204.8500320000021,
+          "lastHead": 24
+        },
+        "drain": {
+          "calls": 29,
+          "ms": 80818.87975499999,
+          "lastEnd": 192711.112692
+        }
+      }
+    },
+    "afterPassiveObservations": [
+      {
+        "label": "after_immediate_1",
+        "monotonicMs": 226651.033258,
+        "scheduled": true,
+        "stopped": false,
+        "activeCount": 0,
+        "stage": "running",
+        "turns": [
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "synthesis",
+            "advanced": 0,
+            "status": "completed"
+          }
+        ],
+        "diagnostic": {
+          "replay": {
+            "calls": 2244,
+            "ms": 142958.61776999963,
+            "maxMs": 204.8500320000021,
+            "lastHead": 24
+          },
+          "drain": {
+            "calls": 30,
+            "ms": 93183.296239,
+            "lastEnd": 218218.986685
+          }
+        }
+      },
+      {
+        "label": "after_immediate_2",
+        "monotonicMs": 246532.05445,
+        "scheduled": true,
+        "stopped": false,
+        "activeCount": 0,
+        "stage": "running",
+        "turns": [
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "synthesis",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "review",
+            "advanced": 0,
+            "status": "completed"
+          }
+        ],
+        "diagnostic": {
+          "replay": {
+            "calls": 2412,
+            "ms": 158252.3609449994,
+            "maxMs": 204.8500320000021,
+            "lastHead": 24
+          },
+          "drain": {
+            "calls": 31,
+            "ms": 104461.73028199999,
+            "lastEnd": 237932.736041
+          }
+        }
+      },
+      {
+        "label": "after_immediate_3",
+        "monotonicMs": 268171.516732,
+        "scheduled": true,
+        "stopped": false,
+        "activeCount": 0,
+        "stage": "running",
+        "turns": [
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "opening",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "response",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "facilitate",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "synthesis",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "review",
+            "advanced": 1,
+            "status": "completed"
+          },
+          {
+            "kind": "finalize",
+            "advanced": 0,
+            "status": "completed"
+          }
+        ],
+        "diagnostic": {
+          "replay": {
+            "calls": 2578,
+            "ms": 175066.4842839992,
+            "maxMs": 240.57379500000388,
+            "lastHead": 24
+          },
+          "drain": {
+            "calls": 32,
+            "ms": 115816.39851199997,
+            "lastEnd": 257887.198119
+          }
+        }
+      }
+    ],
+    "conclusion": "Measured repeated replay cost and naturally advancing synthesis/review/finalize after original observer expiry. Finalization completed but was not yet advanced; stage still running. Does not establish workflow completion or repair all original failures.",
+    "fixturePath": "/tmp/inv-ask-journal-evidence/corrected/observed-diagnostic.mjs",
+    "fixtureSha256": "ed337ba0690865cfdce050a64d89fee6f3d0780b72600de33ce844764e7601a6"
+  }
+}

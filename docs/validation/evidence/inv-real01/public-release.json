@@ -1,0 +1,195 @@
+{
+  "recordedAt": "2026-10-13T17:30:06.711303+00:00",
+  "websiteReported": {
+    "deployedSource": "97b4087b79c5f0f1472fd71dde86765489273400",
+    "build": "kcKfT0zA-jDnr0xVy1Suy",
+    "pid": 2369353,
+    "verifiedAt": "2026-10-13T15:04:43Z",
+    "routeChecks": 28,
+    "sharedVhostBaselinesUnchanged": 15,
+    "nginxHashesUnchanged": true,
+    "browserWidths": [
+      390,
+      1440
+    ],
+    "rollback": "/var/www/asymmetri-rollback-20261013-745a92c"
+  },
+  "parentReadback": {
+    "method": "read-only public HTTPS GET",
+    "urls": [
+      {
+        "url": "https://asymmetri.co/botsquad/investment",
+        "status": 200,
+        "sha256": "748aeaa1723e7dd158e1f46d10bb1d98ecec8f926e4874da712476fdee20a2ad",
+        "bytes": 30923
+      },
+      {
+        "url": "https://asymmetri.co/botsquad/investment/methodology",
+        "status": 200,
+        "sha256": "93607db7818cd8b6353ac671e029222223c349b0eb859a6da60d102abc4823a1",
+        "bytes": 33444
+      }
+    ],
+    "latest": {
+      "checkedAt": "2026-10-13T17:25:35.233605+00:00",
+      "results": [
+        {
+          "url": "https://asymmetri.co/botsquad/investment",
+          "status": 200,
+          "sha256": "748aeaa1723e7dd158e1f46d10bb1d98ecec8f926e4874da712476fdee20a2ad",
+          "bytes": 30923,
+          "archiveUnavailable": true,
+          "answersDisabled": true
+        },
+        {
+          "url": "https://asymmetri.co/botsquad/investment/methodology",
+          "status": 200,
+          "sha256": "93607db7818cd8b6353ac671e029222223c349b0eb859a6da60d102abc4823a1",
+          "bytes": 33444,
+          "archiveUnavailable": false,
+          "answersDisabled": false
+        }
+      ]
+    }
+  },
+  "state": {
+    "publicArchiveConfigured": false,
+    "visitorQuestionsEnabled": false,
+    "genuineMarketReceipts": 0,
+    "genuineEmployeeAnswers": 0
+  },
+  "hq": {
+    "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+    "pid": 712263,
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "degraded",
+    "deniedAccountProbeRepeated": false
+  },
+  "limitations": [
+    "Release/build/browser/shared-host identity is reported by the authorized website chat; parent independently verified two HTTP200 pages and their unavailable-state content.",
+    "Web search tool could not open these pages and sandbox DNS failed; authorized direct HTTPS succeeded.",
+    "No working live archive, real portfolio operation or Ask employee response is established."
+  ],
+  "websiteAskSourceReported": {
+    "implementation": "8c7a346a4509f793b270f1b73df34ad9d799ccdb",
+    "documentedHead": "01778ff91584225daaa64fde584042bc5c522fb7",
+    "focusedPass": 20,
+    "receiverPass": 227,
+    "readOnlyReviews": 2,
+    "installed": true,
+    "parentVerifiedHeadAndReadRunbook": true,
+    "typedHqInteroperability": "pending",
+    "linuxProof": {
+      "node": "22.23.1",
+      "pass": 227,
+      "user": "dedicated receiver user",
+      "activated": false
+    },
+    "ingress": "Shared HTTPS cutover completed and112preservationchecks passed according to website writer; public boundary and post-cutover certificate renewal verification continue",
+    "installationMode": "loopback listener only; admission,claims,delivery all disabled; no keys or authority",
+    "latestDocumentedHead": "8a539d1dc48caeab35364e187830e2a9bca853d8",
+    "zeroStateReported": [
+      "sessions",
+      "questions",
+      "answers",
+      "claims",
+      "keys",
+      "nonces"
+    ],
+    "confinementReported": {
+      "uid": 995,
+      "readOnlyRuntimeConfig": true,
+      "hiddenUnrelatedPaths": 11,
+      "loopbackOnlyNetwork": true,
+      "noCapabilities": true,
+      "noNewPrivileges": true
+    }
+  },
+  "websiteIngressSourceReported": {
+    "implementation": "a437f6902b2bccdf26d5bc719618cb3e5ca4d833",
+    "documentedHead": "cc0651e541e0120dd27cac4ab61bfad79090d494",
+    "parentVerifiedCleanHead": true,
+    "linuxIngressTests": 68,
+    "receiverTests": 230,
+    "loadRequests": 480,
+    "loadSeconds": 60,
+    "concurrency": 8,
+    "p95Ms": 118,
+    "maxMs": 160,
+    "combinedPeakMiB": 107,
+    "productionBuilds": [
+      "Next passed",
+      "Sites passed"
+    ],
+    "auditVulnerabilities": 0,
+    "productionRoutingChanged": true,
+    "rehearsal": {
+      "realCertificateChecks": 192,
+      "canonicalHashesPreserved": 54,
+      "ipv4Ipv6DefaultCertificatesPreserved": true
+    },
+    "latestDocumentedHead": "8a539d1dc48caeab35364e187830e2a9bca853d8",
+    "cutover": {
+      "preservationChecks": 112,
+      "protectedImageUrls": 48,
+      "reportedPassed": true,
+      "finalBoundaryAndRenewalVerification": "passed; see websiteCutoverReported"
+    },
+    "confinementReported": {
+      "uid": 996,
+      "loopbackOnlyNetwork": true,
+      "readOnlyRuntimeConfig": true,
+      "noCapabilities": true,
+      "noNewPrivileges": true
+    }
+  },
+  "websiteCutoverReported": {
+    "completedAt": "2026-10-13T17:19:42Z",
+    "preservationChecks": 112,
+    "hostedSiteBaselines": 15,
+    "tutorialCanonicalHashes": 54,
+    "protectedImageUrls": 48,
+    "allPassed": true,
+    "publicBoundary": {
+      "askAvailability": "200 disabled",
+      "sessionPost": "503 without cookie",
+      "duplicateRawConnection": "401",
+      "unconfiguredInvestmentReads": "404",
+      "encodedApiAliases": "404"
+    },
+    "certbotStagingRenewal": "passed before and after cutover; no persistent Nginx configuration changes from the renewal test",
+    "investmentReceiver": {
+      "source": "c2edfd50ed12ba576c06e6991091090b9ced3e31",
+      "pid": 2376449,
+      "archive": "empty",
+      "publishers": 0,
+      "approvals": 0,
+      "officialSelection": false
+    },
+    "askAndTls": {
+      "compiledSource": "fcc95225213f21edfa939ec24977ad31264efd29",
+      "askPid": 2374802,
+      "tlsPid": 2375255,
+      "unitHookSource": "8a539d1dc48caeab35364e187830e2a9bca853d8",
+      "readinessFix": "2c0951720a8edc67ab59d5563f661f57414a765b",
+      "admission": false,
+      "claims": false,
+      "delivery": false,
+      "generation": "0",
+      "authority": false,
+      "rosterAndKeys": "empty",
+      "sessionsQuestionsAnswersClaims": 0
+    },
+    "checks": [
+      "startup",
+      "reload",
+      "same-unit confinement",
+      "loopback-only egress",
+      "cross-site preservation"
+    ],
+    "rollbackReceipts": "/var/lib/asymmetri-ingress-rollback-20261013",
+    "provenance": "reported by authorized website execution chat; parent separately verified the two public HTML pages"
+  }
+}

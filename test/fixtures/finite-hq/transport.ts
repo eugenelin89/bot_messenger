@@ -13,8 +13,8 @@ class FakeFiniteTransport extends CodexRuntime {
  authorizeWith!:(i:RuntimeInput,a?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>&{threadId:string;model:string})=>void;
  protected override authorizeFinite(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>&{threadId:string;model:string}){assert.ok(this.command.endsWith('/fake-codex.mjs'));assert.ok(readFileSync(this.command,'utf8').includes("from 'node:readline'"));this.authorizeWith(input,account);}
 }
-export function finiteTransport(mode='success'){
- const f=finiteFixture();f.input.aiProfile.model='test-model';f.input.aiProfile.reasoningEffort='low';f.store.run("UPDATE workers SET runtime_type='codex-app-server'");
+export function finiteTransport(mode='success',t?:Parameters<typeof finiteFixture>[0]){
+ const f=finiteFixture(t);f.input.aiProfile.model='test-model';f.input.aiProfile.reasoningEffort='low';f.store.run("UPDATE workers SET runtime_type='codex-app-server'");
  const result=f.consent(),account={account:{type:'chatgpt',planType:'pro',email:'fixture@example.invalid'},requiresOpenaiAuth:true,workspaceRouting:{chatgptAccountId:'fixture-account',backendOrigin:'https://chatgpt.com',accountRoutingOverride:'NO_CONSTRAINT'}};
  const approved={accountFingerprint:creditAccountFingerprint(account,f.policy.authorityId),routingFingerprint:createHash('sha256').update(JSON.stringify({pilotId:f.policy.authorityId,routing:{requiredProvider:'openai',requiredBackend:null,residency:null,workspaces:null,routingOverride:'NO_CONSTRAINT',mcpServers:['inherited']}})).digest('hex')},a=f.authorize(result,approved);
  // Reuse the existing fake executable generator. Its unused constructor has no pilot grant/reservation.

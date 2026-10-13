@@ -572,6 +572,22 @@ no implicit authority. Migration 14 is additive and inert. Live acceptance was s
 
 The [version 1.0 package](../../contracts/investment/v1/PROTOCOL.md) and [feasibility record](../validation/investment/INV-01.md) are offline foundations only. Production domain, persistence, dispatch, tools and grants are unchanged. Future public investment projection and private Ask service require separate audience/context/authority boundaries while reusing existing durable execution ownership; no receiver/model capability is implied by the schemas.
 
+## Dormant Ask HQ integration components — October 13, 2026
+
+The canonical v1 package now has an HQ typed request/response boundary, fixed-origin signed
+HTTPS transport and passive schema26 privacy-control journal. The journal stores only immutable
+non-content controls and frozen sync intents. It derives ACKs/cursors, atomically commits
+suppression and response state, invalidates freshness after restart and preserves unresolved
+retention fences. Its application version is `suppression-journal-v1`; its barrier explicitly
+reports no content-purge or restore proof and grants no dispatch authority.
+
+Raw visitor questions/answers need a separate finite-retention private store and atomic
+answer/outbox boundary. Separate Ask grants and independent consumed-budget custody must precede
+integration with the existing dispatcher and worker-wide uncertainty rules. Investment finite
+allowances and usage telemetry are not Ask authority. No Ask application caller, provider
+invocation or public intake is wired in HQ. See [ASK-02 acceptance](../validation/investment/INV-ASK-02.md)
+and the [live operation handoff](../operations/INV-REAL-01.md) for exact source/deployment status.
+
 ## INV-05 internal paper simulator
 
 The [investment architecture](../experiments/investment/ARCHITECTURE.md) includes a disconnected synthetic-only `FixtureSimulator`, pure fixed-point accounting/reducer and additive schema15 journal/receipts/disabled outbox. It has no Company, worker, runtime, HTTP or scheduler entry point. [Decision031](../decisions/decision_031_deterministic_paper_simulator.md) and [INV-05 evidence](../validation/investment/INV-05.md) define local acceptance and future activation gates. This source change is not deployed to HQ.

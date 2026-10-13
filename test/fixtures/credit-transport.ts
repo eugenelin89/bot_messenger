@@ -43,7 +43,7 @@ else if(m.method==='account/read'){
  reads++;
  if(mode==='preflight-account-change'&&reads===4){account.account.email='changed@example.invalid';notify();}
  if(mode==='preflight-routing-change'&&reads===4){account.workspaceRouting.accountRoutingOverride='us';notify();}
- if(mode==='preflight-closing-notification'&&reads===4){send({id:m.id,result:account});notify();return;}
+ if(mode==='preflight-closing-notification'&&reads===4){notify();send({id:m.id,result:account});return;}
  if(mode==='lookup-failure'){send({id:m.id,error:{code:-32000,message:'SECRET_ACCOUNT fixture@example.invalid'}});return;}
  if(mode==='lookup-timeout'&&created)return;
  if(mode==='routing-discovery'&&reads===1){setTimeout(()=>{notify();send({id:m.id,result:account});},20);return;}

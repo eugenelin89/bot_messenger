@@ -1,3 +1,4 @@
+import type {TestContext} from 'node:test';
 import {randomUUID} from 'node:crypto';
 import {mkdirSync} from 'node:fs';
 import {join} from 'node:path';
@@ -11,18 +12,21 @@ import {ZERO} from '../../../src/domain/usage/tokens.js';
 import {MarketStore} from '../../../src/control/market/store.js';
 import {normalizePrice} from '../../../src/domain/market/normalize.js';
 import type {CalendarEvidence,InstrumentIdentity,SourcePolicy} from '../../../src/domain/market/types.js';
-export function finiteFixture(){
+export function finiteFixture(t?:Pick<TestContext,'mock'>){
+ const clock=new FixtureClock('2026-10-12T10:00:00.000Z');
+ // Authored sessions and shared evidence use one synthetic clock; real timers stay real.
+ if(t){t.mock.timers.enable({apis:['Date'],now:Date.parse(clock.now())});const set=clock.set.bind(clock);t.mock.method(clock,'set',(at:string)=>{set(at);t.mock.timers.setTime(Date.parse(clock.now()));});}
  const f=fixture();f.company.assignObjective(objective);const x=f.company.claimNext()!,first=x.worker,second=f.company.callTool(x.context,'hire','hire_worker',hire) as Worker;f.company.finish(x.execution.execution_id,{status:'completed',summary:'Synthetic roster setup, no inference'});
  f.store.run("UPDATE workers SET execution_priority='high' WHERE worker_id=?",first.worker_id);
- const clock=new FixtureClock('2026-10-12T10:00:00.000Z');f.company.mandates.clock={now:()=>Date.parse(clock.now())};
+ f.company.mandates.clock={now:()=>Date.parse(clock.now())};
  const policy:FiniteHQPolicy={mode:'credit_approved_finite_hq',authorityId:'finite_'+randomUUID(),maxRun:10,maxRolling24h:8,maxWorker:7,maxCycle:7,maxDay:7,maxDurationMs:300000,maxConcurrent:1,uncertainRetries:0,existingCreditsApproved:true,providerRetriesAccepted:true};
  const input={mandate:'Evaluate a finite synthetic portfolio and learn from prior outcomes',desiredOutput:'Consider HOLD and alternative paper actions, preserve uncertainty',constraints:'Invented fixtures only; no genuine employee execution',participants:[{workerId:first.worker_id,name:'Fixture allocator',responsibility:'Propose and submit scoped paper actions'},{workerId:second.worker_id,name:'Fixture challenger',responsibility:'Independently challenge exact paper proposals'}],proposers:[first.worker_id],reviewers:[second.worker_id],submitters:[first.worker_id],facilitatorId:first.worker_id,synthesizerId:first.worker_id,sessions:['2026-10-13','2026-10-15'],start:'at_consent',initialCapital:'10000',commission:'0',slippageBps:0,positionLimitBps:5000,sectorLimitBps:7000,drawdownAttentionBps:2000,policy,aiProfile:{model:'fake-model',reasoningEffort:'medium',serviceTier:'default',cliVersion:'0.157.0'},researchMinutes:60,maxProposals:10,maxOrders:10};
  const preview=()=>f.company.investmentSetup.preview(input),consent=(p=preview(),receiptId=randomUUID())=>f.company.investmentSetup.consent({previewId:p.previewId,digest:p.digest,receiptId});
  const authorize=(result:ReturnType<typeof consent>,approvedAccount={accountFingerprint:hash('fake-private-account'),routingFingerprint:hash('fake-official-route')})=>{const dir=join(f.company.dataDir,'external-fixture'),custody=join(f.company.dataDir,'independent-fixture');mkdirSync(dir,{mode:0o700});mkdirSync(custody,{mode:0o700});const journal=FiniteJournal.createFixture(join(dir,'authority.sqlite'),join(custody,'checkpoint.json'),clock.now());f.company.finiteHQ.attach(journal);const account=approvedAccount,attestation={authorityId:policy.authorityId,runId:result.configuration.runId,accountFingerprint:account.accountFingerprint,ownerId:'human',confirmedAt:clock.now(),reloadOff:true as const,evidenceHash:hash('explicit fake owner confirmation')};f.company.finiteHQ.approve(result.scope.scopeId,account,{ownerId:'human',receiptHash:hash('fake-only-approval'),approvedAt:clock.now()},attestation);return {journal,account,attestation};};
  return {...f,first,second,clock,policy,input,preview,consent,authorize};
 }
-export function runningFiniteFixture(){
- const f=finiteFixture(),result=f.consent(),authority=f.authorize(result),c=f.company,loop=c.investmentLoop;
+export function runningFiniteFixture(t?:Pick<TestContext,'mock'>){
+ const f=finiteFixture(t),result=f.consent(),authority=f.authorize(result),c=f.company,loop=c.investmentLoop;
  c.investmentTeam.runtime={type:'fake',supportsInterrupt:true,run:async()=>{throw Error('Ordinary runtime forbidden');},finiteHQPolicySupported:()=>true,runFiniteHQInvestment:async()=>{throw Error('Manual fake test never starts a provider');}};
  const control=(action:string)=>loop.control({loopId:result.loop.loopId,action,digest:result.loop.digest,receiptId:randomUUID(),orderId:null});control('start');
  const occurrences=()=>loop.occurrences(loop.get(result.loop.loopId));

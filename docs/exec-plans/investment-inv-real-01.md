@@ -95,3 +95,27 @@ an automatic approval reviewer rejected deployment. Website work is resuming und
 owner authorization: truthful unavailable-state release first, then receiver/private Ask intake.
 The parent sent exact accepted HQ identity, canonical digest and requested actual deployment and
 read-back evidence. Production login remains held, with no denied-auth retry or fabricated run.
+
+
+## Third completion-loop wake — October 13, 2026, 08:04 America/Vancouver
+
+Website source 97b4087/buildkcKfT0zA-jDnr0xVy1Suy is publicly deployed. Parent independent
+HTTPS read-back confirms investment/methodology200 and unavailable archive/employee answers;
+receiver private installation and Ask intake continue in the website chat. Exact evidence is in
+[public-release.json](../validation/evidence/inv-real01/public-release.json). HQ remains d262a8d,
+alive/database/dispatcher healthy, runtime degraded; denied auth was not retried.
+
+Selected independent source work: ASK-02 schema26/non-content privacy-control journal,
+exact durable sync intents, atomic suppression+ACK/cursor progression, restart/horizon fences,
+and metadata retention. No raw visitor content, grant, model work or application wiring is added.
+Architecture/recovery review fixes preserve distinct purge/restore/authority gates. Isolated
+Linux validation runs with 512 MB heap after local dependency availability failed. See the
+[ASK-02 plan](investment-inv-ask-02.md) for source/test results and the next integration prompt.
+
+Third-wake qualification at10:23 Vancouver: dormant journal focused120/120 and corrected
+migration/finite/account/crash checks passed with the retained exceptions described in the
+[ASK-02 acceptance](../validation/investment/INV-ASK-02.md). All27observed scenarios passed
+on exact-source Mac. Linux observer failures remain open, and a bounded timing diagnostic is
+running; neither the broad Linux sweep nor Linux live readiness is reported as green. The
+website writer reports its shared HTTPS cutover passed112preservation checks, with authority
+and public Ask intake still held. Production HQ identity/health remains unchanged.
