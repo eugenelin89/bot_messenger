@@ -3039,6 +3039,87 @@
       "generation": "1",
       "writesPerMinute": 60,
       "bytesPerDay": 10485760
+    },
+    "AskServiceConfiguration": {
+      "schemaVersion": "1.0",
+      "serviceId": "fixture-ask",
+      "consumerGeneration": "1",
+      "configurationRevision": "1",
+      "scope": {
+        "serviceId": "fixture-ask",
+        "keyId": "fixture-ask-key",
+        "permissions": [
+          "claim",
+          "control_sync",
+          "status",
+          "answer",
+          "receipt"
+        ],
+        "consumerGeneration": "1",
+        "expiresAt": "2026-01-06T00:00:00Z",
+        "enabled": true
+      },
+      "limits": {
+        "schemaVersion": "1.0",
+        "configurationStatus": "synthetic_only",
+        "approvalRecordId": null,
+        "questionCharacters": 2000,
+        "requestBytes": 16384,
+        "answerCharacters": 8000,
+        "historyTurns": 8,
+        "sessionHourlyQuestions": 5,
+        "sessionDailyQuestions": 20,
+        "outstandingPerSession": 1,
+        "queueCapacity": 50,
+        "queueTtlSeconds": 600,
+        "sessionTtlSeconds": 86400,
+        "rawRetentionSeconds": 604800,
+        "suppressionRetentionSeconds": 2592000,
+        "maxActiveAsk": 1,
+        "maxAnswerExecutions": 1,
+        "maxRouterExecutions": 1,
+        "maxResearchCalls": 0,
+        "executionDeadlineSeconds": 240,
+        "dailyExecutions": 100,
+        "dailyTokens": 100000,
+        "maxInputTokens": 8000,
+        "maxOutputTokens": 1000,
+        "dailyBudgetUsd": null,
+        "monetaryEnforcement": "unavailable_disable_paid_admission",
+        "dutyCycleBps": 2500,
+        "controlFreshnessSeconds": 60
+      },
+      "roster": {
+        "schemaVersion": "1.0",
+        "serviceId": "fixture-ask",
+        "rosterVersion": "fixture-ask-roster",
+        "workers": [
+          {
+            "worker": {
+              "workerId": "fixture-author",
+              "name": "Synthetic Author",
+              "role": "researcher",
+              "responsibilities": [
+                "Synthetic research"
+              ],
+              "status": "available"
+            },
+            "topics": [
+              "general",
+              "synthetic"
+            ],
+            "researchAvailable": false
+          }
+        ]
+      },
+      "privacyNoticeVersion": "fixture-privacy-v1",
+      "admissionEnabled": false,
+      "claimsEnabled": false,
+      "deliveryEnabled": false,
+      "held": true,
+      "configurationHash": "c9975a4dc7e8d86c1573f2bd4f3342efa0786e56c8ddfafe4e1e60c04f0f7992",
+      "checkedAt": "2026-01-05T21:32:00Z",
+      "validUntil": "2026-01-05T21:33:00Z"
     }
   }
 }

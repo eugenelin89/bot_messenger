@@ -2,9 +2,9 @@
 import type {
   AskAnswer, AskAnswerDelivery, AskAnswerReceipt, AskClaim, AskClaimInput, AskClaimPage,
   AskControlSync, AskControlSyncInput, AskLimits, AskQuestion, AskRenewInput,
-  AskServiceScope, AskStatus, AskStatusDelivery, Problem,
+  AskServiceScope, AskServiceConfiguration, AskStatus, AskStatusDelivery, Problem,
 } from '../../../contracts/investment/v1/types.js';
-import { questionHash } from '../../../scripts/investment-contracts/ask.js';
+import { questionHash, checkAskConfiguration } from '../../../scripts/investment-contracts/ask.js';
 import {
   canonicalHash, canonicalJson, checkPublicStrings, parseJson, problem,
   requireContract as need, sha256, validate,
@@ -16,6 +16,7 @@ export const ASK_WIRE_BYTES = 262144;
 export const ASK_PROBLEM_BYTES = 8192;
 export interface AskBoundaryContext { scope: AskServiceScope; limits: AskLimits; now: string }
 export type AskOperation =
+  | { kind: 'configuration' }
   | { kind: 'claim'; input: AskClaimInput }
   | { kind: 'renew'; requestId: string; claim: AskClaim; input: AskRenewInput }
   | { kind: 'status'; requestId: string; claim: AskClaim; input: AskStatusDelivery }
@@ -36,11 +37,12 @@ function receiptIdentity(value: AskReceiptIdentity): void {
   validate('Hash', value.questionHash); validate('Hash', value.answerDigest); validate('Time', value.generatedAt);
 }
 type Responses = {
-  claim: AskClaimPage; renew: AskClaim; status: AskStatus;
+  configuration: AskServiceConfiguration; claim: AskClaimPage; renew: AskClaim; status: AskStatus;
   answer: AskAnswerReceipt; receipt: AskAnswerReceipt; control_sync: AskControlSync;
 };
 type Permission = AskServiceScope['permissions'][number];
 const profile = {
+  configuration: { permission: 'control_sync', response: 'AskServiceConfiguration', input: null },
   claim: { permission: 'claim', response: 'AskClaimPage', input: 'AskClaimInput' },
   renew: { permission: 'claim', response: 'AskClaim', input: 'AskRenewInput' },
   status: { permission: 'status', response: 'AskStatus', input: 'AskStatusDelivery' },
@@ -99,14 +101,15 @@ function answer(value: AskAnswer, ctx: AskBoundaryContext): void {
   need([...value.text].length <= ctx.limits.answerCharacters, 'TOO_LARGE');
   checkPublicStrings(value);
 }
-/** Only the six existing HQ operations are representable; no caller-provided URL/schema. */
+/** Only the canonical HQ operations are representable; no caller-provided URL/schema. */
 export function prepareAskRequest<K extends AskKind>(operation: Extract<AskOperation, {kind: K}>, ctx: AskBoundaryContext): PreparedAskRequest<K>;
 export function prepareAskRequest(operation: AskOperation, ctx: AskBoundaryContext): PreparedAskRequest {
   need(operation && typeof operation === 'object' && Object.hasOwn(profile, operation.kind), 'INVALID_REQUEST');
   const p = profile[operation.kind]; current(ctx, p.permission);
-  const input = operation.kind === 'receipt' ? operation.identity : operation.input;
+  const input = operation.kind === 'configuration' ? null : operation.kind === 'receipt' ? operation.identity : operation.input;
   if (p.input !== null) validate(p.input, input);
-  else receiptIdentity(input as AskReceiptIdentity);
+  else if(operation.kind === 'receipt') receiptIdentity(input as AskReceiptIdentity);
+  else need(Object.keys(operation).join(',')==='kind','INVALID_REQUEST');
   const binding: Binding = {
     serviceId: ctx.scope.serviceId, generation: ctx.scope.consumerGeneration,
     scopeHash: canonicalHash(ctx.scope), limitsHash: canonicalHash(ctx.limits),
@@ -120,6 +123,8 @@ export function prepareAskRequest(operation: AskOperation, ctx: AskBoundaryConte
     Object.assign(binding, { claimId: operation.claim.claimId, claimExpiresAt:operation.claim.leaseExpiresAt, questionExpiresAt:q.expiresAt, questionJson: canonicalJson(q), questionId: q.questionId, questionHash: q.questionHash });
   }
   switch (operation.kind) {
+    case 'configuration':
+      path = '/api/ask/v1/service/configuration'; requestId = null; break;
     case 'claim':
       need(operation.input.serviceId === ctx.scope.serviceId && operation.input.consumerGeneration === ctx.scope.consumerGeneration, 'CONFLICT');
       path = '/api/ask/v1/hq/claims'; requestId = operation.input.claimRequestId; break;
@@ -155,9 +160,9 @@ export function prepareAskRequest(operation: AskOperation, ctx: AskBoundaryConte
       path = '/api/ask/v1/hq/control-sync'; requestId = operation.input.syncId; break;
   }
   if (requestId !== null) validate('Id', requestId);
-  const body = operation.kind === 'receipt' ? '' : canonicalJson(input);
+  const body = operation.kind === 'receipt' || operation.kind === 'configuration' ? '' : canonicalJson(input);
   need(Buffer.byteLength(body) <= ASK_WIRE_BYTES, 'TOO_LARGE');
-  return Object.freeze({kind:operation.kind, origin:ASK_ORIGIN, method:operation.kind === 'receipt' ? 'GET' : 'POST',
+  return Object.freeze({kind:operation.kind, origin:ASK_ORIGIN, method:operation.kind === 'receipt' || operation.kind === 'configuration' ? 'GET' : 'POST',
     path, permission:p.permission, requestId, body, bodyHash:sha256(body), binding:Object.freeze(binding)});
 }
 function assertBindingCurrent(request: PreparedAskRequest, ctx: AskBoundaryContext): void {
@@ -207,6 +212,8 @@ export function decodeAskResponse<K extends AskKind>(request: PreparedAskRequest
   const value = validate<Responses[K]>(profile[request.kind].response, parsed);
   let terminalControlPage = false;
   switch (request.kind) {
+    case 'configuration':
+      checkAskConfiguration(value,ctx.scope,ctx.now); break;
     case 'claim': {
       const page = value as AskClaimPage;
       need(page.claimRequestId === request.requestId, 'CONFLICT');

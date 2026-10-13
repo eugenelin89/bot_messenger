@@ -50,7 +50,8 @@ export type InvestmentShowcaseContract =
   | AskServiceScope
   | PublisherScope
   | AskRoster
-  | RecordDetail;
+  | RecordDetail
+  | AskServiceConfiguration;
 export type Version = "1.0";
 export type Id = string;
 export type Event =
@@ -1633,4 +1634,21 @@ export interface RecordDetail {
   visibility: "published" | "withdrawn" | "withheld";
   event: ReceivedEvent | null;
   safeReason: string | null;
+}
+export interface AskServiceConfiguration {
+  schemaVersion: AskVersion;
+  serviceId: Id;
+  consumerGeneration: Sequence;
+  configurationRevision: Sequence;
+  configurationHash: Hash;
+  scope: AskServiceScope;
+  limits: AskLimits;
+  roster: AskRoster;
+  privacyNoticeVersion: Id;
+  checkedAt: Time;
+  validUntil: Time;
+  admissionEnabled: boolean;
+  claimsEnabled: boolean;
+  deliveryEnabled: boolean;
+  held: boolean;
 }

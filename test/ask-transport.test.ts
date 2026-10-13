@@ -23,8 +23,9 @@ const operations=():AskOperation[]=>[
   {kind:'answer',requestId:'fixture-delivery',claim:fixture('AskClaim'),input:fixture('AskAnswerDelivery')},
   {kind:'receipt',identity:askReceiptIdentity(fixture('AskAnswer'))},
   {kind:'control_sync',input:fixture('AskControlSyncInput')},
+  {kind:'configuration'},
 ];
-const responseName=(kind:AskOperation['kind'])=>({claim:'AskClaimPage',renew:'AskClaim',status:'AskStatus',answer:'AskAnswerReceipt',receipt:'AskAnswerReceipt',control_sync:'AskControlSync'})[kind];
+const responseName=(kind:AskOperation['kind'])=>({configuration:'AskServiceConfiguration',claim:'AskClaimPage',renew:'AskClaim',status:'AskStatus',answer:'AskAnswerReceipt',receipt:'AskAnswerReceipt',control_sync:'AskControlSync'})[kind];
 const signal=()=>new AbortController().signal;
 function keys(){
   const pair=generateKeyPairSync('ed25519');let signs=0,enabled=true;

@@ -7,7 +7,7 @@ import {
   assertAskRetry, askReceiptIdentity, type AskOperation, type AskBoundaryContext, type AskWireResponse,
 } from '../src/domain/ask/contract.js';
 import { canonicalHash, canonicalJson, ContractError, sha256, problem } from '../scripts/investment-contracts/schema.js';
-import { questionHash } from '../scripts/investment-contracts/ask.js';
+import { questionHash, askConfigurationHash } from '../scripts/investment-contracts/ask.js';
 import { signatureBase, signatureInput, contentDigest } from '../scripts/investment-contracts/signatures.js';
 
 const examples = JSON.parse(readFileSync('contracts/investment/v1/responses.json','utf8')).examples;
@@ -21,10 +21,35 @@ const operations = (): AskOperation[] => [
   {kind:'answer', requestId:'fixture-delivery', claim:fixture('AskClaim'), input:fixture('AskAnswerDelivery')},
   {kind:'receipt', identity:askReceiptIdentity(fixture('AskAnswer'))},
   {kind:'control_sync', input:fixture('AskControlSyncInput')},
+  {kind:'configuration'},
 ];
+test('configuration read rejects stale, altered, mismatched and contradictory receiver snapshots',()=>{
+  const ctx=context(),request=prepareAskRequest({kind:'configuration'},ctx);
+  for(const mutate of [
+    (c:any)=>{c.validUntil=ctx.now;},
+    (c:any)=>{c.checkedAt='2026-01-05T21:32:01Z';},
+    (c:any)=>{c.validUntil='2026-01-05T21:33:01Z';},
+    (c:any)=>{c.consumerGeneration='2';},
+    (c:any)=>{c.scope.keyId='other-key';},
+    (c:any)=>{c.roster.serviceId='other-service';},
+    (c:any)=>{c.roster.workers.push(c.roster.workers[0]);},
+    (c:any)=>{c.admissionEnabled=true;},
+    (c:any)=>{c.held=false;c.admissionEnabled=true;},
+    (c:any)=>{c.account={type:'chatgpt'};},
+  ]){
+    const c=fixture<any>('AskServiceConfiguration');mutate(c);c.configurationHash=askConfigurationHash(c);
+    fails(()=>decodeAskResponse(request,wire(c),ctx));
+  }
+  const changed=fixture<any>('AskServiceConfiguration');changed.configurationRevision='2';
+  fails(()=>decodeAskResponse(request,wire(changed),ctx),'CONFLICT');
+  fails(()=>prepareAskRequest({kind:'configuration',path:'/private'} as AskOperation,ctx),'INVALID_REQUEST');
+  // The existing strict and subscription variants remain available on this operation.
+  const c=fixture<any>('AskServiceConfiguration');c.held=false;
+  c.configurationHash=askConfigurationHash(c);assert.equal(decodeAskResponse(request,wire(c),ctx).kind,'data');
+});
 const wire = (value: unknown): AskWireResponse => ({status:200,contentType:'application/json',cacheControl:'private, no-store',bytes:Buffer.from(JSON.stringify(value))});
 function responseName(op: AskOperation): string {
-  return ({claim:'AskClaimPage',renew:'AskClaim',status:'AskStatus',answer:'AskAnswerReceipt',receipt:'AskAnswerReceipt',control_sync:'AskControlSync'})[op.kind];
+  return ({configuration:'AskServiceConfiguration',claim:'AskClaimPage',renew:'AskClaim',status:'AskStatus',answer:'AskAnswerReceipt',receipt:'AskAnswerReceipt',control_sync:'AskControlSync'})[op.kind];
 }
 function fails(fn:()=>unknown, code?: string) {
   assert.throws(fn,e=>e instanceof ContractError && (!code || e.code===code));
@@ -41,7 +66,7 @@ for(const op of operations()) test(`Ask ${op.kind} uses existing OpenAPI method,
   assert.equal(request.origin,'https://asymmetri.co');assert.equal(request.bodyHash,sha256(request.body));
   assert.equal(decodeAskResponse(request,wire(fixture(responseName(op))),ctx).kind,'data');
   if(request.method==='GET'){assert.equal(request.body,'');assert.equal(request.requestId,null);}else{
-    assert.equal(request.body,canonicalJson('input' in op?op.input:op.identity));
+    assert.equal(request.body,canonicalJson('input' in op?op.input:'identity' in op?op.identity:null));
     const id='claimRequestId' in ('input' in op?op.input:{})?(op as Extract<AskOperation,{kind:'claim'}>).input.claimRequestId:request.requestId;
     assert.equal(request.requestId,id);
   }

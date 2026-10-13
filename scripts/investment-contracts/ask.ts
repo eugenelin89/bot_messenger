@@ -1,6 +1,6 @@
 /** Private Ask conformance checks over supplied snapshots; never starts worker/model work. */
 import { timingSafeEqual } from 'node:crypto';
-import type { AskQuestion, AskQuestionState, AskAnswer, AskAnswerReceipt, AskLimits, AskRoute, AskServiceScope, ContextRef, Event } from '../../contracts/investment/v1/types.js';
+import type { AskQuestion, AskQuestionState, AskAnswer, AskAnswerReceipt, AskLimits, AskRoute, AskServiceScope, AskServiceConfiguration, ContextRef, Event } from '../../contracts/investment/v1/types.js';
 import { canonicalHash, checkPublicStrings, requireContract as need, sha256, validate } from './schema.js';
 import { publicRecords } from './publication.js';
 export interface SessionAuthority {
@@ -27,6 +27,26 @@ export interface AskContext {
   sessionHourlyCount: number; sessionDailyCount: number;
 }
 export const contextKey = (r: ContextRef): string => `${r.experimentId}/${r.runId}/${r.record.kind}/${r.record.id}/${r.record.version}`;
+/** Stable configuration identity excludes response freshness timestamps and its own hash. */
+export function askConfigurationHash(value:AskServiceConfiguration):string {
+  const {configurationHash:_,checkedAt:__,validUntil:___,...configuration}=value;
+  return canonicalHash(configuration);
+}
+/** A current snapshot is evidence of configuration, never account or model permission. */
+export function checkAskConfiguration(value:unknown,scope:AskServiceScope,now:string):AskServiceConfiguration {
+  const c=validate<AskServiceConfiguration>('AskServiceConfiguration',value);
+  validate('AskServiceScope',scope);validate('Time',now);
+  need(scope.enabled&&scope.permissions.includes('control_sync'),'FORBIDDEN');
+  need(c.serviceId===scope.serviceId&&c.consumerGeneration===scope.consumerGeneration
+    &&canonicalHash(c.scope)===canonicalHash(scope)&&c.roster.serviceId===c.serviceId,'CONFLICT');
+  need(c.configurationHash===askConfigurationHash(c),'CONFLICT');
+  need(new Set(c.roster.workers.map(w=>w.worker.workerId)).size===c.roster.workers.length,'CONFLICT');
+  const checked=Date.parse(c.checkedAt),valid=Date.parse(c.validUntil),at=Date.parse(now);
+  need(checked<=at&&at<valid&&valid<=checked+60000&&valid<=Date.parse(scope.expiresAt),'EXPIRED');
+  need(!c.held||!c.admissionEnabled&&!c.claimsEnabled&&!c.deliveryEnabled,'CONFLICT');
+  need(!c.admissionEnabled||c.claimsEnabled&&c.deliveryEnabled,'CONFLICT');
+  return c;
+}
 function publicReference(r: ContextRef, ctx: AskContext): void {
   need(['transaction','decision','artifact','order'].includes(r.record.kind), 'INVALID_REQUEST');
   need(!ctx.revokedReferences.has(contextKey(r)), 'WITHDRAWN');
