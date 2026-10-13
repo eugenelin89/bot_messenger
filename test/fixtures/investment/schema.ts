@@ -51,6 +51,15 @@ export function removeEmptyResearchMigration(db:import('node:sqlite').DatabaseSy
 
 /** Inert fixture downgrade only; never removes populated observed books. */
 export function removeEmptyObservedMigration(db:import('node:sqlite').DatabaseSync){
+ removeEmptyAskMigration(db);
  for(const {name} of db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'observed_%' ORDER BY rowid DESC").all() as {name:string}[]){assert.equal(db.prepare('SELECT count(*) n FROM '+name).get()!.n,0);db.exec('DROP TABLE '+name);}
  db.exec('DROP INDEX IF EXISTS investment_single_live_scope;DELETE FROM schema_migrations WHERE version=25');
+}
+
+/** Disposable schema25 fixture only; do not discard even one retained Ask control. */
+export function removeEmptyAskMigration(db:import('node:sqlite').DatabaseSync){
+ for(const name of ['ask_privacy_controls','ask_control_requests','ask_control_services']){
+  assert.equal(db.prepare(`SELECT count(*) n FROM ${name}`).get()!.n,0);db.exec(`DROP TABLE ${name}`);
+ }
+ db.exec('DELETE FROM schema_migrations WHERE version=26');
 }

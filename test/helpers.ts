@@ -13,8 +13,8 @@ export const hire = { display_name: 'Scout', title: 'Market Researcher', mission
 export const objective = { objective: DEFAULT_OBJECTIVE, acceptance_criteria: 'Three risks with failure modes and mitigations, report evaluated by Atlas', constraints: 'Local only' };
 export const assignment = { objective: 'Review product and architecture documents; identify the three largest coordination risks.', acceptance_criteria: 'Three risks, each with impact, failure and mitigation. Save a report.', constraints: 'Approved local documents only.' };
 export async function until(predicate: () => boolean, timeoutMs = 4000) {
-  const deadline = Date.now() + timeoutMs;
-  while (!predicate()) { if (Date.now() > deadline) throw new Error('Test condition timed out'); await new Promise(resolve => setTimeout(resolve, 10)); }
+  const deadline = performance.now() + timeoutMs;
+  while (!predicate()) { if (performance.now() > deadline) throw new Error('Test condition timed out'); await new Promise(resolve => setTimeout(resolve, 10)); }
 }
 export class FakeRuntime implements RuntimeAdapter {
   readonly type = 'fake'; readonly supportsInterrupt = true; calls: RuntimeInput[] = [];

@@ -1,17 +1,18 @@
 // Child-process fault fixture. No provider, network transport or real authority is ever created.
+import {mock} from 'node:test';
 import {writeFileSync} from 'node:fs';
 import {finiteTransport} from './transport.js';
 import {runningFiniteFixture} from './support.js';
 const phase=process.argv[2]!,report=process.argv[3]!;
 if(phase==='stdio_transmission'){
- const f=finiteTransport('hang'),j=f.authority.journal;Date.now=()=>Date.parse(f.clock.now());
+ const f=finiteTransport('hang',{mock}),j=f.authority.journal;
  writeFileSync(report,JSON.stringify({root:f.company.dataDir,journal:j.path,custody:j.custodyPath,authorityId:f.policy.authorityId,scopeId:f.result.scope.scopeId,loopId:f.result.loop.loopId,at:f.clock.now()}));
  void f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy).catch(()=>{});
  for(let i=0;i<200&&!f.methods().includes('turn/start');i++)await new Promise(r=>setTimeout(r,20));
  if(!f.methods().includes('turn/start'))throw Error('Fake transmission not reached');process.kill(process.pid,'SIGKILL');
  await new Promise(()=>{});
 }
-const f=runningFiniteFixture();f.session(0);
+const f=runningFiniteFixture({mock});f.session(0);
 const journal=f.authority.journal;
 f.store.db.exec(`VACUUM INTO '${f.company.dataDir.replaceAll("'","''")}/before.sqlite'`);
 writeFileSync(report,JSON.stringify({root:f.company.dataDir,journal:journal.path,custody:journal.custodyPath,authorityId:f.policy.authorityId,scopeId:f.result.scope.scopeId,loopId:f.result.loop.loopId,at:f.clock.now()}));

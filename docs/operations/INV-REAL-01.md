@@ -1,6 +1,45 @@
 # Persistent observed paper investment — operation and morning handoff
 
-**Latest coordination, October 13, 2026, 07:54 America/Vancouver:** Website execution has resumed.
+**Public release verified, October 13, 2026, 08:11 America/Vancouver:** The investment showcase
+and methodology are live at [Investment](https://asymmetri.co/botsquad/investment) and
+[Methodology](https://asymmetri.co/botsquad/investment/methodology). Website source
+`97b4087b79c5f0f1472fd71dde86765489273400`, build `kcKfT0zA-jDnr0xVy1Suy`, PID 2369353.
+The website chat reports 28 route checks, unchanged 15 shared-vhost baselines/Nginx hashes and
+mobile/desktop browser acceptance. Parent independently received HTTPS200 for both pages and
+verified truthful **Public archive not configured** / **Employee answers are not enabled** text.
+[Release receipt](../validation/evidence/inv-real01/public-release.json) separates reported
+release identity from independent public read-back. The previous complete release is retained
+for rollback. No real portfolio, market/model session or functional Ask is claimed.
+
+The receiver candidate `c2edfd50ed12ba576c06e6991091090b9ced3e31` subsequently passed 207 Linux
+and 61 strict TLS tests according to its writer and is privately installed, stopped, with an empty
+archive and no authority. Its shared-apex strict TLS ingress is still being resolved by the
+website project. That project has separate private Ask storage/session/claim/control code under adversarial tests.
+The website reports accepted Ask source `8c7a346a4509f793b270f1b73df34ad9d799ccdb`,
+with 20/20 focused and 227/227 full receiver tests plus two read-only reviews. Subsequent
+packaging is installed on loopback with admission, claims and delivery disabled. Parent verified
+the clean documented HEAD `8a539d1dc48caeab35364e187830e2a9bca853d8` and read
+`docs/ASK-01-PRIVATE-RECEIVER.md`; installation/confinement results remain website-reported.
+The writer reports zero sessions/questions/answers/controls/receipts/authority. Next cross-system
+gate is typed HQ fixture interoperability against a pinned receiver; public intake remains off.
+The later ingress implementation `a437f6902b2bccdf26d5bc719618cb3e5ca4d833`, documented at
+`cc0651e541e0120dd27cac4ab61bfad79090d494`, passed 230 receiver and 68 actual Linux ingress
+checks, both website builds and an isolated 480-request TLS workload, as reported by its writer.
+Parent verified that clean documented HEAD. The writer later reports 192 real-certificate
+shared-host rehearsal checks and preserved 54 canonical hashes/default certificates. Installed
+loopback startup/reload/confinement checks passed according to the writer. Shared HTTPS routing
+was then switched with 112 preservation checks passing, including 48 protected image URLs;
+public-boundary and post-cutover renewal verification continue. Parent independently re-read
+both public pages after this report: HTTPS200 and identical body hashes. No publisher authority,
+configured official portfolio or Ask intake is established.
+HQ remains deployed d262a8d / PID 712263, healthy database/dispatcher and degraded runtime. The
+previous401 was not retried. The dormant ASK-02 privacy-control journal passes 120/120 focused
+checks, build/typecheck and canonical manifest. The broad regression completed with failures;
+fixture repairs and qualified reruns are recorded in the [ASK-02 plan](../exec-plans/investment-inv-ask-02.md).
+Exact-source Mac observed workflow acceptance passed all 27 scenarios with zero failures/skips.
+Linux final-session workflow timeouts remain unresolved and block Linux live-workflow readiness.
+
+**Earlier coordination, October 13, 2026, 07:54 America/Vancouver:** Website execution has resumed.
 Its chat reports the long CUA CSV-export call timed out after roughly 5.45 hours and returned no
 actual approval-rejection text. Fresh chat status is active without the former waitingOnApproval
 flag. Earlier references to a tool-approval hold below describe the status then reported; they
@@ -237,3 +276,52 @@ validated. The next concrete prompt is:
 
 The website source prompt is queued in its existing chat. The next wake should examine evidence
 and make implementable progress, not repeat unchanged messages, denied auth or approval requests.
+
+
+Next bounded performance prompt (independent of login and Ask content storage):
+
+> Use the retained Linux timing diagnostic to measure replay subphases and first batch
+> outbox/receipt reads while retaining every invariant. If verified reconstruction reuse is
+> needed, restrict it to one synchronous transaction and bind every current run/configuration,
+> journal, outbox and receipt row, not head/version alone. Preserve corruption, checkpoint, calendar,
+> point-in-time or authority validation. Measure before/after against the same immutable source
+> and authored workflow. Do not cache across unverified database changes or alter production
+> deadlines merely to pass tests. Obtain architecture/security/recovery review for the chosen
+> invalidation boundary and pass exact-source Linux observed workflows before claiming Linux
+> readiness. Keep the original failed and diagnostic receipts.
+
+Next implementable HQ prompt after the schema26 source delivery:
+
+> Continue ASK-02 from its accepted privacy-control journal. Implement an unwired private SQLite
+> Ask inbox and HQ import-identity projection, with canonical idempotent question imports, bounded
+> owned-history reads, atomic immutable answer/outbox commits, text-free receipt reconciliation
+> and suppression/expiry cleanup. Keep raw text and its finite backups outside ordinary HQ backups.
+> Company tables retain IDs, hashes, opaque content references, expiry, lifecycle and receipt links.
+> Record identity before content; partial imports stay content_pending or held. Recover by matching
+> immutable identities, never repeating model work. Test cross-database crash windows, conflicting
+> imports/answers, deletion races, missing content and answer/outbox rollback. Prove raw text never
+> reaches company audit, conversation, artifact or publication tables. Keep grants, model calls,
+> network delivery and dispatch activation absent in this next bounded packet.
+>
+> Follow with a separate finite Ask authority ledger, current eligibility, roster and shared-worker
+> uncertainty integration. FiniteHQ/FiniteJournal investment allowances and reserveOther do not
+> authorize Ask; AIUsage is telemetry, not hard monetary authority. A newer real application version
+> must apply cancellation/purge before consuming a control barrier. An empty sync never proves
+> restore safety. Only then connect transport/dispatcher and actual eligible employees in isolated
+> public contexts. Continue source work while login is held; do not repeat the denied account probe.
+
+Website execution remains in its existing chat: strict shared-apex ingress, receiver operational
+scopes/official selection, private Ask01 intake, visitor interface and cross-system acceptance.
+The canonical manifest is unchanged. Source work and unavailable-state deployment do not prove
+functional public portfolio or employee answers. The hourly completion loop remains ACTIVE.
+
+
+Accepted website Ask integration notes (source only): its generation/key window is at most24h,
+idle claims request60s retry spacing, and current full-permission authority plus a final empty
+privacy traversal precede intake. Minimal receipts survive body purge; owned ancestors and
+current evidence are revalidated. Its backup is non-content metadata, restore retires sessions/
+authority and requires a current independently retained control journal plus a newer generation.
+HQ must prove its own content purge/restore/authority; website acknowledgment cannot do so.
+Run fixture interoperability from the pinned receiver before the next content-store packet;
+use authored keys/questions only, with no public admission or provider calls. Actual production
+installation and strict shared-apex ingress remain website-owned.

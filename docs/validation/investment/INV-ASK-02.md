@@ -82,3 +82,89 @@ Next source work is durable Ask grants/import/outbox/control state and restore h
 the canonical contract and existing dispatcher/account uncertainty rules. Actual anonymous
 session intake remains delegated to the website chat. No canned employees, private-thread reuse,
 paid provider setup, borrowed investment authority or public activation follows from these tests.
+
+
+## Durable privacy-control journal — 2026-10-13
+
+A subsequent, still dormant component adds passive schema26. It stores only control and sync
+metadata, never visitor text, answers, provider threads or credentials. No application caller,
+service, key, owner grant, model allowance or invocation is created. Schema25 company and
+portfolio rows/rowids and independent consumed authority survive the migration unchanged.
+
+The journal owns one pending request per service, frozen before I/O. Callers cannot choose its
+cursor or acknowledgment IDs. An identical retry returns identical bytes/ID; receiving a bound
+page atomically records immutable controls, indexed question/conversation suppression, exact
+`suppression-journal-v1` application hashes, confirmed ACKs, and the next cursor. Even a nonempty
+last page needs another exchange and an empty/null terminal page after all controls are ACKed.
+Unknown IDs, changed duplicates, invalid responses and partial failures cannot advance state.
+
+A new process instance invalidates freshness, abandons its old pending sync and starts from the
+root with a fresh request ID. Current-instance checks reject late callbacks. Only a fresh fully
+drained response before the retention horizon can reconcile abandoned **control-sync metadata**;
+its exact resolver record remains retained while referenced. This never settles a model turn or
+advances consumer generation. Expired unresolved requests/controls hold prepare, receive and
+barrier evaluation, even if pruning was never called. Resolved metadata can be pruned; unresolved
+horizon recovery remains an explicit integration requirement.
+
+The real effect here is durable **suppression recording**, not content deletion. Every journal
+barrier includes `contentPurgeVerified:false` and `restorationVerified:false`; it cannot authorize
+model dispatch or answer release. A restored older snapshot can be missing controls already
+ACKed remotely, and an empty reply cannot reconstruct them. The later import/execution adapter
+must require its own application version, atomically apply retained controls to all actual local
+content/executions/outbox, and separately reconcile backup suppression, provider retention,
+consumer generation and independent finite authority. Raw content must not accidentally enter
+indefinite whole-HQ backups. This component must remain unwired until those checks exist.
+
+Current focused acceptance: 120/120 on Node24.21.0/Linux, zero failures/skips; build/typecheck and
+unchanged canonical manifest pass. This includes 33 journal/migration cases plus the existing Ask
+contract and HTTPS transport tests. Authored fixtures cover multipage ACK barriers, scoped
+suppression, identical IDs across two services, exact retry, atomic rollback before/after ACK,
+restart/stale callbacks, old-backup limits, clock/scope/generation changes, unresolved horizons,
+stale empty responses, resolver retention after policy tightening, SQL transition guards and
+populated schema25 preservation. The broad serial regression completed with failures; see the
+qualified results below and [journal receipt](../evidence/inv-ask02/journal-acceptance.json).
+
+Architecture, security and recovery review found no remaining source blocker after the fixes.
+Test review requested the two-service privacy case, now passing in the final focused set. Initial
+local check could not find tsc through a pre-existing dangling dependency link. The first isolated
+Linux compiler found a test-only generic typing error; then 31/32 journal cases passed, with the
+migration fixture held by an omitted README in staging. Adding required repository inputs fixed
+that setup failure; these initial logs are retained. No actual receiver/model/provider deletion
+or public Ask execution is proven by fixture results.
+
+### Regression qualification
+
+The original Linux sweep returned 1,935 passes, 48 failures, one cancellation and five conditional
+receiver skips across 1,989 tests. Retained failures led to test-only repairs: use one synthetic
+Date clock for authored evidence and sessions while keeping real timers; use monotonic observer
+deadlines; synchronize cutoff admission before measuring real aborts; await the ordinary loop
+completion tick; make identical-account notification revalidation deterministic; and use portable
+temporary report paths. No production point-in-time, runtime, account or financial guard changed.
+
+The unchanged business-adapter file passed 32/32 under its supported protected fixture directory.
+Corrected Ask/finite acceptance passed 202/203, with its one observer failure subsequently passing
+in the unchanged four-case dispatcher file. Repaired timing/account checks passed 22/22, portable
+SIGKILL recovery passed 4/4, and the final cutoff assertion passed 2/2. The final cutoff receipt
+measures both actual abort events at least 900ms after release. Build/typecheck/manifest pass.
+
+The Linux observed workflow still has unresolved final-session research observer failures,
+including a 633.44s full-universe case with a 180s stage bound. All recorded turns in that
+snapshot were completed with no execution errors; a scheduling/performance explanation remains
+an inference. The exact same 32 source/test hashes passed the complete plain workflow on
+Mac/Node24.10.0 in 204.53s, with all accounting, publication, restart and authority assertions.
+The subsequent whole file passed **27/27**, zero failures/skips/cancellations, in 416.63s;
+all 32 source/test hashes were rechecked against the writer after the run. The Linux run was
+stopped after two reported passes and five reported failures, before an aggregate footer, to
+replace repeated failures with one bounded diagnostic. No further timeout increase was made.
+These results qualify dormant component source acceptance; Linux live-workflow readiness
+remains unproven. The shared Mac slot was returned to Motion after the test completed.
+
+A separate diagnostic retained the original60s observer and still failed (0/1,268.40s).
+At timeout, the dispatcher was scheduled, not stopped and had zero active turns. It had made
+2,082full journal replays taking126.87s of205.85s elapsed. Three passive setImmediate observations
+without kick() then saw synthesis, review and finalization complete in order. Finalization was
+not yet advanced and the stage remained running when the original error was rethrown. This
+demonstrates replay cost and natural progression in that case; it neither repairs performance
+nor converts any original Linux failure into a pass. Diagnostic source/log hashes and snapshots
+are retained in the machine receipt. A separate performance packet must preserve all corruption,
+checkpoint, receipt, financial, point-in-time and authority checks.
