@@ -11,6 +11,15 @@ request or genuine employee turn has been activated. This is an inert deployment
 paper-investment record. The public showcase and methodology URLs returned 404 at 12:00 UTC;
 the website execution chat remains at a pending tool-approval boundary. Ask BotSquad is unfinished.
 
+**Completion-loop update, 2026-10-13 13:21UTC:** The first wake implemented the HQ portion of
+INV-ASK-01: strict typed claim/renew/status/answer/receipt/control-sync messages against the
+unchanged canonical1.0 protocol. Build/typecheck/manifest and224/224 focused tests pass.
+Architecture/security/recovery review fixes preserve lease expiry, post-purge receipt recovery
+and historical deletion controls under tighter policy. See [ASK-01 evidence](../validation/investment/INV-ASK-01.md).
+No HTTP/model work or runtime activation was added; private deployment stays d262a8d.
+The wake verified the same active service/database/dispatcher and degraded runtime, and did not
+retry the denied login. Website intake remains delegated and pending its actual tool approval.
+
 An active hourly **BotSquad Investment completion loop** now resumes this chat, examines the
 result, generates the next concrete prompt and executes available work. Automation ID:
 `botsquad-investment-completion-loop`. It is a local Codex heartbeat, so its host/app must be
@@ -186,9 +195,19 @@ The shortest activation prompt, once login and website execution are available, 
 > the full project is complete. Deployment and release are already owner-authorized.
 
 
-The next independent source packet while login/site execution remains held is **INV-ASK-01**
-from `docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md`: freeze the canonical session-private
-question/lease/result contract and adversarial golden fixtures in HQ, send the exact digest and
-website intake prompt to the existing website chat, and review both sides before progressing
-to employee routing. Use the accepted launcher and requirements; do not combine public archive
-and visitor-private storage. This source work does not need a successful production login.
+The HQ boundary portion of **INV-ASK-01** is now validated. The next concrete prompt is:
+
+> Inspect the current website result and ASK-01 acceptance. Once its actual tool boundary clears,
+> finish and verify the website private session queue, signed HQ routes, durable privacy controls,
+> abuse limits and restore behavior against the unchanged canonical manifest. Send the receiver
+> commit/schema/test receipts back to this HQ chat. Keep public admission disabled until genuine
+> employee, budget and privacy acceptance passes. On HQ, design and implement ASK-02 durable
+> intent/admission/routing only where the accepted counterpart contract and actual dependencies
+> support it; retain independent provider uncertainty and separate finite Ask budgets. Complete
+> source work without pretending that the held login or website acceptance has passed. After
+> changed login/routing evidence, run the supported strict account preflight once and progress
+> genuine finite trials. No licensing investigation, credential copying, backdated session or
+> fake employee answer. Deployment/release remain already authorized.
+
+The website source prompt is queued in its existing chat. The next wake should examine evidence
+and make implementable progress, not repeat unchanged messages, denied auth or approval requests.
