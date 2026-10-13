@@ -1,5 +1,56 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Current morning handoff — October 13, 2026, 11:27 America/Vancouver
+
+**The website pages are live; genuine investment and employee answers are not yet running.**
+[Investment](https://asymmetri.co/botsquad/investment), [Methodology](https://asymmetri.co/botsquad/investment/methodology)
+and the new [Ask BotSquad](https://asymmetri.co/botsquad/ask) page all independently return
+HTTPS200. Ask says **Questions are not open yet**, has no form/textarea and its availability API
+returns disabled without setting a cookie. Investment remains an unconfigured public archive.
+
+Website writer reports release at18:24:52UTC from `d51288fc52b0faa4401848ec9d009ad3cc3ae87b`,
+build `vEx_G48mhinsBJBGK839J`, PID2378322. Its Linux build/audit, 34 route/redirect checks and
+112 shared-host/protected-content checks passed; all 16 Nginx file hashes and other service PIDs
+were preserved. Complete predecessor: `/var/www/asymmetri-rollback-20261013-97b4087`.
+The [public read-back](../validation/evidence/inv-perf01/public-readback.json) is independently
+collected; server identity/preservation details are attributed to the website writer. Strict
+shared HTTPS ingress has been released; receiver authority and Ask admission remain disabled,
+with no official portfolio, sessions, questions or answers. The interactive visitor UI has
+synthetic source/browser acceptance only; production deliberately has no question intake.
+
+HQ implementation `9a1eb5caf4a0cc3125f9da2ffe9a941cea68c0fc` completes this wake's bounded
+verified-read change and typed synthetic receiver test. Financial/risk/publication checks passed
+156 with four conditional skips; those four subsequently passed against the actual isolated
+receiver. Final snapshot tests passed 8/8. Typed Ask interoperability passed 1/1 with 16 actual
+HTTPS requests and durable deletion suppression; generated keys/tree/listener were removed.
+All 424 final source files matched Linux. Build/typecheck/contracts passed. No employee model ran;
+physical content purge and restoration verification remain false.
+
+Delivery is [PR82](https://github.com/eugenelin89/bot_messenger/pull/82); its linked GitHub record
+is authoritative for final head and merge identity. Evidence commit is
+`fd875fc68adfb7202dfc7e186a2c0c44a5168d28`, acceptance receipt SHA256
+`9511dc87ad7d237769639195438c0ebafad5018e2338f490a9a8b92cd8fb994c`.
+The exact-head GitHub query reported no configured checks/statuses or submitted GitHub reviews;
+the four advisory specialist reviews and qualified test evidence are recorded in the receipt.
+
+The mechanical paired-read benchmark improved 57.01%, but **the final Linux observed actions
+workflow still failed its existing 60-second stage bound**. Original and candidate failures are
+retained in [INV-PERF-01](../validation/investment/INV-PERF-01.md) and its
+[receipt](../validation/evidence/inv-perf01/acceptance.json). This is not Linux deployment readiness.
+Production HQ therefore remains d262a8d/PID712263, active with healthy database/dispatcher and
+degraded runtime. The prior strict authentication401 was not retried; no login/routing change,
+new authority, market request, model turn, retained-data reset or HQ deployment occurred.
+
+Next implementable packet: the unwired private Ask content store/import identity/immutable
+answer outbox specified below, followed by separate finite Ask authority and actual employees.
+Linux performance needs another measured profile before any further repair; retain all integrity
+checks and original timing bounds. Genuine activation still requires the supported account
+repair already documented below, future sessions and exact finite authority. Yahoo permission
+remains owner-reported; deployment/public release remain authorized. Motion Prompt169 owns the
+Mac native slot and 15 GB floor. The hourly completion loop is ACTIVE.
+
+## Earlier checkpoints retained for provenance
+
 **Public release verified, October 13, 2026, 08:11 America/Vancouver:** The investment showcase
 and methodology are live at [Investment](https://asymmetri.co/botsquad/investment) and
 [Methodology](https://asymmetri.co/botsquad/investment/methodology). Website source
@@ -303,17 +354,16 @@ The website source prompt is queued in its existing chat. The next wake should e
 and make implementable progress, not repeat unchanged messages, denied auth or approval requests.
 
 
-Next bounded performance prompt (independent of login and Ask content storage):
+Next bounded performance follow-up (INV-PERF-01 improved reads but did not resolve Linux readiness):
 
-> Use the retained Linux timing diagnostic to measure replay subphases and first batch
-> outbox/receipt reads while retaining every invariant. If verified reconstruction reuse is
-> needed, restrict it to one synchronous transaction and bind every current run/configuration,
-> journal, outbox and receipt row, not head/version alone. Preserve corruption, checkpoint, calendar,
-> point-in-time or authority validation. Measure before/after against the same immutable source
-> and authored workflow. Do not cache across unverified database changes or alter production
-> deadlines merely to pass tests. Obtain architecture/security/recovery review for the chosen
-> invalidation boundary and pass exact-source Linux observed workflows before claiming Linux
-> readiness. Keep the original failed and diagnostic receipts.
+> Profile the remaining exact-source Linux workflow and constructor/replay cost after
+> INV-PERF-01. Its fully verified snapshot/batched reads and calendar formatter improved the
+> mechanical paired-read benchmark, but actions_and_revision still fails its original 60-second
+> stage bound. Identify the next measured cost before changing source. Preserve complete
+> corruption, checkpoint, calendar, point-in-time and authority checks; no cache based on head
+> alone, no unverified reuse across writes, no observer extension. Pass original exact-source
+> Linux workflows before claiming readiness. Keep every baseline/candidate failed receipt.
+
 
 Next implementable HQ prompt after the schema26 source delivery:
 
@@ -335,8 +385,9 @@ Next implementable HQ prompt after the schema26 source delivery:
 > restore safety. Only then connect transport/dispatcher and actual eligible employees in isolated
 > public contexts. Continue source work while login is held; do not repeat the denied account probe.
 
-Website execution remains in its existing chat: strict shared-apex ingress, receiver operational
-scopes/official selection, private Ask01 intake, visitor interface and cross-system acceptance.
+Website execution remains in its existing chat. Shared-apex ingress and the disabled visitor
+page are released. Operational scopes/official selection and genuine intake/cross-system
+acceptance remain unfinished.
 The canonical manifest is unchanged. Source work and unavailable-state deployment do not prove
 functional public portfolio or employee answers. The hourly completion loop remains ACTIVE.
 
@@ -347,6 +398,6 @@ privacy traversal precede intake. Minimal receipts survive body purge; owned anc
 current evidence are revalidated. Its backup is non-content metadata, restore retires sessions/
 authority and requires a current independently retained control journal plus a newer generation.
 HQ must prove its own content purge/restore/authority; website acknowledgment cannot do so.
-Run fixture interoperability from the pinned receiver before the next content-store packet;
-use authored keys/questions only, with no public admission or provider calls. Actual production
-installation and strict shared-apex ingress remain website-owned.
+Pinned receiver interoperability passed 16 authored HTTPS requests in INV-PERF-01; no public
+admission or provider calls occurred. Continue the next content-store packet from that evidence.
+Production installation and released strict shared-apex ingress remain website-owned.

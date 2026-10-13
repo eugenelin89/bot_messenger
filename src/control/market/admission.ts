@@ -37,7 +37,7 @@ export class MarketFixtureSimulator {
   }
   execute(runId:string,command:Exclude<Command,{type:'observe'}>,requestId:string){
     return this.store.db.transaction(()=>{
-      const state=this.simulator.inspect(runId),configuration=this.simulator.configuration(runId);
+      const {state,configuration}=this.simulator.readSnapshot(runId);
       // Exact receipt replay remains valid without repeating any price-dependent effect.
       const replay=this.store.db.get('SELECT 1 FROM investment_receipts WHERE run_id=? AND request_id=?',runId,requestId);
       const terminal=command.type==='fill'&&state.orders[command.orderId]?.status!=='pending';

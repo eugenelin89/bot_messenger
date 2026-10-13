@@ -1,0 +1,4 @@
+{
+  "encoding": "UTF-8",
+  "content": "TAP version 13\n# Subtest: actual isolated receiver: committed team openings\nok 1 - actual isolated receiver: committed team openings\n  ---\n  duration_ms: 8681.822579\n  type: 'test'\n  ...\n# Subtest: actual isolated receiver: committed team withdrawal\nok 2 - actual isolated receiver: committed team withdrawal\n  ---\n  duration_ms: 3652.01564\n  type: 'test'\n  ...\n# Subtest: actual isolated receiver: committed team full\nok 3 - actual isolated receiver: committed team full\n  ---\n  duration_ms: 8629.789655\n  type: 'test'\n  ...\n# Subtest: actual isolated receiver: committed team replacement\nok 4 - actual isolated receiver: committed team replacement\n  ---\n  duration_ms: 8420.969845\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 30360.278143\n"
+}

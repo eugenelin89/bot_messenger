@@ -1,0 +1,480 @@
+{
+  "recordedAt": "2026-10-13T18:28:49.168716+00:00",
+  "baselineCommit": "55d837cb4660461556b35518f1d632ff0e2479c0",
+  "implementationCommit": "9a1eb5caf4a0cc3125f9da2ffe9a941cea68c0fc",
+  "scope": "Coherent fully verified financial reads, batched receipt/outbox validation, fixed calendar formatter, and conditional typed synthetic Ask HTTPS interoperability. No activation.",
+  "acceptance": {
+    "boundedSourceChecks": "pass",
+    "typedSyntheticInteroperability": "pass",
+    "linuxObservedWorkflowReadiness": false,
+    "fullProjectComplete": false,
+    "productionHQDeployedThisWake": false,
+    "genuineMarketOrModelCalls": 0
+  },
+  "changedSourceFiles": {
+    "src/control/investment-team/observed-investment.ts": "fce831d5d76c1512398895c5fdffb17f1f76bd787027eb3eecdc82b10ab077fa",
+    "src/control/investment-team/service.ts": "35e55fa3d17875752cff4748ad2a9f8688d74b63a3caa7f793a37622e396ab10",
+    "src/control/investment.ts": "1207d1a08afe7ffef63c139b5d15626f12666141491c4a8448bbcc192f47adb6",
+    "src/control/market/admission.ts": "286323924d307f63c478a2198c4ce1459eeeb43c6802492a9ada35e9433f184a",
+    "src/control/publication/simulator-source.ts": "9613b76368b54dee6a5be12838cf5aaf163e441adade03900410990ea53600c0",
+    "src/domain/investment/policy.ts": "6df53ca132a8dd575569f430fef5b6a61b825761fa87efb59d335407eebc0e0b",
+    "test/ask-interop.test.ts": "2941708eb97c69bd1fac6456d4565c880094279490db672d6a15bb96b7ecb20b",
+    "test/investment-arithmetic.test.ts": "0b08c858697459945659502a181ca84b45368f5615818fc8a577cf3ca9158b7e",
+    "test/investment-recovery.test.ts": "aeef8e30abf3906446d40421da0fda5e178a22460686bc6bb0173742f7445f7d",
+    "test/investment-snapshot.test.ts": "34af039b14672838adfdf146f1b30d0d2ae390f6678cad4fbbe64a2281330165"
+  },
+  "exactLinuxSource": {
+    "count": 424,
+    "map": "source-files.json",
+    "sha256": "7f57103d623826332b158db61ffb5311d16a72acc7ab69bbd8a5802a848253d4",
+    "allMatched": true,
+    "note": "Final map includes final callback test and typed interop test. Product code did not change after financial selection."
+  },
+  "canonicalManifestSha256": "7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31",
+  "host": {
+    "candidate": "/var/tmp/botsquad-perf-candidate-OXqfQg",
+    "baseline": "/var/tmp/botsquad-ask-clock-SXDokc",
+    "baselineProfile": "/var/tmp/botsquad-replay-profile-BlXwwV",
+    "receiver": "/var/tmp/botsquad-ask-interop-5lK0H3/receiver",
+    "user": "botsquad",
+    "node": "v24.21.0",
+    "heapMB": 512,
+    "nice": 10,
+    "serial": true,
+    "beforeFreeDiskKiB": 33818156,
+    "beforeAvailableRamMiB": 1552,
+    "afterFreeDiskKiB": 32968700,
+    "afterAvailableRamMiB": 1545,
+    "packageLockSha256": "56d732030d68b93a5f530946de1a57d4ab8d938182d97ed18ce93d39dfeefd86",
+    "macHeavySlot": "Motion Prompt169; no HQ native Mac work"
+  },
+  "checks": {
+    "finalBuild": "pass",
+    "typecheck": "pass",
+    "canonicalManifest": "pass",
+    "diffCheck": "pass",
+    "initialSnapshotRecovery": {
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 18040.038042
+    },
+    "finalFinancialRiskPublication": {
+      "tests": 160,
+      "pass": 156,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 4,
+      "duration_ms": 206018.877077
+    },
+    "finalSnapshotIncludingCallbackPause": {
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 5980.815619
+    },
+    "actualIsolatedPublicationReceiver": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 30360.278143
+    },
+    "typedAskInteroperability": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 6292.268361
+    },
+    "selectionNotes": [
+      "Financial selection passed156 with4 conditional receiver skips, before the last callback test was added; final snapshot8/8 includes that test.",
+      "All4 skipped receiver cases subsequently ran against the pinned actual isolated receiver and passed with zero skips.",
+      "Build also typechecked the final added callback test; subsequent interop-only type corrections were rebuilt successfully. No product code changed after financial selection.",
+      "No final full observed27 scenario suite or full repository regression is claimed."
+    ],
+    "financialFiles": [
+      "investment-snapshot",
+      "investment-simulator",
+      "investment-arithmetic",
+      "investment-actions",
+      "investment-recovery",
+      "investment-team-risk",
+      "finite-hq-financial",
+      "market-evidence",
+      "market-recovery",
+      "investment-team-publication",
+      "publication-projection"
+    ]
+  },
+  "baselineProfile": {
+    "failed": true,
+    "testMs": 214806.185236,
+    "runnerMs": 215843.536748,
+    "observerSeconds": 60,
+    "configuration": {
+      "count": 2082,
+      "ms": 34159.53
+    },
+    "reducer": {
+      "count": 26546,
+      "ms": 50181.82
+    },
+    "checkpoint": {
+      "count": 28651,
+      "ms": 17612.67
+    },
+    "constructorIntegrity": {
+      "count": 1961,
+      "ms": 22173.11
+    },
+    "foreignKeyMs": 2550.91,
+    "note": "Instrumented nested phases overlap and must not be summed. Not a passing receipt."
+  },
+  "initialCandidateObserved": {
+    "status": "interrupted_after_reported_failure",
+    "reportedPass": 2,
+    "reportedFail": 1,
+    "plainTestMs": 578204.413065,
+    "completeSuiteFooter": false,
+    "childRssSampleKiB": 295540,
+    "resourceCaveat": "Interrupted wrapper measured only runner54092KiB; it is not a child peak measurement."
+  },
+  "finalCandidateObservedActions": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "duration_ms": 188753.169677,
+    "testMs": 187793.950983,
+    "observerSeconds": 60,
+    "wallSeconds": 188.85,
+    "cpuPercent": 95,
+    "userSeconds": 172.51,
+    "systemSeconds": 7.6,
+    "maximumRssKiB": 238484,
+    "swaps": 0,
+    "status": "FAILED; timing bound unchanged; no Linux readiness claim"
+  },
+  "mechanicalBenchmark": {
+    "synthetic": true,
+    "kind": "mechanical_replay_only",
+    "journals": 25,
+    "sessions": 261,
+    "iterationsPerRound": 20,
+    "rounds": [
+      {
+        "round": 1,
+        "baselinePairMs": 1864.4647390000002,
+        "snapshotMs": 728.9805460000002
+      },
+      {
+        "round": 2,
+        "snapshotMs": 718.5532290000001,
+        "baselinePairMs": 1628.9296379999996
+      },
+      {
+        "round": 3,
+        "baselinePairMs": 1737.8603790000006,
+        "snapshotMs": 801.6062760000004
+      },
+      {
+        "round": 4,
+        "snapshotMs": 675.8924509999997,
+        "baselinePairMs": 1592.945830999999
+      }
+    ],
+    "resultDigest": "15fe6febb83733c55b15472c112e5ca8d4199513371ee4bca1302c22da66cc11",
+    "baselinePairMedianMs": 1683.3950085000001,
+    "snapshotMedianMs": 723.7668875000002,
+    "reductionPercent": 57.00552253954244,
+    "scope": "One mechanical paired configuration/state read, not complete workflow performance or Linux readiness",
+    "scriptSha256": "eadb0fd661052c2d19ecf50719b0fd20defc442aa4285e5acceec82c1af6b444"
+  },
+  "receiverPin": {
+    "commit": "d1ddbe679c05314158310183518afaaaedd8ae00",
+    "fixtureIntroduced": "fe5c89f9be16b11d9ace455a95e10034186f434e",
+    "sourceCount": 87,
+    "builtCount": 50,
+    "inventory": "receiver-source-build.json",
+    "inventorySha256": "f4c15327542d56c5c3d6f12e285ec16fe9284c39fbb096d278c9bde1ba3c408b",
+    "archiveSha256": "aaa9461a9d7f63c5d31dc9416c1642f6a4d6ded24ed26776b9d0eba53a1f2e91",
+    "sourceMapCanonicalSha256": "8e91367bcbb6d559a1cf5832d9e48ad0ac28e52dcfe1d38a7e9c2b3c5d45df02",
+    "launcherSha256": "8a1808ab8b15190c4cfa17b3c36231dbb18ef5ba9a059b3dba76cbee828ff1ce",
+    "lockSha256": "cf95b07b20cd4c53edf83effd3fe46190fc88453802fe2de0aab66cc3d53656b",
+    "nativeArtifact": "node_modules/better-sqlite3/prebuilds/linux-x64.node",
+    "nativeSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+    "nativeBuildNote": "Locked better-sqlite3 13.0.3 used the packaged prebuilt N-API artifact. Disposable downloaded/extracted toolchain was prepared after missing-make failure; no host package install and no freshly compiled native artifact are claimed."
+  },
+  "typedInterop": {
+    "requests": 16,
+    "counts": {
+      "control_sync": 4,
+      "visitor": 6,
+      "claim": 1,
+      "renew": 1,
+      "status": 1,
+      "answer": 2,
+      "receipt": 1
+    },
+    "actualUTC": true,
+    "fixedHostSNI": "asymmetri.co",
+    "testDial": "127.0.0.1 ephemeral TLS port",
+    "rejectUnauthorized": true,
+    "controls": 1,
+    "durableSuppression": true,
+    "freshWrapperAnswerRetry": true,
+    "ownedReadBack": true,
+    "deletedOwnedRead404": true,
+    "privateKeyTreeRemoved": true,
+    "listenerClosed": true,
+    "contentPurgeVerified": false,
+    "restorationVerified": false,
+    "modelCalls": 0,
+    "content": "authored synthetic question and answer only"
+  },
+  "reviews": {
+    "control_plane_architect": "Accepted no retained cache and calendar mechanics; no implementation blocker.",
+    "recovery_reviewer": "Accepted scoped maps/transactionality; added callback-pause freshness negative.",
+    "security_reviewer": "Accepted final full build inventory and bounded spawn cleanup; no activation or new authority.",
+    "test_reviewer": "Accepted bounded source checks; checkpoint and callback negatives added. Linux readiness remains unproven.",
+    "finalReceiptReview": "test_reviewer independently recomputed424source,10changed-file,26original raw-log and4artifact hashes; confirmed all footers and qualified claims. Logs subsequently wrapped losslessly in JSON for repository whitespace checks; decoded raw hashes reverified. No blocking factual/evidence error."
+  },
+  "retainedFailures": [
+    "Initial profile instrumentation omitted Store import; corrected, both logs retained.",
+    "Initial test harness root PATH omitted runuser; corrected to /usr/sbin/runuser.",
+    "Initial typed test builds missed wrapper schemaVersion and narrowed optional port; corrected and final build passed.",
+    "Initial receiver locked install failed missing make. Second isolated locked install/build passed with packaged native artifact; npm warnings retained.",
+    "Instrumented baseline actions workflow, initial candidate plain workflow and final candidate actions workflow all failed at unchanged observation bounds.",
+    "Previous ASK02 broad Linux failures remain historical failed receipts; this focused packet does not supersede them."
+  ],
+  "productionHQ": {
+    "source": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+    "pid": 712263,
+    "service": "active",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "degraded"
+    },
+    "deniedAccountRetried": false,
+    "newAuthority": false,
+    "retainedCompanyOrPortfolioReset": false
+  },
+  "websiteRelease": {
+    "attribution": "Deployment identity and preservation checks reported by website writer; public GET receipt independently collected by HQ parent.",
+    "source": "d51288fc52b0faa4401848ec9d009ad3cc3ae87b",
+    "build": "vEx_G48mhinsBJBGK839J",
+    "pid": 2378322,
+    "releasedAt": "2026-10-13T18:24:52Z",
+    "rollback": "/var/www/asymmetri-rollback-20261013-97b4087",
+    "routeChecks": 34,
+    "preservationChecks": 112,
+    "publicReadback": "public-readback.json",
+    "publicReadbackSha256": "4fb9020f54727ea7692370a1e8f3887311eb522314052f0861cca70ecfa1fc39",
+    "askIntake": "disabled",
+    "functionalEmployeeAnswers": false,
+    "documentationCommit": "b5e003475b3d073122d6d1866139f8b2ab980b63",
+    "documentation": "https://github.com/eugenelin89/asymmetri/blob/b5e003475b3d073122d6d1866139f8b2ab980b63/docs/ASK-03-RELEASE_2026-10-13.md",
+    "uiImplementation": "0b803a4863ee1e3bb90d9c096857120ae25a4f8d"
+  },
+  "remaining": [
+    "Supported service-account login/routing repair, then strict current account/eligibility/reload evidence.",
+    "Linux observed workflow timing acceptance under original bounds.",
+    "Unwired private Ask content custody/import identity/answer outbox, then separate finite authority and genuine employee integration.",
+    "Prospective finite investment authority, actual future market/model sessions and signed official publication/read-back.",
+    "Cross-system privacy/security/recovery/capacity acceptance and complete public Ask activation."
+  ],
+  "logs": {
+    "logs/baseline-phase-profile-initial.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "145b81d934434ae9af8efe03d39bbf73017ce158120d9dc33d891423ab5982f4",
+      "rawBytes": 1344,
+      "sha256": "20a8973732091f67fa8fcfa1034ba9e792c57c9ff26958b0553eac9c5543cd48",
+      "bytes": 1418
+    },
+    "logs/baseline-phase-profile.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "b3969a085d1a66b63427194ed41f8e4378dcee17474b2f507ffffb2de5030d44",
+      "rawBytes": 7650,
+      "sha256": "2199925ecbcf65c729628b53cbde83ba0ef5448dac93ef97fecc2fd42556b6a1",
+      "bytes": 8535
+    },
+    "logs/candidate/perf-actions-final.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "036c97bd1524c850c24e1a9b8539601741b4fdccaad87e2e3ade2015dd0c14c4",
+      "rawBytes": 6770,
+      "sha256": "c1de1a40d0aab58fb686c7c6e010a7f527449d4674034660ec38d800c45043d8",
+      "bytes": 7578
+    },
+    "logs/candidate/perf-actions-resource.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "4bdee4b4d13342390645bf828414882faeaf66fc33b0dfcd9f69134eddcda659",
+      "rawBytes": 964,
+      "sha256": "0040b263e669527f284de13c9583ffabda242078a02969bf9c3ca24f92ea1a0e",
+      "bytes": 1056
+    },
+    "logs/candidate/perf-build.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
+      "rawBytes": 31,
+      "sha256": "5dd9a90a6a89e528b8fa327268682433c8dbb331c1a134a263b298fcfbb9b2d5",
+      "bytes": 78
+    },
+    "logs/candidate/perf-callback-build.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
+      "rawBytes": 31,
+      "sha256": "5dd9a90a6a89e528b8fa327268682433c8dbb331c1a134a263b298fcfbb9b2d5",
+      "bytes": 78
+    },
+    "logs/candidate/perf-callback-snapshot.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "c297fc34aa65950972f594279ec186c908545f8b30b681279b68c401c9e7b962",
+      "rawBytes": 1957,
+      "sha256": "6535396225c16b927bd2484511bcaa54cb9141576b02042a7ce8ef27ceb7fabf",
+      "bytes": 2058
+    },
+    "logs/candidate/perf-contracts.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5",
+      "rawBytes": 140,
+      "sha256": "8510fb5dd702f8699f1888b81ab4f712ef99645a3e8b1f2322ae7dfdddfba745",
+      "bytes": 188
+    },
+    "logs/candidate/perf-final-build-initial-harness.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "cf0440b1387bc36772c22a76db633cafe9ce161a9b29fbd702959633597017fc",
+      "rawBytes": 41,
+      "sha256": "ba48e51850ed1d86b63c481e76af21cec40a43cfad54d56b916eb8788913d144",
+      "bytes": 85
+    },
+    "logs/candidate/perf-final-build.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
+      "rawBytes": 31,
+      "sha256": "5dd9a90a6a89e528b8fa327268682433c8dbb331c1a134a263b298fcfbb9b2d5",
+      "bytes": 78
+    },
+    "logs/candidate/perf-final-check.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652",
+      "rawBytes": 40,
+      "sha256": "fc0ee2e7bbd4872d8dff711e78f42cf721ad125cec3c9c32d8e102c686634c26",
+      "bytes": 87
+    },
+    "logs/candidate/perf-final-focused.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "af456f7a9609788ded86005ad34d191f227bb9551211f3f584437afafe9fab63",
+      "rawBytes": 34214,
+      "sha256": "3ebe7d0ff2e78af9b430e65a2cc4e90b2d5f36ca787a29052fc19fd9f700ef5d",
+      "bytes": 35227
+    },
+    "logs/candidate/perf-focused.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "964b6026f234a39495350caef73a4519d1511b20129b36ba96ef2f73f9bebf60",
+      "rawBytes": 4798,
+      "sha256": "6b63eec7384fbc0980c891fda0e22300f8c1599e43828ddaf0c1477ae965d611",
+      "bytes": 4983
+    },
+    "logs/candidate/perf-interop-final.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "d993fc467ac1c6650a71aaeeda002e6e216686bfe1f60747a8750738c3f37ed1",
+      "rawBytes": 635,
+      "sha256": "88925a980e10a96abb295a71c4eb0f4f3ed7b932f7ba9442340d401a15ade8ab",
+      "bytes": 725
+    },
+    "logs/candidate/perf-interop-initial-typecheck.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "daf599c09b133e0aff2e47d76cc854fe768a41c89cb15694b397c9e823a59c23",
+      "rawBytes": 1792,
+      "sha256": "1279d462a9ef40d73574545c8aecc026b541646a55fccb4f3c0e9fe632050527",
+      "bytes": 1856
+    },
+    "logs/candidate/perf-interop-second-typecheck.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "d0e8730b1a7ac437798a08a2e53a1e31176a54831401d7759d29baccb46df46a",
+      "rawBytes": 967,
+      "sha256": "8da46a196bfe7880d2ea224f9529b9cba910c02e2ec51bd215df57da21329d2e",
+      "bytes": 1024
+    },
+    "logs/candidate/perf-observed-resource.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "425eb13f7cf7a54411b580d3bccac2d9d3ed8ede474808c9abacf1c5eaf3269c",
+      "rawBytes": 996,
+      "sha256": "55d391b9072dbd163d8b3d6bedcf8abfe5a43ea89a802c40b0fea7ddf8d9a8b3",
+      "bytes": 1088
+    },
+    "logs/candidate/perf-observed.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "ff1087a156d6cbf628825f3f84b6008144e8c41a68433af4c41ecad3d4aec2f7",
+      "rawBytes": 7751,
+      "sha256": "c6372bf324ba86055a749b17e949e8f36e898d13e9a225a4a6b50cd9f6e17dfc",
+      "bytes": 8603
+    },
+    "logs/candidate/perf-publication-receiver.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "8c0bfad29f49984addf839f342a75917163469e9e2e4fc3e738941784c3c2d40",
+      "rawBytes": 810,
+      "sha256": "169d11df1a10baf9c88cd0893a51ca67b3c495e2ef9c74521bec3a50ba4007a9",
+      "bytes": 887
+    },
+    "logs/candidate/perf-replay-benchmark-resource.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "dc37ca21b9f4af2da82b68f561362b4054d0ebd31b1dbf76878d54c2b366fe1f",
+      "rawBytes": 766,
+      "sha256": "7eb715ced34d76e2ebc700d74f613d509b8691a851341b4d73a8ed0f803d11b7",
+      "bytes": 857
+    },
+    "logs/candidate/perf-replay-benchmark.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "72ee907d71c30ebe038070eb5b12ad16ab0ff5466047de59f5b9c5b186020693",
+      "rawBytes": 680,
+      "sha256": "e12b88a1ae87122c0d5229850dd97cf8c7cc2221113409d037be1302590de3c8",
+      "bytes": 795
+    },
+    "logs/fixture/receiver/fixture-build.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "e4e840bbcabec2b1e32091ccd974ea69f1a300f8f45195490787eaccc28cb5c5",
+      "rawBytes": 359,
+      "sha256": "db3c5a6342e0b0d43b5b640510ab6788c98a130e87022a4afe6d76c591b637cb",
+      "bytes": 412
+    },
+    "logs/fixture/receiver/fixture-install-initial-missing-make.log.json": {
+      "rawSha256": "5ea2321363680c3ba85fcaa7c9187bf0adbddc6a9050c2faf0b9febde89583b9",
+      "rawBytes": 4331,
+      "encoding": "JSON content field contains exact original UTF-8 log, preserving trailing whitespace",
+      "sha256": "06b68ffea48f08a49dac0702122ef97d3856d97f2b3fd009500d0b32ca31ea96",
+      "bytes": 4441
+    },
+    "logs/fixture/receiver/fixture-install.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "4c3ed520295c0856950cef60cde9dfc4c6d02349aba98b0693aebbddf01e9302",
+      "rawBytes": 735,
+      "sha256": "55b26836a2641ea99ab995a00372a48feb51eebd94f71f6fdfa8b772c92a3bfe",
+      "bytes": 795
+    },
+    "logs/fixture/toolchain-download.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "d8a3033274457fee00e4b7aca2b786b9e8072f416bd093e96c80fa4ccfd19711",
+      "rawBytes": 6577,
+      "sha256": "2c5572ed6ca603cfae03d966df34f12597cdb13232bcc4d06af939a653fdc04a",
+      "bytes": 6692
+    },
+    "logs/fixture/toolchain-version.log.json": {
+      "encoding": "JSON content field contains exact original UTF-8 log",
+      "rawSha256": "59d1cbef41d4ae78d5063d525b7aa13d18dc0493ea00537efc19b2ee398cb5a8",
+      "rawBytes": 246,
+      "sha256": "29cfdccdcd263c0fe1c40348fbc0f127fda508041d1ab0b6ba34c9ba420e28b0",
+      "bytes": 294
+    }
+  }
+}

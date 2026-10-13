@@ -1,0 +1,4 @@
+{
+  "encoding": "UTF-8",
+  "content": "TAP version 13\n# Subtest: pinned synthetic receiver interoperates with typed HQ HTTPS and durable suppression journal\nok 1 - pinned synthetic receiver interoperates with typed HQ HTTPS and durable suppression journal\n  ---\n  duration_ms: 5667.157187\n  type: 'test'\n  ...\n# {\"synthetic\":true,\"websiteCommit\":\"d1ddbe679c05314158310183518afaaaedd8ae00\",\"counts\":{\"control_sync\":4,\"visitor\":6,\"claim\":1,\"renew\":1,\"status\":1,\"answer\":2,\"receipt\":1},\"controls\":1,\"modelCalls\":0,\"contentPurgeVerified\":false,\"restorationVerified\":false}\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 6292.268361\n"
+}
