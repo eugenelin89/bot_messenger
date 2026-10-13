@@ -581,8 +581,13 @@ suppression and response state, invalidates freshness after restart and preserve
 retention fences. Its application version is `suppression-journal-v1`; its barrier explicitly
 reports no content-purge or restore proof and grants no dispatch authority.
 
-Raw visitor questions/answers need a separate finite-retention private store and atomic
-answer/outbox boundary. Separate Ask grants and independent consumed-budget custody must precede
+Schema27 and [Decision048](../decisions/decision_048_private_ask_content_custody.md) add the dormant
+private question/answer store. Company commits immutable metadata before private bodies; one
+answer and pending-authority outbox commit atomically in separate private SQLite. Owned history,
+original retention deadlines, capacity caps, privacy controls and terminal receipts are enforced.
+Missing/corrupt committed state stays held while cleanup continues; explicit backup-root
+exclusion and store identity do not establish filesystem/provider purge or restore proof.
+Separate Ask grants and independent consumed-budget custody must precede
 integration with the existing dispatcher and worker-wide uncertainty rules. Investment finite
 allowances and usage telemetry are not Ask authority. No Ask application caller, provider
 invocation or public intake is wired in HQ. See [ASK-02 acceptance](../validation/investment/INV-ASK-02.md)

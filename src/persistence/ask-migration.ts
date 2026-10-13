@@ -49,3 +49,54 @@ WHEN NEW.service_id<>OLD.service_id OR NEW.sync_id<>OLD.sync_id OR NEW.generatio
      AND r.generation=OLD.generation AND r.instance=s.instance)))
 BEGIN SELECT RAISE(ABORT,'Ask sync identity immutable'); END;
 `;
+
+/** Metadata only. Raw Ask content and delivery bodies never belong in Company backups. */
+export const migration27 = `
+CREATE TABLE ask_content_services (
+ service_id TEXT PRIMARY KEY, store_id TEXT NOT NULL UNIQUE, generation TEXT NOT NULL,
+ instance TEXT NOT NULL, observed_at TEXT NOT NULL,
+ custody_held INTEGER NOT NULL DEFAULT 0 CHECK(custody_held IN (0,1))
+);
+CREATE TABLE ask_imports (
+ service_id TEXT NOT NULL REFERENCES ask_content_services(service_id), question_id TEXT NOT NULL,
+ session_id TEXT NOT NULL, conversation_id TEXT NOT NULL, question_hash TEXT NOT NULL,
+ question_digest TEXT NOT NULL, content_ref TEXT NOT NULL UNIQUE,
+ received_at TEXT NOT NULL, expires_at TEXT NOT NULL, retain_until TEXT NOT NULL, metadata_until TEXT NOT NULL,
+ state TEXT NOT NULL CHECK(state IN ('content_pending','available','answer_reserved','answer_staged','delivered','suppressed','expired','held')),
+ answer_id TEXT, answer_digest TEXT, answer_generated_at TEXT,
+ receipt TEXT CHECK(receipt IS NULL OR json_valid(receipt)), receipt_hash TEXT,
+ updated_at TEXT NOT NULL,
+ PRIMARY KEY(service_id,question_id), UNIQUE(service_id,answer_id),
+ CHECK((answer_id IS NULL AND answer_digest IS NULL AND answer_generated_at IS NULL)
+    OR (answer_id IS NOT NULL AND answer_digest IS NOT NULL AND answer_generated_at IS NOT NULL)),
+ CHECK((receipt IS NULL AND receipt_hash IS NULL) OR (receipt IS NOT NULL AND receipt_hash IS NOT NULL))
+);
+CREATE INDEX ask_import_conversation ON ask_imports(service_id,conversation_id,question_id);
+CREATE TABLE ask_content_controls (
+ service_id TEXT NOT NULL REFERENCES ask_content_services(service_id), control_id TEXT NOT NULL,
+ control_hash TEXT NOT NULL, store_id TEXT NOT NULL,
+ application_version TEXT NOT NULL CHECK(application_version='private-content-v1'),
+ state TEXT NOT NULL CHECK(state IN ('pending','applied')), suppression_until TEXT NOT NULL,
+ PRIMARY KEY(service_id,control_id)
+);
+CREATE TRIGGER ask_import_identity BEFORE UPDATE ON ask_imports
+WHEN NEW.service_id<>OLD.service_id OR NEW.question_id<>OLD.question_id
+ OR NEW.session_id<>OLD.session_id OR NEW.conversation_id<>OLD.conversation_id
+ OR NEW.question_hash<>OLD.question_hash OR NEW.question_digest<>OLD.question_digest
+ OR NEW.content_ref<>OLD.content_ref OR NEW.received_at<>OLD.received_at OR NEW.expires_at<>OLD.expires_at
+ OR NEW.retain_until>OLD.retain_until OR NEW.metadata_until<>OLD.metadata_until
+ OR (OLD.answer_id IS NOT NULL AND (NEW.answer_id IS NOT OLD.answer_id
+   OR NEW.answer_digest IS NOT OLD.answer_digest OR NEW.answer_generated_at IS NOT OLD.answer_generated_at))
+ OR (OLD.receipt IS NOT NULL AND (NEW.receipt IS NOT OLD.receipt OR NEW.receipt_hash IS NOT OLD.receipt_hash))
+ OR (OLD.state IN ('suppressed','expired','held') AND NEW.state NOT IN ('suppressed','expired','held'))
+ OR (OLD.state='held' AND NEW.state<>'held')
+BEGIN SELECT RAISE(ABORT,'Ask import identity immutable'); END;
+CREATE TRIGGER ask_content_custody_hold BEFORE UPDATE ON ask_content_services
+WHEN OLD.custody_held=1 AND NEW.custody_held<>1
+BEGIN SELECT RAISE(ABORT,'Ask custody hold immutable'); END;
+CREATE TRIGGER ask_content_control_identity BEFORE UPDATE ON ask_content_controls
+WHEN NEW.service_id<>OLD.service_id OR NEW.control_id<>OLD.control_id OR NEW.control_hash<>OLD.control_hash
+ OR NEW.store_id<>OLD.store_id OR NEW.application_version<>OLD.application_version
+ OR NEW.suppression_until<>OLD.suppression_until OR (OLD.state='applied' AND NEW.state<>'applied')
+BEGIN SELECT RAISE(ABORT,'Ask content control identity immutable'); END;
+`;

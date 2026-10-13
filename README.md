@@ -3,6 +3,8 @@
 
 **INV-REAL-01,2026-10-13 (private HQ deployed; activation held):** The owner-authorized persistent real-market paper system now has a distinct observed method, renewable finite employee authority, standing public summaries and owner portfolio controls in accepted source and the private HQ deployment from PR75 (`d262a8d`). Yahoo confirmation is owner-reported; no further licensing gate applies. The owner page/API and preservation checks pass; Codex authentication401 holds genuine operation. The public showcase and methodology are now live with truthful unavailable archive/Ask views; genuine portfolio operation and Ask remain incomplete, with an hourly completion heartbeat active. See [Decision047](docs/decisions/decision_047_persistent_observed_paper_investment.md) and [operation/morning handoff](docs/operations/INV-REAL-01.md) for exact live status and remaining validation.
 
+**Ask storage source:** The dormant [private content component](docs/validation/investment/INV-ASK-CONTENT-01.md) keeps raw questions/answers outside Company storage and enforces immutable recovery, ownership, deletion and retention. It adds no employee execution, delivery or public intake authority.
+
 BotSquad is a self-hosted workspace for coordinating persistent AI workers through
 explicit tasks, durable messages, bounded authority, inspectable artifacts, and real
 Codex execution.

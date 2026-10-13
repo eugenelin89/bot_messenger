@@ -1,0 +1,6 @@
+{
+  "name": "ask-content-contracts-pre-final.log",
+  "rawSha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5",
+  "bytes": 140,
+  "content": "\n> botsquad@0.1.0 contracts:check\n> node scripts/investment-contracts/generate.mjs --check\n\nContract 1.0: verified types and 8 file digests\n"
+}

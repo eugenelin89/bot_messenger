@@ -1,0 +1,6 @@
+{
+  "name": "ask-content-build-pre-final.log",
+  "rawSha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
+  "bytes": 31,
+  "content": "\n> botsquad@0.1.0 build\n> tsc\n\n"
+}

@@ -36,7 +36,7 @@ Do not run all packets autonomously from this roadmap. Owner selection of a buil
 | INV-08 | Real investment-team capability and discussion integration | BotSquad | 05–07 | Partial source acceptance; genuine employee execution held | [Evidence](../../validation/investment/INV-08.md) |
 | INV-09 | Daily operating loop and owner controls | BotSquad | 08 | Partial source acceptance; genuine elapsed cycles held | [Evidence](../../validation/investment/INV-09.md) |
 | INV-ASK-01 | Q&A contract, private session queue and abuse controls | Both | INV-01, INV-02 | HQ contract boundary validated; website private intake pending | [Evidence](../../validation/investment/INV-ASK-01.md) |
-| INV-ASK-02 | HQ question retrieval, routing and actual employee answers | BotSquad | ASK-01, INV-07, INV-08 | Dormant signed transport validated; durable admission/routing pending | [Evidence](../../validation/investment/INV-ASK-02.md) |
+| INV-ASK-02 | HQ question retrieval, routing and actual employee answers | BotSquad | ASK-01, INV-07, INV-08 | Dormant transport, control journal and private content custody validated; finite authority/routing pending | [Evidence](../../validation/investment/INV-ASK-02.md) |
 | INV-ASK-03 | General/contextual public chat interface | Asymmetri; HQ checks | ASK-02, INV-03, INV-04 | Planned | — |
 | INV-ASK-04 | Q&A security, privacy, fairness and recovery acceptance | Both | ASK-03, INV-09 | Planned | — |
 | INV-10 | Cross-system, security and recovery acceptance | Both | 04, 06–09, ASK-04 | Planned | — |
@@ -420,3 +420,14 @@ pins that exact replacement and supersedes the preceding B1 source-blocker statu
 All five owner decisions, actual Ubuntu deployment/confinement and genuine employee acceptance
 remain pending. October14 is still tentative and must be cancelled if gates miss17:30 PDT;
 no silent rescheduling.03H/04A, Decision0374/4 and historical spent records remain unchanged.
+
+## 2026-10-13 private Ask content checkpoint
+
+[Decision048](../../decisions/decision_048_private_ask_content_custody.md) and
+[INV-ASK-CONTENT-01](../../validation/investment/INV-ASK-CONTENT-01.md) add passive schema27
+metadata and dedicated raw question/answer custody with exact recovery, owned history and
+privacy/retention cleanup. This completes a storage component of ASK-02, not the packet.
+Separate finite authority, immutable network attempts, actual employee routing, operational
+backup/restore/host custody and cross-system acceptance remain. Public Ask is released as a
+closed page; website readiness and receiver source rollout are tracked by the website writer.
+No genuine worker or market activity is implied by authored storage tests.

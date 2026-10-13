@@ -1,0 +1,6 @@
+{
+  "name": "ask-content-check-pre-final.log",
+  "rawSha256": "c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652",
+  "bytes": 40,
+  "content": "\n> botsquad@0.1.0 check\n> tsc --noEmit\n\n"
+}
