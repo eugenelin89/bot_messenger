@@ -61,7 +61,11 @@ reasoning, financial performance or elapsed live sessions.
   the already-published pair remains byte-identical. Missed initial benchmark recovery passes,
   including historical reconstruction before/after the deferral and denial after allocation.
 - App Server success/interruption/deadline marker checks pass. Typecheck/build and canonical
-  contract check pass. Final full regression and two finite-policy marker assertions are pending.
+  contract check pass. Final full regression passed:1,869tests,1,863passes,0failures and6conditional skips.
+  Five skipped actual-receiver checks separately passed against the compiled website receiver;
+  the remaining skip is an unrelated Linux engineering recipe platform gate. Final owner-browser
+  checks passed2/2 and actual finite-policy adapter marker assertions passed2/2 on Linux.
+  See the [source acceptance receipt](../evidence/inv-real01/source-acceptance.json) for log hashes.
 
 The initial1856-test suite had1846passes,6environment-gated skips and4stale schema-version
 expectations; those assertions were updated from24to25. New recovery fixtures exposed a real
@@ -78,8 +82,8 @@ continuity, settled predecessor failure recovery, actual `interrupted` status, e
 review settlement, late-review ordinal stability, transient raw-response handling, scoped
 standing summary publication, API/UI metrics, later initial-session reconstruction and
 prospective recovery after a missed initial benchmark opening. Security, architecture and
-recovery review of the final recovery increment found no remaining blockers; source acceptance
-still requires the actual final test outputs recorded above.
+recovery review of the final recovery increment found no remaining blockers. Final source
+acceptance outputs are recorded above; they do not establish genuine runtime operation.
 
 ## Production evidence and remaining boundaries
 

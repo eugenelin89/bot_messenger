@@ -1,8 +1,9 @@
 # Persistent observed paper investment — operation and morning handoff
 
-**Current status, 2026-10-13:** Source is implemented on `codex/inv-real-01`; final regression
-and deployment checks are in progress. [PR75](https://github.com/eugenelin89/bot_messenger/pull/75)
-is open as a draft.
+**Current status, 2026-10-13:** Source acceptance is complete on `codex/inv-real-01`; deployment
+checks are in progress. [PR75](https://github.com/eugenelin89/bot_messenger/pull/75)
+is awaiting normal merge. Full regression passed1,863checks with zero failures; five
+actual receiver checks and two owner-browser checks also passed. See the validation receipt.
 No INV-REAL-01 production activation or public release has yet occurred. Do not interpret
 this document's setup instructions or fixture tests as a live investment record.
 
