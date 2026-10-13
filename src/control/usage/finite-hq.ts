@@ -19,6 +19,7 @@ const day=(at:string)=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_Yo
 
 /** Trusted Company boundary; HTTP can inspect/control a run but cannot attach or create runtime authority. */
 export class FiniteHQ {
+ private acceptingControls=true;
  private journal?:FiniteJournal;private unavailable:string|null=null;private watchers:FSWatcher[]=[];
  constructor(readonly company:Company){}
  private get db(){return this.company.store;}
@@ -33,7 +34,8 @@ export class FiniteHQ {
 
  /** Explicit service boot selector only. It selects an existing approved ID, never a path or new allowance. */
  loadRuntime(authorityId:string){requireThat(/^[a-zA-Z0-9_-]{1,100}$/.test(authorityId),'Invalid finite authority selector');if(!this.journal)this.attach(openFiniteJournal());const e=this.ledger().envelope(authorityId);this.assert(e.scopeId,true);return {authorityId,profile:e.profile,permit:this.permit(e.scopeId)};}
- close(){for(const w of this.watchers)w.close();this.watchers=[];this.journal?.close();}
+ beginShutdown(){this.acceptingControls=false;}
+ close(){this.beginShutdown();for(const w of this.watchers)w.close();this.watchers=[];this.journal?.close();}
  policy(scopeId:string){const p=executionPolicy(this.company.investmentTeam.envelope(this.company.investmentTeam.scope(scopeId)).executionPolicy);return p.mode==='credit_approved_finite_hq'?p:undefined;}
  approvedEnvelope(authorityId:string){return this.ledger().envelope(authorityId);}
  private ledger(){requireThat(!this.unavailable&&this.journal,'Finite HQ runtime authority is unapproved');return this.journal;}
@@ -82,11 +84,43 @@ export class FiniteHQ {
   try{if(action==='resume')this.assert(scopeId,true);this.ledger().ownerControl(p.authorityId,action,receiptId,requestHash,revision,this.now());}
   catch(error){if(action==='resume')throw error;this.unavailable='Owner '+action+' retained locally; external custody recording failed';this.company.audit('finite_owner_control_custody_failure','human',{scopeId,action,receiptId},null,null,null);this.company.emit('investment_interrupt',scopeId);}
  }
+ /** Preview is inert; the digest binds the entire existing approval, hold revision and reload evidence. */
+ recoveryReleasePreview(scopeId:string){
+  this.company.conversations.human();const e=this.assert(scopeId,true);
+  this.company.investmentLoop.requireUntouchedResearch(scopeId);
+  return this.ledger().recoveryReleasePreview(e.authorityId,this.now());
+ }
+ async releaseResearchRecovery(input:unknown){
+  this.company.conversations.human();
+  const a=strictObject(input,['scopeId','digest','receiptId']),scopeId=textField(a,'scopeId',100),digest=textField(a,'digest',64),receiptId=textField(a,'receiptId',100),requestHash=hash(a);
+  const inspect=()=>{
+   this.company.conversations.human();requireThat(this.acceptingControls,'Finite owner controls stopped for shutdown');const e=this.assert(scopeId,true);
+   requireThat(e.purpose==='private_research'&&e.approval.ownerId==='human','Research recovery release requires the approved human owner');
+   const old=this.ledger().recoveryReleaseReceipt(e.authorityId,receiptId,requestHash,this.now());
+   if(old)return {e,old};
+   const preview=this.recoveryReleasePreview(scopeId);requireThat(preview.digest===digest,'Exact current research recovery release digest required');
+   if(this.trusted)verifyResearchHost(this.company,scopeId);
+   return {e,old:undefined};
+  };
+  const initial=this.db.transaction(inspect);if(initial.old)return initial.old;
+  const runtime=this.company.investmentTeam.runtime,e=initial.e;
+  requireThat(runtime?.withFiniteHQAccount&&runtime.finiteHQPolicySupported?.(e.policy),'Finite account verification is unavailable');
+  const workspaces=e.participants.map(p=>{const w=this.company.worker(p.workerId);this.company.verifyWorkspace(w);requireThat(w.runtime_type===runtime.type&&w.workspace_path===join(this.company.dataDir,'workspaces',p.workerId),'Research worker runtime identity changed');return w.workspace_path;});
+  return runtime.withFiniteHQAccount({workspaces,authorityId:e.authorityId,profile:e.profile,accountFingerprint:e.accountFingerprint,routingFingerprint:e.routingFingerprint},()=>this.db.transaction(()=>{
+   const current=inspect();if(current.old)return current.old;
+   requireThat(hash(current.e)===hash(e)&&this.company.investmentTeam.runtime===runtime&&e.participants.every((p,i)=>{const w=this.company.worker(p.workerId);this.company.verifyWorkspace(w);return w.runtime_type===runtime.type&&w.workspace_path===workspaces[i];}),'Research runtime changed during verification');
+   // Refresh local shared accounting before the independently locked final admission check.
+   this.ledger().observe(this.db.all<{executionId:string;reservedAt:string}>('SELECT execution_id executionId,created_at reservedAt FROM investment_team_executions'),this.now());
+   this.company.investmentLoop.requireUntouchedResearch(scopeId); // synchronous preflight may have crossed the occurrence deadline
+   const receipt=this.ledger().releaseResearchRecovery(e.authorityId,digest,receiptId,requestHash,this.now());
+   this.company.changed();return receipt; // no local permission state or allowance to restore
+  }));
+ }
  renew(attestation:ReloadAttestation){this.company.conversations.human();this.ledger().renew(attestation,this.now());this.company.changed();}
  ownerReload(input:unknown){this.company.conversations.human();const a=strictObject(input,['scopeId','digest','reloadOff','receiptId']),scopeId=textField(a,'scopeId',100),receiptId=textField(a,'receiptId',100),e=this.assert(scopeId,true);requireThat(a.digest===e.scopeDigest&&typeof a.reloadOff==='boolean','Exact authority digest and owner reload declaration required');const requestHash=hash(a),old=this.db.get<{request_hash:string;result:string}>('SELECT * FROM investment_finite_controls WHERE receipt_id=?',receiptId);if(old){requireThat(old.request_hash===requestHash,'Finite owner receipt conflict');return JSON.parse(old.result);}
   const external=this.ledger().ownerReload(e.authorityId,receiptId,requestHash,a.reloadOff,this.now());if(!a.reloadOff){this.company.investmentLoop.holdFinite(scopeId,'Owner reports reload status changed or unavailable');this.company.emit('investment_interrupt',scopeId);}const result={authorityId:e.authorityId,reloadOff:a.reloadOff,confirmedAt:external.confirmedAt,receiptId,notice:'Consumption and immutable expiry are unchanged. A held run requires exact future-only owner resume.'};this.db.run('INSERT INTO investment_finite_controls VALUES (?,?,?,?)',receiptId,requestHash,canonical(result),external.confirmedAt);this.company.changed();return result;
  }
- recover(){const scopes=this.db.all<{scope_id:string}>('SELECT scope_id FROM investment_team_scopes').filter(s=>this.policy(s.scope_id));if(!scopes.length&&!this.journal)return;if(this.unavailable){for(const s of scopes)this.company.investmentLoop.holdFinite(s.scope_id,this.unavailable);return;}
+ recover(){this.acceptingControls=true;const scopes=this.db.all<{scope_id:string}>('SELECT scope_id FROM investment_team_scopes').filter(s=>this.policy(s.scope_id));if(!scopes.length&&!this.journal)return;if(this.unavailable){for(const s of scopes)this.company.investmentLoop.holdFinite(s.scope_id,this.unavailable);return;}
   // Absence is a visible inactive source gate. Existing reservations without a journal cannot dispatch.
   if(this.journal){try{this.journal.recover(this.db.all<{execution_id:string}>('SELECT execution_id FROM investment_team_executions').map(r=>{const x=this.company.execution(r.execution_id),u=this.company.aiUsage.records({executionId:r.execution_id})[0];return {executionId:r.execution_id,status:x.status,settled:!!u?.settled,complete:u?.completeness==='complete'};}),this.now());}catch{this.unavailable='Finite custody reconciliation failed; all investment admission held';}}
   for(const s of scopes)this.company.investmentLoop.holdFinite(s.scope_id,this.journal?'Recovery requires exact owner resume':'Finite HQ runtime authority is unapproved');

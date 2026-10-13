@@ -1,0 +1,101 @@
+{
+  "milestone": "HQ-READY-04C",
+  "scope": "authored source acceptance only; no genuine provider or production operation",
+  "baseCommit": "fd3358d64edb4e1f6a4288de15f454362d116a18",
+  "implementationCommit": "e0b9288416d4ef378d244182c7fdbf24dc29f6f9",
+  "original04BReproduction": {
+    "path": "docs/validation/evidence/hq-ready-04b/fresh-authority-recovery.json",
+    "sha256": "92bbbb759549245c5b9f0c02d6ebd25a3c4b89f6c0d1e5279c7bfde9207eaf41",
+    "unchanged": true
+  },
+  "checks": {
+    "focused": {
+      "command": "node --test --test-concurrency=1 dist/test/private-research-account.test.js dist/test/private-research-recovery.test.js dist/test/private-research-dispatcher.test.js",
+      "pass": 91,
+      "fail": 0,
+      "skip": 0,
+      "durationMs": 32663.572542
+    },
+    "fullSerial": {
+      "command": "npm test (build then node --test --test-concurrency=1 dist/test/*.test.js)",
+      "tests": 1840,
+      "pass": 1834,
+      "fail": 0,
+      "skipped": 6,
+      "duration_ms": 789418.732291,
+      "logSha256": "5bf42bbc4b739e8310181d5a9d365ef4df3170c1bb6bbfc17c539e5f7388dbeb",
+      "skipReasons": [
+        "four actual isolated team receiver cases requiring explicit external receiver opt-in",
+        "one standalone actual receiver integration requiring opt-in",
+        "one Linux generic-recipe resource-limit case unavailable on Mac"
+      ]
+    },
+    "browser": {
+      "command": "node --test --test-concurrency=1 test/private-research-ui.browser.mjs test/finite-hq-ui.browser.mjs",
+      "logSha256": "918b0e213d857fd84310fffca47f4d83f6613179238bc441ceb7189cb8a039c8",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "skipped": 0,
+      "duration_ms": 9477.401584
+    },
+    "compatibility": {
+      "command": "node --test --test-concurrency=1 dist/test/finite-hq.test.js dist/test/finite-hq-authority.test.js dist/test/finite-hq-recovery.test.js dist/test/finite-hq-dispatcher.test.js dist/test/finite-hq-migration.test.js dist/test/private-research.test.js dist/test/private-research-python.test.js dist/test/private-research-migration.test.js",
+      "logSha256": "d1fd86e57091fed55fd126164cac3ba720751a3cf03849a3f865ea33df0fcfe1",
+      "tests": 67,
+      "pass": 67,
+      "fail": 0,
+      "skipped": 0,
+      "duration_ms": 44706.68925
+    },
+    "contracts": {
+      "command": "npm run contracts:test (includes contracts:check and build)",
+      "logSha256": "6581d5503d58e58d6e6d6a413c64b4d9d9e96e521e4d8c530a824f5c5e45822d",
+      "tests": 175,
+      "pass": 175,
+      "fail": 0,
+      "skipped": 0,
+      "duration_ms": 438.482792
+    },
+    "typecheck": {
+      "command": "npm run check",
+      "status": "passed"
+    }
+  },
+  "reviews": {
+    "architecture": "accepted after final deadline recheck",
+    "security": "accepted after workspace identity and live connection checks",
+    "recovery": "accepted after no-op custody correction and strengthened crash fault",
+    "acceptance": "accepted frozen e0b9288416d4ef378d244182c7fdbf24dc29f6f9 after independent log/hash/limits verification"
+  },
+  "prohibitedOperations": {
+    "productionChanges": 0,
+    "liveYahooRequests": 0,
+    "genuineModelInvocations": 0,
+    "paperTrades": 0,
+    "publications": 0
+  },
+  "historicalAuthorities": "Decision037 remains exhausted4/4;03B/03D/03E/03H remain spent, unchanged",
+  "operationalAcceptance": "not run; five owner decisions unapproved",
+  "initialFullRun": {
+    "command": "npm test",
+    "logSha256": "5e73b3cfdfaeb3c40cb058d3a621f23574fd7365b1d4acbc97fce61d550ceed0",
+    "tests": 1840,
+    "pass": 1832,
+    "fail": 2,
+    "skipped": 6,
+    "duration_ms": 799871.31275,
+    "disposition": "failed: two existing Python tests lacked ignored fixture environment; existing pinned Python3.12.12/yfinance1.7.0 linked, final fresh fullSerial result passed with1834/0/6"
+  },
+  "fixtureEnvironment": {
+    "node": "24.10.0",
+    "python": "3.12.12",
+    "yfinance": "1.7.0",
+    "localIgnoredSymlinks": [
+      "node_modules",
+      "adapters/yahoo/.venv"
+    ],
+    "productionUse": false
+  },
+  "sourcePullRequest": "https://github.com/eugenelin89/bot_messenger/pull/73"
+}
