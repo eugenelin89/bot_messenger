@@ -361,7 +361,9 @@ the independent feasibility gate, preserves the unused authorization and complet
 offline custody compatibility acceptance. No live profile/owner issuer or actual financial
 qualification follows. A [direct-chart proposal](../../operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
 was separately selected as [HQ-READY-03H](../../validation/investment/HQ-READY-03H.md).
-03H reuses pinned parsing/gateway/custody for exactly one direct chart attempt after all review
-and integration gates. Its acceptance record owns the actual result. This grants no employees,
-paper fills, production, public data or HQ-READY-04 activation. An unchanged bootstrap repeat
-is not recommended.
+03H completed one reviewed direct chart attempt: HTTP200,21/21 September sessions, complete
+OHLCV/adjusted-close fields, immediate key/capsule destruction and permanent spent authority.
+Its acceptance records the private-research and no-lookahead limits. A separately authorized
+private employee-integration milestone is recommended; it must grant its own bounded fresh
+retrieval/use/retention. No employees, paper fills, production, public data or HQ-READY-04
+are activated by03H.

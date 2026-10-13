@@ -1,7 +1,7 @@
 # Decision044 — One-shot direct Yahoo chart qualification
 
 **Date:** 2026-10-12 America/Vancouver
-**Status:** Owner-selected implementation; source/review/live gates recorded in acceptance
+**Status:** Accepted and completed; single direct qualification succeeded, authority spent
 
 The owner explicitly selects HQ-READY-03H and authorizes the exact direct chart request
 and temporary private processing on the basis of reported verbal Yahoo permission for
@@ -73,3 +73,12 @@ precede any new owner preparation/consumption. Stop after the single outcome.
 
 See [acceptance](../validation/investment/HQ-READY-03H.md) and
 [execution plan](../exec-plans/investment-hq-ready-03h.md).
+
+
+## Outcome
+
+The accepted PR68 source executed once from rebuilt clean synchronized main. HTTP200 returned
+21/21 complete scheduled September sessions. Private inspection retained unknown historical
+availability and unqualified adjustment semantics; no fill/employee/public authority followed.
+The key/capsule were immediately destroyed and process termination verified.03H is permanently
+spent and cannot be replayed. Acceptance records only non-data quality and receipt evidence.
