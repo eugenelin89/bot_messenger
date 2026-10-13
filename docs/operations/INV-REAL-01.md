@@ -21,6 +21,17 @@ No HTTP/model work or runtime activation was added; private deployment stays d26
 The wake verified the same active service/database/dispatcher and degraded runtime, and did not
 retry the denied login. Website intake remains delegated and pending its actual tool approval.
 
+**Second completion-loop update, October 13, 2026, 07:01–07:27 America/Vancouver:**
+The independent ASK-02 signed HTTPS transport is validated with 263/263 focused tests,
+build/typecheck and unchanged canonical manifest. It reconstructs trusted intent, checks current
+authority after TLS and signing before sending HTTP bytes, and never automatically retries an
+uncertain delivery. Real Node TLS tests used authored loopback responses only. See
+[ASK-02 evidence](../validation/investment/INV-ASK-02.md). Mac disk admission prevented local
+builds, so a separate Linux temporary directory was used without changing production.
+The private service remains d262a8d, alive/database/dispatcher healthy, runtime degraded; the
+401 login was not retried. Website execution is still at its original tool-approval boundary.
+No genuine employee or market session, active public intake or public release is claimed.
+
 An active hourly **BotSquad Investment completion loop** now resumes this chat, examines the
 result, generates the next concrete prompt and executes available work. Automation ID:
 `botsquad-investment-completion-loop`. It is a local Codex heartbeat, so its host/app must be
@@ -196,15 +207,18 @@ The shortest activation prompt, once login and website execution are available, 
 > the full project is complete. Deployment and release are already owner-authorized.
 
 
-The HQ boundary portion of **INV-ASK-01** is now validated. The next concrete prompt is:
+The HQ boundary portion of **INV-ASK-01** and dormant HTTPS transport in **INV-ASK-02** are now
+validated. The next concrete prompt is:
 
 > Inspect the current website result and ASK-01 acceptance. Once its actual tool boundary clears,
 > finish and verify the website private session queue, signed HQ routes, durable privacy controls,
 > abuse limits and restore behavior against the unchanged canonical manifest. Send the receiver
 > commit/schema/test receipts back to this HQ chat. Keep public admission disabled until genuine
-> employee, budget and privacy acceptance passes. On HQ, design and implement ASK-02 durable
-> intent/admission/routing only where the accepted counterpart contract and actual dependencies
-> support it; retain independent provider uncertainty and separate finite Ask budgets. Complete
+> employee, budget and privacy acceptance passes. On HQ, implement ASK-02 durable grants,
+> imports, exact outbox intents, attempts/receipts and privacy-control application/acknowledgment,
+> with independent restore generations and finite Ask reservations. Connect the accepted
+> transport only through that trusted state. Then integrate actual employee routing with
+> isolated public-service contexts and existing dispatcher uncertainty fences. Complete
 > source work without pretending that the held login or website acceptance has passed. After
 > changed login/routing evidence, run the supported strict account preflight once and progress
 > genuine finite trials. No licensing investigation, credential copying, backdated session or
