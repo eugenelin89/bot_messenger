@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-13 UTC / 2026-10-12 America/Vancouver
 **Scope:** Source, inert migration, authored fixtures/fake models, read-only host preflight and reviewed Git integration
-**Status:** Final regression and integration in progress
+**Status:** Source acceptance passed; reviewed integration through PR70
 
 ## Delivered behavior
 
@@ -48,15 +48,18 @@ establish source integration and cannot establish genuine employee reasoning or 
 
 ## Validation commands and results
 
-Final results are recorded here after completion; no pending command counts as passed.
+Source/runtime/test implementation is frozen at `88d880e01b0c5ab40fec5a1ab013a9cb9537ff10`. The final verification below covers that implementation; the closure commit changes documentation only.
 
 - Final focused research/dispatcher/Python/migration, finite-HQ and contract tests: **211/211 passed** after the cancellation refinement (28 research, eight existing finite-HQ, 175 contracts).
-- First permitted full serial run: **1,722 passed, zero failed, six skipped** of1,728. Final frozen-source rerun is in progress after three added cases and the cancellation refinement.
-- `npm run check`: passed; final check follows source freeze.
-- `npm run build`: passed as part of regression; final source build follows refinement.
+- Final frozen-source `npm test`: **1,725 passed, zero failed, six skipped** of1,731 (716.7seconds). The earlier permitted run passed1,722/1,728 before the three added cases/refinement; final acceptance uses the later result.
+- `npm run check`: passed on the frozen source.
+- `npm run build`: passed, including the final full regression build.
 - `npm run contracts:check`: passed; generated v1 unchanged.
 - Browser after layout refinement: **6/6 passed**, including research and existing finite-HQ owner controls at390/1440.
-- `git diff --check`: passed; final staged review follows.
+- `git diff --check` and complete staged diff check: passed. New document links resolve.
+
+Focused command: `node --test --test-concurrency=1 dist/test/private-research.test.js dist/test/private-research-dispatcher.test.js dist/test/private-research-python.test.js dist/test/private-research-migration.test.js dist/test/finite-hq.test.js dist/test/investment-contracts.test.js`.
+Browser command: `node --test --test-concurrency=1 test/private-research-ui.browser.mjs test/finite-hq-ui.browser.mjs`.
 
 The six existing skipped checks require external/environment opt-in: four actual isolated team receiver cases (openings, withdrawal, full, replacement), one standalone actual receiver integration and one Linux generic-recipe resource-limit case. None is claimed as accepted by this Mac run.
 
@@ -75,7 +78,7 @@ modified and untracked source in `codex/hq-ready-04a`.
 | Architecture | Source PASS. Explicit research identity and existing employee/discussion/dispatcher path; no simulator or paper capability. Actual Linux lifecycle evidence stays deferred. |
 | Security | Source accepted. Fixed collection fences, provider circuits, current cgroup membership, missing-custody purge behavior and root-managed guard code custody. |
 | Recovery | Source accepted after final refinement inspection. Fixed atomic consumption/global fences, complete HTTP failure classification, guaranteed closure, deferred purge, WAL receipt and cold runtime join. |
-| Acceptance | Conditional source PASS pending final-source checks and Git integration. Earlier missing actual-dispatcher, pinned Python, populated migration and stale-read coverage added. |
+| Acceptance | Source PASS after final-source checks. Earlier missing actual-dispatcher, pinned Python, populated migration and stale-read coverage added. |
 
 Known pre-wire failures remain consumed and hold the affected authority, without asserting an
 external effect. Unknown transmission or unavailable custody remains a permanent investment
@@ -111,5 +114,5 @@ acceptance remain intact. Two elapsed paper sessions with H1-H9 and public launc
 separate evidence and authorization.
 
 Base verified clean/synchronized: `80c45fe4490526d478fcfe7b88ab392d68ae5f25`.
-Final source commit, PR and merged main are recorded by the integration handoff; merge is pending.
+Source commit: `88d880e01b0c5ab40fec5a1ab013a9cb9537ff10`. [PR70](https://github.com/eugenelin89/bot_messenger/pull/70) records the accepted head and merge commit. The integration handoff verifies synchronized clean main; no runtime deployment follows.
 See [Decision045](../../decisions/decision_045_private_employee_financial_research.md).

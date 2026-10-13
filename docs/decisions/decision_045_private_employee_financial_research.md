@@ -1,7 +1,7 @@
 # Decision 045 — private financial evidence in normal employee research
 
 **Date:** 2026-10-13
-**Status:** Implemented; source acceptance requires HQ-READY-04A review and validation
+**Status:** Accepted source; genuine operation requires separate approval and Linux acceptance
 **Scope:** HQ-READY-04A; no collection, inference, deployment or public operation authorized
 
 ## Decision

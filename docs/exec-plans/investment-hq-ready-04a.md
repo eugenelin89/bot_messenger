@@ -1,12 +1,12 @@
 # Execution Plan — HQ-READY-04A private employee research
 
-**Status:** Active
+**Status:** Source acceptance complete; reviewed Git integration recorded in PR70
 **Owner:** Parent Codex; sole writer/integrator, independent read-only specialists
 **Branch:** `codex/hq-ready-04a`
 **Worktree:** `../bot_messenger-hq-ready-04a`
 **Started:** 2026-10-12 America/Vancouver
 **Initial ETA:** 3–5 hours, including independent reviews and serial regression
-**Current ETA:** 30-45 minutes after first full pass; final refinement/regression, acceptance review and Git integration remain. The estimate grew because independent review required durable collection circuits and whole-process retention custody.
+**Timing:** Initial estimate grew because independent review required durable collection circuits and whole-process retention custody, followed by full regression reruns. All source checks and reviews are complete; PR70/final handoff record Git closure.
 
 ## Objective
 
@@ -43,13 +43,17 @@ Real inference, data acquisition and deployment are prohibited. Deterministic ev
 | Check | Source | Result |
 | --- | --- | --- |
 | Main preflight | `80c45fe4490526d478fcfe7b88ab392d68ae5f25` | Clean HEAD equals freshly fetched origin/main; existing worktrees preserved |
-| Architecture/security/recovery | Independent read-only specialists | Source PASS after resolved authority, provider circuit, cgroup, retention and root-code custody findings |
-| Full serial regression | 1,728 tests | 1,722 passed, zero failed, six existing environment-dependent skips; final refinement rerun pending |
+| Architecture/security/recovery/acceptance | Four independent read-only specialists | Source PASS after resolved authority, provider circuit, cgroup, retention, coverage and root-code custody findings |
+| Final full serial regression | 1,731 tests | 1,725 passed, zero failed, six existing environment-dependent skips |
+| Final focused regression | Research28 + finite-HQ8 + contracts175 | 211/211 passed |
 | Browser acceptance | Research + existing finite HQ; 390/1440 | 6/6 passed, no JS errors or horizontal overflow |
-| Static/contracts | Typecheck/build; generated v1 check | Passed; final check follows source freeze |
+| Static/contracts | Typecheck/build; generated v1 check; complete diff | Passed on frozen source; no canonical contract changes |
 | Actual Ubuntu | Read-only SSH/systemd/SQLite identity queries | Ubuntu24.04.5/schema14, swap/core blockers; no changes or activation |
 | Operational packet | HQ_READY_04A_TRIAL_PACKET.md | Exact fresh AAPL/Scout/Grace proposal, separate rights/credits/retention/deployment approvals; no live authority |
 
-## Remaining work
+## Integration and operational handoff
 
-Final focused/full refinement results, final acceptance verdict, commit/PR/reviewed merge and clean synchronized main. Trial prompt and source/operational boundaries are documented. No genuine run or host change is authorized.
+Source commit `88d880e01b0c5ab40fec5a1ab013a9cb9537ff10`; closure changes documentation only.
+[PR70](https://github.com/eugenelin89/bot_messenger/pull/70) and the final handoff record the reviewed merge and clean synchronized main. Existing worktrees are preserved. No source work remains outside that integration.
+
+The exact trial prompt and source/operational boundaries are in `docs/operations/HQ_READY_04A_TRIAL_PACKET.md`. No genuine run, deployment or host change is authorized. Actual Linux confinement/guard/cold cleanup, fresh collection/model consent, two elapsed paper sessions and public launch remain separate gates.
