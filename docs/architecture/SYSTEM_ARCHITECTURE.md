@@ -729,3 +729,10 @@ transport/gateway/adapter. A nonsecret parent verdict accompanies narrowly valid
 original status, bytes, cookie custody, terminal denials and post-response spacing remain enforced.
 Observed scopes cannot use this exception. No legacy live manifest, issuer, custody fence or
 employee/simulator/public admission changes. See [Decision042](../decisions/decision_042_yahoo_bootstrap_compatibility.md).
+
+HQ-READY-03G adds only the separate immutable `HQ-READY-03G-OFFLINE` custody fixture.
+Private issuer membership and authored drivers allow the observed-shaped fixture to test
+qualified404 settlement through existing custody without granting live transport. Actual status,
+captured-byte hash and fixed classification survive durable accounting; old03E stays strict.
+Live verification still accepts only the old manifest. No03G owner issuer/CLI exists because
+the independent feasibility gate failed before preparation. See [Decision043](../decisions/decision_043_yahoo_qualification_feasibility.md).

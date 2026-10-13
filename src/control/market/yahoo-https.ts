@@ -1,4 +1,5 @@
 import { lookup } from 'node:dns/promises';
+import { createHash } from 'node:crypto';
 import type { LookupAddress } from 'node:dns';
 import { request as httpsRequest } from 'node:https';
 import type { ClientRequest, IncomingMessage } from 'node:http';
@@ -10,7 +11,8 @@ import { yahooDiagnostic, YahooTransportError, type YahooStage, type YahooStageC
 import { ensure } from '../../domain/investment/arithmetic.js';
 import type { FinancialRequest, YahooQuery, YahooResponse, YahooTransport } from '../../domain/market/financial.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
-import { benignCookie404, isCookieBootstrap, validCrumb } from '../../domain/market/yahoo-bootstrap.js';
+import { acceptedCookie404, benignCookie404, isCookieBootstrap, validCrumb } from '../../domain/market/yahoo-bootstrap.js';
+import { isBootstrapHistoryFixture } from './yahoo-history-custody.js';
 import { publicAddress } from '../../research/public-fetch.js';
 import type { WireReceipt } from './yahoo-probe-custody.js';
 import { assertFinancialCustody, isOwnerFinancialCustody, type FinancialCustody } from './financial-custody.js';
@@ -157,8 +159,9 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
       const selected = addresses[0]!; confirm('destination_validated');
       if (probe) await probe.beforeWire(combined);
       if(compatibility){
-        const delay=Math.max(0,5000-(performance.now()-lastResponse));
-        if(delay)await sleep(Math.ceil(delay),undefined,{signal:combined});
+        while(performance.now()-lastResponse<5000){
+          checkTime();await sleep(Math.ceil(5000-(performance.now()-lastResponse)),undefined,{signal:combined});
+        }
         checkTime();ensure(performance.now()-lastResponse>=5000,'yahoo_bootstrap_interval');
       }
       checkTime(); wireIntent = true; confirm('wire_intent');
@@ -220,7 +223,9 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
             incoming.once('aborted', () => finish(new Error('yahoo_response_aborted')));
             incoming.once('close', () => { if (!frozen) finish(new Error('yahoo_response_incomplete')); });
             incoming.once('end', () => guarded(() => {
-              const body = new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(captured));
+              // Preserve BOM as content: stripping it would broaden the literal bootstrap grammar.
+              const originalBody = Buffer.concat(captured);
+              const body = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(originalBody);
               const response:YahooResponse={ status: receipt.status!, body, contentType: incoming.headers['content-type'] ?? '', retryAfter: incoming.headers['retry-after'] ?? null };
               if(compatibility){try{
                 ensure(!incoming.headers.location&&!incoming.headers.refresh&&!incoming.headers['www-authenticate']&&!incoming.headers['proxy-authenticate'],'yahoo_bootstrap_barrier');
@@ -247,7 +252,12 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
                 // gateway ledger without forwarding their body to yfinance or admitting more I/O.
                 terminal=true;delete response.bootstrapCookiePresent;response.bootstrapRejected=true;
               }}
-              if (probe && receipt.status === 200 && bootstrap) {
+              if (compatibility) {
+                receipt.bodyHash = createHash('sha256').update(originalBody).digest('hex');
+                if (acceptedCookie404(query, response)) receipt.bootstrapDisposition = 'accepted_cookie_404';
+                else if (response.bootstrapRejected) receipt.bootstrapDisposition = 'rejected_bootstrap';
+              }
+              if (probe && !compatibility && receipt.status === 200 && bootstrap) {
                 const contentType = incoming.headers['content-type'] ?? '';
                 ensure(!/html/i.test(contentType) && !/<(?:!doctype|html|form|script)|consent|captcha|sign.?in|log.?in|access denied/i.test(body), 'yahoo_bootstrap_barrier');
                 if (qualified.endpoint.endsWith(':crumb')) ensure(/^[\x21-\x7e]{1,256}$/.test(body) && !/[<>]/.test(body), 'yahoo_crumb_schema');
@@ -309,6 +319,6 @@ export function yahooProbeTransport(probe:FinancialCustody,wire?:YahooWire):Yaho
   assertFinancialCustody(probe);
   if(isOwnerFinancialCustody(probe))ensure(wire===undefined,'probe_real_wire_not_injectable');
   else ensure(wire&&wire.lookup!==lookup&&wire.request!==httpsRequest,'probe_fixture_requires_fake_wire');
-  const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe);
+  const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe,isBootstrapHistoryFixture(probe));
   probe.bindTransport(transport);return transport;
 }

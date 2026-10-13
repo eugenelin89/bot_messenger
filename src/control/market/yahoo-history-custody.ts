@@ -12,10 +12,16 @@ import { historyManifest, verifyHistoryManifest, qualifyHistoryQuery, HISTORY_ID
 import { verifyOwnerProbeHost, probeSourceIdentity, excludeProbePath, assertProbeExcluded } from './yahoo-probe-host.js';
 import { writeProbeBytes, type WireReceipt } from './yahoo-probe-custody.js';
 import type { YahooStageConfirmation } from './yahoo-diagnostics.js';
+import { BOOTSTRAP_HISTORY_FIXTURE_ID, verifyBootstrapHistoryFixtureManifest } from './yahoo-bootstrap-history-manifest.js';
 
 export const ownerHistoryRoot = () => join(userInfo().homedir, 'Library', 'Application Support', 'BotSquad-Yahoo-HQ-READY-03E');
 export const ownerHistoryCapsule = () => '/private/tmp/botsquad-yahoo-HQ-READY-03E';
 const mint = Symbol('03e-custody'), issued = new WeakSet<object>(), owners = new WeakSet<object>();
+const bootstrapFixtures = new WeakSet<object>();
+function verifyCustodyManifest(manifest: YahooHistoryManifest, live: boolean): void {
+  if (!live && manifest.id === BOOTSTRAP_HISTORY_FIXTURE_ID) verifyBootstrapHistoryFixtureManifest(manifest as Parameters<typeof verifyBootstrapHistoryFixtureManifest>[0]);
+  else verifyHistoryManifest(manifest);
+}
 const exclusive = constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW;
 function syncDirectory(path: string): void { const fd = openSync(path, constants.O_RDONLY | constants.O_NOFOLLOW); try { fsyncSync(fd); } finally { closeSync(fd); } }
 function privatePath(path: string, directory = false) {
@@ -34,7 +40,7 @@ interface Approval { kind: 'live' | 'fixture'; uid: number; root: string; dev: n
 interface Clock { wall(): number; monotonic(): number; }
 const systemClock: Clock = { wall: Date.now, monotonic: () => performance.now() };
 function prepare(root: string, manifest: YahooHistoryManifest, kind: Approval['kind']): void {
-  verifyHistoryManifest(manifest);
+  verifyCustodyManifest(manifest, kind === 'live');
   ensure(resolve(root) === root && realpathSync(dirname(root)) === dirname(root), 'probe_canonical_parent');
   mkdirSync(root, { mode: 0o700 }); syncDirectory(dirname(root)); const stat = privatePath(root, true);
   if (kind === 'live') excludeProbePath(root);
@@ -88,7 +94,7 @@ export class YahooHistoryCustody {
     ensure(secret === mint, 'probe_capability_forged');
     this.#root = root; this.#capsule = capsule; this.#clock = clock; this.#start = clock.monotonic(); this.#wall = clock.wall();
     const stat = privatePath(root, true), approvalText = readPrivate(root, 'approval.json');
-    const approval = JSON.parse(approvalText) as Approval; verifyHistoryManifest(approval.manifest);
+    const approval = JSON.parse(approvalText) as Approval; verifyCustodyManifest(approval.manifest, live);
     ensure(approval.kind === (live ? 'live' : 'fixture') && approval.uid === process.getuid!() && approval.root === root
       && approval.dev === stat.dev && approval.ino === stat.ino && approval.manifestHash === hash(approval.manifest), 'probe_approval_identity');
     ensure(approval.manifest.sourceHash === sourceHash, 'probe_source_changed');
@@ -99,7 +105,7 @@ export class YahooHistoryCustody {
     ensure(!existsSync(capsule), 'probe_capsule_preexists');
     let createdCapsule = false;
     try {
-      this.#spentText = writeNew(root, 'spent.json', { id: HISTORY_ID, approvalId: approval.manifest.approvalId,
+      this.#spentText = writeNew(root, 'spent.json', { id: approval.manifest.id, approvalId: approval.manifest.approvalId,
         manifestHash: approval.manifestHash, sourceHash, uid: approval.uid, pid: process.pid,
         startedAt: new Date(clock.wall()).toISOString(), noResume: true });
       mkdirSync(capsule, { mode: 0o700 }); createdCapsule = true; syncDirectory(dirname(capsule)); privatePath(capsule, true);
@@ -110,8 +116,9 @@ export class YahooHistoryCustody {
       this.#encrypted = openSync(join(capsule, 'evidence.aes256gcm'), exclusive, 0o600);
       fsyncSync(this.#ledger); fsyncSync(this.#encrypted); syncDirectory(root); syncDirectory(capsule);
       issued.add(this);
+      if (!live && approval.manifest.id === BOOTSTRAP_HISTORY_FIXTURE_ID) bootstrapFixtures.add(this);
       this.#timer = setTimeout(() => this.abort.abort(new Error('financial_timeout')), historyLimits.operationMs);
-      this.record({ type: 'consumed', id: HISTORY_ID, manifestHash: approval.manifestHash, at: new Date(clock.wall()).toISOString() });
+      this.record({ type: 'consumed', id: approval.manifest.id, manifestHash: approval.manifestHash, at: new Date(clock.wall()).toISOString() });
       this.seal({ type: 'manifest', manifest: approval.manifest }); this.check();
       if (live) owners.add(this);
     } catch (e) {
@@ -198,12 +205,14 @@ export class YahooHistoryCustody {
   }
   async beforeWire(signal: AbortSignal): Promise<void> {
     this.check(); ensure(this.#pending && !this.#wire, 'probe_wire_without_reservation');
-    const delay = Math.max(0, 5000 - (this.#clock.monotonic() - this.#lastResponse));
-    if (delay) await new Promise<void>((resolve, reject) => {
+    while (this.#clock.monotonic() - this.#lastResponse < 5000) {
+      this.check(); const delay = 5000 - (this.#clock.monotonic() - this.#lastResponse);
+      await new Promise<void>((resolve, reject) => {
       const abort = () => { clearTimeout(timer); reject(new Error('probe_inactive')); };
       const timer = setTimeout(() => { signal.removeEventListener('abort', abort); resolve(); }, Math.ceil(delay));
       signal.addEventListener('abort', abort, { once: true }); if (signal.aborted) abort();
-    });
+      });
+    }
     this.check(); ensure(!signal.aborted && this.#clock.monotonic() - this.#lastResponse >= 5000, 'probe_wire_interval');
     this.record({ type: 'wire_started', ordinal: this.#attempts, at: new Date(this.#clock.wall()).toISOString() });
     this.check(); this.#wire = true;
@@ -217,7 +226,14 @@ export class YahooHistoryCustody {
       if (body.length) this.seal({ type: 'body', ordinal: this.#attempts, ...receipt, bodyBase64: body.toString('base64') });
       this.#lastResponse = this.#clock.monotonic(); this.#pending = false;
       if (owners.has(this)) process.send!({ wireSettled: this.#attempts }, error => { if (error) { this.#stopped = true; this.abort.abort(); } });
-    } finally { if (!receipt.complete || receipt.status !== 200 || this.#bytes > 1048576) this.#wireDenied = true; }
+    } finally {
+      const accepted404 = bootstrapFixtures.has(this) && [1, 2, 5].includes(this.#attempts)
+        && receipt.status === 404 && receipt.complete && receipt.retryAfter === null
+        && receipt.bootstrapDisposition === 'accepted_cookie_404'
+        && [9, 10, 11, 13, 14, 15].includes(receipt.receivedBytes) && /^[a-f0-9]{64}$/.test(receipt.bodyHash ?? '');
+      if (!receipt.complete || (receipt.status !== 200 && !accepted404)
+        || receipt.bootstrapDisposition === 'rejected_bootstrap' || this.#bytes > 1048576) this.#wireDenied = true;
+    }
   }
   finish(result: FinancialResult, observation: FinancialObservation | null): void {
     try { this.seal({ type: 'logical_result', result, observation }); this.record({ type: 'logical_result', ordinal: 1, status: result.status, reason: result.reason, at: result.completedAt }); }
@@ -245,10 +261,12 @@ export class YahooHistoryCustody {
     for (const fd of [this.#encrypted, this.#ledger]) if (fd !== undefined) try { closeSync(fd); } catch { closed = false; }
     this.#encrypted = this.#ledger = undefined;
     try { removeOwnedHistoryCapsule(this.#root, this.#capsule); } catch { closed = false; }
-    const evidence = { id: HISTORY_ID, keyDestroyed: true, capsuleRemoved: !existsSync(this.#capsule), descriptorsClosed: closed, spentRetained: true, noResume: true };
+    const evidence = { id: this.#approval.manifest.id, keyDestroyed: true, capsuleRemoved: !existsSync(this.#capsule), descriptorsClosed: closed, spentRetained: true, noResume: true };
     if (!existsSync(join(this.#root, 'cleanup.json'))) writeNew(this.#root, 'cleanup.json', { ...evidence, at: new Date().toISOString() });
     ensure(closed && evidence.capsuleRemoved, 'probe_cleanup_incomplete'); return evidence;
   }
 }
 export function isHistoryCustody(value: unknown): value is YahooHistoryCustody { return typeof value === 'object' && value !== null && issued.has(value); }
 export function isOwnerHistory(value: YahooHistoryCustody): boolean { return owners.has(value); }
+/** Opaque fixture identity, never a flag on a structurally supplied object or live owner. */
+export function isBootstrapHistoryFixture(value: unknown): boolean { return typeof value === 'object' && value !== null && bootstrapFixtures.has(value) && !owners.has(value); }

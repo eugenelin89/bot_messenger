@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { describe, type TestContext } from 'node:test';
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 import { PassThrough } from 'node:stream';
@@ -18,8 +18,9 @@ import { MarketStore } from '../src/control/market/store.js';
 import { FinancialStore } from '../src/control/market/financial-store.js';
 import { FinancialDataGateway } from '../src/control/market/financial-gateway.js';
 import { FinancialAdmission } from '../src/control/market/financial-admission.js';
-import { YahooHistoryCustody, ownerHistoryRoot, isHistoryCustody, removeOwnedHistoryCapsule } from '../src/control/market/yahoo-history-custody.js';
-import { historyManifest, verifyHistoryManifest, qualifyHistoryQuery, historyLimits } from '../src/control/market/yahoo-history-manifest.js';
+import { YahooHistoryCustody, ownerHistoryRoot, isHistoryCustody, isBootstrapHistoryFixture, removeOwnedHistoryCapsule } from '../src/control/market/yahoo-history-custody.js';
+import { historyManifest as legacyHistoryManifest, verifyHistoryManifest as verifyLegacyHistoryManifest, qualifyHistoryQuery, historyLimits } from '../src/control/market/yahoo-history-manifest.js';
+import { bootstrapHistoryFixtureManifest, verifyBootstrapHistoryFixtureManifest } from '../src/control/market/yahoo-bootstrap-history-manifest.js';
 import { probeManifest } from '../src/control/market/yahoo-probe-manifest.js';
 import { YahooProbeCustody } from '../src/control/market/yahoo-probe-custody.js';
 import { assertFinancialCustody } from '../src/control/market/financial-custody.js';
@@ -29,12 +30,19 @@ import { inspectHistory } from '../src/control/market/yahoo-history-report.js';
 import { qualifyYahooQuery } from '../src/domain/market/yahoo-transport.js';
 import { yahooSettings, type YahooQuery, type YahooResponse } from '../src/domain/market/financial.js';
 import { chart } from './fixtures/yahoo/support.js';
+import { hash } from '../src/domain/investment/identity.js';
+import { createHash } from 'node:crypto';
 import { superviseHistory } from '../scripts/yahoo-history.js';
 
+for (const compatibility of [false, true]) describe(compatibility ? '03G offline compatibility custody' : '03E unchanged strict custody', () => {
+const historyManifest = compatibility ? bootstrapHistoryFixtureManifest : legacyHistoryManifest;
+const verifyHistoryManifest = (m: ReturnType<typeof legacyHistoryManifest>) => compatibility
+  ? verifyBootstrapHistoryFixtureManifest(m as ReturnType<typeof bootstrapHistoryFixtureManifest>) : verifyLegacyHistoryManifest(m);
 const sourceHash = 'a'.repeat(64);
-function fixture(realClock = false) {
+function fixture(t: TestContext, realClock = false, mockPerformance = true) {
   const parent = realpathSync(mkdtempSync(join(tmpdir(), 'yahoo-history-'))), root = join(parent, 'anchor');
   let wall = Date.now(), mono = 0;
+  if (compatibility && !realClock && mockPerformance) t.mock.method(performance, 'now', () => mono);
   const clock = { wall: () => realClock ? Date.now() : wall, monotonic: () => realClock ? performance.now() : mono };
   const m = historyManifest(new Date(wall).toISOString(), sourceHash);
   const custody = YahooHistoryCustody.offline(root, m, clock), db = new Store(':memory:'), market = new MarketStore(db), store = new FinancialStore(market, custody);
@@ -57,31 +65,34 @@ function authored(f: Fixture) {
 }
 function response(f: Fixture, query: YahooQuery): YahooResponse {
   if (query.url.includes('/chart/')) return { status: 200, body: JSON.stringify(authored(f)), contentType: 'application/json', retryAfter: null };
-  return { status: 200, body: query.url.includes('getcrumb') ? 'fixture-crumb' : 'fixture-cookie', contentType: 'text/plain', retryAfter: null };
+  return { status: compatibility && !query.url.includes('getcrumb') ? 404 : 200, body: query.url.includes('getcrumb') ? 'fixture-crumb' : compatibility ? 'Not Found' : 'fixture-cookie', contentType: 'text/plain', retryAfter: null };
 }
-function wire(f: Fixture, change?: (r: YahooResponse, q: YahooQuery, ordinal: number) => void) {
+function wire(f: Fixture, change?: (r: YahooResponse & { headers?: IncomingMessage['headers'] }, q: YahooQuery, ordinal: number) => void) {
   let dns = 0, sockets = 0; const starts: number[] = []; const queries: YahooQuery[] = [];
   return { get dns() { return dns; }, get sockets() { return sockets; }, queries, starts,
     driver: { lookup: (async () => { dns++; f.tick(); return [{ address: '1.1.1.1', family: 4 }]; }) as unknown as typeof lookup,
       request: ((url: URL, opts: RequestOptions, cb: (res: IncomingMessage) => void) => {
         sockets++; starts.push(performance.now()); assert.equal(opts.rejectUnauthorized, true); assert.equal(opts.family, 4); assert.equal((opts as RequestOptions & { autoSelectFamily: boolean }).autoSelectFamily, false);
         const q: YahooQuery = { method: 'GET', url: url.origin + url.pathname, params: Object.fromEntries(url.searchParams) }; queries.push(q);
-        const r = response(f, q); change?.(r, q, sockets);
+        const r: YahooResponse & { headers?: IncomingMessage['headers'] } = response(f, q); change?.(r, q, sockets);
         const req = new EventEmitter() as ClientRequest; req.destroy = (() => req) as ClientRequest['destroy'];
         req.end = (() => { queueMicrotask(() => { const res = new PassThrough() as unknown as IncomingMessage;
-          res.statusCode = r.status; res.headers = { 'content-type': r.contentType }; cb(res); (res as unknown as PassThrough).end(r.body); }); return req; }) as ClientRequest['end']; return req;
+          res.statusCode = r.status; res.headers = { 'content-type': r.contentType, ...(compatibility && q.url.includes('fc.yahoo.com') ? { 'set-cookie': ['A3=authored-private-cookie; Domain=.yahoo.com; Path=/; Secure; HttpOnly'] } : {}), ...r.headers }; cb(res); (res as unknown as PassThrough).end(r.body); }); return req; }) as ClientRequest['end']; return req;
       }) as typeof httpsRequest } satisfies YahooWire };
 }
 function collect(f: Fixture, w: ReturnType<typeof wire>) {
-  const gateway = new FinancialDataGateway(f.store, { now: () => new Date(f.clock.wall()).toISOString() }, new PythonYahooAdapter(f.custody.capsulePath, 'hq-ready-03e-query1-only'), yahooProbeTransport(f.custody, w.driver));
+  const gateway = new FinancialDataGateway(f.store, { now: () => new Date(f.clock.wall()).toISOString() }, new PythonYahooAdapter(f.custody.capsulePath, compatibility ? 'hq-ready-03f-offline-bootstrap' : 'hq-ready-03e-query1-only'), yahooProbeTransport(f.custody, w.driver));
   return gateway.collect(f.m.policy.id, f.m.reads[0]!, 'history-test', f.custody.signal);
 }
 const withCrumb = (q: YahooQuery, n: number) => ({ ...q, params: { ...q.params, ...([4, 6].includes(n) ? { crumb: 'fixture-crumb' } : {}) } });
 
-test('03E fixed identity, exact bounds, reference, settings and single read cannot be expanded', () => {
+test('fixed identity, exact bounds, reference, settings and single read cannot be expanded', () => {
   const m = historyManifest('2026-10-12T08:00:00.000Z', sourceHash); verifyHistoryManifest(m);
   assert.equal(m.reads.length, 1); assert.equal(m.sequence.length, 6); assert.equal(m.scope.maxRetries, 0);
   assert.equal(m.scope.maxTotalBytes, 1048576); assert.equal(m.limits.processMs, 180000);
+  assert.equal(hash(legacyHistoryManifest('2026-10-12T08:00:00.000Z', sourceHash, '00000000-0000-4000-8000-000000000001')),
+    'aab65a28703dd304e0cd73bb8f9e0d3a54daf832fddbae84c320e1e229ac7324', '03E canonical bytes from starting main stay unchanged');
+  if (compatibility) assert.throws(() => verifyLegacyHistoryManifest(m), /manifest_mismatch/);
   assert.deepEqual(m.settings, yahooSettings); assert.equal(m.policy.rights.public_display.status, 'denied');
   for (const modify of [(v: typeof m) => v.scope.maxRetries++, (v: typeof m) => v.scope.maxRequests++, (v: typeof m) => v.sequence.reverse(), (v: typeof m) => { v.sequence[3]!.url = v.sequence[3]!.url.replace('query1', 'query2'); }, (v: typeof m) => v.calendar.calendar.sessions.pop()]) {
     const changed = structuredClone(m); modify(changed); assert.throws(() => verifyHistoryManifest(changed));
@@ -89,7 +100,7 @@ test('03E fixed identity, exact bounds, reference, settings and single read cann
   assert.throws(() => verifyHistoryManifest(probeManifest(m.preparedAt, sourceHash) as never));
 });
 test('exact ordered host/path/parameters and transient crumb location reject every widening before DNS', t => {
-  const f = fixture(); t.after(f.close);
+  const f = fixture(t); t.after(f.close);
   for (const [i, q] of f.m.sequence.entries()) {
     qualifyHistoryQuery(f.m, f.m.reads[0]!, withCrumb(q, i + 1), i + 1);
     for (const wrong of [{ ...q, url: q.url.replace('query1', 'query2').replace('fc.yahoo', 'consent.yahoo') }, { ...q, params: { ...q.params, extra: 'x' } }])
@@ -101,9 +112,18 @@ test('exact ordered host/path/parameters and transient crumb location reject eve
 });
 test('actual pinned Python completes precisely six approved requests with 21 authored bars; no price leaks into quality/ledger', async t => {
   assert.ok(existsSync('adapters/yahoo/.venv/bin/python'), 'pinned environment required; no skipped acceptance');
-  const f = fixture(); t.after(f.close); const w = wire(f), result = await collect(f, w);
+  const f = fixture(t); t.after(f.close); const w = wire(f), result = await collect(f, w);
   assert.equal(result.status, 'ok', result.reason); assert.equal(w.sockets, 6); assert.equal(w.dns, 6);
   assert.deepEqual(w.queries.map(q => qualifyYahooQuery(q, f.m.reads[0]!, 'AAPL')), f.m.sequence.map(q => qualifyYahooQuery(q, f.m.reads[0]!, 'AAPL')));
+  const receipts = f.accounting().filter(r => r.type === 'received');
+  assert.deepEqual(receipts.map(r => r.status), compatibility ? [404, 404, 200, 200, 404, 200] : [200, 200, 200, 200, 200, 200]);
+  if (compatibility) {
+    for (const receipt of receipts.filter(r => r.status === 404)) {
+      assert.equal(receipt.bootstrapDisposition, 'accepted_cookie_404'); assert.equal(receipt.receivedBytes, 9);
+      assert.equal(receipt.bodyHash, createHash('sha256').update('Not Found').digest('hex'));
+    }
+    assert.equal(f.db.get<{ n: number }>("SELECT count(*) n FROM financial_attempt_results WHERE status=404 AND reason='yahoo_cookie_bootstrap_404'")!.n, 3);
+  }
   const e = f.store.observation(result.observationId!), report = inspectHistory(e, f.m);
   assert.equal(report.sessionCoverage.count, 21); assert.equal(report.missingSessions.length, 0); assert.equal(report.regularSessionEventTimes, 21);
   assert.equal(report.providerAvailableAt, null); assert.equal(report.executionQualified, false); assert.equal(report.fields.open!.present, 21);
@@ -116,15 +136,32 @@ test('actual pinned Python completes precisely six approved requests with 21 aut
   assert.ok(!readFileSync(join(f.root, 'accounting.jsonl'), 'utf8').includes('fixture-crumb'));
   assert.ok(readdirSync(f.custody.capsulePath).every(name => name === 'evidence.aes256gcm'));
 });
+test('authored 4585-byte nonqualifying response stops at first bootstrap with original status and exact bytes', async t => {
+  const f = fixture(t); t.after(f.close);
+  // Length-only adversarial fixture; never reconstructs the destroyed provider response.
+  const body = 'authored unrecognized response '.padEnd(4585, 'x');
+  const w = wire(f, r => { r.status = 404; r.body = body; });
+  const result = await collect(f, w); assert.equal(result.status, 'unavailable'); assert.equal(w.sockets, 1); assert.equal(w.dns, 1);
+  const receipt = f.accounting().find(r => r.type === 'received');
+  assert.equal(receipt.status, 404); assert.equal(receipt.receivedBytes, 4585); assert.equal(receipt.complete, true);
+  if (compatibility) assert.equal(receipt.bootstrapDisposition, 'rejected_bootstrap');
+  const settled = f.db.get<{ status: number; bytes: number; response_hash: string }>('SELECT status,bytes,response_hash FROM financial_attempt_results')!;
+  assert.equal(settled.status, 404); assert.equal(settled.bytes, 4585);
+  assert.equal(settled.response_hash, createHash('sha256').update(body).digest('hex'));
+  assert.ok(!readFileSync(join(f.root, 'accounting.jsonl'), 'utf8').includes(body));
+  assert.equal(f.db.get<{ n: number }>('SELECT count(*) n FROM financial_observations')!.n, 0);
+  assert.throws(() => f.custody.reserve(f.m.sequence[1]!, 262144), /denied/);
+  assert.throws(() => YahooHistoryCustody.reopenOffline(f.root, sourceHash));
+});
 for (const [ordinal, status] of [[1, 404], [2, 403], [3, 429], [4, 302], [5, 503], [6, 504]] as const)
   test(`pinned Python stops at ordinal ${ordinal} HTTP${status}, without retry, metadata fallback or further DNS`, async t => {
-    const f = fixture(); t.after(f.close); const w = wire(f, (r, _q, n) => { if (n === ordinal) { r.status = status; r.body = 'fixture-denied'; } });
+    const f = fixture(t); t.after(f.close); const w = wire(f, (r, _q, n) => { if (n === ordinal) { r.status = status; r.body = 'fixture-denied'; } });
     const result = await collect(f, w); assert.notEqual(result.status, 'ok'); assert.equal(w.sockets, ordinal); assert.equal(w.dns, ordinal);
     assert.equal(f.accounting().filter(r => r.type === 'reserved').length, ordinal); assert.doesNotThrow(() => f.custody.check()); assert.notEqual(result.status, 'unknown');
   });
 for (const problem of ['missing', 'currency', 'schema', 'adjustment', 'provider_error', 'bootstrap'] as const)
   test(`pinned authored quality handling: ${problem}`, async t => {
-    const f = fixture(); t.after(f.close); const w = wire(f, (r, _q, n) => {
+    const f = fixture(t); t.after(f.close); const w = wire(f, (r, _q, n) => {
       if (problem === 'bootstrap' && n === 1) { r.body = '<html>consent</html>'; r.contentType = 'text/html'; }
       if (n !== 6) return;
       const value = JSON.parse(r.body), row = value.chart.result[0];
@@ -142,18 +179,21 @@ for (const problem of ['missing', 'currency', 'schema', 'adjustment', 'provider_
     assert.equal(w.sockets, problem === 'bootstrap' ? 1 : 6);
   });
 test('aggregate 1MiB cap counts cookie bootstrap; full reservation denies before excess request', async t => {
-  const f = fixture(); t.after(f.close); const w = wire(f, (r, _q, n) => { if (n !== 3) r.body = r.body.padEnd(262144, ' '); });
+  const f = fixture(t); t.after(f.close); const w = wire(f, (r, _q, n) => { if (n !== 3) { r.status = 200; r.body = r.body.padEnd(262144, ' '); } });
   const result = await collect(f, w); assert.notEqual(result.status, 'ok'); assert.equal(w.sockets, 4);
   assert.ok(f.accounting().filter(r => r.type === 'received').reduce((n, r) => n + r.receivedBytes, 0) <= 1048576);
 });
 test('262144-byte response cap stops oversize bootstrap without continuation', async t => {
-  const f = fixture(); t.after(f.close); const w = wire(f, r => { r.body = 'x'.repeat(262145); });
+  const f = fixture(t); t.after(f.close); const w = wire(f, r => { r.body = 'x'.repeat(262145); });
   assert.equal((await collect(f, w)).status, 'unknown'); assert.equal(w.sockets, 1);
   assert.equal(f.accounting().find(r => r.type === 'received').receivedBytes, 262144);
 });
 test('issuer/root/source/store and spent identity reject forged, copied, restored and expired authority', t => {
-  const f = fixture(); t.after(f.close);
-  for (const fake of [{}, Object.create(YahooHistoryCustody.prototype), JSON.parse(JSON.stringify(f.custody))]) assert.throws(() => assertFinancialCustody(fake));
+  const f = fixture(t); t.after(f.close);
+  for (const fake of [{}, { id: 'HQ-READY-03G-OFFLINE' }, Object.create(YahooHistoryCustody.prototype), JSON.parse(JSON.stringify(f.custody))]) {
+    assert.throws(() => assertFinancialCustody(fake)); assert.equal(isBootstrapHistoryFixture(fake), false);
+  }
+  assert.equal(isBootstrapHistoryFixture(f.custody), compatibility);
   assert.equal(isHistoryCustody({}), false); assert.throws(() => yahooProbeTransport(f.custody));
   assert.throws(() => YahooProbeCustody.reopenOffline(f.root, sourceHash));
   assert.throws(() => YahooHistoryCustody.reopenOffline(f.root, sourceHash));
@@ -173,7 +213,7 @@ test('preexisting capsule is untouched and blocks ambiguous admission', t => {
   assert.equal(readFileSync(join(root, 'capsule', 'canary'), 'utf8'), 'untouched');
 });
 test('short writes complete; fsync failure irreversibly stops before DNS and cleanup still removes ciphertext', async t => {
-  const f = fixture(); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
+  const f = fixture(t); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
   const original = fs.writeSync, short = t.mock.method(fs, 'writeSync', ((fd: number, buffer: Buffer, offset: number, length: number) => original(fd, buffer, offset, Math.min(7, length))) as typeof fs.writeSync); syncBuiltinESMExports();
   await transport.exchange(f.m.sequence[0]!, new AbortController().signal, 262144); short.mock.restore(); syncBuiltinESMExports();
   const broken = t.mock.method(fs, 'fsyncSync', () => { throw new Error('private-canary'); }); syncBuiltinESMExports();
@@ -208,7 +248,7 @@ test('independent supervisor kills blocked Node and Python descendant before rec
 });
 
 test('action-bearing OHLCV keeps original events and reports counts without exposing amounts or prices', async t => {
-  const f = fixture(); t.after(f.close); const w = wire(f, (r, _q, n) => {
+  const f = fixture(t); t.after(f.close); const w = wire(f, (r, _q, n) => {
     if (n !== 6) return;
     const value = JSON.parse(r.body), row = value.chart.result[0], stamp = row.timestamp[0];
     row.events = { dividends: { [stamp]: { date: stamp, amount: 0.125, currency: 'CAD' } }, splits: { [stamp]: { date: stamp, numerator: 2, denominator: 1, splitRatio: '2:1' } } };
@@ -223,7 +263,7 @@ test('action-bearing OHLCV keeps original events and reports counts without expo
 });
 for (const stage of ['dns_started', 'wire_intent', 'request_created'] as const)
   test(`filesystem stall at ${stage} cannot cross the 10-second limit into next I/O`, async t => {
-    const f = fixture(); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
+    const f = fixture(t, false, false); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
     let elapsed = 0; t.mock.method(performance, 'now', () => elapsed);
     const original = f.custody.confirmTransportStage.bind(f.custody);
     t.mock.method(f.custody, 'confirmTransportStage', (value: YahooStageConfirmation) => { original(value); if (value.stage === stage) elapsed = 10001; });
@@ -232,7 +272,7 @@ for (const stage of ['dns_started', 'wire_intent', 'request_created'] as const)
     const receipt = f.accounting().find(r => r.type === 'received'); assert.equal(receipt.complete, false);
   });
 test('failed stage fsync never claims that milestone confirmed', async t => {
-  const f = fixture(); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
+  const f = fixture(t); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
   const original = f.custody.confirmTransportStage.bind(f.custody);
   t.mock.method(f.custody, 'confirmTransportStage', (value: YahooStageConfirmation) => { if (value.stage === 'dns_started') throw new Error('private-canary'); original(value); });
   await assert.rejects(() => transport.exchange(f.m.sequence[0]!, new AbortController().signal, 262144), /settlement_unknown/);
@@ -268,8 +308,8 @@ for (const kind of ['operation', 'cleanup'] as const) test(`independent ${kind} 
   if (kind === 'operation') assert.equal((await pending).killed, true); else await assert.rejects(pending, /cleanup_incomplete/);
 });
 
-test('03E enforces five seconds after completed response before the next actual wire', async t => {
-  const f = fixture(true); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
+test('custody enforces five seconds after completed response before the next actual wire', async t => {
+  const f = fixture(t, true); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver); f.custody.begin(f.store, transport, f.m.reads[0]!);
   await transport.exchange(f.m.sequence[0]!, new AbortController().signal, 262144); const completed = performance.now();
   await transport.exchange(f.m.sequence[1]!, new AbortController().signal, 262144);
   assert.ok(w.starts[1]! - completed >= 4990); assert.equal(w.sockets, 2);
@@ -283,7 +323,7 @@ test('live-layout sibling capsule preexistence blocks before spending and recove
   assert.throws(() => removeOwnedHistoryCapsule(root, capsule)); assert.equal(readFileSync(join(capsule, 'canary'), 'utf8'), 'untouched');
 });
 test('replacement of a formerly owned capsule fences recovery deletion by inode identity', t => {
-  const f = fixture(); t.after(() => { f.db.close(); rmSync(f.parent, { recursive: true, force: true }); });
+  const f = fixture(t); t.after(() => { f.db.close(); rmSync(f.parent, { recursive: true, force: true }); });
   const capsule = f.custody.capsulePath; fs.renameSync(capsule, capsule + '-retained'); mkdirSync(capsule, { mode: 0o700 }); writeFileSync(join(capsule, 'canary'), 'untouched');
   assert.throws(() => removeOwnedHistoryCapsule(f.root, capsule), /identity/); assert.throws(() => f.custody.destroy(), /incomplete/);
   assert.equal(readFileSync(join(capsule, 'canary'), 'utf8'), 'untouched');
@@ -299,4 +339,64 @@ test('native watchdog survives actual JS supervisor death while data Node loop i
   const pids = JSON.parse(readFileSync(pidFile, 'utf8')) as { node: number; python: number }; const exited = new Promise(resolve => p.once('exit', resolve)); p.kill('SIGKILL'); await exited;
   for (let i = 0; i < 500 && !existsSync(recovered); i++) await new Promise(r => setTimeout(r, 10));
   assert.ok(existsSync(recovered)); for (const pid of [pids.node, pids.python]) assert.throws(() => process.kill(pid, 0), (e: unknown) => (e as NodeJS.ErrnoException).code === 'ESRCH');
+});
+
+if (compatibility) for (const problem of ['missing_cookie', 'rotation', 'crumb', 'location', 'retry_after', 'unauthorized', 'expired_cookie', 'html200', 'same_status_unsafe404', 'bom404'] as const)
+  test(`03G custody terminal classification: ${problem}`, async t => {
+    const f = fixture(t); t.after(f.close);
+    const ordinal = problem === 'rotation' ? 2 : problem === 'crumb' ? 3 : 1;
+    const w = wire(f, (r, _q, n) => {
+      if (n !== ordinal) return;
+      if (problem === 'missing_cookie') r.headers = { 'set-cookie': [] };
+      if (problem === 'rotation') r.headers = { 'set-cookie': ['A3=changed; Domain=.yahoo.com; Path=/; Secure'] };
+      if (problem === 'expired_cookie') r.headers = { 'set-cookie': ['A3=expired; Domain=.yahoo.com; Path=/; Secure; Max-Age=0'] };
+      if (problem === 'crumb') r.body = 'invalid crumb';
+      if (problem === 'location') r.headers = { location: 'https://consent.yahoo.com/' };
+      if (problem === 'retry_after') r.headers = { 'retry-after': '60' };
+      if (problem === 'unauthorized') r.status = 401;
+      if (problem === 'html200') { r.status = 200; r.body = '<html>consent</html>'; r.contentType = 'text/html'; }
+      if (problem === 'same_status_unsafe404') r.body = 'Access denied';
+      if (problem === 'bom404') r.body = '\uFEFFNot Found\n';
+    });
+    const result = await collect(f, w); assert.notEqual(result.status, 'ok'); assert.notEqual(result.status, 'unknown');
+    assert.equal(w.sockets, ordinal); assert.equal(w.dns, ordinal);
+    const receipt = f.accounting().filter(r => r.type === 'received').at(-1);
+    assert.equal(receipt.complete, true);
+    assert.equal(receipt.status, problem === 'html200' || problem === 'crumb' ? 200 : problem === 'unauthorized' ? 401 : 404);
+    if (problem === 'bom404') {
+      assert.equal(receipt.receivedBytes, 13); assert.equal(receipt.bootstrapDisposition, 'rejected_bootstrap');
+      assert.equal(receipt.bodyHash, createHash('sha256').update('\uFEFFNot Found\n').digest('hex'));
+      const row = f.db.get<{ bytes: number; response_hash: string }>('SELECT bytes,response_hash FROM financial_attempt_results')!;
+      assert.equal(row.bytes, 13); assert.equal(row.response_hash, receipt.bodyHash);
+    }
+    assert.throws(() => f.custody.reserve(f.m.sequence[ordinal]!, 262144), /denied/);
+    assert.equal(f.db.get<{ n: number }>('SELECT count(*) n FROM financial_observations')!.n, 0);
+  });
+
+if (!compatibility) test('legacy03E cannot accept a qualified404 marker from another profile', t => {
+  const f = fixture(t); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver);
+  f.custody.begin(f.store, transport, f.m.reads[0]!); f.custody.reserve(f.m.sequence[0]!, 262144);
+  f.custody.received({ status: 404, receivedBytes: 9, complete: true, httpDate: null, retryAfter: null,
+    reason: 'yahoo_http_refused', completedAt: new Date().toISOString(), bootstrapDisposition: 'accepted_cookie_404',
+    bodyHash: createHash('sha256').update('Not Found').digest('hex') }, Buffer.alloc(0));
+  assert.throws(() => f.custody.reserve(f.m.sequence[1]!, 262144), /denied/); assert.equal(w.dns, 0);
+});
+
+if (compatibility) test('accepted404 receipt fsync failure retains spent, stops continuation and deletes ciphertext', async t => {
+  const f = fixture(t); t.after(f.close); const w = wire(f), transport = yahooProbeTransport(f.custody, w.driver);
+  f.custody.begin(f.store, transport, f.m.reads[0]!);
+  const received = f.custody.received.bind(f.custody);
+  t.mock.method(f.custody, 'received', (...args: Parameters<typeof received>) => {
+    assert.equal(args[0].bootstrapDisposition, 'accepted_cookie_404');
+    const broken = t.mock.method(fs, 'fsyncSync', () => { throw new Error('private-fsync-canary'); }); syncBuiltinESMExports();
+    try { return received(...args); } finally { broken.mock.restore(); syncBuiltinESMExports(); }
+  });
+  await assert.rejects(() => transport.exchange(f.m.sequence[0]!, new AbortController().signal, 262144), /settlement_unknown/);
+  assert.equal(w.dns, 1); assert.equal(w.sockets, 1); assert.throws(() => f.custody.check());
+  assert.throws(() => f.custody.reserve(f.m.sequence[1]!, 262144)); assert.throws(() => YahooHistoryCustody.reopenOffline(f.root, sourceHash));
+  assert.equal(JSON.parse(readFileSync(join(f.root, 'spent.json'), 'utf8')).noResume, true);
+  assert.ok(!readFileSync(join(f.root, 'accounting.jsonl'), 'utf8').includes('private-fsync-canary'));
+  const capsule = f.custody.capsulePath; f.custody.destroy(); assert.equal(existsSync(capsule), false);
+});
+
 });

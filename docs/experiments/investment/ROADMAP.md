@@ -355,3 +355,9 @@ HQ-READY-03F is source-only bootstrap compatibility work, with authored acceptan
 requests or new authority. [Decision042](../../decisions/decision_042_yahoo_bootstrap_compatibility.md)
 and the [next AAPL proposal](../../operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) preserve the
 spent03B/03D/03E approvals. Actual-data qualification and all later activation gates remain separate.
+
+[HQ-READY-03G](../../validation/investment/HQ-READY-03G.md) withholds live admission at
+the independent feasibility gate, preserves the unused authorization and completes only
+offline custody compatibility acceptance. No live profile/owner issuer or actual financial
+qualification follows. A [direct-chart proposal](../../operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
+requires separate selection and acceptance; an unchanged bootstrap repeat is not recommended.

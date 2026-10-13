@@ -628,3 +628,9 @@ semantics and adds narrowly qualified **offline-only** compatibility through the
 All three previous Yahoo authorities remain spent; no actual AAPL history is qualified.
 The [next bounded proposal](docs/operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) requires
 separate owner approval and reviewed custody integration before any Yahoo request.
+
+[HQ-READY-03G](docs/validation/investment/HQ-READY-03G.md) stops before live admission:
+the exact accepted bootstrap form lacks supporting provider evidence. A distinct offline
+custody profile validates nonfatal404 settlement; no new live issuer or owner authorization
+is created. The [direct-chart assessment](docs/operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
+is a separate unexecuted proposal. No real AAPL history is qualified.

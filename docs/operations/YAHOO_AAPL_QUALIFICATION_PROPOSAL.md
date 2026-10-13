@@ -1,6 +1,13 @@
 # Proposed one-shot AAPL historical qualification after HQ-READY-03F
 
-**Status:** Proposal only — not approved, prepared or executed.
+**Status:** Conditionally selected for03G; live admission withheld before preparation or execution.
+
+**03G disposition, 2026-10-12:** The owner conditionally selected this exact test. Independent
+technical review withheld live admission because no current provider evidence supports the
+unchanged Decision042 grammar. Offline custody integration follows [Decision043](../decisions/decision_043_yahoo_qualification_feasibility.md);
+no live profile, owner approval artifact or consumption exists. The original proposed envelope
+below remains intact. See the separate [direct-chart assessment](YAHOO_DIRECT_CHART_PROPOSAL.md),
+which is not authorized for execution.
 
 **Purpose:** One owner-inspected sample of private historical OHLCV through the existing
 FinancialDataGateway, pinned Python adapter and accepted one-shot custody/watchdogs.
