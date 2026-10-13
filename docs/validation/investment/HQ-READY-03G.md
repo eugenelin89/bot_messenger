@@ -3,7 +3,12 @@
 **Date:** 2026-10-12 America/Vancouver
 **Base:** `2be9ae0cfbad0e8e4e7bc6c8eed4c664716955a1`, freshly fetched clean synchronized main
 **Branch/worktree:** `codex/hq-ready-03g` / `../bot_messenger-hq-ready-03g`
-**Status:** Offline source validation in progress; live admission withheld before preparation
+**Status:** Offline source acceptance complete; live admission withheld before preparation
+
+**Implementation commit:** `3e8efa6b55cdcb91fd51a60b568010bdc91aab21`
+
+**Integration:** [PR67](https://github.com/eugenelin89/bot_messenger/pull/67) records the final
+reviewed head and merge identity. Parent verifies clean synchronized main and matching rebuild.
 
 ## Gate decision and actual outcome
 
@@ -89,9 +94,9 @@ authored data and process tests establish no Yahoo availability or production/Li
 | Check | Result |
 | --- | --- |
 | Final focused rebuild/regression |309/309 passed,0 failures/skips,151.641s; `/private/tmp/hq-ready-03g-focused-final.log` |
-| Full serial regression |Pending |
-| Typecheck/build/contracts |Final checks pending |
-| Historical preservation |Starting17-file equality with retained03F baseline passed; final equality pending |
+| Full serial regression |1,614 tests:1,608 passed,0 failed/cancelled,6 existing skips,639.319s; `/private/tmp/hq-ready-03g-full.log` |
+| Typecheck/build/contracts |`npm run check` passed; `npm run contracts:test` passed generated-contract check/build and175/175 tests,0 skips |
+| Historical preservation |All17 receipt names/hashes match starting and03F baseline after final tests; all3 spent/noResume markers intact and capsules absent;03G owner anchor/capsule absent |
 
 The [source manifest](HQ-READY-03G-source.sha256) freezes36 runtime/test/adapter/dependency
 files, digest `579cccc1b0c567caa038decac8664f080a4551bce6d42bed4fbb3ff8540b001a`.
@@ -103,6 +108,32 @@ Installed pinned upstream `data.py` matches SHA256
 
 Architecture/security/recovery/acceptance specialists are independent read-only development
 reviewers. They perform no BotSquad employee inference, authority preparation or Yahoo access.
-Final regression, exact frozen-source dispositions, integration and rebuild are recorded below
-when complete. The owner-reported verbal permission remains reported without claiming written
+Architecture and security independently verified all36 source and24 build entries and
+accepted the frozen source. Recovery cleared BOM/provenance and accepted404 fsync repairs;
+acceptance independently verified final evidence before integration. The owner-reported verbal permission remains reported without claiming written
 or endpoint-specific independent verification; lack of writing is not this task's blocker.
+
+
+## Final validation limits and review disposition
+
+The six existing full-suite skips are four isolated team receiver cases, one standalone
+receiver case requiring `INV07_RECEIVER_ROOT`, and one Linux-only generic recipe resource
+case. No Yahoo, actual pinned Python, custody, transport or recovery test was skipped.
+The runtime/test source stayed frozen through full regression and the later contract build;
+all36 source and24 compiled hashes matched again afterward. Changed-document local file
+links and whitespace checks passed. Product vision is unchanged; current README,
+architecture, runbook and investment roadmap now link this stopped qualification.
+
+Read-only reviewers cleared the final offline scope with no material finding outstanding.
+They explicitly require distinguishing this source result from a live profile, financial
+sample, new backup-exclusion evidence or real employee execution. All old decisions and
+HQ-READY-03 through03F acceptance records remain unchanged.
+
+Only non-data log digests are retained here; complete local logs remain in `/private/tmp`.
+
+| Log | SHA256 |
+| --- | --- |
+| `hq-ready-03g-focused-final.log` | `71f884a9d25b70b114454556ba1eea631e40f0bc562f912b809266d6b3001f43` |
+| `hq-ready-03g-full.log` | `09ec3312923e41868a0531aa91f5de5c8184d7b2e2a296bb018d56c063ba5514` |
+| `hq-ready-03g-check.log` | `c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652` |
+| `hq-ready-03g-contracts.log` | `99d93aebc117df22cf22fb27ab6692d5d56084e08107a7aa773f58148066b00f` |

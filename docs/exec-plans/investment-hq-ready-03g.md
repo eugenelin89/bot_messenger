@@ -1,12 +1,12 @@
 # Execution Plan — HQ-READY-03G bounded AAPL qualification
 
-**Status:** Active; live admission withheld at technical-feasibility gate
+**Status:** Offline source complete; live admission withheld at technical-feasibility gate
 **Owner:** Parent Codex, sole writer; read-only specialists
 **Branch:** `codex/hq-ready-03g`
 **Worktree:** `../bot_messenger-hq-ready-03g`
 **Started:** 2026-10-12 America/Vancouver
 **Initial ETA:** 2–4 hours
-**Current ETA:** 20–30 minutes for final regression, reviewed integration and main rebuild
+**Current ETA:** Final PR integration and main rebuild; initial estimate shortened by the pre-live blocker
 
 ## Objective and scope
 
@@ -55,7 +55,19 @@ The owner expressly directed offline completion and an alternative proposal in t
 
 ## Remaining work
 
-Offline implementation and focused309/309 acceptance are complete; final regression,
-acceptance evidence and integration remain. Genuine AAPL coverage,
+Offline implementation, focused309/309, full1,608 passed/6 existing skips, typecheck,
+build,175 contract tests and historical equality are complete. Reviewed [PR67](https://github.com/eugenelin89/bot_messenger/pull/67)
+records final source integration; the parent verifies clean synchronized main and matching rebuild. Genuine AAPL coverage,
 current source compatibility and direct-chart access remain unproven. A direct request
 is a separate proposal and will not be executed automatically or after access denial.
+
+
+## Completion handoff
+
+Implementation commit: `3e8efa6b55cdcb91fd51a60b568010bdc91aab21`; documentation closure
+follows without runtime changes. [Acceptance](../validation/investment/HQ-READY-03G.md)
+records exact manifests, results, reviewer dispositions and limits. Initial2–4h estimate
+shortened because live feasibility failed before implementation of any owner issuer.
+Zero Yahoo requests, zero live preparation/consumption and no financial sample. The new
+live authorization remains unprepared, not spent or silently converted to direct-chart
+permission. No further work or live action follows this packet's reviewed integration.
