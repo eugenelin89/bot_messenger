@@ -1,0 +1,143 @@
+{
+  "recordedAt": "2026-10-13T11:53:09.086700+00:00",
+  "implementationCommit": "2e2bcf867b41f1cf66c412adbc3f93e60f3757aa",
+  "marketAndModelInputs": "authored fixtures; no genuine model or source calls",
+  "fullSuite": {
+    "tests": 1869,
+    "pass": 1863,
+    "fail": 0,
+    "skip": 6,
+    "durationMs": 1235476.011458
+  },
+  "separatelyResolvedSkips": "5 actual compiled receiver tests passed in isolated local state",
+  "remainingConditionalSkip": "generic Linux engineering recipe test; unrelated platform gate",
+  "browser": {
+    "tests": 2,
+    "pass": 2,
+    "widths": [
+      390,
+      1440
+    ]
+  },
+  "receiver": {
+    "tests": 5,
+    "pass": 5,
+    "contractManifestSha256": "7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31"
+  },
+  "finiteRuntimeMarkerTests": {
+    "host": "production Linux staging; service user botsquad; fake AppServer transport",
+    "tests": 2,
+    "pass": 2,
+    "genuineModelTurns": 0
+  },
+  "logs": [
+    {
+      "name": "full-regression",
+      "logPath": "/tmp/inv-real-final-full-regression.log",
+      "sha256": "bc72f7bddf232fdd57d31202db1547406194e2fc684fd82e4c099efd916ca996",
+      "summary": [
+        "\u2139 tests 1869",
+        "\u2139 suites 2",
+        "\u2139 pass 1863",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 6",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 1235476.011458"
+      ]
+    },
+    {
+      "name": "browser",
+      "logPath": "/tmp/inv-real-final-browser.log",
+      "sha256": "2d270f5f1d45acfc7926f490d6ee52779d873e25c3c14bb45c9543a0a7106613",
+      "summary": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 4005.320459"
+      ]
+    },
+    {
+      "name": "receiver",
+      "logPath": "/tmp/inv-real-final-receiver.log",
+      "sha256": "9262c49bedac343509a6bd080123760cef25e6ce5cb830d3c766603637628325",
+      "summary": [
+        "\u2139 tests 5",
+        "\u2139 suites 0",
+        "\u2139 pass 5",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 7968.08425"
+      ]
+    },
+    {
+      "name": "typecheck",
+      "logPath": "/tmp/inv-real-final-typecheck.log",
+      "sha256": "c9ad9f06cc17d075d6a98daaa0f145cf4d7f7d6265ff9351025f1362e5393652",
+      "summary": []
+    },
+    {
+      "name": "contracts",
+      "logPath": "/tmp/inv-real-final-contracts.log",
+      "sha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5",
+      "summary": []
+    },
+    {
+      "name": "recovery-positive",
+      "logPath": "/tmp/inv-real-final-recovery-positive.log",
+      "sha256": "602b84131e3593bbb0248decdfa3294417fcf88984299be1d27032d54789f2c5",
+      "summary": [
+        "\u2139 tests 6",
+        "\u2139 suites 0",
+        "\u2139 pass 6",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 84641.4605"
+      ]
+    },
+    {
+      "name": "linux-adapter-markers",
+      "logPath": "/tmp/inv-real-linux-adapter-markers.log",
+      "sha256": "8b1230df78b1e03a4feefcf241a242aeacefe55366258eddc5005bc41f8803f2",
+      "summary": [
+        "\u2139 tests 2",
+        "\u2139 suites 0",
+        "\u2139 pass 2",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 5277.776205"
+      ]
+    },
+    {
+      "name": "linux-python-fixture",
+      "logPath": "/tmp/inv-real-linux-python-fixture.log",
+      "sha256": "fe0f397a793665271e71a4ceb8a08f33228c936ade4d2d879469cf743f493c89",
+      "summary": [
+        "\u2139 tests 1",
+        "\u2139 suites 0",
+        "\u2139 pass 1",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 14324.16805"
+      ]
+    },
+    {
+      "name": "linux-final-build",
+      "logPath": "/tmp/inv-real-linux-final-build.log",
+      "sha256": "5ce0a294b4334c94c35f9e0583d802730f05a5e84a7fc78748cd53f718127469",
+      "summary": []
+    }
+  ]
+}

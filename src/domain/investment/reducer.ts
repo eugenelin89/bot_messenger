@@ -8,10 +8,11 @@ const ZERO = '0.000000';
 const keys: Record<Command['type'], string[]> = {
   initialize:['type'], decision:['type','proposal'], review:['type','review'], observe:['type','observation'],
   submit:['type','decisionId','revision','orderIndex','expectedVersion','reviewId'], fill:['type','orderId'], cancel:['type','orderId'], expire:['type','orderId'],
-  control:['type','state'], action:['type','action'], dividend_payment:['type','actionId'], benchmark_open:['type','session'], value:['type','session','asOf'], revise_valuations:['type','correctionId'],
+  control:['type','state'], action:['type','action'], dividend_payment:['type','actionId'], benchmark_defer:['type','fromSession','toSession','sourceWindowAt'], benchmark_open:['type','session'], value:['type','session','asOf'], revise_valuations:['type','correctionId'],
 };
 export function initialState(c: Configuration): State {
-  return {version:'0',ledgerVersion:'0',hash:null,configurationHash:hash(c),economicAsOf:c.startsAt,lifecycle:'active',portfolio:emptyBook(),benchmark:emptyBook(),benchmarkNextOpen:nextSession(c,c.startsAt)!.date,benchmarkFunding:[{amount:c.initialCapital,session:nextSession(c,c.startsAt)!.date,used:false}],ordersUsed:0,
+  const initial=c.observedPolicy?.initialSession??nextSession(c,c.startsAt)!.date;
+  return {version:'0',ledgerVersion:'0',hash:null,configurationHash:hash(c),economicAsOf:c.startsAt,lifecycle:'active',portfolio:emptyBook(),benchmark:emptyBook(),benchmarkNextOpen:initial,benchmarkFunding:[{amount:c.initialCapital,session:initial,used:false}],ordersUsed:0,
     decisions:{},reviews:{},observations:[],orders:{},actions:[],entitlements:[],blocked:{},blockEvents:[],benchmarkExecutions:[],symbols:Object.fromEntries([...c.instruments,c.benchmark.instrument].map(i=>[i.id,[{symbol:i.symbol,effectiveAt:c.startsAt}]])),financialTimes:[],accountingHistory:[],payments:[],inventoryHistory:[],valuations:[],lastGood:null};
 }
 function running(c: Configuration, state: State, at: string): void {
@@ -33,11 +34,13 @@ function risk(c: Configuration, state: State, o: Order, at: string, executedPric
   const quantity = wholeShares(o.quantity), p = position(state.portfolio,o.instrumentId);
   const effective = executedPrice === undefined ? at : session(c.calendar,o.targetSession).open;
   const view = bookValue(c,state,state.portfolio,'portfolio',effective,at,executedPrice === undefined ? undefined : o.targetSession);
-  ensure(view.equity !== null, 'risk_marks_unavailable');
+  if(c.methodology!=='inv-real-open-v1')ensure(view.equity !== null, 'risk_marks_unavailable');
   if (o.side === 'BUY') {
+    ensure(view.equity !== null, 'risk_marks_unavailable');
     const cost = guardedCost(quantity,executedPrice ?? positive(o.priceGuard),nonnegative(c.commission));
     const ownReservation = o.status === 'pending' ? decimal(o.reservedCash) : 0n;
     ensure(decimal(state.portfolio.cash)-decimal(state.portfolio.reservedCash)+ownReservation >= cost, 'insufficient_cash');
+    if(c.observedPolicy) ensure((decimal(state.portfolio.cash)-decimal(state.portfolio.reservedCash)+ownReservation-cost)*10000n >= view.equity*BigInt(c.observedPolicy.minimumCashBps), 'minimum_cash_reserve');
     const assessment = concentration(c,state,effective,at,executedPrice === undefined ? undefined : o.targetSession,o.id,{instrumentId:o.instrumentId,notional:cost,equityLoss:nonnegative(c.commission)});
     ensure(assessment.reasons.length === 0, assessment.reasons[0] ?? 'risk_blocked');
   } else {
@@ -129,6 +132,12 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
         ensure(command.expectedVersion === state.ledgerVersion,'ledger_version_conflict');
         ensure(time(at) < time(o.deadline) && time(d.committedAt) < time(o.deadline),'commitment_cutoff');
         const r = state.reviews[command.reviewId]; ensure(r && r.decisionId === d.decisionId && r.revision === d.revision && r.proposalHash === d.hash && r.disposition === 'approve' && time(r.reviewedAt) < time(o.deadline),'review_required');
+        if(c.observedPolicy){
+          const prior=Object.values(state.orders).filter(x=>x.id!==o.id&&x.transitions.some(t=>t.status==='validated'));
+          const target=time(session(c.calendar,o.targetSession).open);
+          ensure(prior.filter(x=>x.targetSession===o.targetSession).length<c.observedPolicy.maxOrdersPerSession,'session_order_limit');
+          ensure(prior.filter(x=>{const t=time(session(c.calendar,x.targetSession).open);return t<=target&&t>target-7*86400000;}).length<c.observedPolicy.maxOrdersPerWeek,'weekly_order_limit');
+        }
         risk(c,state,o,at); transition(state,o,'validated',at,null);
         if (o.side === 'BUY') o.reservedCash = format(guardedCost(wholeShares(o.quantity),positive(o.priceGuard),nonnegative(c.commission)));
         else o.reservedShares = format(wholeShares(o.quantity));
@@ -218,6 +227,15 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
         }
       }
       break;
+    }
+    case 'benchmark_defer': {
+      ensure(c.methodology==='inv-real-open-v1'&&!!c.observedPolicy&&state.lifecycle!=='ended','observed_benchmark_deferral_only');
+      ensure(state.benchmarkExecutions.length===0&&state.benchmarkFunding.length===1&&!state.benchmarkFunding[0]!.used&&state.benchmarkNextOpen===command.fromSession&&state.benchmarkFunding[0]!.session===command.fromSession,'initial_benchmark_deferral_only');
+      const old=session(c.calendar,command.fromSession),future=session(c.calendar,command.toSession);
+      ensure(time(at)>time(old.open)+c.maxOpeningWaitSeconds*1000,'benchmark_opening_not_expired');
+      ensure(future.status==='open'&&command.toSession>command.fromSession&&time(command.sourceWindowAt)>time(at)&&time(command.sourceWindowAt)<=time(future.open)-c.cutoffMinutes*60000&&time(future.close)<time(c.endsAt),'benchmark_deferral_must_be_prospective');
+      state.benchmarkFunding[0]!.session=command.toSession;state.benchmarkNextOpen=command.toSession;
+      (state.benchmarkDeferrals??=[]).push({fromSession:command.fromSession,toSession:command.toSession,recordedAt:at});break;
     }
     case 'benchmark_open': {
       running(c,state,at); ensure(state.benchmarkNextOpen===command.session,'benchmark_not_due');

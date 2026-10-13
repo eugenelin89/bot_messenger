@@ -28,7 +28,8 @@ export type RuntimeInput = RuntimeInputFields & (
   { mode: 'task'; task: Task; execution: TaskExecution } |
   { mode: 'conversation'; request: ReplyRequest; execution: ConversationExecution; prepareBinding(binding: RuntimeBinding): void }
 );
-export interface RuntimeResult { investmentUsage?:InvestmentUsage; status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
+/** providerTurnCompleted is trusted adapter evidence of provider success, independent of local outcome. */
+export interface RuntimeResult { providerTurnCompleted?:boolean; investmentUsage?:InvestmentUsage; status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;

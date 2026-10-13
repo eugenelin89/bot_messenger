@@ -1,6 +1,14 @@
 # Simulation rules and market evidence
 
-**Version:** 1.2 | **Status:** INV-05 fixture methodology implemented; official owner configuration still required | [Guide](README.md)
+**Version:** 1.3 | **Status:** INV-05 preserved; INV-REAL-01 observed methodology implemented, acceptance and deployment in progress | [Guide](README.md)
+
+## Prospective observed-method amendment — INV-REAL-01
+
+[Decision047](../../decisions/decision_047_persistent_observed_paper_investment.md) defines `inv-real-open-v1` separately from synthetic-only `inv05-v1`. Default capital is US$100,000, eight liquid US equities plus SPY, 15% position/35% sector limits, 5% minimum cash, 10 basis points modeled slippage, zero commission and at most two orders per session/six per calendar week. The exact selected configuration is frozen at consent; finite operating epochs renew without resetting that book.
+
+Orders must be durably committed before the future session cutoff. After that session closes, the trusted direct-chart adapter must qualify the actual raw daily regular-session OPEN against original numeric fields, exchange identity, calendar and current regular-session timestamps. The accounting entry records that earlier market time separately from later observation and recording times. Historical bars remain research-only; no retrospective favorable price choice or fallback is allowed. Missing or uncertain observations hold/expire affected orders and produce incomplete valuation. Splits, unknown-pay-date dividend receivables and benchmark accounting retain their explicit semantics.
+
+The owner reports Yahoo confirmation covering the whole personal noncommercial research, simulation and website project and accepts permission responsibility. Earlier requests below to investigate Yahoo rights are superseded for this project. Continue enforcing zero data charges, bounded access, denial/backoff, integrity, provenance and point-in-time correctness. Raw responses stay transient; approved normalized evidence and original decisions are retained under the finite persistent policy. The [operating record](../../operations/INV-REAL-01.md) distinguishes fixture acceptance from real operation.
 
 ## 1. Scope and objective
 

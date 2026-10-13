@@ -9,7 +9,7 @@ export interface Loop {
  state:'draft'|'active'|'paused'|'blocked'|'stopped'|'finished';generation:number;
  reason:string|null;created_at:string;updated_at:string;
 }
-export type Stage='research'|'cutoff'|'open'|'expire'|'mark';
+export type Stage='research'|'cutoff'|'open'|'expire'|'mark'|'collect_research'|'collect_close';
 export interface Occurrence {
  occurrence_id:string;loop_id:string;plan_digest:string;plan_revision:number;session:string;stage:Stage;due_at:string;expires_at:string;
  state:'pending'|'running'|'complete'|'missed'|'cancelled'|'blocked';generation:number;

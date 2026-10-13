@@ -1,4 +1,5 @@
 import { requireUses } from '../../domain/market/validation.js';
+import { hash } from '../../domain/investment/identity.js';
 import { ensure } from '../../domain/investment/arithmetic.js';
 import { admitFixturePrice } from '../../domain/market/admission.js';
 import type { Command, Configuration } from '../../domain/investment/types.js';
@@ -12,7 +13,8 @@ export class MarketAdmission {
     const e=this.store.get<PriceEvidence>(evidenceId,'price'),p=this.store.get<SourcePolicy>(e.policyId,'policy'),c=this.store.get<CalendarEvidence>(e.calendarId,'calendar');
     ensure(!this.store.prices().some(other=>other.correctionOf===e.id),'superseded_market_evidence');
     ensure(!this.store.prices().some(other=>other.instrumentId===e.instrumentId&&other.session===e.session&&other.field===e.field&&other.quality==='conflicting_sources'),'unresolved_source_conflict');
-    return admitFixturePrice(e,p,c,configuration,at);
+    const proof=this.store.db.get<{price_hash:string}>('SELECT price_hash FROM observed_price_qualifications WHERE price_id=?',e.id);
+    return admitFixturePrice(e,p,c,configuration,at,proof?.price_hash===hash(e));
   }
 }
 
@@ -30,7 +32,7 @@ export class MarketFixtureSimulator {
       admission.observation(evidenceId,configuration,this.clock.now());
       const chain:PriceEvidence[]=[];let next:string|null=evidenceId;
       while(next){ensure(chain.length<1000,'correction_chain_limit');const e:PriceEvidence=this.store.get<PriceEvidence>(next,'price');chain.unshift(e);next=e.correctionOf;}
-      return chain.map(e=>this.simulator.execute(runId,{type:'observe',observation:admitFixturePrice(e,this.store.get<SourcePolicy>(e.policyId,'policy'),this.store.get<CalendarEvidence>(e.calendarId,'calendar'),configuration,this.clock.now()).observation},`market_${e.id}`));
+      return chain.map(e=>this.simulator.execute(runId,{type:'observe',observation:admitFixturePrice(e,this.store.get<SourcePolicy>(e.policyId,'policy'),this.store.get<CalendarEvidence>(e.calendarId,'calendar'),configuration,this.clock.now(),this.store.db.get<{price_hash:string}>('SELECT price_hash FROM observed_price_qualifications WHERE price_id=?',e.id)?.price_hash===hash(e)).observation},`market_${e.id}`));
     });
   }
   execute(runId:string,command:Exclude<Command,{type:'observe'}>,requestId:string){

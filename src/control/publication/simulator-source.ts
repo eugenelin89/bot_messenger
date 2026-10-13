@@ -31,10 +31,10 @@ export type ProjectionEmit=(type:Event['type'],payload:unknown,key:string,at:str
 export interface DecisionDerivative {rationale:string;alternatives:[string,...string[]];risks:[string,...string[]];invalidationCondition:string;reviewRationale:string;dissent:string[];evidence:RecordRef[];reviewEvidence:RecordRef[];sources:Source[];origin:Origin}
 /** Shared financial projection. Subclasses must prove the source of every narrative. */
 export abstract class SimulatorProjectionSource implements PublicationSource {
-  readonly mode='synthetic_fixture' as const;
+  get mode():PublicationSource['mode']{return 'synthetic_fixture';}
   readonly privateRunId:string;
   constructor(readonly id:string,readonly title:string,protected readonly db:Store,protected readonly clock:SimulationClock,protected readonly fixtureOperator:string,runId:string,protected readonly description:PublicationDescription,protected readonly readArtifact?:(id:string,version:number)=>Buffer){this.privateRunId=runId;}
-  protected abstract decisionDerivative(decision:Decision,review:Review,journal:Journal,ctx:ProjectionContext):DecisionDerivative;
+  protected abstract decisionDerivative(decision:Decision,review:Review,journal:Journal,ctx:ProjectionContext):DecisionDerivative|null;
   protected sourceEvidence():unknown{return null;}
   protected sourceLimitations(){return ['Invented synthetic fixture; no real employee deliberation or observed price is claimed.'];}
   protected rosterKind(){return 'fixture_roster';}
@@ -43,26 +43,32 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
   protected contentRights(material:Material){for(const content of material.contents){ensure(this.readArtifact&&hash({source:hashBytes(this.readArtifact(content.origin.id,Number(content.origin.version))),derivative:hashBytes(content.bytes)})===content.origin.hash,'publication_artifact_source_mismatch');}}
   get participants(){return Object.keys(this.description.workers);}
   private simulator(){return new FixtureSimulator(this.db,this.clock,this.fixtureOperator);}
-  private publicAudience(){ensure(!this.db.get('SELECT 1 FROM investment_private_runs WHERE run_id=?',this.privateRunId),'private_paper_publication_denied');const scope=this.db.get<{envelope:string}>('SELECT envelope FROM investment_team_scopes WHERE run_id=?',this.privateRunId);ensure(!scope||JSON.parse(scope.envelope).audience==='public_candidate','private_scope_publication_denied');}
+  protected publicAudience(){ensure(!this.db.get('SELECT 1 FROM investment_private_runs WHERE run_id=?',this.privateRunId),'private_paper_publication_denied');const scope=this.db.get<{envelope:string}>('SELECT envelope FROM investment_team_scopes WHERE run_id=?',this.privateRunId);ensure(!scope||JSON.parse(scope.envelope).audience==='public_candidate','private_scope_publication_denied');}
   checkRights(material:Material,at:string):void {
     this.publicAudience();
     const market=new MarketStore(this.db),sim=this.simulator(),c=sim.configuration(this.privateRunId),state=sim.inspect(this.privateRunId);
-    ensure(c.evidenceMode==='synthetic_fixture'&&material.events.every(x=>x.event.evidenceMode==='synthetic_fixture'),'publication_observed_gate_closed');
+    this.validateMode(c);ensure(material.events.every(x=>x.event.evidenceMode===this.mode),'publication_evidence_mode_mismatch');
     this.contentRights(material);
-    for(const o of state.observations){const e=market.get<PriceEvidence>(o.id,'price'),p=market.get<SourcePolicy>(e.policyId,'policy');ensure(p.id===c.marketPolicy.id&&e.mode==='synthetic_fixture','publication_source_policy');
+    for(const o of state.observations){const e=market.get<PriceEvidence>(o.id,'price'),p=market.get<SourcePolicy>(e.policyId,'policy');ensure(p.id===c.marketPolicy.id&&e.mode===c.evidenceMode,'publication_source_policy');
       evidenceRights(e,p,['automation','internal_calculation','retention','public_display','derived_portfolio','exports','permanent_archive',...(o.instrumentId===c.benchmark.instrument.id?['benchmark' as const]:[])],at);
     }
+    this.checkActions(c,state,at);
+  }
+  protected validateMode(c:Configuration){ensure(c.evidenceMode==='synthetic_fixture','publication_observed_gate_closed');}
+  protected checkActions(c:Configuration,state:State,at:string){const market=new MarketStore(this.db);
     for(const action of state.actions){const rows=this.db.all<{id:string}>("SELECT id FROM investment_market_records WHERE kind='action'");const e=rows.map(r=>market.get<ActionEvidence>(r.id,'action')).find(e=>e.action.id===action.id);ensure(e,'publication_action_evidence_missing');ensure(e.mode==='synthetic_fixture'&&e.policyId===c.marketPolicy.id&&hash(e.action)===hash(action),'publication_action_source_mismatch');evidenceRights(e,market.get<SourcePolicy>(e.policyId,'policy'),['automation','internal_calculation','retention','public_display','derived_portfolio','benchmark','exports','permanent_archive'],at);}
   }
+  protected benchmarkActionsInSnapshots(){return false;}
+  protected actionSource(action:import('../../domain/investment/types.js').CorporateAction){return this.description.actionSources[action.id];}
   project(ctx:ProjectionContext):Material {
     this.publicAudience();
     const sim=this.simulator(),c=sim.configuration(this.privateRunId),journals=sim.journal(this.privateRunId),d=this.description;
-    ensure(c.evidenceMode==='synthetic_fixture','publication_observed_gate_closed');
+    this.validateMode(c);
     const sourceHash=hash({evidence:this.sourceEvidence(),configuration:c,journals:journals.map(j=>j.hash),description:{...d,artifacts:d.artifacts.map(a=>({...a,bytes:a.bytes.toString('base64')}))}});
-    const material:Material={sourceHash,events:[],contents:[]},pub=(kind:string,key:string)=>ctx.identity(kind,key);
+    const mode=this.mode;const material:Material={sourceHash,events:[],contents:[]},pub=(kind:string,key:string)=>ctx.identity(kind,key);
     const origin=(kind:string,key:string,version:string,digest:string):Origin=>({kind,id:key,version,hash:digest});
     function emit(type:Event['type'],payload:unknown,key:string,at:string,source:Origin,actor:Actor={kind:'system'}) {
-      const event=validate<Event>('Event',{schemaVersion:'1.0',eventId:pub('event',key),experimentId:ctx.experimentId,runId:ctx.runId,sourceSequence:ctx.sequence(key),type,occurredAt:at,recordedAt:at,actor,publicationPolicyVersion:ctx.policyVersion,evidenceMode:'synthetic_fixture',references:[],payload});
+      const event=validate<Event>('Event',{schemaVersion:'1.0',eventId:pub('event',key),experimentId:ctx.experimentId,runId:ctx.runId,sourceSequence:ctx.sequence(key),type,occurredAt:at,recordedAt:at,actor,publicationPolicyVersion:ctx.policyVersion,evidenceMode:mode,references:[],payload});
       material.events.push({event,origin:source});return event;
     }
     const instrument=(i:Configuration['instruments'][number]):Instrument=>{
@@ -70,10 +76,10 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
     };
     const configuration:RunConfiguration=validate('RunConfiguration',{
       configurationVersion:pub('configuration',c.version),methodologyVersion:c.methodology,methodologyHash:hash({method:c.methodology,execution:c.execution,cutoff:c.cutoffMinutes,rounding:'half_even_6'}),universeVersion:pub('universe',c.universeVersion),universe:c.instruments.map(instrument),initialCapital:c.initialCapital,currency:c.currency,
-      benchmarkInstrument:instrument(c.benchmark.instrument),benchmarkConvention:c.benchmark.convention,calendarVersion:pub('calendar',c.calendar.version),calendarTimezone:c.calendar.timezone,marketProvider:c.marketPolicy.provider,feed:c.marketPolicy.feed,openingFieldDefinition:d.openingFieldDefinition,executionRule:c.execution,cutoffMinutes:c.cutoffMinutes,slippageBps:c.slippageBps,commission:c.commission,quantityRule:'whole_discretionary_six_decimal_actions',rounding:'half_even_6',costBasis:'weighted_average',longOnly:c.longOnly,leverage:c.leverage,cashConvention:'no_interest_no_tax_immediate_simulated_settlement',positionLimitBps:c.positionLimitBps,sectorLimitBps:c.sectorLimitBps,drawdownStopBps:c.drawdownAttentionBps,decisionCadence:'one_review_per_regular_session',officialSessions:c.calendar.sessions.filter(s=>s.status==='open').length,cycleExecutionBudget:d.cycleExecutionBudget,dailyExecutionBudget:d.dailyExecutionBudget,runExecutionBudget:d.runExecutionBudget,publicationPolicyVersion:ctx.policyVersion,publicationHeartbeatSeconds:d.heartbeatSeconds,publicationStaleSeconds:d.staleSeconds,maxOutboxAgeSeconds:d.maxOutboxAgeSeconds,maxOutboxBytes:d.maxOutboxBytes,dataDelaySeconds:d.dataDelaySeconds,attribution:d.attribution,rightsEvidence:d.rightsEvidence,configurationStatus:'synthetic_only',approvalRecordId:null,limitations:[...this.sourceLimitations(),...d.limitations],maxOpeningWaitSeconds:c.maxOpeningWaitSeconds,
+      benchmarkInstrument:instrument(c.benchmark.instrument),benchmarkConvention:c.benchmark.convention,calendarVersion:pub('calendar',c.calendar.version),calendarTimezone:c.calendar.timezone,marketProvider:c.marketPolicy.provider,feed:c.marketPolicy.feed,openingFieldDefinition:d.openingFieldDefinition,executionRule:c.execution,cutoffMinutes:c.cutoffMinutes,slippageBps:c.slippageBps,commission:c.commission,quantityRule:'whole_discretionary_six_decimal_actions',rounding:'half_even_6',costBasis:'weighted_average',longOnly:c.longOnly,leverage:c.leverage,cashConvention:'no_interest_no_tax_immediate_simulated_settlement',positionLimitBps:c.positionLimitBps,sectorLimitBps:c.sectorLimitBps,drawdownStopBps:c.drawdownAttentionBps,decisionCadence:'one_review_per_regular_session',officialSessions:c.calendar.sessions.filter(s=>s.status==='open').length,cycleExecutionBudget:d.cycleExecutionBudget,dailyExecutionBudget:d.dailyExecutionBudget,runExecutionBudget:d.runExecutionBudget,publicationPolicyVersion:ctx.policyVersion,publicationHeartbeatSeconds:d.heartbeatSeconds,publicationStaleSeconds:d.staleSeconds,maxOutboxAgeSeconds:d.maxOutboxAgeSeconds,maxOutboxBytes:d.maxOutboxBytes,dataDelaySeconds:d.dataDelaySeconds,attribution:d.attribution,rightsEvidence:d.rightsEvidence,configurationStatus:mode==='observed_paper'?'owner_approved':'synthetic_only',approvalRecordId:mode==='observed_paper'?pub('approval',c.runId):null,limitations:[...this.sourceLimitations(),...d.limitations],maxOpeningWaitSeconds:c.maxOpeningWaitSeconds,
     });
     const configHash=canonicalHash(configuration),configOrigin=origin('configuration',c.runId,c.version,hash(c));
-    emit('run.published',{title:d.title,purpose:d.purpose,objective:d.objective,runKind:'fixture',state:'configured',configuration,configurationHash:configHash,startsAt:c.startsAt,endsAt:c.endsAt,previousRunId:null},'run',c.startsAt,configOrigin);
+    emit('run.published',{title:d.title,purpose:d.purpose,objective:d.objective,runKind:mode==='observed_paper'?'official':'fixture',state:'configured',configuration,configurationHash:configHash,startsAt:c.startsAt,endsAt:c.endsAt,previousRunId:null},'run',c.startsAt,configOrigin);
     this.validateRoster(c);
     emit('team.published',{rosterVersion:pub('roster','fixture'),workers:Object.entries(d.workers).map(([privateId,description])=>({...description,workerId:pub('worker',privateId)}))},'team',c.startsAt,origin(this.rosterKind(),c.runId,'1',hash(d.workers)));
     this.extra(ctx,material,emit);
@@ -84,7 +90,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
     };
     let state=initialState(c),ledger:LedgerTransaction|null=null;const orderEvents=new Map<string,Event[]>(),decisionEvents=new Map<string,Extract<Event,{type:'decision.published'}>>(),publicFinancial:{privateVersion:bigint;transaction:LedgerTransaction}[]=[];
     const actionPayload=(actionId:string,kind:CorporateAction['kind'],atState:State):CorporateAction=>{
-      const a=atState.actions.find(a=>a.id===actionId);ensure(a,'publication_action_missing');const src=d.actionSources[actionId];ensure(src,'publication_action_source_missing');const entitlement=atState.entitlements.find(e=>e.actionId===a.id&&e.book==='portfolio');
+      const a=atState.actions.find(a=>a.id===actionId);ensure(a,'publication_action_missing');const src=this.actionSource(a);ensure(src,'publication_action_source_missing');const entitlement=atState.entitlements.find(e=>e.actionId===a.id&&e.book==='portfolio');
       return {actionId:pub('action',`${a.id}:${kind}`),providerActionId:pub('provider_action',a.providerActionId),instrumentId:pub('instrument',a.instrumentId),sourceVersion:pub('action_version',`${a.id}:${a.sourceVersion}`),kind,effectiveAt:kind==='dividend_payment'?a.paymentAt!:a.effectiveAt,exDate:a.kind==='dividend'?a.effectiveAt.slice(0,10):null,paymentDate:a.paymentAt?.slice(0,10)??null,numerator:a.numerator,denominator:a.denominator,cashPerShare:a.cashPerShare,entitledQuantity:entitlement?.quantity??null,fractionalEntitlement:entitlement?.fraction??null,newSymbol:a.newSymbol,source:{...src,sourceId:pub('source',src.sourceId)}};
     };
     const orderTransition=(o:Order,index:number,j:Journal)=>{
@@ -97,10 +103,11 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
       const before=state;try{state=reduce(c,state,j.command,j.recordedAt).state;}catch{ensure(j.outcome.status==='rejected','publication_replay_failed');state=structuredClone(before);}
       state.version=j.version;state.ledgerVersion=j.ledgerVersion;state.hash=j.hash;
       const jOrigin=origin('journal',j.transactionId,j.version,j.hash);
-      if(j.command.type==='control'&&j.outcome.status!=='rejected')emit('run.status',{state:j.command.state,reason:'Explicit synthetic simulator lifecycle control',effectiveAt:j.recordedAt,nextReviewAt:null},`control:${j.version}`,j.recordedAt,jOrigin);
+      if(j.command.type==='control'&&j.outcome.status!=='rejected')emit('run.status',{state:j.command.state,reason:mode==='observed_paper'?'Persistent paper portfolio lifecycle control':'Explicit synthetic simulator lifecycle control',effectiveAt:j.recordedAt,nextReviewAt:null},`control:${j.version}`,j.recordedAt,jOrigin);
+      if(j.command.type==='benchmark_defer'&&j.outcome.status==='accepted')emit('run.status',{state:state.lifecycle,reason:`Missed initial benchmark opening ${j.command.fromSession}; future allocation selected for ${j.command.toSession}. Comparator is cash then ${c.benchmark.instrument.symbol}, not full-period ${c.benchmark.instrument.symbol} buy-and-hold. Prior unavailable comparisons remain unchanged.`,effectiveAt:j.recordedAt,nextReviewAt:j.command.sourceWindowAt},`benchmark_defer:${j.version}`,j.recordedAt,jOrigin);
       if(j.command.type==='review'&&j.outcome.status!=='rejected'){
         const r=j.command.review,decision=state.decisions[`${r.decisionId}:${r.revision}`];ensure(decision,'publication_decision_missing');
-        const copy=this.decisionDerivative(decision,r,j,ctx);
+        const copy=this.decisionDerivative(decision,r,j,ctx);if(!copy)continue;
         ensure(decision.orders.length<=1,'publication_multi_order_derivative_required');const o=decision.orders[0];
         const proposal={decisionId:pub('decision',decision.decisionId),revision:decision.revision,action:decision.action,instrumentId:o?pub('instrument',o.instrumentId):null,quantity:o?.quantity??null,targetSession:o?.targetSession??null,priceGuard:o?.priceGuard??null,evidenceCutoff:decision.evidenceCutoff,committedAt:decision.committedAt,rationale:copy.rationale,alternatives:copy.alternatives,risks:copy.risks,invalidationCondition:copy.invalidationCondition,evidence:copy.evidence,sources:copy.sources};
         const proposalHash=canonicalHash(proposal);
@@ -124,7 +131,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
         ledger=validate<LedgerTransaction>('LedgerTransaction',{...unsigned,journalHash:canonicalHash(unsigned)});emit('paper.ledger_transaction',ledger,`ledger:${j.transactionId}`,j.recordedAt,jOrigin);publicFinancial.push({privateVersion:BigInt(j.ledgerVersion),transaction:ledger});
       }
       for(const o of Object.values(state.orders))for(let n=orderEvents.get(o.id)?.length??0;n<o.transitions.length;n++)orderTransition(o,n,j);
-      if(j.command.type==='action'&&j.outcome.status!=='rejected'){
+      if(j.command.type==='action'&&j.outcome.status!=='rejected'&&(!this.benchmarkActionsInSnapshots()||j.command.action.instrumentId!==c.benchmark.instrument.id)){
         const a=j.command.action;ensure(c.instruments.some(i=>i.id===a.instrumentId),'publication_benchmark_action_unsupported_v1');const kind=a.kind==='dividend'?'dividend_accrual':a.kind;const payload=actionPayload(a.id,kind,state);
         const actionEvent=emit('market.action',payload,`market_action:${a.id}`,j.recordedAt,jOrigin);
         if(a.kind==='ticker_change'){
@@ -162,7 +169,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
       holdings:v.holdings.map(h=>{const mark=h.value!==null&&h.markId?observation(h.markId):null;return {instrumentId:pub('instrument',h.instrumentId),symbol:h.symbol,sector:c.instruments.find(i=>i.id===h.instrumentId)!.sector,quantity:h.quantity,bookCost:h.basis,mark,marketValue:mark?h.value:null,unrealizedPnl:mark?format(decimal(h.value!)-decimal(h.basis)):null,missingReason:mark?null:'Unavailable or unsupported exact closing mark'};}),
       equity:complete?v.equity:null,realizedPnl:v.realized,unrealizedPnl:complete?v.unrealized:null,totalReturn:complete?v.totalReturn:null,dailyReturn:complete?v.dailyReturn:null,previousComparableEquity:complete&&v.dailyReturn!==null?comparable?.equity??null:null,peakEquity:complete?v.peak:null,drawdown:complete?v.drawdown:null,maxDrawdown:complete?v.maxDrawdown:null,
       benchmark:{instrumentId:pub('instrument',benchmarkId),convention:c.benchmark.convention,session:v.session,units:record.benchmark.positions[benchmarkId]?.quantity??'0.000000',cash:record.benchmark.cash,receivables:record.benchmark.receivables,mark:benchmarkMark,equity:benchmarkMark?v.benchmarkEquity:null,totalReturn:benchmarkMark?v.benchmarkReturn:null,missingReason:benchmarkMark?null:'Unavailable exact benchmark closing mark'},
-      excessReturn:complete&&v.totalReturn!==null&&v.benchmarkReturn!==null?format(decimal(v.totalReturn)-decimal(v.benchmarkReturn)):null,quality:complete?'complete':v.quality==='blocked'?'blocked':'partial',limitations:complete?[]:['Unavailable or unsupported matched portfolio/benchmark valuation'],
+      excessReturn:complete&&v.totalReturn!==null&&v.benchmarkReturn!==null?format(decimal(v.totalReturn)-decimal(v.benchmarkReturn)):null,quality:complete?'complete':v.quality==='blocked'?'blocked':'partial',limitations:[...(complete?[]:['Unavailable or unsupported matched portfolio/benchmark valuation']),...(state.benchmarkDeferrals??[]).filter(d=>time(d.recordedAt)<=time(v.recordedAt)).map(d=>`Benchmark recovery selected at ${d.recordedAt}: missed ${d.fromSession}, future allocation ${d.toSession}. Cash then ${c.benchmark.instrument.symbol}; not full-period ${c.benchmark.instrument.symbol} buy-and-hold.`)],
     });
   }
 }

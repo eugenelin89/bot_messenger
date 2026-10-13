@@ -48,7 +48,7 @@ export function normalizeFinancial(x: NormalizeFinancialInput): FinancialObserva
   ensure(hash(a.settings) === hash(yahooSettings), 'financial_adjustment_mismatch');
   ensure(a.currency === i.currency, 'financial_currency_mismatch');
   ensure(a.timezone === 'America/New_York', 'financial_timezone');
-  ensure((i.venue === 'XNAS' ? ['NMS','NGM','NCM','NASDAQ'] : ['NYQ','NYSE']).includes(a.exchange!), 'financial_venue_mismatch');
+  ensure((i.venue === 'XNAS' ? ['NMS','NGM','NCM','NASDAQ'] : i.venue === 'ARCX' ? ['PCX','NYSEArca','NYSE ARCA'] : ['NYQ','NYSE']).includes(a.exchange!), 'financial_venue_mismatch');
   time(x.retrievedAt); ensure(time(x.normalizedAt) >= time(x.retrievedAt), 'financial_clock_reversal');
   const records: FinancialRecord[] = [], issues: FinancialIssue[] = ['unknown_availability'];
   const missingSessions:string[]=[];

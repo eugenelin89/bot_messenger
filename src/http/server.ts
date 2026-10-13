@@ -62,6 +62,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if (path.startsWith('/api/research/operations/')) {json(200,company.research.inspect(decodeURIComponent(path.slice('/api/research/operations/'.length))));return;}
         if(path==='/api/mandates'){json(200,company.mandates.list());return;}
         if(path==='/api/usage'){const q=new URL(req.url!,expectedOrigin).searchParams;requireThat([...q.keys()].every(k=>['executionId','workerId','runId','cycleId'].includes(k)),'Unknown usage filter');json(200,company.aiUsage.report(Object.fromEntries(q)));return;}
+        if(path==='/api/investment-run/observed'){json(200,company.observedInvestment.inspect());return;}
         if(path==='/api/investment-run/research'){json(200,company.privateResearch.inspect());return;}
         if(path==='/api/investment-run'){json(200,company.investmentLoop.inspect());return;}
         if(path==='/api/investment-team'){json(200,company.investmentTeam.inspect());return;}
@@ -103,6 +104,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
           '/business.js': ['business.js', 'text/javascript; charset=utf-8'],
           '/investment-run': ['investment-run.html', 'text/html; charset=utf-8'],
           '/private-research.js': ['private-research.js', 'text/javascript; charset=utf-8'],
+          '/observed-investment.js': ['observed-investment.js', 'text/javascript; charset=utf-8'],
           '/investment-run.js': ['investment-run.js', 'text/javascript; charset=utf-8'],
           '/investment-team': ['investment-team.html', 'text/html; charset=utf-8'],
           '/investment-team.js': ['investment-team.js', 'text/javascript; charset=utf-8'],
@@ -148,6 +150,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       else if(path==='/api/investment-run/research/release-recovery'){json(200,await company.finiteHQ.releaseResearchRecovery(body));}
       else if(path==='/api/investment-run/research/collect'){json(200,await company.privateResearch.collect(body));}
       else if(path==='/api/investment-run/research/consent'){json(201,company.privateResearch.consent(body));}
+      else if(path==='/api/investment-run/observed/preview'){json(201,company.observedInvestment.preview(body));}
+      else if(path==='/api/investment-run/observed/consent'){json(201,company.observedInvestment.consent(body));}
       else if(path==='/api/investment-run/setup/preview'){json(201,company.investmentSetup.preview(body));}
       else if(path==='/api/investment-run/setup/consent'){json(201,company.investmentSetup.consent(body));}
       else if(path==='/api/investment-run/reload-attestation'){json(200,company.finiteHQ.ownerReload(body));company.changed();}

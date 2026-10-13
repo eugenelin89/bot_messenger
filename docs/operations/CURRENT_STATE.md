@@ -1,5 +1,8 @@
 # BotSquad — Current State
 
+**INV-REAL-01,2026-10-13 (source in progress):** The owner-authorized persistent real-market paper system now has a distinct observed method, renewable finite employee authority, standing public summaries and owner portfolio controls on the implementation branch. Yahoo confirmation is owner-reported; no further licensing gate applies. This update is not a deployment claim. See [Decision047](../decisions/decision_047_persistent_observed_paper_investment.md) and [operation/morning handoff](INV-REAL-01.md) for exact live status and remaining validation.
+
+
 **Status:** Prompts 01–11 and WE-01 complete; Prompt 11 bounded supervised; Personal Operator stabilization is current priority
 **Updated:** 2026-10-08
 

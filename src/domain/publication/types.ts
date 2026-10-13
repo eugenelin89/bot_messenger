@@ -15,7 +15,7 @@ export interface ProjectionContext {
 }
 /** Implemented by trusted source readers, never by a worker HTTP request. */
 export interface PublicationSource {
-  id: string; title: string; mode: 'synthetic_fixture'; participants: string[]; privateRunId?: string;
+  id: string; title: string; mode: 'synthetic_fixture'|'observed_paper'; standingSummaries?:true; participants: string[]; privateRunId?: string;
   project(context: ProjectionContext): Material;
   checkRights(material: Material, at: string): void;
 }
@@ -25,7 +25,7 @@ export interface Destination {
 }
 export interface Envelope {
   sourceId: string; destinationId: string; audience: 'public';
-  futureFinancial:boolean; participants: string[]; eventTypes: Event['type'][]; contentTypes: ContentType[];
+  futureFinancial:boolean; futureSummaries?:boolean; participants: string[]; eventTypes: Event['type'][]; contentTypes: ContentType[];
   expiresAt: string; maxAttempts: number; maxBytes: number; maxQueueBytes: number;
   maxAgeSeconds: number; writesPerMinute: number;
 }

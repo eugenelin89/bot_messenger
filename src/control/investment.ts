@@ -16,12 +16,12 @@ interface RunRow { run_id: string; configuration: string; configuration_hash: st
 interface JournalRow { version: number; transaction_id: string; operation_id: string; request_hash: string; previous_hash: string | null; journal_hash: string; recorded_at: string; payload: string }
 interface OutboxRow { event_id: string; dependency_event_id: string | null; state: string; projection: string; projection_hash: string }
 export interface DisabledProjection {
-  format: 'inv05-private-projection-v1'; evidenceMode: 'synthetic_fixture'; runId: string; configurationHash: string;
+  format: 'inv05-private-projection-v1'; evidenceMode: Configuration['evidenceMode']; runId: string; configurationHash: string;
   journalVersion: string; journalHash: string; ledgerVersion: string; transactionId: string;
   entries: Journal['entries']; outcome: Journal['outcome'];
 }
-function projection(j: Journal): DisabledProjection {
-  return {format:'inv05-private-projection-v1',evidenceMode:'synthetic_fixture',runId:j.runId,configurationHash:j.configurationHash,journalVersion:j.version,journalHash:j.hash,ledgerVersion:j.ledgerVersion,transactionId:j.transactionId,entries:j.entries,outcome:j.outcome};
+function projection(j: Journal, c: Configuration): DisabledProjection {
+  return {format:'inv05-private-projection-v1',evidenceMode:c.evidenceMode,runId:j.runId,configurationHash:j.configurationHash,journalVersion:j.version,journalHash:j.hash,ledgerVersion:j.ledgerVersion,transactionId:j.transactionId,entries:j.entries,outcome:j.outcome};
 }
 function operation(c: Configuration, command: Command, requestId: string): string {
   switch(command.type) {
@@ -55,7 +55,7 @@ export class FixtureSimulator {
   constructor(private readonly store: Store, private readonly clock: SimulationClock, private readonly fixtureOperator: string,
     private readonly fault?: (phase: 'before_commit' | 'after_commit') => void) {
     id(fixtureOperator);
-    ensure([21,22,23,24].includes(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n??0),'incompatible_schema');
+    ensure([21,22,23,24,25].includes(store.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n??0),'incompatible_schema');
     ensure(store.get<{integrity_check:string}>('PRAGMA integrity_check')?.integrity_check==='ok','database_corrupt');
     ensure(store.all('PRAGMA foreign_key_check').length===0,'missing_reference');
   }
@@ -67,7 +67,7 @@ export class FixtureSimulator {
       const prior=this.store.get<RunRow>('SELECT * FROM investment_runs WHERE run_id=?',c.runId);
       if(prior) { ensure(prior.configuration_hash===hash(c),'frozen_configuration_conflict'); return this.executeInside(c.runId,{type:'initialize'},'initialization'); }
       ensure(time(at)===time(c.startsAt),'invalid_initialization_time');
-      this.store.run('INSERT INTO investment_runs(run_id,configuration,configuration_hash,evidence_mode,created_at) VALUES (?,?,?,?,?)',c.runId,canonical(c),hash(c),'synthetic_fixture',at);
+      this.store.run('INSERT INTO investment_runs(run_id,configuration,configuration_hash,evidence_mode,created_at) VALUES (?,?,?,?,?)',c.runId,canonical(c),hash(c),c.evidenceMode,at);
       return this.executeInside(c.runId,{type:'initialize'},'initialization');
     });
     this.fault?.('after_commit'); return result;
@@ -84,7 +84,7 @@ export class FixtureSimulator {
   private replay(runId: string): {configuration:Configuration;state:State;row:RunRow} {
     const row=this.store.get<RunRow>('SELECT * FROM investment_runs WHERE run_id=?',runId); ensure(row,'missing_run');
     const configuration=JSON.parse(row.configuration) as Configuration; validateConfiguration(configuration);
-    ensure(configuration.runId===runId && hash(configuration)===row.configuration_hash && row.evidence_mode==='synthetic_fixture','configuration_corrupt');
+    ensure(configuration.runId===runId && hash(configuration)===row.configuration_hash && row.evidence_mode===configuration.evidenceMode,'configuration_corrupt');
     ensure(configuration.authorization.fixtureOperator===this.fixtureOperator,'fixture_operator_required');
     let state=initialState(configuration),lastTime=time(row.created_at);
     const rows=this.store.all<JournalRow>('SELECT * FROM investment_journal WHERE run_id=? ORDER BY version',runId);
@@ -101,7 +101,7 @@ export class FixtureSimulator {
       result.state.version=j.version; result.state.ledgerVersion=String(BigInt(state.ledgerVersion)+(j.entries.length ? 1n : 0n));
       ensure(j.ledgerVersion===result.state.ledgerVersion && checkpoint(result.state)===j.checkpointHash,'checkpoint_mismatch');
       state=result.state; state.hash=journalHash;
-      const o=this.store.get<OutboxRow>('SELECT * FROM investment_outbox WHERE run_id=? AND journal_version=?',runId,r.version),p=projection(j);
+      const o=this.store.get<OutboxRow>('SELECT * FROM investment_outbox WHERE run_id=? AND journal_version=?',runId,r.version),p=projection(j,configuration);
       ensure(o && o.state==='disabled' && o.event_id===identity('event',runId,j.version) && o.dependency_event_id===(r.version===1?null:identity('event',runId,String(r.version-1))) && o.projection===canonical(p) && o.projection_hash===hash(p),'outbox_mismatch');
       const original=this.store.get<{journal_version:number}>('SELECT journal_version FROM investment_receipts WHERE run_id=? AND request_id=?',runId,j.originalRequestId);
       ensure(original?.journal_version===r.version,'receipt_identity_mismatch');
@@ -131,7 +131,7 @@ export class FixtureSimulator {
     const economicAt=result.outcome.status==='rejected'?at:command.type==='dividend_payment'?before.actions.find(a=>a.id===command.actionId)?.paymentAt ?? at:effective(command,at);
     const body={transactionId:identity('transaction',runId,op),runId,version,previousHash:before.hash,configurationHash:hash(c),ledgerVersion:result.state.ledgerVersion,previousLedgerVersion:before.ledgerVersion,
       operationId:op,originalRequestId:requestId,requestHash,eventAt:economicAt,effectiveAt:result.outcome.status==='rejected'?at:result.outcome.fills[0]?.effectiveAt ?? economicAt,recordedAt:at,command,entries:result.entries,outcome:result.outcome,checkpointHash:checkpoint(result.state)};
-    const j:Journal={...body,hash:hash(body)},p=projection(j);
+    const j:Journal={...body,hash:hash(body)},p=projection(j,c);
     this.store.run('INSERT INTO investment_journal VALUES (?,?,?,?,?,?,?,?,?)',runId,Number(version),j.transactionId,op,requestHash,before.hash,j.hash,at,canonical(j));
     this.store.run('INSERT INTO investment_outbox VALUES (?,?,?,?,?,?,?)',runId,Number(version),identity('event',runId,version),before.version==='0'?null:identity('event',runId,before.version),'disabled',canonical(p),hash(p));
     this.store.run('INSERT INTO investment_receipts VALUES (?,?,?,?)',runId,requestId,requestHash,Number(version));

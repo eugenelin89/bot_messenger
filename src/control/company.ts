@@ -1,3 +1,4 @@
+import {ObservedInvestment} from './investment-team/observed-investment.js';
 import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
 import { FiniteHQ } from './usage/finite-hq.js';
@@ -68,6 +69,7 @@ export class Company extends EventEmitter {
   readonly creditPilot: CreditPilot;
   readonly finiteHQ: FiniteHQ;
   readonly investmentSetup: InvestmentSetup;
+  readonly observedInvestment: ObservedInvestment;
   readonly privateResearch: PrivateResearch;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
@@ -95,6 +97,7 @@ export class Company extends EventEmitter {
     this.creditPilot = new CreditPilot(this);
     this.finiteHQ = new FiniteHQ(this);
     this.investmentSetup = new InvestmentSetup(this);
+    this.observedInvestment = new ObservedInvestment(this);
     this.privateResearch = new PrivateResearch(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
@@ -354,7 +357,7 @@ export class Company extends EventEmitter {
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
       const providerSettled=this.finiteHQ.reservation(executionId)?outcome.settled===true:!!outcome.settled||outcome.status==='completed';
       if(providerSettled)this.store.run('UPDATE execution_runtime_attempts SET unresolved=0 WHERE execution_id=?',executionId);
-      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,providerSettled);this.investmentLoop.settle(executionId,outcome.investmentUsage);this.investmentActivity.finish(executionId,this.execution(executionId).status,providerSettled);return; }
+      if (execution.origin === 'conversation') { this.conversations.finish(execution, outcome); this.aiUsage.finish(executionId,this.execution(executionId).status,providerSettled,executionId,outcome.status==='completed'||outcome.providerTurnCompleted===true);this.investmentLoop.settle(executionId,outcome.investmentUsage);this.investmentActivity.finish(executionId,this.execution(executionId).status,providerSettled);return; }
       const task = this.task(execution.task_id); const worker = this.worker(execution.worker_id);
       const computerSettlement=this.computers.settled(task,outcome.status);
       if(task.kind==='computer'&&outcome.status==='completed'&&computerSettlement!=='completed')outcome={...outcome,status:computerSettlement==='awaiting_approval'?'awaiting_approval':'failed',error:computerSettlement==='awaiting_approval'?'Exact protected browser action awaits owner approval':'Bounded browser session did not complete safely'};

@@ -33,6 +33,7 @@ export function removeEmptyTeamMigration(store:Store){
 }
 /** Fixture-only inverse of v24; no research content may exist. Restores the v23 FK target. */
 export function removeEmptyResearchMigration(db:import('node:sqlite').DatabaseSync){
+ removeEmptyObservedMigration(db);
  db.exec('PRAGMA foreign_keys=OFF');
  const triggers=db.prepare("SELECT name,sql FROM sqlite_master WHERE type='trigger'").all() as {name:string;sql:string}[];
  for(const t of triggers)db.exec(`DROP TRIGGER "${t.name}"`);
@@ -46,4 +47,10 @@ export function removeEmptyResearchMigration(db:import('node:sqlite').DatabaseSy
  db.exec('DROP TABLE investment_run_identities;DELETE FROM schema_migrations WHERE version=24');
  for(const t of triggers){if(t.name.startsWith('private_research_')||t.name.startsWith('investment_run_identity'))continue;let sql=t.sql;if(sql.includes('research_retention_active')){const begin=sql.indexOf('BEGIN'),head=sql.slice(0,begin),when=head.indexOf(' WHEN '),old=head.slice(when+6).match(/^([\s\S]*) AND\s+NOT \(research_retention_active/);sql=head.slice(0,when)+(old?' WHEN '+old[1]:'')+' BEGIN '+sql.slice(begin+5);}db.exec(sql);}
  db.exec('PRAGMA foreign_keys=ON');assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);
+}
+
+/** Inert fixture downgrade only; never removes populated observed books. */
+export function removeEmptyObservedMigration(db:import('node:sqlite').DatabaseSync){
+ for(const {name} of db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'observed_%' ORDER BY rowid DESC").all() as {name:string}[]){assert.equal(db.prepare('SELECT count(*) n FROM '+name).get()!.n,0);db.exec('DROP TABLE '+name);}
+ db.exec('DROP INDEX IF EXISTS investment_single_live_scope;DELETE FROM schema_migrations WHERE version=25');
 }

@@ -1,3 +1,4 @@
+import {observedPublicationOptions} from './control/publication/observed-config.js';
 import { fileURLToPath } from 'node:url';
 import { join, resolve } from 'node:path';
 import { Store } from './persistence/store.js';
@@ -15,7 +16,7 @@ const port = Number(process.env.PORT ?? 4310);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invalid PORT');
 const unlock = acquireDataLock(dataDir);
 const store = new Store(join(dataDir, 'company.sqlite'));
-const company = new Company(store, dataDir, projectRoot);
+const company = new Company(store, dataDir, projectRoot,'codex-app-server',undefined,undefined,process.env.BOTSQUAD_OBSERVED_PUBLICATION?observedPublicationOptions(store,process.env.BOTSQUAD_OBSERVED_PUBLICATION):undefined);
 if(process.env.BOTSQUAD_BUSINESS_CONFIG) company.business.adapter=new GithubMarkdownAdapter(process.env.BOTSQUAD_BUSINESS_CONFIG);
 company.finiteHQ.discover();
 const finiteHQ=process.env.BOTSQUAD_FINITE_HQ_AUTHORITY?company.finiteHQ.loadRuntime(process.env.BOTSQUAD_FINITE_HQ_AUTHORITY):undefined;

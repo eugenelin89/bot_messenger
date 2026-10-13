@@ -4,7 +4,8 @@ export interface Instrument { id: string; symbol: string; venue: string; currenc
 export interface Session { date: string; open: string; close: string; status: 'open' | 'closed'; earlyClose: boolean }
 export interface Calendar { version: string; timezone: 'America/New_York'; sessions: Session[]; holidays: string[] }
 export interface Configuration {
-  runId: string; version: string; methodology: 'inv05-v1'; evidenceMode: 'synthetic_fixture';
+  runId: string; version: string; methodology: 'inv05-v1' | 'inv-real-open-v1'; evidenceMode: 'synthetic_fixture' | 'observed';
+  observedPolicy?: { initialSession: string; minimumCashBps: number; maxOrdersPerSession: number; maxOrdersPerWeek: number; basis: 'same_session_unadjusted_chart'; };
   initialCapital: Decimal; currency: 'USD'; universeVersion: string; instruments: Instrument[];
   allowedDirections: ['BUY', 'SELL']; longOnly: true; leverage: false;
   positionLimitBps: number; sectorLimitBps: number; drawdownAttentionBps: number;
@@ -69,6 +70,7 @@ export interface State {
   decisions: Record<string, Decision>; reviews: Record<string, Review>; observations: Observation[];
   orders: Record<string, Order>; actions: CorporateAction[]; entitlements: Entitlement[]; blocked: Record<string, string>;
   blockEvents: { instrumentId: string; reason: string; effectiveAt: string }[];
+  benchmarkDeferrals?: { fromSession: string; toSession: string; recordedAt: string }[];
   benchmarkExecutions: { session: string; effectiveAt: string }[];
   symbols: Record<string, { symbol: string; effectiveAt: string }[]>;
   inventoryHistory: { at: string; book: 'portfolio' | 'benchmark'; instrumentId: string; quantity: Decimal }[];
@@ -89,6 +91,7 @@ export type Command =
   | { type: 'control'; state: 'active' | 'paused' | 'ended' }
   | { type: 'action'; action: CorporateAction }
   | { type: 'dividend_payment'; actionId: string }
+  | { type: 'benchmark_defer'; fromSession: string; toSession: string; sourceWindowAt: string }
   | { type: 'benchmark_open'; session: string }
   | { type: 'value'; session: string; asOf: string }
   | { type: 'revise_valuations'; correctionId: string };

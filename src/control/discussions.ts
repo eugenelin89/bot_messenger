@@ -193,7 +193,7 @@ export class Discussions {
       if(!incompleteFinal&&this.members(g).some(w=>this.company.providerUnresolved(w.worker_id))){this.block(g,'A participant has an unresolved worker/broker outcome');return;}
       if(!pending.length||pending.some(t=>t.status==='queued'||t.status==='replying'))return;
       if(pending.some(t=>t.status!=='completed'||!t.output)){this.block(g,'A scheduled turn did not commit a contribution. Inspect its execution; no automatic retry.');return;}
-      const last=pending.at(-1)!;const output=JSON.parse(last.output!) as Record<string,unknown>;
+      const observedScope=this.company.investmentTeam.forGroup(g.group_id),finiteObserved=!!observedScope&&this.company.observedInvestment.isRun(observedScope.run_id)&&!!this.company.finiteHQ.policy(observedScope.scope_id);const last=pending.at(-1)!;const output=JSON.parse(last.output!) as Record<string,unknown>;
       this.db.db.exec('SAVEPOINT discussion_progress');
       try{
         for(const t of pending)this.db.run('UPDATE discussion_turns SET advanced=1 WHERE turn_id=?',t.turn_id);
@@ -209,10 +209,10 @@ export class Discussions {
           const reviewer=this.company.investmentLoop.synthesisReviewer(g)??this.members(g).filter(w=>w.worker_id!==g.synthesizer_id).sort((a,b)=>Number(b.role==='reviewer')-Number(a.role==='reviewer'))[0];
           requireThat(reviewer,'No separate synthesis reviewer');this.enqueue(g,reviewer.worker_id,'review','Inspect the draft synthesis for a material omission or misrepresentation. Cite original contributions/evidence. State any unresolved dissent; do not impersonate absent approvals. One review only.');
         }else if(last.kind==='review')this.enqueue(g,g.synthesizer_id,'finalize','Finalize the synthesis after its bounded review. Address material omissions, owner constraints and unresolved concerns; retain genuine disagreement and source limitations.');
-        else if(last.kind==='facilitate'&&output.action==='discuss'&&this.company.investmentLoop.canDiscuss(g,output.turns as {worker_id:string}[])&&g.round<g.round_limit&&g.turns_used+3<g.turn_limit-L.reservedTurns){
+        else if(last.kind==='facilitate'&&output.action==='discuss'&&this.company.investmentLoop.canDiscuss(g,output.turns as {worker_id:string}[])&&(finiteObserved||g.round<g.round_limit&&g.turns_used+3<g.turn_limit-L.reservedTurns)){
           this.db.run('UPDATE working_groups SET round=round+1 WHERE group_id=?',g.group_id);
           for(const raw of output.turns as unknown[]){const a=raw as {worker_id:string;prompt:string;contribution_ids:string[];evidence_ids:string[]};this.enqueue(this.group(g.group_id),a.worker_id,'response',a.prompt,a.contribution_ids,a.evidence_ids);}
-        }else if(last.kind==='facilitate'||g.turns_used>=g.turn_limit-L.reservedTurns-1||g.round>=g.round_limit){
+        }else if(last.kind==='facilitate'||!finiteObserved&&(g.turns_used>=g.turn_limit-L.reservedTurns-1||g.round>=g.round_limit)){
           if(this.company.investmentLoop.waitBetweenCycles(g)){this.db.db.exec('RELEASE discussion_progress');return;}
           this.enqueue(g,g.synthesizer_id,'synthesis','Prepare a structured draft synthesis. Compare alternatives, cite supporting contributions and shared evidence, answer owner constraints, preserve dissent/risks and distinguish recommendation from owner decision or assignment.');
         }else this.enqueue(g,g.facilitator_id,'facilitate','Choose the material issue to clarify, one or two eligible speakers to address earlier contributions, or explain why evidence is sufficient for synthesis. Research only if worthwhile and permitted; do not wait on peers.');

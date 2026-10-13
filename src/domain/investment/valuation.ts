@@ -103,8 +103,8 @@ export function historicalState(c: Configuration, state: State, old: ValuationRe
   }
   result.entitlements=state.entitlements.filter(e=>{const a=state.actions.find(a=>a.id===e.actionId);return a && time(a.effectiveAt)<=asOf;}).map(e=>({...e,paid:state.payments.some(p=>p.actionId===e.actionId && time(p.effectiveAt)<=asOf)}));
   result.blocked=Object.fromEntries(state.blockEvents.filter(e=>time(e.effectiveAt)<=asOf).map(e=>[e.instrumentId,e.reason]));
-  const first=nextSession(c,c.startsAt)!;
-  const funding=[{at:c.startsAt,session:first.date},...result.entitlements.filter(e=>e.book==='benchmark' && e.paid && decimal(e.amount)>0n).map(e=>({at:e.paymentAt!,session:c.calendar.sessions.find(s=>s.status==='open' && time(s.open)>time(e.paymentAt!))?.date ?? null}))];
+  const first=(state.benchmarkDeferrals??[]).filter(d=>time(d.recordedAt)<=asOf).at(-1)?.toSession??c.observedPolicy?.initialSession??nextSession(c,c.startsAt)!.date;
+  const funding=[{at:c.startsAt,session:first},...result.entitlements.filter(e=>e.book==='benchmark' && e.paid && decimal(e.amount)>0n).map(e=>({at:e.paymentAt!,session:c.calendar.sessions.find(s=>s.status==='open' && time(s.open)>time(e.paymentAt!))?.date ?? null}))];
   result.benchmarkNextOpen=funding.filter(f=>f.session && time(sessionFor(c.calendar,f.session).open)<=asOf && !state.benchmarkExecutions.some(t=>t.session===f.session && time(t.effectiveAt)<=asOf)).map(f=>f.session!).sort()[0] ?? null;
   return result;
 }

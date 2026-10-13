@@ -77,3 +77,6 @@
 #research-review > label { padding:12px; border:1px solid #dce2df; border-radius:8px; }
 #research-review > label input { margin-right:8px; }
 @media(max-width:600px) { #research-employees, #research-limits { grid-template-columns:1fr; } }
+
+/* Owner portfolio columns scroll locally instead of breaking financial values. */
+.observed-table-scroll{max-width:100%;overflow-x:auto;margin:12px 0}.observed-table-scroll table{min-width:300px;width:100%;overflow-wrap:normal}.observed-table-scroll th,.observed-table-scroll td{white-space:nowrap}.observed-table-scroll td:first-child{white-space:normal;min-width:85px}#observed-investment summary,#other-investment-setup>summary{cursor:pointer;font-weight:600;padding:12px 0}#observed-investment textarea{width:100%;min-height:90px;box-sizing:border-box}#observed-investment form{padding-top:12px}

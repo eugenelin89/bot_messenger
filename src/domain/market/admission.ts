@@ -9,10 +9,10 @@ import { immutableIdentity, requireUses, sourceReference } from './validation.js
 export function evidenceRights(e:Pick<PriceEvidence,'policyId'|'policyHash'|'rights'>,p:SourcePolicy,uses:DataUse[],at:string):void {
   ensure(e.policyId===p.id&&e.policyHash===hash(p)&&hash(e.rights)===hash(p.rights),'source_policy_mismatch');requireUses(p,uses,at);
 }
-export function admitFixturePrice(e:PriceEvidence,p:SourcePolicy,c:CalendarEvidence,configuration:Configuration,at:string):SimulatorAdmission {
+export function admitFixturePrice(e:PriceEvidence,p:SourcePolicy,c:CalendarEvidence,configuration:Configuration,at:string,observedQualified=false):SimulatorAdmission {
   evidenceRights(e,p,['automation','internal_calculation','retention'],at);
   ensure(p.id===configuration.marketPolicy.id,'frozen_source_policy_mismatch');
-  ensure(e.mode==='synthetic_fixture'&&p.mode==='synthetic_fixture'&&configuration.evidenceMode==='synthetic_fixture','evidence_mode_mismatch');
+  ensure(configuration.methodology==='inv-real-open-v1' ? observedQualified&&e.mode===p.mode&&e.mode===configuration.evidenceMode : e.mode==='synthetic_fixture'&&p.mode==='synthetic_fixture'&&configuration.evidenceMode==='synthetic_fixture','evidence_mode_mismatch');
   ensure(['verified','corrected'].includes(e.quality)&&e.conflictsWith.length===0&&e.value!==null&&e.marketAt!==null,'market_evidence_not_verified');
   ensure(e.adjustment==='raw'&&e.calendarId===c.id&&e.calendarVersion===configuration.calendar.version&&e.calendarVersion===c.calendar.version,'market_policy_mismatch');
   ensure(e.knownAt===(e.sourceAvailableAt??e.retrievedAt),'market_knowledge_mismatch');
