@@ -5,6 +5,7 @@ import { normalizeFinancial } from '../../domain/market/financial-normalize.js';
 import { bytesHash, immutableIdentity, requireUses, symbolAt } from '../../domain/market/validation.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
 import { acceptedCookie404 } from '../../domain/market/yahoo-bootstrap.js';
+import { validYahooRetryAfter } from '../../domain/market/yahoo-retry.js';
 import type { CalendarEvidence, InstrumentIdentity, SourcePolicy } from '../../domain/market/types.js';
 import type { SimulationClock } from '../investment.js';
 import { FinancialStore } from './financial-store.js';
@@ -14,6 +15,7 @@ const errorCode=(error:unknown)=>error instanceof SimulationError?error.code:err
 const classTtl={ohlcv:86400000,actions:86400000,fundamentals:86400000,statement:7*86400000};
 export function retryInstant(value:string|null,at:string):string {
   if(value===null)return new Date(time(at)+60000).toISOString();
+  ensure(validYahooRetryAfter(value),'yahoo_invalid_retry_after');
   let n:number;
   if(/^\d+$/.test(value)) { const seconds=Number(value); ensure(Number.isSafeInteger(seconds)&&seconds<=315360000,'yahoo_invalid_retry_after');n=time(at)+seconds*1000; }
   else {n=Date.parse(value);ensure(Number.isFinite(n),'yahoo_invalid_retry_after');}
@@ -123,11 +125,20 @@ export class FinancialDataGateway {
           const bytes=Buffer.byteLength(response.body);transportBytes+=bytes;
           // No legacy observed authority can acquire the offline compatibility exception.
           const cookie404=(scope.mode==='synthetic_fixture'||isBootstrapHistoryFixture(this.store.probe))&&this.transport.kind==='authored_yahoo_fixture'&&acceptedCookie404(query,response);
+          const responseBackoff=()=>{
+            try{return retryInstant(response.retryAfter,this.clock.now());}
+            catch(error){
+              if(!response.bootstrapRejected)throw error;
+              // A complete rejected bootstrap remains known even with invalid retry metadata.
+              // Fence the remaining scope; never guess a shorter provider delay or retry it.
+              return scope.expiresAt;
+            }
+          };
           let reason='response';let backoff:string|null=null;
-          if(response.status===429){reason='yahoo_rate_limited';backoff=retryInstant(response.retryAfter,this.clock.now());}
+          if(response.status===429){reason='yahoo_rate_limited';backoff=responseBackoff();}
           else if(response.status===403){reason='yahoo_access_blocked';backoff=scope.expiresAt;}
           else if(cookie404){reason='yahoo_cookie_bootstrap_404';}
-          else if([502,503,504].includes(response.status)){reason='yahoo_transient';if(response.retryAfter!==null)backoff=retryInstant(response.retryAfter,this.clock.now());else if(retry>=scope.maxRetries)backoff=new Date(time(this.clock.now())+60000).toISOString();}
+          else if([502,503,504].includes(response.status)){reason='yahoo_transient';if(response.retryAfter!==null)backoff=responseBackoff();else if(retry>=scope.maxRetries)backoff=new Date(time(this.clock.now())+60000).toISOString();}
           else if(response.status>=300){reason='yahoo_http_or_redirect_denied';backoff=new Date(time(this.clock.now())+60000).toISOString();}
           if(response.bootstrapRejected&&![403,429].includes(response.status))reason='yahoo_bootstrap_rejected';
           this.store.db.run('INSERT INTO financial_attempt_results VALUES (?,?,?,?,?,?,?)',attemptId,response.status,bytes,bytesHash(response.body),reason,this.clock.now(),backoff);

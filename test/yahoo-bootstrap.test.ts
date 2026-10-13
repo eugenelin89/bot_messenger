@@ -5,6 +5,7 @@ import { PassThrough } from 'node:stream';
 import { performance } from 'node:perf_hooks';
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import type { ClientRequest, IncomingMessage } from 'node:http';
 import type { RequestOptions } from 'node:https';
 import { request as httpsRequest } from 'node:https';
@@ -209,4 +210,23 @@ for(const status of [403,429,404,503])test(`HTTP${status} with barrier headers p
 test('accepted404 bytes consume aggregate capacity before any second attempt',async t=>{
  const f=setup(t,undefined,false,262144),result=await f.collect();assert.equal(result.reason,'financial_byte_limit');assert.equal(f.queries.length,1);assert.equal(f.dns,1);
  assert.deepEqual(f.db.all<{status:number;bytes:number}>('SELECT status,bytes FROM financial_attempt_results').map(row=>({...row})),[{status:404,bytes:9}]);
+});
+
+for(const status of [429,502,503,504])for(const retryAfter of ['invalid','999999999999999999999','-1','2026-10-12','00000000001'])test(`completed HTTP${status} with malformed retry metadata retains settlement: ${retryAfter}`,async t=>{
+ const body='Access denied';
+ const f=setup(t,reply=>{reply.status=status;reply.body=body;reply.headers['retry-after']=retryAfter;});
+ const result=await f.collect('malformed-retry');
+ assert.equal(result.status,status===429?'rate_limited':'unavailable');
+ assert.equal(result.reason,status===429?'yahoo_rate_limited':'yahoo_bootstrap_rejected');
+ assert.equal(result.retryAt,f.scope.expiresAt);
+ assert.deepEqual(f.db.all<{status:number;bytes:number;response_hash:string;retry_at:string}>('SELECT status,bytes,response_hash,retry_at FROM financial_attempt_results').map(row=>({...row})),[
+  {status,bytes:Buffer.byteLength(body),response_hash:createHash('sha256').update(body).digest('hex'),retry_at:f.scope.expiresAt}
+ ]);
+ assert.equal(f.db.get<{n:number}>('SELECT count(*) n FROM financial_observations')!.n,0);
+ assert.deepEqual(await f.collect('malformed-retry'),result);
+ f.clock.set(new Date(Date.parse(f.clock.now())+60000).toISOString());
+ let calls=0;const gateway=new FinancialDataGateway(f.store,f.clock,f.adapter,{kind:'authored_yahoo_fixture',async exchange(){calls++;throw new Error('should_not_run');}});
+ assert.equal((await gateway.collect(f.policy.id,r,'fresh-transport')).reason,'financial_provider_circuit');
+ assert.equal(calls,0);assert.equal(f.queries.length,1);assert.equal(f.dns,1);
+ await assert.rejects(()=>f.transport.exchange(cookieQuery,new AbortController().signal,262144),/terminal/);
 });

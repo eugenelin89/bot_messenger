@@ -108,6 +108,11 @@ HQ-READY-02 `private_paper` and `inv05-v1` remain synthetic-only; no real observ
 - Retain full Retry-After,403 access blocks and finite transient circuits. Unknown transport,
   cancellation after reserve or interrupted completion consumes allowance and globally fences
   new I/O. There is no reset/reconciliation permission in this milestone.
+- [03F offline reverification](../validation/investment/HQ-READY-03F-REVERIFICATION.md) preserves
+  complete compatibility refusals with malformed Retry-After:429/502/503/504 retain original
+  status, body bytes and hash, with requests fenced through scope expiry. Transport and gateway
+  share the existing strict header grammar; valid provider delays and owner-custody validation
+  remain unchanged. This correction creates no live compatibility authority.
 - Immutable history is capped at32MiB plus bounded metadata,10,000 logical requests/deliveries/
   observations; individual responses, result output and rows have earlier caps. No silent pruning.
 

@@ -13,6 +13,7 @@ import { ensure } from '../../domain/investment/arithmetic.js';
 import type { FinancialRequest, YahooQuery, YahooResponse, YahooTransport } from '../../domain/market/financial.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
 import { acceptedCookie404, benignCookie404, isCookieBootstrap, validCrumb } from '../../domain/market/yahoo-bootstrap.js';
+import { validYahooRetryAfter } from '../../domain/market/yahoo-retry.js';
 import { isBootstrapHistoryFixture, isDirectHistoryCustody } from './yahoo-history-custody.js';
 import { publicAddress } from '../../research/public-fetch.js';
 import type { WireReceipt } from './yahoo-probe-custody.js';
@@ -29,8 +30,7 @@ function safeHttpDate(value:unknown):string|null {
 }
 function safeRetryAfter(value:unknown):string|null {
   if(value===undefined)return null;
-  if(typeof value==='string'&&/^\d{1,10}$/.test(value)&&Number(value)<=315360000)return value;
-  return safeHttpDate(value);
+  ensure(validYahooRetryAfter(value),'yahoo_header_schema');return value;
 }
 /** Ephemeral bootstrap cookies only. No home cookie jar, auth headers, proxy, login or disk cache. */
 class CookieJar {
@@ -242,6 +242,9 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
               const response:YahooResponse={ status: receipt.status!, body, contentType: incoming.headers['content-type'] ?? '', retryAfter: incoming.headers['retry-after'] ?? null };
               if(compatibility){try{
                 ensure(!incoming.headers.location&&!incoming.headers.refresh&&!incoming.headers['www-authenticate']&&!incoming.headers['proxy-authenticate'],'yahoo_bootstrap_barrier');
+                // Offline sessions have no custody header validator. Reject malformed metadata
+                // after complete capture so the gateway can retain the known status/bytes/hash.
+                safeRetryAfter(incoming.headers['retry-after']);
                 if(isCookieBootstrap(query)&&(response.status===200||response.status===404)){
                   ensure(response.status===404?benignCookie404(response):/^text\/plain(?:;\s*charset=utf-8)?$/i.test(response.contentType)&&!/<|consent|captcha|sign.?in|log.?in|access.denied|forbidden|unauthori[sz]ed|too.many.requests/i.test(body),'yahoo_bootstrap_barrier');
                   // A fresh, usable anonymous cookie must exist in THIS complete response.
