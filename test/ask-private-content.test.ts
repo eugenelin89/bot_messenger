@@ -186,7 +186,7 @@ test('schema26 upgrades preserve every prior row across repeated opens and seed 
  const before=Object.fromEntries(tables.map(name=>[name,first.all(`SELECT rowid,* FROM "${name}" ORDER BY rowid`)]));first.close();
  for(let pass=0;pass<3;pass++){const db=new Store(path);try{for(const name of tables)assert.deepEqual(db.all(`SELECT rowid,* FROM "${name}" ORDER BY rowid`),before[name],name);
   for(const name of ['ask_content_services','ask_imports','ask_content_controls'])assert.equal(db.get<{n:number}>(`SELECT count(*) n FROM ${name}`)!.n,0);
-  assert.equal(db.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,28);assert.deepEqual(db.all('PRAGMA foreign_key_check'),[]);
+  assert.equal(db.get<{n:number}>('SELECT max(version) n FROM schema_migrations')!.n,29);assert.deepEqual(db.all('PRAGMA foreign_key_check'),[]);
  }finally{db.close();}}
 });
 

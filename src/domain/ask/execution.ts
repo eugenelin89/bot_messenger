@@ -12,6 +12,8 @@ export interface AskPublicContext {
  records:AskPublicEvidence[];
  documents:{source:Source;text:string}[];
 }
+export interface AskDocumentDependency {source:Source;contentDigest:string}
+export interface AskEvidenceDependencies {references:ContextRef[];sources:Source[];documents:AskDocumentDependency[]}
 export interface AskRuntimeInput {
  mode:'public_question'; worker:Worker; execution:AskExecution;
  /** Explicitly absent: public turns can never resume private employee runtime state. */

@@ -91,6 +91,9 @@ test('real clock permits three rate-spaced bootstrap/data calls with individual 
   await exchange({method:'GET',url:'https://query2.finance.yahoo.com/v8/finance/chart/ACME',params:{range:'1d',interval:'1d'}});return JSON.stringify(output(r));
  }};
  const f=fixture({scope:{timeoutMs:15000},policy:{timeoutMs:100},adapter,transport:{kind:'authored_yahoo_fixture',async exchange(q){calls.push(Date.now());return responseFor(q);}}});t.after(f.close);
+ // Force uneven durable-write latency: the rate marker is committed before wire I/O.
+ const transaction=f.store.db.transaction.bind(f.store.db);let delayed=false;
+ f.store.db.transaction=<T>(fn:()=>T):T=>{const value=transaction(fn);if(!delayed&&count(f,'financial_attempts')===1){delayed=true;Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,80);}return value;};
  const start=Date.now(),epoch=Date.parse(f.clock.now());f.clock.now=()=>new Date(epoch+Date.now()-start).toISOString();
  const result=await f.gateway.collect(f.policy.id,request(),'consistent-clock');assert.equal(result.status,'ok',result.reason);assert.equal(calls.length,3);
  assert.ok(calls[1]!-calls[0]!>=5000);assert.ok(calls[2]!-calls[1]!>=5000);assert.equal(count(f,'financial_attempts'),3);assert.equal(count(f,'financial_payloads'),1);

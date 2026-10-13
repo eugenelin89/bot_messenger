@@ -1,4 +1,5 @@
 import {ObservedInvestment} from './investment-team/observed-investment.js';
+import type {AskCoordinator} from './ask/coordinator.js';
 import type {AskService} from './ask/service.js';
 import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
@@ -53,6 +54,7 @@ interface HireInput {
 export class Company extends EventEmitter {
   /** Explicitly installed public service; startup and migration create no Ask authority. */
   ask?:AskService;
+  askCoordinator?:AskCoordinator;
   readonly dataDir: string;
   readonly engineering: Engineering;
   readonly infrastructure: Infrastructure;

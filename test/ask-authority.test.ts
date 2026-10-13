@@ -319,3 +319,17 @@ test('legacy included-only zero-money lifecycle survives replay with strict hard
  f.journal.settle(r.id,{...receipt(p),chargeMicros:'0'},at);f.reopen();
  const stored=f.journal.inspect().models[0]!;assert.equal(stored.state,'settled');assert.equal(stored.receipt!.chargeMicros,'0');
 });
+
+test('configuration high-water is per signing key and never resolves another caller intent',async t=>{
+ const f=fixture();t.after(()=>f.close());const {askConfigurationHash}=await import('../scripts/investment-contracts/ask.js');
+ const record=(keyId:string,revision:string,n:string)=>{
+  const c=structuredClone(examples.AskServiceConfiguration);c.scope.keyId=keyId;c.configurationRevision=revision;c.checkedAt=at;c.validUntil='2026-01-05T21:33:00.000Z';c.configurationHash=askConfigurationHash(c);
+  const p:AskWireProof={kind:'configuration',serviceId:c.serviceId,generation:c.consumerGeneration,requestId:null,intentDigest:h(keyId),signedWireDigest:h(n),answerIdentity:null};
+  f.journal.beforeWire(n,p,at);f.journal.wireResult(n,p,{kind:'data',status:200,responseDigest:canonicalHash(c)},at);return c;
+ };
+ const a=record('key-a','10','read-a');f.journal.observeConfiguration(['read-a'],'read-a',a,at);
+ const b=record('key-b','1','read-b');reject(()=>f.journal.observeConfiguration(['read-a'],'read-b',b,at),'CONFLICT');f.journal.observeConfiguration(['read-b'],'read-b',b,at);
+ const a2=record('key-a','10','read-a2');f.journal.observeConfiguration(['read-a2'],'read-a2',a2,at);
+ const rollback=record('key-a','9','read-rollback');reject(()=>f.journal.observeConfiguration(['read-rollback'],'read-rollback',rollback,at),'CONFLICT');
+ f.reopen();assert.equal(f.journal.inspect().configurations.length,2);assert.equal(f.journal.inspect().configurations.find(c=>c.keyId==='key-a')!.revision,'10');
+});

@@ -4,7 +4,7 @@ import type {AskAnswer, AskClaim, AskRoute, AskWorkerEligibility,ContextRef,Sour
 import {ContractError,canonicalHash,canonicalJson,requireContract as need,validate} from '../../../scripts/investment-contracts/schema.js';
 import {contextKey} from '../../../scripts/investment-contracts/ask.js';
 import {configuration,type AskGrant,type AskGrantConfiguration,type AskReservation} from '../../domain/ask/authority.js';
-import type {AskDispatchRow,AskPreparedTurn,AskPublicContext,AskRuntimeInput} from '../../domain/ask/execution.js';
+import type {AskDispatchRow,AskPreparedTurn,AskPublicContext,AskRuntimeInput,AskDocumentDependency,AskEvidenceDependencies} from '../../domain/ask/execution.js';
 import type {AskExecution} from '../../domain/model.js';
 import {tool,type RuntimeResult} from '../../runtime/adapter.js';
 import type {Company} from '../company.js';
@@ -14,13 +14,15 @@ import {AskPrivateContent} from './private-content.js';
 
 export interface AskServiceOptions {
  current():AskGrantConfiguration;
+ /** Composition supplies the current signed receiver freshness gate. */
+ assertReady?(purpose:'admission'|'execution'|'delivery'):void;
  grantId:string; authority:AskAuthorityJournal; controls:AskControlJournal; content:AskPrivateContent;
  /** Owner-controlled public-to-HQ identity map, never derived from visitor text. */
  workers:ReadonlyArray<{publicId:string;workerId:string;workspace:string;eligibility:AskWorkerEligibility}>;
  /** Trusted read projection of currently published records and explicitly approved product text. */
  publicContext(question:AskClaim['question']):AskPublicContext;
  visible(context:AskPublicContext):boolean;
- visibleReferences(references:ContextRef[],sources:Source[]):boolean;
+ visibleReferences(references:ContextRef[],sources:Source[],documents:AskDocumentDependency[]):boolean;
  now?():string;
 }
 const submit=tool('ask_submit_answer','Submit one session-private answer. Only the supplied public evidence is available. No investment, owner, private history, filesystem, research or company action is possible.',{
@@ -41,7 +43,8 @@ export class AskService {
   need(!company.ask,'CONFLICT');validate('AskServiceScope',options.current().scope);
   this.closed=!!company.store.get('SELECT 1 FROM ask_service_holds WHERE service_id=?',options.current().scope.serviceId);company.ask=this;
  }
- private config():{config:AskGrantConfiguration;grant:AskGrant}{
+ private config(purpose:'admission'|'execution'|'delivery'='execution'):{config:AskGrantConfiguration;grant:AskGrant}{
+  this.options.assertReady?.(purpose);
   const config=structuredClone(this.options.current()),grant=this.options.authority.assertCurrent(this.options.grantId,this.now());
   configuration(grant,config);
   need(this.options.workers.length>0&&this.options.workers.length<=8,'FORBIDDEN');
@@ -89,7 +92,7 @@ export class AskService {
   const db=this.company.store;
   if(db.get<{n:number}>("SELECT count(*) n FROM executions WHERE status='running'")!.n>=maxActive
    ||db.get("SELECT 1 FROM ask_dispatches WHERE unresolved=1"))return;
-  const {config,grant}=this.config(),now=this.now();
+  const {config,grant}=this.config('admission'),now=this.now();
   // Conservatively reserve a whole maximum-duration duty period, even for shorter turns.
   const last=db.get<{duty_until:string}>("SELECT duty_until FROM ask_dispatches ORDER BY duty_until DESC LIMIT 1");
   if(last&&now<last.duty_until)return;
@@ -116,11 +119,11 @@ export class AskService {
    const context={worker:publicWorker,question:question.input,history:history.turns.map(t=>({question:t.question.input,answer:t.answer})),
     omissions:history.omitted,evidence,route,limits:{answerCharacters:config.limits.answerCharacters,research:false,actions:false}};
    need(Buffer.byteLength(canonicalJson(context))<=131072,'TOO_LARGE');
-   const inherited=history.turns.map(t=>JSON.parse(db.get<AskDispatchRow>('SELECT * FROM ask_dispatches WHERE execution_id=?',t.answer.answerId)!.evidence_refs) as {references:ContextRef[];sources:Source[]});
+   const inherited=history.turns.map(t=>JSON.parse(db.get<AskDispatchRow>('SELECT * FROM ask_dispatches WHERE execution_id=?',t.answer.answerId)!.evidence_refs) as AskEvidenceDependencies);
    const unique=<T>(values:T[]):T[]=>[...new Map(values.map(v=>[canonicalHash(v),v])).values()];
-   const dependencies={references:unique([...evidence.records.map(r=>r.reference),...(question.input.context?[question.input.context]:[]),...inherited.flatMap(d=>d.references)]),sources:unique([...evidence.documents.map(d=>d.source),...inherited.flatMap(d=>d.sources)])};
+   const dependencies={references:unique([...evidence.records.map(r=>r.reference),...(question.input.context?[question.input.context]:[]),...inherited.flatMap(d=>d.references)]),sources:unique([...evidence.documents.map(d=>d.source),...inherited.flatMap(d=>d.sources)]),documents:unique([...evidence.documents.map(d=>({source:d.source,contentDigest:canonicalHash(d)})),...inherited.flatMap(d=>d.documents??[])])};
    need(Buffer.byteLength(canonicalJson(dependencies))<=131072,'TOO_LARGE');
-   need(this.options.visibleReferences(dependencies.references,dependencies.sources),'WITHDRAWN');
+   need(this.options.visibleReferences(dependencies.references,dependencies.sources,dependencies.documents),'WITHDRAWN');
    const id=randomUUID(),deadline=new Date(Math.min(Date.parse(now)+grant.maxDurationMs,Date.parse(q.expiresAt),Date.parse(claim.leaseExpiresAt),Date.parse(grant.expiresAt))).toISOString();
    const reservation:AskReservation={id,grantId:grant.id,serviceId:q.serviceId,generation:config.scope.consumerGeneration,
     questionId:q.questionId,questionHash:q.questionHash,conversationId:q.conversationId,workerId:route.workerId,
@@ -168,8 +171,8 @@ export class AskService {
   return history.every(t=>{
    const row=this.company.store.get<AskDispatchRow>('SELECT * FROM ask_dispatches WHERE service_id=? AND question_id=?',t.question.serviceId,t.question.questionId);
    if(!row||row.state!=='completed'||row.execution_id!==t.answer.answerId)return false;
-   const supplied=JSON.parse(row.evidence_refs) as {references:ContextRef[];sources:Source[]};
-   return this.options.visibleReferences([...supplied.references,...(t.question.input.context?[t.question.input.context]:[]),...t.answer.evidence],[...supplied.sources,...t.answer.publicSources]);
+   const supplied=JSON.parse(row.evidence_refs) as AskEvidenceDependencies;
+   return this.options.visibleReferences([...supplied.references,...(t.question.input.context?[t.question.input.context]:[]),...t.answer.evidence],[...supplied.sources,...t.answer.publicSources],supplied.documents);
   });
  }
  private authorize(id:string):void {
@@ -185,8 +188,8 @@ export class AskService {
   need(canonicalHash(fresh.turns)===canonicalHash(active.turn.history),'WITHDRAWN');
   need(this.historyVisible(fresh.turns),'WITHDRAWN');
   need(this.options.visible(active.turn.evidence),'WITHDRAWN');
-  const dependencies=JSON.parse(row.evidence_refs) as {references:ContextRef[];sources:Source[]};
-  need(this.options.visibleReferences(dependencies.references,dependencies.sources),'WITHDRAWN');
+  const dependencies=JSON.parse(row.evidence_refs) as AskEvidenceDependencies;
+  need(this.options.visibleReferences(dependencies.references,dependencies.sources,dependencies.documents),'WITHDRAWN');
   need(canonicalHash(active.turn.context)===row.context_digest,'CONFLICT');
  }
  async run(turn:AskPreparedTurn,adapter:import('../../runtime/adapter.js').RuntimeAdapter,signal:AbortSignal):Promise<void>{
@@ -271,6 +274,16 @@ export class AskService {
     }
    }
   }catch{this.hold('custody_mismatch',true);}
+ }
+ /** Delivery rechecks the completed execution and every retained public dependency. */
+ assertDelivery(questionId:string):void {
+  const {config,grant}=this.config('delivery'),row=this.company.store.get<AskDispatchRow>('SELECT * FROM ask_dispatches WHERE service_id=? AND question_id=?',config.scope.serviceId,questionId);
+  need(!this.closed&&row&&row.state==='completed'&&!row.unresolved&&row.grant_id===grant.id&&row.generation===config.scope.consumerGeneration,'FORBIDDEN');
+  const entry=this.options.workers.find(w=>w.publicId===row.public_worker_id);
+  need(entry?.eligibility.enabled&&this.company.worker(row.worker_id).enabled&&grant.workerIds.includes(row.public_worker_id),'FORBIDDEN');
+  need(this.options.controls.barrier(),'UNAVAILABLE');need(this.options.content.pendingAnswer(questionId),'OUTCOME_UNKNOWN');
+  const dependencies=JSON.parse(row.evidence_refs) as AskEvidenceDependencies;
+  need(this.options.visibleReferences(dependencies.references,dependencies.sources,dependencies.documents),'WITHDRAWN');
  }
  nextWake():string|null {
   const now=Date.parse(this.now()),times:number[]=[];

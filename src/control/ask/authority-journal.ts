@@ -7,14 +7,22 @@ import { canonicalHash, canonicalJson, requireContract as need, validate } from 
 import { admission, configuration, digest, exact, grant, id, instant, micros, reservation, usage,
   type AskAdmissionProof, type AskGrant, type AskGrantConfiguration, type AskReservation, type AskUsageReceipt } from '../../domain/ask/authority.js';
 import type { AskWireProof } from './transport.js';
-import type { AskAnswerReceipt } from '../../../contracts/investment/v1/types.js';
+import {checkAskConfiguration} from '../../../scripts/investment-contracts/ask.js';
+import type { AskClaimPage, AskClaim, AskStatus, AskControlSync, AskServiceConfiguration, AskAnswerReceipt } from '../../../contracts/investment/v1/types.js';
 
 interface Head {epoch:string;sequence:number;digest:string;at:string}
 interface Entry {sequence:number;epoch:string;at:string;kind:string;payload:string;previous:string|null;digest:string}
 interface ModelState {binding:AskReservation;owner:string;state:'reserved'|'admitted'|'transmitted'|'settled'|'settled_over_limit'|'unknown';proof:AskAdmissionProof|null;receipt:AskUsageReceipt|null}
 export interface AskWireObservation {kind:'data'|'problem';status:number;responseDigest:string}
 interface WireState {proof:AskWireProof;state:'unknown'|'reconciled';observation:AskWireObservation|null;receipt:AskAnswerReceipt|null}
-interface State {head:Head;grants:Map<string,AskGrant>;revoked:Set<string>;models:Map<string,ModelState>;wires:Map<string,WireState>}
+export interface AskConfigurationCheckpoint {serviceId:string;generation:string;keyId:string;revision:string;hash:string}
+export type AskAppliedWireEffect =
+ | {kind:'claim';claimRequestId:string;questionId:string|null;questionDigest:string|null;claimDigest:string|null}
+ | {kind:'renew';questionId:string;claimDigest:string}
+ | {kind:'status';questionId:string;statusDigest:string}
+ | {kind:'control_sync';syncId:string;applicationDigest:string};
+interface AskEffectCheckpoints {claims:Map<string,{serviceId:string;questionId:string;claimDigest:string}>;statuses:Map<string,{serviceId:string;questionId:string;statusDigest:string}>;controls:Map<string,{serviceId:string;applicationDigest:string}>}
+interface State extends AskEffectCheckpoints {configurations:Map<string,AskConfigurationCheckpoint>;head:Head;grants:Map<string,AskGrant>;revoked:Set<string>;models:Map<string,ModelState>;wires:Map<string,WireState>}
 export const ASK_AUTHORITY_CAPACITY=Object.freeze({events:10000,eventBytes:16384,pageBytes:4096,maxPages:131072});
 const schema=`PRAGMA user_version=1;
 CREATE TABLE events(sequence INTEGER PRIMARY KEY,epoch TEXT NOT NULL,at TEXT NOT NULL,kind TEXT NOT NULL,
@@ -160,6 +168,47 @@ function apply(s:State,kind:string,value:unknown,at:string,hqId:string):void {
       need(w.observation===null||canonicalJson(w.observation)===canonicalJson(o),'CONFLICT');w.observation=o;
       break;
     }
+    case 'configuration_observed':{
+      exact(value,'attemptIds sourceAttemptId snapshot');
+      const ids=value.attemptIds as string[],source=s.wires.get(value.sourceAttemptId as string),c=value.snapshot as AskServiceConfiguration;
+      need(source?.proof.kind==='configuration'&&source.observation?.kind==='data'&&source.observation.responseDigest===canonicalHash(c),'CONFLICT');
+      checkAskConfiguration(c,c.scope,at);
+      need(c.serviceId===source.proof.serviceId&&c.consumerGeneration===source.proof.generation,'CONFLICT');
+      const key=c.serviceId+'/'+c.consumerGeneration+'/'+c.scope.keyId,prior=s.configurations.get(key);
+      need(!prior||BigInt(c.configurationRevision)>=BigInt(prior.revision),'CONFLICT');
+      if(prior&&c.configurationRevision===prior.revision)need(c.configurationHash===prior.hash,'CONFLICT');
+      need(Array.isArray(ids)&&ids.length>0&&ids.length<=100&&new Set(ids).size===ids.length,'INVALID_SCHEMA');
+      for(const attemptId of ids){id(attemptId);const w=s.wires.get(attemptId);need(w&&w.proof.kind==='configuration'&&w.proof.serviceId===c.serviceId&&w.proof.generation===c.consumerGeneration&&w.proof.intentDigest===source.proof.intentDigest,'CONFLICT');w.state='reconciled';}
+      s.configurations.set(key,{serviceId:c.serviceId,generation:c.consumerGeneration,keyId:c.scope.keyId,revision:c.configurationRevision,hash:c.configurationHash});break;
+    }
+    case 'wire_applied':{
+      exact(value,'attemptIds sourceAttemptId responseDigest effect');digest(value.responseDigest as string);const effect=value.effect as AskAppliedWireEffect;
+      need(effect&&['claim','renew','status','control_sync'].includes(effect.kind),'INVALID_SCHEMA');
+      switch(effect.kind){
+        case 'claim':exact(effect,'kind claimRequestId questionId questionDigest claimDigest');id(effect.claimRequestId);need((effect.questionId===null)===(effect.questionDigest===null)&&(effect.questionId===null)===(effect.claimDigest===null),'INVALID_SCHEMA');if(effect.questionId!==null){id(effect.questionId);digest(effect.questionDigest!);digest(effect.claimDigest!);}break;
+        case 'renew':exact(effect,'kind questionId claimDigest');id(effect.questionId);digest(effect.claimDigest);break;
+        case 'status':exact(effect,'kind questionId statusDigest');id(effect.questionId);digest(effect.statusDigest);break;
+        case 'control_sync':exact(effect,'kind syncId applicationDigest');id(effect.syncId);digest(effect.applicationDigest);break;
+      }
+      const source=s.wires.get(value.sourceAttemptId as string),ids=value.attemptIds as string[];
+      need(source?.proof.kind===effect.kind&&source.observation?.kind==='data'&&source.observation.responseDigest===value.responseDigest,'CONFLICT');
+      if(effect.kind==='claim')need(source.proof.requestId===effect.claimRequestId,'CONFLICT');
+      if(effect.kind==='control_sync')need(source.proof.requestId===effect.syncId,'CONFLICT');
+      need(Array.isArray(ids)&&ids.length>0&&ids.length<=100&&new Set(ids).size===ids.length,'INVALID_SCHEMA');
+      for(const attemptId of ids){id(attemptId);const w=s.wires.get(attemptId);need(w&&w.proof.kind===effect.kind&&w.proof.serviceId===source.proof.serviceId&&w.proof.generation===source.proof.generation&&w.proof.intentDigest===source.proof.intentDigest,'CONFLICT');w.state='reconciled';}
+      const serviceId=source.proof.serviceId;
+      if((effect.kind==='claim'||effect.kind==='renew')&&effect.questionId!==null)s.claims.set(serviceId+'/'+effect.questionId,{serviceId,questionId:effect.questionId,claimDigest:effect.claimDigest!});
+      if(effect.kind==='status')s.statuses.set(serviceId+'/'+effect.questionId,{serviceId,questionId:effect.questionId,statusDigest:effect.statusDigest});
+      if(effect.kind==='control_sync')s.controls.set(serviceId,{serviceId,applicationDigest:effect.applicationDigest});break;
+    }
+    case 'control_drain':{
+      exact(value,'attemptIds sourceAttemptId terminalPage applicationDigest');digest(value.applicationDigest as string);
+      const page=validate<AskControlSync>('AskControlSync',value.terminalPage),source=s.wires.get(value.sourceAttemptId as string),ids=value.attemptIds as string[];
+      need(source?.proof.kind==='control_sync'&&source.proof.requestId===page.syncId&&source.observation?.kind==='data'&&source.observation.responseDigest===canonicalHash(page),'CONFLICT');
+      need(page.controls.length===0&&page.nextCursor===null&&Date.parse(page.checkedAt)<=instant(at)&&instant(at)<Date.parse(page.validUntil),'EXPIRED');
+      need(Array.isArray(ids)&&ids.length>0&&ids.length<=100&&new Set(ids).size===ids.length,'INVALID_SCHEMA');
+      for(const attemptId of ids){id(attemptId);const w=s.wires.get(attemptId);need(w?.proof.kind==='control_sync'&&w.proof.serviceId===source.proof.serviceId&&w.proof.generation===source.proof.generation,'CONFLICT');w.state='reconciled';}break;
+    }
     case 'answer_receipt':{
       exact(value,'attemptIds sourceAttemptId receipt');const ids=value.attemptIds as string[];id(value.sourceAttemptId as string);
       need(Array.isArray(ids)&&ids.length>0&&ids.length<=100&&new Set(ids).size===ids.length,'INVALID_SCHEMA');ids.forEach(id);
@@ -228,7 +277,7 @@ export class AskAuthorityJournal {
     this.present();need(this.db.prepare('PRAGMA integrity_check').get()?.integrity_check==='ok','CONFLICT');
     const count=this.db.prepare('SELECT count(*) n FROM events').get()!.n as number;need(count>0&&count<=ASK_AUTHORITY_CAPACITY.events,'BUDGET_EXHAUSTED');
     const rows=this.db.prepare('SELECT * FROM events ORDER BY sequence').all() as unknown as Entry[];
-    const s:State={head:null!,grants:new Map(),revoked:new Set(),models:new Map(),wires:new Map()};
+    const s:State={claims:new Map(),statuses:new Map(),controls:new Map(),configurations:new Map(),head:null!,grants:new Map(),revoked:new Set(),models:new Map(),wires:new Map()};
     for(const row of rows){
       const {digest:hash,...body}=row;instant(row.at);need(row.sequence===(s.head?.sequence??0)+1&&row.previous===(s.head?.digest??null)
         &&canonicalHash(body)===hash&&(!s.head||row.epoch===s.head.epoch&&row.at>=s.head.at),'CONFLICT');
@@ -273,10 +322,31 @@ export class AskAuthorityJournal {
   wireResult(attemptId:string,value:AskWireProof,observation:AskWireObservation,at:string):void {this.event('wire_result',{attemptId,proof:value,observation},at);}
   /** Trusted consumer supplies the decoded matching receiver receipt. This journal does not
    * authenticate arbitrary caller data. Historical answer disposition is not display/model
-   * authority. Other operation-specific reconciliation remains unimplemented and held. */
+   * authority. Other effects require their own typed local application or terminal control drain. */
   reconcileAnswer(attemptIds:string[],sourceAttemptId:string,receipt:AskAnswerReceipt,at:string):void {this.event('answer_receipt',{attemptIds,sourceAttemptId,receipt},at);}
-  inspect():{head:Head;grants:AskGrant[];models:ModelState[];wires:WireState[]}{
-    const s=this.read();return structuredClone({head:s.head,grants:[...s.grants.values()],models:[...s.models.values()],wires:[...s.wires.values()]});
+  /** Only the trusted coordinator calls these after its operation-specific durable effect.
+   * They never settle a model, infer a successful mutation from HTTP errors, or authorize work. */
+  observeConfiguration(attemptIds:string[],sourceAttemptId:string,snapshot:AskServiceConfiguration,at:string):void {this.event('configuration_observed',{attemptIds,sourceAttemptId,snapshot},at);}
+  appliedClaim(attemptIds:string[],sourceAttemptId:string,value:AskClaimPage,at:string):void {
+    validate('AskClaimPage',value);const q=value.claim?.question;
+    this.event('wire_applied',{attemptIds,sourceAttemptId,responseDigest:canonicalHash(value),effect:{kind:'claim',claimRequestId:value.claimRequestId,questionId:q?.questionId??null,questionDigest:q?canonicalHash(q):null,claimDigest:value.claim?canonicalHash(value.claim):null}},at);
+  }
+  appliedRenew(attemptIds:string[],sourceAttemptId:string,value:AskClaim,at:string):void {
+    validate('AskClaim',value);this.event('wire_applied',{attemptIds,sourceAttemptId,responseDigest:canonicalHash(value),effect:{kind:'renew',questionId:value.question.questionId,claimDigest:canonicalHash(value)}},at);
+  }
+  appliedStatus(attemptIds:string[],sourceAttemptId:string,value:AskStatus,at:string):void {
+    validate('AskStatus',value);this.event('wire_applied',{attemptIds,sourceAttemptId,responseDigest:canonicalHash(value),effect:{kind:'status',questionId:value.questionId,statusDigest:canonicalHash(value)}},at);
+  }
+  appliedControls(attemptIds:string[],sourceAttemptId:string,value:AskControlSync,applicationDigest:string,at:string):void {
+    validate('AskControlSync',value);this.event('wire_applied',{attemptIds,sourceAttemptId,responseDigest:canonicalHash(value),effect:{kind:'control_sync',syncId:value.syncId,applicationDigest}},at);
+  }
+  /** A fresh terminal traversal resolves only control metadata selected by the trusted
+   * journal's resolved_by relation after local suppression and content maintenance. */
+  reconcileControlDrain(attemptIds:string[],sourceAttemptId:string,terminalPage:AskControlSync,applicationDigest:string,at:string):void {
+    this.event('control_drain',{attemptIds,sourceAttemptId,terminalPage,applicationDigest},at);
+  }
+  inspect():{effects:{claims:{serviceId:string;questionId:string;claimDigest:string}[];statuses:{serviceId:string;questionId:string;statusDigest:string}[];controls:{serviceId:string;applicationDigest:string}[]};head:Head;configurations:AskConfigurationCheckpoint[];grants:AskGrant[];models:ModelState[];wires:(WireState&{attemptId:string})[]}{
+    const s=this.read();return structuredClone({effects:{claims:[...s.claims.values()],statuses:[...s.statuses.values()],controls:[...s.controls.values()]},head:s.head,configurations:[...s.configurations.values()],grants:[...s.grants.values()],models:[...s.models.values()],wires:[...s.wires.entries()].map(([attemptId,w])=>({...w,attemptId}))});
   }
   close():void {this.db.close();}
 }

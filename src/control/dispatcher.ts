@@ -53,6 +53,7 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.askCoordinator?.progress(()=>this.kick());
     this.company.ask?.maintenance();
     this.company.publication.progress(()=>this.kick());
     this.company.privateResearch.expire();
@@ -60,7 +61,7 @@ export class Dispatcher {
     this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=[this.company.ask?.nextWake(),this.company.publication.nextWake(),this.company.privateResearch.nextExpiry(),this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    const deadline=[this.company.askCoordinator?.nextWake(),this.company.ask?.nextWake(),this.company.publication.nextWake(),this.company.privateResearch.nextExpiry(),this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
     if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
@@ -170,6 +171,7 @@ export class Dispatcher {
     this.company.finiteHQ.beginShutdown();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
+    await this.company.askCoordinator?.stop();
     await this.company.observedInvestment.stop();await this.company.publication.stop();
     this.company.off('ask_interrupt',this.onComputerInterrupt);
     this.company.off('computer_interrupt',this.onComputerInterrupt);this.company.off('investment_interrupt',this.onInvestmentInterrupt);

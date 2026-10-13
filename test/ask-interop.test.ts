@@ -15,13 +15,13 @@ import { askOfflineClient } from '../src/control/ask/transport.js';
 import { askReceiptIdentity, prepareAskRequest, type AskBoundaryContext, type AskKind, type AskOperation } from '../src/domain/ask/contract.js';
 import { canonicalHash, validate } from '../scripts/investment-contracts/schema.js';
 
-const websiteCommit='d1ddbe679c05314158310183518afaaaedd8ae00';
-const sourceTree='8e91367bcbb6d559a1cf5832d9e48ad0ac28e52dcfe1d38a7e9c2b3c5d45df02';
+const websiteCommit='6ecd49857a651f9cd2d3f5a6a0802fbe48f099b0';
+const sourceTree='69f5de533afa126ae3290af84ed45f253b2fac96b1df9d7d87ee55e11a1fa2f4';
 const receiver=process.env.BOTSQUAD_SYNTHETIC_ASK_RECEIVER;
 const pins={
- 'test/ask-interop-fixture.ts':'8a1808ab8b15190c4cfa17b3c36231dbb18ef5ba9a059b3dba76cbee828ff1ce',
+ 'test/ask-interop-fixture.ts':'fc916b019675981ed6bfd7697e0d049e0b65c8d44a319dc2292a0ee5c9861a4f',
  'package-lock.json':'cf95b07b20cd4c53edf83effd3fe46190fc88453802fe2de0aab66cc3d53656b',
- 'vendor/investment/v1/manifest.json':'7ec71b39d7a25c7067ade8b26d37f1a58552b2dbfd14e9b6d7aa827ccc867e31',
+ 'vendor/investment/v1/manifest.json':'5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84',
 };
 interface Manifest {
  synthetic:true; authority:string; origin:string; tlsPort:number; certificatePath:string; privateKeyPath:string;
