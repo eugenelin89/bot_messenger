@@ -1500,9 +1500,19 @@ export interface AskLimits {
   maxInputTokens: number;
   maxOutputTokens: number;
   dailyBudgetUsd: Decimal | null;
-  monetaryEnforcement: "verified_cap" | "unavailable_disable_paid_admission";
+  monetaryEnforcement: "verified_cap" | "unavailable_disable_paid_admission" | "activity_capped_subscription";
   dutyCycleBps: number;
   controlFreshnessSeconds: number;
+  subscriptionActivityPolicy?: AskSubscriptionActivityPolicy;
+}
+export interface AskSubscriptionActivityPolicy {
+  version: "1";
+  tokenLimits: "monitored_thresholds";
+  actualCost: "unavailable";
+  overshoot: "possible";
+  internalRetries: "possible";
+  onMissingUsage: "hold";
+  onThresholdViolation: "hold";
 }
 export interface AskWorkerEligibility {
   workerId: Id;

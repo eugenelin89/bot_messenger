@@ -11,7 +11,7 @@ import type { AskAnswerReceipt } from '../../../contracts/investment/v1/types.js
 
 interface Head {epoch:string;sequence:number;digest:string;at:string}
 interface Entry {sequence:number;epoch:string;at:string;kind:string;payload:string;previous:string|null;digest:string}
-interface ModelState {binding:AskReservation;owner:string;state:'reserved'|'admitted'|'transmitted'|'settled'|'unknown';proof:AskAdmissionProof|null;receipt:AskUsageReceipt|null}
+interface ModelState {binding:AskReservation;owner:string;state:'reserved'|'admitted'|'transmitted'|'settled'|'settled_over_limit'|'unknown';proof:AskAdmissionProof|null;receipt:AskUsageReceipt|null}
 export interface AskWireObservation {kind:'data'|'problem';status:number;responseDigest:string}
 interface WireState {proof:AskWireProof;state:'unknown'|'reconciled';observation:AskWireObservation|null;receipt:AskAnswerReceipt|null}
 interface State {head:Head;grants:Map<string,AskGrant>;revoked:Set<string>;models:Map<string,ModelState>;wires:Map<string,WireState>}
@@ -60,6 +60,8 @@ function proof(value:AskWireProof):void {
   }else need(value.answerIdentity===null,'INVALID_SCHEMA');
 }
 function current(s:State,grantId:string,at:string):AskGrant {
+  need(![...s.models.values()].some(x=>x.state==='settled_over_limit'),'BUDGET_EXHAUSTED');
+  need(![...s.models.values()].some(x=>x.state==='unknown'),'OUTCOME_UNKNOWN');
   const g=s.grants.get(grantId);need(g&&!s.revoked.has(grantId)&&g.approvedAt<=at&&at<g.expiresAt,'FORBIDDEN');
   need(![...s.grants.values()].some(x=>x.serviceId===g.serviceId&&BigInt(x.generation)>BigInt(g.generation)),'FORBIDDEN');return g;
 }
@@ -75,10 +77,18 @@ function limits(s:State,g:AskGrant,r:AskReservation,at:string):void {
   for(const [rows,count,tokens,cost] of [[own,g.maxExecutions,g.totalTokens,g.totalChargeMicros],
     [rolling,g.dailyExecutions,g.dailyTokens,g.dailyChargeMicros],[day,g.dailyExecutions,g.dailyTokens,g.dailyChargeMicros]] as const){
     const spent=rows.map(x=>s.grants.get(x.binding.grantId)!);
-    const tokenSum=spent.reduce((sum,e)=>sum+BigInt(e.maxInputTokens)+BigInt(e.maxOutputTokens),0n);
-    const costSum=spent.reduce((sum,e)=>sum+micros(e.maxChargeMicros),0n);
-    need(rows.length<count&&tokenSum+BigInt(g.maxInputTokens)+BigInt(g.maxOutputTokens)<=BigInt(tokens)
-      &&costSum+micros(g.maxChargeMicros)<=micros(cost),'BUDGET_EXHAUSTED');
+    const tokenSum=rows.reduce((sum,row,i)=>{
+      const reserved=BigInt(spent[i]!.maxInputTokens)+BigInt(spent[i]!.maxOutputTokens);
+      const measured=row.receipt?BigInt(row.receipt.inputTokens)+BigInt(row.receipt.outputTokens):0n;
+      return sum+(measured>reserved?measured:reserved);
+    },0n);
+    need(rows.length<count&&tokenSum+BigInt(g.maxInputTokens)+BigInt(g.maxOutputTokens)<=BigInt(tokens),'BUDGET_EXHAUSTED');
+    if(g.monetaryMode!=='activity_capped_subscription'){
+      // Unknown historical exposure is not zero, including after a mode/grant change.
+      need(cost!==null&&g.maxChargeMicros!==null&&spent.every(e=>e.maxChargeMicros!==null),'OUTCOME_UNKNOWN');
+      const costSum=spent.reduce((sum,e)=>sum+micros(e.maxChargeMicros!),0n);
+      need(costSum+micros(g.maxChargeMicros)<=micros(cost),'BUDGET_EXHAUSTED');
+    }
   }
 }
 /** One typed event interpreter validates both new writes and every replay. */
@@ -115,14 +125,15 @@ function apply(s:State,kind:string,value:unknown,at:string,hqId:string):void {
     case 'settle':{
       exact(value,'executionId owner receipt');const r=model(s,value.executionId as string),g=s.grants.get(r.binding.grantId)!;
       need(value.owner===r.owner&&r.state==='transmitted'&&r.proof,'OUTCOME_UNKNOWN');
-      usage(value.receipt as AskUsageReceipt,g,r.proof.providerSessionId);r.receipt=value.receipt as AskUsageReceipt;r.state='settled';break;
+      const result=usage(value.receipt as AskUsageReceipt,g,r.proof.providerSessionId);r.receipt=value.receipt as AskUsageReceipt;
+      r.state=result==='threshold_exceeded'?'settled_over_limit':'settled';break;
     }
     case 'not_sent':{
       exact(value,'executionId owner');const r=model(s,value.executionId as string);
       need(value.owner===r.owner&&['reserved','admitted'].includes(r.state),'OUTCOME_UNKNOWN');r.state='settled';break;
     }
     case 'unknown':{
-      exact(value,'executionId');const r=model(s,value.executionId as string);need(r.state!=='settled','CONFLICT');r.state='unknown';break;
+      exact(value,'executionId');const r=model(s,value.executionId as string);need(r.state!=='settled'&&r.state!=='settled_over_limit','CONFLICT');r.state='unknown';break;
     }
     case 'wire':{
       exact(value,'attemptId proof');id(value.attemptId as string);proof(value.proof as AskWireProof);
@@ -235,7 +246,7 @@ export class AskAuthorityJournal {
       const s=this.read();need(at>=s.head.at&&s.head.sequence<ASK_AUTHORITY_CAPACITY.events,'OUTCOME_UNKNOWN');apply(s,kind,JSON.parse(encoded),at,this.hqId);
       // Reserve durable space for completion of every accepted effect and revocation of
       // every live grant, including many simultaneous receipt/control reconciliation reads.
-      const completion=[...s.models.values()].reduce((n,r)=>n+({reserved:3,admitted:2,transmitted:1,settled:0,unknown:0}[r.state]),0)
+      const completion=[...s.models.values()].reduce((n,r)=>n+({reserved:3,admitted:2,transmitted:1,settled:0,settled_over_limit:0,unknown:0}[r.state]),0)
         +[...s.wires.values()].reduce((n,w)=>n+(w.state==='unknown'?(w.observation===null?2:1):0),0)+s.grants.size-s.revoked.size;
       need(s.head.sequence+1+completion<=ASK_AUTHORITY_CAPACITY.events,'BUDGET_EXHAUSTED');
       const body={sequence:s.head.sequence+1,epoch:s.head.epoch,at,kind,payload:encoded,previous:s.head.digest},hash=canonicalHash(body);

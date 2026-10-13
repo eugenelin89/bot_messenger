@@ -5708,7 +5708,8 @@
           "type": "string",
           "enum": [
             "verified_cap",
-            "unavailable_disable_paid_admission"
+            "unavailable_disable_paid_admission",
+            "activity_capped_subscription"
           ]
         },
         "dutyCycleBps": {
@@ -5720,6 +5721,9 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 60
+        },
+        "subscriptionActivityPolicy": {
+          "$ref": "#/$defs/AskSubscriptionActivityPolicy"
         }
       },
       "required": [
@@ -5751,7 +5755,38 @@
         "monetaryEnforcement",
         "dutyCycleBps",
         "controlFreshnessSeconds"
-      ]
+      ],
+      "if": {
+        "properties": {
+          "monetaryEnforcement": {
+            "const": "activity_capped_subscription"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "subscriptionActivityPolicy"
+        ],
+        "properties": {
+          "dailyBudgetUsd": {
+            "type": "null"
+          },
+          "maxRouterExecutions": {
+            "const": 0
+          },
+          "maxResearchCalls": {
+            "const": 0
+          },
+          "subscriptionActivityPolicy": {
+            "$ref": "#/$defs/AskSubscriptionActivityPolicy"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "subscriptionActivityPolicy": false
+        }
+      }
     },
     "AskWorkerEligibility": {
       "type": "object",
@@ -6372,6 +6407,49 @@
             "kind"
           ]
         }
+      ]
+    },
+    "AskSubscriptionActivityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "const": "1"
+        },
+        "tokenLimits": {
+          "type": "string",
+          "const": "monitored_thresholds"
+        },
+        "actualCost": {
+          "type": "string",
+          "const": "unavailable"
+        },
+        "overshoot": {
+          "type": "string",
+          "const": "possible"
+        },
+        "internalRetries": {
+          "type": "string",
+          "const": "possible"
+        },
+        "onMissingUsage": {
+          "type": "string",
+          "const": "hold"
+        },
+        "onThresholdViolation": {
+          "type": "string",
+          "const": "hold"
+        }
+      },
+      "required": [
+        "version",
+        "tokenLimits",
+        "actualCost",
+        "overshoot",
+        "internalRetries",
+        "onMissingUsage",
+        "onThresholdViolation"
       ]
     }
   },

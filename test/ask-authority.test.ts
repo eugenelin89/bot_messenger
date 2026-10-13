@@ -211,3 +211,111 @@ test('near-cap journal denies new work while preserving model completion, receip
  assert.equal(f.journal.inspect().wires[0]!.state,'reconciled');
  reject(()=>f.journal.revoke(g.id,at),'OUTCOME_UNKNOWN');
 });
+
+
+const activityPolicy={version:'1' as const,tokenLimits:'monitored_thresholds' as const,actualCost:'unavailable' as const,overshoot:'possible' as const,internalRetries:'possible' as const,onMissingUsage:'hold' as const,onThresholdViolation:'hold' as const};
+function activityPacket(overrides:Partial<AskGrant>={}){
+ const p=packet({monetaryMode:'activity_capped_subscription',maxChargeMicros:null,totalChargeMicros:null,dailyChargeMicros:null,subscriptionActivityPolicy:activityPolicy,...overrides});
+ p.config.limits.monetaryEnforcement='activity_capped_subscription';p.config.limits.dailyBudgetUsd=null;
+ p.config.limits.maxRouterExecutions=0;p.config.limits.maxResearchCalls=0;p.config.limits.subscriptionActivityPolicy=activityPolicy;
+ p.config.scope.expiresAt=p.g.expiresAt;p.g.scopeDigest=canonicalHash(p.config.scope);
+ p.g.limitsDigest=canonicalHash(p.config.limits);return p;
+}
+function activityProof(g:AskGrant,r:AskReservation):AskAdmissionProof{return{...proof(g,r),inputBoundEnforced:false,outputBoundEnforced:false,monitoredUsage:true,subscriptionActivityPolicy:activityPolicy};}
+function activityTurn(f:ReturnType<typeof fixture>,g:AskGrant,n='a'){
+ const r=binding(g,n,g.approvedAt),p=activityProof(g,r);f.journal.reserve(r,r.reservedAt);f.journal.admit(r.id,p,r.reservedAt);f.journal.beforeModelTransmit(r.id,p,r.reservedAt);return{r,p};
+}
+test('activity mode requires exact disclosed policy and null unknown money while strict shapes remain closed',()=>{
+ const {g,config}=activityPacket();configuration(grant(g),config);const r=binding(g),p=activityProof(g,r);admission(p,g,r,at);
+ for(const change of [{subscriptionActivityPolicy:undefined},{subscriptionActivityPolicy:{...activityPolicy,version:'2'}},{subscriptionActivityPolicy:{...activityPolicy,extra:'x'}},{maxChargeMicros:'0'},{dailyChargeMicros:'0'},{totalChargeMicros:'0'}])reject(()=>grant({...g,...change} as AskGrant));
+ reject(()=>grant({...packet().g,subscriptionActivityPolicy:activityPolicy}));reject(()=>grant({...packet().g,maxChargeMicros:null}));
+ for(const change of [{inputBoundEnforced:true},{outputBoundEnforced:true},{monitoredUsage:false},{maxChargeMicros:'0'},{subscriptionActivityPolicy:{...activityPolicy,overshoot:'impossible'}}])reject(()=>admission({...p,...change} as AskAdmissionProof,g,r,at));
+ reject(()=>admission({...proof(packet().g,binding()),subscriptionActivityPolicy:activityPolicy},packet().g,binding(),at));
+ for(const change of [{dailyBudgetUsd:'0'},{subscriptionActivityPolicy:undefined},{maxRouterExecutions:1},{maxResearchCalls:1}]){
+  const c=structuredClone(config);Object.assign(c.limits,change);reject(()=>configuration({...g,limitsDigest:canonicalHash(c.limits)},c));
+ }
+ const strict=packet();strict.config.limits.subscriptionActivityPolicy=activityPolicy;reject(()=>configuration({...strict.g,limitsDigest:canonicalHash(strict.config.limits)},strict.config));
+});
+test('activity usage preserves null costs, never refunds threshold reservations and rejects mixed receipts',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket({dailyExecutions:3})),{r,p}=activityTurn(f,g);
+ reject(()=>f.journal.settle(r.id,receipt(p),at),'INVALID_SCHEMA');
+ reject(()=>usage({...receipt(p),chargeMicros:null},packet().g,p.providerSessionId),'INVALID_SCHEMA');
+ f.journal.settle(r.id,{...receipt(p),chargeMicros:null},at);
+ assert.equal(f.journal.inspect().models[0]!.receipt!.chargeMicros,null);
+ const b=activityTurn(f,g,'b');f.journal.settle(b.r.id,{...receipt(b.p),chargeMicros:null},at);
+ reject(()=>f.journal.reserve(binding(g,'c'),at),'BUDGET_EXHAUSTED');
+});
+for(const measured of [{inputTokens:101,outputTokens:1},{inputTokens:1,outputTokens:51},{inputTokens:101,outputTokens:51}])test(`complete activity overrun ${JSON.stringify(measured)} is durable and fences renewal, service, midnight and restart`,t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),{r,p}=activityTurn(f,g);
+ f.journal.settle(r.id,{...receipt(p),...measured,chargeMicros:null},at);
+ let stored=f.journal.inspect().models[0]!;assert.equal(stored.state,'settled_over_limit');assert.equal(stored.receipt!.inputTokens,measured.inputTokens);
+ reject(()=>f.journal.unknown(r.id,at),'CONFLICT');reject(()=>f.journal.notSent(r.id,at),'OUTCOME_UNKNOWN');
+ const laterAt='2026-01-06T21:33:00.000Z',future=activityPacket({id:'renewed',serviceId:'different',generation:'2',approvedAt:laterAt,expiresAt:'2026-01-06T23:33:00.000Z'});approve(f,future);
+ reject(()=>f.journal.reserve(binding(future.g,'future',laterAt),laterAt),'BUDGET_EXHAUSTED');
+ const strict=packet({id:'strict-later',approvedAt:laterAt,expiresAt:'2026-01-06T23:33:00.000Z'});strict.config.scope.expiresAt=strict.g.expiresAt;strict.g.scopeDigest=canonicalHash(strict.config.scope);approve(f,strict);
+ reject(()=>f.journal.reserve(binding(strict.g,'strict',laterAt),laterAt),'BUDGET_EXHAUSTED');
+ f.reopen();stored=f.journal.inspect().models[0]!;assert.equal(stored.state,'settled_over_limit');assert.equal(stored.receipt!.chargeMicros,null);
+ reject(()=>f.journal.reserve(binding(future.g,'restart',laterAt),laterAt),'BUDGET_EXHAUSTED');
+});
+test('missing activity telemetry cannot settle as zero and fences work after restart',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),{r,p}=activityTurn(f,g);
+ reject(()=>f.journal.settle(r.id,{...receipt(p),chargeMicros:null,complete:false} as unknown as AskUsageReceipt,at));
+ assert.equal(f.journal.inspect().models[0]!.state,'transmitted');f.reopen();
+ reject(()=>f.journal.settle(r.id,{...receipt(p),chargeMicros:null},at),'OUTCOME_UNKNOWN');
+ f.journal.unknown(r.id,at);const next=activityPacket({id:'new',serviceId:'other'});approve(f,next);
+ reject(()=>f.journal.reserve(binding(next.g,'other'),at),'OUTCOME_UNKNOWN');
+});
+test('unpriced shared history denies strict money admission but not separately bounded activity',t=>{
+ const f=fixture();t.after(()=>f.close());const a=approve(f,activityPacket({dailyExecutions:3})),{r,p}=activityTurn(f,a);f.journal.settle(r.id,{...receipt(p),chargeMicros:null},at);
+ const strict=packet({id:'strict',serviceId:'other'});approve(f,strict);reject(()=>f.journal.reserve(binding(strict.g,'strict'),at),'OUTCOME_UNKNOWN');
+ const next=activityPacket({id:'new',serviceId:'new-service',dailyExecutions:3});approve(f,next);const n=activityTurn(f,next.g,'next');f.journal.settle(n.r.id,{...receipt(n.p),chargeMicros:null},at);
+ reject(()=>f.journal.reserve(binding(next.g,'last'),at),'BUDGET_EXHAUSTED');
+});
+test('overrun SQL commit followed by checkpoint failure remains fenced without losing measured usage',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),{r,p}=activityTurn(f,g);
+ chmodSync(f.cp,0o500);try{assert.throws(()=>f.journal.settle(r.id,{...receipt(p),inputTokens:101,chargeMicros:null},at));}finally{chmodSync(f.cp,0o700);}
+ const db=new DatabaseSync(f.journal.path);try{const row=db.prepare("SELECT payload FROM events WHERE kind='settle'").get()!;assert.equal(JSON.parse(String(row.payload)).receipt.inputTokens,101);}finally{db.close();}
+ reject(()=>f.journal.inspect(),'OUTCOME_UNKNOWN');reject(()=>new AskAuthorityJournal(f.dir,f.cp,'fixture-hq',[f.excluded]),'OUTCOME_UNKNOWN');
+});
+
+
+test('complete unpriced history blocks strict daily money admission until the exact rolling boundary',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),a=activityTurn(f,g);f.journal.settle(a.r.id,{...receipt(a.p),chargeMicros:null},at);
+ const before='2026-01-06T21:31:59.999Z',boundary='2026-01-06T21:32:00.000Z';
+ const strict=packet({id:'later-strict',approvedAt:before,expiresAt:'2026-01-06T23:32:00.000Z'});strict.config.scope.expiresAt=strict.g.expiresAt;strict.g.scopeDigest=canonicalHash(strict.config.scope);approve(f,strict);
+ reject(()=>f.journal.reserve(binding(strict.g,'too-early',before),before),'OUTCOME_UNKNOWN');
+ f.journal.reserve(binding(strict.g,'boundary',boundary),boundary);f.journal.notSent('execution-boundary',boundary);
+ assert.equal(f.journal.inspect().models[0]!.receipt!.chargeMicros,null);
+});
+test('late activity settlement after expiry and revocation retains measured threshold hold',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),a=activityTurn(f,g);f.journal.revoke(g.id,at);
+ f.journal.settle(a.r.id,{...receipt(a.p),outputTokens:51,chargeMicros:null},'2026-01-06T00:00:00.000Z');
+ assert.equal(f.journal.inspect().models[0]!.state,'settled_over_limit');
+});
+
+
+test('successful answer reconciliation cannot clear a measured activity overrun',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f,activityPacket()),a=activityTurn(f,g);
+ f.journal.settle(a.r.id,{...receipt(a.p),outputTokens:51,chargeMicros:null},at);
+ const w=wire('overrun','answer');f.journal.beforeWire('overrun-answer',w,at);
+ const result={schemaVersion:'1.0' as const,receiptId:'receipt-overrun',answerId:'answer-a',questionId:'question-a',questionHash:h('question-a'),answerDigest:h('answer-a'),receivedAt:later,disposition:'accepted' as const};
+ f.journal.wireResult('overrun-answer',w,{kind:'data',status:200,responseDigest:canonicalHash(result)},later);
+ f.journal.reconcileAnswer(['overrun-answer'],'overrun-answer',result,later);
+ assert.equal(f.journal.inspect().wires[0]!.state,'reconciled');assert.equal(f.journal.inspect().models[0]!.state,'settled_over_limit');
+ reject(()=>f.journal.reserve(binding(g,'after-answer',later),later),'BUDGET_EXHAUSTED');
+});
+
+
+test('legacy included-only zero-money lifecycle survives replay with strict hard-bound proofs',t=>{
+ const f=fixture();t.after(()=>f.close());const packetValue=packet({monetaryMode:'included_only',maxChargeMicros:'0',dailyChargeMicros:'0',totalChargeMicros:'0'});
+ packetValue.config.limits.monetaryEnforcement='unavailable_disable_paid_admission';packetValue.config.limits.dailyBudgetUsd=null;
+ packetValue.g.limitsDigest=canonicalHash(packetValue.config.limits);const g=approve(f,packetValue),r=binding(g),p=proof(g,r);
+ reject(()=>grant({...g,maxChargeMicros:null}));reject(()=>grant({...g,subscriptionActivityPolicy:activityPolicy}));
+ f.journal.reserve(r,at);reject(()=>f.journal.admit(r.id,{...p,inputBoundEnforced:false},at),'FORBIDDEN');
+ reject(()=>f.journal.admit(r.id,{...p,outputBoundEnforced:false},at),'FORBIDDEN');
+ f.journal.admit(r.id,p,at);f.journal.beforeModelTransmit(r.id,p,at);
+ reject(()=>f.journal.settle(r.id,{...receipt(p),chargeMicros:null},at),'INVALID_SCHEMA');
+ reject(()=>f.journal.settle(r.id,{...receipt(p),chargeMicros:'1'},at),'BUDGET_EXHAUSTED');
+ f.journal.settle(r.id,{...receipt(p),chargeMicros:'0'},at);f.reopen();
+ const stored=f.journal.inspect().models[0]!;assert.equal(stored.state,'settled');assert.equal(stored.receipt!.chargeMicros,'0');
+});
