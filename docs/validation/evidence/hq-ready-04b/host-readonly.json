@@ -1,0 +1,243 @@
+{
+  "observed_at_utc": "2026-10-13T06:04:33.252710+00:00",
+  "host_alias": "botsquad",
+  "method": "Read-only SSH; SQLite mode=ro/query_only transaction; allowlisted identity and aggregate fields only",
+  "source": {
+    "commit": "a72cee080989960d2a9e1e74d9236157ce1a0448",
+    "branch": "(detached)",
+    "clean": true
+  },
+  "versions": {
+    "node": "v24.21.0",
+    "python_system": "Python 3.12.3",
+    "codex_package": "0.157.0"
+  },
+  "service": {
+    "MainPID": "652496",
+    "ControlGroup": "/system.slice/botsquad.service",
+    "MemoryCurrent": "42827776",
+    "MemoryPeak": "84807680",
+    "TasksCurrent": "7",
+    "MemoryHigh": "infinity",
+    "MemoryMax": "infinity",
+    "MemorySwapMax": "infinity",
+    "TasksMax": "256",
+    "LimitCORE": "infinity",
+    "User": "botsquad",
+    "Group": "botsquad",
+    "ReadWritePaths": "/var/lib/botsquad",
+    "PrivateTmp": "yes",
+    "ProtectSystem": "strict",
+    "NoNewPrivileges": "yes",
+    "KillMode": "control-group",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "core_limits": [
+    "Max core file size        0                    unlimited            bytes"
+  ],
+  "memory_kib": {
+    "MemTotal": 2015212,
+    "MemAvailable": 1531180,
+    "SwapTotal": 2097148,
+    "SwapFree": 2056500
+  },
+  "swap": "/swapfile-botsquad file 2147479552 41623552   -2",
+  "disk": "Filesystem       1B-blocks        Used   Available Use% Mounted on\n/dev/vda1      50884108288 12283183104 38584147968  25% /\ntmpfs            206360576     1617920   204742656   1% /run",
+  "ownership": {
+    "/opt/botsquad": {
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o755"
+    },
+    "/opt/botsquad/dist": {
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o755"
+    },
+    "/opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node": {
+      "uid": 1001,
+      "gid": 1001,
+      "mode": "0o755"
+    },
+    "/var/lib/botsquad": {
+      "uid": 997,
+      "gid": 987,
+      "mode": "0o700"
+    },
+    "/etc/botsquad": {
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o700"
+    },
+    "/var/backups/botsquad": {
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o700"
+    }
+  },
+  "hashes": {
+    "/opt/botsquad/dist/src/main.js": "6af8d14fe38c4580ef2dbe762a388246cfbe109f5941320107a6b59d062a9bcc",
+    "/opt/botsquad/package-lock.json": "6b514d1281610d66cc27b8ef1ed34aa2403ed0b835a4d638dcdef1bdfb9a948a",
+    "/etc/systemd/system/botsquad.service": "b3b89e0b2454ad9ea1de054fbdd794af023187bca7e13095f6e5d97e09a0e21a"
+  },
+  "db": {
+    "schema": 14,
+    "quick_check": "ok",
+    "foreign_key_violations": 0,
+    "counts": {
+      "workers": 8,
+      "principals": 10,
+      "tasks": 48,
+      "executions": 69,
+      "messages": 72,
+      "conversation_messages": 14,
+      "working_groups": 0,
+      "runtime_bindings": 8,
+      "review_schedules": 1,
+      "review_occurrences": 1,
+      "business_attempts": 1,
+      "computer_sessions": 0,
+      "research_operations": 0,
+      "worker_os_identities": 7,
+      "host_operation_receipts": 11,
+      "audit_events": 1671
+    },
+    "unresolved_runtime": 0,
+    "paused": "false"
+  },
+  "activity": {
+    "executions": {
+      "completed": 68,
+      "failed": 1
+    },
+    "tasks": {
+      "blocked": 1,
+      "cancelled": 17,
+      "completed": 30
+    },
+    "working_groups": {},
+    "conversation_requests": {
+      "completed": 8,
+      "failed": 1
+    },
+    "review_schedules": {
+      "exhausted": 1
+    },
+    "review_occurrences": {
+      "completed": 1
+    },
+    "business_attempts": {
+      "settled": 1
+    },
+    "computer_sessions": {},
+    "research_operations": {},
+    "mandates": {
+      "stopped": 1
+    },
+    "operating_cycles": {
+      "closed": 2
+    },
+    "protected_operations": {
+      "completed": 11,
+      "denied": 4,
+      "expired": 1
+    },
+    "external_actions": {
+      "succeeded": 1
+    }
+  },
+  "selected_workers": [
+    {
+      "worker_id": "worker_25313ecb-e017-44ba-a8d0-c361da021d4b",
+      "display_name": "Scout",
+      "role": "researcher",
+      "runtime_type": "codex-app-server",
+      "lifecycle": "persistent",
+      "status": "idle",
+      "enabled": 1,
+      "ai_model": null,
+      "reasoning_effort": null,
+      "ai_profile_locked": 1,
+      "principal_enabled": 1,
+      "capability_profile": "[\"internal_message\",\"read_workspace\",\"write_workspace\"]"
+    },
+    {
+      "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+      "display_name": "Grace",
+      "role": "reviewer",
+      "runtime_type": "codex-app-server",
+      "lifecycle": "persistent",
+      "status": "idle",
+      "enabled": 1,
+      "ai_model": null,
+      "reasoning_effort": null,
+      "ai_profile_locked": 1,
+      "principal_enabled": 1,
+      "capability_profile": "[\"internal_message\",\"read_workspace\",\"write_workspace\",\"review_repository_change\"]"
+    }
+  ],
+  "selected_os_identities": [
+    {
+      "worker_id": "worker_df13cd75-1718-400a-b60c-c2a114c1d9a3",
+      "backend": "linux",
+      "state": "ready",
+      "uid": 20084,
+      "gid": 20084
+    }
+  ],
+  "catalog": {
+    "fetched_at": "2026-10-08T08:45:03.065370357Z",
+    "client_version": "0.157.0",
+    "selected_models": [
+      {
+        "slug": "gpt-6-sol",
+        "visibility": "list",
+        "supported_reasoning_levels": [
+          {
+            "effort": "low",
+            "description": "Fast responses with lighter reasoning"
+          },
+          {
+            "effort": "medium",
+            "description": "Balances speed and reasoning depth for everyday tasks"
+          },
+          {
+            "effort": "high",
+            "description": "Greater reasoning depth for complex problems"
+          },
+          {
+            "effort": "xhigh",
+            "description": "Extra high reasoning depth for complex problems"
+          },
+          {
+            "effort": "max",
+            "description": "Maximum reasoning depth for the hardest problems"
+          },
+          {
+            "effort": "ultra",
+            "description": "Maximum reasoning with automatic task delegation"
+          }
+        ]
+      }
+    ],
+    "fresh_online_eligibility": false
+  },
+  "absent_paths": [
+    "/var/lib/botsquad/.botsquad/finite-hq-authority",
+    "/var/lib/botsquad/.botsquad/finite-hq-custody",
+    "/etc/botsquad/private-research",
+    "/run/botsquad-private-research",
+    "/run/botsquad-research-guard",
+    "/opt/botsquad/adapters/yahoo/.venv"
+  ],
+  "boundaries": {
+    "no_yahoo_request": true,
+    "no_employee_inference": true,
+    "no_auth_file_content_read_by_inspection": true,
+    "no_host_configuration_change": true,
+    "no_backup_created": true,
+    "no_full_database_or_transcript_export": true,
+    "cloud_snapshots_and_reload_setting": "unverified"
+  }
+}

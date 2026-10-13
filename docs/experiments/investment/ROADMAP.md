@@ -383,3 +383,21 @@ does not satisfy HQ-READY-04's two elapsed paper sessions or H1-H9. Current exec
 methodology, prospective observations, genuine scheduled collaboration and public rights/
 protocol/deployment gates remain separately required. Spent Yahoo approvals and Decision037
 exhausted4/4 remain unchanged.
+
+## HQ-READY-04B preparation — 2026-10-12 America/Vancouver
+
+The selected preparation milestone provides a [complete owner packet](../../operations/HQ_READY_04B_APPROVAL_PACKET.md),
+[Linux configuration proposal](../../operations/HQ_READY_04B_LINUX_CONFIGURATION.md),
+[execution prompt](../../operations/HQ_READY_04B_EXECUTION_PROMPT.md) and
+[read-only host/blocker evidence](../../validation/investment/HQ-READY-04B.md).
+It supersedes04A's operational handoff; no deployment, Yahoo request or genuine employee
+turn occurred. All five owner decisions remain unapproved.
+
+The actual host remains on schema14 and requires migration/restore and Linux acceptance.
+The assessed source also has a newly reproduced startup blocker: recovery holds fresh
+finite authority and normal draft controls cannot release it before first collection.
+The narrow next source proposal is an explicit, digest-bound owner release of untouched
+future research authority after recovery, preserving all spent/uncertain fences. It requires
+separate selection, review and integration; then re-present the exact replacement commit
+and future times for deployment approval. Do not deploy the assessed `da6d3e1` candidate
+for this trial or bypass recovery. Genuine acceptance, H1–H9 and public gates stay separate.
