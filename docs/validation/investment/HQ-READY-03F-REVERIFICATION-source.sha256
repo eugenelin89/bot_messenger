@@ -1,0 +1,4 @@
+7d65c2f6ea44ee5c7bdd621d27abf59d70e097cb295dd0f4dfa2de6443b5b1db  src/control/market/financial-gateway.ts
+8712b985b709e16d80f3de80b7f86668dac934604697f441eed8588189223a8b  src/control/market/yahoo-https.ts
+043518ac9a1afe4921e20002228caef78801fdc2bc46a584f5b59eb8be7298f6  src/domain/market/yahoo-retry.ts
+bbcebe83f439b2f392279d1def438e845bf6d58fe468c1853e8cb59a7516adae  test/yahoo-bootstrap.test.ts

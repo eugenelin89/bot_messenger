@@ -1,6 +1,6 @@
 # Execution Plan — HQ-READY-03F offline reverification
 
-**Status:** Active
+**Status:** Offline implementation and acceptance complete; exact-head integration tracked in PR71
 
 **Owner:** Parent Codex, sole writer; independent read-only architecture, security, recovery and acceptance reviewers
 
@@ -14,14 +14,14 @@
 
 ## Objective and boundaries
 
-The owner resubmitted HQ-READY-03F after PR66 and later03G/03H/04A were already merged.
+The owner resubmitted HQ-READY-03F after PR66 and later 03G/03H/04A were already merged.
 Verify the completed work, preserve later integrations and correct only a material remaining
 offline accounting defect. No Yahoo request, new live authority, employee inference, deployment,
 paid API, paper trading, Asymmetri change or publication. Historical records and receipts are immutable.
 
 Read AGENTS.md, investment decisions/simulation rules/roadmap, Decisions029/032/037–043,
 Yahoo runbooks and03–03F acceptance. Current03G/03H evidence contextualizes the original proposal.
-The existing03F head065ce61 passes a fresh check/build,175 contract tests,71 compatibility tests
+The existing03F head065ce61 passes a fresh check/build, 175 contract tests,71 compatibility tests
 and its source/build manifests. PR66 is confirmed merged as2be9ae0.
 
 ## Findings and implementation
@@ -41,7 +41,19 @@ and its source/build manifests. PR66 is confirmed merged as2be9ae0.
 
 - Authored regression must fail before the fix and pass after it, retain known response data,
   prevent replay/new wire requests, and preserve existing cookie404/barrier/budget controls.
-- Verify all17 historical03B/03D/03E receipt hashes, spent/noResume and absent capsules without
-  reading or reconstructing financial payloads. Decision037 stays exhausted4/4.
-- Reuse existing Node24 and pinned Python3.12.12/yfinance1.7.0; no dependency installation.
-- Independent review, complete regression, additive acceptance and exact-head Git integration remain.
+- Verify all 17 historical03B/03D/03E receipt hashes, spent/noResume and absent capsules without
+  reading or reconstructing financial payloads. Decision 037 stays exhausted 4/4.
+- Reuse existing Node24 and pinned Python3.12.12/yfinance 1.7.0; no dependency installation.
+- Implementation frozen at `e0f0596f1df8c3d595457c7fefb9d7e0bd6d558d`. All 8 initial authored
+  reproductions failed as expected. Independent review required a shared strict retry-header
+  validator to close parseable-but-invalid values; final 20 targeted and 207 focused cases pass.
+  Check/build and 175 contracts pass. Architecture/security/recovery clear final source;
+  acceptance verifies these checks and the source/build manifests.
+- Final full regression passed:1751 total,1745 passed,0 failed/cancelled,6 existing environment
+  skips,726.681 seconds. Four source and four compiled hashes match after the run. All17 original
+  receipt names/hashes remain identical, all three authorities noResume, capsules absent.
+- Additive [acceptance](../validation/investment/HQ-READY-03F-REVERIFICATION.md) records the
+  existing03F completion, this correction, historical preservation and current proposal limits.
+  [PR71](https://github.com/eugenelin89/bot_messenger/pull/71) carries exact-head review, merge
+  and final synchronized-main receipts without rewriting historical03F records. The final
+  integration owner must verify the documentation-only head and rebuilt main before stopping.
