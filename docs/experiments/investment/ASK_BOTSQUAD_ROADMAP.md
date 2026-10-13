@@ -1,6 +1,6 @@
 # Ask BotSquad — implementation packets
 
-**Design version:** 1.1 | **Updated:** 2026-10-13 | **Status:** ASK-01 HQ boundary validated; website intake and ASK-02–04 pending
+**Design version:** 1.1 | **Updated:** 2026-10-13 | **Status:** ASK-01 HQ boundary and ASK-02 transport validated; website intake, routing and ASK-03/04 pending
 
 [Feature specification](ASK_BOTSQUAD.md) · [Main implementation status](ROADMAP.md) · [Prompt launcher](../../../prompts/experiments/investment-showcase.md)
 
@@ -19,7 +19,7 @@ INV-01 captured Ask design/Q&A contract and provider-use prerequisites alongside
 
 The default sequence is INV-01–INV-09, ASK-01–ASK-04, then INV-10–INV-12. Earlier parallel work is permitted only when actual dependencies pass and writer/repository ownership is separate. General chat does not logically require an investment run, but the combined showcase's launch gate includes both general and transaction questions.
 
-Use the same single-packet launcher with an exact INV-ASK-NN identifier. Evidence lives at `docs/validation/investment/INV-ASK-NN.md`. The owner subsequently authorized the entire project and deployment/public release; this design document alone did not grant that authority. [ASK-01 evidence](../../validation/investment/INV-ASK-01.md) records the HQ-only source component, with actual website intake still pending.
+Use the same single-packet launcher with an exact INV-ASK-NN identifier. Evidence lives at `docs/validation/investment/INV-ASK-NN.md`. The owner subsequently authorized the entire project and deployment/public release; this design document alone did not grant that authority. [ASK-01 evidence](../../validation/investment/INV-ASK-01.md) records the HQ-only source component, with actual website intake still pending. [ASK-02 evidence](../../validation/investment/INV-ASK-02.md) records the independent dormant signed transport; durable admission and genuine employee routing remain incomplete.
 
 ## INV-ASK-01 — Contracts and private website intake
 

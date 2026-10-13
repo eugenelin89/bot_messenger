@@ -172,6 +172,16 @@ export function assertAskRequestCurrent(request: PreparedAskRequest, ctx: AskBou
     need(time(ctx.now) < time(request.binding.claimExpiresAt!) && time(ctx.now) < time(request.binding.questionExpiresAt!), 'EXPIRED');
   }
 }
+/** Reconstruct before signing: structural prepared objects cannot select arbitrary wire data. */
+export function reconstructAskRequest<K extends AskKind>(operation: Extract<AskOperation, {kind: K}>, frozen: PreparedAskRequest<K>, ctx: AskBoundaryContext): PreparedAskRequest<K> {
+  const fresh = prepareAskRequest(operation, ctx);
+  // Receipt lookup remains valid when only local content/retention limits were tightened.
+  const comparable = fresh.kind === 'receipt'
+    ? {...fresh, binding:{...fresh.binding, limitsHash:frozen.binding.limitsHash}} : fresh;
+  need(canonicalJson(comparable) === canonicalJson(frozen), 'CONFLICT');
+  assertAskRequestCurrent(fresh, ctx);
+  return fresh;
+}
 /** Compare a persisted immutable intent with a proposed retry; not a durable dedupe store. */
 export function assertAskRetry(original: PreparedAskRequest, next: PreparedAskRequest): void {
   need(original.requestId !== null && next.requestId === original.requestId && next.kind === original.kind

@@ -71,3 +71,16 @@ reusing the accepted canonical1.0 manifest. Focused224/224, build/check/manifest
 [ASK-01 plan](investment-inv-ask-01.md) and [qualified evidence](../validation/investment/INV-ASK-01.md)
 record the implementation, review fixes and counterpart handoff. Full ASK-01 still needs actual
 website session/queue/privacy acceptance; no genuine answers or public activation are claimed.
+
+
+## Second completion-loop wake — October 13, 2026, 07:01 America/Vancouver
+
+Selected the independent ASK-02 signed transport after reconfirming unchanged production identity
+and the website tool-approval hold. The canonical contract was sufficient for dormant source
+work; no receiver deployment or account probe was needed. Added structural intent reconstruction,
+post-TLS and post-sign authority checks, bounded fixed HTTPS, explicit no-retry uncertainty and
+real loopback TLS tests. [ASK-02 evidence](../validation/investment/INV-ASK-02.md) records 263/263,
+build/check/manifest and exact remote/local source hashes. Mac capacity was below 15 GB, so
+validation used separately admitted temporary Linux staging; Motion retained its native slot.
+Genuine employee/public acceptance remains pending. Next independent source scope: durable Ask
+grants/import/outbox/privacy-control state and restore fencing, then existing employee routing.
