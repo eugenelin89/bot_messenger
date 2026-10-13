@@ -17,6 +17,8 @@ node, script, cleanup_json, limits_json = sys.argv[1:]
 cleanup_args = json.loads(cleanup_json)
 limits = json.loads(limits_json)
 assert 0 < limits['processMs'] <= 180000 and 0 < limits['operationMs'] <= 120000 and 0 < limits['wireMs'] <= 10000
+request_limit = limits.get('requests', 6)
+assert type(request_limit) is int and 1 <= request_limit <= 6
 end = time.monotonic() + limits['processMs'] / 1000
 operation_end = wire_end = None
 active = None
@@ -71,7 +73,7 @@ try:
                 active = value
                 operation_end = time.monotonic() + limits['operationMs'] / 1000 if command == 'data' else None
             elif command == 'wire':
-                assert active and pending is None and value == ordinal + 1 and value <= 6
+                assert active and pending is None and value == ordinal + 1 and value <= request_limit
                 ordinal = pending = value
                 wire_end = time.monotonic() + limits['wireMs'] / 1000
             elif command == 'settled':

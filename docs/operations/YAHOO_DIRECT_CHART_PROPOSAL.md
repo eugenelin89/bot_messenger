@@ -1,6 +1,7 @@
 # Direct Yahoo chart assessment after HQ-READY-03G
 
-**Status:** Proposal only; no implementation, owner approval, preparation or execution.
+**Original status:** Proposal only after03G.
+**Current selection:** Owner selected HQ-READY-03H on2026-10-12; [Decision044](../decisions/decision_044_one_shot_direct_yahoo_chart.md) and [03H acceptance](../validation/investment/HQ-READY-03H.md) supersede the approval/implementation status below. The original assessment remains provenance and grants no additional requests.
 **Date:** 2026-10-12 America/Vancouver
 
 ## Evidence and conclusion

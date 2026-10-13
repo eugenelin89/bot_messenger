@@ -1,14 +1,14 @@
 # Yahoo Financial Data Gateway — source dossier and bounded qualification runbook
 
-**As of:** 2026-10-11 America/Vancouver; HQ-READY-03/03B source and bounded-attempt record.
+**As of:** 2026-10-12 America/Vancouver; HQ-READY-03H selected direct qualification.
 **Provider/feed:** Yahoo Finance / Python yfinance1.7.0, Python3.12.12.
 **State:** Default application/employee transport inactive. HQ-READY-03B source is integrated; its single authorization is spent after an unknown bootstrap outcome, with no financial data admitted and cleanup verified. No collector, deployment, public artifact or trading activation.
 
-**Current qualification gate:** [HQ-READY-03G](../validation/investment/HQ-READY-03G.md)
-withholds live admission after independent technical review; only an offline custody profile
-is added.03B/03D/03E remain spent and no03G owner authorization is prepared/consumed.
-See [Decision043](../decisions/decision_043_yahoo_qualification_feasibility.md) and the
-separately unexecuted [direct-chart assessment](YAHOO_DIRECT_CHART_PROPOSAL.md).
+**Current qualification gate:** [HQ-READY-03H](../validation/investment/HQ-READY-03H.md)
+selects the single direct chart request under [Decision044](../decisions/decision_044_one_shot_direct_yahoo_chart.md).
+It requires offline feasibility, independent reviews, regression, accepted merge and clean-main
+rebuild before live admission. The acceptance record owns the actual outcome.03B/03D/03E
+remain permanently spent;03G remains unprepared. No production/employee collector is enabled.
 
 ## Permission provenance and use assessment
 
@@ -274,3 +274,33 @@ The [next exact AAPL proposal](YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) requires se
 approval and a reviewed extension of existing custody before any network access. No new
 live authority was prepared or consumed. Fictional success does not classify the destroyed03E
 body, establish today's access conditions, qualify execution prices or grant publication rights.
+
+
+## HQ-READY-03H — one direct chart, no bootstrap
+
+The separate fixed `scripts/yahoo-direct.sh` accepts the existing `prepare`, `run`, `status`
+and `cleanup` lifecycle. These are owner-only operations, not startup, worker or scheduler
+commands. `prepare` is create-only and `run` consumes once before DNS. Never rerun a spent
+operation, remove its anchor, or use an older issuer to obtain another request.
+
+Its exact manifest fixes query1 AAPL September2026, one request/connection/response,
+262144 application bytes,16KiB parsed headers and10/120/180-second ceilings. Non200,
+first informational/upgrade response, barriers, malformed/incomplete JSON, schema/identity
+failure or uncertain accounting terminate. No cookie jar, crumb, credentials, redirects or
+fallback exists. Pinned `PriceHistory` consumes the already captured response once; source
+JSON types are checked before library coercion. FinancialDataGateway and existing admission
+remain authoritative. Original values/event times exist only in the ephemeral private capsule
+and memory; retained quality contains completeness/provenance facts without financial values.
+
+The fixed OS-account anchor is `~/Library/Application Support/BotSquad-Yahoo-HQ-READY-03H`
+(resolved from account identity, not HOME). The capsule is `/private/tmp/botsquad-yahoo-HQ-READY-03H`.
+FileVault/encrypted swap/core-dump and verified backup exclusions are required. Parent/native
+watchdogs independently cap the single operation and cleanup; supervisor loss terminates the
+data process group. Recovery never recreates data/key or renews spent authority. An interrupted
+empty-directory creation without capsule ownership evidence is not force-deleted: report
+cleanup incomplete and retain the spent fence. No data/network exists in that narrow window.
+
+After the single outcome inspect only non-data accounting/quality, verify all groups gone,
+capsule absent and authority spent/noResume. Preserve the17 historical receipt hashes and
+unused03G state. Success can support a separately authorized private employee-integration
+proposal; failure requires a source decision memo, never an automatic second Yahoo attempt.
