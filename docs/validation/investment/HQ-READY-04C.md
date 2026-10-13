@@ -3,7 +3,7 @@
 **Date:** 2026-10-13 UTC
 **Base:** `fd3358d64edb4e1f6a4288de15f454362d116a18`, verified clean synchronized main
 **Scope:** Authored source/fixture/browser acceptance and reviewed Git integration only
-**Status:** Source accepted by all four independent reviews; PR73 integration pending
+**Status:** Source accepted by all four independent reviews and integrated through PR73
 
 ## B1 reproduction and correction
 
@@ -104,16 +104,20 @@ no-op custody overwrite risk, fixed by skipping unchanged custody writes; streng
 crash fault to occur after release insertion before the receipt. All four final source verdicts are accepted for the frozen implementation. Acceptance
 independently matched the final log hashes/totals and original04B receipt.
 
-[PR73](https://github.com/eugenelin89/bot_messenger/pull/73) integrates the reviewed source;
-the parent verifies its exact head and clean synchronized main before updating the owner
-packet with the actual merge SHA. Closure documentation does not change the tested source.
+[PR73](https://github.com/eugenelin89/bot_messenger/pull/73) merged exact reviewed head
+`de9e973116062601c311bb40b32eafee25061aee` at `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`.
+The merge tree equals the reviewed head; primary main was clean and synchronized before
+the owner package was updated. Closure documentation does not change the tested source.
 
 ## Operational boundary
 
 B1 source acceptance does not approve Ubuntu installation or the genuine trial. After source
-integration the04B package must name its exact replacement commit, retaining five unapproved
-owner decisions and every root Node, Linux swap/core/tmpfs/guard, migration/restore, source
-rights, account/credit and retention gate. October14 remains conditional; missed prerequisites
+integration the [updated04B package](../../operations/HQ_READY_04B_APPROVAL_PACKET.md) pins
+`7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`, retaining five unapproved owner decisions and every
+root Node, Linux swap/core/tmpfs/guard, migration/restore, source rights, account/credit and
+retention gate. Its [complete next prompt](../../operations/HQ_READY_04B_EXECUTION_PROMPT.md)
+is future conditional execution material, not authorization. The package passed independent
+acceptance after verified source integration. October14 remains conditional; missed prerequisites
 require cancellation and new proposed times, never silent rescheduling.
 
 Decision037 remains4/4. All prior03B/03D/03E/03H authorizations and historical records remain

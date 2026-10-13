@@ -181,12 +181,13 @@ Scout/Grace, Codex0.157.0 ChatGPT login mode, a cached gpt-6-sol/low catalog, en
 core soft0/hard unlimited and a UID1001-owned Node executable. Fresh account/model/routing,
 reload-OFF, source/processing rights, migration/restore and Linux confinement remain gates.
 
-A newly reproduced source blocker prevents first collection after the required authority
-approval and service restart: recovery holds the fresh authority, but normal draft controls
-cannot release it without evidence. The assessed source `da6d3e10c9d8484c4a924d192c30c7c70d6fb743`
-must not be approved for this deployment. The next source proposal is a narrowly reviewed,
-explicit-owner release of untouched future draft authority after recovery, followed by a
-new exact-commit deployment decision.04B implements no repair or host change.
+[HQ-READY-04C](../validation/investment/HQ-READY-04C.md) has now source-repaired B1.
+Exact replacement `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d` uses authenticated digest-bound owner release
+after recovery, preserving the untouched future loop/group as drafts until collection and
+explicit Start. The actual reopened path passes authored collection/fake-worker acceptance.
+Legacy untyped/failure holds remain blocked. The updated04B packet presents this exact source
+for unapproved D1; the historical `da6d3e1` candidate remains unsuitable for the trial.
+No host or genuine acceptance follows from source integration.
 
 The conditional October14 proposal is18:00–19:00 PDT research,19:50 cleanup trigger and
 completed local deletion by20:00; the guard stops the whole HQ service at19:00 and keeps

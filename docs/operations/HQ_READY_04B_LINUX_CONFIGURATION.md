@@ -1,7 +1,9 @@
 # HQ-READY-04B — proposed Linux configuration
 
 **NOT INSTALLED / NOT LINUX-VALIDATED.** This appendix makes the proposed systemd and
-filesystem changes reviewable. [B1 and D1](HQ_READY_04B_APPROVAL_PACKET.md) block deployment.
+filesystem changes reviewable. [D1 and actual-host gates](HQ_READY_04B_APPROVAL_PACKET.md)
+still block deployment;04C repaired B1 in the exact replacement source pinned there.
+This appendix remains proposed and uninstalled; no Linux acceptance is implied.
 The exact replacement source, fixture driver, independent backup destination and verified
 Linux Python distribution remain prerequisites. These files are documentation, not host tools.
 

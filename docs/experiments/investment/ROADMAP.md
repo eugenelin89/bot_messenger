@@ -401,3 +401,16 @@ future research authority after recovery, preserving all spent/uncertain fences.
 separate selection, review and integration; then re-present the exact replacement commit
 and future times for deployment approval. Do not deploy the assessed `da6d3e1` candidate
 for this trial or bypass recovery. Genuine acceptance, H1–H9 and public gates stay separate.
+
+## HQ-READY-04C source repair — 2026-10-13 UTC
+
+[04C acceptance](../../validation/investment/HQ-READY-04C.md) resolves B1 for fresh approved
+authority under the repaired source. Authenticated exact owner release preserves draft state,
+uses existing external journal/custody and never creates allowance. Actual Company/Dispatcher
+reopen, authored collection, explicit Start and fake-worker completion/cleanup pass; legacy
+untyped and spent/uncertain authorities remain closed. Source integrated via PR73 at
+`7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`. The [updated04B approval package](../../operations/HQ_READY_04B_APPROVAL_PACKET.md)
+pins that exact replacement and supersedes the preceding B1 source-blocker status only.
+All five owner decisions, actual Ubuntu deployment/confinement and genuine employee acceptance
+remain pending. October14 is still tentative and must be cancelled if gates miss17:30 PDT;
+no silent rescheduling.03H/04A, Decision0374/4 and historical spent records remain unchanged.
