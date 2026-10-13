@@ -612,3 +612,8 @@ putting all useful business integrations after federation. Completed history is 
 Practical single-company usefulness and its evidence gate precede organizational scale;
 direct API adapters need not depend technically on Computer Use. No new capability or
 external action is claimed implemented by this documentation change.
+
+
+## Persistent personal investment experiment
+
+INV-REAL-01 extends the existing investment subsystem to a persistent observed-data paper portfolio, genuine existing employee research and independent review, transparent fixed-point accounting and owner-authorized public summaries on asymmetri.co. Real brokerage execution remains excluded. Owner-reported Yahoo confirmation and the precise prospective daily-bar methodology are recorded in [Decision047](../decisions/decision_047_persistent_observed_paper_investment.md). Source acceptance and live release are separate evidence levels; consult the [operational handoff](../operations/INV-REAL-01.md).

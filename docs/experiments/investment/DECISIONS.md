@@ -1,6 +1,12 @@
 # Design decisions and launch configuration
 
-**Version:** 1.9 | **Updated:** 2026-10-11 America/Vancouver | [Guide](README.md)
+**Version:** 2.0 | **Updated:** 2026-10-13 America/Vancouver | [Guide](README.md)
+
+## Current owner clarification and operating direction — 2026-10-13
+
+[Decision047](../../decisions/decision_047_persistent_observed_paper_investment.md) records the owner’s report that Yahoo confirmed the complete personal noncommercial automated research, paper-investment and personally registered website project is acceptable. The owner retains responsibility for permissions and compliance. Do not repeat licensing investigations or add provider-rights approval milestones. This supersedes earlier unresolved Yahoo permission gates below; historical evidence remains unchanged.
+
+The owner separately authorized implementation, genuine bounded operation, deployment, public release and a continuing examination/execution loop. Exact finite AI/source envelopes, authenticated account checks, correct accounting, request limits and publication privacy still apply. No real trading, paid data, credit purchases or reload changes are authorized. `inv-real-open-v1` is a new methodology; `inv05-v1` remains synthetic-only. See [the operating record](../../operations/INV-REAL-01.md) for source versus deployed status.
 
 ## Status discipline
 

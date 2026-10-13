@@ -15,20 +15,20 @@ export class ResearchCustody {
  private store?:FinancialStore;private transport?:YahooTransport;private logical=false;private wire=false;private ended=false;
  private controller=new AbortController();private timer:ReturnType<typeof setTimeout>;private monitor:ReturnType<typeof setInterval>;private readonly started=Date.now();
  readonly reservationId:string;readonly scope:FinancialScope;readonly symbol:string;
- private constructor(readonly company:Company,readonly scopeId:string,readonly request:FinancialRequest){
-  const {s,r,c}=company.privateResearch.assertScope(scopeId,false);ensure(r.collection_approved===1,'research_collection_unapproved');ensure(c.source.requests.some(x=>canonical(x)===canonical(request)),'research_request_scope');
-  const envelope=company.finiteHQ.assert(scopeId);ensure(envelope.purpose==='private_research','research_authority_required');
-  if(company.finiteHQ.trusted)verifyResearchHost(company,scopeId);
+ private constructor(readonly company:Company,readonly scopeId:string,readonly request:FinancialRequest,private readonly occurrence?:{occurrenceId:string;generation:number}){
+  const {s,r,c}=(company.observedInvestment.isRun(company.investmentTeam.scope(scopeId).run_id)?company.observedInvestment:company.privateResearch).assertScope(scopeId,false);ensure(r.collection_approved===1,'research_collection_unapproved');ensure(c.source.requests.some(x=>canonical(x)===canonical(request)),'research_request_scope');
+  const observed=company.observedInvestment.isRun(s.run_id),window=observed?company.observedInvestment.assertCollectionOccurrence(scopeId,this.occurrence,request):undefined;const envelope=company.finiteHQ.assert(scopeId);ensure(['private_research','observed_paper'].includes(envelope.purpose??''),'research_authority_required');
+  if(company.finiteHQ.trusted&&envelope.purpose==='private_research')verifyResearchHost(company,scopeId);
   const instrument=c.source.instruments.find(i=>i.id===request.instrumentId)!;this.symbol=symbolAt(instrument,request.start!);
   this.reservationId=company.finiteHQ.reserveCollection(scopeId,hash(request));
-  this.scope={id:s.run_id,mode:c.source.policy.mode,policyIds:[c.source.policy.id],instrumentIds:c.source.instruments.map(i=>i.id),calendarId:c.source.calendar.id,approvedAt:company.investmentTeam.now(),expiresAt:c.expiresAt,maxRequests:1,minIntervalMs:5000,maxResponseBytes:262144,maxTotalBytes:262144,timeoutMs:120000,maxRetries:0};
+  this.scope={id:s.run_id,mode:c.source.policy.mode,policyIds:[c.source.policy.id],instrumentIds:observed?[request.instrumentId]:c.source.instruments.map(i=>i.id),calendarId:c.source.calendar.id,approvedAt:company.investmentTeam.now(),expiresAt:window?.expires_at??c.expiresAt,maxRequests:1,minIntervalMs:5000,maxResponseBytes:262144,maxTotalBytes:262144,timeoutMs:120000,maxRetries:0};
   issued.add(this);if(company.finiteHQ.trusted){owners.add(this);}
   this.monitor=setInterval(()=>{try{this.check();}catch{this.controller.abort();}},500);
-  this.timer=setTimeout(()=>this.controller.abort(),Math.min(120000,time(c.expiresAt)-time(company.privateResearch.now())));
+  this.timer=setTimeout(()=>this.controller.abort(),Math.min(120000,time(this.scope.expiresAt)-time(company.privateResearch.now())));
  }
- static consume(company:Company,scopeId:string,request:FinancialRequest){return new ResearchCustody(company,scopeId,structuredClone(request));}
+ static consume(company:Company,scopeId:string,request:FinancialRequest,occurrence?:{occurrenceId:string;generation:number}){return new ResearchCustody(company,scopeId,structuredClone(request),occurrence);}
  get signal(){return this.controller.signal;}
- check(){ensure(issued.has(this)&&!this.ended&&!this.signal.aborted&&Date.now()-this.started<120000,'research_custody_expired');this.company.privateResearch.assertScope(this.scopeId,false);if(this.company.finiteHQ.trusted)verifyResearchHost(this.company,this.scopeId);this.company.finiteHQ.assertCollection(this.scopeId,this.reservationId);const l=this.company.investmentLoop.forScope(this.scopeId);ensure(l&&['draft','active'].includes(l.state),'research_collection_stopped');}
+ check(){ensure(issued.has(this)&&!this.ended&&!this.signal.aborted&&Date.now()-this.started<120000,'research_custody_expired');const observed=this.company.observedInvestment.isRun(this.company.investmentTeam.scope(this.scopeId).run_id);(observed?this.company.observedInvestment:this.company.privateResearch).assertScope(this.scopeId,false);if(observed)this.company.observedInvestment.assertCollectionOccurrence(this.scopeId,this.occurrence,this.request);if(this.company.finiteHQ.trusted&&!observed)verifyResearchHost(this.company,this.scopeId);this.company.finiteHQ.assertCollection(this.scopeId,this.reservationId);const l=this.company.investmentLoop.forScope(this.scopeId);ensure(l&&['draft','active'].includes(l.state),'research_collection_stopped');}
  bind(store:FinancialStore){this.check();ensure(!this.store&&store.db.all<{file:string}>('PRAGMA database_list').every(r=>r.file===''),'research_memory_store_required');store.db.db.exec('PRAGMA temp_store=MEMORY');this.store=store;}
  assertStore(store:FinancialStore,scope:FinancialScope){this.check();ensure(this.store===store&&hash(scope)===hash(this.scope),'research_store_scope');}
  bindTransport(transport:YahooTransport){this.check();ensure(!this.transport,'research_transport_rebound');this.transport=transport;}

@@ -14,9 +14,15 @@ export function nextSession(c: Configuration, at: string, cutoff = true): Sessio
 export const deadline = (c: Configuration, s: Session): string => new Date(time(s.open) - c.cutoffMinutes * 60_000).toISOString();
 export const expiry = (c: Configuration, s: Session): string => new Date(Math.min(time(s.open) + c.maxOpeningWaitSeconds * 1000, time(c.endsAt))).toISOString();
 export function validateConfiguration(c: Configuration): void {
-  exact(c, ['runId','version','methodology','evidenceMode','initialCapital','currency','universeVersion','instruments','allowedDirections','longOnly','leverage','positionLimitBps','sectorLimitBps','drawdownAttentionBps','commission','slippageBps','execution','cutoffMinutes','maxOpeningWaitSeconds','maxMarkAgeSeconds','calendar','marketPolicy','benchmark','startsAt','endsAt','publicationPolicy','authorization']);
+  exact(c, ['runId','version','methodology','evidenceMode','initialCapital','currency','universeVersion','instruments','allowedDirections','longOnly','leverage','positionLimitBps','sectorLimitBps','drawdownAttentionBps','commission','slippageBps','execution','cutoffMinutes','maxOpeningWaitSeconds','maxMarkAgeSeconds','calendar','marketPolicy','benchmark','startsAt','endsAt','publicationPolicy','authorization',...(c.observedPolicy ? ['observedPolicy'] : [])]);
   for (const value of [c.runId,c.version,c.universeVersion,c.publicationPolicy]) id(value);
-  ensure(c.methodology === 'inv05-v1' && c.evidenceMode === 'synthetic_fixture', 'synthetic_only');
+  ensure(c.methodology === 'inv05-v1' ? c.evidenceMode === 'synthetic_fixture' && c.observedPolicy === undefined : c.methodology === 'inv-real-open-v1' && ['observed','synthetic_fixture'].includes(c.evidenceMode) && c.observedPolicy !== undefined, 'synthetic_only');
+  if (c.observedPolicy) {
+    exact(c.observedPolicy,['initialSession','minimumCashBps','maxOrdersPerSession','maxOrdersPerWeek','basis']);
+    date(c.observedPolicy.initialSession);const initial=session(c.calendar,c.observedPolicy.initialSession);ensure(initial.status==='open'&&time(initial.open)-c.cutoffMinutes*60000>time(c.startsAt),'observed_initial_session');
+    integer(c.observedPolicy.minimumCashBps,0,10000); integer(c.observedPolicy.maxOrdersPerSession,1,20); integer(c.observedPolicy.maxOrdersPerWeek,1,100);
+    ensure(c.observedPolicy.basis==='same_session_unadjusted_chart' && c.marketPolicy.provider==='yahoo' && c.maxOpeningWaitSeconds>=28800, 'observed_methodology_mismatch');
+  }
   ensure(c.currency === 'USD' && c.longOnly === true && c.leverage === false, 'unsupported_policy');
   ensure(JSON.stringify(c.allowedDirections) === '["BUY","SELL"]', 'unsupported_direction');
   positive(c.initialCapital); nonnegative(c.commission);

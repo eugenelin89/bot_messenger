@@ -8,7 +8,7 @@ export function boundedText(value: unknown, max = 1000): asserts value is string
 }
 export function sourceReference(value: string): void {
   boundedText(value, 2048);
-  ensure(value.startsWith('synthetic:') || /^https:\/\/[^\s]+$/.test(value), 'invalid_source_reference');
+  ensure(value.startsWith('synthetic:') || /^owner-reported:[a-zA-Z0-9._-]{1,200}$/.test(value) || /^https:\/\/[^\s]+$/.test(value), 'invalid_source_reference');
 }
 export function validatePolicy(p: SourcePolicy): void {
   exact(p,['id','version','provider','feed','mode','incrementalCost','reviewedAt','expiresAt','rights','attribution','maxObservationAgeMs','maxRequests','minIntervalMs','cacheMs','timeoutMs','maxBytes']);
@@ -21,7 +21,7 @@ export function validatePolicy(p: SourcePolicy): void {
     ensure(['allowed','denied','unknown'].includes(right.status),'invalid_right'); boundedText(right.note);
     ensure(Array.isArray(right.evidence) && right.evidence.length<=10 && (right.status!=='allowed' || right.evidence.length>0),'missing_rights_evidence');
     right.evidence.forEach(sourceReference);
-    if(p.mode==='observed') ensure(right.evidence.every(e=>e.startsWith('https:')),'synthetic_permission_for_observed_source');
+    if(p.mode==='observed') ensure(right.evidence.every(e=>e.startsWith('https:')||e.startsWith('owner-reported:')),'synthetic_permission_for_observed_source');
   }
   integer(p.maxObservationAgeMs,1,604800000); integer(p.maxRequests,1,1000); integer(p.minIntervalMs,1,86400000); integer(p.cacheMs,0,86400000);
   integer(p.timeoutMs,1,10000); integer(p.maxBytes,1,262144); canonical(p);
@@ -34,7 +34,7 @@ export function requireUses(p:SourcePolicy, requested:DataUse[], at:string):void
 }
 export function validateInstrument(i:InstrumentIdentity):void {
   exact(i,['id','venue','currency','source','symbols']); id(i.id); sourceReference(i.source);
-  ensure(['XNYS','XNAS'].includes(i.venue) && i.currency==='USD','unsupported_market');
+  ensure(['XNYS','XNAS','ARCX'].includes(i.venue) && i.currency==='USD','unsupported_market');
   ensure(Array.isArray(i.symbols) && i.symbols.length>0 && i.symbols.length<=100,'invalid_symbol_history');
   let end:number|null=-Infinity;
   for(const s of i.symbols) {

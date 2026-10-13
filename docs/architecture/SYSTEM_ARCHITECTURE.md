@@ -781,3 +781,8 @@ account verification and final local/external admission precede an atomic journa
 Duplicate receipts do not mutate custody; newer holds invalidate them. Collection and Start stay
 separate, and no new allowance, schema, alternate authority store or runtime is introduced.
 Historical untyped/failure holds and every consumed or uncertain effect remain closed.
+
+
+## Observed paper investment extension
+
+[Decision047](../decisions/decision_047_persistent_observed_paper_investment.md) adds `inv-real-open-v1` while preserving `inv05-v1`. `ObservedInvestment` creates one continuing book and fresh bounded scopes. Durable source occurrences invoke the existing reviewed gateway with independent one-use request custody; the existing dispatcher then runs employee discussions and paper tools. Same-session raw-bar qualification feeds the existing market admission and fixed-point reducer. Schema25 preserves the original journal and allows successive scopes with only one live scope. The existing publication service signs designated reviewed summaries and financial journal events; it retains receipt/generation restore fences. No second accounting engine or model scheduler is introduced. See the [runbook](../operations/INV-REAL-01.md) for deployment state and limits.

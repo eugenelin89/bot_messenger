@@ -19,6 +19,7 @@ HISTORY_QUERY1_ONLY = False
 BOOTSTRAP_COMPATIBILITY = False
 DIRECT_CHART = False
 RESEARCH_DIRECT = False
+OBSERVED_PAPER_DIRECT = False
 DIRECT_URL = "https://query1.finance.yahoo.com/v8/finance/chart/AAPL"
 DIRECT_PARAMS = dict(period1=1788235200, period2=1790827200, interval="1d",
                      includePrePost=False, events="div,splits,capitalGains")
@@ -275,9 +276,9 @@ def main():
             raw = session.charts[-1]
             meta = raw.get("meta", {})
             if (meta.get("symbol") != (symbol if RESEARCH_DIRECT else "AAPL") or meta.get("currency") != "USD"
-                    or meta.get("exchangeName") not in (("NMS", "NGM", "NCM", "NASDAQ", "NYQ", "NYSE") if RESEARCH_DIRECT else ("NMS", "NGM", "NCM", "NASDAQ"))
+                    or meta.get("exchangeName") not in (("NMS", "NGM", "NCM", "NASDAQ", "NYQ", "NYSE", "PCX", "NYSEArca", "NYSE ARCA") if OBSERVED_PAPER_DIRECT else ("NMS", "NGM", "NCM", "NASDAQ", "NYQ", "NYSE") if RESEARCH_DIRECT else ("NMS", "NGM", "NCM", "NASDAQ"))
                     or meta.get("exchangeTimezoneName") != "America/New_York"
-                    or meta.get("instrumentType") != "EQUITY"
+                    or meta.get("instrumentType") not in (("EQUITY", "ETF") if OBSERVED_PAPER_DIRECT else ("EQUITY",))
                     or meta.get("dataGranularity") != "1d"):
                 raise GatewayStop("python_direct_metadata")
             stamps = raw.get("timestamp")
@@ -337,6 +338,12 @@ def main():
             frame = ticker.history(period="1d", timeout=5, **SETTINGS)
         meta = (history if DIRECT_CHART else ticker._price_history)._history_metadata  # Audited pinned layout.
         if klass in ("ohlcv", "actions"):
+            # ETF history adds this zero column even when no capital-gain event exists.
+            # Nonzero events were already denied from the original JSON above.
+            if OBSERVED_PAPER_DIRECT and "Capital Gains" in frame.columns:
+                if any(v != 0 for v in frame["Capital Gains"]):
+                    raise GatewayStop("python_direct_action_schema")
+                frame = frame.drop(columns=["Capital Gains"])
             columns = list(frame.columns)
             if len(frame) > 366:
                 raise GatewayStop("python_row_limit")

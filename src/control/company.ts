@@ -1,3 +1,4 @@
+import {ObservedInvestment} from './investment-team/observed-investment.js';
 import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
 import { FiniteHQ } from './usage/finite-hq.js';
@@ -68,6 +69,7 @@ export class Company extends EventEmitter {
   readonly creditPilot: CreditPilot;
   readonly finiteHQ: FiniteHQ;
   readonly investmentSetup: InvestmentSetup;
+  readonly observedInvestment: ObservedInvestment;
   readonly privateResearch: PrivateResearch;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
@@ -95,6 +97,7 @@ export class Company extends EventEmitter {
     this.creditPilot = new CreditPilot(this);
     this.finiteHQ = new FiniteHQ(this);
     this.investmentSetup = new InvestmentSetup(this);
+    this.observedInvestment = new ObservedInvestment(this);
     this.privateResearch = new PrivateResearch(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {

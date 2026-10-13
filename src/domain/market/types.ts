@@ -10,7 +10,7 @@ export interface SourcePolicy {
   maxObservationAgeMs: number; maxRequests: number; minIntervalMs: number; cacheMs: number; timeoutMs: number; maxBytes: number;
 }
 export interface InstrumentIdentity {
-  id: string; venue: 'XNYS' | 'XNAS'; currency: 'USD'; source: string;
+  id: string; venue: 'XNYS' | 'XNAS' | 'ARCX'; currency: 'USD'; source: string;
   symbols: { symbol: string; from: string; until: string | null }[];
 }
 export interface CalendarEvidence {

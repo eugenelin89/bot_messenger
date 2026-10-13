@@ -192,3 +192,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision045 - Private financial evidence in normal employee research](decision_045_private_employee_financial_research.md): HQ-READY-04A source integration through existing employees, discussions, dispatcher and finite authority; separate collection/AI-processing consent, historical-only evidence, independent critique/revision and finite private retention. Genuine Linux/collection/model acceptance remains a separate operational gate.
 
 - [Decision046 — Explicit fresh-research recovery release](decision_046_fresh_research_recovery_release.md): HQ-READY-04C adds a digest-bound owner action for untouched future approved drafts, using existing external journal receipts/custody. No new allowance or live approval.
+
+- [Decision047 — Persistent observed paper investment](decision_047_persistent_observed_paper_investment.md): owner-reported Yahoo confirmation, new prospective method, continuing ledger and finite renewed authority; acceptance pending.

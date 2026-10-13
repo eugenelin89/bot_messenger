@@ -14,6 +14,7 @@ const systemClock:SimulationClock={now:()=>new Date().toISOString()};
 const encode=(m:Material):MaterialJSON=>({...m,contents:m.contents.map(c=>({origin:c.origin,contentType:c.contentType,base64:c.bytes.toString('base64'),sha256:sha256(c.bytes)}))});
 const decode=(m:MaterialJSON):Material=>({...m,contents:m.contents.map(c=>({origin:c.origin,contentType:c.contentType,bytes:Buffer.from(c.base64,'base64')}))});
 export interface PublicationOptions {
+  autoObserved?:boolean;
   sources?:PublicationSource[]; destinations?:Destination[]; keys?:KeyRing; transport?:PublicationTransport; clock?:SimulationClock;
   fault?:(phase:'before_stage_commit'|'before_send'|'after_send'|'before_receipt_commit')=>void;
 }
@@ -29,6 +30,19 @@ export class PublicationService {
     this.destinations=new Map((options.destinations??[]).map(d=>{destinationValid(d);return [d.id,Object.freeze({...d})];}));this.clock=options.clock??systemClock;
     for(const c of db.all<Channel>('SELECT * FROM investment_public_channels'))this.restartFences.set(c.id,c.generation);
   }
+  private automatic?:Promise<void>;
+  private automaticDue:string|null=null;
+  private automaticStopped=false;
+  nextWake(){if(!this.options.autoObserved||this.automaticStopped||this.automatic)return null;return this.automaticDue??this.clock.now();}
+  progress(changed:()=>void){if(!this.options.autoObserved||this.automaticStopped||this.automatic||this.automaticDue&&this.clock.now()<this.automaticDue)return;
+    this.automaticDue=new Date(time(this.clock.now())+60000).toISOString();
+    this.automatic=(async()=>{await Promise.resolve();for(const c of this.db.all<Channel>('SELECT * FROM investment_public_channels')){if(this.automaticStopped)break;const source=this.sources.get(c.source_id);if(!source?.standingSummaries)continue;try{if(this.health(c.id).deliveryBlocked)continue;}catch{continue;}
+      let captured=false;try{this.capture({channelId:c.id});captured=true;this.captureStatus(c,null);}catch(error){this.captureStatus(c,String(error).slice(0,300));}
+      try{const last=this.jobs(c).filter(j=>j.kind==='heartbeat').at(-1);if(captured&&(!last||last.state==='delivered'&&time(this.clock.now())-time(last.created_at)>=900000))this.heartbeat({channelId:c.id});await this.deliver({channelId:c.id});}catch{/* Delivery has durable attempts/results and bounded backoff. */}
+    }})().finally(()=>{this.automatic=undefined;changed();});
+  }
+  private captureStatus(c:Channel,error:string|null){const prior=this.db.get<{detail:string}>("SELECT detail FROM investment_public_controls WHERE channel_id=? AND action='capture_status' ORDER BY rowid DESC LIMIT 1",c.id),detail={error};if((prior?.detail??canonicalJson({error:null}))!==canonicalJson(detail))this.controlReceipt(c,'capture_status',detail);}
+  async stop(){this.automaticStopped=true;await this.automatic;}
   private owner(){ensure(this.db.get<{enabled:number}>("SELECT enabled FROM principals WHERE principal_id='human'")?.enabled===1,'publication_owner_disabled');}
   private channel(id:string):Channel {const c=this.db.get<Channel>('SELECT * FROM investment_public_channels WHERE id=?',id);ensure(c,'publication_channel_missing');return c;}
   private source(c:Channel):PublicationSource {const s=this.sources.get(c.source_id);ensure(s,'publication_source_unconfigured');ensure((s.privateRunId??null)===c.source_run_id,'publication_source_binding_changed');return s;}
@@ -50,9 +64,9 @@ export class PublicationService {
   private history(c:Channel):Event[]{return this.jobs(c).filter(j=>j.kind==='batch').flatMap(j=>validate<EventBatch>('EventBatch',parseJson(j.body)).events);}
   private base(c:Channel):string {return hash(this.jobs(c).map(j=>({id:j.id,digest:j.digest})));}
   private envelope(input:unknown):Envelope {
-    object(input);exact(input,['sourceId','destinationId','audience','futureFinancial','participants','eventTypes','contentTypes','expiresAt','maxAttempts','maxBytes','maxQueueBytes','maxAgeSeconds','writesPerMinute']);
+    object(input);exact(input,['sourceId','destinationId','audience','futureFinancial',...(Object.hasOwn(input,'futureSummaries')?['futureSummaries']:[]),'participants','eventTypes','contentTypes','expiresAt','maxAttempts','maxBytes','maxQueueBytes','maxAgeSeconds','writesPerMinute']);
     const e=JSON.parse(canonicalJson(input)) as Envelope;id(e.sourceId);id(e.destinationId);ensure(e.audience==='public'&&typeof e.futureFinancial==='boolean','publication_audience_required');
-    const source=this.sources.get(e.sourceId);ensure(source&&this.destinations.has(e.destinationId),'publication_configuration_missing');
+    const source=this.sources.get(e.sourceId);ensure(source&&this.destinations.has(e.destinationId),'publication_configuration_missing');ensure(e.futureSummaries===undefined||typeof e.futureSummaries==='boolean'&&(!e.futureSummaries||source.standingSummaries===true&&e.contentTypes.length===0),'publication_standing_summaries_denied');
     ensure(Array.isArray(e.participants)&&new Set(e.participants).size===e.participants.length&&hash([...e.participants].sort())===hash([...source.participants].sort()),'publication_participant_scope');
     ensure(time(e.expiresAt)>time(this.clock.now())&&time(e.expiresAt)-time(this.clock.now())<=31*86400000,'publication_expiry');
     integer(e.maxAttempts,1,1000);integer(e.maxBytes,1,67108864);integer(e.maxQueueBytes,1,67108864);integer(e.maxAgeSeconds,1,86400);integer(e.writesPerMinute,1,60);
@@ -60,7 +74,10 @@ export class PublicationService {
   }
   private scope(c:Channel,e:Envelope):PublisherScope {
     const d=this.destination(c);
-    return validate<PublisherScope>('PublisherScope',{publisherId:d.publisherId,keyId:d.keyId,experimentId:c.experiment_id,runId:c.run_id,eventTypes:e.eventTypes,contentTypes:e.contentTypes,publicationPolicyVersion:c.policy_version,expiresAt:e.expiresAt,enabled:true,generation:c.generation,writesPerMinute:e.writesPerMinute,bytesPerDay:e.maxBytes});
+    // v1 requires a nonempty receiver capability. The local consent remains contentTypes:[];
+    // no content job can be selected, staged or sent by this events-only authority.
+    ensure(e.contentTypes.length>0||e.futureSummaries===true,'publication_content_scope_required');
+    return validate<PublisherScope>('PublisherScope',{publisherId:d.publisherId,keyId:d.keyId,experimentId:c.experiment_id,runId:c.run_id,eventTypes:e.eventTypes,contentTypes:e.contentTypes.length?e.contentTypes:['application/json'],publicationPolicyVersion:c.policy_version,expiresAt:e.expiresAt,enabled:true,generation:c.generation,writesPerMinute:e.writesPerMinute,bytesPerDay:e.maxBytes});
   }
   inspect() {
     this.owner();return {configured:this.sources.size>0&&this.destinations.size>0,transportConfigured:!!this.options.transport&&!!this.options.keys,
@@ -75,7 +92,7 @@ export class PublicationService {
     const captured=this.db.get<{n:number}>('SELECT max(journal_version) n FROM investment_public_captures WHERE channel_id=?',c.id)?.n??0,unstaged=this.db.all<{journal_version:number;recorded_at:string;bytes:number}>('SELECT i.journal_version,i.recorded_at,length(j.payload) bytes FROM investment_public_intents i JOIN investment_journal j ON j.run_id=? AND j.version=i.journal_version WHERE i.channel_id=? AND i.journal_version>? ORDER BY i.journal_version',c.source_run_id,c.id,captured);
     const usage=g?this.db.get<{attempts:number;bytes:number}>('SELECT count(*) attempts,coalesce(sum(bytes),0) bytes FROM investment_public_attempts WHERE grant_id=?',g.id):null,budgetExhausted=!!e&&!!usage&&(usage.attempts>=e.maxAttempts||usage.bytes>=e.maxBytes);
     const bytes=pending.reduce((n,j)=>n+j.body.length,0),unstagedBytes=unstaged.reduce((n,j)=>n+j.bytes,0),oldest=[pending[0]?.created_at,unstaged[0]?.recorded_at].filter((x):x is string=>!!x).sort()[0],age=oldest?Math.max(0,(time(at)-time(oldest))/1000):0;
-    return {unstaged:unstaged.length,unstagedSourceBytes:unstagedBytes,budgetExhausted,state:g?.state??'unconfigured',pending:pending.length,bytes,oldestAgeSeconds:age,uncertain:pending.filter(j=>j.needs_receipt===1||['sending','uncertain'].includes(j.state)).length,
+    const capture=this.db.get<{detail:string}>("SELECT detail FROM investment_public_controls WHERE channel_id=? AND action='capture_status' ORDER BY rowid DESC LIMIT 1",c.id);return {captureError:capture?JSON.parse(capture.detail).error:null,unstaged:unstaged.length,unstagedSourceBytes:unstagedBytes,budgetExhausted,state:g?.state??'unconfigured',pending:pending.length,bytes,oldestAgeSeconds:age,uncertain:pending.filter(j=>j.needs_receipt===1||['sending','uncertain'].includes(j.state)).length,
       delivered:jobs.length-pending.length,grantId:g?.id??null,expiresAt:e?.expiresAt??null,
       restoreRequired:this.restoreRequired(c),deliveryBlocked:this.restoreRequired(c)||!g||g.state!=='active'||!!e&&time(at)>=time(e.expiresAt)||pending.some(j=>j.state==='blocked'),
       newRiskBlocked:unstaged.length>0||budgetExhausted||this.restoreRequired(c)||!g||g.state!=='active'||!!e&&(time(at)>=time(e.expiresAt)||age>e.maxAgeSeconds||bytes+unstagedBytes>e.maxQueueBytes)||pending.some(j=>j.state==='blocked'),jobs:jobs.map(j=>({id:j.id,kind:j.kind,state:j.state,digest:j.digest,retryAt:j.retry_at,receipt:j.receipt?JSON.parse(j.receipt):null}))};
@@ -146,13 +163,13 @@ export class PublicationService {
       const p=JSON.parse(this.db.get<{payload:string}>('SELECT payload FROM investment_public_previews WHERE id=?',g.preview_id)!.payload) as Preview;
       ensure(p.destination.origin===this.destination(c).origin&&p.destination.generation===c.generation,'publication_generation_fenced');
       const material=this.material(c);ensure(material.events.length<=1000&&material.contents.length<=100,'publication_capture_budget');this.source(c).checkRights(material,this.clock.now());
-      const history=this.history(c),selected=material.events.filter(x=>e.eventTypes.includes(x.event.type)),financial=new Set<Event['type']>(['paper.order','paper.ledger_transaction','portfolio.snapshot','market.action','instrument.updated','run.status']);
-      for(const x of selected){const prior=history.find(h=>h.eventId===x.event.eventId);ensure(!prior||hash(prior)===hash(x.event),'publication_source_conflict');if(!financial.has(x.event.type))ensure(p.material.events.some(a=>hash(a)===hash(x)),'publication_new_derivative_approval_required');}
+      const summary=(x:Material['events'][number])=>e.futureSummaries===true&&this.source(c).standingSummaries===true&&x.origin.kind==='observed_public_summary'&&['decision.published','discussion.opened','discussion.contribution'].includes(x.event.type);const history=this.history(c),selected=material.events.filter(x=>e.eventTypes.includes(x.event.type)),financial=new Set<Event['type']>(['paper.order','paper.ledger_transaction','portfolio.snapshot','market.action','instrument.updated','run.status']);
+      for(const x of selected){const prior=history.find(h=>h.eventId===x.event.eventId);ensure(!prior||hash(prior)===hash(x.event),'publication_source_conflict');if(!financial.has(x.event.type)&&!summary(x))ensure(p.material.events.some(a=>hash(a)===hash(x)),'publication_new_derivative_approval_required');}
       for(const content of material.contents.filter(x=>e.contentTypes.includes(x.contentType)))ensure(p.material.contents.some(a=>a.sha256===sha256(content.bytes)&&a.contentType===content.contentType&&hash(a.origin)===hash(content.origin)),'publication_new_derivative_approval_required');
       const approvedSources=new Set(p.material.events.flatMap(({event})=>event.type==='market.action'?[hash(event.payload.source)]:event.type==='paper.ledger_transaction'&&event.payload.corporateAction?[hash(event.payload.corporateAction.source)]:[]));
-      for(const x of selected.filter(x=>!history.some(h=>h.eventId===x.event.eventId))){const event=x.event,source=event.type==='market.action'?event.payload.source:event.type==='paper.ledger_transaction'?event.payload.corporateAction?.source:null;ensure(!source||approvedSources.has(hash(source)),'publication_new_derivative_approval_required');}
+      for(const x of selected.filter(x=>!history.some(h=>h.eventId===x.event.eventId))){const event=x.event,source=event.type==='market.action'?event.payload.source:event.type==='paper.ledger_transaction'?event.payload.corporateAction?.source:null;ensure(!source||e.futureSummaries===true&&this.source(c).standingSummaries===true||approvedSources.has(hash(source)),'publication_new_derivative_approval_required');}
       const content=new Map(p.material.contents.map(x=>[x.sha256,checkContent(Buffer.from(x.base64,'base64'),x.contentType,x.sha256)]));
-      for(const x of selected.filter(x=>!history.some(h=>h.eventId===x.event.eventId))){ensure(financial.has(x.event.type)&&x.origin.kind==='journal','publication_new_derivative_approval_required');const jobId=opaque(),batch={schemaVersion:'1.0',batchId:jobId,experimentId:c.experiment_id,runId:c.run_id,events:[x.event]},bytes=Buffer.from(canonicalJson(batch));checkPublicationBatch(bytes,jobId,{experimentId:c.experiment_id,runId:c.run_id,now:this.clock.now(),scope:this.scope(c,e),history,content,receipts:new Map()});this.addJob(c,g.id,'batch',bytes,`/api/experiments/v1/experiments/${c.experiment_id}/runs/${c.run_id}/events`,'application/json',jobId);history.push(x.event);}
+      for(const x of selected.filter(x=>!history.some(h=>h.eventId===x.event.eventId))){ensure(financial.has(x.event.type)&&x.origin.kind==='journal'||summary(x),'publication_new_derivative_approval_required');const jobId=opaque(),batch={schemaVersion:'1.0',batchId:jobId,experimentId:c.experiment_id,runId:c.run_id,events:[x.event]},bytes=Buffer.from(canonicalJson(batch));checkPublicationBatch(bytes,jobId,{experimentId:c.experiment_id,runId:c.run_id,now:this.clock.now(),scope:this.scope(c,e),history,content,receipts:new Map()});this.addJob(c,g.id,'batch',bytes,`/api/experiments/v1/experiments/${c.experiment_id}/runs/${c.run_id}/events`,'application/json',jobId);history.push(x.event);}
       ensure(this.jobs(c).filter(j=>j.state!=='delivered').reduce((n,j)=>n+j.body.length,0)<=e.maxQueueBytes,'publication_backlog_budget');this.captureReceipt(c,g.id,material.sourceHash);this.options.fault?.('before_stage_commit');return this.health(c.id);
     });
   }

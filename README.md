@@ -1,5 +1,8 @@
 # BotSquad
 
+
+**INV-REAL-01,2026-10-13 (source in progress):** The owner-authorized persistent real-market paper system now has a distinct observed method, renewable finite employee authority, standing public summaries and owner portfolio controls on the implementation branch. Yahoo confirmation is owner-reported; no further licensing gate applies. This update is not a deployment claim. See [Decision047](docs/decisions/decision_047_persistent_observed_paper_investment.md) and [operation/morning handoff](docs/operations/INV-REAL-01.md) for exact live status and remaining validation.
+
 BotSquad is a self-hosted workspace for coordinating persistent AI workers through
 explicit tasks, durable messages, bounded authority, inspectable artifacts, and real
 Codex execution.
