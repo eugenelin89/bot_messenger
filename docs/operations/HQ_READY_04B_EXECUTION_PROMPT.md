@@ -1,8 +1,9 @@
 # Copy-ready prompt — approved deployment and genuine private research
 
 **Not current authorization.** Paste the prompt below only after reviewing the packet.
-It deliberately stops on B1 or missing approvals; it cannot turn the assessed blocked
-commit into an executable trial. B1 source repair is a separately selected follow-up.
+B1 is source-accepted in replacement `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`;
+all five operational decisions remain unapproved. This complete prompt stops at missing
+approvals/evidence and does not itself supply consent.
 
 ```text
 Execute only the explicitly approved deployment and one genuine private employee research
@@ -10,17 +11,19 @@ session described in docs/operations/HQ_READY_04B_APPROVAL_PACKET.md and its Lin
 configuration appendix for eugenelin89/bot_messenger.
 
 First read AGENTS.md, that packet, HQ-READY-04B validation/evidence, the prior04A packet,
-investment operational design/readiness, roadmap, simulation rules and Decisions029,037–045.
+investment operational design/readiness, roadmap, simulation rules and Decisions029,037–046.
+Read HQ-READY-04C acceptance and its unchanged original04B reproduction.
 Verify clean synchronized main and the exact approved deployment SHA. Preserve03H's direct
 Yahoo implementation,04A's normal employee integration, PR71 and every historical receipt.
 
-STOP before host changes if B1 remains unfixed. The assessed commit
-da6d3e10c9d8484c4a924d192c30c7c70d6fb743 cannot bootstrap first collection after authority
-provisioning/restart. Do not fix it opportunistically, bypass recovery, call journal.resume
-directly, edit database/journal state or silently deploy newer main. Require the separately
-reviewed B1 repair, its actual restart/owner-release regression, and an owner-reviewed
-replacement packet naming its exact integrated commit. If none exists, report this blocker
-and the narrow source follow-up, then stop.
+The only proposed replacement deployment source is
+7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d
+from accepted PR73. Verify its exact identity and owner D1 approval; a later documentation
+commit on main does not change this source pin. Do not deploy the historical blocked
+da6d3e10c9d8484c4a924d192c30c7c70d6fb743 or silently use moving main. B1 is resolved
+for a fresh authority approved under repaired code; legacy untyped/owner/failure holds stay
+ineligible. Do not bypass recovery, call journal.resume, relabel events, edit SQLite or
+replace a spent allowance. A new source defect requires a separately reviewed source task.
 
 Verify five independently recorded decisions: D1 deployment/outage/recovery, C2 exact
 Yahoo collection/local use, C3 external AI processing with supported source-use and actual
@@ -74,9 +77,14 @@ Bind actual guard PID/start/boot/source and manifest hash, present the normal HQ
 with real generated run/scope/request/calendar/account identities, and obtain its two
 separate owner consents within the15minute validity. Stop the quiescent HQ, provision the
 independent finite journal once and approve the exact envelope; restart with only its
-existing BOTSQUAD_FINITE_HQ_AUTHORITY selector. Use the newly accepted explicit owner
-untouched-draft recovery-release path after restart. It must preserve draft state, all
-fences and consumption and create no wire or model work. Keep global Pause through setup
+existing BOTSQUAD_FINITE_HQ_AUTHORITY selector. Observe the recovery hold on the future
+draft, inspect its exact current release digest/revision and use the authenticated normal
+owner button Release recovery hold for first collection. Require fresh strict non-inference
+account/routing checks plus host/source/consent/reload/custody eligibility, a durable exact
+receipt, unchanged consumption, draft loop/group and zero model dispatch. Repeated delivery
+uses the same receipt; it cannot clear a newer hold. A new recovery requires a new exact
+preview/receipt while all untouched/future gates still hold. Any ineligible legacy hold,
+prior collection/model attempt, uncertainty or missed time stops the attempt. Keep global Pause through setup
 and collection; release it explicitly for due research only after unrelated admission
 is held, then restore its original value at closure.
 

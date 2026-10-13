@@ -1,8 +1,11 @@
 # HQ-READY-04B — first genuine private research approval packet
 
 **Prepared:** 2026-10-12 America/Vancouver / 2026-10-13 UTC
+**Revised after HQ-READY-04C source integration:** 2026-10-13 UTC
 **Status:** Owner-review proposal; live execution BLOCKED. No consent is recorded by this document.
-**Exact assessed code candidate (BLOCKED by B1):** `da6d3e10c9d8484c4a924d192c30c7c70d6fb743`
+**Exact replacement source candidate (B1 repaired; D1 UNAPPROVED):** `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`
+**Source integration:** [PR73](https://github.com/eugenelin89/bot_messenger/pull/73)
+**Historical blocked candidate:** `da6d3e10c9d8484c4a924d192c30c7c70d6fb743`
 **Repository:** `eugenelin89/bot_messenger`
 **Scope:** One private historical research session, not the later two-session H1–H9 paper trial.
 
@@ -13,17 +16,17 @@
 
 ## 1. Readiness decision
 
-The accepted source contains the direct Yahoo transport and normal employee research path.
-The actual HQ is **not ready for collection or inference**. A newly reproduced source
-blocker, **B1**, prevents the proposed first collection after the required service restart.
-The assessed commit must not be approved for genuine deployment/trial as-is. The runbook
-and five decisions below are complete conditional review material, not a ready deployment
-transaction. A narrow source follow-up and a newly pinned reviewed commit must precede
-renewed D1 review; this milestone changes documentation only.
+The accepted replacement source repairs **B1** for a fresh authority approved under the
+repaired code, while retaining the direct Yahoo transport and normal employee research path.
+[04C source acceptance](../validation/investment/HQ-READY-04C.md) proves the reopened
+Dispatcher/recovery → explicit owner release → authored collection → explicit Start path.
+The actual HQ is **not ready for collection or inference**. Source acceptance is not Ubuntu
+or genuine employee acceptance. The exact replacement above is now presented for D1 review;
+all five decisions remain unapproved and the operational gates below remain unresolved.
 
 | Gate | Current finding | Required before genuine collection |
 | --- | --- | --- |
-| Source | Freshly fetched local/remote main clean at exact candidate; PR71 included; B1 reproduced | Repair/review B1 separately; present a new exact candidate and corresponding approval; never deploy moving main |
+| Source | B1 repaired and reviewed in04C; exact integrated candidate above includes PR71 | Owner D1 approval for this exact replacement; verify installed identity and actual Linux gates; never deploy moving main |
 | Production | Healthy older `a72cee080989960d2a9e1e74d9236157ce1a0448`, schema14 | Reviewed installation and actual14→24 preservation proof |
 | Employees | Exact Scout and Grace enabled, persistent, principal enabled, idle, `internal_message`; zero unresolved runtime attempts | Recheck at setup/admission; no silent substitution |
 | Model/account | Installed and executable CLI0.157.0; supported login-status says ChatGPT; Oct8 cache advertises `gpt-6-sol`/`low` | Fresh same-isolated-home account/routing/config/rate-limit/catalog verification; no inference probe |
@@ -34,7 +37,7 @@ renewed D1 review; this milestone changes documentation only.
 | Custody/recovery | Finite journal/checkpoint and research manifest/guard absent; historical local backup readable | Independent current custody, verified new pre-collection rollback point, external backup/snapshot exclusions |
 | Rights | Owner-reported verbal personal-use permission; no exact external-model/retention scope established | Resolve automation/calculation/retention and external-AI-processing rights separately; unknown stays blocked |
 
-### B1 — fresh-authority recovery prevents first collection
+### B1 — historical reproduction and accepted source correction
 
 [The authored offline reproduction](../validation/evidence/hq-ready-04b/fresh-authority-recovery.json)
 rebuilt the exact assessed source and called the actual `Company.recover()` startup path
@@ -45,21 +48,23 @@ wire calls, zero admitted evidence and zero employee executions occurred.
 
 The relevant chain is Dispatcher.start → Company.recover → FiniteHQ.recover →
 FiniteJournal.recover. `holdFinite()` only changes active loops, while normal research Resume
-requires evidence. Existing tests authorize and collect in the same fixture instance, so
-they miss this required deployment transition. This does not invalidate03H's successful
+requires evidence. The pre-repair tests authorized and collected in the same fixture instance, so
+they missed this required deployment transition. This does not invalidate03H's successful
 direct transport or04A's recorded fixture results; it identifies an uncovered operational path.
 
-**Narrowest follow-up:** add a trusted human, exact-digest/idempotent control that releases
-only a still-future, untouched draft research authority's recovery hold for its first
-approved collection. Keep the loop draft and model dispatch inactive. Require matching
-current host/source/account/rights/reload/custody and both consents; reject any prior
-collection reservation/wire, employee reservation, uncertainty, exhausted/stopped/expired
-authority, changed digest, missing custody or other global fence. Do not bypass recovery,
-auto-resume on startup, reset counters or expose raw journal mutation. Validate a genuinely
-reopened Company/dispatcher/selector sequence plus duplicate/concurrent requests, restart
-crash windows and consumed/unknown denial before accepted Git integration. Then replace
-this packet's candidate with that exact reviewed commit and re-present D1 and affected
-consents. No source fix or deployment is performed by04B.
+**Accepted04C correction:** the authenticated owner control **Release recovery hold for first
+collection** binds the exact existing envelope, current hold/control revision and reload
+evidence. It rechecks current host/source/account/rights/retention/custody, both consents and
+an untouched future draft, then atomically persists release and receipt externally. It
+creates no collection/model reservation and leaves loop/group draft. Duplicate delivery is
+safe; stale/conflicting receipts, prior effects and all uncertainty/global fences reject.
+Actual Company reopen/Dispatcher startup, two-process contention, crash persistence and
+authored collection/fake-model completion/cleanup now pass. No live operation occurred.
+
+Only newly typed recovery holds are eligible. Previously recorded untyped, owner or failure
+holds remain ineligible even after another restart. Do not relabel history, replace a spent
+authority, call journal.resume or edit SQLite. This is the future fresh-authority path, not
+a mechanism to repair/reset old held runs. See [Decision046](../decisions/decision_046_fresh_research_recovery_release.md).
 
 ## 2. Fresh actual-host evidence and outage impact
 
@@ -154,11 +159,19 @@ digests later. These proposed times expire if missed; there is no backdating or 
 extension. A changed date, profile, worker, source, host, evidence hash or scope requires a
 newly presented packet and applicable consent, without reviving old consumption.
 
+**October14 reassessment (2026-10-13 UTC):** the source prerequisite is resolved with more
+than a day remaining, but the window is still tentative and cannot be treated as a firm
+ready-to-run booking. The concrete Linux fixture driver, dependency hashes, independently
+verified backup destination, account/rights evidence and five owner decisions remain open.
+Keep the proposed times only if those artifacts can be reviewed and all actual gates pass
+by17:30 PDT October14. Otherwise cancel this window and present new times; do not compress
+acceptance or silently reschedule. This revision changes no proposed timestamp.
+
 ## 4. Deployment and confinement runbook — future actions only
 
-The following sequence is a conditional plan for a **B1-repaired, separately reviewed and
-newly pinned candidate**. D1 for the assessed candidate is withheld. Do not silently replace
-its hash or deploy before the owner reviews the replacement. The current
+The following sequence is a conditional plan for the **exact integrated replacement candidate
+above**. D1 remains unapproved. Do not silently replace its hash or deploy before the owner
+approves that exact source and concrete deployment artifacts. The current
 bootstrap script is **not** a one-command solution: it installs OS updates/swap, checks out
 a detached revision and restarts services. Those side effects conflict with this packet.
 Reuse its established root-managed layout/install discipline and the existing protected
@@ -334,10 +347,15 @@ This is an explicit limitation of preparation, not an assumed Linux pass.
     Provision once only if both custody paths are truly absent; partial/missing current
     custody is a stop, never a re-creation. Freeze all consumed/unknown histories and shared
     rolling24h exposure. Select only this existing ID with `BOTSQUAD_FINITE_HQ_AUTHORITY`,
-    restart and verify host/account/authority admission. **B1 blocks the assessed source
-    at this point.** Only the separately accepted, reapproved owner recovery-release path
-    may release the untouched draft; do not call journal.resume directly or edit SQLite.
-    Do not create a provider turn.
+    restart and verify host/account/authority admission. Recovery must visibly hold the authority
+    while the loop remains draft. In the authenticated normal owner UI inspect the current release
+    digest/revision and select **Release recovery hold for first collection**. Its strict
+    non-inference per-workspace account checks and current host/source/consent/reload checks
+    must pass. Verify the durable release receipt, unchanged consumption, draft loop/group
+    and zero model dispatch. Retry only the same exact receipt after a lost response; a
+    newer hold requires a new current preview/receipt and must still be untouched/future.
+    Legacy untyped or non-recovery holds are ineligible; stop rather than relabel them.
+    Do not call journal.resume directly, edit SQLite or create a provider turn.
 20. Through the authenticated normal HQ owner collection action, consume the exact one-use
     request hash from the **running supervised service** within the collection slot. The
     gateway uses the accepted direct profile/pinned parser; no standalone operator probe.
@@ -433,16 +451,15 @@ this document or by a successful login-status command.
 
 ## 6. Five independently identifiable owner decisions
 
-All five are **PROPOSED / UNAPPROVED**. **D1 is withheld for the assessed commit because
-of B1**; after source repair its revised exact-commit decision can be considered before
-C2–C5. C2–C5 cannot activate anything while their blocking evidence is
-missing. Consent is to the exact packet and later matching runtime identities, not to
+All five remain **PROPOSED / UNAPPROVED**. B1 is resolved in the exact replacement source;
+D1 below is newly presented for that candidate and has not been granted. C2–C5 cannot
+activate anything while their blocking evidence is missing. Consent is to the exact packet and later matching runtime identities, not to
 silent changes. Record owner identity, actual timestamp and packet revision/hash privately.
 
-**D1 — deployment, confinement and recovery: WITHHOLD.** Do not approve deployment of
-`da6d3e10c9d8484c4a924d192c30c7c70d6fb743` for the genuine trial. First review B1's narrow
-repair and name its exact integrated commit in a replacement packet. No replacement SHA
-exists in04B. The future decision must explicitly cover the existing botsquad host,
+**D1 — deployment, confinement and recovery: PROPOSED / UNAPPROVED.** Review the accepted
+B1 repair and approve only replacement source `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`
+if this packet and the concrete artifacts are acceptable. No approval is inferred here.
+The decision must explicitly cover the existing botsquad host,
 October14 14:00–20:00 PDT maintenance (if still feasible), schema14→24 with exact preservation,
 and section4's bounded changes: backup/restore proof, locked staging, Python3.12.12,
 verified root-owned Node24.21.0 and application installation/main/Git trust, temporary
@@ -452,8 +469,8 @@ actual-host fixture service/account substitution. It must accept whole-service/b
 interruption, effects on unrelated work, no guaranteed restoration time, pre-consumption
 rollback and post-consumption repair-forward. No cloud purchase, data call or employee turn
 follows from deployment alone. Unresolved deployment artifacts must be presented and
-accepted before their corresponding host mutation. If repair is not accepted by the
-17:30 gate, cancel this window and present new times; do not compress acceptance to fit.
+accepted before their corresponding host mutation. If any prerequisite remains unmet at
+the17:30 gate, cancel this window and present new times; do not compress acceptance to fit.
 
 **C2 — one Yahoo collection and permitted local use.** “Subject to recorded supporting
 source-use evidence, I approve only the exact AAPL/XNAS/USD September2026 direct request
@@ -495,7 +512,7 @@ silent extension.”
 
 ## 7. Genuine trial pass/fail checklist
 
-All entries are **NOT RUN** in04B. A source test or authored transcript cannot check them.
+All entries remain **NOT RUN** after04C. A source test or authored transcript cannot check them.
 
 | ID | PASS requires | FAIL / stop condition |
 | --- | --- | --- |

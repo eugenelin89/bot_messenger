@@ -97,5 +97,13 @@
     ],
     "productionUse": false
   },
-  "sourcePullRequest": "https://github.com/eugenelin89/bot_messenger/pull/73"
+  "sourcePullRequest": "https://github.com/eugenelin89/bot_messenger/pull/73",
+  "integration": {
+    "reviewedHead": "de9e973116062601c311bb40b32eafee25061aee",
+    "sourceMerge": "7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d",
+    "reviewedTreeEqualsMerge": true,
+    "primaryMainCleanSynchronizedAtSourceMerge": true,
+    "ownerPacket": "exact source pin; five decisions remain unapproved",
+    "ownerPacketReview": "independently accepted after source merge; documentation-only diff; all five decisions unapproved"
+  }
 }

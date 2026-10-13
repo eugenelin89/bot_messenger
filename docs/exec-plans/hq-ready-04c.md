@@ -1,6 +1,6 @@
 # Execution plan — HQ-READY-04C
 
-**Status:** Active
+**Status:** Complete — accepted source repair and owner approval package
 **Owner:** Parent Codex, sole implementation writer/integrator; specialists read-only
 **Branch:** `codex/hq-ready-04c`
 **Worktree:** `/Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-hq-ready-04c`
@@ -55,9 +55,13 @@ Actual Linux and genuine employee acceptance are explicitly excluded and remain 
 | Final full serial |1,834 passed,0failed,6existing skips; initial missing-environment failure retained |
 | Compatibility/browser/contracts/typecheck |67/8/175 passed; check/build passed |
 | Acceptance | All four independent source reviews accepted |
-| Integration/package | PR73 exact-head merge and owner package pin pending |
+| Source integration | PR73, reviewed head de9e973, merge `7c5f3bceb831668c7c0e7d1b4e01f859b0e1d76d`; tree equality and clean synchronized primary main verified |
+| Owner package | Exact merge pin, five unapproved decisions and unchanged conditionalOctober14; independent documentation acceptance passed |
 
-## Remaining work
+## Closure
 
-Implementation, focused fault/restart evidence and final serial/browser/contracts checks
-complete. Source accepted. Git integration and updated approval package remain. No operational consent or host acceptance follows from source acceptance.
+Implementation, tests, four source reviews and PR73 integration are complete. The owner
+package passed independent acceptance; its documentation-only PR records the final reviewed
+head and integration. No source changes followed the full serial run. Stop at this package: no
+operational consent or host acceptance follows from source acceptance. The remaining Ubuntu
+and genuine-trial gates belong to a separately approved execution task.
