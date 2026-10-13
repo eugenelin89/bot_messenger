@@ -34,7 +34,9 @@ Implementation is `d9e422ea691f25ef79f13ed183bb76f49597e859`. Final458/458 check
 pass; all416 selected build-input hashes match Linux. Both initial broader failures and their
 fixes are preserved with16 raw logs in the [machine receipt](../validation/evidence/inv-ask-content01/acceptance.json).
 All four specialists accepted the bounded source; final evidence hashes/counts were independently
-verified. Acceptance receipt SHA256 is `b40eac6a6a64cdd451b4ae31f0abb0a1fe407c775331d34ac9a32bdb43a7aa41`. Normal PR integration follows.
+verified. Acceptance receipt SHA256 is `b40eac6a6a64cdd451b4ae31f0abb0a1fe407c775331d34ac9a32bdb43a7aa41`. Delivery is [PR83](https://github.com/eugenelin89/bot_messenger/pull/83); evidence commit is
+`ab14f6a09bab4fcfd746643b28592810b654329c`. The GitHub record is authoritative for the final
+head, checks and merge identity. Advisory specialist review is distinct from GitHub reviews.
 No raw visitor/answer text enters Company SQLite/WAL. This component is not wired to the
 application or an employee. It explicitly proves no backup/filesystem/provider purge or restore.
 

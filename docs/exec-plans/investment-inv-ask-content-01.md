@@ -1,6 +1,6 @@
 # ASK-02 private content foundation
 
-**Status:** Source and evidence accepted; normal PR integration in progress
+**Status:** Source and evidence accepted; delivery tracked in [PR83](https://github.com/eugenelin89/bot_messenger/pull/83)
 
 **Owner:** INV-REAL-01 sole writer; advisory specialists are read-only.
 
@@ -95,3 +95,11 @@ Independent final evidence review and normal PR/check/merge remain before delive
 Final independent evidence review accepted all416 source hashes,17 changed-code hashes,16
 raw/wrapped logs, read-backs, lock/manifest and the complete reported counts. No mismatches
 or blocking findings. Acceptance is strictly dormant source; all operational exclusions stand.
+
+## Delivery
+
+[PR83](https://github.com/eugenelin89/bot_messenger/pull/83) carries the accepted implementation and
+evidence commitab14f6a09bab4fcfd746643b28592810b654329c. Its GitHub record is authoritative
+for final head/checks/merge. The bounded storage packet is complete after normal integration;
+the entire BotSquad project remains incomplete and the completion heartbeat stays ACTIVE.
+No new HQ deployment or account retry follows this merge.

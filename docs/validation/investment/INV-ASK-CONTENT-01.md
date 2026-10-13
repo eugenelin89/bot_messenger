@@ -1,6 +1,6 @@
 # INV-ASK-CONTENT-01 — Dormant private content acceptance
 
-**Status:** Bounded dormant source accepted; normal PR integration follows. This is a storage component of ASK-02; the complete
+**Status:** Bounded dormant source accepted. Delivery: [PR83](https://github.com/eugenelin89/bot_messenger/pull/83). This is a storage component of ASK-02; the complete
 Ask packet and genuine operation remain incomplete. No HQ production deployment or authority
 is supplied by this packet.
 
@@ -59,7 +59,8 @@ clock freshness, deadline-shortening interruption and duplicate-purge recovery r
 Architecture, security and recovery specialists reviewed read-only and the writer corrected
 their findings. All four advisory specialists accepted the bounded component. The test reviewer independently
 recomputed every source/log/artifact hash and the raw test counts with zero mismatches. Normal
-PR/check/merge remains a separate delivery step. No GitHub review
+PR/check/merge is tracked in the linked GitHub record, which is authoritative for the final
+head and merge identity. Evidence commit is `ab14f6a09bab4fcfd746643b28592810b654329c`. No GitHub review
 or CI result is inferred from these advisory reviews.
 
 ## Operational limits and next work
