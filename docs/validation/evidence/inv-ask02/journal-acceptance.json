@@ -727,5 +727,21 @@
     "conclusion": "Measured repeated replay cost and naturally advancing synthesis/review/finalize after original observer expiry. Finalization completed but was not yet advanced; stage still running. Does not establish workflow completion or repair all original failures.",
     "fixturePath": "/tmp/inv-ask-journal-evidence/corrected/observed-diagnostic.mjs",
     "fixtureSha256": "ed337ba0690865cfdce050a64d89fee6f3d0780b72600de33ce844764e7601a6"
+  },
+  "sourceDelivery": {
+    "pullRequest": "https://github.com/eugenelin89/bot_messenger/pull/80",
+    "implementationCommit": "9b003be4488434157313c3958dc8e228905ed933",
+    "deliveryHead": "871970637d11110ecd4b86107c33515c319a25de",
+    "mergeCommit": "5b31359101186e94925cba5e101cd6f19e6dfd68",
+    "exactHeadChecks": 0,
+    "exactHeadStatuses": 0,
+    "remoteReviews": 0,
+    "specialistAcceptance": [
+      "architecture",
+      "security",
+      "recovery",
+      "test"
+    ],
+    "deployed": false
   }
 }
