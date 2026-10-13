@@ -1,5 +1,41 @@
 # INV-ASK-02 — HQ retrieval and genuine employee routing
 
+## Capability validation checkpoint — October13
+
+The explicit subscription activity amendment passes the affected suite (396pass, zero failures,
+one optional unconfigured receiver interop skip) and final authority32/32 after adding legacy
+included-only lifecycle/reopen coverage. Final source rebuild, typecheck and contract checks pass;
+424 source hashes and15 raw logs are preserved in [the acceptance record](../validation/investment/INV-ASK-SUBSCRIPTION-01.md).
+Earlier schema and catalogue failures remain recorded. Exact manifest27f73af2099dc086ebf1893bb2613c5a8f18200b752d8d48960107386cb40264
+passed isolated consumer review reported by the website writer (236 receiver and15 browser-logic checks).
+Production remains unchanged and active; website vendoring follows the merged HQ commit.
+Motion has released native capacity; this packet needed no heavy Mac build.
+
+Continue actual employee integration next, including narrow claim/renew/status/control response
+reconciliation bound to committed local effects. The current journal only resolves immutable answer
+receipts; a generic HTTP success cannot resolve other operations. Keep this limitation explicit until
+implemented. Current source supplies no operational grant, public capability or genuine answer.
+
+## Active capability amendment — October13, 14:00 America/Vancouver
+
+PR85 merged at705ff3102c41cdfa51eec6c2789602e52401c8b7; both owned checkouts are clean.
+HQ remains d262a8d/PID759078, healthy with the existing finite investment run. Latest website
+work is independently tightening Ask host swap/core handling and preparing isolated recovery/load
+acceptance; the live archive stays connected. No market/model operation was initiated on this wake.
+
+Next prompt selected: represent the product's activity-capped subscription option honestly in
+the pinned canonical Ask limits and independent authority, preserving existing strict modes and
+old stored metadata. Require an explicit policy disclosing monitored token thresholds, possible
+overshoot/internal retries, unavailable actual cost and hold on missing usage/threshold breach.
+Use null cost rather than fabricated zero, immutable complete usage and cross-grant/service holds.
+Do not create operational admission or pretend that this schema supplies public-use eligibility.
+Coordinate exact new manifest/digest and consumer changes with the website writer before use.
+Validate legacy fixtures, strict-mode denial, cost/token-mode mixing, usage overshoot, independent
+budget replay/restart and canonical consumer compatibility. Risk-based specialists are read-only;
+parent remains sole writer. Initial ETA60–90minutes for reviewed capability source, then continue
+actual dispatcher/employee integration. No heavy Mac build is planned; use bounded disposable
+production-host validation without touching the retained active portfolio or publisher generation.
+
 ## Current continuation — October13, production-first execution
 
 The owner personally completed server login and requested direct production testing. Existing

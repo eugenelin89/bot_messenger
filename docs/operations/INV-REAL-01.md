@@ -38,6 +38,14 @@ and decision cutoff at13:00UTC. Close collection starts20:05UTC; delayed process
 opening evidence starts20:20UTC, valuation20:25UTC and expiry23:30UTC. Do not backdate or accelerate
 these sessions. Future finite renewals must preserve this run, portfolio and consumed allowance.
 
+Timing clarification requested by the owner: this is the first **scheduled full paper-investment
+cycle**, not a Yahoo restriction on retrieving already available data. Activation at20:28UTC
+(13:28Vancouver) followed the October13 regular close at20:00UTC and the morning decision cutoff.
+October14 is the first prospective session for this exact next-open method. Current-data diagnostics
+and independent implementation/testing need not wait, but they must not be recorded as an earlier
+research decision, qualifying October13 trade, or elapsed October14 occurrence. The existing finite
+epoch remains bound to its36 exact October14–15 requests; no new diagnostic or model turn is claimed.
+
 Activation recovered from three retained failures: missing `runuser` in a restricted PATH,
 property-order comparison of an otherwise identical profile, and a preservation guard that
 counted normal startup timestamps as drift. The same provisioned authority/draft was resumed;
@@ -74,6 +82,17 @@ Deployment/public release and production testing remain owner-authorized. Destru
 fixtures use disposable files on the production host, preserving the real company and portfolio.
 Yahoo confirmation stays owner-reported, with no new licensing investigation. No credit purchases,
 reload changes, paid data or real brokerage are authorized. The completion heartbeat stays ACTIVE.
+
+### Ask capability source progress — October13
+
+The subscription activity amendment now explicitly represents monitored token thresholds and
+unknown actual cost, with durable admission holds for missing or excessive usage. Strict existing
+modes are retained. Affected tests passed396 with one optional receiver fixture skipped; the final
+expanded authority file passed32/32. Build/typecheck/contracts passed and424 exact source hashes
+match. [The acceptance record](../validation/investment/INV-ASK-SUBSCRIPTION-01.md) preserves both
+initial failures. Pinned candidate consumer review passed in isolation (website-reported236 receiver and15 browser-logic checks). This does not open Ask or dispatch
+a real employee; the shared dispatcher, isolated public context and genuine acceptance remain next.
+No production restart or change to the active finite investment identities occurred.
 
 ### Concrete next execution prompt
 
