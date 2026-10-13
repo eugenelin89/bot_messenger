@@ -1,0 +1,77 @@
+{
+  "recordedAt": "2026-10-13T18:27:21.904151+00:00",
+  "method": "independent public HTTPS GET from HQ parent; no credentials",
+  "pages": [
+    {
+      "url": "https://asymmetri.co/botsquad/ask",
+      "status": 200,
+      "sha256": "87e3ad8f500e53eea5a3b0c66da42eeb3c58db41ea43fddd85acada3b94d59e4",
+      "bytes": 25457,
+      "contentType": "text/html; charset=utf-8",
+      "referrerPolicy": null,
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "setsCookie": false,
+      "checks": {
+        "questionsNotOpen": true,
+        "archiveUnconfigured": false,
+        "answersNotEnabled": true,
+        "formOrTextarea": false,
+        "noindex": true,
+        "noReferrer": true
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment",
+      "status": 200,
+      "sha256": "6a43a9f95a86d77b31419f9a191f909b0e95d9f3a7eec9e94e7cdfc03395b391",
+      "bytes": 30986,
+      "contentType": "text/html; charset=utf-8",
+      "referrerPolicy": null,
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "setsCookie": false,
+      "checks": {
+        "questionsNotOpen": true,
+        "archiveUnconfigured": true,
+        "answersNotEnabled": false,
+        "formOrTextarea": false,
+        "noindex": true,
+        "noReferrer": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/methodology",
+      "status": 200,
+      "sha256": "8998fe84fc58df902ddaad7742e232bc477dab22fde1cd9cf67223ab647a17a4",
+      "bytes": 33444,
+      "contentType": "text/html; charset=utf-8",
+      "referrerPolicy": null,
+      "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "setsCookie": false,
+      "checks": {
+        "questionsNotOpen": false,
+        "archiveUnconfigured": false,
+        "answersNotEnabled": false,
+        "formOrTextarea": false,
+        "noindex": true,
+        "noReferrer": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/api/ask/v1/availability",
+      "status": 200,
+      "sha256": "4ce68d5ac1102050b3b2ff2235c84f3478854cf32f5560a28eda0dd1b4cc2896",
+      "bytes": 133,
+      "contentType": "application/json",
+      "referrerPolicy": "no-referrer",
+      "cacheControl": "private, no-store",
+      "setsCookie": false,
+      "availability": {
+        "schemaVersion": "1.0",
+        "serviceId": "asymmetri-ask",
+        "state": "disabled",
+        "retryAfterSeconds": 60,
+        "privacyNoticeVersion": "ask-privacy-v1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "encoding": "UTF-8",
+  "content": "{\n  \"synthetic\": true,\n  \"kind\": \"mechanical_replay_only\",\n  \"journals\": 25,\n  \"sessions\": 261,\n  \"iterationsPerRound\": 20,\n  \"rounds\": [\n    {\n      \"round\": 1,\n      \"baselinePairMs\": 1864.4647390000002,\n      \"snapshotMs\": 728.9805460000002\n    },\n    {\n      \"round\": 2,\n      \"snapshotMs\": 718.5532290000001,\n      \"baselinePairMs\": 1628.9296379999996\n    },\n    {\n      \"round\": 3,\n      \"baselinePairMs\": 1737.8603790000006,\n      \"snapshotMs\": 801.6062760000004\n    },\n    {\n      \"round\": 4,\n      \"snapshotMs\": 675.8924509999997,\n      \"baselinePairMs\": 1592.945830999999\n    }\n  ],\n  \"resultDigest\": \"15fe6febb83733c55b15472c112e5ca8d4199513371ee4bca1302c22da66cc11\"\n}\n"
+}
