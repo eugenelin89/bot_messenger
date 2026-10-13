@@ -1,30 +1,59 @@
 # Persistent observed paper investment — operation and morning handoff
 
-## Current morning handoff — October 13, 2026, 12:32 America/Vancouver
+## Current morning handoff — October 13, 2026, 12:45 America/Vancouver
 
 **The public pages are running; genuine investment and employee answers remain incomplete.**
 [Investment](https://asymmetri.co/botsquad/investment), [Methodology](https://asymmetri.co/botsquad/investment/methodology)
-and [Ask BotSquad](https://asymmetri.co/botsquad/ask) independently returned HTTPS200 at19:14UTC.
+and [Ask BotSquad](https://asymmetri.co/botsquad/ask) independently returned HTTPS200 at19:41UTC.
 Ask says **Questions are not open yet**, has no form/textarea, and availability is disabled with
 no Set-Cookie. No genuine activity is inferred from a published page.
 
 The website writer released source `d0c454314d646b74895f4d9e3e4a014c63c666a6` at19:08:31UTC,
-build `P7LP4PKXMUyZ96RJnAgcz`, PID2379577. Implementation is73276d4; documentary main4daa713.
-It reports15 visitor-logic and26 receiver tests, both build paths, audits,37 route/image checks,
-and112 shared-host preservation checks. All15hosts/16Nginxfiles and private-service identities
-were preserved. Complete predecessor: `/var/www/asymmetri-rollback-20261013-d51288f`.
-The [independent public read-back](../validation/evidence/inv-ask-content01/public-readback.json)
+build `P7LP4PKXMUyZ96RJnAgcz`, PID2379577. Implementation is73276d4; page-release documentary commit4daa713.
+It reports15 visitor-logic and26 receiver tests, both build paths, audits and37 route/image checks.
+The112 shared-host preservation comparisons comprise104 verified HTTP observations,4 default-
+certificate fingerprints and4 existing failing IPv6 TLS observations. They do not mean112 healthy
+HTTPS endpoints. The existing certificate-name failures affect `buildclub.org`, `www.buildclub.org`,
+`relay.buildclub.org` and `relay.christopherlin.ca`; no unrelated certificate change occurred.
+All15hosts/16Nginxfiles were preserved. Complete predecessor:
+`/var/www/asymmetri-rollback-20261013-d51288f`.
+The [independent post-receiver public read-back](../validation/evidence/inv-ask-content01/public-readback-after-receiver.json)
 confirms the public responses; server/build/preservation results remain attributed to the
 website writer. Its gap matrix is `docs/ASK-04-READINESS.md`, exact release receipt is
 `docs/ASK-04-RELEASE_2026-10-13.md` in the website repository.
 
 Website changes remove stored pending raw text, retain uncertainty after lost admission,
 separate owned reads/deletion from new intake, honor backoff and require an actual matching
-service/privacy disclosure. The approved production disclosure registry stays empty. Receiver
-session-replay/queue-availability fixes are separately reviewed source; a clear next execution
-prompt has been sent to the existing website chat to release that receiver with intake closed,
-complete rollback, identity/count and host-preservation checks. Receiver rollout is not implied
-by the website release. No keys, roster, official selection or authority were created.
+service/privacy disclosure. The approved production disclosure registry stays empty.
+
+The website writer separately released the Ask receiver from source
+`4daa713cd848f3798b87169ed3694bf2be0332f7`, implementation73276d4, PID2384365 active19:38:30UTC.
+It reports strict check/build/canonical verification and236/236 Linux receiver tests on Node22.23.1,
+zero audit vulnerabilities and unchanged configuration/generation. Admission, claims and delivery
+remain false; all visitor/content/authority tables remain empty. Three valid HTTP protection quota
+rows at activation were preserved. No keys, roster, official selection or authority were created.
+
+The first attempt at19:32UTC failed because a6second readiness budget was shorter than the observed
+7.31second startup. The rollback's all-table count check also incorrectly treated normal quota rows
+as private-state drift and left the old listener stopped. After invariant checks, the writer restored
+disabled availability at19:33:32UTC without deleting counters. A reviewed30second monotonic startup
+guard now validates bounded protection metadata separately and preserves strict private-state and
+generation equality. The second activation succeeded; final TLS responses were bound to the same
+nonzero PID/start identity before and after read-back. Session creation returned503 without a cookie.
+
+During a259.08second isolated fixture run, the writer sampled114.28MiB candidate peak memory,
+343.97MiB minimum available host RAM,9.63GiB minimum free disk, zero OOM kills and94/94 concurrent
+public HTTP200 checks. This is finite fixture evidence, not combined genuine HQ/model capacity.
+Website, ingress, investment and Nginx process identities stayed unchanged. Exact release,
+failed-attempt, resource and rollback evidence is in website
+[the receiver release record](https://github.com/eugenelin89/asymmetri/blob/1958eb91c4f24e0f6541bf091588fcb89134e109/docs/ASK-04-RECEIVER-RELEASE_2026-10-13.md)
+at documentary commit1958eb9, followed by prompt journal8bc0018; root-only receipts are at
+`/var/lib/asymmetri-ask-receiver-release-20261013` on that host. Its22-file manifest SHA256 is
+`71bd71968f9f332a3e60e0c98b2dd5865f616515e03e40436e28bd942ab41712`.
+Independent Ask code rollback is `/opt/asymmetri-ask-rollback-20261013-fcc9522`; the guarded
+website-owned rollback preserves current private data/configuration/counters. No stale database
+restore is authorized. Parent independently verified only the anonymous public HTTPS responses;
+server identities, tests, counters and capacity observations remain website-writer-reported.
 
 HQ now implements the dormant [private Ask content foundation](../validation/investment/INV-ASK-CONTENT-01.md):
 additive schema27 metadata, separate raw SQLite, immutable import/answer identities, one atomic
@@ -36,7 +65,11 @@ fixes are preserved with16 raw logs in the [machine receipt](../validation/evide
 All four specialists accepted the bounded source; final evidence hashes/counts were independently
 verified. Acceptance receipt SHA256 is `b40eac6a6a64cdd451b4ae31f0abb0a1fe407c775331d34ac9a32bdb43a7aa41`. Delivery is [PR83](https://github.com/eugenelin89/bot_messenger/pull/83); evidence commit is
 `ab14f6a09bab4fcfd746643b28592810b654329c`. The GitHub record is authoritative for the final
-head, checks and merge identity. Advisory specialist review is distinct from GitHub reviews.
+head, checks and merge identity. PR83 merged at19:33:29UTC as
+`8034404c5df1b89c6cff10ed990814c154172478`; both owned checkouts fast-forwarded cleanly.
+The exact-head GitHub checks/statuses and submitted-review arrays were empty; four advisory
+specialist reviews are distinct. The [integration receipt](../validation/evidence/inv-ask-content01/integration.json)
+records these facts without implying a CI pass or HQ deployment.
 No raw visitor/answer text enters Company SQLite/WAL. This component is not wired to the
 application or an employee. It explicitly proves no backup/filesystem/provider purge or restore.
 
@@ -49,10 +82,13 @@ new authority, market/model call, retained-data reset or HQ deployment occurred 
 
 ### Concrete next execution prompt
 
-After this storage packet is merged and its exact evidence checked, implement the next bounded
+From merged8034404 and its exact accepted storage evidence, implement the next bounded
 ASK-02 authority/attempt foundation: inspect existing finite-journal, dispatcher and public-service
-context boundaries; add separately typed finite Ask grants and independent consumed-budget
-custody, exact immutable signed request/attempt identity and lost-result reconciliation. Reuse
+context boundaries, including separate public-service sessions without private worker history;
+add separately typed finite Ask grants and independent consumed-budget
+custody, exact immutable signed request/attempt identity and lost-result reconciliation. Inspect
+`src/control/usage/finite-journal.ts` and `finite-hq.ts`: existing envelopes authorize only their
+private-research/paper purposes; do not relabel visitor work as one of those purposes. Reuse
 reviewed mechanisms without spending investment allowances. Metadata/prepared wrappers must
 never copy raw text into Company storage. One Ask execution, existing global capacity/uncertainty
 fences, investment deadline priority, exact worker/session ownership, revocation and deadline
@@ -60,13 +96,16 @@ checks must precede any future model or delivery. Keep operational admission unw
 custody, restore generation, actual account eligibility and cross-system acceptance are verified.
 Use read-only specialist review, authored recovery/capacity/negative tests and normal PR/merge;
 record precise limits and a next prompt rather than labeling supplied fixture answers employees.
-Continue the independently delegated receiver rollout and measured Linux performance diagnosis.
+Coordinate pinned receiver integration with the website chat and continue measured Linux
+performance diagnosis. Preserve its released closed state until genuine acceptance succeeds.
 
 Genuine activation still needs the supported account repair documented below, future sessions,
-exact finite authority and genuine market/model/publication receipts. Yahoo permission remains
+exact finite authority and genuine market/model/publication receipts. Ask also retains its
+existing service-eligible runtime/account and isolated-context requirements; repairing the
+private Codex login alone does not establish public Ask eligibility. Yahoo permission remains
 owner-reported; deployment/public release remain authorized. Motion Prompt170 released the Mac
-native slot after its selected gates; the shared15GB disk floor still applies. HQ tests run
-serially on isolated Linux. The hourly completion
+native slot after its selected gates; Prompt171 is planning a bounded serial Simulator/build pass.
+The shared15GB disk floor still applies. HQ tests run serially on isolated Linux. The hourly completion
 loop remains ACTIVE and must continue until all completion gates are verified.
 
 ## Earlier checkpoints retained for provenance

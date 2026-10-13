@@ -79,7 +79,18 @@ model request, credit purchase, reload change, new portfolio, scope or retained-
 Website source `d0c454314d646b74895f4d9e3e4a014c63c666a6`, build `P7LP4PKXMUyZ96RJnAgcz`, was
 released by its writer at19:08:31UTC with closed intake. The independent public
 [read-back](../evidence/inv-ask-content01/public-readback.json) at19:14UTC confirms all three pages
-HTTPS200, no Ask form, disabled availability and no Set-Cookie. The website writer reports112
-preservation checks. Its receiver fixes require a separate rollout, delegated by the owner-
-authorized next execution prompt; exact latest status belongs in the
-[morning handoff](../../operations/INV-REAL-01.md). No fixture is represented as genuine activity.
+HTTPS200, no Ask form, disabled availability and no Set-Cookie. The later separately delegated
+receiver rollout succeeded at19:38:30UTC from source4daa713, PID2384365, after236/236 Linux
+receiver checks. The writer retained a recovered failed startup attempt, preserved three valid
+protection-quota rows and kept visitor/content/authority empty with admission disabled. Its112
+host-preservation comparisons include104 verified HTTP observations,4 default-certificate
+fingerprints and4 existing failing IPv6 TLS observations, not112 healthy HTTPS endpoints.
+Parent independently repeated [anonymous public read-back](../evidence/inv-ask-content01/public-readback-after-receiver.json)
+at19:41UTC; server/test/capacity results remain writer-reported. Exact release and rollback limits
+are in the [morning handoff](../../operations/INV-REAL-01.md).
+
+PR83 merged as `8034404c5df1b89c6cff10ed990814c154172478` at19:33:29UTC. The
+[integration receipt](../evidence/inv-ask-content01/integration.json) distinguishes empty exact-head
+GitHub check/status/review arrays from the four advisory specialist reviews and records the
+normal expected-head merge. No fixture is represented as genuine activity. The accepted source
+and machine-receipt hashes are unchanged by this documentary follow-up.

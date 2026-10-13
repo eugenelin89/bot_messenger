@@ -1,6 +1,6 @@
 # ASK-02 private content foundation
 
-**Status:** Source and evidence accepted; delivery tracked in [PR83](https://github.com/eugenelin89/bot_messenger/pull/83)
+**Status:** Complete for dormant storage source; delivery tracked in [PR83](https://github.com/eugenelin89/bot_messenger/pull/83)
 
 **Owner:** INV-REAL-01 sole writer; advisory specialists are read-only.
 
@@ -103,3 +103,8 @@ evidence commitab14f6a09bab4fcfd746643b28592810b654329c. Its GitHub record is au
 for final head/checks/merge. The bounded storage packet is complete after normal integration;
 the entire BotSquad project remains incomplete and the completion heartbeat stays ACTIVE.
 No new HQ deployment or account retry follows this merge.
+
+PR83 merged19:33:29UTC as8034404c5df1b89c6cff10ed990814c154172478. Exact head0e70ac4
+returned empty GitHub check/status and submitted-review arrays; four advisory reviews and
+local/isolated deterministic validation are separately evidenced. Both owned checkouts were
+fast-forwarded cleanly. Runtime deployment/activation and the complete project are not complete.

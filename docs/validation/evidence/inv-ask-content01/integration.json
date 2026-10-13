@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-10-13T19:36:46.172058+00:00",
+  "pullRequest": "https://github.com/eugenelin89/bot_messenger/pull/83",
+  "head": "0e70ac44c770eae8ebccc6402c7dba818e0d08a3",
+  "implementation": "d9e422ea691f25ef79f13ed183bb76f49597e859",
+  "evidence": "ab14f6a09bab4fcfd746643b28592810b654329c",
+  "merge": "8034404c5df1b89c6cff10ed990814c154172478",
+  "mergedAt": "2026-10-13T19:33:29Z",
+  "exactHeadGitHubChecks": [],
+  "exactHeadGitHubStatuses": [],
+  "submittedGitHubReviews": [],
+  "checkNote": "Code Review connector returned empty checks/statuses/annotations for exact head; GitHub reviews were empty. Four advisory specialist reviews are separately recorded in acceptance.json. Normal expected-head merge succeeded; no bypass or force push.",
+  "cleanCheckouts": [
+    "bot_messenger-inv-real-01:codex/inv-real-01",
+    "bot_messenger:main"
+  ],
+  "productionDeployed": false
+}
