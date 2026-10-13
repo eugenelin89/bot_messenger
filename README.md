@@ -634,7 +634,8 @@ the exact accepted bootstrap form lacks supporting provider evidence. A distinct
 custody profile validates nonfatal404 settlement; no new live issuer or owner authorization
 is created. The [direct-chart assessment](docs/operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
 is now selected as [HQ-READY-03H](docs/validation/investment/HQ-READY-03H.md).
-Its direct captured-response path uses the existing pinned parser, gateway and custody with
-a distinct one-request authority. Actual live outcome is recorded in that acceptance record;
-source/offline fixtures alone establish no observed coverage. Default employee/production
-transport remains inactive.
+The single direct request returned HTTP200 and21/21 September sessions through the existing
+pinned parser, gateway and custody. The private sample/key were immediately destroyed and
+03H is permanently spent. Historical availability and adjustment basis remain unqualified;
+no paper fills or employee delivery follow. See its acceptance record for transport, quality
+and cleanup evidence. Default employee/production transport remains inactive.

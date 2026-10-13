@@ -6,9 +6,10 @@
 
 **Current qualification gate:** [HQ-READY-03H](../validation/investment/HQ-READY-03H.md)
 selects the single direct chart request under [Decision044](../decisions/decision_044_one_shot_direct_yahoo_chart.md).
-It requires offline feasibility, independent reviews, regression, accepted merge and clean-main
-rebuild before live admission. The acceptance record owns the actual outcome.03B/03D/03E
-remain permanently spent;03G remains unprepared. No production/employee collector is enabled.
+Its reviewed merged clean-main attempt returned HTTP200 and21/21 complete September sessions.
+Immediate key/capsule destruction and process termination are verified;03H is permanently
+spent. No replay is permitted.03B/03D/03E remain spent;03G remains unprepared.
+No production/employee collector, paper fills or public data is enabled.
 
 ## Permission provenance and use assessment
 

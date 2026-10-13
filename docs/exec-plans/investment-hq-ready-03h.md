@@ -1,6 +1,6 @@
 # Execution Plan — HQ-READY-03H direct Yahoo chart qualification
 
-**Status:** Full offline validation accepted; integrating reviewed source before live preparation.
+**Status:** Complete; one successful direct qualification, immediate destruction and permanently spent authority.
 **Owner:** Parent Codex, sole writer; independent read-only specialists
 **Branch:** `codex/hq-ready-03h`
 **Worktree:** `../bot_messenger-hq-ready-03h`
@@ -39,9 +39,9 @@ a separate create-only authority admit the owner's exact single GET.
 4. Freeze source; independent reviews, focused/full regression, typecheck/build/contracts.
    Four reviews clear;43 source/28 build entries match; typecheck/build/contracts175/175 and
    local TLS4/4 pass. Resumed full regression1,703 tests:1,697 passed,0 failures,6 existing skips.
-5. Commit, scoped PR, accepted merge, synchronized-main rebuild/source identity checks.
+5. Commit, scoped PR, accepted merge, synchronized-main rebuild/source identity checks. Done: PR68, main115a19c.
 6. Prepare/consume only new authority, supervised single request, private quality assessment,
-   immediate destruction and process/cleanup/spent verification. Stop after outcome.
+   immediate destruction and process/cleanup/spent verification. Done: HTTP200,21/21; no further request.
 
 ## Evidence ledger
 
@@ -50,14 +50,14 @@ a separate create-only authority admit the owner's exact single GET.
 | Starting main | Fresh GitHub fetch and clean equal HEAD/main/origin/main | Passed |
 | Historical authority | `/private/tmp/hq-ready-03h-authority-baseline.json` |17 receipts;3 spent/noResume; capsules absent;03G/03H absent |
 
-## Remaining work
+## Completion
 
-Offline feasibility passed before live-authority implementation (37/37); final direct suite
-89/89 passed with zero skips. Architecture numeric-coercion finding fixed; recovery startup
-cancellation race fixed. All four independent reviews are clear; resumed full regression passed after the intentional pause.
-No new owner authority or Yahoo network effect exists.
-Tests use authored data only and cannot establish provider availability or data quality.
-
+All planned implementation, four independent reviews, offline validation, accepted PR68 merge,
+clean-main identity checks and the single live qualification completed. HTTP200 returned all21
+scheduled sessions with complete OHLCV/adjusted-close fields. The private key/capsule were
+immediately destroyed, process groups terminated, and03H permanently spent. All17 historical
+receipts remain unchanged;03G remains unprepared. No provider request or implementation work
+remains. Outcome documentation records the separately authorized future integration recommendation.
 
 ## Safe pause — 2026-10-13 UTC / 2026-10-12 Vancouver
 
@@ -100,5 +100,16 @@ loopback permission. The earlier interrupted log remains preserved; it is not ac
 Resumed full suite:1,703 tests,1,697 passed,0 failures/cancellations,6 existing receiver/Linux
 skips,850.400 seconds. Source43/build28 hashes and all17 historical receipts still match.
 No Yahoo/adapter/custody test skipped. Log: `/private/tmp/hq-ready-03h-full-resumed.log`.
-Next gates are final evidence review, source commit/PR merge, clean synchronized main rebuild
-and source identity, then the single newly authorized request and immediate destruction.
+This was followed by final evidence review, source commit/PR merge, clean synchronized main
+rebuild/source identity and the single newly authorized request with immediate destruction.
+
+
+## Single live closure
+
+Source953ef9161f10ad8dc886e6bbffc420921e17b22b; PR68 merge/main115a19cadb78c6af98d40cfb97e4267fd731521d.
+Rebuilt43/28 manifests and pinned upstream hashes matched before preparation. Runtime identity
+4232309fc5bb2e8f91db71807f99149012094229ae21d501c16d75470cec108b. Single HTTP200 response:
+3,411 bytes,236ms; whole supervisor12,096ms. Complete21-session sample; actual raw retrieval
+2026-10-13T01:43:48.933Z. Key/capsule destroyed at01:43:49.081Z; independent recovery confirmed
+at01:43:49.134Z. Data PID/group gone, no replay, old17 receipts unchanged. See03H acceptance
+for non-data stages/quality/receipt hashes. Runtime source remains frozen; closure is docs-only.
