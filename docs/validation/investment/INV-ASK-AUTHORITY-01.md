@@ -1,6 +1,6 @@
 # INV-ASK-AUTHORITY-01 — Dormant finite authority and attempt acceptance
 
-**Status:** Final bounded source checks pass; normal PR integration pending. This is one component
+**Status:** Final bounded source checks pass. Delivery: [PR85](https://github.com/eugenelin89/bot_messenger/pull/85); its GitHub record is authoritative for final head/checks/merge. This is one component
 of ASK-02, not genuine employee routing or public Ask readiness.
 
 Implementation: `79944d158362e07287c052c2b0e8c60e07cdd59d`.

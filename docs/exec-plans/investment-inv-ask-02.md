@@ -319,3 +319,7 @@ hashes pass. Four specialist reviews found no remaining source blocker; the test
 independently verified all424 source/reference hashes and14 wrapper/raw-log hashes without discrepancy. The90–150minute initial component estimate remains
 on track; production activation/publication was completed in parallel with source validation.
 Complete source integration does not complete actual Ask routing or the future market sessions.
+
+Delivery is [PR85](https://github.com/eugenelin89/bot_messenger/pull/85). Exact-head checks/statuses
+and submitted-review arrays were inspected and empty; specialist advisory acceptance is distinct
+from CI or a GitHub review. The PR record owns final merge identity.

@@ -68,7 +68,7 @@ Linux observed actions/revision timing acceptance; completed Ask employee routin
 capability/eligibility, privacy/recovery/capacity acceptance and public intake. The Ask authority
 foundation is being finalized under the [ASK-02 plan](../exec-plans/investment-inv-ask-02.md).
 Its final385/385 checks, build/typecheck/contracts and424 exact source hashes pass; the source
-component is [documented here](../validation/investment/INV-ASK-AUTHORITY-01.md). These tests and
+component is [documented here](../validation/investment/INV-ASK-AUTHORITY-01.md). Delivery is [PR85](https://github.com/eugenelin89/bot_messenger/pull/85). These tests and
 supplied adapter proofs are fixtures, not operational authority or genuine answers.
 Deployment/public release and production testing remain owner-authorized. Destructive fault
 fixtures use disposable files on the production host, preserving the real company and portfolio.
