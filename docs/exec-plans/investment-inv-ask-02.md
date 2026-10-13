@@ -1,5 +1,78 @@
 # INV-ASK-02 — HQ retrieval and genuine employee routing
 
+## Current continuation — October13, production-first execution
+
+The owner personally completed server login and requested direct production testing. Existing
+production investment d262a8d is now active on the finite October14–15 schedule, with the real
+initial portfolio visible publicly. The [morning handoff](../operations/INV-REAL-01.md) records
+exact identities, recovery history and receipts. Do not reprovision that run or casually restart
+its generation-bound publisher. No market/model turn has occurred at the activation checkpoint.
+
+The separate dormant Ask authority/attempt component now has69/69 focused Linux checks passing,
+including exact10000-event completion capacity, committed-DB/failed-checkpoint recovery, immutable
+physical observations, named receipt reconciliation and zero-byte pre-wire hook failures. Final
+privacy/control/contract regression passes316/316, for385/385 total. Its first run315/316 exposed
+a missing README in the disposable fixture checkout; all actual reference documents were supplied
+without changing implementation/assertions, and the failure log is retained. Build/typecheck and
+canonical manifest pass; all424 source/reference-document hashes match. Final evidence review/PR follows.
+No heavy Mac build was used; Motion retains its native capacity slot.
+
+Next concrete prompt: complete end-to-end ASK-02 integration through the existing dispatcher and
+actual worker identities. First amend canonical Ask limits and authority capabilities together to
+represent the product specification's activity-capped subscription option honestly. Pinned Codex0.157
+has no included-only switch or hard turn/start output-token limit; never set strict enforced-proof
+fields to true or report unknown actual cost as zero. Preserve strict variants, represent monitored
+thresholds and possible overshoot/internal retries, and hold on missing usage or threshold breach.
+An API-backed recommendation is not a mandatory purchase or new owner-approval milestone. Resolve
+actual public-service eligibility using applicable evidence; no private-login check invents it.
+
+Compose control sync → immutable private import → deterministic provenance/topic/follow-up routing
+→ independent reservation → typed Ask dispatcher origin → fresh isolated ephemeral public context
+→ actual employee output/usage → private atomic answer/outbox → signed receipt reconciliation.
+Keep Company records metadata-only; preserve per-worker uncertainty and shared two-slot capacity,
+at most one Ask execution, lower priority than ordinary deadline-sensitive work, and separate
+investment/Ask allowances. Router and research start atzero. Validate ephemeral context retention,
+revocation/deletion/expiry at dispatch and delivery, restart reconciliation, backup/raw-content
+custody and control acknowledgment before genuine general/contextual/follow-up/denied-action trials.
+The website writer has this capability gap and a concrete operational-readiness prompt; it keeps
+Ask closed and the investment archive intact while completing independent safeguards.
+
+## Active continuation — October 13, 2026, 12:49 America/Vancouver
+
+Parent remains sole writer in `bot_messenger-inv-real-01`, branch `codex/inv-real-01`,
+starting from main `36ef02747fa6a8c6f6b84894f15718089efa2170`. Initial ETA: 90–150 minutes
+for the next bounded authority/attempt source component and its reviews/tests. The full Ask
+packet remains incomplete. Prior accepted components and failures below remain authoritative.
+
+Selected prompt: implement a separately typed finite Ask authority and non-content attempt
+journal, reusing the independent checkpoint/hash-chain, reserve-before-effect and no-refund
+patterns. Do not reuse investment `FiniteEnvelope`, its spent allowance or its runtime permit.
+Bind exact service/generation, roster, runtime/account/profile evidence, canonical scope/limits
+and finite expiry. Reserve worst-case bounded model resources before future Company admission;
+one answer identity per service/question persists across grants. Keep unknown effects held and
+separate model completion from answer delivery. Persist immutable network intent identities
+without copying raw request bodies or `PreparedAskRequest.binding.questionJson` into metadata.
+Add an explicit synchronous pre-wire transition immediately before HTTP end, then fault-test
+lost results and crash windows. No application caller, new Company execution origin, operational
+bootstrap, signing key, employee call or admission is created in this source component.
+
+Read-only architecture/security/recovery/acceptance specialists review changed risks; parent
+alone edits. Validate strict unknown-field rejection, independent caps and spent history,
+generation/clock/expiry/revocation races, privacy of persisted bytes, duplicate identities,
+cross-file partial commits, interrupted wire state and late receipts. Source fixtures cannot
+prove live provider cost enforcement or public-service eligibility. Follow with existing
+dispatcher/public-context integration only after these foundations pass. Use normal PR/merge.
+
+Read-only production check at19:50:07UTC retains d262a8d/PID712263, alive/database/dispatcher
+true and runtime degraded; 32,472,712KiB disk and1,542MiB available RAM. No denied account check
+was retried. Owner has now initiated the supported device login personally; wait for confirmed
+completion before the strict account/eligibility check. Owner subsequently completed login;
+strict account at19:55UTC and deployed configuration/routing/private eligibility at19:56UTC
+passed with zero model turns. This repairs authentication, not Ask eligibility or finite grants.
+Website closed receiver remains released;
+its chat is reconciling documentation with PR84, without another deployment. No Mac native
+build slot is used; isolated Linux remains the intended validation host.
+
 Status: signed-transport component validated; delivery [PR78](https://github.com/eugenelin89/bot_messenger/pull/78). Full ASK-02 remains incomplete. Sole writer is the existing INV-REAL checkout
 on codex/inv-real-01, starting at accepted main 9b555bdfc3e3f2734aaf4e1653840c63c93292fc.
 Start: October 13, 2026, 07:01 America/Vancouver. Initial ETA: 45–90 minutes for the transport source
@@ -239,3 +312,10 @@ acceptance and qualified receipts were complete. Solewriter and primarymain were
 cleanly. This closes the dormant journal source slice, not ASK-02 or INV-REAL-01. The original
 45–75minute estimate expanded to about147minutes because the broad sweep exposed clock,
 fixture portability and Linux performance issues; final10:20–10:40estimate was met.
+
+
+At13:54 Vancouver, all385 final checks, build/typecheck/contracts and424 exact source/reference
+hashes pass. Four specialist reviews found no remaining source blocker; the test specialist
+independently verified all424 source/reference hashes and14 wrapper/raw-log hashes without discrepancy. The90–150minute initial component estimate remains
+on track; production activation/publication was completed in parallel with source validation.
+Complete source integration does not complete actual Ask routing or the future market sessions.

@@ -196,3 +196,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision047 — Persistent observed paper investment](decision_047_persistent_observed_paper_investment.md): owner-reported Yahoo confirmation, new prospective method, continuing ledger and finite renewed authority; acceptance pending.
 
 - [Decision048 — Private Ask content custody](decision_048_private_ask_content_custody.md): passive Company metadata and separate finite-retention raw SQLite custody, immutable import/answer identities, atomic private outbox, deletion and uncertainty recovery; dormant and not employee or delivery authority.
+
+- [Decision049 — Private Ask authority custody](decision_049_private_ask_authority_custody.md): separate finite metadata grants, immutable attempts, independent consumed-budget custody and named receipt reconciliation; dormant, with no operational initializer, runtime permit or public admission.
