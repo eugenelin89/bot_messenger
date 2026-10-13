@@ -1,0 +1,111 @@
+{
+  "checkedAt": "2026-10-13T11:58:23.859014+00:00",
+  "deployedCommit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+  "sourceClean": true,
+  "schema": 25,
+  "integrity": "ok",
+  "foreignKeyViolations": 0,
+  "counts": {
+    "workers": 8,
+    "tasks": 48,
+    "executions": 69,
+    "investment_runs": 0,
+    "investment_journal": 0,
+    "investment_credit_pilot": 0,
+    "investment_team_scopes": 0,
+    "observed_investment_runs": 0,
+    "investment_public_channels": 0
+  },
+  "executionStates": {
+    "completed": 68,
+    "failed": 1
+  },
+  "paused": "false",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "degraded",
+    "version": "0.1.0",
+    "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0"
+  },
+  "observedOwnerAPI": {
+    "status": 200,
+    "runs": 0,
+    "universe": [
+      "AAPL",
+      "MSFT",
+      "GOOGL",
+      "AMZN",
+      "JPM",
+      "JNJ",
+      "XOM",
+      "WMT"
+    ],
+    "benchmark": "SPY"
+  },
+  "ownerPage": {
+    "status": 200,
+    "sha256": "16612894afb5b743cb90c2324e468a998098b6afac98eec939230685f362d26e"
+  },
+  "ownerScript": {
+    "status": 200,
+    "sha256": "40d9692fad71f40534abbcf8a1ca3bd1146109d8bd092cd5029fe196fd0d2332"
+  },
+  "servicePID": 712263,
+  "coreLimit": "Max core file size        0                    0                    bytes     ",
+  "serviceState": "active",
+  "codeOwnedByRoot": true,
+  "buildComparison": {
+    "dist": {
+      "files": 630,
+      "allHashesMatchTestedLinuxStaging": true
+    },
+    "public": {
+      "files": 25,
+      "allHashesMatchTestedLinuxStaging": true
+    }
+  },
+  "protectedBackup": "/var/backups/botsquad/inv-real-01-20261013T115509Z",
+  "genuineModelTurns": 0,
+  "marketRequests": 0,
+  "newAuthority": 0,
+  "deploymentLogSha256": "b4deb3fe065cdb950ecb0578355c5f22abe2c7e464d7ffa6e5218f7dd7fd529d",
+  "migration": {
+    "liveStoreMigration": true,
+    "previousSchema": 14,
+    "schema": 25,
+    "tables": 102,
+    "originalRows": 2626,
+    "everyOriginalRowidAndFieldPreserved": true,
+    "zeroNewInvestmentAuthority": true,
+    "integrity": "ok",
+    "foreignKeys": "ok",
+    "runtimeInvoked": false
+  },
+  "publicCheck": {
+    "checkedAt": "2026-10-13T12:00:00Z",
+    "paths": {
+      "https://asymmetri.co/botsquad/investment": 404,
+      "https://asymmetri.co/botsquad/investment/methodology": 404
+    },
+    "releaseVerified": false
+  },
+  "continuation": {
+    "automationId": "botsquad-investment-completion-loop",
+    "status": "ACTIVE",
+    "frequency": "hourly",
+    "threadId": "01a13473-c68b-7722-99f2-54f154a41154"
+  },
+  "eligibleEmployees": [
+    "Atlas",
+    "Nix",
+    "Maya",
+    "Turing",
+    "Linus",
+    "Ada",
+    "Grace",
+    "Scout"
+  ],
+  "accountHold": "Last strict account read returned workspace-routing401. No changed login; no repeated probe."
+}

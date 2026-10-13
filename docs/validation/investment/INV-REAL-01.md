@@ -1,6 +1,7 @@
 # INV-REAL-01 — persistent observed paper investment acceptance
 
-Status: final acceptance in progress on `codex/inv-real-01`; no live operation is inferred.
+Status: source accepted and private HQ inert deployment verified; genuine operation and public release remain pending.
+Implementation:`2e2bcf867b41f1cf66c412adbc3f93e60f3757aa`; accepted/deployed merge:`d262a8dff59ab82587bd6444b083e5e9b7603cf0` (PR75).
 Source baseline: `b06bc51059372b633c98b68ecc3ef144f999781c`.
 Owner instructions, methodology and finite operational boundaries are recorded in
 [Decision047](../../decisions/decision_047_persistent_observed_paper_investment.md).
@@ -92,7 +93,7 @@ Preflight found the retained HQ at schema14,8workers,48tasks and69executions (68
 still `a72cee080989960d2a9e1e74d9236157ce1a0448` before deployment. Python3.12.12 and exact
 hash-locked yfinance1.7.0 dependencies are installed in a root-owned isolated runtime; pip
 checks pass. Node24.21.0 archive ownership has been corrected to root. `LimitCORE=0` is prepared.
-The existing service remains running during preparation. A protected SQLite copy of the retained
+The existing service remained running during preparation. A protected SQLite copy of the retained
 schema14 database migrated to25 and reopened three times: all102 original application tables
 and2,626 original rows retained every original rowid/field; integrity and foreign keys pass.
 No investment authority or model runtime was created. The pinned Linux adapter also passed
@@ -103,8 +104,12 @@ The production Codex login returns workspace-routing authentication401 after one
 refresh. Zero model turns were sent. Genuine activation requires restoring that login and
 successful strict account/routing/eligibility verification; a model catalog is not sufficient.
 The website execution chat remains at its pending tool-approval boundary. No public release
-or genuine employee/market receipt is claimed. Actual source deployment, preserving schema14→25
-migration, receiver acceptance and elapsed sessions must be recorded separately.
+or genuine employee/market receipt is claimed. Actual source deployment and preserving schema14→25 migration passed after acceptance.
+Post-start health has database/dispatcher available and runtime degraded; all 655 compiled/public
+files match tested Linux staging, company counts are preserved, owner page/API return 200 and
+no new authority was created. See the [deployment receipt](../evidence/inv-real01/deployment.json).
+The two public website routes returned 404 at 12:00 UTC. Receiver release and actual elapsed
+sessions remain unproved. An active hourly completion heartbeat is recorded in the handoff.
 
 Ask BotSquad remains unfinished product integration, included in the owner's broader continuation
 objective. It must use real eligible employees, independent quotas and session privacy, and
