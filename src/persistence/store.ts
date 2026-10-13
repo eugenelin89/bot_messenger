@@ -13,6 +13,7 @@ import { migration15 } from './investment-migration.js';
 import { migration16 } from './market-migration.js';
 import { migration21 } from './credit-pilot-migration.js';
 import { migration22 } from './finite-hq-migration.js';
+import { migratePrivateResearch } from './private-research-migration.js';
 import { migration23 } from './financial-migration.js';
 import { migration20 } from './usage-migration.js';
 import { migration19 } from './investment-loop-migration.js';
@@ -207,16 +208,21 @@ CREATE UNIQUE INDEX one_writer_allocation ON allocations(worker_id) WHERE status
 export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
+  get transactionActive(){return this.inTransaction;}
+  private researchRetention = new Set<string>();
+  withResearchRetention<T>(groupId:string,fn:()=>T):T { this.researchRetention.add(groupId);try{return fn();}finally{this.researchRetention.delete(groupId);} }
   constructor(path: string) {
     mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
     this.db = new DatabaseSync(path);
-    this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
+    this.db.function('research_retention_active',(groupId)=>this.researchRetention.has(String(groupId))?1:0);
+    this.db.exec('PRAGMA foreign_keys=ON; PRAGMA secure_delete=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;');
     this.db.exec('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)');
-    if ((this.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n ?? 0) > 23) { this.db.close(); throw new Error('Unsupported future HQ schema'); }
+    if ((this.get<{n:number}>('SELECT max(version) n FROM schema_migrations')?.n ?? 0) > 24) { this.db.close(); throw new Error('Unsupported future HQ schema'); }
     const projectMigration = !this.get('SELECT version FROM schema_migrations WHERE version=5');
     const conversationMigration = !this.get('SELECT version FROM schema_migrations WHERE version=7');
     const mandateMigration = !this.get('SELECT version FROM schema_migrations WHERE version=11');
-    if (projectMigration || conversationMigration || mandateMigration) this.db.exec('PRAGMA foreign_keys=OFF');
+    const privateResearchMigration = !this.get('SELECT version FROM schema_migrations WHERE version=24');
+    if (projectMigration || conversationMigration || mandateMigration || privateResearchMigration) this.db.exec('PRAGMA foreign_keys=OFF');
     try { this.transaction(() => {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=1')) {
         this.db.exec(migration1);
@@ -271,6 +277,7 @@ export class Store {
       if (!this.get('SELECT version FROM schema_migrations WHERE version=21')) { this.db.exec(migration21); this.run('INSERT INTO schema_migrations VALUES (21,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=22')) { this.db.exec(migration22); this.run('INSERT INTO schema_migrations VALUES (22,?)', new Date().toISOString()); }
       if (!this.get('SELECT version FROM schema_migrations WHERE version=23')) { this.db.exec(migration23); this.run('INSERT INTO schema_migrations VALUES (23,?)', new Date().toISOString()); }
+      if (privateResearchMigration) { migratePrivateResearch(this.db); this.run('INSERT INTO schema_migrations VALUES (24,?)', new Date().toISOString()); }
     }); } finally { this.db.exec('PRAGMA foreign_keys=ON'); }
   }
   run(sql: string, ...params: SQLInputValue[]) { return this.db.prepare(sql).run(...params); }

@@ -1,3 +1,4 @@
+import {isResearchCustody} from './research-custody.js';
 import { lookup } from 'node:dns/promises';
 import { createHash } from 'node:crypto';
 import type { LookupAddress } from 'node:dns';
@@ -345,6 +346,6 @@ export function yahooProbeTransport(probe:FinancialCustody,wire?:YahooWire):Yaho
   assertFinancialCustody(probe);
   if(isOwnerFinancialCustody(probe))ensure(wire===undefined,'probe_real_wire_not_injectable');
   else ensure(wire&&wire.lookup!==lookup&&wire.request!==httpsRequest,'probe_fixture_requires_fake_wire');
-  const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe,isBootstrapHistoryFixture(probe),isDirectHistoryCustody(probe));
+  const transport=boundedSession(()=>probe.request,isResearchCustody(probe)?probe.symbol:'AAPL',wire??{lookup,request:httpsRequest},probe,isBootstrapHistoryFixture(probe),isDirectHistoryCustody(probe)||isResearchCustody(probe));
   probe.bindTransport(transport);return transport;
 }

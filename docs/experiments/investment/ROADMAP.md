@@ -367,3 +367,19 @@ Its acceptance records the private-research and no-lookahead limits. A separatel
 private employee-integration milestone is recommended; it must grant its own bounded fresh
 retrieval/use/retention. No employees, paper fills, production, public data or HQ-READY-04
 are activated by03H.
+
+## HQ-READY-04A source integration - 2026-10-13
+
+The owner selected the reusable private research integration as04A.
+[Source acceptance](../../validation/investment/HQ-READY-04A.md) connects new bounded Yahoo
+evidence to owner-selected existing employees, complete delivery/provenance, independent
+review and revised reports through normal HQ infrastructure. It creates no live authority.
+The earlier proposed employee integration is now implemented at source level.
+
+The next operational step is the separately approved
+[finite private research packet](../../operations/HQ_READY_04A_TRIAL_PACKET.md), including
+actual Ubuntu deployment/confinement and cold-retention acceptance. One research session
+does not satisfy HQ-READY-04's two elapsed paper sessions or H1-H9. Current execution-price
+methodology, prospective observations, genuine scheduled collaboration and public rights/
+protocol/deployment gates remain separately required. Spent Yahoo approvals and Decision037
+exhausted4/4 remain unchanged.

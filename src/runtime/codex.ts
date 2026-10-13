@@ -1,10 +1,10 @@
-import {verifyFinitePermit} from '../control/usage/finite-hq.js';
+import {verifyFinitePermit,finiteResearchEnvironment} from '../control/usage/finite-hq.js';
 import {validateFiniteInput,type FiniteRuntimeOptions} from './finite-policy.js';
 import {verifyPermit} from '../control/usage/pilot-lineage.js';
 import {disabledSkills,skillOverride,rejectGlobalInstructions,privateContext,type DisabledSkill,CREDIT_CONFIG,CREDIT_DISABLED_FEATURES,creditEnvironment,validateCreditConfig,validateCreditInput,type CreditRuntimeOptions} from './credit-policy.js';
 import {CreditAccountVerifier,type VerifiedCreditAccount} from './credit-account.js';
 import type {ActivityPolicy} from '../domain/usage/policy.js';
-import {investmentInstructions} from './investment-team.js';
+import {investmentInstructions,privateResearchInstructions} from './investment-team.js';
 import {mandateInstructions} from './mandates.js';
 import {computerInstructions} from './computer.js';
 import {DISCUSSION_LIMITS} from '../domain/discussions.js';
@@ -150,9 +150,10 @@ export class CodexRuntime implements RuntimeAdapter {
   /** Production requires a module-issued durable permit; fake transports override only in test code. */
   protected authorizeCredit(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>){verifyPermit(this.creditPilot?.permit,input,account);}
   protected authorizeFinite(input:RuntimeInput,account?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>&{threadId:string;model:string}){verifyFinitePermit(this.finiteHQ?.permit,input,account);}
+  private privateEnvironment(){return {...creditEnvironment(),...finiteResearchEnvironment(this.finiteHQ?.permit)};}
   checkVersion(): string {
     let version: string;
-    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot||this.finiteHQ?creditEnvironment():process.env }).trim(); }
+    try { version = execFileSync(this.command, ['--version'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000,env:this.creditPilot||this.finiteHQ?this.privateEnvironment():process.env }).trim(); }
     catch { throw new Error('Codex CLI unavailable. Install the documented version and run codex login.'); }
     requireThat(version === `codex-cli ${SUPPORTED_CODEX_VERSION}`, `Adapter requires validated Codex CLI ${SUPPORTED_CODEX_VERSION}; installed ${version}`);
     return version;
@@ -161,7 +162,7 @@ export class CodexRuntime implements RuntimeAdapter {
     return new AppServerRpc(this.command, ['app-server', '--listen', 'stdio://', ...(credit?['--strict-config',...CREDIT_DISABLED_FEATURES.flatMap(f=>['--disable',f]),...Object.entries(CREDIT_CONFIG).flatMap(([k,v])=>['-c',`${k}=${JSON.stringify(v)}`])]:[]),
       ...(skills?['-c','skills.config='+skillOverride(skills)]:[]),...DISABLED_FEATURES.flatMap(f => ['--disable', f]), '-c', 'web_search="disabled"',
       '-c', 'project_doc_max_bytes=0', '-c', 'notify=[]', '-c', 'shell_environment_policy.inherit="none"',
-    ], workspace,credit?creditEnvironment():process.env);
+    ], workspace,credit?this.privateEnvironment():process.env);
   }
   private async initialize(rpc: AppServerRpc,credit=false,workspace?:string,expectedSkills?:DisabledSkill[],accounts?:CreditAccountVerifier) {
     await rpc.request('initialize', { clientInfo: { name: 'botsquad', title: 'BotSquad', version: '0.1.0' }, capabilities: { experimentalApi: true, optOutNotificationMethods:['rawResponseItem/completed'] } });
@@ -195,7 +196,7 @@ export class CodexRuntime implements RuntimeAdapter {
     return { overrides:{...overrides,...(skills?{'skills.config':skills}:{})}, catalog,skills,verified };
   }
   private async isolateSkills(workspace:string,deadline=Date.now()+60000,signal?:AbortSignal,authorityId=this.creditPilot?.pilotId??this.finiteHQ?.authorityId){
-    rejectGlobalInstructions();const rpc=this.connect(workspace,true),abort=()=>rpc.close(),timer=setTimeout(abort,Math.max(1,deadline-Date.now()));signal?.addEventListener('abort',abort,{once:true});
+    rejectGlobalInstructions(this.privateEnvironment());const rpc=this.connect(workspace,true),abort=()=>rpc.close(),timer=setTimeout(abort,Math.max(1,deadline-Date.now()));signal?.addEventListener('abort',abort,{once:true});
     const accounts=new CreditAccountVerifier(rpc,{pilotId:authorityId!,workspace,deadline,disabledFeatures:DISABLED_FEATURES,checkOpen:()=>requireThat(!signal?.aborted&&Date.now()<deadline,'Pilot stopped before isolation')});
     rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during isolation preflight'}}));
     try{requireThat(!signal?.aborted,'Pilot stopped before isolation');const initialized=await this.initialize(rpc,true,workspace,undefined,accounts);let verified=initialized.verified!;while(!accounts.current(verified))verified=await accounts.verify();return {skills:initialized.skills!,verified};}finally{accounts.close();clearTimeout(timer);signal?.removeEventListener('abort',abort);rpc.close();}
@@ -256,6 +257,7 @@ export class CodexRuntime implements RuntimeAdapter {
         finish({ status: approvalDenied ? 'awaiting_approval' : 'interrupted', error: 'Runtime stopped; inspect retained evidence before retry' }); rpc.close();
       }, 6000);
     };
+    const researchGuard=input.investment?.purpose==='private_research'?setInterval(()=>{try{finiteResearchEnvironment(this.finiteHQ?.permit);}catch{interrupt();}},500):undefined;
     const accountEvent=(type:string,detail:Record<string,unknown>)=>{
       if(finished)return;
       // Authority may have been revoked before audit. Never let that bypass the stop latch.
@@ -372,7 +374,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if(accounts){let verified=await accounts.verify();while(!accounts.current(verified))verified=await accounts.verify();live();}
       input.event('runtime_policy_applied', { role: input.worker.role, tools: input.tools.map(t => t.name), disabled_features: [...DISABLED_FEATURES], sandbox: 'read-only', network: false, environments: [], inherited_mcp_disabled: Object.keys(overrides).filter(k=>k.startsWith('mcp_servers.')).length });
       const common = { cwd: input.worker.workspace_path, runtimeWorkspaceRoots: [input.worker.workspace_path],
-        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?(discussionInstructions+(input.tools.some(t=>t.name==='paper_propose')?'\n'+investmentInstructions:'')):conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
+        approvalPolicy: 'never', sandbox: 'read-only', config: overrides, baseInstructions: input.mode === 'conversation' ? (input.tools.some(t=>t.name==='inspect_mandate')?mandateInstructions:input.tools.some(t=>t.name==='read_discussion')?(discussionInstructions+(input.investment?.purpose==='private_research'?'\n'+privateResearchInstructions:input.tools.some(t=>t.name==='paper_propose')?'\n'+investmentInstructions:'')):conversationInstructions) : input.task.kind === 'computer' ? computerInstructions : input.task.kind === 'infrastructure' ? infrastructureInstructions : input.task.kind === 'research' ? researchInstructions : engineeringInstructions,
         developerInstructions: `Trusted BotSquad worker identity: ${input.worker.worker_id}. Use only the supplied ${input.mode} context.`,
         model, ...(policy?{modelProvider:'openai',serviceTier:'default'}:{}), allowProviderModelFallback: false };
       let thread: ThreadResponse;
@@ -412,7 +414,7 @@ export class CodexRuntime implements RuntimeAdapter {
       if(accounts){
         let verified:VerifiedCreditAccount=await accounts.verify();
         while(!accounts.current(verified))verified=await accounts.verify();
-        live();rejectGlobalInstructions();requireThat(Date.now()<Date.parse(input.localDeadline!),'Pilot deadline expired before admission');
+        live();rejectGlobalInstructions(this.privateEnvironment());requireThat(Date.now()<Date.parse(input.localDeadline!),'Pilot deadline expired before admission');
         input.event('runtime_account_reverified',{generation:verified.generation,interrupted:false});
         // No await between this check, durable admission and synchronous RPC transmission.
         requireThat(accounts.current(verified),'Account verification invalidated before admission');
@@ -439,6 +441,7 @@ export class CodexRuntime implements RuntimeAdapter {
       throw error;
     } finally {
       finished = true; accounts?.close();clearTimeout(timeout); if (interruptTimer) clearTimeout(interruptTimer);
+      if(researchGuard)clearInterval(researchGuard);
       toolController.abort('Runtime closed');
       signal.removeEventListener('abort', interrupt); rpc.close();
     }

@@ -151,3 +151,19 @@ HQ-READY-03 stops at source integration. The [bounded live-probe proposal](YAHOO
 requires owner authorization and reviewed trusted admission plus retention/restore custody before
 any request. Production, recurring collectors, genuine employee work, observed fills and public
 publication remain separately blocked. No HQ-READY-04, Asymmetri change or new credit authority follows.
+
+## Current private research source status - HQ-READY-04A
+
+[04A source acceptance](../validation/investment/HQ-READY-04A.md) implements new exact Yahoo
+collection and normalized private evidence delivery to selected existing employees, followed
+by ordinary discussion, independent draft review and revision. Preview and two explicit
+consents are inert without independent service authority. Authored fake acceptance establishes
+the integration, not a genuine run or the two elapsed H1-H9 paper sessions.
+
+Read-only preflight of the actual `botsquad` host found Ubuntu24.04.5, schema14, active
+root-managed HQ service, swap enabled and unlimited core dumps. The host is not currently
+qualified for observed private research. The [trial packet](HQ_READY_04A_TRIAL_PACKET.md) binds
+the proposed fresh request, actual Scout/Grace identities, account/profile, eight-turn cap,
+reload-OFF evidence, activity/retention deadlines, whole-HQ stopping impact and required
+Linux guard/cgroup/cold-cleanup acceptance. Deployment, host changes, Yahoo and model calls
+all require the later explicit approval. Old approvals stay spent; public and paper gates stay open.

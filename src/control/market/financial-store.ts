@@ -1,3 +1,4 @@
+import {isResearchCustody} from './research-custody.js';
 import { ensure } from '../../domain/investment/arithmetic.js';
 import { canonical, exact, hash, id, integer, time } from '../../domain/investment/identity.js';
 import { verifyFinancialObservation } from '../../domain/market/financial-normalize.js';
@@ -15,7 +16,7 @@ export class FinancialStore {
     exact(scope,['id','mode','policyIds','instrumentIds','calendarId','approvedAt','expiresAt','maxRequests','minIntervalMs','maxResponseBytes','maxTotalBytes','timeoutMs','maxRetries']);
     id(scope.id);id(scope.calendarId);
     if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertFinancialCustody(this.probe);this.probe.assertStore(this,scope);}
-    else ensure(scope.mode==='synthetic_fixture'&&!this.probe,'live_yahoo_not_authorized');
+    else {ensure(scope.mode==='synthetic_fixture'&&(!this.probe||isResearchCustody(this.probe)),'live_yahoo_not_authorized');this.probe?.assertStore(this,scope);}
     ensure(Array.isArray(scope.policyIds)&&scope.policyIds.length>0&&scope.policyIds.length<=4&&new Set(scope.policyIds).size===scope.policyIds.length,'financial_scope');
     ensure(Array.isArray(scope.instrumentIds)&&scope.instrumentIds.length>0&&scope.instrumentIds.length<=3&&new Set(scope.instrumentIds).size===scope.instrumentIds.length,'financial_scope');
     scope.policyIds.forEach(id);scope.instrumentIds.forEach(id);
@@ -45,7 +46,7 @@ export class FinancialStore {
     this.assertClock(at);
     const scope=this.scope();ensure(scope,'financial_gateway_inactive');
     if(scope.mode==='observed'){ensure(this.probe,'live_yahoo_not_authorized');assertFinancialCustody(this.probe);this.probe.assertStore(this,scope);}
-    else ensure(scope.mode==='synthetic_fixture'&&!this.probe,'live_yahoo_not_authorized');
+    else {ensure(scope.mode==='synthetic_fixture'&&(!this.probe||isResearchCustody(this.probe)),'live_yahoo_not_authorized');this.probe?.assertStore(this,scope);}
     ensure(time(at)>=time(scope.approvedAt)&&time(at)<time(scope.expiresAt),'financial_scope_expired');
     ensure(!this.db.get('SELECT 1 FROM financial_revocations WHERE scope_id=?',scope.id),'financial_scope_revoked');return scope;
   }

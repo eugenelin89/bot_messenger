@@ -6,7 +6,7 @@ export interface TurnLimits { inputTokens:number; outputTokens:number; maxCostMi
 export interface TeamEnvelope {
  executionPolicy?:ExecutionPolicy;
  aiProfile?:FiniteAIProfile;
- runId:string; groupId:string; audience:'public_candidate'|'private_synthetic'|'private_paper';
+ runId:string; groupId:string; audience:'public_candidate'|'private_synthetic'|'private_paper'|'private_research';
  participants:{workerId:string;name:string;responsibility:string}[];
  proposers:string[]; reviewers:string[]; submitters:string[];
  expiresAt:string; maxExecutions:number; maxResearch:number; maxProposals:number; maxOrders:number;

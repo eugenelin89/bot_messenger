@@ -748,3 +748,26 @@ private encrypted capsule, spending-before-DNS, immediate destruction and identi
 cleanup are reused. See [Decision044](../decisions/decision_044_one_shot_direct_yahoo_chart.md)
 and [acceptance](../validation/investment/HQ-READY-03H.md). No runtime employee/public authority
 or financial collector is activated.
+
+## Private financial employee research - HQ-READY-04A
+
+[Decision045](../decisions/decision_045_private_employee_financial_research.md) adds a typed
+research purpose to existing team scopes, discussions, finite occurrences and dispatcher
+execution. Schema24 shares run attribution through an immutable identity registry without
+creating a simulator portfolio. Existing paper runs and synthetic-only execution rules remain.
+
+Exact owner collection and AI-processing consents precede independent service authority. One
+approved request consumes an external journal allowance before the controlled Yahoo gateway
+read. Raw bodies stay in memory; only selected normalized evidence enters private HQ storage.
+Original observation/revision IDs, hashes, quality and unknown provider availability survive.
+Current-execution complete-delivery receipts bind employee citations. Ordinary discussion
+contributions, draft review and revision retain existing worker/session/usage attribution.
+
+Observed collection and model admission require a protected Linux host manifest, fresh root
+guard lease, actual HQ cgroup membership, no swap/core dumps and private tmpfs runtime storage.
+The separately installed root-owned guard stops and joins the whole HQ service; cold cleanup
+redacts derived content, purges runtime files and truncates WAL before issuing a purge receipt.
+Missing custody retains the hold and cannot waive deletion evidence. Operator-created copies,
+backup exclusions and provider retention remain explicit operational terms. These Linux gates
+are not validated by Mac fixtures; see the [trial packet](../operations/HQ_READY_04A_TRIAL_PACKET.md)
+and [source acceptance](../validation/investment/HQ-READY-04A.md). No live authority is provisioned.

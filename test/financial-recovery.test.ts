@@ -1,3 +1,4 @@
+import {removeEmptyResearchMigration} from './fixtures/investment/schema.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -15,7 +16,7 @@ import { setup,buyTwo } from './fixtures/investment/support.js';
 const tables=['financial_deliveries','financial_results','financial_observations','financial_payloads','financial_attempt_results','financial_attempts','financial_requests','financial_revocations','financial_scopes'];
 test('populated schema22 repeatedly migrates inert23 preserving all old rows/rowids, ledger and files',t=>{
  const f=setup();t.after(f.close);buyTwo(f);const path=join(f.dir,'before23.sqlite');f.store.db.exec(`VACUUM INTO '${path.replaceAll("'","''")}'`);
- const legacy=new DatabaseSync(path);for(const table of tables){assert.equal(legacy.prepare(`SELECT count(*) n FROM ${table}`).get()!.n,0);legacy.exec(`DROP TABLE ${table}`);}legacy.exec('DELETE FROM schema_migrations WHERE version=23');
+ const legacy=new DatabaseSync(path);removeEmptyResearchMigration(legacy);for(const table of tables){assert.equal(legacy.prepare(`SELECT count(*) n FROM ${table}`).get()!.n,0);legacy.exec(`DROP TABLE ${table}`);}legacy.exec('DELETE FROM schema_migrations WHERE version=23');
  const oldTables=(legacy.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all() as {name:string}[]).map(r=>r.name);
  const before=Object.fromEntries(oldTables.map(table=>[table,legacy.prepare(`SELECT rowid,* FROM ${table} ORDER BY rowid`).all()]));legacy.close();const files=readdirSync(f.dir).sort();
  for(let pass=0;pass<3;pass++){const db=new Store(path);try{for(const table of oldTables)assert.deepEqual(db.all(`SELECT rowid,* FROM ${table}${table==='schema_migrations'?' WHERE version<=22':''} ORDER BY rowid`),before[table],table);

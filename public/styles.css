@@ -64,3 +64,16 @@
 .ai-usage details { max-width: 40rem; }
 .ai-usage dd { margin: 0 0 .6rem; overflow-wrap: anywhere; }
 .usage-model { display: -webkit-box; max-width: 18rem; overflow-wrap: anywhere; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Research setup keeps exact scope and separate consents readable on owner screens. */
+#research-setup { display:grid; gap:12px; }
+#research-setup label { display:grid; gap:6px; margin:0; min-width:0; }
+#research-setup textarea, #research-setup input, #research-setup select { width:100%; min-width:0; box-sizing:border-box; padding:10px; font:inherit; }
+#research-setup textarea { min-height:86px; resize:vertical; }
+#research-setup textarea[name=packet] { min-height:180px; font:12px/1.5 monospace; }
+#research-employees, #research-limits { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+#research-employees fieldset { min-width:0; margin:0; padding:12px; border:1px solid #dce2df; border-radius:8px; }
+#research-employees label + label { margin-top:12px; }
+#research-review > label { padding:12px; border:1px solid #dce2df; border-radius:8px; }
+#research-review > label input { margin-right:8px; }
+@media(max-width:600px) { #research-employees, #research-limits { grid-template-columns:1fr; } }

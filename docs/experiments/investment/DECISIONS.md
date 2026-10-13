@@ -175,3 +175,17 @@ fixture-enabled correction under [Decision042](../../decisions/decision_042_yaho
 Authored AAPL success is not actual-data qualification.03B/03D/03E remain spent and unchanged;
 Decision037 stays4/4. No live authority, employee delivery, fill, collector or publication follows.
 The [next qualification proposal](../../operations/YAHOO_AAPL_QUALIFICATION_PROPOSAL.md) is unapproved.
+
+## Private employee research integration - 2026-10-13
+
+The owner selected HQ-READY-04A for source implementation, inert schema24, deterministic
+acceptance and reviewed Git integration. [Decision045](../../decisions/decision_045_private_employee_financial_research.md)
+connects a fresh exact Yahoo request to selected existing employees using ordinary discussion,
+scheduler/dispatcher, finite authority, independent review and revised private report paths.
+Separate collection and external-AI-processing consent, actual provenance, full-delivery
+receipts, conservative historical availability and finite cleanup are mandatory.
+
+[Acceptance](../../validation/investment/HQ-READY-04A.md) uses authored fixtures/fake models only.
+The [first genuine research packet](../../operations/HQ_READY_04A_TRIAL_PACKET.md) is proposed,
+not authorized. No03H data was restored;03B/03D/03E/03H remain spent, Decision037 remains4/4,
+and US$0, synthetic-only paper fills, two elapsed H1-H9 sessions and public gates are unchanged.

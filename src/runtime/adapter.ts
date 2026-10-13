@@ -11,7 +11,7 @@ import type { ResearchProvider } from '../domain/research.js';
 export interface ToolDefinition { name: string; description: string; inputSchema: Record<string, unknown> }
 interface RuntimeInputFields {
   worker: Worker; binding?: RuntimeBinding;
-  investment?:Readonly<{scopeId:string;policy:string;authorityId?:string}>;
+  investment?:Readonly<{scopeId:string;purpose?:'private_research';policy:string;authorityId?:string}>;
   /** Absolute local interruption deadline; subscription adapters must use finite termination after it. */
   localDeadline?: string;
   usage?(observation:UsageObservation):void;
