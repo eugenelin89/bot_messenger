@@ -84,3 +84,14 @@ build/check/manifest and exact remote/local source hashes. Mac capacity was belo
 validation used separately admitted temporary Linux staging; Motion retained its native slot.
 Genuine employee/public acceptance remains pending. Next independent source scope: durable Ask
 grants/import/outbox/privacy-control state and restore fencing, then existing employee routing.
+
+
+## Website resumption — October 13, 2026, 07:54 America/Vancouver
+
+The website chat reports its CUA CSV-download call returned after roughly 5.45 hours with a
+timeout/kernel reset, not an approval-rejection explanation. Fresh thread status is active with
+no waitingOnApproval flag. Earlier holds recorded that tool status; they are not evidence that
+an automatic approval reviewer rejected deployment. Website work is resuming under the existing
+owner authorization: truthful unavailable-state release first, then receiver/private Ask intake.
+The parent sent exact accepted HQ identity, canonical digest and requested actual deployment and
+read-back evidence. Production login remains held, with no denied-auth retry or fabricated run.

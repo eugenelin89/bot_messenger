@@ -1,6 +1,16 @@
 # Persistent observed paper investment — operation and morning handoff
 
-**Current status, 2026-10-13 12:00UTC:** Source acceptance and private HQ deployment are complete.
+**Latest coordination, October 13, 2026, 07:54 America/Vancouver:** Website execution has resumed.
+Its chat reports the long CUA CSV-export call timed out after roughly 5.45 hours and returned no
+actual approval-rejection text. Fresh chat status is active without the former waitingOnApproval
+flag. Earlier references to a tool-approval hold below describe the status then reported; they
+are superseded by this correction. The website writer is finishing its authorized release with
+truthful unavailable views, followed by receiver integration and private Ask intake. Its reported
+202 receiver tests, five frontend tests, both builds and six-width browser checks passed before
+the stall. Public deployment/read-back has not yet been confirmed. HQ authentication remains
+held; this resumption does not imply genuine market/model operation or working public Ask.
+
+**Private deployment verification, 2026-10-13 12:00UTC:** Source acceptance and private HQ deployment are complete.
 [PR75](https://github.com/eugenelin89/bot_messenger/pull/75) merged to
 `d262a8dff59ab82587bd6444b083e5e9b7603cf0`, which is the exact deployed release.
 The later outcome-documentation commit does not change this deployed build. Full regression
@@ -9,7 +19,7 @@ adapter 2/2 passed. The service and owner controls respond, but runtime health i
 strict Codex account authentication returned 401. No observed portfolio, new authority, source
 request or genuine employee turn has been activated. This is an inert deployment, not a live
 paper-investment record. The public showcase and methodology URLs returned 404 at 12:00 UTC;
-the website execution chat remains at a pending tool-approval boundary. Ask BotSquad is unfinished.
+the website chat then reported waitingOnApproval (later clarified above). Ask BotSquad is unfinished.
 
 **Completion-loop update, 2026-10-13 13:21UTC:** The first wake implemented the HQ portion of
 INV-ASK-01: strict typed claim/renew/status/answer/receipt/control-sync messages against the
@@ -54,8 +64,8 @@ deployment and public release when the technical gates pass; no new licensing ap
 
 The website chat has implemented observed labels/clocks, unavailable/frozen configuration
 presentation, responsive pages and receiver work. Its reported202receiver tests, typecheck,
-lint and both builds passed. It remains at a tool approval boundary; no deployment is inferred
-from those source results. Only that project executes website changes. The parent has sent
+lint and both builds passed. Its stalled browser call has now timed out and execution resumed;
+no deployment is inferred from those source results. Only that project executes website changes. The parent has sent
 exact canonical contract and signed receiver integration requirements.
 
 ## Source delivery and Ubuntu preparation
@@ -211,8 +221,8 @@ The shortest activation prompt, once login and website execution are available, 
 The HQ boundary portion of **INV-ASK-01** and dormant HTTPS transport in **INV-ASK-02** are now
 validated. The next concrete prompt is:
 
-> Inspect the current website result and ASK-01 acceptance. Once its actual tool boundary clears,
-> finish and verify the website private session queue, signed HQ routes, durable privacy controls,
+> Inspect the resumed website release result and ASK-01 acceptance. Verify its actual public
+> commit and read-back, then finish the website private session queue, signed HQ routes, durable privacy controls,
 > abuse limits and restore behavior against the unchanged canonical manifest. Send the receiver
 > commit/schema/test receipts back to this HQ chat. Keep public admission disabled until genuine
 > employee, budget and privacy acceptance passes. On HQ, implement ASK-02 durable grants,
