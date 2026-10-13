@@ -1,11 +1,21 @@
 # Persistent observed paper investment — operation and morning handoff
 
-**Current status, 2026-10-13:** Source acceptance is complete on `codex/inv-real-01`; deployment
-checks are in progress. [PR75](https://github.com/eugenelin89/bot_messenger/pull/75)
-is awaiting normal merge. Full regression passed1,863checks with zero failures; five
-actual receiver checks and two owner-browser checks also passed. See the validation receipt.
-No INV-REAL-01 production activation or public release has yet occurred. Do not interpret
-this document's setup instructions or fixture tests as a live investment record.
+**Current status, 2026-10-13 12:00UTC:** Source acceptance and private HQ deployment are complete.
+[PR75](https://github.com/eugenelin89/bot_messenger/pull/75) merged to
+`d262a8dff59ab82587bd6444b083e5e9b7603cf0`, which is the exact deployed release.
+The later outcome-documentation commit does not change this deployed build. Full regression
+passed 1,863 checks with zero failures; actual receiver 5/5, owner-browser 2/2 and Linux finite
+adapter 2/2 passed. The service and owner controls respond, but runtime health is degraded:
+strict Codex account authentication returned 401. No observed portfolio, new authority, source
+request or genuine employee turn has been activated. This is an inert deployment, not a live
+paper-investment record. The public showcase and methodology URLs returned 404 at 12:00 UTC;
+the website execution chat remains at a pending tool-approval boundary. Ask BotSquad is unfinished.
+
+An active hourly **BotSquad Investment completion loop** now resumes this chat, examines the
+result, generates the next concrete prompt and executes available work. Automation ID:
+`botsquad-investment-completion-loop`. It is a local Codex heartbeat, so its host/app must be
+available for scheduled runs. It stays quiet on unchanged state and pauses once completion
+is actually verified. Website execution remains delegated to the existing asymmetri.co chat.
 
 Decision047 records the owner's Yahoo confirmation, release authorization, methodology,
 retention and finite-runtime policy. The owner is asleep and has authorized continuing work,
@@ -60,7 +70,29 @@ Python3.12.12 archive was downloaded and verified with SHA256
 `67056e6c15ad24fa7b5888f5d78f913eeafb3eebca66139123e800e82e9208d3`, then installed root:root755
 at`/opt/botsquad-runtime/python31212`; version3.12.12 verified. The isolated root-owned venv at`/opt/botsquad-runtime/yahoo-inv-real-01-venv` subsequently installed all hash-locked wheels; `pip check` passed and exact Python3.12.12/yfinance1.7.0 were verified. The Linux adapter passed its authored equity/ETF test under the actual service user. A protected
 copy of the production schema14 database also passed migration to25 with three reopen checks,
-preserving all2,626 original rows and fields. No live service restart or source deployment occurred. These are preparation facts, not release evidence.
+preserving all2,626 original rows and fields. Those preparation checks were followed by the accepted deployment described below.
+
+## Accepted private deployment
+
+Deployment at 11:55–11:58 UTC installed the exact accepted release, rebuilt from its locked
+Node dependencies and migrated schema14→25. The pre-start preservation check retained every
+original rowid and field in 102 application tables / 2,626 rows. Integrity and foreign keys pass.
+Post-start checks retain 8 workers, 48 tasks, 69 executions (68 completed / 1 failed), pause=false,
+and zero investment runs/journal entries/grants. No existing history or spent allowance was reset.
+
+Protected root-only backup:
+`/var/backups/botsquad/inv-real-01-20261013T115509Z` on the HQ host. It includes supported
+SQLite backup and retained host state; never restore it to replenish authority. Service PID 712263
+was active at verification, with actual process core limits 0/0. All 630 compiled files and 25 public
+files exactly match the tested Linux staging build; source is clean and code/runtime are root-owned.
+The private route `/investment-run`, its script and observed API return 200 through the existing
+SSH tunnel. Default universe is AAPL/MSFT/GOOGL/AMZN/JPM/JNJ/XOM/WMT, benchmark SPY.
+See the [deployment receipt](../validation/evidence/inv-real01/deployment.json).
+
+Existing enabled persistent internal-message employees are Atlas, Nix, Maya, Turing, Linus,
+Ada, Grace and Scout. Exact run membership/roles remain frozen by consent; an independent
+reviewer must differ from the proposer. Eligibility alone is not authenticated model readiness.
+The owner controls and actual finite authority must succeed before dispatch.
 
 ## Production account hold
 
@@ -135,7 +167,7 @@ are never reclassified.
 
 ## Continuation objective and next prompt
 
-After the current implementation is accepted and deployed, inspect this handoff, the execution
+The implementation is accepted and privately deployed. On the next continuation, inspect this handoff, the execution
 plan, the validation record and the latest website-chat result. Generate the next concrete
 prompt from evidence, then execute its authorized work. Keep the same portfolio and retained
 authority history. Route website implementation to the existing asymmetri.co chat. Complete
@@ -144,7 +176,7 @@ using the existing Ask roadmap and separate finite authority. No canned employee
 
 The shortest activation prompt, once login and website execution are available, is:
 
-> Continue INV-REAL-01 from the accepted main and its operation record. Verify the repaired
+> Continue INV-REAL-01 from deployed d262a8d and the current operation record. Verify the repaired
 > service-account identity and eligibility, preserve the authentic reload-OFF timestamp, select
 > two future exchange sessions and existing eligible employees, provision the exact finite
 > observed/source/publication scopes, coordinate receiver approval and official-run selection
@@ -152,3 +184,11 @@ The shortest activation prompt, once login and website execution are available, 
 > receipts and public read-back; observe both actual sessions without advancing time or
 > resetting the portfolio. Keep Ask BotSquad work and its independent limits visible until
 > the full project is complete. Deployment and release are already owner-authorized.
+
+
+The next independent source packet while login/site execution remains held is **INV-ASK-01**
+from `docs/experiments/investment/ASK_BOTSQUAD_ROADMAP.md`: freeze the canonical session-private
+question/lease/result contract and adversarial golden fixtures in HQ, send the exact digest and
+website intake prompt to the existing website chat, and review both sides before progressing
+to employee routing. Use the accepted launcher and requirements; do not combine public archive
+and visitor-private storage. This source work does not need a successful production login.

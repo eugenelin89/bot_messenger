@@ -1,12 +1,12 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
-**Status:** Active
+**Status:** Source milestone accepted and privately deployed; broader completion continues by heartbeat
 **Owner:** Primary Codex implementation agent; independent specialists read only
 **Branch:** `codex/inv-real-01`
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Final regression and acceptance passed2026-10-13T11:52UTC; source merge and inert deployment are expected within20–30minutes. Genuine operation remains held by production login401 and the website tool-approval boundary.
+**Current ETA:** Source acceptance and inert deployment completed 2026-10-13T11:58UTC. Overall release timing depends on restored production login, website execution and actual future sessions; no elapsed-session completion time is promised.
 
 ## Objective
 
@@ -55,8 +55,8 @@ connectivity and safety, not genuine reasoning or elapsed real exchange sessions
 
 ## Remaining work
 
-Implemented schema25, observed gateway qualification, persistent finite epochs, existing employee/dispatcher integration, public summaries and owner UI. Extended renewal/action/missing-data/publication tests pass. Final recovery tests exposed and fixed the distinction between provider completion and local failure: complete telemetry now requires trusted provider completion, with incomplete/unknown negatives retained. Final serial regression passed1,863checks with zero failures. Owner browser2/2, real receiver5/5, Linux finite-adapter assertions2/2, typecheck and contracts passed. PR75 is ready for normal review and merge. Pinned Ubuntu runtime and protected actual schema14→25 rehearsal are complete. Remaining: normal merge, inert source deployment, genuine activation after login repair, signed receiver release and continuation heartbeat. See `docs/operations/INV-REAL-01.md` for the morning handoff.
+Implemented schema25, observed gateway qualification, persistent finite epochs, existing employee/dispatcher integration, public summaries and owner UI. Extended renewal/action/missing-data/publication tests pass. Final recovery tests exposed and fixed the distinction between provider completion and local failure: complete telemetry now requires trusted provider completion, with incomplete/unknown negatives retained. Final serial regression passed 1,863 checks with zero failures. Owner browser 2/2, real receiver 5/5, Linux finite-adapter assertions 2/2, typecheck and contracts passed. Pinned Ubuntu runtime and protected actual schema14→25 rehearsal are complete. PR75 is merged and accepted main d262a8d is privately deployed with exact build hashes and preserved schema14→25 data. Hourly completion heartbeat is active. Remaining: genuine activation after login repair, signed receiver/public release, actual future sessions and Ask01–04 integration. See `docs/operations/INV-REAL-01.md` for the morning handoff.
 
 ## Overnight continuation
 
-Owner requested an end-of-task examination/prompt/execution loop until completion and a morning handoff for the website ChatGPT project manager. Create a thread heartbeat at the end, using this plan and acceptance artifacts to choose concrete next work. Website work is routed to the authorized project chat above. Deployment/public release are authorized by later owner messages; verify before announcing them live.
+Owner requested an end-of-task examination/prompt/execution loop until completion and a morning handoff for the website ChatGPT project manager. Active hourly thread heartbeat `botsquad-investment-completion-loop` now uses this plan and acceptance artifacts to choose concrete next work. Native validation completed and its slot was returned to Motion with 14,931,841,024 free bytes after safe fixture cleanup; Motion retains its 15GB admission check. Website work is routed to the authorized project chat above. Deployment/public release are authorized by later owner messages; verify before announcing them live.
