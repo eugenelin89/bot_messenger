@@ -46,7 +46,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
   protected publicAudience(){ensure(!this.db.get('SELECT 1 FROM investment_private_runs WHERE run_id=?',this.privateRunId),'private_paper_publication_denied');const scope=this.db.get<{envelope:string}>('SELECT envelope FROM investment_team_scopes WHERE run_id=?',this.privateRunId);ensure(!scope||JSON.parse(scope.envelope).audience==='public_candidate','private_scope_publication_denied');}
   checkRights(material:Material,at:string):void {
     this.publicAudience();
-    const market=new MarketStore(this.db),sim=this.simulator(),c=sim.configuration(this.privateRunId),state=sim.inspect(this.privateRunId);
+    const market=new MarketStore(this.db),{configuration:c,state}=this.simulator().readSnapshot(this.privateRunId);
     this.validateMode(c);ensure(material.events.every(x=>x.event.evidenceMode===this.mode),'publication_evidence_mode_mismatch');
     this.contentRights(material);
     for(const o of state.observations){const e=market.get<PriceEvidence>(o.id,'price'),p=market.get<SourcePolicy>(e.policyId,'policy');ensure(p.id===c.marketPolicy.id&&e.mode===c.evidenceMode,'publication_source_policy');

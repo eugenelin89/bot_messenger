@@ -67,7 +67,7 @@ for(const [name,sql,expected] of [
   ['receipt hash',"DROP TRIGGER investment_receipts_immutable;UPDATE investment_receipts SET request_hash='bad'",/receipt_hash_mismatch/],
   ['missing receipt',"DROP TRIGGER investment_receipts_retained;DELETE FROM investment_receipts",/receipt_identity_mismatch/],
 ] as const) test(`disposable tampered ${name} fails closed`,t=>{
-  const f=setup();t.after(f.close);f.store.db.exec(sql);assert.throws(()=>f.state(),expected);
+  const f=setup();t.after(f.close);f.sim.readSnapshot(f.config.runId);f.store.db.exec(sql);assert.throws(()=>f.state(),expected);assert.throws(()=>f.sim.readSnapshot(f.config.runId),expected);
 });
 test('missing reference, future schema and corrupt file fail closed',t=>{
   const f=setup();t.after(f.close);

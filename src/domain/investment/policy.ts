@@ -1,6 +1,8 @@
 import { decimal, ensure, nonnegative, positive } from './arithmetic.js';
 import { date, exact, id, integer, time } from './identity.js';
 import type { Calendar, Configuration, Instrument, Observation, Session } from './types.js';
+// The only supported exchange zone. Reuse formatting machinery, never validation results.
+const exchangeZone = new Intl.DateTimeFormat('en-CA', { timeZone:'America/New_York', year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short' });
 export function instrument(c: Configuration, key: string): Instrument {
   const result = [...c.instruments, c.benchmark.instrument].find(i => i.id === key);
   ensure(result, 'unknown_instrument'); return result;
@@ -50,14 +52,14 @@ export function validateConfiguration(c: Configuration): void {
   exact(c.calendar, ['version','timezone','sessions','holidays']); id(c.calendar.version);
   ensure(c.calendar.timezone === 'America/New_York', 'unsupported_timezone');
   ensure(c.calendar.sessions.length > 0 && c.calendar.sessions.length <= 5000, 'invalid_calendar');
-  const zone = new Intl.DateTimeFormat('en-CA', { timeZone: c.calendar.timezone, year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short' });
   let previous = -Infinity;
   for (const s of c.calendar.sessions) {
     exact(s, ['date','open','close','status','earlyClose']); date(s.date);
-    ensure(time(s.open) > previous && time(s.close) > time(s.open), 'invalid_calendar_order'); previous = time(s.open);
+    const opened=time(s.open);ensure(opened>previous,'invalid_calendar_order');
+    const closed=time(s.close);ensure(closed>opened,'invalid_calendar_order');previous=opened;
     ensure(s.status === 'open' || s.status === 'closed', 'invalid_session_status'); ensure(typeof s.earlyClose === 'boolean', 'invalid_session');
-    const parts = Object.fromEntries(zone.formatToParts(new Date(s.open)).map(p => [p.type,p.value]));
-    const close = Object.fromEntries(zone.formatToParts(new Date(s.close)).map(p => [p.type,p.value]));
+    const parts = Object.fromEntries(exchangeZone.formatToParts(new Date(opened)).map(p => [p.type,p.value]));
+    const close = Object.fromEntries(exchangeZone.formatToParts(new Date(closed)).map(p => [p.type,p.value]));
     ensure(`${parts.year}-${parts.month}-${parts.day}` === s.date && `${close.year}-${close.month}-${close.day}` === s.date && parts.hour === '09' && parts.minute === '30', 'invalid_exchange_open');
     ensure(close.minute === '00' && close.hour === (s.earlyClose ? '13' : '16'), 'invalid_exchange_close');
     ensure(!['Sat','Sun'].includes(parts.weekday!), 'weekend_session');

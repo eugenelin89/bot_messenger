@@ -40,6 +40,16 @@ test('fixture calendar selects weekend, holiday, DST and early-close sessions',(
 test('configuration rejects non-USD, operational evidence, invalid DST and wrong precision',()=>{
   for(const mutate of [(c:ReturnType<typeof configuration>)=>{(c as unknown as {currency:string}).currency='CAD';},(c:ReturnType<typeof configuration>)=>{(c as unknown as {evidenceMode:string}).evidenceMode='observed_paper';},(c:ReturnType<typeof configuration>)=>{c.initialCapital='1.0000001';},(c:ReturnType<typeof configuration>)=>{c.calendar.sessions[1]!.open='2026-03-09T14:30:00.000Z';}]){const c=configuration();mutate(c);assert.throws(()=>validateConfiguration(c));}
 });
+test('reused exchange formatter revalidates late sessions and preserves timestamp error order',()=>{
+  const c=configuration();validateConfiguration(c);
+  c.calendar.sessions.at(-1)!.close='2026-11-27T21:00:00.000Z';
+  assert.throws(()=>validateConfiguration(c),/invalid_exchange_close/);
+  c.calendar.sessions.at(-1)!.close='2026-11-27T18:00:00.000Z';validateConfiguration(c);
+  c.calendar.sessions.at(-1)!.open=c.calendar.sessions[0]!.open;c.calendar.sessions.at(-1)!.close='invalid';
+  assert.throws(()=>validateConfiguration(c),/invalid_calendar_order/);
+  c.calendar.sessions.at(-1)!.open='2026-11-27T14:30:00.000Z';
+  assert.throws(()=>validateConfiguration(c),/invalid_time/);
+});
 test('seeded 1000 accumulation/partial-exit/full-exit cycles conserve cash, basis and realized PnL',()=>{
   const c=configuration(),state=initialState(c);state.portfolio.cash='1000000.000000';let seed=17n,expected=decimal(state.portfolio.cash);
   const random=()=>{seed=(seed*1664525n+1013904223n)%4294967296n;return seed;};

@@ -79,6 +79,10 @@ export class FixtureSimulator {
   }
   inspect(runId: string): State { return this.store.transaction(()=>this.replay(runId).state); }
   configuration(runId: string): Configuration { return this.store.transaction(()=>this.replay(runId).configuration); }
+  /** One fully verified, coherent read. Nothing is retained between calls. */
+  readSnapshot(runId: string): {configuration:Configuration;state:State} {
+    return this.store.transaction(()=>{const {configuration,state}=this.replay(runId);return {configuration,state};});
+  }
   journal(runId: string): Journal[] { return this.store.transaction(()=>{this.replay(runId);return this.store.all<{payload:string}>('SELECT payload FROM investment_journal WHERE run_id=? ORDER BY version',runId).map(r=>JSON.parse(r.payload) as Journal);}); }
   outbox(runId: string): DisabledProjection[] { return this.store.transaction(()=>{this.replay(runId);return this.store.all<{projection:string}>("SELECT projection FROM investment_outbox WHERE run_id=? AND state='disabled' ORDER BY journal_version",runId).map(r=>JSON.parse(r.projection) as DisabledProjection);}); }
   private replay(runId: string): {configuration:Configuration;state:State;row:RunRow} {
@@ -88,6 +92,12 @@ export class FixtureSimulator {
     ensure(configuration.authorization.fixtureOperator===this.fixtureOperator,'fixture_operator_required');
     let state=initialState(configuration),lastTime=time(row.created_at);
     const rows=this.store.all<JournalRow>('SELECT * FROM investment_journal WHERE run_id=? ORDER BY version',runId);
+    const outbox=this.store.all<OutboxRow&{journal_version:number}>('SELECT * FROM investment_outbox WHERE run_id=?',runId);
+    const outboxByVersion=new Map(outbox.map(o=>[o.journal_version,o]));
+    const receipts=this.store.all<{request_id:string;journal_version:number}>('SELECT request_id,journal_version FROM investment_receipts WHERE run_id=?',runId);
+    const receiptByRequest=new Map(receipts.map(r=>[r.request_id,r]));
+    const receiptsByVersion=new Map<number,typeof receipts>();
+    for(const receipt of receipts){const group=receiptsByVersion.get(receipt.journal_version)??[];group.push(receipt);receiptsByVersion.set(receipt.journal_version,group);}
     for(const r of rows) {
       const j=JSON.parse(r.payload) as Journal, {hash:journalHash,...body}=j;
       ensure(j.version===String(BigInt(state.version)+1n) && r.version===Number(j.version) && j.previousHash===state.hash && r.previous_hash===state.hash,'invalid_predecessor');
@@ -101,16 +111,16 @@ export class FixtureSimulator {
       result.state.version=j.version; result.state.ledgerVersion=String(BigInt(state.ledgerVersion)+(j.entries.length ? 1n : 0n));
       ensure(j.ledgerVersion===result.state.ledgerVersion && checkpoint(result.state)===j.checkpointHash,'checkpoint_mismatch');
       state=result.state; state.hash=journalHash;
-      const o=this.store.get<OutboxRow>('SELECT * FROM investment_outbox WHERE run_id=? AND journal_version=?',runId,r.version),p=projection(j,configuration);
+      const o=outboxByVersion.get(r.version),p=projection(j,configuration);
       ensure(o && o.state==='disabled' && o.event_id===identity('event',runId,j.version) && o.dependency_event_id===(r.version===1?null:identity('event',runId,String(r.version-1))) && o.projection===canonical(p) && o.projection_hash===hash(p),'outbox_mismatch');
-      const original=this.store.get<{journal_version:number}>('SELECT journal_version FROM investment_receipts WHERE run_id=? AND request_id=?',runId,j.originalRequestId);
+      const original=receiptByRequest.get(j.originalRequestId);
       ensure(original?.journal_version===r.version,'receipt_identity_mismatch');
-      ensure(this.store.all<{request_id:string}>('SELECT request_id FROM investment_receipts WHERE run_id=? AND journal_version=?',runId,r.version).every(receipt=>operation(configuration,j.command,receipt.request_id)===j.operationId),'receipt_identity_mismatch');
+      ensure((receiptsByVersion.get(r.version)??[]).every(receipt=>operation(configuration,j.command,receipt.request_id)===j.operationId),'receipt_identity_mismatch');
     }
     ensure(rows.length===row.head_version && state.hash===row.head_hash && (row.head_version===0 || checkpoint(state)===row.checkpoint_hash),'truncated_or_corrupt_history');
-    ensure(this.store.get<{n:number}>('SELECT count(*) n FROM investment_outbox WHERE run_id=?',runId)!.n===rows.length,'outbox_count_mismatch');
+    ensure(outbox.length===rows.length,'outbox_count_mismatch');
     ensure(this.store.all<{request_hash:string;actual:string}>('SELECT r.request_hash,j.request_hash actual FROM investment_receipts r JOIN investment_journal j ON r.run_id=j.run_id AND r.journal_version=j.version WHERE r.run_id=?',runId).every(r=>r.request_hash===r.actual),'receipt_hash_mismatch');
-    ensure(rows.every(j=>this.store.get('SELECT 1 FROM investment_receipts WHERE run_id=? AND journal_version=?',runId,j.version)),'missing_receipt');
+    ensure(rows.every(j=>(receiptsByVersion.get(j.version)?.length??0)>0),'missing_receipt');
     return {configuration,state,row};
   }
   private executeInside(runId: string, command: Command, requestId: string): Journal {
