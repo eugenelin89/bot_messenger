@@ -150,6 +150,7 @@ export class Dispatcher {
   get activeCount() { return this.running.size; }
   async stop() {
     this.company.business.beginShutdown();
+    this.company.finiteHQ.beginShutdown();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
     this.company.off('computer_interrupt',this.onComputerInterrupt);this.company.off('investment_interrupt',this.onInvestmentInterrupt);

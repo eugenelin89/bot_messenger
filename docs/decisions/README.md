@@ -190,3 +190,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision044 — One-shot direct Yahoo chart qualification](decision_044_one_shot_direct_yahoo_chart.md): HQ-READY-03H, captured-response parsing without bootstrap, distinct one-request private authority and unchanged spent historical approvals.
 
 - [Decision045 - Private financial evidence in normal employee research](decision_045_private_employee_financial_research.md): HQ-READY-04A source integration through existing employees, discussions, dispatcher and finite authority; separate collection/AI-processing consent, historical-only evidence, independent critique/revision and finite private retention. Genuine Linux/collection/model acceptance remains a separate operational gate.
+
+- [Decision046 — Explicit fresh-research recovery release](decision_046_fresh_research_recovery_release.md): HQ-READY-04C adds a digest-bound owner action for untouched future approved drafts, using existing external journal receipts/custody. No new allowance or live approval.

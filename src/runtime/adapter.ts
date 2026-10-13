@@ -37,6 +37,8 @@ export interface RuntimeAdapter {
   finiteHQPolicySupported?(policy:FiniteHQPolicy):boolean;
   /** Separate normal-HQ finite authority; never fall back to ordinary or pilot execution. */
   runFiniteHQInvestment?(input:RuntimeInput,signal:AbortSignal,policy:FiniteHQPolicy):Promise<RuntimeResult>;
+  /** Non-inference identity verification; keep invalidation listeners alive through the synchronous commit. */
+  withFiniteHQAccount?<T>(request:{workspaces:string[];authorityId:string;profile:import('../domain/usage/policy.js').FiniteAIProfile;accountFingerprint:string;routingFingerprint:string},commit:()=>T):Promise<T>;
   researchProvider?(workspace: string): ResearchProvider;
   catalog?(workspace: string): Promise<RuntimeCatalog>;
   run(input: RuntimeInput, signal: AbortSignal): Promise<RuntimeResult>;

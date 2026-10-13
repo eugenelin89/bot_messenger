@@ -771,3 +771,13 @@ Missing custody retains the hold and cannot waive deletion evidence. Operator-cr
 backup exclusions and provider retention remain explicit operational terms. These Linux gates
 are not validated by Mac fixtures; see the [trial packet](../operations/HQ_READY_04A_TRIAL_PACKET.md)
 and [source acceptance](../validation/investment/HQ-READY-04A.md). No live authority is provisioned.
+
+## Fresh research recovery release — HQ-READY-04C
+
+Startup recovery remains mandatory. [Decision046](../decisions/decision_046_fresh_research_recovery_release.md)
+adds an explicit authenticated owner release of a typed recovery hold on an untouched future
+approved research draft. Exact envelope/revision/reload binding, live non-inference per-workspace
+account verification and final local/external admission precede an atomic journal release/receipt.
+Duplicate receipts do not mutate custody; newer holds invalidate them. Collection and Start stay
+separate, and no new allowance, schema, alternate authority store or runtime is introduced.
+Historical untyped/failure holds and every consumed or uncertain effect remain closed.

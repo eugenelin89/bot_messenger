@@ -203,6 +203,26 @@ export class CodexRuntime implements RuntimeAdapter {
   }
   async catalog(workspace:string):Promise<RuntimeCatalog>{return (await this.catalogResult(workspace)).catalog;}
   async creditPreflight(workspace:string){requireThat(this.creditPilot,'Private pilot preflight required');const r=await this.catalogResult(workspace);requireThat(r.verified,'Verified account unavailable');return {catalog:r.catalog,fingerprint:r.verified.fingerprint,routingFingerprint:r.verified.routingFingerprint};}
+  async withFiniteHQAccount<T>(request:{workspaces:string[];authorityId:string;profile:import('../domain/usage/policy.js').FiniteAIProfile;accountFingerprint:string;routingFingerprint:string},commit:()=>T):Promise<T>{
+    requireThat(this.finiteHQ&&request.authorityId===this.finiteHQ.authorityId&&JSON.stringify(request.profile)===JSON.stringify(this.finiteHQ.profile),'Exact finite runtime profile required');
+    requireThat(request.workspaces.length>=2&&request.workspaces.length<=4&&new Set(request.workspaces).size===request.workspaces.length,'Exact research workspaces required');
+    this.checkVersion();const deadline=Date.now()+60000;
+    const opened:{rpc:AppServerRpc;accounts:CreditAccountVerifier;verified:VerifiedCreditAccount;closed:boolean}[]=[];
+    const timer=setTimeout(()=>{for(const r of opened)r.rpc.close();},60000);
+    try{
+      for(const workspace of request.workspaces){
+        const isolated=await this.isolateSkills(workspace,deadline),rpc=this.connect(workspace,true,isolated.skills);
+        const accounts=new CreditAccountVerifier(rpc,{pilotId:request.authorityId,workspace,deadline,disabledFeatures:DISABLED_FEATURES,expected:{fingerprint:request.accountFingerprint,routingFingerprint:request.routingFingerprint},checkOpen:()=>requireThat(Date.now()<deadline,'Finite account verification expired')});
+        const current={rpc,accounts,verified:isolated.verified,closed:false};opened.push(current);rpc.on('closed',()=>{current.closed=true;});
+        rpc.on('request',(m:RpcMessage)=>rpc.send({id:m.id,error:{code:-32601,message:'Unavailable during finite identity verification'}}));
+        const initialized=await this.initialize(rpc,true,workspace,isolated.skills,accounts);
+        resolveAIProfile({ai_model:request.profile.model,reasoning_effort:request.profile.reasoningEffort,execution_priority:'normal',ai_profile_locked:1},initialized.catalog);
+        current.verified=await accounts.verify();
+      }
+      requireThat(Date.now()<deadline&&opened.every(r=>!r.closed&&r.accounts.current(r.verified)),'Finite account verification invalidated');
+      return commit();
+    }finally{clearTimeout(timer);for(const r of opened){r.accounts.close();r.rpc.close();}}
+  }
   private async catalogResult(workspace: string) {
     this.checkVersion();const isolated=this.creditPilot?await this.isolateSkills(workspace):undefined,rpc=this.connect(workspace,!!this.creditPilot,isolated?.skills);
     const deadline=Date.now()+60000;

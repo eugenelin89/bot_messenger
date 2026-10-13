@@ -145,6 +145,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       else if(path==='/api/investment-run/preview'){json(201,company.investmentLoop.preview(body));}
       else if(path==='/api/investment-run/control'){json(200,company.investmentLoop.control(body));company.changed();}
       else if(path==='/api/investment-run/research/preview'){json(201,company.privateResearch.preview(body));}
+      else if(path==='/api/investment-run/research/release-recovery'){json(200,await company.finiteHQ.releaseResearchRecovery(body));}
       else if(path==='/api/investment-run/research/collect'){json(200,await company.privateResearch.collect(body));}
       else if(path==='/api/investment-run/research/consent'){json(201,company.privateResearch.consent(body));}
       else if(path==='/api/investment-run/setup/preview'){json(201,company.investmentSetup.preview(body));}

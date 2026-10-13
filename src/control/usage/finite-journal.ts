@@ -22,9 +22,9 @@ interface Entry {sequence:number;epoch:string;at:string;kind:string;payload:stri
 interface Custody {epoch:string;sequence:number;digest:string;at:string}
 export interface ReservationState extends FiniteReservation {state:'reserved'|'admitted'|'transmitted'|'settled'|'unknown';threadId?:string;status?:string;complete?:boolean}
 interface OtherReservation {executionId:string;reservedAt:string;state:"active"|"settled"|"unknown";status?:string}
-interface OwnerReceipt {receiptId:string;requestHash:string;authorityId:string;action:string;confirmedAt:string;controlRevision:number}
+interface OwnerReceipt {receiptId:string;requestHash:string;authorityId:string;action:string;confirmedAt:string;controlRevision:number;reloadHash?:string}
 interface CollectionReservation {authorityId:string;requestHash:string;state:'reserved'|'settled'|'unknown';at:string;status?:string;settledAt?:string;wireAt?:string}
-interface State {providerUntil:string|null;providerBlocked:boolean;collections:Map<string,CollectionReservation>;receipts:Map<string,OwnerReceipt>;revisions:Map<string,number>;other:Map<string,OtherReservation>;authorities:Map<string,FiniteEnvelope>;attestations:Map<string,ReloadAttestation>;reservations:Map<string,ReservationState>;holds:Map<string,string>;stopped:Set<string>;observed:Map<string,{executionId:string;reservedAt:string}>;head:Custody}
+interface State {recoveryHolds:Set<string>;providerUntil:string|null;providerBlocked:boolean;collections:Map<string,CollectionReservation>;receipts:Map<string,OwnerReceipt>;revisions:Map<string,number>;other:Map<string,OtherReservation>;authorities:Map<string,FiniteEnvelope>;attestations:Map<string,ReloadAttestation>;reservations:Map<string,ReservationState>;holds:Map<string,string>;stopped:Set<string>;observed:Map<string,{executionId:string;reservedAt:string}>;head:Custody}
 const hex=(v:string)=>/^[a-f0-9]{64}$/.test(v);
 const validTime=(s:string)=>Number.isFinite(Date.parse(s))&&new Date(s).toISOString()===s;
 const uid=()=>process.getuid?.();
@@ -56,7 +56,7 @@ export class FiniteJournal {
   this.present();requireThat(this.db.prepare('PRAGMA integrity_check').get()?.integrity_check==='ok','Finite authority corrupt');
   const rows=this.db.prepare('SELECT * FROM events ORDER BY sequence').all() as unknown as Entry[];
   requireThat(rows.length>0,'Finite authority incomplete');
-  const state:State={providerUntil:null,providerBlocked:false,collections:new Map(),receipts:new Map(),revisions:new Map(),other:new Map(),authorities:new Map(),attestations:new Map(),reservations:new Map(),holds:new Map(),stopped:new Set(),observed:new Map(),head:null!};
+  const state:State={recoveryHolds:new Set(),providerUntil:null,providerBlocked:false,collections:new Map(),receipts:new Map(),revisions:new Map(),other:new Map(),authorities:new Map(),attestations:new Map(),reservations:new Map(),holds:new Map(),stopped:new Set(),observed:new Map(),head:null!};
   let previous:string|null=null,last=0,epoch='';
   for(const row of rows){const {digest,...body}=row;requireThat(row.sequence===++last&&row.previous===previous&&hash(body)===digest&&validTime(row.at)&&(!state.head||row.at>=state.head.at),'Finite authority history discontinuity');
    if(last===1){requireThat(row.kind==='genesis','Finite authority genesis missing');epoch=row.epoch;}requireThat(row.epoch===epoch,'Finite authority epoch changed');previous=digest;state.head={epoch,sequence:last,digest,at:row.at};
@@ -75,8 +75,8 @@ export class FiniteJournal {
     case 'transmit':{const r=state.reservations.get(p.executionId);requireThat(r?.state==='admitted'&&r.threadId===p.threadId,'Invalid finite transmission history');r.state='transmitted';break;}
     case 'settle':{const r=state.reservations.get(p.executionId);requireThat(r,'Settlement without reservation');if(r.state!=='unknown')Object.assign(r,{state:p.settled?'settled':'unknown',status:p.status,complete:p.complete});break;}
     case 'unknown':{const r=state.reservations.get(p.executionId);requireThat(r,'Unknown reservation missing');r.state='unknown';break;}
-    case 'hold':state.holds.set(p.authorityId,p.reason);state.revisions.set(p.authorityId,row.sequence);break;
-    case 'resume':state.holds.delete(p.authorityId);state.revisions.set(p.authorityId,row.sequence);break;
+    case 'hold':{const recoverable=p.cause==='recovery'&&(!state.holds.has(p.authorityId)||state.recoveryHolds.has(p.authorityId));state.recoveryHolds.delete(p.authorityId);if(recoverable)state.recoveryHolds.add(p.authorityId);state.holds.set(p.authorityId,p.reason);state.revisions.set(p.authorityId,row.sequence);break;}
+    case 'resume':state.recoveryHolds.delete(p.authorityId);state.holds.delete(p.authorityId);state.revisions.set(p.authorityId,row.sequence);break;
     case 'stop':state.stopped.add(p.authorityId);state.revisions.set(p.authorityId,row.sequence);break;
     case 'owner_receipt':requireThat(!state.receipts.has(p.receiptId),'Duplicate owner receipt');state.receipts.set(p.receiptId,p);break;
     case 'observe':state.observed.set(p.executionId,p);break;
@@ -92,7 +92,7 @@ export class FiniteJournal {
  private custody(head:Custody){const tmp=this.custodyPath+'.'+randomUUID();const fd=openSync(tmp,'wx',0o600);try{writeFileSync(fd,canonical(head));fsyncSync(fd);}finally{closeSync(fd);}renameSync(tmp,this.custodyPath);syncDir(dirname(this.custodyPath));}
  private tx<T>(at:string,fn:(s:State,add:(kind:string,payload:unknown)=>void)=>T):T {
   this.present();this.db.exec('BEGIN IMMEDIATE');let committed=false;
-  try{const s=this.read();requireThat(validTime(at)&&at>=s.head.at,'Finite authority clock moved backward');const value=fn(s,(kind,payload)=>this.append(s,kind,payload,at));this.db.exec('COMMIT');committed=true;this.custody(s.head);return value;}
+  try{const s=this.read();requireThat(validTime(at)&&at>=s.head.at,'Finite authority clock moved backward');const before=s.head.sequence,value=fn(s,(kind,payload)=>this.append(s,kind,payload,at));this.db.exec('COMMIT');committed=true;if(s.head.sequence!==before)this.custody(s.head);return value;}
   catch(e){if(!committed)this.db.exec('ROLLBACK');throw e;}
  }
  approve(envelope:FiniteEnvelope,attestation:ReloadAttestation,at:string){this.tx(at,(s,add)=>{validateEnvelope(envelope);requireThat(!s.authorities.has(envelope.authorityId)&&![...s.authorities.values()].some(e=>e.runId===envelope.runId||e.scopeId===envelope.scopeId),'Finite authority already exists');requireThat(envelope.approval.approvedAt===at,'Truthful authority approval timestamp required');this.validAttestation(envelope,attestation,at);add('approve',envelope);add('attest',attestation);});}
@@ -125,7 +125,7 @@ export class FiniteJournal {
  settle(executionId:string,status:string,settled:boolean,complete:boolean,at:string){this.tx(at,(s,add)=>{const r=s.reservations.get(executionId);requireThat(r,'Finite reservation missing');add('settle',{executionId,status,settled,complete});if(!settled||status!=='completed'||!complete)add('hold',{authorityId:r.authorityId,reason:!settled?'Unknown provider settlement':status!=='completed'?'Provider turn did not complete':'Required token telemetry incomplete'});});}
  transmit(executionId:string,threadId:string,account:{fingerprint:string;routingFingerprint:string},at:string){this.tx(at,(s,add)=>{this.collectionFence(s);const r=s.reservations.get(executionId);requireThat(r?.state==='admitted'&&r.threadId===threadId&&at<r.deadline,'Finite transmission already consumed or unadmitted');const e=this.current(s,r.authorityId,at);requireThat(account.fingerprint===e.accountFingerprint&&account.routingFingerprint===e.routingFingerprint,'Approved account/routing changed before transmission');add('transmit',{executionId,threadId});});}
  hold(id:string,reason:string,at:string,stop=false){this.tx(at,(s,add)=>{requireThat(s.authorities.has(id),'Finite authority missing');add(stop?'stop':'hold',{authorityId:id,reason});});}
- recover(local:{executionId:string;settled:boolean;status:string;complete:boolean}[],at:string){this.tx(at,(s,add)=>{for(const [id,r] of s.collections)if(r.state==='reserved')add('collection_unknown',{id});for(const r of s.other.values()){const l=local.find(x=>x.executionId===r.executionId);if(r.state!=='settled'||!l?.settled||l.status!==r.status)add('other_unknown',{executionId:r.executionId});}for(const r of s.reservations.values()){const l=local.find(x=>x.executionId===r.executionId);if(r.state!=='settled'||!l?.settled||l.status!==r.status||l.complete!==r.complete)add('unknown',{executionId:r.executionId});}for(const id of s.authorities.keys())if(!s.stopped.has(id))add('hold',{authorityId:id,reason:'Recovery requires exact owner resume of eligible future work'});});}
+ recover(local:{executionId:string;settled:boolean;status:string;complete:boolean}[],at:string){this.tx(at,(s,add)=>{for(const [id,r] of s.collections)if(r.state==='reserved')add('collection_unknown',{id});for(const r of s.other.values()){const l=local.find(x=>x.executionId===r.executionId);if(r.state!=='settled'||!l?.settled||l.status!==r.status)add('other_unknown',{executionId:r.executionId});}for(const r of s.reservations.values()){const l=local.find(x=>x.executionId===r.executionId);if(r.state!=='settled'||!l?.settled||l.status!==r.status||l.complete!==r.complete)add('unknown',{executionId:r.executionId});}for(const id of s.authorities.keys())if(!s.stopped.has(id))add('hold',{authorityId:id,reason:'Recovery requires exact owner resume of eligible future work',cause:'recovery'});});}
  resume(id:string,at:string){this.tx(at,(s,add)=>{this.collectionFence(s);this.current(s,id,at,true);requireThat(![...s.other.values()].some(r=>r.state!=='settled')&&![...s.reservations.values()].some(r=>r.state!=='settled'||r.status!=='completed'||!r.complete),'Unsettled or incomplete finite history cannot resume');add('resume',{authorityId:id});});}
  /** Owner idempotency belongs outside company restore paths, alongside its effect. */
  ownerReload(id:string,receiptId:string,requestHash:string,reloadOff:boolean,at:string){return this.tx(at,(s,add)=>{
@@ -140,6 +140,32 @@ export class FiniteJournal {
   if(action==='resume'){this.collectionFence(s);const e=this.current(s,id,at,true);requireThat(expectedRevision===(s.revisions.get(id)??0),'Exact current authority hold revision required');requireThat([...s.other.values()].every(r=>r.state==='settled')&&[...s.reservations.values()].every(r=>r.state==='settled'&&r.status==='completed'&&r.complete),'Unsettled or incomplete finite history cannot resume');requireThat([...s.reservations.values()].filter(r=>r.runId===e.runId).length<e.policy.maxRun,'Exhausted finite run cannot resume');add('resume',{authorityId:id});}
   else add(action==='stop'?'stop':'hold',{authorityId:id,reason:'Owner '+action});
   const result:OwnerReceipt={receiptId,requestHash,authorityId:id,action,confirmedAt:at,controlRevision:s.head.sequence};add('owner_receipt',result);return result;
+ });}
+ /** Recomputed under the external write lock; no company snapshot can erase consumed history. */
+ private recoveryRelease(s:State,id:string,at:string){
+  const e=this.current(s,id,at,true);this.providerReady(s,at);this.collectionFence(s);
+  requireThat(e.purpose==='private_research'&&s.recoveryHolds.has(id),'Only an exact research recovery hold can be released');
+  requireThat(![...s.collections.values()].some(r=>r.authorityId===id)&&![...s.reservations.values()].some(r=>r.authorityId===id||r.runId===e.runId),'First collection release requires untouched external history');
+  requireThat([...s.other.values()].every(r=>r.state==='settled'&&r.status==='completed')&&[...s.reservations.values()].every(r=>r.state==='settled'&&r.status==='completed'&&r.complete),'Unsettled or incomplete investment history prevents release');
+  const rolling=new Set([...s.observed.values(),...s.other.values(),...s.reservations.values()].filter(r=>Date.parse(r.reservedAt)>Date.parse(at)-86400000).map(r=>r.executionId)).size;
+  requireThat(e.policy.maxRolling24h-rolling>=e.participants.length+4,'Insufficient remaining research allowance');
+  const binding={action:'release_research_recovery',envelopeHash:hash(e),authorityId:id,runId:e.runId,scopeId:e.scopeId,previewDigest:e.previewDigest,configurationHash:e.configurationHash,hold:s.holds.get(id)!,controlRevision:s.revisions.get(id)!,reloadHash:hash(s.attestations.get(id))};
+  return {...binding,digest:hash(binding)};
+ }
+ recoveryReleasePreview(id:string,at:string){return this.recoveryRelease(this.read(),id,at);}
+ private recoveryReceipt(s:State,id:string,receiptId:string,requestHash:string,at:string){
+  const old=s.receipts.get(receiptId);if(!old)return;
+  requireThat(old.authorityId===id&&old.action==='release_research_recovery'&&old.requestHash===requestHash,'Finite owner receipt conflict');
+  this.current(s,id,at);requireThat(old.controlRevision===(s.revisions.get(id)??0),'Historical release cannot clear a newer hold');
+  requireThat(old.reloadHash===hash(s.attestations.get(id)),'Release reload evidence changed');return old;
+ }
+ recoveryReleaseReceipt(id:string,receiptId:string,requestHash:string,at:string){return this.recoveryReceipt(this.read(),id,receiptId,requestHash,at);}
+ releaseResearchRecovery(id:string,digest:string,receiptId:string,requestHash:string,at:string){return this.tx(at,(s,add)=>{
+  const old=this.recoveryReceipt(s,id,receiptId,requestHash,at);if(old)return old;
+  const preview=this.recoveryRelease(s,id,at);requireThat(digest===preview.digest,'Exact current research recovery release digest required');
+  add('resume',{authorityId:id});
+  const result:OwnerReceipt={authorityId:id,action:'release_research_recovery',receiptId,requestHash,confirmedAt:at,controlRevision:s.head.sequence,reloadHash:preview.reloadHash};
+  add('owner_receipt',result);return result;
  });}
  /** Accounting only: never grants another investment mode runtime permission. */
  exposure(at:string){const s=this.read();requireThat(validTime(at)&&at>=s.head.at,'Finite authority clock moved backward');return {rolling:new Set([...s.observed.values(),...s.other.values(),...s.reservations.values()].filter(r=>Date.parse(r.reservedAt)>Date.parse(at)-86400000).map(r=>r.executionId)).size,active:[...s.collections.values()].some(r=>r.state!=='settled')||[...s.other.values()].some(r=>r.state!=='settled')||[...s.reservations.values()].some(r=>r.state!=='settled')};}
