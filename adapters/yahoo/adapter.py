@@ -17,6 +17,10 @@ SETTINGS = dict(auto_adjust=False, back_adjust=False, repair=False, rounding=Fal
 MAX_LINE = 600_000
 HISTORY_QUERY1_ONLY = False
 BOOTSTRAP_COMPATIBILITY = False
+DIRECT_CHART = False
+DIRECT_URL = "https://query1.finance.yahoo.com/v8/finance/chart/AAPL"
+DIRECT_PARAMS = dict(period1=1788235200, period2=1790827200, interval="1d",
+                     includePrePost=False, events="div,splits,capitalGains")
 
 
 class GatewayStop(BaseException):
@@ -129,6 +133,8 @@ def main():
         def request(self, method, url, **kwargs):
             if method.upper() != "GET" or kwargs.get("data") or kwargs.get("json"):
                 raise GatewayStop("python_http_method")
+            if DIRECT_CHART and (self.count != 0 or url != DIRECT_URL or kwargs.get("params") != DIRECT_PARAMS):
+                raise GatewayStop("python_direct_request_scope")
             self.count += 1
             if self.count > 100:
                 raise GatewayStop("python_request_limit")
@@ -166,7 +172,19 @@ def main():
             # Validate ORIGINAL provider identities before yfinance can overwrite/normalize them.
             if any(path in url for path in ("/chart/", "/quoteSummary/", "/v7/finance/quote", "/timeseries/")):
                 try:
-                    document = response.json()
+                    if DIRECT_CHART:
+                        def invalid_constant(_value):
+                            raise GatewayStop("python_direct_json")
+                        def unique_object(pairs):
+                            value = {}
+                            for key, item in pairs:
+                                if key in value:
+                                    raise GatewayStop("python_direct_json")
+                                value[key] = item
+                            return value
+                        document = json.loads(received["body"], parse_constant=invalid_constant, object_pairs_hook=unique_object)
+                    else:
+                        document = response.json()
                     container = "chart" if "/chart/" in url else "quoteSummary" if "/quoteSummary/" in url else "quoteResponse" if "/v7/finance/quote" in url else "timeseries"
                     envelope = document.get(container)
                     if not isinstance(envelope, dict) or envelope.get("error") is not None:
@@ -174,6 +192,8 @@ def main():
                     originals = envelope.get("result")
                     if not isinstance(originals, list) or not originals or len(originals) > 300:
                         raise GatewayStop("python_source_empty_or_schema")
+                    if DIRECT_CHART and len(originals) != 1:
+                        raise GatewayStop("python_chart_schema")
                     for original in originals:
                         identity = original.get("meta", {}).get("symbol") if container in ("chart", "timeseries") else original.get("symbol")
                         if identity != ([symbol] if container == "timeseries" else symbol):
@@ -232,16 +252,75 @@ def main():
     # Fresh isolated cache per operation: no home cookies, credentials or persistent yfinance cache.
     with contextlib.nullcontext():
         session = BridgeSession()
-        ticker = yf.Ticker(symbol, session=session)
+        if DIRECT_CHART:
+            # Obtain the single response through existing parent admission, then give the
+            # exact response to the pinned parser. No Ticker/YfData or bootstrap state.
+            from yfinance.scrapers.history import PriceHistory
+            captured = session.get(DIRECT_URL, params=DIRECT_PARAMS)
+            raw = session.charts[-1]
+            meta = raw.get("meta", {})
+            if (meta.get("symbol") != "AAPL" or meta.get("currency") != "USD"
+                    or meta.get("exchangeName") not in ("NMS", "NGM", "NCM", "NASDAQ")
+                    or meta.get("exchangeTimezoneName") != "America/New_York"
+                    or meta.get("instrumentType") != "EQUITY"
+                    or meta.get("dataGranularity") != "1d"):
+                raise GatewayStop("python_direct_metadata")
+            stamps = raw.get("timestamp")
+            if (not isinstance(stamps, list) or not 1 <= len(stamps) <= 366
+                    or any(type(ts) is not int for ts in stamps)
+                    or len(set(stamps)) != len(stamps)):
+                raise GatewayStop("python_chart_schema")
+            # Validate original JSON types before pandas/yfinance can coerce strings,
+            # booleans or fractional volumes into apparently valid financial numbers.
+            def number(value):
+                return type(value) in (int, float) and math.isfinite(value)
+            quote = raw["indicators"]["quote"][0]
+            for field in ("open", "high", "low", "close", "volume", "adjclose"):
+                values = raw["indicators"]["adjclose"][0]["adjclose"] if field == "adjclose" else quote[field]
+                for value in values:
+                    if value is None:
+                        continue
+                    if (not number(value) or (field == "volume" and
+                            (value < 0 or value > 9007199254740991 or int(value) != value))):
+                        raise GatewayStop("python_direct_numeric_schema")
+            events = raw.get("events", {})
+            if not isinstance(events, dict) or set(events) - {"dividends", "splits", "capitalGains"}:
+                raise GatewayStop("python_direct_action_schema")
+            for kind, actions in events.items():
+                if not isinstance(actions, dict) or (kind == "capitalGains" and actions):
+                    raise GatewayStop("python_direct_action_schema")
+                for action in actions.values():
+                    if (not isinstance(action, dict) or type(action.get("date")) is not int
+                            or not DIRECT_PARAMS["period1"] <= action["date"] < DIRECT_PARAMS["period2"]):
+                        raise GatewayStop("python_direct_action_schema")
+                    if kind == "splits":
+                        numerator, denominator = action.get("numerator"), action.get("denominator")
+                        if (not number(numerator) or not number(denominator) or numerator <= 0
+                                or denominator <= 0 or not math.isfinite(numerator / denominator)):
+                            raise GatewayStop("python_direct_action_schema")
+                    elif not number(action.get("amount")) or action["amount"] < 0:
+                        raise GatewayStop("python_direct_action_schema")
+            class CapturedChart:
+                consumed = False
+                def get(self, url, params, timeout):
+                    if self.consumed or url != DIRECT_URL or params != DIRECT_PARAMS:
+                        raise GatewayStop("python_captured_chart_scope")
+                    self.consumed = True
+                    return captured
+                cache_get = get
+            source = CapturedChart()
+            history = PriceHistory(source, symbol, meta["exchangeTimezoneName"], session=session)
+        else:
+            ticker = yf.Ticker(symbol, session=session)
         klass = r["dataClass"]
         if klass in ("ohlcv", "actions"):
             if r["interval"] != "1d" or not r["start"] or not r["end"]:
                 raise GatewayStop("python_history_range")
-            frame = ticker.history(start=r["start"], end=r["end"], timeout=5, **SETTINGS)
+            frame = (history.history if DIRECT_CHART else ticker.history)(start=r["start"], end=r["end"], timeout=5, **SETTINGS)
         else:
             # A bounded daily metadata request supplies venue/currency/timezone for statements.
             frame = ticker.history(period="1d", timeout=5, **SETTINGS)
-        meta = ticker._price_history._history_metadata  # Audited private layout, pinned to 1.7.0.
+        meta = (history if DIRECT_CHART else ticker._price_history)._history_metadata  # Audited pinned layout.
         if klass in ("ohlcv", "actions"):
             columns = list(frame.columns)
             if len(frame) > 366:
@@ -253,7 +332,7 @@ def main():
                 quote = raw["indicators"]["quote"][0]
                 import pandas as pd
                 raw_by_date = {pd.Timestamp(ts, unit="s", tz="UTC").tz_convert(meta["exchangeTimezoneName"]).date().isoformat(): n for n, ts in enumerate(raw["timestamp"])}
-                if set(raw_by_date) != {row["index"][:10] for row in rows}:
+                if (DIRECT_CHART and len(raw_by_date) != len(raw["timestamp"])) or set(raw_by_date) != {row["index"][:10] for row in rows}:
                     raise GatewayStop("python_library_dropped_bars")
                 action_dates = {}
                 for kind in ("dividends", "splits"):

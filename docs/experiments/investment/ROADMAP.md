@@ -360,4 +360,8 @@ spent03B/03D/03E approvals. Actual-data qualification and all later activation g
 the independent feasibility gate, preserves the unused authorization and completes only
 offline custody compatibility acceptance. No live profile/owner issuer or actual financial
 qualification follows. A [direct-chart proposal](../../operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
-requires separate selection and acceptance; an unchanged bootstrap repeat is not recommended.
+was separately selected as [HQ-READY-03H](../../validation/investment/HQ-READY-03H.md).
+03H reuses pinned parsing/gateway/custody for exactly one direct chart attempt after all review
+and integration gates. Its acceptance record owns the actual result. This grants no employees,
+paper fills, production, public data or HQ-READY-04 activation. An unchanged bootstrap repeat
+is not recommended.

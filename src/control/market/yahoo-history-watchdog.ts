@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { ensure } from '../../domain/investment/arithmetic.js';
 /** Non-data guard in a separate process group. It remains responsive if either JS loop stalls. */
-export async function startHistoryWatchdog(file: string, cleanupArgs: string[], limits: { operationMs: number; wireMs: number; processMs: number }) {
+export async function startHistoryWatchdog(file: string, cleanupArgs: string[], limits: { operationMs: number; wireMs: number; processMs: number; requests?: number }) {
   const python = fileURLToPath(new URL('../../../../adapters/yahoo/.venv/bin/python', import.meta.url));
   const script = fileURLToPath(new URL('../../../../adapters/yahoo/history_watchdog.py', import.meta.url));
   const child = spawn(python, ['-I', '-B', script, process.execPath, file, JSON.stringify(cleanupArgs), JSON.stringify(limits)],

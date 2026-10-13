@@ -14,12 +14,17 @@ import { writeProbeBytes, type WireReceipt } from './yahoo-probe-custody.js';
 import type { YahooStageConfirmation } from './yahoo-diagnostics.js';
 import { BOOTSTRAP_HISTORY_FIXTURE_ID, verifyBootstrapHistoryFixtureManifest } from './yahoo-bootstrap-history-manifest.js';
 
+import { DIRECT_ID, directManifest, verifyDirectManifest, qualifyDirectQuery } from './yahoo-direct-manifest.js';
+
+export const ownerDirectRoot = () => join(userInfo().homedir, 'Library', 'Application Support', 'BotSquad-Yahoo-HQ-READY-03H');
+export const ownerDirectCapsule = () => '/private/tmp/botsquad-yahoo-HQ-READY-03H';
 export const ownerHistoryRoot = () => join(userInfo().homedir, 'Library', 'Application Support', 'BotSquad-Yahoo-HQ-READY-03E');
 export const ownerHistoryCapsule = () => '/private/tmp/botsquad-yahoo-HQ-READY-03E';
 const mint = Symbol('03e-custody'), issued = new WeakSet<object>(), owners = new WeakSet<object>();
-const bootstrapFixtures = new WeakSet<object>();
+const bootstrapFixtures = new WeakSet<object>(), directProfiles = new WeakSet<object>();
 function verifyCustodyManifest(manifest: YahooHistoryManifest, live: boolean): void {
-  if (!live && manifest.id === BOOTSTRAP_HISTORY_FIXTURE_ID) verifyBootstrapHistoryFixtureManifest(manifest as Parameters<typeof verifyBootstrapHistoryFixtureManifest>[0]);
+  if (manifest.id === DIRECT_ID) verifyDirectManifest(manifest);
+  else if (!live && manifest.id === BOOTSTRAP_HISTORY_FIXTURE_ID) verifyBootstrapHistoryFixtureManifest(manifest as Parameters<typeof verifyBootstrapHistoryFixtureManifest>[0]);
   else verifyHistoryManifest(manifest);
 }
 const exclusive = constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW;
@@ -52,6 +57,14 @@ export function prepareOwnerHistory(): YahooHistoryManifest {
   const manifest = historyManifest(new Date().toISOString(), source.sourceHash);
   prepare(ownerHistoryRoot(), manifest, 'live'); return manifest;
 }
+export function prepareOwnerDirect(): YahooHistoryManifest {
+  verifyOwnerProbeHost(); const source = probeSourceIdentity();
+  const manifest = directManifest(new Date().toISOString(), source.sourceHash);
+  prepare(ownerDirectRoot(), manifest, 'live'); return manifest;
+}
+export function directStatus() { return { id: DIRECT_ID, prepared: existsSync(join(ownerDirectRoot(), 'approval.json')),
+  spent: existsSync(join(ownerDirectRoot(), 'spent.json')), capsulePresent: existsSync(ownerDirectCapsule()),
+  cleanup: existsSync(join(ownerDirectRoot(), 'cleanup.json')), recoveryCleanup: existsSync(join(ownerDirectRoot(), 'recovery-cleanup.json')), noResume: true }; }
 export function historyStatus() { return { id: HISTORY_ID, prepared: existsSync(join(ownerHistoryRoot(), 'approval.json')),
   spent: existsSync(join(ownerHistoryRoot(), 'spent.json')), capsulePresent: existsSync(ownerHistoryCapsule()),
   cleanup: existsSync(join(ownerHistoryRoot(), 'cleanup.json')), recoveryCleanup: existsSync(join(ownerHistoryRoot(), 'recovery-cleanup.json')), noResume: true }; }
@@ -67,17 +80,19 @@ export function removeOwnedHistoryCapsule(root: string, capsule: string): void {
   }
   syncDirectory(dirname(capsule)); ensure(!existsSync(capsule), 'probe_cleanup_incomplete');
 }
-export function cleanupOwnerHistory(): void {
-  const root = ownerHistoryRoot(); privatePath(root, true);
+export function cleanupOwnerHistory(): void { cleanupOwnerAt(ownerHistoryRoot(), ownerHistoryCapsule(), HISTORY_ID); }
+export function cleanupOwnerDirect(): void { cleanupOwnerAt(ownerDirectRoot(), ownerDirectCapsule(), DIRECT_ID); }
+function cleanupOwnerAt(root: string, capsule: string, id: string): void {
+  privatePath(root, true);
   const spent = JSON.parse(readPrivate(root, 'spent.json')) as { id: string; pid: number; noResume: boolean };
-  ensure(spent.id === HISTORY_ID && spent.noResume === true && Number.isSafeInteger(spent.pid) && spent.pid > 1, 'probe_spent_corrupt');
+  ensure(spent.id === id && spent.noResume === true && Number.isSafeInteger(spent.pid) && spent.pid > 1, 'probe_spent_corrupt');
   for (const pid of [spent.pid, -spent.pid]) {
     let gone = false; try { process.kill(pid, 0); } catch (e) { gone = (e as NodeJS.ErrnoException).code === 'ESRCH'; }
     ensure(gone, 'probe_cleanup_active_process');
   }
-  removeOwnedHistoryCapsule(root, ownerHistoryCapsule());
-  ensure(!existsSync(ownerHistoryCapsule()), 'probe_cleanup_incomplete');
-  if (!existsSync(join(root, 'recovery-cleanup.json'))) writeNew(root, 'recovery-cleanup.json', { id: HISTORY_ID,
+  removeOwnedHistoryCapsule(root, capsule);
+  ensure(!existsSync(capsule), 'probe_cleanup_incomplete');
+  if (!existsSync(join(root, 'recovery-cleanup.json'))) writeNew(root, 'recovery-cleanup.json', { id,
     at: new Date().toISOString(), originalProcessGroupGone: true, capsuleRemoved: true, spentRetained: true, noResume: true });
 }
 
@@ -90,11 +105,12 @@ export class YahooHistoryCustody {
   #closed = false; #stopped = false; #wireDenied = false; #lastResponse = -Infinity; #start: number; #wall: number;
   #clock: Clock; #timer: ReturnType<typeof setTimeout> | undefined; #encryptedBytes = 0;
   readonly abort = new AbortController();
-  private constructor(secret: symbol, root: string, capsule: string, sourceHash: string, live: boolean, clock: Clock) {
+  private constructor(secret: symbol, root: string, capsule: string, sourceHash: string, live: boolean, clock: Clock, expectedId = HISTORY_ID) {
     ensure(secret === mint, 'probe_capability_forged');
     this.#root = root; this.#capsule = capsule; this.#clock = clock; this.#start = clock.monotonic(); this.#wall = clock.wall();
     const stat = privatePath(root, true), approvalText = readPrivate(root, 'approval.json');
     const approval = JSON.parse(approvalText) as Approval; verifyCustodyManifest(approval.manifest, live);
+    ensure(!live || approval.manifest.id === expectedId, 'probe_manifest_mismatch');
     ensure(approval.kind === (live ? 'live' : 'fixture') && approval.uid === process.getuid!() && approval.root === root
       && approval.dev === stat.dev && approval.ino === stat.ino && approval.manifestHash === hash(approval.manifest), 'probe_approval_identity');
     ensure(approval.manifest.sourceHash === sourceHash, 'probe_source_changed');
@@ -116,6 +132,7 @@ export class YahooHistoryCustody {
       this.#encrypted = openSync(join(capsule, 'evidence.aes256gcm'), exclusive, 0o600);
       fsyncSync(this.#ledger); fsyncSync(this.#encrypted); syncDirectory(root); syncDirectory(capsule);
       issued.add(this);
+      if (approval.manifest.id === DIRECT_ID) directProfiles.add(this);
       if (!live && approval.manifest.id === BOOTSTRAP_HISTORY_FIXTURE_ID) bootstrapFixtures.add(this);
       this.#timer = setTimeout(() => this.abort.abort(new Error('financial_timeout')), historyLimits.operationMs);
       this.record({ type: 'consumed', id: approval.manifest.id, manifestHash: approval.manifestHash, at: new Date(clock.wall()).toISOString() });
@@ -133,6 +150,12 @@ export class YahooHistoryCustody {
       && !process.env.NODE_OPTIONS && !process.env.NODE_EXTRA_CA_CERTS && process.env.NODE_TLS_REJECT_UNAUTHORIZED !== '0', 'probe_supervisor_required');
     verifyOwnerProbeHost(); assertProbeExcluded(ownerHistoryRoot());
     return new YahooHistoryCustody(mint, ownerHistoryRoot(), ownerHistoryCapsule(), probeSourceIdentity().sourceHash, true, systemClock);
+  }
+  static consumeDirectOwner(): YahooHistoryCustody {
+    ensure(typeof process.send === 'function' && process.connected && process.execArgv.length === 0
+      && !process.env.NODE_OPTIONS && !process.env.NODE_EXTRA_CA_CERTS && process.env.NODE_TLS_REJECT_UNAUTHORIZED !== '0', 'probe_supervisor_required');
+    verifyOwnerProbeHost(); assertProbeExcluded(ownerDirectRoot());
+    return new YahooHistoryCustody(mint, ownerDirectRoot(), ownerDirectCapsule(), probeSourceIdentity().sourceHash, true, systemClock, DIRECT_ID);
   }
   static prepareOffline(root: string, m: YahooHistoryManifest): void { prepare(root, m, 'fixture'); }
   static reopenOffline(root: string, sourceHash: string, clock: Clock = systemClock): YahooHistoryCustody {
@@ -182,8 +205,8 @@ export class YahooHistoryCustody {
   }
   reserve(query: YahooQuery, maxBytes: number): void {
     this.check(); ensure(this.#request && !this.#pending && !this.#wireDenied, 'probe_wire_busy_or_denied');
-    ensure(this.#attempts < 6 && maxBytes > 0 && maxBytes <= 262144 && this.#bytes + 262144 <= 1048576, 'probe_budget_exhausted');
-    const q = qualifyHistoryQuery(this.#approval.manifest, this.#request, query, this.#attempts + 1);
+    ensure(this.#attempts < this.#approval.manifest.limits.requests && maxBytes > 0 && maxBytes <= 262144 && this.#bytes + 262144 <= this.#approval.manifest.limits.totalBytes, 'probe_budget_exhausted');
+    const q = (directProfiles.has(this) ? qualifyDirectQuery : qualifyHistoryQuery)(this.#approval.manifest, this.#request, query, this.#attempts + 1);
     this.#pending = true; this.#wire = false; this.#attempts++;
     this.record({ type: 'reserved', ordinal: this.#attempts, endpoint: q.endpoint, parameterHash: hash(q.params),
       reservedBytes: 262144, logicalRetryCount: 0, at: new Date(this.#clock.wall()).toISOString() });
@@ -232,7 +255,7 @@ export class YahooHistoryCustody {
         && receipt.bootstrapDisposition === 'accepted_cookie_404'
         && [9, 10, 11, 13, 14, 15].includes(receipt.receivedBytes) && /^[a-f0-9]{64}$/.test(receipt.bodyHash ?? '');
       if (!receipt.complete || (receipt.status !== 200 && !accepted404)
-        || receipt.bootstrapDisposition === 'rejected_bootstrap' || this.#bytes > 1048576) this.#wireDenied = true;
+        || receipt.bootstrapDisposition === 'rejected_bootstrap' || this.#bytes > this.#approval.manifest.limits.totalBytes) this.#wireDenied = true;
     }
   }
   finish(result: FinancialResult, observation: FinancialObservation | null): void {
@@ -270,3 +293,6 @@ export function isHistoryCustody(value: unknown): value is YahooHistoryCustody {
 export function isOwnerHistory(value: YahooHistoryCustody): boolean { return owners.has(value); }
 /** Opaque fixture identity, never a flag on a structurally supplied object or live owner. */
 export function isBootstrapHistoryFixture(value: unknown): boolean { return typeof value === 'object' && value !== null && bootstrapFixtures.has(value) && !owners.has(value); }
+
+/** Opaque direct-profile identity; cannot be supplied by an object property or environment. */
+export function isDirectHistoryCustody(value: unknown): boolean { return typeof value === 'object' && value !== null && issued.has(value) && directProfiles.has(value); }

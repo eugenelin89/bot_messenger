@@ -12,7 +12,7 @@ import { ensure } from '../../domain/investment/arithmetic.js';
 import type { FinancialRequest, YahooQuery, YahooResponse, YahooTransport } from '../../domain/market/financial.js';
 import { qualifyYahooQuery } from '../../domain/market/yahoo-transport.js';
 import { acceptedCookie404, benignCookie404, isCookieBootstrap, validCrumb } from '../../domain/market/yahoo-bootstrap.js';
-import { isBootstrapHistoryFixture } from './yahoo-history-custody.js';
+import { isBootstrapHistoryFixture, isDirectHistoryCustody } from './yahoo-history-custody.js';
 import { publicAddress } from '../../research/public-fetch.js';
 import type { WireReceipt } from './yahoo-probe-custody.js';
 import { assertFinancialCustody, isOwnerFinancialCustody, type FinancialCustody } from './financial-custody.js';
@@ -74,17 +74,18 @@ export function yahooPinnedLookup(selected: LookupAddress): LookupFunction {
     else callback(null, selected.address, selected.family);
   };
 }
-function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:FinancialCustody,compatibility=false):YahooTransport {
-  const jar = new CookieJar(); let active = false, terminal = false; let crumb:string|null=null,lastResponse=-Infinity;let acceptedCookies:string|null=null;
+function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest),symbol:string,wire:YahooWire,probe?:FinancialCustody,compatibility=false,direct=false):YahooTransport {
+  const jar = direct ? null : new CookieJar(); let active = false, terminal = false; let crumb:string|null=null,lastResponse=-Infinity;let acceptedCookies:string|null=null;
   // Pin effective cookie headers from the first acceptance, independently of crumb/cache expiry.
   const cookieIdentity=()=>{
-    const headers=[jar.header(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb')),jar.header(new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`))];
+    const headers=[jar!.header(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb')),jar!.header(new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`))];
     ensure(headers.every(header=>header.split('; ').some(pair=>/^A3=.+$/.test(pair))),'yahoo_bootstrap_cookie_missing');
     return JSON.stringify(headers);
   };
   return { kind: probe && isOwnerFinancialCustody(probe) ? 'yahoo-https-v1' : 'authored_yahoo_fixture', async exchange(query, signal, maxBytes) {
     ensure(!terminal,'yahoo_bootstrap_terminal');
     ensure(!active, 'yahoo_concurrent_wire'); active = true;
+    if (direct) terminal = true; // One invocation even on validation failure; never a reusable session.
     const deadline = AbortSignal.timeout(10000);
     const combined = AbortSignal.any([signal, deadline, ...(probe ? [probe.signal] : [])]);
     const started = performance.now();
@@ -120,7 +121,7 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
       if(compatibility){
         if(acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
         ensure(isCookieBootstrap(query)||qualified.endpoint==='query1.finance.yahoo.com:crumb'||qualified.endpoint==='query1.finance.yahoo.com:chart','yahoo_endpoint');
-        if(!isCookieBootstrap(query))ensure(jar.hasAnonymousCookie(new URL(query.url)),'yahoo_bootstrap_cookie_missing');
+        if(!isCookieBootstrap(query))ensure(jar!.hasAnonymousCookie(new URL(query.url)),'yahoo_bootstrap_cookie_missing');
         if(qualified.endpoint.endsWith(':chart'))ensure(crumb!==null&&query.params.crumb===crumb,'yahoo_crumb_schema');
       }
       confirm('request_validated'); bootstrap = qualified.endpoint.endsWith(':cookie') || qualified.endpoint.endsWith(':crumb');
@@ -186,7 +187,7 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
         try {
           // DNS/rate spacing may outlive a cookie. Recheck the actual target immediately before I/O.
           if(compatibility&&acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
-          const cookies = jar.header(url);
+          const cookies = direct ? '' : jar!.header(url);
           if(compatibility&&(acceptedCookies!==null||!isCookieBootstrap(query)))ensure(cookies.split('; ').some(pair=>/^A3=.+$/.test(pair)),'yahoo_bootstrap_cookie_missing');
           checkTime();
           req = wire.request(url, { method: 'GET', agent: false, signal: combined, rejectUnauthorized: true,
@@ -206,10 +207,21 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
                 try { probe.seal({ type: 'response_headers', date: receipt.httpDate, retryAfter: receipt.retryAfter }); }
                 catch (error) { settlementFailed = true; throw error; }
               }
+              if (direct && receipt.status !== 200) {
+                // Stop at headers. Empty body means zero bytes consumed, never a synthetic
+                // provider body; the gateway rejects this status before Python can see it.
+                receipt.diagnostic = diagnose(null); receipt.reason = receipt.diagnostic.code;
+                finish(null, { status: receipt.status!, body: '', contentType: incoming.headers['content-type'] ?? '', retryAfter: receipt.retryAfter });
+                incoming.destroy(); req?.destroy(); return;
+              }
+              if (direct) {
+                ensure(['location', 'refresh', 'www-authenticate', 'proxy-authenticate'].every(key => !Object.hasOwn(incoming.headers, key)), 'yahoo_bootstrap_barrier');
+                ensure(incoming.headers['content-type']?.split(';')[0]?.trim() === 'application/json', 'yahoo_content_type');
+              }
               ensure(!incoming.headers['content-encoding'] || incoming.headers['content-encoding'] === 'identity', 'yahoo_compressed_response');
               const length = incoming.headers['content-length'];
               if (length) ensure(/^\d+$/.test(length) && Number(length) <= maxBytes, 'yahoo_response_size');
-              if (receipt.status === 200 && !compatibility) jar.accept(url.hostname, incoming.headers['set-cookie'] ?? []);
+              if (receipt.status === 200 && !compatibility && !direct) jar!.accept(url.hostname, incoming.headers['set-cookie'] ?? []);
             });
             if (frozen) return;
             incoming.on('readable', () => guarded(() => {
@@ -238,7 +250,7 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
                   candidate.accept(url.hostname,headers);
                   ensure(candidate.hasAnonymousCookie(new URL('https://query1.finance.yahoo.com/v1/test/getcrumb'))&&candidate.hasAnonymousCookie(new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`)),'yahoo_bootstrap_cookie_missing');
                   if(acceptedCookies!==null)ensure(cookieIdentity()===acceptedCookies,'yahoo_bootstrap_cookie_changed');
-                  jar.accept(url.hostname,headers);
+                  jar!.accept(url.hostname,headers);
                   const current=cookieIdentity();
                   ensure(acceptedCookies===null||current===acceptedCookies,'yahoo_bootstrap_cookie_changed');
                   acceptedCookies??=current;
@@ -267,6 +279,20 @@ function boundedSession(financialRequest:FinancialRequest|(()=>FinancialRequest)
               finish(null, response);
             }));
           });
+          if (direct) {
+            // Informational/upgrade responses are terminal too, before a second header block.
+            const stopHeaders = (status: number, headers: IncomingMessage['headers']) => guarded(() => {
+              receipt.status = status; confirm('response_headers');
+              receipt.httpDate = safeHttpDate(headers.date); receipt.retryAfter = safeRetryAfter(headers['retry-after']);
+              receipt.diagnostic = diagnose(null); receipt.reason = receipt.diagnostic.code;
+              finish(null, { status, body: '', contentType: headers['content-type'] ?? '', retryAfter: receipt.retryAfter });
+              req?.destroy();
+            });
+            req.once('information', info => stopHeaders(info.statusCode, info.headers));
+            req.once('upgrade', (incoming, socket) => {
+              try { stopHeaders(incoming.statusCode!, incoming.headers); } finally { incoming.destroy(); socket.destroy(); }
+            });
+          }
           req.on('error', error => finish(error));
           req.once('close', () => { if (!frozen && !res) finish(new Error('yahoo_response_incomplete')); });
           req.once('socket', socket => guarded(() => {
@@ -319,6 +345,6 @@ export function yahooProbeTransport(probe:FinancialCustody,wire?:YahooWire):Yaho
   assertFinancialCustody(probe);
   if(isOwnerFinancialCustody(probe))ensure(wire===undefined,'probe_real_wire_not_injectable');
   else ensure(wire&&wire.lookup!==lookup&&wire.request!==httpsRequest,'probe_fixture_requires_fake_wire');
-  const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe,isBootstrapHistoryFixture(probe));
+  const transport=boundedSession(()=>probe.request,'AAPL',wire??{lookup,request:httpsRequest},probe,isBootstrapHistoryFixture(probe),isDirectHistoryCustody(probe));
   probe.bindTransport(transport);return transport;
 }

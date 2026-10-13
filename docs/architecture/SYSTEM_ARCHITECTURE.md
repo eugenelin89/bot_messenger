@@ -734,5 +734,17 @@ HQ-READY-03G adds only the separate immutable `HQ-READY-03G-OFFLINE` custody fix
 Private issuer membership and authored drivers allow the observed-shaped fixture to test
 qualified404 settlement through existing custody without granting live transport. Actual status,
 captured-byte hash and fixed classification survive durable accounting; old03E stays strict.
-Live verification still accepts only the old manifest. No03G owner issuer/CLI exists because
+No03G owner issuer/CLI exists because
 the independent feasibility gate failed before preparation. See [Decision043](../decisions/decision_043_yahoo_qualification_feasibility.md).
+
+
+HQ-READY-03H adds a separately selected direct-chart profile and create-only authority.
+The existing gateway owns exactly one request; the transport has no cookie jar and no retry.
+One captured response is passed to pinned `PriceHistory` without `Ticker`/`YfData`, after strict
+original identity, JSON/numeric/action and metadata checks. Existing schema normalization,
+null restoration, provenance and no-lookahead remain. Opaque custody identity selects the
+one-request transport; both supervisors independently bound wire count/time. The existing
+private encrypted capsule, spending-before-DNS, immediate destruction and identity-safe
+cleanup are reused. See [Decision044](../decisions/decision_044_one_shot_direct_yahoo_chart.md)
+and [acceptance](../validation/investment/HQ-READY-03H.md). No runtime employee/public authority
+or financial collector is activated.

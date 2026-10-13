@@ -96,3 +96,15 @@ fixtures, including separately isolated upstream no-crumb/fallback tests. The ex
 sequence persists; two calls are charts. [Decision042](../../docs/decisions/decision_042_yahoo_bootstrap_compatibility.md)
 defines the narrow grammar and [acceptance](../../docs/validation/investment/HQ-READY-03F.md)
 records limitations. No404 body from a previous private probe was recovered or used as a fixture.
+
+
+HQ-READY-03H adds fixed `direct.py`. It sets the original pinned query1 profile, obtains one
+exact AAPL chart response through the parent, validates original identity/JSON/numeric/action
+schema and passes that same response once to `PriceHistory`. It never constructs `Ticker` or
+`YfData`; further captured-source access raises a non-catchable stop. No bootstrap, cookie,
+crumb, forged session, native request or fallback is used. Existing parser flags, normalization,
+null restoration and provider timestamps remain. `test/yahoo-direct.test.ts` exercises the
+actual pinned Python path, with separate traps for `YfData` and native `Session.send` and an
+explicit extra-read rejection. Authored tests establish parsing feasibility only. See
+[Decision044](../../docs/decisions/decision_044_one_shot_direct_yahoo_chart.md) and
+[acceptance](../../docs/validation/investment/HQ-READY-03H.md) for reviewed live gates/outcome.

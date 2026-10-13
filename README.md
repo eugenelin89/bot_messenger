@@ -633,4 +633,8 @@ separate owner approval and reviewed custody integration before any Yahoo reques
 the exact accepted bootstrap form lacks supporting provider evidence. A distinct offline
 custody profile validates nonfatal404 settlement; no new live issuer or owner authorization
 is created. The [direct-chart assessment](docs/operations/YAHOO_DIRECT_CHART_PROPOSAL.md)
-is a separate unexecuted proposal. No real AAPL history is qualified.
+is now selected as [HQ-READY-03H](docs/validation/investment/HQ-READY-03H.md).
+Its direct captured-response path uses the existing pinned parser, gateway and custody with
+a distinct one-request authority. Actual live outcome is recorded in that acceptance record;
+source/offline fixtures alone establish no observed coverage. Default employee/production
+transport remains inactive.

@@ -42,7 +42,7 @@ export function historyManifest(preparedAt: string, sourceHash: string, approval
     retention: 'immediate_crypto_erasure_and_capsule_deletion', limits: historyLimits,
     adapterProfile: 'hq-ready-03e-query1-only', settings: yahooSettings, policy, instrument, calendar, scope, reads: [read], sequence };
 }
-export type YahooHistoryManifest = ReturnType<typeof historyManifest>;
+export type YahooHistoryManifest = Omit<ReturnType<typeof historyManifest>, 'limits'> & { limits: Readonly<{ [K in keyof typeof historyLimits]: number }> };
 export function verifyHistoryManifest(m: YahooHistoryManifest): void {
   ensure(canonical(m) === canonical(historyManifest(m.preparedAt, m.sourceHash, m.approvalId)), 'probe_manifest_mismatch');
 }
