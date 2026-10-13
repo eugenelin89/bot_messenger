@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-13T17:26:41.295456+00:00",
+  "recordedAt": "2026-10-13T17:30:06.711303+00:00",
   "websiteReported": {
     "deployedSource": "97b4087b79c5f0f1472fd71dde86765489273400",
     "build": "kcKfT0zA-jDnr0xVy1Suy",
@@ -135,7 +135,7 @@
       "preservationChecks": 112,
       "protectedImageUrls": 48,
       "reportedPassed": true,
-      "finalBoundaryAndRenewalVerification": "in progress"
+      "finalBoundaryAndRenewalVerification": "passed; see websiteCutoverReported"
     },
     "confinementReported": {
       "uid": 996,
@@ -144,5 +144,52 @@
       "noCapabilities": true,
       "noNewPrivileges": true
     }
+  },
+  "websiteCutoverReported": {
+    "completedAt": "2026-10-13T17:19:42Z",
+    "preservationChecks": 112,
+    "hostedSiteBaselines": 15,
+    "tutorialCanonicalHashes": 54,
+    "protectedImageUrls": 48,
+    "allPassed": true,
+    "publicBoundary": {
+      "askAvailability": "200 disabled",
+      "sessionPost": "503 without cookie",
+      "duplicateRawConnection": "401",
+      "unconfiguredInvestmentReads": "404",
+      "encodedApiAliases": "404"
+    },
+    "certbotStagingRenewal": "passed before and after cutover; no persistent Nginx configuration changes from the renewal test",
+    "investmentReceiver": {
+      "source": "c2edfd50ed12ba576c06e6991091090b9ced3e31",
+      "pid": 2376449,
+      "archive": "empty",
+      "publishers": 0,
+      "approvals": 0,
+      "officialSelection": false
+    },
+    "askAndTls": {
+      "compiledSource": "fcc95225213f21edfa939ec24977ad31264efd29",
+      "askPid": 2374802,
+      "tlsPid": 2375255,
+      "unitHookSource": "8a539d1dc48caeab35364e187830e2a9bca853d8",
+      "readinessFix": "2c0951720a8edc67ab59d5563f661f57414a765b",
+      "admission": false,
+      "claims": false,
+      "delivery": false,
+      "generation": "0",
+      "authority": false,
+      "rosterAndKeys": "empty",
+      "sessionsQuestionsAnswersClaims": 0
+    },
+    "checks": [
+      "startup",
+      "reload",
+      "same-unit confinement",
+      "loopback-only egress",
+      "cross-site preservation"
+    ],
+    "rollbackReceipts": "/var/lib/asymmetri-ingress-rollback-20261013",
+    "provenance": "reported by authorized website execution chat; parent separately verified the two public HTML pages"
   }
 }

@@ -39,6 +39,18 @@ fixture repairs and qualified reruns are recorded in the [ASK-02 plan](../exec-p
 Exact-source Mac observed workflow acceptance passed all 27 scenarios with zero failures/skips.
 Linux final-session workflow timeouts remain unresolved and block Linux live-workflow readiness.
 
+**Shared HTTPS release, 2026-10-13 17:19:42UTC (website-reported):** Final112preservation,
+public API boundary and before/after Certbot staging-renewal checks passed. Website source/build
+remain unchanged. Empty investment receiver `c2edfd50ed12ba576c06e6991091090b9ced3e31`
+runs as PID2376449 with no publishers, approvals or official selection. Ask/TLS compiled source
+`fcc95225213f21edfa939ec24977ad31264efd29` runs as PIDs2374802/2375255; installed
+unit/hook source is `8a539d1dc48caeab35364e187830e2a9bca853d8`. Ask availability is200disabled,
+session POST503without cookie, duplicate raw Connection401, unconfigured/encoded investment
+reads404. Admission/claims/delivery remain false, generation0, authority false and roster/keys/
+sessions/questions/answers empty. Root-only receipts/rollback are
+`/var/lib/asymmetri-ingress-rollback-20261013` on the website host. Parent independently re-read
+both public HTML pages with identical hashes. See the release receipt for exact attribution.
+
 **Earlier coordination, October 13, 2026, 07:54 America/Vancouver:** Website execution has resumed.
 Its chat reports the long CUA CSV-export call timed out after roughly 5.45 hours and returned no
 actual approval-rejection text. Fresh chat status is active without the former waitingOnApproval
