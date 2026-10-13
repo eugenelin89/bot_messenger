@@ -1,5 +1,54 @@
 # INV-ASK-02 — HQ retrieval and genuine employee routing
 
+## Shared employee integration checkpoint — October13, 15:33 America/Vancouver
+
+PR87 configuration read is accepted at00d9e82668dcfd39b25294d9a05a7f97e4d28295,
+manifest5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84.
+The existing website writer ACKed adoption and deployed the closed PR86 receiver plus
+hierarchy release; it now owns configuration-read adoption and owner-requested portraits.
+No HQ restart or active investment identity change occurred.
+
+Shared Dispatcher/typed Ask execution, routing, private context, finite settlement and
+scoped recovery are implemented; independent runtime/recovery reviews found and resolved
+material issues. Focused tests passed42/42; final topic/cooldown cases and broad regression
+remain in progress. An actual pinned0.157.0 no-turn ephemeral-thread probe passed at22:31UTC.
+Public-service entitlement and wider retention are still unverified; concrete runtime stays
+closed and readiness is checked before reservation. See the current
+[implementation/evidence record](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md).
+
+Next independent source work is signed coordination and durable operation-specific
+reconciliation, followed by cross-system acceptance. Revised estimate remains several hours
+for this integration because review exposed real recovery and isolation gaps. Public
+activation has no defensible ETA until supported eligibility and retention evidence exists;
+actual October14–15 investment outcomes still require their real scheduled clocks.
+
+## Single coordinator integration — October 13, 14:47 America/Vancouver
+
+Owner request in coordinating chat `01a13739-708a-7d62-9b9c-52c11ead5f4b` authorizes
+continued HQ/website implementation, reviewed integration, genuine testing and gated release.
+Fetched HQ main is `9ff8cc984954f2e822ec191de60dcd39607ea1a7`; this clean checkout on
+`codex/inv-real-01` is the sole HQ writer. The prior HQ chat acknowledged relinquishing
+ownership. The existing completion heartbeat was transferred to this coordinator, ACTIVE,
+with its hourly schedule and quiet-on-unchanged behavior retained. No duplicate was created.
+
+Website chat `01a13487-f07f-7182-84ac-84abcfb07043` acknowledged its separate writer
+ownership and the exact PR86 contract packet. Its existing uncommitted work is preserved;
+it owns verification, implementation, release and source receipts for that repository.
+Motion has the next short native build slot; HQ uses source work and independently admitted
+remote Linux validation. Initial estimate: several hours for complete source/review/integration;
+genuine October14–15 market outcomes require the actual elapsed sessions.
+
+Fresh read-only production check at21:47UTC: source `d262a8d`, PID759078 unchanged,
+alive/database/dispatcher true, runtime ready; about30.9GiB free and1502MiB available RAM.
+No bootstrap, restart, grant, provider request or market request was performed.
+
+Current implementation sequence: explicit public-question execution ownership and shared
+Dispatcher admission; one AskService composing private content, control application, routing,
+independent reservation, fresh runtime context and immutable answer delivery; narrow durable
+operation reconciliation; supported runtime/account/retention evidence; risk-based independent
+reviews, fault tests and genuine bounded acceptance; safe production release and public read-back.
+Keep Ask closed until these gates pass. Never substitute fixture proofs for runtime eligibility.
+
 ## Capability validation checkpoint — October13
 
 The explicit subscription activity amendment passes the affected suite (396pass, zero failures,

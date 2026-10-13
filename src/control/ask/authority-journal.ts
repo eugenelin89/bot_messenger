@@ -259,6 +259,7 @@ export class AskAuthorityJournal {
     }catch(e){if(!committed)this.db.exec('ROLLBACK');throw e;}
   }
   approve(value:AskGrant,config:AskGrantConfiguration,at:string):void {this.event('grant',{grant:value,configuration:config},at);}
+  assertCurrent(grantId:string,at:string):AskGrant {instant(at);return structuredClone(current(this.read(),grantId,at));}
   revoke(grantId:string,at:string):void {this.event('revoke',{grantId},at);}
   reserve(value:AskReservation,at:string):void {this.event('reserve',{binding:value,owner:this.owner},at);}
   admit(executionId:string,value:AskAdmissionProof,at:string):void {this.event('admit',{executionId,owner:this.owner,proof:value},at);}

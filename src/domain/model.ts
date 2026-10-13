@@ -50,7 +50,10 @@ export interface TaskExecution extends ExecutionFields {
 export interface ConversationExecution extends ExecutionFields {
   origin: 'conversation'; task_id: null; request_id: string; session_id: string; generation: number;
 }
-export type Execution = TaskExecution | ConversationExecution;
+export interface AskExecution extends ExecutionFields {
+  origin: 'public_question'; task_id: null; request_id: null; session_id: null; generation: null;
+}
+export type Execution = TaskExecution | ConversationExecution | AskExecution;
 export interface RuntimeBinding {
   worker_id: string; runtime_type: string; runtime_reference: string; workspace_path: string; created_at: string; thread_name?: string | null;
 }

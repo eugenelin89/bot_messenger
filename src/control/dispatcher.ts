@@ -35,6 +35,7 @@ export class Dispatcher {
     this.company.recover();
     this.stopped = false;
     this.company.on('changed', this.onChange);
+    this.company.on('ask_interrupt',this.onComputerInterrupt);
     this.company.on('computer_interrupt',this.onComputerInterrupt);this.company.on('investment_interrupt',this.onInvestmentInterrupt);
     this.kick();
   }
@@ -52,19 +53,33 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.ask?.maintenance();
     this.company.publication.progress(()=>this.kick());
     this.company.privateResearch.expire();
     this.company.business.progress();
     this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=[this.company.publication.nextWake(),this.company.privateResearch.nextExpiry(),this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    const deadline=[this.company.ask?.nextWake(),this.company.publication.nextWake(),this.company.privateResearch.nextExpiry(),this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
     if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
     while (!this.stopped && this.running.size < this.maxActive) {
       const claim = this.company.claimWorkNext(this.maxActive);
-      if (!claim) break;
+      if (!claim) {
+        // Ordinary owner/investment work has first admission. Public work shares this
+        // running map and the same database worker/global exclusion, with one Ask slot.
+        const ask=this.company.ask;
+        if(!ask||!this.adapter.runAsk||!this.adapter.assertAskAvailable)break;
+        try{this.adapter.assertAskAvailable();}catch{break;}
+        let turn:ReturnType<typeof ask.claimNext>;
+        try{turn=ask.claimNext(this.maxActive);}catch{break;}
+        if(!turn)break;
+        const controller=new AbortController(),id=turn.runtime.execution.execution_id;
+        const timer=setTimeout(()=>controller.abort('Public question deadline expired'),Math.max(1,Date.parse(turn.runtime.localDeadline)-this.company.mandates.clock.now()));
+        const done=ask.run(turn,this.adapter,controller.signal).finally(()=>{clearTimeout(timer);this.running.delete(id);this.kick();});
+        this.running.set(id,{controller,done});continue;
+      }
       const { worker, execution, context } = claim;
       const controller = new AbortController();
       const group=claim.origin==='conversation'?this.company.discussions.forConversation(claim.request.conversation_id):undefined;
@@ -150,11 +165,13 @@ export class Dispatcher {
   }
   get activeCount() { return this.running.size; }
   async stop() {
+    this.company.ask?.close();
     this.company.business.beginShutdown();
     this.company.finiteHQ.beginShutdown();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
     this.stopped = true; this.company.off('changed', this.onChange);
     await this.company.observedInvestment.stop();await this.company.publication.stop();
+    this.company.off('ask_interrupt',this.onComputerInterrupt);
     this.company.off('computer_interrupt',this.onComputerInterrupt);this.company.off('investment_interrupt',this.onInvestmentInterrupt);
     for (const { controller } of this.running.values()) controller.abort('Application shutdown');
     await Promise.all([...this.running.values()].map(r => r.done));
