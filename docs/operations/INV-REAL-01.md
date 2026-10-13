@@ -1,6 +1,106 @@
 # Persistent observed paper investment — operation and morning handoff
 
-## Current morning handoff — October 13, 2026, 12:45 America/Vancouver
+## Current morning handoff — October 13, 2026, 13:45 America/Vancouver
+
+**The real portfolio archive is online, and the production investment loop is active.**
+[Investment](https://asymmetri.co/botsquad/investment) shows Atlas, Maya, USD100,000
+starting cash and the real initialization ledger. Independent HTTPS read-back at20:45UTC
+passed10 responses, including seven public archive resources, exact official selection,
+source sequence5/journal sequence1 and no cookies. API responses are private/no-store.
+The initial valuation is partial: no benchmark mark exists yet, so complete equity and
+returns remain unavailable. No market observation, employee investment decision or trade
+has occurred yet. Ask remains closed with no submission form.
+
+Production remains source `d262a8dff59ab82587bd6444b083e5e9b7603cf0`, schema25,
+PID759078, healthy database/dispatcher and runtime ready. The exact existing company,
+workers, tasks, executions, historical pilot and independent spent authority were preserved;
+only the ordinary worker startup `updated_at` field is excluded from the worker comparison.
+The owner repaired login personally. Strict account/routing/private eligibility checks passed;
+no credentials were copied. The authentic October11 reload-OFF owner confirmation was reused
+within Decision047's31-day same-account window; no new attestation or reload change is claimed.
+
+| Active production identity | Value |
+| --- | --- |
+| Private run | `observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f` |
+| Finite authority | `observed_415ad15f-ecda-4c53-8a41-4b22eee02acb` |
+| Loop | `fa172653-d755-46df-83b5-b52becaf8821` |
+| Public experiment | `16496aa38732845beeea0a75f4614b93136be792accbb4e0` |
+| Public run | `0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c` |
+| Publication channel / generation | `6790c271ea4b4246c22607c59da5ba683a9aa6777309505b` / `1` |
+| Authority/publication expiry | October15 at23:40UTC |
+
+The finite run has16 total executions,8 per rolling24h/day,7 per cycle,12 per worker,
+one concurrent execution and no uncertain retries. It uses the confirmed private
+`gpt-6-sol/low/default` profile and36 exact Yahoo request hashes over October14–15.
+This bounds activity under the accepted existing-credit exception; it is not a hard dollar cap.
+Each session starts collection at11:45UTC (**4:45a.m. Vancouver**), employee research at12:00UTC,
+and decision cutoff at13:00UTC. Close collection starts20:05UTC; delayed processing of qualified
+opening evidence starts20:20UTC, valuation20:25UTC and expiry23:30UTC. Do not backdate or accelerate
+these sessions. Future finite renewals must preserve this run, portfolio and consumed allowance.
+
+Activation recovered from three retained failures: missing `runuser` in a restricted PATH,
+property-order comparison of an otherwise identical profile, and a preservation guard that
+counted normal startup timestamps as drift. The same provisioned authority/draft was resumed;
+no grant was duplicated or reset, and all failures preceded provider/market effects. Final
+activation succeeded20:28:38.859UTC. Original backups/logs/scripts remain under
+`/var/lib/botsquad-inv-real-activation-20261013`. Never rerun its original provisioning script.
+
+The signed publisher delivered five real initialization events plus a heartbeat, with zero
+pending/uncertain deliveries. The website writer verified the immutable matching receipt,
+selected the exact run as official and connected the unchanged website build at20:36:55UTC.
+Website source `d0c454314d646b74895f4d9e3e4a014c63c666a6`, build `P7LP4PKXMUyZ96RJnAgcz`,
+PID2386085; investment receiver PID2385469; closed Ask receiver PID2384365. The website writer
+reports responsive checks at320/390/780/1440px and all48 protected Motion images preserved.
+Its four pre-existing IPv6 certificate failures remain separately recorded, not healthy checks.
+Website documentation is pushed through `243e539`; actual read configuration and safe rollback
+are in its `docs/INV-REAL-01-WEBSITE.md`. A transport heartbeat is not market freshness. The public
+next-review field remains Unconfigured because no `run.status` schedule record has been published.
+
+[Activation receipt](../validation/evidence/inv-real01/activation-20261013/activation.json),
+[bootstrap/schedule](../validation/evidence/inv-real01/activation-20261013/bootstrap-receipt.json),
+[preservation](../validation/evidence/inv-real01/activation-20261013/preservation-after.json),
+[signed receipts](../validation/evidence/inv-real01/activation-20261013/publication-first-delivery.json)
+and [independent public reads](../validation/evidence/inv-real01/activation-20261013/public-readback.json)
+separate actual checks from website-reported host details. Private keys remain on the HQ host.
+
+**Remaining:** genuine future sessions and market/model accounting receipts; unresolved historical
+Linux observed actions/revision timing acceptance; completed Ask employee routing, runtime
+capability/eligibility, privacy/recovery/capacity acceptance and public intake. The Ask authority
+foundation is being finalized under the [ASK-02 plan](../exec-plans/investment-inv-ask-02.md).
+Its final385/385 checks, build/typecheck/contracts and424 exact source hashes pass; the source
+component is [documented here](../validation/investment/INV-ASK-AUTHORITY-01.md). Delivery is [PR85](https://github.com/eugenelin89/bot_messenger/pull/85). These tests and
+supplied adapter proofs are fixtures, not operational authority or genuine answers.
+Deployment/public release and production testing remain owner-authorized. Destructive fault
+fixtures use disposable files on the production host, preserving the real company and portfolio.
+Yahoo confirmation stays owner-reported, with no new licensing investigation. No credit purchases,
+reload changes, paid data or real brokerage are authorized. The completion heartbeat stays ACTIVE.
+
+### Concrete next execution prompt
+
+Preserve the exact active identities above. Do not reprovision or restart HQ casually; any restart
+requires publisher generation/receiver receipt reconciliation before delivery. Complete reviewed
+Ask authority/transport source integration, then implement the existing shared dispatcher and
+actual worker public-service session path with separate finite Ask authority. Join private content,
+control freshness, cancellation/expiry, immutable one-answer identity and current public evidence
+without copying raw text into ordinary Company storage. Verify the deployed runtime's actual
+context/tool/output/cost capabilities and public-service eligibility; fixture booleans are not proof.
+The product permits conservative subscription activity caps when a hard monetary cap is unavailable;
+do not invent a paid API purchase or fresh owner-approval milestone. Any required contract/capability
+change must be explicit, reviewed and coordinated with the website writer before activation.
+Continue source and controlled production acceptance while waiting for the actual market clock.
+Inspect future occurrences at ordinary due times and collect genuine provider/model/publication
+receipts. Update this morning handoff and send website work only to its existing authorized chat.
+
+## Previous morning handoff — October 13, 2026, 12:56 America/Vancouver
+
+
+**Authentication repaired:** the owner personally completed the supported server device login.
+At19:55UTC the strict account read matched the previously confirmed owner; at19:56UTC the deployed
+account verifier passed configuration, routing and current private finite-investment eligibility
+(Pro, ordinary usage allowed, existing credits available, zero inherited MCP servers). Both checks
+sent zero model turns. See the sanitized [account-repair receipt](../validation/evidence/inv-real01/account-repair-20261013.json).
+The former401 below is historical. No reload-OFF evidence, finite grant, public Ask eligibility
+or genuine inference is inferred. The completion loop was updated to preserve this change.
 
 **The public pages are running; genuine investment and employee answers remain incomplete.**
 [Investment](https://asymmetri.co/botsquad/investment), [Methodology](https://asymmetri.co/botsquad/investment/methodology)
@@ -77,8 +177,9 @@ Previous PR82 remains merged at7fcb573; its [INV-PERF-01 receipt](../validation/
 retains the final Linux observed actions workflow failure at the original60second stage bound.
 That failure is unresolved and does not become a readiness pass through unrelated storage tests.
 Production HQ remains `d262a8dff59ab82587bd6444b083e5e9b7603cf0`, PID712263, active with healthy
-DB/dispatcher and degraded runtime. Strict account401 was not retried; no login/routing change,
-new authority, market/model call, retained-data reset or HQ deployment occurred this wake.
+DB/dispatcher and degraded runtime at19:50UTC before the owner repaired login. The earlier storage
+packet made no denied-auth retry, new authority, market/model call, retained-data reset or HQ
+deployment. After the owner's actual login change, the read-only account checks above passed.
 
 ### Concrete next execution prompt
 
@@ -99,7 +200,7 @@ record precise limits and a next prompt rather than labeling supplied fixture an
 Coordinate pinned receiver integration with the website chat and continue measured Linux
 performance diagnosis. Preserve its released closed state until genuine acceptance succeeds.
 
-Genuine activation still needs the supported account repair documented below, future sessions,
+Genuine activation still needs current exact-scope checks, authentic reload evidence, future sessions,
 exact finite authority and genuine market/model/publication receipts. Ask also retains its
 existing service-eligible runtime/account and isolated-context requirements; repairing the
 private Codex login alone does not establish public Ask eligibility. Yahoo permission remains
@@ -300,7 +401,12 @@ Ada, Grace and Scout. Exact run membership/roles remain frozen by consent; an in
 reviewer must differ from the proposer. Eligibility alone is not authenticated model readiness.
 The owner controls and actual finite authority must succeed before dispatch.
 
-## Production account hold
+## Production account history and repair
+
+Superseded at19:55–19:56UTC on October13: owner device login and strict read-only verification
+passed as recorded above. The prior denial below remains historical evidence. Do not repeat the
+login or alter credentials merely to refresh this document; obtain fresh supported observations
+when actual bounded admission requires them.
 
 At2026-10-13 approximately10:46UTC the supported App Server `account/read` again returned workspace-routing authentication401 after one supported refresh of the existing login. Zero model turns were sent. A model catalog alone did not verify an authenticated account. Genuine employee activation is held until the service user signs in through the supported Codex login flow and the strict account/routing/eligibility preflight succeeds. Do not copy another user’s credentials or manufacture account/reload attestations. Source deployment can remain inert while this is repaired. The installed CLI explicitly supports
 `codex login --device-auth`. The owner can restore the service-account login from an interactive
