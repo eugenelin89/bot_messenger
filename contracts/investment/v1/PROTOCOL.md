@@ -79,3 +79,33 @@ The October13,2026 pinned-package extension adds `activity_capped_subscription` 
 All modes reserve finite execution and planned usage before effects, never refund attempts and retain at least the greater of reserved and measured complete token usage. Subscription mode cannot reserve or report a numeric worst-case dollar charge; actual cost stays unavailable. Component input/output threshold breach or missing/unknown usage creates a durable independent admission hold across grants, services, generations, midnight and restart. Persist complete over-threshold usage together with its hold rather than throwing away the receipt; interrupt when a monitored threshold is reached, without promising that interruption prevents overshoot. No automatic retry, re-provisioning or grant renewal clears a hold. Existing-credit consumption/internal provider retries may occur; no credit purchase or reload change is implicit. A future strict monetary mode cannot treat unpriced activity as zero within its per-grant, current UTC-day or rolling24hour accounting windows. Complete unpriced history outside all applicable windows remains recorded as null but no longer contributes to current window admission; an unknown-execution or threshold hold never expires this way. Public-service eligibility, privacy/context isolation and actual runtime capabilities still need separate evidence; this extension creates none.
 
 Session/queue/status UI must distinguish queued, routed, answering, unavailable, rejected, expired, cancelled, failed and outcome-unknown. Show the actual answering employee, historical versus new interpretation, source age and limitations; never fabricate continuous thinking or guaranteed response time. Session lifetime, short retention, provider processing notice, abuse policy and owner activation are separate launch gates.
+
+### Signed Ask configuration read
+
+`GET /api/ask/v1/service/configuration` (`readAskServiceConfiguration`) uses the
+existing `botsquad-http-v1` empty-body GET signature profile and `control_sync`
+permission. No query string, request body, Content-Digest, or Idempotency-Key is
+accepted. The caller key, service and current consumer generation must match the
+receiver's enabled, unexpired scope. Restored/held receiver custody and old
+consumer generations remain fenced. This endpoint uses the reserved reconciliation
+lane, including when visitor admission is disabled.
+
+The closed `AskServiceConfiguration` response contains only the caller's exact
+scope, limits, public roster, privacy notice version, configuration revision/hash,
+admission/claim/delivery flags, held flag, and freshness timestamps. It must use
+`Cache-Control: private, no-store`. It contains no signing secret, credential,
+account data, provider configuration, local path, or visitor content. Its validity
+is at most 60 seconds and cannot outlive the scope. `configurationHash` is the
+canonical SHA-256 of every response field except `configurationHash`, `checkedAt`
+and `validUntil`; changes to a stable field require a higher revision. Held
+configuration has all three readiness flags false; enabled visitor admission also
+requires enabled claims and delivery. The scope is echoed exactly, and the roster
+must contain unique public worker identities belonging to the same service.
+
+HQ validates the current caller scope, hash and freshness, then binds all relevant
+configuration to independent finite Ask authority. A configuration read does not
+establish public-service account eligibility, drain privacy controls, create a
+model grant, authorize inference, or reopen intake. Changed revisions/hashes must
+hold existing dispatch until explicitly reconciled; a restored lower revision is
+not fresh authority. A current, separately drained control barrier remains
+required before every dispatch, model transmission and answer delivery.

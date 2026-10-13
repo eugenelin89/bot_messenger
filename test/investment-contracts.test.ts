@@ -323,7 +323,7 @@ test('OpenAPI operation references resolve, cookie and service boundaries stay d
     if(path.includes('/hq/'))assert.match(JSON.stringify(op.security),/httpSignature/);
     if(path.includes('/api/experiments/'))assert.doesNotMatch(json,/AskQuestion|AskAnswer|visitorSession/);
   }}
-  assert.equal(operations.size,31);
+  assert.equal(operations.size,32);
 });
 test('version and hash pins are transport-independent and detect vendor drift',()=>{
   const manifest=JSON.parse(readFileSync(root+'manifest.json','utf8'));assert.equal(manifest.contractVersion,'1.0');

@@ -67,6 +67,7 @@
     "AskServiceScope",
     "PublisherScope",
     "AskRoster",
-    "RecordDetail"
+    "RecordDetail",
+    "AskServiceConfiguration"
   ]
 }

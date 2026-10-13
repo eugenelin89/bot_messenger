@@ -50,9 +50,9 @@ function writeExclusive(path:string,body:string):void{
 }
 function proof(value:AskWireProof):void {
   exact(value,'kind serviceId generation requestId intentDigest signedWireDigest answerIdentity');
-  need(['claim','renew','status','answer','receipt','control_sync'].includes(value.kind),'INVALID_SCHEMA');
+  need(['configuration','claim','renew','status','answer','receipt','control_sync'].includes(value.kind),'INVALID_SCHEMA');
   id(value.serviceId);validate('Sequence',value.generation);digest(value.intentDigest);digest(value.signedWireDigest);
-  need(value.kind==='receipt'?value.requestId===null:value.requestId!==null,'INVALID_SCHEMA');if(value.requestId!==null)id(value.requestId);
+  need((value.kind==='receipt'||value.kind==='configuration')?value.requestId===null:value.requestId!==null,'INVALID_SCHEMA');if(value.requestId!==null)id(value.requestId);
   if(value.kind==='answer'||value.kind==='receipt'){
     const a=value.answerIdentity;exact(a,'serviceId answerId questionId questionHash answerDigest generatedAt');
     need(a.serviceId===value.serviceId,'CONFLICT');id(a.answerId as string);id(a.questionId as string);
@@ -141,7 +141,7 @@ function apply(s:State,kind:string,value:unknown,at:string,hqId:string):void {
       need(!s.wires.has(value.attemptId as string)&&![...s.wires.values()].some(x=>x.proof.signedWireDigest===p.signedWireDigest),'CONFLICT');
       // Explicit retry of the identical immutable idempotent intent can reconcile a lost
       // result; different work stays held. Transport itself never retries automatically.
-      need(p.kind==='receipt'||p.kind==='control_sync'||![...s.wires.values()].some(x=>x.state==='unknown'
+      need(p.kind==='configuration'||p.kind==='receipt'||p.kind==='control_sync'||![...s.wires.values()].some(x=>x.state==='unknown'
         &&x.proof.serviceId===p.serviceId&&x.proof.kind===p.kind&&x.proof.intentDigest!==p.intentDigest),'OUTCOME_UNKNOWN');
       for(const old of s.wires.values())if(p.requestId!==null&&old.proof.serviceId===p.serviceId&&old.proof.requestId===p.requestId)
         need(old.proof.intentDigest===p.intentDigest,'CONFLICT');

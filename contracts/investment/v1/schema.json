@@ -6451,6 +6451,74 @@
         "onMissingUsage",
         "onThresholdViolation"
       ]
+    },
+    "AskServiceConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "$ref": "#/$defs/AskVersion"
+        },
+        "serviceId": {
+          "$ref": "#/$defs/Id"
+        },
+        "consumerGeneration": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "configurationRevision": {
+          "$ref": "#/$defs/Sequence"
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "scope": {
+          "$ref": "#/$defs/AskServiceScope"
+        },
+        "limits": {
+          "$ref": "#/$defs/AskLimits"
+        },
+        "roster": {
+          "$ref": "#/$defs/AskRoster"
+        },
+        "privacyNoticeVersion": {
+          "$ref": "#/$defs/Id"
+        },
+        "checkedAt": {
+          "$ref": "#/$defs/Time"
+        },
+        "validUntil": {
+          "$ref": "#/$defs/Time"
+        },
+        "admissionEnabled": {
+          "type": "boolean"
+        },
+        "claimsEnabled": {
+          "type": "boolean"
+        },
+        "deliveryEnabled": {
+          "type": "boolean"
+        },
+        "held": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "serviceId",
+        "consumerGeneration",
+        "configurationRevision",
+        "configurationHash",
+        "scope",
+        "limits",
+        "roster",
+        "privacyNoticeVersion",
+        "checkedAt",
+        "validUntil",
+        "admissionEnabled",
+        "claimsEnabled",
+        "deliveryEnabled",
+        "held"
+      ]
     }
   },
   "anyOf": [
@@ -6594,6 +6662,9 @@
     },
     {
       "$ref": "#/$defs/RecordDetail"
+    },
+    {
+      "$ref": "#/$defs/AskServiceConfiguration"
     }
   ]
 }

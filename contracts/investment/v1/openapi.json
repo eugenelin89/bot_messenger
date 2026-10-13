@@ -2649,6 +2649,85 @@
           }
         ]
       }
+    },
+    "/api/ask/v1/service/configuration": {
+      "get": {
+        "operationId": "readAskServiceConfiguration",
+        "summary": "Read current caller-scoped Ask configuration; grants no model authority",
+        "security": [
+          {
+            "httpSignature": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/AskServiceConfiguration"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Bounded error; no private input or infrastructure details",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "./schema.json#/$defs/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "x-signature-profile": "botsquad-http-v1; see PROTOCOL.md; no query strings",
+        "x-required-scope": "control_sync",
+        "parameters": [
+          {
+            "name": "BotSquad-Generation",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "./schema.json#/$defs/Sequence"
+            }
+          },
+          {
+            "name": "Signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          {
+            "name": "Signature-Input",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          }
+        ]
+      }
     }
   },
   "components": {
