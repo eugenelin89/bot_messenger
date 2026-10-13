@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Source acceptance and inert deployment completed 2026-10-13T11:58UTC. Overall release timing depends on restored production login, website execution and actual future sessions; no elapsed-session completion time is promised.
+**Current ETA:** Production loop active and public archive connected October13 at20:37UTC. First actual collection is due October14 at11:45UTC; the finite trial ends October15 at23:40UTC. Ask integration continues independently. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
 
 ## Objective
 
@@ -182,3 +182,16 @@ confirms threeHTTPS200 pages, no Ask form and disabled availability/no cookies. 
 handoff contains the next separate finite Ask authority/attempt prompt and keeps the hourly
 completion loop active. Initial90–150minute estimate covered this packet; storage merge and
 receiver verification completed in about65minutes, followed by documentary integration.
+
+
+## Production activation and public archive — October13, 20:45UTC
+
+Owner personally repaired production login, then authorized testing directly on production.
+Activated the exact finite October14–15 run and preserved all retained state; five signed
+initialization events and a heartbeat were accepted, and the website selected the real official
+run and enabled public reads. Independent10-response HTTPS verification passed. No market or
+model work has yet occurred. Exact identities, recovered failed attempts, finite limits,
+schedule, evidence and next prompt are in the current [morning handoff](../operations/INV-REAL-01.md).
+The earlier login/empty-archive hold is superseded; historical tests/failures remain retained.
+Ask authority source validation continues in disposable production-host files. Ordinary HQ
+restarts now need publication generation reconciliation; do not reset or reprovision authority.

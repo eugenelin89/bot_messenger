@@ -1,0 +1,23 @@
+{
+  "ownerCompletedDeviceLogin": true,
+  "ownerCompletionObservedAt": "2026-10-13T19:54:21Z",
+  "ownerEvidence": "User-provided terminal screenshot showed Successfully logged in. No screenshot, code, callback URL or credential copied into repository evidence.",
+  "cliVersion": "codex-cli 0.157.0",
+  "strictAccountReadAt": "2026-10-13T19:55:05.685Z",
+  "accountMatchesPreviouslyConfirmedOwner": true,
+  "authMode": "chatgpt",
+  "modelCatalogAvailable": true,
+  "strictEligibilityReadAt": "2026-10-13T19:56:12.241Z",
+  "validator": "Deployed CreditAccountVerifier with exact CREDIT_CONFIG and disabled features; supported account/read, configRequirements/read, config/read, account/rateLimits/read and closing account/read",
+  "routingFingerprint": "6a60d9a0a133ec37c3500d55f5a222a5cc9a4ee6e9eda7b7ceb58d5911808a1e",
+  "configurationVerified": true,
+  "planType": "pro",
+  "ordinaryUsageAllowed": true,
+  "existingCreditsAvailable": true,
+  "inheritedMcpCount": 0,
+  "modelTurns": 0,
+  "newAuthorityCreated": false,
+  "reloadOffVerified": false,
+  "publicAskEligibilityVerified": false,
+  "note": "The former401 is historical after actual owner login repair. Current capability is not a grant or model-turn proof. No credit purchase, reload change, authentication-file read/copy, portfolio change or HQ restart occurred. Exact future operational scopes require fresh admission evidence."
+}

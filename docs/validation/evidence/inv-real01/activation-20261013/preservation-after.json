@@ -1,0 +1,1 @@
+{"retainedTables": {"workers_except_startup_updated_at": true, "tasks": true, "executions": true, "investment_credit_pilot": true, "investment_activity_invocations": true, "investment_finite_reservations": true}, "integrity": "ok", "foreignKeys": 0, "activeObservedLoops": 1, "marketRequests": 0, "modelExecutions": 0}

@@ -1,0 +1,101 @@
+{
+  "kind": "production-activation-and-publication-receipt",
+  "source": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+  "hqPid": 759078,
+  "hqSchema": 25,
+  "authorityExpiresAt": "2026-10-15T23:40:00.000Z",
+  "accountCheck": {
+    "ownerDeviceLoginCompleted": true,
+    "accountFingerprint": "82893cffa90ec90c8412249ef45e1c98cb861e3fa9198cf14e1e619fd87d093e",
+    "routingFingerprint": "a4eb091ccf6b3653c092d2d0b49b519f708dde3ce898392d007007fc00cabe08",
+    "preflightAt": [
+      "2026-10-13T20:13:13.140Z",
+      "2026-10-13T20:13:15.403Z"
+    ],
+    "modelTurns": 0,
+    "reloadEvidence": {
+      "originalConfirmedAt": "2026-10-11T05:27:00.000Z",
+      "originalFileSha256": "cf4b487115e1e8fb31cd737a3c5a8afe13766acc36c7d4ca6043d7470b93f2c7",
+      "authority": "Decision047 permits reuse within31days for sameaccount; no new confirmation or reload change claimed"
+    }
+  },
+  "limits": {
+    "totalExecutions": 16,
+    "rolling24hExecutions": 8,
+    "perWorkerExecutions": 12,
+    "perCycleExecutions": 7,
+    "perDayExecutions": 8,
+    "maxExecutionDurationMs": 300000,
+    "concurrency": 1,
+    "uncertainRetries": 0,
+    "yahooRequestHashes": 36,
+    "costMode": "finite existing-credit authority; not hard monetary enforcement"
+  },
+  "attemptHistory": [
+    {
+      "attempt": 1,
+      "result": "runuser absent from restricted PATH before bootstrap; recovered manually and restarted",
+      "providerOrMarketEffects": 0,
+      "preservedAt": "/var/lib/botsquad-inv-real-activation-20261013/failed-attempt-1"
+    },
+    {
+      "attempt": 2,
+      "result": "finite authority provisioned once; profile JSON property order rejected before start; exact draft retained, recovered service",
+      "providerOrMarketEffects": 0
+    },
+    {
+      "attempt": 3,
+      "result": "preservation guard treated normal startup workers.updated_at as drift; aborted before bootstrap and recovered",
+      "providerOrMarketEffects": 0
+    },
+    {
+      "attempt": 4,
+      "result": "resumed same authority and draft; exact retained envelope profile used after deep equality; only workers.updated_at excluded from preservation comparison; active at20:28:38.859UTC",
+      "providerOrMarketEffects": 0
+    }
+  ],
+  "privateCustody": "/var/lib/botsquad-inv-real-activation-20261013",
+  "websiteReported": {
+    "documentationCommit": "243e539",
+    "source": "d0c454314d646b74895f4d9e3e4a014c63c666a6",
+    "build": "P7LP4PKXMUyZ96RJnAgcz",
+    "websitePid": 2386085,
+    "startedAt": "2026-10-13T20:36:55Z",
+    "receiverPid": 2385469,
+    "askReceiverPid": 2384365,
+    "officialSelectedAt": "2026-10-13T20:35:50Z",
+    "publicConfigurationHash": "4658b4d6b435595e6ab15151713eb6a284d7ea29217d6786120868963da52fe3",
+    "responsiveWidths": [
+      320,
+      390,
+      780,
+      1440
+    ],
+    "askEnabled": false,
+    "protectedMotionImages200": 48,
+    "priorIPv6CertificateFailuresPreserved": 4
+  },
+  "independentPublicReadbackAt": "2026-10-13T20:45:20.024961+00:00",
+  "limitations": [
+    "No market collection or genuine employee execution at activation.",
+    "Initial snapshot partial because benchmark mark is absent; no complete equity/return claimed.",
+    "Public next-review field unconfigured because no run.status schedule event has been published.",
+    "Ask source remains dormant.",
+    "Historical Linux observed actions/revision stage timeout remains unresolved."
+  ],
+  "scripts": {
+    "inv-real-production-bootstrap.mjs": "8c7d603894a9c35dcfccae85c0446b1d3b384b1b3920df1c75c475e679730061",
+    "inv-real-production-pause.mjs": "29b230162e131f799da59000d9776d9db363a23e9ab4e30a6fd31dd257f5d49b",
+    "inv-real-production-activate.sh": "24baeeec8ba392b43fb8bf05007ec1eb1725ba809d5f6dd91c467fe9739309d6",
+    "inv-real-production-resume.mjs": "e80fdd24a73b01d968875eb404e3f6f39a699759b3ef437d5e1f53d7eb8d2c7e",
+    "inv-real-production-resume.sh": "0e1cc1722aab52a17c6b222b4626159e49ad9976315c497ab7e40d39628a6282",
+    "inv-real-activation-selection.json": "95280e47df6d4658a245d4d562c758d76a42ec73e99d372615bdc1f4dd29dfa4"
+  },
+  "files": {
+    "bootstrap-receipt.json": "8889d3b4f6853e62f1adf695c4e3fc29b28779f4b407b963f2173eda85e2edc5",
+    "health-after.json": "a4882b8d1ba2c89bb61be0cce871fdbd278b96fb4088e5f94a7665d40d07b646",
+    "preservation-after.json": "4db1a68b8a71c699d5a40ee42a35e9dbf2c428f75e7e0153e8cf3e895bffcad3",
+    "public-readback.json": "de86115f59bac873facafab5db149f563f659cd5211ebdb164a4be20da39c5b0",
+    "publication-first-delivery.json": "9bb641bdb11732837328885783e203ca079c8054a8975c557fc288a317b9aac1"
+  }
+}
