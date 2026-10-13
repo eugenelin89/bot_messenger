@@ -57,3 +57,9 @@ post-sign clock/key fence cases and passes 263/263, zero failures/skips. Build/t
 manifest pass; exact local/remote source hashes match. See
 [acceptance](../validation/investment/INV-ASK-02.md) and its machine-readable receipt.
 Production health remains unchanged; no account, market or model request was repeated.
+
+
+Website update, October 13, 2026, 07:54 America/Vancouver: the stalled browser call timed out;
+no actual approval rejection was returned. The website chat is active again and continuing the
+already-authorized release/private intake work. Earlier boundary notes describe the packet's
+starting state. Full counterpart acceptance is still pending its actual results.
