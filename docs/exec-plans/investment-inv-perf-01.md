@@ -55,6 +55,9 @@ state read using one complete replay, batches outbox/receipt queries and reuses 
 formatter and per-session parsed instants. Five adjacent read pairs use the snapshot. There is
 no retained reconstruction cache. Every calendar check and error order remains in place.
 
+Delivery: [PR82](https://github.com/eugenelin89/bot_messenger/pull/82), evidence commit
+`fd875fc68adfb7202dfc7e186a2c0c44a5168d28`. The linked PR records final head/merge identity.
+
 Architecture, security, recovery and test specialists found no bounded-source blocker. Their
 requested checkpoint-corruption, callback-pause freshness and spawn-failure cleanup coverage
 is present. All 424 final runtime/test/script/contract/adapter/package files matched Linux.

@@ -26,6 +26,13 @@ HTTPS requests and durable deletion suppression; generated keys/tree/listener we
 All 424 final source files matched Linux. Build/typecheck/contracts passed. No employee model ran;
 physical content purge and restoration verification remain false.
 
+Delivery is [PR82](https://github.com/eugenelin89/bot_messenger/pull/82); its linked GitHub record
+is authoritative for final head and merge identity. Evidence commit is
+`fd875fc68adfb7202dfc7e186a2c0c44a5168d28`, acceptance receipt SHA256
+`9511dc87ad7d237769639195438c0ebafad5018e2338f490a9a8b92cd8fb994c`.
+The exact-head GitHub query reported no configured checks/statuses or submitted GitHub reviews;
+the four advisory specialist reviews and qualified test evidence are recorded in the receipt.
+
 The mechanical paired-read benchmark improved 57.01%, but **the final Linux observed actions
 workflow still failed its existing 60-second stage bound**. Original and candidate failures are
 retained in [INV-PERF-01](../validation/investment/INV-PERF-01.md) and its
