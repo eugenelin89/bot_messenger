@@ -194,3 +194,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision046 — Explicit fresh-research recovery release](decision_046_fresh_research_recovery_release.md): HQ-READY-04C adds a digest-bound owner action for untouched future approved drafts, using existing external journal receipts/custody. No new allowance or live approval.
 
 - [Decision047 — Persistent observed paper investment](decision_047_persistent_observed_paper_investment.md): owner-reported Yahoo confirmation, new prospective method, continuing ledger and finite renewed authority; acceptance pending.
+
+- [Decision048 — Private Ask content custody](decision_048_private_ask_content_custody.md): passive Company metadata and separate finite-retention raw SQLite custody, immutable import/answer identities, atomic private outbox, deletion and uncertainty recovery; dormant and not employee or delivery authority.

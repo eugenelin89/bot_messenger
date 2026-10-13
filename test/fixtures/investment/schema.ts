@@ -58,8 +58,17 @@ export function removeEmptyObservedMigration(db:import('node:sqlite').DatabaseSy
 
 /** Disposable schema25 fixture only; do not discard even one retained Ask control. */
 export function removeEmptyAskMigration(db:import('node:sqlite').DatabaseSync){
+ removeEmptyAskContentMigration(db);
  for(const name of ['ask_privacy_controls','ask_control_requests','ask_control_services']){
   assert.equal(db.prepare(`SELECT count(*) n FROM ${name}`).get()!.n,0);db.exec(`DROP TABLE ${name}`);
  }
  db.exec('DELETE FROM schema_migrations WHERE version=26');
+}
+
+/** Disposable schema26 fixture only; no populated Ask content identity may be discarded. */
+export function removeEmptyAskContentMigration(db:import('node:sqlite').DatabaseSync){
+ for(const name of ['ask_content_controls','ask_imports','ask_content_services']){
+  assert.equal(db.prepare(`SELECT count(*) n FROM ${name}`).get()!.n,0);db.exec(`DROP TABLE ${name}`);
+ }
+ db.exec('DELETE FROM schema_migrations WHERE version=27');
 }

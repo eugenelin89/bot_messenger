@@ -145,6 +145,16 @@ export class AskControlJournal {
  controls():AskControlReceipt[] {
   const ctx=this.context();this.service(ctx);return this.db.all<Control>('SELECT * FROM ask_privacy_controls WHERE service_id=? ORDER BY rowid',this.serviceId).map(row=>this.applied(row));
  }
+ /** Cleanup remains possible after admission settings change; never supplies freshness. */
+ custody(db:Store):{serviceId:string;generation:string;controls:AskControlReceipt[]}{
+  need(db===this.db,'CONFLICT');const ctx=this.context();
+  const s=this.db.get<Service>('SELECT * FROM ask_control_services WHERE service_id=?',this.serviceId);
+  need(s&&s.instance===this.instance&&s.service_id===ctx.scope.serviceId&&s.generation===ctx.scope.consumerGeneration
+   &&time(ctx.now)>=time(s.observed_at),'CONFLICT');
+  return {serviceId:this.serviceId,generation:s.generation,controls:this.db.all<Control>('SELECT * FROM ask_privacy_controls WHERE service_id=? ORDER BY rowid',this.serviceId).map(row=>this.applied(row))};
+ }
+ /** Exact admission binding for dormant storage adapters; not an authority token. */
+ identity(db:Store):{serviceId:string;generation:string;bindingHash:string}{need(db===this.db,'CONFLICT');const ctx=this.context();this.service(ctx);return {serviceId:this.serviceId,generation:ctx.scope.consumerGeneration,bindingHash:binding(ctx)};}
  suppressed(conversationId:string,questionId:string):boolean {
   validate('Id',conversationId);validate('Id',questionId);const ctx=this.context();this.service(ctx);
   return this.db.all<Control>('SELECT * FROM ask_privacy_controls WHERE service_id=? AND conversation_id=? AND (question_id IS NULL OR question_id=?)',this.serviceId,conversationId,questionId)
