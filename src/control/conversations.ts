@@ -16,7 +16,7 @@ export class Conversations {
   private audit(type: string, detail: object, worker: string | null = null, execution: string | null = null, actor = 'human') {
     this.company.audit(`conversation_${type}`, actor, detail, worker, null, execution);
   }
-  human() { requireThat(this.db.get<Principal>("SELECT * FROM principals WHERE principal_id='human'")?.enabled, 'Human owner is disabled'); }
+  human() { this.company.privateResearch?.expire();requireThat(this.db.get<Principal>("SELECT * FROM principals WHERE principal_id='human'")?.enabled, 'Human owner is disabled'); }
   conversation(conversationId: string): Conversation {
     const row = this.db.get<Conversation>('SELECT * FROM conversations WHERE conversation_id=?', conversationId);
     requireThat(row, 'Conversation not found'); return row;

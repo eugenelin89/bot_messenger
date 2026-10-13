@@ -1,3 +1,4 @@
+import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
 import { FiniteHQ } from './usage/finite-hq.js';
 import { CreditPilot } from './usage/credit-pilot.js';
@@ -67,6 +68,7 @@ export class Company extends EventEmitter {
   readonly creditPilot: CreditPilot;
   readonly finiteHQ: FiniteHQ;
   readonly investmentSetup: InvestmentSetup;
+  readonly privateResearch: PrivateResearch;
   readonly referenceDocs: ReadonlyMap<string, string>;
   constructor(readonly store: Store, dataDir: string, repoRoot: string, readonly runtimeType = 'codex-app-server', host?: HostClient, remoteTransport?: RemoteTransport, publicationOptions?: PublicationOptions) {
     super();
@@ -93,6 +95,7 @@ export class Company extends EventEmitter {
     this.creditPilot = new CreditPilot(this);
     this.finiteHQ = new FiniteHQ(this);
     this.investmentSetup = new InvestmentSetup(this);
+    this.privateResearch = new PrivateResearch(this);
     this.store.transaction(() => {
       for (const [principal, type, name] of [['human', 'human', 'Human'], ['system', 'system', 'System']]) {
         this.store.run('INSERT OR IGNORE INTO principals VALUES (?,?,?,1,?)', principal!, type!, name!, now());
@@ -404,6 +407,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.privateResearch.expire();
     this.finiteHQ.recover();
     this.aiUsage.recover();
     this.investmentActivity.recover();
@@ -427,6 +431,7 @@ export class Company extends EventEmitter {
       this.settleParents();
       for (const w of this.workers()) this.refreshWorker(w.worker_id);
     });
+    this.privateResearch.expire();
     this.remote.recover();
     for(const project of this.projects.list().filter(p=>p.status==='archiving')){
       try{this.projects.archive(project.project_id);}catch{this.audit('project_archive_pending','system',{project_id:project.project_id});}

@@ -639,3 +639,18 @@ pinned parser, gateway and custody. The private sample/key were immediately dest
 03H is permanently spent. Historical availability and adjustment basis remain unqualified;
 no paper fills or employee delivery follow. See its acceptance record for transport, quality
 and cleanup evidence. Default employee/production transport remains inactive.
+
+## Private employee research - HQ-READY-04A
+
+[HQ-READY-04A](docs/validation/investment/HQ-READY-04A.md) connects fresh, separately approved
+Yahoo history to owner-selected existing employees through ordinary discussions, scheduler,
+dispatcher and finite usage accounting. The owner page prepares an inert research scope with
+separate collection and AI-processing consents. Workers receive provenance, quality and
+worker-specific delivery receipts; independent review precedes a revised private report.
+Historical evidence grants no paper-price or public authority.
+
+This is source-only acceptance with authored data and fake models. The actual Ubuntu HQ still
+needs an approved deployment, Linux confinement/retention acceptance and fresh finite authority.
+Use the [exact proposed trial packet](docs/operations/HQ_READY_04A_TRIAL_PACKET.md); no collection,
+inference or deployment is activated. All prior Yahoo approvals remain spent, Decision037 stays
+exhausted4/4, and the two elapsed H1-H9 paper sessions/public launch remain separate gates.

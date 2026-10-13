@@ -52,11 +52,12 @@ export class Dispatcher {
     });
   }
   private drain() {
+    this.company.privateResearch.expire();
     this.company.business.progress();
     this.company.mandates.progress();
     this.company.discussions.progress();
     if(this.deadlineTimer)clearTimeout(this.deadlineTimer);
-    const deadline=[this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
+    const deadline=[this.company.privateResearch.nextExpiry(),this.company.investmentActivity.nextWake(),this.company.discussions.deadline(),this.company.mandates.nextWake(),this.company.business.nextWake()].filter((x):x is string=>!!x).sort()[0];
     if(deadline)this.deadlineTimer=setTimeout(()=>this.kick(),Math.min(2147483647,Math.max(1,Date.parse(deadline)-this.company.mandates.clock.now())));
     this.company.infrastructure.processRevocations();
     if (!this.company.paused) this.company.engineering.processQueue();
@@ -105,7 +106,7 @@ export class Dispatcher {
             callTool: (callId, name, args,signal) => (COMPUTER_TOOLS as readonly string[]).includes(name)?this.company.computers.callTool(context,callId,name,args,signal?AbortSignal.any([controller.signal,signal]):controller.signal):(RESEARCH_TOOLS as readonly string[]).includes(name)?callResearch(callId,name,args,signal):this.company.callTool(context, callId, name, args),
             event: (type, detail) => this.company.recordRuntimeEvent(context,type,detail),
           };
-          if(teamScope)input.investment=Object.freeze({scopeId:teamScope.scope_id,policy:activityPolicy?.mode??'strict_provider_enforced',...(activityPolicy?.mode==='credit_approved_finite_hq'?{authorityId:activityPolicy.authorityId}:{})});
+          if(teamScope)input.investment=Object.freeze({scopeId:teamScope.scope_id,...(this.company.privateResearch.isRun(teamScope.run_id)?{purpose:'private_research' as const}:{}),policy:activityPolicy?.mode??'strict_provider_enforced',...(activityPolicy?.mode==='credit_approved_finite_hq'?{authorityId:activityPolicy.authorityId}:{})});
           input.localDeadline=workDeadline;
           input.usage=observation=>{this.company.aiUsage.observe(execution.execution_id,observation);if(observation.kind==='turn')this.company.investmentActivity.turn(execution.execution_id,observation.turnId);};
           input.admitSubscription=identity=>this.company.investmentActivity.admit(context,identity);

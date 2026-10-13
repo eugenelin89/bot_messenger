@@ -10,12 +10,12 @@ const pythonPath=fileURLToPath(new URL('../../../../adapters/yahoo/.venv/bin/pyt
 /** Fixed executable + script; no shell, native network, inherited credentials, or arbitrary worker arguments. */
 export class PythonYahooAdapter implements YahooAdapter {
   readonly kind=YAHOO_ADAPTER;
-  constructor(private readonly scratchRoot?:string, private readonly profile?:'hq-ready-03e-query1-only'|'hq-ready-03f-offline-bootstrap'|'hq-ready-03h-direct-chart'){}
+  constructor(private readonly scratchRoot?:string, private readonly profile?:'hq-ready-03e-query1-only'|'hq-ready-03f-offline-bootstrap'|'hq-ready-03h-direct-chart'|'private-research-direct'){}
   read(input:YahooAdapterInput,exchange:(query:YahooQuery)=>Promise<YahooResponse>,signal:AbortSignal):Promise<string> {
     return new Promise((resolve,reject)=>{
       if(signal.aborted){reject(new Error('financial_cancelled'));return;}
       const directory=mkdtempSync(join(this.scratchRoot??tmpdir(),'botsquad-yahoo-'));
-      const script=this.profile==='hq-ready-03h-direct-chart'?'direct.py':this.profile==='hq-ready-03f-offline-bootstrap'?'bootstrap.py':'history.py';
+      const script=this.profile==='private-research-direct'?'research.py':this.profile==='hq-ready-03h-direct-chart'?'direct.py':this.profile==='hq-ready-03f-offline-bootstrap'?'bootstrap.py':'history.py';
       const child=spawn(pythonPath,['-I','-B',this.profile ? fileURLToPath(new URL(`../../../../adapters/yahoo/${script}`,import.meta.url)) : adapterPath],{cwd:directory,env:{PATH:'/usr/bin:/bin',HOME:directory,TMPDIR:directory,LANG:'C.UTF-8',TZ:'UTC',YF_DISABLE_CURL_CFFI:'1',OPENBLAS_NUM_THREADS:'1',OMP_NUM_THREADS:'1'},stdio:['pipe','pipe','pipe']});
       let failed:Error|null=null;
       const fail=(error:unknown)=>{failed??=error instanceof Error?error:new Error('python_protocol');child.kill('SIGKILL');};

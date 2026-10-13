@@ -18,6 +18,7 @@ MAX_LINE = 600_000
 HISTORY_QUERY1_ONLY = False
 BOOTSTRAP_COMPATIBILITY = False
 DIRECT_CHART = False
+RESEARCH_DIRECT = False
 DIRECT_URL = "https://query1.finance.yahoo.com/v8/finance/chart/AAPL"
 DIRECT_PARAMS = dict(period1=1788235200, period2=1790827200, interval="1d",
                      includePrePost=False, events="div,splits,capitalGains")
@@ -53,6 +54,7 @@ def emit(value):
 
 
 def main():
+    global DIRECT_URL, DIRECT_PARAMS
     if platform.python_version() != "3.12.12":
         raise GatewayStop("python_version_mismatch")
     from importlib.metadata import version
@@ -120,8 +122,21 @@ def main():
     if r["schemaVersion"] != "financial-research-v1" or r["adjustment"] != "yahoo_unrepaired":
         raise GatewayStop("python_protocol")
 
-    if HISTORY_QUERY1_ONLY and (symbol != "AAPL" or r["dataClass"] != "ohlcv" or r["start"] != "2026-09-01" or r["end"] != "2026-10-01"):
+    if HISTORY_QUERY1_ONLY and not RESEARCH_DIRECT and (symbol != "AAPL" or r["dataClass"] != "ohlcv" or r["start"] != "2026-09-01" or r["end"] != "2026-10-01"):
         raise GatewayStop("python_history_profile")
+
+    if RESEARCH_DIRECT:
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        if r["dataClass"] != "ohlcv" or r["interval"] != "1d":
+            raise GatewayStop("python_research_profile")
+        start = datetime.strptime(r["start"], "%Y-%m-%d").replace(tzinfo=ZoneInfo("America/New_York"))
+        end = datetime.strptime(r["end"], "%Y-%m-%d").replace(tzinfo=ZoneInfo("America/New_York"))
+        if not 0 < (end - start).days <= 32:
+            raise GatewayStop("python_research_range")
+        DIRECT_URL = "https://query1.finance.yahoo.com/v8/finance/chart/" + symbol
+        DIRECT_PARAMS = dict(period1=int(start.timestamp()), period2=int(end.timestamp()), interval="1d",
+                             includePrePost=False, events="div,splits,capitalGains")
 
     class BridgeSession(requests.Session):
         def __init__(self):
@@ -259,8 +274,8 @@ def main():
             captured = session.get(DIRECT_URL, params=DIRECT_PARAMS)
             raw = session.charts[-1]
             meta = raw.get("meta", {})
-            if (meta.get("symbol") != "AAPL" or meta.get("currency") != "USD"
-                    or meta.get("exchangeName") not in ("NMS", "NGM", "NCM", "NASDAQ")
+            if (meta.get("symbol") != (symbol if RESEARCH_DIRECT else "AAPL") or meta.get("currency") != "USD"
+                    or meta.get("exchangeName") not in (("NMS", "NGM", "NCM", "NASDAQ", "NYQ", "NYSE") if RESEARCH_DIRECT else ("NMS", "NGM", "NCM", "NASDAQ"))
                     or meta.get("exchangeTimezoneName") != "America/New_York"
                     or meta.get("instrumentType") != "EQUITY"
                     or meta.get("dataGranularity") != "1d"):
