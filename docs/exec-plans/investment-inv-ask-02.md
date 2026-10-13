@@ -1,6 +1,6 @@
 # INV-ASK-02 — HQ retrieval and genuine employee routing
 
-Status: signed-transport component validated; full ASK-02 remains incomplete. Sole writer is the existing INV-REAL checkout
+Status: signed-transport component validated; delivery [PR78](https://github.com/eugenelin89/bot_messenger/pull/78). Full ASK-02 remains incomplete. Sole writer is the existing INV-REAL checkout
 on codex/inv-real-01, starting at accepted main 9b555bdfc3e3f2734aaf4e1653840c63c93292fc.
 Start: October 13, 2026, 07:01 America/Vancouver. Initial ETA: 45–90 minutes for the transport source
 component, conditional on review and a safe shared validation window with Motion.

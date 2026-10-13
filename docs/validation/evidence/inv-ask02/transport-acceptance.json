@@ -117,5 +117,7 @@
     "security": "accepted; actual HTTP-header/decrypted-byte assertions and same-key revocation verified",
     "recovery": "accepted; uncertainty and cleanup reviewed",
     "test": "accepted; three source and seven log hashes verified; final263/263"
-  }
+  },
+  "implementationCommit": "895f3ed36d140a65e385ed5647714349543c3e83",
+  "pullRequest": "https://github.com/eugenelin89/bot_messenger/pull/78"
 }

@@ -4,6 +4,9 @@
 incomplete. Actual website intake, durable HQ admission, employee routing and genuine responses
 are not supplied by this component. Production remains on d262a8d with runtime authentication held.
 
+Source commit: `895f3ed36d140a65e385ed5647714349543c3e83`.
+Delivery PR: [78](https://github.com/eugenelin89/bot_messenger/pull/78).
+
 ## Implemented boundary
 
 `src/control/ask/transport.ts` sends the six existing canonical Ask operations only to

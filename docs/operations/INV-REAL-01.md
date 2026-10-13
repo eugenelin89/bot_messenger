@@ -26,7 +26,8 @@ The independent ASK-02 signed HTTPS transport is validated with 263/263 focused 
 build/typecheck and unchanged canonical manifest. It reconstructs trusted intent, checks current
 authority after TLS and signing before sending HTTP bytes, and never automatically retries an
 uncertain delivery. Real Node TLS tests used authored loopback responses only. See
-[ASK-02 evidence](../validation/investment/INV-ASK-02.md). Mac disk admission prevented local
+[ASK-02 evidence](../validation/investment/INV-ASK-02.md), source `895f3ed36d140a65e385ed5647714349543c3e83`,
+delivery [PR78](https://github.com/eugenelin89/bot_messenger/pull/78). Mac disk admission prevented local
 builds, so a separate Linux temporary directory was used without changing production.
 The private service remains d262a8d, alive/database/dispatcher healthy, runtime degraded; the
 401 login was not retried. Website execution is still at its original tool-approval boundary.
