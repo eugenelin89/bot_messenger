@@ -51,6 +51,19 @@ sessions/questions/answers empty. Root-only receipts/rollback are
 `/var/lib/asymmetri-ingress-rollback-20261013` on the website host. Parent independently re-read
 both public HTML pages with identical hashes. See the release receipt for exact attribution.
 
+**HQ source delivery, 2026-10-13 10:31 America/Vancouver:**
+[PR80](https://github.com/eugenelin89/bot_messenger/pull/80) merged the dormant privacy-control
+journal and authored fixture repairs to `5b31359101186e94925cba5e101cd6f19e6dfd68`.
+Implementation commit `9b003be4488434157313c3958dc8e228905ed933` passed the qualified
+[ASK-02 acceptance](../validation/investment/INV-ASK-02.md):120/120focused Linux and27/27observed
+Mac, exact32source hashes, plus migration/finite/account/crash reruns. The original Linux failures
+remain retained. A separate diagnostic measured replay cost and natural dispatcher progression;
+performance repair and Linux live readiness remain open. No production HQ restart, account
+retry, authority activation or genuine source/model work occurred. Both local integration
+checkouts were clean and synchronized. The Mac validation slot was returned to Motion.
+The hourly completion loop remains active; next prompts below cover receiver interoperability,
+measured replay performance, private Ask content custody and finite employee authority.
+
 **Earlier coordination, October 13, 2026, 07:54 America/Vancouver:** Website execution has resumed.
 Its chat reports the long CUA CSV-export call timed out after roughly 5.45 hours and returned no
 actual approval-rejection text. Fresh chat status is active without the former waitingOnApproval

@@ -86,6 +86,13 @@ paid provider setup, borrowed investment authority or public activation follows 
 
 ## Durable privacy-control journal — 2026-10-13
 
+Delivered by [PR80](https://github.com/eugenelin89/bot_messenger/pull/80), merged to
+`5b31359101186e94925cba5e101cd6f19e6dfd68`. Implementation commit
+`9b003be4488434157313c3958dc8e228905ed933`; reviewed delivery head
+`871970637d11110ecd4b86107c33515c319a25de`. Exact-head GitHub checks/statuses and remote
+reviews were empty; local specialist reviews and the qualified receipts below supplied
+acceptance. This source is not deployed to HQ.
+
 A subsequent, still dormant component adds passive schema26. It stores only control and sync
 metadata, never visitor text, answers, provider threads or credentials. No application caller,
 service, key, owner grant, model allowance or invocation is created. Schema25 company and

@@ -232,3 +232,10 @@ demonstrates replay cost and natural progression in that case; it neither repair
 nor converts any original Linux failure into a pass. Diagnostic source/log hashes and snapshots
 are retained in the machine receipt. A separate performance packet must preserve all corruption,
 checkpoint, receipt, financial, point-in-time and authority checks.
+
+At10:31 Vancouver, PR80 merged to5b31359101186e94925cba5e101cd6f19e6dfd68 after
+exact-head checks/statuses/reviews were inspected (none configured/submitted). Specialist
+acceptance and qualified receipts were complete. Solewriter and primarymain were fast-forwarded
+cleanly. This closes the dormant journal source slice, not ASK-02 or INV-REAL-01. The original
+45–75minute estimate expanded to about147minutes because the broad sweep exposed clock,
+fixture portability and Linux performance issues; final10:20–10:40estimate was met.
