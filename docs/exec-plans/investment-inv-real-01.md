@@ -161,5 +161,24 @@ public read-back confirms three200pages, no Ask form and disabled availability/n
 The independent receiver rollout was delegated with complete rollback, disabled authority and
 shared-host preservation. No HQ account retry/deployment/model/market work occurred. The prior
 Linux workflow timeout remains unresolved. Motion released its Mac slot; HQ stays on isolated
-Linux. The operation handoff contains the next separate finite Ask authority/attempt prompt and
-keeps the hourly completion loop active.
+Linux. PR83 merged at19:33:29UTC as8034404c5df1b89c6cff10ed990814c154172478; final458/458,
+build/typecheck/manifest,416 matching Linux build inputs and all four advisory reviews are accepted.
+Exact-head GitHub checks/statuses/reviews were empty; normal expected-head merge succeeded.
+The [integration receipt](../validation/evidence/inv-ask-content01/integration.json) records exact
+head/source/evidence/merge identities without inferring a CI pass or HQ deployment.
+
+The website writer separately released Ask receiver source4daa713 at19:38:30UTC, PID2384365,
+after236/236 Linux receiver tests, build/check/canonical verification and a bounded259.08second
+fixture capacity observation. The initial6second startup budget and quota-count comparison caused
+a failed attempt; the old disabled listener was recovered and a reviewed30second guard then
+activated the tested candidate. Three valid protection-quota rows were preserved; visitor/content/
+authority remain empty and generation0/admission/claims/delivery remain unchanged. The112 host
+preservation comparisons include4 existing IPv6 certificate-name failures, not112 healthy TLS
+endpoints; see the qualified morning handoff and website release record. No genuine workload
+capacity or employee operation is inferred from this fixture run.
+
+Parent [public read-back at19:41UTC](../validation/evidence/inv-ask-content01/public-readback-after-receiver.json)
+confirms threeHTTPS200 pages, no Ask form and disabled availability/no cookies. The operation
+handoff contains the next separate finite Ask authority/attempt prompt and keeps the hourly
+completion loop active. Initial90–150minute estimate covered this packet; storage merge and
+receiver verification completed in about65minutes, followed by documentary integration.
