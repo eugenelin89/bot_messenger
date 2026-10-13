@@ -167,3 +167,29 @@ the proposed fresh request, actual Scout/Grace identities, account/profile, eigh
 reload-OFF evidence, activity/retention deadlines, whole-HQ stopping impact and required
 Linux guard/cgroup/cold-cleanup acceptance. Deployment, host changes, Yahoo and model calls
 all require the later explicit approval. Old approvals stay spent; public and paper gates stay open.
+
+## Current preparation status — HQ-READY-04B, 2026-10-12 America/Vancouver
+
+The [owner approval packet](HQ_READY_04B_APPROVAL_PACKET.md),
+[Linux configuration proposal](HQ_READY_04B_LINUX_CONFIGURATION.md),
+[copy-ready execution prompt](HQ_READY_04B_EXECUTION_PROMPT.md) and
+[fresh validation record](../validation/investment/HQ-READY-04B.md) supersede04A's proposed
+operational handoff. Preparation is complete; **deployment and genuine trial remain blocked**.
+
+Read-only host inspection confirms schema14 at the old installed commit, eligible idle
+Scout/Grace, Codex0.157.0 ChatGPT login mode, a cached gpt-6-sol/low catalog, enabled swap,
+core soft0/hard unlimited and a UID1001-owned Node executable. Fresh account/model/routing,
+reload-OFF, source/processing rights, migration/restore and Linux confinement remain gates.
+
+A newly reproduced source blocker prevents first collection after the required authority
+approval and service restart: recovery holds the fresh authority, but normal draft controls
+cannot release it without evidence. The assessed source `da6d3e10c9d8484c4a924d192c30c7c70d6fb743`
+must not be approved for this deployment. The next source proposal is a narrowly reviewed,
+explicit-owner release of untouched future draft authority after recovery, followed by a
+new exact-commit deployment decision.04B implements no repair or host change.
+
+The conditional October14 proposal is18:00–19:00 PDT research,19:50 cleanup trigger and
+completed local deletion by20:00; the guard stops the whole HQ service at19:00 and keeps
+it stopped through cleanup. All five decisions remain unapproved, and elapsed times must
+be replaced through fresh approval rather than extended silently. Prior Yahoo authority
+stays spent, Decision037 stays4/4, and the later two-session H1–H9 paper trial remains separate.
