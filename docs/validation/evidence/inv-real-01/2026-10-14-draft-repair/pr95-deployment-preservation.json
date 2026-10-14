@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-10-14T16:07:43.943869+00:00",
+  "source": "fbd26f520e7403a469643ed350df5e08bbc1ec2b",
+  "schema": 29,
+  "unchangedOldTables": 180,
+  "expectedChangedTables": {
+    "investment_public_attempts": {
+      "beforeRows": 87,
+      "afterRows": 89,
+      "beforeDigest": "b254ff966e5df0f2cdf04e13a9f31c1b953c62fff28b210ba44c6d11887382e2",
+      "afterDigest": "33a7f416e50d09a4da3d779c1284503686935f8390c64df79abc675d1053d63b"
+    },
+    "investment_public_channels": {
+      "beforeRows": 1,
+      "afterRows": 1,
+      "beforeDigest": "718fd82a6eb3979bd9233409776262eac08a5bf76cb15fd56a5d76a530478a3d",
+      "afterDigest": "75ed1293ac8ce6c4dbf6c62749ee9d7a86c24d5f23c3c116187f1be5fe40d679"
+    },
+    "investment_public_controls": {
+      "beforeRows": 3,
+      "afterRows": 4,
+      "beforeDigest": "45711c0d1fc6b09e1fe5246a83673e943f61967a0aed8a8e0c61255e5e4eea86",
+      "afterDigest": "39399afc93f0d775dc9f097c3369e0ba4c81c784d21e491e36ec939ca513a245"
+    },
+    "investment_public_results": {
+      "beforeRows": 87,
+      "afterRows": 89,
+      "beforeDigest": "6d306145f5d933d68602593ef6d2875db02f797967f29b8b18e85045226051ab",
+      "afterDigest": "b145529b7c3b11c47693f106b137920756e2907bb54c4e06f444cf49b3792523"
+    },
+    "workers": {
+      "beforeRows": 8,
+      "afterRows": 8,
+      "beforeDigest": "dd4b46140dff2a5be2060b0baca2f08f62c596f5021ee7ee3054c3a00735425a",
+      "afterDigest": "271ac752e8fe2714337b44be09bba67c99586cb8e002ea6fb87c45e8b7865df3"
+    }
+  },
+  "emptyAskTables": [
+    "ask_claim_custody",
+    "ask_claim_epochs",
+    "ask_content_controls",
+    "ask_content_services",
+    "ask_control_requests",
+    "ask_control_services",
+    "ask_coordination",
+    "ask_dispatches",
+    "ask_imports",
+    "ask_privacy_controls",
+    "ask_service_holds",
+    "ask_wire_attempts",
+    "ask_wire_operations"
+  ],
+  "workerChangesOnlyStartupUpdatedAt": [
+    {
+      "before": "2026-10-14T13:42:42.978Z",
+      "after": "2026-10-14T16:07:28.663Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.978Z",
+      "after": "2026-10-14T16:07:28.663Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.979Z",
+      "after": "2026-10-14T16:07:28.664Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.979Z",
+      "after": "2026-10-14T16:07:28.664Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.979Z",
+      "after": "2026-10-14T16:07:28.664Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.979Z",
+      "after": "2026-10-14T16:07:28.664Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.979Z",
+      "after": "2026-10-14T16:07:28.665Z"
+    },
+    {
+      "before": "2026-10-14T13:42:42.980Z",
+      "after": "2026-10-14T16:07:28.665Z"
+    }
+  ],
+  "finiteRetainedPrefixUnchanged": true,
+  "finiteAddedEvents": [
+    {
+      "_rowid_": 57,
+      "sequence": 57,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T16:07:28.543Z",
+      "kind": "hold",
+      "payload": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"cause\":\"recovery\",\"reason\":\"Recovery requires exact owner resume of eligible future work\"}",
+      "previous": "5d6dcdd8d34d79ba96224d445d5ab37cbee13ccdb6996033916d3a7d3c184d34",
+      "digest": "2662178a3eb09f3984a5505b8e9d431a38dd2aa54486165596a3d170d0eb2bd8"
+    }
+  ],
+  "finiteCheckpoint": {
+    "at": "2026-10-14T16:07:28.543Z",
+    "digest": "2662178a3eb09f3984a5505b8e9d431a38dd2aa54486165596a3d170d0eb2bd8",
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 57
+  },
+  "consumedAllowancesUnchanged": true,
+  "compiledArtifacts": {
+    "dist": {
+      "files": 716,
+      "matchesTestedStaging": true
+    },
+    "public": {
+      "files": 25,
+      "matchesTestedStaging": true
+    }
+  },
+  "askCustodyCreated": false,
+  "credentialsCopied": false,
+  "selectedInvestmentTablesUnchanged": true,
+  "noNewModelOrMarketExecution": true
+}

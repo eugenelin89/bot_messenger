@@ -1,4 +1,4 @@
-import {previewObservedRecovery,consentObservedRecovery,activateObservedRecovery,type ObservedRecovery} from './observed-recovery.js';
+import {previewObservedRecovery,consentObservedRecovery,activateObservedRecovery,reviseObservedRecovery,effectiveRecoverySaved,type ObservedRecovery} from './observed-recovery.js';
 import {decimal,format,multiply,divideEven,SCALE} from '../../domain/investment/arithmetic.js';
 import {randomUUID} from 'node:crypto';
 import type {Company} from '../company.js';
@@ -32,6 +32,7 @@ interface Evidence {evidence_id:string;content:string;content_hash:string;qualif
 export class ObservedInvestment {
  constructor(readonly company:Company){}
  previewRecovery(input:unknown){return previewObservedRecovery(this.company,input);}
+ reviseRecovery(input:unknown){return reviseObservedRecovery(this.company,input);}
  consentRecovery(input:unknown){return consentObservedRecovery(this.company,input);}
  activateRecovery(scopeId:string,receiptId:string){return activateObservedRecovery(this.company,scopeId,receiptId);}
  private active=new Map<string,{controller:AbortController;done:Promise<void>}>();
@@ -72,7 +73,7 @@ export class ObservedInvestment {
  }
  request(instrumentId:string,date:string,close:boolean):FinancialRequest{return {schemaVersion:FINANCIAL_SCHEMA,instrumentId,dataClass:'ohlcv',start:shift(date,-10),end:close?shift(date,1):date,interval:'1d',statement:null,frequency:null,fields:[],adjustment:'yahoo_unrepaired'};}
  configuration(runId:string){const r=this.db.get<{input:string;digest:string}>('SELECT input,digest FROM observed_investment_runs WHERE run_id=?',runId);requireThat(r&&hash(JSON.parse(r.input))===r.digest,'Persistent configuration missing or changed');return JSON.parse(r.input) as Saved;}
- scopeConfiguration(scopeId:string){const r=this.db.get<{input:string;digest:string}>('SELECT input,digest FROM observed_investment_scopes WHERE scope_id=?',scopeId);requireThat(r&&hash(JSON.parse(r.input))===r.digest,'Persistent scope configuration missing or changed');return JSON.parse(r.input) as Saved;}
+ scopeConfiguration(scopeId:string){const r=this.db.get<{input:string;digest:string}>('SELECT input,digest FROM observed_investment_scopes WHERE scope_id=?',scopeId);requireThat(r&&hash(JSON.parse(r.input))===r.digest,'Persistent scope configuration missing or changed');return effectiveRecoverySaved(this.company,scopeId,JSON.parse(r.input) as Saved);}
  preview(input:unknown){this.company.conversations.human();const p=this.parse(input),previewId=randomUUID(),runId=p.runId??'observed_'+randomUUID(),at=this.now(),saved=this.prepare(p,runId,at),digest=hash(saved),expiresAt=iso(time(at)+600000);this.db.run('INSERT INTO observed_investment_previews VALUES(?,?,?,?,?)',previewId,digest,canonical(saved),at,expiresAt);return {...saved,previewId,digest,previewExpiresAt:expiresAt,notice:'Permanent private audit archive: normalized observations, hashes, decisions and accounting remain retained. retainUntil is the processing/access-authority horizon, not automatic deletion. Raw source bodies are discarded. Runtime requires independently retained finite authorization.'};}
  consent(value:unknown){this.company.conversations.human();const a=strictObject(value,['previewId','digest','receiptId']),receiptId=textField(a,'receiptId',100),requestHash=hash(a);return this.db.transaction(()=>{
   const old=this.db.get<{request_hash:string;result:string}>('SELECT * FROM observed_investment_receipts WHERE receipt_id=?',receiptId);if(old){requireThat(old.request_hash===requestHash,'Receipt conflict');return JSON.parse(old.result);}

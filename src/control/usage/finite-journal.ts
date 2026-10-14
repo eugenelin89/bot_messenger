@@ -110,6 +110,15 @@ export class FiniteJournal {
   this.validAttestation(e,s.attestations.get(oldAuthorityId)!,at);
   return {oldAuthorityId,executionId,reservationHash:hash(r),checkpointDigest:s.head.digest,oldAttempts:[...s.reservations.values()].filter(x=>x.authorityId===oldAuthorityId).length,reload:structuredClone(s.attestations.get(oldAuthorityId)!)};
  }
+ /** Read-only explicit draft repair: only normal startup holds may follow the bound checkpoint. */
+ recoveryDraftCheckpoint(oldAuthorityId:string,executionId:string,originalDigest:string,at:string){
+  const current=this.recoveryPreview(oldAuthorityId,executionId,at),base=this.db.prepare('SELECT sequence FROM events WHERE digest=?').get(originalDigest) as {sequence:number}|undefined;
+  requireThat(base,'Original recovery checkpoint is not retained');
+  const suffix=this.db.prepare('SELECT * FROM events WHERE sequence>? ORDER BY sequence').all(base.sequence) as unknown as Entry[];
+  requireThat(suffix.length>0&&suffix.every(e=>e.kind==='hold'&&canonical(JSON.parse(e.payload))===canonical({authorityId:oldAuthorityId,cause:'recovery',reason:'Recovery requires exact owner resume of eligible future work'})),'Only retained startup recovery holds permit draft revision');
+  // recoveryPreview/read verified the entire contiguous hash chain and independent custody.
+  return {...current,originalDigest,suffix:structuredClone(suffix)};
+ }
  approveRecovery(envelope:FiniteEnvelope,attestation:ReloadAttestation,oldAccount:{accountFingerprint:string;routingFingerprint:string},at:string){this.tx(at,(s,add)=>{
   validateEnvelope(envelope);const link=envelope.recovery;requireThat(link,'Exact recovery required');
   // Re-read while holding BEGIN IMMEDIATE; external writers cannot consume the exception concurrently.

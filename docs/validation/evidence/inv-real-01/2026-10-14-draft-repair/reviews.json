@@ -1,0 +1,27 @@
+{
+  "readOnly": true,
+  "liveActions": false,
+  "architectureRecovery": {
+    "findings": [
+      "Run-level configuration must not reference scopeId; fixed",
+      "Risk health must use current occurrence plan; fixed",
+      "Revision must reject every unresolved provider source; fixed using Company.providerUnresolved",
+      "Draft test must execute revised schedule and next-day health; extended through both complete days"
+    ],
+    "status": "No remaining material source issue found; repair04 workflow and focused results passed."
+  },
+  "deployment": {
+    "status": "No material helper issue found; mandatory whole-table postdeploy verifier before revision/release",
+    "stage": "/var/tmp/botsquad-late-close-20261014 must contain final tested repair"
+  },
+  "fixtureDiagnostic": "Dispatcher.stop disables owner controls; corrected authored restart uses FiniteHQ.recover, matching startup, rather than calling only the journal.",
+  "performanceReview": {
+    "changes": [
+      "Resolve effective observed configuration once per synchronous frozen authority check",
+      "Return already validated original configuration when no typed revision exists; validate full chain otherwise"
+    ],
+    "noPersistentCache": true,
+    "allBoundsUnchanged": true,
+    "status": "No remaining material source issue found; all three repair04 workflows passed at unchanged bounds."
+  }
+}

@@ -5,6 +5,32 @@
 The owner clarified that only ASK was paused, requested investment running and today's investment again using already obtained data, then explicitly requested a paper trade. [Decision052](../decisions/decision_052_retained_research_close_recovery.md) supersedes the unapproved October15-only proposal. The implementation prepares one exact successor retaining the historical usage gap and all consumption, plus a prospective October14 regular-CLOSE amendment. It does not replay the missed morning opening. New decision/review/order cutoff is19:30UTC; original close collection20:05, processing20:20 and valuation20:25 remain future gates. No new live authority, employee decision or fill is claimed yet. [Active implementation/validation plan](../exec-plans/investment-late-close-recovery.md). ASK remains paused.
 
 
+### Source deployed; inactive preparation held for approval-clock repair —16:07–16:27UTC
+
+PR95 merged at`fbd26f520e7403a469643ed350df5e08bbc1ec2b` and deployed at16:07:29,
+schema29/PID855784/runtime ready. The live publication handoff completed,180 old tables
+were identical, and716 compiled files/25assets matched the tested stage. Startup retained
+the finite prefix and added only checkpoint57 recovery hold. Website/receiver owner ACK
+at16:06:35 reports source`7dcbf3bea400f6a71d01927bc174d97692ee4e78`,
+build`8OlCVsyW02asPY8CIxRly`, unchanged generation1/source6/journal1 and disabled ASK.
+
+Local preparation created one inactive successor scope`68ab0223-32b5-4a02-a7aa-a70ee9bc20dc`,
+loop`6a8ca917-3dec-414e-ad33-a31eea6cb194`, head4
+`f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478`.
+Independent release failed twice before any append because approval and journal time were
+captured separately. This is a code defect, not missing owner consent. No successor grant,
+new model call, collection, proposal, order or fill exists; original4attempts/9collections
+and the historical incomplete usage remain unchanged. The original16:17:58 draft research
+time elapsed unused. Do not retry the old release or create another successor.
+
+The reviewed repair uses one approval timestamp and the explicit same-unused-draft revision
+in Decision052. Repair04 serial Linux validation passed build/canonical,26 focused checks,
+all3 full workflows and89 focused regression checks. Earlier failures remain retained. Complete normal merge, preservation
+deployment and postdeploy verification before a fresh exact revision/release, selector
+restart and activation. Original close collection/decision cutoff remain unchanged. ASK
+stays paused, and no further broad permission question is required.
+
+
 ## Prevention fix deployed; missed morning retained — October14, 6:43 a.m. Vancouver
 
 The owner asked to apply the fix and complete the morning trade. The reviewed prevention fix from [PR93](https://github.com/eugenelin89/bot_messenger/pull/93) is now deployed at `108d65a5debf5026f198bdc67292b8fdd22432ed`, schema29, PID840259, with runtime ready. This supersedes the earlier undeployed-source checkpoint below. The original 6:00 a.m. research cutoff had already passed without a proposal, review or order; no opening trade was manufactured, replayed or rescheduled. The owner's request authorized this deployment, not a silent change to the fill methodology or acceptance of the separate historical-usage exception.

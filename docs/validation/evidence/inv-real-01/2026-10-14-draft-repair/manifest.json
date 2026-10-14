@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "sourceInputs": "source-inputs.json",
+  "files": {
+    "diagnostic-logs.json": "82d0095ce9b595f3723757c91b63cc3413743a537bf37da4a7dca47259130b67",
+    "operational-scripts.json": "6b9bb3218cb46eee3e60ce956dee66b8dff8a42d5cbfe6fedd635a0e59772e1d",
+    "pr95-deployment-preservation.json": "7c59a589a8bea72106de00884503ea3eb87a9dbfca56e38a5fbf466b44fec107",
+    "preapproval-failure.json": "e5589b33bc00677591fb8bfadd6c6cc85f5fd996ffb52b2b2dbf014d1993a198",
+    "results.json": "3cc8733345f2fc06e2f09d4ceccdb178c24cd02c5bf9057fb36bb6b37e75d568",
+    "reviews.json": "51c47dc440e34fd63650f0117c5ebe63fefaa9642d630e3858f367718c05a32b",
+    "source-inputs.json": "94bec2b81278f6f1de9c5f082e0acfd29fc086d86dad8585bfd94dc8dea3f393"
+  },
+  "claims": "Reviewed private source repair passed selected serial Linux validation. Prior actual deployment and failed release diagnostics retained. No repaired-source deployment, new independent authority, genuine new decision or fill claimed."
+}
