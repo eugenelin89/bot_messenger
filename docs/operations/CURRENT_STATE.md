@@ -1,5 +1,8 @@
 # BotSquad — Current State
 
+**October14 comprehensive audit:** [PARTIALLY OPERATIONAL](../audits/2026-10-14/EXECUTIVE-SUMMARY.md). Genuine research and public initialization work; formal decision/fill acceptance remains unproven, and the deployed scheduler has a next-day rolling-capacity blocker. See [exact readiness](../audits/2026-10-14/OCTOBER-15-READINESS.md), [findings](../audits/2026-10-14/FINDINGS.md) and the close checkpoints before relying on older entries. Ask stays paused; server-side scheduling stays active. The owner stopped the old chat automation and transferred coordination to the audit chat.
+
+
 **INV-REAL-01,2026-10-14,17:45UTC:** Investment is active at846d222/schema29/PID868817/runtime ready after normal PR98 handoff-fix deployment. Preservation verifies180 unchanged tables,718compiled/25assets and the exact authority prefix with only recovery hold/resume75→77. All7family attempts/9source requests remain spent; three genuine recovery turns had complete usage but no formal paper decision/order/fill. Only1today model turn remains, insufficient for the missing three-step handoff. Future close collection/accounting stays scheduled. ASK remains paused/disabled and monitoring stays ACTIVE every15minutes. See [current handoff](INV-REAL-01.md) and [actual evidence](../validation/investment/INV-REAL-01-PAPER-HANDOFF.md).
 
 

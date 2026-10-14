@@ -12,7 +12,7 @@ Local Node24.10.0, Python3.12.12/yfinance1.7.0 through the existing fixture adap
 |---|---|
 | TypeScript build | Passed final build07 |
 | Canonical contract | Passed; contract1.0 and8 digests unchanged |
-| New scheduler integration |10/10 passed,15.0s; exact threshold, no writes/requests while waiting, current-session HOLD/BUY/rejection, cutoff, unknown/permanent exhaustion, draft openings, membership/sharing withdrawal, active nonretry |
+| New scheduler integration |10/10 passed,15.0s; exact threshold, no consumption-journal/custody mutation or new provider requests while waiting, current-session HOLD/BUY/rejection, cutoff, unknown/permanent exhaustion, draft openings, membership/sharing withdrawal, active nonretry |
 | Exact observed recovery |1/1 passed,48.3s; seven exact reservation times, retained incomplete gap, real Store/Company/FiniteJournal reopen and Dispatcher recovery while pending, same retry/frozen authority, then fresh Oct15 typed HOLD in four turns and signed fixture publication |
 | Existing focused regression | Original selection235 cases:214 passed,21 failed from local environment. Twenty custody fixtures passed on rerun with canonical `TMPDIR=/private/tmp`; localhost owner-API case passed outside sandbox after listener EPERM. All235 selected cases have completed passes across these non-overlapping selections; original batch was not clean |
 | Independent specialist review | Read-only review found no authority bypass; required extra coverage above was added; final review found no blocking defect or additional necessary test for this correction |

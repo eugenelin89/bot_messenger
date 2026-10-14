@@ -570,6 +570,8 @@ no implicit authority. Migration 14 is additive and inert. Live acceptance was s
 
 ## Investment and Ask contract boundary (INV-01)
 
+The milestone sections below preserve their original implementation scope. For current deployed topology and genuine acceptance, read the [October14 architecture audit](../audits/2026-10-14/ARCHITECTURE-AUDIT.md) and [system status](../audits/2026-10-14/SYSTEM-STATUS.md); earlier source-only/no-deployment statements are historical.
+
 The [version 1.0 package](../../contracts/investment/v1/PROTOCOL.md) and [feasibility record](../validation/investment/INV-01.md) are offline foundations only. Production domain, persistence, dispatch, tools and grants are unchanged. Future public investment projection and private Ask service require separate audience/context/authority boundaries while reusing existing durable execution ownership; no receiver/model capability is implied by the schemas.
 
 ## Dormant Ask HQ integration components — October 13, 2026

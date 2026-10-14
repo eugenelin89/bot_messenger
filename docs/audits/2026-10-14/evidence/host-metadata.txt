@@ -1,0 +1,44 @@
+2026-10-14T19:25:30Z
+v24.21.0
+Python 3.12.12
+846d2220791a6f1d89732a458e3521341b61f9a1
+Restart=on-failure
+MainPID=868817
+NRestarts=0
+MemoryCurrent=216760320
+MemoryPeak=286326784
+MemoryMax=infinity
+MemorySwapMax=0
+LimitCORE=0
+User=botsquad
+Group=botsquad
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+NoNewPrivileges=yes
+RestrictSUIDSGID=yes
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                                  
+LISTEN 0      4096   127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=95142,fd=15))             
+LISTEN 0      4096      127.0.0.54:53        0.0.0.0:*    users:(("systemd-resolve",pid=95142,fd=17))             
+LISTEN 0      511        127.0.0.1:4310      0.0.0.0:*    users:(("MainThread",pid=868817,fd=27))                 
+LISTEN 0      4096         0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=95147,fd=3),("systemd",pid=1,fd=224))
+LISTEN 0      4096            [::]:22           [::]:*    users:(("sshd",pid=95147,fd=4),("systemd",pid=1,fd=225))
+NEXT                            LEFT LAST                              PASSED UNIT                           ACTIVATES
+Wed 2026-10-14 19:30:00 UTC 4min 29s Wed 2026-10-14 19:20:06 UTC     5min ago sysstat-collect.timer          sysstat-collect.service
+Wed 2026-10-14 20:07:14 UTC    41min Wed 2026-10-14 19:14:24 UTC    11min ago droplet-agent-update.timer     droplet-agent-update.service
+Wed 2026-10-14 20:35:39 UTC 1h 10min Wed 2026-10-14 19:06:14 UTC    19min ago fwupd-refresh.timer            fwupd-refresh.service
+Wed 2026-10-14 20:58:24 UTC 1h 32min Wed 2026-10-14 05:26:53 UTC      13h ago motd-news.timer                motd-news.service
+Thu 2026-10-15 00:00:00 UTC 4h 34min Wed 2026-10-14 00:00:11 UTC      19h ago dpkg-db-backup.timer           dpkg-db-backup.service
+Thu 2026-10-15 00:00:00 UTC 4h 34min Wed 2026-10-14 00:00:11 UTC      19h ago logrotate.timer                logrotate.service
+Thu 2026-10-15 00:01:54 UTC 4h 36min Wed 2026-10-14 06:45:34 UTC      12h ago apt-daily.timer                apt-daily.service
+Thu 2026-10-15 00:07:00 UTC 4h 41min Wed 2026-10-14 00:07:07 UTC      19h ago sysstat-summary.timer          sysstat-summary.service
+Thu 2026-10-15 06:13:05 UTC      10h Wed 2026-10-14 06:27:53 UTC      12h ago apt-daily-upgrade.timer        apt-daily-upgrade.service
+Thu 2026-10-15 06:44:13 UTC      11h Wed 2026-10-14 06:44:13 UTC      12h ago update-notifier-download.timer update-notifier-download.service
+Thu 2026-10-15 06:53:07 UTC      11h Wed 2026-10-14 06:53:07 UTC      12h ago systemd-tmpfiles-clean.timer   systemd-tmpfiles-clean.service
+Thu 2026-10-15 10:54:42 UTC      15h Wed 2026-10-14 03:50:14 UTC      15h ago man-db.timer                   man-db.service
+Sun 2026-10-18 03:10:19 UTC   3 days Sun 2026-10-11 03:11:14 UTC   3 days ago e2scrub_all.timer              e2scrub_all.service
+Mon 2026-10-19 00:28:24 UTC   4 days Mon 2026-10-12 01:13:54 UTC   2 days ago fstrim.timer                   fstrim.service
+Wed 2026-10-21 02:33:29 UTC   6 days Tue 2026-10-13 11:56:09 UTC 1 day 7h ago update-notifier-motd.timer     update-notifier-motd.service
+-                                  - -                                      - apport-autoreport.timer        apport-autoreport.service
+-                                  - -                                      - snapd.snap-repair.timer        snapd.snap-repair.service
+-- No entries --
