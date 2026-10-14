@@ -1,0 +1,35 @@
+{
+  "verifiedAt": "2026-10-14T20:20:38.856412+00:00",
+  "inventoryAt": "2026-10-14T20:08:28.980670+00:00",
+  "hqAt": "2026-10-14T20:20:37.496006+00:00",
+  "historicalUsageConfigurationJournalSourcesPreserved": true,
+  "sourceRequests": 18,
+  "newQualifiedSources": 9,
+  "modelRequests": 7,
+  "remainingModelFamily": 4,
+  "portfolioCash": "100000.000000",
+  "formalDecisionCount": 0,
+  "portfolioOrderCount": 0,
+  "askRecordedExecutionCount": 0,
+  "closePrices": {
+    "AAPL": "342.959991",
+    "MSFT": "533.690002",
+    "GOOGL": "347.640015",
+    "AMZN": "254.080002",
+    "JPM": "335.315002",
+    "JNJ": "253.929993",
+    "XOM": "177.059998",
+    "WMT": "116.160004",
+    "SPY": "769.669983"
+  },
+  "sourceFinalityQualification": "Accepted same-session snapshots; provider publication time/finality not independently established",
+  "expectedBenchmarkFromRetainedSPYClose": {
+    "price": "769.669983",
+    "units": "129.925815",
+    "notional": "99999.999822",
+    "residualCash": "0.000178",
+    "slippageAndFees": "0 for benchmark under configured convention"
+  },
+  "actualBenchmarkAndValuationVerified": false,
+  "actualBenchmarkAllocationMatches": true
+}

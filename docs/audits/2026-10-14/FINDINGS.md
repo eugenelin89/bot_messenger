@@ -7,12 +7,12 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | InvestmentLoop finite admission / **P1** |
-| Finding | Oct 15T12:00 start needs4 calls while rolling 7/8; deployed source blocks instead of waiting until12:01:13.039 |
-| Evidence | Live7 reservation timestamps in `evidence/hq-after-cutoff.json`; `src/control/investment-loop/service.ts` `planTurns`/`tick`; independent HQ owner confirmation19:26 |
+| Finding | Original 846d222 would block the Oct 15 12:00 start needing four calls with rolling consumption 7/8; deployed 0fabbbac now defers within the original window. Genuine Oct 15 acceptance remains pending |
+| Evidence | Seven reservation timestamps in `evidence/hq-after-cutoff.json`; original versus corrected `src/control/investment-loop/service.ts` `planFiniteTurns`/`tick`; [deployment receipt](evidence/deployment-receipt.json) |
 | Impact | Fresh next-day employee research may stop despite sufficient capacity within its unchanged window |
-| Root cause | Known: capacity checked during enqueue after occurrence activation; no pre-start rolling deferral |
+| Root cause | Known in the original source: capacity was checked during enqueue after occurrence activation, without pre-start rolling deferral |
 | Recommended action | Read-only earliest-capacity calculation and pending `retry_at` before any group/request change; preserve cutoff and all caps |
-| Ownership / status | HQ / **Open**; correction reviewed and merged in PR #100 (`0fabbbac`), owner-approved guarded production deployment preparing |
+| Ownership / status | HQ / **Mitigated**; reviewed/tested PR 100 deployed 20:26, preservation verified; genuine Oct 15 acceptance remains unverified |
 | Acceptance | Focused limits/expiry/withdrawal/restart tests; reviewed merge and exact guarded deployment; genuine Oct 15 occurrence waits then starts once under same authority |
 
 ## BSIA-002 — genuine formal decision chain unproven
@@ -34,7 +34,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Finite workflow capacity / **P1** |
 | Finding | Four family calls remain; the paused final-cycle minimum is four. October 14 had only one day/rolling call left for three missing typed stages |
-| Evidence | Seven spent family attempts; Decision052 maximum old4+additional7; scheduler finalization reserves; [capacity](COST-AND-CAPACITY.md) |
+| Evidence | Seven spent family attempts; Decision 052 maximum old 4+additional 7; scheduler finalization reserves; [capacity](COST-AND-CAPACITY.md) |
 | Impact | Optional discussion, revisions or further provider failures can prevent genuine completion |
 | Root cause | Known finite envelope versus final-cycle lifecycle; bounded design constraint, not permission to enlarge it |
 | Recommended action | Use the existing role-appropriate tools before terminal steps; record failure/rejection honestly. Design a future budget only after actual usage evidence |
@@ -46,7 +46,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Autonomous continuity / **P1** for sustained operation |
-| Finding | Model/source/publication authority expires2026-10-15T23:40Z; ordinary same-portfolio renewal also fails because the original Maya reservation remains incomplete |
+| Finding | Model/source/publication authority expires 2026-10-15T23:40Z; ordinary same-portfolio renewal also fails because the original Maya reservation remains incomplete |
 | Evidence | Finite/publication envelopes and plan 2 occurrences; `observed-investment.ts:82`, `finite-journal.ts:103,106–107,127,139`; independent continuity review |
 | Impact | Cannot truthfully claim indefinite daily autonomous trading |
 | Root cause | Known finite expiry plus incomplete-history renewal gates. The exact accepted gap is recognized only for the current successor, not ordinary renewal; its one-use recovery cannot be repeated |
@@ -59,7 +59,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Provider telemetry/accounting / **P2** |
-| Finding | Maya`execution_ec78843c-0b56-4343-9d38-a6ba223867be` has0 authoritative responses; diagnostic66,720 is not a valid turn total. All exact-model prices/invoices unavailable |
+| Finding | Maya `execution_ec78843c-0b56-4343-9d38-a6ba223867be` has 0 authoritative responses; diagnostic 66,720 is not a valid turn total. All exact-model prices/invoices unavailable |
 | Evidence | `evidence/inventory-verified.json` usage; PR #93 prevention; three later complete genuine turns |
 | Impact | Full-run tokens/actual charges cannot be reported; recurrence would correctly halt work |
 | Root cause | Known pinned cold-resume raw-event limitation; invoice/cost access unavailable |
@@ -72,7 +72,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | HQ/receiver persistence / **P2** |
-| Finding | Same-host snapshots exist; receiver backup has6 versus8 live events. No current independent off-host restore/recurring retention verified |
+| Finding | Same-host snapshots exist; receiver backup has 6 versus 9 final live events. No current independent off-host restore/recurring retention verified |
 | Evidence | `evidence/host-metadata.txt`, inventory backup metadata, website owner packet; systemd timer inventory does not exclude cron/cloud snapshots |
 | Impact | Host loss could lose immutable private history or independent authority/publication custody |
 | Root cause | Known evidence/operations gap; actual external snapshot policy undetermined |
@@ -98,8 +98,8 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Shared host resources / **P2** |
-| Finding | Website free disk only134MiB above6GiB deployment floor; about303MiB available RAM. HQ service memory maximum unlimited |
-| Evidence | Fresh host metadata and website packet; HQ service memory about216–218MB at observation |
+| Finding | Website free disk only 134 MiB above 6 GiB deployment floor; about 303 MiB available RAM. HQ service memory maximum unlimited |
+| Evidence | Fresh host metadata and website packet; HQ service memory about 216–218 MB at observation |
 | Impact | New candidates/backups/heavy builds can violate floor or contend with Motion; HQ growth lacks a hard service ceiling |
 | Root cause | Small shared hosts and accumulated retained deployment artifacts; precise future growth unknown |
 | Recommended action | Capacity plan before new web deployment/backup; retain protected evidence; continue serialized off-host builds; evaluate HQ resource limit after measurement |
@@ -112,7 +112,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Research reproducibility / **P2** |
 | Finding | Raw Yahoo response bodies are discarded; normalized evidence/request hashes persist |
-| Evidence | Source adapter/persistence policy and nine verified normalized content hashes |
+| Evidence | Source adapter/persistence policy and eighteen verified normalized content hashes in the final inventory |
 | Impact | Decisions can be traced to supplied observations, but raw responses cannot be reparsed later to independently re-run normalization |
 | Root cause | Intentional retention boundary; not observed data corruption |
 | Recommended action | Disclose this limit; evaluate permitted bounded raw retention separately if stronger reproducibility is required |
@@ -125,11 +125,11 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Operations/navigation / **P2** |
 | Finding | README/AGENTS and chronological architecture sections still described the receiver as stopped/source-only; requested handoff path was wrong |
-| Evidence | Audit-start main6293589; [status reconciliation](SYSTEM-STATUS.md) |
+| Evidence | Audit-start main 6293589; [status reconciliation](SYSTEM-STATUS.md) |
 | Impact | A later operator could mistake historical gates for current deployment or repeat obsolete work |
 | Root cause | Accumulated milestone prose without a clear current status pointer |
 | Recommended action | Update front-door pointers/current assertions; explicitly label historical sections and retain old evidence |
-| Ownership / status | HQ / **Open until audit documentation merge** |
+| Ownership / status | HQ / **Mitigated in the reviewed audit PR 101**; its normal merge receipt records integration closure |
 | Acceptance | Normal reviewed docs PR merged; authoritative links resolve; current deployment/genuine limitations agree with final evidence |
 
 ## BSIA-011 — calendar and corporate-action coverage finite
@@ -137,7 +137,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Market/calendar lifecycle / **P3** |
-| Finding | Calendar support ends2026; only qualified supported split/dividend actions are covered |
+| Finding | Calendar support ends 2026; only qualified supported split/dividend actions are covered |
 | Evidence | Retained configuration and `src/domain/market/calendar.ts`, `observed-paper.ts` |
 | Impact | Later sessions or unsupported corporate events cannot be presumed safe/complete |
 | Root cause | Deliberately bounded initial implementation |
@@ -151,7 +151,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Recovery preparation/release / **P1 historical** |
 | Finding | Two exact releases failed before append because approval and journal times differed |
-| Evidence | [close activation report](../../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md), PR #96 and successful16:57 activation |
+| Evidence | [close activation report](../../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md), PR #96 and successful 16:57 activation |
 | Impact | Delayed recovery, unused original research draft |
 | Root cause | Known separate timestamp captures |
 | Recommended action | Preserve single approval timestamp and explicit same-unused-draft revision; retain failed evidence |
@@ -160,4 +160,17 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 
 ## Scheduled close qualification
 
-Missing close observations or valuation before their due times are not findings. The final close checkpoint must record any actual failure as a new stable finding or explicitly state successful data/accounting/publication. Do not mark BSIA-002 resolved merely because a benchmark or valuation appears. Ask's closed state is intentional and is not an investment readiness defect.
+The actual close collection, accounting, valuation and public readback succeeded; final evidence is linked in the workflow report. Missing observations before their due times were not classified as failures. Do not mark BSIA-002 resolved merely because a benchmark or valuation appears. Ask's closed state is intentional and is not an investment readiness defect.
+
+## BSIA-013 — provider publication time and final-bar status unverified
+
+| Field | Finding |
+|---|---|
+| Component / severity | Market-source qualification / **P2 residual evidence limitation** |
+| Finding | Internal `verified` denotes a same-session snapshot accepted under the approved paper methodology. Provider publication time and final-bar status are not independently established; an exchange-final close is not independently verified |
+| Evidence | `financial-normalize.ts:76`, `observed-paper.ts:30–56`, `investment/policy.ts:103`; independent source review found no additional finality gate |
+| Impact | Collection/qualification success must not be described as independent exchange-close certification; vendor revision or lag cannot be ruled out from these records alone |
+| Root cause | Known boundary: non-null OHLCV plus calendar/session/raw-parser checks; `sourceAvailableAt:null`. Collection≥5 minutes and processing≥20 minutes after close are elapsed-time safeguards |
+| Recommended action | Disclose the accepted snapshot semantics and unknown availability/finality; evaluate stronger provider evidence or a prospective delay policy separately, without replaying spent requests |
+| Ownership / status | HQ market-data policy / **Mitigated by explicit methodology; residual unverified** |
+| Acceptance | Public/audit wording accurately distinguishes snapshot qualification from independent finality; any stronger guarantee requires reviewed source evidence and prospective policy acceptance. No corruption or current methodology violation is demonstrated |
