@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-14T05:32:43.397427+00:00",
+  "backupDirectory": "/var/backups/botsquad/ask-launch-20261014T053243Z",
+  "databaseSha256": "3e9856cddcf8ed8b6d2f814432955291798eeefb8a5922b509de24b37bfa40cb",
+  "bytes": 5595136,
+  "protectedMode": "0700/0600",
+  "rehearsalPath": "/var/tmp/botsquad-ask-migration-20261014/company.sqlite",
+  "credentialsCopied": false,
+  "productionDatabaseModified": false
+}

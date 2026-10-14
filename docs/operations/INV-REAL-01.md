@@ -1,5 +1,15 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Active Ask launch — October14,05:20UTC
+
+The owner explicitly prioritized [ASK-LAUNCH](ASK-LAUNCH.md). The API fallback is being implemented because personal-login anonymous public-service eligibility remains unestablished. No API expense, credential, grant or genuine model turn is authorized or provisioned. Public Ask stays closed. The [launch plan](../exec-plans/ask-launch.md) owns current implementation, validation and safe deployment work; historical PR88 acceptance below remains intact.
+
+Fresh readback05:20:14UTC preserves d262a8d/schema25/PID759078, the existing run/config/head/finite authority/active loop and publication generation1. Five batches and35heartbeats are delivered; actual selected market/collection/employee records remain zero before due sessions. The next genuine collection is October14 at11:45UTC. No reset, bootstrap or premature renewal occurred.
+
+Update05:45UTC: targeted validation and independent review are complete. Final549 inputs match Linux staging; shared regressions321/321 and corrected operational13/13 pass. Protected migration rehearsal preserves171 tables through schema25→29. Website and receiver closed deployment is acknowledged at6a194f0/build3eDBZMdlma5Ug7_iw_ZES. Concrete next execution packet: seal qualified evidence, complete normal PR/merge and perform a recoverable closed HQ deployment using exact same-generation receipt reconciliation. Keep the website chat as its sole writer. Genuine activation and four-case employee acceptance await the eventual single explicit provider-spending decision.
+
+The owner subsequently authorized the specific Motion coordination message that an earlier automatic review had rejected. That scoped coordination was delivered and the reported native slot released; it does not grant cleanup or unrelated build authority. HQ heavy work remains serial on Linux.
+
 ## Final source acceptance — October 13, 19:13 America/Vancouver
 
 PR88 contains reviewed implementation `fbef721c1ee94481cbb98c6cf2b40a6c6d4f6ba1` and

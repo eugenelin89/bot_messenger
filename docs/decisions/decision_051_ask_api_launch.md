@@ -1,0 +1,20 @@
+# Decision 051 — Separate Ask API route and safe closed launch
+
+**Date:** 2026-10-14  
+**Status:** Implementation authorized by the owner's ASK-LAUNCH request; API spending is not authorized
+
+Current [Signin integration guidance](https://developers.openai.com/siwc/token-sharing-open-source) describes each user's own ChatGPT-plan authorization and directs remotely hosted apps to a separate interest path. Together with [Codex authentication guidance](https://learn.chatgpt.com/docs/auth), this does not establish that the installed personal HQ subscription may answer anonymous website visitors. Preserve its concrete `ASK_PUBLIC_SERVICE_ELIGIBILITY_UNVERIFIED` rejection. No further login probe can manufacture that missing evidence.
+
+Use a separate `AskRuntimeAdapter` injected only into the shared Dispatcher's public-question branch. The existing employees, approved public roster, router, independent custody, private visitor history, public evidence and one answer-submission tool remain authoritative. Ordinary/investment runtime assignments do not change. API credentials stay in a protected service file, outside worker environments and contexts.
+
+The pinned candidate is [gpt-5.4-mini-2026-03-17](https://developers.openai.com/api/docs/models/gpt-5.4-mini), using the standard non-regional Responses endpoint, default service tier, reasoning none, `store:false`, `truncation:disabled`, output3072, one request, no continuation, built-ins or automatic retry. Reviewed base prices are input$0.75/M, cached input$0.075/M and output$4.50/M. Reserve the entire400000-token context envelope as a conservative input bound plus3072 output separately. These maxima need not coexist: the combined reservation overestimates exposure. The calculated maximum is313824microdollars; reserve314000. The131072-byte public-context limit is an additional size restriction, not a tokenizer estimate.
+
+Canonical AskLimits raises only the maximum permitted `maxInputTokens` from32000 to400000. Every service still requires explicitly approved finite values. Strict monetary modes and the existing activity-capped subscription variant retain their shapes and checks. Website consumer review accepted this narrow amendment; exact generated manifest and acceptance results must be recorded before adoption.
+
+An example owner decision is $5 total and rolling24hours,15 executions, one concurrent Ask. At most$4.71 is reserved across those calls. This is a proposal, never a grant. A typical2000-input/400-output request calculates to$0.0033 before caching. Actual invoice charges remain unavailable; usage receipts retain provider response/request IDs, actual normalized tokens and a rounded-up pinned-price base-token calculation. Failed or incomplete terminal Responses can incur charges and must settle separately from answer success. Missing usage, network loss or malformed output after transmission keeps the full reservation and fences new inference. No refund/retry resets it.
+
+Operational startup reads explicit protected configuration and existing production-purpose custody. It never initializes authority or creates a grant. Fixture genesis is rejected by the operational loader. Disabled/missing/invalid Ask configuration must leave investment running. An independent durable owner pause stops Ask admission/transmission/delivery and interrupts active public turns; privacy and receipt reconciliation remain available.
+
+`store:false` does not imply zero provider retention. [OpenAI data controls](https://developers.openai.com/api/docs/guides/your-data) describe default abuse-monitoring retention up to30days, with exceptions. Local deletion does not prove backup/media/provider erasure. Public disclosure and genuine acceptance must reflect measured host facts and these limits.
+
+HQ upgrade must preserve the current investment run, finite journal, portfolio, scheduled occurrences and receiver generation. An independent one-use clean-restart checkpoint is distinct from restore recovery; existing generation-advance restore rules remain unchanged. No direct fence clearing, bootstrap or authority reset is allowed.

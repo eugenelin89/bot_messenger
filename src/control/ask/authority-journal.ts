@@ -22,7 +22,7 @@ export type AskAppliedWireEffect =
  | {kind:'status';questionId:string;statusDigest:string}
  | {kind:'control_sync';syncId:string;applicationDigest:string};
 interface AskEffectCheckpoints {claims:Map<string,{serviceId:string;questionId:string;claimDigest:string}>;statuses:Map<string,{serviceId:string;questionId:string;statusDigest:string}>;controls:Map<string,{serviceId:string;applicationDigest:string}>}
-interface State extends AskEffectCheckpoints {configurations:Map<string,AskConfigurationCheckpoint>;head:Head;grants:Map<string,AskGrant>;revoked:Set<string>;models:Map<string,ModelState>;wires:Map<string,WireState>}
+interface State extends AskEffectCheckpoints {paused:Set<string>;configurations:Map<string,AskConfigurationCheckpoint>;head:Head;grants:Map<string,AskGrant>;revoked:Set<string>;models:Map<string,ModelState>;wires:Map<string,WireState>}
 export const ASK_AUTHORITY_CAPACITY=Object.freeze({events:10000,eventBytes:16384,pageBytes:4096,maxPages:131072});
 const schema=`PRAGMA user_version=1;
 CREATE TABLE events(sequence INTEGER PRIMARY KEY,epoch TEXT NOT NULL,at TEXT NOT NULL,kind TEXT NOT NULL,
@@ -71,6 +71,7 @@ function current(s:State,grantId:string,at:string):AskGrant {
   need(![...s.models.values()].some(x=>x.state==='settled_over_limit'),'BUDGET_EXHAUSTED');
   need(![...s.models.values()].some(x=>x.state==='unknown'),'OUTCOME_UNKNOWN');
   const g=s.grants.get(grantId);need(g&&!s.revoked.has(grantId)&&g.approvedAt<=at&&at<g.expiresAt,'FORBIDDEN');
+  need(!s.paused.has(g.serviceId),'UNAVAILABLE');
   need(![...s.grants.values()].some(x=>x.serviceId===g.serviceId&&BigInt(x.generation)>BigInt(g.generation)),'FORBIDDEN');return g;
 }
 function model(s:State,executionId:string):ModelState{const r=s.models.get(executionId);need(r,'CONFLICT');return r;}
@@ -102,6 +103,10 @@ function limits(s:State,g:AskGrant,r:AskReservation,at:string):void {
 /** One typed event interpreter validates both new writes and every replay. */
 function apply(s:State,kind:string,value:unknown,at:string,hqId:string):void {
   switch(kind){
+    case 'owner_pause':{
+      exact(value,'serviceId paused');id(value.serviceId as string);need(typeof value.paused==='boolean','INVALID_SCHEMA');
+      if(value.paused)s.paused.add(value.serviceId as string);else s.paused.delete(value.serviceId as string);break;
+    }
     case 'grant':{
       exact(value,'grant configuration');const g=grant(value.grant as AskGrant);configuration(g,value.configuration as AskGrantConfiguration);
       need(g.hqId===hqId&&g.approvedAt===at&&!s.grants.has(g.id),'CONFLICT');
@@ -239,7 +244,7 @@ export class AskAuthorityJournal {
   readonly path:string;readonly checkpointPath:string;
   private readonly db:DatabaseSync;private readonly owner=randomUUID();
   private readonly identities:readonly {path:string;dev:number;ino:number;directory:boolean}[];
-  constructor(readonly directory:string,readonly checkpointDirectory:string,readonly hqId:string,excludedBackupRoots:readonly string[]){
+  constructor(readonly directory:string,readonly checkpointDirectory:string,readonly hqId:string,excludedBackupRoots:readonly string[],private readonly purpose:'ask-fixture-v1'|'ask-production-v1'='ask-fixture-v1'){
     id(hqId);locations(directory,checkpointDirectory,excludedBackupRoots);
     this.path=join(directory,'authority.sqlite');this.checkpointPath=join(checkpointDirectory,'checkpoint.json');
     this.identities=[directory,checkpointDirectory,this.path].map((path,i)=>{const stat=privatePath(path,i<2);return{path,dev:stat.dev,ino:stat.ino,directory:i<2};});
@@ -250,22 +255,29 @@ export class AskAuthorityJournal {
       need(this.db.prepare('PRAGMA user_version').get()?.user_version===1,'CONFLICT');this.read();
     }catch(e){this.db.close();throw e;}
   }
-  /** Test construction only. There is deliberately no production initializer or runtime permit. */
+  /** Fixture custody is never accepted by the operational loader. */
   static createFixture(directory:string,checkpointDirectory:string,hqId:string,excludedBackupRoots:readonly string[],at:string):AskAuthorityJournal {
+    return this.initialize(directory,checkpointDirectory,hqId,excludedBackupRoots,at,'ask-fixture-v1');
+  }
+  /** Explicit offline provisioning only. Empty custody grants no spending or model authority. */
+  static createProduction(directory:string,checkpointDirectory:string,hqId:string,excludedBackupRoots:readonly string[],at:string,initializationApprovalDigest:string):AskAuthorityJournal {
+    digest(initializationApprovalDigest);return this.initialize(directory,checkpointDirectory,hqId,excludedBackupRoots,at,'ask-production-v1',initializationApprovalDigest);
+  }
+  private static initialize(directory:string,checkpointDirectory:string,hqId:string,excludedBackupRoots:readonly string[],at:string,purpose:'ask-fixture-v1'|'ask-production-v1',initializationApprovalDigest?:string):AskAuthorityJournal {
     id(hqId);instant(at);locations(directory,checkpointDirectory,excludedBackupRoots);
     const path=join(directory,'authority.sqlite'),checkpoint=join(checkpointDirectory,'checkpoint.json');
     need(!exists(path)&&!exists(checkpoint),'CONFLICT');
     for(const suffix of ['-journal','-wal','-shm'])need(!exists(path+suffix),'OUTCOME_UNKNOWN');
     // Permanent initialization marker prevents a partial genesis being mistaken for virgin custody.
-    writeExclusive(join(directory,'initialized'),'ask-authority-fixture-v1');syncDir(directory);
+    writeExclusive(join(directory,'initialized'),purpose);syncDir(directory);
     writeExclusive(path,'');const db=new DatabaseSync(path);
     try{
       db.exec('PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; BEGIN IMMEDIATE;');db.exec(schema);
-      const body={sequence:1,epoch:randomUUID(),at,kind:'genesis',payload:canonicalJson({hqId,purpose:'ask-fixture-v1'}),previous:null};
+      const body={sequence:1,epoch:randomUUID(),at,kind:'genesis',payload:canonicalJson({hqId,purpose,...(initializationApprovalDigest?{initializationApprovalDigest}:{})}),previous:null};
       const hash=canonicalHash(body);db.prepare('INSERT INTO events VALUES(?,?,?,?,?,?,?)').run(1,body.epoch,at,body.kind,body.payload,null,hash);db.exec('COMMIT');
       writeExclusive(checkpoint,canonicalJson({epoch:body.epoch,sequence:1,digest:hash,at}));syncDir(directory);syncDir(checkpointDirectory);
     }finally{db.close();}
-    return new AskAuthorityJournal(directory,checkpointDirectory,hqId,excludedBackupRoots);
+    return new AskAuthorityJournal(directory,checkpointDirectory,hqId,excludedBackupRoots,purpose);
   }
   private present():void {
     for(const expected of this.identities){const s=privatePath(expected.path,expected.directory);need(s.dev===expected.dev&&s.ino===expected.ino,'CONFLICT');}
@@ -277,12 +289,14 @@ export class AskAuthorityJournal {
     this.present();need(this.db.prepare('PRAGMA integrity_check').get()?.integrity_check==='ok','CONFLICT');
     const count=this.db.prepare('SELECT count(*) n FROM events').get()!.n as number;need(count>0&&count<=ASK_AUTHORITY_CAPACITY.events,'BUDGET_EXHAUSTED');
     const rows=this.db.prepare('SELECT * FROM events ORDER BY sequence').all() as unknown as Entry[];
-    const s:State={claims:new Map(),statuses:new Map(),controls:new Map(),configurations:new Map(),head:null!,grants:new Map(),revoked:new Set(),models:new Map(),wires:new Map()};
+    const s:State={paused:new Set(),claims:new Map(),statuses:new Map(),controls:new Map(),configurations:new Map(),head:null!,grants:new Map(),revoked:new Set(),models:new Map(),wires:new Map()};
     for(const row of rows){
       const {digest:hash,...body}=row;instant(row.at);need(row.sequence===(s.head?.sequence??0)+1&&row.previous===(s.head?.digest??null)
         &&canonicalHash(body)===hash&&(!s.head||row.epoch===s.head.epoch&&row.at>=s.head.at),'CONFLICT');
       const payload=JSON.parse(row.payload);need(canonicalJson(payload)===row.payload,'CONFLICT');
-      if(row.sequence===1){need(row.kind==='genesis'&&canonicalJson(payload)===canonicalJson({hqId:this.hqId,purpose:'ask-fixture-v1'}),'CONFLICT');}
+      if(row.sequence===1){exact(payload,'hqId purpose'+(this.purpose==='ask-production-v1'?' initializationApprovalDigest':''));
+        need(row.kind==='genesis'&&payload.hqId===this.hqId&&payload.purpose===this.purpose,'CONFLICT');
+        if(this.purpose==='ask-production-v1')digest(payload.initializationApprovalDigest as string);}
       else apply(s,row.kind,payload,row.at,this.hqId);
       s.head={epoch:row.epoch,sequence:row.sequence,digest:hash,at:row.at};
     }
@@ -310,6 +324,8 @@ export class AskAuthorityJournal {
   approve(value:AskGrant,config:AskGrantConfiguration,at:string):void {this.event('grant',{grant:value,configuration:config},at);}
   assertCurrent(grantId:string,at:string):AskGrant {instant(at);return structuredClone(current(this.read(),grantId,at));}
   revoke(grantId:string,at:string):void {this.event('revoke',{grantId},at);}
+  ownerPause(serviceId:string,paused:boolean,at:string):void {this.event('owner_pause',{serviceId,paused},at);}
+  isPaused(serviceId:string):boolean {id(serviceId);return this.read().paused.has(serviceId);}
   reserve(value:AskReservation,at:string):void {this.event('reserve',{binding:value,owner:this.owner},at);}
   admit(executionId:string,value:AskAdmissionProof,at:string):void {this.event('admit',{executionId,owner:this.owner,proof:value},at);}
   beforeModelTransmit(executionId:string,value:AskAdmissionProof,at:string):void {this.event('transmit',{executionId,owner:this.owner,proof:value},at);}

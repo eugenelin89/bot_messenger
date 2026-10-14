@@ -6,7 +6,8 @@ import {contextKey} from '../../../scripts/investment-contracts/ask.js';
 import {configuration,type AskGrant,type AskGrantConfiguration,type AskReservation} from '../../domain/ask/authority.js';
 import type {AskDispatchRow,AskPreparedTurn,AskPublicContext,AskRuntimeInput,AskDocumentDependency,AskEvidenceDependencies} from '../../domain/ask/execution.js';
 import type {AskExecution} from '../../domain/model.js';
-import {tool,type RuntimeResult} from '../../runtime/adapter.js';
+import type {AskRuntimeResult,AskRuntimeAdapter} from '../../runtime/adapter.js';
+import {checkApiUsage,askSubmitTool} from '../../domain/ask/api-policy.js';
 import type {Company} from '../company.js';
 import {AskAuthorityJournal} from './authority-journal.js';
 import {AskControlJournal} from './control-journal.js';
@@ -25,13 +26,7 @@ export interface AskServiceOptions {
  visibleReferences(references:ContextRef[],sources:Source[],documents:AskDocumentDependency[]):boolean;
  now?():string;
 }
-const submit=tool('ask_submit_answer','Submit one session-private answer. Only the supplied public evidence is available. No investment, owner, private history, filesystem, research or company action is possible.',{
- text:{type:'string',minLength:1,maxLength:8000},
- interpretation:{type:'string',enum:['general_answer','historical_record_explanation','new_interpretation','clarification','refusal']},
- evidence:{type:'array',maxItems:20,items:{type:'integer',minimum:0}},
- publicSources:{type:'array',maxItems:20,items:{type:'integer',minimum:0}},
- limitations:{type:'array',maxItems:20,items:{type:'string',maxLength:1000}},
-});
+const submit=askSubmitTool();
 
 /** One coordinator for existing employees; raw text never enters Company records. */
 export class AskService {
@@ -39,6 +34,16 @@ export class AskService {
  private readonly active=new Map<string,{turn:AskPreparedTurn;answer?:AskAnswer}>();
  private closed=false;
  private now(){return this.options.now?.()??new Date(this.company.mandates.clock.now()).toISOString();}
+ get ownerPaused():boolean{return this.options.authority.isPaused(this.options.current().scope.serviceId);}
+ pauseOwner(paused:boolean):void {
+  this.company.conversations.human();need(typeof paused==='boolean','INVALID_SCHEMA');
+  this.options.authority.ownerPause(this.options.current().scope.serviceId,paused,this.now());
+  if(paused)for(const id of this.active.keys())this.company.emit('ask_interrupt',id);
+  this.company.changed();
+ }
+ inspect(){return{installed:true,serviceId:this.options.current().scope.serviceId,paused:this.ownerPaused,closed:this.closed,
+  active:this.active.size,grantId:this.options.grantId};}
+ assertOperational(purpose:'admission'|'execution'|'delivery'):void {need(!this.closed,'UNAVAILABLE');this.config(purpose);}
  constructor(readonly company:Company,private readonly options:AskServiceOptions){
   need(!company.ask,'CONFLICT');validate('AskServiceScope',options.current().scope);
   this.closed=!!company.store.get('SELECT 1 FROM ask_service_holds WHERE service_id=?',options.current().scope.serviceId);company.ask=this;
@@ -192,29 +197,32 @@ export class AskService {
   need(this.options.visibleReferences(dependencies.references,dependencies.sources,dependencies.documents),'WITHDRAWN');
   need(canonicalHash(active.turn.context)===row.context_digest,'CONFLICT');
  }
- async run(turn:AskPreparedTurn,adapter:import('../../runtime/adapter.js').RuntimeAdapter,signal:AbortSignal):Promise<void>{
-  const id=turn.runtime.execution.execution_id;let result:RuntimeResult={status:'failed',settled:false};
+ async run(turn:AskPreparedTurn,adapter:AskRuntimeAdapter,signal:AbortSignal):Promise<void>{
+  const id=turn.runtime.execution.execution_id;let result:AskRuntimeResult={status:'failed',settled:false};
   try{need(adapter.runAsk,'UNAVAILABLE');this.authorize(id);result=await adapter.runAsk(turn.runtime,signal);}
   catch{/* Errors may contain private input; retain only the trusted outcome below. */}
   this.finish(id,result);
  }
- private finish(id:string,result:RuntimeResult):void {
+ private finish(id:string,result:AskRuntimeResult):void {
   const db=this.company.store,row=this.row(id),active=this.active.get(id)!;
   try{
-   this.company.aiUsage.finish(id,result.status,result.settled===true,id,result.providerTurnCompleted===true);
+   if(result.apiUsage){checkApiUsage(result.apiUsage);const observed=this.company.aiUsage.records({executionId:id})[0]!;
+    need(observed.model===result.apiUsage.model&&observed.turn_id===result.apiUsage.responseId
+     &&canonicalHash(observed.tokens)===canonicalHash(result.apiUsage.tokens),'CONFLICT');}
+   this.company.aiUsage.finish(id,result.status,result.settled===true,id,result.providerTurnCompleted===true,!!result.apiUsage);
    const model=this.options.authority.inspect().models.find(m=>m.binding.id===id)!;
    const usage=this.company.aiUsage.records({executionId:id})[0]!;
    if(model.state==='reserved'||model.state==='admitted')this.options.authority.notSent(id,this.now());
-   else if(model.state==='transmitted'&&result.providerTurnCompleted===true&&result.settled===true&&usage.completeness==='complete'&&usage.tokens&&model.proof){
+   else if(model.state==='transmitted'&&(result.providerTurnCompleted===true||!!result.apiUsage)&&result.settled===true&&usage.completeness==='complete'&&usage.tokens&&model.proof){
     this.options.authority.settle(id,{providerSessionId:model.proof.providerSessionId,responseDigest:canonicalHash(active.answer??null),
-     usageDigest:canonicalHash({tokens:usage.tokens,turn:usage.turn_id}),inputTokens:usage.tokens.inputTokens,outputTokens:usage.tokens.outputTokens,chargeMicros:null,complete:true},this.now());
+     usageDigest:canonicalHash({tokens:usage.tokens,turn:usage.turn_id,...(result.apiUsage?{api:result.apiUsage}:{})}),inputTokens:usage.tokens.inputTokens,outputTokens:usage.tokens.outputTokens,chargeMicros:result.apiUsage?.chargeMicros??null,complete:true,...(result.apiUsage?{api:result.apiUsage}:{})},this.now());
    }else this.options.authority.unknown(id,this.now());
    const settled=this.options.authority.inspect().models.find(m=>m.binding.id===id)!;
    let state:AskDispatchRow['state']='failed';
    if(settled.state==='settled'&&settled.receipt&&result.status==='completed'&&active.answer){
     let authorized=false;
     try{this.authorize(id);authorized=true;}catch(error){
-     state='suppressed';if(!(error instanceof ContractError)||!['FORBIDDEN','WITHDRAWN','EXPIRED'].includes(error.code)){this.hold('content_reconciliation',false);state='failed';}
+     state='suppressed';if(!(error instanceof ContractError)||!['FORBIDDEN','WITHDRAWN','EXPIRED'].includes(error.code)&&!(error.code==='UNAVAILABLE'&&this.ownerPaused)){this.hold('content_reconciliation',false);state='failed';}
     }
     if(authorized)try{this.options.content.commitAnswer(row.question_id,active.answer);state='completed';}catch{this.hold('content_reconciliation',false);state='failed';}
    }else if(settled.state!=='settled'&&settled.state!=='settled_over_limit')state='unknown';
@@ -287,7 +295,7 @@ export class AskService {
  }
  nextWake():string|null {
   const now=Date.parse(this.now()),times:number[]=[];
-  if(this.claims.size||this.active.size||this.company.store.get("SELECT 1 FROM ask_imports WHERE service_id=? AND state NOT IN ('suppressed','expired','held')",this.options.current().scope.serviceId))times.push(now+15000);
+  if(this.claims.size||this.active.size||this.company.store.get("SELECT 1 FROM ask_imports WHERE service_id=? AND (retain_until>? OR state NOT IN ('suppressed','expired','held'))",this.options.current().scope.serviceId,this.now()))times.push(now+15000);
   for(const claim of this.claims.values())times.push(Date.parse(claim.leaseExpiresAt));
   const last=this.company.store.get<{duty_until:string}>("SELECT duty_until FROM ask_dispatches ORDER BY duty_until DESC LIMIT 1");
   if(last&&this.claims.size&&Date.parse(last.duty_until)>now)times.push(Date.parse(last.duty_until));

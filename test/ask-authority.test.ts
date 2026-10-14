@@ -333,3 +333,17 @@ test('configuration high-water is per signing key and never resolves another cal
  const rollback=record('key-a','9','read-rollback');reject(()=>f.journal.observeConfiguration(['read-rollback'],'read-rollback',rollback,at),'CONFLICT');
  f.reopen();assert.equal(f.journal.inspect().configurations.length,2);assert.equal(f.journal.inspect().configurations.find(c=>c.keyId==='key-a')!.revision,'10');
 });
+
+test('production genesis grants nothing, rejects fixture replay and cannot be silently recreated',t=>{
+ const base=realpathSync(mkdtempSync(join(tmpdir(),'ask-production-genesis-'))),dir=join(base,'authority'),cp=join(base,'checkpoint'),excluded=join(base,'company');
+ for(const p of [dir,cp,excluded])mkdirSync(p,{mode:0o700});t.after(()=>rmSync(base,{recursive:true,force:true}));
+ const j=AskAuthorityJournal.createProduction(dir,cp,'hq',[excluded],at,h('explicit empty-custody initialization'));assert.equal(j.inspect().grants.length,0);j.close();
+ assert.throws(()=>new AskAuthorityJournal(dir,cp,'hq',[excluded]));
+ const reopened=new AskAuthorityJournal(dir,cp,'hq',[excluded],'ask-production-v1');assert.equal(reopened.inspect().models.length,0);reopened.close();
+ unlinkSync(join(cp,'checkpoint.json'));assert.throws(()=>AskAuthorityJournal.createProduction(dir,cp,'hq',[excluded],later,h('another')));
+});
+test('owner pause remains independent, durable and does not refund consumption',t=>{
+ const f=fixture();t.after(()=>f.close());const g=approve(f);settled(f,g,'a');f.journal.ownerPause(g.serviceId,true,at);
+ reject(()=>f.journal.assertCurrent(g.id,at),'UNAVAILABLE');f.reopen();assert.equal(f.journal.isPaused(g.serviceId),true);
+ f.journal.ownerPause(g.serviceId,false,at);settled(f,g,'b');reject(()=>f.journal.reserve(binding(g,'c'),at),'BUDGET_EXHAUSTED');
+});

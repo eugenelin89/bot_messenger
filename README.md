@@ -1,5 +1,7 @@
 # BotSquad
 
+**ASK-LAUNCH, October14:** The owner prioritized public Ask. A separate stateless OpenAI API route and protected operational integration passed authored Linux validation and are ready for a reviewed closed deployment, disabled until actual credentials and explicit spending approval. The personal Codex route still rejects unproven anonymous-service eligibility. See the [launch plan](docs/exec-plans/ask-launch.md) and [operator runbook](docs/operations/ASK-LAUNCH.md). No genuine API answer or public activation is claimed.
+
 
 **INV-REAL-01, 2026-10-13 (production active; public portfolio connected):** The real [investment archive](https://asymmetri.co/botsquad/investment) shows Atlas, Maya, USD100,000 paper capital and its initialization journal. The deployed HQ `d262a8d` has a finite October14–15 loop; the first market collection is due October14 at11:45UTC. No market returns, employee decisions or trades are claimed yet. Owner login is repaired. Ask remains closed while genuine routing and acceptance are completed. Yahoo confirmation is owner-reported; no further licensing gate applies. The hourly completion heartbeat remains active. See the [operation/morning handoff](docs/operations/INV-REAL-01.md) for exact identities, receipts and remaining work.
 

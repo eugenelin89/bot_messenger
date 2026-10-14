@@ -5687,7 +5687,7 @@
         "maxInputTokens": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 32000
+          "maximum": 400000
         },
         "maxOutputTokens": {
           "type": "integer",

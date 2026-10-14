@@ -1,7 +1,7 @@
 import type { RuntimeCatalog } from '../domain/ai-profile.js';
 import { requireThat } from '../domain/model.js';
 import { Company } from './company.js';
-import { companyTools, researchTools, type RuntimeAdapter, type RuntimeInput } from '../runtime/adapter.js';
+import { companyTools, researchTools, type RuntimeAdapter, type RuntimeInput, type AskRuntimeAdapter } from '../runtime/adapter.js';
 import { RESEARCH_TOOLS } from '../domain/research.js';
 import { COMPUTER_TOOLS } from './computers.js';
 import { computerTools } from '../runtime/computer.js';
@@ -16,7 +16,7 @@ export class Dispatcher {
   private readonly onInvestmentInterrupt=(scopeId:string)=>{for(const [executionId,active] of this.running){if(this.company.store.get('SELECT 1 FROM investment_team_executions WHERE execution_id=? AND scope_id=?',executionId,scopeId))active.controller.abort('Investment scope authority ended');}};
   runtimeState: 'unknown' | 'ready' | 'degraded' = 'unknown';
   private catalogRequest?: Promise<RuntimeCatalog>;
-  constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2) {
+  constructor(readonly company: Company, readonly adapter: RuntimeAdapter, readonly maxActive = 2, readonly askAdapter:AskRuntimeAdapter=adapter) {
     requireThat(Number.isInteger(maxActive) && maxActive >= 1 && maxActive <= 2, 'Global concurrency must be one or two');
     this.company.research.provider ??= adapter.researchProvider?.(this.company.dataDir);
     this.company.investmentTeam.runtime=adapter;
@@ -71,14 +71,14 @@ export class Dispatcher {
         // Ordinary owner/investment work has first admission. Public work shares this
         // running map and the same database worker/global exclusion, with one Ask slot.
         const ask=this.company.ask;
-        if(!ask||!this.adapter.runAsk||!this.adapter.assertAskAvailable)break;
-        try{this.adapter.assertAskAvailable();}catch{break;}
+        if(!ask||!this.askAdapter.runAsk||!this.askAdapter.assertAskAvailable)break;
+        try{this.askAdapter.assertAskAvailable();}catch{break;}
         let turn:ReturnType<typeof ask.claimNext>;
         try{turn=ask.claimNext(this.maxActive);}catch{break;}
         if(!turn)break;
         const controller=new AbortController(),id=turn.runtime.execution.execution_id;
         const timer=setTimeout(()=>controller.abort('Public question deadline expired'),Math.max(1,Date.parse(turn.runtime.localDeadline)-this.company.mandates.clock.now()));
-        const done=ask.run(turn,this.adapter,controller.signal).finally(()=>{clearTimeout(timer);this.running.delete(id);this.kick();});
+        const done=ask.run(turn,this.askAdapter,controller.signal).finally(()=>{clearTimeout(timer);this.running.delete(id);this.kick();});
         this.running.set(id,{controller,done});continue;
       }
       const { worker, execution, context } = claim;

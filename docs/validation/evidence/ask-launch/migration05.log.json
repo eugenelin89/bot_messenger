@@ -1,0 +1,6 @@
+{
+  "sha256": "c8bda8779710cc32c76e794096611993d04391e20d6b724b7765e80ca60034de",
+  "bytes": 100,
+  "text": "{\"oldVersion\":25,\"newVersion\":29,\"retainedTables\":171,\"addedEmpty\":13,\"reopens\":3,\"integrity\":\"ok\"}\n",
+  "counts": {}
+}

@@ -1,0 +1,750 @@
+{
+  "checkedAt": "2026-10-14T05:34:31.376Z",
+  "oldVersion": 25,
+  "newVersion": 29,
+  "reopens": 3,
+  "retainedTables": {
+    "ai_usage": {
+      "rows": 69,
+      "digest": "72245982a1948657d3eaa3391e195fa8ab660f6fc11a9d930f95f10305a5d8f0"
+    },
+    "ai_usage_observations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "ai_usage_responses": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "allocation_commits": {
+      "rows": 4,
+      "digest": "076f736c431a1e57aab26f08321bdbf7ec0045f5dbcc9562b94b46bfe6992328"
+    },
+    "allocation_releases": {
+      "rows": 4,
+      "digest": "9d6dd84beacd8bcd5810d6319f0aba040376738b4b4a001fdd76e52d85544faf"
+    },
+    "allocations": {
+      "rows": 6,
+      "digest": "c8e7d93c08eb65d6efce073ffe79dc23de9bb5e00100cc82761f3fbb6055c450"
+    },
+    "approvals": {
+      "rows": 16,
+      "digest": "c3402672e2a3eb8c73ae8a2b9909fbcfeb8fbf4796673637a309daff5ba22406"
+    },
+    "artifacts": {
+      "rows": 12,
+      "digest": "3d98883009621f2647ffdbc48d2f1a82d0cd0962eb92565d2384da0b2357ffbb"
+    },
+    "audit_events": {
+      "rows": 1673,
+      "digest": "8dc7ceaa0a80f78d6992f2ad43d553761906a4f9506a7bf91ad3e25e3e0c0868"
+    },
+    "business_approvals": {
+      "rows": 1,
+      "digest": "74ecf6c9f58460357a0d4d05c6d40c90fa38badd5d239e29cdd0550ec0aabd4d"
+    },
+    "business_attempts": {
+      "rows": 1,
+      "digest": "dd60fb358d5c251d9d9436c0ae63ac57220935fc9418d54ae68d60a8e08a9f04"
+    },
+    "business_controls": {
+      "rows": 1,
+      "digest": "9727377780e05ae71ef858263ddc7eb2e4ca651220575a291ae3daff5b68ac96"
+    },
+    "business_evidence": {
+      "rows": 4,
+      "digest": "601e1f15dcb462d8db40c3be881b9cc6581c3a61fa251e7e561ffe2227559320"
+    },
+    "business_grants": {
+      "rows": 1,
+      "digest": "9e0c4343a99a8c8c57e118004ddeba3d0161fbaa22b023e972f1bb8c713a7106"
+    },
+    "business_reads": {
+      "rows": 4,
+      "digest": "22e96b650ee72340b2ce59edbbbf8bdc1c1654d8917a290d5f2f9c727a1fed5b"
+    },
+    "business_receipts": {
+      "rows": 1,
+      "digest": "265e39e1402468914beaf482208704a259eaf64204221e755d7f8aab02ee2121"
+    },
+    "business_reconciliations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "business_snapshots": {
+      "rows": 4,
+      "digest": "d0c2253eeb10829c2f2f7d0006a60567f801e02a2c63641ab057c8505a777de8"
+    },
+    "channels": {
+      "rows": 1,
+      "digest": "cc46cea6c302d12efb1ff16359d4643d9e44ccceb454f59e48ea7c711b0e45b4"
+    },
+    "client_challenges": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "client_events": {
+      "rows": 207,
+      "digest": "164516fe02a30e36bed11ccd6f9f33b6ea583895030dff5ed31c653d2f5357fb"
+    },
+    "client_hq": {
+      "rows": 1,
+      "digest": "235256b946c11047623a62c033ba7b4f93dbee9affcd87f3ad34ec4764e3ff83"
+    },
+    "client_pairings": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "client_receipts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "client_tokens": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_contexts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_evidence": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_grants": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_intents": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_network_events": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_operations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "computer_sessions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "conversation_chains": {
+      "rows": 9,
+      "digest": "b820e3e1077213456704d000c7c1b3e4cffc03bddcef31f9fdce9ea8f513c41e"
+    },
+    "conversation_deliveries": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "conversation_messages": {
+      "rows": 15,
+      "digest": "b73e0431b9c5019151e879c43d44fc6b1a22e62d5f1bbc445acde2ae2f398354"
+    },
+    "conversation_notes": {
+      "rows": 1,
+      "digest": "cbe6992e10c80b6ae13d52b7dee1d691d23b78e91d9df3786f9258c4b8888c72"
+    },
+    "conversation_participants": {
+      "rows": 7,
+      "digest": "39277dc7ca327656bc46c1fbe63dec7fc1b1c2bc5051426892b2b542809afe96"
+    },
+    "conversation_receipts": {
+      "rows": 5,
+      "digest": "c197c84042ef75ac6534e9e11d410161dfc27c8a5d09d6f2e8b4f3ffd1841b8d"
+    },
+    "conversation_requests": {
+      "rows": 9,
+      "digest": "3bf1ff5511ca52b85ecfb46dbe5c03cd09a8d5235afe8d8c3a6a8d63829a5c1e"
+    },
+    "conversation_sessions": {
+      "rows": 5,
+      "digest": "0b70f994e8a4540fc3ae5879efcfd95c65bd2f91c54d2881759e29909c4b9e85"
+    },
+    "conversations": {
+      "rows": 3,
+      "digest": "07ec4e620b466898dc6264a3dc7417ccfa7b204cffa15b2dffd1c115bcbcc054"
+    },
+    "discussion_assignments": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "discussion_checkpoints": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "discussion_contributions": {
+      "rows": 1,
+      "digest": "d619c91d003fc12692dfebc49817bbf319f45b154b7ad9636704aa4d81388626"
+    },
+    "discussion_extensions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "discussion_questions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "discussion_receipts": {
+      "rows": 2,
+      "digest": "1961e54ffb72e9067fcc67f0702eac0da6ea1831481f33d89fcb2bcfe4577641"
+    },
+    "discussion_retrieval_usage": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "discussion_turns": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "execution_runtime_attempts": {
+      "rows": 16,
+      "digest": "19193ea8a8a054fa2c026ef71ca22517351a0c2c16b9ba3a981cca786da43901"
+    },
+    "executions": {
+      "rows": 69,
+      "digest": "4ae009a6706d5f949116bc2f05a268ea2fb91e4c395a4e244c357b8eb8a27350"
+    },
+    "external_actions": {
+      "rows": 1,
+      "digest": "3908d516fbdf9bffec941513334e34f4ae7b25b875117eb64dbcff89b02c92c9"
+    },
+    "financial_attempt_results": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_attempts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_deliveries": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_observations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_payloads": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_requests": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_results": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_revocations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "financial_scopes": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "group_evidence": {
+      "rows": 1,
+      "digest": "0e093668dcf975045324378d55d11f1cb9c43f287cdf52ea03fc509de7744fbb"
+    },
+    "group_syntheses": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "host_operation_receipts": {
+      "rows": 11,
+      "digest": "9ce7dca1360c01eb2a6226977249c45956c78c19456053686f2a9accedc44f8a"
+    },
+    "infrastructure_tasks": {
+      "rows": 21,
+      "digest": "edaeeb6f6046f98a500b438e51e06cafe5d827686c83d76d0e008eb21525b135"
+    },
+    "initiatives": {
+      "rows": 1,
+      "digest": "fb20aefe76e21a68f3d614e32accdd6379af61ddb0f15813aec7112b0110e3b3"
+    },
+    "integrations": {
+      "rows": 2,
+      "digest": "5096eac673a56ae02e911600efa527fa55a7176c8980b554c008b346a90b3d71"
+    },
+    "investment_activity_clock": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_activity_invocations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_credit_pilot": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_finite_controls": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_finite_reservations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_journal": {
+      "rows": 2,
+      "digest": "af6d0fbac46f9f6dc84511c24907af2595c4a1bcca9829bdf30645705d0ae381"
+    },
+    "investment_loop_attempts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_loop_controls": {
+      "rows": 1,
+      "digest": "22bc3e00182f477ee7f4bbfee4fad7d3e7a6c99690a771d6db349727eb763555"
+    },
+    "investment_loop_executions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_loop_occurrences": {
+      "rows": 14,
+      "digest": "d2802586e7f3d15840bf2555d7f9e334052803a0ca36efa03e783682a9a379f7"
+    },
+    "investment_loop_previews": {
+      "rows": 1,
+      "digest": "e0fd7a215126b7e71454f240761d023f0b72fb78b58b50fde362f2346a9bd289"
+    },
+    "investment_loop_requests": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_loop_usage": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_loops": {
+      "rows": 1,
+      "digest": "3dc6fa43e6dc25f44297681e8435b83f02a69431353d85a8f7a8d64ac6c4571e"
+    },
+    "investment_market_attempts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_market_records": {
+      "rows": 11,
+      "digest": "2fbbe0c6f36ef146a17d01d618a0f9eed5ad123a14e5d3343048e033f50bcbd5"
+    },
+    "investment_market_results": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_outbox": {
+      "rows": 2,
+      "digest": "cc9b8816b96641f71687a1318b24b6a51a4af4c7304d042227a37c674cff44ec"
+    },
+    "investment_private_runs": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_public_attempts": {
+      "rows": 41,
+      "digest": "c621ad756e6637410b077022da629277a15540e19826bed11f760cbc40d3f385"
+    },
+    "investment_public_captures": {
+      "rows": 1,
+      "digest": "3689dd823f594c264f2e3b1cefc1568275735729af622b09a5ac83aac9fe8469"
+    },
+    "investment_public_channels": {
+      "rows": 1,
+      "digest": "f12b36e6811874367c566f5f8f11c3c7e45aa2478e3c6e78e2687ac88741baf3"
+    },
+    "investment_public_controls": {
+      "rows": 1,
+      "digest": "963402a2b22d4fe858d541ec41a351616b83ee1b13b37241c8db3fa92f3b496f"
+    },
+    "investment_public_grants": {
+      "rows": 1,
+      "digest": "c266a614d4cc514cb1cbde21e9b1d615c76c7669cdeefa42663e956dbc3fd8e8"
+    },
+    "investment_public_identities": {
+      "rows": 26,
+      "digest": "49ae9164c6bd900427e453b8b813ba2ac2e17ee1d433710a3e9bc120c799e951"
+    },
+    "investment_public_intents": {
+      "rows": 2,
+      "digest": "cd8e104da90dcdedad829d95e59036d0405c602bb567e0c2e91a9f226a3f4edc"
+    },
+    "investment_public_jobs": {
+      "rows": 41,
+      "digest": "f762c0e855e1711127957b5f782558324029bd375083bee810587e3331008f22"
+    },
+    "investment_public_previews": {
+      "rows": 1,
+      "digest": "5efdd8302ec9fc359f83fbe3d4ef4161007d9a7b70c3c9dce2a0612cffd4f981"
+    },
+    "investment_public_results": {
+      "rows": 41,
+      "digest": "894ec151f4dac19d9dbda990084cd13e90c73b6c20ca70cdf9a32fe21ccb4056"
+    },
+    "investment_public_sequences": {
+      "rows": 5,
+      "digest": "0cd7b30ca9d71de6c77810a167b7bd85f569881691ba78cbadf5952dd68442ca"
+    },
+    "investment_receipts": {
+      "rows": 2,
+      "digest": "2d7d6f519ac82c8856d88e63503544aa466f51bb99aa3eff39b5e14cd1667161"
+    },
+    "investment_run_identities": {
+      "rows": 1,
+      "digest": "7c189a1b30d7ceebdfa92643cf0b2faf052c1b88f09e6e408cdb0269024a7922"
+    },
+    "investment_runs": {
+      "rows": 1,
+      "digest": "0d96d44e9157b2ec60a8ef7787c400a83b2f9c7f422b6622217dc28eda10c1e9"
+    },
+    "investment_setup_previews": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_setup_receipts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_team_controls": {
+      "rows": 1,
+      "digest": "5808d8c2a6745f70c2d9a8b84023e5cbfb9e39bd65618ae0bc0291bd3713b2ab"
+    },
+    "investment_team_executions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_team_previews": {
+      "rows": 1,
+      "digest": "3aa3d9f6deeed9c63b7daa4c5a4e743a31e7cc99b1185c87c9cdb1d31b8ea883"
+    },
+    "investment_team_proposals": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_team_reviews": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "investment_team_scopes": {
+      "rows": 1,
+      "digest": "c8d56cbd42be603eb06a62836c3c74acc39731b5ee8dee889d3198d883ab2380"
+    },
+    "investment_team_submissions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "legacy_runtime_bindings": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "mandate_conversations": {
+      "rows": 1,
+      "digest": "ae99c6bd89b1257b1eddfa33eb144053e8672aacd41b5f3851503fc503dd259d"
+    },
+    "mandate_evidence_delivery": {
+      "rows": 16,
+      "digest": "76e7c4ae94ac3749ec8330adf89f9091790c3c80bcea080f4eb8724816341a8d"
+    },
+    "mandate_internal_work": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "mandate_observations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "mandate_read_chunks": {
+      "rows": 34,
+      "digest": "d3bfe80a2e30664ab5749504fa4d443437c319a4dfa4ef63903e91b7d7cb9082"
+    },
+    "mandate_read_usage": {
+      "rows": 4,
+      "digest": "9d762de1713bb03d025929297fa467e09b1fc9d3b0e582c086e454592db6a936"
+    },
+    "mandate_task_evidence": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "mandate_task_sessions": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "mandate_turns": {
+      "rows": 4,
+      "digest": "81cc7bbf503f0aa0c130f2a1d3c8ae1379af5f64a2ac10d9571e3fa8dc5b5dcf"
+    },
+    "mandates": {
+      "rows": 1,
+      "digest": "f6ecb315e6763b31cf107f988a0a8271bdd4a7ca8b9612e5148b69616606b1d2"
+    },
+    "messages": {
+      "rows": 72,
+      "digest": "c109e4057ff5be93a7457ffbfae1fdeb422f76626a1039c55dc1034edf76054e"
+    },
+    "observed_collection_results": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "observed_financial_evidence": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "observed_investment_previews": {
+      "rows": 1,
+      "digest": "2d8bdca14b3e6f5596fa4231e055458e1ec1074d26e3ac2e8b11712fe2441a30"
+    },
+    "observed_investment_receipts": {
+      "rows": 1,
+      "digest": "103566fa970208ec78cbd4214e618b4ff4dc609bb61604e7b48e3e2ec1777c06"
+    },
+    "observed_investment_runs": {
+      "rows": 1,
+      "digest": "9fe0795f63f20090afa13416d91937ca7a87bb16a5a6977e1f17fd1889bca52a"
+    },
+    "observed_investment_scopes": {
+      "rows": 1,
+      "digest": "0cddd03ded012c2ab4f9b54fd6c37d59366664898b8b4df834ce293eca0affef"
+    },
+    "observed_price_qualifications": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "observed_public_reviews": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "operating_cycles": {
+      "rows": 2,
+      "digest": "e60865041675e642662057a10f81f5de4626eeb296163dbe6822f8fd9c83a19f"
+    },
+    "principals": {
+      "rows": 10,
+      "digest": "3a86495856e7abe56fdce9b34efbe3fd0b72f14829330167a60b08f736287667"
+    },
+    "private_research_cleanup": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_deliveries": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_evidence": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_host_claims": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_previews": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_purges": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_receipts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "private_research_runs": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "project_approvals": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "project_operation_receipts": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "project_operations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "projects": {
+      "rows": 6,
+      "digest": "1e648879c9837254fc838645ef9ab4aecd8e8a4bc0529538fbff8f721fc37d2e"
+    },
+    "protected_operations": {
+      "rows": 16,
+      "digest": "eb9edfb2cb9204aa989cb7fc36d5cbe038fcffed655a5e1759354130221eb9bb"
+    },
+    "remote_devices": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "repositories": {
+      "rows": 6,
+      "digest": "3ae12eeac5aa690ca6523a22bb570baab7a7d63019ece2d6a4a56f3b14ca8b33"
+    },
+    "research_operations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "research_sources": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "research_task_sessions": {
+      "rows": 1,
+      "digest": "6269b922317b9c594a3dd05348e03656d452f0835ae070b90721dce7d2810e6c"
+    },
+    "research_tool_workers": {
+      "rows": 1,
+      "digest": "e6651bb1b1bb9693aec266e3092a7b3d04991af9d649957ae13d122b0b82ca09"
+    },
+    "retirement_revocations": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "review_occurrences": {
+      "rows": 1,
+      "digest": "43a6e64a5d62a4e8579855bff62d496ff1d098bac146edce774b848cb1c9a048"
+    },
+    "review_rounds": {
+      "rows": 2,
+      "digest": "daee8468361917233b6c837ac7477c04f3707e795590e5aedcdd9589b487146b"
+    },
+    "review_schedule_versions": {
+      "rows": 2,
+      "digest": "4d7506edfc28c35af6a126bd0a6ab47fddde59977ac35e88f8b021ef1907dc2a"
+    },
+    "review_schedules": {
+      "rows": 1,
+      "digest": "2d0069b0a76bb5a6819e896c04b8f2b9897993caca48d46ec3e2ff44f6577291"
+    },
+    "reviews": {
+      "rows": 2,
+      "digest": "5f9e02c32a9ec59ff758c7d405f84e2e1551751bf5f6795b300b6d32b6c6836d"
+    },
+    "revision_requests": {
+      "rows": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "runtime_bindings": {
+      "rows": 8,
+      "digest": "22a96d263a56971c3aeb5e97c7abe92c8aead79f5925861f7fa38bc5d73bbe99"
+    },
+    "runtime_tool_versions": {
+      "rows": 8,
+      "digest": "b0bb791f9e6c9663ad802a8cd2db49d20e7cc381e5ae0ff36455d4cc83d6d5a1"
+    },
+    "settings": {
+      "rows": 3,
+      "digest": "b28a974780c792c54a51d202c28e68df782ef4bd6dbd86d8fbc3341704354149"
+    },
+    "standing_grants": {
+      "rows": 1,
+      "digest": "6a602f13053d2e0d76e7a585e92ab34a15fd3c562a4693eee94f697e5ad431c3"
+    },
+    "strategic_decisions": {
+      "rows": 3,
+      "digest": "4de4749d286a99038c0d4c963f15458f2284ded73f92429c8d77f2cfa6b8d615"
+    },
+    "submissions": {
+      "rows": 4,
+      "digest": "519c8b3cdbdd392aa1153cda6d94b115b22de57ab796ef61ddfbeee8f1989e6c"
+    },
+    "task_scopes": {
+      "rows": 22,
+      "digest": "9af079d1c24c9d3ac67257940b25dcc0313bef7014828fe289c074ab2e9a55e2"
+    },
+    "tasks": {
+      "rows": 48,
+      "digest": "13d9bf8e120fb76e0d050c16b4ff89930d81a51e850f3514b0fdbbcd9dc50c48"
+    },
+    "tool_receipts": {
+      "rows": 185,
+      "digest": "1c82eca165c88620800756db45c8081d830d60251c72e48a7836ea145210e8ee"
+    },
+    "wake_events": {
+      "rows": 18,
+      "digest": "d16dbf4a93c4413d45967c4deaba999187cb4a5d6dabefceb8d0c885f9a2f868"
+    },
+    "worker_os_identities": {
+      "rows": 7,
+      "digest": "6b29cc63fece6f6074c0379e96bd1eb45fe820027660cae6bcb6cc3c82364f50"
+    },
+    "worker_project_bindings": {
+      "rows": 6,
+      "digest": "191ab505b8877bf9935b7e4807198bbc14e9614bea14e28f68eb0f64ac8ab160"
+    },
+    "workers": {
+      "rows": 8,
+      "digest": "9d4027e8cebf180aa0257f85f292e8d3945ae1cb2e7ba34c01ab019cfcc29d35"
+    },
+    "working_groups": {
+      "rows": 1,
+      "digest": "088b0f42720e288a2fce210e9efaaece6774b40210081b80bf9d809c68d86cca"
+    }
+  },
+  "added": [
+    {
+      "table": "ask_claim_custody",
+      "rows": 0
+    },
+    {
+      "table": "ask_claim_epochs",
+      "rows": 0
+    },
+    {
+      "table": "ask_content_controls",
+      "rows": 0
+    },
+    {
+      "table": "ask_content_services",
+      "rows": 0
+    },
+    {
+      "table": "ask_control_requests",
+      "rows": 0
+    },
+    {
+      "table": "ask_control_services",
+      "rows": 0
+    },
+    {
+      "table": "ask_coordination",
+      "rows": 0
+    },
+    {
+      "table": "ask_dispatches",
+      "rows": 0
+    },
+    {
+      "table": "ask_imports",
+      "rows": 0
+    },
+    {
+      "table": "ask_privacy_controls",
+      "rows": 0
+    },
+    {
+      "table": "ask_service_holds",
+      "rows": 0
+    },
+    {
+      "table": "ask_wire_attempts",
+      "rows": 0
+    },
+    {
+      "table": "ask_wire_operations",
+      "rows": 0
+    }
+  ],
+  "integrity": "ok",
+  "foreignKeyErrors": 0,
+  "productionModified": false,
+  "modelOrNetworkCalls": 0
+}

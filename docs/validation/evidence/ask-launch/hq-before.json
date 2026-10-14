@@ -1,0 +1,173 @@
+{
+  "checkedAt": "2026-10-14T05:20:14.633149+00:00",
+  "readOnly": true,
+  "source": "d262a8dff59ab82587bd6444b083e5e9b7603cf0",
+  "service": [
+    "MainPID=759078",
+    "ActiveState=active",
+    "SubState=running",
+    "ActiveEnterTimestamp=Tue 2026-10-13 20:28:39 UTC"
+  ],
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "d262a8dff59ab82587bd6444b083e5e9b7603cf0"
+  },
+  "schema": 25,
+  "run": {
+    "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+    "configuration_hash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+    "evidence_mode": "observed",
+    "head_version": 2,
+    "head_hash": "1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b"
+  },
+  "loop": {
+    "loop_id": "fa172653-d755-46df-83b5-b52becaf8821",
+    "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+    "state": "active",
+    "generation": 1,
+    "plan_revision": 1,
+    "reason": null
+  },
+  "occurrences": [
+    {
+      "session": "2026-10-14",
+      "stage": "collect_research",
+      "due_at": "2026-10-14T11:45:00.000Z",
+      "expires_at": "2026-10-14T12:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "research",
+      "due_at": "2026-10-14T12:00:00.000Z",
+      "expires_at": "2026-10-14T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "cutoff",
+      "due_at": "2026-10-14T13:00:00.000Z",
+      "expires_at": "2026-10-14T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "collect_close",
+      "due_at": "2026-10-14T20:05:00.000Z",
+      "expires_at": "2026-10-14T20:20:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "open",
+      "due_at": "2026-10-14T20:20:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "mark",
+      "due_at": "2026-10-14T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-14",
+      "stage": "expire",
+      "due_at": "2026-10-14T23:30:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "collect_research",
+      "due_at": "2026-10-15T11:45:00.000Z",
+      "expires_at": "2026-10-15T12:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "research",
+      "due_at": "2026-10-15T12:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "cutoff",
+      "due_at": "2026-10-15T13:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "collect_close",
+      "due_at": "2026-10-15T20:05:00.000Z",
+      "expires_at": "2026-10-15T20:20:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "open",
+      "due_at": "2026-10-15T20:20:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "mark",
+      "due_at": "2026-10-15T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "pending",
+      "attempts": 0
+    },
+    {
+      "session": "2026-10-15",
+      "stage": "expire",
+      "due_at": "2026-10-15T23:30:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0
+    }
+  ],
+  "channel": {
+    "id": "6790c271ea4b4246c22607c59da5ba683a9aa6777309505b",
+    "source_run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+    "experiment_id": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+    "run_id": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+    "generation": "1",
+    "reconciled_generation": "1"
+  },
+  "jobs": [
+    {
+      "kind": "batch",
+      "state": "delivered",
+      "n": 5
+    },
+    {
+      "kind": "heartbeat",
+      "state": "delivered",
+      "n": 35
+    }
+  ],
+  "observedMarketRecords": 0,
+  "observedCollectionResults": 0,
+  "observedEmployeeExecutions": 0,
+  "integrity": "ok"
+}

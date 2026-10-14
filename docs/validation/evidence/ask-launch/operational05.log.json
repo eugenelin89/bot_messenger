@@ -1,0 +1,13 @@
+{
+  "sha256": "53142465bb82580cfa1095ecb8f80ffe9f30f6466cbbeb71a519a9387e82643e",
+  "bytes": 1441,
+  "text": "\u2714 retained raw cleanup survives disabled and restart without model or wire admission (2100.565661ms)\n\u2714 retained raw cleanup survives missing-key and restart without model or wire admission (897.582173ms)\n\u2714 retained raw cleanup survives expired-model and restart without model or wire admission (799.058226ms)\n\u2714 retained raw cleanup survives expired-wire and restart without model or wire admission (803.106219ms)\n\u2714 retained raw cleanup survives missing-signing-key and restart without model or wire admission (663.553502ms)\n\u2714 retained raw cleanup survives missing-documents and restart without model or wire admission (747.331207ms)\n\u2714 operational loader rejects fixture genesis and never grants or pauses investing (627.071266ms)\n\u2714 removing protected configuration with retained custody reports blocked, not safely disabled (672.958689ms)\n\u2714 offline Ask initialization rejects active-service before custody mutation (1323.34078ms)\n\u2714 offline Ask initialization rejects data-lock before custody mutation (1102.380128ms)\n\u2714 offline Ask initialization rejects foreign-hq before custody mutation (1086.4958ms)\n\u2714 offline Ask initialization rejects existing-content before custody mutation (1048.776552ms)\n\u2714 offline operator releases HQ lock when the read-only Company database cannot open (548.856823ms)\n\u2139 tests 13\n\u2139 suites 0\n\u2139 pass 13\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 13188.722384\n",
+  "counts": {
+    "tests": 13,
+    "pass": 13,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  }
+}

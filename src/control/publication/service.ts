@@ -8,6 +8,7 @@ import { canonicalJson, parseJson, sha256, validate } from '../../../scripts/inv
 import { checkPublicationBatch } from '../../../scripts/investment-contracts/publication.js';
 import { checkContent } from '../../../scripts/investment-contracts/content.js';
 import { destinationValid, signedRequest, type KeyRing, type PublicationTransport } from './transport.js';
+import {claimCleanRestart,cleanRestartState,prepareLiveCleanRestart,type CleanRestartFiles} from './clean-restart.js';
 function object(value:unknown):asserts value is object {ensure(value!==null&&typeof value==='object'&&!Array.isArray(value),'publication_object_required');}
 const opaque=()=>randomBytes(24).toString('hex');
 const systemClock:SimulationClock={now:()=>new Date().toISOString()};
@@ -268,6 +269,52 @@ export class PublicationService {
     });return this.health(c.id);
   }
   private retryDelay(jobId:string):number {const n=this.db.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts WHERE job_id=?',jobId)!.n;return Math.min(3600000,1000*2**Math.min(12,Math.max(0,n-1)))+randomBytes(2).readUInt16BE(0)%501;}
+  /** Explicit clean offline handoff only; copied/restored Company state cannot mint this permit. */
+  prepareCleanShutdown(directory:string,excluded:readonly string[],targetSha:string,channelId:string,files:CleanRestartFiles):void {
+    this.owner();const c=this.channel(channelId);ensure(this.automaticStopped&&!this.automatic&&!this.restoreRequired(c),'publication_not_quiescent');
+    prepareLiveCleanRestart(this.db,directory,excluded,channelId,files,targetSha,this.clock.now(),this.instance);
+  }
+  async reconcileCleanRestart(directory:string,excluded:readonly string[],targetSha:string,files:CleanRestartFiles,assertConfiguration:()=>void=()=>{}) {
+    this.owner();ensure(!this.automatic,'publication_not_quiescent');
+    const permit=claimCleanRestart(this.db,directory,excluded,targetSha,this.instance,this.clock.now(),files);
+    const reserved=this.db.transaction(()=>{
+      const c=this.channel(permit.channelId);ensure(this.restartFences.get(c.id)===c.generation&&c.generation===permit.generation
+        &&c.reconciled_generation===c.generation&&c.publisher_instance!==this.instance,'publication_clean_restart_required');
+      const j=this.jobs(c).filter(j=>j.kind==='batch').at(-1);ensure(j?.receipt,'publication_restore_anchor_required');
+      const e=this.authority(c,j),attempts=this.db.all<{attempted_at:string}>('SELECT attempted_at FROM investment_public_attempts WHERE grant_id=?',j.grant_id);
+      ensure(attempts.length+2<=e.maxAttempts&&attempts.filter(a=>time(a.attempted_at)>time(this.clock.now())-60000).length+2<=e.writesPerMinute,'publication_budget_exhausted');
+      const attemptId=opaque(),at=this.clock.now();
+      for(const [suffix,operation] of [['','clean_receipt'],['-status','clean_status']] as const)this.db.run('INSERT INTO investment_public_attempts VALUES (?,?,?,?,?,?,?,?,?)',attemptId+suffix,j.id,c.id,j.grant_id,operation,c.generation,c.key_id,at,0);
+      return{c,j,attemptId,stateDigest:cleanRestartState(this.db,c.id)};
+    });
+    const {c,j,attemptId,stateDigest}=reserved;
+    const check=()=>{assertConfiguration();permit.verify();ensure(this.clock.now()<permit.expiresAt&&cleanRestartState(this.db,c.id)===stateDigest,'publication_clean_restart_state_changed');this.authority(this.channel(c.id),j);};
+    try{
+      check();const d=this.destination(c),request=signedRequest(d,this.options.keys!,this.clock.now(),'GET',j.path.replace(/\/events$/,`/receipts/${j.id}`),Buffer.alloc(0));
+      const response=await this.options.transport!.send(d,request);check();
+      ensure(response.status===200&&response.contentType==='application/json','publication_restore_receipt_required');
+      const receipt=validate<PublicationReceipt>('PublicationReceipt',parseJson(response.bytes));this.receipt(c,j,receipt);
+      ensure(hash(receipt)===hash(JSON.parse(j.receipt!)),'publication_clean_restart_receipt_conflict');
+      const history=this.history(c),ledger=history.filter(e=>e.type==='paper.ledger_transaction').at(-1),watermark=receipt.watermark;
+      ensure(!watermark.sourceGaps&&watermark.sourceSequence===history.at(-1)?.sourceSequence
+        &&watermark.journalSequence===(ledger?.payload.journalSequence??null)&&watermark.journalHash===(ledger?.payload.journalHash??null),'publication_restore_watermark_conflict');
+      // /status is public: verified TLS read, not a receiver-authenticated signed status proof.
+      const result=await this.options.transport!.send(d,{method:'GET',authority:new URL(d.origin).host,path:j.path.replace(/\/events$/,'/status'),headers:[['cache-control','no-cache']],body:Buffer.alloc(0)});check();
+      ensure(result.status===200&&result.contentType==='application/json','publication_restore_status_required');
+      const status=validate<PublicStatus>('PublicStatus',parseJson(result.bytes));
+      ensure(status.experimentId===c.experiment_id&&status.runId===c.run_id&&hash(status.watermark)===hash(watermark),'publication_restore_current_watermark_conflict');
+      const detail={permitId:permit.permitId,attemptId,generation:c.generation,watermark};
+      this.db.transaction(()=>{
+        check();this.db.run('INSERT INTO investment_public_results VALUES (?,?,?,?,?)',attemptId,'delivered','clean_restart_receipt',this.clock.now(),canonicalJson(receipt));
+        this.db.run('INSERT INTO investment_public_results VALUES (?,?,?,?,?)',attemptId+'-status','delivered','clean_restart_current_watermark',this.clock.now(),canonicalJson(status));
+        this.db.run('UPDATE investment_public_channels SET publisher_instance=? WHERE id=?',this.instance,c.id);this.controlReceipt(c,'clean_restart_reconciled',detail);
+      });
+      permit.complete(detail);this.restartFences.delete(c.id);return this.health(c.id);
+    }catch(error){
+      for(const id of [attemptId,attemptId+'-status'])if(!this.db.get('SELECT 1 FROM investment_public_results WHERE attempt_id=?',id))this.db.run('INSERT INTO investment_public_results VALUES (?,?,?,?,?)',id,'blocked','clean_restart_reconciliation_required',this.clock.now(),null);
+      throw error;
+    }
+  }
   /** Restore never trusts a copied local lease. Receiver owner must first advance its generation. */
   async reconcile(input:unknown) {
     this.owner();object(input);exact(input,['channelId']);const x=input as {channelId:string};
