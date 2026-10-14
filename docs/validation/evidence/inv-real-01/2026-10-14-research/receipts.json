@@ -1,0 +1,1015 @@
+{
+  "checkedAt": "2026-10-14T12:07:34.591Z",
+  "readOnly": true,
+  "executions": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "task_id": null,
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "runtime_reference": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "status": "completed",
+      "started_at": "2026-10-14T12:00:01.164Z",
+      "finished_at": "2026-10-14T12:00:37.600Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_17bb139b-1d98-4634-a292-6034d7d64f00",
+      "session_id": "session_36069553-9a59-495a-aca6-0b04b9e3cfae",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "task_id": null,
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "runtime_reference": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "status": "completed",
+      "started_at": "2026-10-14T12:00:38.215Z",
+      "finished_at": "2026-10-14T12:01:11.896Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_79a8f403-74a8-4839-925e-54b4fb7dd103",
+      "session_id": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+      "generation": 1
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "task_id": null,
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "runtime_reference": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "status": "completed",
+      "started_at": "2026-10-14T12:01:12.762Z",
+      "finished_at": "2026-10-14T12:01:41.334Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "critical",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3",
+      "session_id": "session_32954442-ce96-4edd-9cae-a509524546bb",
+      "generation": 2
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "task_id": null,
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "runtime_reference": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "status": "completed",
+      "started_at": "2026-10-14T12:01:42.197Z",
+      "finished_at": "2026-10-14T12:02:07.822Z",
+      "error": null,
+      "interruption_reason": null,
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "execution_priority": "normal",
+      "runtime_version": "codex-cli 0.157.0",
+      "runtime_adapter": "codex-app-server",
+      "provenance_status": "recorded",
+      "origin": "conversation",
+      "request_id": "reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785",
+      "session_id": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+      "generation": 1
+    }
+  ],
+  "ai_usage": [
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "activity": "opening",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "request_id": "reply_17bb139b-1d98-4634-a292-6034d7d64f00",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "service_tier": "standard",
+      "started_at": "2026-10-14T12:00:01.565Z",
+      "finished_at": "2026-10-14T12:00:37.602Z",
+      "status": "completed",
+      "baseline": "{\"inputTokens\":0,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":0,\"reasoningOutputTokens\":0,\"totalTokens\":0}",
+      "tokens": "{\"inputTokens\":50186,\"cachedInputTokens\":34304,\"cacheWriteInputTokens\":0,\"outputTokens\":856,\"reasoningOutputTokens\":66,\"totalTokens\":51042}",
+      "last_total": "{\"inputTokens\":50186,\"cachedInputTokens\":34304,\"cacheWriteInputTokens\":0,\"outputTokens\":856,\"reasoningOutputTokens\":66,\"totalTokens\":51042}",
+      "completeness": "complete",
+      "reasons": "[]",
+      "pricing_version": "openai-2026-10-14-c89077b85fc93eb9",
+      "price": "null",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}",
+      "model_changed": 0,
+      "settled": 1
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "activity": "opening",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "request_id": "reply_79a8f403-74a8-4839-925e-54b4fb7dd103",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a49-5bc6-70c3-9a16-61d47f8c8af0",
+      "service_tier": "standard",
+      "started_at": "2026-10-14T12:00:38.503Z",
+      "finished_at": "2026-10-14T12:01:11.898Z",
+      "status": "completed",
+      "baseline": "{\"inputTokens\":0,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":0,\"reasoningOutputTokens\":0,\"totalTokens\":0}",
+      "tokens": "{\"inputTokens\":35359,\"cachedInputTokens\":21376,\"cacheWriteInputTokens\":0,\"outputTokens\":886,\"reasoningOutputTokens\":45,\"totalTokens\":36245}",
+      "last_total": "{\"inputTokens\":35359,\"cachedInputTokens\":21376,\"cacheWriteInputTokens\":0,\"outputTokens\":886,\"reasoningOutputTokens\":45,\"totalTokens\":36245}",
+      "completeness": "complete",
+      "reasons": "[]",
+      "pricing_version": "openai-2026-10-14-c89077b85fc93eb9",
+      "price": "null",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}",
+      "model_changed": 0,
+      "settled": 1
+    },
+    {
+      "usage_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "activity": "response",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "request_id": "reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a4a-4ca0-75a2-ae68-51a4f66ed64e",
+      "service_tier": "standard",
+      "started_at": "2026-10-14T12:01:42.481Z",
+      "finished_at": "2026-10-14T12:02:07.824Z",
+      "status": "completed",
+      "baseline": "{\"inputTokens\":35359,\"cachedInputTokens\":21376,\"cacheWriteInputTokens\":0,\"outputTokens\":886,\"reasoningOutputTokens\":45,\"totalTokens\":36245}",
+      "tokens": "{\"inputTokens\":65990,\"cachedInputTokens\":55680,\"cacheWriteInputTokens\":0,\"outputTokens\":730,\"reasoningOutputTokens\":55,\"totalTokens\":66720}",
+      "last_total": "{\"inputTokens\":101349,\"cachedInputTokens\":77056,\"cacheWriteInputTokens\":0,\"outputTokens\":1616,\"reasoningOutputTokens\":100,\"totalTokens\":102965}",
+      "completeness": "incomplete",
+      "reasons": "[\"Usage incomplete: no authoritative response usage\"]",
+      "pricing_version": "openai-2026-10-14-c89077b85fc93eb9",
+      "price": "null",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}",
+      "model_changed": 0,
+      "settled": 1
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "activity": "facilitate",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "request_id": "reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "turn_id": "01a13a49-e67e-7431-b3c2-aa7c14d5f8fd",
+      "service_tier": "standard",
+      "started_at": "2026-10-14T12:01:13.069Z",
+      "finished_at": "2026-10-14T12:01:41.337Z",
+      "status": "completed",
+      "baseline": "{\"inputTokens\":0,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":0,\"reasoningOutputTokens\":0,\"totalTokens\":0}",
+      "tokens": "{\"inputTokens\":39212,\"cachedInputTokens\":23936,\"cacheWriteInputTokens\":0,\"outputTokens\":644,\"reasoningOutputTokens\":60,\"totalTokens\":39856}",
+      "last_total": "{\"inputTokens\":39212,\"cachedInputTokens\":23936,\"cacheWriteInputTokens\":0,\"outputTokens\":644,\"reasoningOutputTokens\":60,\"totalTokens\":39856}",
+      "completeness": "complete",
+      "reasons": "[]",
+      "pricing_version": "openai-2026-10-14-c89077b85fc93eb9",
+      "price": "null",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}",
+      "model_changed": 0,
+      "settled": 1
+    }
+  ],
+  "ai_usage_observations": [
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "observation_hash": "0e5aa0a2b50c84a1a581e69512151b122cdc65508ffc5558a669d51c22bb10dd",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "total": "{\"inputTokens\":8346,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":99,\"reasoningOutputTokens\":0,\"totalTokens\":8445}",
+      "last": "{\"inputTokens\":8346,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":99,\"reasoningOutputTokens\":0,\"totalTokens\":8445}",
+      "observed_at": "2026-10-14T12:00:18.313Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "observation_hash": "35214a36e8f3d89e315471857b56727ef7d31da2ec3f1afff0ba7f459cde9be3",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "total": "{\"inputTokens\":34756,\"cachedInputTokens\":19712,\"cacheWriteInputTokens\":0,\"outputTokens\":820,\"reasoningOutputTokens\":66,\"totalTokens\":35576}",
+      "last": "{\"inputTokens\":14723,\"cachedInputTokens\":11520,\"cacheWriteInputTokens\":0,\"outputTokens\":630,\"reasoningOutputTokens\":0,\"totalTokens\":15353}",
+      "observed_at": "2026-10-14T12:00:36.096Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "observation_hash": "4320370c17a1ab1dcbfbaa3216c497f28ba64a2d41cf74afa9eb554681321728",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "total": "{\"inputTokens\":20033,\"cachedInputTokens\":8192,\"cacheWriteInputTokens\":0,\"outputTokens\":190,\"reasoningOutputTokens\":66,\"totalTokens\":20223}",
+      "last": "{\"inputTokens\":11687,\"cachedInputTokens\":8192,\"cacheWriteInputTokens\":0,\"outputTokens\":91,\"reasoningOutputTokens\":66,\"totalTokens\":11778}",
+      "observed_at": "2026-10-14T12:00:23.088Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "observation_hash": "e6c6e711af0855db3809e2db6d03c59a8cc7bf0a4f782e58bc10dc8968a63fe7",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "total": "{\"inputTokens\":50186,\"cachedInputTokens\":34304,\"cacheWriteInputTokens\":0,\"outputTokens\":856,\"reasoningOutputTokens\":66,\"totalTokens\":51042}",
+      "last": "{\"inputTokens\":15430,\"cachedInputTokens\":14592,\"cacheWriteInputTokens\":0,\"outputTokens\":36,\"reasoningOutputTokens\":0,\"totalTokens\":15466}",
+      "observed_at": "2026-10-14T12:00:37.237Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "observation_hash": "37b70d7716991a370a1452142fe691e22406a8e75c09828ac908d2b843e032dc",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a49-5bc6-70c3-9a16-61d47f8c8af0",
+      "total": "{\"inputTokens\":21711,\"cachedInputTokens\":8704,\"cacheWriteInputTokens\":0,\"outputTokens\":830,\"reasoningOutputTokens\":45,\"totalTokens\":22541}",
+      "last": "{\"inputTokens\":12861,\"cachedInputTokens\":8704,\"cacheWriteInputTokens\":0,\"outputTokens\":706,\"reasoningOutputTokens\":45,\"totalTokens\":13567}",
+      "observed_at": "2026-10-14T12:01:09.363Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "observation_hash": "56788e44ee5fa3fc9be9dc30295ce58a610ea3e5d08ee15eb0efe45d95355563",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a49-5bc6-70c3-9a16-61d47f8c8af0",
+      "total": "{\"inputTokens\":35359,\"cachedInputTokens\":21376,\"cacheWriteInputTokens\":0,\"outputTokens\":886,\"reasoningOutputTokens\":45,\"totalTokens\":36245}",
+      "last": "{\"inputTokens\":13648,\"cachedInputTokens\":12672,\"cacheWriteInputTokens\":0,\"outputTokens\":56,\"reasoningOutputTokens\":0,\"totalTokens\":13704}",
+      "observed_at": "2026-10-14T12:01:11.535Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "observation_hash": "d506f25b18f9a8db53a570a3760f58fdf527e7b4807e7a6cf3a870d078f14e79",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a49-5bc6-70c3-9a16-61d47f8c8af0",
+      "total": "{\"inputTokens\":8850,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":124,\"reasoningOutputTokens\":0,\"totalTokens\":8974}",
+      "last": "{\"inputTokens\":8850,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":124,\"reasoningOutputTokens\":0,\"totalTokens\":8974}",
+      "observed_at": "2026-10-14T12:00:53.474Z"
+    },
+    {
+      "usage_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "observation_hash": "26238bd557d9113fa52cf394b4e81f194e70daddebd6bc5f1ee01406754f04f6",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a4a-4ca0-75a2-ae68-51a4f66ed64e",
+      "total": "{\"inputTokens\":55157,\"cachedInputTokens\":34816,\"cacheWriteInputTokens\":0,\"outputTokens\":999,\"reasoningOutputTokens\":58,\"totalTokens\":56156}",
+      "last": "{\"inputTokens\":19798,\"cachedInputTokens\":13440,\"cacheWriteInputTokens\":0,\"outputTokens\":113,\"reasoningOutputTokens\":13,\"totalTokens\":19911}",
+      "observed_at": "2026-10-14T12:01:54.356Z"
+    },
+    {
+      "usage_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "observation_hash": "7d81116496fde34fea11d8d6f3cfa26ec8c6173a67d588ceff6ba4f224e2a399",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a4a-4ca0-75a2-ae68-51a4f66ed64e",
+      "total": "{\"inputTokens\":101349,\"cachedInputTokens\":77056,\"cacheWriteInputTokens\":0,\"outputTokens\":1616,\"reasoningOutputTokens\":100,\"totalTokens\":102965}",
+      "last": "{\"inputTokens\":23416,\"cachedInputTokens\":22656,\"cacheWriteInputTokens\":0,\"outputTokens\":51,\"reasoningOutputTokens\":0,\"totalTokens\":23467}",
+      "observed_at": "2026-10-14T12:02:07.463Z"
+    },
+    {
+      "usage_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "observation_hash": "c8c270016f1165b9277de4a9432574fef3daf0b28900bcba83b48985d3b1491e",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a4a-4ca0-75a2-ae68-51a4f66ed64e",
+      "total": "{\"inputTokens\":77933,\"cachedInputTokens\":54400,\"cacheWriteInputTokens\":0,\"outputTokens\":1565,\"reasoningOutputTokens\":100,\"totalTokens\":79498}",
+      "last": "{\"inputTokens\":22776,\"cachedInputTokens\":19584,\"cacheWriteInputTokens\":0,\"outputTokens\":566,\"reasoningOutputTokens\":42,\"totalTokens\":23342}",
+      "observed_at": "2026-10-14T12:02:05.665Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "observation_hash": "5db8f1ff654e6a2c8e006114400b7b3bc99c60fcbfffe2556ad3d8ec788ac85b",
+      "thread_id": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "turn_id": "01a13a49-e67e-7431-b3c2-aa7c14d5f8fd",
+      "total": "{\"inputTokens\":39212,\"cachedInputTokens\":23936,\"cacheWriteInputTokens\":0,\"outputTokens\":644,\"reasoningOutputTokens\":60,\"totalTokens\":39856}",
+      "last": "{\"inputTokens\":14975,\"cachedInputTokens\":14336,\"cacheWriteInputTokens\":0,\"outputTokens\":62,\"reasoningOutputTokens\":0,\"totalTokens\":15037}",
+      "observed_at": "2026-10-14T12:01:40.992Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "observation_hash": "cf25945183d69588ae14113520574b978deccdafd35c741da15f0956684d79a0",
+      "thread_id": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "turn_id": "01a13a49-e67e-7431-b3c2-aa7c14d5f8fd",
+      "total": "{\"inputTokens\":24237,\"cachedInputTokens\":9600,\"cacheWriteInputTokens\":0,\"outputTokens\":582,\"reasoningOutputTokens\":60,\"totalTokens\":24819}",
+      "last": "{\"inputTokens\":14471,\"cachedInputTokens\":9600,\"cacheWriteInputTokens\":0,\"outputTokens\":425,\"reasoningOutputTokens\":60,\"totalTokens\":14896}",
+      "observed_at": "2026-10-14T12:01:38.865Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "observation_hash": "eddde157da0bd59bfaf360aec8b86fa259c056bda6f540a00986534dde9a5429",
+      "thread_id": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "turn_id": "01a13a49-e67e-7431-b3c2-aa7c14d5f8fd",
+      "total": "{\"inputTokens\":9766,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":157,\"reasoningOutputTokens\":0,\"totalTokens\":9923}",
+      "last": "{\"inputTokens\":9766,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":157,\"reasoningOutputTokens\":0,\"totalTokens\":9923}",
+      "observed_at": "2026-10-14T12:01:30.134Z"
+    }
+  ],
+  "investment_loop_usage": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "state": "measured",
+      "input_tokens": 50186,
+      "output_tokens": 856,
+      "cost_micros": null,
+      "created_at": "2026-10-14T12:00:37.604Z"
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "state": "measured",
+      "input_tokens": 35359,
+      "output_tokens": 886,
+      "cost_micros": null,
+      "created_at": "2026-10-14T12:01:11.900Z"
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "state": "unknown",
+      "input_tokens": 65990,
+      "output_tokens": 730,
+      "cost_micros": null,
+      "created_at": "2026-10-14T12:02:07.826Z"
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "state": "measured",
+      "input_tokens": 39212,
+      "output_tokens": 644,
+      "cost_micros": null,
+      "created_at": "2026-10-14T12:01:41.338Z"
+    }
+  ],
+  "investment_loop_executions": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "occurrence_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "generation": 1,
+      "day": "2026-10-14",
+      "created_at": "2026-10-14T12:00:01.395Z"
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "occurrence_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "generation": 1,
+      "day": "2026-10-14",
+      "created_at": "2026-10-14T12:00:38.406Z"
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "occurrence_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "generation": 1,
+      "day": "2026-10-14",
+      "created_at": "2026-10-14T12:01:42.377Z"
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "occurrence_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "generation": 1,
+      "day": "2026-10-14",
+      "created_at": "2026-10-14T12:01:12.958Z"
+    }
+  ],
+  "investment_finite_reservations": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "binding": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"conversationId\":\"conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20\",\"day\":\"2026-10-14\",\"deadline\":\"2026-10-14T12:05:01.505Z\",\"executionId\":\"execution_377ea290-34b1-4dad-84df-d062237ef578\",\"generation\":1,\"occurrenceId\":\"loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8\",\"profile\":{\"cliVersion\":\"0.157.0\",\"model\":\"gpt-6-sol\",\"reasoningEffort\":\"low\",\"serviceTier\":\"default\"},\"providerGeneration\":1,\"requestId\":\"reply_17bb139b-1d98-4634-a292-6034d7d64f00\",\"reservedAt\":\"2026-10-14T12:00:01.505Z\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"scopeDigest\":\"30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3\",\"scopeId\":\"35226635-d0dc-4d6e-8c51-f90e7efb3894\",\"sessionId\":\"session_36069553-9a59-495a-aca6-0b04b9e3cfae\",\"workerId\":\"worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1\"}"
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "binding": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"conversationId\":\"conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20\",\"day\":\"2026-10-14\",\"deadline\":\"2026-10-14T12:05:38.485Z\",\"executionId\":\"execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3\",\"generation\":1,\"occurrenceId\":\"loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8\",\"profile\":{\"cliVersion\":\"0.157.0\",\"model\":\"gpt-6-sol\",\"reasoningEffort\":\"low\",\"serviceTier\":\"default\"},\"providerGeneration\":1,\"requestId\":\"reply_79a8f403-74a8-4839-925e-54b4fb7dd103\",\"reservedAt\":\"2026-10-14T12:00:38.485Z\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"scopeDigest\":\"30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3\",\"scopeId\":\"35226635-d0dc-4d6e-8c51-f90e7efb3894\",\"sessionId\":\"session_c3f2244b-f632-4647-9949-ddf4013ff9eb\",\"workerId\":\"worker_85bebccd-fb82-48c3-abfa-bc62117f8746\"}"
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "binding": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"conversationId\":\"conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20\",\"day\":\"2026-10-14\",\"deadline\":\"2026-10-14T12:06:42.449Z\",\"executionId\":\"execution_ec78843c-0b56-4343-9d38-a6ba223867be\",\"generation\":1,\"occurrenceId\":\"loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8\",\"profile\":{\"cliVersion\":\"0.157.0\",\"model\":\"gpt-6-sol\",\"reasoningEffort\":\"low\",\"serviceTier\":\"default\"},\"providerGeneration\":1,\"requestId\":\"reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785\",\"reservedAt\":\"2026-10-14T12:01:42.449Z\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"scopeDigest\":\"30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3\",\"scopeId\":\"35226635-d0dc-4d6e-8c51-f90e7efb3894\",\"sessionId\":\"session_c3f2244b-f632-4647-9949-ddf4013ff9eb\",\"workerId\":\"worker_85bebccd-fb82-48c3-abfa-bc62117f8746\"}"
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "binding": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"conversationId\":\"conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20\",\"day\":\"2026-10-14\",\"deadline\":\"2026-10-14T12:06:13.039Z\",\"executionId\":\"execution_f141db7a-40fa-439c-88e1-376c965456c3\",\"generation\":1,\"occurrenceId\":\"loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8\",\"profile\":{\"cliVersion\":\"0.157.0\",\"model\":\"gpt-6-sol\",\"reasoningEffort\":\"low\",\"serviceTier\":\"default\"},\"providerGeneration\":2,\"requestId\":\"reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3\",\"reservedAt\":\"2026-10-14T12:01:13.039Z\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"scopeDigest\":\"30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3\",\"scopeId\":\"35226635-d0dc-4d6e-8c51-f90e7efb3894\",\"sessionId\":\"session_32954442-ce96-4edd-9cae-a509524546bb\",\"workerId\":\"worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1\"}"
+    }
+  ],
+  "execution_runtime_attempts": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "unresolved": 0
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "unresolved": 0
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "unresolved": 0
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "unresolved": 0
+    }
+  ],
+  "investment_activity_invocations": [
+    {
+      "execution_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "request_id": "reply_17bb139b-1d98-4634-a292-6034d7d64f00",
+      "reserved_at": "2026-10-14T12:00:01.397Z",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+      "turn_id": "01a13a48-d4cf-7850-a74f-3a3748bbf374",
+      "eligibility": "{\"authMode\":\"chatgpt\",\"planType\":\"pro\",\"ordinaryUsageAllowed\":true,\"paidCredits\":\"existing_approved\",\"creditUsageAllowed\":true,\"provider\":\"openai\"}",
+      "state": "settled",
+      "finished_at": "2026-10-14T12:00:37.605Z",
+      "terminal_status": "completed",
+      "policy": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"existingCreditsApproved\":true,\"maxConcurrent\":1,\"maxCycle\":7,\"maxDay\":8,\"maxDurationMs\":300000,\"maxRolling24h\":8,\"maxRun\":16,\"maxWorker\":12,\"mode\":\"credit_approved_finite_hq\",\"providerRetriesAccepted\":true,\"uncertainRetries\":0}"
+    },
+    {
+      "execution_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "request_id": "reply_79a8f403-74a8-4839-925e-54b4fb7dd103",
+      "reserved_at": "2026-10-14T12:00:38.406Z",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a49-5bc6-70c3-9a16-61d47f8c8af0",
+      "eligibility": "{\"authMode\":\"chatgpt\",\"planType\":\"pro\",\"ordinaryUsageAllowed\":true,\"paidCredits\":\"existing_approved\",\"creditUsageAllowed\":true,\"provider\":\"openai\"}",
+      "state": "settled",
+      "finished_at": "2026-10-14T12:01:11.900Z",
+      "terminal_status": "completed",
+      "policy": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"existingCreditsApproved\":true,\"maxConcurrent\":1,\"maxCycle\":7,\"maxDay\":8,\"maxDurationMs\":300000,\"maxRolling24h\":8,\"maxRun\":16,\"maxWorker\":12,\"mode\":\"credit_approved_finite_hq\",\"providerRetriesAccepted\":true,\"uncertainRetries\":0}"
+    },
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "request_id": "reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785",
+      "reserved_at": "2026-10-14T12:01:42.378Z",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+      "turn_id": "01a13a4a-4ca0-75a2-ae68-51a4f66ed64e",
+      "eligibility": "{\"authMode\":\"chatgpt\",\"planType\":\"pro\",\"ordinaryUsageAllowed\":true,\"paidCredits\":\"existing_approved\",\"creditUsageAllowed\":true,\"provider\":\"openai\"}",
+      "state": "settled",
+      "finished_at": "2026-10-14T12:02:07.826Z",
+      "terminal_status": "completed",
+      "policy": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"existingCreditsApproved\":true,\"maxConcurrent\":1,\"maxCycle\":7,\"maxDay\":8,\"maxDurationMs\":300000,\"maxRolling24h\":8,\"maxRun\":16,\"maxWorker\":12,\"mode\":\"credit_approved_finite_hq\",\"providerRetriesAccepted\":true,\"uncertainRetries\":0}"
+    },
+    {
+      "execution_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "cycle_id": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "request_id": "reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3",
+      "reserved_at": "2026-10-14T12:01:12.959Z",
+      "provider": "openai",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+      "turn_id": "01a13a49-e67e-7431-b3c2-aa7c14d5f8fd",
+      "eligibility": "{\"authMode\":\"chatgpt\",\"planType\":\"pro\",\"ordinaryUsageAllowed\":true,\"paidCredits\":\"existing_approved\",\"creditUsageAllowed\":true,\"provider\":\"openai\"}",
+      "state": "settled",
+      "finished_at": "2026-10-14T12:01:41.338Z",
+      "terminal_status": "completed",
+      "policy": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"existingCreditsApproved\":true,\"maxConcurrent\":1,\"maxCycle\":7,\"maxDay\":8,\"maxDurationMs\":300000,\"maxRolling24h\":8,\"maxRun\":16,\"maxWorker\":12,\"mode\":\"credit_approved_finite_hq\",\"providerRetriesAccepted\":true,\"uncertainRetries\":0}"
+    }
+  ],
+  "proposals": [],
+  "reviews": [],
+  "journal": [
+    {
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "version": 1,
+      "transaction_id": "transaction_724f07827ac9e5098017c11d833edb88a7069af5",
+      "operation_id": "init_e8144c302d55c590510d0f96d5d79f6a70939b3e",
+      "request_hash": "996b503233ea07d82d99a5b3f1e4e05d6a8b8ccf573555e2123a60277ca9afd2",
+      "previous_hash": null,
+      "journal_hash": "84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02",
+      "recorded_at": "2026-10-13T20:25:26.543Z",
+      "payload": "{\"checkpointHash\":\"6cf67d76baf2751c0e0756abd34a20da07766fec2d283e153e1f1bcd34e6a8e0\",\"command\":{\"type\":\"initialize\"},\"configurationHash\":\"6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e\",\"effectiveAt\":\"2026-10-13T20:25:26.543Z\",\"entries\":[{\"account\":\"cash\",\"amount\":\"100000.000000\",\"book\":\"portfolio\",\"instrumentId\":null},{\"account\":\"capital\",\"amount\":\"100000.000000\",\"book\":\"portfolio\",\"instrumentId\":null},{\"account\":\"cash\",\"amount\":\"100000.000000\",\"book\":\"benchmark\",\"instrumentId\":null},{\"account\":\"capital\",\"amount\":\"100000.000000\",\"book\":\"benchmark\",\"instrumentId\":null}],\"eventAt\":\"2026-10-13T20:25:26.543Z\",\"hash\":\"84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02\",\"ledgerVersion\":\"1\",\"operationId\":\"init_e8144c302d55c590510d0f96d5d79f6a70939b3e\",\"originalRequestId\":\"initialization\",\"outcome\":{\"fills\":[],\"orderId\":null,\"reason\":null,\"status\":\"accepted\",\"valuation\":null},\"previousHash\":null,\"previousLedgerVersion\":\"0\",\"recordedAt\":\"2026-10-13T20:25:26.543Z\",\"requestHash\":\"996b503233ea07d82d99a5b3f1e4e05d6a8b8ccf573555e2123a60277ca9afd2\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"transactionId\":\"transaction_724f07827ac9e5098017c11d833edb88a7069af5\",\"version\":\"1\"}"
+    },
+    {
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "version": 2,
+      "transaction_id": "transaction_139873deda66597612e3f5b36360d3dc3f4c8e6b",
+      "operation_id": "attempt_18d0d00c9e18f9d14856865ac12ac5f2d5c5c183",
+      "request_hash": "fa1974fde13e840648cae04e49f9f24f247377c137e4225f718fbadd31dc5dea",
+      "previous_hash": "84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02",
+      "journal_hash": "1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b",
+      "recorded_at": "2026-10-13T20:25:26.791Z",
+      "payload": "{\"checkpointHash\":\"113ae325d654cea63fb371ab436b5b7d29ab689039bea1171260e8ad81f53ced\",\"command\":{\"asOf\":\"2026-10-13T20:25:26.543Z\",\"session\":\"2026-10-14\",\"type\":\"value\"},\"configurationHash\":\"6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e\",\"effectiveAt\":\"2026-10-13T20:25:26.543Z\",\"entries\":[],\"eventAt\":\"2026-10-13T20:25:26.543Z\",\"hash\":\"1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b\",\"ledgerVersion\":\"1\",\"operationId\":\"attempt_18d0d00c9e18f9d14856865ac12ac5f2d5c5c183\",\"originalRequestId\":\"observed_initial_cash\",\"outcome\":{\"fills\":[],\"orderId\":null,\"reason\":null,\"status\":\"accepted\",\"valuation\":{\"asOf\":\"2026-10-13T20:25:26.543Z\",\"availableCash\":\"100000.000000\",\"benchmarkEquity\":\"100000.000000\",\"benchmarkReturn\":\"0.000000\",\"cash\":\"100000.000000\",\"configurationHash\":\"6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e\",\"dailyReturn\":null,\"drawdown\":\"0.000000\",\"equity\":\"100000.000000\",\"excessPercentagePoints\":\"0.000000\",\"holdings\":[],\"holdingsValue\":\"0.000000\",\"id\":\"valuation_862bddcf5a5279d92f68503ae41b455d98826bba\",\"journalHash\":\"84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02\",\"journalVersion\":\"1\",\"ledgerHash\":\"689db81643f1296e7a7bc9fccc3c93ebf314b17e0f93052dbc2c64040a452fa9\",\"ledgerVersion\":\"1\",\"liabilities\":\"0.000000\",\"maxDrawdown\":\"0.000000\",\"observationIds\":[],\"observedBreaches\":[],\"peak\":\"100000.000000\",\"quality\":\"complete\",\"realized\":\"0.000000\",\"reasons\":[],\"receivables\":\"0.000000\",\"recordedAt\":\"2026-10-13T20:25:26.791Z\",\"reservedCash\":\"0.000000\",\"revision\":1,\"sequence\":\"1\",\"session\":\"2026-10-14\",\"supersedes\":null,\"totalReturn\":\"0.000000\",\"unrealized\":\"0.000000\"}},\"previousHash\":\"84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02\",\"previousLedgerVersion\":\"1\",\"recordedAt\":\"2026-10-13T20:25:26.791Z\",\"requestHash\":\"fa1974fde13e840648cae04e49f9f24f247377c137e4225f718fbadd31dc5dea\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"transactionId\":\"transaction_139873deda66597612e3f5b36360d3dc3f4c8e6b\",\"version\":\"2\"}"
+    },
+    {
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "version": 3,
+      "transaction_id": "transaction_8fb2b602d7427adef656dc06823857df8589e89b",
+      "operation_id": "attempt_b92fc1108efcfc4794f88a468c43d0479f1054f5",
+      "request_hash": "f572278f2999ce6ccb60f6bcb67cb523ff4128d1048060c0d61089fe3697e8e4",
+      "previous_hash": "1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b",
+      "journal_hash": "5adc5273ad618c69b66c2e9cb015aa3050cad81a83748bf159fe41b196ada4d9",
+      "recorded_at": "2026-10-14T12:02:07.971Z",
+      "payload": "{\"checkpointHash\":\"9b70e8041c810d4ba5b3fc6e8a4bbdd3d7c7abe04cb5a3908217a02daeec3894\",\"command\":{\"state\":\"paused\",\"type\":\"control\"},\"configurationHash\":\"6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e\",\"effectiveAt\":\"2026-10-14T12:02:07.971Z\",\"entries\":[],\"eventAt\":\"2026-10-14T12:02:07.971Z\",\"hash\":\"5adc5273ad618c69b66c2e9cb015aa3050cad81a83748bf159fe41b196ada4d9\",\"ledgerVersion\":\"1\",\"operationId\":\"attempt_b92fc1108efcfc4794f88a468c43d0479f1054f5\",\"originalRequestId\":\"loop_block_fa172653-d755-46df-83b5-b52becaf8821_1\",\"outcome\":{\"fills\":[],\"orderId\":null,\"reason\":null,\"status\":\"paused\",\"valuation\":null},\"previousHash\":\"1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b\",\"previousLedgerVersion\":\"1\",\"recordedAt\":\"2026-10-14T12:02:07.971Z\",\"requestHash\":\"f572278f2999ce6ccb60f6bcb67cb523ff4128d1048060c0d61089fe3697e8e4\",\"runId\":\"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\",\"transactionId\":\"transaction_8fb2b602d7427adef656dc06823857df8589e89b\",\"version\":\"3\"}"
+    }
+  ],
+  "finiteCheck": "Error: Required token telemetry incomplete",
+  "finite": {
+    "providerCircuit": {
+      "until": null,
+      "blocked": false
+    },
+    "collections": [
+      {
+        "id": "cada80ae6023e385fd132bbb2edc841be4f429a3cf640b18c80f5d0f00358c6e",
+        "at": "2026-10-14T11:45:00.430Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "f33d7ded7f26d8355a28133b04313f987610fd0635d65dd23600c181eb63d792",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:07.116Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:09.664Z"
+      },
+      {
+        "id": "a862d3f02e0c24220b8a0848b095262c2f4ce2ff4c84f05a0f11583b7cf5d6d2",
+        "at": "2026-10-14T11:45:15.009Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "3403167a56913aff3fcc3f1d4dde7bc89c14299db301012e217c559aab80903f",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:18.294Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:20.154Z"
+      },
+      {
+        "id": "e398763f9fbf0b1fe2401d02b96d1fb8e941d7c6c1beaf1af03e4b445b13200c",
+        "at": "2026-10-14T11:45:25.456Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "fa0a996545ab91b5e7be27c393e94c7c2610e4c40ddbf671cbf6cf8de458e504",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:28.625Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:30.510Z"
+      },
+      {
+        "id": "227c33ce920f299db49af9e6b7a3693625f8da7d376e8748c37583214895ec30",
+        "at": "2026-10-14T11:45:35.816Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "619d2191896c4f42eb4a16cc49feddff986740481b4eb57e6e8d02d0b7d2fe08",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:39.182Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:41.042Z"
+      },
+      {
+        "id": "c7ce61101666a8f678aea157a45d5b5ea0b00fd37663f10e9d3aada6b98ef99f",
+        "at": "2026-10-14T11:45:46.335Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "f505c1ae5a6b67f738a181ad0ece9bb94910eceefa5643616d990f0a7546009b",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:49.614Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:51.521Z"
+      },
+      {
+        "id": "184f171f2f2af1b191d214d65ece726170b7900dce553536f1c910a332095d49",
+        "at": "2026-10-14T11:45:57.023Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "638c2eb21be69344237d9366b5c28437c37e4f209d8bbe976b4f93f06c342656",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:00.362Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:02.410Z"
+      },
+      {
+        "id": "d0c0c0568d4bfe6a9a18d98935fd80c6bd0e33554ebca07adb7d586a7b5f9a17",
+        "at": "2026-10-14T11:46:07.771Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "2169b079489e5ca83e708c67a21d701149f9ce2ad82ebf58458742a8632fe7da",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:11.225Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:13.167Z"
+      },
+      {
+        "id": "45963213a7767b1231ed515ae73e9e5aae4abe33e72205f1b502d8fcc691ea24",
+        "at": "2026-10-14T11:46:18.461Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "e6837975836683eb3ebc69d2df26bbffb422cef6d790ae6412b722ad52ec4ecf",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:21.853Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:24.007Z"
+      },
+      {
+        "id": "ff1c7ad6d68ff0c3e27f8c8bae6666dbb5eced3dc8a9edc63f3dbfdc2fa6cfd9",
+        "at": "2026-10-14T11:46:29.299Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "8f9ad477b5894d70f2bcfc3f69e4e92b2b87acc43ff519133a9c48aa9f147709",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:32.581Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:34.401Z"
+      }
+    ],
+    "controlRevision": 55,
+    "run": 4,
+    "rolling": 4,
+    "workers": {
+      "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1": 2,
+      "worker_85bebccd-fb82-48c3-abfa-bc62117f8746": 2
+    },
+    "active": 0,
+    "reservations": [
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:05:01.505Z",
+        "executionId": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_17bb139b-1d98-4634-a292-6034d7d64f00",
+        "reservedAt": "2026-10-14T12:00:01.505Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_36069553-9a59-495a-aca6-0b04b9e3cfae",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:05:38.485Z",
+        "executionId": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_79a8f403-74a8-4839-925e-54b4fb7dd103",
+        "reservedAt": "2026-10-14T12:00:38.485Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "state": "settled",
+        "threadId": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:06:13.039Z",
+        "executionId": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 2,
+        "requestId": "reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3",
+        "reservedAt": "2026-10-14T12:01:13.039Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_32954442-ce96-4edd-9cae-a509524546bb",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:06:42.449Z",
+        "executionId": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785",
+        "reservedAt": "2026-10-14T12:01:42.449Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "state": "settled",
+        "threadId": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+        "status": "completed",
+        "complete": false
+      }
+    ],
+    "hold": "Required token telemetry incomplete",
+    "stopped": false,
+    "reloadConfirmedAt": "2026-10-11T05:27:00.000Z"
+  },
+  "checkpoint": {
+    "at": "2026-10-14T12:02:07.833Z",
+    "digest": "f9391cc6b9075699c0151fe7a3cdff0421a29cf0797c5c566c6e61619380f984",
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 55
+  },
+  "responses": [
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "response_id": "resp_05a2e54e0f72fb21016acf6eced4dc81948cb92ea4c825c261",
+      "payload": "{\"inputTokens\":8346,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":99,\"reasoningOutputTokens\":0,\"totalTokens\":8445}",
+      "observed_at": "2026-10-14T12:00:16.742Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "response_id": "resp_05a2e54e0f72fb21016acf6ed280008194818762c0da7ee5df",
+      "payload": "{\"inputTokens\":11687,\"cachedInputTokens\":8192,\"cacheWriteInputTokens\":0,\"outputTokens\":91,\"reasoningOutputTokens\":66,\"totalTokens\":11778}",
+      "observed_at": "2026-10-14T12:00:22.818Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "response_id": "resp_05a2e54e0f72fb21016acf6ed715a481949666f7f3e0012f11",
+      "payload": "{\"inputTokens\":14723,\"cachedInputTokens\":11520,\"cacheWriteInputTokens\":0,\"outputTokens\":630,\"reasoningOutputTokens\":0,\"totalTokens\":15353}",
+      "observed_at": "2026-10-14T12:00:35.930Z"
+    },
+    {
+      "usage_id": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+      "response_id": "resp_05a2e54e0f72fb21016acf6ee416588194aea48a6248a445c1",
+      "payload": "{\"inputTokens\":15430,\"cachedInputTokens\":14592,\"cacheWriteInputTokens\":0,\"outputTokens\":36,\"reasoningOutputTokens\":0,\"totalTokens\":15466}",
+      "observed_at": "2026-10-14T12:00:37.233Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "response_id": "resp_0760d18294fd03ec016acf6ef14e3c819597590ae857d09586",
+      "payload": "{\"inputTokens\":8850,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":124,\"reasoningOutputTokens\":0,\"totalTokens\":8974}",
+      "observed_at": "2026-10-14T12:00:52.144Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "response_id": "resp_0760d18294fd03ec016acf6ef5964881959a54c00020b6b8a5",
+      "payload": "{\"inputTokens\":12861,\"cachedInputTokens\":8704,\"cacheWriteInputTokens\":0,\"outputTokens\":706,\"reasoningOutputTokens\":45,\"totalTokens\":13567}",
+      "observed_at": "2026-10-14T12:01:09.099Z"
+    },
+    {
+      "usage_id": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+      "response_id": "resp_0760d18294fd03ec016acf6f055a188195885764d736940e78",
+      "payload": "{\"inputTokens\":13648,\"cachedInputTokens\":12672,\"cacheWriteInputTokens\":0,\"outputTokens\":56,\"reasoningOutputTokens\":0,\"totalTokens\":13704}",
+      "observed_at": "2026-10-14T12:01:11.528Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "response_id": "resp_0a3beea65fa98c51016acf6f1549bc8194bf923c6ae95946a3",
+      "payload": "{\"inputTokens\":9766,\"cachedInputTokens\":0,\"cacheWriteInputTokens\":0,\"outputTokens\":157,\"reasoningOutputTokens\":0,\"totalTokens\":9923}",
+      "observed_at": "2026-10-14T12:01:28.165Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "response_id": "resp_0a3beea65fa98c51016acf6f1a1c848194bc1342de4c98d641",
+      "payload": "{\"inputTokens\":14471,\"cachedInputTokens\":9600,\"cacheWriteInputTokens\":0,\"outputTokens\":425,\"reasoningOutputTokens\":60,\"totalTokens\":14896}",
+      "observed_at": "2026-10-14T12:01:38.614Z"
+    },
+    {
+      "usage_id": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+      "response_id": "resp_0a3beea65fa98c51016acf6f22e4848194b6a182fdbf6c981f",
+      "payload": "{\"inputTokens\":14975,\"cachedInputTokens\":14336,\"cacheWriteInputTokens\":0,\"outputTokens\":62,\"reasoningOutputTokens\":0,\"totalTokens\":15037}",
+      "observed_at": "2026-10-14T12:01:40.987Z"
+    }
+  ],
+  "workerNames": [
+    {
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "display_name": "Maya"
+    },
+    {
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "display_name": "Atlas"
+    }
+  ],
+  "hq": {
+    "checkedAt": "2026-10-14T12:04:10.302258+00:00",
+    "readOnly": true,
+    "source": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57",
+    "service": [
+      "MainPID=820597",
+      "ActiveState=active",
+      "SubState=running",
+      "ActiveEnterTimestamp=Wed 2026-10-14 05:49:47 UTC"
+    ],
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "ready",
+      "version": "0.1.0",
+      "commit": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57"
+    },
+    "schema": 29,
+    "run": {
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "configuration_hash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+      "evidence_mode": "observed",
+      "head_version": 3,
+      "head_hash": "5adc5273ad618c69b66c2e9cb015aa3050cad81a83748bf159fe41b196ada4d9"
+    },
+    "loop": {
+      "loop_id": "fa172653-d755-46df-83b5-b52becaf8821",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "state": "blocked",
+      "generation": 2,
+      "plan_revision": 1,
+      "reason": "Finite runtime or required telemetry incomplete"
+    },
+    "occurrences": [
+      {
+        "session": "2026-10-14",
+        "stage": "collect_research",
+        "due_at": "2026-10-14T11:45:00.000Z",
+        "expires_at": "2026-10-14T12:00:00.000Z",
+        "state": "complete",
+        "attempts": 1
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "research",
+        "due_at": "2026-10-14T12:00:00.000Z",
+        "expires_at": "2026-10-14T13:00:00.000Z",
+        "state": "blocked",
+        "attempts": 1
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "cutoff",
+        "due_at": "2026-10-14T13:00:00.000Z",
+        "expires_at": "2026-10-14T13:00:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "collect_close",
+        "due_at": "2026-10-14T20:05:00.000Z",
+        "expires_at": "2026-10-14T20:20:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "open",
+        "due_at": "2026-10-14T20:20:00.000Z",
+        "expires_at": "2026-10-14T23:30:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "mark",
+        "due_at": "2026-10-14T20:25:00.000Z",
+        "expires_at": "2026-10-15T23:39:59.999Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-14",
+        "stage": "expire",
+        "due_at": "2026-10-14T23:30:00.000Z",
+        "expires_at": "2026-10-14T23:30:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "collect_research",
+        "due_at": "2026-10-15T11:45:00.000Z",
+        "expires_at": "2026-10-15T12:00:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "research",
+        "due_at": "2026-10-15T12:00:00.000Z",
+        "expires_at": "2026-10-15T13:00:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "cutoff",
+        "due_at": "2026-10-15T13:00:00.000Z",
+        "expires_at": "2026-10-15T13:00:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "collect_close",
+        "due_at": "2026-10-15T20:05:00.000Z",
+        "expires_at": "2026-10-15T20:20:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "open",
+        "due_at": "2026-10-15T20:20:00.000Z",
+        "expires_at": "2026-10-15T23:30:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "mark",
+        "due_at": "2026-10-15T20:25:00.000Z",
+        "expires_at": "2026-10-15T23:39:59.999Z",
+        "state": "pending",
+        "attempts": 0
+      },
+      {
+        "session": "2026-10-15",
+        "stage": "expire",
+        "due_at": "2026-10-15T23:30:00.000Z",
+        "expires_at": "2026-10-15T23:30:00.000Z",
+        "state": "pending",
+        "attempts": 0
+      }
+    ],
+    "channel": {
+      "id": "6790c271ea4b4246c22607c59da5ba683a9aa6777309505b",
+      "source_run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "experiment_id": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+      "run_id": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+      "generation": "1",
+      "reconciled_generation": "1"
+    },
+    "jobs": [
+      {
+        "kind": "batch",
+        "state": "delivered",
+        "n": 6
+      },
+      {
+        "kind": "heartbeat",
+        "state": "delivered",
+        "n": 61
+      }
+    ],
+    "observedMarketRecords": 9,
+    "observedCollectionResults": 9,
+    "observedEmployeeExecutions": 4,
+    "integrity": "ok"
+  },
+  "qualifications": {
+    "noHistoryReclassification": true,
+    "noProviderReplay": true,
+    "authoritativeUsageTurns": 3,
+    "incompleteUsageTurns": 1,
+    "actualSubscriptionCharges": "unavailable",
+    "actualProQuotaConsumed": "unavailable",
+    "coordinatorProductionMutations": 0,
+    "rawWorkerTranscriptExported": false
+  }
+}

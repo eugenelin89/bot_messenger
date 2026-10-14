@@ -1,11 +1,23 @@
 # INV-REAL-01 — persistent observed paper investment acceptance
 
-Status: source accepted and private HQ inert deployment verified; genuine operation and public release remain pending.
-Implementation:`2e2bcf867b41f1cf66c412adbc3f93e60f3757aa`; accepted/deployed merge:`d262a8dff59ab82587bd6444b083e5e9b7603cf0` (PR75).
+Current status: public initialization and the first actual collection are verified; four genuine research turns settled on October14, but missing authoritative telemetry on the fourth automatically held the loop. No paper decision, order, fill or performance is accepted. Ask is owner-paused. The operation handoff below owns current deployment and recovery status.
+Original source implementation:`2e2bcf867b41f1cf66c412adbc3f93e60f3757aa`; original accepted/deployed merge:`d262a8dff59ab82587bd6444b083e5e9b7603cf0` (PR75).
 Source baseline: `b06bc51059372b633c98b68ecc3ef144f999781c`.
 Owner instructions, methodology and finite operational boundaries are recorded in
 [Decision047](../../decisions/decision_047_persistent_observed_paper_investment.md).
 The [operation and morning handoff](../../operations/INV-REAL-01.md) owns deployment status.
+
+## October14 genuine research telemetry failure and bounded source repair
+
+[Retained actual receipts](../evidence/inv-real-01/2026-10-14-research/receipts.json) establish four completed/settled provider turns, three with authoritative response usage and one cold-resumed Maya turn with cumulative-only diagnostics. Independent checkpoint55 retains all four consumed reservations and nine spent Yahoo collections. No account denial, proposal, review, order or fill is present. The [website owner's independent readback](../evidence/inv-real-01/2026-10-14-research/website-ack.json) confirms only the automatic public pause was added, at source6/journal1, with no source gaps and Ask disabled.
+
+The [pinned offline schema](../evidence/inv-real-01/2026-10-14-research/protocol.json) confirms `experimentalRawEvents` belongs to `thread/start`, not `thread/resume`. The source repair checkpoints subsequent finite turns into fresh provider sessions and rejects finite inputs with an existing binding before CLI startup. It preserves durable workers, discussion/evidence, predecessor lineage and independent consumed allowance. It adds no recovery exception and does not reclassify historical usage.
+
+Pre-fix regression reproduced both session reuse and missing rejection of a genuinely matching binding. [Retained diagnostics](../evidence/inv-real-01/2026-10-14-research/diagnostic-logs.json) also include the initial missing-document staging error, an earlier fixture binding mismatch, and two missing test parameter types caught by compilation. These are distinct from the production incident.
+
+Corrected build and 311 focused checks outside the observed-workflow file pass. The initial [338-test run](../evidence/inv-real-01/2026-10-14-research/green02.json) retains 324 passes and 14 observed-file failures caused by the missing stage Python environment. Linking the existing pinned Python environment, without changing source, assertions or per-stage bounds, allowed all 27 observed cases to complete successfully across two non-overlapping selections: [12 completed cases](../evidence/inv-real-01/2026-10-14-research/observed03.json), followed by [15/15 remaining cases](../evidence/inv-real-01/2026-10-14-research/observed04.json). The first selection still retains a file-level cancellation at its overall 1800-second command limit; it is not a passing single whole-file run. The second selection has zero failures, cancellations or skips. Full-universe four-session/restart/renewal passed in994.686seconds; corporate actions/revision passed in172.996seconds. No timing assertion was loosened.
+
+[Validation and review receipt](../evidence/inv-real-01/2026-10-14-research/validation.json) records 743 staged inputs and all480 current non-documentation inputs matching the tested stage. Architecture, recovery and final claim reviews found no remaining material issue; the proposal's exact future deadline, one-use exception and retained cross-authority consumption were tightened. The [evidence manifest](../evidence/inv-real-01/2026-10-14-research/manifest.json) binds the retained receipts and raw logs. The prevention fix remains undeployed; historical incomplete usage and the production hold remain intact. No full-suite total, GitHub CI/workflow pass or genuine post-repair operation is claimed.
 
 ## Connected implementation
 

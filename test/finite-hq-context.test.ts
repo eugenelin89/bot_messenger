@@ -1,0 +1,60 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {runningFiniteFixture} from './fixtures/finite-hq/support.js';
+
+test('finite follow-up checkpoints preserve employee history, lineage and consumed authority',t=>{
+ const f=runningFiniteFixture(t);t.after(f.close);f.session(0);
+ const a=f.claim(),original=f.contribute(a).message_id;f.finish(a);
+ const b=f.claim(),prior=f.company.conversations.session(b.execution.session_id!);
+ f.contribute(b);f.finish(b);
+ const c=f.claim();f.read(c);f.call(c,'read_group_record',{record_id:original,offset:0});
+ f.facilitate(c,[{worker_id:b.worker.worker_id,prompt:'Reconsider this original evidence',contribution_ids:[original],evidence_ids:[f.result.evidence.evidence_id]}]);
+ f.finish(c);f.company.discussions.progress();
+ const before=f.authority.journal.state(b.execution.execution_id);
+ const prepare=f.company.conversations.prepareBinding.bind(f.company.conversations);let unbound=false;
+ t.mock.method(f.company.conversations,'prepareBinding',(context:Parameters<typeof prepare>[0],binding:Parameters<typeof prepare>[1])=>{
+  unbound=f.company.conversations.binding(context)===undefined;return prepare(context,binding);
+ });
+ const d=f.claim();assert.equal(unbound,true);
+ const current=f.company.conversations.session(d.execution.session_id!);
+ assert.equal(d.worker.worker_id,b.worker.worker_id);
+ assert.notEqual(current.session_id,prior.session_id);
+ assert.equal(current.previous_session_id,prior.session_id);
+ assert.equal(current.generation,prior.generation+1);
+ assert.equal(current.reason,'finite_turn_checkpoint');
+ assert.equal(current.tool_hash,prior.tool_hash);
+ assert.equal(current.scope_version,prior.scope_version);
+ assert.equal(current.conversation_id,prior.conversation_id);
+ assert.equal(JSON.parse(current.handoff).scope_hash,JSON.parse(prior.handoff).scope_hash);
+ assert.notEqual(d.threadId,b.threadId);
+ assert.equal(f.company.conversations.session(prior.session_id).state,'superseded');
+ assert.equal(f.company.finiteHQ.reservation(d.execution.execution_id)!.sessionId,current.session_id);
+ assert.equal(f.company.finiteHQ.reservation(d.execution.execution_id)!.providerGeneration,current.generation);
+ assert.deepEqual(f.authority.journal.state(b.execution.execution_id),before);
+ assert.equal(f.authority.journal.counts(f.policy.authorityId,f.clock.now()).run,4);
+ assert.throws(()=>f.company.conversations.verify(b.context));
+ const context=f.company.discussions.context(d.context);
+ assert.equal(context.session.predecessor,prior.session_id);
+ assert.deepEqual(context.turn.contribution_ids,[original]);
+ assert.deepEqual(context.turn.evidence_ids,[f.result.evidence.evidence_id]);
+ assert.equal(context.turn.prompt,'Reconsider this original evidence');
+ assert.ok(context.recent_contributions.some(m=>m.message_id===original));
+ assert.ok(context.shared_evidence.some(e=>e.evidence_id===f.result.evidence.evidence_id));
+ assert.ok(context.pending_turns.some(p=>(p as {target_worker_id:string}).target_worker_id===d.worker.worker_id));
+ f.read(d);const retained=f.call(d,'read_group_record',{record_id:original,offset:0});
+ assert.ok(JSON.stringify(retained).includes('Synthetic fixture compares'));
+ f.contribute(d,[original]);f.finish(d);
+ assert.equal(f.company.aiUsage.records({executionId:d.execution.execution_id})[0]!.completeness,'complete');
+ assert.equal(f.authority.journal.counts(f.policy.authorityId,f.clock.now()).run,4);
+});
+
+for(const settled of [true,false])test('finite checkpoints cannot admit work after incomplete '+(settled?'settled':'unknown')+' history',t=>{
+ const f=runningFiniteFixture(t);t.after(f.close);f.session(0);
+ const a=f.claim();f.contribute(a);f.finish(a,false,settled);
+ const sessions=f.store.all('SELECT * FROM conversation_sessions'),state=f.authority.journal.state(a.execution.execution_id);
+ assert.equal(f.company.claimWorkNext(),undefined);
+ assert.deepEqual(f.store.all('SELECT * FROM conversation_sessions'),sessions);
+ assert.throws(()=>f.authority.journal.resume(f.policy.authorityId,f.clock.now()),/incomplete/);
+ assert.deepEqual(f.authority.journal.state(a.execution.execution_id),state);
+ assert.equal(f.authority.journal.counts(f.policy.authorityId,f.clock.now()).run,1);
+});

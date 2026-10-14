@@ -14,7 +14,7 @@ import {createInterface} from 'node:readline';
 import {writeFileSync} from 'node:fs';
 if(process.argv.includes('--version')){console.log('codex-cli 0.157.0');process.exit(0)}
 const mode=${JSON.stringify(mode)}, cwd=process.cwd(), features=${JSON.stringify(Object.fromEntries(DISABLED_FEATURES.map(f => [f, false])))};
-const send=x=>console.log(JSON.stringify(x));let turnActive=false;
+const send=x=>console.log(JSON.stringify(x));let turnActive=false,rawEvents=false;
 const thread={id:'thread-owned',cwd,name:(mode==='legacy-name'?'Bot Messenger: ':'BotSquad: ')+'${claim.worker.worker_id}',status:{type:'notLoaded'}};
 createInterface({input:process.stdin}).on('line',line=>{
  const m=JSON.parse(line), p=m.params??{};
@@ -26,6 +26,7 @@ createInterface({input:process.stdin}).on('line',line=>{
  else if(m.method==='config/read')send({id:m.id,result:{config:{features:mode==='unsafe-config'?{}:features,mcp_servers:{inherited:{}}}}});
  else if(m.method==='thread/read')send({id:m.id,result:{thread:{...thread,cwd:mode==='wrong-workspace'?'/tmp/wrong':cwd}}});
  else if(m.method==='thread/start'||m.method==='thread/resume'){
+  rawEvents=m.method==='thread/start'&&p.experimentalRawEvents===true;
   if(mode==='usage'&&m.method==='thread/start'&&p.experimentalRawEvents!==true)throw Error('Raw usage not enabled');
   if(p.config['mcp_servers.inherited.enabled']!==false)throw new Error('MCP not disabled');
   if(p.sandbox!=='read-only'||p.approvalPolicy!=='never')throw new Error('Unsafe settings');
@@ -39,8 +40,10 @@ createInterface({input:process.stdin}).on('line',line=>{
   send({id:m.id,result:{turn:{id:'turn-1'}}});
   if(mode==='usage'){
    const usage={inputTokens:24500,cachedInputTokens:20000,cacheWriteInputTokens:0,outputTokens:3200,reasoningOutputTokens:1200,totalTokens:27700};
-   for(let i=0;i<2;i++)send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'turn-1',responseId:'response-1',usage}});
-   send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'old-turn',responseId:'stale',usage}});
+   if(rawEvents){
+    for(let i=0;i<2;i++)send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'turn-1',responseId:'response-1',usage}});
+    send({method:'rawResponse/completed',params:{threadId:thread.id,turnId:'old-turn',responseId:'stale',usage}});
+   }
    send({method:'thread/tokenUsage/updated',params:{threadId:thread.id,turnId:'turn-1',tokenUsage:{total:usage,last:usage}}});
   }
   if(mode==='interrupt'||mode==='timeout')return;
@@ -183,4 +186,15 @@ test('supported raw usage protocol opts in, suppresses response text and filters
  const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
  assert.equal(result.status,'completed');assert.deepEqual(events.map(e=>(e as {kind:string}).kind),['start','turn','response','response','snapshot']);
  assert.equal((events[0] as any).identity.serviceTier,'standard');assert.equal((events[2] as any).usage.totalTokens,27700);assert.doesNotMatch(JSON.stringify(events),/stale/);
+});
+
+test('ordinary cold resume remains supported but cumulative-only usage does not become authoritative',async t=>{
+ const f=protocolFixture('usage');t.after(f.close);const events:unknown[]=[];
+ f.input.binding={worker_id:f.input.worker.worker_id,runtime_type:'codex-app-server',workspace_path:f.input.worker.workspace_path,runtime_reference:'thread-owned',created_at:'now'};
+ f.input.usage=e=>{events.push(e);f.company.aiUsage.observe(f.input.execution.execution_id,e);};
+ const result=await new CodexRuntime({command:f.command}).run(f.input,new AbortController().signal);
+ f.company.aiUsage.finish(f.input.execution.execution_id,result.status,!!result.settled);
+ assert.equal(result.status,'completed');assert.ok(f.events.includes('worker_resumed'));
+ assert.deepEqual(events.map(e=>(e as {kind:string}).kind),['start','turn','snapshot']);
+ assert.equal(f.company.aiUsage.records({executionId:f.input.execution.execution_id})[0]!.completeness,'incomplete');
 });

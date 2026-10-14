@@ -1,0 +1,45 @@
+{
+  "kind": "Selected unfinished authored observed cases on the same tested source",
+  "phase": "observed04",
+  "exitCode": 0,
+  "tests": 15,
+  "pass": 15,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "durationMs": 115774.650977,
+  "selection": {
+    "names": [
+      "authored observed workflow: initial_failed_review_provider through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+      "authored observed workflow: late_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+      "observed collection fences deadline with no post-fence admission or replay",
+      "observed collection fences pause with no post-fence admission or replay",
+      "observed collection fences stop with no post-fence admission or replay",
+      "observed collection fences rollback with no post-fence admission or replay",
+      "observed collection fences after_response with no post-fence admission or replay",
+      "owner Stop survives damaged external custody and retains its local interruption",
+      "schema24 to25 preserves populated journal, employee receipts, rowids, FK/indexes and spent external authority",
+      "failed observed approval can be cancelled and renewed without resetting capital or history",
+      "scope covers ordinary and early-close final order cleanup",
+      "new observed book can begin on a later selected session without inventing an omitted benchmark opening",
+      "standing events-only grant retains empty upload authority and rejects an injected JSON job before transmission",
+      "historical valuation reconstruction uses the frozen later observed benchmark session",
+      "benchmark recovery is prospective, exact-preview bound and does not unblock discretionary risk"
+    ],
+    "regex": "^(?:authored observed workflow: initial_failed_review_provider through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication|authored observed workflow: late_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication|observed collection fences deadline with no post-fence admission or replay|observed collection fences pause with no post-fence admission or replay|observed collection fences stop with no post-fence admission or replay|observed collection fences rollback with no post-fence admission or replay|observed collection fences after_response with no post-fence admission or replay|owner Stop survives damaged external custody and retains its local interruption|schema24 to25 preserves populated journal, employee receipts, rowids, FK/indexes and spent external authority|failed observed approval can be cancelled and renewed without resetting capital or history|scope covers ordinary and early-close final order cleanup|new observed book can begin on a later selected session without inventing an omitted benchmark opening|standing events-only grant retains empty upload authority and rejects an injected JSON job before transmission|historical valuation reconstruction uses the frozen later observed benchmark session|benchmark recovery is prospective, exact-preview bound and does not unblock discretionary risk)$",
+    "wallBoundSeconds": 600,
+    "perStageBoundsUnchanged": true
+  },
+  "admission": {
+    "activePriorTestProcesses": [],
+    "freeBytes": 26265448448,
+    "memAvailableKiB": 1540760
+  },
+  "qualification": "Only the fifteen observed cases not completed in observed03 were selected. No source/assertion/per-stage bound changed. Synthetic validation, not genuine employee or market acceptance.",
+  "log": {
+    "file": "botsquad-investment-context-observed04.log",
+    "bytes": 1794,
+    "sha256": "897103590a53228cbc2fb4d8d8547d15ac9859a82694df9b137e4675f3271d5f",
+    "text": "✔ authored observed workflow: initial_failed_review_provider through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (22980.946953ms)\n✔ authored observed workflow: late_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (52306.823839ms)\n✔ observed collection fences deadline with no post-fence admission or replay (2214.129047ms)\n✔ observed collection fences pause with no post-fence admission or replay (2335.053332ms)\n✔ observed collection fences stop with no post-fence admission or replay (2276.713521ms)\n✔ observed collection fences rollback with no post-fence admission or replay (1316.087879ms)\n✔ observed collection fences after_response with no post-fence admission or replay (3606.729975ms)\n✔ owner Stop survives damaged external custody and retains its local interruption (1339.896464ms)\n✔ schema24 to25 preserves populated journal, employee receipts, rowids, FK/indexes and spent external authority (10992.466481ms)\n✔ failed observed approval can be cancelled and renewed without resetting capital or history (3552.898339ms)\n✔ scope covers ordinary and early-close final order cleanup (1324.055949ms)\n✔ new observed book can begin on a later selected session without inventing an omitted benchmark opening (2460.019134ms)\n✔ standing events-only grant retains empty upload authority and rejects an injected JSON job before transmission (2766.475136ms)\n✔ historical valuation reconstruction uses the frozen later observed benchmark session (1854.120577ms)\n✔ benchmark recovery is prospective, exact-preview bound and does not unblock discretionary risk (3440.42512ms)\nℹ tests 15\nℹ suites 0\nℹ pass 15\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 115774.650977\n"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "kind": "October14 actual research telemetry incident and source prevention evidence",
+  "files": [
+    {
+      "path": "diagnostic-logs.json",
+      "bytes": 9781,
+      "sha256": "d282a6125f316f816fd24cbbadc2d0a1c22218ca9e6e51b802371b788706193f"
+    },
+    {
+      "path": "green02-inputs.json",
+      "bytes": 105418,
+      "sha256": "0759594db4e12b17ddd1a91f7932af97c6a0efa3114ffed77d6044d5f6546f39"
+    },
+    {
+      "path": "green02.json",
+      "bytes": 64111,
+      "sha256": "77235a4217cb0521ed131333417916a90d0933089e11de1d41badda1410e7928"
+    },
+    {
+      "path": "observed03.json",
+      "bytes": 3081,
+      "sha256": "a105aff44ea98bf21bfc36a075e121c97a0f29741bf6549f33064811021c39ef"
+    },
+    {
+      "path": "observed04.json",
+      "bytes": 5577,
+      "sha256": "dae182356b08eb73c4f916f608e21bc24e13230dc409061500263e142634c5cd"
+    },
+    {
+      "path": "preservation-after-cutoff.json",
+      "bytes": 4810,
+      "sha256": "e315477eac50a555e615fa8df9e1c1f28f6c61639ffb02b5ccb43b71f9f5a4e4"
+    },
+    {
+      "path": "preservation.json",
+      "bytes": 4650,
+      "sha256": "c0afda87e1ffedbd72b9e70fa9c27c5c8e2a7408551daab887409ff54e8960cd"
+    },
+    {
+      "path": "protocol.json",
+      "bytes": 1944,
+      "sha256": "c9b678d4b540879aab7bebf67819caea89f64cb836b96671db4870cf6e0fb2df"
+    },
+    {
+      "path": "receipts.json",
+      "bytes": 56845,
+      "sha256": "371e8aec0d058a1006e74d32c8e5a8d1163fe43d024336f8adb93fc86ceb67b4"
+    },
+    {
+      "path": "red-inputs.json",
+      "bytes": 50205,
+      "sha256": "3140348446b44d1cb1b773412b892334fdfa4c0e2b4463a79a9fe67f752b9c98"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 8192,
+      "sha256": "a1d1fce946be5689a7934e5b8479a5fabf833642b10c6e39def726bc6c9720b0"
+    },
+    {
+      "path": "website-ack.json",
+      "bytes": 1418,
+      "sha256": "a3269a4b508856c3f11a4b50ec1fbef3ad8fe43d8c7bfe3278611e818acf0c38"
+    }
+  ],
+  "rawLogWrappersVerified": 10,
+  "qualification": "Actual receipts, authored validation and proposal-only recovery remain distinct. Manifest is content integrity, not an external attestation."
+}

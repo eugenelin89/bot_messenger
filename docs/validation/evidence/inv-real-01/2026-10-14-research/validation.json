@@ -1,0 +1,148 @@
+{
+  "kind": "Finite cold-resume telemetry prevention source validation",
+  "status": "Source prevention fix validated; production remains held and fix undeployed",
+  "productionActions": [],
+  "productionFixDeployed": false,
+  "genuinePostFixAcceptance": false,
+  "baselineHead": "75b69597b7df8532f9de671bfa43c8cc8f977359",
+  "sourceFiles": [
+    {
+      "path": "src/control/conversations.ts",
+      "sha256": "f3446d6968ed6c4374374a74f9be8a54ae1bc81ae4b1f3f66fa3a9494d1dd978"
+    },
+    {
+      "path": "src/runtime/finite-policy.ts",
+      "sha256": "09151ea68e6fefe8ab80da14212c922efaccbc7d4bbd39f94cbc300cd038b4f5"
+    },
+    {
+      "path": "test/finite-hq-context.test.ts",
+      "sha256": "7879ceac35bfc47bdca51d3b0720f7a678692b60ecf96c404aaad6acc3b09273"
+    },
+    {
+      "path": "test/finite-hq-runtime.test.ts",
+      "sha256": "6def2ea1b4ed873ca899b5f5a744afbad272bb0140ad120d48dd484107205aeb"
+    },
+    {
+      "path": "test/codex.test.ts",
+      "sha256": "9b569d42a1b06e15302f9eb18203c22150264dd5bbe1c369a52961f64f571d34"
+    }
+  ],
+  "stagedInputs": {
+    "file": "green02-inputs.json",
+    "count": 743,
+    "nonDocumentationCount": 480,
+    "allCurrentNonDocumentationMatch": true
+  },
+  "build": {
+    "exitCode": 0,
+    "log": {
+      "file": "botsquad-investment-context-build-green02.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text": ""
+    }
+  },
+  "regressionBeforeRepair": {
+    "expectedFailures": 2,
+    "checks": [
+      "same-worker unchanged-tool follow-up incorrectly reused prior session",
+      "exact canonical incoming finite binding was not rejected"
+    ],
+    "diagnostics": "diagnostic-logs.json"
+  },
+  "checksAfterRepair": [
+    "fresh finite session before reservation, same employee and durable discussion",
+    "predecessor lineage and original contribution/evidence retrieval",
+    "stale prior callback rejected and exact consumed allowance retained",
+    "settled-incomplete and unknown histories cannot create sessions or resume",
+    "exact and substituted finite bindings denied before CLI startup",
+    "ordinary task adapter cold resume remains supported while cumulative-only usage remains incomplete"
+  ],
+  "initialFocusedRun": "green02.json",
+  "reviews": [
+    {
+      "specialist": "control_plane_architect",
+      "agent": "investment_context_architecture",
+      "scope": "current source diff, session checkpoint placement, durable context, exact-binding runtime guard and ordinary-resume scope",
+      "result": "No material issue; ordinary adapter regression is task-mode, not a new direct-conversation two-turn test."
+    },
+    {
+      "specialist": "recovery_reviewer",
+      "agent": "investment_usage_recovery",
+      "scope": "current source diff, reservation ordering, stale callbacks, historical incomplete/unknown fences",
+      "result": "No material recovery issue; no historical state reclassification or grant reset."
+    },
+    {
+      "specialist": "recovery_reviewer",
+      "agent": "investment_usage_recovery",
+      "scope": "proposal-only telemetry recovery policy",
+      "result": "No remaining substantive recovery/accounting issue after separate final release consent, exact future deadline, one-use authority binding and cross-authority consumption restrictions. Wording clarified to activate authority before collection while runtime/source requests stay on schedule."
+    },
+    {
+      "specialist": "control_plane_architect",
+      "agent": "investment_context_architecture",
+      "scope": "actual receipts and final current-facing claim/proposal review",
+      "result": "No blocking or material inaccurate claim. Authoritative response counts 4,3,3,0; all actual providers settled. Current hold, source-only prevention and proposal-only recovery are accurately separated. Corrected observed result must await completion."
+    }
+  ],
+  "limits": [
+    "All validation model replies and prices are authored fixtures.",
+    "No full-suite or GitHub CI/workflow pass is claimed.",
+    "Production historical incomplete telemetry remains incomplete and held under Decision047.",
+    "Recovery proposal is neither approved nor implemented."
+  ],
+  "observedExpectedCases": [
+    "observed setup is inert, exact, renewable-policy ready and schedules three future source/research/accounting sessions",
+    "reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies",
+    "authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: actions_and_revision through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: missing_close through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: failed_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: interrupted_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review_null through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review_partial through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review_retry through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review_unsettled through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: initial_failed_review_provider through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "authored observed workflow: late_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+    "observed collection fences deadline with no post-fence admission or replay",
+    "observed collection fences pause with no post-fence admission or replay",
+    "observed collection fences stop with no post-fence admission or replay",
+    "observed collection fences rollback with no post-fence admission or replay",
+    "observed collection fences after_response with no post-fence admission or replay",
+    "owner Stop survives damaged external custody and retains its local interruption",
+    "schema24 to25 preserves populated journal, employee receipts, rowids, FK/indexes and spent external authority",
+    "failed observed approval can be cancelled and renewed without resetting capital or history",
+    "scope covers ordinary and early-close final order cleanup",
+    "new observed book can begin on a later selected session without inventing an omitted benchmark opening",
+    "standing events-only grant retains empty upload authority and rejects an injected JSON job before transmission",
+    "historical valuation reconstruction uses the frozen later observed benchmark session",
+    "benchmark recovery is prospective, exact-preview bound and does not unblock discretionary risk"
+  ],
+  "otherFocusedCases": {
+    "tests": 311,
+    "pass": 311,
+    "fail": 0,
+    "source": "green02.json",
+    "qualification": "Excludes all 27 observed-file cases, including its thirteen passes. Not a whole repository suite."
+  },
+  "observedCases": {
+    "expected": 27,
+    "uniquePassingCases": 27,
+    "observed03Completed": 12,
+    "observed04Completed": 15,
+    "overlap": 0,
+    "missing": [],
+    "logs": [
+      "observed03.json",
+      "observed04.json"
+    ],
+    "qualification": "All 27 expected cases have a completed pass. The first run still retains its file-level cancellation at the overall 1800-second wall bound; this is not a passing single whole-file run."
+  },
+  "preservation": [
+    "preservation.json",
+    "preservation-after-cutoff.json"
+  ],
+  "completedAt": "2026-10-14T13:07:28Z"
+}
