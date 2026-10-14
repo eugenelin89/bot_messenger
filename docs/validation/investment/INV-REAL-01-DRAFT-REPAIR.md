@@ -1,6 +1,6 @@
 # Inactive recovery draft and approval clock repair
 
-Status: source review complete; Linux validation in progress. The live prepared successor
+Status: source review and serial Linux validation complete; normal merge and live release pending. The live prepared successor
 remains inactive and independently unapproved. No new model call, order or fill is claimed.
 
 The actual PR95 deployment preserved the portfolio, all prior attempts and publication
@@ -35,7 +35,7 @@ The failures are retained. Read-only sampling showed an active loop and running 
 The correction removes duplicate configuration resolution within each authority check and
 avoids reconstructing a nonexistent revision chain. It retains every original-config and
 actual revision-chain/evidence/custody check and adds full timeout diagnostics. No deadline
-or assertion is relaxed. Repair04 results remain pending.
+or assertion is relaxed. Repair04 built and passed canonical checks,26 focused checks, all3 complete workflows and89 focused regression checks, with zero failures/cancellations/skips in these groups. All483 source inputs matched; earlier failures remain retained. The workflow group took646861.194ms at unchanged stage bounds. These are selected groups, not a whole-repository suite or GitHub CI result.
 
 All scenarios use authored runtime/source fixtures. They do not establish genuine provider
 inference, real market prices or successful live paper execution. Normal merge, preservation

@@ -24,7 +24,8 @@ and the historical incomplete usage remain unchanged. The original16:17:58 draft
 time elapsed unused. Do not retry the old release or create another successor.
 
 The reviewed repair uses one approval timestamp and the explicit same-unused-draft revision
-in Decision052. Serial Linux validation is active. Complete normal merge, preservation
+in Decision052. Repair04 serial Linux validation passed build/canonical,26 focused checks,
+all3 full workflows and89 focused regression checks. Earlier failures remain retained. Complete normal merge, preservation
 deployment and postdeploy verification before a fresh exact revision/release, selector
 restart and activation. Original close collection/decision cutoff remain unchanged. ASK
 stays paused, and no further broad permission question is required.
