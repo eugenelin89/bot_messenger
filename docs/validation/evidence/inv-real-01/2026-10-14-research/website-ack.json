@@ -1,0 +1,42 @@
+{
+  "kind": "independent website-owner read-only acknowledgment",
+  "observedAt": "2026-10-14T12:08:54.735713Z",
+  "threadId": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "completedTurnId": "01a13a50-12fd-7d51-a954-dbccc47ae2c6",
+  "cursor": "b6337d22-4873-49ac-b91e-8e6e7e9c6ebd:80",
+  "resources": [
+    "status",
+    "events",
+    "transactions",
+    "ask availability"
+  ],
+  "allHttp200": true,
+  "allPrivateNoStore": true,
+  "anyCookie": false,
+  "publicState": "paused",
+  "sourceSequence": 6,
+  "journalSequence": 1,
+  "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+  "sourceGaps": false,
+  "priorFiveEventHashesUnchanged": true,
+  "onlyNewEvent": {
+    "type": "run.status",
+    "state": "paused",
+    "effectiveAt": "2026-10-14T12:02:07.971Z",
+    "receivedAt": "2026-10-14T12:02:57.000Z",
+    "eventHash": "2bcfa6602be31bee43bffe84283cf291a2f0b5b893156db8a22c78c88898ce6f"
+  },
+  "completeEventPage": true,
+  "completeTransactionPage": true,
+  "decisionReviewOrderFillCount": 0,
+  "onlyTransaction": "initialization",
+  "lastHeartbeatAt": "2026-10-14T12:06:57.000Z",
+  "marketFreshness": "unknown",
+  "ask": {
+    "state": "disabled",
+    "privacyNoticeVersion": "ask-privacy-v1"
+  },
+  "changesRequested": false,
+  "changesMade": false,
+  "qualification": "Verified HTTPS readback and owner acknowledgment; responses are not independently signed receiver attestations."
+}

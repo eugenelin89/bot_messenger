@@ -1,12 +1,22 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
+## Actual research telemetry hold — October 14, 12:07 UTC
+
+The scheduled research completed four genuine Atlas/Maya provider turns, but the fourth cold-resumed thread emitted only cumulative snapshots, with no authoritative response usage. Independent custody retained all four consumed/settled reservations and held the scope at checkpoint 55; no proposal, review, order or fill exists. Production automatically paused the portfolio and published its status. Ask remains owner-paused.
+
+Initial diagnosis estimate was 10–20 minutes. The pinned CLI's offline schema confirms that raw-event opt-in exists on start, not resume; existing AI usage documentation already describes this limitation. The concrete repair uses a fresh existing conversation checkpoint for each subsequent finite turn and rejects bound finite inputs before CLI startup. Durable workers, discussion, original evidence, pending requests and consumption remain unchanged. Ordinary conversations retain resume.
+
+Repair estimate: 45–75 minutes for focused serial Linux regression, independent architecture/recovery review and normal PR integration. Historical incomplete usage will not be reclassified. The current hold cannot resume or renew under Decision047; no restart, deployment, authority mutation or new provider attempt is implied by preparing the fix. Validate same-worker generation lineage, retained group evidence, stale callback rejection, exact consumption, incomplete/unknown fences and unchanged ordinary resume. Record actual receipts and public acknowledgment in the operation handoff.
+
+At13:07UTC, the source repair has passed build,311 focused non-observed checks and all27 observed-workflow cases across two non-overlapping selections. The original338-test batch's14 missing-Python stage failures and the corrected first selection's1800-second overall cancellation are retained. Only unfinished cases were selected next;15/15 passed, with unchanged assertions/per-stage bounds. Architecture/recovery/final claim reviews found no remaining material issue. All480 non-documentation inputs still match the743-input tested stage. Normal PR integration is the final source step, expected within10–15minutes; this remains within the original45–75minute estimate. [Qualified validation](../validation/investment/INV-REAL-01.md#october14-genuine-research-telemetry-failure-and-bounded-source-repair) distinguishes this source result from the unchanged live hold and unapproved recovery proposal.
+
 **Status:** Source milestone accepted and privately deployed; broader completion continues by heartbeat
 **Owner:** Primary Codex implementation agent; independent specialists read only
 **Branch:** `codex/inv-real-01`
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** First actual research collection completed October14 at11:46:34UTC under the existing schedule. Nine successful historical observations and independent spent receipts are verified; employee research is next at12:00UTC and cutoff at13:00UTC. The finite trial ends October15 at23:40UTC. Ask is paused by the owner; only investment continues. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
+**Current ETA:** Source prevention validation is complete at13:07UTC, with normal integration expected within10–15minutes. The actual loop remains held after four settled turns, the fourth lacking authoritative usage. No operational recovery ETA is promised because historical incomplete usage blocks resume and renewal. The existing authority expires October15 at23:40UTC. Ask remains owner-paused.
 
 ## October14 first actual collection checkpoint
 

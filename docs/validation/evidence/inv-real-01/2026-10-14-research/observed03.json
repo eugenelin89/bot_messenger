@@ -1,0 +1,18 @@
+{
+  "kind": "Corrected pinned-Python isolated observed workflow run",
+  "phase": "observed03",
+  "exitCode": 124,
+  "tests": 13,
+  "pass": 12,
+  "fail": 0,
+  "cancelled": 1,
+  "skipped": 0,
+  "durationMs": 1799923.456363,
+  "qualification": "Overall 1800-second command bound ended this run. Twelve observed cases completed; the file-level in-flight cancellation remains retained. This is not a passing whole-file run. No per-stage test bound or assertion changed; remaining uncompleted cases are selected separately.",
+  "log": {
+    "file": "botsquad-investment-context-observed03.log",
+    "bytes": 2339,
+    "sha256": "f0486d00f63f2294fcffecdc402ce35c1730ea4cbb4f7df05bc445169929c229",
+    "text": "✔ observed setup is inert, exact, renewable-policy ready and schedules three future source/research/accounting sessions (1765.18322ms)\n✔ reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies (12476.238401ms)\n✔ authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (994685.926178ms)\n✔ authored observed workflow: actions_and_revision through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (172996.055573ms)\n✔ authored observed workflow: missing_close through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (169160.390171ms)\n✔ authored observed workflow: failed_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (132688.717558ms)\n✔ authored observed workflow: interrupted_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (142179.910679ms)\n✔ authored observed workflow: initial_failed_review through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (81988.988708ms)\n✔ authored observed workflow: initial_failed_review_null through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (20683.010323ms)\n✔ authored observed workflow: initial_failed_review_partial through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (22093.22248ms)\n✔ authored observed workflow: initial_failed_review_retry through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (21021.165342ms)\n✔ authored observed workflow: initial_failed_review_unsettled through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication (19919.448557ms)\n\nInterrupted while running:\n\n⚠ dist/test/observed-investment.test.js (dist/test/observed-investment.test.js:1:1)\n✖ dist/test/observed-investment.test.js (1799905.610202ms)\nℹ tests 13\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 1\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1799923.456363\n\n✖ failing tests:\n\ntest at dist/test/observed-investment.test.js:1:1\n✖ dist/test/observed-investment.test.js (1799905.610202ms)\n  'Promise resolution is still pending but the event loop has already resolved'\n"
+  }
+}
