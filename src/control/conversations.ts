@@ -351,7 +351,12 @@ export class Conversations {
     return {conversation_id:c.conversation_id,request_id:request.request_id,status:request.status,delivery:'One reserved continuation delivers the answer in the peer conversation. Now submit_reply with your own brief explanation of the question you asked and any initial reasoning, then end this turn. Do not wait or poll, and do not claim the peer has answered yet.'};
   }
   callTool(context: ExecutionContext,callId: string,name: string,input: unknown,signal?:AbortSignal) {
-    const {request}=this.verify(context);if(this.company.mandates.forConversation(request.conversation_id))return this.company.mandates.callTool(context,callId,name,input,signal);if(this.company.discussions.forConversation(request.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
+    // Persisted identity selects a handler; it does not authorize the call. The
+    // discussion handler performs full verification inside its transaction before
+    // returning even an existing receipt. Avoid replaying the investment journal twice.
+    const route=this.db.get<{conversation_id:string}>("SELECT r.conversation_id FROM executions x JOIN conversation_requests r USING(request_id) WHERE x.execution_id=? AND x.origin='conversation'",context.executionId);
+    if(route&&!this.company.mandates.forConversation(route.conversation_id)&&this.company.discussions.forConversation(route.conversation_id))return this.company.discussions.callTool(context,callId,name,input);
+    const {request}=this.verify(context);if(this.company.mandates.forConversation(request.conversation_id))return this.company.mandates.callTool(context,callId,name,input,signal);
     requireThat(!this.company.research.hasPending(context.executionId),'Await pending research before replying or using another tool.');
     requireThat(typeof callId==='string'&&callId.length>0&&callId.length<=256,'Invalid tool call ID');
     return this.db.transaction(()=>{
