@@ -1,5 +1,7 @@
 # BotSquad
 
+**Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
+
 **ASK-LAUNCH, October14:** HQ [PR89](https://github.com/eugenelin89/bot_messenger/pull/89) is deployed at`5691504`, schema29. Website/receiver`6a194f0` is deployed closed. The separate protected API route passed authored Linux validation; genuine answers remain blocked on the owner's explicit$5/24hour API decision and legitimate key. Investment state, schedule, finite consumption and publication generation1 were preserved. See [actual launch evidence](docs/validation/ASK_LAUNCH.md) and [operator runbook](docs/operations/ASK-LAUNCH.md).
 
 

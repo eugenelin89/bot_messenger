@@ -1,5 +1,7 @@
 # Ask launch — qualified implementation acceptance
 
+**Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
+
 **2026-10-14 05:55 UTC.** Reviewed API implementation, authored acceptance and closed HQ/website deployments are complete. Public Ask remains closed: no API credentials, spending grant, provider call or genuine answer exists. Personal Codex eligibility remains unestablished. See [Decision051](../decisions/decision_051_ask_api_launch.md), [operation](../operations/ASK-LAUNCH.md) and [execution plan](../exec-plans/ask-launch.md).
 
 ## Scope and source

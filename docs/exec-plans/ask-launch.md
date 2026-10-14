@@ -1,11 +1,15 @@
 # Execution Plan — Ask launch
 
-**Status:** Closed deployments complete; blocked on explicit API spending decision/key for genuine acceptance
+**Status:** Paused by owner October 13, 2026, 11:08 p.m. Vancouver; closed deployments preserved
 **Owner:** sole coordinator `01a13739-708a-7d62-9b9c-52c11ead5f4b`  
 **Branch:** `codex/inv-real-01`  
 **Worktree:** `bot_messenger-inv-real-01`  
 **Started:** 2026-10-14 04:28 UTC  
 **Initial ETA:** 2–4 hours for implementation, focused Linux validation, review and safe closed deployment; genuine acceptance depends on explicit API spending authorization.
+
+**Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
+
+The implementation and remaining activation steps below are retained context only. Resume requires a new explicit owner instruction; receipt of credentials alone does not resume work.
 
 ## Objective
 
