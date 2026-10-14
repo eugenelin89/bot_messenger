@@ -70,3 +70,27 @@ test('activity loop retains cycle/run usage through owner pause/resume without u
  assert.equal(f.store.get<{state:string}>('SELECT state FROM investment_loop_usage')!.state,'unknown');assert.equal(f.loop.get(p.loopId).state,'active');f.control(p.loopId,'pause');assert.equal(f.loop.get(p.loopId).state,'paused');f.approvePublication();f.control(p.loopId,'resume');assert.equal(f.loop.get(p.loopId).state,'active');assert.equal(f.company.investmentActivity.counts(f.config.runId).run,1);
  const report=f.company.aiUsage.report({runId:f.config.runId});assert.equal(report.summary.invocations,1);assert.equal(report.byCycle[o.occurrence_id]!.invocations,1);assert.equal(report.byWorker[c.worker.worker_id]!.invocations,1);assert.equal(report.rolling24h.invocations,1);assert.equal(report.summary.estimatedUsd,null);
 });
+
+for(const [label,damage,error] of [
+ ['checkpoint',"DROP TRIGGER investment_head_guard;UPDATE investment_runs SET checkpoint_hash='corrupt'",/truncated_or_corrupt_history/],
+ ['configuration',"DROP TRIGGER investment_configuration_immutable;UPDATE investment_runs SET configuration=json_set(configuration,'$.initialCapital','2000')",/configuration_corrupt/],
+ ['outbox',"DROP TRIGGER investment_outbox_immutable;UPDATE investment_outbox SET projection='{}'",/outbox_mismatch/],
+ ['receipt',"DROP TRIGGER investment_receipts_immutable;UPDATE investment_receipts SET request_hash='corrupt'",/receipt_hash_mismatch/],
+] as const)test(`loop-backed evidence receipt revalidates unchanged-head ${label} corruption and rollback`,t=>{
+ const f=loopFixture();t.after(f.close);const p=f.start(),o=f.occurrences(p.loopId).find(o=>o.stage==='research')!;f.at(o);f.loop.tick();const c=f.claim(),callId=randomUUID(),args={record_id:f.evidence.evidence_id,offset:0};
+ const first=f.call(c,'read_group_record',args,callId),receipts=f.store.all('SELECT * FROM tool_receipts'),retrieval=f.store.all('SELECT * FROM discussion_retrieval_usage'),head=f.store.get('SELECT head_version,head_hash FROM investment_runs WHERE run_id=?',f.config.runId);
+ f.store.transaction(()=>{f.store.db.exec('SAVEPOINT corrupt_loop_read');try{f.store.db.exec(damage);assert.deepEqual(f.store.get('SELECT head_version,head_hash FROM investment_runs WHERE run_id=?',f.config.runId),head);assert.throws(()=>f.call(c,'read_group_record',args,callId),error);assert.throws(()=>f.call(c,'read_group_record',args),error);assert.deepEqual(f.store.all('SELECT * FROM tool_receipts'),receipts);assert.deepEqual(f.store.all('SELECT * FROM discussion_retrieval_usage'),retrieval);}finally{f.store.db.exec('ROLLBACK TO corrupt_loop_read; RELEASE corrupt_loop_read');}});
+ assert.deepEqual(f.call(c,'read_group_record',args,callId),JSON.parse(JSON.stringify(first)));
+});
+
+for(const condition of ['pause','expiry','stale occurrence'] as const)test(`loop-backed evidence receipt revalidates ${condition} before replay`,t=>{
+ const f=loopFixture();t.after(f.close);const p=f.start(),o=f.occurrences(p.loopId).find(o=>o.stage==='research')!;f.at(o);f.loop.tick();const c=f.claim(),callId=randomUUID(),args={record_id:f.evidence.evidence_id,offset:0};f.call(c,'read_group_record',args,callId);const receipts=f.store.all('SELECT * FROM tool_receipts'),retrieval=f.store.all('SELECT * FROM discussion_retrieval_usage');
+ if(condition==='pause')f.control(p.loopId,'pause');else if(condition==='expiry')f.clock.set(o.expires_at);else f.store.run("UPDATE investment_loop_occurrences SET state='missed' WHERE occurrence_id=?",o.occurrence_id);
+ assert.throws(()=>f.call(c,'read_group_record',args,callId),/held|paused|stale|window|deadline|expired/);assert.deepEqual(f.store.all('SELECT * FROM tool_receipts'),receipts);assert.deepEqual(f.store.all('SELECT * FROM discussion_retrieval_usage'),retrieval);
+});
+
+test('mutating a returned loop authorization snapshot cannot affect later authorization or evidence reads',t=>{
+ const f=loopFixture();t.after(f.close);const p=f.start(),o=f.occurrences(p.loopId).find(o=>o.stage==='research')!;f.at(o);f.loop.tick();const c=f.claim(),r=f.company.conversations.request(c.execution.request_id),original=f.loop.authorize(f.scope.scopeId,r)!;
+ const configuration=JSON.parse(JSON.stringify(original.configuration)),state=JSON.parse(JSON.stringify(original.state));original.configuration.initialCapital='2000';original.state.lifecycle='paused';
+ f.company.investmentTeam.authorize(r);const fresh=f.loop.authorize(f.scope.scopeId,r)!;assert.deepEqual(fresh.configuration,configuration);assert.deepEqual(fresh.state,state);assert.ok(f.call(c,'read_group_record',{record_id:f.evidence.evidence_id,offset:0}));
+});
