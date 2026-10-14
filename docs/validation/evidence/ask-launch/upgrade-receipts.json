@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-10-14T05:53:59.742237+00:00",
+  "backup-manifest.json": {
+    "at": "2026-10-14T05:48:43.693715+00:00",
+    "files": {
+      "target-sha": "f0de28c8b2a823f5f64e2fc3f193df641cf3e2d3fbe0bcdfcf93dba23e6ff9c5",
+      "previous-sha": "6b9bfac99f3e2af94ec3c321679a970b586670af816fa2ecc3bb41c79038f8d3",
+      "finite-checkpoint.json": "f4f3ed29c396df86852385a2caa4b75f578601be3ba8cf084aa82e1ff5eddd78",
+      "old-dist.tar": "e49b620a37288a8486c38124f4e7d0e0b0cbe9572aa906a3d6c2e6924c4e70ab",
+      "company-schema25.sqlite": "436500932d92083c9c6cc3c5c41269091ce20fed33ece4732a9ea990bc2dfad3",
+      "finite-authority.sqlite": "55364b1fcc6ef821096757240f69f8611058c70d77a2a44cf4a80470f8422c5e",
+      "botsquad.service": "b3b89e0b2454ad9ea1de054fbdd794af023187bca7e13095f6e5d97e09a0e21a",
+      "deployment": "18b4d9193a80e0e9f7872bcba313569abf7619ad5e5b55b33b0b15bfd7b98a8e"
+    },
+    "credentialsCopied": false,
+    "restoringSpentAuthorityPermitted": false
+  },
+  "handoff-prepared.json": {
+    "prepared": true,
+    "channelId": "6790c271ea4b4246c22607c59da5ba683a9aa6777309505b",
+    "targetSha": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57",
+    "at": "2026-10-14T05:49:46.387Z"
+  },
+  "upgrade-result.json": {
+    "checkedAt": "2026-10-14T05:49:56.976213+00:00",
+    "health": {
+      "alive": true,
+      "database": true,
+      "dispatcher": true,
+      "runtime": "unknown",
+      "version": "0.1.0",
+      "commit": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57"
+    },
+    "ask": {
+      "state": "disabled",
+      "reason": "Ask is disabled; no backend authority loaded",
+      "installed": false,
+      "closed": true
+    },
+    "channel": {
+      "generation": "1",
+      "reconciled_generation": "1"
+    },
+    "restartPermitState": "completed",
+    "backup": "/var/backups/botsquad/ask-upgrade-20261014T054843Z",
+    "service": [
+      "MainPID=820597",
+      "MemorySwapMax=0",
+      "LimitCORE=0",
+      "ActiveState=active"
+    ]
+  },
+  "publicationCheckpoint": {
+    "channelId": "6790c271ea4b4246c22607c59da5ba683a9aa6777309505b",
+    "claimedBy": "ab3f27da60902f65b7188d4948c4daf02af64b585e5082e4",
+    "createdAt": "2026-10-14T05:49:46.387Z",
+    "expiresAt": "2026-10-14T06:19:46.387Z",
+    "fileDigests": {
+      "finiteAuthority": "0bacabea3fc4687552c8f7314bc8b0c201ea2793f7a6118eb668812cdc27ff8a",
+      "finiteCheckpoint": "f4f3ed29c396df86852385a2caa4b75f578601be3ba8cf084aa82e1ff5eddd78",
+      "publicationConfig": "3adf88cf46135e25536decd5e99e34108009efbfedba6f214c13e039602e37da"
+    },
+    "files": {
+      "finiteAuthority": "/var/lib/botsquad/.botsquad/finite-hq-authority/authority.sqlite",
+      "finiteCheckpoint": "/var/lib/botsquad/.botsquad/finite-hq-custody/checkpoint.json",
+      "publicationConfig": "/var/lib/botsquad/.botsquad/observed-publication/configuration.json"
+    },
+    "generation": "1",
+    "id": "a42c8918-a18b-4d5c-b11f-7cf3abacf013",
+    "receiptDigest": "c87f9441347ef5ef74e3d574ffb24e7dc21fd631ea15d1ebc55a6919eb649334",
+    "state": "completed",
+    "stateDigest": "6b146d4802d830515da0bd14f25ca511e214fc8d7821f7050291b0a9ad067b79",
+    "targetSha": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57",
+    "version": 1
+  },
+  "receiverResults": [
+    {
+      "attempt_id": "6bc215abeb341e5bb616b679ef234a9be8fe9b3c5c4cda24",
+      "state": "delivered",
+      "detail": "clean_restart_receipt",
+      "recorded_at": "2026-10-14T05:49:54.064Z",
+      "receipt": "{\"acceptedIds\":[\"d9294615434849e434bcccd1f2368a6e1c47fa8a884b2488\"],\"batchId\":\"01aa74b9817207fc097eaab2191f6f0d7c0a7b89e8abdcbf\",\"bodyDigest\":\"e9550227f66ecb5f7673adf65aa8f4f345a47d57a02502fda82e11d55cfd7a5f\",\"duplicateIds\":[],\"experimentId\":\"16496aa38732845beeea0a75f4614b93136be792accbb4e0\",\"receiptId\":\"db63be6e-4861-411b-a6aa-aebd5db7875a\",\"receivedAt\":\"2026-10-13T20:34:09.000Z\",\"receiverCursor\":\"76f1c84d-bf5d-493a-9862-0783accf1afe\",\"runId\":\"0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c\",\"schemaVersion\":\"1.0\",\"watermark\":{\"journalHash\":\"fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523\",\"journalSequence\":\"1\",\"sourceGaps\":false,\"sourceSequence\":\"5\"}}"
+    },
+    {
+      "attempt_id": "6bc215abeb341e5bb616b679ef234a9be8fe9b3c5c4cda24-status",
+      "state": "delivered",
+      "detail": "clean_restart_current_watermark",
+      "recorded_at": "2026-10-14T05:49:54.064Z",
+      "receipt": "{\"experimentId\":\"16496aa38732845beeea0a75f4614b93136be792accbb4e0\",\"freshness\":{\"expectedMarkSession\":null,\"lastActivityAt\":null,\"lastHeartbeatAt\":\"2026-10-14T05:45:45.000Z\",\"lastPublicationAt\":\"2026-10-13T20:34:09.000Z\",\"reason\":\"Transport contact does not establish market freshness; no calendar collector is configured.\",\"status\":\"unknown\",\"valuationAsOf\":null},\"notices\":[],\"runId\":\"0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c\",\"schemaVersion\":\"1.0\",\"state\":\"configured\",\"watermark\":{\"journalHash\":\"fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523\",\"journalSequence\":\"1\",\"sourceGaps\":false,\"sourceSequence\":\"5\"}}"
+    }
+  ]
+}

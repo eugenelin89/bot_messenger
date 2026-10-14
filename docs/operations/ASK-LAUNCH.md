@@ -2,6 +2,12 @@
 
 The owner's October 14 ASK-LAUNCH request authorizes implementation, reviewed deployment and public testing, **not API spending**. Production admission stays closed until a real owner decision and a protected credential exist. The current source adds an API route only for public questions; the investment Codex adapter and finite authority remain separate.
 
+## Installed closed release
+
+HQ5691504d6ebc39f7d639ec9a4fd2d00511a1ef57/schema29/PID820597 and website/receiver6a194f040b70714de3b1281de5b58c1b8ad29579/build3eDBZMdlma5Ug7_iw_ZES are deployed. [Actual evidence](../validation/ASK_LAUNCH.md) records generation1 receipt reconciliation, portfolio/custody preservation and disabled Ask. Current protected configuration is `/etc/botsquad-ask-launch/ask-configuration.json`; `/etc/botsquad` itself is root0700 and is not readable by the service user. The dedicated parent is root:botsquad0750. Effective cgroup swap and core dump limits are zero.
+
+The stopped recovery backup is `/var/backups/botsquad/ask-upgrade-20261014T054843Z`. It does not authorize restoring consumed authority. The old schema25 binary cannot run the upgraded database: after migration, preserve new receipts and repair forward or use a separately reviewed recovery plan. The first-only offline handoff has already completed and must never be rerun. Future clean shutdowns use the live-instance handoff path.
+
 ## Protected configuration and custody
 
 `BOTSQUAD_ASK_CONFIG` names an absolute, canonical, service-owned0600 JSON file under non-writable ancestors. Before any Ask custody exists, `{ "version":1, "enabled":false }` is the supported closed installation. Missing configuration also creates no service or grant. Once custody exists, retain the full configuration even while disabled: removing it prevents locating retained raw content and reports blocked.
@@ -37,7 +43,7 @@ node dist/scripts/publication-clean-restart.js RESTART_CONFIGURATION DATA_DIRECT
 
 The helper holds the actual data lock, opens schema25 read-only, checks settled work and the actual service-user finite journal, then creates one permanent initialization marker and a30minute single-use permit bound to every publication row, the retained source/journal, current publication configuration and finite custody hashes. It does not construct Company, migrate, grant, dispatch or bootstrap.
 
-Startup claims the permit before any reconciliation request. The existing signed batch receipt and current verified-TLS public status must agree exactly, with unchanged authority/configuration and counted attempts. The public status endpoint is not a signed receiver attestation. The same generation resumes only after durable receipt commitment. A lost response, drift, consumed/missing permit or incomplete commit remains fenced; never reinitialize it to bypass uncertainty. Ordinary restore still requires its accepted generation-advance procedure.
+Startup claims the permit before any reconciliation request. The existing batch receipt retrieved by a signed authenticated GET and current verified-TLS public status must agree exactly, with unchanged authority/configuration and counted attempts. The public status endpoint is not a signed receiver attestation. The same generation resumes only after durable receipt commitment. A lost response, drift, consumed/missing permit or incomplete commit remains fenced; never reinitialize it to bypass uncertainty. Ordinary restore still requires its accepted generation-advance procedure.
 
 Later handoffs can be armed only by the currently reconciled live publisher after shutdown quiescence. Offline code cannot renew a consumed permit. Before a later upgrade, set the target SHA explicitly; this does not mint authority. Unclean shutdowns stay fenced and need the accepted recovery procedure.
 

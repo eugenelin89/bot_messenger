@@ -1,0 +1,226 @@
+{
+  "checkedAt": "2026-10-14T05:52:47.521532+00:00",
+  "kind": "independent-verified-IPv4-HTTPS-readback",
+  "responses": [
+    {
+      "url": "https://asymmetri.co/botsquad/research",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 23527,
+      "sha256": "0eb57dc9d3879d92cd27c3d8666cd64c2f7169b666ed37ac2193ad401698de1b",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 93691,
+      "sha256": "f8b907383e091d3b55f54a9bfd2e981931b34da8f8bfb863bd9a8055952f8f16",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": true,
+        "Maya": true,
+        "100,000": true,
+        "Questions are not open yet": true,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/ask",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 25757,
+      "sha256": "0dd807175f3f8d6f121aae9c95845ffb25d604ae3b03cc5e7e0835ff7a42a9d5",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": true,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=experiment",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 707,
+      "sha256": "e634ac803078d5ba5f0d6b1598187067876e64a91660f82174042d784c86aa62",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "title": "BotSquad Investment",
+          "purpose": "A personal noncommercial paper-investment experiment using real market observations and genuine AI employees.",
+          "objective": "Study evidence-driven decisions, independent challenge and transparent long-term accounting; no guaranteed return.",
+          "officialRunId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "runs": [
+            {
+              "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+              "kind": "official",
+              "state": "configured",
+              "methodologyVersion": "inv-real-open-v1"
+            }
+          ],
+          "nextCursor": null
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=status",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 740,
+      "sha256": "df4c8f79ea2f9bd9dc72f35c7a40b6f3cb33167a52e969716c058909ec78abfa",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "state": "configured",
+          "watermark": {
+            "sourceSequence": "5",
+            "journalSequence": "1",
+            "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+            "sourceGaps": false
+          },
+          "freshness": {
+            "lastActivityAt": null,
+            "lastPublicationAt": "2026-10-13T20:34:09.000Z",
+            "lastHeartbeatAt": "2026-10-14T05:45:45.000Z",
+            "valuationAsOf": null,
+            "expectedMarkSession": null,
+            "status": "unknown",
+            "reason": "Transport contact does not establish market freshness; no calendar collector is configured."
+          },
+          "notices": []
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=snapshot",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 722,
+      "sha256": "7c679a4e447342d028a2cd597f8982f020d2de778b0e551443cff7aae736316c",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "snapshot": null,
+          "watermark": {
+            "sourceSequence": "5",
+            "journalSequence": "1",
+            "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+            "sourceGaps": false
+          },
+          "freshness": {
+            "lastActivityAt": null,
+            "lastPublicationAt": "2026-10-13T20:34:09.000Z",
+            "lastHeartbeatAt": "2026-10-14T05:45:45.000Z",
+            "valuationAsOf": null,
+            "expectedMarkSession": null,
+            "status": "unknown",
+            "reason": "Transport contact does not establish market freshness; no calendar collector is configured."
+          }
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=workers",
+      "curlExit": 0,
+      "status": 400,
+      "bytes": 73,
+      "sha256": "fa98315754572b91ff79a9fb4d8b894d65e9b289fc4a3853f3007ecb1364f0bc",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      },
+      "body": {
+        "data": null,
+        "error": "Invalid archive request.",
+        "code": "INVALID_REQUEST"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/api/ask/v1/availability",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 133,
+      "sha256": "4ce68d5ac1102050b3b2ff2235c84f3478854cf32f5560a28eda0dd1b4cc2896",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "JfXhLeJ9il1oKr7D-w7ar": false
+      },
+      "body": {
+        "schemaVersion": "1.0",
+        "serviceId": "asymmetri-ask",
+        "state": "disabled",
+        "retryAfterSeconds": 60,
+        "privacyNoticeVersion": "ask-privacy-v1"
+      }
+    }
+  ]
+}

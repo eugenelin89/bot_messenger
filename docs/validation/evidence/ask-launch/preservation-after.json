@@ -1,0 +1,137 @@
+{
+  "checkedAt": "2026-10-14T05:52:06.136549+00:00",
+  "source": "5691504d6ebc39f7d639ec9a4fd2d00511a1ef57",
+  "schema": 29,
+  "unchangedOldTables": 166,
+  "expectedChangedTables": {
+    "investment_public_attempts": {
+      "beforeRows": 42,
+      "afterRows": 44,
+      "beforeDigest": "0d5941792668507615e69e3ccb40c83d656b9df4864ec989e72c68313ad7fbde",
+      "afterDigest": "67e7ac53ce84d124023e8b54c9b27997e488e5c98e7de0f0ac72317c0a8679a5"
+    },
+    "investment_public_channels": {
+      "beforeRows": 1,
+      "afterRows": 1,
+      "beforeDigest": "44cb040fdab58aaa504640634261239d1716ee15f99ce09cd7db9832a24edfc3",
+      "afterDigest": "dfb9c3f8875c29196e57b38dc982b24d9c1608aa46de7ca20a5209fe6d22fa4d"
+    },
+    "investment_public_controls": {
+      "beforeRows": 1,
+      "afterRows": 2,
+      "beforeDigest": "72dd4ae15a4fb9e42d37b4d602bcad64461a2b09ca7d326c92987ca86b0899d8",
+      "afterDigest": "8117f0ab19ebab1b59304a6a51058a33cdc0cd0d2d9ab10ec5b2e33f6945f095"
+    },
+    "investment_public_results": {
+      "beforeRows": 42,
+      "afterRows": 44,
+      "beforeDigest": "41c5cc5dd751ef9345f120b6d248a2e7a7945840f98498e8da8d42882cab80a7",
+      "afterDigest": "48cf5833c4f746f4d4a5d4c3f9304b472f9a805bc675654b07e21650967d07d3"
+    },
+    "schema_migrations": {
+      "beforeRows": 25,
+      "afterRows": 29,
+      "beforeDigest": "4e9b30628a2faff2a3829c55ff83dbe05598718096835fdef6a25a969950cfb4",
+      "afterDigest": "70b8976436cb48e4e65d18c7392d5fd8e10d8db2b115a465f45814f96a29f194"
+    },
+    "workers": {
+      "beforeRows": 8,
+      "afterRows": 8,
+      "beforeDigest": "b073df79fb9e2618f2e9ffa481dd98bf491df5da52adec738b3e84378de0f96a",
+      "afterDigest": "77573d4965127fa08819f4a5eca0d8f2f72c8b63ec25f535f08fed27c6f3fbe3"
+    }
+  },
+  "newEmptyAskTables": [
+    "ask_claim_custody",
+    "ask_claim_epochs",
+    "ask_content_controls",
+    "ask_content_services",
+    "ask_control_requests",
+    "ask_control_services",
+    "ask_coordination",
+    "ask_dispatches",
+    "ask_imports",
+    "ask_privacy_controls",
+    "ask_service_holds",
+    "ask_wire_attempts",
+    "ask_wire_operations"
+  ],
+  "workerChangesOnlyStartupUpdatedAt": [
+    {
+      "before": "2026-10-13T20:28:41.478Z",
+      "after": "2026-10-14T05:49:54.574Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.478Z",
+      "after": "2026-10-14T05:49:54.575Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.478Z",
+      "after": "2026-10-14T05:49:54.576Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.479Z",
+      "after": "2026-10-14T05:49:54.576Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.479Z",
+      "after": "2026-10-14T05:49:54.576Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.479Z",
+      "after": "2026-10-14T05:49:54.576Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.479Z",
+      "after": "2026-10-14T05:49:54.576Z"
+    },
+    {
+      "before": "2026-10-13T20:28:41.479Z",
+      "after": "2026-10-14T05:49:54.578Z"
+    }
+  ],
+  "finiteRetainedPrefixUnchanged": true,
+  "finiteAddedEvents": [
+    {
+      "_rowid_": 10,
+      "sequence": 10,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T05:49:54.375Z",
+      "kind": "hold",
+      "payload": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\",\"cause\":\"recovery\",\"reason\":\"Recovery requires exact owner resume of eligible future work\"}",
+      "previous": "477d4255d9d3fa133c1552dbd48457e34442fea17e1193434853ad349dbf382b",
+      "digest": "ec7bd153417716579cfaa8148cf6872b3227a0bcec9b39a72df3fd027f2a2c80"
+    },
+    {
+      "_rowid_": 11,
+      "sequence": 11,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T05:49:54.542Z",
+      "kind": "resume",
+      "payload": "{\"authorityId\":\"observed_415ad15f-ecda-4c53-8a41-4b22eee02acb\"}",
+      "previous": "ec7bd153417716579cfaa8148cf6872b3227a0bcec9b39a72df3fd027f2a2c80",
+      "digest": "eff7e637ce93bddd2245f4eb55d999b54ab8d7c054ba71bacdc3f4688588b7bd"
+    }
+  ],
+  "finiteCheckpoint": {
+    "at": "2026-10-14T05:49:54.542Z",
+    "digest": "eff7e637ce93bddd2245f4eb55d999b54ab8d7c054ba71bacdc3f4688588b7bd",
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 11
+  },
+  "consumedAllowancesUnchanged": true,
+  "compiledArtifacts": {
+    "dist": {
+      "files": 704,
+      "matchesTestedStaging": true
+    },
+    "public": {
+      "files": 25,
+      "matchesTestedStaging": true
+    }
+  },
+  "askCustodyCreated": false,
+  "credentialsCopied": false,
+  "selectedInvestmentTablesUnchanged": true,
+  "noNewModelOrMarketExecution": true
+}
