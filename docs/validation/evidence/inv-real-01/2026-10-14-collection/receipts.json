@@ -1,0 +1,857 @@
+{
+  "checkedAt": "2026-10-14T11:51:58.440Z",
+  "readOnly": true,
+  "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+  "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+  "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+  "loopId": "fa172653-d755-46df-83b5-b52becaf8821",
+  "evidence": [
+    {
+      "evidenceId": "observed_evidence_34a687c9ba337e20ac029a2f640a60c00e71903284e26d4bd7a7ff9612a37c5d",
+      "instrument": "AAPL",
+      "requestHash": "f33d7ded7f26d8355a28133b04313f987610fd0635d65dd23600c181eb63d792",
+      "observationHash": "3acc1d9ab1a50108f3dc9936c2c8b237b9e912f4c83997dc262ab89f14dfb00f",
+      "contentHash": "f5ecbd80838daa7654486ce78f94d4e4bfee1fcc28939e7f2b035f9d9d9919e3",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "AAPL",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:45:09.349Z",
+      "normalizedAt": "2026-10-14T11:45:09.349Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:45:09.349Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_da7e133f2d7d3b698387eaad6b92d0bcfdf89bca",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:45:08.252Z",
+          "sha256": "d9978b5bff71553c559f7a97a214ceca36650f386d61aaeb989c22726eb9042e"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "d9978b5bff71553c559f7a97a214ceca36650f386d61aaeb989c22726eb9042e",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_05374aa12a2ac2721f08f5c9f861b675967547e30a87bdf5a6700b9e5b895cbc",
+      "instrument": "MSFT",
+      "requestHash": "3403167a56913aff3fcc3f1d4dde7bc89c14299db301012e217c559aab80903f",
+      "observationHash": "31ddb165206729dc715ee1f62e816b9046537bc725be68d65a3f89d5eea777b2",
+      "contentHash": "c84ef3b315fd0ce17cf84e765c66e08059f896c4698ed56f5e3b017827ac5a70",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "MSFT",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:45:19.867Z",
+      "normalizedAt": "2026-10-14T11:45:19.867Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:45:19.867Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_b0ad843c17ab11bd0fb1cf1246b04f53a34bea5f",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:45:19.255Z",
+          "sha256": "59ec8284b623fec9a8698405814a346557d5b7acfa37666ad0fddb33f6d29f64"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "59ec8284b623fec9a8698405814a346557d5b7acfa37666ad0fddb33f6d29f64",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_92c397c50395b05087dc3597f4a2747a4eb7fd5df0abd0429dc747b261a387e4",
+      "instrument": "GOOGL",
+      "requestHash": "fa0a996545ab91b5e7be27c393e94c7c2610e4c40ddbf671cbf6cf8de458e504",
+      "observationHash": "b3e33745eaf580c93d40a04a8a128be66c9fd5a3dc07ebcc3c1ecdb494294a5f",
+      "contentHash": "e97ea310e4c53a8de620559c33d713a6018c8a410894c7efc8b152d7a1743870",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "GOOGL",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:45:30.210Z",
+      "normalizedAt": "2026-10-14T11:45:30.210Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:45:30.210Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_554822d9561e4747e557eea524d53a96804b7a37",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:45:29.557Z",
+          "sha256": "bcfbdba7bf94edd740389d65cd8072c06f299cbac73edda8879ac7fb9a2a9c5a"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "bcfbdba7bf94edd740389d65cd8072c06f299cbac73edda8879ac7fb9a2a9c5a",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_4b51a90830dacafdf9ac3f4f07fbf31c4e405efdbe2125f0d23c3b5f6bae9ac7",
+      "instrument": "AMZN",
+      "requestHash": "619d2191896c4f42eb4a16cc49feddff986740481b4eb57e6e8d02d0b7d2fe08",
+      "observationHash": "8a5db13ce46f3da0f951514cfde5274c623f3b2325a9fa7d02934bfdca8b01d4",
+      "contentHash": "3f4960ede47fc6ed43d63f2094e8165915a23655b186f7cab4b636d4edb6dc88",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "AMZN",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:45:40.702Z",
+      "normalizedAt": "2026-10-14T11:45:40.702Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:45:40.702Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_19ce6dcb744180ce487b258b6783fc54b6cd025a",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:45:40.104Z",
+          "sha256": "bb0110e711db4b61ba1c0ff85b234f6f28f9799738c6e3f8920594da8de6267b"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "bb0110e711db4b61ba1c0ff85b234f6f28f9799738c6e3f8920594da8de6267b",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_e437a151f950f5851dcfdf5928843b8ffe7c10398352bc6d45112e6bb35ca444",
+      "instrument": "JPM",
+      "requestHash": "f505c1ae5a6b67f738a181ad0ece9bb94910eceefa5643616d990f0a7546009b",
+      "observationHash": "78869791176594cf7b196b0977c59d687faa10789470b9f5f043f3672cb2b472",
+      "contentHash": "841acbfc35eac9482bfbd11e321b972d2ba7bd668822f60126f702db88ad571c",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "JPM",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:45:51.232Z",
+      "normalizedAt": "2026-10-14T11:45:51.232Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:45:51.232Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_65a48ac7c8c84a19d43497cc11b8a184b71fe07b",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:45:50.598Z",
+          "sha256": "4d22834128c2952a4b0a8474fcb74e54412c9bea990fd102a7e55516cc1b8495"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "4d22834128c2952a4b0a8474fcb74e54412c9bea990fd102a7e55516cc1b8495",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_3da126094ba3f29d1f04811bdd81221706238a968c731c402bf242f65a9496c2",
+      "instrument": "JNJ",
+      "requestHash": "638c2eb21be69344237d9366b5c28437c37e4f209d8bbe976b4f93f06c342656",
+      "observationHash": "880fa874581c336beb0a26afd4e9df2e233a17e7a6b19f578d83d23ecb736256",
+      "contentHash": "34d8a503b6b28f58bfc6076309d7a89f190b7f1bc2c2287c84f63c5f0ce8a737",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "JNJ",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:46:02.090Z",
+      "normalizedAt": "2026-10-14T11:46:02.090Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:46:02.090Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_af7bd217bb44305dbd8c4f7e582e7cc2f152f8fa",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:46:01.413Z",
+          "sha256": "726c7aefebb5875eeeeb39edf78ff697ea60fc84de0eb839d3c3de6c01900bfb"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "726c7aefebb5875eeeeb39edf78ff697ea60fc84de0eb839d3c3de6c01900bfb",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_6588e0b1e1a6d9eed42c5f5c3c195ac42fc1983a885873ff3ed0be6e6521f798",
+      "instrument": "XOM",
+      "requestHash": "2169b079489e5ca83e708c67a21d701149f9ce2ad82ebf58458742a8632fe7da",
+      "observationHash": "140ed5546e5c95dcb663b459dc03bb2e277c06450b5ccf49e39ec5765f9423ef",
+      "contentHash": "e1a440674b43c0ea4d2f28759125f30349ee1c0e2a73f50b1427b1aeecbe921d",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "XOM",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:46:12.870Z",
+      "normalizedAt": "2026-10-14T11:46:12.870Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:46:12.870Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_d5116005242e6d12f0ab0933b5ec50dcace9440a",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:46:12.239Z",
+          "sha256": "21c558254bcb7753074a7ecccfd3bed2aee64d655cc2b0971b7ea9298f81da94"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "21c558254bcb7753074a7ecccfd3bed2aee64d655cc2b0971b7ea9298f81da94",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_268da9b31bd6775559cc8c0d7f4c3d7073e2b81200e6f7c1ec88c54db193f032",
+      "instrument": "WMT",
+      "requestHash": "e6837975836683eb3ebc69d2df26bbffb422cef6d790ae6412b722ad52ec4ecf",
+      "observationHash": "583e15ee8500186f767db73c53ebb3515ccccacea8998d49f5b6ffd7f88e5e9d",
+      "contentHash": "c1f56d12200d67c690f5c8e0c4b3632ea4306d3992e06b04a4d6bba7ff79d9f6",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "WMT",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:46:23.720Z",
+      "normalizedAt": "2026-10-14T11:46:23.720Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:46:23.720Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_f167ed6c1a3abcfc06cd25c25d2f77746bab1809",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:46:23.085Z",
+          "sha256": "b8f5d48e231c4161a78e670d00221cb5163e2dfe886cac6591cee7cea55c3574"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "b8f5d48e231c4161a78e670d00221cb5163e2dfe886cac6591cee7cea55c3574",
+        "session": "2026-10-14"
+      }
+    },
+    {
+      "evidenceId": "observed_evidence_b76ea4bc540d4d9a28d51a20e9fe5256d196f6baa38bd514e38c0597351c6ce3",
+      "instrument": "SPY",
+      "requestHash": "8f9ad477b5894d70f2bcfc3f69e4e92b2b87acc43ff519133a9c48aa9f147709",
+      "observationHash": "d8e70b5df05576d5287f9872bda4c6b87fafec7744cdf205ad8200a50b8c9ebe",
+      "contentHash": "bcc26929b5f439b7b775b9982bf379f417a22576a8f35ca17e33a3b25fec4d0e",
+      "contentIntegrity": true,
+      "request": {
+        "adjustment": "yahoo_unrepaired",
+        "dataClass": "ohlcv",
+        "end": "2026-10-14",
+        "fields": [],
+        "frequency": null,
+        "instrumentId": "SPY",
+        "interval": "1d",
+        "schemaVersion": "financial-research-v1",
+        "start": "2026-10-04",
+        "statement": null
+      },
+      "mode": "observed",
+      "provider": "yahoo",
+      "adapter": "yahoo-yfinance-v1",
+      "versions": {
+        "python": "3.12.12",
+        "yfinance": "1.7.0"
+      },
+      "firstRetrievedAt": "2026-10-14T11:46:34.145Z",
+      "normalizedAt": "2026-10-14T11:46:34.145Z",
+      "providerAvailableAt": null,
+      "knownAt": "2026-10-14T11:46:34.145Z",
+      "missingSessions": [],
+      "bars": 7,
+      "firstSession": "2026-10-05",
+      "lastSession": "2026-10-13",
+      "allBarsComplete": true,
+      "rawReceipts": [
+        {
+          "attemptId": "financialattempt_c575677dda0b0cb2cd2d1c16888c87824fb9ea8a",
+          "endpoint": "query1.finance.yahoo.com:chart",
+          "parameters": {
+            "events": "div,splits,capitalGains",
+            "includePrePost": "false",
+            "interval": "1d",
+            "period1": "1791086400",
+            "period2": "1791950400"
+          },
+          "retrievedAt": "2026-10-14T11:46:33.523Z",
+          "sha256": "10b4f9d3435e93bc57b442ae1cdd1f4b252e568c996001a7e0e3c8482190bf2c"
+        }
+      ],
+      "rawContentRetained": false,
+      "qualification": {
+        "actions": [],
+        "basis": "contemporaneous regular-session quote OHLC; retain this vintage before any later split adjustment",
+        "methodology": "inv-real-open-v1",
+        "prices": [],
+        "providerEventAt": null,
+        "qualified": false,
+        "reasons": [
+          "missing_session"
+        ],
+        "responseHash": "10b4f9d3435e93bc57b442ae1cdd1f4b252e568c996001a7e0e3c8482190bf2c",
+        "session": "2026-10-14"
+      }
+    }
+  ],
+  "collectionResults": [
+    {
+      "reservation_id": "cada80ae6023e385fd132bbb2edc841be4f429a3cf640b18c80f5d0f00358c6e",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "f33d7ded7f26d8355a28133b04313f987610fd0635d65dd23600c181eb63d792",
+      "result": {
+        "evidenceId": "observed_evidence_34a687c9ba337e20ac029a2f640a60c00e71903284e26d4bd7a7ff9612a37c5d",
+        "reason": "private_research_only",
+        "reservationId": "cada80ae6023e385fd132bbb2edc841be4f429a3cf640b18c80f5d0f00358c6e",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:45:09.716Z"
+    },
+    {
+      "reservation_id": "a862d3f02e0c24220b8a0848b095262c2f4ce2ff4c84f05a0f11583b7cf5d6d2",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "3403167a56913aff3fcc3f1d4dde7bc89c14299db301012e217c559aab80903f",
+      "result": {
+        "evidenceId": "observed_evidence_05374aa12a2ac2721f08f5c9f861b675967547e30a87bdf5a6700b9e5b895cbc",
+        "reason": "private_research_only",
+        "reservationId": "a862d3f02e0c24220b8a0848b095262c2f4ce2ff4c84f05a0f11583b7cf5d6d2",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:45:20.180Z"
+    },
+    {
+      "reservation_id": "e398763f9fbf0b1fe2401d02b96d1fb8e941d7c6c1beaf1af03e4b445b13200c",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "fa0a996545ab91b5e7be27c393e94c7c2610e4c40ddbf671cbf6cf8de458e504",
+      "result": {
+        "evidenceId": "observed_evidence_92c397c50395b05087dc3597f4a2747a4eb7fd5df0abd0429dc747b261a387e4",
+        "reason": "private_research_only",
+        "reservationId": "e398763f9fbf0b1fe2401d02b96d1fb8e941d7c6c1beaf1af03e4b445b13200c",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:45:30.531Z"
+    },
+    {
+      "reservation_id": "227c33ce920f299db49af9e6b7a3693625f8da7d376e8748c37583214895ec30",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "619d2191896c4f42eb4a16cc49feddff986740481b4eb57e6e8d02d0b7d2fe08",
+      "result": {
+        "evidenceId": "observed_evidence_4b51a90830dacafdf9ac3f4f07fbf31c4e405efdbe2125f0d23c3b5f6bae9ac7",
+        "reason": "private_research_only",
+        "reservationId": "227c33ce920f299db49af9e6b7a3693625f8da7d376e8748c37583214895ec30",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:45:41.058Z"
+    },
+    {
+      "reservation_id": "c7ce61101666a8f678aea157a45d5b5ea0b00fd37663f10e9d3aada6b98ef99f",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "f505c1ae5a6b67f738a181ad0ece9bb94910eceefa5643616d990f0a7546009b",
+      "result": {
+        "evidenceId": "observed_evidence_e437a151f950f5851dcfdf5928843b8ffe7c10398352bc6d45112e6bb35ca444",
+        "reason": "private_research_only",
+        "reservationId": "c7ce61101666a8f678aea157a45d5b5ea0b00fd37663f10e9d3aada6b98ef99f",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:45:51.538Z"
+    },
+    {
+      "reservation_id": "184f171f2f2af1b191d214d65ece726170b7900dce553536f1c910a332095d49",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "638c2eb21be69344237d9366b5c28437c37e4f209d8bbe976b4f93f06c342656",
+      "result": {
+        "evidenceId": "observed_evidence_3da126094ba3f29d1f04811bdd81221706238a968c731c402bf242f65a9496c2",
+        "reason": "private_research_only",
+        "reservationId": "184f171f2f2af1b191d214d65ece726170b7900dce553536f1c910a332095d49",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:46:02.446Z"
+    },
+    {
+      "reservation_id": "d0c0c0568d4bfe6a9a18d98935fd80c6bd0e33554ebca07adb7d586a7b5f9a17",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "2169b079489e5ca83e708c67a21d701149f9ce2ad82ebf58458742a8632fe7da",
+      "result": {
+        "evidenceId": "observed_evidence_6588e0b1e1a6d9eed42c5f5c3c195ac42fc1983a885873ff3ed0be6e6521f798",
+        "reason": "private_research_only",
+        "reservationId": "d0c0c0568d4bfe6a9a18d98935fd80c6bd0e33554ebca07adb7d586a7b5f9a17",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:46:13.188Z"
+    },
+    {
+      "reservation_id": "45963213a7767b1231ed515ae73e9e5aae4abe33e72205f1b502d8fcc691ea24",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "e6837975836683eb3ebc69d2df26bbffb422cef6d790ae6412b722ad52ec4ecf",
+      "result": {
+        "evidenceId": "observed_evidence_268da9b31bd6775559cc8c0d7f4c3d7073e2b81200e6f7c1ec88c54db193f032",
+        "reason": "private_research_only",
+        "reservationId": "45963213a7767b1231ed515ae73e9e5aae4abe33e72205f1b502d8fcc691ea24",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:46:24.025Z"
+    },
+    {
+      "reservation_id": "ff1c7ad6d68ff0c3e27f8c8bae6666dbb5eced3dc8a9edc63f3dbfdc2fa6cfd9",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "request_hash": "8f9ad477b5894d70f2bcfc3f69e4e92b2b87acc43ff519133a9c48aa9f147709",
+      "result": {
+        "evidenceId": "observed_evidence_b76ea4bc540d4d9a28d51a20e9fe5256d196f6baa38bd514e38c0597351c6ce3",
+        "reason": "private_research_only",
+        "reservationId": "ff1c7ad6d68ff0c3e27f8c8bae6666dbb5eced3dc8a9edc63f3dbfdc2fa6cfd9",
+        "status": "ok"
+      },
+      "created_at": "2026-10-14T11:46:34.416Z"
+    }
+  ],
+  "researchPackets": [
+    {
+      "id": "gateway_cycle_9474261f558cd9b1a664c1d0170931371133756540470a60fe2db71a29dfdfe5",
+      "hash": "ab65fd4af7a4c37945fb7d5b454b10eedabcc0ee3a8fd5afa081efa208ad2976",
+      "integrity": true,
+      "createdAt": "2026-10-14T11:46:34.435Z",
+      "mode": "observed",
+      "session": "2026-10-14",
+      "instruments": 9,
+      "rowCount": 27,
+      "characters": 5553,
+      "providerAvailableAt": null
+    }
+  ],
+  "occurrence": {
+    "occurrence_id": "loop_79a8b5cd450fbad25b8d0a99616eef1a299f18f632773973e0b3ef59f8b5e563",
+    "session": "2026-10-14",
+    "stage": "collect_research",
+    "due_at": "2026-10-14T11:45:00.000Z",
+    "expires_at": "2026-10-14T12:00:00.000Z",
+    "state": "complete",
+    "attempts": 1,
+    "reason": null,
+    "updated_at": "2026-10-14T11:46:34.437Z"
+  },
+  "finite": {
+    "check": "valid",
+    "run": 0,
+    "rolling": 0,
+    "active": 0,
+    "collectionCount": 9,
+    "collections": [
+      {
+        "id": "cada80ae6023e385fd132bbb2edc841be4f429a3cf640b18c80f5d0f00358c6e",
+        "at": "2026-10-14T11:45:00.430Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "f33d7ded7f26d8355a28133b04313f987610fd0635d65dd23600c181eb63d792",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:07.116Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:09.664Z"
+      },
+      {
+        "id": "a862d3f02e0c24220b8a0848b095262c2f4ce2ff4c84f05a0f11583b7cf5d6d2",
+        "at": "2026-10-14T11:45:15.009Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "3403167a56913aff3fcc3f1d4dde7bc89c14299db301012e217c559aab80903f",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:18.294Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:20.154Z"
+      },
+      {
+        "id": "e398763f9fbf0b1fe2401d02b96d1fb8e941d7c6c1beaf1af03e4b445b13200c",
+        "at": "2026-10-14T11:45:25.456Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "fa0a996545ab91b5e7be27c393e94c7c2610e4c40ddbf671cbf6cf8de458e504",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:28.625Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:30.510Z"
+      },
+      {
+        "id": "227c33ce920f299db49af9e6b7a3693625f8da7d376e8748c37583214895ec30",
+        "at": "2026-10-14T11:45:35.816Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "619d2191896c4f42eb4a16cc49feddff986740481b4eb57e6e8d02d0b7d2fe08",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:39.182Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:41.042Z"
+      },
+      {
+        "id": "c7ce61101666a8f678aea157a45d5b5ea0b00fd37663f10e9d3aada6b98ef99f",
+        "at": "2026-10-14T11:45:46.335Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "f505c1ae5a6b67f738a181ad0ece9bb94910eceefa5643616d990f0a7546009b",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:45:49.614Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:45:51.521Z"
+      },
+      {
+        "id": "184f171f2f2af1b191d214d65ece726170b7900dce553536f1c910a332095d49",
+        "at": "2026-10-14T11:45:57.023Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "638c2eb21be69344237d9366b5c28437c37e4f209d8bbe976b4f93f06c342656",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:00.362Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:02.410Z"
+      },
+      {
+        "id": "d0c0c0568d4bfe6a9a18d98935fd80c6bd0e33554ebca07adb7d586a7b5f9a17",
+        "at": "2026-10-14T11:46:07.771Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "2169b079489e5ca83e708c67a21d701149f9ce2ad82ebf58458742a8632fe7da",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:11.225Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:13.167Z"
+      },
+      {
+        "id": "45963213a7767b1231ed515ae73e9e5aae4abe33e72205f1b502d8fcc691ea24",
+        "at": "2026-10-14T11:46:18.461Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "e6837975836683eb3ebc69d2df26bbffb422cef6d790ae6412b722ad52ec4ecf",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:21.853Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:24.007Z"
+      },
+      {
+        "id": "ff1c7ad6d68ff0c3e27f8c8bae6666dbb5eced3dc8a9edc63f3dbfdc2fa6cfd9",
+        "at": "2026-10-14T11:46:29.299Z",
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "requestHash": "8f9ad477b5894d70f2bcfc3f69e4e92b2b87acc43ff519133a9c48aa9f147709",
+        "state": "settled",
+        "wireAt": "2026-10-14T11:46:32.581Z",
+        "status": "ok",
+        "settledAt": "2026-10-14T11:46:34.401Z"
+      }
+    ],
+    "hold": null,
+    "stopped": false,
+    "providerCircuit": {
+      "until": null,
+      "blocked": false
+    },
+    "reloadConfirmedAt": "2026-10-11T05:27:00.000Z",
+    "controlRevision": 11,
+    "checkpoint": {
+      "at": "2026-10-14T11:46:34.401Z",
+      "digest": "1730d26f88aa8ddcea5c60386aa3bd554c72d160ad3943f88fa2b3de0abf3167",
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "sequence": 38
+    }
+  },
+  "employeeExecutionCount": 0,
+  "proposalCount": 0,
+  "runHead": {
+    "head_version": 2,
+    "head_hash": "1a2b448cb510455a2c8e4229b984a98e830859bb50999bc9a540d2bed99fc83b",
+    "configuration_hash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e"
+  },
+  "journalCount": 2,
+  "validation": {
+    "collectionEvidenceCustodyLinks": true,
+    "minimumReservationAfterPriorSettlementMs": 5292,
+    "pointInTime": "Research requests end 2026-10-14 exclusive; completed bars run 2026-10-05 through 2026-10-13. No current-session fill qualification.",
+    "diagnostic": "The first read-only receipt verification query failed because group_evidence uses sha256, not content_hash. The corrected query reads sha256. No production mutation, collection retry, model turn or grant was performed by that query."
+  }
+}

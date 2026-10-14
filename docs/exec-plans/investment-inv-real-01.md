@@ -6,7 +6,11 @@
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Production loop active and public archive connected October13 at20:37UTC. First actual collection is due October14 at11:45UTC; the finite trial ends October15 at23:40UTC. Ask is paused by the owner; only investment continues. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
+**Current ETA:** First actual research collection completed October14 at11:46:34UTC under the existing schedule. Nine successful historical observations and independent spent receipts are verified; employee research is next at12:00UTC and cutoff at13:00UTC. The finite trial ends October15 at23:40UTC. Ask is paused by the owner; only investment continues. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
+
+## October14 first actual collection checkpoint
+
+The original loop completed its first collection once. Nine instruments each retain seven complete October5–13 daily bars, verified content/request hashes and settled independent collection receipts; current-session fill qualification is false. A verified27-row employee packet is ready. Checkpoint38/control revision11 retains all prior consumption and authentic reload evidence; model counts and proposals remain zero at11:51:58UTC. HQ5691504/schema29 and the portfolio head remain unchanged. Public archive continuity passed8/8 verified HTTPS reads with initialization watermark unchanged and Ask disabled. [Morning handoff and concrete next packet](../operations/INV-REAL-01.md#first-actual-research-collection--october-14-452-am-vancouver). No implementation, restart, authority change or manual dispatch was required.
 
 ## October14 closed Ask upgrade checkpoint
 
