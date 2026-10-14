@@ -1,0 +1,31 @@
+{
+  "kind": "Read-only production prerequisites observed before preparation",
+  "source": "108d65a5debf5026f198bdc67292b8fdd22432ed",
+  "gateway": {
+    "originalCharacters": 5553,
+    "oldStringWrapperCharacters": 6446,
+    "canonicalJsonWrapperCharacters": 5943,
+    "existingEvidenceBound": 6000,
+    "exactCanonicalBytes": true,
+    "hashVerified": true,
+    "contentHash": "ab65fd4af7a4c37945fb7d5b454b10eedabcc0ee3a8fd5afa081efa208ad2976"
+  },
+  "employees": [
+    {
+      "name": "Atlas",
+      "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "principalId": "principal_aef1783d-7dec-450a-8061-9cbf1c44f588",
+      "priority": "critical",
+      "status": "idle"
+    },
+    {
+      "name": "Maya",
+      "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "principalId": "principal_cd582abb-34ff-42ca-9535-23b3c30dc59a",
+      "priority": "normal",
+      "status": "idle"
+    }
+  ],
+  "mutation": false,
+  "providerOrMarketRequests": false
+}

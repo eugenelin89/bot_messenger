@@ -16,7 +16,9 @@ export interface Configuration {
   startsAt: string; endsAt: string; publicationPolicy: string;
   authorization: { fixtureOperator: string; authors: string[]; reviewers: string[]; expiresAt: string; maxOrders: number };
 }
+export interface LateCloseAmendment { id:string; session:string; cutoffAt:string; expiresAt:string; ownerReceiptHash:string; recordedAt:string }
 export interface Proposal {
+  executionAmendment?: string;
   decisionId: string; revision: number; author: string; action: 'BUY' | 'SELL' | 'HOLD';
   evidenceCutoff: string; evidence: { id: string; availableAt: string }[]; rationale: string;
   orders: { instrumentId: string; side: 'BUY' | 'SELL'; quantity: Decimal; priceGuard: Decimal; targetSession: string }[];
@@ -39,6 +41,8 @@ export interface CorporateAction {
 export type OrderStatus = 'proposed' | 'validated' | 'pending' | 'filled' | 'rejected' | 'expired' | 'cancelled';
 export interface Transition { status: OrderStatus; at: string; reason: string | null }
 export interface Order {
+  executionAmendment?: string;
+  closingResolution?: {observationId:string;effectiveAt:string;recordedAt:string};
   id: string; decisionId: string; decisionRevision: number; orderIndex: number; proposalHash: string;
   instrumentId: string; side: 'BUY' | 'SELL'; quantity: Decimal; priceGuard: Decimal; targetSession: string;
   committedAt: string; deadline: string; expiresAt: string; expectedVersion: string;
@@ -65,13 +69,14 @@ export interface Valuation {
 }
 export interface ValuationRecord { snapshot: Valuation; portfolio: Book; benchmark: Book; entitlements: Entitlement[]; blocked: Record<string, string>; symbols: State['symbols']; orders: State['orders'] }
 export interface State {
+  lateClose?: LateCloseAmendment;
   version: string; ledgerVersion: string; hash: string | null; configurationHash: string; economicAsOf: string; lifecycle: 'active' | 'paused' | 'ended';
   portfolio: Book; benchmark: Book; benchmarkNextOpen: string | null; benchmarkFunding: { amount: Decimal; session: string | null; used: boolean }[]; ordersUsed: number;
   decisions: Record<string, Decision>; reviews: Record<string, Review>; observations: Observation[];
   orders: Record<string, Order>; actions: CorporateAction[]; entitlements: Entitlement[]; blocked: Record<string, string>;
   blockEvents: { instrumentId: string; reason: string; effectiveAt: string }[];
   benchmarkDeferrals?: { fromSession: string; toSession: string; recordedAt: string }[];
-  benchmarkExecutions: { session: string; effectiveAt: string }[];
+  benchmarkExecutions: { session: string; effectiveAt: string; closeAllocation?:{amendmentId:string;observationId:string;units:string;cash:string;recordedAt:string} }[];
   symbols: Record<string, { symbol: string; effectiveAt: string }[]>;
   inventoryHistory: { at: string; book: 'portfolio' | 'benchmark'; instrumentId: string; quantity: Decimal }[];
   accountingHistory: { effectiveAt: string; entries: Posting[]; settledOrders: string[] }[];
@@ -92,6 +97,8 @@ export type Command =
   | { type: 'action'; action: CorporateAction }
   | { type: 'dividend_payment'; actionId: string }
   | { type: 'benchmark_defer'; fromSession: string; toSession: string; sourceWindowAt: string }
+  | { type: 'late_close_adopt'; amendment: Omit<LateCloseAmendment,'recordedAt'>; expectedHead: string }
+  | { type: 'benchmark_close'; session: string; amendmentId: string }
   | { type: 'benchmark_open'; session: string }
   | { type: 'value'; session: string; asOf: string }
   | { type: 'revise_valuations'; correctionId: string };

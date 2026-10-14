@@ -348,6 +348,21 @@ export interface RunStatus {
   reason: string;
   effectiveAt: Time;
   nextReviewAt: Time | null;
+  executionAmendment?: ExecutionAmendment;
+}
+export interface ExecutionAmendment {
+  amendmentId: Id;
+  methodologyVersion: "inv-real-close-recovery-v1";
+  configurationHash: Hash;
+  approvalRecordId: Id;
+  session: "2026-10-14";
+  decisionCutoff: "2026-10-14T19:30:00.000Z";
+  marketAt: "2026-10-14T20:00:00.000Z";
+  collectionNotBefore: "2026-10-14T20:05:00.000Z";
+  processNotBefore: "2026-10-14T20:20:00.000Z";
+  expiresAt: "2026-10-14T23:30:00.000Z";
+  benchmarkConvention: "cash_then_same_session_close";
+  usageAccounting: "historical_gap_retained";
 }
 export interface WorkerActivityEvent {
   schemaVersion: Version;
@@ -623,6 +638,7 @@ export interface DecisionProposal {
    * @maxItems 30
    */
   sources: Source[];
+  executionAmendmentId?: Id;
 }
 export interface IndependentReview {
   reviewId: Id;
@@ -683,6 +699,8 @@ export interface PaperOrder {
   reservedCash: Decimal;
   reservedQuantity: Decimal;
   expiresAt: Time;
+  executionAmendmentId?: Id;
+  lockedAt?: Time;
 }
 export interface LedgerTransactionEvent {
   schemaVersion: Version;
@@ -868,6 +886,16 @@ export interface Benchmark {
   equity: Decimal | null;
   totalReturn: SignedDecimal | null;
   missingReason: string | null;
+  recovery?: BenchmarkRecovery;
+}
+export interface BenchmarkRecovery {
+  amendmentId: Id;
+  allocation: null | {
+    observation: MarketObservation;
+    units: Decimal;
+    cash: Decimal;
+    recordedAt: Time;
+  };
 }
 export interface OutcomeReviewEvent {
   schemaVersion: Version;
@@ -1072,6 +1100,7 @@ export interface PublicStatus {
    * @maxItems 20
    */
   notices: PublicationNotice[];
+  executionAmendment?: RunStatusEvent;
 }
 export interface Freshness {
   lastActivityAt: Time | null;

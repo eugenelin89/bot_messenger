@@ -1,6 +1,6 @@
 import { decimal, ensure, nonnegative, positive } from './arithmetic.js';
 import { date, exact, id, integer, time } from './identity.js';
-import type { Calendar, Configuration, Instrument, Observation, Session } from './types.js';
+import type { Calendar, Configuration, Instrument, Observation, Session, State } from './types.js';
 // The only supported exchange zone. Reuse formatting machinery, never validation results.
 const exchangeZone = new Intl.DateTimeFormat('en-CA', { timeZone:'America/New_York', year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short' });
 export function instrument(c: Configuration, key: string): Instrument {
@@ -93,4 +93,16 @@ export function mark(c: Configuration, observations: Observation[], instrumentId
   const superseded = new Set(candidates.map(o => o.correctionOf).filter(Boolean));
   const latest = candidates.filter(o => o.quality === 'verified' && !superseded.has(o.id)).sort((a,b) => time(b.marketAt)-time(a.marketAt) || b.sourceVersion-a.sourceVersion)[0];
   return latest && time(asOf) - time(latest.marketAt) <= c.maxMarkAgeSeconds * 1000 && decimal(latest.value) > 0n ? latest : null;
+}
+
+/** Only a previously committed owner amendment can select a close; legacy openings stay unchanged. */
+export function closeAmendment(state:State,id:string|undefined){
+  if(id===undefined)return undefined;
+  ensure(state.lateClose?.id===id,'execution_amendment_mismatch');return state.lateClose;
+}
+export function closing(c:Configuration,state:State,instrumentId:string,target:string,at:string,id:string):Observation|null {
+  const a=closeAmendment(state,id)!,s=session(c.calendar,target);
+  ensure(a.session===target,'execution_amendment_session');
+  if(time(at)<time(s.close)+1200000||time(at)>=time(a.expiresAt))return null;
+  return state.observations.find(o=>o.instrumentId===instrumentId&&o.session===target&&o.field==='regular_close'&&o.correctionOf===null&&o.quality==='verified'&&time(o.retrievedAt)>=time(s.close)+300000&&time(o.retrievedAt)<=time(at))??null;
 }

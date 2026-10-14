@@ -1,5 +1,5 @@
 /** Pure, disposable conformance oracle. No production ledger, receiver or persistence. */
-import type { Event, EventBatch, PublisherScope, RecordRef, RunConfiguration, PortfolioSnapshot, LedgerTransaction, MarketObservation, PaperOrder, ContentType } from '../../contracts/investment/v1/types.js';
+import type { Event, EventBatch, PublisherScope, RecordRef, RunConfiguration, PortfolioSnapshot, LedgerTransaction, MarketObservation, PaperOrder, ContentType, ExecutionAmendment } from '../../contracts/investment/v1/types.js';
 import { canonicalHash, checkPublicStrings, divideEven, fixed, parseJson, product, requireContract as need, sha256, validate } from './schema.js';
 
 export interface StagedContent { sha256: string; contentType: ContentType; sizeBytes: number }
@@ -50,6 +50,11 @@ function observation(m: MarketObservation, c: RunConfiguration, session?: string
   need(fixed(m.value) > 0n && (!session || m.session === session) && (!instrumentId || m.instrumentId === instrumentId));
   need(Date.parse(m.marketAt) <= Date.parse(m.retrievedAt) && (!m.availableAt || (Date.parse(m.marketAt) <= Date.parse(m.availableAt) && Date.parse(m.availableAt) <= Date.parse(m.retrievedAt))));
 }
+function amendment(events:readonly Event[],id:string|undefined):{value:ExecutionAmendment;at:string}|undefined {
+  if(id===undefined)return;
+  const e=events.find(e=>e.type==='run.status'&&e.payload.executionAmendment?.amendmentId===id);
+  need(e?.type==='run.status'&&e.payload.executionAmendment,'DEPENDENCY_NOT_READY');return {value:e.payload.executionAmendment,at:e.recordedAt};
+}
 interface LedgerState { cash: bigint; capital: bigint; receivable: bigint; liability: bigint; realized: bigint; quantity: Map<string, bigint>; basis: Map<string, bigint> }
 function ledgerState(events: readonly Event[], sequence?: bigint): LedgerState {
   const s: LedgerState = { cash: 0n, capital: 0n, receivable: 0n, liability: 0n, realized: 0n, quantity: new Map(), basis: new Map() };
@@ -99,7 +104,9 @@ function checkLedger(t: LedgerTransaction, events: readonly Event[], records: Re
       need(Date.parse(decision.payload.proposal.committedAt) <= Date.parse(o.deadline) && Date.parse(o.deadline) < Date.parse(f.observation.marketAt) && Date.parse(t.recordedAt) <= Date.parse(o.expiresAt));
       need(Date.parse(f.observation.marketAt) - Date.parse(o.deadline) >= c.cutoffMinutes * 60000);
       observation(f.observation, c, o.targetSession, f.instrumentId);
-      need(f.observation.field === 'regular_open' && Date.parse(f.observation.retrievedAt) <= Date.parse(t.recordedAt) && Date.parse(t.effectiveAt) === Date.parse(f.observation.marketAt));
+      const a=amendment(events,o.executionAmendmentId);
+      need(f.observation.field === (a?'regular_close':'regular_open') && Date.parse(f.observation.retrievedAt) <= Date.parse(t.recordedAt) && Date.parse(t.effectiveAt) === Date.parse(f.observation.marketAt));
+      if(a)need(Date.parse(t.recordedAt)<Date.parse(a.value.expiresAt)&&f.observation.marketAt===a.value.marketAt&&Date.parse(f.observation.retrievedAt)>=Date.parse(a.value.collectionNotBefore)&&Date.parse(t.recordedAt)>=Date.parse(a.value.processNotBefore));
       const multiplier = 10000n + (f.side === 'BUY' ? 1n : -1n) * BigInt(c.slippageBps);
       const expectedPrice = divideEven(fixed(f.observation.value) * multiplier, 10000n);
       need(fixed(f.price) === expectedPrice && fixed(f.fee) === fixed(c.commission));
@@ -152,7 +159,7 @@ function checkLedger(t: LedgerTransaction, events: readonly Event[], records: Re
     }
   }
 }
-function checkSnapshot(s: PortfolioSnapshot, events: readonly Event[], c: RunConfiguration): void {
+function checkSnapshot(s: PortfolioSnapshot, events: readonly Event[], c: RunConfiguration,recordedAt:string): void {
   const journal = events.find(e => e.type === 'paper.ledger_transaction' && e.payload.journalSequence === s.journalSequence);
   need(journal?.type === 'paper.ledger_transaction', 'DEPENDENCY_NOT_READY');
   need(journal.payload.journalHash === s.journalHash && s.configurationHash === canonicalHash(c), 'CONFLICT');
@@ -174,6 +181,14 @@ function checkSnapshot(s: PortfolioSnapshot, events: readonly Event[], c: RunCon
     values += fixed(h.marketValue); unrealized += fixed(h.unrealizedPnl);
   }
   const b = s.benchmark; need(b.instrumentId === c.benchmarkInstrument.instrumentId && b.session === s.session && b.convention === c.benchmarkConvention);
+  if(b.recovery){const a=amendment(events,b.recovery.amendmentId);need(a);const allocation=b.recovery.allocation;
+    if(allocation){observation(allocation.observation,c,a.value.session,b.instrumentId);need(allocation.observation.field==='regular_close'&&allocation.observation.marketAt===a.value.marketAt&&Date.parse(allocation.observation.retrievedAt)>=Date.parse(a.value.collectionNotBefore)&&Date.parse(allocation.recordedAt)>=Date.parse(a.value.processNotBefore)&&Date.parse(allocation.recordedAt)>=Date.parse(allocation.observation.retrievedAt)&&Date.parse(allocation.recordedAt)<Date.parse(a.value.expiresAt)&&Date.parse(allocation.recordedAt)<=Date.parse(recordedAt)&&Date.parse(allocation.observation.marketAt)<=Date.parse(s.valuationAsOf));
+      const capital=fixed(c.initialCapital),price=fixed(allocation.observation.value);let units=capital*1000000n/price;while(units>0n&&divideEven(units*price,1000000n)>capital)units--;need(fixed(allocation.units)===units&&fixed(allocation.cash)===capital-divideEven(units*price,1000000n));
+    }
+    const prior=events.filter(e=>e.type==='portfolio.snapshot'&&e.payload.benchmark.recovery?.allocation).at(-1);if(prior?.type==='portfolio.snapshot')need(canonicalHash(prior.payload.benchmark.recovery)===canonicalHash(b.recovery),'CONFLICT');
+    else if(allocation)need(s.session===a.value.session&&b.units===allocation.units&&b.cash===allocation.cash&&fixed(b.receivables)===0n,'CONFLICT');
+    else need(fixed(b.units)===0n&&fixed(b.cash)===fixed(c.initialCapital)&&fixed(b.receivables)===0n,'CONFLICT');
+  }else need(!events.some(e=>e.type==='run.status'&&e.payload.executionAmendment&&Date.parse(e.recordedAt)<=Date.parse(s.valuationAsOf)),'CONFLICT');
   if (b.mark) {
     observation(b.mark, c, s.session, b.instrumentId); need(b.mark.field === 'regular_close' && Date.parse(b.mark.marketAt) <= Date.parse(s.valuationAsOf));
     need(b.equity !== null && fixed(b.equity) === product(b.units, b.mark.value) + fixed(b.cash) + fixed(b.receivables));
@@ -217,6 +232,8 @@ export function checkPublicationBatch(bytes: Uint8Array, idempotencyKey: string,
     const runEvent = events.find(e => e.type === 'run.published');
     const c = runEvent?.type === 'run.published' ? runEvent.payload.configuration : undefined;
     if (event.type !== 'run.published') need(c && event.evidenceMode === runEvent?.evidenceMode, 'DEPENDENCY_NOT_READY');
+    const amendmentId=(event.type==='decision.published'?event.payload.proposal.executionAmendmentId:event.type==='paper.order'?event.payload.executionAmendmentId:event.type==='portfolio.snapshot'?event.payload.benchmark.recovery?.amendmentId:undefined);
+    if(amendmentId){const ae=events.find(e=>e.type==='run.status'&&e.payload.executionAmendment?.amendmentId===amendmentId);need(ae&&event.references.some(r=>r.kind==='event'&&r.id===ae.eventId&&r.version===1&&r.relation==='supports'),'DEPENDENCY_NOT_READY');}
     const roster = events.filter(e => e.type === 'team.published').at(-1);
     const workers = roster?.type === 'team.published' ? roster.payload.workers : [];
     const eligible = (id: string): void => { need(workers.some(w => w.workerId === id), 'FORBIDDEN'); };
@@ -259,6 +276,7 @@ export function checkPublicationBatch(bytes: Uint8Array, idempotencyKey: string,
         const p = event.payload, proposal = p.proposal; need(event.actor.kind === 'worker', 'FORBIDDEN'); eligible(p.review.reviewerId);
         need(p.review.reviewerId !== event.actor.workerId && p.proposalHash === canonicalHash(proposal) && p.review.proposalHash === p.proposalHash && p.review.proposalRevision === proposal.revision, 'CONFLICT');
         need(Date.parse(proposal.evidenceCutoff) <= Date.parse(proposal.committedAt) && Date.parse(proposal.committedAt) <= Date.parse(p.review.reviewedAt) && Date.parse(p.review.reviewedAt) <= Date.parse(event.recordedAt));
+        const a=amendment(events,proposal.executionAmendmentId);if(a){need(Date.parse(proposal.committedAt)>=Date.parse(a.at)&&Date.parse(p.review.reviewedAt)<Date.parse(a.value.decisionCutoff));if(proposal.action!=='HOLD')need(proposal.targetSession===a.value.session);}
         if (proposal.action === 'HOLD') need(proposal.instrumentId === null && proposal.quantity === null && proposal.targetSession === null && proposal.priceGuard === null);
         else need(c!.universe.some(i => i.instrumentId === proposal.instrumentId) && proposal.quantity !== null && proposal.targetSession !== null && proposal.priceGuard !== null && fixed(proposal.priceGuard) > 0n);
         break;
@@ -270,10 +288,12 @@ export function checkPublicationBatch(bytes: Uint8Array, idempotencyKey: string,
         need(p.configurationHash === canonicalHash(c) && fixed(p.priceGuard) > 0n && Date.parse(d.committedAt) <= Date.parse(p.deadline) && Date.parse(p.deadline) < Date.parse(p.expiresAt));
         need(Date.parse(p.expiresAt) - Date.parse(p.deadline) <= (c!.maxOpeningWaitSeconds + c!.cutoffMinutes * 60) * 1000);
         need(p.status === 'rejected' || decision.payload.review.disposition === 'approve');
+        need(d.executionAmendmentId===p.executionAmendmentId&&Boolean(p.executionAmendmentId)===Boolean(p.lockedAt),'CONFLICT');
+        const a=amendment(events,p.executionAmendmentId);if(a)need(p.lockedAt&&p.targetSession===a.value.session&&p.deadline===a.value.decisionCutoff&&p.expiresAt===a.value.expiresAt&&Date.parse(p.lockedAt)>=Date.parse(decision.payload.review.reviewedAt)&&Date.parse(p.lockedAt)<Date.parse(a.value.decisionCutoff));
         const prior = events.filter(e => e.type === 'paper.order' && e.payload.orderId === p.orderId).at(-1);
         if (prior?.type === 'paper.order') need(p.revision === prior.payload.revision + 1 && p.previousEventId === prior.eventId && transitions[prior.payload.status].includes(p.status), 'CONFLICT');
-        else need(p.revision === 1 && p.previousEventId === null && ['proposed','rejected'].includes(p.status));
-        if (prior?.type === 'paper.order') for (const field of ['decisionId','decisionRevision','proposalHash','orderIndex','instrumentId','side','quantity','targetSession','deadline','expiresAt','priceGuard','configurationHash','expectedLedgerVersion'] as const) need(p[field] === prior.payload[field], 'CONFLICT');
+        else {need(p.revision === 1 && p.previousEventId === null && ['proposed','rejected'].includes(p.status));if(a)need(p.lockedAt===event.recordedAt);}
+        if (prior?.type === 'paper.order') for (const field of ['decisionId','decisionRevision','proposalHash','orderIndex','instrumentId','side','quantity','targetSession','deadline','expiresAt','priceGuard','configurationHash','expectedLedgerVersion','executionAmendmentId','lockedAt'] as const) need(p[field] === prior.payload[field], 'CONFLICT');
         if (p.status === 'filled') need(events.some(e => e.type === 'paper.ledger_transaction' && e.payload.fill?.orderId === p.orderId && e.payload.fill.orderRevision === p.revision - 1), 'DEPENDENCY_NOT_READY');
         need(!events.some(e => e.type === 'paper.order' && e.payload.decisionId === p.decisionId && e.payload.decisionRevision === p.decisionRevision && e.payload.orderIndex === p.orderIndex && e.payload.orderId !== p.orderId), 'CONFLICT');
         if (['rejected','cancelled','expired','filled'].includes(p.status)) need(fixed(p.reservedCash) === 0n && fixed(p.reservedQuantity) === 0n);
@@ -281,7 +301,7 @@ export function checkPublicationBatch(bytes: Uint8Array, idempotencyKey: string,
         break;
       }
       case 'paper.ledger_transaction': checkLedger(event.payload, events, records, c!); need(event.actor.kind === 'system'); break;
-      case 'portfolio.snapshot': checkSnapshot(event.payload, events, c!); need(event.actor.kind === 'system'); break;
+      case 'portfolio.snapshot': checkSnapshot(event.payload, events, c!,event.recordedAt); need(event.actor.kind === 'system'); break;
       case 'review.published': need(event.actor.kind === 'worker'); break;
       case 'content.corrected': need(key(event.payload.prior) !== key(event.payload.replacement)); break;
       case 'publication.notice': need(event.actor.kind !== 'worker'); break;
@@ -300,7 +320,15 @@ export function checkPublicationBatch(bytes: Uint8Array, idempotencyKey: string,
         need(canonicalHash(expected) === canonicalHash(p.instrument.symbolHistory), 'CONFLICT');
         break;
       }
-      case 'run.status': break;
+      case 'run.status': {
+        const a=event.payload.executionAmendment;if(a){need(event.actor.kind==='system'&&a.configurationHash===canonicalHash(c),'CONFLICT');
+          need(!events.some(e=>e.type==='run.status'&&e.payload.executionAmendment),'CONFLICT');
+          need(!events.some(e=>e.type==='decision.published'||e.type==='paper.order'||e.type==='paper.ledger_transaction'&&e.payload.effect!=='initialization'),'CONFLICT');
+          need(Date.parse(event.recordedAt)>=Date.parse(runEvent!.type==='run.published'?runEvent!.payload.startsAt:'')&&event.payload.effectiveAt===event.recordedAt&&Date.parse(event.recordedAt)<Date.parse(a.decisionCutoff)&&Date.parse(a.marketAt)-Date.parse(a.decisionCutoff)===c!.cutoffMinutes*60000);
+          need(new Intl.DateTimeFormat('en-CA',{timeZone:c!.calendarTimezone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(a.marketAt))===a.session);
+          need(Date.parse(a.collectionNotBefore)===Date.parse(a.marketAt)+300000&&Date.parse(a.processNotBefore)===Date.parse(a.marketAt)+1200000&&Date.parse(a.expiresAt)>Date.parse(a.processNotBefore)&&Date.parse(a.expiresAt)<=Date.parse(runEvent!.type==='run.published'?runEvent!.payload.endsAt:'')&&Date.parse(a.expiresAt)-Date.parse(a.decisionCutoff)<=(c!.maxOpeningWaitSeconds+c!.cutoffMinutes*60)*1000);
+        }break;
+      }
     }
     for (const k of recordKeys(event)) need(!records.has(k), 'CONFLICT');
     events.push(event); ledgerState(events);

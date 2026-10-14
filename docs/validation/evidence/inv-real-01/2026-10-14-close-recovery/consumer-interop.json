@@ -1,0 +1,27 @@
+{
+  "runtime": "v24.10.0",
+  "results": [
+    {
+      "case": "filled",
+      "sha256": "e4fc4f9d4a983207bfbc58cc9b6bf04767e5649be17c70e028dd4b8b45ed3a61",
+      "events": 19,
+      "oneBatch": true,
+      "incrementalBatches": 19,
+      "idempotentReplay": true,
+      "finalOrder": "filled",
+      "fillTransactions": 1
+    },
+    {
+      "case": "rejected",
+      "sha256": "459b4cb753868b6fd52298f9651089013767c2ef4ceb7c21415ff908300ebf93",
+      "events": 18,
+      "oneBatch": true,
+      "incrementalBatches": 18,
+      "idempotentReplay": true,
+      "finalOrder": "rejected",
+      "fillTransactions": 0
+    }
+  ],
+  "evidenceKind": "Authored producer-to-consumer oracle check, reported by independent website owner; not a signed live receiver attestation",
+  "sourceThread": "01a13487-f07f-7182-84ac-84abcfb07043"
+}

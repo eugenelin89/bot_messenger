@@ -6,10 +6,12 @@ import type {Configuration,State,Decision,Review,Journal,CorporateAction} from '
 import type {PaperProposal,PaperReview,PaperNarrative,TeamScope,PublicPaperSummary} from '../../domain/investment-team/types.js';
 import type {Source} from '../../../contracts/investment/v1/types.js';
 import {hash} from '../../domain/investment/identity.js';
+import {recoveryExport} from '../investment-team/observed-recovery.js';
 import {ensure} from '../../domain/investment/arithmetic.js';
 import {MarketStore} from '../market/store.js';
 import {requireUses} from '../../domain/market/validation.js';
 import type {SourcePolicy} from '../../domain/market/types.js';
+import type {Saved} from '../investment-team/observed-investment.js';
 import type {ObservedQualification} from '../../domain/market/observed-paper.js';
 
 /** Publicly designated summaries only. This source never reads conversation bodies or exports
@@ -28,9 +30,23 @@ export class ObservedTeamPublicationSource extends SimulatorProjectionSource {
  private settled(executionId:string){const e=this.db.get<{status:string;provenance_status:string;runtime_adapter:string}>('SELECT status,provenance_status,runtime_adapter FROM executions WHERE execution_id=?',executionId);return !!e&&e.status==='completed'&&e.provenance_status==='recorded'&&typeof e.runtime_adapter==='string'&&!this.db.get('SELECT 1 FROM execution_runtime_attempts WHERE execution_id=? AND unresolved=1',executionId)&&(this.fixtureEmployees||!/(fake|fixture|mock)/i.test(e.runtime_adapter));}
  protected validateRoster(_c:Configuration){const saved=JSON.parse(this.db.get<{input:string}>('SELECT input FROM observed_investment_runs WHERE run_id=?',this.privateRunId)!.input),members=saved.input.participants.map((p:{workerId:string})=>p.workerId);ensure(hash([...this.participants].sort())===hash([...members].sort()),'observed_public_roster_scope');}
 
+ /** Recovery imports are owner material, never broadly upgraded to trusted evidence.
+  * Only the exact frozen export of the original verified gateway may yield public links. */
+ private citedGateway(p:PaperProposal,id:string):{evidence?:{id:string}[]}|undefined {
+  const row=this.db.get<{content:string;sha256:string;metadata:string;group_id:string}>('SELECT content,sha256,metadata,group_id FROM group_evidence WHERE evidence_id=?',id);
+  if(!row||hash(row.content)!==row.sha256)return;
+  if(JSON.parse(row.metadata).verification==='trusted_financial_gateway')return JSON.parse(row.content);
+  const savedRow=this.db.get<{input:string;digest:string}>('SELECT input,digest FROM observed_investment_scopes WHERE scope_id=?',p.scope_id);if(!savedRow)return;const saved=JSON.parse(savedRow.input) as Saved,r=saved.recovery;if(!r)return;
+  ensure(hash(saved)===savedRow.digest&&hash(r.exports)===r.retainedEvidenceHash,'observed_recovery_export_integrity');
+  let value:any;try{value=JSON.parse(row.content);}catch{return;}const x=r.exports.find(e=>e.kind==='retained_gateway'&&e.id===value?.historicalSource?.id);if(!x)return;
+  const expected=recoveryExport(x,r.oldGroupId);
+  ensure(hash(value)===hash(expected)&&hash(x.content)===x.contentHash&&row.group_id===this.db.get<{group_id:string}>('SELECT group_id FROM investment_team_scopes WHERE scope_id=?',p.scope_id)!.group_id,'observed_recovery_cited_export_mismatch');
+  const original=this.db.get<{content:string;sha256:string;metadata:string;group_id:string}>('SELECT content,sha256,metadata,group_id FROM group_evidence WHERE evidence_id=?',x.id);ensure(original&&original.group_id===r.oldGroupId&&original.content===x.content&&original.sha256===x.contentHash&&JSON.parse(original.metadata).verification==='trusted_financial_gateway','observed_recovery_gateway_provenance');
+  const packet=JSON.parse(x.content);for(const ref of packet.evidence??[]){const evidence=this.db.get<{content:string;content_hash:string;retrieved_at:string}>('SELECT content,content_hash,retrieved_at FROM observed_financial_evidence WHERE evidence_id=? AND run_id=?',ref.id,this.privateRunId);ensure(evidence&&hash(evidence.content)===evidence.content_hash&&evidence.content_hash===ref.hash&&evidence.retrieved_at===ref.retrievedAt,'observed_recovery_source_provenance');}return packet;
+ }
  private publicRationale(s:PublicPaperSummary){return `${s.thesis}\nFacts: ${s.facts.join('; ')}\nAssumptions: ${s.assumptions.join('; ')}\nHorizon: ${s.horizon}\nPosition-change reason: ${s.changeReason}`;}
  protected decisionDerivative(d:Decision,r:Review,j:Journal,ctx:ProjectionContext):DecisionDerivative|null {const p=this.proposals().find(p=>p.decision_id===d.decisionId&&p.revision===d.revision);ensure(p,'observed_public_proposal_missing');const pair=this.pair(p);if(!pair)return null;ensure(pair.r.review_id===r.id&&p.simulator_hash===d.hash&&pair.r.simulator_hash===hash(r),'observed_public_exact_review');
-  const ids=new Set<string>();for(const id of (JSON.parse(p.narrative) as PaperNarrative).evidenceIds){const row=this.db.get<{content:string;sha256:string;metadata:string}>('SELECT content,sha256,metadata FROM group_evidence WHERE evidence_id=?',id);if(row&&hash(row.content)===row.sha256&&JSON.parse(row.metadata).verification==='trusted_financial_gateway'){const value=JSON.parse(row.content);for(const ref of value.evidence??[])if(typeof ref.id==='string')ids.add(ref.id);}}
+  const ids=new Set<string>();for(const id of (JSON.parse(p.narrative) as PaperNarrative).evidenceIds){const value=this.citedGateway(p,id);for(const ref of value?.evidence??[])if(typeof ref.id==='string')ids.add(ref.id);}
   const sources:Source[]=[...ids].slice(0,9).map(id=>{const e=this.db.get<{instrument_id:string;retrieved_at:string;content_hash:string}>('SELECT instrument_id,retrieved_at,content_hash FROM observed_financial_evidence WHERE evidence_id=? AND run_id=? AND retrieved_at<=?',id,this.privateRunId,d.evidenceCutoff);ensure(e,'observed_public_source_cutoff');return {sourceId:ctx.identity('source',e.content_hash),url:'https://finance.yahoo.com/quote/'+encodeURIComponent(e.instrument_id)+'/',title:e.instrument_id+' daily market research',publisher:'Yahoo Finance',publishedAt:null,eventAt:null,retrievedAt:e.retrieved_at,summary:'Public link for gateway evidence explicitly cited in the decision.',limitations:['Provider historical publication time unknown; local retrieval is the knowledge bound.','No raw response or private research excerpt is included.'],rights:'public_link'};});
   return {rationale:this.publicRationale(pair.summary),alternatives:pair.summary.alternatives,risks:pair.summary.risks,invalidationCondition:pair.summary.invalidation,reviewRationale:pair.review.summary,dissent:pair.review.dissent,evidence:[],reviewEvidence:[],sources,origin:{kind:'observed_public_summary',id:pair.r.review_id,version:String(p.revision),hash:hash({proposal:p.proposal_hash,review:pair.r,summary:pair.summary,publicReview:pair.review,journal:j.hash})}};
  }

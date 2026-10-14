@@ -1,6 +1,8 @@
 # Proposed recovery from the October14 telemetry gap
 
-Status: proposal only. No policy exception, implementation, grant, recovery or spending approval is established by this document. Ask remains owner-paused. The [current incident handoff](INV-REAL-01.md#actual-research-held-for-incomplete-telemetry--october-14-508-am-vancouver) and [actual receipts](../validation/evidence/inv-real-01/2026-10-14-research/receipts.json) remain authoritative.
+Status: historical proposal, superseded by the owner's explicit request for today's retained-data decision and paper trade; see [Decision052](../decisions/decision_052_retained_research_close_recovery.md) and [current implementation plan](../exec-plans/investment-late-close-recovery.md). The older October15-only preparation/final-consent workflow below is retained for history and no longer controls this owner-authorized scope.
+
+Historical status: proposal only. No policy exception, implementation, grant, recovery or spending approval is established by this document. Ask remains owner-paused. The [current incident handoff](INV-REAL-01.md#actual-research-held-for-incomplete-telemetry--october-14-508-am-vancouver) and [actual receipts](../validation/evidence/inv-real-01/2026-10-14-research/receipts.json) remain authoritative.
 
 ## Decision required
 

@@ -4,6 +4,10 @@ import {eligibleCreditSubscription,type CreditSubscriptionEligibility} from '../
 import {creditAccountFingerprint,validateCreditConfig,validateCreditRequirements} from './credit-policy.js';
 import type {AppServerRpc,RpcMessage} from './rpc.js';
 
+export interface RecoveryAccountProof { readonly kind:'finite-recovery-account'; }
+type Pair={oldAuthorityId:string;newAuthorityId:string;oldAccount:{accountFingerprint:string;routingFingerprint:string};account:{accountFingerprint:string;routingFingerprint:string}};
+const proofs=new WeakMap<RecoveryAccountProof,{pair:Pair;current:()=>boolean}>();
+export function consumeRecoveryAccount<T>(proof:RecoveryAccountProof,oldId:string,newId:string,commit:(pair:Pair)=>T):T{const p=proofs.get(proof);requireThat(p&&p.current()&&p.pair.oldAuthorityId===oldId&&p.pair.newAuthorityId===newId,'Current verifier-held recovery account proof required');proofs.delete(proof);return commit(p.pair);}
 export interface VerifiedCreditAccount {
   generation:number;
   fingerprint:string;
@@ -15,11 +19,12 @@ export interface VerifiedCreditAccount {
 /** A notification is invalidation, never identity. Raw account data stays in this read scope. */
 export class CreditAccountVerifier {
   private generation=0;
+  private pairs=new WeakMap<VerifiedCreditAccount,Pair>();
   private verifiedGeneration=-1;
   private expected?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>;
   private pending?:Promise<VerifiedCreditAccount>;
   constructor(private readonly rpc:AppServerRpc,private readonly options:{
-    pilotId:string; workspace:string; deadline:number; disabledFeatures:readonly string[];
+    pilotId:string; successorAuthorityId?:string; workspace:string; deadline:number; disabledFeatures:readonly string[];
     checkOpen():void; invalidated?(generation:number):void;
     expected?:Pick<VerifiedCreditAccount,'fingerprint'|'routingFingerprint'>;
   }) {
@@ -72,9 +77,12 @@ export class CreditAccountVerifier {
       requireThat(!this.expected||(fingerprint===this.expected.fingerprint&&routingFingerprint===this.expected.routingFingerprint),'Pilot authentication identity or routing policy changed');
       this.expected??={fingerprint,routingFingerprint};
       this.verifiedGeneration=generation;
-      return {generation,fingerprint,routingFingerprint,eligibility,mcpNames};
+      const value={generation,fingerprint,routingFingerprint,eligibility,mcpNames};
+      if(this.options.successorAuthorityId){const id=this.options.successorAuthorityId;this.pairs.set(value,{oldAuthorityId:this.options.pilotId,newAuthorityId:id,oldAccount:{accountFingerprint:fingerprint,routingFingerprint},account:{accountFingerprint:creditAccountFingerprint(account,id),routingFingerprint:createHash('sha256').update(JSON.stringify({pilotId:id,routing})).digest('hex')}});}
+      return value;
     }
     throw Error('Account verification did not stabilize');
   }
+  recoveryProof(value:VerifiedCreditAccount):RecoveryAccountProof{const pair=this.pairs.get(value);requireThat(pair&&this.expected&&this.current(value),'Stable dual-salted account verification required');const proof:RecoveryAccountProof=Object.freeze({kind:'finite-recovery-account'});proofs.set(proof,{pair,current:()=>this.current(value)});return proof;}
   close(){this.rpc.off('notification',this.notification);this.verifiedGeneration=-1;}
 }

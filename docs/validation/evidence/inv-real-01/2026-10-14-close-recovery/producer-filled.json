@@ -1,0 +1,1322 @@
+{
+  "evidenceKind": "authored producer projection; no real model or market calls",
+  "scope": {
+    "publisherId": "pub",
+    "keyId": "key",
+    "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+    "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+    "eventTypes": [
+      "run.published",
+      "team.published",
+      "run.status",
+      "discussion.opened",
+      "discussion.contribution",
+      "decision.published",
+      "paper.order",
+      "paper.ledger_transaction",
+      "portfolio.snapshot",
+      "market.action",
+      "instrument.updated"
+    ],
+    "contentTypes": [
+      "application/json"
+    ],
+    "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+    "expiresAt": "2026-10-25T00:00:00.000Z",
+    "enabled": true,
+    "generation": "1",
+    "writesPerMinute": 60,
+    "bytesPerDay": 8388608
+  },
+  "events": [
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "b0807c9fb4fe4824fcf8616ba0e8c67c20119d9122f11151",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-13T21:00:00.000Z",
+      "payload": {
+        "configuration": {
+          "approvalRecordId": null,
+          "attribution": "Authored fixture",
+          "benchmarkConvention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "benchmarkInstrument": {
+            "classificationSource": "Authored classification",
+            "currency": "USD",
+            "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+            "sector": "Benchmark",
+            "symbol": "SPY",
+            "symbolHistory": [
+              {
+                "effectiveFrom": "2026-10-13",
+                "effectiveTo": null,
+                "symbol": "SPY"
+              }
+            ],
+            "venue": "ARCX"
+          },
+          "calendarTimezone": "America/New_York",
+          "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+          "cashConvention": "no_interest_no_tax_immediate_simulated_settlement",
+          "commission": "0.000000",
+          "configurationStatus": "synthetic_only",
+          "configurationVersion": "aae8c288bac892fa923ccb860892c5d8f146bae6f98e1080",
+          "costBasis": "weighted_average",
+          "currency": "USD",
+          "cutoffMinutes": 30,
+          "cycleExecutionBudget": 6,
+          "dailyExecutionBudget": 6,
+          "dataDelaySeconds": 0,
+          "decisionCadence": "one_review_per_regular_session",
+          "drawdownStopBps": 1500,
+          "executionRule": "next_regular_open",
+          "feed": "yfinance",
+          "initialCapital": "100000.000000",
+          "leverage": false,
+          "limitations": [
+            "Authored fixture prices and fake employees; no real operation proven.",
+            "Owner-reported Yahoo confirmation covers this personal noncommercial research, simulation and website project; not independently verified.",
+            "Private discussion bodies and raw source responses are withheld. Public fields are separately designated employee summaries.",
+            "Unknown dividend payment dates remain receivables; missing or uncertain records remain explicit. No performance guarantee.",
+            "Benchmark corporate actions are reflected in benchmark snapshots; the v1 portfolio action feed covers portfolio-universe instruments.",
+            "No real data or genuine AI"
+          ],
+          "longOnly": true,
+          "marketProvider": "yahoo",
+          "maxOpeningWaitSeconds": 36000,
+          "maxOutboxAgeSeconds": 86400,
+          "maxOutboxBytes": 8388608,
+          "methodologyHash": "64600fa6973b988ded30b29236d117bb4cd315171541c64d9024c23a27c1018d",
+          "methodologyVersion": "inv-real-open-v1",
+          "officialSessions": 251,
+          "openingFieldDefinition": "Authored raw daily OPEN",
+          "positionLimitBps": 1500,
+          "publicationHeartbeatSeconds": 900,
+          "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+          "publicationStaleSeconds": 2700,
+          "quantityRule": "whole_discretionary_six_decimal_actions",
+          "rightsEvidence": [
+            "https://example.invalid/fixture"
+          ],
+          "rounding": "half_even_6",
+          "runExecutionBudget": 16,
+          "sectorLimitBps": 3500,
+          "slippageBps": 10,
+          "universe": [
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+              "sector": "Technology",
+              "symbol": "AAPL",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "AAPL"
+                }
+              ],
+              "venue": "XNAS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "d181080f0f4132d1ddafc7313e5f6e8f600dd0ee6acb8a92",
+              "sector": "Technology",
+              "symbol": "MSFT",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "MSFT"
+                }
+              ],
+              "venue": "XNAS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "b11efb851f76898db1b7e3b96b34b985418bef433aa02ef1",
+              "sector": "Communication Services",
+              "symbol": "GOOGL",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "GOOGL"
+                }
+              ],
+              "venue": "XNAS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "0ef1473f19ab8f4a39a3ad9656581b4d29d7c965436de343",
+              "sector": "Consumer Discretionary",
+              "symbol": "AMZN",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "AMZN"
+                }
+              ],
+              "venue": "XNAS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "20d5da5d51cf8615496998fc76a9450f54cc397aa0cd2ba9",
+              "sector": "Financials",
+              "symbol": "JPM",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "JPM"
+                }
+              ],
+              "venue": "XNYS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "2a96af98c2bd19dc3a8339542600e9a633c1489fbd9f9f09",
+              "sector": "Health Care",
+              "symbol": "JNJ",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "JNJ"
+                }
+              ],
+              "venue": "XNYS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "da74edc1bde74d8722edbcd987473f066da9a2af61888724",
+              "sector": "Energy",
+              "symbol": "XOM",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "XOM"
+                }
+              ],
+              "venue": "XNYS"
+            },
+            {
+              "classificationSource": "Authored classification",
+              "currency": "USD",
+              "instrumentId": "74f75001a424722c510b22c9f8c3a7f4fdb516e8a7545a31",
+              "sector": "Consumer Staples",
+              "symbol": "WMT",
+              "symbolHistory": [
+                {
+                  "effectiveFrom": "2026-10-13",
+                  "effectiveTo": null,
+                  "symbol": "WMT"
+                }
+              ],
+              "venue": "XNAS"
+            }
+          ],
+          "universeVersion": "93e3905f2b30949bb017ba71e995c9d16e370044b6006ede"
+        },
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "endsAt": "2027-01-01T01:00:00.000Z",
+        "objective": "Never live evidence",
+        "previousRunId": null,
+        "purpose": "Offline integration",
+        "runKind": "fixture",
+        "startsAt": "2026-10-13T21:00:00.000Z",
+        "state": "configured",
+        "title": "Authored observed-format fixture"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-13T21:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "1",
+      "type": "run.published"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "bb1b198056f50ef74099ea73cacf2e94b2bca5516fe809bd",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-13T21:00:00.000Z",
+      "payload": {
+        "rosterVersion": "fc0dd0d1a7e8203e0958a3ab402c2a57967f6d91f24fccb0",
+        "workers": [
+          {
+            "name": "Fixture allocator",
+            "responsibilities": [
+              "Propose and submit scoped paper actions"
+            ],
+            "role": "Fixture employee",
+            "status": "unavailable",
+            "workerId": "758231afde05f8c90f7ae5bc08d55840855bdcbd5d595cdb"
+          },
+          {
+            "name": "Fixture challenger",
+            "responsibilities": [
+              "Independently challenge exact paper proposals"
+            ],
+            "role": "Fixture employee",
+            "status": "unavailable",
+            "workerId": "335b3429f2a90ef3dbede2814f8c8c648ac2b7e079e80a3b"
+          }
+        ]
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-13T21:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "2",
+      "type": "team.published"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "9897898ebbee3e48effc09ee8695d8a78de19a34290df592",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-13T21:00:00.000Z",
+      "payload": {
+        "audiencePolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+        "charter": "Publicly designated summaries of genuine employee investment decisions and independent reviews. Private transcripts and raw evidence are withheld.",
+        "discussionId": "b758aac379c2cda9c47e351d9003446e192db8152f20b8f9",
+        "participants": [
+          "758231afde05f8c90f7ae5bc08d55840855bdcbd5d595cdb",
+          "335b3429f2a90ef3dbede2814f8c8c648ac2b7e079e80a3b"
+        ],
+        "topic": "Investment research and independent review"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-13T21:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "3",
+      "type": "discussion.opened"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "aaff97ce029a4161e1ce40ae9b5209e1d4fb8f5e314fdf53",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-13T21:00:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "corporateAction": null,
+        "correctionOf": null,
+        "effect": "initialization",
+        "effectiveAt": "2026-10-13T21:00:00.000Z",
+        "entries": [
+          {
+            "account": "cash",
+            "amount": "100000.000000",
+            "currency": "USD",
+            "instrumentId": null
+          },
+          {
+            "account": "capital",
+            "amount": "100000.000000",
+            "currency": "USD",
+            "instrumentId": null
+          }
+        ],
+        "fill": null,
+        "journalHash": "e218398dc73e12b8cbbe6ef28f4d8c6fc579044ec5777b7ef6822ee9e265a9d1",
+        "journalSequence": "1",
+        "ledgerVersion": "1",
+        "previousHash": null,
+        "previousLedgerVersion": null,
+        "recordedAt": "2026-10-13T21:00:00.000Z",
+        "sourceOperationId": "d7829b4eb223cf08a6c1e28937b7ec052ab5577b35da3a0a",
+        "transactionId": "c5f8544bf242da4ab58db0338144692f72e49ec0cfc52821"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-13T21:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "4",
+      "type": "paper.ledger_transaction"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "a26700d02fa92b3c35ee8828550bae7d4c90a277aa0068f1",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-13T21:00:00.000Z",
+      "payload": {
+        "benchmark": {
+          "cash": "100000.000000",
+          "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "equity": null,
+          "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+          "mark": null,
+          "missingReason": "Unavailable exact benchmark closing mark",
+          "receivables": "0.000000",
+          "session": "2026-10-14",
+          "totalReturn": null,
+          "units": "0.000000"
+        },
+        "cash": "100000.000000",
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "currency": "USD",
+        "dailyReturn": null,
+        "drawdown": null,
+        "equity": null,
+        "excessReturn": null,
+        "holdings": [],
+        "journalHash": "e218398dc73e12b8cbbe6ef28f4d8c6fc579044ec5777b7ef6822ee9e265a9d1",
+        "journalSequence": "1",
+        "liabilities": "0.000000",
+        "limitations": [
+          "Unavailable or unsupported matched portfolio/benchmark valuation"
+        ],
+        "markSetId": "a610adc99b5d7f933b7a47d4970fd9138881c6441ef0d25d",
+        "maxDrawdown": null,
+        "peakEquity": null,
+        "previousComparableEquity": null,
+        "quality": "partial",
+        "realizedPnl": "0.000000",
+        "receivables": "0.000000",
+        "revision": 1,
+        "session": "2026-10-14",
+        "supersedes": null,
+        "totalReturn": null,
+        "unrealizedPnl": null,
+        "valuationAsOf": "2026-10-13T21:00:00.000Z",
+        "valuationId": "f6c1fb8786fd0ddaaa76453912ba7a7fc779efa3ccc38d85",
+        "valuationSequence": "1"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-13T21:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "5",
+      "type": "portfolio.snapshot"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "29cfcaf66bc7c24586cb56ef2fb8366d63900c6ed6e29b6a",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T12:00:00.000Z",
+      "payload": {
+        "effectiveAt": "2026-10-14T12:00:00.000Z",
+        "nextReviewAt": null,
+        "reason": "Explicit synthetic simulator lifecycle control",
+        "state": "paused"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T12:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "6",
+      "type": "run.status"
+    },
+    {
+      "actor": {
+        "kind": "worker",
+        "workerId": "758231afde05f8c90f7ae5bc08d55840855bdcbd5d595cdb"
+      },
+      "eventId": "32180d0ea7c83bb12de8e7f7899b1d4d608dd78403df8b50",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "body": "Authored close test\nFacts: Retained fixture history\nAssumptions: Future price unknown\nHorizon: One session\nPosition-change reason: Owner requested new prospective decision",
+        "contributionId": "962d801d400a92394de92db12288f46347f7ac5d90fc012b",
+        "discussionId": "b758aac379c2cda9c47e351d9003446e192db8152f20b8f9",
+        "evidence": [],
+        "ordinal": "1",
+        "replyTo": null
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "7",
+      "type": "discussion.contribution"
+    },
+    {
+      "actor": {
+        "kind": "worker",
+        "workerId": "335b3429f2a90ef3dbede2814f8c8c648ac2b7e079e80a3b"
+      },
+      "eventId": "f29796e5698b9d0425611c50364e5c8443793c8ba09d7cb7",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "body": "Independent exact review",
+        "contributionId": "14fa94ad2c3f639d621da41b37a0e16ded53e839fccea922",
+        "discussionId": "b758aac379c2cda9c47e351d9003446e192db8152f20b8f9",
+        "evidence": [],
+        "ordinal": "2",
+        "replyTo": "962d801d400a92394de92db12288f46347f7ac5d90fc012b"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "8",
+      "type": "discussion.contribution"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:00:00.000Z",
+      "payload": {
+        "effectiveAt": "2026-10-14T14:00:00.000Z",
+        "executionAmendment": {
+          "amendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+          "approvalRecordId": "223942ae807a3de7d6f2ba38515648a22bdde5eac1af14cf",
+          "benchmarkConvention": "cash_then_same_session_close",
+          "collectionNotBefore": "2026-10-14T20:05:00.000Z",
+          "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+          "decisionCutoff": "2026-10-14T19:30:00.000Z",
+          "expiresAt": "2026-10-14T23:30:00.000Z",
+          "marketAt": "2026-10-14T20:00:00.000Z",
+          "methodologyVersion": "inv-real-close-recovery-v1",
+          "processNotBefore": "2026-10-14T20:20:00.000Z",
+          "session": "2026-10-14",
+          "usageAccounting": "historical_gap_retained"
+        },
+        "nextReviewAt": "2026-10-14T19:30:00.000Z",
+        "reason": "Owner amendment inv-real-close-recovery-v1: 2026-10-14 new decisions, reviews and orders must precede 2026-10-14T19:30:00.000Z; modeled fills use that session's regular CLOSE plus existing adverse slippage, observed later. Original morning opening was missed. Benchmark is cash then SPY at the same close. Historical usage gap and all consumed attempts remain retained. No real trades.",
+        "state": "paused"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "9",
+      "type": "run.status"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "f0c5cde10e6f87adf51d00ac5e19d51a82b495233b357ac8",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:00:00.000Z",
+      "payload": {
+        "effectiveAt": "2026-10-14T14:00:00.000Z",
+        "nextReviewAt": null,
+        "reason": "Explicit synthetic simulator lifecycle control",
+        "state": "active"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:00:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "10",
+      "type": "run.status"
+    },
+    {
+      "actor": {
+        "kind": "worker",
+        "workerId": "758231afde05f8c90f7ae5bc08d55840855bdcbd5d595cdb"
+      },
+      "eventId": "5274a282c7f5be410762f5ef520eb6b40ee088dc2601d5c6",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "proposal": {
+          "action": "BUY",
+          "alternatives": [
+            "HOLD"
+          ],
+          "committedAt": "2026-10-14T14:10:00.000Z",
+          "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+          "evidence": [],
+          "evidenceCutoff": "2026-10-14T14:10:00.000Z",
+          "executionAmendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+          "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+          "invalidationCondition": "Invalid data",
+          "priceGuard": "110",
+          "quantity": "2",
+          "rationale": "Authored close test\nFacts: Retained fixture history\nAssumptions: Future price unknown\nHorizon: One session\nPosition-change reason: Owner requested new prospective decision Method: inv-real-close-recovery-v1; prospective regular CLOSE after this decision, not the missed morning OPEN.",
+          "revision": 1,
+          "risks": [
+            "Loss"
+          ],
+          "sources": [
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:00.000Z",
+              "rights": "public_link",
+              "sourceId": "6dc75a0406403d0462e31b615719908001834076d8d19750",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "AAPL daily market research",
+              "url": "https://finance.yahoo.com/quote/AAPL/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:06.000Z",
+              "rights": "public_link",
+              "sourceId": "d5c52043fe1e2961f98cc699f28e2a9d221f635d6cd5d2ce",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "MSFT daily market research",
+              "url": "https://finance.yahoo.com/quote/MSFT/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:12.000Z",
+              "rights": "public_link",
+              "sourceId": "1087a364f811a082cb08c95689aa5c4e9bab6f0ce5b9abbb",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "GOOGL daily market research",
+              "url": "https://finance.yahoo.com/quote/GOOGL/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:18.000Z",
+              "rights": "public_link",
+              "sourceId": "fb0999f1a2fa85da963ab9283e5fc6597f2b10350225a38c",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "AMZN daily market research",
+              "url": "https://finance.yahoo.com/quote/AMZN/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:24.000Z",
+              "rights": "public_link",
+              "sourceId": "d729cb8c22a1cde9c4161a97c64a2c2ce02ac73412d549ca",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "JPM daily market research",
+              "url": "https://finance.yahoo.com/quote/JPM/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:30.000Z",
+              "rights": "public_link",
+              "sourceId": "26b9418ef8f7908a7ddf91167ad8e098bbc6217b9c663989",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "JNJ daily market research",
+              "url": "https://finance.yahoo.com/quote/JNJ/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:36.000Z",
+              "rights": "public_link",
+              "sourceId": "8c1008eda7c942ae0bdcd961357d09d7e7f414354bc8087e",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "XOM daily market research",
+              "url": "https://finance.yahoo.com/quote/XOM/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:42.000Z",
+              "rights": "public_link",
+              "sourceId": "0da3a158c0941201603b64e854d449b9fc057d629cc03c93",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "WMT daily market research",
+              "url": "https://finance.yahoo.com/quote/WMT/"
+            },
+            {
+              "eventAt": null,
+              "limitations": [
+                "Provider historical publication time unknown; local retrieval is the knowledge bound.",
+                "No raw response or private research excerpt is included."
+              ],
+              "publishedAt": null,
+              "publisher": "Yahoo Finance",
+              "retrievedAt": "2026-10-14T11:45:48.000Z",
+              "rights": "public_link",
+              "sourceId": "c6b9d58abd6596f213c8ead05eacb6c0691b92457cefc908",
+              "summary": "Public link for gateway evidence explicitly cited in the decision.",
+              "title": "SPY daily market research",
+              "url": "https://finance.yahoo.com/quote/SPY/"
+            }
+          ],
+          "targetSession": "2026-10-14"
+        },
+        "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+        "review": {
+          "disposition": "approve",
+          "dissent": [],
+          "evidence": [],
+          "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+          "proposalRevision": 1,
+          "rationale": "Independent exact review",
+          "reviewId": "ff8cdce839215c2444d084568b02ccfaae194e19f75d7f9d",
+          "reviewedAt": "2026-10-14T14:10:00.000Z",
+          "reviewerId": "335b3429f2a90ef3dbede2814f8c8c648ac2b7e079e80a3b"
+        }
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "11",
+      "type": "decision.published"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "ca5a359f45b9d304bcc3bf2ec7021407de630caddd4baa75",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "deadline": "2026-10-14T19:30:00.000Z",
+        "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+        "decisionRevision": 1,
+        "executionAmendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+        "expectedLedgerVersion": "1",
+        "expiresAt": "2026-10-14T23:30:00.000Z",
+        "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+        "lockedAt": "2026-10-14T14:10:00.000Z",
+        "orderId": "4c1559edc286de7f867aa0d618c573c5674748975b27d823",
+        "orderIndex": 0,
+        "previousEventId": null,
+        "priceGuard": "110",
+        "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+        "quantity": "2",
+        "reason": null,
+        "reservedCash": "0.000000",
+        "reservedQuantity": "0.000000",
+        "revision": 1,
+        "side": "BUY",
+        "status": "proposed",
+        "targetSession": "2026-10-14"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "12",
+      "type": "paper.order"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "721f506bd2e21fb2f25c503b528d15f053ff58fdf062f853",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "deadline": "2026-10-14T19:30:00.000Z",
+        "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+        "decisionRevision": 1,
+        "executionAmendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+        "expectedLedgerVersion": "1",
+        "expiresAt": "2026-10-14T23:30:00.000Z",
+        "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+        "lockedAt": "2026-10-14T14:10:00.000Z",
+        "orderId": "4c1559edc286de7f867aa0d618c573c5674748975b27d823",
+        "orderIndex": 0,
+        "previousEventId": "ca5a359f45b9d304bcc3bf2ec7021407de630caddd4baa75",
+        "priceGuard": "110",
+        "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+        "quantity": "2",
+        "reason": null,
+        "reservedCash": "0.000000",
+        "reservedQuantity": "0.000000",
+        "revision": 2,
+        "side": "BUY",
+        "status": "validated",
+        "targetSession": "2026-10-14"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "13",
+      "type": "paper.order"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "40422ce39cc894a43743778c9c67a9f220409230f47c2e75",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T14:10:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "deadline": "2026-10-14T19:30:00.000Z",
+        "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+        "decisionRevision": 1,
+        "executionAmendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+        "expectedLedgerVersion": "1",
+        "expiresAt": "2026-10-14T23:30:00.000Z",
+        "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+        "lockedAt": "2026-10-14T14:10:00.000Z",
+        "orderId": "4c1559edc286de7f867aa0d618c573c5674748975b27d823",
+        "orderIndex": 0,
+        "previousEventId": "721f506bd2e21fb2f25c503b528d15f053ff58fdf062f853",
+        "priceGuard": "110",
+        "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+        "quantity": "2",
+        "reason": null,
+        "reservedCash": "220.000000",
+        "reservedQuantity": "0.000000",
+        "revision": 3,
+        "side": "BUY",
+        "status": "pending",
+        "targetSession": "2026-10-14"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T14:10:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "14",
+      "type": "paper.order"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "42e0583551ce62a2499d4386640e47c24f95cb556312f860",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T20:20:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "corporateAction": null,
+        "correctionOf": null,
+        "effect": "fill",
+        "effectiveAt": "2026-10-14T20:00:00.000Z",
+        "entries": [
+          {
+            "account": "cash",
+            "amount": "-204.204000",
+            "currency": "USD",
+            "instrumentId": null
+          },
+          {
+            "account": "quantity",
+            "amount": "2.000000",
+            "currency": "USD",
+            "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10"
+          },
+          {
+            "account": "book_cost",
+            "amount": "204.204000",
+            "currency": "USD",
+            "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10"
+          }
+        ],
+        "fill": {
+          "basisRoundingResidual": {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+          "decisionRevision": 1,
+          "fee": "0.000000",
+          "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+          "observation": {
+            "adjustment": "raw",
+            "availableAt": null,
+            "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+            "currency": "USD",
+            "delaySeconds": 0,
+            "feed": "yfinance",
+            "field": "regular_close",
+            "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+            "marketAt": "2026-10-14T20:00:00.000Z",
+            "observationId": "f71bfbefd6fcf8a5256d509715c2e994c8fa807d9b137bda",
+            "provider": "yahoo",
+            "retrievedAt": "2026-10-14T20:05:00.000Z",
+            "session": "2026-10-14",
+            "sourceVersion": "e9717470ad461643007a323862422f7b5b891ea6a269f999",
+            "value": "102.000000",
+            "venue": "XNAS"
+          },
+          "orderId": "4c1559edc286de7f867aa0d618c573c5674748975b27d823",
+          "orderRevision": 3,
+          "price": "102.102000",
+          "priceRoundingResidual": {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          "quantity": "2",
+          "releasedBasis": "0.000000",
+          "roundingAdjustment": "0",
+          "side": "BUY"
+        },
+        "journalHash": "0d671af38e3fedf79a25d8b2d6cad304a29214782880664dcfc4e986b39f9568",
+        "journalSequence": "2",
+        "ledgerVersion": "2",
+        "previousHash": "e218398dc73e12b8cbbe6ef28f4d8c6fc579044ec5777b7ef6822ee9e265a9d1",
+        "previousLedgerVersion": "1",
+        "recordedAt": "2026-10-14T20:20:00.000Z",
+        "sourceOperationId": "4d9a390385f809e7942ca5219eee3b6b0a955413df782dfc",
+        "transactionId": "de2873182714fdd24b2d1efe6dcc4b8634b3e132aedde690"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T20:20:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "15",
+      "type": "paper.ledger_transaction"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "23a33829dec72bb9433fcf45b816712602ac30608d8172c9",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T20:20:00.000Z",
+      "payload": {
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "deadline": "2026-10-14T19:30:00.000Z",
+        "decisionId": "0be384dca5a26832249f7575317362b00001e982adf6dfab",
+        "decisionRevision": 1,
+        "executionAmendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b",
+        "expectedLedgerVersion": "1",
+        "expiresAt": "2026-10-14T23:30:00.000Z",
+        "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+        "lockedAt": "2026-10-14T14:10:00.000Z",
+        "orderId": "4c1559edc286de7f867aa0d618c573c5674748975b27d823",
+        "orderIndex": 0,
+        "previousEventId": "40422ce39cc894a43743778c9c67a9f220409230f47c2e75",
+        "priceGuard": "110",
+        "proposalHash": "93f572e2384ca3b4718cefac8b904f603cf14286cda32b431e39b8ee9e0497b0",
+        "quantity": "2",
+        "reason": null,
+        "reservedCash": "0.000000",
+        "reservedQuantity": "0.000000",
+        "revision": 4,
+        "side": "BUY",
+        "status": "filled",
+        "targetSession": "2026-10-14"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T20:20:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "16",
+      "type": "paper.order"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "b9d07102e1863b4fdf65cf9969e5f79c923e5ec594daeaf4",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-14T20:25:00.000Z",
+      "payload": {
+        "benchmark": {
+          "cash": "0.000088",
+          "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "equity": "100000.000000",
+          "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+          "mark": {
+            "adjustment": "raw",
+            "availableAt": null,
+            "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+            "currency": "USD",
+            "delaySeconds": 0,
+            "feed": "yfinance",
+            "field": "regular_close",
+            "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+            "marketAt": "2026-10-14T20:00:00.000Z",
+            "observationId": "22edc97d38e4f3c542a2ce7545489ca9f8047e32e99832d2",
+            "provider": "yahoo",
+            "retrievedAt": "2026-10-14T20:05:48.000Z",
+            "session": "2026-10-14",
+            "sourceVersion": "4cb6c8738215b4efeaaa8586cceb81336a5209571533e579",
+            "value": "102.000000",
+            "venue": "ARCX"
+          },
+          "missingReason": null,
+          "receivables": "0.000000",
+          "recovery": {
+            "allocation": {
+              "cash": "0.000088",
+              "observation": {
+                "adjustment": "raw",
+                "availableAt": null,
+                "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+                "currency": "USD",
+                "delaySeconds": 0,
+                "feed": "yfinance",
+                "field": "regular_close",
+                "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+                "marketAt": "2026-10-14T20:00:00.000Z",
+                "observationId": "22edc97d38e4f3c542a2ce7545489ca9f8047e32e99832d2",
+                "provider": "yahoo",
+                "retrievedAt": "2026-10-14T20:05:48.000Z",
+                "session": "2026-10-14",
+                "sourceVersion": "4cb6c8738215b4efeaaa8586cceb81336a5209571533e579",
+                "value": "102.000000",
+                "venue": "ARCX"
+              },
+              "recordedAt": "2026-10-14T20:20:00.000Z",
+              "units": "980.392156"
+            },
+            "amendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b"
+          },
+          "session": "2026-10-14",
+          "totalReturn": "0.000000",
+          "units": "980.392156"
+        },
+        "cash": "99795.796000",
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "currency": "USD",
+        "dailyReturn": "-0.000002",
+        "drawdown": "-0.000002",
+        "equity": "99999.796000",
+        "excessReturn": "-0.000002",
+        "holdings": [
+          {
+            "bookCost": "204.204000",
+            "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+            "mark": {
+              "adjustment": "raw",
+              "availableAt": null,
+              "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+              "currency": "USD",
+              "delaySeconds": 0,
+              "feed": "yfinance",
+              "field": "regular_close",
+              "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+              "marketAt": "2026-10-14T20:00:00.000Z",
+              "observationId": "f71bfbefd6fcf8a5256d509715c2e994c8fa807d9b137bda",
+              "provider": "yahoo",
+              "retrievedAt": "2026-10-14T20:05:00.000Z",
+              "session": "2026-10-14",
+              "sourceVersion": "e9717470ad461643007a323862422f7b5b891ea6a269f999",
+              "value": "102.000000",
+              "venue": "XNAS"
+            },
+            "marketValue": "204.000000",
+            "missingReason": null,
+            "quantity": "2.000000",
+            "sector": "Technology",
+            "symbol": "AAPL",
+            "unrealizedPnl": "-0.204000"
+          }
+        ],
+        "journalHash": "0d671af38e3fedf79a25d8b2d6cad304a29214782880664dcfc4e986b39f9568",
+        "journalSequence": "2",
+        "liabilities": "0.000000",
+        "limitations": [
+          "Owner amendment inv-real-close-recovery-v1: 2026-10-14 uses prospective regular CLOSE. Benchmark is cash then SPY at that close, not full-period buy-and-hold. Historical telemetry gap remains disclosed."
+        ],
+        "markSetId": "fa5149458573686cb943449eef9781a25e127d7caebece70",
+        "maxDrawdown": "-0.000002",
+        "peakEquity": "100000.000000",
+        "previousComparableEquity": "100000.000000",
+        "quality": "complete",
+        "realizedPnl": "0.000000",
+        "receivables": "0.000000",
+        "revision": 1,
+        "session": "2026-10-14",
+        "supersedes": null,
+        "totalReturn": "-0.000002",
+        "unrealizedPnl": "-0.204000",
+        "valuationAsOf": "2026-10-14T20:00:00.000Z",
+        "valuationId": "8b2540432a684d3cf07a249f57889f969c077ac2fe4eb140",
+        "valuationSequence": "2"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-14T20:25:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "17",
+      "type": "portfolio.snapshot"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "f72468b2273fb48153fd4ccb66628c394ad258541743be44",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-15T20:25:00.000Z",
+      "payload": {
+        "benchmark": {
+          "cash": "0.000088",
+          "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "equity": "100000.000000",
+          "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+          "mark": {
+            "adjustment": "raw",
+            "availableAt": null,
+            "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+            "currency": "USD",
+            "delaySeconds": 0,
+            "feed": "yfinance",
+            "field": "regular_close",
+            "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+            "marketAt": "2026-10-15T20:00:00.000Z",
+            "observationId": "26219374775ed011c97407735733c1fb058f4da85adfcba0",
+            "provider": "yahoo",
+            "retrievedAt": "2026-10-15T20:05:48.000Z",
+            "session": "2026-10-15",
+            "sourceVersion": "03c496881b65a1c26bc26e5cfc5f3e39b01d800ecfa8189d",
+            "value": "102.000000",
+            "venue": "ARCX"
+          },
+          "missingReason": null,
+          "receivables": "0.000000",
+          "recovery": {
+            "allocation": {
+              "cash": "0.000088",
+              "observation": {
+                "adjustment": "raw",
+                "availableAt": null,
+                "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+                "currency": "USD",
+                "delaySeconds": 0,
+                "feed": "yfinance",
+                "field": "regular_close",
+                "instrumentId": "10718479ade2d6d69262bce527396340526407c67985c98e",
+                "marketAt": "2026-10-14T20:00:00.000Z",
+                "observationId": "22edc97d38e4f3c542a2ce7545489ca9f8047e32e99832d2",
+                "provider": "yahoo",
+                "retrievedAt": "2026-10-14T20:05:48.000Z",
+                "session": "2026-10-14",
+                "sourceVersion": "4cb6c8738215b4efeaaa8586cceb81336a5209571533e579",
+                "value": "102.000000",
+                "venue": "ARCX"
+              },
+              "recordedAt": "2026-10-14T20:20:00.000Z",
+              "units": "980.392156"
+            },
+            "amendmentId": "a4ae915ea357893dd3bc399dd4d33cefa842b36f2815e08b"
+          },
+          "session": "2026-10-15",
+          "totalReturn": "0.000000",
+          "units": "980.392156"
+        },
+        "cash": "99795.796000",
+        "configurationHash": "0bc0c8745bd44b17e8a0b5bf7d05f5e40d0bc95051b37e538488fe3ff541931c",
+        "currency": "USD",
+        "dailyReturn": "0.000000",
+        "drawdown": "-0.000002",
+        "equity": "99999.796000",
+        "excessReturn": "-0.000002",
+        "holdings": [
+          {
+            "bookCost": "204.204000",
+            "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+            "mark": {
+              "adjustment": "raw",
+              "availableAt": null,
+              "calendarVersion": "7b94eb9e133d479ad4b0f213d0596ade9fcb7ff48123d082",
+              "currency": "USD",
+              "delaySeconds": 0,
+              "feed": "yfinance",
+              "field": "regular_close",
+              "instrumentId": "eeb08dd44a0ae0117ae773d886c912c2086ce1025679fb10",
+              "marketAt": "2026-10-15T20:00:00.000Z",
+              "observationId": "cdd4913b9a7fde5ffe11135ff51812629a960f01a0459fc0",
+              "provider": "yahoo",
+              "retrievedAt": "2026-10-15T20:05:00.000Z",
+              "session": "2026-10-15",
+              "sourceVersion": "88f13060fe6f2f615d51ce7372fb98343b821ea3f1a2f1de",
+              "value": "102.000000",
+              "venue": "XNAS"
+            },
+            "marketValue": "204.000000",
+            "missingReason": null,
+            "quantity": "2.000000",
+            "sector": "Technology",
+            "symbol": "AAPL",
+            "unrealizedPnl": "-0.204000"
+          }
+        ],
+        "journalHash": "0d671af38e3fedf79a25d8b2d6cad304a29214782880664dcfc4e986b39f9568",
+        "journalSequence": "2",
+        "liabilities": "0.000000",
+        "limitations": [
+          "Owner amendment inv-real-close-recovery-v1: 2026-10-14 uses prospective regular CLOSE. Benchmark is cash then SPY at that close, not full-period buy-and-hold. Historical telemetry gap remains disclosed."
+        ],
+        "markSetId": "b2a87bbb70a62a75b00e9c3fa3b07ade75221881ed878418",
+        "maxDrawdown": "-0.000002",
+        "peakEquity": "100000.000000",
+        "previousComparableEquity": "99999.796000",
+        "quality": "complete",
+        "realizedPnl": "0.000000",
+        "receivables": "0.000000",
+        "revision": 1,
+        "session": "2026-10-15",
+        "supersedes": null,
+        "totalReturn": "-0.000002",
+        "unrealizedPnl": "-0.204000",
+        "valuationAsOf": "2026-10-15T20:00:00.000Z",
+        "valuationId": "9e5b95cf63c205ba64218201e01b54bc999800f632432af3",
+        "valuationSequence": "3"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-15T20:25:00.000Z",
+      "references": [
+        {
+          "id": "cd8e107516963e970af753637eae06560d8a036aeb5c943a",
+          "kind": "event",
+          "relation": "supports",
+          "version": 1
+        }
+      ],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "18",
+      "type": "portfolio.snapshot"
+    },
+    {
+      "actor": {
+        "kind": "system"
+      },
+      "eventId": "2864080c3e1ec3682ece6947532adf0d355be18fd4501fe8",
+      "evidenceMode": "synthetic_fixture",
+      "experimentId": "c2bebb9a16228d8bad0141d311b4fd597a49182c2a6438c6",
+      "occurredAt": "2026-10-15T23:30:00.000Z",
+      "payload": {
+        "effectiveAt": "2026-10-15T23:30:00.000Z",
+        "nextReviewAt": null,
+        "reason": "Explicit synthetic simulator lifecycle control",
+        "state": "paused"
+      },
+      "publicationPolicyVersion": "be9ea758bb4a5bbcf6cd0dfa6a787c2812c3821352cc2f17",
+      "recordedAt": "2026-10-15T23:30:00.000Z",
+      "references": [],
+      "runId": "1731a1b8dec0ed8233302458255672c0879a1b59f26e1c73",
+      "schemaVersion": "1.0",
+      "sourceSequence": "19",
+      "type": "run.status"
+    }
+  ]
+}

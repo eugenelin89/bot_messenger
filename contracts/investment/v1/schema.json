@@ -764,6 +764,9 @@
               "type": "null"
             }
           ]
+        },
+        "executionAmendment": {
+          "$ref": "#/$defs/ExecutionAmendment"
         }
       },
       "required": [
@@ -1307,6 +1310,9 @@
           },
           "minItems": 0,
           "maxItems": 30
+        },
+        "executionAmendmentId": {
+          "$ref": "#/$defs/Id"
         }
       },
       "required": [
@@ -1445,6 +1451,12 @@
         },
         "expiresAt": {
           "$ref": "#/$defs/Time"
+        },
+        "executionAmendmentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "lockedAt": {
+          "$ref": "#/$defs/Time"
         }
       },
       "required": [
@@ -1468,7 +1480,15 @@
         "reservedCash",
         "reservedQuantity",
         "expiresAt"
-      ]
+      ],
+      "dependentRequired": {
+        "executionAmendmentId": [
+          "lockedAt"
+        ],
+        "lockedAt": [
+          "executionAmendmentId"
+        ]
+      }
     },
     "MarketObservation": {
       "type": "object",
@@ -2066,6 +2086,9 @@
               "type": "null"
             }
           ]
+        },
+        "recovery": {
+          "$ref": "#/$defs/BenchmarkRecovery"
         }
       },
       "required": [
@@ -3896,6 +3919,9 @@
           },
           "minItems": 0,
           "maxItems": 20
+        },
+        "executionAmendment": {
+          "$ref": "#/$defs/RunStatusEvent"
         }
       },
       "required": [
@@ -6519,6 +6545,106 @@
         "deliveryEnabled",
         "held"
       ]
+    },
+    "ExecutionAmendment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amendmentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "methodologyVersion": {
+          "const": "inv-real-close-recovery-v1"
+        },
+        "configurationHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "approvalRecordId": {
+          "$ref": "#/$defs/Id"
+        },
+        "session": {
+          "const": "2026-10-14"
+        },
+        "decisionCutoff": {
+          "const": "2026-10-14T19:30:00.000Z"
+        },
+        "marketAt": {
+          "const": "2026-10-14T20:00:00.000Z"
+        },
+        "collectionNotBefore": {
+          "const": "2026-10-14T20:05:00.000Z"
+        },
+        "processNotBefore": {
+          "const": "2026-10-14T20:20:00.000Z"
+        },
+        "expiresAt": {
+          "const": "2026-10-14T23:30:00.000Z"
+        },
+        "benchmarkConvention": {
+          "const": "cash_then_same_session_close"
+        },
+        "usageAccounting": {
+          "const": "historical_gap_retained"
+        }
+      },
+      "required": [
+        "amendmentId",
+        "methodologyVersion",
+        "configurationHash",
+        "approvalRecordId",
+        "session",
+        "decisionCutoff",
+        "marketAt",
+        "collectionNotBefore",
+        "processNotBefore",
+        "expiresAt",
+        "benchmarkConvention",
+        "usageAccounting"
+      ]
+    },
+    "BenchmarkRecovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amendmentId",
+        "allocation"
+      ],
+      "properties": {
+        "amendmentId": {
+          "$ref": "#/$defs/Id"
+        },
+        "allocation": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "observation",
+                "units",
+                "cash",
+                "recordedAt"
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/MarketObservation"
+                },
+                "units": {
+                  "$ref": "#/$defs/Decimal"
+                },
+                "cash": {
+                  "$ref": "#/$defs/Decimal"
+                },
+                "recordedAt": {
+                  "$ref": "#/$defs/Time"
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "anyOf": [

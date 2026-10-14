@@ -42,7 +42,7 @@ export class MarketFixtureSimulator {
       const replay=this.store.db.get('SELECT 1 FROM investment_receipts WHERE run_id=? AND request_id=?',runId,requestId);
       const terminal=command.type==='fill'&&state.orders[command.orderId]?.status!=='pending';
       if(!replay&&!terminal)this.riskAdmission?.(runId,command);
-      if(!replay&&!terminal&&['submit','fill','benchmark_open','value','revise_valuations'].includes(command.type)){
+      if(!replay&&!terminal&&['submit','fill','benchmark_open','benchmark_close','value','revise_valuations'].includes(command.type)){
         const observed=new Set(state.observations.map(o=>o.id));
         for(const observation of state.observations){
           const e=this.store.get<PriceEvidence>(observation.id,'price'),p=this.store.get<SourcePolicy>(e.policyId,'policy');

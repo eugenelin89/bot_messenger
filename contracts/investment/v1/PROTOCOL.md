@@ -111,3 +111,39 @@ model grant, authorize inference, or reopen intake. Changed revisions/hashes mus
 hold existing dispatch until explicitly reconciled; a restored lower revision is
 not fresh authority. A current, separately drained control barrier remains
 required before every dispatch, model transmission and answer delivery.
+
+## Prospective close recovery amendment — reviewed optional extension
+
+Historical v1 records remain byte-for-byte unchanged. A signed `run.status` may carry
+`executionAmendment` with methodology `inv-real-close-recovery-v1`; free-form reason text
+never authorizes CLOSE fills. At most one such amendment is accepted per run, before its
+cutoff. It binds the original configuration hash, exact session and immutable amendment
+and approval IDs. The actual exchange CLOSE is `marketAt`; `decisionCutoff` is exactly
+30 minutes earlier, `collectionNotBefore` five minutes later and `processNotBefore`
+twenty minutes later. Expiry is the existing selected session's finite expiry. All times
+must be in the run interval and ordered; the selected exchange calendar must agree.
+
+A new decision declares `executionAmendmentId` and is committed strictly before the
+amendment cutoff and after the amendment. The independent approval/review must also be
+strictly before cutoff. Every resulting order carries that same ID and immutable
+`lockedAt`, equal to its first committed order event time, after proposal/review and
+strictly before cutoff. Its deadline/session/expiry must exactly match the amendment.
+Old orders without the ID retain regular OPEN semantics.
+
+Only that exact decision/order can fill from a qualified raw `regular_close` observation
+at the amendment's session and `marketAt`, retrieved no earlier than
+`collectionNotBefore`, with accounting no earlier than `processNotBefore` and strictly
+before expiry. Preserve all ordinary source, correction, independent-review, latest-order,
+slippage/guard, ledger and idempotency checks. Missing amendment, mismatched run/config/
+session/order, OPEN substitution, late commitment/review/lock or stale/early observation
+is rejected. Optional extension fields must occur together, never partially.
+
+The initial benchmark remains cash until the same prospective close, then allocates SPY
+using its qualified close. Later ordinary rules remain unchanged. Public status and all
+later snapshots disclose cash-then-SPY and the retained historical usage gap. A UI must
+show the durable amendment prominently alongside the clearly labelled original frozen
+configuration even after later status events or pagination; no earlier event is rewritten.
+
+This recovery revision is deliberately restricted to **2026-10-14**: cutoff 19:30Z, regular close 20:00Z, collection no earlier than 20:05Z, processing no earlier than 20:20Z, expiry 23:30Z. These exact timestamps are schema constants, bound to the producer's retained `us-equities-2026-reference-v1` regular NYSE/Nasdaq session; this does not claim the receiver fetches or independently researches an exchange calendar. A future date needs a separately reviewed contract amendment. All fills and benchmark allocations occur strictly before expiry.
+
+`PublicStatus.executionAmendment`, when available under the run's visibility/withdrawal policy, projects the exact immutable amendment `RunStatusEvent`, independently of pagination and later run status. Decisions, orders and snapshots carrying amendment IDs MUST include a `supports` event reference to that exact prior amendment event, allowing dependency withdrawal propagation. Benchmark `recovery` stays present in later snapshots; before allocation it contains null allocation and initial cash/zero units/zero receivables. The first allocation snapshot must be the amended session and exactly match allocation units/cash/zero receivables. Allocation market time is no later than valuation as-of; recorded time may follow market time, but never the enclosing snapshot's recorded time. The allocation proof is immutable thereafter; later benchmark changes follow the original corporate-action/reinvestment rules.

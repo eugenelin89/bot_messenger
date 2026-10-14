@@ -1,5 +1,10 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Owner-requested retained-data decision and paper trade — October14, implementation in progress
+
+The owner clarified that only ASK was paused, requested investment running and today's investment again using already obtained data, then explicitly requested a paper trade. [Decision052](../decisions/decision_052_retained_research_close_recovery.md) supersedes the unapproved October15-only proposal. The implementation prepares one exact successor retaining the historical usage gap and all consumption, plus a prospective October14 regular-CLOSE amendment. It does not replay the missed morning opening. New decision/review/order cutoff is19:30UTC; original close collection20:05, processing20:20 and valuation20:25 remain future gates. No new live authority, employee decision or fill is claimed yet. [Active implementation/validation plan](../exec-plans/investment-late-close-recovery.md). ASK remains paused.
+
+
 ## Prevention fix deployed; missed morning retained — October14, 6:43 a.m. Vancouver
 
 The owner asked to apply the fix and complete the morning trade. The reviewed prevention fix from [PR93](https://github.com/eugenelin89/bot_messenger/pull/93) is now deployed at `108d65a5debf5026f198bdc67292b8fdd22432ed`, schema29, PID840259, with runtime ready. This supersedes the earlier undeployed-source checkpoint below. The original 6:00 a.m. research cutoff had already passed without a proposal, review or order; no opening trade was manufactured, replayed or rescheduled. The owner's request authorized this deployment, not a silent change to the fill methodology or acceptance of the separate historical-usage exception.
