@@ -1,0 +1,24 @@
+✖ /var/tmp/botsquad-test-selection-idEyvv.mjs (12.114828ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28.602691
+
+✖ failing tests:
+
+test at ../var/tmp/botsquad-test-selection-idEyvv.mjs:1:1
+✖ /var/tmp/botsquad-test-selection-idEyvv.mjs (12.114828ms)
+  Error: spawn /opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node EACCES
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -13,
+    code: 'EACCES',
+    syscall: 'spawn /opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node',
+    path: '/opt/botsquad-runtime/node-v24.21.0-linux-x64/bin/node',
+    spawnargs: [ '--test-coverage-functions=0', '--test-concurrency=1', '--inspect-publish-uid=stderr,http', '--inspect-port=127.0.0.1:9229', '--stack-trace-limit=10', '--report-signal=SIGUSR2', '--test-coverage-lines=0', '--test-isolation=process', '--heap-prof-interval=524288', '--cpu-prof-interval=1000', '--v8-pool-size=4', '--trace-event-file-pattern=node_trace.${rotation}.log', '--secure-heap-min=2', '--test-coverage-branches=0', '--watch-kill-signal=SIGTERM', '--tls-cipher-list=TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA', '--experimental-addon-modules', '--use-largepages=off', '--max-http-header-size=16384', '--test-timeout=0', '--node-snapshot', '--secure-heap=0', '--test-skip-pattern=^authored observed workflow: (plain|actions_and_revision) through normal HQ,', '--network-family-autoselection-attempt-timeout=250', '--heapsnapshot-near-heap-limit=0', '/var/tmp/botsquad-test-selection-idEyvv.mjs' ]
+  }

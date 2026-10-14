@@ -1,0 +1,13 @@
+✔ actual isolated receiver: committed team openings (7050.462485ms)
+✔ actual isolated receiver: committed team withdrawal (3184.909383ms)
+✔ actual isolated receiver: committed team full (8775.427387ms)
+✔ actual isolated receiver: committed team replacement (7793.462175ms)
+✔ actual standalone receiver accepts simulator journal, exact content, lost-response GET and restart generation fencing (11325.509137ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39636.930166

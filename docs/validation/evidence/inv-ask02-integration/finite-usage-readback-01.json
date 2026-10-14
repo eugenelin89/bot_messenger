@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-14T00:58:11.309181+00:00",
+  "readOnly": true,
+  "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+  "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+  "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+  "expiresAt": "2026-10-15T23:40:00.000Z",
+  "policy": {
+    "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+    "existingCreditsApproved": true,
+    "maxConcurrent": 1,
+    "maxCycle": 7,
+    "maxDay": 8,
+    "maxDurationMs": 300000,
+    "maxRolling24h": 8,
+    "maxRun": 16,
+    "maxWorker": 12,
+    "mode": "credit_approved_finite_hq",
+    "providerRetriesAccepted": true,
+    "uncertainRetries": 0
+  },
+  "profile": {
+    "cliVersion": "0.157.0",
+    "model": "gpt-6-sol",
+    "reasoningEffort": "low",
+    "serviceTier": "default"
+  },
+  "requestHashCount": 36,
+  "authorityEventCounts": [
+    {
+      "kind": "approve",
+      "n": 1
+    },
+    {
+      "kind": "attest",
+      "n": 1
+    },
+    {
+      "kind": "hold",
+      "n": 3
+    },
+    {
+      "kind": "resume",
+      "n": 3
+    }
+  ],
+  "independentHeadMatchesCustody": true,
+  "independentHead": {
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 9,
+    "digest": "477d4255d9d3fa133c1552dbd48457e34442fea17e1193434853ad349dbf382b",
+    "at": "2026-10-13T20:28:41.444Z"
+  },
+  "integrity": "ok",
+  "limitations": "Selected authority event counts are not a new grant or a refund, and do not erase historical authorities."
+}

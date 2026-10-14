@@ -1,0 +1,26 @@
+✔ shared Dispatcher routes an existing worker through distinct Ask origin and private outbox only (2782.370228ms)
+✔ ordinary owner work is admitted first and busy employees consume no Ask reservation (1285.392931ms)
+✔ duplicate immutable imports and one Ask slot cannot duplicate inference (1217.692883ms)
+✔ record provenance outranks general routing and withdrawn evidence suppresses pending output (1097.361508ms)
+✔ confirmed private answer supplies only the same visitor follow-up history (1791.510357ms)
+✔ uncertain execution blocks replacement inference and shared worker work after recovery (1004.361031ms)
+✔ complete usage over the monitored threshold is retained and permanently holds new Ask work (1054.77456ms)
+✔ cancel/delete controls suppress a late confirmed answer without poisoning known provider settlement (1088.793111ms)
+✔ foreign and mixed execution ownership is rejected by the migrated database (1097.877163ms)
+✔ prior-turn cancellation between reservation and transmission removes cached visitor history (1278.041975ms)
+✔ withdrawal of uncited supplied evidence blocks reuse of the historical answer (1183.358927ms)
+✔ Ask content custody failure holds only Ask and does not pause unrelated owner dispatch (721.125986ms)
+✔ reopened stores preserve provider certainty at after-settlement crash window (1495.987384ms)
+✔ reopened stores preserve provider certainty at after-answer crash window (1385.751188ms)
+✔ older mutually consistent authority files cannot erase newer Company consumption (1193.157629ms)
+✔ answer storage failure retains known provider settlement behind an Ask reconciliation hold (1039.907297ms)
+✔ lifecycle wakeups cover duty cooldown and executed content metadata can retire independently (1717.211733ms)
+✔ Ask and a different ordinary employee share two database execution slots (1141.576962ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24483.928377

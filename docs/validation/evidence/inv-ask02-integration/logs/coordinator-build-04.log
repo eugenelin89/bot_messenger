@@ -1,0 +1,12 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/ask-coordinator-interop.test.ts(8,22): error TS6133: 'mkdtempSync' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(8,63): error TS6133: 'rmSync' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(13,29): error TS6196: 'AskAnswer' is declared but never used.
+test/ask-coordinator-interop.test.ts(14,1): error TS6133: 'Store' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(15,1): error TS6133: 'AskControlJournal' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(17,10): error TS6133: 'askReceiptIdentity' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(104,17): error TS6133: 'exchange' is declared but its value is never read.
+test/ask-coordinator-interop.test.ts(168,130): error TS2339: Property 'kind' does not exist on type 'AskExecution'.

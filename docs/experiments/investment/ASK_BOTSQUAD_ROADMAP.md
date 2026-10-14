@@ -1,6 +1,6 @@
 # Ask BotSquad — implementation packets
 
-**Design version:** 1.1 | **Updated:** 2026-10-13 | **Status:** ASK-01 HQ boundary and ASK-02 transport validated; website intake, routing and ASK-03/04 pending
+**Design version:** 1.1 | **Updated:** 2026-10-13 | **Status:** Receiver/UI deployed closed; HQ employee/coordinator source acceptance passed; genuine Ask and public activation blocked
 
 [Feature specification](ASK_BOTSQUAD.md) · [Main implementation status](ROADMAP.md) · [Prompt launcher](../../../prompts/experiments/investment-showcase.md)
 
@@ -8,7 +8,7 @@
 
 Keep existing INV-01–INV-12 identities stable. Add four feature packets, INV-ASK-01 through INV-ASK-04, before INV-10's integrated acceptance. The main roadmap table owns status and evidence; this file owns the detailed Ask packet briefs.
 
-INV-01 captured Ask design/Q&A contract and provider-use prerequisites alongside the portfolio contract. No existing publisher key, deployment or research grant automatically enables Ask. INV-04 has now implemented general, embedded and contextual **disabled, labelled Ask previews in Asymmetri website source** ([acceptance](../../validation/investment/INV-04.md)); public chat remains unimplemented until the Ask packets and explicit activation pass.
+INV-01 captured Ask design/Q&A contract and provider-use prerequisites alongside the portfolio contract. No existing publisher key, deployment or research grant automatically enables Ask. The website now implements the general and contextual visitor UI and private receiver, deployed with intake disabled. The HQ shared-employee integration passed source acceptance. Public chat remains unavailable until genuine runtime, privacy and activation gates pass; see [current integration evidence](../../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md).
 
 | Packet | Repository | Depends on | Main result |
 | --- | --- | --- | --- |
@@ -19,7 +19,7 @@ INV-01 captured Ask design/Q&A contract and provider-use prerequisites alongside
 
 The default sequence is INV-01–INV-09, ASK-01–ASK-04, then INV-10–INV-12. Earlier parallel work is permitted only when actual dependencies pass and writer/repository ownership is separate. General chat does not logically require an investment run, but the combined showcase's launch gate includes both general and transaction questions.
 
-Use the same single-packet launcher with an exact INV-ASK-NN identifier. Evidence lives at `docs/validation/investment/INV-ASK-NN.md`. The owner subsequently authorized the entire project and deployment/public release; this design document alone did not grant that authority. [ASK-01 evidence](../../validation/investment/INV-ASK-01.md) records the HQ-only source component, with actual website intake still pending. [ASK-02 evidence](../../validation/investment/INV-ASK-02.md) records the independent dormant signed transport; durable admission and genuine employee routing remain incomplete.
+Use the same single-packet launcher with an exact INV-ASK-NN identifier. Evidence lives at `docs/validation/investment/INV-ASK-NN.md`. The owner subsequently authorized the entire project and deployment/public release; this design document alone did not grant that authority. [ASK-01 evidence](../../validation/investment/INV-ASK-01.md) records the original HQ-only source component; the website private receiver is now deployed closed, with no operational intake authority. [ASK-02 evidence](../../validation/investment/INV-ASK-02.md) records the independent dormant signed transport; the later [shared employee/coordinator integration](../../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md) implements isolated routing, finite admission, signed coordination and public evidence projection in source. Genuine employee acceptance and public activation remain blocked by actual runtime eligibility and privacy gates.
 
 ## INV-ASK-01 — Contracts and private website intake
 

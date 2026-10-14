@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-10-13T23:27:08.266805+00:00",
+  "method": "Actual Codex in-app browser accessibility, read-only DOM and screenshots",
+  "urls": [
+    "https://asymmetri.co/botsquad/investment",
+    "https://asymmetri.co/botsquad/ask"
+  ],
+  "investment": {
+    "hierarchy": "Asymmetri Labs / BotSquad / BotSquad Research / BotSquad Investment",
+    "portraits": [
+      {
+        "name": "Atlas",
+        "complete": true,
+        "naturalWidth": 96,
+        "naturalHeight": 96
+      },
+      {
+        "name": "Maya",
+        "complete": true,
+        "naturalWidth": 96,
+        "naturalHeight": 96
+      }
+    ],
+    "startingCapital": "$100,000.00",
+    "completeEquity": "Unavailable",
+    "return": "Unavailable",
+    "decisions": "No public decisions",
+    "mobileViewportWidth": 390,
+    "mobileContentWidth": 390,
+    "statusCopyFinding": "Unconfigured review / no calendar collector wording conflates absent public fields with private scheduler configuration; sent to website counterpart for review."
+  },
+  "ask": {
+    "status": "disabled",
+    "composerTextareas": 0,
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "tabletViewport": [
+      768,
+      1024
+    ],
+    "desktopViewport": [
+      1280,
+      720
+    ],
+    "mobileContentWidth": 390,
+    "desktopContentWidth": 1280,
+    "skipLinkKeyboardTarget": {
+      "id": "main-content",
+      "tag": "MAIN"
+    },
+    "disclosure": "Planned service and provider/retention/monitored-usage limits, not an asserted approved operational notice"
+  },
+  "cleanup": {
+    "viewportReset": true,
+    "createdTabClosed": true
+  },
+  "limits": [
+    "Closed-state check only; no live visitor session, model inference or successful question submission claimed.",
+    "No screenshot files exported; actual screenshots and accessibility observations remain in the coordinating chat."
+  ]
+}

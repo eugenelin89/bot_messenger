@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+not ok 1 - authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+  ---
+  duration_ms: 840742.054591
+  type: 'test'
+  location: '/var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:73:5'
+  failureType: 'testCodeFailure'
+  error: 'Test condition timed out'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    until (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/helpers.js:16:19)
+    async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:403:17)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: authored observed workflow: actions_and_revision through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+not ok 2 - authored observed workflow: actions_and_revision through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+  ---
+  duration_ms: 158759.663126
+  type: 'test'
+  location: '/var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:73:5'
+  failureType: 'testCodeFailure'
+  error: 'Error: Test condition timed out {"loop":{"loop_id":"f1e5eef3-4ab3-48e1-b393-8de466a94485","scope_id":"d2755dd5-da32-4cf3-9c05-da863c958790","envelope":"{\\"scopeId\\":\\"d2755dd5-da32-4cf3-9c05-da863c958790\\",\\"sessions\\":[\\"2026-10-13\\",\\"2026-10-15\\",\\"2026-10-19\\"],\\"researchMinutes\\":60,\\"maxCycleExecutions\\":6,\\"maxDailyExecutions\\":6,\\"maxRunExecutions\\":16,\\"dailyLimits\\":{\\"inputTokens\\":0,\\"outputTokens\\":0,\\"maxCostMicros\\":0},\\"runLimits\\":{\\"inputTokens\\":0,\\"outputTokens\\":0,\\"maxCostMicros\\":0},\\"maxStageAttempts\\":3,\\"retrySeconds\\":60}","digest":"0128cf102b6a8547bf2fa051d19306307c56e506d699a3153228b59bb5601e55","state":"active","generation":1,"plan_revision":1,"reason":null,"created_at":"2026-10-12T21:00:00.000Z","updated_at":"2026-10-12T21:00:00.000Z"},"stage":{"occurrence_id":"loop_b262b84c6f45f8e5eef4d22280a4b28ca71fc02fda752b0f8b8bd47e5226dd43","loop_id":"f1e5eef3-4ab3-48e1-b393-8de466a94485","plan_digest":"0128cf102b6a8547bf2fa051d19306307c56e506d699a3153228b59bb5601e55","plan_revision":1,"session":"2026-10-19","stage":"research","due_at":"2026-10-19T12:00:00.000Z","expires_at":"2026-10-19T13:00:00.000Z","state":"running","generation":1,"attempts":1,"retry_at":null,"reason":null,"result":null,"created_at":"2026-10-12T21:00:00.000Z","updated_at":"2026-10-19T12:00:00.000Z"},"activeCount":0,"executions":[{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null},{"status":"completed","error":null}],"turns":[{"kind":"opening","advanced":1,"status":"completed","response_message_id":"cmessage_4d049db9-1716-44fe-a372-8937efd1a5bf"},{"kind":"opening","advanced":1,"status":"completed","response_message_id":"cmessage_c9fba0be-c171-4e79-bdfd-9aabc676fb7f"},{"kind":"facilitate","advanced":1,"status":"completed","response_message_id":"cmessage_4124005f-d2e2-4340-b0fd-f0755ae53098"},{"kind":"facilitate","advanced":1,"status":"completed","response_message_id":"cmessage_e559848e-a873-4cce-ba22-babe0447abe9"},{"kind":"response","advanced":1,"status":"completed","response_message_id":"cmessage_affae862-6521-42fe-a093-34ca9a05f5a2"},{"kind":"facilitate","advanced":1,"status":"completed","response_message_id":"cmessage_ea4ec6f0-7e29-40ac-a8bd-cbdff0370096"},{"kind":"facilitate","advanced":1,"status":"completed","response_message_id":"cmessage_15da9993-3b41-48ba-81fe-97dc7dfc3810"},{"kind":"response","advanced":1,"status":"completed","response_message_id":"cmessage_fbcbad62-e724-4433-82e9-266308e661e5"},{"kind":"facilitate","advanced":1,"status":"completed","response_message_id":"cmessage_231ee843-7168-4e50-ada6-fbc9fcbd020b"},{"kind":"synthesis","advanced":1,"status":"completed","response_message_id":"cmessage_e2edd674-8d33-41ca-8a7a-6d089bb364f6"},{"kind":"review","advanced":0,"status":"completed","response_message_id":"cmessage_2755510a-19ac-4d37-a677-633185c12cbc"}],"audit":[{"event_id":"event_e5c8c1a7-1555-412d-b48e-089ae42e2ca0","type":"conversation_execution_finished","actor_principal_id":"system","worker_id":"worker_457f53b9-e78f-428a-bceb-a1dce5e8fc2a","task_id":null,"execution_id":"execution_b278bba3-63f0-4802-8677-89f003c096a8","detail":"{\\"request_id\\":\\"reply_919657f4-533e-44c4-bfa3-0f4dba41d751\\",\\"status\\":\\"completed\\",\\"error\\":null,\\"committed_reply\\":true}","created_at":"2026-10-19T12:00:00.000Z"},{"event_id":"event_5539210e-ded8-42e9-ab17-779660fc0672","type":"discussion_contribution","actor_principal_id":"principal_cccb9c0e-db7f-479e-aa20-41f0cc9ab14a","worker_id":"worker_457f53b9-e78f-428a-bceb-a1dce5e8fc2a","task_id":null,"execution_id":"execution_b278bba3-63f0-4802-8677-89f003c096a8","detail":"{\\"group_id\\":\\"group_feeae21a-7bdf-43c0-9177-d480f8554ef8\\",\\"message_id\\":\\"cmessage_2755510a-19ac-4d37-a677-633185c12cbc\\",\\"revision\\":12}","created_at":"2026-10-19T12:00:00.000Z"},{"event_id":"event_c87e5e3a-d862-4600-9faf-86c3ea24d85a","type":"runtime_configuration","actor_principal_id":"system","worker_id":"worker_457f53b9-e78f-428a-bceb-a1dce5e8fc2a","task_id":null,"execution_id":"execution_b278bba3-63f0-4802-8677-89f003c096a8","detail":"{\\"model\\":\\"fake-model\\",\\"reasoning_effort\\":\\"medium\\",\\"runtime_version\\":\\"codex-cli 0.157.0\\",\\"runtime_adapter\\":\\"fake\\",\\"execution_priority\\":\\"normal\\"}","created_at":"2026-10-19T12:00:00.000Z"}],"group":{"group_id":"group_feeae21a-7bdf-43c0-9177-d480f8554ef8","conversation_id":"conversation_9506fab2-e141-4096-8650-ca9282df26d8","topic":"Evaluate a finite synthetic portfolio and learn from prior outcomes","desired_output":"Consider HOLD and alternative paper actions, preserve uncertainty","constraints":"Invented fixtures only; no genuine employee execution\\nReal-observation paper experiment. Separate facts, assumptions, alternatives, uncertainty, horizon, risks, invalidation and reasons for changing positions. HOLD is valid. No raw publication or real trades.","created_by":"human","initiating_operation":"owner_selected","eligible_workers":"[\\"worker_b6b153a3-5b66-432d-b03f-dc6e8246d37a\\",\\"worker_457f53b9-e78f-428a-bceb-a1dce5e8fc2a\\"]","facilitator_id":"worker_b6b153a3-5b66-432d-b03f-dc6e8246d37a","synthesizer_id":"worker_b6b153a3-5b66-432d-b03f-dc6e8246d37a","state":"active","scope_version":1,"revision":12,"evidence_revision":4,"round":3,"turns_used":11,"turn_limit":24,"round_limit":3,"extensions_used":0,"synthesis_used":1,"deadline":"2026-10-19T13:00:00.000Z","allow_incomplete":1,"allow_research":0,"error":null,"created_at":"2026-10-12T21:00:00.000Z","started_at":"2026-10-13T12:00:00.000Z","updated_at":"2026-10-19T12:00:00.000Z"}}'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:186:204
+    async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:186:13)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1000420.817725

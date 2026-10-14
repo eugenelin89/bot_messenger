@@ -587,11 +587,21 @@ answer and pending-authority outbox commit atomically in separate private SQLite
 original retention deadlines, capacity caps, privacy controls and terminal receipts are enforced.
 Missing/corrupt committed state stays held while cleanup continues; explicit backup-root
 exclusion and store identity do not establish filesystem/provider purge or restore proof.
-Separate Ask grants and independent consumed-budget custody must precede
-integration with the existing dispatcher and worker-wide uncertainty rules. Investment finite
-allowances and usage telemetry are not Ask authority. No Ask application caller, provider
-invocation or public intake is wired in HQ. See [ASK-02 acceptance](../validation/investment/INV-ASK-02.md)
-and the [live operation handoff](../operations/INV-REAL-01.md) for exact source/deployment status.
+Schema28 adds a typed public-question origin through the existing shared Dispatcher and
+employee identities, with one Ask slot, ordinary-work priority and independent finite
+model custody. Schema29 adds bounded signed configuration/control/claim/renew/status/answer/
+receipt coordination, immutable claim epochs and applied-effect restore checkpoints.
+Private bodies remain outside Company metadata. A receipt-backed public projection expands
+selected records into their permitted dependency graph; exact approved document hashes and
+all transitive history dependencies are rechecked before model use and delivery.
+
+`installAsk` explicitly composes these existing services only after the concrete runtime
+availability check. The current Codex adapter rejects anonymous public-service eligibility
+before network, reservation or installation; no production bootstrap installs Ask or issues
+operational authority. A private account login and zero-turn ephemeral probe do not establish
+anonymous-service entitlement or provider/host retention guarantees. See the
+[shared integration evidence](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md) and
+[live operation handoff](../operations/INV-REAL-01.md) for exact source/deployment status.
 
 ## INV-05 internal paper simulator
 

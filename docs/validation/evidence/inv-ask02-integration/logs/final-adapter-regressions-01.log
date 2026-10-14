@@ -1,0 +1,71 @@
+✔ observed setup is inert, exact, renewable-policy ready and schedules three future source/research/accounting sessions (1707.61123ms)
+✔ reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies (12091.813868ms)
+
+Interrupted while running:
+
+⚠ dist/test/observed-investment.test.js (dist/test/observed-investment.test.js:1:1)
+✖ dist/test/observed-investment.test.js (586493.300814ms)
+✖ dist/test/private-research-python.test.js
+✖ dist/test/yahoo-bootstrap.test.js
+✖ dist/test/yahoo-direct-custody.test.js
+✖ dist/test/yahoo-direct.test.js
+✖ dist/test/yahoo-history.test.js
+✖ dist/test/yahoo-probe.test.js
+✖ dist/test/yahoo-protocol.test.js
+✖ dist/test/yahoo-python.test.js
+✖ dist/test/yahoo-transport-local.test.js
+✖ dist/test/yahoo-transport.test.js
+ℹ tests 13
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 11
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 586515.588023
+
+✖ failing tests:
+
+test at dist/test/observed-investment.test.js:1:1
+✖ dist/test/observed-investment.test.js (586493.300814ms)
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-python.test.js:1:1
+✖ dist/test/private-research-python.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-bootstrap.test.js:1:1
+✖ dist/test/yahoo-bootstrap.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-direct-custody.test.js:1:1
+✖ dist/test/yahoo-direct-custody.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-direct.test.js:1:1
+✖ dist/test/yahoo-direct.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-history.test.js:1:1
+✖ dist/test/yahoo-history.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-probe.test.js:1:1
+✖ dist/test/yahoo-probe.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-protocol.test.js:1:1
+✖ dist/test/yahoo-protocol.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-python.test.js:1:1
+✖ dist/test/yahoo-python.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-transport-local.test.js:1:1
+✖ dist/test/yahoo-transport-local.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-transport.test.js:1:1
+✖ dist/test/yahoo-transport.test.js
+  'Promise resolution is still pending but the event loop has already resolved'

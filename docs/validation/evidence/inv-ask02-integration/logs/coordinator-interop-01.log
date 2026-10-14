@@ -1,0 +1,192 @@
+TAP version 13
+# Subtest: pinned subscription receiver runs full HQ coordinator and shared dispatcher with authored employee output
+ok 1 - pinned subscription receiver runs full HQ coordinator and shared dispatcher with authored employee output
+  ---
+  duration_ms: 63201.274473
+  type: 'test'
+  ...
+# {"synthetic":true,"websiteCommit":"6ecd49857a651f9cd2d3f5a6a0802fbe48f099b0","counts":{"configuration":2,"control_sync":3,"visitor":6,"claim":1,"status":1,"answer":1,"receipt":1},"employeeExecutions":1,"modelCalls":0,"realSignedReceiver":true,"sharedDispatcher":true,"unknownCostPreserved":true,"contentPurgeVerified":false,"restorationVerified":false}
+# Subtest: pinned synthetic receiver interoperates with typed HQ HTTPS and durable suppression journal
+ok 2 - pinned synthetic receiver interoperates with typed HQ HTTPS and durable suppression journal
+  ---
+  duration_ms: 5279.750862
+  type: 'test'
+  ...
+# {"synthetic":true,"websiteCommit":"6ecd49857a651f9cd2d3f5a6a0802fbe48f099b0","counts":{"control_sync":4,"visitor":6,"claim":1,"renew":1,"status":1,"answer":2,"receipt":1},"controls":1,"modelCalls":0,"contentPurgeVerified":false,"restorationVerified":false}
+# Subtest: empty gateway is inactive, observed mode denied, and schema migration has no seeded authority
+ok 3 - empty gateway is inactive, observed mode denied, and schema migration has no seeded authority
+  ---
+  duration_ms: 845.104264
+  type: 'test'
+  ...
+# Subtest: all four classes retain bounded originals, units, source identity and private/execution gates
+ok 4 - all four classes retain bounded originals, units, source identity and private/execution gates
+  ---
+  duration_ms: 918.672572
+  type: 'test'
+  ...
+# Subtest: cache/replay preserve first knowledge and immutable originals across handles and restart
+ok 5 - cache/replay preserve first knowledge and immutable originals across handles and restart
+  ---
+  duration_ms: 1026.292354
+  type: 'test'
+  ...
+# Subtest: append corrections and A-B-A reversions; historical cutoff uses only the delivered vintage
+ok 6 - append corrections and A-B-A reversions; historical cutoff uses only the delivered vintage
+  ---
+  duration_ms: 936.945226
+  type: 'test'
+  ...
+# Subtest: current fundamentals and delayed statements cannot be backdated to event/period end
+ok 7 - current fundamentals and delayed statements cannot be backdated to event/period end
+  ---
+  duration_ms: 727.867009
+  type: 'test'
+  ...
+# Subtest: missing, NaN, stale and partial data stay explicit; no substitution or decision admission
+ok 8 - missing, NaN, stale and partial data stay explicit; no substitution or decision admission
+  ---
+  duration_ms: 637.839918
+  type: 'test'
+  ...
+# Subtest: typed rejection: changed_schema
+ok 9 - typed rejection: changed_schema
+  ---
+  duration_ms: 703.843921
+  type: 'test'
+  ...
+# Subtest: typed rejection: currency
+ok 10 - typed rejection: currency
+  ---
+  duration_ms: 614.688362
+  type: 'test'
+  ...
+# Subtest: typed rejection: timezone
+ok 11 - typed rejection: timezone
+  ---
+  duration_ms: 592.374239
+  type: 'test'
+  ...
+# Subtest: typed rejection: adjustment
+ok 12 - typed rejection: adjustment
+  ---
+  duration_ms: 624.909408
+  type: 'test'
+  ...
+# Subtest: typed rejection: changed_columns
+ok 13 - typed rejection: changed_columns
+  ---
+  duration_ms: 632.923951
+  type: 'test'
+  ...
+# Subtest: typed rejection: wrong_offset
+ok 14 - typed rejection: wrong_offset
+  ---
+  duration_ms: 621.01034
+  type: 'test'
+  ...
+# Subtest: typed rejection: invalid_ohlc
+ok 15 - typed rejection: invalid_ohlc
+  ---
+  duration_ms: 615.267099
+  type: 'test'
+  ...
+# Subtest: omitted elapsed trading sessions remain explicit gaps without fabricated bars
+ok 16 - omitted elapsed trading sessions remain explicit gaps without fabricated bars
+  ---
+  duration_ms: 630.244531
+  type: 'test'
+  ...
+# Subtest: real clock permits three rate-spaced bootstrap/data calls with individual policy deadlines
+ok 17 - real clock permits three rate-spaced bootstrap/data calls with individual policy deadlines
+  ---
+  duration_ms: 10686.536611
+  type: 'test'
+  ...
+# Subtest: provider-wide budget survives policy/class changes and separate database handles
+ok 18 - provider-wide budget survives policy/class changes and separate database handles
+  ---
+  duration_ms: 703.941931
+  type: 'test'
+  ...
+# Subtest: retries are finite, real transport attempts are counted, 429 Retry-After is not shortened
+ok 19 - retries are finite, real transport attempts are counted, 429 Retry-After is not shortened
+  ---
+  duration_ms: 5822.867885
+  type: 'test'
+  ...
+# Subtest: HTTP 403 is terminal and never follows redirects or changes identity
+ok 20 - HTTP 403 is terminal and never follows redirects or changes identity
+  ---
+  duration_ms: 629.504251
+  type: 'test'
+  ...
+# Subtest: HTTP 301 is terminal and never follows redirects or changes identity
+ok 21 - HTTP 301 is terminal and never follows redirects or changes identity
+  ---
+  duration_ms: 605.892546
+  type: 'test'
+  ...
+# Subtest: HTTP 500 is terminal and never follows redirects or changes identity
+ok 22 - HTTP 500 is terminal and never follows redirects or changes identity
+  ---
+  duration_ms: 592.798066
+  type: 'test'
+  ...
+# Subtest: revocation and expiry during I/O deny retention and cached delivery
+ok 23 - revocation and expiry during I/O deny retention and cached delivery
+  ---
+  duration_ms: 621.2977
+  type: 'test'
+  ...
+# Subtest: cancellation, transport timeout and oversized output fence uncertain effects
+ok 24 - cancellation, transport timeout and oversized output fence uncertain effects
+  ---
+  duration_ms: 1107.338441
+  type: 'test'
+  ...
+# Subtest: concurrent callers share one reservation and cannot complete an in-flight duplicate
+ok 25 - concurrent callers share one reservation and cannot complete an in-flight duplicate
+  ---
+  duration_ms: 645.00218
+  type: 'test'
+  ...
+# Subtest: rollback after completion cannot backdate a correction or delivery even after original start
+ok 26 - rollback after completion cannot backdate a correction or delivery even after original start
+  ---
+  duration_ms: 626.265872
+  type: 'test'
+  ...
+# Subtest: smaller source-policy timeout terminates a hanging underlying call
+ok 27 - smaller source-policy timeout terminates a hanging underlying call
+  ---
+  duration_ms: 574.639076
+  type: 'test'
+  ...
+# Subtest: expiry while receiving data denies persistence and receipt cannot expand scope
+ok 28 - expiry while receiving data denies persistence and receipt cannot expand scope
+  ---
+  duration_ms: 783.405502
+  type: 'test'
+  ...
+# Subtest: oversized transport/output and exhausted transient allowance retain failure receipts
+ok 29 - oversized transport/output and exhausted transient allowance retain failure receipts
+  ---
+  duration_ms: 2388.254644
+  type: 'test'
+  ...
+# Subtest: future bars/actions, closed sessions, current incomplete bars, empty responses and precision are explicit
+ok 30 - future bars/actions, closed sessions, current incomplete bars, empty responses and precision are explicit
+  ---
+  duration_ms: 2141.513488
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 108009.826049

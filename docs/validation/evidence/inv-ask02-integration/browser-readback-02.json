@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-13T23:39:11.167364+00:00",
+  "kind": "actual hydrated browser DOM readback",
+  "url": "https://asymmetri.co/botsquad/investment",
+  "width": 1280,
+  "scrollWidth": 1280,
+  "nextPublishedReview": "Not published",
+  "publisherContactSeparate": true,
+  "oldCollectorClaimPresent": false,
+  "snapshotWordingNamesSession": true,
+  "portraits": [
+    {
+      "employee": "Atlas",
+      "complete": true,
+      "naturalWidth": 96,
+      "naturalHeight": 96
+    },
+    {
+      "employee": "Maya",
+      "complete": true,
+      "naturalWidth": 96,
+      "naturalHeight": 96
+    }
+  ],
+  "publicState": "configured",
+  "archiveFreshness": "unknown",
+  "latestSnapshotSession": "2026-10-14",
+  "snapshotQuality": "partial",
+  "startingCapital": "$100,000.00",
+  "noCompleteValuationOrBenchmark": true,
+  "ask": "Questions are not open yet",
+  "temporaryBrowserTabClosed": true
+}

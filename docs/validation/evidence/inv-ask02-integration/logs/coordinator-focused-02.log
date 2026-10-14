@@ -1,0 +1,592 @@
+TAP version 13
+# Subtest: strict metadata schemas reject unknown content, imprecise money and expired binding
+ok 1 - strict metadata schemas reject unknown content, imprecise money and expired binding
+  ---
+  duration_ms: 1284.165135
+  type: 'test'
+  ...
+# Subtest: canonical scope, roster and every bound intersect with grant
+ok 2 - canonical scope, roster and every bound intersect with grant
+  ---
+  duration_ms: 29.341957
+  type: 'test'
+  ...
+# Subtest: model settlement preserves full worst-case spend across grants and services
+ok 3 - model settlement preserves full worst-case spend across grants and services
+  ---
+  duration_ms: 522.840851
+  type: 'test'
+  ...
+# Subtest: known no-send consumes authority and question identity without refund
+ok 4 - known no-send consumes authority and question identity without refund
+  ---
+  duration_ms: 173.347175
+  type: 'test'
+  ...
+# Subtest: any unresolved model fences other workers and later grants
+ok 5 - any unresolved model fences other workers and later grants
+  ---
+  duration_ms: 181.2515
+  type: 'test'
+  ...
+# Subtest: restart cannot transmit, settle or refund reservations owned by a prior process
+ok 6 - restart cannot transmit, settle or refund reservations owned by a prior process
+  ---
+  duration_ms: 163.451944
+  type: 'test'
+  ...
+# Subtest: revocation between admission and wire denies transmission; confirmed late settlement remains durable
+ok 7 - revocation between admission and wire denies transmission; confirmed late settlement remains durable
+  ---
+  duration_ms: 415.805725
+  type: 'test'
+  ...
+# Subtest: new generation fences prior grants and provider sessions cannot cross answers
+ok 8 - new generation fences prior grants and provider sessions cannot cross answers
+  ---
+  duration_ms: 189.209704
+  type: 'test'
+  ...
+# Subtest: exact context, fresh proof and unchanged admission required immediately before model transmission
+ok 9 - exact context, fresh proof and unchanged admission required immediately before model transmission
+  ---
+  duration_ms: 165.097631
+  type: 'test'
+  ...
+# Subtest: lost answer plus transient retry stays unknown until a matching immutable receipt
+ok 10 - lost answer plus transient retry stays unknown until a matching immutable receipt
+  ---
+  duration_ms: 407.403082
+  type: 'test'
+  ...
+# Subtest: wire observation binds the full attempt; identical digest cannot alias another service or operation
+ok 11 - wire observation binds the full attempt; identical digest cannot alias another service or operation
+  ---
+  duration_ms: 110.302242
+  type: 'test'
+  ...
+# Subtest: privacy and receipt observations proceed through uncertainty but never clear model or claim effects
+ok 12 - privacy and receipt observations proceed through uncertainty but never clear model or claim effects
+  ---
+  duration_ms: 338.517052
+  type: 'test'
+  ...
+# Subtest: checkpoint rollback, missing custody and replaced file identity fail closed without rebuilding
+ok 13 - checkpoint rollback, missing custody and replaced file identity fail closed without rebuilding
+  ---
+  duration_ms: 62.04433
+  type: 'test'
+  ...
+# Subtest: atomic checkpoint replacement is allowed; authority file replacement and insecure modes are denied
+ok 14 - atomic checkpoint replacement is allowed; authority file replacement and insecure modes are denied
+  ---
+  duration_ms: 67.263789
+  type: 'test'
+  ...
+# Subtest: immutable SQLite rows, backward clocks, foreign HQ and excluded backup roots are rejected
+ok 15 - immutable SQLite rows, backward clocks, foreign HQ and excluded backup roots are rejected
+  ---
+  duration_ms: 80.172796
+  type: 'test'
+  ...
+# Subtest: fixture initialization refuses orphaned SQLite sidecars without overwriting them
+ok 16 - fixture initialization refuses orphaned SQLite sidecars without overwriting them
+  ---
+  duration_ms: 2.737701
+  type: 'test'
+  ...
+# Subtest: rolling spend crosses midnight and expires only at the exact 24 hour boundary
+ok 17 - rolling spend crosses midnight and expires only at the exact 24 hour boundary
+  ---
+  duration_ms: 191.768927
+  type: 'test'
+  ...
+# Subtest: checkpoint write failure after SQL commit retains unknown custody and denies reinitialization
+ok 18 - checkpoint write failure after SQL commit retains unknown custody and denies reinitialization
+  ---
+  duration_ms: 56.591478
+  type: 'test'
+  ...
+# Subtest: physical journal ceiling accommodates maximum bounded metadata plus index/page overhead
+ok 19 - physical journal ceiling accommodates maximum bounded metadata plus index/page overhead
+  ---
+  duration_ms: 0.405955
+  type: 'test'
+  ...
+# Subtest: near-cap journal denies new work while preserving model completion, receipt and revocation slots
+ok 20 - near-cap journal denies new work while preserving model completion, receipt and revocation slots
+  ---
+  duration_ms: 14256.400227
+  type: 'test'
+  ...
+# Subtest: activity mode requires exact disclosed policy and null unknown money while strict shapes remain closed
+ok 21 - activity mode requires exact disclosed policy and null unknown money while strict shapes remain closed
+  ---
+  duration_ms: 17.281552
+  type: 'test'
+  ...
+# Subtest: activity usage preserves null costs, never refunds threshold reservations and rejects mixed receipts
+ok 22 - activity usage preserves null costs, never refunds threshold reservations and rejects mixed receipts
+  ---
+  duration_ms: 565.860588
+  type: 'test'
+  ...
+# Subtest: complete activity overrun {"inputTokens":101,"outputTokens":1} is durable and fences renewal, service, midnight and restart
+ok 23 - complete activity overrun {"inputTokens":101,"outputTokens":1} is durable and fences renewal, service, midnight and restart
+  ---
+  duration_ms: 708.673333
+  type: 'test'
+  ...
+# Subtest: complete activity overrun {"inputTokens":1,"outputTokens":51} is durable and fences renewal, service, midnight and restart
+ok 24 - complete activity overrun {"inputTokens":1,"outputTokens":51} is durable and fences renewal, service, midnight and restart
+  ---
+  duration_ms: 440.937276
+  type: 'test'
+  ...
+# Subtest: complete activity overrun {"inputTokens":101,"outputTokens":51} is durable and fences renewal, service, midnight and restart
+ok 25 - complete activity overrun {"inputTokens":101,"outputTokens":51} is durable and fences renewal, service, midnight and restart
+  ---
+  duration_ms: 308.830269
+  type: 'test'
+  ...
+# Subtest: missing activity telemetry cannot settle as zero and fences work after restart
+ok 26 - missing activity telemetry cannot settle as zero and fences work after restart
+  ---
+  duration_ms: 353.778118
+  type: 'test'
+  ...
+# Subtest: unpriced shared history denies strict money admission but not separately bounded activity
+ok 27 - unpriced shared history denies strict money admission but not separately bounded activity
+  ---
+  duration_ms: 376.633812
+  type: 'test'
+  ...
+# Subtest: overrun SQL commit followed by checkpoint failure remains fenced without losing measured usage
+ok 28 - overrun SQL commit followed by checkpoint failure remains fenced without losing measured usage
+  ---
+  duration_ms: 471.261775
+  type: 'test'
+  ...
+# Subtest: complete unpriced history blocks strict daily money admission until the exact rolling boundary
+ok 29 - complete unpriced history blocks strict daily money admission until the exact rolling boundary
+  ---
+  duration_ms: 439.63419
+  type: 'test'
+  ...
+# Subtest: late activity settlement after expiry and revocation retains measured threshold hold
+ok 30 - late activity settlement after expiry and revocation retains measured threshold hold
+  ---
+  duration_ms: 240.540498
+  type: 'test'
+  ...
+# Subtest: successful answer reconciliation cannot clear a measured activity overrun
+ok 31 - successful answer reconciliation cannot clear a measured activity overrun
+  ---
+  duration_ms: 425.764295
+  type: 'test'
+  ...
+# Subtest: legacy included-only zero-money lifecycle survives replay with strict hard-bound proofs
+ok 32 - legacy included-only zero-money lifecycle survives replay with strict hard-bound proofs
+  ---
+  duration_ms: 170.155925
+  type: 'test'
+  ...
+# Subtest: configuration high-water is per signing key and never resolves another caller intent
+ok 33 - configuration high-water is per signing key and never resolves another caller intent
+  ---
+  duration_ms: 554.41304
+  type: 'test'
+  ...
+# Subtest: signed-boundary coordination imports, runs existing employee, statuses and delivers once
+ok 34 - signed-boundary coordination imports, runs existing employee, statuses and delivers once
+  ---
+  duration_ms: 5081.795539
+  type: 'test'
+  ...
+# Subtest: lost accepted answer response reconciles actual receipt without another send or inference
+ok 35 - lost accepted answer response reconciles actual receipt without another send or inference
+  ---
+  duration_ms: 2797.055199
+  type: 'test'
+  ...
+# Subtest: missing receipt permits bounded identical-answer resend, preserving canonical answer identity
+ok 36 - missing receipt permits bounded identical-answer resend, preserving canonical answer identity
+  ---
+  duration_ms: 3305.666787
+  type: 'test'
+  ...
+# Subtest: receiver status prose never enters ordinary Company or independent authority metadata
+ok 37 - receiver status prose never enters ordinary Company or independent authority metadata
+  ---
+  duration_ms: 2318.697895
+  type: 'test'
+  ...
+# Subtest: unapproved receiver configuration holds without retaining receiver prose
+ok 38 - unapproved receiver configuration holds without retaining receiver prose
+  ---
+  duration_ms: 686.430951
+  type: 'test'
+  ...
+# Subtest: claims can pause while known outbox delivery remains enabled
+not ok 39 - claims can pause while known outbox delivery remains enabled
+  ---
+  duration_ms: 2021.405367
+  type: 'test'
+  location: '/var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-coordinator.test.js:91:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'answer_staged'
+    - 'delivered'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'delivered'
+  actual: 'answer_staged'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-coordinator.test.js:91:293)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: fresh lease epoch delivers the existing answer without a second employee execution
+ok 40 - fresh lease epoch delivers the existing answer without a second employee execution
+  ---
+  duration_ms: 3578.148665
+  type: 'test'
+  ...
+# Subtest: old Company snapshot cannot erase an independently applied claim
+ok 41 - old Company snapshot cannot erase an independently applied claim
+  ---
+  duration_ms: 1260.363233
+  type: 'test'
+  ...
+# Subtest: clock rollback stops only Ask coordination without pausing Company
+ok 42 - clock rollback stops only Ask coordination without pausing Company
+  ---
+  duration_ms: 1030.689295
+  type: 'test'
+  ...
+# Subtest: reopened lost control traversal drains and reconciles only control metadata
+ok 43 - reopened lost control traversal drains and reconciles only control metadata
+  ---
+  duration_ms: 1754.181445
+  type: 'test'
+  ...
+# Subtest: persistent private maintenance failure does not prevent fresh signed control read
+ok 44 - persistent private maintenance failure does not prevent fresh signed control read
+  ---
+  duration_ms: 1228.827982
+  type: 'test'
+  ...
+# Subtest: Company snapshot from before deletion application cannot resurrect content
+ok 45 - Company snapshot from before deletion application cannot resurrect content
+  ---
+  duration_ms: 1640.136281
+  type: 'test'
+  ...
+# Subtest: unreceipted draft publication never becomes employee public evidence
+ok 46 - unreceipted draft publication never becomes employee public evidence
+  ---
+  duration_ms: 3847.983156
+  type: 'test'
+  ...
+# Subtest: damaged publication receipt and changed body are excluded
+ok 47 - damaged publication receipt and changed body are excluded
+  ---
+  duration_ms: 1846.833482
+  type: 'test'
+  ...
+# Subtest: only exact enabled owner-authored document versions remain visible
+ok 48 - only exact enabled owner-authored document versions remain visible
+  ---
+  duration_ms: 1651.565824
+  type: 'test'
+  ...
+# Subtest: paper fill receives its published decision graph and authentic employee provenance
+ok 49 - paper fill receives its published decision graph and authentic employee provenance
+  ---
+  duration_ms: 2000.809634
+  type: 'test'
+  ...
+# Subtest: pending withdrawal of an earlier order hides its event alias from later order graphs
+ok 50 - pending withdrawal of an earlier order hides its event alias from later order graphs
+  ---
+  duration_ms: 2091.988333
+  type: 'test'
+  ...
+# Subtest: concrete production runtime refuses Ask before any RPC and ordinary run cannot bypass it
+ok 51 - concrete production runtime refuses Ask before any RPC and ordinary run cannot bypass it
+  ---
+  duration_ms: 1191.811051
+  type: 'test'
+  ...
+# Subtest: shared supervisor uses one fresh ephemeral Ask thread and adapter-built exact proof
+ok 52 - shared supervisor uses one fresh ephemeral Ask thread and adapter-built exact proof
+  ---
+  duration_ms: 1340.392252
+  type: 'test'
+  ...
+# Subtest: Ask rejects persistent before model transmission
+ok 53 - Ask rejects persistent before model transmission
+  ---
+  duration_ms: 1257.798933
+  type: 'test'
+  ...
+# Subtest: Ask rejects disk-path before model transmission
+ok 54 - Ask rejects disk-path before model transmission
+  ---
+  duration_ms: 1082.096511
+  type: 'test'
+  ...
+# Subtest: Ask rejects fork before model transmission
+ok 55 - Ask rejects fork before model transmission
+  ---
+  duration_ms: 984.183157
+  type: 'test'
+  ...
+# Subtest: Ask rejects wrong-model before model transmission
+ok 56 - Ask rejects wrong-model before model transmission
+  ---
+  duration_ms: 1066.720827
+  type: 'test'
+  ...
+# Subtest: Ask rejects wrong-provider before model transmission
+ok 57 - Ask rejects wrong-provider before model transmission
+  ---
+  duration_ms: 1153.322169
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field binding
+ok 58 - Ask rejects runtime-forged private field binding
+  ---
+  duration_ms: 987.37996
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field investment
+ok 59 - Ask rejects runtime-forged private field investment
+  ---
+  duration_ms: 823.214057
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field prepareBinding
+ok 60 - Ask rejects runtime-forged private field prepareBinding
+  ---
+  duration_ms: 848.838295
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field admitSubscription
+ok 61 - Ask rejects runtime-forged private field admitSubscription
+  ---
+  duration_ms: 889.838586
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field task
+ok 62 - Ask rejects runtime-forged private field task
+  ---
+  duration_ms: 823.458239
+  type: 'test'
+  ...
+# Subtest: Ask rejects runtime-forged private field request
+ok 63 - Ask rejects runtime-forged private field request
+  ---
+  duration_ms: 829.714038
+  type: 'test'
+  ...
+# Subtest: Ask context and tools are snapshotted before awaited setup, and mismatched context never spawns
+ok 64 - Ask context and tools are snapshotted before awaited setup, and mismatched context never spawns
+  ---
+  duration_ms: 1801.520915
+  type: 'test'
+  ...
+# Subtest: Ask stops on account-change with no replacement turn
+ok 65 - Ask stops on account-change with no replacement turn
+  ---
+  duration_ms: 1119.904577
+  type: 'test'
+  ...
+# Subtest: Ask stops on native with no replacement turn
+ok 66 - Ask stops on native with no replacement turn
+  ---
+  duration_ms: 1205.010524
+  type: 'test'
+  ...
+# Subtest: Ask stops on tool with no replacement turn
+ok 67 - Ask stops on tool with no replacement turn
+  ---
+  duration_ms: 1175.212366
+  type: 'test'
+  ...
+# Subtest: Ask stops on approval with no replacement turn
+ok 68 - Ask stops on approval with no replacement turn
+  ---
+  duration_ms: 1249.497992
+  type: 'test'
+  ...
+# Subtest: Ask stops on rerouted with no replacement turn
+ok 69 - Ask stops on rerouted with no replacement turn
+  ---
+  duration_ms: 1176.746287
+  type: 'test'
+  ...
+# Subtest: Ask stops on exit with no replacement turn
+ok 70 - Ask stops on exit with no replacement turn
+  ---
+  duration_ms: 1218.07265
+  type: 'test'
+  ...
+# Subtest: pre-wire revocation cannot transmit and uncooperative callbacks have bounded cleanup
+ok 71 - pre-wire revocation cannot transmit and uncooperative callbacks have bounded cleanup
+  ---
+  duration_ms: 13706.692232
+  type: 'test'
+  ...
+# Subtest: shared Dispatcher routes an existing worker through distinct Ask origin and private outbox only
+ok 72 - shared Dispatcher routes an existing worker through distinct Ask origin and private outbox only
+  ---
+  duration_ms: 3336.50488
+  type: 'test'
+  ...
+# Subtest: ordinary owner work is admitted first and busy employees consume no Ask reservation
+ok 73 - ordinary owner work is admitted first and busy employees consume no Ask reservation
+  ---
+  duration_ms: 1284.900186
+  type: 'test'
+  ...
+# Subtest: duplicate immutable imports and one Ask slot cannot duplicate inference
+ok 74 - duplicate immutable imports and one Ask slot cannot duplicate inference
+  ---
+  duration_ms: 1586.700461
+  type: 'test'
+  ...
+# Subtest: record provenance outranks general routing and withdrawn evidence suppresses pending output
+ok 75 - record provenance outranks general routing and withdrawn evidence suppresses pending output
+  ---
+  duration_ms: 1869.452735
+  type: 'test'
+  ...
+# Subtest: confirmed private answer supplies only the same visitor follow-up history
+ok 76 - confirmed private answer supplies only the same visitor follow-up history
+  ---
+  duration_ms: 1832.259239
+  type: 'test'
+  ...
+# Subtest: uncertain execution blocks replacement inference and shared worker work after recovery
+ok 77 - uncertain execution blocks replacement inference and shared worker work after recovery
+  ---
+  duration_ms: 973.915264
+  type: 'test'
+  ...
+# Subtest: complete usage over the monitored threshold is retained and permanently holds new Ask work
+ok 78 - complete usage over the monitored threshold is retained and permanently holds new Ask work
+  ---
+  duration_ms: 984.327666
+  type: 'test'
+  ...
+# Subtest: cancel/delete controls suppress a late confirmed answer without poisoning known provider settlement
+ok 79 - cancel/delete controls suppress a late confirmed answer without poisoning known provider settlement
+  ---
+  duration_ms: 1120.303262
+  type: 'test'
+  ...
+# Subtest: foreign and mixed execution ownership is rejected by the migrated database
+ok 80 - foreign and mixed execution ownership is rejected by the migrated database
+  ---
+  duration_ms: 1065.248312
+  type: 'test'
+  ...
+# Subtest: prior-turn cancellation between reservation and transmission removes cached visitor history
+ok 81 - prior-turn cancellation between reservation and transmission removes cached visitor history
+  ---
+  duration_ms: 1441.086374
+  type: 'test'
+  ...
+# Subtest: withdrawal of uncited supplied evidence blocks reuse of the historical answer
+ok 82 - withdrawal of uncited supplied evidence blocks reuse of the historical answer
+  ---
+  duration_ms: 1260.687337
+  type: 'test'
+  ...
+# Subtest: Ask content custody failure holds only Ask and does not pause unrelated owner dispatch
+ok 83 - Ask content custody failure holds only Ask and does not pause unrelated owner dispatch
+  ---
+  duration_ms: 735.951169
+  type: 'test'
+  ...
+# Subtest: reopened stores preserve provider certainty at after-settlement crash window
+ok 84 - reopened stores preserve provider certainty at after-settlement crash window
+  ---
+  duration_ms: 1335.332485
+  type: 'test'
+  ...
+# Subtest: reopened stores preserve provider certainty at after-answer crash window
+ok 85 - reopened stores preserve provider certainty at after-answer crash window
+  ---
+  duration_ms: 1492.566678
+  type: 'test'
+  ...
+# Subtest: older mutually consistent authority files cannot erase newer Company consumption
+ok 86 - older mutually consistent authority files cannot erase newer Company consumption
+  ---
+  duration_ms: 1354.381301
+  type: 'test'
+  ...
+# Subtest: answer storage failure retains known provider settlement behind an Ask reconciliation hold
+ok 87 - answer storage failure retains known provider settlement behind an Ask reconciliation hold
+  ---
+  duration_ms: 1192.149223
+  type: 'test'
+  ...
+# Subtest: lifecycle wakeups cover duty cooldown and executed content metadata can retire independently
+ok 88 - lifecycle wakeups cover duty cooldown and executed content metadata can retire independently
+  ---
+  duration_ms: 2037.458475
+  type: 'test'
+  ...
+# Subtest: Ask and a different ordinary employee share two database execution slots
+ok 89 - Ask and a different ordinary employee share two database execution slots
+  ---
+  duration_ms: 1188.403678
+  type: 'test'
+  ...
+# Subtest: transitive public dependencies survive omission of an earlier visitor turn
+ok 90 - transitive public dependencies survive omission of an earlier visitor turn
+  ---
+  duration_ms: 2005.738332
+  type: 'test'
+  ...
+# Subtest: a returned Ask provider identity cannot alias an existing private binding
+ok 91 - a returned Ask provider identity cannot alias an existing private binding
+  ---
+  duration_ms: 758.993301
+  type: 'test'
+  ...
+# Subtest: unavailable public runtime consumes no finite reservation while ordinary work completes
+ok 92 - unavailable public runtime consumes no finite reservation while ordinary work completes
+  ---
+  duration_ms: 847.941568
+  type: 'test'
+  ...
+# Subtest: a follow-up with a new approved topic hands off to the relevant existing employee
+ok 93 - a follow-up with a new approved topic hands off to the relevant existing employee
+  ---
+  duration_ms: 1794.364359
+  type: 'test'
+  ...
+# Subtest: shorter replacement authority cannot shorten a previously incurred duty cooldown
+ok 94 - shorter replacement authority cannot shorten a previously incurred duty cooldown
+  ---
+  duration_ms: 1212.467112
+  type: 'test'
+  ...
+1..94
+# tests 94
+# suites 0
+# pass 93
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 134310.89608

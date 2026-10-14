@@ -1,0 +1,1975 @@
+✔ profiles inherit or resolve explicit advertised model/reasoning and reject unavailable combinations (528.016514ms)
+✔ human locks and profiles survive restart; bots cannot forge a human profile mutation or unlock (504.168441ms)
+✔ execution provenance records effective settings once and remains immutable after profile changes (471.876876ms)
+✔ eligible high precedes normal precedes low, with pause, atomic global capacity and one active worker (662.649946ms)
+✔ equal priority uses FIFO even with identical timestamps and disabled workers stay ineligible (680.778893ms)
+✔ priority never grants capabilities and repeated dispatcher kicks do not duplicate claims (862.978414ms)
+✖ legacy migrations preserve bindings and historical unknown provenance without fabricated settings (1278.962999ms)
+✔ exact pricing: uncached (3.57534ms)
+✔ exact pricing: cached (0.48044ms)
+✔ exact pricing: output (0.256384ms)
+✔ exact pricing: combined fixture (0.250249ms)
+✔ exact pricing: sub-cent (0.5039ms)
+✔ cache and reasoning subsets are never added twice (0.572435ms)
+✔ reject negative telemetry (0.655042ms)
+✔ reject overflow telemetry (0.243004ms)
+✔ reject fractional telemetry (0.417161ms)
+✔ reject cached telemetry (1.260933ms)
+✔ reject reasoning telemetry (0.411115ms)
+✔ reject contradictory telemetry (0.148843ms)
+✔ addition overflow rejects instead of rounding (0.511894ms)
+✔ unknown model, alias and provider do not inherit price (0.455981ms)
+✔ missing cached tokens has explicitly conservative estimate (0.570004ms)
+✔ unsupported service/cache dimensions cannot be complete cost (0.301368ms)
+✔ exact decimal aggregation handles totals beyond safe number arithmetic (0.196155ms)
+✔ verified personal included subscription is eligible (0.408536ms)
+✔ deny authentication apiKey (0.240566ms)
+✔ deny authentication amazonBedrock (0.138647ms)
+✔ deny authentication unknown (0.138724ms)
+✔ deny ambiguous/metered plan unknown (0.318472ms)
+✔ deny ambiguous/metered plan ent26 (0.179003ms)
+✔ deny ambiguous/metered plan business (0.206344ms)
+✔ deny ambiguous/metered plan self_serve_business_usage_based (0.165646ms)
+✔ deny ambiguous/metered plan free (0.125344ms)
+✔ deny missing/paid/reached subscription evidence {"ordinaryUsageAllowed":null} (0.234797ms)
+✔ deny missing/paid/reached subscription evidence {"ordinaryUsageAllowed":false} (0.171259ms)
+✔ deny missing/paid/reached subscription evidence {"rateLimits":{"planType":"pro","credits":null,"spendControlReached":false,"rateLimitReachedType":null}} (0.118109ms)
+✔ deny missing/paid/reached subscription evidence {"rateLimits":{"planType":"pro","credits":{"hasCredits":true,"unlimited":false,"balance":"10"},"spendControlReached":false,"rateLimitReachedType":null}} (0.096608ms)
+✔ deny missing/paid/reached subscription evidence {"rateLimits":{"planType":"pro","credits":{"hasCredits":false,"unlimited":false,"balance":null},"spendControlReached":true,"rateLimitReachedType":null}} (0.41902ms)
+✔ legacy policy stays strict; higher caps require reviewed policy change (1.764429ms)
+✔ complete fixture is attributed, timed and priced using original version (536.135987ms)
+✔ multiple exact responses deduplicate with immutable observations (532.205402ms)
+✔ repeated cumulative and last snapshots are not summed (539.190491ms)
+✔ snapshot after exact response cannot overwrite authoritative counts (595.219025ms)
+✔ missing final telemetry remains null; interrupted partial tokens survive (541.352283ms)
+✔ malformed response retained as incomplete and never zero (545.941702ms)
+✔ response with omitted usage prevents complete reporting (916.418344ms)
+✔ pricing registry update cannot overwrite an execution price (605.462809ms)
+✔ model rerouting invalidates price rather than guessing aliases (728.669267ms)
+✔ partial aggregates disclose exact excluded execution identities (563.675569ms)
+✔ restart recovery preserves duplicate response identity and unknown status (497.405067ms)
+✔ zero is recorded only with explicit complete zero-token telemetry (527.524148ms)
+✔ old duplicate snapshots after newer observations are idempotent (650.618126ms)
+✔ resumed thread does not charge historical cumulative usage to its new turn (615.438826ms)
+✔ mixed workers/models retain exact decimal totals and disclose the unpriced invocation (4063.464647ms)
+✔ non-observed failed retains incomplete usage even with provider completion (554.932876ms)
+✔ non-observed interrupted retains incomplete usage even with provider completion (542.683373ms)
+✔ strict metadata schemas reject unknown content, imprecise money and expired binding (1090.127909ms)
+✔ canonical scope, roster and every bound intersect with grant (26.059671ms)
+✔ model settlement preserves full worst-case spend across grants and services (395.739198ms)
+✔ known no-send consumes authority and question identity without refund (107.711638ms)
+✔ any unresolved model fences other workers and later grants (153.078251ms)
+✔ restart cannot transmit, settle or refund reservations owned by a prior process (147.288909ms)
+✔ revocation between admission and wire denies transmission; confirmed late settlement remains durable (241.166014ms)
+✔ new generation fences prior grants and provider sessions cannot cross answers (139.969502ms)
+✔ exact context, fresh proof and unchanged admission required immediately before model transmission (109.127085ms)
+✔ lost answer plus transient retry stays unknown until a matching immutable receipt (242.90931ms)
+✔ wire observation binds the full attempt; identical digest cannot alias another service or operation (57.001949ms)
+✔ privacy and receipt observations proceed through uncertainty but never clear model or claim effects (219.56704ms)
+✔ checkpoint rollback, missing custody and replaced file identity fail closed without rebuilding (35.938295ms)
+✔ atomic checkpoint replacement is allowed; authority file replacement and insecure modes are denied (35.608047ms)
+✔ immutable SQLite rows, backward clocks, foreign HQ and excluded backup roots are rejected (46.8017ms)
+✔ fixture initialization refuses orphaned SQLite sidecars without overwriting them (2.202903ms)
+✔ rolling spend crosses midnight and expires only at the exact 24 hour boundary (138.321603ms)
+✔ checkpoint write failure after SQL commit retains unknown custody and denies reinitialization (46.135371ms)
+✔ physical journal ceiling accommodates maximum bounded metadata plus index/page overhead (0.28989ms)
+✔ near-cap journal denies new work while preserving model completion, receipt and revocation slots (11838.287413ms)
+✔ activity mode requires exact disclosed policy and null unknown money while strict shapes remain closed (18.68023ms)
+✔ activity usage preserves null costs, never refunds threshold reservations and rejects mixed receipts (167.900854ms)
+✔ complete activity overrun {"inputTokens":101,"outputTokens":1} is durable and fences renewal, service, midnight and restart (176.555728ms)
+✔ complete activity overrun {"inputTokens":1,"outputTokens":51} is durable and fences renewal, service, midnight and restart (209.5569ms)
+✔ complete activity overrun {"inputTokens":101,"outputTokens":51} is durable and fences renewal, service, midnight and restart (229.190693ms)
+✔ missing activity telemetry cannot settle as zero and fences work after restart (162.642389ms)
+✔ unpriced shared history denies strict money admission but not separately bounded activity (240.54894ms)
+✔ overrun SQL commit followed by checkpoint failure remains fenced without losing measured usage (95.816974ms)
+✔ complete unpriced history blocks strict daily money admission until the exact rolling boundary (178.398704ms)
+✔ late activity settlement after expiry and revocation retains measured threshold hold (140.723776ms)
+✔ successful answer reconciliation cannot clear a measured activity overrun (170.72107ms)
+✔ legacy included-only zero-money lifecycle survives replay with strict hard-bound proofs (130.762999ms)
+✔ configuration read rejects stale, altered, mismatched and contradictory receiver snapshots (162.178661ms)
+✔ Ask claim uses existing OpenAPI method, path, permission and named golden response (38.548788ms)
+✔ Ask renew uses existing OpenAPI method, path, permission and named golden response (14.810041ms)
+✔ Ask status uses existing OpenAPI method, path, permission and named golden response (30.701717ms)
+✔ Ask answer uses existing OpenAPI method, path, permission and named golden response (28.927715ms)
+✔ Ask receipt uses existing OpenAPI method, path, permission and named golden response (3.835454ms)
+✔ Ask control_sync uses existing OpenAPI method, path, permission and named golden response (17.642328ms)
+✔ Ask configuration uses existing OpenAPI method, path, permission and named golden response (4.977237ms)
+✔ prepared Ask intent is immutable; caller changes cannot alter body or response binding (5.859446ms)
+✔ Ask rejects prepared service changes before response/next transmission (3.531827ms)
+✔ Ask rejects prepared key changes before response/next transmission (2.770147ms)
+✔ Ask rejects prepared generation changes before response/next transmission (2.580863ms)
+✔ Ask rejects prepared expiry changes before response/next transmission (1.78115ms)
+✔ Ask rejects prepared disabled changes before response/next transmission (2.148082ms)
+✔ Ask rejects prepared limits changes before response/next transmission (9.615697ms)
+✔ Ask paths cannot be supplied or escaped through identities and publication scope is not Ask scope (6.327479ms)
+✔ Ask prepared bytes use the existing signature profile and preserve empty GET semantics (34.140855ms)
+✔ Ask retry checks frozen wrapper while answer identity survives new claim/control wrappers (15.782283ms)
+✔ Ask claim rejects service (4.413839ms)
+✔ Ask claim rejects generation (5.517617ms)
+✔ Ask claim rejects nested service (5.800926ms)
+✔ Ask claim rejects hash (4.013899ms)
+✔ Ask claim rejects lease (3.291405ms)
+✔ Ask claim rejects long lease (4.403724ms)
+✔ Ask claim rejects expired (6.084392ms)
+✔ Ask claim rejects future received (6.226072ms)
+✔ Ask claim request identity, renewal full question, prior history and fresh general context are checked (12.333925ms)
+✔ status binds question/hash and allows authoritative cancellation, without worker or dispatch proof (3.242996ms)
+✔ answer verifies every identity and retains suppressed dispositions (11.134346ms)
+✔ receipt verifies every identity and retains suppressed dispositions (4.573865ms)
+✔ control pages never claim durable application or dispatch authority; stale empty page is not a fresh barrier (6.948706ms)
+✔ tighter local control freshness preserves privacy records and shortens only the terminal barrier (5.226258ms)
+✔ Ask control rejects sync (3.364969ms)
+✔ Ask control rejects duplicate controls (4.380192ms)
+✔ Ask control rejects future check (3.865931ms)
+✔ Ask control rejects reversed validity (4.083255ms)
+✔ Ask control rejects excess validity (3.990443ms)
+✔ Ask control rejects future action (4.134926ms)
+✔ Ask control rejects purge before action (3.791717ms)
+✔ Ask control rejects suppression before purge (1.844507ms)
+✔ Ask control rejects unbounded retention (4.683274ms)
+✔ Ask control rejects cancel without question (11.470703ms)
+✔ response parser rejects duplicate keys, invalid UTF-8, excessive body/depth, wrong media and public caching (32.466343ms)
+✔ bounded problem decoding discards remote details and retry claims, validates status and never commands model replay (25.907254ms)
+✔ HQ answer envelope can exceed browser input cap but remains byte bounded (129.63795ms)
+✔ renew prepared before expiry cannot transmit after claim or question expiry (3.340959ms)
+✔ status prepared before expiry cannot transmit after claim or question expiry (3.093635ms)
+✔ answer prepared before expiry cannot transmit after claim or question expiry (5.891782ms)
+✔ delayed historical and suppression receipts remain decodable after transmitted lease expires (8.445952ms)
+✔ minimal receipt identity works after raw answer purge and tighter content limits (4.587626ms)
+✔ tightened retention policy still consumes valid historical cancellation and deletion records (5.626569ms)
+✔ empty journal drain is narrow metadata evidence, not restore/purge/model authority (1756.594225ms)
+✔ multipage application precedes derived cursor/ACK; nonempty terminal requires another exchange (495.607018ms)
+✔ lost response freezes exact sync bytes and receiver-independent suppression is durable (437.625274ms)
+✔ question suppression requires both identities; conversation deletion covers all its questions only (559.228268ms)
+✔ two services with identical opaque IDs keep suppressions, ACKs, requests and retention isolated (606.402553ms)
+✔ conflicting control rolls back all new suppressions, ACKs, response and cursor changes (447.687599ms)
+✔ injected local application failure rolls back suppression, receipt and cursor together (475.494477ms)
+✔ failure after ACK but before response commit rolls back acknowledgment (434.428066ms)
+✔ exact duplicate response is idempotent and cannot refresh expired freshness; changed duplicate conflicts (373.296729ms)
+✔ restart from fresh invalidates barrier, retains suppressions and fences old callbacks (458.541018ms)
+✔ restart from pending invalidates barrier, retains suppressions and fences old callbacks (387.684376ms)
+✔ restart from applied invalidates barrier, retains suppressions and fences old callbacks (371.803439ms)
+✔ restored older snapshot cannot infer newer deletion custody from an empty response (492.477944ms)
+✔ changed generation cannot advance a pending journal (341.651648ms)
+✔ changed scope cannot advance a pending journal (394.203608ms)
+✔ changed limits cannot advance a pending journal (425.346834ms)
+✔ changed clock cannot advance a pending journal (387.648679ms)
+✔ constructor never advances or lowers consumer generation (441.767407ms)
+✔ local tighter freshness expires candidate and clock rollback cannot revive it (424.669702ms)
+✔ invalid id page leaves request pending and controls untouched (428.403743ms)
+✔ invalid future page leaves request pending and controls untouched (386.716538ms)
+✔ invalid unknown page leaves request pending and controls untouched (384.201235ms)
+✔ invalid cancel page leaves request pending and controls untouched (461.757026ms)
+✔ invalid duplicate page leaves request pending and controls untouched (444.103594ms)
+✔ unrecognized sync ID and outer transactions cannot commit any partial transition (495.702816ms)
+✔ page capacity exhaustion keeps exact pending evidence and creates no new work (450.105794ms)
+✔ settled expired metadata prunes; pending/abandoned horizon holds without erasing uncertainty (1283.19852ms)
+✔ late empty reply cannot bypass unresolved retention by avoiding prune (528.785491ms)
+✔ fresh drain resolves abandoned sync metadata before expiry without claiming restore safety (531.225031ms)
+✔ tightened retention keeps resolver evidence while an older record still references it (440.490526ms)
+✔ stale empty page records response but cannot reconcile abandoned sync metadata (429.460901ms)
+✔ SQL guards preserve frozen requests and suppression evidence (435.696356ms)
+✔ schema25 migration preserves populated company, portfolio, rowids and spent independent authority (8461.091221ms)
+﹣ pinned synthetic receiver interoperates with typed HQ HTTPS and durable suppression journal (1.753274ms) # Set BOTSQUAD_SYNTHETIC_ASK_RECEIVER to the explicitly pinned built fixture checkout
+✔ identity-first import is idempotent, mutation-safe, and keeps every raw byte out of Company SQLite/WAL (2116.722697ms)
+✔ changed immutable input, owner or question hash conflicts under the same import identity (648.201984ms)
+✔ one immutable answer and outbox are committed together; changed retries never replace either (792.032557ms)
+✔ stored ownership binds every history ID and includes only receipt-confirmed completed turns (986.49816ms)
+✔ Company import reservation survives private insert failure and identical retry preserves deadlines (628.562412ms)
+✔ private import commit before Company completion reconciles on restart without inserting another body (648.927591ms)
+✔ private answers failure leaves one answer reservation and no partial answer/outbox (801.925166ms)
+✔ private outbox failure leaves one answer reservation and no partial answer/outbox (984.42977ms)
+✔ private answer/outbox commit before projection failure reconciles exact existing bytes on restart (746.048354ms)
+✔ missing_question after availability becomes a durable hold and cannot recreate content (586.435543ms)
+✔ corrupt_question after availability becomes a durable hold and cannot recreate content (565.039233ms)
+✔ missing_outbox after availability becomes a durable hold and cannot recreate content (587.298083ms)
+✔ already-ACKed deletion controls suppress late imports and leave no fresh body (552.965205ms)
+✔ suppression after staging deletes local bodies/outbox but preserves minimal late-receipt identity (600.091209ms)
+✔ deletion between reserved import and finalization cannot resurrect content (570.963092ms)
+✔ deletion between private_committed import and finalization cannot resurrect content (573.587552ms)
+✔ queue expiry and expired scope require no new traffic or active grant to purge uncompleted content (595.546782ms)
+✔ delivered history survives queue expiry, then original raw retention removes bodies without erasing identity (651.541147ms)
+✔ tighter raw retention after restart shortens an original deadline; no retry extends it (687.848885ms)
+✔ metadata alone never grants access under a stale barrier; nested Company transactions are rejected (583.196455ms)
+✔ clock rollback and old instances are fenced, including durable restart (595.670728ms)
+✔ pending Company reservations count toward capacity even without private bodies (1126.987888ms)
+✔ private path must stay outside Company and every explicitly configured backup root (619.28ms)
+✔ private symlink custody change is denied (1137.922817ms)
+✔ private hardlink custody change is denied (693.359326ms)
+✔ private replacement custody change is denied (599.323872ms)
+✔ a missing or mismatched private store cannot be silently replaced after Company binding (1066.218509ms)
+✔ a journal for a different service cannot supply privacy controls or freshness (501.810506ms)
+✔ schema26 upgrades preserve every prior row across repeated opens and seed no authority or content (2561.017654ms)
+✔ discarded_cancelled receipt purges before any control page and prevents late answer resurrection (746.741119ms)
+✔ discarded_deleted receipt purges before any control page and prevents late answer resurrection (614.424727ms)
+✔ discarded_expired receipt purges before any control page and prevents late answer resurrection (725.883056ms)
+✔ withheld_evidence receipt purges before any control page and prevents late answer resurrection (706.231217ms)
+✔ a terminal receipt after an interrupted answer reservation never permits an identical late body (626.728529ms)
+✔ a receipted private outbox with no Company receipt is a durable rollback hold (786.23283ms)
+✔ privacy controls purge raw bytes while preserving uncertain holds beyond metadata pruning (696.396309ms)
+✔ expired reconciled metadata and ACKed controls retire without allowing replay of an expired claim (712.847375ms)
+✔ orphan content holds service admission durably but cannot block privacy or expiry cleanup (688.876409ms)
+✔ live disabled does not block cleanup or inherit an earlier admission barrier (650.23314ms)
+✔ live tighter_limits does not block cleanup or inherit an earlier admission barrier (755.41354ms)
+✔ a same-service journal from another Company cannot substitute empty controls or freshness (1136.691965ms)
+✔ dangling -journal symlink is denied before private database access (668.674815ms)
+✔ dangling -wal symlink is denied before private database access (503.432886ms)
+✔ dangling -shm symlink is denied before private database access (624.90065ms)
+✔ private capacity counts UTF-8 question and answer bytes and leaves no partial outbox (14564.984255ms)
+✔ SIGKILL at question_reserved preserves exact durable state across restart (2318.975767ms)
+✔ SIGKILL at question_private preserves exact durable state across restart (2695.135709ms)
+✔ SIGKILL at answer_reserved preserves exact durable state across restart (3102.082014ms)
+✔ SIGKILL at answer_private preserves exact durable state across restart (2685.954542ms)
+✔ SIGKILL at receipt_committed preserves exact durable state across restart (2480.397083ms)
+✔ SIGKILL at discard_committed preserves exact durable state across restart (2471.683817ms)
+✔ SIGKILL at control_private preserves exact durable state across restart (2488.13129ms)
+✔ expiry still preserves uncertainty from missing_outbox while purging raw bytes (816.998101ms)
+✔ expiry still preserves uncertainty from receipt_rollback while purging raw bytes (800.978457ms)
+✔ identical discard receipt retry finishes a failed private purge (703.783079ms)
+✔ deadline shortening interrupted between stores resumes without extending or losing the identity (1068.540645ms)
+✔ corrupt minimal receipt is held without blocking raw purge or unrelated expiry (743.984109ms)
+✔ a separately supplied content clock cannot use an older journal freshness window (659.207592ms)
+✔ same Company services isolate identical question, conversation, answer and control IDs (952.663444ms)
+✔ concrete production runtime refuses Ask before any RPC and ordinary run cannot bypass it (1053.644575ms)
+✔ shared supervisor uses one fresh ephemeral Ask thread and adapter-built exact proof (1312.222042ms)
+✔ Ask rejects persistent before model transmission (1210.960983ms)
+✔ Ask rejects disk-path before model transmission (1174.233571ms)
+✔ Ask rejects fork before model transmission (1076.594079ms)
+✔ Ask rejects wrong-model before model transmission (1181.310242ms)
+✔ Ask rejects wrong-provider before model transmission (1102.817003ms)
+✔ Ask rejects runtime-forged private field binding (813.298986ms)
+✔ Ask rejects runtime-forged private field investment (789.078107ms)
+✔ Ask rejects runtime-forged private field prepareBinding (828.065159ms)
+✔ Ask rejects runtime-forged private field admitSubscription (798.548674ms)
+✔ Ask rejects runtime-forged private field task (803.824558ms)
+✔ Ask rejects runtime-forged private field request (760.039883ms)
+✔ Ask context and tools are snapshotted before awaited setup, and mismatched context never spawns (2086.815092ms)
+✔ Ask stops on account-change with no replacement turn (1111.525222ms)
+✔ Ask stops on native with no replacement turn (1084.398032ms)
+✔ Ask stops on tool with no replacement turn (1084.974267ms)
+✔ Ask stops on approval with no replacement turn (1036.664086ms)
+✔ Ask stops on rerouted with no replacement turn (1333.075462ms)
+✔ Ask stops on exit with no replacement turn (1640.719862ms)
+✔ pre-wire revocation cannot transmit and uncooperative callbacks have bounded cleanup (13291.743683ms)
+✔ shared Dispatcher routes an existing worker through distinct Ask origin and private outbox only (3064.390004ms)
+✔ ordinary owner work is admitted first and busy employees consume no Ask reservation (1702.900448ms)
+✔ duplicate immutable imports and one Ask slot cannot duplicate inference (1391.108722ms)
+✔ record provenance outranks general routing and withdrawn evidence suppresses pending output (1285.22749ms)
+✔ confirmed private answer supplies only the same visitor follow-up history (2514.967965ms)
+✔ uncertain execution blocks replacement inference and shared worker work after recovery (1563.326038ms)
+✔ complete usage over the monitored threshold is retained and permanently holds new Ask work (1219.806132ms)
+✔ cancel/delete controls suppress a late confirmed answer without poisoning known provider settlement (1410.570451ms)
+✔ foreign and mixed execution ownership is rejected by the migrated database (1739.090736ms)
+✔ prior-turn cancellation between reservation and transmission removes cached visitor history (1595.119146ms)
+✔ withdrawal of uncited supplied evidence blocks reuse of the historical answer (1374.829099ms)
+✔ Ask content custody failure holds only Ask and does not pause unrelated owner dispatch (955.539446ms)
+✔ reopened stores preserve provider certainty at after-settlement crash window (1449.026809ms)
+✔ reopened stores preserve provider certainty at after-answer crash window (1261.303544ms)
+✔ older mutually consistent authority files cannot erase newer Company consumption (1355.750854ms)
+✔ answer storage failure retains known provider settlement behind an Ask reconciliation hold (1135.43311ms)
+✔ lifecycle wakeups cover duty cooldown and executed content metadata can retire independently (2180.041206ms)
+✔ Ask and a different ordinary employee share two database execution slots (1117.27379ms)
+✔ transitive public dependencies survive omission of an earlier visitor turn (2634.294417ms)
+✔ a returned Ask provider identity cannot alias an existing private binding (802.867224ms)
+✔ unavailable public runtime consumes no finite reservation while ordinary work completes (980.049618ms)
+✔ a follow-up with a new approved topic hands off to the relevant existing employee (1946.911517ms)
+✔ shorter replacement authority cannot shorten a previously incurred duty cooldown (1242.706471ms)
+✔ structural forged intents, revoked authority and missing keys cannot reach I/O or signer (1448.310775ms)
+▶ real local TLS exercises the fixed Ask transport without external DNS or sockets
+  ✔ claim signs exact fixed target and decodes its canonical response (153.609623ms)
+  ✔ renew signs exact fixed target and decodes its canonical response (96.208655ms)
+  ✔ status signs exact fixed target and decodes its canonical response (69.475657ms)
+  ✔ answer signs exact fixed target and decodes its canonical response (75.181054ms)
+  ✔ receipt signs exact fixed target and decodes its canonical response (48.960657ms)
+  ✔ control_sync signs exact fixed target and decodes its canonical response (43.573518ms)
+  ✔ explicit retry keeps exact bytes/key but uses a fresh signature nonce (53.563221ms)
+  ✔ untrusted certificate fails before HTTP transmission (17.671021ms)
+  ✔ hostname certificate fails before HTTP transmission (18.052202ms)
+  ✔ held TLS scope rechecks before any HTTP headers or private body (19.573831ms)
+  ✔ held TLS lease rechecks before any HTTP headers or private body (26.406841ms)
+  ✔ held TLS key rechecks before any HTTP headers or private body (27.182186ms)
+  ✔ held TLS same-key-revocation rechecks before any HTTP headers or private body (27.820849ms)
+  ✔ held TLS abort rechecks before any HTTP headers or private body (35.638266ms)
+  ✔ post-sign clock fence prevents all HTTP bytes (24.619171ms)
+  ✔ post-sign key fence prevents all HTTP bytes (23.5418ms)
+  ✔ pre-wire custody receives frozen metadata, stable intent and fresh signed-wire identity (87.941323ms)
+  ✔ custody throw sends zero HTTP bytes and retains uncertainty (25.18677ms)
+  ✔ custody async sends zero HTTP bytes and retains uncertainty (29.313646ms)
+  ✔ custody rejected-promise sends zero HTTP bytes and retains uncertainty (23.431491ms)
+  ✔ custody thenable sends zero HTTP bytes and retains uncertainty (24.789601ms)
+  ✔ post-custody clock stops HTTP but cannot refund the attempted marker (23.538441ms)
+  ✔ post-custody key stops HTTP but cannot refund the attempted marker (29.76646ms)
+  ✔ post-custody scope stops HTTP but cannot refund the attempted marker (73.564148ms)
+  ✔ post-custody generation stops HTTP but cannot refund the attempted marker (36.608004ms)
+  ✔ post-custody abort stops HTTP but cannot refund the attempted marker (27.656486ms)
+  ✔ synchronous custody delay is bounded by a monotonic deadline before HTTP (30.457897ms)
+  ✔ operation snapshot resists caller mutation while TLS is held (25.21391ms)
+  ✔ end-throw leaves one uncertain HTTP delivery and never retries (16.369672ms)
+  ✔ drop leaves one uncertain HTTP delivery and never retries (19.4309ms)
+  ✔ redirect leaves one uncertain HTTP delivery and never retries (23.451601ms)
+  ✔ large leaves one uncertain HTTP delivery and never retries (25.970733ms)
+  ✔ problem-large leaves one uncertain HTTP delivery and never retries (19.19651ms)
+  ✔ declared-large leaves one uncertain HTTP delivery and never retries (20.349671ms)
+  ✔ truncated leaves one uncertain HTTP delivery and never retries (32.308401ms)
+  ✔ headers-large leaves one uncertain HTTP delivery and never retries (34.647323ms)
+  ✔ duplicate leaves one uncertain HTTP delivery and never retries (26.897671ms)
+  ✔ cookie leaves one uncertain HTTP delivery and never retries (28.406076ms)
+  ✔ encoded leaves one uncertain HTTP delivery and never retries (20.905924ms)
+  ✔ public leaves one uncertain HTTP delivery and never retries (20.91254ms)
+  ✔ bad-json leaves one uncertain HTTP delivery and never retries (19.954399ms)
+  ✔ bad-binding leaves one uncertain HTTP delivery and never retries (19.213647ms)
+  ✔ valid 401 is a remote problem, never an automatic authentication retry (39.086675ms)
+  ✔ late answer receipts decode after claim expiry (26.229456ms)
+  ✔ abort before call sends nothing; abort after write retains uncertainty; concurrent call is rejected (19.649027ms)
+  ✔ total deadline terminates a stalled response and keeps delivery unknown (10020.047789ms)
+  ✔ total deadline also bounds TLS setup without sending HTTP (10033.590332ms)
+✔ real local TLS exercises the fixed Ask transport without external DNS or sockets (21914.955043ms)
+✔ Attention HTTP is SELECT-only, sanitized, bounded and uses existing browser boundaries (940.427593ms)
+✔ clean company is verified zero and reads leave every table unchanged (578.002461ms)
+✔ ordinary blocked Task has one inspection item and authoritative cancellation removes it (616.463324ms)
+✔ ordinary failed Task has one inspection item and authoritative cancellation removes it (618.218481ms)
+✔ ordinary awaiting_approval Task has one inspection item and authoritative cancellation removes it (691.007007ms)
+✔ queued Task is not attention (573.76921ms)
+✔ working Task is not attention (674.395854ms)
+✔ completed Task is not attention (649.515914ms)
+✔ cancelled Task is not attention (640.068711ms)
+✔ waiting_children is automated waiting, not attention (672.30433ms)
+✔ failed execution under recovered Task does not accumulate badges (644.541821ms)
+✔ child failure already handed back to completed parent is retained history (822.661043ms)
+✔ pending infrastructure approval suppresses related Task and execution; denial retains only unresolved coordination (778.046818ms)
+✔ expired historical infrastructure Task counts only while its desired binding is unresolved (730.982759ms)
+✔ interrupted consumed host operation is one uncertainty, normal running operation is not attention (708.23838ms)
+✖ pending project approval is one item; real denial removes it (688.254997ms)
+✖ expired approval filtering writes no expiry or audit rows (725.731428ms)
+✔ Computer proposed policy is one approval and existing deny removes it (621.642073ms)
+✔ Computer exact pending intent, unknown, and resolved states supersede generic Task (585.221365ms)
+✔ confirmed historical Computer completed is not attention (537.005207ms)
+✔ confirmed historical Computer denied is not attention (555.825274ms)
+✔ confirmed historical Computer interrupted is not attention (568.041907ms)
+✔ confirmed historical Computer expired is not attention (549.839502ms)
+✔ confirmed historical Computer failed is not attention (536.296099ms)
+✔ terminal unconfirmed browser cleanup is actionable (556.169564ms)
+✔ business approval deduplicates waiting cycle and real denial removes item (831.864844ms)
+✔ business unknown survives revoke/stop; confirmed reconciliation removes it (1137.07842ms)
+✔ working group blocked classification (715.32464ms)
+✔ working group paused classification (666.200093ms)
+✔ working group stopped classification (782.56818ms)
+✔ working group completed classification (710.18885ms)
+✔ working group archived classification (575.16678ms)
+✔ blocked current cycle is one item; stopped mandate and retained occurrence are history (642.083942ms)
+✔ waiting backoff and healthy future review do not require babysitting (561.437313ms)
+✔ only claimed unexpired device identity requires owner attention; denial resolves it (662.462391ms)
+✔ active then revoked device and unclaimed pairing do not count (544.55329ms)
+✔ direct failed request stays an obligation after newer success; cancel or archive resolves ordinary attention (914.588497ms)
+✔ normal active model intent is not attention; retained fence survives cancelled Task (613.100141ms)
+✔ metadata is sanitized, deterministically ordered and response bounded without lying about total (5447.070097ms)
+✔ shared conversation session uncertainty points only to latest unknown turn after archive (866.059043ms)
+✔ expired unstarted Computer requested requires cancellation or inspection (680.649119ms)
+✔ expired unstarted Computer ready requires cancellation or inspection (571.856297ms)
+✔ blocked current occurrence without a cycle is actionable; cancellation removes it (1224.758716ms)
+✖ generalized queued integration waiting is ordinary automated work (706.339424ms)
+✔ unknown research owns blocked direct attention and survives workflow closure (678.868338ms)
+✔ unknown research owns blocked group attention and survives workflow closure (695.112157ms)
+✔ unknown research owns blocked mandate attention and survives workflow closure (667.044606ms)
+✔ business approval read excludes stale deadline without changing its source (751.010563ms)
+✔ business approval read excludes stale current_cycle without changing its source (703.075314ms)
+✔ business approval read excludes stale withdrawal without changing its source (925.569025ms)
+✔ mandate coordinator provider uncertainty in its internal group is one problem before and after stop (1061.295307ms)
+✔ mandate coordinator research uncertainty in its internal group is one problem before and after stop (733.299734ms)
+✖ production adapter fixture reads exact source, emits approved PUT bytes, retains actual provider parent (8.235077ms)
+✔ production adapter denies repository_identity before effect (3.264829ms)
+✖ production adapter denies redirect before effect (4.081457ms)
+✔ production adapter denies symlink before effect (2.921061ms)
+✔ production adapter denies executable before effect (3.947585ms)
+✔ production adapter denies truncated_tree before effect (2.31016ms)
+✔ production adapter denies blob_identity before effect (1.714695ms)
+✔ production adapter denies invalid_utf8 before effect (1.760205ms)
+✔ production adapter denies oversize before effect (2.518639ms)
+✔ production adapter denies malformed_json before effect (2.344ms)
+✔ production adapter denies wrong_ref before effect (2.535449ms)
+✖ production adapter timeout rejects without exposing raw transport error (3.297719ms)
+✖ changed document and revoked authority at final boundary never make a PUT (2.591212ms)
+✖ malformed path in transmitted provider success is rejected (13.271577ms)
+✖ malformed message in transmitted provider success is rejected (2.402536ms)
+✖ malformed blob in transmitted provider success is rejected (4.747551ms)
+✖ malformed parent in transmitted provider success is rejected (1.452123ms)
+✖ malformed commit in transmitted provider success is rejected (1.821623ms)
+✖ lost response permits read-only correlated reconciliation with no second PUT (3.608201ms)
+✖ reconciliation absent cannot fabricate a receipt (1.57243ms)
+✖ reconciliation multiple cannot fabricate a receipt (1.093838ms)
+✖ reconciliation message cannot fabricate a receipt (0.921235ms)
+✖ reconciliation after_blob cannot fabricate a receipt (0.968938ms)
+✖ reconciliation parent_blob cannot fabricate a receipt (2.051428ms)
+✔ reconciliation provider_failure cannot fabricate a receipt (0.862163ms)
+✔ protected credential boundary denies token_mode (1.861193ms)
+✔ protected credential boundary denies config_mode (1.139961ms)
+✔ protected credential boundary denies symlink_token (1.240191ms)
+✔ protected credential boundary denies unsafe_ancestor (0.981396ms)
+✔ protected credential boundary denies credential_scope (1.309626ms)
+✔ protected credential boundary denies missing_ref (1.457044ms)
+✔ exact edit replacement is literal even with JavaScript replacement metacharacters (0.547744ms)
+✔ worker observation mode excluded before provider I/O (552.116981ms)
+✔ worker observation mode allowed metadata only (880.531784ms)
+✔ fresh coordinator cannot reuse a pre-withdrawal Decision with a fresh valid baseline (739.498545ms)
+✔ SQL receipt ownership rejects substituted existing attempt and exact scope fields (874.423845ms)
+✖ populated v13 migrates repeatedly preserving every original rowid/field and creating zero authority (6577.752769ms)
+✔ bounded typed target and exact edit deny authority expansion and invalid bytes (8.679718ms)
+✔ proposal is passive and immutable; exact approval cannot be forged by a worker tool (748.551602ms)
+✔ duplicate proposals, exact owner requests and dispatcher kicks yield one effect and receipt (1316.04733ms)
+✔ changed content cannot consume an approved operation and never transmits (653.215033ms)
+✔ current deny authority prevents any transmission (654.373263ms)
+✔ current revoke authority prevents any transmission (694.355997ms)
+✔ current cancel authority prevents any transmission (731.349115ms)
+✔ current grant authority prevents any transmission (746.581769ms)
+✔ current expire authority prevents any transmission (693.768709ms)
+✔ current stop authority prevents any transmission (669.140944ms)
+✔ current pause authority prevents any transmission (658.108684ms)
+✔ current disabled authority prevents any transmission (776.025974ms)
+✔ current withdraw authority prevents any transmission (772.240693ms)
+✔ revoke during asynchronous preflight is rechecked at transmission boundary (845.985464ms)
+✔ late provider success after revocation retains the exact receipt and intervention (820.300668ms)
+✔ lost response fences the target, allows read-only continuation, and reconciles without retry (874.154422ms)
+✔ inconclusive reconciliation retains unknown and revoked controls cannot erase it (763.574841ms)
+✔ retained failure at after_attempt_before_transmission never repeats effect (964.413778ms)
+✔ retained failure at after_transmission_intent never repeats effect (768.745308ms)
+✔ retained failure at after_provider_before_receipt never repeats effect (748.874166ms)
+✔ retained failure at after_receipt_before_wake never repeats effect (788.285764ms)
+✔ evidence mode, baseline and privacy persist; worker cannot fabricate real observation (866.510724ms)
+✔ adapter failure redacts raw provider errors and admits no invented value (720.365046ms)
+✔ current-schema reopening preserves rows and creates no new authority or work (657.440512ms)
+✔ changed duplicate metadata and multiple proposals cannot strand an originating turn (622.450305ms)
+✔ known settled origin failure terminalizes untransmitted intent without changing lineage (704.561637ms)
+✔ shutdown closes transmission admission before asynchronous preflight returns (622.212417ms)
+✔ actual database reopen from approved retains ownership and never blindly replays (751.019347ms)
+✔ actual database reopen from preparing retains ownership and never blindly replays (736.313244ms)
+✔ actual database reopen from transmitting retains ownership and never blindly replays (732.73616ms)
+✔ actual database reopen from receipt retains ownership and never blindly replays (745.323799ms)
+✔ withdrawal of a non-baseline source blocks approved effects and removes action prose from fresh context (785.257439ms)
+✔ read callback after withdrawal cannot deliver old private evidence (661.190842ms)
+✔ abort denies new reads and prevents late observation despite running database execution (646.023535ms)
+✔ shutdown denies new reads and prevents late observation despite running database execution (702.513159ms)
+✔ business preflight reserves only its worker and uses no model execution slot (775.806585ms)
+✔ an already claimed model execution delays approved effect until that work settles (732.899805ms)
+✔ unknown effect fences the canonical target across another mandate and grant (819.807208ms)
+✔ separate compensation proposal restores exact prior bytes and never inherits approval (887.034358ms)
+✔ business HTTP control remains local owner-only and no client v1 endpoint is added (800.742094ms)
+✔ scheduled Cycle 2 independently reads receipt and observed outcome after fresh context (916.061278ms)
+✔ Ed25519 canonical wire bytes and low-order/noncanonical public keys fail closed (6.833952ms)
+✔ one-time pairing, confirmation, proof, expiry, reauthentication and terminal revocation (680.805254ms)
+✔ pairing expiry/denial/wrong secrets and private JWK or capability smuggling cannot enroll (557.536478ms)
+✔ HTTP pairing and strict scoped DTO contract keep browser and remote authority separate (1253.11409ms)
+✔ HTTP mutations are atomic, device-bound and replay original responses without duplicate work (859.904199ms)
+✔ persisted authentication, HQ identity, receipt and notification history survive reopening SQLite (1482.665075ms)
+✔ SSE reconnect replays durable notifications and revocation/expiry close authorization (794.243841ms)
+✔ pagination, event retention reset, adversarial bodies and rate/resource bounds (1242.462476ms)
+✔ interrupt records exact durable intent once and retries do not repeat the runtime action (741.722563ms)
+✔ Project objectives bind exact Project/repository IDs and cannot use prose to cross Projects (847.569035ms)
+✔ outstanding pairings, tokens, active devices and retained identities have finite ceilings (2510.678301ms)
+✔ malformed cryptographic inputs, signatures, JSON, duplicate headers and unsupported locations fail safely (828.317984ms)
+✔ research authority and private activity add no device capability, route, DTO field or event (734.206159ms)
+✔ paired device cannot inspect or control Computer Use through hidden IDs or local owner routes (891.462452ms)
+✔ real process crash before receipt commit recovers without duplicate mutation (2447.133655ms)
+✔ real process crash after receipt commit recovers without duplicate mutation (2765.591212ms)
+✖ migration 6 preserves every original Prompt 05 row/field and performs no domain or filesystem operations (9180.392912ms)
+✔ App Server transport routes trusted tools, streams completion and resumes only its named workspace (1029.830762ms)
+✔ ordinary non-pilot execution retains its existing account notification behavior (810.36035ms)
+✔ promise tool results are awaited and an early provider completion cannot release unfinished callbacks (1598.621813ms)
+✔ confirmed provider settlement survives transport loss while an async callback drains (1066.615182ms)
+✔ stale same-thread final output and approval requests cannot affect the current turn (1476.348668ms)
+✔ a known newly created provider reference is prepared before naming failure, without activation (789.343225ms)
+✔ App Server rejects cross-thread tool identity before invoking the control plane (977.894883ms)
+✔ App Server preserves exact worker bindings created before the product rename (989.859085ms)
+✔ App Server refuses a stored thread from a different workspace (802.576434ms)
+✔ App Server fails closed if confinement flags do not take effect (859.223266ms)
+✔ App Server denies approval and preserves awaiting_approval outcome (753.211273ms)
+✔ App Server turn interruption is acknowledged distinctly from pause (839.316266ms)
+✔ App Server unexpected exit and execution deadline terminate without hanging (1704.994795ms)
+✔ runtime resolves effective worker reasoning and records actual provenance before turn start (762.860767ms)
+✔ runtime refuses unavailable model and effort instead of substituting defaults (927.322354ms)
+✔ an explicit worker model overrides an unavailable global default without silent inheritance (897.923446ms)
+✔ supported raw usage protocol opts in, suppresses response text and filters stale identity (727.769447ms)
+✔ idle confirmation and cancelled connect acknowledge reservation release before immediate replacement (34.859838ms)
+✔ forwarder pins validated DNS answers into the actual socket lookup callback (11.905954ms)
+✔ mixed public/private DNS answers deny before authority consumption or HTTP invocation (3.495051ms)
+✔ private IPv6 DNS and revoked pre-send authority fail without network transmission (10.895869ms)
+✔ pre-send recheck can revoke after successful DNS and before any socket request (3.958011ms)
+✔ same-origin credential/control redirect is denied before a second request (3.528465ms)
+✔ declared and streamed oversized responses both fail the two-MiB response ceiling (3.994914ms)
+✔ untrusted content-length cannot admit a declared oversized response (3.523878ms)
+✔ computer policy rejects scheme/origin/private-network expansion, unsupported file access and bounds (17.702653ms)
+✔ protected request identity includes fixed headers and rejects upload or unexpected methods (3.29444ms)
+✔ migration and startup create no computer authority, operator or environment and preserve old fields (530.298843ms)
+✔ owner-created operator has minimal capabilities and session authorization is explicit and immutable (598.386454ms)
+✔ ordinary/forged/cross-worker/stale tool callers cannot provision a browser (545.821035ms)
+✔ one computer reservation prevents a second model claim before browser creation (599.158999ms)
+✔ attributable evidence and call IDs remain bound to their execution (691.538187ms)
+✔ protected mutation has zero effect before approval, frees execution, then sends exactly once (782.69359ms)
+✔ denial and revocation after an approval wait produce zero effects and stop the browser (763.787697ms)
+✔ unknown transmitted mutation survives model settlement and fences retry, rollover and new sessions (729.228539ms)
+✔ restart cancels pre-transmission intent, retains policy/evidence and never restores browser state (619.261941ms)
+✔ request policy blocks malicious page destinations and background requests after the action (643.283839ms)
+✔ Computer Use stays private to local owner API projections and device event stream (495.012368ms)
+✔ exhausted action bounds close the environment and stale access remains denied (629.505368ms)
+✔ synchronous runtime interruption cannot re-enter browser teardown twice (623.448217ms)
+✔ status reconstruction is bounded and never recursively embeds receipt results (885.576193ms)
+✔ restart releases prelaunch and already-closed reservations without erasing provider uncertainty (631.483971ms)
+✔ page callbacks cannot redeem an approved intent before the trusted checkpoint passes (683.720126ms)
+✔ action failure drains in-flight network callbacks before ownership can be reused (618.769113ms)
+✔ public browser reads reject credential and control URLs (5.836049ms)
+✔ unconfirmed finish cannot report success and owner can recheck delayed broker cleanup (5858.245549ms)
+✔ large durable protected receipts are bounded in status and later approval generations (926.429715ms)
+✔ consumed intent before any transmission is conservatively unknown and cannot replay (817.038499ms)
+✔ committed effect receipt survives revocation before worker delivery without becoming unknown (785.212968ms)
+✔ evidence publication failure consumes its attempt without a fabricated screenshot receipt (656.030593ms)
+✔ computer provider references cannot cross ordinary Task or direct conversation bindings in either direction (613.291846ms)
+✖ migration is non-destructive and initializes stable principal/channel/CEO identities (572.283104ms)
+✔ task state machine validates the happy path, terminal immutability and recovery paths (1.811128ms)
+✔ hiring persists manager, lifecycle and minimal capabilities without starting a model (524.690248ms)
+✔ authority ceiling rejects known and unknown escalation; hostile text never grants authority (574.216843ms)
+✔ sender comes from execution; extra sender arguments and forged execution context are rejected (574.790228ms)
+✔ Scout cannot create approvals, workers or tasks; message text cannot rewrite audit (556.41364ms)
+✔ atomic claim across database connections and one active execution per worker (631.199505ms)
+✔ duplicate tool delivery returns receipt and rejects changed payload without repeating a hire (537.353569ms)
+✔ plain messages and idle workers never invoke the adapter; pause persists and prevents dispatch (773.223048ms)
+✔ complete CEO → Scout → CEO flow consumes artifact evidence and survives restart without repeating (775.466089ms)
+✔ completion arriving while manager is active still queues exactly one followup (574.9316ms)
+✔ crash recovery retains evidence, blocks ambiguous runs and retries only after explicit inspection (563.989936ms)
+✔ pause does not interrupt running work; human interruption preserves history and allows inspected retry (769.057207ms)
+✔ runtime failures are visible, history retained and no uncontrolled automatic retry (529.989021ms)
+✔ runtime approval is preserved as awaiting_approval; approval prose cannot release it (752.09041ms)
+✔ bindings reject Atlas/Scout cross-identity swaps and workspace mismatches (651.682124ms)
+✔ artifact/document paths are bounded and tampering or symlink workspace substitution fails closed (570.852866ms)
+✔ service lock rejects a second writer and can be cleanly reacquired (506.728536ms)
+✔ temporary worker has one lifetime assignment and retires without losing history (520.485011ms)
+✔ startup gate fails closed rather than deleting an ambiguous competing lock (528.604376ms)
+✔ retry cannot strand work on a retired worker or revise a child result already handed to its manager (1229.110286ms)
+✔ passive messages never create tasks, requests or model work; explicit requests correlate and deduplicate (652.308281ms)
+✔ conversation tools and task tools stay separate even for CEO; active scopes deny unrelated sources (682.013538ms)
+✔ shared dispatcher respects busy workers, capacity, pause, FIFO and task binding preservation (706.493337ms)
+✔ peer exchange reserves a bounded continuation and cannot recurse across conversations (709.973765ms)
+✔ rollover preserves scoped original sources and pending work, fences stale callbacks and retains lineage (706.424095ms)
+✔ restart at creating retains evidence, blocks ambiguity and never duplicates replies (587.467972ms)
+✔ restart at prepared retains evidence, blocks ambiguity and never duplicates replies (591.122254ms)
+✔ restart at active retains evidence, blocks ambiguity and never duplicates replies (598.957999ms)
+✔ restart at reply_committed retains evidence, blocks ambiguity and never duplicates replies (643.642484ms)
+✔ mute/archive/cancel, participant revocation and retired workers recheck delayed work and callbacks (659.868946ms)
+✔ Client API projections and event hints exclude private conversation executions and do not gain interrupt scope (623.904459ms)
+✔ SQL rejects fake task ownership and mismatched conversation generations (976.756926ms)
+✔ idle interval has no runtime calls and shared dispatcher delivers a narrow conversation reply (776.81515ms)
+✔ source bookmarks and full original retrieval survive a history window and reject fabricated or cross-scope quotes (737.266651ms)
+✔ peer continuation reserves queue capacity, pending metadata survives parent rollover, and revocation settles reservation (758.585944ms)
+✔ unknown provider activity blocks replacement and task dispatch instead of bypassing the shared worker boundary (622.479418ms)
+✔ queue, rate, tool and retrieval bounds remain finite without resetting consumed causal budget (818.275364ms)
+✔ an unknown task provider attempt blocks cross-mode chat and later task dispatch after restart (618.077416ms)
+✔ confirmed empty provider completion is a visible failure, preserves effects, and never invents a reply (806.864097ms)
+✔ task result validation failure preserves confirmed provider settlement and permits explicit chat (1155.241512ms)
+✔ migration of a pre-intent running task preserves its record and recovery fences the bound provider (1036.755173ms)
+✔ inherited original reservation leaves three, one successor consumes two and success releases nothing further (1980.482806ms)
+✔ duplicate releases and mismatched worker/request/source/root never acquire another authority (814.090579ms)
+✔ external reservation survives local claim rollback and restart without refund (1418.259669ms)
+✔ process kill before-reserve never replays (941.21657ms)
+✔ process kill after-reserve never replays (909.207704ms)
+✔ process kill after-admit never replays (1101.39895ms)
+✔ restart after unused release clears authority without restoring a release (739.8016ms)
+✔ two processes preparing different successors serialize to one (871.560085ms)
+✔ two processes reserving and admitting copied execution state consume once each (1322.460568ms)
+✔ lost response, copied company database and late completion preserve uncertainty and no replay (1140.21018ms)
+✔ deleted disposable workspace retains consumed identity and prevents replacement (788.233269ms)
+✔ fifth cumulative reservation is rejected by persistent schema and reservation gate (785.111593ms)
+✔ account/routing change and five-minute local deadline fail admission (1054.785651ms)
+✔ expired/stopped lineage and stale billing cannot release from new directories (609.348052ms)
+✔ runtime refuses fixtures, forged permit and no-op callbacks before provider startup (882.111057ms)
+✔ missing, replaced or non-private authority fails closed; ordinary reopen preserves receipts (938.845828ms)
+✔ retained stopped archive inspection preserves all original bytes and revoked history (868.940091ms)
+✔ HOME and CODEX_HOME cannot select a fresh production authority (736.653319ms)
+✔ active supervisor interrupts on external authority stop (1182.291296ms)
+✔ active supervisor interrupts on external authority replace (1063.342554ms)
+✔ external release survives local release transaction rollback (759.573005ms)
+✔ competing supervisor preparations leave their winner authorized (3923.911913ms)
+✔ crash during authority initialization leaves no usable seed or missing-receipt authority (811.564978ms)
+✔ backward local clock cannot extend reserved admission (1120.982189ms)
+✔ finalization after owner stop and revoked scope retains evidence and uncertainty (1099.078471ms)
+✔ external release survives disposable transaction rollback (6695.932625ms)
+✔ external reservation survives disposable transaction rollback (6765.003551ms)
+✔ process kill before-release never refunds or replays (5841.674601ms)
+✔ process kill after-release never refunds or replays (5815.739142ms)
+✔ process kill after-reservation never refunds or replays (6798.507178ms)
+✔ process kill after-admission never refunds or replays (7165.711362ms)
+✔ late completed response preserves stopped uncertainty and cannot reopen or reuse provider admission (6662.381183ms)
+✔ deleted disposable workspace leaves reservation and admission permanently spent (8141.11987ms)
+✔ simultaneous authorization and preparation create one extension and one successor (9012.49831ms)
+✔ simultaneous supervisors and reservations each have exactly one winner (6302.336913ms)
+✔ crash mid-migration preserves schema2 and grants no partial final authority (4588.627192ms)
+✔ account/model/worker/deadline changes and forged production permit fail closed (5650.4108ms)
+✔ missing, corrupt, nonprivate and replaced authority fail closed (5497.125598ms)
+✔ losing concurrent turn cannot stop winning supervisor; finalization preserves Atlas reports (7303.75625ms)
+✔ owning finalizer stops/revokes locally after authority missing (6645.677418ms)
+✔ owning finalizer stops/revokes locally after authority replaced (7254.919365ms)
+✔ isolated final context rejects owner-note before fake provider startup (6142.115304ms)
+✔ isolated final context rejects topic before fake provider startup (6409.611348ms)
+✔ isolated final context rejects constraints before fake provider startup (5863.2707ms)
+✔ isolated final context rejects research before fake provider startup (7296.550201ms)
+✔ isolated final context rejects envelope before fake provider startup (7692.750652ms)
+✔ isolated final context rejects configuration before fake provider startup (5797.135623ms)
+✔ isolated final context rejects turn-prompt before fake provider startup (6433.996783ms)
+✔ isolated final context rejects context-extra before fake provider startup (6317.107526ms)
+✔ actual fake app-server final Atlas continuation: final-atlas-review (7686.369224ms)
+✔ actual fake app-server final Atlas continuation: identity-change (7437.421219ms)
+✔ actual fake app-server final Atlas continuation: wrong-model (8707.045214ms)
+✔ actual fake app-server final Atlas continuation: tool (8366.016101ms)
+✔ actual fake app-server final Atlas continuation: missing-usage (9083.698398ms)
+✔ actual fake app-server final Atlas continuation: notification-no-settlement (13575.430959ms)
+✔ simultaneous final admissions consume provider permission only once (6829.348284ms)
+✔ failed disposable evidence write cannot prevent durable external retention (6574.066489ms)
+✔ failed preflight stops/revokes its prepared scope but a losing preflight cannot stop the winner (11262.348181ms)
+✔ schema3 preserves every schema1/schema2 field and receipt and freezes historical mutation (6138.986456ms)
+✔ Atlas alone consumes reservation four; all future releases, reserves and admissions fail (7605.252945ms)
+✔ exact original packet, Atlas opening and Maya review reach tools with new IDs and original request identity (6686.003423ms)
+✔ final source 0 metadata-only cannot count as delivered (6890.229525ms)
+✔ final source 0 partial cannot count as delivered (8022.271102ms)
+✔ final source 1 metadata-only cannot count as delivered (6942.815706ms)
+✔ final source 1 partial cannot count as delivered (6335.111138ms)
+✔ final source 2 metadata-only cannot count as delivered (6177.952145ms)
+✔ final source 2 partial cannot count as delivered (6487.945809ms)
+✔ tampered final import 0 blocks fake provider startup (6616.747444ms)
+✔ tampered final import 1 blocks fake provider startup (6471.057869ms)
+✔ tampered final import 2 blocks fake provider startup (6848.343111ms)
+✔ historical Maya verification rejects body (6789.635741ms)
+✔ historical Maya verification rejects execution (6658.758061ms)
+✔ historical Maya verification rejects request (5702.608873ms)
+✔ historical Maya verification rejects usage (5659.083705ms)
+✔ historical Maya verification rejects citation (6108.246297ms)
+✔ historical Maya verification rejects read-receipt (5540.801952ms)
+✔ historical Maya verification rejects read-request-hash (5328.130579ms)
+✔ historical Maya verification rejects metadata (5012.594155ms)
+✔ historical Maya verification rejects scope (5027.689471ms)
+✔ historical Maya verification rejects report (4230.384621ms)
+✔ Maya cannot receive final release; stale completed callbacks cannot change historical stages (5196.058481ms)
+✔ copied manifest, stale source and missing disposable database cannot mint a replacement (4978.866491ms)
+✔ expired owner confirmation blocks final authorization and admission (12292.833165ms)
+✔ clock advancement across durable reservation cannot extend the final deadline (5934.985246ms)
+✔ final supervisor deadline permanently closes timeout (8187.102518ms)
+✔ final supervisor deadline permanently closes no-settlement (15237.786332ms)
+✔ populated additive migration retains every schema1 field and receipt; cumulative budget is separate (2374.141157ms)
+✔ only Maya reserves third allowance, one admission, successful completion authorizes nothing (4487.619287ms)
+✔ Atlas request cannot consume Maya release and stale Atlas completion cannot change either history (2952.053362ms)
+✔ exact imported original bytes/metadata reach actual Maya tools, with separate local IDs (3403.714669ms)
+✔ Maya source delivery rejects metadata-only (3266.297478ms)
+✔ Maya source delivery rejects partial (4159.053802ms)
+✔ Maya source delivery rejects unrelated (3785.678604ms)
+✔ trusted import keeps whitespace and Unicode bytes without trimming and has no worker tool (3425.554639ms)
+✔ modified Maya import/context fails before provider startup: body (3962.42207ms)
+✔ modified Maya import/context fails before provider startup: metadata (3701.813097ms)
+✔ modified Maya import/context fails before provider startup: missing (3125.550067ms)
+✔ modified Maya import/context fails before provider startup: catalog (3515.591885ms)
+✔ tampered or missing Atlas archive fails closed and does not replace authentic content (2869.985706ms)
+✔ modified/copy-selected manifest and missing company database cannot prepare new authority (2927.766151ms)
+✔ external release survives disposable transaction rollback (3329.633321ms)
+✔ external reservation survives disposable transaction rollback (3189.816935ms)
+✔ process kill before-release never refunds or replays (3454.363771ms)
+✔ process kill after-release never refunds or replays (3836.628772ms)
+✔ process kill after-reservation never refunds or replays (3670.098535ms)
+✔ process kill after-admission never refunds or replays (3358.242146ms)
+✔ late completed response preserves stopped uncertainty and cannot reopen or reuse provider admission (3045.000596ms)
+✔ deleted disposable workspace leaves reservation and admission permanently spent (3310.872039ms)
+✔ simultaneous authorization and preparation create one extension and one successor (5573.395861ms)
+✔ simultaneous supervisors and reservations each have exactly one winner (4094.049016ms)
+✔ crash mid-migration leaves schema1 history intact and grants no partial Maya authority (2291.715016ms)
+✔ account/model/worker/deadline changes and forged production permit fail closed (3669.892588ms)
+✔ missing, corrupt, nonprivate and replaced authority fail closed (2994.679983ms)
+✔ losing concurrent turn cannot stop winning supervisor; finalization preserves Atlas reports (3697.007563ms)
+✔ owning finalizer stops/revokes locally after authority missing (3270.623095ms)
+✔ owning finalizer stops/revokes locally after authority replaced (3151.839021ms)
+✔ isolated Maya context rejects owner-note before fake provider startup (4234.5193ms)
+✔ isolated Maya context rejects topic before fake provider startup (4097.051489ms)
+✔ isolated Maya context rejects constraints before fake provider startup (3170.054688ms)
+✔ isolated Maya context rejects research before fake provider startup (3541.0735ms)
+✔ isolated Maya context rejects envelope before fake provider startup (4175.610887ms)
+✔ isolated Maya context rejects configuration before fake provider startup (3495.075205ms)
+✔ isolated Maya context rejects turn-prompt before fake provider startup (3581.905792ms)
+✔ isolated Maya context rejects context-extra before fake provider startup (3423.347509ms)
+✔ actual fake app-server Maya continuation: maya-review (4988.432417ms)
+✔ actual fake app-server Maya continuation: identity-change (5851.730254ms)
+✔ actual fake app-server Maya continuation: wrong-model (6632.827891ms)
+✔ actual fake app-server Maya continuation: tool (5213.671735ms)
+✔ actual fake app-server Maya continuation: missing-usage (5059.359071ms)
+✔ actual fake app-server Maya continuation: notification-no-settlement (11028.506868ms)
+✔ simultaneous Maya admissions consume provider permission only once (3685.551608ms)
+✔ failed disposable evidence write cannot prevent durable external retention (3759.407068ms)
+✔ failed preflight stops/revokes its prepared scope but a losing preflight cannot stop the winner (7004.237132ms)
+✔ credit eligibility accepts existing credits while rejecting metered, unknown and unusable accounts (3.721354ms)
+✔ four total pilot reservations require explicit inspection; no automatic fifth across workers or restart (2830.837301ms)
+✔ crash after reservation consumes permit and quota, fences continuation and preserves usage (661.426437ms)
+✔ restart clears unused release; atomic concurrent claimers cannot consume the same permit (715.054144ms)
+✔ private pilot rejects ordinary capability, research, orders, wrong audience and scheduled loops (770.754966ms)
+✔ owner pause and scope revocation deny a released request without consuming another reservation (599.823721ms)
+✔ populated schema20 migration preserves all old rows and creates no pilot approval (4560.125731ms)
+✔ pilot owner pause/stop remains final after settled completion (652.547843ms)
+✔ pilot group pause/stop remains final after settled completion (642.499721ms)
+✔ pilot scope pause/stop remains final after settled completion (656.580498ms)
+✔ pilot revoke pause/stop remains final after settled completion (808.239304ms)
+✔ failed reservation insert rolls back execution, permit and usage together (860.847648ms)
+✔ private pilot cannot be selected as a committed publication source (3727.108528ms)
+✔ pilot binds authentication fingerprint across turns and refuses a changed account (1294.249363ms)
+✔ credit eligibility handles multi-bucket, unknown and included-only observations conservatively (2.185248ms)
+✔ emitted CLI resolves repository root and inspects disposable records without inference (1430.032497ms)
+✔ credit child environment excludes inherited API keys, proxy, CA and executable injection settings (7.979302ms)
+✔ credit transport success retains one turn and deduplicated telemetry (2107.937597ms)
+✔ credit transport retry retains one turn and deduplicated telemetry (1614.253239ms)
+✔ credit transport missing-usage retains one turn and deduplicated telemetry (1481.628875ms)
+✔ credit transport conflicting retains one turn and deduplicated telemetry (1912.998975ms)
+✔ credit transport cumulative-only retains one turn and deduplicated telemetry (1747.742266ms)
+✔ credit transport provider-error retains one turn and deduplicated telemetry (1525.977572ms)
+✔ credit transport denies api-key before provider turn (1051.971686ms)
+✔ credit transport denies missing-account-id before provider turn (1010.163726ms)
+✔ credit transport denies foreign-backend before provider turn (1015.834056ms)
+✔ credit transport denies unsafe-skills before provider turn (1083.691718ms)
+✔ credit transport denies unsafe-config before provider turn (1057.85259ms)
+✔ credit transport denies unsafe-mcp before provider turn (1075.026724ms)
+✔ credit transport denies unknown-eligibility before provider turn (980.027519ms)
+✔ credit transport denies no-credits before provider turn (977.259128ms)
+✔ credit transport denies wrong-model before provider turn (1117.746225ms)
+✔ credit transport denies wrong-provider before provider turn (1132.543109ms)
+✔ credit transport denies active-thread before provider turn (1080.809061ms)
+✔ credit transport denies foreign-thread before provider turn (1030.768274ms)
+✔ credit transport stops on account-change without replacement turn (1342.234105ms)
+✔ credit transport stops on rerouted without replacement turn (1115.034779ms)
+✔ credit transport stops on native without replacement turn (1710.33177ms)
+✔ credit transport stops on approval without replacement turn (1254.795041ms)
+✔ credit transport stops on tool without replacement turn (1180.648166ms)
+✔ credit transport stops on exit without replacement turn (1324.94503ms)
+✔ credit deadline requests interruption and missing acknowledgement terminates with uncertainty (1991.839036ms)
+✔ credit resumed thread reuses exact identity and starts exactly one newly reserved turn (1832.650203ms)
+✔ account notification while awaiting eligibility blocks transmission before turn/start (1192.61828ms)
+✔ unchanged authoritative startup account succeeds after startup-snapshot (2010.753655ms)
+✔ unchanged authoritative startup account succeeds after before-account-read (1227.041194ms)
+✔ unchanged authoritative startup account succeeds after routing-discovery (1475.992971ms)
+✔ unchanged authoritative startup account succeeds after thread-snapshot (1177.869947ms)
+✔ unchanged authoritative startup account succeeds after before-admission (1224.308706ms)
+✔ unchanged authoritative startup account succeeds after after-verification (1257.247445ms)
+✔ unchanged authoritative startup account succeeds after multiple-identical (1318.793975ms)
+✔ unchanged authoritative startup account succeeds after recheck-inflight (1690.827779ms)
+✔ unchanged authoritative startup account succeeds after requirements-null (1482.334881ms)
+✔ authoritative account verification denies stale-verification without inference or replay (1286.26932ms)
+✔ authoritative account verification denies closing-auth-change without inference or replay (1199.934838ms)
+✔ authoritative account verification denies identity-change without inference or replay (1565.073102ms)
+✔ authoritative account verification denies api-key-change without inference or replay (1558.851734ms)
+✔ authoritative account verification denies logout without inference or replay (1328.439514ms)
+✔ authoritative account verification denies backend-change without inference or replay (1328.453815ms)
+✔ authoritative account verification denies routing-change without inference or replay (1277.961003ms)
+✔ authoritative account verification denies provider-config-change without inference or replay (1333.982885ms)
+✔ authoritative account verification denies required-backend-change without inference or replay (1276.589138ms)
+✔ authoritative account verification denies required-workspace-change without inference or replay (1170.900882ms)
+✔ authoritative account verification denies requirements-provider without inference or replay (875.212707ms)
+✔ authoritative account verification denies requirements-api without inference or replay (962.522559ms)
+✔ authoritative account verification denies requirements-backend without inference or replay (965.784623ms)
+✔ authoritative account verification denies requirements-failure without inference or replay (922.680703ms)
+✔ authoritative account verification denies requirements-missing without inference or replay (1197.195878ms)
+✔ authoritative account verification denies requirements-malformed without inference or replay (948.149554ms)
+✔ authoritative account verification denies lookup-failure without inference or replay (845.366713ms)
+✔ authoritative account verification denies notification-storm without inference or replay (958.921118ms)
+✔ account invalidation interrupts despite revoked audit authority and preserves unknown settlement on reopen (7223.950211ms)
+✔ pinned requirements preserve confinement, workspace constraints and independent residency semantics (2.247392ms)
+✔ account snapshot interrupts during-turn-start and cannot reopen on late completion (1379.765925ms)
+✔ account snapshot interrupts active-same-snapshot and cannot reopen on late completion (1333.49401ms)
+✔ account snapshot interrupts notification-tool-drain and cannot reopen on late completion (1340.922694ms)
+✔ synchronous notification inside durable admission cannot pass the final generation check (1324.859946ms)
+✔ account lookup timeout stops within the absolute deadline and retains consumed reservation (8701.289704ms)
+✔ durable stop from another connection interrupts a silent provider (1351.083673ms)
+✔ durable revoke-member from another connection interrupts a silent provider (1721.167013ms)
+✔ private context removes skill sigils without changing supplied JSON content (1.329426ms)
+✔ nonempty global instructions block without reading contents or starting a provider (544.148528ms)
+✔ provider completion during local-stop grace preserves settlement but cannot reopen the pilot (2702.344123ms)
+✔ durable lineage with fake transport success admits exactly once and stops (1602.182884ms)
+✔ durable lineage with fake transport notification-no-settlement admits exactly once and stops (7592.490355ms)
+✔ credit notification audit rejection requests interruption before closing transport (1926.267667ms)
+✔ demo scenario parsing validates identity, complete ordering, deadlines and confined recipes (7.117268ms)
+✔ a failed step or assertion stops all later consequential actions (2.221671ms)
+✔ artifact paths reject traversal, absolute paths and existing symlink parents or targets (2.08684ms)
+✔ events associate existing bounded screenshots and generate a distinct operator/system transcript (4.853048ms)
+✔ structured evidence redacts credentials and private managed host paths (0.676601ms)
+✔ artifact finalization refuses failed attempts instead of publishing a successful narrative (1.773932ms)
+✔ browser origin is restricted to the declared private HQ (1.002381ms)
+✔ unexpected protected operations, targets, extra parameters and expired approvals stop automation (2.876025ms)
+✔ baseline refuses unrelated pending work and canonical advancement requires a trusted integration record (1.50054ms)
+✔ objective association follows task to repository to Project; scope rows have no project_id (1.110378ms)
+✔ pre-assignment identity requests need a real hire by the current Project execution (0.631491ms)
+✔ production demo runner has UI-only mutations, no database, shell or private control-plane shortcuts (5.22598ms)
+✔ generalized Project specification is bound through current task ancestry and real PM execution (2.33267ms)
+✔ group drafts/passive material never dispatch; direct routes cannot start group work (663.850645ms)
+✔ causal group progression, immutable synthesis review/final, no Task until explicit assignment (2416.794894ms)
+✔ pause permits active commitment, stops future dispatch, stop never creates a synthesis (863.664418ms)
+✔ Atlas organization is explicit, freezes selected eligible members after real turn settlement (712.33881ms)
+✔ new discussion research mode requires explicit owner grant; shared source excludes private history and preserves checkpoints (927.677588ms)
+✔ explicit incomplete finalization keeps failed participant fence without blocking a safe synthesizer (1002.834278ms)
+✔ progression batch rolls back entirely on busy queue capacity; safe resume retains original plan (953.711888ms)
+✔ committed final artifact is retained but unknown synthesizer outcome blocks group completion (893.179048ms)
+✔ private direct/task/document sentinels stay outside group context, grants and record retrieval (659.478892ms)
+✔ membership revocation and evidence withdrawal invalidate cached group sessions and stale callbacks (1060.871951ms)
+✔ owner interjection arriving during synthesis requires refreshed checkpoint before commitment (914.463002ms)
+✔ restart preserves completed turns and queued work; deterministic scoped generation replacement retains pending questions (822.319045ms)
+✔ durable deadlines, bounded owner extension and no consumed-limit reset (631.88837ms)
+✔ sharing pins the reviewed Atlas audience and scope during organization and after selection (910.950051ms)
+✔ maximum charter and question inputs remain retrievable and allow a bounded final artifact (800.973074ms)
+✔ persistence rejects forged synthesis/checkpoint/evidence ownership independently of tools (576.213105ms)
+✔ serialized charter admission and refresh/record accounting remain consistent (667.227744ms)
+✔ many tiny owner constraints stop at admission before metadata can prevent context assembly (894.205352ms)
+✔ group device projections omit private executions, notes, evidence and event payloads (581.775163ms)
+✔ delayed group research rechecks membership, evidence policy, stop and grant before delivery (2501.599489ms)
+✔ one group research budget applies to both granted participants and survives extension (1485.357511ms)
+✔ owner can select an existing safe synthesizer for blocked incomplete finalization without clearing the old fence (795.370625ms)
+✔ synthesizer selection cannot change an ordinary active group or accompany another control (526.465083ms)
+✔ blocked charter without incomplete authority cannot replace its synthesizer (661.081029ms)
+✔ evidence citation requires this execution to receive the full excerpt, not metadata, partial text or a peer read (716.707934ms)
+✔ failed evidence retrieval does not leave a citation receipt or reset consumed retrieval usage (509.454001ms)
+✖ Prompt 01 schema migrates without losing retained data and only trusted CEO policy expands (1187.071104ms)
+✔ product and delivery managers cannot complete on prose without trusted integration (644.177454ms)
+✔ bounded profiles preserve hierarchy, authority ceiling, manager identity and depth (607.003071ms)
+✔ managed repository rejects arbitrary paths/source targets and retains a clean remote-free base (675.015439ms)
+✔ atomic engineering allocation has distinct branches/worktrees and cannot dispatch before manager ends (1518.84139ms)
+✔ branch, metadata, task and ownership substitution are rejected before engineering writes (1063.611452ms)
+✔ verified engineering submissions freeze exact commits and reject unrelated/dirty history (1252.961108ms)
+✔ real local Git submissions and read-only exact-commit review integrate once and survive restart (5144.853972ms)
+✔ changes_required and wrong-repository review prevent integration without advancing main (2973.824777ms)
+✔ integrated test failure retains candidate and leaves default branch unchanged (4644.495283ms)
+✔ actual cherry-pick conflict fails visibly and retains main and candidate evidence (4370.777573ms)
+✔ new call IDs cannot duplicate a submission/review and frozen source cannot be changed (4454.238251ms)
+✔ confined product code cannot read host/sibling files, write, spawn, signal or access network (1111.230713ms)
+✔ interrupted engineer and partially recorded Git intent block without replay and retain source (968.073829ms)
+✔ interruption after verified commit allows inspected completion without repeating the commit (1843.876776ms)
+✔ legacy runtime tool bindings stay usable for research and fail explicitly for engineering (574.378235ms)
+✔ early product process exit cannot masquerade as passing acceptance tests (1190.391485ms)
+✔ dispatcher runs two distinct engineers concurrently and duplicate kicks never repeat allocations (1293.969733ms)
+✔ empty gateway is inactive, observed mode denied, and schema migration has no seeded authority (691.868251ms)
+✔ all four classes retain bounded originals, units, source identity and private/execution gates (1163.567472ms)
+✔ cache/replay preserve first knowledge and immutable originals across handles and restart (834.416578ms)
+✔ append corrections and A-B-A reversions; historical cutoff uses only the delivered vintage (831.814963ms)
+✔ current fundamentals and delayed statements cannot be backdated to event/period end (730.614538ms)
+✔ missing, NaN, stale and partial data stay explicit; no substitution or decision admission (963.24776ms)
+✔ typed rejection: changed_schema (1192.072368ms)
+✔ typed rejection: currency (768.998796ms)
+✔ typed rejection: timezone (838.439367ms)
+✔ typed rejection: adjustment (817.51113ms)
+✔ typed rejection: changed_columns (537.956866ms)
+✔ typed rejection: wrong_offset (576.321886ms)
+✔ typed rejection: invalid_ohlc (614.246219ms)
+✔ omitted elapsed trading sessions remain explicit gaps without fabricated bars (576.709483ms)
+✖ real clock permits three rate-spaced bootstrap/data calls with individual policy deadlines (10956.639096ms)
+✔ provider-wide budget survives policy/class changes and separate database handles (659.875784ms)
+✔ retries are finite, real transport attempts are counted, 429 Retry-After is not shortened (5687.017374ms)
+✔ HTTP 403 is terminal and never follows redirects or changes identity (562.783467ms)
+✔ HTTP 301 is terminal and never follows redirects or changes identity (535.573852ms)
+✔ HTTP 500 is terminal and never follows redirects or changes identity (518.534125ms)
+✔ revocation and expiry during I/O deny retention and cached delivery (616.420581ms)
+✔ cancellation, transport timeout and oversized output fence uncertain effects (1330.266964ms)
+✔ concurrent callers share one reservation and cannot complete an in-flight duplicate (696.233366ms)
+✔ rollback after completion cannot backdate a correction or delivery even after original start (1294.775012ms)
+✔ smaller source-policy timeout terminates a hanging underlying call (590.833463ms)
+✔ expiry while receiving data denies persistence and receipt cannot expand scope (542.708608ms)
+✔ oversized transport/output and exhausted transient allowance retain failure receipts (1772.568278ms)
+✔ future bars/actions, closed sessions, current incomplete bars, empty responses and precision are explicit (1855.194329ms)
+✔ populated schema22 repeatedly migrates inert23 preserving all old rows/rowids, ledger and files (9213.477663ms)
+✔ SIGKILL after durable underlying request reservation preserves allowance and global uncertainty fence (913.54745ms)
+✔ external one-use fence and backward clock survive independent journal handles (1441.744634ms)
+✔ external maxRun reservation ceiling retains permanent consumption (1079.592157ms)
+✔ external maxWorker reservation ceiling retains permanent consumption (912.108131ms)
+✔ external maxCycle reservation ceiling retains permanent consumption (872.114071ms)
+✔ external maxDay reservation ceiling retains permanent consumption (949.677582ms)
+✔ external maxRolling24h reservation ceiling retains permanent consumption (940.39725ms)
+✔ external accounting mirror retains eighth cross-mode turn after local restore and fences uncertainty (1463.274384ms)
+✔ reload declaration is exact, idempotent and cannot refill or resume uncertainty (3494.011836ms)
+✔ missing-usage blocks finite continuation without treating usage as zero (4369.876657ms)
+✔ unknown-settlement blocks finite continuation without treating usage as zero (2867.005499ms)
+✔ conflicting-usage blocks finite continuation without treating usage as zero (3686.520618ms)
+✔ replaced journal and corrupt retained bytes fail closed without repair (1566.504133ms)
+✔ two real fixture processes contend for one external reservation and one admission (2684.95115ms)
+✔ reload external commit with lost local receipt never refreshes old confirmation on replay after 24h (1246.816158ms)
+✔ old externally committed resume cannot clear a newer recovery hold after local rollback (1593.451502ms)
+✔ owner pause remains durable with corrupt custody and pending paper orders (10330.337805ms)
+✔ owner stop remains durable with corrupt custody and pending paper orders (8864.582507ms)
+✔ normal dispatcher selects finite capability, progresses automatically, shares two slots and waits without polling (7569.091854ms)
+✔ active finite dispatcher pause aborts and permanently holds unknown work (1787.201314ms)
+✔ active finite dispatcher stop aborts and permanently holds unknown work (1727.576871ms)
+✔ excess discussion preserves future and final work; late paper review never commits (13609.350634ms)
+✔ private paper guard-rejected retains actual financial journal and blocks unhealthy new risk (9862.434649ms)
+✔ private paper missing-opening retains actual financial journal and blocks unhealthy new risk (10091.067779ms)
+✔ private paper missing-mark retains actual financial journal and blocks unhealthy new risk (10949.902604ms)
+✔ private paper expired retains actual financial journal and blocks unhealthy new risk (9868.28515ms)
+✔ private paper denies all simulator and committed-team publication projection and rights routes (788.638903ms)
+✔ private paper narrow tool intersection denies research, delegated work and late review (6197.677475ms)
+✔ second unapproved setup cannot prevent recovery and unrelated ordinary claims (1144.040881ms)
+✔ corrupt finite custody cannot prevent unrelated task and conversation completion (879.615976ms)
+✔ accounting mirror captures one timestamp under an advancing real-style clock (719.629429ms)
+✔ missing prior financial opening blocks later model admission while finite expiry cleanup remains available (6774.196098ms)
+✖ populated synthetic schema21 repeatedly migrates to inert22 without changing old rows or creating authority (8944.026815ms)
+✔ SIGKILL at reserve_db cannot refund or replay finite authority (2200.852076ms)
+✔ SIGKILL at reserve cannot refund or replay finite authority (2623.444517ms)
+✔ SIGKILL at claim cannot refund or replay finite authority (2371.625149ms)
+✔ SIGKILL at admission cannot refund or replay finite authority (3387.779607ms)
+✔ SIGKILL at transmission cannot refund or replay finite authority (3232.599972ms)
+✔ SIGKILL at stdio_transmission cannot refund or replay finite authority (4632.325575ms)
+✔ SIGKILL at local_settlement cannot refund or replay finite authority (3686.219867ms)
+✔ SIGKILL at external_settlement cannot refund or replay finite authority (3282.49618ms)
+✔ company restore and jointly old snapshots cannot lower independent consumption (2472.248938ms)
+✔ missing or corrupt custody never initializes a replacement allowance (716.445479ms)
+✔ offline restore preserves filled financial journal/hash prefix with current custody and no dispatch (9150.868104ms)
+✔ finite fake Codex exact account and one-use transmission: success (3460.067773ms)
+✔ finite fake Codex exact account and one-use transmission: startup-snapshot (3426.649108ms)
+✔ finite fake Codex exact account and one-use transmission: before-admission (3805.803946ms)
+✔ finite fake Codex exact account and one-use transmission: multiple-identical (4019.928876ms)
+✔ finite fake Codex denies identity-change before provider transmission (2331.667673ms)
+✔ finite fake Codex denies wrong-model before provider transmission (1858.971091ms)
+✔ finite fake Codex denies wrong-provider before provider transmission (1849.972533ms)
+✔ finite fake Codex denies api-key-change before provider transmission (2406.307504ms)
+✔ finite fake Codex denies backend-change before provider transmission (2640.035099ms)
+✔ finite fake Codex denies routing-change before provider transmission (2402.250952ms)
+✔ finite fake Codex denies notification-storm before provider transmission (1648.275683ms)
+✔ finite fake Codex denies unsafe-skills before provider transmission (2124.29232ms)
+✔ no-op admission callback cannot transmit a finite provider turn (3431.122531ms)
+✔ ordinary run and forged permits deny finite inputs before CLI startup (1591.294064ms)
+✔ finite runtime rejects changed worker before fake CLI startup (1656.079993ms)
+✔ finite runtime rejects changed request before fake CLI startup (1590.542753ms)
+✔ finite runtime rejects changed generation before fake CLI startup (1577.607267ms)
+✔ finite runtime rejects changed workspace before fake CLI startup (1459.334438ms)
+✔ finite runtime rejects changed model before fake CLI startup (1682.310012ms)
+✔ finite runtime rejects changed reasoning before fake CLI startup (1587.454132ms)
+✔ finite runtime rejects changed tool before fake CLI startup (1808.860383ms)
+✔ finite runtime rejects changed deadline before fake CLI startup (1412.659051ms)
+✔ finite runtime rejects changed scope before fake CLI startup (1848.974687ms)
+✔ finite runtime rejects changed origin before fake CLI startup (1471.221196ms)
+✔ fake finite missing-usage holds automatic continuation after known settlement (3944.540573ms)
+✔ fake finite conflicting holds automatic continuation after known settlement (3376.795322ms)
+✔ fake finite hang interruption has bounded settlement and no replay (3297.591824ms)
+✔ fake finite no-settlement interruption has bounded settlement and no replay (9635.956561ms)
+✔ substituted bind and admit callbacks cannot transmit a different actual provider thread (3348.971055ms)
+✔ changed incoming resumed binding is rejected before CLI startup (1676.181697ms)
+✔ finite owner setup is exact, inert, truthfully initialized and idempotent (817.813824ms)
+✔ stale and conflicting setup previews cannot backdate or grow authority (533.333806ms)
+✔ independent fake authority freezes setup and cannot issue genuine permits (700.202608ms)
+✔ finite normal claims independently settle producer, reviewer and submitter with positive token usage (8748.34872ms)
+✔ two-session normal HQ HOLD preserves typed decisions and finalization within ten turns (30801.194279ms)
+✔ two-session normal HQ BUY_SELL preserves typed decisions and finalization within ten turns (45826.688844ms)
+✔ long mandate is preserved in frozen setup and evidence with a bounded discussion title (787.992276ms)
+✔ source/configuration template drift invalidates exact setup consent (606.914236ms)
+✔ synthetic Date does not freeze the real test wait deadline (32.390513ms)
+✔ local HTTP UI serves real state, separates messages/assignments and rejects forged or cross-origin writes (1125.003281ms)
+✔ SSE emits durable-state changes without model polling (644.09993ms)
+✔ health is narrow, runtime discovery is dynamic, and only token-authenticated human updates reach profiles (656.319593ms)
+✔ trusted human HTTP approval boundary rejects bots, foreign origins and actor fields; real token consumes once (934.946583ms)
+✔ Project HTTP controls preserve the trusted-human boundary and render generalized persisted state (657.949495ms)
+✔ standing permissions require browser owner authority and do not extend device routes or state (628.470759ms)
+✔ Nix is trusted initialization only, persistent, nondelegating and bootstrap is visibly unprovisioned (573.253145ms)
+✔ initial Nix approval consumes once, produces a receipt and preserves binding/runtime separation (567.013513ms)
+✔ approval denial leaves logical worker unprovisioned and cannot be replayed (564.922946ms)
+✔ expired approval never performs host mutation and expiry is auditable (540.335685ms)
+✔ approval ID cannot authorize another operation and bodies cannot forge actor (600.380084ms)
+✔ messages and artifacts cannot grant approval and bot tools cannot decide one (650.62031ms)
+✔ changed worker preconditions invalidate approved operation before consumption (644.032745ms)
+✔ changed requester, task or execution rejects exact approval even with unchanged target (727.086029ms)
+✔ database envelope guards reject target, parameter, hash and approval substitutions (756.865675ms)
+✔ Nix requests exact task scope, yields awaiting approval and resumes from host evidence (652.606299ms)
+✔ pending approval survives reopen without host action or workspace/profile changes (683.50348ms)
+✔ consumed in-flight operation reconciles same ID after control-plane crash without duplicate side effect (591.308101ms)
+✔ CEO may retain three normal children plus Nix; Nix does not expand delegation or company count (633.850366ms)
+✔ safe retirement rejects active/queued work and preserves disabled identity/history (881.202671ms)
+✔ stable safe username ignores display-name changes and reserves no human-selected account (1.757709ms)
+✖ provisioner protocol parser and durable receipt adversarial suite (1080.299363ms)
+✔ Prompt 03 retained history migrates with honest unprovisioned identities and zero host actions (672.574041ms)
+✔ Linux dispatch never falls back to service UID when identity or independent clone binding is missing (999.476466ms)
+✔ temporary-worker revocation reduces authority without erasing history and is restart-safe (732.139526ms)
+✔ Linux product objectives require ready Nix before creating work; retained research remains available (585.092307ms)
+✔ split preserves basis, adjusts quantity and cancels locked orders (985.585055ms)
+✔ reverse split retains exact unresolved fractional shares and unknown valuation (829.270156ms)
+✔ weighted-average partial/full sales release all split-created basis residue (1347.908783ms)
+✔ cash dividend accrues at ex boundary and settles once without double-counting equity (861.908817ms)
+✔ delayed dividend uses pre-ex holdings even after a complete sale (822.235904ms)
+✔ ticker changes keep stable identity and original snapshots; unsupported merger blocks valuation (1154.105722ms)
+✔ out-of-order split is retained as an uncertainty fence without corrupting quantity (660.06996ms)
+✔ benchmark fractional units retain residual cash and match portfolio valuation sessions (918.295386ms)
+✔ benchmark dividends settle as cash and reinvest only at next eligible opening (749.381414ms)
+✔ historical correction appends revisions and recomputes later return and drawdown (881.063476ms)
+✔ missing marks retain last-good timestamp and never turn unknown into zero (785.617711ms)
+✔ one investment reservation is atomic across independent connections, while ordinary work retains the second slot (3378.805538ms)
+✔ first eight reservations consume rolling allowance; exact 24-hour boundary releases one, not at midnight (2502.259264ms)
+✔ 24-run maximum survives expired rolling windows; lower limits and backwards clocks hold (2611.984695ms)
+✔ lower approved rolling cap holds queued work without permanently failing the request (2438.562402ms)
+✔ fresh admission rechecks pause (1907.445276ms)
+✔ fresh admission rechecks revoke (2004.893054ms)
+✔ fresh admission rechecks expiry (1934.960233ms)
+✔ fresh admission rechecks global_pause (1868.105997ms)
+✔ crash after reservation before runtime setup is visible, durable and never replayed (1858.010421ms)
+✔ uncertain active result retains one-investment fence; no refunded or replayed invocation (1980.967557ms)
+✔ unmetered proof is mandatory and hidden model research/peer paths remain prohibited (1988.032693ms)
+✔ pinned Codex capability is unavailable and never falls back or launches its command (2094.211494ms)
+✔ finite adapter deadline interrupts once, retains partial usage and never retries (2628.530332ms)
+✔ eight actual claims count openings, follow-up, synthesis, review and finalize including resumed sessions (8666.695386ms)
+✔ six-decimal parsing and formatting are exact at magnitude bounds (6.950106ms)
+✔ reject financial spelling NaN (0.759858ms)
+✔ reject financial spelling Infinity (0.260043ms)
+✔ reject financial spelling 1e3 (0.223187ms)
+✔ reject financial spelling 1E-6 (0.735213ms)
+✔ reject financial spelling +1 (0.28056ms)
+✔ reject financial spelling 01 (0.433139ms)
+✔ reject financial spelling  1 (0.303459ms)
+✔ reject financial spelling 1.0000001 (1.115129ms)
+✔ reject financial spelling 1000000000000 (1.086178ms)
+✔ reject financial spelling 0x10 (1.560995ms)
+✔ reject financial spelling 1. (0.251127ms)
+✔ reject financial spelling --1 (0.583899ms)
+✔ positive quantities and whole-share rule reject zero/negative/fractional inputs (0.739429ms)
+✔ half-even is symmetric, including exact tie residuals (2.720651ms)
+✔ checked values and intermediate products fail closed (0.584116ms)
+✔ deterministic seed: 10000 decimal round trips and bounded rounding errors (72.295091ms)
+✔ runtime JCS matches canonical v1 oracle and rejects lossy inputs (6.259358ms)
+✔ fixture calendar selects weekend, holiday, DST and early-close sessions (3.82589ms)
+✔ configuration rejects non-USD, operational evidence, invalid DST and wrong precision (1.214837ms)
+✔ reused exchange formatter revalidates late sessions and preserves timestamp error order (5.147581ms)
+✔ seeded 1000 accumulation/partial-exit/full-exit cycles conserve cash, basis and realized PnL (198.296455ms)
+✔ golden schema EventBatch: valid, unknown fields and every required field (1208.92712ms)
+✔ golden schema PublicationReceipt: valid, unknown fields and every required field (22.160733ms)
+✔ golden schema ContentReceipt: valid, unknown fields and every required field (7.809609ms)
+✔ golden schema Heartbeat: valid, unknown fields and every required field (12.351001ms)
+✔ golden schema HeartbeatReceipt: valid, unknown fields and every required field (4.287306ms)
+✔ golden schema PublicStatus: valid, unknown fields and every required field (8.620738ms)
+✔ golden schema PublicExperiment: valid, unknown fields and every required field (19.880297ms)
+✔ golden schema EventPage: valid, unknown fields and every required field (9.800646ms)
+✔ golden schema DiscussionPage: valid, unknown fields and every required field (9.858828ms)
+✔ golden schema ArtifactPage: valid, unknown fields and every required field (8.563218ms)
+✔ golden schema TransactionPage: valid, unknown fields and every required field (11.847953ms)
+✔ golden schema PerformancePage: valid, unknown fields and every required field (7.528774ms)
+✔ golden schema DiscussionDetail: valid, unknown fields and every required field (10.155471ms)
+✔ golden schema DecisionDetail: valid, unknown fields and every required field (8.805443ms)
+✔ golden schema SnapshotResponse: valid, unknown fields and every required field (11.987306ms)
+✔ golden schema ArtifactDetail: valid, unknown fields and every required field (9.770821ms)
+✔ golden schema Problem: valid, unknown fields and every required field (9.178763ms)
+✔ golden schema AskAvailability: valid, unknown fields and every required field (6.007156ms)
+✔ golden schema AskSessionCreate: valid, unknown fields and every required field (3.107056ms)
+✔ golden schema AskSession: valid, unknown fields and every required field (6.390526ms)
+✔ golden schema AskConversationCreate: valid, unknown fields and every required field (2.149458ms)
+✔ golden schema AskConversation: valid, unknown fields and every required field (4.762148ms)
+✔ golden schema AskQuestionInput: valid, unknown fields and every required field (8.897793ms)
+✔ golden schema AskQuestion: valid, unknown fields and every required field (23.872404ms)
+✔ golden schema AskAdmission: valid, unknown fields and every required field (6.968174ms)
+✔ golden schema AskRoute: valid, unknown fields and every required field (11.016186ms)
+✔ golden schema AskStatus: valid, unknown fields and every required field (8.100048ms)
+✔ golden schema AskAnswer: valid, unknown fields and every required field (14.935191ms)
+✔ golden schema AskTurn: valid, unknown fields and every required field (6.787081ms)
+✔ golden schema AskConversationPage: valid, unknown fields and every required field (7.070314ms)
+✔ golden schema AskCancel: valid, unknown fields and every required field (3.000159ms)
+✔ golden schema AskControlReceipt: valid, unknown fields and every required field (9.090755ms)
+✔ golden schema AskClaimInput: valid, unknown fields and every required field (4.915383ms)
+✔ golden schema AskClaim: valid, unknown fields and every required field (7.136771ms)
+✔ golden schema AskClaimPage: valid, unknown fields and every required field (6.053554ms)
+✔ golden schema AskRenewInput: valid, unknown fields and every required field (5.314704ms)
+✔ golden schema AskAnswerDelivery: valid, unknown fields and every required field (5.061585ms)
+✔ golden schema AskStatusDelivery: valid, unknown fields and every required field (5.042651ms)
+✔ golden schema AskAnswerReceipt: valid, unknown fields and every required field (6.298722ms)
+✔ golden schema AskControlSyncInput: valid, unknown fields and every required field (8.181975ms)
+✔ golden schema AskControlSync: valid, unknown fields and every required field (7.480876ms)
+✔ golden schema AskLimits: valid, unknown fields and every required field (19.789438ms)
+✔ golden schema AskWorkerEligibility: valid, unknown fields and every required field (19.123549ms)
+✔ golden schema AskServiceScope: valid, unknown fields and every required field (19.788013ms)
+✔ golden schema PublisherScope: valid, unknown fields and every required field (18.095061ms)
+✔ golden schema AskRoster: valid, unknown fields and every required field (7.643041ms)
+✔ golden schema RecordDetail: valid, unknown fields and every required field (6.592408ms)
+✔ golden schema AskServiceConfiguration: valid, unknown fields and every required field (28.973395ms)
+✔ all schema definitions compile; root also accepts every golden DTO (22.831954ms)
+✔ optional worker preference is bounded data, not authority (0.866595ms)
+✔ all publication event variants have a strict payload and namespace (24.076735ms)
+✔ strict JSON rejects duplicate keys (2.900961ms)
+✔ strict JSON rejects escaped duplicate keys (0.996617ms)
+✔ strict JSON rejects lone surrogate (0.467106ms)
+✔ strict JSON rejects trailing comma (0.398952ms)
+✔ strict JSON rejects comment (0.327903ms)
+✔ strict JSON rejects nonfinite (0.520796ms)
+✔ strict JSON rejects unsafe integer (0.552651ms)
+✔ strict JSON rejects nesting (0.208773ms)
+✔ strict JSON rejects malformed UTF-8 and oversized data (0.515812ms)
+✔ RFC 8785 canonicalization preserves Unicode and sorts keys, independent of input whitespace (3.169488ms)
+✔ fixed-point values and half-even arithmetic never use binary monetary math (3.330817ms)
+✔ synthetic complete evidence chain is valid and creates no retained state (102.980445ms)
+✔ publication rejects unsupported version (23.990329ms)
+✔ publication rejects wrong path run (55.684563ms)
+✔ publication rejects wrong batch run (17.571722ms)
+✔ publication rejects wrong event run (26.005019ms)
+✔ publication rejects revoked scope (31.01707ms)
+✔ publication rejects expired scope (13.730798ms)
+✔ publication rejects unauthorized event (11.908419ms)
+✔ publication rejects policy mismatch (10.663973ms)
+✔ publication rejects duplicate event ID in batch (25.467015ms)
+✔ publication rejects source sequence collision (18.883474ms)
+✔ publication rejects bad frozen hash (23.688651ms)
+✔ publication rejects fixture relabelled observed (57.73157ms)
+✔ publication rejects unapproved configuration (44.337638ms)
+✔ publication rejects unknown author (17.368305ms)
+✔ publication rejects nonparticipant author (17.144753ms)
+✔ publication rejects cross-discussion reply (20.977287ms)
+✔ publication rejects missing discussion predecessor (34.644125ms)
+✔ publication rejects missing artifact bytes (19.197139ms)
+✔ publication rejects artifact integrity mismatch (15.03987ms)
+✔ publication rejects wrong artifact supersedes type (12.892376ms)
+✔ publication rejects review of wrong proposal (11.188687ms)
+✔ publication rejects self-review (28.618238ms)
+✔ publication rejects negative price (8.888992ms)
+✔ publication rejects unknown decision (35.080247ms)
+✔ publication rejects fractional discretionary order (14.296619ms)
+✔ publication rejects order without finite expiry (58.077886ms)
+✔ publication rejects wrong order side (59.444142ms)
+✔ publication rejects changed financial reference (17.760546ms)
+✔ publication rejects missing financial predecessor (47.465325ms)
+✔ publication rejects journal gap (12.787945ms)
+✔ publication rejects negative portfolio cash (8.045957ms)
+✔ publication rejects inconsistent portfolio cash (27.071305ms)
+✔ publication rejects wrong equity (33.112032ms)
+✔ publication rejects wrong cost basis (19.933153ms)
+✔ publication rejects missing holding (17.910006ms)
+✔ publication rejects complete snapshot missing mark (20.131142ms)
+✔ publication rejects benchmark mismatched session (22.635077ms)
+✔ publication rejects incorrect return (24.428562ms)
+✔ publication rejects active public content (16.081344ms)
+✔ publication rejects credential-bearing source URL (16.341924ms)
+✔ publication rejects incorrect synthesis kind (11.799742ms)
+✔ publication rejects incorrect review target kind (9.306937ms)
+✔ same immutable event in new batch is duplicate; changed event conflicts (89.396544ms)
+✔ idempotency checks exact bytes and rechecks current authority before old receipts (37.662957ms)
+✔ independent source events can arrive out of order; financial dependencies cannot (54.826347ms)
+✔ old snapshot arrival cannot replace a newer valuation; revisions stay linked (16.051856ms)
+✔ invalid fill arithmetic fails even when attacker recomputes journal hash (33.433263ms)
+✔ Ask admits general and exact-context questions with immutable identities (3.567637ms)
+✔ Ask rejects cross-session owner (0.776124ms)
+✔ Ask rejects cross-conversation owner (1.088656ms)
+✔ Ask rejects deleted conversation (0.617834ms)
+✔ Ask rejects expired session (0.512738ms)
+✔ Ask rejects expired question (0.438496ms)
+✔ Ask rejects wrong service key (1.199614ms)
+✔ Ask rejects publisher permission cannot read questions (0.442735ms)
+✔ Ask rejects revoked local grant (0.408593ms)
+✔ Ask rejects restored stale consumer (0.460533ms)
+✔ Ask rejects wrong immutable question hash (0.853587ms)
+✔ Ask rejects daily execution cap (0.999465ms)
+✔ Ask rejects daily token cap (0.959564ms)
+✔ Ask rejects queue full (0.989082ms)
+✔ Ask rejects session hourly cap (0.888605ms)
+✔ Ask rejects session daily cap (0.864513ms)
+✔ Ask rejects invalid context (1.704993ms)
+✔ Ask rejects wrong context run (2.648892ms)
+✔ Ask rejects withdrawn context (1.761164ms)
+✔ Ask rejects forged followup history (1.434702ms)
+✔ Ask rejects oversize question (1.38513ms)
+✔ same question import preserves known and uncertain work; lease expiry never starts another answer (1.27311ms)
+✔ followups include only completed owned conversation history (2.182296ms)
+✔ visitor instructions are inert question text; no authority fields or runtime context accepted (1.548356ms)
+✔ session authentication, current ownership and CSRF apply to reads and duplicate writes (1.160083ms)
+✔ actual answering identity binds trusted settlement, question and routing (6.227988ms)
+✔ late responses honor deletion, cancellation, expiry, stale controls and withdrawn evidence (1.311977ms)
+✔ general Ask answer can cite a public source with original/unknown dates (1.499095ms)
+✔ RFC 9421 signature base has independently asserted exact bytes and verifies with WebCrypto (180.662243ms)
+✔ authenticated receipt GET has no body or write headers (2.160721ms)
+✔ signed profile rejects body altered (1.4209ms)
+✔ signed profile rejects wrong method (0.811524ms)
+✔ signed profile rejects wrong path (1.120357ms)
+✔ signed profile rejects untrusted authority (0.683294ms)
+✔ signed profile rejects query string (1.083145ms)
+✔ signed profile rejects stale signature (0.763437ms)
+✔ signed profile rejects future creation (0.667868ms)
+✔ signed profile rejects revoked key (0.852421ms)
+✔ signed profile rejects wrong key (0.933726ms)
+✔ signed profile rejects nonce replay (0.56933ms)
+✔ signed profile rejects stale publisher generation (0.501984ms)
+✔ signed profile rejects duplicate header (0.562084ms)
+✔ signed profile rejects malformed signature (0.621413ms)
+✔ signed profile rejects wrong digest (0.531231ms)
+✔ signed profile rejects extended signature lifetime (0.574507ms)
+✔ key rotation preserves immutable publication identity and retires old verification authority (1.731072ms)
+✔ public content checks exact bytes, conservative Markdown, JSON and CSV (1.377084ms)
+✔ normalized PNG boundary rejects fake MIME, dimensions, integrity and trailing payloads (3.857618ms)
+✔ bounded problem serialization never echoes raw input, private paths or provider errors (1.420177ms)
+✔ OpenAPI operation references resolve, cookie and service boundaries stay disjoint, private errors are no-store (4.017729ms)
+✔ version and hash pins are transport-independent and detect vendor drift (3.839448ms)
+✔ published signature vector verifies without retaining a private key (102.208755ms)
+✔ all event types have positive golden coverage (1.122322ms)
+✔ parser bounds deep nesting before recursive parsing and canonicalization rejects lossy objects (14.005266ms)
+✔ milliseconds cannot bypass session expiry (2.868782ms)
+✔ sequence binds one valuation identity independent of arrival order (25.999281ms)
+✔ a cancelled order cannot fill using its historic pending revision (69.161134ms)
+✔ withdrawing contextual input suppresses an answer that omits its evidence list (2.610694ms)
+✔ split fractional entitlement is exact rather than silently rounded away (13.466979ms)
+✔ partial control pagination cannot authorize an answer (0.976046ms)
+✔ public Markdown rejects reference-link and encoded-destination bypasses (1.852543ms)
+✔ publication history cannot supply dependencies from another run (25.454253ms)
+✔ ticker updates bind action and maintain effective historical symbols (61.259946ms)
+✔ split entries cannot contaminate another instrument and dividends settle exact accrued terms (20.483934ms)
+✔ fill and split reject extra postings even for another allowlisted instrument (65.02262ms)
+✔ equivalent UTC precision represents the same fill instant (44.985428ms)
+
+Interrupted while running:
+
+⚠ dist/test/investment-loop-financial.test.js (dist/test/investment-loop-financial.test.js:1:1)
+✖ dist/test/investment-loop-financial.test.js (68223.213319ms)
+✖ dist/test/investment-loop-http.test.js
+✖ dist/test/investment-loop-recovery.test.js
+✖ dist/test/investment-loop.test.js
+✖ dist/test/investment-migration.test.js
+✖ dist/test/investment-recovery.test.js
+✖ dist/test/investment-review.test.js
+✖ dist/test/investment-simulator.test.js
+✖ dist/test/investment-snapshot.test.js
+✖ dist/test/investment-team-dispatcher.test.js
+✖ dist/test/investment-team-http.test.js
+✖ dist/test/investment-team-migration.test.js
+✖ dist/test/investment-team-publication.test.js
+✖ dist/test/investment-team-risk.test.js
+✖ dist/test/investment-team.test.js
+✖ dist/test/mandates.test.js
+✖ dist/test/market-evidence.test.js
+✖ dist/test/market-http.test.js
+✖ dist/test/market-migration.test.js
+✖ dist/test/market-recovery.test.js
+✖ dist/test/observed-investment.test.js
+✖ dist/test/private-research-account.test.js
+✖ dist/test/private-research-dispatcher.test.js
+✖ dist/test/private-research-migration.test.js
+✖ dist/test/private-research-python.test.js
+✖ dist/test/private-research-recovery.test.js
+✖ dist/test/private-research.test.js
+✖ dist/test/projects-migration.test.js
+✖ dist/test/projects-recovery.test.js
+✖ dist/test/projects.test.js
+✖ dist/test/publication-http.test.js
+✖ dist/test/publication-kill.test.js
+✖ dist/test/publication-migration.test.js
+✖ dist/test/publication-projection.test.js
+✖ dist/test/publication-receiver.test.js
+✖ dist/test/publication-recovery.test.js
+✖ dist/test/publication-transport.test.js
+✖ dist/test/remote.test.js
+✖ dist/test/research-network.test.js
+✖ dist/test/research-runtime.test.js
+✖ dist/test/research.test.js
+✖ dist/test/usage-migration.test.js
+✖ dist/test/worker-portraits.test.js
+✖ dist/test/yahoo-bootstrap.test.js
+✖ dist/test/yahoo-connectivity-local.test.js
+✖ dist/test/yahoo-connectivity.test.js
+✖ dist/test/yahoo-diagnostics.test.js
+✖ dist/test/yahoo-direct-custody.test.js
+✖ dist/test/yahoo-direct.test.js
+✖ dist/test/yahoo-history.test.js
+✖ dist/test/yahoo-probe.test.js
+✖ dist/test/yahoo-protocol.test.js
+✖ dist/test/yahoo-python.test.js
+✖ dist/test/yahoo-transport-local.test.js
+✖ dist/test/yahoo-transport.test.js
+ℹ tests 1257
+ℹ suites 0
+ℹ pass 1175
+ℹ fail 26
+ℹ cancelled 55
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1799933.21181
+
+✖ failing tests:
+
+test at dist/test/ai-profile.test.js:134:1
+✖ legacy migrations preserve bindings and historical unknown provenance without fabricated settings (1278.962999ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ai-profile.test.js:155:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/attention.test.js:22:1
+✖ pending project approval is one item; real denial removes it (688.254997ms)
+  Error: Command failed: /usr/bin/python3 /var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py -c safe.directory=/tmp/botsquad-test-wAIKpj/products/repository_a86e050d-8dfc-4163-ad0d-c8f7a9f0f1cf/main -c core.hooksPath=/dev/null -c core.fsmonitor=false -c core.attributesFile=/dev/null -c credential.helper= -c credential.interactive=false -c protocol.allow=never -c protocol.https.allow=always -c http.followRedirects=false -c http.proxy= -c http.sslVerify=true -c fetch.unpackLimit=0 -c protocol.file.allow=always fetch --no-tags --no-write-fetch-head /tmp/botsquad-test-wAIKpj/products/repository_a86e050d-8dfc-4163-ad0d-c8f7a9f0f1cf/import.bundle refs/heads/trunk:refs/botsquad/import
+  /usr/bin/python3: can't open file '/var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py': [Errno 2] No such file or directory
+  
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at boundedGit (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/bounded-git.js:6:12)
+      at Projects.initialize (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:80:17)
+      at Projects.import (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:119:21)
+      at registered (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/projects-helpers.js:38:43)
+      at publication (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/attention-helpers.js:38:31)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/attention.test.js:22:101) {
+    status: 2,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes> ],
+    pid: 767861,
+    stdout: <Buffer >,
+    stderr: <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes>
+  }
+
+test at dist/test/attention.test.js:23:1
+✖ expired approval filtering writes no expiry or audit rows (725.731428ms)
+  Error: Command failed: /usr/bin/python3 /var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py -c safe.directory=/tmp/botsquad-test-foNv7d/products/repository_516b582e-9aaa-4f93-82de-3cbf0629d0a5/main -c core.hooksPath=/dev/null -c core.fsmonitor=false -c core.attributesFile=/dev/null -c credential.helper= -c credential.interactive=false -c protocol.allow=never -c protocol.https.allow=always -c http.followRedirects=false -c http.proxy= -c http.sslVerify=true -c fetch.unpackLimit=0 -c protocol.file.allow=always fetch --no-tags --no-write-fetch-head /tmp/botsquad-test-foNv7d/products/repository_516b582e-9aaa-4f93-82de-3cbf0629d0a5/import.bundle refs/heads/trunk:refs/botsquad/import
+  /usr/bin/python3: can't open file '/var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py': [Errno 2] No such file or directory
+  
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at boundedGit (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/bounded-git.js:6:12)
+      at Projects.initialize (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:80:17)
+      at Projects.import (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:119:21)
+      at registered (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/projects-helpers.js:38:43)
+      at publication (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/attention-helpers.js:38:31)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/attention.test.js:23:121) {
+    status: 2,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes> ],
+    pid: 767872,
+    stdout: <Buffer >,
+    stderr: <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes>
+  }
+
+test at dist/test/attention.test.js:78:1
+✖ generalized queued integration waiting is ordinary automated work (706.339424ms)
+  Error: Command failed: /usr/bin/python3 /var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py -c safe.directory=/tmp/botsquad-test-933HUO/products/repository_e3381dba-1042-4846-b1eb-b36b17973137/main -c core.hooksPath=/dev/null -c core.fsmonitor=false -c core.attributesFile=/dev/null -c credential.helper= -c credential.interactive=false -c protocol.allow=never -c protocol.https.allow=always -c http.followRedirects=false -c http.proxy= -c http.sslVerify=true -c fetch.unpackLimit=0 -c protocol.file.allow=always fetch --no-tags --no-write-fetch-head /tmp/botsquad-test-933HUO/products/repository_e3381dba-1042-4846-b1eb-b36b17973137/import.bundle refs/heads/trunk:refs/botsquad/import
+  /usr/bin/python3: can't open file '/var/tmp/botsquad-ask-integration-idEyvv/deploy/bounded-git.py': [Errno 2] No such file or directory
+  
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at boundedGit (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/bounded-git.js:6:12)
+      at Projects.initialize (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:80:17)
+      at Projects.import (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/projects.js:119:21)
+      at registered (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/projects-helpers.js:38:43)
+      at allocated (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/projects-helpers.js:62:15)
+      at readyGeneric (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/projects-helpers.js:74:15) {
+    status: 2,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes> ],
+    pid: 767888,
+    stdout: <Buffer >,
+    stderr: <Buffer 2f 75 73 72 2f 62 69 6e 2f 70 79 74 68 6f 6e 33 3a 20 63 61 6e 27 74 20 6f 70 65 6e 20 66 69 6c 65 20 27 2f 76 61 72 2f 74 6d 70 2f 62 6f 74 73 71 75 ... 86 more bytes>
+  }
+
+test at dist/test/business-adapter.test.js:79:1
+✖ production adapter fixture reads exact source, emits approved PUT bytes, retains actual provider parent (8.235077ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.read (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:142:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:80:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+
+test at dist/test/business-adapter.test.js:97:5
+✖ production adapter denies redirect before effect (4.081457ms)
+  AssertionError [ERR_ASSERTION]: Redirect must not be followed
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:133:20)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:135:1
+✖ production adapter timeout rejects without exposing raw transport error (3.297719ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /GitHub request unavailable/. Input:
+  
+  'Error: Business credential ancestors must be protected real directories owned by root or the service'
+  
+      at async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:140:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: Business credential ancestors must be protected real directories owned by root or the service
+        at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+        at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+        at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+        at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+        at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+        at GithubMarkdownAdapter.read (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:142:20)
+        at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:140:36)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1402:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:974:18),
+    expected: /GitHub request unavailable/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:142:1
+✖ changed document and revoked authority at final boundary never make a PUT (2.591212ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /changed/. Input:
+  
+  'Error: Business credential ancestors must be protected real directories owned by root or the service'
+  
+      at async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:144:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: Business credential ancestors must be protected real directories owned by root or the service
+        at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+        at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+        at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+        at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+        at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+        at GithubMarkdownAdapter.read (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:142:20)
+        at GithubMarkdownAdapter.replace (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:150:37)
+        at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:144:36)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1402:25),
+    expected: /changed/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:149:5
+✖ malformed path in transmitted provider success is rejected (13.271577ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(transmitted)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:165:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:149:5
+✖ malformed message in transmitted provider success is rejected (2.402536ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(transmitted)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:165:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:149:5
+✖ malformed blob in transmitted provider success is rejected (4.747551ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(transmitted)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:165:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:149:5
+✖ malformed parent in transmitted provider success is rejected (1.452123ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(transmitted)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:165:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:149:5
+✖ malformed commit in transmitted provider success is rejected (1.821623ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(transmitted)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:165:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/business-adapter.test.js:168:1
+✖ lost response permits read-only correlated reconciliation with no second PUT (3.608201ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:172:37)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at dist/test/business-adapter.test.js:178:5
+✖ reconciliation absent cannot fabricate a receipt (1.57243ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:197:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+
+test at dist/test/business-adapter.test.js:178:5
+✖ reconciliation multiple cannot fabricate a receipt (1.093838ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:197:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+
+test at dist/test/business-adapter.test.js:178:5
+✖ reconciliation message cannot fabricate a receipt (0.921235ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:197:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+
+test at dist/test/business-adapter.test.js:178:5
+✖ reconciliation after_blob cannot fabricate a receipt (0.968938ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:197:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+
+test at dist/test/business-adapter.test.js:178:5
+✖ reconciliation parent_blob cannot fabricate a receipt (2.051428ms)
+  Error: Business credential ancestors must be protected real directories owned by root or the service
+      at requireThat (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/domain/model.js:22:15)
+      at protectedText (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:11:9)
+      at GithubMarkdownAdapter.token (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:36:36)
+      at GithubMarkdownAdapter.api (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:48:28)
+      at GithubMarkdownAdapter.identityCheck (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:108:37)
+      at GithubMarkdownAdapter.reconcile (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/business/github-markdown.js:163:20)
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-adapter.test.js:197:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+
+test at dist/test/business-migration.test.js:15:1
+✖ populated v13 migrates repeatedly preserving every original rowid/field and creating zero authority (6577.752769ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/business-migration.test.js:55:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/client-migration.test.js:10:1
+✖ migration 6 preserves every original Prompt 05 row/field and performs no domain or filesystem operations (9180.392912ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/client-migration.test.js:58:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/control.test.js:12:1
+✖ migration is non-destructive and initializes stable principal/channel/CEO identities (572.283104ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/control.test.js:22:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/engineering.test.js:14:1
+✖ Prompt 01 schema migrates without losing retained data and only trusted CEO policy expands (1187.071104ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/engineering.test.js:31:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/financial-gateway.test.js:158:1
+✖ real clock permits three rate-spaced bootstrap/data calls with individual policy deadlines (10956.639096ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(calls[1] - calls[0] >= 5000)
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/financial-gateway.test.js:173:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at dist/test/finite-hq-migration.test.js:9:1
+✖ populated synthetic schema21 repeatedly migrates to inert22 without changing old rows or creating authority (8944.026815ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28 !== 27
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/finite-hq-migration.test.js:21:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28,
+    expected: 27,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/infrastructure.test.js:262:1
+✖ provisioner protocol parser and durable receipt adversarial suite (1080.299363ms)
+  AssertionError [ERR_ASSERTION]: Traceback (most recent call last):
+    File "/var/tmp/botsquad-ask-integration-idEyvv/test/provisioner_test.py", line 11, in <module>
+      spec.loader.exec_module(p)
+    File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+    File "<frozen importlib._bootstrap_external>", line 1128, in get_code
+    File "<frozen importlib._bootstrap_external>", line 1186, in get_data
+  FileNotFoundError: [Errno 2] No such file or directory: '/var/tmp/botsquad-ask-integration-idEyvv/deploy/provisioner/provisioner.py'
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/infrastructure.test.js:264:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/investment-loop-financial.test.js:1:1
+✖ dist/test/investment-loop-financial.test.js (68223.213319ms)
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-loop-http.test.js:1:1
+✖ dist/test/investment-loop-http.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-loop-recovery.test.js:1:1
+✖ dist/test/investment-loop-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-loop.test.js:1:1
+✖ dist/test/investment-loop.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-migration.test.js:1:1
+✖ dist/test/investment-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-recovery.test.js:1:1
+✖ dist/test/investment-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-review.test.js:1:1
+✖ dist/test/investment-review.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-simulator.test.js:1:1
+✖ dist/test/investment-simulator.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-snapshot.test.js:1:1
+✖ dist/test/investment-snapshot.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team-dispatcher.test.js:1:1
+✖ dist/test/investment-team-dispatcher.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team-http.test.js:1:1
+✖ dist/test/investment-team-http.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team-migration.test.js:1:1
+✖ dist/test/investment-team-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team-publication.test.js:1:1
+✖ dist/test/investment-team-publication.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team-risk.test.js:1:1
+✖ dist/test/investment-team-risk.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/investment-team.test.js:1:1
+✖ dist/test/investment-team.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/mandates.test.js:1:1
+✖ dist/test/mandates.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/market-evidence.test.js:1:1
+✖ dist/test/market-evidence.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/market-http.test.js:1:1
+✖ dist/test/market-http.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/market-migration.test.js:1:1
+✖ dist/test/market-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/market-recovery.test.js:1:1
+✖ dist/test/market-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/observed-investment.test.js:1:1
+✖ dist/test/observed-investment.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-account.test.js:1:1
+✖ dist/test/private-research-account.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-dispatcher.test.js:1:1
+✖ dist/test/private-research-dispatcher.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-migration.test.js:1:1
+✖ dist/test/private-research-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-python.test.js:1:1
+✖ dist/test/private-research-python.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research-recovery.test.js:1:1
+✖ dist/test/private-research-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/private-research.test.js:1:1
+✖ dist/test/private-research.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/projects-migration.test.js:1:1
+✖ dist/test/projects-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/projects-recovery.test.js:1:1
+✖ dist/test/projects-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/projects.test.js:1:1
+✖ dist/test/projects.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-http.test.js:1:1
+✖ dist/test/publication-http.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-kill.test.js:1:1
+✖ dist/test/publication-kill.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-migration.test.js:1:1
+✖ dist/test/publication-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-projection.test.js:1:1
+✖ dist/test/publication-projection.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-receiver.test.js:1:1
+✖ dist/test/publication-receiver.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-recovery.test.js:1:1
+✖ dist/test/publication-recovery.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/publication-transport.test.js:1:1
+✖ dist/test/publication-transport.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/remote.test.js:1:1
+✖ dist/test/remote.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/research-network.test.js:1:1
+✖ dist/test/research-network.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/research-runtime.test.js:1:1
+✖ dist/test/research-runtime.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/research.test.js:1:1
+✖ dist/test/research.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/usage-migration.test.js:1:1
+✖ dist/test/usage-migration.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/worker-portraits.test.js:1:1
+✖ dist/test/worker-portraits.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-bootstrap.test.js:1:1
+✖ dist/test/yahoo-bootstrap.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-connectivity-local.test.js:1:1
+✖ dist/test/yahoo-connectivity-local.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-connectivity.test.js:1:1
+✖ dist/test/yahoo-connectivity.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-diagnostics.test.js:1:1
+✖ dist/test/yahoo-diagnostics.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-direct-custody.test.js:1:1
+✖ dist/test/yahoo-direct-custody.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-direct.test.js:1:1
+✖ dist/test/yahoo-direct.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-history.test.js:1:1
+✖ dist/test/yahoo-history.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-probe.test.js:1:1
+✖ dist/test/yahoo-probe.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-protocol.test.js:1:1
+✖ dist/test/yahoo-protocol.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-python.test.js:1:1
+✖ dist/test/yahoo-python.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-transport-local.test.js:1:1
+✖ dist/test/yahoo-transport-local.test.js
+  'Promise resolution is still pending but the event loop has already resolved'
+
+test at dist/test/yahoo-transport.test.js:1:1
+✖ dist/test/yahoo-transport.test.js
+  'Promise resolution is still pending but the event loop has already resolved'

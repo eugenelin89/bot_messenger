@@ -1,0 +1,8 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/ask-service.test.ts(44,217): error TS2322: Type '{ publicId: string; workerId: string; workspace: string; eligibility: { workerId: string; topics: string[]; publicKnowledge: never[]; researchEnabled: boolean; fallbackOrder: number; enabled: boolean; }; }' is not assignable to type '{ publicId: string; workerId: string; workspace: string; eligibility: AskWorkerEligibility; }'.
+  The types of 'eligibility.topics' are incompatible between these types.
+    Type 'string[]' is not assignable to type '[string, ...string[]]'.
+      Source provides no match for required element at position 0 in target.

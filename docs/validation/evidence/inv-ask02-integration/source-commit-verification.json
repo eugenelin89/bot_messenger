@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-10-13T23:36:45.607823+00:00",
+  "sourceHead": "3f57754648340008f5eca5aea6ff8b2c6987bb2a",
+  "inventorySha256": "440db7dbc109fe7be59db54a8e035dc2722b873c27c7941238846f6fd56e7038",
+  "files": 443,
+  "mismatches": [],
+  "note": "The retained inventory was generated from the working tree before its implementation commit; its baseHead names the previous commit. Every inventoried byte has now also been compared with the committed implementation."
+}

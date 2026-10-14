@@ -1,0 +1,6 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+src/control/ask/service.ts(19,107): error TS7008: Member 'ContextRef' implicitly has an 'any' type.
+src/control/ask/service.ts(19,118): error TS7008: Member 'Source' implicitly has an 'any' type.

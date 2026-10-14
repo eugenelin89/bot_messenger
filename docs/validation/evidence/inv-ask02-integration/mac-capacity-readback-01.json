@@ -1,0 +1,29 @@
+{
+  "recordedAt": "2026-10-14T01:34:05.769698+00:00",
+  "readOnly": true,
+  "availableKiB": 13887948,
+  "belowProtected15GBFloor": true,
+  "taskEvidenceAllocatedKiB": 1328,
+  "pinnedReceiverArchiveAllocatedKiB": 1080,
+  "buildLocation": "isolated Linux botsquad staging",
+  "heavyLocalBuildsStartedByThisTask": 0,
+  "selectedProcessMatches": [
+    {
+      "pid": 93370,
+      "process": "Simulator.app",
+      "elapsed": "22:26:47"
+    }
+  ],
+  "selectedProcessPatterns": [
+    "xcodebuild",
+    "Simulator.app",
+    "tsc",
+    "next-server",
+    "vinext"
+  ],
+  "actions": "No process stopped, no unrelated files removed, no Motion build approval sent.",
+  "limitations": [
+    "Selected process-name scan does not attribute the disk decrease or exclude all other writers.",
+    "Motion status is counterpart-reported; no outgoing capacity approval was authorized by the automatic review."
+  ]
+}

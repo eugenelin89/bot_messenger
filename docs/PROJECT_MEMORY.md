@@ -1,7 +1,31 @@
 # BotSquad Project Memory and Continuation Handoff
 
-**Updated:** 2026-10-11
+**Updated:** 2026-10-13
 **Purpose:** Short repository-backed continuity record for a fresh chat, Codex task or interrupted planning session. This is not runtime employee memory or ChatGPT account-memory storage.
+
+## Current owner-authorized coordinated project
+
+Read [INV-REAL-01 operations](operations/INV-REAL-01.md) first. Older sections below are
+historical source/pilot handoffs, superseded where the current operation record says so.
+The owner authorized end-to-end investment/showcase/Ask implementation, reviewed releases
+when gates pass, direct coordination with the existing website chat and the existing hourly
+completion heartbeat. No manual prompt relay is needed. This does not permit brokerage,
+paid market data, credit purchases, reload changes or invented external/provider effects.
+
+Sole HQ writer is `bot_messenger-inv-real-01`, branch `codex/inv-real-01`, coordinating chat
+`01a13739-708a-7d62-9b9c-52c11ead5f4b`. Website chat
+`01a13487-f07f-7182-84ac-84abcfb07043` owns its checkout; prior HQ chat is read-only.
+Production HQ remains d262a8d/schema25, with the existing portfolio and finite October14–15
+schedule. Never rerun initial bootstrap or reset old authority/consumption. Actual sessions
+must occur at their genuine clocks; current initialization is not market performance.
+
+PR87 canonical configuration-read manifest is5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84.
+PR88 implements shared-employee Ask execution, signed coordination and receipt-backed public
+context; final Linux regression reconciliation passed. Source acceptance is distinct from HQ deployment and public activation. [Integration evidence](validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md)
+contains exact commits, authored TLS acceptance and retained failures. Concrete Codex public
+eligibility stays closed before network/admission. The actual ephemeral zero-turn probe does
+not prove anonymous-service entitlement, provider/host retention or genuine employee answers.
+Do not redo accepted PR85–87 or mistake private login for a public-service permit.
 
 ## Yahoo Finance — one-shot qualification handoff
 

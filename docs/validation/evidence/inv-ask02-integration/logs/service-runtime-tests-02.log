@@ -1,0 +1,89 @@
+✔ concrete production runtime refuses Ask before any RPC and ordinary run cannot bypass it (1110.95633ms)
+✔ shared supervisor uses one fresh ephemeral Ask thread and adapter-built exact proof (1107.223606ms)
+✔ Ask rejects persistent before model transmission (1092.513997ms)
+✔ Ask rejects disk-path before model transmission (1045.054922ms)
+✔ Ask rejects fork before model transmission (1030.716414ms)
+✔ Ask rejects wrong-model before model transmission (932.954149ms)
+✔ Ask rejects wrong-provider before model transmission (1084.174728ms)
+✔ Ask rejects runtime-forged private field binding (736.973455ms)
+✔ Ask rejects runtime-forged private field investment (711.826863ms)
+✔ Ask rejects runtime-forged private field prepareBinding (821.922692ms)
+✔ Ask rejects runtime-forged private field admitSubscription (733.251593ms)
+✔ Ask rejects runtime-forged private field task (805.587614ms)
+✔ Ask rejects runtime-forged private field request (729.493123ms)
+✔ Ask context and tools are snapshotted before awaited setup, and mismatched context never spawns (1896.071468ms)
+✔ Ask stops on account-change with no replacement turn (1172.436119ms)
+✔ Ask stops on native with no replacement turn (1575.529934ms)
+✔ Ask stops on tool with no replacement turn (1342.900117ms)
+✔ Ask stops on approval with no replacement turn (1298.98391ms)
+✔ Ask stops on rerouted with no replacement turn (1226.738795ms)
+✔ Ask stops on exit with no replacement turn (1107.897451ms)
+✔ pre-wire revocation cannot transmit and uncooperative callbacks have bounded cleanup (13118.668279ms)
+✔ shared Dispatcher routes an existing worker through distinct Ask origin and private outbox only (2877.436355ms)
+✔ ordinary owner work is admitted first and busy employees consume no Ask reservation (1302.740675ms)
+✔ duplicate immutable imports and one Ask slot cannot duplicate inference (1156.883136ms)
+✔ record provenance outranks general routing and withdrawn evidence suppresses pending output (1422.101335ms)
+✔ confirmed private answer supplies only the same visitor follow-up history (1716.303807ms)
+✔ uncertain execution blocks replacement inference and shared worker work after recovery (1007.120156ms)
+✔ complete usage over the monitored threshold is retained and permanently holds new Ask work (1101.943127ms)
+✔ cancel/delete controls suppress a late confirmed answer without poisoning known provider settlement (985.490419ms)
+✔ foreign and mixed execution ownership is rejected by the migrated database (1012.031373ms)
+✔ prior-turn cancellation between reservation and transmission removes cached visitor history (1469.82691ms)
+✔ withdrawal of uncited supplied evidence blocks reuse of the historical answer (1187.754341ms)
+✖ Ask content custody failure holds only Ask and does not pause unrelated owner dispatch (4618.866853ms)
+✖ reopened stores preserve provider certainty at after-settlement crash window (1484.386171ms)
+✖ reopened stores preserve provider certainty at after-answer crash window (1435.5759ms)
+✔ older mutually consistent authority files cannot erase newer Company consumption (1236.047463ms)
+✔ answer storage failure retains known provider settlement behind an Ask reconciliation hold (1040.111414ms)
+✔ lifecycle wakeups cover duty cooldown and executed content metadata can retire independently (1646.109341ms)
+✔ Ask and a different ordinary employee share two database execution slots (965.110103ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 36
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64102.034918
+
+✖ failing tests:
+
+test at dist/test/ask-service.test.js:290:1
+✖ Ask content custody failure holds only Ask and does not pause unrelated owner dispatch (4618.866853ms)
+  Error: Test condition timed out
+      at until (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/helpers.js:16:19)
+      at async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-service.test.js:296:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at dist/test/ask-service.test.js:302:5
+✖ reopened stores preserve provider certainty at after-settlement crash window (1484.386171ms)
+  Error: FORBIDDEN
+      at requireContract (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/scripts/investment-contracts/schema.js:25:15)
+      at privatePath (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:33:5)
+      at file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:93:30
+      at privateContentError (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:23:16)
+      at new AskContentStore (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:62:24)
+      at file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/ask/private-content.js:40:29
+      at privateContentError (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:23:16)
+      at new AskPrivateContent (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/ask/private-content.js:31:24)
+      at Object.reopen (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-service.test.js:103:23)
+      at async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-service.test.js:313:9) {
+    code: 'FORBIDDEN'
+  }
+
+test at dist/test/ask-service.test.js:302:5
+✖ reopened stores preserve provider certainty at after-answer crash window (1435.5759ms)
+  Error: FORBIDDEN
+      at requireContract (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/scripts/investment-contracts/schema.js:25:15)
+      at privatePath (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:33:5)
+      at file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:93:30
+      at privateContentError (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:23:16)
+      at new AskContentStore (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:62:24)
+      at file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/ask/private-content.js:40:29
+      at privateContentError (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/persistence/ask-content-store.js:23:16)
+      at new AskPrivateContent (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/src/control/ask/private-content.js:31:24)
+      at Object.reopen (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-service.test.js:103:23)
+      at async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/ask-service.test.js:313:9) {
+    code: 'FORBIDDEN'
+  }
