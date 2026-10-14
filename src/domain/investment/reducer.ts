@@ -1,11 +1,12 @@
 import { add, checked, decimal, ensure, format, nonnegative, positive, rational, rounded, SCALE, SimulationError, wholeShares } from './arithmetic.js';
 import { assertBalanced, assertBook, emptyBook, guardedCost, position, posting, release, reserve, trade } from './accounting.js';
 import { canonical, exact, hash, id, identity, integer, time } from './identity.js';
-import { deadline, expiry, instrument, nextSession, opening, session, validateObservation } from './policy.js';
+import { closeAmendment, closing, deadline, expiry, instrument, nextSession, opening, session, validateObservation } from './policy.js';
 import { bookValue, concentration, latestValuations, historicalState, valuePortfolio } from './valuation.js';
 import type { Command, Configuration, CorporateAction, Order, Outcome, Posting, State } from './types.js';
 const ZERO = '0.000000';
 const keys: Record<Command['type'], string[]> = {
+  late_close_adopt:['type','amendment','expectedHead'], benchmark_close:['type','session','amendmentId'],
   initialize:['type'], decision:['type','proposal'], review:['type','review'], observe:['type','observation'],
   submit:['type','decisionId','revision','orderIndex','expectedVersion','reviewId'], fill:['type','orderId'], cancel:['type','orderId'], expire:['type','orderId'],
   control:['type','state'], action:['type','action'], dividend_payment:['type','actionId'], benchmark_defer:['type','fromSession','toSession','sourceWindowAt'], benchmark_open:['type','session'], value:['type','session','asOf'], revise_valuations:['type','correctionId'],
@@ -32,7 +33,7 @@ function risk(c: Configuration, state: State, o: Order, at: string, executedPric
   ensure(!state.blocked[o.instrumentId], 'instrument_blocked'); ensure(instrument(c,o.instrumentId).sector, 'unknown_sector');
   ensure(!state.entitlements.some(e=>e.book==='portfolio' && e.fraction !== null), 'unresolved_entitlement');
   const quantity = wholeShares(o.quantity), p = position(state.portfolio,o.instrumentId);
-  const effective = executedPrice === undefined ? at : session(c.calendar,o.targetSession).open;
+  const effective = executedPrice === undefined ? at : (closeAmendment(state,o.executionAmendment)?session(c.calendar,o.targetSession).close:session(c.calendar,o.targetSession).open);
   const view = bookValue(c,state,state.portfolio,'portfolio',effective,at,executedPrice === undefined ? undefined : o.targetSession);
   if(c.methodology!=='inv-real-open-v1')ensure(view.equity !== null, 'risk_marks_unavailable');
   if (o.side === 'BUY') {
@@ -76,16 +77,26 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       for (const book of ['portfolio','benchmark'] as const) { posting(state,entries,book,'cash',positive(c.initialCapital)); posting(state,entries,book,'capital',positive(c.initialCapital)); }
       break;
     }
+    case 'late_close_adopt': {
+      const a=command.amendment;exact(a,['id','session','cutoffAt','expiresAt','ownerReceiptHash']);id(a.id);
+      ensure(c.methodology==='inv-real-open-v1'&&!state.lateClose&&state.lifecycle!=='ended'&&command.expectedHead===state.hash,'late_close_exact_initial_recovery');
+      ensure(/^[a-f0-9]{64}$/.test(a.ownerReceiptHash),'late_close_owner_receipt');
+      const s=session(c.calendar,a.session);
+      ensure(s.status==='open'&&time(at)>time(s.open)&&time(at)<time(a.cutoffAt)&&time(a.cutoffAt)===time(s.close)-c.cutoffMinutes*60000&&time(a.expiresAt)>time(s.close)&&time(a.expiresAt)<=time(expiry(c,s)),'late_close_must_be_prospective');
+      ensure(Object.keys(state.decisions).length===0&&Object.keys(state.orders).length===0&&state.benchmarkExecutions.length===0&&state.benchmarkNextOpen===a.session&&state.benchmarkFunding.length===1&&!state.benchmarkFunding[0]!.used,'late_close_uncommitted_book_only');
+      state.lateClose={...a,recordedAt:at};break;
+    }
     case 'decision': {
       running(c,state,at); const p = command.proposal;
-      exact(p,['decisionId','revision','author','action','evidenceCutoff','evidence','rationale','orders']); id(p.decisionId); integer(p.revision,1,1_000_000);
+      exact(p,['decisionId','revision','author','action','evidenceCutoff','evidence','rationale','orders',...(p.executionAmendment!==undefined?['executionAmendment']:[])]); id(p.decisionId); integer(p.revision,1,1_000_000);
       ensure(c.authorization.authors.includes(p.author),'unauthorized_author'); ensure(['BUY','SELL','HOLD'].includes(p.action),'invalid_decision');
       ensure(time(p.evidenceCutoff) <= time(at) && time(p.evidenceCutoff) >= time(c.startsAt),'invalid_evidence_cutoff');
       ensure(typeof p.rationale === 'string' && p.rationale.length > 0 && p.rationale.length <= 8000,'invalid_rationale');
       ensure(Array.isArray(p.evidence) && p.evidence.length <= 30,'invalid_evidence');
       for (const e of p.evidence) { exact(e,['id','availableAt']); id(e.id); const source=state.observations.find(o=>o.id===e.id); ensure(source && source.quality==='verified' && source.availableAt===e.availableAt,'missing_evidence_reference'); ensure(time(e.availableAt) <= time(p.evidenceCutoff) && time(source.retrievedAt)<=time(p.evidenceCutoff),'lookahead_evidence'); }
       ensure(Array.isArray(p.orders) && p.orders.length <= 20 && (p.action === 'HOLD' ? p.orders.length === 0 : p.orders.length > 0),'invalid_decision_orders');
-      const target = nextSession(c,at);
+      const amended=closeAmendment(state,p.executionAmendment);if(amended)ensure(time(at)<time(amended.cutoffAt)&&time(at)>=time(amended.recordedAt),'commitment_cutoff');
+      const target = amended?session(c.calendar,amended.session):nextSession(c,at);
       for (const o of p.orders) {
         exact(o,['instrumentId','side','quantity','priceGuard','targetSession']); instrument(c,o.instrumentId); wholeShares(o.quantity); positive(o.priceGuard);
         ensure(o.side === p.action,'decision_side_mismatch'); ensure(target && o.targetSession === target.date,'ineligible_target_session');
@@ -105,6 +116,7 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       ensure(c.authorization.reviewers.includes(r.reviewer) && r.reviewer !== d.author,'independent_reviewer_required');
       ensure(r.proposalHash === d.hash && time(r.reviewedAt) === time(at) && time(at) >= time(d.committedAt),'review_mismatch');
       ensure(r.disposition === 'approve' || r.disposition === 'reject','invalid_disposition'); ensure(!state.reviews[r.id],'duplicate_review');
+      const amendment=closeAmendment(state,d.executionAmendment);if(amendment)ensure(time(at)<time(amendment.cutoffAt),'review_cutoff');
       state.reviews[r.id] = r; break;
     }
     case 'observe': {
@@ -123,9 +135,9 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       const d = state.decisions[`${command.decisionId}:${command.revision}`]; ensure(d,'missing_decision');
       ensure(d.action !== 'HOLD','hold_has_no_order'); const intent = d.orders[command.orderIndex]; ensure(intent,'missing_order_index');
       const orderId = identity('order',c.runId,d.decisionId,d.revision,command.orderIndex); ensure(!state.orders[orderId],'duplicate_order');
-      const target = session(c.calendar,intent.targetSession);
+      const target = session(c.calendar,intent.targetSession),amendment=closeAmendment(state,d.executionAmendment);
       const o: Order = {id:orderId,decisionId:d.decisionId,decisionRevision:d.revision,orderIndex:command.orderIndex,proposalHash:d.hash,...intent,
-        committedAt:at,deadline:deadline(c,target),expiresAt:expiry(c,target),expectedVersion:command.expectedVersion,reservedCash:ZERO,reservedShares:ZERO,status:'proposed',reason:null,transitions:[{status:'proposed',at,reason:null}]};
+        ...(amendment?{executionAmendment:amendment.id}:{}),committedAt:at,deadline:amendment?.cutoffAt??deadline(c,target),expiresAt:amendment?.expiresAt??expiry(c,target),expectedVersion:command.expectedVersion,reservedCash:ZERO,reservedShares:ZERO,status:'proposed',reason:null,transitions:[{status:'proposed',at,reason:null}]};
       state.orders[orderId] = o; outcome.orderId = orderId;
       try {
         ensure(state.ordersUsed < c.authorization.maxOrders,'operation_budget_exhausted'); state.ordersUsed++;
@@ -152,10 +164,10 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       else if (time(at) >= time(o.expiresAt)) transition(state,o,'expired',at,'opening_wait_expired');
       else if (command.type === 'expire') { outcome.status = 'pending'; outcome.reason = 'not_expired'; break; }
       else {
-        const observation = opening(c,state.observations,o.instrumentId,o.targetSession,at);
-        if (!observation) { outcome.status = 'data_blocked'; outcome.reason = 'opening_unavailable'; break; }
+        const observation = o.executionAmendment?closing(c,state,o.instrumentId,o.targetSession,at,o.executionAmendment):opening(c,state.observations,o.instrumentId,o.targetSession,at);
+        if (!observation) { outcome.status = 'data_blocked'; outcome.reason = o.executionAmendment?'closing_unavailable':'opening_unavailable'; break; }
         // A known correction makes the original unsafe for a still-unfilled order. Never select its replacement.
-        if (state.observations.some(x=>x.correctionOf===observation.id)) { outcome.status = 'data_blocked'; outcome.reason = 'opening_corrected'; break; }
+        if (state.observations.some(x=>x.correctionOf===observation.id)) { outcome.status = 'data_blocked'; outcome.reason = o.executionAmendment?'closing_corrected':'opening_corrected'; break; }
         const price = rounded(positive(observation.value)*(10_000n+(o.side==='BUY'?1n:-1n)*BigInt(c.slippageBps)),10_000n).value;
         try {
           ensure(o.side==='BUY' ? price<=positive(o.priceGuard) : price>=positive(o.priceGuard),'price_guard');
@@ -164,7 +176,12 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
           risk(c,state,o,at,price);
           const probe=structuredClone(state);release(probe,o.id);trade(probe,c,[],'portfolio',o.instrumentId,o.side,wholeShares(o.quantity),observation,o.id);
           if(o.side==='BUY') {const after=concentration(c,probe,observation.marketAt,at,o.targetSession,o.id);ensure(after.reasons.length===0,after.reasons[0]??'risk_blocked');}
-        } catch (error) { if (!(error instanceof SimulationError)) throw error; transition(state,o,'rejected',at,error.code); outcome.status=o.status; outcome.reason=o.reason; break; }
+        } catch (error) { if (!(error instanceof SimulationError)) throw error;
+          // The already-locked close limit may reject at the same economic instant as a
+          // delayed fill. Preserve the actual processing time and only use this narrow
+          // first-mark convention when no later state or saved valuation is displaced.
+          if(o.executionAmendment&&error.code==='price_guard'&&time(input.economicAsOf)<=time(observation.marketAt)&&!latestValuations(input).some(v=>time(v.snapshot.asOf)>=time(observation.marketAt)))o.closingResolution={observationId:observation.id,effectiveAt:observation.marketAt,recordedAt:at};
+          transition(state,o,'rejected',at,error.code); outcome.status=o.status; outcome.reason=o.reason; break; }
         release(state,o.id);
         outcome.fills.push(trade(state,c,entries,'portfolio',o.instrumentId,o.side,wholeShares(o.quantity),observation,o.id));
         transition(state,o,'filled',at,null);
@@ -237,10 +254,11 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       state.benchmarkFunding[0]!.session=command.toSession;state.benchmarkNextOpen=command.toSession;
       (state.benchmarkDeferrals??=[]).push({fromSession:command.fromSession,toSession:command.toSession,recordedAt:at});break;
     }
-    case 'benchmark_open': {
+    case 'benchmark_open': case 'benchmark_close': {
       running(c,state,at); ensure(state.benchmarkNextOpen===command.session,'benchmark_not_due');
       ensure(!state.blocked[c.benchmark.instrument.id] && !state.entitlements.some(e=>e.book==='benchmark' && e.fraction!==null),'benchmark_blocked');
-      const o=opening(c,state.observations,c.benchmark.instrument.id,command.session,at);
+      if(command.type==='benchmark_open')ensure(state.lateClose?.session!==command.session,'amended_benchmark_requires_close');
+      const o=command.type==='benchmark_close'?closing(c,state,c.benchmark.instrument.id,command.session,at,command.amendmentId):opening(c,state.observations,c.benchmark.instrument.id,command.session,at);
       if(!o || state.observations.some(x=>x.correctionOf===o.id)) { outcome.status='data_blocked'; outcome.reason='benchmark_opening_unavailable'; break; }
       ensure(!state.actions.some(a=>a.instrumentId===c.benchmark.instrument.id && time(a.effectiveAt)>time(o.marketAt)) && !state.financialTimes.some(f=>f.instrumentId===c.benchmark.instrument.id && time(f.at)>time(o.marketAt)),'out_of_order_benchmark_fill');
       const futureFunding=state.benchmarkFunding.filter(x=>!x.used && x.session!==command.session).reduce((sum,x)=>add(sum,decimal(x.amount)),0n);
@@ -248,7 +266,7 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
       while(quantity>0n && rounded(quantity*price,SCALE).value>cash) quantity--;
       if(quantity>0n && rounded(quantity*price,SCALE).value>0n) outcome.fills.push(trade(state,c,entries,'benchmark',c.benchmark.instrument.id,'BUY',quantity,o,null));
       for(const funding of state.benchmarkFunding) if(funding.session===command.session) funding.used=true;
-      state.benchmarkExecutions.push({session:command.session,effectiveAt:o.marketAt});
+      state.benchmarkExecutions.push({session:command.session,effectiveAt:o.marketAt,...(command.type==='benchmark_close'?{closeAllocation:{amendmentId:command.amendmentId,observationId:o.id,units:state.benchmark.positions[c.benchmark.instrument.id]?.quantity??ZERO,cash:state.benchmark.cash,recordedAt:at}}:{})});
       state.benchmarkNextOpen=state.benchmarkFunding.filter(x=>!x.used && x.session!==null).map(x=>x.session!).sort()[0] ?? null; break;
     }
     case 'value': {
@@ -277,10 +295,11 @@ export function reduce(c: Configuration, input: State, command: Command, at: str
   }
   // A first-time historical mark cannot reuse present reservations or present uncertainty.
   // Existing historical records have their own saved orders and dated block reconstruction.
-  if(!entries.length && (canonical(state.orders)!==canonical(input.orders) || canonical(state.blocked)!==canonical(input.blocked)) && time(at)>time(state.economicAsOf)) state.economicAsOf=at;
-  if(command.type==='action' || command.type==='dividend_payment' || entries.length || (command.type==='benchmark_open' && outcome.status==='accepted')) {
+  const resolutionAt=command.type==='fill'&&state.orders[command.orderId]?.closingResolution?.recordedAt===at&&input.orders[command.orderId]?.status==='pending'?state.orders[command.orderId]!.closingResolution!.effectiveAt:at;
+  if(!entries.length && (canonical(state.orders)!==canonical(input.orders) || canonical(state.blocked)!==canonical(input.blocked)) && time(resolutionAt)>time(state.economicAsOf)) state.economicAsOf=resolutionAt;
+  if(command.type==='action' || command.type==='dividend_payment' || entries.length || (['benchmark_open','benchmark_close'].includes(command.type) && outcome.status==='accepted')) {
     if(command.type==='action' && outcome.status==='blocked') state.blockEvents.push({instrumentId:command.action.instrumentId,reason:outcome.reason!,effectiveAt:command.action.effectiveAt});
-    const effectiveAt=command.type==='action' ? command.action.effectiveAt : command.type==='dividend_payment' ? state.actions.find(a=>a.id===command.actionId)!.paymentAt! : outcome.fills[0]?.effectiveAt ?? (command.type==='benchmark_open'?session(c.calendar,command.session).open:at);
+    const effectiveAt=command.type==='action' ? command.action.effectiveAt : command.type==='dividend_payment' ? state.actions.find(a=>a.id===command.actionId)!.paymentAt! : outcome.fills[0]?.effectiveAt ?? (command.type==='benchmark_open'?session(c.calendar,command.session).open:command.type==='benchmark_close'?session(c.calendar,command.session).close:at);
     for(const old of latestValuations(state).filter(v=>time(v.snapshot.asOf)>=time(effectiveAt))) {
       const historical=historicalState(c,state,old);
       const revision=valuePortfolio(c,historical,old.snapshot.session,old.snapshot.asOf,at,old.snapshot.sequence,old.snapshot);

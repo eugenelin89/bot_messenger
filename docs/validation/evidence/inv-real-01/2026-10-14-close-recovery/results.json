@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-10-14T15:52:41.389949+00:00",
+  "kind": "Authored offline source validation; no real provider/market calls",
+  "sourceInputs": {
+    "files": 483,
+    "mismatches": 0
+  },
+  "canonicalManifestSha256": "ff9c457580475583614541b76d9f0267ac2a15afff0f87f955acdff5f063e081",
+  "build": {
+    "runtime": "Node24.21.0 Linux",
+    "exitCode": 0
+  },
+  "contract": {
+    "exitCode": 0
+  },
+  "fullFlows": {
+    "runtime": "Node24.21.0 Linux",
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "durationMs": 552961.739129,
+    "caseTimeoutMs": 600000,
+    "fileTimeoutSeconds": 1260,
+    "stageTimeoutMs": 60000
+  },
+  "regression": {
+    "runtime": "Node24.21.0 Linux",
+    "files": 32,
+    "tests": 645,
+    "pass": 640,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 5,
+    "exitCode": 0,
+    "durationMs": 976904.751774
+  },
+  "conditionalReceiver": {
+    "runtime": "Node22.23.1 Linux (receiver native runtime; not HQ runtime acceptance)",
+    "root": "/var/tmp/asymmetri-close-recovery-20261014/receiver",
+    "artifactSha256": "ff9a82c9f0c75b9c32f69f501fdeccea95fcdfb296997d5098bab4183b56112f",
+    "pass": 5,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "durationMs": 41861.716076
+  },
+  "noWholeSuiteOrGithubCIClaim": true,
+  "deployment": false,
+  "newAuthority": false,
+  "genuineAcceptance": false
+}

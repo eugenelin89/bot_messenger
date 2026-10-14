@@ -1,3 +1,4 @@
+import {previewObservedRecovery,consentObservedRecovery,activateObservedRecovery,type ObservedRecovery} from './observed-recovery.js';
 import {decimal,format,multiply,divideEven,SCALE} from '../../domain/investment/arithmetic.js';
 import {randomUUID} from 'node:crypto';
 import type {Company} from '../company.js';
@@ -25,11 +26,14 @@ export interface ObservedInput {
  policy:FiniteHQPolicy;aiProfile:FiniteAIProfile;researchMinutes:number;maxProposals:number;maxOrders:number;retainUntil:string;
  collectionApproved:true;modelProcessingApproved:true;persistentRetentionApproved:true;
 }
-interface Saved {benchmarkDeferral?:{fromSession:string;toSession:string;sourceWindowAt:string;notice:string};input:ObservedInput;configuration:Configuration;source:{policy:SourcePolicy;calendar:CalendarEvidence;instruments:InstrumentIdentity[];requests:FinancialRequest[]};expiresAt:string;retainUntil:string}
+export interface Saved {recovery?:ObservedRecovery;benchmarkDeferral?:{fromSession:string;toSession:string;sourceWindowAt:string;notice:string};input:ObservedInput;configuration:Configuration;source:{policy:SourcePolicy;calendar:CalendarEvidence;instruments:InstrumentIdentity[];requests:FinancialRequest[]};expiresAt:string;retainUntil:string}
 interface Evidence {evidence_id:string;content:string;content_hash:string;qualification:string;retrieved_at:string}
 /** One persistent book, renewed finite scopes, the existing HQ scheduler and the reviewed gateway. */
 export class ObservedInvestment {
  constructor(readonly company:Company){}
+ previewRecovery(input:unknown){return previewObservedRecovery(this.company,input);}
+ consentRecovery(input:unknown){return consentObservedRecovery(this.company,input);}
+ activateRecovery(scopeId:string,receiptId:string){return activateObservedRecovery(this.company,scopeId,receiptId);}
  private active=new Map<string,{controller:AbortController;done:Promise<void>}>();
  fixture?:{adapter:YahooAdapter;transport:YahooTransport;afterCollection?:()=>void};
  private get db(){return this.company.store;}

@@ -2,13 +2,13 @@
   "contractVersion": "1.0",
   "format": "JSON Schema 2020-12 + OpenAPI 3.1",
   "files": {
-    "PROTOCOL.md": "3ddfbc24379b44530094ad290c7e302706d0c8a90d1a3a53804a205cf73ca8ea",
+    "PROTOCOL.md": "fb53f5fbf3a84e41e78ec5d28a2dbeddeb204d19820c544aefb338d91939ad06",
     "catalogue.json": "9182aa560f3df9cf54326f704a152d5550c27e89286fabb6f2397d59d7860370",
     "golden.json": "9e314c6ba6232413dc58107203338aa00be817392689be44417f5d3d0b6d3987",
     "openapi.json": "3fa11e8ae4b6a9d5c21c71f1a1ac87b34fa619c585620479f4db378391dcb0d4",
     "responses.json": "0549e853a0a3e205c53ae0bcf0e17f9267470f5f74bee2d4487a6df421b4b19f",
-    "schema.json": "6ca518dfcd9542524c3e3884464d2470595e26a5cfc33ced064913f5fdef5ef2",
+    "schema.json": "ce046ccd29150ad38531320c5717a1b231e6a27a88640def21e07eeff52acf2e",
     "signature-vector.json": "7a4282ece533136331f9abde0f795c357ca0ecb975255857ddc194a009b396da",
-    "types.d.ts": "3bb6c868a8d41d14ed1658194ac992b6b05f082286203693391995225e847894"
+    "types.d.ts": "a0fe5a99a894a46caa07647f2b4495da1683ecc5b75a2aea995b32ad7bff52aa"
   }
 }

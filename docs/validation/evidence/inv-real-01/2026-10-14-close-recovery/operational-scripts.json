@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-14T15:25:22.629928+00:00",
+  "kind": "Prepared operational scripts; not execution evidence",
+  "files": [
+    {
+      "name": "botsquad-investment-late-close-deploy.sh",
+      "sha256": "613c41622ad8c618174c40a5948f1531dcefe7fd92e1c2f2a35baed686f22b58",
+      "bytes": 8370,
+      "syntaxChecked": true
+    },
+    {
+      "name": "botsquad-investment-late-close-postdeploy.py",
+      "sha256": "b6fdd8bf037d3ec41a637e4ea07fc192172818961e3680c51630ef4242ca8014",
+      "bytes": 5834,
+      "syntaxChecked": true
+    },
+    {
+      "name": "botsquad-investment-recovery-control.py",
+      "sha256": "8db1d4ab7f59407e6f602ea328957795baf71b4c8a3c5e1af706327dcb9c427a",
+      "bytes": 4063,
+      "syntaxChecked": true
+    },
+    {
+      "name": "botsquad-investment-selector-restart.sh",
+      "sha256": "1645827de286ffb3596e260f080da2157a322280a6cd98898708764840287191",
+      "bytes": 8919,
+      "syntaxChecked": true
+    },
+    {
+      "name": "botsquad-investment-selector-postdeploy.py",
+      "sha256": "18c7a86b8365969b02108207f675eaa13384e1699e367c04dacb665d4ff5a9e7",
+      "bytes": 5980,
+      "syntaxChecked": true
+    },
+    {
+      "name": "botsquad-recovery-live-readback.py",
+      "sha256": "fec0d0fe9b0bf44a32a7c2e00ae8987c20fce564e2a6fcd80e4f880a8933dcf9",
+      "bytes": 2537,
+      "syntaxChecked": true
+    }
+  ],
+  "deployed": false,
+  "activated": false
+}

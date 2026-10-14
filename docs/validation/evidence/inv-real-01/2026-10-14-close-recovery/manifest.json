@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "sourceInputs": "source-inputs.json",
+  "canonicalManifestSha256": "ff9c457580475583614541b76d9f0267ac2a15afff0f87f955acdff5f063e081",
+  "files": {
+    "consumer-interop.json": "ee89ac763d4c0815f5e9f39ec6d87b36a9d5b40b8b1bde76a72c2e445ca9e117",
+    "diagnostic-logs.json": "7557e0284b7e7109366133acfae7125337bbe670e3789e942245f52f922be22b",
+    "operational-scripts.json": "06896de086d03b15fa83edb7b6a0f23bfd9bbccb83b804166095a299af0d45e3",
+    "producer-filled.json": "e4fc4f9d4a983207bfbc58cc9b6bf04767e5649be17c70e028dd4b8b45ed3a61",
+    "producer-rejected.json": "459b4cb753868b6fd52298f9651089013767c2ef4ceb7c21415ff908300ebf93",
+    "results.json": "5a92ae0eecebeeaa5a12e598a8560bbb245b529370ddf9b7c49c1758d5a62916",
+    "retained-packet-and-ordering.json": "c8bd7a635ccd79b4f72fb53791573fde40e18c224f179d78cf57dd9877a88afc",
+    "reviews.json": "2e5fdd52c101d7918d861ead6fb86175c35edf0fb74cd81e69690c3f5a26d43d",
+    "source-inputs.json": "dbffcf2e52b0e858b4527ceba0549f6226a17262773fa2eb93d637ebb1bff41c"
+  },
+  "claims": "Authored source and consumer integration validation only. Earlier failures retained; no live deployment, successor, genuine model decision or paper fill claimed."
+}

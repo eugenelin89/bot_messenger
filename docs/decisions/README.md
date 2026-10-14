@@ -202,3 +202,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision050 — Ask subscription activity limits](decision_050_ask_subscription_activity_limits.md): accepted explicit monitored-threshold/unknown-cost mode preserving strict variants, with durable cross-grant threshold holds; bounded source and pinned candidate consumer review pass, operational integration remains separate.
 
 - [Decision051 — Separate Ask API route and closed launch](decision_051_ask_api_launch.md): pinned stateless public-question adapter, independent priced custody and pause, privacy cleanup after expiry, and one-use same-generation clean restart. Implementation/deployment are authorized; API expense and genuine acceptance remain pending.
+
+- [Decision052 — Retained research and prospective close recovery](decision_052_retained_research_close_recovery.md): explicit owner request for today's new decision and paper trade, one exact historical-usage exception, preserved consumption and prospective regular CLOSE; technical release evidence required. ASK stays paused.

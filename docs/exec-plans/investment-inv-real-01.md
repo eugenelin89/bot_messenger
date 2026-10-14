@@ -1,5 +1,10 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
+## Owner-requested same-day prospective close recovery — October14
+
+The owner subsequently clarified ASK-only pause, requested investment running, reuse of today's retained data, and explicitly requested paper trading. [Decision052](../decisions/decision_052_retained_research_close_recovery.md) and the [active recovery plan](investment-late-close-recovery.md) supersede the earlier unapproved October15-only proposal. Implementation/review is in progress; no successor authority, new decision or fill is claimed yet. ASK stays paused.
+
+
 ## Owner-requested prevention deployment — October14,13:43UTC
 
 PR93 merged at108d65a and is now deployed at that exact commit/schema29/PID840259, runtime ready. The owner's request to apply the fix was fulfilled using the tested stage and existing live-instance publication handoff; independent review and actual preservation/readback passed. All180 unaffected Company tables, portfolio head, original occurrences, four spent model attempts and nine collections are preserved. Startup appended only one finite recovery hold (55→56), no resume. Publication generation1/current source6/journal1 reconciled, with independent website acknowledgment. The6:00a.m.Vancouver research cutoff had already passed; no morning trade or recovery exception was enacted. [Current handoff](../operations/INV-REAL-01.md#prevention-fix-deployed-missed-morning-retained--october14-643-am-vancouver) and [evidence](../validation/evidence/inv-real-01/2026-10-14-prevention-deployment/manifest.json) supersede earlier source-only status. No completed tests were rerun.
@@ -20,7 +25,7 @@ At13:07UTC, the source repair has passed build,311 focused non-observed checks a
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Prevention fix deployed and preservation verified at13:43UTC. The actual loop remains held after four settled turns, the fourth lacking authoritative usage. No operational recovery ETA is promised because the specific prospective October15 exception remains unapproved/unimplemented. The existing authority expires October15 at23:40UTC. Ask remains owner-paused.
+**Current ETA:** See the active same-day recovery plan above. Original prevention deployment and retained telemetry gap remain factual; subsequent owner direction authorizes a bounded new decision and prospective closing-price paper order, subject to technical validation. The existing authority expires October15 at23:40UTC. Ask remains owner-paused.
 
 ## October14 first actual collection checkpoint
 
