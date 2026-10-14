@@ -1,0 +1,54 @@
+(node:63034) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ rolling start waits within frozen window, then four turns create a new HOLD outcome (3170.229875ms)
+✔ rolling start waits within frozen window, then four turns create a new BUY outcome (3147.1015ms)
+✔ rolling start waits within frozen window, then four turns create a new reject outcome (3103.45225ms)
+✔ capacity beyond cutoff waits to expiry and becomes missed without new requests (1250.851959ms)
+✔ unknown outcome never becomes a rolling wait (1150.531125ms)
+✔ permanent family exhaustion blocks before a temporary rolling shortage (1156.190084ms)
+✔ fresh draft waits without partial openings and starts both exactly once (201.015542ms)
+✖ rolling retry rechecks membership withdrawal (1127.254833ms)
+✖ rolling retry rechecks sharing withdrawal (1114.864333ms)
+✔ active progression cannot convert rolling exhaustion into a pending retry (196.594334ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 8
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15780.845791
+
+✖ failing tests:
+
+test at dist/test/finite-rolling-start.test.js:154:5
+✖ rolling retry rechecks membership withdrawal (1127.254833ms)
+  Error: no such column: participant_id
+      at Store.run (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/src/persistence/store.js:360:42)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/test/finite-rolling-start.test.js:159:21)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }
+
+test at dist/test/finite-rolling-start.test.js:154:5
+✖ rolling retry rechecks sharing withdrawal (1114.864333ms)
+  Error: table audit_events has no column named actor_id
+      at Store.run (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/src/persistence/store.js:360:42)
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/test/finite-rolling-start.test.js:161:21)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }

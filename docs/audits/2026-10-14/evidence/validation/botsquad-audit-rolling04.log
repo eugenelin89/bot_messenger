@@ -1,0 +1,20 @@
+(node:63205) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ rolling start waits within frozen window, then four turns create a new HOLD outcome (3033.562542ms)
+✔ rolling start waits within frozen window, then four turns create a new BUY outcome (3014.289375ms)
+✔ rolling start waits within frozen window, then four turns create a new reject outcome (2946.553375ms)
+✔ capacity beyond cutoff waits to expiry and becomes missed without new requests (1101.691583ms)
+✔ unknown outcome never becomes a rolling wait (1092.494875ms)
+✔ permanent family exhaustion blocks before a temporary rolling shortage (1104.184125ms)
+✔ fresh draft waits without partial openings and starts both exactly once (200.034875ms)
+✔ rolling retry rechecks membership withdrawal (1099.001625ms)
+✔ rolling retry rechecks sharing withdrawal (1100.806625ms)
+✔ active progression cannot convert rolling exhaustion into a pending retry (191.90325ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15036.913

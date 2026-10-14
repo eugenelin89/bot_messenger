@@ -1,0 +1,84 @@
+{
+  "capturedAt": "2026-10-14T19:41:35.156810+00:00",
+  "evidenceKind": "Authored local tests only; no genuine provider or market calls",
+  "node": "24.10.0",
+  "python": "3.12.12",
+  "yfinance": "1.7.0",
+  "logs": [
+    {
+      "path": "botsquad-audit-build02.log",
+      "bytes": 496,
+      "sha256": "d29ef6730f05477d662712754da768a0caa0f614e0801123ec599067177d9fa9"
+    },
+    {
+      "path": "botsquad-audit-build03.log",
+      "bytes": 31,
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "botsquad-audit-build04.log",
+      "bytes": 31,
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "botsquad-audit-build05.log",
+      "bytes": 31,
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "botsquad-audit-build06.log",
+      "bytes": 31,
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "botsquad-audit-build07.log",
+      "bytes": 31,
+      "sha256": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047"
+    },
+    {
+      "path": "botsquad-audit-rolling01.log",
+      "bytes": 3878,
+      "sha256": "386898e3169dedaa7b180f21b0d156fbc42b24d47234fd693e93e8fb8c8c7be5"
+    },
+    {
+      "path": "botsquad-audit-rolling02.log",
+      "bytes": 851,
+      "sha256": "53d39b00c887c6e54ce70100f438239f5792c82c084c1ba9b85cefbdfdd66390"
+    },
+    {
+      "path": "botsquad-audit-rolling03.log",
+      "bytes": 3105,
+      "sha256": "65ca4d03b5364f40e90ad98fad04df7c4cbc0b4a7edbcd88512b396cd8f5e22e"
+    },
+    {
+      "path": "botsquad-audit-rolling04.log",
+      "bytes": 1163,
+      "sha256": "cded64e18efa3e1c7af7ea4253b233385a9c690c8ac9891cc3536dc825110b56"
+    },
+    {
+      "path": "botsquad-audit-regressions01.log",
+      "bytes": 54023,
+      "sha256": "ab52192510f36a9466b1ded782d4c589ca59666575027926d545219507a75d11"
+    },
+    {
+      "path": "botsquad-audit-http02.log",
+      "bytes": 407,
+      "sha256": "4a6a9cf183a0cec2661b97b9afbcdbebf7072dd920aab155d842c6ee16b7198f"
+    },
+    {
+      "path": "botsquad-audit-telemetry02.log",
+      "bytes": 1829,
+      "sha256": "58f08aabc877d688323d6fa88fa5cc07b561492b437d8b28f0c191095afb25ae"
+    },
+    {
+      "path": "botsquad-audit-observed01.log",
+      "bytes": 402,
+      "sha256": "8c933665463b6726c1946053dd4027b02a9bd6d6874fb7aca41b1f80a9ab001e"
+    },
+    {
+      "path": "botsquad-audit-contracts.log",
+      "bytes": 140,
+      "sha256": "d918d028251e4d2b5ef144341ceffc8155f5baf1eda87fdbcbe040dd282085f5"
+    }
+  ]
+}

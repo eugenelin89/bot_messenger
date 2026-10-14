@@ -25,8 +25,8 @@ export function finiteFixture(t?:Pick<TestContext,'mock'>){
  const authorize=(result:ReturnType<typeof consent>,approvedAccount={accountFingerprint:hash('fake-private-account'),routingFingerprint:hash('fake-official-route')})=>{const dir=join(f.company.dataDir,'external-fixture'),custody=join(f.company.dataDir,'independent-fixture');mkdirSync(dir,{mode:0o700});mkdirSync(custody,{mode:0o700});const journal=FiniteJournal.createFixture(join(dir,'authority.sqlite'),join(custody,'checkpoint.json'),clock.now());f.company.finiteHQ.attach(journal);const account=approvedAccount,attestation={authorityId:policy.authorityId,runId:result.configuration.runId,accountFingerprint:account.accountFingerprint,ownerId:'human',confirmedAt:clock.now(),reloadOff:true as const,evidenceHash:hash('explicit fake owner confirmation')};f.company.finiteHQ.approve(result.scope.scopeId,account,{ownerId:'human',receiptHash:hash('fake-only-approval'),approvedAt:clock.now()},attestation);return {journal,account,attestation};};
  return {...f,first,second,clock,policy,input,preview,consent,authorize};
 }
-export function runningFiniteFixture(t?:Pick<TestContext,'mock'>){
- const f=finiteFixture(t),result=f.consent(),authority=f.authorize(result),c=f.company,loop=c.investmentLoop;
+export function runningFiniteFixture(t?:Pick<TestContext,'mock'>,configure?:(f:ReturnType<typeof finiteFixture>)=>void){
+ const f=finiteFixture(t);configure?.(f);const result=f.consent(),authority=f.authorize(result),c=f.company,loop=c.investmentLoop;
  c.investmentTeam.runtime={type:'fake',supportsInterrupt:true,run:async()=>{throw Error('Ordinary runtime forbidden');},finiteHQPolicySupported:()=>true,runFiniteHQInvestment:async()=>{throw Error('Manual fake test never starts a provider');}};
  const control=(action:string)=>loop.control({loopId:result.loop.loopId,action,digest:result.loop.digest,receiptId:randomUUID(),orderId:null});control('start');
  const occurrences=()=>loop.occurrences(loop.get(result.loop.loopId));

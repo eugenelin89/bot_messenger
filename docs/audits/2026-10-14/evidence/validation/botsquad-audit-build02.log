@@ -1,0 +1,6 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/finite-rolling-start.test.ts(34,257): error TS2339: Property 'remainingRun' does not exist on type '{ authorityId: string; approved: boolean; expiresAt: string; profile: FiniteAIProfile; remainingRun: number; remainingRolling24h: number; remainingWorkers: { [k: string]: number; }; ... 12 more ...; reloadConfirmedAt: string | null; } | { ...; }'.
+  Property 'remainingRun' does not exist on type '{ authorityId: string; approved: boolean; reason: string; }'.

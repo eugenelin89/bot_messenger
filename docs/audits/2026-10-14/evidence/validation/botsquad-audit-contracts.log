@@ -1,0 +1,5 @@
+
+> botsquad@0.1.0 contracts:check
+> node scripts/investment-contracts/generate.mjs --check
+
+Contract 1.0: verified types and 8 file digests
