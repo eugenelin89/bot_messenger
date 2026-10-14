@@ -22,7 +22,7 @@ flowchart LR
   R --> W[Public Trade pages]
 ```
 
-The diagram shows an implemented path, not a claim that the genuine October14 chain completed. The actual break is between discussion and typed proposal. The next-day rolling admission problem is earlier, at scheduling. No brokerage edge or adapter exists in the reviewed investment path.
+The diagram shows an implemented path, not a claim that the genuine October 14 chain completed. The actual break is between discussion and typed proposal. The next-day rolling admission problem is earlier, at scheduling. No brokerage edge or adapter exists in the reviewed investment path.
 
 ## HQ and employee execution
 
@@ -34,29 +34,29 @@ Source: `src/control/company.ts`, `discussions.ts`, `conversations.ts`, `dispatc
 
 ## Provider, telemetry and failure isolation
 
-Production uses Node24.21.0, CodexCLI0.157.0 and the finite `gpt-6-sol` profile. `src/runtime/codex.ts` opts fresh `thread/start` into experimental raw response events. The pinned cold-resume interface cannot request those options. Maya's fourth morning turn cold-resumed and exposed cumulative diagnostics without authoritative per-response usage. The deployed prevention change starts fresh finite sessions from durable discussion and rejects resumed finite bindings before CLI work. Ordinary conversation resume remains separate.
+Production uses Node 24.21.0, CodexCLI 0.157.0 and the finite `gpt-6-sol` profile. `src/runtime/codex.ts` opts fresh `thread/start` into experimental raw response events. The pinned cold-resume interface cannot request those options. Maya's fourth morning turn cold-resumed and exposed cumulative diagnostics without authoritative per-response usage. The deployed prevention change starts fresh finite sessions from durable discussion and rejects resumed finite bindings before CLI work. Ordinary conversation resume remains separate.
 
 Three genuine recovery turns after the prevention deployment each have complete authoritative usage. The old Maya record remains incomplete, consumed and attributable. Decision052 accepts that exact historical gap only, binds the predecessor and successor, and caps the family at11 attempts. Unknown outcomes, additional incomplete usage, account/routing drift, unavailable custody and provider denial remain fences. This is bounded mitigation, not reconstruction of missing tokens or a guarantee that telemetry never fails again.
 
-Independent finite custody survives a Company database restore. Reservation precedes transmission, consumption is not refunded by a failed outcome, and canonical checkpoint disagreement fails closed. Startup recovery and live publication restart have distinct checks. The new proposed rolling calculation is read-only and does not clear a hold, attest reload state, reserve a turn or extend a research window. See [validation](VALIDATION.md).
+Independent finite custody survives a Company database restore. Reservation precedes transmission, consumption is not refunded by a failed outcome, and canonical checkpoint disagreement fails closed. Startup recovery and live publication restart have distinct checks. The merged rolling calculation is read-only and does not clear a hold, attest reload state, reserve a turn or extend a research window. See [validation](VALIDATION.md).
 
 ## Market evidence and reproducibility
 
-The approved universe is AAPL, MSFT, GOOGL, AMZN, JPM, JNJ, XOM and WMT, with SPY as benchmark. Yahoo direct-chart acquisition passes through a fixed Python3.12.12/yfinance1.7.0 adapter and trusted bounded gateway. Existing constraints include5-second spacing after settlement,262,144-byte response limit,10-second wire timeout and120-second adapter deadline. Request hashes and independent one-use custody prevent replay; an uncertain attempt is not refetched to satisfy an audit.
+The approved universe is AAPL, MSFT, GOOGL, AMZN, JPM, JNJ, XOM and WMT, with SPY as benchmark. Yahoo direct-chart acquisition passes through a fixed Python 3.12.12/yfinance1.7.0 adapter and trusted bounded gateway. Existing constraints include5-second spacing after settlement,262,144-byte response limit,10-second wire timeout and120-second adapter deadline. Request hashes and independent one-use custody prevent replay; an uncertain attempt is not refetched to satisfy an audit.
 
-Nine genuine morning responses contain seven daily bars each for Oct5–13. Each normalized evidence hash verifies under the repository's canonical JSON-string hashing. They correctly fail current-session qualification with `missing_session`. Provider-retrieval time, market-effective time, source availability and accounting time are distinct. Raw body discard limits byte-for-byte future reparsing; retained request/content hashes, normalized values, evidence IDs, timestamps and delivered packet provide decision traceability, not recovery of discarded Yahoo bytes.
+Nine genuine morning responses contain seven daily bars each for Oct 5–13. Each normalized evidence hash verifies under the repository's canonical JSON-string hashing. They correctly fail current-session qualification with `missing_session`. Provider-retrieval time, market-effective time, source availability and accounting time are distinct. Raw body discard limits byte-for-byte future reparsing; retained request/content hashes, normalized values, evidence IDs, timestamps and delivered packet provide decision traceability, not recovery of discarded Yahoo bytes.
 
 `src/domain/market/observed-paper.ts` validates same-session unadjusted OHLC, instrument/currency/timezone/venue, provider trading period, calendar coverage and corrections. Missing or stale evidence cannot silently become a fill. Corporate-action extraction supports qualified splits/dividends; unknown payment dates do not become invented dividend cash. General security lifecycle events, every tax treatment and every vendor revision are not certified. The stored calendar covers2026; later years need prospective reviewed support.
 
-The official [NYSE hours/calendar](https://www.nyse.com/trade/hours-calendars) lists core9:30–16:00 Eastern and the2026 holiday schedule. Oct14–15 are ordinary sessions in the retained calendar, consistent with those published rules:13:30–20:00UTC. This is a calendar cross-check; it is not a fresh quote or a guarantee of data availability. Owner-reported Yahoo permission and Decision029's US$0 incremental source budget remain unchanged.
+The official [NYSE hours/calendar](https://www.nyse.com/trade/hours-calendars) lists core9:30–16:00 Eastern and the2026 holiday schedule. Oct 14–15 are ordinary sessions in the retained calendar, consistent with those published rules:13:30–20:00UTC. This is a calendar cross-check; it is not a fresh quote or a guarantee of data availability. Owner-reported Yahoo permission and Decision029's US$0 incremental source budget remain unchanged.
 
 ## Paper engine and financial boundaries
 
 The fixed-point reducer in `src/domain/investment/` is shared by synthetic and observed façades. Typed proposal, exact independent review, submission, locked cash/position, qualified price, fill and immutable transaction are distinct records. Idempotent command keys and journal hashes prevent duplicate effects. Long-only/no leverage,15% position,35% sector,5% minimum cash,2 orders/session,6/week,10bps slippage and zero commission are configured. Price guards, minimum cash and source/publication health can deny an otherwise reviewed order.
 
-Normal `inv-real-open-v1` uses a precommitted next regular OPEN, collected after that session's close; it is delayed modeled execution, not a real-time broker order. Decision052 adds a prospective Oct14-only CLOSE amendment with19:30 cutoff. The engine cannot convert the earlier provisional discussion into an order after that cutoff. Benchmark SPY allocation has a separate ledger and is not an employee portfolio trade.
+Normal `inv-real-open-v1` uses a precommitted next regular OPEN, collected after that session's close; it is delayed modeled execution, not a real-time broker order. Decision052 adds a prospective Oct 14-only CLOSE amendment with19:30 cutoff. The engine cannot convert the earlier provisional discussion into an order after that cutoff. Benchmark SPY allocation has a separate ledger and is not an employee portfolio trade.
 
-Portfolio initialization remains$100,000. At the first audit checkpoint cash is100000.000000, reserved cash0, holdings empty, realized0, no orders. Initialization's internal complete snapshot means its arithmetic is known; it does not establish session performance. Public projection appropriately withholds comparable performance until supported observations/accounting exist. No real brokerage SDK, account credential, submission route or worker brokerage tool was found in this path/dependencies. This is evidence about the reviewed implementation, not an assertion about every service on the hosts.
+Portfolio initialization remains$100,000. At the first audit checkpoint cash is100000.000000, reserved cash 0, holdings empty, realized0, no orders. Initialization's internal complete snapshot means its arithmetic is known; it does not establish session performance. Public projection appropriately withholds comparable performance until supported observations/accounting exist. No real brokerage SDK, account credential, submission route or worker brokerage tool was found in this path/dependencies. This is evidence about the reviewed implementation, not an assertion about every service on the hosts.
 
 ## Publication and public/private separation
 
@@ -70,11 +70,11 @@ Only approved structured summaries and financial projections cross the public bo
 
 | Surface | HQ | Website/receiver shared host |
 |---|---|---|
-| OS | Ubuntu24.04.5 LTS, kernel6.8.0-142 | Ubuntu22.10, unsupported retained exception |
-| Runtime | Node24.21.0; Python3.12.12; Codex0.157.0 | Node22.23.1 |
+| OS | Ubuntu 24.04.5 LTS, kernel6.8.0-142 | Ubuntu 22.10, unsupported retained exception |
+| Runtime | Node 24.21.0; Python 3.12.12; Codex0.157.0 | Node 22.23.1 |
 | Disk available | Approximately22GB |6,583,078,912bytes; only140,627,968bytes above6GiB deployment floor |
 | Memory |1.97GB total, about1.49GB available; HQ about216–218MB |1,003,409,408bytes total;317,915,136bytes available;182,341,632bytes swap used |
-| Database | schema29, WAL, quick check ok, FK0, mode0600 | migration2, WAL, quick check ok, FK0 |
+| Database | schema 29, WAL, quick check ok, FK0, mode0600 | migration2, WAL, quick check ok, FK0 |
 | Service confinement | Dedicated service identity, strict filesystem, protected home, no new privileges, private tmp, core0, no swap; memory maximum unlimited | Dedicated receiver/Ask identities, strict filesystem/no new privileges/private tmp; receiver256MiB+64MiB swap; Ask192MiB/no swap/tasks32 |
 | Listener | HQ127.0.0.1:4310; SSH22 | Receiver/Ask behind existing ingress; Ask127.0.0.1:3102 |
 | Restart | HQ NRestarts0; retained restore/authority checks | Services NRestarts0 at observation; retained receipt/replay controls |
@@ -87,7 +87,7 @@ Rollback must preserve current immutable data and independent consumption/public
 
 ## Ask isolation
 
-Ask remains owner-paused. Listener installation is distinct from admission: admission/claims/delivery false, roster0, generation0/expiry0, public availability disabled. Receiver sessions/conversations/questions/answers/claims/keys/receipts/audit all0; three rate-limit quota entries are GET accounting, not inference. HQ13 Ask tables and Ask usage are empty; no provider key exists. No probe, claim or activation was run. These records establish no Ask work in these deployed components; they do not certify account-wide billing outside them.
+Ask remains owner-paused. Listener installation is distinct from admission: admission/claims/delivery false, roster0, generation 0/expiry0, public availability disabled. Receiver sessions/conversations/questions/answers/claims/keys/receipts/audit all0; three rate-limit quota entries are GET accounting, not inference. HQ13 Ask tables and Ask usage are empty; no provider key exists. No probe, claim or activation was run. These records establish no Ask work in these deployed components; they do not certify account-wide billing outside them.
 
 ## Residual scope limits
 

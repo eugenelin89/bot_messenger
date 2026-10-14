@@ -4,11 +4,11 @@ This plan orders work by demonstrated risk. It creates no execution, spending, p
 
 | Priority / timing | Work | Completion evidence |
 |---|---|---|
-| Current Oct14 schedule | Preserve existing close collection, processing, valuation and publication; observe without extra requests | Exact source settlements/qualification, ledger and benchmark, public hashes/receipts; honest no-portfolio-order result |
-| Before Oct15 research | Finish reviewed BSIA-001 correction and guarded deployment if authorized | Same source commit tested/deployed, unchanged frozen envelope/occurrences/custody, no model/source request from deployment |
-| Oct15 research window | Observe genuine current-session proposal/review/submission or explicit rejection within four remaining calls | Actual execution IDs, complete usage, exact proposal hash/reviewer, tool-discovered handoff; no artificial trade |
-| Oct15 close | Verify eligible delayed OPEN fill/expiry, cash/positions/benchmark and publication | Actual data-linked arithmetic, immutable ledger and receiver continuity; HOLD is a successful decision outcome |
-| Before any later session | Owner selects prospective finite renewal and sustainable research allowance | Accurate token/billing limits, bounded source hashes/calendar, same portfolio/history, no uncertainty bypass |
+| Current Oct 14 schedule | Preserve existing close collection, processing, valuation and publication; observe without extra requests | Exact source settlements/qualification, ledger and benchmark, public hashes/receipts; honest no-portfolio-order result |
+| Before Oct 15 research | Finish reviewed BSIA-001 correction and owner-approved guarded deployment | Same source commit tested/deployed, unchanged frozen envelope/occurrences/custody, no model/source request from deployment |
+| Oct 15 research window | Observe genuine current-session proposal/review/submission or explicit rejection within four remaining calls | Actual execution IDs, complete usage, exact proposal hash/reviewer, tool-discovered handoff; no artificial trade |
+| Oct 15 close | Verify eligible delayed OPEN fill/expiry, cash/positions/benchmark and publication | Actual data-linked arithmetic, immutable ledger and receiver continuity; HOLD is a successful decision outcome |
+| Before any later session | Owner selects reviewed policy/code for carrying the exact historical telemetry exception into future finite renewal, plus sustainable research allowance | Policy and implementation acceptance, accurate limits, bounded source hashes/calendar, same portfolio/history; ordinary renewal is currently blocked by the retained gap |
 | Recovery resilience | Establish current encrypted off-host custody and offline restore exercise | Recent backup receipt, prefix/integrity/authority restore proof, retention and recovery objectives |
 | Infrastructure maintenance | Supported LTS migration and measured shared-host disk/memory capacity | Motion-coordinated cutover, preserved service/config/archive identity, compatible rollback and healthy postchecks |
 | Reporting quality | Keep front-door status current; expose no-decision/rejection/HOLD/unavailable values accurately | Reviewed docs and data-driven UI/API acceptance; no initialization presented as return |

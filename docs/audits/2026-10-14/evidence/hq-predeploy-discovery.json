@@ -1,0 +1,834 @@
+{
+  "checkedAt": "2026-10-14T19:53:02.258159+00:00",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "846d2220791a6f1d89732a458e3521341b61f9a1"
+  },
+  "run": [
+    {
+      "run_id": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+      "configuration_hash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+      "head_version": 5,
+      "head_hash": "4da55bb215c9fdbba18cbf6bcd586beefc6c62cef6d76963257a67bb1ee9b380"
+    }
+  ],
+  "loops": [
+    {
+      "loop_id": "fa172653-d755-46df-83b5-b52becaf8821",
+      "scope_id": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "state": "stopped",
+      "generation": 3,
+      "reason": "Owner-selected successor; historical telemetry gap retained"
+    },
+    {
+      "loop_id": "6a8ca917-3dec-414e-ad33-a31eea6cb194",
+      "scope_id": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+      "state": "active",
+      "generation": 2,
+      "reason": null
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrence_id": "loop_af16c21bd44140ca7c1f6ed88ddeee0845e0605bcd2fd045c0d6b4a884d2ef85",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "research",
+      "due_at": "2026-10-14T16:17:58.000Z",
+      "expires_at": "2026-10-14T19:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_e3ddedfe08260691d633bf0ab58f38df1f116191e5f3a0434573d6140192d72b",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "cutoff",
+      "due_at": "2026-10-14T19:30:00.000Z",
+      "expires_at": "2026-10-14T19:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_06cb45f697cc2cff0e87c05339b5c9e2c2c9835208ddeca4f5919e2c42a133c2",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "collect_close",
+      "due_at": "2026-10-14T20:05:00.000Z",
+      "expires_at": "2026-10-14T20:20:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_5e75a33447e8ddab89cae9ae047edbf963fe937496baae9982323121b0c9deec",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "open",
+      "due_at": "2026-10-14T20:20:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_4eea939b433e141d65dbd952d5a619e606d380631cbd701da6f472eb632b9627",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "mark",
+      "due_at": "2026-10-14T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_da18e5698f0fa715866495f13e38c6f1368c9ce413e4e28ca0911a0cb48f121f",
+      "plan_revision": 1,
+      "session": "2026-10-14",
+      "stage": "expire",
+      "due_at": "2026-10-14T23:30:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_532b8ea15cecff3aca936c446c7e552763f4f320fc4cb7336ba343cfd910d1c7",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "collect_research",
+      "due_at": "2026-10-15T11:45:00.000Z",
+      "expires_at": "2026-10-15T12:00:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_8cdd9b3ff9b20a2cabee16de7cdcaf72bc629b7601891ccba7322bed46932b32",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "research",
+      "due_at": "2026-10-15T12:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_45dcbeb4e98751fe5402a6179c2186832cd2190d05b6941aea69fc332901966d",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "cutoff",
+      "due_at": "2026-10-15T13:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_3c0f0194f7caa700eba04104f8379ca87333df54667937a07267ebbcfe51b541",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "collect_close",
+      "due_at": "2026-10-15T20:05:00.000Z",
+      "expires_at": "2026-10-15T20:20:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_091de19c8afeebc141a9a056d5e50de83f719886006ef76bd75aeb8fa20ebb9a",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "open",
+      "due_at": "2026-10-15T20:20:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_c90049b87b1cba7e997ce302ded709f23664ae775ddcfbe489e8c6d0e5778003",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "mark",
+      "due_at": "2026-10-15T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_f5cdcb20461fcb0d00de7c7c5ecae3a209488ec019ac2293f3aec884a147ff8b",
+      "plan_revision": 1,
+      "session": "2026-10-15",
+      "stage": "expire",
+      "due_at": "2026-10-15T23:30:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "cancelled",
+      "attempts": 0,
+      "reason": "Unapproved recovery draft revision; original timestamps retained"
+    },
+    {
+      "occurrence_id": "loop_84f4d0b10d284dbf02d302e84b937e23e18e0e998c8c516e69a76fee4b68a12c",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "research",
+      "due_at": "2026-10-14T17:06:08.000Z",
+      "expires_at": "2026-10-14T19:30:00.000Z",
+      "state": "complete",
+      "attempts": 1,
+      "reason": "Waiting for next calendar cycle"
+    },
+    {
+      "occurrence_id": "loop_ddfc52e260bff88e39bc8a8dbae70ffbc1751a41cc62b9c71753858514a028f4",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "cutoff",
+      "due_at": "2026-10-14T19:30:00.000Z",
+      "expires_at": "2026-10-14T19:30:00.000Z",
+      "state": "complete",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_f8b860f89ecd717d279fa81287b26b62862a119fb83db42c5e5fc7121905bd30",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "collect_close",
+      "due_at": "2026-10-14T20:05:00.000Z",
+      "expires_at": "2026-10-14T20:20:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_3d213830cdf988272c4d0bfd004d9ad7d5e4d3744d0cc299591eed05e549d593",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "open",
+      "due_at": "2026-10-14T20:20:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_0b2caf51e6e3fa95bdf1e5b872505897e83db374f47d965b47090425c3a3400c",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "mark",
+      "due_at": "2026-10-14T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_e66bd1318e3784289deafb0198ec664d7d83b2d65bae0bb6ceac21bab1851221",
+      "plan_revision": 2,
+      "session": "2026-10-14",
+      "stage": "expire",
+      "due_at": "2026-10-14T23:30:00.000Z",
+      "expires_at": "2026-10-14T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_d9bc473de497931fc6832b53e0500d2200c7fa5e173fbafcc929bd1536fee02a",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "collect_research",
+      "due_at": "2026-10-15T11:45:00.000Z",
+      "expires_at": "2026-10-15T12:00:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_d9f680b6cbaa717c3ab2ba43b2e98725999eb0a68f86a5830775e981849fac36",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "research",
+      "due_at": "2026-10-15T12:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_efeb71defec9a178c0f0f707c6c49f7eded4bae4257626a4c0a16d3c2b7df8c5",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "cutoff",
+      "due_at": "2026-10-15T13:00:00.000Z",
+      "expires_at": "2026-10-15T13:00:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_5b30d4f2203c969be2094a7d5b21873bd8f7d271921691b3ccf67301b8569553",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "collect_close",
+      "due_at": "2026-10-15T20:05:00.000Z",
+      "expires_at": "2026-10-15T20:20:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_c99684f28d7ae4b45a9b2e20c4ef98220abec8321e6de8f73cc20689ae511c99",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "open",
+      "due_at": "2026-10-15T20:20:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_3b01e2f955cb2cce09de5a9bf1dd389d79cfb4a49cd5ec29d30e681a488ceba6",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "mark",
+      "due_at": "2026-10-15T20:25:00.000Z",
+      "expires_at": "2026-10-15T23:39:59.999Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    },
+    {
+      "occurrence_id": "loop_026fce095cf7a95db660b1a3755ea026ec816bc6635d1898a90a6cf3b0ae67fc",
+      "plan_revision": 2,
+      "session": "2026-10-15",
+      "stage": "expire",
+      "due_at": "2026-10-15T23:30:00.000Z",
+      "expires_at": "2026-10-15T23:30:00.000Z",
+      "state": "pending",
+      "attempts": 0,
+      "reason": null
+    }
+  ],
+  "executions": [
+    {
+      "execution_id": "execution_f75b928c-fd89-4481-8643-3d7e6fda6f84",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "status": "completed",
+      "error": null,
+      "started_at": "2026-10-14T17:06:09.723Z",
+      "finished_at": "2026-10-14T17:06:44.010Z",
+      "completeness": "complete",
+      "settled": 1,
+      "tokens": "{\"inputTokens\":43366,\"cachedInputTokens\":25600,\"cacheWriteInputTokens\":0,\"outputTokens\":931,\"reasoningOutputTokens\":17,\"totalTokens\":44297}",
+      "reasons": "[]",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13b61-0866-7442-8de1-4acb408b51e9",
+      "turn_id": "01a13b61-1b36-7123-8b83-438e717905cd",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}"
+    },
+    {
+      "execution_id": "execution_296fbeda-854e-4d7a-b5a6-09f74a32baf8",
+      "worker_id": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+      "status": "completed",
+      "error": null,
+      "started_at": "2026-10-14T17:06:44.957Z",
+      "finished_at": "2026-10-14T17:07:20.478Z",
+      "completeness": "complete",
+      "settled": 1,
+      "tokens": "{\"inputTokens\":46352,\"cachedInputTokens\":30080,\"cacheWriteInputTokens\":0,\"outputTokens\":807,\"reasoningOutputTokens\":0,\"totalTokens\":47159}",
+      "reasons": "[]",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13b61-90c3-7041-a274-6ea0d86cf83c",
+      "turn_id": "01a13b61-a1df-74e3-8bd4-5f07ebb6b113",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}"
+    },
+    {
+      "execution_id": "execution_8b5a95d1-17b8-494f-86a0-f83588aa5848",
+      "worker_id": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+      "status": "completed",
+      "error": null,
+      "started_at": "2026-10-14T17:07:21.516Z",
+      "finished_at": "2026-10-14T17:07:48.817Z",
+      "completeness": "complete",
+      "settled": 1,
+      "tokens": "{\"inputTokens\":42400,\"cachedInputTokens\":25856,\"cacheWriteInputTokens\":0,\"outputTokens\":481,\"reasoningOutputTokens\":0,\"totalTokens\":42881}",
+      "reasons": "[]",
+      "model": "gpt-6-sol",
+      "thread_id": "01a13b62-1ea0-7c51-ba7d-0afe9b97b34f",
+      "turn_id": "01a13b62-2faf-76f0-a5af-b5e10c2b12d8",
+      "estimate": "{\"usd\":null,\"picoUsd\":null,\"state\":\"unavailable\",\"reasons\":[\"Exact model price unavailable\"]}"
+    }
+  ],
+  "proposals": [],
+  "reviews": [],
+  "submissions": [],
+  "publication": [
+    {
+      "kind": "batch",
+      "state": "delivered",
+      "n": 8
+    },
+    {
+      "kind": "heartbeat",
+      "state": "delivered",
+      "n": 91
+    }
+  ],
+  "historicalGap": [
+    {
+      "execution_id": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "status": "completed",
+      "completeness": "incomplete",
+      "settled": 1
+    }
+  ],
+  "schema": 29,
+  "integrity": "ok",
+  "currentPlanRevision": 2,
+  "finite": {
+    "providerCircuit": {
+      "until": null,
+      "blocked": false
+    },
+    "collections": [],
+    "controlRevision": 77,
+    "run": 7,
+    "rolling": 7,
+    "workers": {
+      "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1": 4,
+      "worker_85bebccd-fb82-48c3-abfa-bc62117f8746": 3
+    },
+    "active": 0,
+    "reservations": [
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:05:01.505Z",
+        "executionId": "execution_377ea290-34b1-4dad-84df-d062237ef578",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_17bb139b-1d98-4634-a292-6034d7d64f00",
+        "reservedAt": "2026-10-14T12:00:01.505Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_36069553-9a59-495a-aca6-0b04b9e3cfae",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13a48-c3c2-7231-8aa7-a3e812b3bea4",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:05:38.485Z",
+        "executionId": "execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_79a8f403-74a8-4839-925e-54b4fb7dd103",
+        "reservedAt": "2026-10-14T12:00:38.485Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "state": "settled",
+        "threadId": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:06:13.039Z",
+        "executionId": "execution_f141db7a-40fa-439c-88e1-376c965456c3",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 2,
+        "requestId": "reply_f0e9a687-d954-4e16-9b60-117c2bed7fe3",
+        "reservedAt": "2026-10-14T12:01:13.039Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_32954442-ce96-4edd-9cae-a509524546bb",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13a49-d896-7bc0-ac7a-f0f74364c0a0",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+        "conversationId": "conversation_0ba2dc01-fa01-4fc3-a14f-938c2ae5ba20",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T12:06:42.449Z",
+        "executionId": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+        "generation": 1,
+        "occurrenceId": "loop_8207e66151e28ee8094ca08f4246c4c47ce8116090aa2e04c44d3c452f6947b8",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_ea1fcaaf-482d-4e4d-b9ce-0fe104686785",
+        "reservedAt": "2026-10-14T12:01:42.449Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "30196c997e5d88559181d2b839ae4485b7f152779a869fa9824decafe1d7b0d3",
+        "scopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+        "sessionId": "session_c3f2244b-f632-4647-9949-ddf4013ff9eb",
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "state": "settled",
+        "threadId": "01a13a49-4bb3-76b1-a7d0-242d17bd57df",
+        "status": "completed",
+        "complete": false
+      },
+      {
+        "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+        "conversationId": "conversation_8738febf-ecf5-486b-829a-1086fadb0715",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T17:11:10.156Z",
+        "executionId": "execution_f75b928c-fd89-4481-8643-3d7e6fda6f84",
+        "generation": 2,
+        "occurrenceId": "loop_84f4d0b10d284dbf02d302e84b937e23e18e0e998c8c516e69a76fee4b68a12c",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_effabfe0-e63f-480a-bce8-8b52413132a7",
+        "reservedAt": "2026-10-14T17:06:10.156Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "8d9b60ac580eeb39d1cf10cedd4f50fc03566f8d347947c5a252560225c9cb63",
+        "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+        "sessionId": "session_8ddd619f-d40d-4b74-b43c-4d0dd05ec1ec",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13b61-0866-7442-8de1-4acb408b51e9",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+        "conversationId": "conversation_8738febf-ecf5-486b-829a-1086fadb0715",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T17:11:45.395Z",
+        "executionId": "execution_296fbeda-854e-4d7a-b5a6-09f74a32baf8",
+        "generation": 2,
+        "occurrenceId": "loop_84f4d0b10d284dbf02d302e84b937e23e18e0e998c8c516e69a76fee4b68a12c",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 1,
+        "requestId": "reply_a1534ebb-9b09-4b26-a2c8-06955a669872",
+        "reservedAt": "2026-10-14T17:06:45.395Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "8d9b60ac580eeb39d1cf10cedd4f50fc03566f8d347947c5a252560225c9cb63",
+        "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+        "sessionId": "session_0b725b68-b982-4a77-8fe1-3bec39b156c9",
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "state": "settled",
+        "threadId": "01a13b61-90c3-7041-a274-6ea0d86cf83c",
+        "status": "completed",
+        "complete": true
+      },
+      {
+        "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+        "conversationId": "conversation_8738febf-ecf5-486b-829a-1086fadb0715",
+        "day": "2026-10-14",
+        "deadline": "2026-10-14T17:12:21.902Z",
+        "executionId": "execution_8b5a95d1-17b8-494f-86a0-f83588aa5848",
+        "generation": 2,
+        "occurrenceId": "loop_84f4d0b10d284dbf02d302e84b937e23e18e0e998c8c516e69a76fee4b68a12c",
+        "profile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "providerGeneration": 2,
+        "requestId": "reply_285d5b34-ae28-4131-b54b-fd3ac77adb43",
+        "reservedAt": "2026-10-14T17:07:21.902Z",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "scopeDigest": "8d9b60ac580eeb39d1cf10cedd4f50fc03566f8d347947c5a252560225c9cb63",
+        "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+        "sessionId": "session_8a95ac17-361d-488b-9b99-62a3837a1d18",
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "state": "settled",
+        "threadId": "01a13b62-1ea0-7c51-ba7d-0afe9b97b34f",
+        "status": "completed",
+        "complete": true
+      }
+    ],
+    "hold": null,
+    "stopped": false,
+    "reloadConfirmedAt": "2026-10-11T05:27:00.000Z",
+    "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+    "approved": true,
+    "expiresAt": "2026-10-15T23:40:00.000Z",
+    "profile": {
+      "cliVersion": "0.157.0",
+      "model": "gpt-6-sol",
+      "reasoningEffort": "low",
+      "serviceTier": "default"
+    },
+    "remainingRun": 4,
+    "remainingRolling24h": 1,
+    "remainingWorkers": {
+      "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1": 8,
+      "worker_85bebccd-fb82-48c3-abfa-bc62117f8746": 9
+    },
+    "reason": null,
+    "actualSubscriptionCharges": "unavailable"
+  },
+  "privateHealth": {
+    "newRiskBlocked": false,
+    "reason": null,
+    "portfolio": {
+      "cash": "100000.000000",
+      "reservedCash": "0.000000",
+      "realized": "0.000000",
+      "fees": "0.000000",
+      "income": "0.000000",
+      "receivables": "0.000000",
+      "liabilities": "0.000000",
+      "positions": {}
+    },
+    "lastValuation": {
+      "id": "valuation_862bddcf5a5279d92f68503ae41b455d98826bba",
+      "sequence": "1",
+      "revision": 1,
+      "supersedes": null,
+      "session": "2026-10-14",
+      "asOf": "2026-10-13T20:25:26.543Z",
+      "recordedAt": "2026-10-13T20:25:26.791Z",
+      "journalVersion": "1",
+      "journalHash": "84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02",
+      "ledgerVersion": "1",
+      "ledgerHash": "689db81643f1296e7a7bc9fccc3c93ebf314b17e0f93052dbc2c64040a452fa9",
+      "configurationHash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+      "observationIds": [],
+      "cash": "100000.000000",
+      "reservedCash": "0.000000",
+      "availableCash": "100000.000000",
+      "holdingsValue": "0.000000",
+      "receivables": "0.000000",
+      "liabilities": "0.000000",
+      "equity": "100000.000000",
+      "realized": "0.000000",
+      "unrealized": "0.000000",
+      "totalReturn": "0.000000",
+      "dailyReturn": null,
+      "peak": "100000.000000",
+      "drawdown": "0.000000",
+      "maxDrawdown": "0.000000",
+      "benchmarkEquity": "100000.000000",
+      "benchmarkReturn": "0.000000",
+      "excessPercentagePoints": "0.000000",
+      "quality": "complete",
+      "reasons": [],
+      "observedBreaches": [],
+      "holdings": []
+    },
+    "benchmark": {
+      "cash": "100000.000000",
+      "reservedCash": "0.000000",
+      "realized": "0.000000",
+      "fees": "0.000000",
+      "income": "0.000000",
+      "receivables": "0.000000",
+      "liabilities": "0.000000",
+      "positions": {}
+    },
+    "pendingOrders": [],
+    "evidenceMode": "observed",
+    "methodology": "inv-real-open-v1"
+  },
+  "pendingOrders": [],
+  "ledgerSummary": {
+    "version": "5",
+    "hash": "4da55bb215c9fdbba18cbf6bcd586beefc6c62cef6d76963257a67bb1ee9b380",
+    "lifecycle": "active",
+    "ledgerVersion": "1",
+    "portfolio": {
+      "cash": "100000.000000",
+      "reservedCash": "0.000000",
+      "realized": "0.000000",
+      "fees": "0.000000",
+      "income": "0.000000",
+      "receivables": "0.000000",
+      "liabilities": "0.000000",
+      "positions": {}
+    },
+    "orders": {},
+    "lateClose": {
+      "cutoffAt": "2026-10-14T19:30:00.000Z",
+      "expiresAt": "2026-10-14T23:30:00.000Z",
+      "id": "late_close_ec44b7bf-1654-4f4b-a21d-2909fdfd7271",
+      "ownerReceiptHash": "adbcc5136604bba1eddf54c52a5c114efa20241b9ee0fd8efc10f94561a3a208",
+      "session": "2026-10-14",
+      "recordedAt": "2026-10-14T16:07:59.095Z"
+    },
+    "benchmarkExecutions": [],
+    "valuations": [
+      {
+        "snapshot": {
+          "id": "valuation_862bddcf5a5279d92f68503ae41b455d98826bba",
+          "sequence": "1",
+          "revision": 1,
+          "supersedes": null,
+          "session": "2026-10-14",
+          "asOf": "2026-10-13T20:25:26.543Z",
+          "recordedAt": "2026-10-13T20:25:26.791Z",
+          "journalVersion": "1",
+          "journalHash": "84dfa2b2a8eb2312b631efe238c7f301f2cd7df0293696ca75d946326eb1be02",
+          "ledgerVersion": "1",
+          "ledgerHash": "689db81643f1296e7a7bc9fccc3c93ebf314b17e0f93052dbc2c64040a452fa9",
+          "configurationHash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+          "observationIds": [],
+          "cash": "100000.000000",
+          "reservedCash": "0.000000",
+          "availableCash": "100000.000000",
+          "holdingsValue": "0.000000",
+          "receivables": "0.000000",
+          "liabilities": "0.000000",
+          "equity": "100000.000000",
+          "realized": "0.000000",
+          "unrealized": "0.000000",
+          "totalReturn": "0.000000",
+          "dailyReturn": null,
+          "peak": "100000.000000",
+          "drawdown": "0.000000",
+          "maxDrawdown": "0.000000",
+          "benchmarkEquity": "100000.000000",
+          "benchmarkReturn": "0.000000",
+          "excessPercentagePoints": "0.000000",
+          "quality": "complete",
+          "reasons": [],
+          "observedBreaches": [],
+          "holdings": []
+        },
+        "portfolio": {
+          "cash": "100000.000000",
+          "reservedCash": "0.000000",
+          "realized": "0.000000",
+          "fees": "0.000000",
+          "income": "0.000000",
+          "receivables": "0.000000",
+          "liabilities": "0.000000",
+          "positions": {}
+        },
+        "benchmark": {
+          "cash": "100000.000000",
+          "reservedCash": "0.000000",
+          "realized": "0.000000",
+          "fees": "0.000000",
+          "income": "0.000000",
+          "receivables": "0.000000",
+          "liabilities": "0.000000",
+          "positions": {}
+        },
+        "entitlements": [],
+        "blocked": {},
+        "symbols": {
+          "AAPL": [
+            {
+              "symbol": "AAPL",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "MSFT": [
+            {
+              "symbol": "MSFT",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "GOOGL": [
+            {
+              "symbol": "GOOGL",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "AMZN": [
+            {
+              "symbol": "AMZN",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "JPM": [
+            {
+              "symbol": "JPM",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "JNJ": [
+            {
+              "symbol": "JNJ",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "XOM": [
+            {
+              "symbol": "XOM",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "WMT": [
+            {
+              "symbol": "WMT",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ],
+          "SPY": [
+            {
+              "symbol": "SPY",
+              "effectiveAt": "2026-10-13T20:25:26.543Z"
+            }
+          ]
+        },
+        "orders": {}
+      }
+    ]
+  }
+}

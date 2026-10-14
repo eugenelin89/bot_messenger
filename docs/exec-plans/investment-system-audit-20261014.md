@@ -63,3 +63,7 @@ Owner decisions only after exact current limits and available safe options are e
 ## Owner handoff discovered19:45UTC
 
 Direct owner messages in the former HQ chat stopped/deleted its15-minute automation and transferred coordination to this audit chat. Preserve the unchanged active server-side investment schedule, but do not recreate the deleted chat automation or ask the historical chat to deploy. Current audit chat owns subsequent HQ coordination. Precise approval for guarded deployment of merged PR100/0fabbbac is pending; source review/tests/normal merge are complete. This supersedes earlier ownership/heartbeat statements in this plan.
+
+### Owner-approved deployment preparation
+
+The owner approved guarded PR100 deployment in this audit chat. Current coordinator is the sole HQ deployment writer; U remains historical. Plan: isolated exact-merge Linux build with existing dependencies and512MiB heap, read-only specialist review of adapted guards, observe20:05/20:20/20:25 stages, then deploy in a quiet window with stopped backup and live one-use publication handoff. All historical tables/finite prefix and existing authority/limits must be preserved. No new chat automation. Expected closeout remains20:35–20:50UTC, contingent on observed results.

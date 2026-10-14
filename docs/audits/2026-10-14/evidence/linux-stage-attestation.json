@@ -1,0 +1,10 @@
+{
+  "candidate": "0fabbbac0a1bb8e180556bcbe837076ca341f9c3",
+  "attestedAt": "2026-10-14T20:02:46.193037+00:00",
+  "productionInputs": 325,
+  "artifacts": {
+    "dist": 720,
+    "public": 25
+  },
+  "manifestSha256": "033f651373b5e458282480b69f03507b5aeca493dc865e74175664e01c1db8cd"
+}

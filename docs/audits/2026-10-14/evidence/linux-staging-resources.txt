@@ -1,0 +1,15 @@
+    PID  NI     ELAPSED %CPU   RSS COMMAND
+ 871459   0       00:02  9.4 11180 /usr/lib/systemd/systemd --user
+ 868817   0    02:17:36  0.9 151512 /opt/botsquad-runtime/node/bin/node /opt/botsquad/dist/src/main.js
+ 871455   0       00:03  0.6 10596 sshd: root@notty
+ 871000   0       08:39  0.1     0 [kworker/0:2-events]
+ 751674 -20  1-00:36:31  0.0     0 [kworker/0:0H-kblockd]
+ 847890 -20    04:47:31  0.0     0 [kworker/0:2H-kblockd]
+ 662561   0  5-13:28:25  0.0 13692 /opt/digitalocean/bin/do-agent --syslog
+      1   0 15-13:28:32  0.0 12356 /usr/lib/systemd/systemd --system --deserialize=91
+               total        used        free      shared  buff/cache   available
+Mem:            1967         469         660           3        1033        1498
+Swap:           2047         106        1941
+MainPID=868817
+MemoryCurrent=215085056
+ActiveState=active

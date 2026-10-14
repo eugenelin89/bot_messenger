@@ -7,13 +7,13 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | InvestmentLoop finite admission / **P1** |
-| Finding | Oct15T12:00 start needs4 calls while rolling7/8; deployed source blocks instead of waiting until12:01:13.039 |
+| Finding | Oct 15T12:00 start needs4 calls while rolling 7/8; deployed source blocks instead of waiting until12:01:13.039 |
 | Evidence | Live7 reservation timestamps in `evidence/hq-after-cutoff.json`; `src/control/investment-loop/service.ts` `planTurns`/`tick`; independent HQ owner confirmation19:26 |
 | Impact | Fresh next-day employee research may stop despite sufficient capacity within its unchanged window |
 | Root cause | Known: capacity checked during enqueue after occurrence activation; no pre-start rolling deferral |
 | Recommended action | Read-only earliest-capacity calculation and pending `retry_at` before any group/request change; preserve cutoff and all caps |
-| Ownership / status | HQ / **Open**; correction reviewed and merged in PR100 (`0fabbbac`), production deployment awaiting owner decision |
-| Acceptance | Focused limits/expiry/withdrawal/restart tests; reviewed merge and exact guarded deployment; genuine Oct15 occurrence waits then starts once under same authority |
+| Ownership / status | HQ / **Open**; correction reviewed and merged in PR #100 (`0fabbbac`), owner-approved guarded production deployment preparing |
+| Acceptance | Focused limits/expiry/withdrawal/restart tests; reviewed merge and exact guarded deployment; genuine Oct 15 occurrence waits then starts once under same authority |
 
 ## BSIA-002 — genuine formal decision chain unproven
 
@@ -24,7 +24,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Evidence | `evidence/hq-after-cutoff.json` empty proposal/review/submission/order arrays; [handoff investigation](../../validation/investment/INV-REAL-01-PAPER-HANDOFF.md) |
 | Impact | No investment decision can reach order admission/accounting/public decision history |
 | Root cause | Known instructions/context gap: terminal discussion tool ended the turn; exact handoff IDs absent; authored fixture bypassed discovery |
-| Recommended action | Exercise deployed PR98 discovery/tool ordering through genuine next-session work; preserve actual rejection/HOLD/no-decision distinctions |
+| Recommended action | Exercise deployed PR #98 discovery/tool ordering through genuine next-session work; preserve actual rejection/HOLD/no-decision distinctions |
 | Ownership / status | HQ / **Mitigated in deployed source; genuine acceptance unverified** |
 | Acceptance | Attributed current-session proposal, independent exact review and valid submission with settled usage; alternatively explicit independent rejection; truthful public projection. No forced transaction |
 
@@ -33,7 +33,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Finite workflow capacity / **P1** |
-| Finding | Four family calls remain; the paused final-cycle minimum is four. October14 had only one day/rolling call left for three missing typed stages |
+| Finding | Four family calls remain; the paused final-cycle minimum is four. October 14 had only one day/rolling call left for three missing typed stages |
 | Evidence | Seven spent family attempts; Decision052 maximum old4+additional7; scheduler finalization reserves; [capacity](COST-AND-CAPACITY.md) |
 | Impact | Optional discussion, revisions or further provider failures can prevent genuine completion |
 | Root cause | Known finite envelope versus final-cycle lifecycle; bounded design constraint, not permission to enlarge it |
@@ -41,18 +41,18 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Ownership / status | Owner and HQ / **Open constraint** |
 | Acceptance | Genuine next-day completion in≤4 remaining calls, or explicit blocked/no-decision result without retries or extra authority; later budgets require owner approval |
 
-## BSIA-004 — authority ends October15
+## BSIA-004 — authority ends October 15
 
 | Field | Finding |
 |---|---|
 | Component / severity | Autonomous continuity / **P1** for sustained operation |
-| Finding | Model/source/publication authority expires2026-10-15T23:40Z; current scope has no later sessions |
-| Evidence | Finite/publication envelopes and plan2 occurrences in inventory and website packet |
+| Finding | Model/source/publication authority expires2026-10-15T23:40Z; ordinary same-portfolio renewal also fails because the original Maya reservation remains incomplete |
+| Evidence | Finite/publication envelopes and plan 2 occurrences; `observed-investment.ts:82`, `finite-journal.ts:103,106–107,127,139`; independent continuity review |
 | Impact | Cannot truthfully claim indefinite daily autonomous trading |
-| Root cause | Intentional finite authorization and exact source hashes; not an implementation fault |
-| Recommended action | After this experiment, prepare a reviewed finite renewal proposal with accurate costs, evidence and fresh calendar/source scope |
+| Root cause | Known finite expiry plus incomplete-history renewal gates. The exact accepted gap is recognized only for the current successor, not ordinary renewal; its one-use recovery cannot be repeated |
+| Recommended action | Prepare a separately owner-authorized policy and implementation explicitly carrying forward the exact gap without refund/reclassification; then validate and approve new finite authority/source/publication scope |
 | Ownership / status | Owner and HQ / **Open owner-dependent constraint** |
-| Acceptance | Exact newly approved prospective envelope, preserved portfolio/history/consumption and genuine later-session receipts; no automatic limit reset |
+| Acceptance | Reviewed policy/code acceptance plus exact new prospective envelope, preserved portfolio/history/consumption and genuine later-session receipts. Ordinary approval or successful successor completion alone is insufficient |
 
 ## BSIA-005 — historical usage remains incomplete; actual cost unknown
 
@@ -60,7 +60,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Provider telemetry/accounting / **P2** |
 | Finding | Maya`execution_ec78843c-0b56-4343-9d38-a6ba223867be` has0 authoritative responses; diagnostic66,720 is not a valid turn total. All exact-model prices/invoices unavailable |
-| Evidence | `evidence/inventory-verified.json` usage; PR93 prevention; three later complete genuine turns |
+| Evidence | `evidence/inventory-verified.json` usage; PR #93 prevention; three later complete genuine turns |
 | Impact | Full-run tokens/actual charges cannot be reported; recurrence would correctly halt work |
 | Root cause | Known pinned cold-resume raw-event limitation; invoice/cost access unavailable |
 | Recommended action | Preserve exact historical gap and consumed attempt; retain fresh finite sessions and authoritative checks; report known subset only |
@@ -85,7 +85,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Field | Finding |
 |---|---|
 | Component / severity | Shared website/receiver host / **P2** |
-| Finding | Ubuntu22.10 remains an accepted historical exception, outside standard support |
+| Finding | Ubuntu 22.10 remains an accepted historical exception, outside standard support |
 | Evidence | Fresh owner OS readback; existing infrastructure runbook; Ubuntu interim release policy |
 | Impact | Security maintenance and reliable future deployments are constrained |
 | Root cause | Known deferred host migration |
@@ -142,7 +142,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 | Impact | Later sessions or unsupported corporate events cannot be presumed safe/complete |
 | Root cause | Deliberately bounded initial implementation |
 | Recommended action | Add prospective calendar/source/action support before affected sessions, with fixture and genuine evidence as appropriate |
-| Ownership / status | HQ / **Open future work**, not a blocker for ordinary Oct14–15 sessions |
+| Ownership / status | HQ / **Open future work**, not a blocker for ordinary Oct 14–15 sessions |
 | Acceptance | Exact reviewed calendar, holiday/timezone tests, explicit unknown-action handling; no fabricated dividend cash |
 
 ## BSIA-012 — release approval clock defect
@@ -151,7 +151,7 @@ As-of evidence: [system inventory](SYSTEM-STATUS.md), [workflow](INVESTMENT-WORK
 |---|---|
 | Component / severity | Recovery preparation/release / **P1 historical** |
 | Finding | Two exact releases failed before append because approval and journal times differed |
-| Evidence | [close activation report](../../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md), PR96 and successful16:57 activation |
+| Evidence | [close activation report](../../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md), PR #96 and successful16:57 activation |
 | Impact | Delayed recovery, unused original research draft |
 | Root cause | Known separate timestamp captures |
 | Recommended action | Preserve single approval timestamp and explicit same-unused-draft revision; retain failed evidence |

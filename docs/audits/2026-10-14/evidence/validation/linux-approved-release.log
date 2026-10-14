@@ -1,0 +1,41 @@
+From https://github.com/eugenelin89/bot_messenger
+ * branch            main       -> FETCH_HEAD
+   846d222..0fabbba  main       -> origin/main
+Candidate 0fabbbac0a1bb8e180556bcbe837076ca341f9c3; started 2026-10-14T19:54:48+00:00
+
+> botsquad@0.1.0 build
+> tsc
+
+
+> botsquad@0.1.0 contracts:check
+> node scripts/investment-contracts/generate.mjs --check
+
+Contract 1.0: verified types and 8 file digests
+✔ rolling start waits within frozen window, then four turns create a new HOLD outcome (20577.944732ms)
+✔ rolling start waits within frozen window, then four turns create a new BUY outcome (21757.944666ms)
+✔ rolling start waits within frozen window, then four turns create a new reject outcome (20991.421158ms)
+✔ capacity beyond cutoff waits to expiry and becomes missed without new requests (7480.6565ms)
+✔ unknown outcome never becomes a rolling wait (7507.114755ms)
+✔ permanent family exhaustion blocks before a temporary rolling shortage (8749.415838ms)
+✔ fresh draft waits without partial openings and starts both exactly once (1132.762445ms)
+✔ rolling retry rechecks membership withdrawal (7543.383778ms)
+✔ rolling retry rechecks sharing withdrawal (8065.375465ms)
+✔ active progression cannot convert rolling exhaustion into a pending retry (1130.958093ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105884.260126
+✔ retained recovery closes and publishes a fill with retained gap and eleven-attempt finalization (293810.922297ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294719.931433
+Completed 2026-10-14T20:02:18+00:00

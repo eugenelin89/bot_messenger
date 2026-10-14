@@ -1,15 +1,25 @@
 {
-  "capturedAt": "2026-10-14T19:46:53.460475+00:00",
-  "scope": "Read-only production evidence, explicitly attributed website packet, direct-owner coordination handoff, authored validation logs",
+  "capturedAt": "2026-10-14T20:03:17.688335+00:00",
+  "scope": "Read-only production evidence, explicitly attributed website packet, direct owner handoff/approval, authored validation and reviewed deployment preparation",
   "files": {
+    "attest-approved-stage.py": "e9235403a682e7370f68bead128b757f9c42c86aeed24335fadad2602186175d",
     "collect-inventory.py": "a1e2a6479479a0ad129d0054f86f7ec29ded5b82e2f86b3307b90153e9d6b151",
+    "collect-public.mjs": "9c53f9e67b76b811ebd5ff69c12805c49c3336632898714f22d6256ad42a2a8b",
     "collect-status.py": "4c233e27dbbe28688fe0d98b1a8853caf3b2bfa0be6a7349961c51e39e96f974",
     "coordination-handoff.json": "74731223f9891ef87c0f3c8f9a7e5d1e43854ed54eb91393a8b37fbad70706fa",
+    "deploy-approved-release.sh": "11d2e4d9c726ecd9f073e9719164d464c1ff4ba120365c7f1874828e4b6940d3",
+    "deployment-approval.json": "5ba8522573c669f9b2b5fda840d8cc3d8a2b0e492a446905cbdb7b47c1ef6f5d",
+    "deployment-review.json": "351f71732e19e6f47fbacc4ee4466d427021e29107595de4bb5ae4cf7eeffab7",
     "host-metadata.txt": "8f11c66241fa3feb0add70ab8d20c3bb5bbe53121e917e1db640e3051a35a3d3",
     "hq-1926.json": "f5f23505c9fa3f7b4b13256097abcd3713e078bfc9356ec527a7dbec3c4bb60e",
     "hq-after-cutoff.json": "4761a1867bff60ca09bae63f9c0a15f467a7bce6ab84627d55caa31e32b77dce",
+    "hq-predeploy-discovery.json": "b6ff24f35aec6f4b08d5a8770fb60830799f6546345f3d14d56b3e2110d06f8c",
     "inventory-initial.json": "134dd300e7feb1437eaea4e17db40bf5d9bd0381dca22a18e55a0cfaf06f292c",
     "inventory-verified.json": "cc459f8a204d75e886426b08d61fb1d4e561700354ef20feab0515d561003a05",
+    "linux-stage-attestation.json": "098648a33a4688afe9ff13d0c5ce6887b351b8bd98b95e0ce2d26ed2ca9c217c",
+    "linux-staging-resources.txt": "656591d2e5fe6f73ffd98480b752522926aed8eb4e21838411e683f4dcb295ec",
+    "public-before-close.json": "c7ccbb3587880f8a20ba411a172a569ac6fc9e7a6a4aff2fa644acd40661aee9",
+    "stage-approved-release.sh": "d70769e2221b69b1b2c4caa2060d5629e5cc9695476ca3ddee9b801d624b73a4",
     "validation/botsquad-audit-build02.log": "d29ef6730f05477d662712754da768a0caa0f614e0801123ec599067177d9fa9",
     "validation/botsquad-audit-build03.log": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
     "validation/botsquad-audit-build04.log": "6950d327ee1d7a372a870ceff93a12f68ec7b5f3f31860c660a343e80b7b0047",
@@ -25,6 +35,8 @@
     "validation/botsquad-audit-rolling03.log": "65ca4d03b5364f40e90ad98fad04df7c4cbc0b4a7edbcd88512b396cd8f5e22e",
     "validation/botsquad-audit-rolling04.log": "cded64e18efa3e1c7af7ea4253b233385a9c690c8ac9891cc3536dc825110b56",
     "validation/botsquad-audit-telemetry02.log": "58f08aabc877d688323d6fa88fa5cc07b561492b437d8b28f0c191095afb25ae",
+    "validation/linux-approved-release.log": "28cf34979ab289743aeef2e271e63870a7d373da594f81310eda89bb615a77d7",
+    "verify-deployment-preservation.py": "db7974211649fe80797b220db433e756f11ab45944ae1ce1250ca2d90b85fcdd",
     "website-owner-packet.txt": "f825b47f3d70bebb99b09ef9b04d54d75a24a953bcdacfc61c6dcebf30eb716d"
   }
 }
