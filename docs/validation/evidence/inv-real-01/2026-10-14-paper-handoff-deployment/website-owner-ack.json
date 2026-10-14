@@ -1,0 +1,31 @@
+{
+  "kind": "Direct supported website-owner acknowledgment; not an independently signed receiver attestation",
+  "sourceThreadId": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "turnId": "01a13b79-dde2-79d3-9103-5ccdc5fa9c39",
+  "cursorAtReceipt": "b6337d22-4873-49ac-b91e-8e6e7e9c6ebd:133",
+  "websiteSource": "e13a4ffea660fd8448e2b46f378d1d421cf652f5",
+  "implementationSource": "385a0df9515df6153edc5a37f68b6e8906ce13a0",
+  "buildId": "L7Kf_x7BQ5EzPAWBXdBxD",
+  "activatedAt": "2026-10-14T17:47:57Z",
+  "pid": 2416842,
+  "serviceStartedAt": "2026-10-14T17:47:54Z",
+  "publicReadbackAt": "2026-10-14T17:48:12.864Z",
+  "state": "active",
+  "watermark": {
+    "sourceSequence": "8",
+    "journalSequence": "1",
+    "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+    "sourceGaps": false
+  },
+  "assertions": [
+    "Five public endpoints200/no-cookie",
+    "All8canonical event hashes match retained pre-wording baseline",
+    "One initialization transaction with null fill; no decision/order/fill events",
+    "No event/transaction nextCursor; snapshotnull",
+    "Askdisabled; receiver/API/configuration/record/service identities unchanged",
+    "Hero aside removed; corrected introduction; original routes retained",
+    "Shared Linux heavy slot clear"
+  ],
+  "receiptDirectory": "/var/lib/asymmetri-trade-hero-release-20261014",
+  "previousWebsiteRetainedAt": "/var/www/asymmetri-rollback-20261014-4f0651a"
+}

@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-10-14T17:45:16.920322+00:00",
+  "source": "846d2220791a6f1d89732a458e3521341b61f9a1",
+  "schema": 29,
+  "unchangedOldTables": 180,
+  "expectedChangedTables": {
+    "investment_public_attempts": {
+      "beforeRows": 101,
+      "afterRows": 103,
+      "beforeDigest": "cf2ff53fd9305d2dd6a2c7a4481bbd7275f37de5c657a60fdb8fcb54b44265f0",
+      "afterDigest": "c9f8a66ed6faaa65314bef169832f1cc30345f1d6826ccf66b3c10c7a0b51ac5"
+    },
+    "investment_public_channels": {
+      "beforeRows": 1,
+      "afterRows": 1,
+      "beforeDigest": "4e7741f12ee8debdda3270d75d2ecedb5af44b8c3eeef6ec818684e4f3ada650",
+      "afterDigest": "d7315d346cca886cb0727cc0ac8f5a2886424528ecdd56327a20633b225e168e"
+    },
+    "investment_public_controls": {
+      "beforeRows": 6,
+      "afterRows": 7,
+      "beforeDigest": "b9dc856dc6b62cd5f3a7e5baf491b9f1c04ce377157b9b9c6cd5266d005225c3",
+      "afterDigest": "ce3a5b14fc4451b23193f52642536ffe269b74cddeb05ea5e05f6436f287bc67"
+    },
+    "investment_public_results": {
+      "beforeRows": 101,
+      "afterRows": 103,
+      "beforeDigest": "66a86e631f8e507991b6a9f115725a36e03c2b33ad7c5aea212bf1fa2b7d9064",
+      "afterDigest": "fc3f273d5890ff69fbaa46b8343d1d923d88b7fa44a6aafb8ab8fcb55e929389"
+    },
+    "workers": {
+      "beforeRows": 8,
+      "afterRows": 8,
+      "beforeDigest": "af37a8d80a774936a060e6f7aa58385485c1c94c6177a5a30bd4f5eba2854166",
+      "afterDigest": "982a85a5553ba38b5d50b099457a30b0898dd07c3662058c6637e489956b05ff"
+    }
+  },
+  "emptyAskTables": [
+    "ask_claim_custody",
+    "ask_claim_epochs",
+    "ask_content_controls",
+    "ask_content_services",
+    "ask_control_requests",
+    "ask_control_services",
+    "ask_coordination",
+    "ask_dispatches",
+    "ask_imports",
+    "ask_privacy_controls",
+    "ask_service_holds",
+    "ask_wire_attempts",
+    "ask_wire_operations"
+  ],
+  "workerChangesOnlyStartupUpdatedAt": [
+    {
+      "before": "2026-10-14T17:07:48.818Z",
+      "after": "2026-10-14T17:45:02.423Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.945Z",
+      "after": "2026-10-14T17:45:02.424Z"
+    },
+    {
+      "before": "2026-10-14T17:07:20.479Z",
+      "after": "2026-10-14T17:45:02.424Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.945Z",
+      "after": "2026-10-14T17:45:02.424Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.946Z",
+      "after": "2026-10-14T17:45:02.425Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.946Z",
+      "after": "2026-10-14T17:45:02.425Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.946Z",
+      "after": "2026-10-14T17:45:02.425Z"
+    },
+    {
+      "before": "2026-10-14T16:56:35.946Z",
+      "after": "2026-10-14T17:45:02.426Z"
+    }
+  ],
+  "finiteRetainedPrefixUnchanged": true,
+  "finiteAddedEvents": [
+    {
+      "_rowid_": 76,
+      "sequence": 76,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T17:45:01.897Z",
+      "kind": "hold",
+      "payload": "{\"authorityId\":\"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\",\"cause\":\"recovery\",\"reason\":\"Recovery requires exact owner resume of eligible future work\"}",
+      "previous": "1589d0f6c3c8c815d908d64951fb94a9764812c469140bcd6e18473398636c2f",
+      "digest": "edaa21e04a9c07b61a3bc392042a46d41b5570bed5eca2d684957ea3123af59f"
+    },
+    {
+      "_rowid_": 77,
+      "sequence": 77,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T17:45:02.378Z",
+      "kind": "resume",
+      "payload": "{\"authorityId\":\"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\"}",
+      "previous": "edaa21e04a9c07b61a3bc392042a46d41b5570bed5eca2d684957ea3123af59f",
+      "digest": "5276deb44535a3a411bcd7f583558c46edc70a3db2acbe5e93d3a5fd19272573"
+    }
+  ],
+  "finiteCheckpoint": {
+    "at": "2026-10-14T17:45:02.378Z",
+    "digest": "5276deb44535a3a411bcd7f583558c46edc70a3db2acbe5e93d3a5fd19272573",
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 77
+  },
+  "consumedAllowancesUnchanged": true,
+  "compiledArtifacts": {
+    "dist": {
+      "files": 718,
+      "matchesTestedStaging": true
+    },
+    "public": {
+      "files": 25,
+      "matchesTestedStaging": true
+    }
+  },
+  "askCustodyCreated": false,
+  "credentialsCopied": false,
+  "selectedInvestmentTablesUnchanged": true,
+  "noNewModelOrMarketExecution": true
+}

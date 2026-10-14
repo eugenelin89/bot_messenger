@@ -1,5 +1,13 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
+## Paper handoff correction deployed —17:45UTC
+
+PR98/846d222 is deployed with runtime ready and exact preservation. Investment remainsactive,
+head5,7consumed family attempts and12future stages. The three actual new turns produced no
+formal decision/order/fill; one remaining today turn is insufficient for three handoff steps.
+No replay, cap/authority change or synthetic live acceptance. [Current operations](../operations/INV-REAL-01.md)
+and [actual evidence](../validation/investment/INV-REAL-01-PAPER-HANDOFF.md) govern close monitoring.
+
 ## New genuine research and incomplete paper handoff —17:17UTC
 
 Three new Codex turns settled with complete usage. The employees expressed provisional HOLD,

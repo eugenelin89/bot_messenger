@@ -1,0 +1,10 @@
+{
+  "kind": "Actual owner-authorized preservation deployment; stdout retained",
+  "logs": {
+    "paper-handoff-deployment.log": {
+      "bytes": 682,
+      "sha256": "f829eee3903ff02242e26be458434213f5f8663618aa10c6b63f35a4bf008ea2",
+      "text": "Preflight passed; matched staged production inputs: 325\nLive shutdown handoff and stopped backup: /var/backups/botsquad/investment-paper-handoff-20261014T174456Z\n{\n  \"checkedAt\": \"2026-10-14T17:45:04.243625+00:00\",\n  \"health\": {\n    \"alive\": true,\n    \"database\": true,\n    \"dispatcher\": true,\n    \"runtime\": \"unknown\",\n    \"version\": \"0.1.0\",\n    \"commit\": \"846d2220791a6f1d89732a458e3521341b61f9a1\"\n  },\n  \"backup\": \"/var/backups/botsquad/investment-paper-handoff-20261014T174456Z\",\n  \"publicationPermitCompleted\": true,\n  \"oldLoopStoppedSuccessorRetainedActive\": true,\n  \"service\": [\n    \"MainPID=868817\",\n    \"MemorySwapMax=0\",\n    \"LimitCORE=0\",\n    \"ActiveState=active\"\n  ]\n}\n"
+    }
+  }
+}
