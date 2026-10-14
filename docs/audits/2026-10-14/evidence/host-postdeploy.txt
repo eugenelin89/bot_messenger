@@ -1,0 +1,11 @@
+MainPID=872875
+NRestarts=0
+ExecMainStartTimestamp=Wed 2026-10-14 20:26:24 UTC
+MemoryCurrent=143806464
+MemoryPeak=174514176
+ActiveState=active
+700 root root /var/backups/botsquad/investment-rolling-start-20261014T202624Z
+600 root root /var/backups/botsquad/investment-rolling-start-20261014T202624Z/company-schema29.sqlite
+600 root root /var/backups/botsquad/investment-rolling-start-20261014T202624Z/finite-authority.sqlite
+Filesystem     1024-blocks     Used Available Capacity Mounted on
+/dev/vda1         49691512 27337504  22337624      56% /

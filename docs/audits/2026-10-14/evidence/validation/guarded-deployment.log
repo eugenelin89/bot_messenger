@@ -1,0 +1,157 @@
+From https://github.com/eugenelin89/bot_messenger
+ * branch            main       -> FETCH_HEAD
+Preflight passed; matched staged production inputs: 325
+Live shutdown handoff and stopped backup: /var/backups/botsquad/investment-rolling-start-20261014T202624Z
+Previous HEAD position was 846d222 Merge PR #98: Fix paper handoff discovery and terminal discussion ordering
+HEAD is now at 0fabbba Merge PR #100: Wait for finite rolling capacity before research
+{
+  "checkedAt": "2026-10-14T20:26:32.342743+00:00",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "0fabbbac0a1bb8e180556bcbe837076ca341f9c3"
+  },
+  "backup": "/var/backups/botsquad/investment-rolling-start-20261014T202624Z",
+  "publicationPermitCompleted": true,
+  "oldLoopStoppedSuccessorRetainedActive": true,
+  "service": [
+    "MainPID=872875",
+    "MemorySwapMax=0",
+    "LimitCORE=0",
+    "ActiveState=active"
+  ]
+}
+{
+  "checkedAt": "2026-10-14T20:26:33.056650+00:00",
+  "source": "0fabbbac0a1bb8e180556bcbe837076ca341f9c3",
+  "schema": 29,
+  "unchangedOldTables": 180,
+  "expectedChangedTables": {
+    "investment_public_attempts": {
+      "beforeRows": 115,
+      "afterRows": 117,
+      "beforeDigest": "cefd1a9ef48c56cab113b67ad7015d0a7df08be7f30b7feecf6eb4bdf21f466d",
+      "afterDigest": "7d86068805a12cc8908d14dc93122f211069a2a2f2651a273793c561e92e79d3"
+    },
+    "investment_public_channels": {
+      "beforeRows": 1,
+      "afterRows": 1,
+      "beforeDigest": "d7315d346cca886cb0727cc0ac8f5a2886424528ecdd56327a20633b225e168e",
+      "afterDigest": "678e762de6a538887f331113f8eeb2ed7a9d253bb449083becb54e96d8956f72"
+    },
+    "investment_public_controls": {
+      "beforeRows": 7,
+      "afterRows": 8,
+      "beforeDigest": "ce3a5b14fc4451b23193f52642536ffe269b74cddeb05ea5e05f6436f287bc67",
+      "afterDigest": "e0b94c18e8c2994865825d5a8d4d6422236b59ddfc4b1e3820e0af800620ba7e"
+    },
+    "investment_public_results": {
+      "beforeRows": 115,
+      "afterRows": 117,
+      "beforeDigest": "acd9182305774bcc44ef8f1be9fc97ff31b8517e3819a8e9f91569498b2d3909",
+      "afterDigest": "7f1b7d7d6a3a453574129c22ef5a60b45e2efc6f8f1dde7ecf3914f1bd8aca6c"
+    },
+    "workers": {
+      "beforeRows": 8,
+      "afterRows": 8,
+      "beforeDigest": "982a85a5553ba38b5d50b099457a30b0898dd07c3662058c6637e489956b05ff",
+      "afterDigest": "1d12f8f265925c6226439086fb198e72e094fa1b205dfe881a72c428395bfc1a"
+    }
+  },
+  "emptyAskTables": [
+    "ask_claim_custody",
+    "ask_claim_epochs",
+    "ask_content_controls",
+    "ask_content_services",
+    "ask_control_requests",
+    "ask_control_services",
+    "ask_coordination",
+    "ask_dispatches",
+    "ask_imports",
+    "ask_privacy_controls",
+    "ask_service_holds",
+    "ask_wire_attempts",
+    "ask_wire_operations"
+  ],
+  "workerChangesOnlyStartupUpdatedAt": [
+    {
+      "before": "2026-10-14T17:45:02.423Z",
+      "after": "2026-10-14T20:26:29.845Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.424Z",
+      "after": "2026-10-14T20:26:29.845Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.424Z",
+      "after": "2026-10-14T20:26:29.846Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.424Z",
+      "after": "2026-10-14T20:26:29.846Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.425Z",
+      "after": "2026-10-14T20:26:29.847Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.425Z",
+      "after": "2026-10-14T20:26:29.847Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.425Z",
+      "after": "2026-10-14T20:26:29.847Z"
+    },
+    {
+      "before": "2026-10-14T17:45:02.426Z",
+      "after": "2026-10-14T20:26:29.847Z"
+    }
+  ],
+  "finiteRetainedPrefixUnchanged": true,
+  "finiteAddedEvents": [
+    {
+      "_rowid_": 105,
+      "sequence": 105,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T20:26:29.428Z",
+      "kind": "hold",
+      "payload": "{\"authorityId\":\"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\",\"cause\":\"recovery\",\"reason\":\"Recovery requires exact owner resume of eligible future work\"}",
+      "previous": "4cab7c2380a9187be1fce6d539a1c4e7926cd572cdba8402f308f01b7128aa08",
+      "digest": "1b2f6ee29bbd16ec974abd53693c64775c2de5185dec9a59a04b6c659517be91"
+    },
+    {
+      "_rowid_": 106,
+      "sequence": 106,
+      "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+      "at": "2026-10-14T20:26:29.818Z",
+      "kind": "resume",
+      "payload": "{\"authorityId\":\"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\"}",
+      "previous": "1b2f6ee29bbd16ec974abd53693c64775c2de5185dec9a59a04b6c659517be91",
+      "digest": "3dc805d53d25b920e56e64bbf40261c23c45bfbb70fba0b5b1d6788979c8d482"
+    }
+  ],
+  "finiteCheckpoint": {
+    "at": "2026-10-14T20:26:29.818Z",
+    "digest": "3dc805d53d25b920e56e64bbf40261c23c45bfbb70fba0b5b1d6788979c8d482",
+    "epoch": "07b7b371-63de-4b2b-b36c-be68eb944c7c",
+    "sequence": 106
+  },
+  "consumedAllowancesUnchanged": true,
+  "compiledArtifacts": {
+    "dist": {
+      "files": 720,
+      "matchesTestedStaging": true
+    },
+    "public": {
+      "files": 25,
+      "matchesTestedStaging": true
+    }
+  },
+  "askCustodyCreated": false,
+  "credentialsCopied": false,
+  "selectedInvestmentTablesUnchanged": true,
+  "noNewModelOrMarketExecution": true
+}

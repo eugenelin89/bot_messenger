@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-10-14T19:55:47.665820+00:00",
+  "source": "Direct user reply in this audit chat",
+  "question": "Authorize guarded deployment of merged PR100 (0fabbbac) with backup, preservation, publication handoff and restart before October15 research; unchanged calls, limits and authority.",
+  "answer": "Approve guarded deployment (recommended)",
+  "coordinator": "V - Audit BotSquad operations",
+  "targetCommit": "0fabbbac0a1bb8e180556bcbe837076ca341f9c3",
+  "noAdditionalAuthority": true
+}

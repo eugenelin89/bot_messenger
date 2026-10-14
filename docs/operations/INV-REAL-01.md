@@ -1,5 +1,13 @@
 # Persistent observed paper investment — operation and morning handoff
 
+**Final October 14 audit checkpoint,20:27 UTC:** HQ `0fabbbac0a1bb8e180556bcbe837076ca341f9c3`/schema 29/PID 872875 is ready after owner-approved guarded deployment. Eighteen source requests/seven model turns retained; close accounting/valuation/publication complete, head 16 preserved, portfolio $100,000 cash/no orders/no formal decision. Benchmark 129.925815SPYunits +0.000178 cash, public source 9/journal 1. Four model calls remain for the unchanged October 15 schedule; genuine decision acceptance and later renewal are unproven/blocked as detailed in the [authoritative audit](../audits/2026-10-14/SYSTEM-STATUS.md). Ask remains paused. No replacement chat automation.
+
+
+## Comprehensive audit — October 14,2026
+
+The [audit summary](../audits/2026-10-14/EXECUTIVE-SUMMARY.md), [system inventory](../audits/2026-10-14/SYSTEM-STATUS.md), [workflow trace](../audits/2026-10-14/INVESTMENT-WORKFLOW-AUDIT.md) and [October 15 readiness](../audits/2026-10-14/OCTOBER-15-READINESS.md) reconcile current production against prior milestones. The 19:30 cutoff completed without a formal decision/order. The reviewed pre-start wait for temporary rolling capacity is deployed in PR 100. Its tests and deployment are verified; genuine next-session admission and decision acceptance remain unproven. Original authority, history, source consumption and Ask pause remain unchanged. Later audit checkpoints explicitly supersede the initial observations.
+
+
 ## Paper handoff fix deployed; investment remains active — October14,17:45UTC
 
 PR98 merged normally at`846d2220791a6f1d89732a458e3521341b61f9a1` and deployed at17:45:04UTC,

@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-10-14T19:59:12.824891+00:00",
+  "reviewer": "Read-only workflow/recovery specialist",
+  "result": "No blocking issue in revised helpers",
+  "files": {
+    "deploy-approved-release.sh": "11d2e4d9c726ecd9f073e9719164d464c1ff4ba120365c7f1874828e4b6940d3",
+    "verify-deployment-preservation.py": "db7974211649fe80797b220db433e756f11ab45944ae1ce1250ca2d90b85fcdd",
+    "stage-approved-release.sh": "d70769e2221b69b1b2c4caa2060d5629e5cc9695476ca3ddee9b801d624b73a4",
+    "attest-approved-stage.py": "e9235403a682e7370f68bead128b757f9c42c86aeed24335fadad2602186175d"
+  },
+  "releaseGates": [
+    "Parent observes actual successful stage exit before writing validated.json; stageExitCode is an operator attestation",
+    "Deployment matches exact target and all staged compiled/public hashes before mutation",
+    "Actual closing stages complete and future quiet window verified before stop",
+    "Current live process arms one-use publication handoff; no first-only helper",
+    "Stopped company and authority snapshots retained on host without credentials",
+    "Runtime ready plus mandatory full table/finite prefix/custody/artifact preservation verify before success"
+  ],
+  "failurePolicy": "Never blindly restore prior configuration, checkpoint, authority DB or old SHA after stop/start. Retain receipts and inspect current one-use state. Backup is evidence, not authorization to rewind spent authority.",
+  "qualification": "Health loop is 90 attempts with bounded curl calls, not a strict 90-second deadline; no runtime probes or deployment by reviewer."
+}
