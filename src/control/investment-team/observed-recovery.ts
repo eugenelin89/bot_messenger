@@ -55,7 +55,7 @@ export function consentObservedRecovery(c:Company,input:unknown){
   assertRecoveryRetained(c,r);const current=c.finiteHQ.telemetryRecoveryPreview(r.oldScopeId,r.executionId);requireThat(current.checkpointDigest===r.checkpointDigest&&current.reservationHash===r.reservationHash&&book.inspect(old.run_id).hash===r.portfolioHead&&l?.state==='blocked'&&old.state==='active','Recovery head, custody or scope changed');
   // Local draft preparation grants no runtime capability. External approval later atomically
   // retires the old authority. A pre-approval restart changes custody and leaves this
-  // exact draft held; no automatic rebind, second successor or SQL repair is permitted.
+  // exact draft held; only an explicit verified inactive-draft revision may renew its window.
   c.investmentLoop.retireForTelemetryRecovery(r.oldScopeId,r.checkpointDigest);
   db.run("UPDATE investment_team_scopes SET state='revoked' WHERE scope_id=?",r.oldScopeId);
   const adopted=book.execute(old.run_id,{type:'late_close_adopt',amendment:r.amendment,expectedHead:r.portfolioHead},'late_close_adopt_'+receiptId);requireThat(adopted.outcome.status==='accepted','Late close amendment rejected');
@@ -69,7 +69,40 @@ export function consentObservedRecovery(c:Company,input:unknown){
   const result={runId:old.run_id,scope,loop,recovery:r,runtimeAuthority:'unapproved',preparedHead:book.inspect(old.run_id).hash};db.run('INSERT INTO observed_investment_receipts VALUES(?,?,?,?)',receiptId,requestHash,canonical(result),at);c.changed();return result;
  });
 }
-export function assertPreparedRecovery(c:Company,scopeId:string){const row=c.store.get<{result:string}>("SELECT result FROM observed_investment_receipts WHERE json_extract(result,'$.scope.scopeId')=?",scopeId);requireThat(row,'Exact prepared recovery receipt required');const prepared=JSON.parse(row.result),state=sim(c,prepared.runId).inspect(prepared.runId);requireThat(state.hash===prepared.preparedHead&&c.investmentLoop.forScope(scopeId)?.state==='draft','Prepared recovery portfolio head changed');return prepared;}
+/** Immutable original records plus an explicit append-only chain of inactive draft revisions. */
+function preparationChain(c:Company,scopeId:string){
+ const base=c.store.get<{result:string}>("SELECT result FROM observed_investment_receipts WHERE json_extract(result,'$.scope.scopeId')=? ORDER BY rowid LIMIT 1",scopeId);
+ requireThat(base,'Exact prepared recovery receipt required');let prepared=JSON.parse(base.result);
+ const row=c.store.get<{input:string;digest:string}>('SELECT input,digest FROM observed_investment_scopes WHERE scope_id=?',scopeId);requireThat(row&&hash(JSON.parse(row.input))===row.digest,'Original recovery configuration changed');let saved=JSON.parse(row.input) as Saved;
+ for(const entry of c.store.all<{result:string}>("SELECT result FROM observed_investment_receipts WHERE json_extract(result,'$.kind')='observed_recovery_draft_revision_v1' AND json_extract(result,'$.scopeId')=? ORDER BY rowid",scopeId)){
+  const revision=JSON.parse(entry.result),{digest,...body}=revision;
+  requireThat(hash(body)===digest&&revision.priorPreparationDigest===hash(prepared)&&revision.priorSavedDigest===hash(saved),'Recovery preparation revision chain changed');
+  const next=revision.saved as Saved;requireThat(next.recovery&&saved.recovery&&canonical({...next,recovery:{...next.recovery,researchAt:saved.recovery.researchAt,checkpointDigest:saved.recovery.checkpointDigest}})===canonical(saved),'Recovery revision changed retained scope');
+  requireThat(revision.prepared.scope.scopeId===scopeId&&revision.prepared.preparedHead===prepared.preparedHead&&revision.prepared.loop.loopId===prepared.loop.loopId,'Recovery revision changed identity');
+  prepared=revision.prepared;saved=next;
+ }
+ return {prepared,saved};
+}
+export function effectiveRecoverySaved(c:Company,scopeId:string,saved:Saved){return saved.recovery&&c.store.get("SELECT 1 FROM observed_investment_receipts WHERE json_extract(result,'$.kind')='observed_recovery_draft_revision_v1' AND json_extract(result,'$.scopeId')=?",scopeId)?preparationChain(c,scopeId).saved:saved;}
+export function assertPreparedRecovery(c:Company,scopeId:string){const {prepared}=preparationChain(c,scopeId),state=sim(c,prepared.runId).inspect(prepared.runId);requireThat(state.hash===prepared.preparedHead&&c.investmentLoop.forScope(scopeId)?.state==='draft','Prepared recovery portfolio head changed');return prepared;}
+export function reviseObservedRecovery(c:Company,input:unknown){
+ c.conversations.human();const a=strictObject(input,['scopeId','preparedHead','preparationDigest','researchAt','ownerReceiptHash','receiptId']),scopeId=textField(a,'scopeId',100),receiptId=textField(a,'receiptId',100),requestHash=hash(a),at=c.observedInvestment.now(),researchAt=textField(a,'researchAt',40);
+ return c.store.transaction(()=>{
+  const duplicate=c.store.get<{request_hash:string;result:string}>('SELECT * FROM observed_investment_receipts WHERE receipt_id=?',receiptId);if(duplicate){requireThat(duplicate.request_hash===requestHash,'Recovery draft revision receipt conflict');return JSON.parse(duplicate.result).prepared;}
+  const prepared=assertPreparedRecovery(c,scopeId),{saved}=preparationChain(c,scopeId),r=saved.recovery!,scope=c.investmentTeam.scope(scopeId),g=c.discussions.group(scope.group_id),book=sim(c,scope.run_id).inspect(scope.run_id);
+  requireThat(a.preparedHead===prepared.preparedHead&&a.preparationDigest===hash(prepared),'Exact current recovery preparation required');
+  requireThat(a.ownerReceiptHash===r.amendment.ownerReceiptHash&&time(researchAt)>time(at)&&time(researchAt)<=time(at)+2*3600000&&time(researchAt)<time(r.amendment.cutoffAt),'Exact owner scope and future research before cutoff required');
+  requireThat(scope.state==='active'&&g.state==='draft'&&g.turns_used===0&&book.lifecycle==='paused'&&book.lateClose?.id===r.amendment.id&&!Object.keys(book.decisions).length&&!Object.keys(book.orders).length&&!c.finiteHQ.approved(scopeId),'Only an inactive unapproved recovery draft can be revised');
+  for(const table of ['conversation_requests','conversation_sessions'])requireThat(!c.store.get('SELECT 1 FROM '+table+' WHERE conversation_id=?',g.conversation_id),'Recovery draft already has provider work');
+  for(const table of ['investment_team_executions','investment_team_proposals','observed_collection_results'])requireThat(!c.store.get('SELECT 1 FROM '+table+' WHERE scope_id=?',scopeId),'Recovery draft already used');
+  requireThat(!c.store.get("SELECT 1 FROM executions WHERE status='running'")&&!c.store.get('SELECT 1 FROM execution_runtime_attempts WHERE unresolved=1')&&!c.store.all<{worker_id:string}>('SELECT worker_id FROM workers').some(w=>c.providerUnresolved(w.worker_id)),'Provider work is active or unresolved');
+  assertRecoveryRetained(c,r);const custody=c.finiteHQ.recoveryDraftCheckpoint(r.oldScopeId,r.executionId,r.checkpointDigest);requireThat(custody.reservationHash===r.reservationHash&&custody.oldAttempts===4,'Retained consumption changed');
+  const plan=c.investmentLoop.reviseRecoveryDraft(scopeId,researchAt),next:Saved={...saved,recovery:{...r,researchAt,checkpointDigest:custody.checkpointDigest}},updated={...prepared,recovery:next.recovery,loop:{...prepared.loop,plan:prepared.loop.plan.map((p:{session:string;research:string;collect_research:string})=>p.session===r.amendment.session?{...p,research:researchAt,collect_research:iso(time(researchAt)-15*60000)}:p)}};
+  const body={kind:'observed_recovery_draft_revision_v1',scopeId,priorPreparationDigest:hash(prepared),priorSavedDigest:hash(saved),saved:next,prepared:updated,custody,plan,at};
+  c.investmentLoop.fault?.('recovery_draft_revision_before_commit');
+  c.store.run('INSERT INTO observed_investment_receipts VALUES(?,?,?,?)',receiptId,requestHash,canonical({...body,digest:hash(body)}),at);c.changed();return updated;
+ });
+}
 export function activateObservedRecovery(c:Company,scopeId:string,receiptId:string){c.conversations.human();return c.store.transaction(()=>{
  const saved=c.observedInvestment.scopeConfiguration(scopeId),r=saved.recovery,l=c.investmentLoop.forScope(scopeId);requireThat(r&&l&&l.state==='draft','Exact prepared recovery required');requireThat(c.investmentTeam.runtimeAvailable(scopeId),'Recovery runtime selector unavailable');assertPreparedRecovery(c,scopeId);assertRecoveryRetained(c,r);c.finiteHQ.assert(scopeId);requireThat(c.observedInvestment.now()<r.researchAt,'Recovery research window already elapsed');
  const book=sim(c,saved.configuration.runId),state=book.inspect(saved.configuration.runId);requireThat(state.lateClose?.id===r.amendment.id&&state.lifecycle==='paused'&&!Object.keys(state.decisions).length&&!Object.keys(state.orders).length,'Recovery book changed');const result=book.execute(saved.configuration.runId,{type:'control',state:'active'},'recovery_activate_'+receiptId);requireThat(result.outcome.status==='active','Recovery activation rejected');return c.investmentLoop.startPreparedRecovery(l.loop_id,l.digest,receiptId);

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "sourceInputs": "source-inputs.json",
+  "files": {
+    "diagnostic-logs.json": "9a68a4542c620d6efc192b0420db248e555419c22ccfc42e474776a720843962",
+    "operational-scripts.json": "12c036b220724a2af421065ef73fa5207806b0791307506a6273b1db46ed6600",
+    "pr95-deployment-preservation.json": "7c59a589a8bea72106de00884503ea3eb87a9dbfca56e38a5fbf466b44fec107",
+    "preapproval-failure.json": "e5589b33bc00677591fb8bfadd6c6cc85f5fd996ffb52b2b2dbf014d1993a198",
+    "results.json": "01d3548a5f41f26460619433f7c5c87bf1ec2e8a4c37661751ca7850464fce25",
+    "reviews.json": "7a6feedb5d739ead5b36735fec02be25f0301d2196a4ad9f6357781436f424ef",
+    "source-inputs.json": "94bec2b81278f6f1de9c5f082e0acfd29fc086d86dad8585bfd94dc8dea3f393"
+  },
+  "claims": "Private source repair under validation; retained prior actual deployment and failed release diagnostics. No repaired-source deployment, new independent authority, genuine new decision or fill claimed."
+}

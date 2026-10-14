@@ -24,7 +24,7 @@ Tomorrow's original future times and source hashes remain; final discussion and 
 
 Use normal source review, focused serial Linux tests and normal PR merge. Deploy with the existing live-instance one-use publication handoff and exact receiver reconciliation; never rerun the first-only helper or restore allowance from backups. Bind the prepared portfolio head again at account verification, independent approval and activation. Updating the selected runtime authority requires a controlled clean restart with the same preservation and publication reconciliation.
 
-Preparation is local and inactive; independent approval atomically stops the old external authority and approves exactly one successor. A restart before that approval changes independent custody and leaves this exact prepared draft held. There is intentionally no automatic checkpoint rebinding, second successor or SQL repair. A restart after approval may restore only the exact retained gap when all new attempts are settled/complete; unknown effects never retry. Preserve such failures and report the actual state.
+Preparation is local and inactive; independent approval atomically stops the old external authority and approves exactly one successor. A restart before that approval changes independent custody and leaves this exact prepared draft held. There is no automatic checkpoint rebinding, second successor or SQL repair. The explicit inactive-draft revision below is the only permitted continuation of an unused preparation after this narrow restart case. A restart after approval may restore only the exact retained gap when all new attempts are settled/complete; unknown effects never retry. Preserve such failures and report the actual state.
 
 Validation must prove the three-turn proposal/review/submission path, retained original evidence and public prefix, separate family/day bounds, stale head/account/custody rejection, new missing usage, crash boundaries, strict cutoff/expiry, missing/corrected CLOSE, benchmark/cash/holding arithmetic, receiver binding and ordinary OPEN behavior. Authored tests are never genuine acceptance; observe actual provider/usage/review/order/publication receipts after activation and actual source/fill/valuation receipts at their due times.
 
@@ -41,3 +41,36 @@ Other investment modes cannot reserve while this recovery authority remains live
 older independent records lack authoritative usage completeness, so any such history
 blocks this exact exception rather than being treated as complete. The single historical
 exception never waives another telemetry gap.
+
+
+## Explicit inactive-draft revision after a preapproval deployment
+
+The actual16:07UTC preparation granted no independent authority; two release calls failed
+before any journal append because approval time and journal time were captured separately.
+The repair captures one approval timestamp only after the verifier proof and local guards.
+The journal still requires exact equality. Both failed requests remain retained.
+
+Within the owner's same-day closing-price mandate, an explicit human-only revision may
+retain the **same** unapproved draft, successor identity, amendment, portfolio head and
+original owner receipt. It may change only the future research time before the original
+19:30UTC cutoff and the bound checkpoint. The independent verifier must prove the original
+checkpoint is an actual ancestor and that its entire contiguous suffix contains only the
+exact old-authority startup recovery holds. It rechecks the original four settled attempts,
+unique telemetry gap, reservation hash, source spending and absence of any successor.
+Any approval, new provider request/session/execution, collection, proposal, decision,
+order, active/unknown provider outcome, changed retained evidence/head or non-hold journal
+event rejects revision. No history is deleted or reclassified.
+
+Original preview/scope/preparation records remain immutable. An append-only hashed revision
+receipt binds the prior preparation/configuration hashes, exact custody proof, unchanged
+head, and new current plan. Old occurrence rows remain cancelled historical rows; a new
+plan revision changes only today's future research time, preserving all other due times
+and expiries. Health and dispatch use only the current plan. A new release request must
+bind the exact revised preparation digest, then perform the normal stable live-account
+verification and one-use independent approval. Revision itself grants no runtime authority
+and does not remove the retained hold. Approved or used preparations cannot be revised.
+
+Tests must exercise a genuinely advancing fixture clock, rejected stale requests,
+transaction rollback, exact duplicate receipt/conflict, immutable history, zero dispatch
+at the superseded due time, revised occurrence execution and next-day health. These are
+authored regressions, not genuine model or market acceptance.

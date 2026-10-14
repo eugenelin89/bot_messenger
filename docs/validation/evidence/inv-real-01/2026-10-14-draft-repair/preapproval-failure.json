@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-14T16:26:13.635424+00:00",
+  "prepared": {
+    "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+    "loopId": "6a8ca917-3dec-414e-ad33-a31eea6cb194",
+    "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+    "preparedHead": "f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478",
+    "researchAt": "2026-10-14T16:17:58.000Z",
+    "sha256": "a319bc13f075dbd78b677a9a519dd3fcac6092df27ab4a0ba0e555b6547d8868"
+  },
+  "approvedReceiptPresent": false,
+  "files": {
+    "failure-a6ab9672-4376-447d-b547-fa1bedf65c5b.json": {
+      "sha256": "5398c8ac03c03452b8efffa8958a8a5b9c9c4ebc61e3b2db1bd1531fc2289ba4",
+      "value": {
+        "phase": "prepare-release",
+        "path": "release",
+        "status": 400,
+        "body": "{\"error\":\"Truthful owner recovery approval required\"}"
+      }
+    },
+    "release-retry-result.json": {
+      "sha256": "838de96ce4d6f4ed4ed0220ef411d130c629d1574148ed9acf2d772cb6d80e77",
+      "value": {
+        "status": 400,
+        "body": "{\"error\":\"Truthful owner recovery approval required\"}"
+      }
+    },
+    "release-request.json": {
+      "sha256": "82f7c8ea85633078e610c8ff1626ffa6f56a0a94b3037d5536279a1ddaf8e4c1",
+      "value": {
+        "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+        "preparedHead": "f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478",
+        "receiptId": "close-release-b669a28c-7bf0-4fff-9088-2d608d9cfb5d"
+      }
+    },
+    "consent-request.json": {
+      "sha256": "4b68f11dbf347860c7f0ccef72cd4d88b368a246add0e2efb6b75dd471b93579",
+      "value": {
+        "previewId": "01c0c2d2-05c3-4410-811e-71bf8bffd9d2",
+        "digest": "619cf6c537d4d9b84fa45e63e8bedf69009a1e772805ab3c3b6db8ec20c54830",
+        "receiptId": "close-prepare-b3d6da52-d97b-4336-b59b-432651740a94"
+      }
+    }
+  }
+}

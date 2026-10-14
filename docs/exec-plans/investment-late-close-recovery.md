@@ -1,6 +1,6 @@
 # Execution Plan — retained research and prospective close recovery
 
-**Status:** Active; source validation passed, no new live authority yet
+**Status:** Active; source deployed, inactive recovery draft held pending timestamp and draft-revision repair
 **Owner:** coordinating chat 01a13739-708a-7d62-9b9c-52c11ead5f4b, sole writer
 **Branch:** codex/inv-real-01
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-inv-real-01
@@ -74,3 +74,30 @@ Earlier failures remain retained. Both exact producer vectors passed the indepen
 consumer oracle. Heavy HQ slot was verified quiescent and released to the website owner
 for exact-vector native HTTP confirmation. Normal merge, coordinated safe deployment,
 actual employee receipts and later close accounting remain. No source tests remain active.
+
+
+At16:07:29UTC PR95 sourcefbd26f5 deployed atschema29/PID855784, with live publication
+handoff completed and180 unaffected old tables identical. All716 compiled files/25 assets
+matched the tested stage. Startup appended only checkpoint57 recovery hold. Local preparation
+created one inactive successor draft, then two release requests failed before independent
+approval because separately captured timestamps differed. No new model/source/order/fill
+was created. Original requests and diagnostics remain retained. The original16:17:58 draft
+research time elapsed unused; no replay is allowed.
+
+At16:20UTC the repair captures one approval time and adds the explicit same-unused-draft
+revision described in Decision052. Independent reviewers caught and resolved a run-level
+configuration reference and stale cancelled-plan health query. The new test now executes
+both days after revision, rather than stopping at activation. Serial Linux build/targeted
+regression is running; new source review/merge, preservation deployment and new exact release
+remain. Revised estimate30–45minutes to a genuine decision, conditional on validation.
+
+
+At16:35UTC repair03 built and passed26 focused checks, but both nine-instrument workflows
+hit unchanged60-second stage waits (one next-day stage, one current-day stage); they are
+failures, not passes. Read-only sampling showed an active loop and running close collection,
+with no model error. Review identified redundant preparation parsing/hashing in repeated
+scope reads. A narrow reduction resolves one configuration per synchronous authority check
+and reconstructs the full revision chain only when an actual typed revision exists. Original
+scope validation and every revised-chain/evidence/custody guard remain. Repair04 keeps all
+bounds and adds detailed timeout states. This adds approximately10–15minutes to validation;
+no new live action has occurred.

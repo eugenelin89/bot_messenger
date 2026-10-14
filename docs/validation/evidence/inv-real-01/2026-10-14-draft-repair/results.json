@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-14T16:39:09.242817+00:00",
+  "evidenceKind": "Authored offline validation only",
+  "repair04": {
+    "build": "passed",
+    "canonical": "passed",
+    "focused": {
+      "tests": 26,
+      "pass": 26,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "fullFlows": "running",
+    "regression": "pending"
+  },
+  "repair03": {
+    "focusedPass": 26,
+    "flows": {
+      "pass": 1,
+      "fail": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "failedStageBoundMs": 60000
+    }
+  },
+  "newLiveModelCalls": 0,
+  "newLiveOrderOrFill": false,
+  "newIndependentAuthority": false
+}

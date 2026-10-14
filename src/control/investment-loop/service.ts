@@ -60,6 +60,19 @@ export class InvestmentLoop {
   for(const p of plan)for(const stage of (c.methodology==='inv-real-open-v1'?['collect_research','research','cutoff','collect_close','open','expire','mark']:['research','cutoff','open','expire','mark']) as Stage[]){if(stage==='collect_research'&&recovery?.amendment.session===p.session)continue;const expires=stage==='collect_research'?p.research:stage==='collect_close'?p.open:stage==='research'?p.cutoff:stage==='open'?p.expire:stage==='mark'?p.markEnd:p[stage];this.db.run("INSERT INTO investment_loop_occurrences VALUES (?,?,?,?,?,?,?,?,'pending',?,0,NULL,NULL,NULL,?,?)",`loop_${hash([loopId,generation,p.session,stage])}`,loopId,digest,generation,p.session,stage,p[stage],expires,generation,this.now(),this.now());}
   const l=this.get(loopId),preview=this.previewResult(l,plan);this.db.run('INSERT INTO investment_loop_previews VALUES (?,?,?,?,?)',randomUUID(),loopId,digest,JSON.stringify(preview),this.now());return preview;
  });}
+ /** Explicit revision of an unapproved, never-started recovery draft; old occurrences remain retained. */
+ reviseRecoveryDraft(scopeId:string,researchAt:string){
+  this.company.conversations.human();const l=this.forScope(scopeId),s=this.company.investmentTeam.scope(scopeId),g=this.company.discussions.group(s.group_id);
+  requireThat(l&&l.state==='draft'&&g.state==='draft'&&g.turns_used===0&&!this.company.finiteHQ.approved(scopeId),'Only an unapproved untouched recovery draft can be revised');
+  const r=this.company.observedInvestment.scopeConfiguration(scopeId).recovery;requireThat(r&&time(researchAt)>time(this.now())&&time(researchAt)<time(r.amendment.cutoffAt),'Future recovery research required');
+  const occurrences=this.occurrences(l);requireThat(occurrences.length===13&&occurrences.every(o=>o.state==='pending'&&o.attempts===0),'Recovery draft occurrences already used');
+  requireThat(!this.db.get('SELECT 1 FROM investment_team_executions WHERE scope_id=?',scopeId)&&!this.db.get('SELECT 1 FROM discussion_turns WHERE group_id=?',s.group_id),'Recovery draft has execution history');
+  const revision=l.plan_revision+1,generation=l.generation+1,at=this.now();
+  this.db.run("UPDATE investment_loop_occurrences SET state='cancelled',reason='Unapproved recovery draft revision; original timestamps retained',updated_at=? WHERE loop_id=? AND plan_revision=?",at,l.loop_id,l.plan_revision);
+  this.db.run('UPDATE investment_loops SET generation=?,plan_revision=?,updated_at=? WHERE loop_id=?',generation,revision,at,l.loop_id);
+  for(const o of occurrences){const due=o.session===r.amendment.session&&o.stage==='research'?researchAt:o.due_at;this.db.run("INSERT INTO investment_loop_occurrences VALUES (?,?,?,?,?,?,?,?,'pending',?,0,NULL,NULL,NULL,?,?)",`loop_${hash([l.loop_id,revision,o.session,o.stage])}`,l.loop_id,l.digest,revision,o.session,o.stage,due,o.expires_at,generation,at,at);}
+  return {before:occurrences,after:this.occurrences(this.get(l.loop_id)),generation,revision};
+ }
  /** Same scheduler and execution accounting; a research run has no financial stages. */
  previewResearch(scopeId:string,startsAt:string,expiresAt:string){
   const scope=this.company.investmentTeam.scope(scopeId),team=this.company.investmentTeam.envelope(scope),p=this.company.finiteHQ.policy(scopeId);requireThat(team.audience==='private_research'&&p,'Private research scope required');
