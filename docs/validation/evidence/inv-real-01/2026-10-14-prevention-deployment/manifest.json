@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "source": "108d65a5debf5026f198bdc67292b8fdd22432ed",
+  "files": {
+    "deployment.json": "eb34f35e22678bf2f03df170f6b7b0f1fe5cc8e3ba020d2ed622257f5b8e32a7",
+    "preservation.json": "b7caec32a1e5f66674d8f718a6cecd9c30268aa442470167d6ad65887bb171fb",
+    "public.json": "113e80cffcfc8b1de0d416825c098acd43663f22577de6bc403862d93a10058c",
+    "readback.json": "ad09642e096dd86d1e0e61a320df4d865d6141ecca1674cd5c49954a6d6b8ccd",
+    "website-ack.json": "20429cccbee059e4fe475516bb0a1f716d2fdfcd59c20160ff1a55ac7953a328"
+  },
+  "claims": "Deployment and preservation only; no trade, telemetry repair, authority release or new model/market attempt."
+}
