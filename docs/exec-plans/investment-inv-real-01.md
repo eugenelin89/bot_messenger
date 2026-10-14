@@ -6,7 +6,7 @@
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Production loop active and public archive connected October13 at20:37UTC. First actual collection is due October14 at11:45UTC; the finite trial ends October15 at23:40UTC. Ask integration continues independently. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
+**Current ETA:** Production loop active and public archive connected October13 at20:37UTC. First actual collection is due October14 at11:45UTC; the finite trial ends October15 at23:40UTC. Ask is paused by the owner; only investment continues. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
 
 ## October14 closed Ask upgrade checkpoint
 

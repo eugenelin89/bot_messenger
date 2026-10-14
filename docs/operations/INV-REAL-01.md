@@ -1,5 +1,13 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Owner pause and investment-only handoff — October 13, 11:18 p.m. Vancouver
+
+The owner's 11:08 p.m. instruction pauses all Ask development, activation, provider investigation and genuine acceptance until explicit resume. Public Ask remains disabled, no API spending was approved, and no further spending question is pending during this pause. This supersedes the earlier Ask completion packet below. Preserve deployed code, candidate disclosure and evidence. The website owner acknowledged the pause on completed turn `01a13907-8b46-7670-bb0f-792ef9c106cf`; no website work is requested.
+
+Investment monitoring continues every 15 minutes, quietly when unchanged. Read-only checks at 11:18 p.m. confirm HQ `5691504`/schema 29/PID 820597/runtime ready, unchanged run/head/configuration, active loop, generation 1 and 14 pending future occurrences. Five batches and 39 heartbeats are delivered; selected market, collection and employee execution records remain zero. Public status returns 200 with the same watermark and no source gaps; transport contact does not establish market freshness. Ask availability remains disabled. No production mutation or authority change occurred in this check.
+
+Concrete next investment packet: let the actual October 14 collection run at 4:45 a.m. Vancouver, verify research from 5:00 a.m. and cutoff at 6:00 a.m.; later verify close collection at 1:05 p.m., delayed opening-price paper processing at 1:20 p.m. and valuation at 1:25 p.m. Inspect actual receipts and accounting. A paper trade is conditional on an eligible reviewed decision and valid data. Preserve the active loop and spent custody; do not accelerate sessions, duplicate work or renew prematurely. No code, build or deployment is warranted by the unchanged pre-session state.
+
 ## Closed Ask deployment and morning handoff — October14,05:55UTC
 
 The owner-prioritized [ASK-LAUNCH](ASK-LAUNCH.md) independent work is deployed. [PR89](https://github.com/eugenelin89/bot_messenger/pull/89) merged at5691504d6ebc39f7d639ec9a4fd2d00511a1ef57 (reviewedce03b86); production HQ now runs this source/schema29/PID820597 with runtime ready. Website/Ask receiver6a194f040b70714de3b1281de5b58c1b8ad29579/build3eDBZMdlma5Ug7_iw_ZES is acknowledged by its sole owner. Canonical manifest4b61ab70b60f7660a7c2586b88666c5e00ce5ab9b849fb63295ffb095a5aae76 is shared. No CI status/workflow pass was supplied. [Full qualified validation/deployment receipts](../validation/ASK_LAUNCH.md).

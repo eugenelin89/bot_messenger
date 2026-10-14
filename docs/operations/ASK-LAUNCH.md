@@ -1,5 +1,7 @@
 # Ask operational launch
 
+**Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
+
 The owner's October 14 ASK-LAUNCH request authorizes implementation, reviewed deployment and public testing, **not API spending**. Production admission stays closed until a real owner decision and a protected credential exist. The current source adds an API route only for public questions; the investment Codex adapter and finite authority remain separate.
 
 ## Installed closed release
