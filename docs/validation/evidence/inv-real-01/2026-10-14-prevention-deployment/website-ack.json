@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-14T13:43:52.044219Z",
+  "threadId": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "completedTurn": "01a13aa7-3e87-7e40-adbc-b9e815a7054b",
+  "cursor": "b6337d22-4873-49ac-b91e-8e6e7e9c6ebd:81",
+  "reads": 4,
+  "allHttp200": true,
+  "cache": "private/no-store",
+  "setsCookie": false,
+  "state": "paused",
+  "sourceSequence": "6",
+  "journalSequence": "1",
+  "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+  "sourceGaps": false,
+  "allSixEventHashesUnchanged": true,
+  "noNewDecisionReviewOrderFill": true,
+  "initializationTransactionOnly": true,
+  "ask": "disabled",
+  "privacyNoticeVersion": "ask-privacy-v1",
+  "websiteChanged": false
+}

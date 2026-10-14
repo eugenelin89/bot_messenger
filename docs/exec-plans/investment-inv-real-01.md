@@ -1,5 +1,9 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
+## Owner-requested prevention deployment — October14,13:43UTC
+
+PR93 merged at108d65a and is now deployed at that exact commit/schema29/PID840259, runtime ready. The owner's request to apply the fix was fulfilled using the tested stage and existing live-instance publication handoff; independent review and actual preservation/readback passed. All180 unaffected Company tables, portfolio head, original occurrences, four spent model attempts and nine collections are preserved. Startup appended only one finite recovery hold (55→56), no resume. Publication generation1/current source6/journal1 reconciled, with independent website acknowledgment. The6:00a.m.Vancouver research cutoff had already passed; no morning trade or recovery exception was enacted. [Current handoff](../operations/INV-REAL-01.md#prevention-fix-deployed-missed-morning-retained--october14-643-am-vancouver) and [evidence](../validation/evidence/inv-real-01/2026-10-14-prevention-deployment/manifest.json) supersede earlier source-only status. No completed tests were rerun.
+
 ## Actual research telemetry hold — October 14, 12:07 UTC
 
 The scheduled research completed four genuine Atlas/Maya provider turns, but the fourth cold-resumed thread emitted only cumulative snapshots, with no authoritative response usage. Independent custody retained all four consumed/settled reservations and held the scope at checkpoint 55; no proposal, review, order or fill exists. Production automatically paused the portfolio and published its status. Ask remains owner-paused.
@@ -16,7 +20,7 @@ At13:07UTC, the source repair has passed build,311 focused non-observed checks a
 **Worktree:** `../bot_messenger-inv-real-01`
 **Started:** 2026-10-13 America/Vancouver
 **Initial ETA:** 4–6 hours, subject to integration and review findings
-**Current ETA:** Source prevention validation is complete at13:07UTC, with normal integration expected within10–15minutes. The actual loop remains held after four settled turns, the fourth lacking authoritative usage. No operational recovery ETA is promised because historical incomplete usage blocks resume and renewal. The existing authority expires October15 at23:40UTC. Ask remains owner-paused.
+**Current ETA:** Prevention fix deployed and preservation verified at13:43UTC. The actual loop remains held after four settled turns, the fourth lacking authoritative usage. No operational recovery ETA is promised because the specific prospective October15 exception remains unapproved/unimplemented. The existing authority expires October15 at23:40UTC. Ask remains owner-paused.
 
 ## October14 first actual collection checkpoint
 

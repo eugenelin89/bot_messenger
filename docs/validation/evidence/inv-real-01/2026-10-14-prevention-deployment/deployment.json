@@ -1,0 +1,13 @@
+{
+  "ownerRequest": "Can we apply the fix now and then complete the morning trade?",
+  "source": "108d65a5debf5026f198bdc67292b8fdd22432ed",
+  "backup": "/var/backups/botsquad/investment-prevention-20261014T134238Z",
+  "liveInstanceHandoff": true,
+  "firstOnlyHelperRerun": false,
+  "originalCutoff": "2026-10-14T13:00:00.000Z",
+  "cutoffMissed": true,
+  "tradeCompleted": false,
+  "operationalRecoveryApproved": false,
+  "askPaused": true,
+  "rawDeploymentOutput": "From https://github.com/eugenelin89/bot_messenger\n * branch            main       -> FETCH_HEAD\n   5691504..108d65a  main       -> origin/main\nPrevious HEAD position was 5691504 Merge PR #89: protected Ask API operation and safe closed upgrade\nHEAD is now at 108d65a Merge pull request #93: preserve finite telemetry with fresh contexts\nPreflight passed; matched staged production inputs: 324\nLive shutdown handoff and stopped backup: /var/backups/botsquad/investment-prevention-20261014T134238Z\n{\n  \"checkedAt\": \"2026-10-14T13:42:43.867929+00:00\",\n  \"health\": {\n    \"alive\": true,\n    \"database\": true,\n    \"dispatcher\": true,\n    \"runtime\": \"unknown\",\n    \"version\": \"0.1.0\",\n    \"commit\": \"108d65a5debf5026f198bdc67292b8fdd22432ed\"\n  },\n  \"backup\": \"/var/backups/botsquad/investment-prevention-20261014T134238Z\",\n  \"publicationPermitCompleted\": true,\n  \"loopStillBlocked\": true,\n  \"service\": [\n    \"MainPID=840259\",\n    \"MemorySwapMax=0\",\n    \"LimitCORE=0\",\n    \"ActiveState=active\"\n  ]\n}\n"
+}
