@@ -28,7 +28,7 @@ New tests include zero request-body bytes before final authority, post-custody d
 
 ## Actual protected migration rehearsal
 
-[Migration receipt](evidence/ask-launch/migration05-result.json): an online protected SQLite backup, SHA2563e9856cddcf8ed8b6d2f814432955291798eeefb8a5922b509de24b37bfa40cb, was copied to disposable host storage. Schema25→29 preserved all171 old tables exactly by rowid/all-field hashes, created13 empty Ask tables, passed three reopen cycles, integrity check and zero foreign-key errors. No Company, Dispatcher, model or network service was constructed. Credentials were not copied. A stopped consistent backup is still required for deployment.
+[Migration receipt](evidence/ask-launch/migration05-result.json): an online protected SQLite backup, SHA2563e9856cddcf8ed8b6d2f814432955291798eeefb8a5922b509de24b37bfa40cb, was copied to disposable host storage. Schema25→29 preserved all171 old tables exactly by rowid/all-field hashes, created13 empty Ask tables, passed three reopen cycles, integrity check and zero foreign-key errors. No Company, Dispatcher, model or network service was constructed. Credentials were not copied. The later deployment used a new stopped consistent backup, recorded below.
 
 ## Independent review
 
@@ -54,7 +54,7 @@ Finite custody retains its complete previous event prefix and all consumption. E
 
 Preparation and verification failures are retained, not hidden. The first preflight found11 absent Yahoo adapter files; production remained active. They were verified unchanged between the deployed and merged source, copied exactly to staging, and all324 deployment source/asset inputs then matched. The stopped helper next found root0700 `/etc/botsquad` untraversable; it had created no permit or migration. Only the two new configuration files were moved to the dedicated protected directory, then the exact unconsumed checkpoint continued. No bootstrap/reprovision/authority reset occurred. Independent deployment review also caught the service user's Git ownership check, corrected using command-scoped trust for `/opt/botsquad` only. Initial preservation assertions surfaced the documented worker timestamps and finite recovery entries; final verification narrowly asserts those exact differences.
 
-[Independent public readback05:53UTC](evidence/ask-launch/public-after.json) passed8/8 verified IPv4 HTTPS reads,200/no-cookie/Askdisabled. An earlier stale script requested unsupported `resource=workers` and received400; its raw result is retained separately, then the current supported `events` resource passed. Website owner explicitly acknowledged the final HQ/website/canonical closed integration without another build or deployment.
+[Independent public readback05:53UTC](evidence/ask-launch/public-after.json) passed8/8 verified IPv4 HTTPS reads,200/no-cookie/Askdisabled. An earlier stale script requested unsupported `resource=workers` and received400; its raw result is retained separately, then the current supported `events` resource passed. Website owner explicitly acknowledged the final HQ/website/canonical closed integration without another build or deployment. Final independent read-only claim review verified all34 evidence hashes and15 raw log wrappers, the exact reviewed/deployed implementation tree and the qualified preservation/closed-state claims; no material issue remained.
 
 ## Remaining live gates and exact owner decision
 
