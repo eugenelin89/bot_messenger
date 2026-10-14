@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-14T17:41:10.819084+00:00",
+  "sourceBase": "f4d5d8cfc8dbeb04fded7dc36abd642c26c26926",
+  "sourceInputCount": 484,
+  "run02": {
+    "build": "pass",
+    "canonical": "pass",
+    "handoffTests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "fullAuthoredClosingPriceFlow": {
+      "passed": 1,
+      "failed": 0
+    },
+    "focusedRegression": {
+      "passed": 65,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  },
+  "run03": {
+    "onlyChangedInput": "test/investment-paper-handoff.test.ts",
+    "build": "pass",
+    "canonical": "pass",
+    "handoffTests": {
+      "passed": 8,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  },
+  "overlap": "The run03 eight tests include run02 six. Do not sum them. Full-flow and regression production inputs are identical. No whole-suite or GitHub CI pass is claimed.",
+  "genuineAcceptance": "Three earlier genuine turns had complete usage but no formal paper decision. These offline passes do not establish genuine fixed behavior.",
+  "commands": {
+    "botsquad-paper-handoff02-run.sh": {
+      "sha256": "7fb62b4350fd91ae56f474e184ee897e2a833334552bdb0f8cd220e8e666a661",
+      "text": "#!/usr/bin/env bash\nset -euo pipefail\nexport PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin\ncd /var/tmp/botsquad-late-close-20261014\npython3 - <<'PY'\nimport pathlib,shutil,json\nm=dict(x.split(':',1) for x in pathlib.Path('/proc/meminfo').read_text().splitlines());a=int(m['MemAvailable'].split()[0]);d=shutil.disk_usage('.').free\nassert a>=900000 and d>=15000000000\nprint(json.dumps({'availableKiB':a,'diskBytes':d}),flush=True)\nPY\ntar -xzf /var/tmp/botsquad-paper-handoff02-delta.tgz\npython3 - <<'PY'\nimport pathlib,json,hashlib\nv=json.loads(pathlib.Path('/var/tmp/botsquad-paper-handoff02-inputs.json').read_text())\nfor f in v['files']:\n b=pathlib.Path(f['path']).read_bytes();assert len(b)==f['bytes'] and hashlib.sha256(b).hexdigest()==f['sha256'],f['path']\nprint(json.dumps({'matchedDeltaFiles':len(v['files'])}),flush=True)\nPY\ntimeout 300 node --max-old-space-size=768 node_modules/typescript/bin/tsc > /var/tmp/botsquad-paper-handoff02-build.log 2>&1\nnode scripts/investment-contracts/generate.mjs --check > /var/tmp/botsquad-paper-handoff02-contract.log 2>&1\ntimeout 180 node --test --test-concurrency=1 --test-reporter=tap dist/test/investment-paper-handoff.test.js > /var/tmp/botsquad-paper-handoff02-unit.log 2>&1\ntimeout 660 node --test --test-concurrency=1 --test-reporter=tap --test-name-pattern='retained recovery closes and publishes a fill' dist/test/observed-late-close.test.js > /var/tmp/botsquad-paper-handoff02-flow.log 2>&1\ntimeout 600 node --test --test-concurrency=1 --test-reporter=tap dist/test/investment-team.test.js dist/test/investment-loop.test.js dist/test/investment-loop-recovery.test.js dist/test/investment-loop-financial.test.js dist/test/investment-team-risk.test.js > /var/tmp/botsquad-paper-handoff02-focused.log 2>&1\n"
+    },
+    "botsquad-paper-handoff03-run.sh": {
+      "sha256": "5b9a74f284a32abb3ab44ce4ff1eb5493507b84bd63499c37a565468c15e49a6",
+      "text": "#!/usr/bin/env bash\nset -euo pipefail\nexport PATH=/opt/botsquad-runtime/node/bin:/usr/bin:/bin\ncd /var/tmp/botsquad-late-close-20261014\npython3 - <<'PY'\nimport pathlib,shutil,json\nm=dict(x.split(':',1) for x in pathlib.Path('/proc/meminfo').read_text().splitlines());a=int(m['MemAvailable'].split()[0]);d=shutil.disk_usage('.').free\nassert a>=900000 and d>=15000000000\nprint(json.dumps({'availableKiB':a,'diskBytes':d}),flush=True)\nPY\ntar -xzf /var/tmp/botsquad-paper-handoff03-delta.tgz\npython3 - <<'PY'\nimport pathlib,json,hashlib\nv=json.loads(pathlib.Path('/var/tmp/botsquad-paper-handoff03-inputs.json').read_text())\nfor f in v['files']:\n b=pathlib.Path(f['path']).read_bytes();assert len(b)==f['bytes'] and hashlib.sha256(b).hexdigest()==f['sha256'],f['path']\nprint(json.dumps({'matchedDeltaFiles':len(v['files'])}),flush=True)\nPY\ntimeout 300 node --max-old-space-size=768 node_modules/typescript/bin/tsc > /var/tmp/botsquad-paper-handoff03-build.log 2>&1\nnode scripts/investment-contracts/generate.mjs --check > /var/tmp/botsquad-paper-handoff03-contract.log 2>&1\ntimeout 180 node --test --test-concurrency=1 --test-reporter=tap dist/test/investment-paper-handoff.test.js > /var/tmp/botsquad-paper-handoff03-unit.log 2>&1\n"
+    }
+  }
+}

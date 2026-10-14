@@ -1,12 +1,12 @@
 # Execution Plan — retained research and prospective close recovery
 
-**Status:** Active; PR96 deployed and exact successor activated16:57UTC; genuine17:06 research and later closing-price receipts pending
+**Status:** Active; genuine17:06 research settled complete usage but no formal paper decision; narrow handoff correction in progress
 **Owner:** coordinating chat 01a13739-708a-7d62-9b9c-52c11ead5f4b, sole writer
 **Branch:** codex/inv-real-01
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-inv-real-01
 **Started:** 2026-10-14 13:52 UTC
 **Initial ETA:** 60–90 minutes for recovery implementation/review; fill can occur only after today's scheduled close collection.
-**Current checkpoint (15:25 UTC):** The website owner reports the guarded production build, receiver27/27, Vinext, unchanged isolated stalled-download test and390/768/1440px browser verification passed. Source12 full-universe flows are running after explicit shared-HQ slot release;483 source inputs match. Final regression, normal merge and coordinated deployment remain. Revised estimate45–60minutes through the new employee decision, conditional on remaining acceptance. Closing cutoff remains19:30UTC; prospective paper execution remains20:20UTC. No recovery authority or production change yet.
+**Current checkpoint (17:41UTC):** Genuine research completed with full usage but no formal paper handoff. Narrow source correction passed read-only review, build/canonical,8handoff assertions,65regression checks and1full authored close workflow. All484 inputs match. Shared Linux slot released to website owner; no heavy work remains. Normal merge and preservation deployment remain, estimated10–15minutes. No new provider dispatch or authority/schedule change; today's genuine paper trade remains incomplete.
 
 ## Objective and actual owner direction
 
@@ -107,3 +107,21 @@ At2026-10-14T16:54:26.935150+00:00 repair04 completed: build/canonical,26 focuse
 
 
 At16:57:09UTC normal PR96 merge/deployment and both preservation checks completed. One revised release succeeded, selector startup retained prefix with hold/resume, and current plan2 activated. Whole-table and exact approval evidence is in [the activation record](../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md). Research is scheduled17:06:08UTC; follow actual decision/review/order without forcing BUY. The initial estimate expanded because live approval timing and unused-draft recovery required a reviewed fix and full workflows; no further source validation is active.
+
+
+At17:08:21UTC three genuine new turns completed and settled with authoritative usage.
+Atlas/Maya expressed provisional HOLD, but no typed proposal, review, submission, order or
+fill exists. The natural discussion boundary marked research complete and retained future
+collection. This is an incomplete paper handoff, not a completed investment decision. All
+seven family attempts (four original plus three new) remain spent; one remaining day/rolling
+allowance cannot complete the three distinct settled executions required from zero proposal.
+The completed occurrence will not replay.
+
+At17:20UTC the narrow prospective correction exposes bounded scoped proposal/review/submission
+metadata and exact review readback, tells employees to perform ready paper actions before
+terminal discussion tools, and records truthful cycle completion outcomes. It changes no
+roles, grants, frozen configuration, operation names, schedule, caps or saved group mandate.
+Authored acceptance must discover IDs through real tool results (the earlier fixture used
+shared local variables), cover HOLD/rejection/no-submission and prior-session isolation.
+Normal review/merge/preservation deployment remain; genuine future behavior is unproven.
+Estimated20–30minutes for focused validation and release, conditional on results.

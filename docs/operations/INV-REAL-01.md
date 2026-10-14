@@ -1,5 +1,24 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Genuine research completed; formal paper handoff missing — October14,17:17UTC
+
+Investment remains **active**, independently of the owner's ASK-only pause. Three genuine
+new turns completed with settled authoritative usage, but only provisional HOLD discussion;
+no typed proposal/review/submission/order/fill exists. Research completed once; twelve
+future occurrences, including today's close collection/accounting, remain pending. Family
+consumption7/rolling7/active0 leaves4family and1today attempts. No hold or provider denial.
+Original four attempts/nine source requests and the historical usage gap remain retained.
+HQ022029e/schema29/PID862290, successor generation2/plan2, head5/cash100000 initialization
+are unchanged; custody75/digest1589d0f6c3c8c815d908d64951fb94a9764812c469140bcd6e18473398636c2f.
+
+A narrow prospective paper-handoff instruction/context correction passed build/canonical,
+8handoff assertions,65regression checks and1full authored close workflow at17:41UTC;
+reviewed source merge/deployment remain pending.
+It cannot retroactively formalize today's discussion; no replay, extra authority/cap,
+forced BUY or fabricated peer review is permitted. One remaining today turn is insufficient
+for proposal, independent review and submission. [Actual evidence and correction](../validation/investment/INV-REAL-01-PAPER-HANDOFF.md).
+ASK remains paused/disabled; automation ACTIVE at its unchanged15-minute schedule.
+
 ## Investment active under closing-price recovery — October14,16:57UTC
 
 The owner explicitly selected **Decision plus closing-price paper trade**. [Decision052](../decisions/decision_052_retained_research_close_recovery.md) supersedes the unapproved October15-only proposal. PR96 is normally merged and deployed at`022029e4e5c8534fa3aff6a1781f49082bab4dba`/schema29/PID862290/runtime ready. Exact revised approval succeeded, and the same prepared successor is active atgeneration2/currentplan2. Scope`68ab0223-32b5-4a02-a7aa-a70ee9bc20dc`, authority`observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a`, loop`6a8ca917-3dec-414e-ad33-a31eea6cb194` retain the same portfolio and exact historical usage gap.
