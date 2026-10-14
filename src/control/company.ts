@@ -1,6 +1,7 @@
 import {ObservedInvestment} from './investment-team/observed-investment.js';
 import type {AskCoordinator} from './ask/coordinator.js';
 import type {AskService} from './ask/service.js';
+import type {AskOperationalState} from './ask/operational.js';
 import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
 import { FiniteHQ } from './usage/finite-hq.js';
@@ -54,6 +55,7 @@ interface HireInput {
 export class Company extends EventEmitter {
   /** Explicitly installed public service; startup and migration create no Ask authority. */
   ask?:AskService;
+  askOperational:AskOperationalState={state:'disabled',reason:'Ask is disabled'};
   askCoordinator?:AskCoordinator;
   readonly dataDir: string;
   readonly engineering: Engineering;

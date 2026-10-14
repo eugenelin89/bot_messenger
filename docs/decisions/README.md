@@ -200,3 +200,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision049 — Private Ask authority custody](decision_049_private_ask_authority_custody.md): separate finite metadata grants, immutable attempts, independent consumed-budget custody and named receipt reconciliation; dormant, with no operational initializer, runtime permit or public admission.
 
 - [Decision050 — Ask subscription activity limits](decision_050_ask_subscription_activity_limits.md): accepted explicit monitored-threshold/unknown-cost mode preserving strict variants, with durable cross-grant threshold holds; bounded source and pinned candidate consumer review pass, operational integration remains separate.
+
+- [Decision051 — Separate Ask API route and closed launch](decision_051_ask_api_launch.md): pinned stateless public-question adapter, independent priced custody and pause, privacy cleanup after expiry, and one-use same-generation clean restart. Implementation/deployment are authorized; API expense and genuine acceptance remain pending.

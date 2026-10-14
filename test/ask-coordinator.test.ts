@@ -10,7 +10,7 @@ import type {AskClient} from '../src/control/ask/transport.js';
 import type {AskServiceConfiguration,AskAnswerReceipt,AskControlReceipt} from '../contracts/investment/v1/types.js';
 import {fixture} from './ask-coordinator-helpers.js';
 function setup(maxAttempts=100){
- const f=fixture();let flags={admissionEnabled:true,claimsEnabled:true,deliveryEnabled:true,held:false},revision=1;
+ const f=fixture();let backendReady=true;let flags={admissionEnabled:true,claimsEnabled:true,deliveryEnabled:true,held:false},revision=1;
  let queue=[f.claim()],controls:AskControlReceipt[]=[],lose:AskKind|undefined,missing=false,hostile=false,configHostile=false;
  queue[0]!.leaseExpiresAt=new Date(Date.parse(f.ctx().now)+90000).toISOString();const original=structuredClone(queue[0]!);let known:AskAnswerReceipt|undefined;const calls:AskOperation[]=[],seen=new Map<string,unknown>();
  function snapshot(){const c:AskServiceConfiguration={schemaVersion:'1.0',serviceId:f.config.scope.serviceId,consumerGeneration:f.config.scope.consumerGeneration,configurationRevision:String(revision),configurationHash:'0'.repeat(64),scope:structuredClone(f.config.scope),limits:structuredClone(f.config.limits),roster:structuredClone(f.config.roster),privacyNoticeVersion:'fixture-privacy',checkedAt:f.ctx().now,validUntil:new Date(Date.parse(f.ctx().now)+60000).toISOString(),...flags};if(configHostile)c.roster.workers[0]!.worker.name='private-visitor-canary-6f00bc40';c.configurationHash=askConfigurationHash(c);return c;}
@@ -34,13 +34,13 @@ function setup(maxAttempts=100){
   const response=decodeAskResponse(intent,{status,contentType:status===200?'application/json':'application/problem+json',cacheControl:'private, no-store',bytes:Buffer.from(json(value))},options.current());return{kind:'response',response} as any;
  }})};
  let coordinator:AskCoordinator;
- function compose(){coordinator=new AskCoordinator(f.db,{current:f.ctx,approved:f.config,authority:f.journal,controls:f.controls,content:f.content,service:f.service,keys:{has:()=>true,sign:()=>Buffer.alloc(64)},assertRuntimeAvailable:()=>{},maxAttempts,expiresAt:f.g.expiresAt,privacyNoticeVersion:'fixture-privacy'},client);f.company.askCoordinator=coordinator;f.gate(p=>coordinator.configuration(p));}
+ function compose(){coordinator=new AskCoordinator(f.db,{current:f.ctx,approved:f.config,authority:f.journal,controls:f.controls,content:f.content,service:f.service,keys:{has:()=>true,sign:()=>Buffer.alloc(64)},assertRuntimeAvailable:()=>{assert.ok(backendReady);},bodyOperationsReady:()=>backendReady&&!f.service.ownerPaused,maxAttempts,expiresAt:f.g.expiresAt,privacyNoticeVersion:'fixture-privacy'},client);f.company.askCoordinator=coordinator;f.gate(p=>coordinator.configuration(p));}
  compose();
  async function tick(ms=5000){f.setTime(new Date(Date.parse(f.ctx().now)+ms).toISOString());await coordinator.progress(()=>{});}
  async function ready(){await tick(0);await tick();assert.equal(calls[0]!.kind,'configuration');assert.ok(calls.some(c=>c.kind==='claim'));}
  async function answer(){const run=f.service.claimNext(2)!;assert.ok(run);await f.service.run(run,f.runtime,new AbortController().signal);}
  return{...f,original,get db(){return f.db;},get company(){return f.company;},get journal(){return f.journal;},get content(){return f.content;},get controls(){return f.controls;},calls,tick,ready,answer,get coordinator(){return coordinator;},configurationSnapshot:snapshot,
-  flags(next:Partial<typeof flags>){flags={...flags,...next};revision++;},lose(kind:AskKind){lose=kind;},missing(v:boolean){missing=v;},hostile(){hostile=true;},hostileConfig(){configHostile=true;},enqueue(q:typeof queue[number]){queue.push(q);},control(c:AskControlReceipt){controls.push(c);},
+  disableBackend(){backendReady=false;},flags(next:Partial<typeof flags>){flags={...flags,...next};revision++;},lose(kind:AskKind){lose=kind;},missing(v:boolean){missing=v;},hostile(){hostile=true;},hostileConfig(){configHostile=true;},enqueue(q:typeof queue[number]){queue.push(q);},control(c:AskControlReceipt){controls.push(c);},
   async restart(snapshot?:Parameters<typeof f.reopen>[0]){await coordinator.stop();await f.reopen(snapshot,false);compose();},async close(){await coordinator.stop();await f.close();}};
 }
 function noCanary(f:ReturnType<typeof setup>){for(const {name} of f.db.all<{name:string}>("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"))assert.equal(json(f.db.all(`SELECT * FROM "${name}"`)).includes('private-visitor-canary-6f00bc40'),false,name);}
@@ -62,3 +62,14 @@ test('Company snapshot from before deletion application cannot resurrect content
  await f.tick(40000);await f.tick();await f.tick();assert.ok(snapshot);assert.equal(f.content.metadata('question-a').state,'suppressed');await f.restart({companySnapshot:snapshot.companySnapshot,contentSnapshot:snapshot.contentSnapshot});assert.equal(f.db.get<any>('SELECT hold_reason FROM ask_coordination')!.hold_reason,'custody_reconciliation');assert.equal(f.company.paused,false);assert.throws(()=>f.coordinator.configuration());});
 
 test('more than100 successful configuration refreshes do not exhaust an operation retry set',async t=>{const f=setup(400);t.after(f.close);f.flags({admissionEnabled:false,claimsEnabled:false});for(let i=0;i<101;i++)await f.tick(i?45000:0);assert.equal(f.calls.filter(c=>c.kind==='configuration').length,101);assert.equal(f.db.get<any>('SELECT hold_reason FROM ask_coordination')!.hold_reason,null);assert.equal(f.journal.inspect().models.length,0);});
+
+test('disabled backend continues control suppression without claim/status/answer or model traffic',async t=>{
+ const f=setup();t.after(f.close);await f.ready();f.disableBackend();const prior=f.calls.length;
+ f.control({schemaVersion:'1.0',controlId:'delete-disabled',conversationId:'conversation-a',questionId:null,action:'delete',effectiveAt:f.ctx().now,purgeBy:f.ctx().now,suppressionUntil:'2026-02-04T21:32:00.000Z'});
+ await f.tick(40000);await f.tick();await f.tick();assert.ok(f.calls.slice(prior).some(x=>x.kind==='control_sync'));assert.ok(f.calls.slice(prior).every(x=>['configuration','control_sync','receipt'].includes(x.kind)));
+ assert.equal(f.content.metadata('question-a').state,'suppressed');assert.equal(f.journal.inspect().models.length,0);assert.equal(f.company.paused,false);
+});
+test('disabled backend reconciles a known answer receipt without retransmitting its body',async t=>{
+ const f=setup();t.after(f.close);await f.ready();await f.answer();await f.tick();f.lose('answer');await f.tick();const prior=f.calls.length;f.disableBackend();await f.tick();
+ assert.equal(f.content.metadata('question-a').state,'delivered');assert.deepEqual(f.calls.slice(prior).map(x=>x.kind),['receipt']);assert.equal(f.journal.inspect().models.length,1);
+});

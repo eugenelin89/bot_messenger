@@ -30,6 +30,12 @@ export type RuntimeInput = RuntimeInputFields & (
 );
 /** providerTurnCompleted is trusted adapter evidence of provider success, independent of local outcome. */
 export interface RuntimeResult { providerTurnCompleted?:boolean; investmentUsage?:InvestmentUsage; status: 'completed' | 'failed' | 'interrupted' | 'awaiting_approval'; summary?: string; error?: string; settled?: boolean }
+/** Complete terminal API usage is independent of successful answer generation. */
+export interface AskRuntimeResult extends RuntimeResult { apiUsage?:import('../domain/ask/api-policy.js').AskApiUsage }
+export interface AskRuntimeAdapter {
+  assertAskAvailable?():void;
+  runAsk?(input:import('../domain/ask/execution.js').AskRuntimeInput,signal:AbortSignal):Promise<AskRuntimeResult>;
+}
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;

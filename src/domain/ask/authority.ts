@@ -1,6 +1,7 @@
 /** Ask-only finite metadata. Validation is not account eligibility or a runtime permit. */
 import { canonicalHash, canonicalJson, requireContract as need, validate } from '../../../scripts/investment-contracts/schema.js';
 import type { AskLimits, AskRoster, AskServiceScope, AskSubscriptionActivityPolicy } from '../../../contracts/investment/v1/types.js';
+import {checkApiUsage,type AskApiUsage} from './api-policy.js';
 
 export interface AskGrantConfiguration {scope:AskServiceScope;limits:AskLimits;roster:AskRoster}
 
@@ -38,6 +39,7 @@ export interface AskAdmissionProof {
 export interface AskUsageReceipt {
   providerSessionId:string; responseDigest:string; usageDigest:string;
   inputTokens:number; outputTokens:number; chargeMicros:string|null; complete:true;
+  api?:AskApiUsage;
 }
 export function exact(value:unknown,keys:string):asserts value is Record<string,unknown> {
   need(value!==null&&typeof value==='object'&&!Array.isArray(value)
@@ -121,9 +123,12 @@ export function admission(value:AskAdmissionProof,g:AskGrant,r:AskReservation,at
   need(checked<=now&&now-checked<=60000&&now<expires&&expires<=checked+60000,'EXPIRED');
 }
 export function usage(value:AskUsageReceipt,g:AskGrant,providerSessionId:string):'within_limits'|'threshold_exceeded' {
-  exact(value,'providerSessionId responseDigest usageDigest inputTokens outputTokens chargeMicros complete');
+  exact(value,'providerSessionId responseDigest usageDigest inputTokens outputTokens chargeMicros complete'+(value.api?' api':''));
   need(value.providerSessionId===providerSessionId&&value.complete===true,'CONFLICT');
   digest(value.responseDigest);digest(value.usageDigest);integer(value.inputTokens);integer(value.outputTokens);
+  if(value.api){checkApiUsage(value.api);need(g.monetaryMode==='verified_cap'&&g.model===value.api.model
+    &&value.inputTokens===value.api.tokens.inputTokens&&value.outputTokens===value.api.tokens.outputTokens
+    &&value.chargeMicros===value.api.chargeMicros,'CONFLICT');}
   const within=value.inputTokens<=g.maxInputTokens&&value.outputTokens<=g.maxOutputTokens;
   if(g.monetaryMode==='activity_capped_subscription'){
     need(value.chargeMicros===null,'INVALID_SCHEMA');

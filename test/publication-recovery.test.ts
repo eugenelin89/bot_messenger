@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync,mkdtempSync,mkdirSync,realpathSync,writeFileSync,rmSync,unlinkSync } from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {prepareCleanRestart,type CleanRestartFiles} from '../src/control/publication/clean-restart.js';
 import { publicationFixture } from './fixtures/publication/support.js';
 import { PublicationService } from '../src/control/publication/service.js';
 import { verifySignedRequest, type SignedMessage } from '../scripts/investment-contracts/signatures.js';
@@ -117,4 +120,34 @@ test('permanent receiver errors block and outage retries grow within a finite bu
 });
 test('receiver 429 waits the declared bounded delay without another immediate transmission',async t=>{
  const f=publicationFixture();t.after(f.cleanup);const o=oracle(f),s=f.configured(o.transport),{channelId}=stage(f,s);o.set(()=>({status:429,contentType:'application/problem+json',bytes:Buffer.from(canonicalJson({schemaVersion:'1.0',code:'RATE_LIMITED',status:429,requestId:'fixture-rate',retryable:true,detail:'Fixture rate',retryAfterSeconds:60,resync:null}))}));await s.deliver({channelId});await s.deliver({channelId});assert.equal(o.calls.length,1);assert.equal(Date.parse(s.health(channelId).jobs[0]!.retryAt!)-Date.parse(f.clock.now()),60000);
+});
+
+for(const scenario of ['success','lost-response','watermark-drift','changed-spent-file','wrong-path-binding','changed-configuration'] as const)test(`independent same-generation clean restart ${scenario}`,async t=>{
+ const f=publicationFixture();t.after(f.cleanup);const o=oracle(f),s=f.configured(o.transport),{channelId}=stage(f,s);
+ while(s.health(channelId).pending)await s.deliver({channelId});
+ const base=realpathSync(mkdtempSync(join(tmpdir(),'publication-handoff-'))),directory=join(base,'checkpoint');mkdirSync(directory,{mode:0o700});t.after(()=>rmSync(base,{recursive:true,force:true}));
+ const files:CleanRestartFiles={publicationConfig:join(base,'publication.json'),finiteAuthority:join(base,'finite.json'),finiteCheckpoint:join(base,'finite-head.json')};
+ for(const p of Object.values(files))writeFileSync(p,'authored noncredential fixture',{mode:0o600});
+ const targetSha='a'.repeat(40),before=f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n;
+ prepareCleanRestart(f.store,directory,[f.dir],channelId,files,targetSha,f.clock.now());
+ const restarted=f.configured(o.transport);assert.equal(restarted.health(channelId).restoreRequired,true);const calls=o.calls.length;
+ if(scenario==='lost-response')o.set(()=>{throw Error('authored disconnected receipt');});
+ if(scenario==='watermark-drift')o.set(m=>{const response=o.normal(m);if(m.path.endsWith('/status')){const status=parseJson(response.bytes) as {watermark:{sourceSequence:string}};status.watermark.sourceSequence='999';return ok(status);}return response;});
+ if(scenario==='changed-spent-file')writeFileSync(files.finiteCheckpoint,'changed independently retained spend');
+ const supplied=scenario==='wrong-path-binding'?{...files,finiteAuthority:files.finiteCheckpoint}:files;
+ if(scenario!=='success'){
+  await assert.rejects(restarted.reconcileCleanRestart(directory,[f.dir],targetSha,supplied,()=>{if(scenario==='changed-configuration'&&o.calls.length>calls)throw Error('authored config changed');}));assert.equal(restarted.health(channelId).restoreRequired,true);
+  if(['changed-spent-file','wrong-path-binding'].includes(scenario)){assert.equal(o.calls.length,calls);assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n,before);}
+  else{assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n,before+2);await assert.rejects(restarted.reconcileCleanRestart(directory,[f.dir],targetSha,files));}
+  assert.equal(f.store.get<{generation:string}>('SELECT generation FROM investment_public_channels')!.generation,'1');return;
+ }
+ await restarted.reconcileCleanRestart(directory,[f.dir],targetSha,files);
+ assert.equal(restarted.health(channelId).restoreRequired,false);assert.equal(f.store.get<{generation:string}>('SELECT generation FROM investment_public_channels')!.generation,'1');
+ assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n,before+2);assert.equal(o.calls.length,calls+2);
+ assert.throws(()=>prepareCleanRestart(f.store,directory,[f.dir],channelId,files,targetSha,f.clock.now()));
+ const fenced=f.configured(o.transport);await fenced.stop();assert.throws(()=>fenced.prepareCleanShutdown(directory,[f.dir],targetSha,channelId,files));
+ await restarted.stop();restarted.prepareCleanShutdown(directory,[f.dir],targetSha,channelId,files);
+ const again=f.configured(o.transport);await again.reconcileCleanRestart(directory,[f.dir],targetSha,files);assert.equal(again.health(channelId).restoreRequired,false);
+ assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n,before+4);
+ unlinkSync(join(directory,'checkpoint.json'));assert.throws(()=>prepareCleanRestart(f.store,directory,[f.dir],channelId,files,targetSha,f.clock.now()));
 });

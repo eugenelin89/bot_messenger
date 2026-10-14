@@ -67,6 +67,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
         if(path==='/api/investment-run'){json(200,company.investmentLoop.inspect());return;}
         if(path==='/api/investment-team'){json(200,company.investmentTeam.inspect());return;}
         if(path==='/api/investment-publication'){json(200,company.publication.inspect());return;}
+        if(path==='/api/ask'){json(200,{...company.askOperational,...(company.ask?.inspect()??{installed:false,closed:true})});return;}
         if(path==='/api/business'){json(200,company.business.inspect());return;}
         if(path.startsWith('/api/business/')){json(200,company.business.inspect(decodeURIComponent(path.slice('/api/business/'.length))));return;}
         if(path==='/api/computers'){json(200,company.computers.inspect());return;}
@@ -142,6 +143,7 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       if (typeof supplied !== 'string' || supplied.length !== token.length || !timingSafeEqual(Buffer.from(supplied), Buffer.from(token))) { json(403, { error: 'Missing local session token' }); return; }
       const body = await readBody(req,path==='/api/projects/repositories/import'?Math.ceil(HARD_BOUNDS.bundle_bytes*4/3)+2048:64000);
       if (path === '/api/devices/pairings') { json(201, clientAPI.trust.createPairing(body)); }
+      else if(path==='/api/ask/pause'){const a=strictObject(body,['paused']);requireThat(typeof a.paused==='boolean'&&company.ask,'Ask service is not installed');company.ask.pauseOwner(a.paused);json(200,company.ask.inspect());}
       else if(path==='/api/research/grant'){json(201,company.research.grant(body));}
       else if(path==='/api/research/revoke'){json(200,company.research.revoke(body));}
       else if(path==='/api/investment-run/preview'){json(201,company.investmentLoop.preview(body));}

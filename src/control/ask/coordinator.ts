@@ -24,6 +24,7 @@ export interface AskCoordinatorOptions {
  service:AskService;keys:AskSigningKeys;
  /** Must check the actual runtime before claiming; public eligibility is separately enforced at dispatch. */
  assertRuntimeAvailable():void;
+ bodyOperationsReady?():boolean;
  maxAttempts:number;expiresAt:string;privacyNoticeVersion:string;
 }
 export class AskCoordinator {
@@ -91,6 +92,7 @@ export class AskCoordinator {
  private authorize(kind:AskKind,op?:Operation):void {
   const c=this.context();need(!this.stopped&&Date.parse(c.now)<Date.parse(this.row().expires_at),'EXPIRED');
   if(['configuration','control_sync','receipt'].includes(kind))return;
+  this.options.service.assertOperational(kind==='claim'||kind==='renew'?'admission':kind==='answer'?'delivery':'execution');
   this.configuration(kind==='claim'||kind==='renew'?'admission':kind==='answer'?'delivery':'execution');need(this.options.controls.barrier(),'UNAVAILABLE');this.options.content.maintenance();
   if(kind==='claim')this.options.assertRuntimeAvailable();
   if(op&&(kind==='answer'||kind==='renew'||kind==='status')){
@@ -215,7 +217,7 @@ export class AskCoordinator {
    const receipt=this.pending('receipt');
    // NOT_FOUND is not proof of no effect. Same-answer idempotency permits a bounded
    // retry of the frozen, still-authorized wrapper without another model execution.
-   if(receipt?.last_problem==='NOT_FOUND'&&!r.hold_reason&&saved.deliveryEnabled){
+   if(receipt?.last_problem==='NOT_FOUND'&&!r.hold_reason&&saved.deliveryEnabled&&!this.options.service.ownerPaused&&this.options.bodyOperationsReady?.()!==false){
     const answer=this.db.all<Operation>("SELECT * FROM ask_wire_operations WHERE service_id=? AND kind='answer' AND state='pending' ORDER BY rowid DESC",this.serviceId).find(op=>op.attempts<3);
     if(answer){const d=JSON.parse(answer.descriptor) as Descriptor;
      if(d.questionId===uncertain.proof.answerIdentity?.questionId&&now<Date.parse(d.leaseExpiresAt!))return answer;
@@ -223,7 +225,7 @@ export class AskCoordinator {
    }
    return receipt??this.create('receipt',{operation:{kind:'receipt',identity:uncertain.proof.answerIdentity!}});
   }
-  if(r.hold_reason||saved.held)return;
+  if(r.hold_reason||saved.held||this.options.service.ownerPaused||this.options.bodyOperationsReady?.()===false)return;
   this.options.content.maintenance();
   this.configuration();
   const pending=this.db.all<Operation>("SELECT * FROM ask_wire_operations WHERE service_id=? AND state='pending' AND kind IN ('claim','renew','status','answer') ORDER BY rowid",this.serviceId).find(op=>!(['claim','renew'].includes(op.kind)&&!saved.claimsEnabled||op.kind==='answer'&&!saved.deliveryEnabled));

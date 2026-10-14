@@ -1,0 +1,6 @@
+{
+  "sha256": "96b0209b8f9cedc0f61b03469550f37f5e07426863e0598d0eff36f42e9d74fc",
+  "bytes": 255,
+  "text": "\n> botsquad@0.1.0 check\n> tsc --noEmit\n\nsrc/control/publication/service.ts(283,207): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'SQLInputValue'.\n  Type 'undefined' is not assignable to type 'SQLInputValue'.\n",
+  "counts": {}
+}
