@@ -1,0 +1,49 @@
+{
+  "unchangedFromDeployedSource": true,
+  "added": [
+    {
+      "path": "adapters/yahoo/.python-version",
+      "sha256": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a"
+    },
+    {
+      "path": "adapters/yahoo/README.md",
+      "sha256": "48e095fa598e9490e4cefdd0982ace3336d73434abf997f9c3f36d26539ce63e"
+    },
+    {
+      "path": "adapters/yahoo/adapter.py",
+      "sha256": "28f7188641df5df5de8a9a4e171ae9a1a7f41eaac0146facecebaccfad7cf816"
+    },
+    {
+      "path": "adapters/yahoo/bootstrap.py",
+      "sha256": "896321b945684d92a59c3138daed905aa2c36eb8dbc50d6a464c1e927618ff3e"
+    },
+    {
+      "path": "adapters/yahoo/dependency-audit.json",
+      "sha256": "04976bc9ef8b6724c3aa5c1af3992cb022fd98cd34aad08af028f48c2a31e5c6"
+    },
+    {
+      "path": "adapters/yahoo/direct.py",
+      "sha256": "dd029f500658552aab70afc2cf0a7d96ffc68b7cfd0c2ecca2e445c0852ea6ad"
+    },
+    {
+      "path": "adapters/yahoo/history.py",
+      "sha256": "9d626ba34353e5f6eea66fd49c8d280cf584e66e0f62b10d5c081e3b82fc4c70"
+    },
+    {
+      "path": "adapters/yahoo/history_watchdog.py",
+      "sha256": "c29e970fae70397be7b276b6571209d4dfe9c24a8f94608a894cc1039c82d1a8"
+    },
+    {
+      "path": "adapters/yahoo/observed.py",
+      "sha256": "c89ed802b80d1b6a8ecd0d4273a53e082b5f204e5e1c4531d60378cd1d0f5393"
+    },
+    {
+      "path": "adapters/yahoo/requirements.lock",
+      "sha256": "1f7afed6ca5cbac854aa4ef5fb8919ef569fa92439ef3fbb58be312b92c6e6d1"
+    },
+    {
+      "path": "adapters/yahoo/research.py",
+      "sha256": "fefd4851d2baaabf7b7e7d79a9433bc9f43345f2e155d6ccc55b2db59984b8f9"
+    }
+  ]
+}

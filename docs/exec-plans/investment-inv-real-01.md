@@ -8,6 +8,10 @@
 **Initial ETA:** 4–6 hours, subject to integration and review findings
 **Current ETA:** Production loop active and public archive connected October13 at20:37UTC. First actual collection is due October14 at11:45UTC; the finite trial ends October15 at23:40UTC. Ask integration continues independently. No completed-market or full Ask ETA is promised before runtime and genuine acceptance evidence.
 
+## October14 closed Ask upgrade checkpoint
+
+HQ PR89 is deployed at5691504d6ebc39f7d639ec9a4fd2d00511a1ef57/schema29/PID820597. Selected investment state, fourteen scheduled occurrences, retained finite consumption and publisher generation1 are preserved; finite custody checkpoint11 includes the existing startup recovery hold/resume. Website/receiver6a194f0 is closed. [Actual receipts and remaining Ask decision](../validation/ASK_LAUNCH.md) supersede older deployed identities below. No genuine market/model turn or new authority occurred. The next actual collection remains11:45UTC; no completed-market result is claimed.
+
 ## Objective
 
 Connect bounded Yahoo observations, existing genuine employee capabilities, a prospective

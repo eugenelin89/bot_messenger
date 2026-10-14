@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-14T05:53:59.667Z",
+  "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+  "run": 0,
+  "rolling": 0,
+  "active": 0,
+  "collectionCount": 0,
+  "hold": null,
+  "stopped": false,
+  "reloadConfirmedAt": "2026-10-11T05:27:00.000Z",
+  "providerCircuit": {
+    "until": null,
+    "blocked": false
+  },
+  "controlRevision": 11
+}

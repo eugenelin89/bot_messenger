@@ -1,6 +1,6 @@
 # Execution Plan — Ask launch
 
-**Status:** Active  
+**Status:** Closed deployments complete; blocked on explicit API spending decision/key for genuine acceptance
 **Owner:** sole coordinator `01a13739-708a-7d62-9b9c-52c11ead5f4b`  
 **Branch:** `codex/inv-real-01`  
 **Worktree:** `bot_messenger-inv-real-01`  
@@ -41,7 +41,10 @@ Tests cover final-boundary revocation, single physical request, billed incomplet
 - First-only offline restart marker and subsequent live-instance handoffs prevent renewed permits from copied Company state. Retained publication receipt plus current verified-TLS public watermark must match; no direct fence reset.
 - Production readback05:20UTC: d262a8d/schema25/PID759078, unchanged selected head/config/active loop/generation1; five batches and35heartbeats delivered, zero selected real market/collection/employee records. Fourteen future occurrences remain; earliest11:45UTC.
 - Final source05 matches all549 local and Linux staged inputs. Build and canonical generation pass. Source04 focused run retained142pass/6fail: six new operational tests expected an undefined claim, but closed services correctly threw FORBIDDEN/UNAVAILABLE. Assertions were corrected without production changes; operational05 passed13/13. All other source04 API/authority/service/coordinator/publication cases passed. Shared-runtime regressions05 passed321/321, zero failures/cancellations/skips,307.40seconds. Overlapping groups are not summed into a full-suite pass.
-- Protected schema25 backup migration passed25→29 with171 retained tables unchanged,13 new empty Ask tables, three reopens and integrity/foreign-key checks. No production migration/restart occurred yet.
+- Protected schema25 backup migration passed25→29 with171 retained tables unchanged,13 new empty Ask tables, three reopens and integrity/foreign-key checks. The rehearsal modified only its isolated copy; actual deployment is recorded below.
 - Both independent architecture/security/recovery and runtime/evidence reviewers report no known remaining material issue within their reviewed static scope. The final source changes address all findings; review is not genuine inference acceptance.
 - Website and Ask receiver closed deployment completed at source6a194f040b70714de3b1281de5b58c1b8ad29579, website build3eDBZMdlma5Ug7_iw_ZES. Final05:35UTC readback preserved disabled admission, generation0 and configuration hash; investment receiver and Motion assets remain unchanged. Candidate API privacy version remains unapproved and outside the live registry.
-- Next: seal evidence, normal PR/merge, backed-up closed HQ deployment and exact same-generation receiver reconciliation/readback. Then one concrete API decision; genuine acceptance cannot precede it. Initial2–4hour estimate remains.
+- PR89 merged normally at5691504d6ebc39f7d639ec9a4fd2d00511a1ef57 and deployed at05:49UTC, schema29/PID820597. Tested compiled/public artifacts match exactly. Same-generation1 receiver reconciliation passed; stopped protected backup retained. Source-only downgrade is not supported after migration.
+- Actual preservation passed: all selected investment state unchanged, thirteen empty Ask tables, finite history/consumption retained with existing recovery hold/resume advancing checkpoint9→11. Fourteen future occurrences and actual October11 reload evidence remain intact. The initial adapter staging omission, config-directory access failure and corrected preservation assertions are recorded in the qualified deployment evidence.
+- Public05:53 readback passed8/8 supported HTTPS reads; Askdisabled/no cookies. Website owner acknowledged final integration. No additional deployment/restart is needed while API authority is missing.
+- Remaining: one exact owner decision for OpenAI gpt-5.4-mini-2026-03-17,$5/24h/15 attempts plus legitimate protected key. Then configure the already implemented route and perform genuine four-case acceptance before opening. Independent work finished within the initial2–4hour estimate; genuine activation time depends on that decision and actual results.
