@@ -1,5 +1,14 @@
 # Execution Plan — INV-REAL-01 persistent observed-market paper investment
 
+## New genuine research and incomplete paper handoff —17:17UTC
+
+Three new Codex turns settled with complete usage. The employees expressed provisional HOLD,
+but no formal proposal/review/submission exists. Investment stays active; no portfolio trade
+is claimed. Preserve7consumed family attempts, the original usage gap and12future stages.
+The [narrow prospective correction and actual evidence](../validation/investment/INV-REAL-01-PAPER-HANDOFF.md)
+passed source review and focused validation; normal merge/deployment remain under the [same recovery plan](investment-late-close-recovery.md). Do not
+replay completed research or increase authority/caps. ASK stays paused.
+
 ## Owner-requested same-day prospective close recovery — October14
 
 The owner subsequently clarified ASK-only pause, requested investment running, reuse of today's retained data, and explicitly requested paper trading. [Decision052](../decisions/decision_052_retained_research_close_recovery.md) and the [active recovery plan](investment-late-close-recovery.md) supersede the earlier unapproved October15-only proposal. PR96 is now merged/deployed at022029e/schema29/PID862290; exact approval and activation completed16:57:09UTC. The same prepared successor is active, with research17:06:08, cutoff19:30 and original closecollection20:05/processing20:20. No new decision/order/fill at16:57:28; observe actual receipts. [Activation and preservation evidence](../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md). ASK stays paused.

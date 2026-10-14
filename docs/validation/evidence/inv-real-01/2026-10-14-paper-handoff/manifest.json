@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-14T17:41:10.820666+00:00",
+  "files": {
+    "inputs-01.json": "83e5b344f92a4f45ad667639e76536859fff77198aaba3f2145aab80804fcf7a",
+    "inputs-02.json": "0d77780963f8506af3c703f7235405f7e76cc8081a608ce5a9316fe6ad1b8428",
+    "inputs-03.json": "eadfa3894faee58cb75d7a5666b86652598ae5301f52e3238c22a904d3e975ba",
+    "paper-handoff-receipts.json": "5a19a1c618eb720ae36c88eb1ff6c1de3acc9e8930f2e52947eb407fa805d782",
+    "research-progress-04.json": "d6183764ffea020b447511ada3cc7978e2ac24b0f4a3eb1989ecb82f5f1d64e2",
+    "trade-integration-4f0651a.json": "38caea37359119d98ed9fcab2789ea107f952f33f09a4b1531dcb9166860bc05",
+    "validation-logs.json": "0ab859fb644c55e5abd32245d2bdbd3d2e88b25e30d8272b2245583f3119c977",
+    "validation-summary.json": "006b01842463cb3cc557297917395176a64b4aa7ec7501693266fa55a531bf3a"
+  },
+  "claims": "Retained genuine research failure, prospective source validation, and read-only website integration. No deployed handoff fix, new model turn, paper decision or trade is claimed by this source checkpoint."
+}
