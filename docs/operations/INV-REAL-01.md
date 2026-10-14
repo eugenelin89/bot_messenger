@@ -1,5 +1,31 @@
 # Persistent observed paper investment — operation and morning handoff
 
+## Paper handoff fix deployed; investment remains active — October14,17:45UTC
+
+PR98 merged normally at`846d2220791a6f1d89732a458e3521341b61f9a1` and deployed at17:45:04UTC,
+schema29/PID868817; fresh17:45:33 readback confirms runtime ready. Worker instructions now require ready role-permitted paper
+operations before terminal discussion tools, and workers can discover exact scoped
+proposal/review/submission records. The fix passed build/canonical,8handoff assertions,
+65focused checks and1full authored close workflow; genuine corrected behavior remains unproven.
+
+Live-instance publication handoff completed at generation1 using two counted reconciliation
+reads. Stopped backup`/var/backups/botsquad/investment-paper-handoff-20261014T174456Z` retains the
+prior state without credentials. Preservation verified180 identical old tables and718compiled/
+25asset matches. The entire finite prefix is retained; only expected recovery hold/resume
+appended75→77, digest`5276deb44535a3a411bcd7f583558c46edc70a3db2acbe5e93d3a5fd19272573`.
+Head5/configuration, active successor generation2/plan2,3new genuine executions,7family attempts,
+9spent source requests and12pending occurrences remain unchanged; holdnull/activeproviders0.
+No replay, authority change, model/market request, formal proposal/order/fill or allowance reset.
+
+Today's provisional HOLD is still **not a formal paper decision or trade**. One remaining
+permitted model turn cannot complete the three missing separately settled handoff steps.
+Keep scheduled19:30cutoff,20:05collection,20:20processing and20:25mark; retain an honest absence
+of portfolio fills. ASK remains paused/disabled; automation ACTIVE every15minutes.
+[Actual handoff evidence](../validation/investment/INV-REAL-01-PAPER-HANDOFF.md).
+Public17:47check8/8 and finalwebsite17:49integration13/13 passed; independent websiteowner17:48ACK
+confirms active source8/journal1/no gaps, all8event hashes and initialization-only ledger.
+Websitee13a4ff/buildL7Kf_x7BQ5EzPAWBXdBxD/PID2416842; Askdisabled, receivers unchanged.
+
 ## Genuine research completed; formal paper handoff missing — October14,17:17UTC
 
 Investment remains **active**, independently of the owner's ASK-only pause. Three genuine

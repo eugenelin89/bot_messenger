@@ -1,12 +1,12 @@
 # Execution Plan — retained research and prospective close recovery
 
-**Status:** Active; genuine17:06 research settled complete usage but no formal paper decision; narrow handoff correction in progress
+**Status:** Active; paper-handoff correction deployed17:45UTC; genuine formal decision/trade still incomplete
 **Owner:** coordinating chat 01a13739-708a-7d62-9b9c-52c11ead5f4b, sole writer
 **Branch:** codex/inv-real-01
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-inv-real-01
 **Started:** 2026-10-14 13:52 UTC
 **Initial ETA:** 60–90 minutes for recovery implementation/review; fill can occur only after today's scheduled close collection.
-**Current checkpoint (17:41UTC):** Genuine research completed with full usage but no formal paper handoff. Narrow source correction passed read-only review, build/canonical,8handoff assertions,65regression checks and1full authored close workflow. All484 inputs match. Shared Linux slot released to website owner; no heavy work remains. Normal merge and preservation deployment remain, estimated10–15minutes. No new provider dispatch or authority/schedule change; today's genuine paper trade remains incomplete.
+**Current checkpoint (17:45UTC):** Reviewed/tested PR98 merged and deployed846d222/schema29/PID868817/runtime ready.180old tables,718compiled/25assets and finite prefix preserved; only expected hold/resume75→77. Same active successor/head5,7consumed model attempts/9source requests,12future occurrences, no formal decision/order/fill. No heavy test/build remains. Public8/8, finalwebsite13/13 and independent17:48ACK passed; final evidence publication remains, estimated2–5minutes. Today's trade is not complete and requires more separate execution steps than the1remaining day allowance. Preserve scheduled close/accounting; no replay/cap change.
 
 ## Objective and actual owner direction
 
@@ -125,3 +125,5 @@ Authored acceptance must discover IDs through real tool results (the earlier fix
 shared local variables), cover HOLD/rejection/no-submission and prior-session isolation.
 Normal review/merge/preservation deployment remain; genuine future behavior is unproven.
 Estimated20–30minutes for focused validation and release, conditional on results.
+
+At17:45UTC the prospective paper-handoff correction was normally merged/deployed with exact preservation. This completes the narrow source fix, not genuine trade acceptance. The unchanged original discussion outcome and consumed attempts remain retained; see the current handoff.

@@ -74,8 +74,8 @@ retain the earlier intentionally stopped batch and all11 log wrappers.
 Acceptance discovers proposal/review IDs through actual tool results and covers HOLD,
 independent rejection, bounded aggregate context, rejected submission, current-versus-prior
 session isolation, ordinary discussion authority, private-paper frozen authority and the
-full authored closing-price workflow. Authored outputs are not genuine inference. Normal
-source merge/deployment remain pending. A later deployment must preserve all retained company tables/finite prefix,
+full authored closing-price workflow. Authored outputs are not genuine inference. At that source-validation checkpoint, normal
+merge/deployment remained pending. Deployment must preserve all retained company tables/finite prefix,
 append only the expected recovery hold/resume and reconcile a new one-use live publication
 handoff. It must create no model dispatch, authority, market request or financial record.
 
@@ -87,3 +87,37 @@ is no performance snapshot. [Read-only receipt](../evidence/inv-real-01/2026-10-
 
 ASK stays owner-paused and disabled. The investment heartbeat stays ACTIVE every15minutes.
 The combined project and a genuine portfolio trade are not complete.
+
+## Actual deployment —17:45UTC
+
+Normal PR98 merge846d2220791a6f1d89732a458e3521341b61f9a1 deployed17:45:04UTC,
+schema29/PID868817; runtime ready at17:45:33. The reviewed helper first matched325production
+inputs, verified exact active authority/head/custody and all three new executions' complete
+settled usage. The live publisher armed a fresh one-use handoff; protected stopped backup is
+`/var/backups/botsquad/investment-paper-handoff-20261014T174456Z`. No credentials were copied.
+Two counted exact receipt/current-watermark reads reconciled generation1. No first-only helper
+or allowance reset was used.
+
+Postcheck verifies180identical old tables; only publication reconciliation/publisherinstance
+and worker startup timestamps changed. All718compiled files and25assets match the tested
+stage. Selected investment records, original gap, head5/configuration, successoractive/gen2/plan2,
+3newexecutions/7familyattempts/9spentcollections and12pendingfutureoccurrences are unchanged.
+The entire finite prefix is retained with only the expected successor recovery hold/resume,
+75→77/digest5276deb44535a3a411bcd7f583558c46edc70a3db2acbe5e93d3a5fd19272573.
+Fresh readback confirms nohold, noactiveprovider, noformalproposal/review/submission/order/fill.
+[Deployment receipts](../evidence/inv-real-01/2026-10-14-paper-handoff-deployment/manifest.json).
+This source fix is deployed; genuine fixed behavior and a portfolio trade remain unproven.
+
+At17:47:31UTC eight independent verified HTTPS reads returned200/no-cookie. Public state remainsactive atsource8/journal1/no gaps, with Askdisabled. These are HTTPS readbacks, not independently signed receiver attestations. The subsequent independent website acknowledgment and final integration check are below.
+
+Website owner independently confirmed at17:48:12UTC the same active source8/journal1/no-gap
+archive, all8canonical hashes unchanged, one initialization transaction with null fill,
+no decision/order/fill events, snapshotnull and Askdisabled. Final website-only release
+`e13a4ffea660fd8448e2b46f378d1d421cf652f5`/build`L7Kf_x7BQ5EzPAWBXdBxD`/PID2416842
+activated17:47:57UTC, with receiver/API/configuration/records unchanged. Our requested final
+integration test at17:49:23UTC passed13verified HTTPS reads, including removed aside, corrected
+“This trading experiment” introduction, Live Trading Desk/Trade, original URLs, exact-run,
+methodology/evidence/Askcontext links and all8canonical event hashes. All responses200/no-cookie.
+The independent acknowledgment and original public readback are retained in the deployment
+manifest. Read-only recovery and final claim reviews found no material issue; no tests/build
+or provider work remains active.

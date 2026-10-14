@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-14T17:50:12.959719+00:00",
+  "source": "846d2220791a6f1d89732a458e3521341b61f9a1",
+  "files": {
+    "deployment-helpers.json": "e49dfe6a51684fe9bd936e94f89619370507a398b24f5a7de2a4a47190ab93a5",
+    "operational-logs.json": "6697a8206239f77ad0bca6277e2b5eb659f78cb1badaac63ff7723af897338ff",
+    "postdeploy-readback.json": "bce429b671f3cb3044e4a9be61e667d9e71fc38ebcbb49cdd6eef3d29cf76471",
+    "predeploy-readback.json": "47b58d550a53181b100a1da045893f28050930dd04d8fd36693c80e3268f1cec",
+    "preservation.json": "1bfd2fa831df447a7fdc84240a1d4731dafb2c9259d0ee90d5d8c8d64508781b",
+    "public-readback.json": "e827941394e31f4014902394f4e322ce55f68fc2ae6253efb106a915a448706f",
+    "trade-integration-final.json": "cdabf975614353521d440762f806dfe48ca1bdf197068936212b91d9b453529e",
+    "website-owner-ack.json": "ee1b366431c69d5936df2f66c0d2da15be84fef9f6fe732a5f19e4f4a8eb57ec",
+    "website-owner-public-readback.json": "11a81d153047a66b659604891fbc7a63f402ddb86c15eb41f2f7e07cbc111dd7"
+  },
+  "claims": "Actual deployment and exact preservation, independent website ACK and read-only final wording integration. No new model/market execution or formal decision/trade. Deployed corrected instructions are not a genuine behavior acceptance claim."
+}
