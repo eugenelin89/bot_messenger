@@ -1,0 +1,30 @@
+(node:62814) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one successor preserves exact incomplete receipt, four prior attempts and original reload time; fifth additional today is denied (232.032459ms)
+✔ recovery rejects stale (122.011875ms)
+✔ recovery rejects extra-source (131.595625ms)
+✔ recovery rejects profile (121.544917ms)
+✔ recovery rejects inflated (116.030292ms)
+✔ recovery rejects refreshed-reload (114.951666ms)
+✔ new telemetry failure stays blocked and cannot use the old exception again (149.25675ms)
+✔ restart before external approval invalidates prepared custody without recreating allowance (127.942292ms)
+✔ idle restart after external approval restores only the same exact historical gap (142.622209ms)
+✔ new unknown outcome remains held across restart and cannot reuse exception (153.233417ms)
+✔ custody write failure after independent commit never partially approves or permits replay (119.252208ms)
+✔ other investment history lacking authoritative completeness cannot use the telemetry exception (141.627583ms)
+✔ live telemetry recovery excludes other investment modes before they reserve or dispatch (128.684083ms)
+✔ imported timestamp-only investment history is not authoritative completeness (132.822ms)
+✔ draft checkpoint ancestry: normal (144.984833ms)
+✔ draft checkpoint ancestry: no-suffix (127.3015ms)
+✔ draft checkpoint ancestry: wrong-authority (129.320291ms)
+✔ draft checkpoint ancestry: owner-hold (126.579333ms)
+✔ draft checkpoint ancestry: unknown-digest (140.326958ms)
+✔ draft checkpoint ancestry: consumed (140.98075ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2798.269875

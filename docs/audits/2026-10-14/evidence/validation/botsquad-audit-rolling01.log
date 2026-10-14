@@ -1,0 +1,85 @@
+(node:61612) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ rolling start waits within frozen window, then four turns create a new HOLD outcome (1221.296375ms)
+✖ rolling start waits within frozen window, then four turns create a new BUY outcome (1174.313583ms)
+✖ rolling start waits within frozen window, then four turns create a new reject outcome (1166.0855ms)
+✔ capacity beyond cutoff waits to expiry and becomes missed without new requests (1165.387125ms)
+✔ unknown outcome never becomes a rolling wait (1113.461209ms)
+✔ permanent family exhaustion blocks before a temporary rolling shortage (1125.449875ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 3
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7145.200917
+
+✖ failing tests:
+
+test at dist/test/finite-rolling-start.test.js:38:5
+✖ rolling start waits within frozen window, then four turns create a new HOLD outcome (1221.296375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2026-10-15T12:01:13.039Z'
+  - 1792065673039
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/test/finite-rolling-start.test.js:45:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2026-10-15T12:01:13.039Z',
+    expected: 1792065673039,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/finite-rolling-start.test.js:38:5
+✖ rolling start waits within frozen window, then four turns create a new BUY outcome (1174.313583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2026-10-15T12:01:13.039Z'
+  - 1792065673039
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/test/finite-rolling-start.test.js:45:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2026-10-15T12:01:13.039Z',
+    expected: 1792065673039,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dist/test/finite-rolling-start.test.js:38:5
+✖ rolling start waits within frozen window, then four turns create a new reject outcome (1166.0855ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '2026-10-15T12:01:13.039Z'
+  - 1792065673039
+  
+      at TestContext.<anonymous> (file:///Users/eugenelin/Documents/ChatGPT/Bot%20Messenger/bot_messenger-investment-audit/dist/test/finite-rolling-start.test.js:45:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '2026-10-15T12:01:13.039Z',
+    expected: 1792065673039,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
