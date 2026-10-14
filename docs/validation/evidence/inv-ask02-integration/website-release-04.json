@@ -1,0 +1,75 @@
+{
+  "kind": "counterpart-read-only-release-check-and-actual-acknowledgment",
+  "sourceThreadId": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "checkedAt": "2026-10-14T01:36:27.864649Z",
+  "scope": "Website owner private-host observations; parent separately retained public-readback-04 and HQ readback03.",
+  "website": {
+    "source": "f47f99b87361910623d493d654eabf71431d6798",
+    "build": "Ixd_-ObWeoNMR0vKBkNyi",
+    "pid": 2401430,
+    "startUTC": "2026-10-13T23:36:25Z"
+  },
+  "askReceiver": {
+    "source": "2b630150e17c629729ac87026f0df0ab1d30e959",
+    "previouslyVerifiedImplementation": "a9b1ec5548a1672a5a87537e218dc1926eb55db1",
+    "pid": 2399905,
+    "startUTC": "2026-10-13T23:01:56Z",
+    "state": "disabled"
+  },
+  "investmentReceiver": {
+    "source": "c2edfd50ed12ba576c06e6991091090b9ced3e31",
+    "pid": 2385469,
+    "startUTC": "2026-10-13T20:31:53Z"
+  },
+  "peerPids": {
+    "ingress": 2375255,
+    "nginx": 826
+  },
+  "services": "Website, both receivers, ingress and nginx reported active/running, NRestarts0, unchanged identities.",
+  "preservation": "Counterpart reports exact retained-baseline comparison passed for configurations, Ask metadata and empty authority/content tables, investment scope and prior immutable rows, and peer process identities.",
+  "https": {
+    "count": 8,
+    "statuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "setsCookie": false,
+    "scope": [
+      "Investment apex/www",
+      "Ask apex/www",
+      "Ask availability",
+      "public experiment",
+      "run status",
+      "snapshot"
+    ],
+    "askHasFormOrTextarea": false
+  },
+  "public": {
+    "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+    "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+    "sourceSequence": "5",
+    "journalSequence": "1",
+    "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+    "sourceGaps": false,
+    "runState": "configured",
+    "freshness": "unknown",
+    "lastHeartbeatAt": "2026-10-14T01:25:44.000Z",
+    "lastActivityAt": null,
+    "valuationAsOf": null,
+    "expectedMarkSession": null
+  },
+  "presentation": "Server-rendered corrected status copy, session wording and both portrait elements remain present. Raw API reason preserved.",
+  "materialReleaseDrift": false,
+  "correctedDiagnostic": {
+    "checkedAt": "2026-10-14T01:37:12.994902Z",
+    "initialFlag": "Generic check assumed gunicorn active.",
+    "baseline": "Both baseline/current MainPID0 and empty ActiveEnterTimestamp; inactivity unchanged."
+  },
+  "effects": "No source/file change, rebuild, restart, deployment, native build, heavy validation, grant or model execution."
+}

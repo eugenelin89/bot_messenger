@@ -67,8 +67,39 @@ export function removeEmptyAskMigration(db:import('node:sqlite').DatabaseSync){
 
 /** Disposable schema26 fixture only; no populated Ask content identity may be discarded. */
 export function removeEmptyAskContentMigration(db:import('node:sqlite').DatabaseSync){
+ if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=29').get()){
+  for(const table of ['ask_wire_attempts','ask_wire_operations','ask_claim_epochs','ask_claim_custody','ask_coordination']){
+   if(db.prepare(`SELECT count(*) n FROM ${table}`).get()!.n)throw Error('Populated Ask coordination fixture cannot be downgraded');
+   db.exec(`DROP TABLE ${table}`);
+  }
+  db.exec('DELETE FROM schema_migrations WHERE version=29');
+ }
+
+ removeEmptyAskExecutionMigration(db);
  for(const name of ['ask_content_controls','ask_imports','ask_content_services']){
   assert.equal(db.prepare(`SELECT count(*) n FROM ${name}`).get()!.n,0);db.exec(`DROP TABLE ${name}`);
  }
  db.exec('DELETE FROM schema_migrations WHERE version=27');
+}
+
+/** Disposable schema27 reconstruction only; preserve every earlier row and trigger. */
+export function removeEmptyAskExecutionMigration(db:import('node:sqlite').DatabaseSync){
+ if(!db.prepare('SELECT 1 FROM schema_migrations WHERE version=28').get())return;
+ assert.equal(db.prepare('SELECT count(*) n FROM ask_dispatches').get()!.n,0);
+ assert.equal(db.prepare('SELECT count(*) n FROM ask_service_holds').get()!.n,0);
+ assert.equal(db.prepare("SELECT count(*) n FROM executions WHERE origin='public_question'").get()!.n,0);
+ const foreign=Number(db.prepare('PRAGMA foreign_keys').get()!.foreign_keys);db.exec('PRAGMA foreign_keys=OFF');
+ const triggers=db.prepare("SELECT name,sql FROM sqlite_master WHERE type='trigger'").all() as {name:string;sql:string}[];
+ for(const t of triggers)db.exec(`DROP TRIGGER "${t.name}"`);
+ const original=(db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='executions'").get() as {sql:string}).sql;
+ const indexes=db.prepare("SELECT name,sql FROM sqlite_master WHERE type='index' AND tbl_name='executions' AND sql IS NOT NULL").all() as {name:string;sql:string}[];
+ db.exec(original.replace(/CREATE TABLE ["']?executions["']?/, 'CREATE TABLE executions_before_ask')
+  .replace("origin IN ('task','conversation','public_question')","origin IN ('task','conversation')")
+  .replace(" OR (origin='public_question' AND task_id IS NULL AND request_id IS NULL AND session_id IS NULL AND generation IS NULL)",''));
+ const columns=(db.prepare('PRAGMA table_info(executions)').all() as {name:string}[]).map(c=>c.name).join(',');
+ db.exec(`INSERT INTO executions_before_ask(rowid,${columns}) SELECT rowid,* FROM executions; DROP TABLE executions; ALTER TABLE executions_before_ask RENAME TO executions; DROP TABLE ask_dispatches; DROP TABLE ask_service_holds;`);
+ for(const i of indexes)if(i.name!=='one_ask_execution')db.exec(i.sql);
+ for(const t of triggers)if(!['execution_ask_owner','ask_dispatch_identity','ask_dispatch_retained'].includes(t.name))db.exec(t.name==='client_audit_event'?t.sql.replace("origin IN ('conversation','public_question')","origin='conversation'"):t.sql);
+ db.exec('DELETE FROM schema_migrations WHERE version=28');db.exec('PRAGMA foreign_keys='+foreign);
+ assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);
 }

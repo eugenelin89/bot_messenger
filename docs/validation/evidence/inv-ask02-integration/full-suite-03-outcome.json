@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-10-14T00:22:23.657784+00:00",
+  "kind": "interrupted complete-suite attempt",
+  "sourceHead": "3f57754648340008f5eca5aea6ff8b2c6987bb2a",
+  "completedTopLevelPass": 1751,
+  "completedTopLevelFail": 123,
+  "nodeFinalSummaryPresent": false,
+  "termination": "Coordinator sent SIGINT only to verified disposable parent778798; it exited1; production PID759078 remained active",
+  "reason": "Missing adapters/yahoo source and fixed Python runtime path caused adapter failures; direct-cancellation fixture then waited indefinitely for a request that could not start. The incomplete run is not acceptance.",
+  "log": "logs/integration-full-suite-03.log",
+  "sourceCorrection": "All11unchanged tracked adapter files restored; full454-file inventory verified; existing pinned runtime linked read-only. No implementation code changed.",
+  "remainingValidation": "Rerun the eight affected files and unreached yahoo-protocol, yahoo-transport-local and yahoo-transport files; preserve original60second actions_and_revision stage bound. Five conditional receiver integration cases were skipped and require explicit final-source receiver-backed execution; do not count them as passes.",
+  "completedTopLevelSkip": 5,
+  "topLevelOkRecordsIncludingSkips": 1756
+}

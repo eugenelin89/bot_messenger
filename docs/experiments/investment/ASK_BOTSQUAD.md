@@ -1,6 +1,8 @@
 # Ask BotSquad — public questions, real employee answers
 
-**Design version:** 1.1 | **Updated:** 2026-10-06 | **Status:** Planned, not implemented
+**Design version:** 1.1 | **Updated:** 2026-10-13 | **Status:** Source integration accepted; public service closed
+
+Current implementation and evidence: [shared employee/coordinator integration](../../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md). The owner has authorized continued implementation and release when actual gates pass. This design does not itself issue operational authority or prove runtime/provider eligibility.
 
 [Design guide](README.md) · [Build packets](ASK_BOTSQUAD_ROADMAP.md) · [Main roadmap](ROADMAP.md)
 

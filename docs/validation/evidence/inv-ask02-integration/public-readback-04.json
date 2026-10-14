@@ -1,0 +1,700 @@
+{
+  "checkedAt": "2026-10-14T01:19:57.188344+00:00",
+  "kind": "independent-verified-IPv4-HTTPS-readback",
+  "responses": [
+    {
+      "url": "https://asymmetri.co/botsquad/research",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 23527,
+      "sha256": "3c6aa31e3049da2d270b3cafa49b812112f9c6951ff28f19938e9697a9ba2220",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": false,
+        "snapshot for session": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 93691,
+      "sha256": "16720e0db732246f41558a8af7428b3a84b21faa9f3214bfcea6eb1c608d84f9",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": true,
+        "Maya": true,
+        "100,000": true,
+        "Questions are not open yet": true,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "Next published review": true,
+        "Not published": true,
+        "Last publisher contact": true,
+        "no calendar collector is configured": true,
+        "snapshot for session": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/ask",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 25633,
+      "sha256": "9250d57efb86075d04f16400774e2b6d41b60de16c84508e12e69ff7766c4085",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": true,
+        "<textarea": false,
+        "BotSquad Research": true,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": false,
+        "snapshot for session": false
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=experiment",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 707,
+      "sha256": "e634ac803078d5ba5f0d6b1598187067876e64a91660f82174042d784c86aa62",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": false,
+        "snapshot for session": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "title": "BotSquad Investment",
+          "purpose": "A personal noncommercial paper-investment experiment using real market observations and genuine AI employees.",
+          "objective": "Study evidence-driven decisions, independent challenge and transparent long-term accounting; no guaranteed return.",
+          "officialRunId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "runs": [
+            {
+              "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+              "kind": "official",
+              "state": "configured",
+              "methodologyVersion": "inv-real-open-v1"
+            }
+          ],
+          "nextCursor": null
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=status",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 740,
+      "sha256": "feb9840039ea156a4a3bc1ee06950b47dfe9c250b897a7ebb321e1dd2b493fa3",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": true,
+        "snapshot for session": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "state": "configured",
+          "watermark": {
+            "sourceSequence": "5",
+            "journalSequence": "1",
+            "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+            "sourceGaps": false
+          },
+          "freshness": {
+            "lastActivityAt": null,
+            "lastPublicationAt": "2026-10-13T20:34:09.000Z",
+            "lastHeartbeatAt": "2026-10-14T01:09:43.000Z",
+            "valuationAsOf": null,
+            "expectedMarkSession": null,
+            "status": "unknown",
+            "reason": "Transport contact does not establish market freshness; no calendar collector is configured."
+          },
+          "notices": []
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=snapshot",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 722,
+      "sha256": "fba4328dcd7cef934ef89728d41c128fd348711043733622f281eb17abe23337",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": true,
+        "snapshot for session": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "snapshot": null,
+          "watermark": {
+            "sourceSequence": "5",
+            "journalSequence": "1",
+            "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+            "sourceGaps": false
+          },
+          "freshness": {
+            "lastActivityAt": null,
+            "lastPublicationAt": "2026-10-13T20:34:09.000Z",
+            "lastHeartbeatAt": "2026-10-14T01:09:43.000Z",
+            "valuationAsOf": null,
+            "expectedMarkSession": null,
+            "status": "unknown",
+            "reason": "Transport contact does not establish market freshness; no calendar collector is configured."
+          }
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/botsquad/investment/read?resource=events",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 13450,
+      "sha256": "e479f6e330f6753d969955931e0be5c50d4d771792a62714f51b140d95fc7a80",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": true,
+        "Maya": true,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": true,
+        "snapshot for session": false
+      },
+      "body": {
+        "data": {
+          "schemaVersion": "1.0",
+          "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+          "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+          "items": [
+            {
+              "event": {
+                "actor": {
+                  "kind": "system"
+                },
+                "eventId": "c49e0c297901c32d4b939482ae1ddacb94d0a09139adbca1",
+                "evidenceMode": "observed_paper",
+                "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+                "occurredAt": "2026-10-13T20:25:26.543Z",
+                "payload": {
+                  "configuration": {
+                    "approvalRecordId": "49f6d52b511c1c9d24dfed39851d64a9cedff56c955fc2a5",
+                    "attribution": "Yahoo Finance via pinned yfinance direct daily chart adapter. Yahoo permission is owner-reported.",
+                    "benchmarkConvention": "raw_prices_explicit_dividends_next_open_reinvestment",
+                    "benchmarkInstrument": {
+                      "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                      "currency": "USD",
+                      "instrumentId": "4180f98f969af8bfe1c1092c5183450828400ecbd927eb87",
+                      "sector": "Benchmark",
+                      "symbol": "SPY",
+                      "symbolHistory": [
+                        {
+                          "effectiveFrom": "2026-10-13",
+                          "effectiveTo": null,
+                          "symbol": "SPY"
+                        }
+                      ],
+                      "venue": "ARCX"
+                    },
+                    "calendarTimezone": "America/New_York",
+                    "calendarVersion": "4d31860857c999f839c8af3325accb584c408a38271365c5",
+                    "cashConvention": "no_interest_no_tax_immediate_simulated_settlement",
+                    "commission": "0.000000",
+                    "configurationStatus": "owner_approved",
+                    "configurationVersion": "56ac9af3b1a2b3d4383c8a8e4ea304acb135bd0eecc2bcbd",
+                    "costBasis": "weighted_average",
+                    "currency": "USD",
+                    "cutoffMinutes": 30,
+                    "cycleExecutionBudget": 7,
+                    "dailyExecutionBudget": 8,
+                    "dataDelaySeconds": 0,
+                    "decisionCadence": "one_review_per_regular_session",
+                    "drawdownStopBps": 1500,
+                    "executionRule": "next_regular_open",
+                    "feed": "yfinance",
+                    "initialCapital": "100000.000000",
+                    "leverage": false,
+                    "limitations": [
+                      "Real Yahoo observations; modeled daily OPEN paper fills, not executable brokerage prices.",
+                      "Owner-reported Yahoo confirmation covers this personal noncommercial research, simulation and website project; not independently verified.",
+                      "Private discussion bodies and raw source responses are withheld. Public fields are separately designated employee summaries.",
+                      "Unknown dividend payment dates remain receivables; missing or uncertain records remain explicit. No performance guarantee.",
+                      "Benchmark corporate actions are reflected in benchmark snapshots; the v1 portfolio action feed covers portfolio-universe instruments.",
+                      "Daily bars are captured after close; displayed fills are delayed simulations.",
+                      "Archive retains normalized evidence, original decisions and accounting permanently.",
+                      "Source publication times may be unknown. Finite employee allowances do not guarantee a dollar ceiling.",
+                      "Published execution budgets describe the initial finite authority; later renewals retain this configuration and may have different operational limits. Worker availability is initial setup availability, not current runtime status."
+                    ],
+                    "longOnly": true,
+                    "marketProvider": "yahoo",
+                    "maxOpeningWaitSeconds": 36000,
+                    "maxOutboxAgeSeconds": 86400,
+                    "maxOutboxBytes": 8388608,
+                    "methodologyHash": "64600fa6973b988ded30b29236d117bb4cd315171541c64d9024c23a27c1018d",
+                    "methodologyVersion": "inv-real-open-v1",
+                    "officialSessions": 251,
+                    "openingFieldDefinition": "Same-session raw daily chart OPEN, captured after that session closes and used only for precommitted modeled paper orders; not a tradable quote.",
+                    "positionLimitBps": 1500,
+                    "publicationHeartbeatSeconds": 900,
+                    "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                    "publicationStaleSeconds": 2700,
+                    "quantityRule": "whole_discretionary_six_decimal_actions",
+                    "rightsEvidence": [
+                      "https://asymmetri.co/botsquad/investment/methodology"
+                    ],
+                    "rounding": "half_even_6",
+                    "runExecutionBudget": 16,
+                    "sectorLimitBps": 3500,
+                    "slippageBps": 10,
+                    "universe": [
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "9a61314d79df6180b76c3d0d59a21c44d27227b4217ea7cd",
+                        "sector": "Technology",
+                        "symbol": "AAPL",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "AAPL"
+                          }
+                        ],
+                        "venue": "XNAS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "73345de5715f3b25279ca3666493c0c9312fa9d481c5341e",
+                        "sector": "Technology",
+                        "symbol": "MSFT",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "MSFT"
+                          }
+                        ],
+                        "venue": "XNAS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "bb18a34caa5791b4217903984a800f213e92fb51082a31fa",
+                        "sector": "Communication Services",
+                        "symbol": "GOOGL",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "GOOGL"
+                          }
+                        ],
+                        "venue": "XNAS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "a99edf7c10aa6486c27cb11258ec50be3f9a228314ccd5bf",
+                        "sector": "Consumer Discretionary",
+                        "symbol": "AMZN",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "AMZN"
+                          }
+                        ],
+                        "venue": "XNAS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "ccd5775db3d2c9e2b384e22d1e872fa5e0d7b36787e8efef",
+                        "sector": "Financials",
+                        "symbol": "JPM",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "JPM"
+                          }
+                        ],
+                        "venue": "XNYS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "2a011c9d71cf3fb98d22589f2e6481bbcddaa394befef7e8",
+                        "sector": "Health Care",
+                        "symbol": "JNJ",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "JNJ"
+                          }
+                        ],
+                        "venue": "XNYS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "0b315d4f0bc2268d38654bfc26ccdd3b1ab7efe008fb80b7",
+                        "sector": "Energy",
+                        "symbol": "XOM",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "XOM"
+                          }
+                        ],
+                        "venue": "XNYS"
+                      },
+                      {
+                        "classificationSource": "https://asymmetri.co/botsquad/investment/methodology",
+                        "currency": "USD",
+                        "instrumentId": "8df899e3d5d7e695acedcd62565473a68b796c2d13a5dc2b",
+                        "sector": "Consumer Staples",
+                        "symbol": "WMT",
+                        "symbolHistory": [
+                          {
+                            "effectiveFrom": "2026-10-13",
+                            "effectiveTo": null,
+                            "symbol": "WMT"
+                          }
+                        ],
+                        "venue": "XNAS"
+                      }
+                    ],
+                    "universeVersion": "2904c2d489a7ab916f9ab40fd2ca2dbb3482cebd4a0a3f54"
+                  },
+                  "configurationHash": "4658b4d6b435595e6ab15151713eb6a284d7ea29217d6786120868963da52fe3",
+                  "endsAt": "2027-01-01T01:00:00.000Z",
+                  "objective": "Study evidence-driven decisions, independent challenge and transparent long-term accounting; no guaranteed return.",
+                  "previousRunId": null,
+                  "purpose": "A personal noncommercial paper-investment experiment using real market observations and genuine AI employees.",
+                  "runKind": "official",
+                  "startsAt": "2026-10-13T20:25:26.543Z",
+                  "state": "configured",
+                  "title": "BotSquad Investment"
+                },
+                "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                "recordedAt": "2026-10-13T20:25:26.543Z",
+                "references": [],
+                "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+                "schemaVersion": "1.0",
+                "sourceSequence": "1",
+                "type": "run.published"
+              },
+              "receiverSequence": "1",
+              "receivedAt": "2026-10-13T20:33:44.000Z",
+              "eventHash": "b682c2bbf6662ea2c8ca92a2bc89947b1dd44b5df21dfc8b48a94373241c2001",
+              "receiptId": "c4361d76-594f-464c-a3d6-11ef841c76d7"
+            },
+            {
+              "event": {
+                "actor": {
+                  "kind": "system"
+                },
+                "eventId": "85a7aebc993fbe49fc4b8768afb10e94f2091be2688cc1d4",
+                "evidenceMode": "observed_paper",
+                "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+                "occurredAt": "2026-10-13T20:25:26.543Z",
+                "payload": {
+                  "rosterVersion": "7ce3933a30e60ff09db09260b235593de962166ab52ba141",
+                  "workers": [
+                    {
+                      "name": "Atlas",
+                      "responsibilities": [
+                        "Develop research and alternatives, synthesize conclusions and submit scoped paper decisions."
+                      ],
+                      "role": "Portfolio researcher",
+                      "status": "available",
+                      "workerId": "3b81014148920905b6ce846a8be85edd27699686b8158f2c"
+                    },
+                    {
+                      "name": "Maya",
+                      "responsibilities": [
+                        "Independently challenge the exact thesis and paper proposal, evidence, downside and invalidation conditions."
+                      ],
+                      "role": "Independent reviewer",
+                      "status": "available",
+                      "workerId": "b4ddaf4429ff30919a6e8bd2d4fcd049b10a573654749f96"
+                    }
+                  ]
+                },
+                "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                "recordedAt": "2026-10-13T20:25:26.543Z",
+                "references": [],
+                "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+                "schemaVersion": "1.0",
+                "sourceSequence": "2",
+                "type": "team.published"
+              },
+              "receiverSequence": "2",
+              "receivedAt": "2026-10-13T20:34:07.000Z",
+              "eventHash": "b284288941873dfb49bd321f649ffd87611d7eb1b7970343ef15eb019890c557",
+              "receiptId": "3ff9f7a5-8e20-4b9b-8d14-587d88a73648"
+            },
+            {
+              "event": {
+                "actor": {
+                  "kind": "system"
+                },
+                "eventId": "3fb04b56373a72d6860f18202f81d119b8fab2833a1f2a0e",
+                "evidenceMode": "observed_paper",
+                "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+                "occurredAt": "2026-10-13T20:25:26.543Z",
+                "payload": {
+                  "audiencePolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                  "charter": "Publicly designated summaries of genuine employee investment decisions and independent reviews. Private transcripts and raw evidence are withheld.",
+                  "discussionId": "ff61a38b2727555f41f8f1d41356db7972177885e94b922b",
+                  "participants": [
+                    "3b81014148920905b6ce846a8be85edd27699686b8158f2c",
+                    "b4ddaf4429ff30919a6e8bd2d4fcd049b10a573654749f96"
+                  ],
+                  "topic": "Investment research and independent review"
+                },
+                "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                "recordedAt": "2026-10-13T20:25:26.543Z",
+                "references": [],
+                "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+                "schemaVersion": "1.0",
+                "sourceSequence": "3",
+                "type": "discussion.opened"
+              },
+              "receiverSequence": "3",
+              "receivedAt": "2026-10-13T20:34:08.000Z",
+              "eventHash": "ec88e6cf9a8dd92af8217d0b3c332bc797c512f5f0c5bf329e972503fb3d7358",
+              "receiptId": "a4056543-fe76-437d-bcac-ba2fd3a654d9"
+            },
+            {
+              "event": {
+                "actor": {
+                  "kind": "system"
+                },
+                "eventId": "1a39414daa979f7d93448f04e0614904144de474dba86ecd",
+                "evidenceMode": "observed_paper",
+                "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+                "occurredAt": "2026-10-13T20:25:26.543Z",
+                "payload": {
+                  "configurationHash": "4658b4d6b435595e6ab15151713eb6a284d7ea29217d6786120868963da52fe3",
+                  "corporateAction": null,
+                  "correctionOf": null,
+                  "effect": "initialization",
+                  "effectiveAt": "2026-10-13T20:25:26.543Z",
+                  "entries": [
+                    {
+                      "account": "cash",
+                      "amount": "100000.000000",
+                      "currency": "USD",
+                      "instrumentId": null
+                    },
+                    {
+                      "account": "capital",
+                      "amount": "100000.000000",
+                      "currency": "USD",
+                      "instrumentId": null
+                    }
+                  ],
+                  "fill": null,
+                  "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+                  "journalSequence": "1",
+                  "ledgerVersion": "1",
+                  "previousHash": null,
+                  "previousLedgerVersion": null,
+                  "recordedAt": "2026-10-13T20:25:26.543Z",
+                  "sourceOperationId": "d892d16983abe74b6ed595948a8cd41c94c2515a918da15d",
+                  "transactionId": "ce8c0f016e09ec568b68f7eadbd4a54b2c2a80391e9cf1ee"
+                },
+                "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                "recordedAt": "2026-10-13T20:25:26.543Z",
+                "references": [],
+                "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+                "schemaVersion": "1.0",
+                "sourceSequence": "4",
+                "type": "paper.ledger_transaction"
+              },
+              "receiverSequence": "4",
+              "receivedAt": "2026-10-13T20:34:08.000Z",
+              "eventHash": "219726f96ab97d8d16e764227dab04892da2c8c6313443a6080e3f689404d8d9",
+              "receiptId": "ee873214-dca8-45d6-a44e-daa979f4405b"
+            },
+            {
+              "event": {
+                "actor": {
+                  "kind": "system"
+                },
+                "eventId": "d9294615434849e434bcccd1f2368a6e1c47fa8a884b2488",
+                "evidenceMode": "observed_paper",
+                "experimentId": "16496aa38732845beeea0a75f4614b93136be792accbb4e0",
+                "occurredAt": "2026-10-13T20:25:26.791Z",
+                "payload": {
+                  "benchmark": {
+                    "cash": "100000.000000",
+                    "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+                    "equity": null,
+                    "instrumentId": "4180f98f969af8bfe1c1092c5183450828400ecbd927eb87",
+                    "mark": null,
+                    "missingReason": "Unavailable exact benchmark closing mark",
+                    "receivables": "0.000000",
+                    "session": "2026-10-14",
+                    "totalReturn": null,
+                    "units": "0.000000"
+                  },
+                  "cash": "100000.000000",
+                  "configurationHash": "4658b4d6b435595e6ab15151713eb6a284d7ea29217d6786120868963da52fe3",
+                  "currency": "USD",
+                  "dailyReturn": null,
+                  "drawdown": null,
+                  "equity": null,
+                  "excessReturn": null,
+                  "holdings": [],
+                  "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+                  "journalSequence": "1",
+                  "liabilities": "0.000000",
+                  "limitations": [
+                    "Unavailable or unsupported matched portfolio/benchmark valuation"
+                  ],
+                  "markSetId": "34a1a0c0564ffb000af60969f7296bcda56fc4cb00c73b57",
+                  "maxDrawdown": null,
+                  "peakEquity": null,
+                  "previousComparableEquity": null,
+                  "quality": "partial",
+                  "realizedPnl": "0.000000",
+                  "receivables": "0.000000",
+                  "revision": 1,
+                  "session": "2026-10-14",
+                  "supersedes": null,
+                  "totalReturn": null,
+                  "unrealizedPnl": null,
+                  "valuationAsOf": "2026-10-13T20:25:26.543Z",
+                  "valuationId": "2c186a5cd0c40c8bbc53435d93b68f64d850615672a8a545",
+                  "valuationSequence": "1"
+                },
+                "publicationPolicyVersion": "d78d56fe02c4c136be06a923414ecb35a05be59f3f78e834",
+                "recordedAt": "2026-10-13T20:25:26.791Z",
+                "references": [],
+                "runId": "0f6ea49caee91243f2f028a8ddde55abaa68faaaa2de453c",
+                "schemaVersion": "1.0",
+                "sourceSequence": "5",
+                "type": "portfolio.snapshot"
+              },
+              "receiverSequence": "5",
+              "receivedAt": "2026-10-13T20:34:09.000Z",
+              "eventHash": "75ea3665bf41a925a6ab32c12ebeb012430df3d40c7af2076ddf0f9c32c883d7",
+              "receiptId": "db63be6e-4861-411b-a6aa-aebd5db7875a"
+            }
+          ],
+          "nextCursor": null,
+          "watermark": {
+            "sourceSequence": "5",
+            "journalSequence": "1",
+            "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+            "sourceGaps": false
+          },
+          "freshness": {
+            "lastActivityAt": null,
+            "lastPublicationAt": "2026-10-13T20:34:09.000Z",
+            "lastHeartbeatAt": "2026-10-14T01:09:43.000Z",
+            "valuationAsOf": null,
+            "expectedMarkSession": null,
+            "status": "unknown",
+            "reason": "Transport contact does not establish market freshness; no calendar collector is configured."
+          }
+        },
+        "error": null,
+        "fingerprint": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11"
+      }
+    },
+    {
+      "url": "https://asymmetri.co/api/ask/v1/availability",
+      "curlExit": 0,
+      "status": 200,
+      "bytes": 133,
+      "sha256": "4ce68d5ac1102050b3b2ff2235c84f3478854cf32f5560a28eda0dd1b4cc2896",
+      "setsCookie": false,
+      "checks": {
+        "Atlas": false,
+        "Maya": false,
+        "100,000": false,
+        "Questions are not open yet": false,
+        "<textarea": false,
+        "BotSquad Research": false,
+        "Next published review": false,
+        "Not published": false,
+        "Last publisher contact": false,
+        "no calendar collector is configured": false,
+        "snapshot for session": false
+      },
+      "body": {
+        "schemaVersion": "1.0",
+        "serviceId": "asymmetri-ask",
+        "state": "disabled",
+        "retryAfterSeconds": 60,
+        "privacyNoticeVersion": "ask-privacy-v1"
+      }
+    }
+  ]
+}

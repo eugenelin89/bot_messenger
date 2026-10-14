@@ -77,7 +77,7 @@ export class FinancialDataGateway {
     const timeoutMs=scope.timeoutMs;
     const controller=new AbortController(),deadline=Date.now()+timeoutMs;
     const externalAbort=()=>controller.abort();signal?.addEventListener('abort',externalAbort,{once:true});
-    let terminal:string|null=null,retryAt:string|null=null,ordinal=0,busy=false;
+    let terminal:string|null=null,retryAt:string|null=null,ordinal=0,busy=false,lastCallAt:number|null=null;
     const rawResponses:FinancialObservation['rawResponses']=[];
     let transportBytes=0;
     const budgetCheck=()=>{
@@ -105,13 +105,24 @@ export class FinancialDataGateway {
             ensure(!latest||time(this.clock.now())-time(latest.started_at)>=Math.max(scope.minIntervalMs,p.minIntervalMs),'financial_rate_limit');
             this.store.db.run('INSERT INTO financial_attempts VALUES (?,?,?,?,?,?)',attemptId,requestId,ordinal,qualified.endpoint,hash(qualified.params),this.clock.now());
           });
+          // The durable marker precedes fsync. Variable commit latency must not
+          // shorten spacing between actual calls in this bounded library operation.
+          // The supplied clock also supports explicitly authored logical-time fixtures.
+          if(lastCallAt!==null){
+            let remaining:number;
+            while((remaining=lastCallAt+Math.max(scope.minIntervalMs,p.minIntervalMs)-time(this.clock.now()))>0){
+              ensure(Date.now()+remaining<deadline,'financial_deadline_before_interval');await wait(remaining,controller.signal);
+            }
+          }
+          check();ensure(!controller.signal.aborted,'financial_cancelled');ensure(Date.now()<deadline,'financial_timeout');
           let response:YahooResponse;
           const attemptController=new AbortController();
           const attemptSignal=AbortSignal.any([controller.signal,attemptController.signal]);
           let attemptTimer:ReturnType<typeof setTimeout>|undefined;
           let attemptAbort:()=>void=()=>{};
           try {
-            response=await Promise.race([this.transport.exchange(structuredClone(query),attemptSignal,Math.min(scope.maxResponseBytes,p.maxBytes)),new Promise<never>((_,reject)=>{
+            const outgoing=structuredClone(query);lastCallAt=time(this.clock.now());
+            response=await Promise.race([this.transport.exchange(outgoing,attemptSignal,Math.min(scope.maxResponseBytes,p.maxBytes)),new Promise<never>((_,reject)=>{
               attemptTimer=setTimeout(()=>{attemptController.abort(new Error('financial_transport_timeout'));reject(new Error('financial_transport_timeout'));},Math.min(p.timeoutMs,Math.max(1,deadline-Date.now())));
             }),new Promise<never>((_,reject)=>{attemptAbort=()=>reject(new Error('financial_cancelled'));controller.signal.addEventListener('abort',attemptAbort,{once:true});})]);
             check();ensure(!controller.signal.aborted,'financial_cancelled');

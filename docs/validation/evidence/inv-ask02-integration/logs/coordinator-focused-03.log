@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: signed-boundary coordination imports, runs existing employee, statuses and delivers once
+ok 1 - signed-boundary coordination imports, runs existing employee, statuses and delivers once
+  ---
+  duration_ms: 4814.575717
+  type: 'test'
+  ...
+# Subtest: lost accepted answer response reconciles actual receipt without another send or inference
+ok 2 - lost accepted answer response reconciles actual receipt without another send or inference
+  ---
+  duration_ms: 2393.990322
+  type: 'test'
+  ...
+# Subtest: missing receipt permits bounded identical-answer resend, preserving canonical answer identity
+ok 3 - missing receipt permits bounded identical-answer resend, preserving canonical answer identity
+  ---
+  duration_ms: 2871.993119
+  type: 'test'
+  ...
+# Subtest: receiver status prose never enters ordinary Company or independent authority metadata
+ok 4 - receiver status prose never enters ordinary Company or independent authority metadata
+  ---
+  duration_ms: 2538.61921
+  type: 'test'
+  ...
+# Subtest: unapproved receiver configuration holds without retaining receiver prose
+ok 5 - unapproved receiver configuration holds without retaining receiver prose
+  ---
+  duration_ms: 855.896361
+  type: 'test'
+  ...
+# Subtest: claims can pause while known outbox delivery remains enabled
+ok 6 - claims can pause while known outbox delivery remains enabled
+  ---
+  duration_ms: 2883.26346
+  type: 'test'
+  ...
+# Subtest: fresh lease epoch delivers the existing answer without a second employee execution
+ok 7 - fresh lease epoch delivers the existing answer without a second employee execution
+  ---
+  duration_ms: 3263.064651
+  type: 'test'
+  ...
+# Subtest: old Company snapshot cannot erase an independently applied claim
+ok 8 - old Company snapshot cannot erase an independently applied claim
+  ---
+  duration_ms: 1418.930964
+  type: 'test'
+  ...
+# Subtest: clock rollback stops only Ask coordination without pausing Company
+ok 9 - clock rollback stops only Ask coordination without pausing Company
+  ---
+  duration_ms: 1010.549506
+  type: 'test'
+  ...
+# Subtest: reopened lost control traversal drains and reconciles only control metadata
+ok 10 - reopened lost control traversal drains and reconciles only control metadata
+  ---
+  duration_ms: 2580.302103
+  type: 'test'
+  ...
+# Subtest: persistent private maintenance failure does not prevent fresh signed control read
+ok 11 - persistent private maintenance failure does not prevent fresh signed control read
+  ---
+  duration_ms: 1596.997496
+  type: 'test'
+  ...
+# Subtest: Company snapshot from before deletion application cannot resurrect content
+ok 12 - Company snapshot from before deletion application cannot resurrect content
+  ---
+  duration_ms: 2197.718388
+  type: 'test'
+  ...
+# Subtest: more than100 successful configuration refreshes do not exhaust an operation retry set
+ok 13 - more than100 successful configuration refreshes do not exhaust an operation retry set
+  ---
+  duration_ms: 153801.232964
+  type: 'test'
+  ...
+# Subtest: unreceipted draft publication never becomes employee public evidence
+ok 14 - unreceipted draft publication never becomes employee public evidence
+  ---
+  duration_ms: 3394.071683
+  type: 'test'
+  ...
+# Subtest: damaged publication receipt and changed body are excluded
+ok 15 - damaged publication receipt and changed body are excluded
+  ---
+  duration_ms: 1881.698854
+  type: 'test'
+  ...
+# Subtest: only exact enabled owner-authored document versions remain visible
+ok 16 - only exact enabled owner-authored document versions remain visible
+  ---
+  duration_ms: 1620.588197
+  type: 'test'
+  ...
+# Subtest: paper fill receives its published decision graph and authentic employee provenance
+ok 17 - paper fill receives its published decision graph and authentic employee provenance
+  ---
+  duration_ms: 1943.73982
+  type: 'test'
+  ...
+# Subtest: pending withdrawal of an earlier order hides its event alias from later order graphs
+ok 18 - pending withdrawal of an earlier order hides its event alias from later order graphs
+  ---
+  duration_ms: 1779.2713
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 194377.262055

@@ -1,5 +1,195 @@
 # INV-ASK-02 — HQ retrieval and genuine employee routing
 
+## Final source acceptance — October 13, 19:13 America/Vancouver
+
+PR88 contains reviewed implementation `fbef721c1ee94481cbb98c6cf2b40a6c6d4f6ba1` and
+its acceptance evidence. All454 staged source files match. Fresh build and focused155/155,
+additional authority/routing221/221, actual investment receiver5/5, and remaining adapter/
+protocol380/380 groups pass with zero skips. Both formerly failing authored workflows pass
+at unchanged per-stage bounds: actions/revision60seconds (174.167seconds total), full-universe
+same-portfolio renewal180seconds (938.989seconds total). Earlier failed/incomplete runs and
+an interrupted duplicate selection are retained; overlapping groups are not a full-suite total.
+See [source acceptance](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md).
+
+Independent production read-back02:12:29UTC confirms HQd262a8d/schema25/PID759078, the same
+configuration/head, active loop, publication generation and14pending future occurrences.
+Five batches and22heartbeats are delivered. The selected run still has zero actual market,
+collection and employee execution records. First actual collection is October14 at11:45UTC;
+the October14–15 session clocks and October15 23:40UTC authority expiry remain unchanged.
+No HQ restart, bootstrap, portfolio reset, new operational Ask authority or model turn occurred.
+
+Websitef47f99b/buildIxd_-ObWeoNMR0vKBkNyi, Ask receiver2b630150/implementationa9b1ec5 and
+investment receiverc2edfd50 remain installed. The website owner acknowledged a bounded
+read-only final check at01:36UTC with unchanged source/PID/configuration/archive baselines.
+Parent public read-back02:12:28UTC passed8/8 verified HTTPS reads, no cookies, Ask disabled.
+The hydrated status copy is corrected; raw API reason text is preserved.
+
+Ask source acceptance is not public activation. Concrete Codex public-service eligibility
+still refuses before installation/network/reservation. Supported eligibility, operational
+provider/host retention facts, genuine general/context/follow-up answers and combined genuine
+capacity remain unverified. Keep Ask closed. The existing hourly completion heartbeat remains
+ACTIVE: follow real sessions, report material changes only, preserve the same portfolio and
+spent consumption, and assess bounded continuation before the current authority expires.
+
+All heavy HQ validation used Linux; no competing Mac build was started. An outgoing Motion
+capacity-approval message was rejected by automatic review for missing explicit trusted
+messaging/build authorization and remains unsent; subsequent Motion slot reports are advisory.
+No further HQ source work depends on that message. The estimate expanded because repaired
+staging exposed genuine timing failures and one selection mistake; no deadline was relaxed.
+
+## Authorization replay repair — October 13, 18:09 America/Vancouver
+
+The unchanged-bound workflow rerun at `0d9aa5d` failed both cases: plain renewal
+840.742 seconds and actions/revision 158.760 seconds overall. The raw run ended
+normally with two failures, zero passes and no skips; retain it as evidence rather
+than a clean acceptance claim. The original 180/60-second stage bounds remain.
+
+A second narrow repair reuses a fully checked simulator snapshot only within one
+synchronous loop/team authorization call. It retains audience, frozen configuration,
+occurrence, source-policy and independent finite-custody checks. Nine added loop-backed
+negatives cover corruption/rollback, revoked timing authority, snapshot isolation and
+fresh custody. Read-only review and serial Linux focused validation are in progress.
+PR88 remains draft; no production restart or new authority. Revised estimate: another
+45–75 minutes, conditional on the next unchanged-bound workflow result.
+
+## Discussion timing repair in acceptance — October 13, 17:46 America/Vancouver
+
+The repaired 454-file staging passed pinned Python normalization, then reproduced a
+real authored-workflow timeout after 928.457 seconds. The three original sessions
+completed, but the same-portfolio renewal research stage exceeded its observation
+bound. This is separate from the earlier missing-adapter staging failure. The
+coordinator stopped only disposable parent 799724 and retained the raw failure;
+production HQ PID 759078 remains active.
+
+The sole writer is testing a narrow `Conversations.callTool` routing change: choose
+the discussion handler from persisted identity, then retain its complete transactional
+verification before content or even an existing receipt is returned. This avoids a
+duplicate full authority traversal; it adds no cache and changes no timeout or financial
+assertion. Six new identity, revocation, corruption and rollback cases accompany it.
+Independent review caught and corrected a stale-session fixture setup error before
+execution. The fresh Linux build and all 90 focused tests pass with zero skips.
+Source `0d9aa5de3b9763b72724ddca5a33a231d4a0b3a9` is pushed; all 454 staging hashes match.
+Original-bound plain/actions workflows are active in `discussion-routing-workflows-01.log`.
+PR88 remains draft. Revised estimate: 45–75 minutes for repair and targeted acceptance.
+
+After that check, rerun original-bound workflows and remaining adapter files, plus the
+five previously skipped actual investment-receiver cases with `INV07_RECEIVER_ROOT`,
+and the reviewed research/mandates/Ask-service routing regressions.
+The interrupted broad run has 1,751 passes, five skips and 123 failures; overlapping
+reruns must not be added into a fabricated full-suite total. No genuine Ask model ran.
+
+
+## Adapter acceptance rerun in progress — October13, 17:23 America/Vancouver
+
+The initial broad run recorded1,751top-level passes, five conditional receiver skips and123failures, all in four
+adapter-dependent files, then stalled because a cancellation fixture awaited a request
+from a missing Python executable. It was deliberately interrupted; there is no clean full
+summary and unstarted files are not passes. The raw log is retained. No production process
+was signalled; HQ PID759078 remains active.
+
+Disposable staging now includes all11unchanged tracked adapter files and a read-only link
+to the existing Python3.12.12/yfinance1.7.0 runtime. All454source hashes match implementation
+3f57754648340008f5eca5aea6ff8b2c6987bb2a; dependency check passes. One serial,512MiB,
+low-priority rerun of the eight affected files plus the three unreached transport/protocol
+files is active under a60minute outer deadline (`integration-adapter-rerun-01.log`).
+No implementation code changed. Preserve the original60second `actions_and_revision`
+stage bound and diagnose any historical timing failure separately. PR88 remains draft.
+
+
+## Final acceptance in progress — October13, 16:47 America/Vancouver
+
+Implementation3f57754648340008f5eca5aea6ff8b2c6987bb2a is frozen on draftPR88.
+Corrected coordinator/public-context18/18, exact verified-TLS receiver/shared Dispatcher
+interop and financial30/30 passed. The full coordinator used15requests, the strict transport
+case16; output was authored, not genuine model inference. The final complete serial Linux
+suite remains running with a90minute ceiling,512MiBheap and protected disposable storage.
+Its443source files match both staging and the implementation commit. No parallel test job
+or production HQ restart is permitted while it runs.
+
+Website receiver254/254 acceptance and independent closed deployment are complete at2b630150.
+Website status/portrait/hierarchy work is live atf47f99b/buildIxd_-ObWeoNMR0vKBkNyi;
+final journalf348705 is pushed and the sole website writer reports a clean synchronized tree.
+Independent eight-response HTTPS and hydrated-browser read-back passed. No website work
+remains from this packet; original48protected images and unrelated services are preserved.
+Motion released its native slot; no heavy Mac build was used by HQ.
+
+Concrete Codex public-service availability still rejects before composition/admission/RPC.
+Source is not deployed and no operational Ask grant exists. Genuine anonymous eligibility,
+provider/host retention, real employee answer and combined model capacity remain unverified.
+Revised best-effort ETA is about30minutes for source acceptance and consolidated handoff,
+dependent on broad-suite results; public activation remains externally gated.
+
+## Coordinated integration checkpoint — October13, 16:00 America/Vancouver
+
+PR88 is a draft covering the shared employee runtime plus the completed signed coordinator,
+claim epochs, outbox/receipt recovery, independent applied-effect restore checkpoints, receipted
+public-context projection and explicit guarded composition. Review found and corrected restore,
+receiver-prose retention, delivery readiness and expired-claim gaps. New focused fault tests are
+written; build and acceptance remain pending. The original broad Linux run exposed stale migration
+assertions and staging-path failures; retain all failures and diagnose before source acceptance.
+Updated estimate remains several hours for reviewed source and cross-system verification.
+
+Website source da09185945788a7949a1b66e722c25e49c103fdd/build FdEnXJuqbkzmiTgfwl60i
+is reported live with Atlas/Maya portraits, guarded activation22:45UTC/PID2397461. Receiver
+configuration source a9b1ec5548a1672a5a87537e218dc1926eb55db1 plus journal2b630150 is
+reviewed/pushed and undergoing confined Linux checks, pinned to PR87's exact canonical package.
+The counterpart supplied a disposable interop source archive; no operational key or intake exists.
+
+Motion resource reports are advisory; the outgoing HQ capacity-approval message was rejected
+by automatic review and remains unsent. HQ has no heavy Mac job. Linux validation remains
+serial, unprivileged and memory-bounded.
+Production HQ has not been restarted. Anonymous eligibility remains unverified, so runtime
+composition rejects before network/admission and public Ask remains closed.
+
+## Shared employee integration checkpoint — October13, 15:33 America/Vancouver
+
+PR87 configuration read is accepted at00d9e82668dcfd39b25294d9a05a7f97e4d28295,
+manifest5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84.
+The existing website writer ACKed adoption and deployed the closed PR86 receiver plus
+hierarchy release; it now owns configuration-read adoption and owner-requested portraits.
+No HQ restart or active investment identity change occurred.
+
+Shared Dispatcher/typed Ask execution, routing, private context, finite settlement and
+scoped recovery are implemented; independent runtime/recovery reviews found and resolved
+material issues. Focused tests passed42/42; final topic/cooldown cases and broad regression
+remain in progress. An actual pinned0.157.0 no-turn ephemeral-thread probe passed at22:31UTC.
+Public-service entitlement and wider retention are still unverified; concrete runtime stays
+closed and readiness is checked before reservation. See the current
+[implementation/evidence record](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md).
+
+Next independent source work is signed coordination and durable operation-specific
+reconciliation, followed by cross-system acceptance. Revised estimate remains several hours
+for this integration because review exposed real recovery and isolation gaps. Public
+activation has no defensible ETA until supported eligibility and retention evidence exists;
+actual October14–15 investment outcomes still require their real scheduled clocks.
+
+## Single coordinator integration — October 13, 14:47 America/Vancouver
+
+Owner request in coordinating chat `01a13739-708a-7d62-9b9c-52c11ead5f4b` authorizes
+continued HQ/website implementation, reviewed integration, genuine testing and gated release.
+Fetched HQ main is `9ff8cc984954f2e822ec191de60dcd39607ea1a7`; this clean checkout on
+`codex/inv-real-01` is the sole HQ writer. The prior HQ chat acknowledged relinquishing
+ownership. The existing completion heartbeat was transferred to this coordinator, ACTIVE,
+with its hourly schedule and quiet-on-unchanged behavior retained. No duplicate was created.
+
+Website chat `01a13487-f07f-7182-84ac-84abcfb07043` acknowledged its separate writer
+ownership and the exact PR86 contract packet. Its existing uncommitted work is preserved;
+it owns verification, implementation, release and source receipts for that repository.
+Motion has the next short native build slot; HQ uses source work and independently admitted
+remote Linux validation. Initial estimate: several hours for complete source/review/integration;
+genuine October14–15 market outcomes require the actual elapsed sessions.
+
+Fresh read-only production check at21:47UTC: source `d262a8d`, PID759078 unchanged,
+alive/database/dispatcher true, runtime ready; about30.9GiB free and1502MiB available RAM.
+No bootstrap, restart, grant, provider request or market request was performed.
+
+Current implementation sequence: explicit public-question execution ownership and shared
+Dispatcher admission; one AskService composing private content, control application, routing,
+independent reservation, fresh runtime context and immutable answer delivery; narrow durable
+operation reconciliation; supported runtime/account/retention evidence; risk-based independent
+reviews, fault tests and genuine bounded acceptance; safe production release and public read-back.
+Keep Ask closed until these gates pass. Never substitute fixture proofs for runtime eligibility.
+
 ## Capability validation checkpoint — October13
 
 The explicit subscription activity amendment passes the affected suite (396pass, zero failures,

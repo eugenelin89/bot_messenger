@@ -1,0 +1,74 @@
+{
+  "recordedAt": "2026-10-14T02:14:03.511026+00:00",
+  "sourceHead": "fbef721c1ee94481cbb98c6cf2b40a6c6d4f6ba1",
+  "focused": {
+    "tests": 155,
+    "pass": 155,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 282527.02327,
+    "log": "logs/lexical-snapshot-focused-01.log"
+  },
+  "actionsAndRevision": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skip": 0,
+    "testDurationMs": 174166.54561,
+    "runDurationMs": 174985.303477,
+    "unchangedStageBoundMs": 60000,
+    "log": "logs/lexical-snapshot-actions-01.log"
+  },
+  "plainRenewal": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skip": 0,
+    "testDurationMs": 938989.326848,
+    "runDurationMs": 939905.97465,
+    "unchangedStageBoundMs": 180000,
+    "log": "logs/lexical-snapshot-plain-01.log"
+  },
+  "remainingGroups": [],
+  "genuineModelInference": false,
+  "boundaries": {
+    "tests": 221,
+    "pass": 221,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "durationMs": 316839.413205,
+    "log": "logs/lexical-snapshot-boundaries-01.log"
+  },
+  "actualInvestmentReceiver": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "durationMs": 39636.930166,
+    "receiverSource": "6ecd49857a651f9cd2d3f5a6a0802fbe48f099b0",
+    "log": "logs/final-investment-receiver-01.log"
+  },
+  "interruptedDuplicateSelection": {
+    "log": "logs/final-adapter-regressions-01.log",
+    "reason": "Negative include-filter also matched the enclosing file and unintentionally repeated already-passed plain. Parent806861 deliberately terminated; child806867 verified gone. Interrupted/cancelled remainder is not acceptance.",
+    "correctedFilter": "--test-skip-pattern=^authored observed workflow: (plain|actions_and_revision) through normal HQ,",
+    "diagnostic": "Supported skip filter proved using failing excluded sentinels and one passing retained sentinel. First diagnostic failed because runuser inherited inaccessible root cwd; second passed from staging.",
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 11,
+    "durationMs": 586515.588023
+  },
+  "adaptersAndProtocol": {
+    "tests": 380,
+    "suites": 2,
+    "pass": 380,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "durationMs": 1235127.325251,
+    "log": "logs/final-adapter-regressions-02.log"
+  },
+  "acceptanceConclusion": "All planned affected/unreached and conditional receiver groups passed; this is qualified regression reconciliation, not a clean single full-suite run or genuine model acceptance."
+}

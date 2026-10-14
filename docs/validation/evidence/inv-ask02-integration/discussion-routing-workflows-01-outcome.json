@@ -1,0 +1,16 @@
+{
+  "sourceHead": "0d9aa5de3b9763b72724ddca5a33a231d4a0b3a9",
+  "result": "failed",
+  "exitCode": 1,
+  "tests": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "cancelled": 0,
+  "durationMs": 1000420.817725,
+  "plainDurationMs": 840742.054591,
+  "plainFailure": "Same-portfolio fourth-session renewal research timed out after original three sessions completed. Original 180-second observation bound retained.",
+  "actionsDurationMs": 158759.663126,
+  "actionsFailure": "Third-session research exceeded original 60-second bound; eleven discussion turns completed through review; finalizer had not yet been scheduled. No active execution remained at observation timeout.",
+  "log": "logs/discussion-routing-workflows-01.log"
+}

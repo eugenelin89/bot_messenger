@@ -33,6 +33,9 @@ export interface RuntimeResult { providerTurnCompleted?:boolean; investmentUsage
 export interface RuntimeAdapter {
   readonly type: string;
   readonly supportsInterrupt: boolean;
+  /** Distinct public-service capability. Never fall back to ordinary or investment execution. */
+  assertAskAvailable?(): void;
+  runAsk?(input:import('../domain/ask/execution.js').AskRuntimeInput,signal:AbortSignal):Promise<RuntimeResult>;
   readonly subscriptionBlockReason?: string;
   subscriptionPolicySupported?(policy:ActivityPolicy):boolean;
   finiteHQPolicySupported?(policy:FiniteHQPolicy):boolean;

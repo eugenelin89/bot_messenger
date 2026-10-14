@@ -1,4 +1,6 @@
 import {ObservedInvestment} from './investment-team/observed-investment.js';
+import type {AskCoordinator} from './ask/coordinator.js';
+import type {AskService} from './ask/service.js';
 import { PrivateResearch } from './investment-team/private-research.js';
 import { InvestmentSetup } from './investment-team/setup.js';
 import { FiniteHQ } from './usage/finite-hq.js';
@@ -50,6 +52,9 @@ interface HireInput {
 }
 
 export class Company extends EventEmitter {
+  /** Explicitly installed public service; startup and migration create no Ask authority. */
+  ask?:AskService;
+  askCoordinator?:AskCoordinator;
   readonly dataDir: string;
   readonly engineering: Engineering;
   readonly infrastructure: Infrastructure;
@@ -222,7 +227,9 @@ export class Company extends EventEmitter {
     });
   }
   providerUnresolved(workerId: string) {
-    return !!this.store.get('SELECT 1 FROM execution_runtime_attempts a JOIN executions e USING(execution_id) WHERE e.worker_id=? AND a.unresolved=1',workerId)
+    return !!this.store.get('SELECT 1 FROM ask_service_holds h,json_each(h.worker_ids) w WHERE h.unresolved=1 AND w.value=?',workerId)
+      || !!this.store.get('SELECT 1 FROM ask_dispatches WHERE worker_id=? AND unresolved=1',workerId)
+      || !!this.store.get('SELECT 1 FROM execution_runtime_attempts a JOIN executions e USING(execution_id) WHERE e.worker_id=? AND a.unresolved=1',workerId)
       || !!this.store.get('SELECT 1 FROM conversation_sessions WHERE worker_id=? AND unresolved=1',workerId)
       || !!this.store.get('SELECT 1 FROM research_operations WHERE worker_id=? AND unresolved=1',workerId)
       || this.computers.unknown(workerId);
@@ -322,12 +329,13 @@ export class Company extends EventEmitter {
   private nextTask() {
     return this.store.all<Task>(`SELECT t.* FROM tasks t JOIN workers w ON w.worker_id=t.assignee_worker_id
         WHERE t.status='queued' AND w.enabled=1
+        AND NOT EXISTS (SELECT 1 FROM ask_dispatches a WHERE a.worker_id=w.worker_id AND a.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM execution_runtime_attempts a JOIN executions pe USING(execution_id) WHERE pe.worker_id=w.worker_id AND a.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM conversation_sessions cs WHERE cs.worker_id=w.worker_id AND cs.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM research_operations ro WHERE ro.worker_id=w.worker_id AND ro.unresolved=1)
         AND NOT EXISTS (SELECT 1 FROM task_scopes s JOIN repositories r USING(repository_id) JOIN projects p USING(project_id) WHERE s.task_id=t.task_id AND (p.status!='active' OR r.status!='ready'))
         AND (t.kind!='engineering' OR (EXISTS (SELECT 1 FROM allocations a WHERE a.task_id=t.task_id AND a.status IN ('active','submitted')) AND NOT EXISTS (SELECT 1 FROM executions pe WHERE pe.task_id=t.parent_task_id AND pe.status='running'))) AND NOT EXISTS
-        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => !this.business.reserved(candidate.assignee_worker_id) && !this.computers.unknown(candidate.assignee_worker_id) && this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate) && this.computers.eligible(candidate));
+        (SELECT 1 FROM executions e WHERE e.worker_id=w.worker_id AND e.status='running') ORDER BY CASE w.execution_priority WHEN 'critical' THEN 3 WHEN 'high' THEN 2 WHEN 'normal' THEN 1 ELSE 0 END DESC,t.created_at,t.rowid`).find(candidate => !this.providerUnresolved(candidate.assignee_worker_id) && !this.business.reserved(candidate.assignee_worker_id) && !this.computers.unknown(candidate.assignee_worker_id) && this.infrastructure.eligible(candidate) && this.mandates.internalEligible(candidate) && this.computers.eligible(candidate));
   }
   claimNext(maxActive = 2): { task: Task; worker: Worker; execution: TaskExecution; context: ExecutionContext } | undefined {
     return this.store.transaction(() => {
@@ -352,6 +360,7 @@ export class Company extends EventEmitter {
     this.store.transaction(() => {
       const execution = this.execution(executionId);
       if (execution.status !== 'running') return;
+      requireThat(execution.origin!=='public_question','Public questions require their private completion path');
       requireThat(!this.research.hasPending(executionId),'Cannot complete while research callbacks are unfinished.');
       requireThat(!this.computers.hasPending(executionId),'Cannot complete while browser callbacks are unfinished.');
       requireThat(!this.business.hasPending(executionId),'Cannot complete while business callbacks are unfinished.');
@@ -410,6 +419,7 @@ export class Company extends EventEmitter {
     }
   }
   recover() {
+    this.ask?.recover();
     this.privateResearch.expire();
     this.finiteHQ.recover();
     this.aiUsage.recover();
@@ -421,6 +431,11 @@ export class Company extends EventEmitter {
     this.infrastructure.reconcile();
     this.store.transaction(() => {
       for (const e of this.store.all<Execution>("SELECT * FROM executions WHERE status='running'")) {
+        if(e.origin==='public_question'){
+          this.store.run("UPDATE ask_dispatches SET state='unknown',unresolved=1 WHERE execution_id=?",e.execution_id);
+          this.store.run("UPDATE executions SET status='interrupted',finished_at=?,interruption_reason='application_restart' WHERE execution_id=?",now(),e.execution_id);
+          continue;
+        }
         if (e.origin === 'conversation') { this.conversations.recover(e); continue; }
         // A retained pre-intent execution with a bound provider may have started a turn.
         // Record recovery uncertainty now; never fabricate historical start/settlement events.

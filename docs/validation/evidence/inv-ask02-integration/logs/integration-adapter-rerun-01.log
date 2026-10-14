@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: observed setup is inert, exact, renewable-policy ready and schedules three future source/research/accounting sessions
+ok 1 - observed setup is inert, exact, renewable-policy ready and schedules three future source/research/accounting sessions
+  ---
+  duration_ms: 1560.243325
+  type: 'test'
+  ...
+# Subtest: reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies
+ok 2 - reviewed pinned Python normalizes authored real-format equity and ETF; historical research cannot fill, same-session capture qualifies
+  ---
+  duration_ms: 13397.972197
+  type: 'test'
+  ...
+# Subtest: authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+not ok 3 - authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication
+  ---
+  duration_ms: 928457.020026
+  type: 'test'
+  location: '/var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:73:5'
+  failureType: 'testCodeFailure'
+  error: 'Test condition timed out'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    until (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/helpers.js:16:19)
+    async TestContext.<anonymous> (file:///var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:403:17)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Interrupted while running: dist/test/observed-investment.test.js at /var/tmp/botsquad-ask-integration-idEyvv/dist/test/observed-investment.test.js:1:1

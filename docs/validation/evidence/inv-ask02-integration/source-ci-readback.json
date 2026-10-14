@@ -1,0 +1,36 @@
+{
+  "sourceHead": "fbef721c1ee94481cbb98c6cf2b40a6c6d4f6ba1",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "statuses": []
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "workflow_runs": []
+        },
+        "isError": false
+      }
+    }
+  ],
+  "note": "The connector returned no combined status entries and no pull-request-triggered workflow runs for this commit. This is not a CI success claim; executed Linux acceptance is recorded separately."
+}

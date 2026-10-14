@@ -1,0 +1,8 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/ask-service.test.ts(145,107): error TS2345: Argument of type '{ worker: Worker; request: ProtectedOperation | { worker_id: string; identity: OSIdentity; }; }' is not assignable to parameter of type 'Worker'.
+  Type '{ worker: Worker; request: ProtectedOperation | { worker_id: string; identity: OSIdentity; }; }' is missing the following properties from type 'Worker': worker_id, principal_id, display_name, title, and 17 more.
+test/ask-service.test.ts(169,169): error TS2345: Argument of type '{ worker: Worker; request: ProtectedOperation | { worker_id: string; identity: OSIdentity; }; }' is not assignable to parameter of type 'Worker'.
+  Type '{ worker: Worker; request: ProtectedOperation | { worker_id: string; identity: OSIdentity; }; }' is missing the following properties from type 'Worker': worker_id, principal_id, display_name, title, and 17 more.

@@ -1,0 +1,47 @@
+{
+  "recordedAt": "2026-10-13T23:40:05.836386+00:00",
+  "kind": "counterpart-reported guarded website release",
+  "counterpartThread": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "releaseAt": "2026-10-13T23:36:27Z",
+  "website": {
+    "source": "f47f99b87361910623d493d654eabf71431d6798",
+    "implementation": "f9696808f3cf224e731c9910faaa530b3a4456df",
+    "build": "Ixd_-ObWeoNMR0vKBkNyi",
+    "pid": 2401430,
+    "activeAt": "2026-10-13T23:36:25Z"
+  },
+  "askReceiver": {
+    "source": "2b630150e17c629729ac87026f0df0ab1d30e959",
+    "pid": 2399905,
+    "unchanged": true,
+    "state": "disabled"
+  },
+  "investmentReceiver": {
+    "source": "c2edfd50ed12ba576c06e6991091090b9ced3e31",
+    "pid": 2385469,
+    "unchanged": true
+  },
+  "preservation": {
+    "baselineObservations": 112,
+    "verifiedHTTP": 104,
+    "retainedPreexistingIPv6TLSFailures": 4,
+    "fallbackFingerprints": 4,
+    "originalTutorialImages": 48,
+    "configAndExistingArchiveRowsPreserved": true,
+    "receiverRestart": false,
+    "authorityChange": false,
+    "modelExecution": false
+  },
+  "rollback": "/var/www/asymmetri-rollback-20261013-da09185",
+  "privateEvidence": "/var/lib/asymmetri-status-release-20261013",
+  "newActivationFailures": 0,
+  "independentHQPublicChecks": [
+    "public-readback-03.json",
+    "browser-readback-02.json"
+  ],
+  "limitation": "Private deployment details are counterpart-reported; independent public HTTPS and browser observations are recorded separately.",
+  "receiptCommit": "59a6d2ea15a4742044e9df13f8707548a1c447a9",
+  "journalCommit": "f34870552d47c3fabeb2757ba872303fbf581727",
+  "receiptURL": "https://github.com/eugenelin89/asymmetri/blob/f34870552d47c3fabeb2757ba872303fbf581727/docs/BOTSQUAD-STATUS-RELEASE_2026-10-13.md",
+  "privateEvidenceManifestSha256": "10ca573dae135947452966e5aa8a659ba9708213a9cfadabee64f5ec9da211f9"
+}

@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {canonicalHash as hash,canonicalJson as json,parseJson,sha256} from '../scripts/investment-contracts/schema.js';
+import type {AskQuestion,EventBatch,PublicationReceipt} from '../contracts/investment/v1/types.js';
+import type {Job} from '../src/domain/publication/types.js';
+import {AskPublicProjection,type ApprovedAskDocument} from '../src/control/ask/public-context.js';
+import {publicationFixture} from './fixtures/publication/support.js';
+const examples=JSON.parse(readFileSync('contracts/investment/v1/responses.json','utf8')).examples;
+function setup(){
+ const f=publicationFixture();f.complete();const preview=f.service.preview(f.envelope),consent=f.service.consent({previewId:preview.id,digest:preview.digest});
+ let current=true;const docs:ApprovedAskDocument[]=[];
+ const projection=new AskPublicProjection(f.store,{channelIds:[consent.channelId],documents:()=>docs,assertChannelCurrent:()=>{if(!current)throw Error('Publisher restore requires reconciliation');}});
+ const event=preview.material.events.find(e=>e.event.type==='decision.published')!.event;if(event.type!=='decision.published')throw Error('fixture');
+ const question=structuredClone(examples.AskQuestion) as AskQuestion;question.input.context={experimentId:event.experimentId,runId:event.runId,record:{kind:'decision',id:event.payload.proposal.decisionId,version:event.payload.proposal.revision,relation:'supports'}};
+ function deliver(){for(const job of f.store.all<Job>("SELECT * FROM investment_public_jobs WHERE kind='batch' ORDER BY position")){
+  const batch=parseJson(job.body) as EventBatch,receipt:PublicationReceipt={...structuredClone(examples.PublicationReceipt),batchId:job.id,experimentId:batch.experimentId,runId:batch.runId,bodyDigest:job.digest,acceptedIds:batch.events.map(e=>e.eventId),duplicateIds:[],watermark:{...examples.PublicationReceipt.watermark,sourceSequence:batch.events.at(-1)!.sourceSequence}};
+  f.store.run("UPDATE investment_public_jobs SET state='delivered',receipt=?,needs_receipt=0 WHERE id=?",json(receipt),job.id);
+ }}
+ return{...f,preview,consent,projection,question,deliver,docs,current(v:boolean){current=v;}};
+}
+test('unreceipted draft publication never becomes employee public evidence',t=>{const f=setup();t.after(f.cleanup);assert.throws(()=>f.projection.context(f.question));f.deliver();const context=f.projection.context(f.question);assert.equal(context.records.length,1);assert.equal(context.records[0]!.authorWorkerIds.length,2);assert.equal(f.projection.visible(context),true);f.current(false);assert.equal(f.projection.visible(context),false);});
+test('damaged publication receipt and changed body are excluded',t=>{const f=setup();t.after(f.cleanup);f.deliver();const job=f.store.get<Job>("SELECT * FROM investment_public_jobs WHERE kind='batch' ORDER BY position LIMIT 1")!,r=JSON.parse(job.receipt!);r.bodyDigest='0'.repeat(64);f.store.run('UPDATE investment_public_jobs SET receipt=? WHERE id=?',json(r),job.id);assert.throws(()=>f.projection.context(f.question));});
+test('only exact enabled owner-authored document versions remain visible',t=>{const f=setup();t.after(f.cleanup);const source={sourceId:'fixture-about',url:'https://asymmetri.co/botsquad',title:'About BotSquad',publisher:'Asymmetri',publishedAt:null,eventAt:null,retrievedAt:f.clock.now(),summary:'Approved product description',limitations:[],rights:'owner_authored' as const},doc={source,text:'Approved public project introduction',digest:'',enabled:true};doc.digest=hash({source,text:doc.text});f.docs.push(doc);f.question.input.context=null;const context=f.projection.context(f.question);assert.equal(context.documents.length,1);f.docs[0]!.text='Changed and newly approved text under same source metadata';f.docs[0]!.digest=hash({source,text:f.docs[0]!.text});assert.equal(f.projection.visible(context),false);assert.equal(f.projection.visibleReferences([],context.documents.map(d=>d.source),context.documents.map(d=>({source:d.source,contentDigest:hash(d)}))),false);});
+
+test('paper fill receives its published decision graph and authentic employee provenance',t=>{const f=setup();t.after(f.cleanup);f.deliver();const event=f.preview.material.events.map(e=>e.event).find(e=>e.type==='paper.ledger_transaction'&&e.payload.fill);assert.ok(event&&event.type==='paper.ledger_transaction');f.question.input.context!.record={kind:'transaction',id:event.payload.transactionId,version:1,relation:'supports'};const evidence=f.projection.context(f.question).records[0]!;assert.equal(evidence.authorWorkerIds.length,2);assert.ok(evidence.text.includes('Invented fixture thesis'));});
+test('pending withdrawal of an earlier order hides its event alias from later order graphs',t=>{const f=setup();t.after(f.cleanup);f.deliver();const orders=f.preview.material.events.map(e=>e.event).filter(e=>e.type==='paper.order'),first=orders[0]!,last=orders.at(-1)!;f.question.input.context!.record={kind:'order',id:last.payload.orderId,version:last.payload.revision,relation:'supports'};const context=f.projection.context(f.question);assert.equal(f.projection.visible(context),true);
+ const job=f.store.get<Job>("SELECT * FROM investment_public_jobs WHERE kind='batch' ORDER BY position DESC LIMIT 1")!,batch=parseJson(job.body) as EventBatch,notice={...last,eventId:'fixture-withdraw-order',sourceSequence:String(BigInt(last.sourceSequence)+100n),type:'publication.notice',payload:{noticeId:'notice-order',kind:'withdrawal',affected:[{kind:'order',id:first.payload.orderId,version:first.payload.revision,relation:'supports'}],reason:'Fixture withdrawal',effectiveAt:f.clock.now()}};
+ const body=Buffer.from(json({...batch,batchId:'withdraw-batch',events:[notice]}));f.store.run("INSERT INTO investment_public_jobs VALUES(?,?,?,?,?,?,?,?,?,'queued',NULL,NULL,NULL,?,NULL,0)",'withdraw-batch',job.channel_id,job.grant_id,job.position+1,'batch',body,sha256(body),job.path,job.content_type,job.created_at);assert.equal(f.projection.visible(context),false);
+});

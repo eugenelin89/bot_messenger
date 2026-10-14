@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-10-14T00:42:19.051371+00:00",
+  "sourceHead": "3f57754648340008f5eca5aea6ff8b2c6987bb2a",
+  "completeSourceInventoryFiles": 454,
+  "kind": "interrupted repaired adapter run",
+  "passed": 2,
+  "failed": 1,
+  "failedCase": "authored observed workflow: plain through normal HQ, restart, reviewed BUY/HOLD/SELL and standing signed publication",
+  "failure": "Test condition timed out in the fourth, same-portfolio renewal research stage",
+  "durationMs": 928457.020026,
+  "nodeFinalSummaryPresent": false,
+  "termination": "Coordinator SIGINT to verified disposable parent799724; child799730 exited; production PID759078 remained active",
+  "log": "logs/integration-adapter-rerun-01.log",
+  "sourceRepairPending": "Remove duplicate outer discussion verification while retaining full transactional handler verification; keep original timeouts and portfolio assertions."
+}

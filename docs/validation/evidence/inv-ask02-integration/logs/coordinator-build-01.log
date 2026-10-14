@@ -1,0 +1,26 @@
+
+> botsquad@0.1.0 build
+> tsc
+
+test/ask-coordinator.test.ts(24,68): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(25,69): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(26,37): error TS2339: Property 'claim' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'claim' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(27,50): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(28,104): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(28,147): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(28,194): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(28,248): error TS2339: Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }> | Extract<{ kind: "claim"; input: AskClaimInput; }, { kind: K; }> | Extract<{ kind: "renew"; requestId: string; claim: AskClaim; input: AskRenewInput; }, { ...; }> | Extract<...> | Extract<...> | Extract<...> | Extract<...>'.
+  Property 'input' does not exist on type 'Extract<{ kind: "configuration"; }, { kind: K; }>'.
+test/ask-coordinator.test.ts(53,153): error TS2554: Expected 0 arguments, but got 1.
+test/ask-coordinator.test.ts(53,221): error TS2339: Property 'companySnapshot' does not exist on type 'AskServiceConfiguration'.
+test/ask-coordinator.test.ts(53,257): error TS2339: Property 'contentSnapshot' does not exist on type 'AskServiceConfiguration'.
+test/ask-coordinator.test.ts(59,91): error TS2554: Expected 0 arguments, but got 1.
+test/ask-coordinator.test.ts(61,180): error TS2339: Property 'companySnapshot' does not exist on type 'AskServiceConfiguration'.
+test/ask-coordinator.test.ts(61,221): error TS2339: Property 'contentSnapshot' does not exist on type 'AskServiceConfiguration'.

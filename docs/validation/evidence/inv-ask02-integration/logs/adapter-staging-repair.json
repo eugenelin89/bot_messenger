@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-14T00:21:03.750271+00:00",
+  "sourceHead": "3f57754648340008f5eca5aea6ff8b2c6987bb2a",
+  "files": 454,
+  "mismatches": [],
+  "adapterSourceFiles": 11,
+  "runtime": {
+    "python": "3.12.12",
+    "yfinance": "1.7.0",
+    "target": "/opt/botsquad-runtime/yahoo-inv-real-01-venv",
+    "readOnlyExistingRuntime": true
+  },
+  "stagingCorrectionOnly": true,
+  "completeInventorySha256": "645cc7b7ad0718fa14b75bc6cba5c34da9342cd392feb652599eebfdc8663d02"
+}

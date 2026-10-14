@@ -51,4 +51,16 @@ export class AppServerRpc extends EventEmitter {
     });
   }
   close() { this.process.kill('SIGTERM');const child=this.process;const timer=setTimeout(()=>{if(child.exitCode===null&&child.signalCode===null)child.kill('SIGKILL');},1000);timer.unref();child.once('exit',()=>clearTimeout(timer));this.fail(new Error('Codex transport closed')); }
+  /** Confirm local child termination; this makes no provider-retention claim. */
+  async closeAndWait():Promise<void> {
+    if(this.process.exitCode!==null||this.process.signalCode!==null)return;
+    const exited=new Promise<void>((resolve,reject)=>{
+      const timer=setTimeout(()=>{cleanup();reject(new Error('Runtime process exit unconfirmed'));},5000);
+      const done=()=>{cleanup();resolve();};
+      const failed=()=>{if(this.process.pid===undefined){done();return;}cleanup();reject(new Error('Runtime process termination failed'));};
+      const cleanup=()=>{clearTimeout(timer);this.process.removeListener('exit',done);this.process.removeListener('error',failed);};
+      this.process.once('exit',done);this.process.once('error',failed);
+    });
+    this.close();await exited;
+  }
 }

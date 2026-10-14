@@ -14,7 +14,7 @@ export class AIUsage {
  const x=this.company.execution(executionId),s=x.origin==='conversation'?this.company.investmentTeam.forConversation(this.company.conversations.request(x.request_id).conversation_id):undefined;
  const cycle=this.db.get<{occurrence_id:string}>('SELECT occurrence_id FROM investment_loop_executions WHERE execution_id=?',executionId)?.occurrence_id;
  const turn=x.origin==='conversation'?this.company.discussions.turn(x.request_id):undefined;
- this.db.run('INSERT OR IGNORE INTO ai_usage (usage_id,execution_id,worker_id,activity,run_id,scope_id,cycle_id,request_id,started_at,pricing_version) VALUES (?,?,?,?,?,?,?,?,?,?)',usageId,executionId,x.worker_id,activity??turn?.kind??(x.origin==='task'?'task':'conversation'),s?.run_id??null,s?.scope_id??null,cycle??null,x.origin==='conversation'?x.request_id:null,this.now(),PRICING_VERSION);
+ this.db.run('INSERT OR IGNORE INTO ai_usage (usage_id,execution_id,worker_id,activity,run_id,scope_id,cycle_id,request_id,started_at,pricing_version) VALUES (?,?,?,?,?,?,?,?,?,?)',usageId,executionId,x.worker_id,activity??turn?.kind??x.origin,s?.run_id??null,s?.scope_id??null,cycle??null,x.origin==='conversation'?x.request_id:null,this.now(),PRICING_VERSION);
  }
  private row(id:string){const r=this.db.get<Row>('SELECT * FROM ai_usage WHERE usage_id=?',id);requireThat(r,'Usage record missing');return r;}
  private reason(id:string,reason:string){const r=this.row(id),reasons=JSON.parse(r.reasons) as string[];if(!reasons.includes(reason))reasons.push(reason);this.db.run("UPDATE ai_usage SET reasons=?,completeness='incomplete' WHERE usage_id=?",json(reasons),id);}
@@ -64,7 +64,7 @@ export class AIUsage {
  if(missing.length)this.reason(usageId,'Usage incomplete: missing '+missing.join(', '));
  // Only a provider-completed observed turn may retain complete usage after a LOCAL failure.
  // A settled provider failure can omit a later response's usage and remains incomplete.
- const completedTelemetry=status==='completed'||providerTurnCompleted&&!!r.run_id&&this.company.observedInvestment.isRun(r.run_id)&&['failed','interrupted'].includes(status);
+ const completedTelemetry=status==='completed'||providerTurnCompleted&&(r.activity==='public_question'||!!r.run_id&&this.company.observedInvestment.isRun(r.run_id))&&['failed','interrupted'].includes(status);
  const complete=missing.length===0&&completedTelemetry&&settled&&responses.length>0&&responses.every(p=>p.payload!=='null')&&JSON.parse(r.reasons).length===0;
  this.db.run("UPDATE ai_usage SET status=?,settled=?,finished_at=CASE WHEN ?='unknown' THEN NULL ELSE coalesce(finished_at,?) END,completeness=? WHERE usage_id=?",status,Number(settled),status,this.now(),complete?'complete':'incomplete',usageId);
  if(!complete)this.reason(usageId,responses.length?'Usage incomplete: terminal settlement or categories missing':'Usage incomplete: no authoritative response usage');

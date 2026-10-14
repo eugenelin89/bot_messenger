@@ -1,6 +1,186 @@
 # Persistent observed paper investment — operation and morning handoff
 
-## Current morning handoff — October 13, 2026, 13:45 America/Vancouver
+## Final source acceptance — October 13, 19:13 America/Vancouver
+
+PR88 contains reviewed implementation `fbef721c1ee94481cbb98c6cf2b40a6c6d4f6ba1` and
+its acceptance evidence. All454 staged source files match. Fresh build and focused155/155,
+additional authority/routing221/221, actual investment receiver5/5, and remaining adapter/
+protocol380/380 groups pass with zero skips. Both formerly failing authored workflows pass
+at unchanged per-stage bounds: actions/revision60seconds (174.167seconds total), full-universe
+same-portfolio renewal180seconds (938.989seconds total). Earlier failed/incomplete runs and
+an interrupted duplicate selection are retained; overlapping groups are not a full-suite total.
+See [source acceptance](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md).
+
+Independent production read-back02:12:29UTC confirms HQd262a8d/schema25/PID759078, the same
+configuration/head, active loop, publication generation and14pending future occurrences.
+Five batches and22heartbeats are delivered. The selected run still has zero actual market,
+collection and employee execution records. First actual collection is October14 at11:45UTC;
+the October14–15 session clocks and October15 23:40UTC authority expiry remain unchanged.
+No HQ restart, bootstrap, portfolio reset, new operational Ask authority or model turn occurred.
+
+Websitef47f99b/buildIxd_-ObWeoNMR0vKBkNyi, Ask receiver2b630150/implementationa9b1ec5 and
+investment receiverc2edfd50 remain installed. The website owner acknowledged a bounded
+read-only final check at01:36UTC with unchanged source/PID/configuration/archive baselines.
+Parent public read-back02:12:28UTC passed8/8 verified HTTPS reads, no cookies, Ask disabled.
+The hydrated status copy is corrected; raw API reason text is preserved.
+
+Ask source acceptance is not public activation. Concrete Codex public-service eligibility
+still refuses before installation/network/reservation. Supported eligibility, operational
+provider/host retention facts, genuine general/context/follow-up answers and combined genuine
+capacity remain unverified. Keep Ask closed. The existing hourly completion heartbeat remains
+ACTIVE: follow real sessions, report material changes only, preserve the same portfolio and
+spent consumption, and assess bounded continuation before the current authority expires.
+
+All heavy HQ validation used Linux; no competing Mac build was started. An outgoing Motion
+capacity-approval message was rejected by automatic review for missing explicit trusted
+messaging/build authorization and remains unsent; subsequent Motion slot reports are advisory.
+No further HQ source work depends on that message. The estimate expanded because repaired
+staging exposed genuine timing failures and one selection mistake; no deadline was relaxed.
+
+## Authorization replay repair — October 13, 18:09 America/Vancouver
+
+The unchanged-bound workflow rerun at `0d9aa5d` failed both cases: plain renewal
+840.742 seconds and actions/revision 158.760 seconds overall. The raw run ended
+normally with two failures, zero passes and no skips; retain it as evidence rather
+than a clean acceptance claim. The original 180/60-second stage bounds remain.
+
+A second narrow repair reuses a fully checked simulator snapshot only within one
+synchronous loop/team authorization call. It retains audience, frozen configuration,
+occurrence, source-policy and independent finite-custody checks. Nine added loop-backed
+negatives cover corruption/rollback, revoked timing authority, snapshot isolation and
+fresh custody. Read-only review and serial Linux focused validation are in progress.
+PR88 remains draft; no production restart or new authority. Revised estimate: another
+45–75 minutes, conditional on the next unchanged-bound workflow result.
+
+## Discussion timing repair in acceptance — October 13, 17:46 America/Vancouver
+
+The repaired 454-file staging passed pinned Python normalization, then reproduced a
+real authored-workflow timeout after 928.457 seconds. The three original sessions
+completed, but the same-portfolio renewal research stage exceeded its observation
+bound. This is separate from the earlier missing-adapter staging failure. The
+coordinator stopped only disposable parent 799724 and retained the raw failure;
+production HQ PID 759078 remains active.
+
+The sole writer is testing a narrow `Conversations.callTool` routing change: choose
+the discussion handler from persisted identity, then retain its complete transactional
+verification before content or even an existing receipt is returned. This avoids a
+duplicate full authority traversal; it adds no cache and changes no timeout or financial
+assertion. Six new identity, revocation, corruption and rollback cases accompany it.
+Independent review caught and corrected a stale-session fixture setup error before
+execution. The fresh Linux build and all 90 focused tests pass with zero skips.
+Source `0d9aa5de3b9763b72724ddca5a33a231d4a0b3a9` is pushed; all 454 staging hashes match.
+Original-bound plain/actions workflows are active in `discussion-routing-workflows-01.log`.
+PR88 remains draft. Revised estimate: 45–75 minutes for repair and targeted acceptance.
+
+After that check, rerun original-bound workflows and remaining adapter files, plus the
+five previously skipped actual investment-receiver cases with `INV07_RECEIVER_ROOT`,
+and the reviewed research/mandates/Ask-service routing regressions.
+The interrupted broad run has 1,751 passes, five skips and 123 failures; overlapping
+reruns must not be added into a fabricated full-suite total. No genuine Ask model ran.
+
+
+## Adapter acceptance rerun in progress — October13, 17:23 America/Vancouver
+
+The initial broad run recorded1,751top-level passes, five conditional receiver skips and123failures, all in four
+adapter-dependent files, then stalled because a cancellation fixture awaited a request
+from a missing Python executable. It was deliberately interrupted; there is no clean full
+summary and unstarted files are not passes. The raw log is retained. No production process
+was signalled; HQ PID759078 remains active.
+
+Disposable staging now includes all11unchanged tracked adapter files and a read-only link
+to the existing Python3.12.12/yfinance1.7.0 runtime. All454source hashes match implementation
+3f57754648340008f5eca5aea6ff8b2c6987bb2a; dependency check passes. One serial,512MiB,
+low-priority rerun of the eight affected files plus the three unreached transport/protocol
+files is active under a60minute outer deadline (`integration-adapter-rerun-01.log`).
+No implementation code changed. Preserve the original60second `actions_and_revision`
+stage bound and diagnose any historical timing failure separately. PR88 remains draft.
+
+
+## Current morning handoff — October13, 16:45 America/Vancouver
+
+Production HQ remains `d262a8dff59ab82587bd6444b083e5e9b7603cf0`, schema25,
+PID759078, with the same active portfolio, finite authority and October14–15 schedule.
+No HQ restart, bootstrap, new investment authority or model/market turn occurred during
+this integration assignment. The23:24UTC read-only receipt found14pending occurrences,
+zero market/collection/employee records for this authorized run and a healthy database.
+Starting capital is initialization, not performance. The later publisher heartbeat counts
+may increase normally; they do not establish market freshness or employee activity.
+
+The website-only status correction is deployed from
+`f47f99b87361910623d493d654eabf71431d6798`, build`Ixd_-ObWeoNMR0vKBkNyi`,
+PID2401430, activation23:36:27UTC. Ask receiver remains
+`2b630150e17c629729ac87026f0df0ab1d30e959`/PID2399905, disabled with generation zero
+and no operational authority/content; investment receiver remains
+`c2edfd50ed12ba576c06e6991091090b9ced3e31`/PID2385469.
+The website writer reports all112 baseline observations and48protected images retained,
+with four pre-existing IPv6 TLS failures explicitly retained. Both receivers and prior
+immutable data were preserved. Final website journal is`f34870552d47c3fabeb2757ba872303fbf581727`;
+[release, preservation and rollback](https://github.com/eugenelin89/asymmetri/blob/f34870552d47c3fabeb2757ba872303fbf581727/docs/BOTSQUAD-STATUS-RELEASE_2026-10-13.md).
+Independent eight-response HTTPS and hydrated-browser checks confirmed the exact existing
+public run, both employee portraits, corrected public-status wording and disabled Ask.
+Missing public review data now says “Not published”; private scheduling is not inferred.
+
+HQ implementation `3f57754648340008f5eca5aea6ff8b2c6987bb2a` on PR88 remains under
+final serial Linux regression. Focused18/18 and exact-pinned receiver/shared Dispatcher/
+financial30/30 acceptance passed with authored output only; no model ran. Canonical PR87
+is accepted at`00d9e82668dcfd39b25294d9a05a7f97e4d28295`, nine-file manifest
+`5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84`.
+[The integration record](../validation/INV_ASK_02_EMPLOYEE_INTEGRATION.md) retains source,
+review, raw failure and independent public evidence. The443source files match the committed
+implementation. Concrete Codex public eligibility rejects before network/reservation;
+the actual ephemeral zero-turn probe proves no public-service entitlement, wider retention
+or genuine answer. Ask source deployment and anonymous activation remain unperformed.
+
+Continuation was assessed against Decision047 and `ObservedInvestment.preview/consent`.
+Renewal selects the existing private run and immutable portfolio configuration, creates a new
+finite authority/discussion, and retains previous scopes, consumption, loss and accounting.
+It requires the old loop to be finished/stopped/blocked, every prior provider attempt settled,
+no pending paper orders, unchanged policy/roles/calendar, current account/reload evidence and
+exact future sessions within the frozen calendar. It must never rerun initial bootstrap or
+fund the portfolio again. Before October15 23:40UTC, inspect the genuine closing receipts and
+settlement state, then prepare the next bounded future-session renewal if those gates pass.
+No renewal is provisioned now while the authorized October14–15 loop remains active.
+
+The existing hourly completion heartbeat is ACTIVE in coordinator chat
+`01a13739-708a-7d62-9b9c-52c11ead5f4b`, quiet when unchanged. Website work uses the
+actual supported connection to existing chat`01a13487-f07f-7182-84ac-84abcfb07043`;
+no manual prompt relay is required. Motion's native slot is released; HQ validation is
+serial on Linux with a512MiBNodeheap and no heavy Mac build.
+
+## Single-coordinator update — October13, 16:03 America/Vancouver
+
+HQ is still d262a8d/schema25/PID759078; no restart, bootstrap, portfolio replacement,
+new investment grant, market request or model turn was performed by this integration work.
+The identities, finite consumption and October14–15 schedule below remain authoritative.
+The existing hourly completion heartbeat now targets coordinator chat
+01a13739-708a-7d62-9b9c-52c11ead5f4b; it remains ACTIVE with quiet-on-unchanged behavior.
+
+Independent verified IPv4 HTTPS read-back at22:59UTC passed eight actual responses:
+Research, Investment, Ask, experiment/status/snapshot/events and Ask availability. Exact
+public experiment/run and source5/journal1 remain unchanged. Starting cash is not performance;
+no genuine future-session result is claimed. Website build FdEnXJuqbkzmiTgfwl60i is visible,
+with the owner-requested hierarchy. The website writer reports portrait source da091859,
+PID2397461 active22:44:58UTC, verified Atlas/Maya images and all48 protected assets retained.
+The first earlier read-back used an invalid workers resource and returned400; the corrected
+supported events resource now returns200. Both receipts are retained under
+[Ask integration evidence](../validation/evidence/inv-ask02-integration/public-readback-02.json).
+
+Canonical configuration-read PR87 is merged at00d9e826, manifest
+5396443e475d3fe69825ef8af4e916a408b39452182e9c4828fa17b7faf37a84.
+Website receiver source a9b1ec5/journal2b630150 adopts it and is undergoing confined Linux
+acceptance. Ask production remains closed; no operational service scope or keys were created.
+HQ PR88 is a draft: genuine employee runtime integration plus signed coordinator, restore
+checkpoints, outbox delivery and receipted public projection are implemented, reviewed and
+undergoing focused/full regressions. The actual pinned Codex0.157 ephemeral zero-turn probe
+passed, but is not anonymous public-service entitlement, provider-retention proof or genuine
+employee-answer acceptance. Concrete eligibility remains closed before reservation/network.
+
+Next: finish and accept the integrated source; run exact-pinned disposable TLS receiver
+interop; preserve all failed tests and acceptance limits; then determine deployability from
+actual runtime/privacy gates. No complete-project or public-activation claim is supported.
+The live investment loop proceeds independently at its genuine due clocks.
+
+## Retained production activation handoff — October 13, 2026, 13:45 America/Vancouver
 
 **The real portfolio archive is online, and the production investment loop is active.**
 [Investment](https://asymmetri.co/botsquad/investment) shows Atlas, Maya, USD100,000
