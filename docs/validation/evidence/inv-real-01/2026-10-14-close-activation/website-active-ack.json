@@ -1,0 +1,55 @@
+{
+  "evidenceKind": "Independent website-owner acknowledgment via supported chat; not a signed receiver attestation",
+  "threadId": "01a13487-f07f-7182-84ac-84abcfb07043",
+  "turnId": "01a13b59-5775-7cb1-955c-7464e62d35b3",
+  "cursor": "b6337d22-4873-49ac-b91e-8e6e7e9c6ebd:116",
+  "checkedAt": "2026-10-14T16:59:48.935082Z",
+  "state": "active",
+  "sourceSequence": "8",
+  "journalSequence": "1",
+  "journalHash": "fe3d8a28951b7569aa2b541690ad73bf0fdefceabe2d62a4155827e70e139523",
+  "sourceGaps": false,
+  "visibilityWitness": "7bbbc9403d9bfe91591eaa7df285b547b7a5caa6029ec1eccc52419811327b11",
+  "events": {
+    "count": 8,
+    "complete": true,
+    "allCanonicalHashesRecomputedMatch": true,
+    "oldSixEventIdsSequencesHashesMatchImmutableBackup": true,
+    "amendmentEventId": "15db4aef9ed6dbdc6265669094b0f792e70e45bdb339be75",
+    "activeEventId": "ef3dd65bcb657797155ec7a2b3632027f0dc1118420859f5",
+    "activeAt": "2026-10-14T16:57:09.171Z"
+  },
+  "transactions": {
+    "count": 1,
+    "complete": true,
+    "kind": "original initialization",
+    "fill": null
+  },
+  "publishedDecisionOrderFill": false,
+  "snapshot": null,
+  "freshness": "unknown",
+  "valuationAsOf": null,
+  "lastPublicationAt": "2026-10-14T16:57:36Z",
+  "methodologyRendered": [
+    "cutoff19:30",
+    "close20:00",
+    "collection20:05",
+    "processing20:20",
+    "expiry23:30",
+    "missedOPEN",
+    "cash_then_close_benchmark",
+    "retained_usage_gap",
+    "exact_event_link"
+  ],
+  "ask": {
+    "availability": "disabled",
+    "pageClosed": true,
+    "formOrTextarea": false
+  },
+  "httpsRequests": 7,
+  "allHTTP200": true,
+  "setCookie": false,
+  "receiverGenerationReread": false,
+  "codeBuildDeployChanges": false,
+  "workingTreeClean": true
+}

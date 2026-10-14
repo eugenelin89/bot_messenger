@@ -1,6 +1,6 @@
 # Execution Plan — retained research and prospective close recovery
 
-**Status:** Active; source deployed, inactive recovery draft held pending timestamp and draft-revision repair
+**Status:** Active; PR96 deployed and exact successor activated16:57UTC; genuine17:06 research and later closing-price receipts pending
 **Owner:** coordinating chat 01a13739-708a-7d62-9b9c-52c11ead5f4b, sole writer
 **Branch:** codex/inv-real-01
 **Worktree:** /Users/eugenelin/Documents/ChatGPT/Bot Messenger/bot_messenger-inv-real-01
@@ -104,3 +104,6 @@ no new live action has occurred.
 
 
 At2026-10-14T16:54:26.935150+00:00 repair04 completed: build/canonical,26 focused checks,3 full workflows and89 focused regression checks all passed without failure/cancellation/skip. All483 source inputs match; repair02/03 failures remain retained. PR96 contains the reviewed timestamp/draft revision repair. Normal merge, exact preservation deployment, revised release/selector restart/activation and genuine employee receipts remain. No new live attempt/order/fill is claimed at this checkpoint.
+
+
+At16:57:09UTC normal PR96 merge/deployment and both preservation checks completed. One revised release succeeded, selector startup retained prefix with hold/resume, and current plan2 activated. Whole-table and exact approval evidence is in [the activation record](../validation/investment/INV-REAL-01-CLOSE-ACTIVATION.md). Research is scheduled17:06:08UTC; follow actual decision/review/order without forcing BUY. The initial estimate expanded because live approval timing and unused-draft recovery required a reviewed fix and full workflows; no further source validation is active.

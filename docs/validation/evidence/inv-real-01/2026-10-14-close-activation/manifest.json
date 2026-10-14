@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-14T17:00:34.988270+00:00",
+  "source": "022029e4e5c8534fa3aff6a1781f49082bab4dba",
+  "files": {
+    "draft-repair-preservation.json": "b84833904ff4c9f84b06677e586d101397dbf52296356555918f63c6b9db24a1",
+    "operational-logs.json": "e44fd26801abc6b5c9525e9c1c6c2c5afa19485e42d6a72bef84139aacdf32a0",
+    "public-active.json": "376d2d3fe4d91a8b6325e7952fe228fd3eb0fc4dc5f792d55663ad0720419a9f",
+    "recovery-active.json": "54ff418024350b9f11923d27482433a6b1c81797a96ac1236254999ab1fec4d9",
+    "release-proof.json": "de7ae753585609cfc3168b01456ed5165bb0c05bffc457d33b81f48d71ea8f5a",
+    "selector-preservation.json": "8f31df16302dfa7f352bb20b55f9fdb06182b366baa00201ae030487b7425106",
+    "website-active-ack.json": "77bac53eb892a9fd23919d53e9b7ca249476bef7019ad05382b05d69a758593b"
+  },
+  "claims": "Actual deployment, preservation, exact approval and active future research schedule. No new employee inference, decision, order or closing-price fill at the 16:57:28 readback. Historical incomplete usage retained."
+}

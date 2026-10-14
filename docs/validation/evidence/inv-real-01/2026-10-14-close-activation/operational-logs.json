@@ -1,0 +1,25 @@
+{
+  "evidenceKind": "Actual owner-authorized HQ deployment, release and activation",
+  "logs": {
+    "draft-repair-deployment.log": {
+      "sha256": "7ab63638a23358ae0831544d00c970b27501f8c5c43f23a8c93c8f537e676725",
+      "bytes": 675,
+      "text": "Preflight passed; matched staged production inputs: 325\nLive shutdown handoff and stopped backup: /var/backups/botsquad/investment-draft-repair-20261014T165529Z\n{\n  \"checkedAt\": \"2026-10-14T16:55:35.661253+00:00\",\n  \"health\": {\n    \"alive\": true,\n    \"database\": true,\n    \"dispatcher\": true,\n    \"runtime\": \"unknown\",\n    \"version\": \"0.1.0\",\n    \"commit\": \"022029e4e5c8534fa3aff6a1781f49082bab4dba\"\n  },\n  \"backup\": \"/var/backups/botsquad/investment-draft-repair-20261014T165529Z\",\n  \"publicationPermitCompleted\": true,\n  \"oldLoopStoppedNewDraftUnapproved\": true,\n  \"service\": [\n    \"MainPID=861600\",\n    \"MemorySwapMax=0\",\n    \"LimitCORE=0\",\n    \"ActiveState=active\"\n  ]\n}\n"
+    },
+    "revised-release.log": {
+      "sha256": "386290270793030cbe8c56801d74dfa68a0c3d14e012e804dd489c73721a6169",
+      "bytes": 539,
+      "text": "{\"phase\": \"revise-release\", \"scopeId\": \"68ab0223-32b5-4a02-a7aa-a70ee9bc20dc\", \"authorityId\": \"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\", \"runId\": \"observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f\", \"loopId\": \"6a8ca917-3dec-414e-ad33-a31eea6cb194\", \"preparedHead\": \"f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478\", \"researchAt\": \"2026-10-14T17:06:08.000Z\", \"maxAdditional\": 7, \"originalGapRetained\": true, \"activated\": false, \"receiptDirectory\": \"/var/lib/botsquad/investment-recovery-revised-20261014-close\"}\n"
+    },
+    "selector-restart.log": {
+      "sha256": "eef0c5dc5d98309a5f08bd3c7bbb9b1c9a98c56bc4fb089fd5521b4e40f128cc",
+      "bytes": 985,
+      "text": "{\"preflight\": \"passed\", \"newAuthority\": \"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\", \"preparedHead\": \"f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478\"}\nStopped preserved selector backup: /var/backups/botsquad/investment-selector-20261014T165630Z\n{\n  \"checkedAt\": \"2026-10-14T16:56:36.812744+00:00\",\n  \"source\": \"022029e4e5c8534fa3aff6a1781f49082bab4dba\",\n  \"health\": {\n    \"alive\": true,\n    \"database\": true,\n    \"dispatcher\": true,\n    \"runtime\": \"unknown\",\n    \"version\": \"0.1.0\",\n    \"commit\": \"022029e4e5c8534fa3aff6a1781f49082bab4dba\"\n  },\n  \"authorityId\": \"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\",\n  \"preparedHead\": \"f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478\",\n  \"noNewExecution\": true,\n  \"publicationPermitCompleted\": true,\n  \"backup\": \"/var/backups/botsquad/investment-selector-20261014T165630Z\",\n  \"service\": [\n    \"MainPID=862290\",\n    \"MemorySwapMax=0\",\n    \"LimitCORE=0\",\n    \"ActiveState=active\"\n  ]\n}\n"
+    },
+    "revised-activation.log": {
+      "sha256": "cda76d7e20db6cf479c9a22812de118f95c55b2ec76d123367003e6223553285",
+      "bytes": 980,
+      "text": "{\"phase\": \"activate\", \"scopeId\": \"68ab0223-32b5-4a02-a7aa-a70ee9bc20dc\", \"authorityId\": \"observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a\", \"loop\": {\"loop_id\": \"6a8ca917-3dec-414e-ad33-a31eea6cb194\", \"scope_id\": \"68ab0223-32b5-4a02-a7aa-a70ee9bc20dc\", \"envelope\": \"{\\\"scopeId\\\":\\\"68ab0223-32b5-4a02-a7aa-a70ee9bc20dc\\\",\\\"sessions\\\":[\\\"2026-10-14\\\",\\\"2026-10-15\\\"],\\\"researchMinutes\\\":60,\\\"maxCycleExecutions\\\":7,\\\"maxDailyExecutions\\\":8,\\\"maxRunExecutions\\\":16,\\\"dailyLimits\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0,\\\"maxCostMicros\\\":0},\\\"runLimits\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0,\\\"maxCostMicros\\\":0},\\\"maxStageAttempts\\\":3,\\\"retrySeconds\\\":60}\", \"digest\": \"e68c9593948247e5416c8054c543027c29f183878fc1ed2e7f7fb51e2c0f482c\", \"state\": \"active\", \"generation\": 2, \"plan_revision\": 2, \"reason\": null, \"created_at\": \"2026-10-14T16:07:59.551Z\", \"updated_at\": \"2026-10-14T16:57:09.545Z\"}, \"receiptDirectory\": \"/var/lib/botsquad/investment-recovery-revised-20261014-close\"}\n"
+    }
+  }
+}

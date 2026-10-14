@@ -1,0 +1,4316 @@
+{
+  "checkedAt": "2026-10-14T16:59:34.468773+00:00",
+  "receiptDirectory": "/var/lib/botsquad/investment-recovery-revised-20261014-close",
+  "receiptHashes": {
+    "release-request.json": "f23bea20051638466d517d17ce9beb0476debf88c4df33d0c7124e1f285b3ee8",
+    "activate-request.json": "ad924c65a28ab03d0f9dae61f6aad73140b0dd75e3ef732f563e192ff0b0d29d",
+    "selector-backup.json": "6ab67b30bda761185010e6c5f7d9a907a197e64b5569c1cf236d425e872206c5",
+    "prepared.json": "a1d148932502cfdebf738df1ce6b278934a892037a0d807bbc4b278a56f3f629",
+    "owner-scope.json": "ad8bbc182c69e4168a3d87334852edea4c7226529f686524c3a1740d8c706113",
+    "revision-request.json": "109145253bb68fb2b2c43bc70bc04d1546bc09f8f708d390ed159f91bfc4069b",
+    "original-prepared.json": "a319bc13f075dbd78b677a9a519dd3fcac6092df27ab4a0ba0e555b6547d8868",
+    "approved.json": "19a94d4bb1af658baa1a12c9124c1bedae1b8b7c21ba532674fe96ded2ebf6b3",
+    "activated.json": "dc3f863316b8ec1a51d2492a041653bcf5f665444392fb3a21bf8ae760c1db62",
+    "selector-restart.json": "7e854e5c5f875ed866b890969d92ad2b5ec28e97d05bc8ac938454b1f388340c"
+  },
+  "prepared": {
+    "scope": {
+      "configuration": {
+        "allowedDirections": [
+          "BUY",
+          "SELL"
+        ],
+        "authorization": {
+          "authors": [
+            "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+          ],
+          "expiresAt": "2027-01-01T01:00:00.000Z",
+          "fixtureOperator": "observed-paper-owner",
+          "maxOrders": 10000,
+          "reviewers": [
+            "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+          ]
+        },
+        "benchmark": {
+          "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "instrument": {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "SPY",
+            "sector": "Benchmark",
+            "symbol": "SPY",
+            "venue": "ARCX"
+          }
+        },
+        "calendar": {
+          "holidays": [
+            "2026-01-01",
+            "2026-01-19",
+            "2026-02-16",
+            "2026-04-03",
+            "2026-05-25",
+            "2026-06-19",
+            "2026-07-03",
+            "2026-09-07",
+            "2026-11-26",
+            "2026-12-25"
+          ],
+          "sessions": [
+            {
+              "close": "2026-01-01T21:00:00.000Z",
+              "date": "2026-01-01",
+              "earlyClose": false,
+              "open": "2026-01-01T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-01-02T21:00:00.000Z",
+              "date": "2026-01-02",
+              "earlyClose": false,
+              "open": "2026-01-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-05T21:00:00.000Z",
+              "date": "2026-01-05",
+              "earlyClose": false,
+              "open": "2026-01-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-06T21:00:00.000Z",
+              "date": "2026-01-06",
+              "earlyClose": false,
+              "open": "2026-01-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-07T21:00:00.000Z",
+              "date": "2026-01-07",
+              "earlyClose": false,
+              "open": "2026-01-07T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-08T21:00:00.000Z",
+              "date": "2026-01-08",
+              "earlyClose": false,
+              "open": "2026-01-08T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-09T21:00:00.000Z",
+              "date": "2026-01-09",
+              "earlyClose": false,
+              "open": "2026-01-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-12T21:00:00.000Z",
+              "date": "2026-01-12",
+              "earlyClose": false,
+              "open": "2026-01-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-13T21:00:00.000Z",
+              "date": "2026-01-13",
+              "earlyClose": false,
+              "open": "2026-01-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-14T21:00:00.000Z",
+              "date": "2026-01-14",
+              "earlyClose": false,
+              "open": "2026-01-14T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-15T21:00:00.000Z",
+              "date": "2026-01-15",
+              "earlyClose": false,
+              "open": "2026-01-15T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-16T21:00:00.000Z",
+              "date": "2026-01-16",
+              "earlyClose": false,
+              "open": "2026-01-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-19T21:00:00.000Z",
+              "date": "2026-01-19",
+              "earlyClose": false,
+              "open": "2026-01-19T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-01-20T21:00:00.000Z",
+              "date": "2026-01-20",
+              "earlyClose": false,
+              "open": "2026-01-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-21T21:00:00.000Z",
+              "date": "2026-01-21",
+              "earlyClose": false,
+              "open": "2026-01-21T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-22T21:00:00.000Z",
+              "date": "2026-01-22",
+              "earlyClose": false,
+              "open": "2026-01-22T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-23T21:00:00.000Z",
+              "date": "2026-01-23",
+              "earlyClose": false,
+              "open": "2026-01-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-26T21:00:00.000Z",
+              "date": "2026-01-26",
+              "earlyClose": false,
+              "open": "2026-01-26T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-27T21:00:00.000Z",
+              "date": "2026-01-27",
+              "earlyClose": false,
+              "open": "2026-01-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-28T21:00:00.000Z",
+              "date": "2026-01-28",
+              "earlyClose": false,
+              "open": "2026-01-28T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-29T21:00:00.000Z",
+              "date": "2026-01-29",
+              "earlyClose": false,
+              "open": "2026-01-29T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-30T21:00:00.000Z",
+              "date": "2026-01-30",
+              "earlyClose": false,
+              "open": "2026-01-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-02T21:00:00.000Z",
+              "date": "2026-02-02",
+              "earlyClose": false,
+              "open": "2026-02-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-03T21:00:00.000Z",
+              "date": "2026-02-03",
+              "earlyClose": false,
+              "open": "2026-02-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-04T21:00:00.000Z",
+              "date": "2026-02-04",
+              "earlyClose": false,
+              "open": "2026-02-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-05T21:00:00.000Z",
+              "date": "2026-02-05",
+              "earlyClose": false,
+              "open": "2026-02-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-06T21:00:00.000Z",
+              "date": "2026-02-06",
+              "earlyClose": false,
+              "open": "2026-02-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-09T21:00:00.000Z",
+              "date": "2026-02-09",
+              "earlyClose": false,
+              "open": "2026-02-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-10T21:00:00.000Z",
+              "date": "2026-02-10",
+              "earlyClose": false,
+              "open": "2026-02-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-11T21:00:00.000Z",
+              "date": "2026-02-11",
+              "earlyClose": false,
+              "open": "2026-02-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-12T21:00:00.000Z",
+              "date": "2026-02-12",
+              "earlyClose": false,
+              "open": "2026-02-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-13T21:00:00.000Z",
+              "date": "2026-02-13",
+              "earlyClose": false,
+              "open": "2026-02-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-16T21:00:00.000Z",
+              "date": "2026-02-16",
+              "earlyClose": false,
+              "open": "2026-02-16T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-02-17T21:00:00.000Z",
+              "date": "2026-02-17",
+              "earlyClose": false,
+              "open": "2026-02-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-18T21:00:00.000Z",
+              "date": "2026-02-18",
+              "earlyClose": false,
+              "open": "2026-02-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-19T21:00:00.000Z",
+              "date": "2026-02-19",
+              "earlyClose": false,
+              "open": "2026-02-19T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-20T21:00:00.000Z",
+              "date": "2026-02-20",
+              "earlyClose": false,
+              "open": "2026-02-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-23T21:00:00.000Z",
+              "date": "2026-02-23",
+              "earlyClose": false,
+              "open": "2026-02-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-24T21:00:00.000Z",
+              "date": "2026-02-24",
+              "earlyClose": false,
+              "open": "2026-02-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-25T21:00:00.000Z",
+              "date": "2026-02-25",
+              "earlyClose": false,
+              "open": "2026-02-25T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-26T21:00:00.000Z",
+              "date": "2026-02-26",
+              "earlyClose": false,
+              "open": "2026-02-26T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-27T21:00:00.000Z",
+              "date": "2026-02-27",
+              "earlyClose": false,
+              "open": "2026-02-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-02T21:00:00.000Z",
+              "date": "2026-03-02",
+              "earlyClose": false,
+              "open": "2026-03-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-03T21:00:00.000Z",
+              "date": "2026-03-03",
+              "earlyClose": false,
+              "open": "2026-03-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-04T21:00:00.000Z",
+              "date": "2026-03-04",
+              "earlyClose": false,
+              "open": "2026-03-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-05T21:00:00.000Z",
+              "date": "2026-03-05",
+              "earlyClose": false,
+              "open": "2026-03-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-06T21:00:00.000Z",
+              "date": "2026-03-06",
+              "earlyClose": false,
+              "open": "2026-03-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-09T20:00:00.000Z",
+              "date": "2026-03-09",
+              "earlyClose": false,
+              "open": "2026-03-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-10T20:00:00.000Z",
+              "date": "2026-03-10",
+              "earlyClose": false,
+              "open": "2026-03-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-11T20:00:00.000Z",
+              "date": "2026-03-11",
+              "earlyClose": false,
+              "open": "2026-03-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-12T20:00:00.000Z",
+              "date": "2026-03-12",
+              "earlyClose": false,
+              "open": "2026-03-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-13T20:00:00.000Z",
+              "date": "2026-03-13",
+              "earlyClose": false,
+              "open": "2026-03-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-16T20:00:00.000Z",
+              "date": "2026-03-16",
+              "earlyClose": false,
+              "open": "2026-03-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-17T20:00:00.000Z",
+              "date": "2026-03-17",
+              "earlyClose": false,
+              "open": "2026-03-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-18T20:00:00.000Z",
+              "date": "2026-03-18",
+              "earlyClose": false,
+              "open": "2026-03-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-19T20:00:00.000Z",
+              "date": "2026-03-19",
+              "earlyClose": false,
+              "open": "2026-03-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-20T20:00:00.000Z",
+              "date": "2026-03-20",
+              "earlyClose": false,
+              "open": "2026-03-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-23T20:00:00.000Z",
+              "date": "2026-03-23",
+              "earlyClose": false,
+              "open": "2026-03-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-24T20:00:00.000Z",
+              "date": "2026-03-24",
+              "earlyClose": false,
+              "open": "2026-03-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-25T20:00:00.000Z",
+              "date": "2026-03-25",
+              "earlyClose": false,
+              "open": "2026-03-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-26T20:00:00.000Z",
+              "date": "2026-03-26",
+              "earlyClose": false,
+              "open": "2026-03-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-27T20:00:00.000Z",
+              "date": "2026-03-27",
+              "earlyClose": false,
+              "open": "2026-03-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-30T20:00:00.000Z",
+              "date": "2026-03-30",
+              "earlyClose": false,
+              "open": "2026-03-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-31T20:00:00.000Z",
+              "date": "2026-03-31",
+              "earlyClose": false,
+              "open": "2026-03-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-01T20:00:00.000Z",
+              "date": "2026-04-01",
+              "earlyClose": false,
+              "open": "2026-04-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-02T20:00:00.000Z",
+              "date": "2026-04-02",
+              "earlyClose": false,
+              "open": "2026-04-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-03T20:00:00.000Z",
+              "date": "2026-04-03",
+              "earlyClose": false,
+              "open": "2026-04-03T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-04-06T20:00:00.000Z",
+              "date": "2026-04-06",
+              "earlyClose": false,
+              "open": "2026-04-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-07T20:00:00.000Z",
+              "date": "2026-04-07",
+              "earlyClose": false,
+              "open": "2026-04-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-08T20:00:00.000Z",
+              "date": "2026-04-08",
+              "earlyClose": false,
+              "open": "2026-04-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-09T20:00:00.000Z",
+              "date": "2026-04-09",
+              "earlyClose": false,
+              "open": "2026-04-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-10T20:00:00.000Z",
+              "date": "2026-04-10",
+              "earlyClose": false,
+              "open": "2026-04-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-13T20:00:00.000Z",
+              "date": "2026-04-13",
+              "earlyClose": false,
+              "open": "2026-04-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-14T20:00:00.000Z",
+              "date": "2026-04-14",
+              "earlyClose": false,
+              "open": "2026-04-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-15T20:00:00.000Z",
+              "date": "2026-04-15",
+              "earlyClose": false,
+              "open": "2026-04-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-16T20:00:00.000Z",
+              "date": "2026-04-16",
+              "earlyClose": false,
+              "open": "2026-04-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-17T20:00:00.000Z",
+              "date": "2026-04-17",
+              "earlyClose": false,
+              "open": "2026-04-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-20T20:00:00.000Z",
+              "date": "2026-04-20",
+              "earlyClose": false,
+              "open": "2026-04-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-21T20:00:00.000Z",
+              "date": "2026-04-21",
+              "earlyClose": false,
+              "open": "2026-04-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-22T20:00:00.000Z",
+              "date": "2026-04-22",
+              "earlyClose": false,
+              "open": "2026-04-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-23T20:00:00.000Z",
+              "date": "2026-04-23",
+              "earlyClose": false,
+              "open": "2026-04-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-24T20:00:00.000Z",
+              "date": "2026-04-24",
+              "earlyClose": false,
+              "open": "2026-04-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-27T20:00:00.000Z",
+              "date": "2026-04-27",
+              "earlyClose": false,
+              "open": "2026-04-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-28T20:00:00.000Z",
+              "date": "2026-04-28",
+              "earlyClose": false,
+              "open": "2026-04-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-29T20:00:00.000Z",
+              "date": "2026-04-29",
+              "earlyClose": false,
+              "open": "2026-04-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-30T20:00:00.000Z",
+              "date": "2026-04-30",
+              "earlyClose": false,
+              "open": "2026-04-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-01T20:00:00.000Z",
+              "date": "2026-05-01",
+              "earlyClose": false,
+              "open": "2026-05-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-04T20:00:00.000Z",
+              "date": "2026-05-04",
+              "earlyClose": false,
+              "open": "2026-05-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-05T20:00:00.000Z",
+              "date": "2026-05-05",
+              "earlyClose": false,
+              "open": "2026-05-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-06T20:00:00.000Z",
+              "date": "2026-05-06",
+              "earlyClose": false,
+              "open": "2026-05-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-07T20:00:00.000Z",
+              "date": "2026-05-07",
+              "earlyClose": false,
+              "open": "2026-05-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-08T20:00:00.000Z",
+              "date": "2026-05-08",
+              "earlyClose": false,
+              "open": "2026-05-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-11T20:00:00.000Z",
+              "date": "2026-05-11",
+              "earlyClose": false,
+              "open": "2026-05-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-12T20:00:00.000Z",
+              "date": "2026-05-12",
+              "earlyClose": false,
+              "open": "2026-05-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-13T20:00:00.000Z",
+              "date": "2026-05-13",
+              "earlyClose": false,
+              "open": "2026-05-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-14T20:00:00.000Z",
+              "date": "2026-05-14",
+              "earlyClose": false,
+              "open": "2026-05-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-15T20:00:00.000Z",
+              "date": "2026-05-15",
+              "earlyClose": false,
+              "open": "2026-05-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-18T20:00:00.000Z",
+              "date": "2026-05-18",
+              "earlyClose": false,
+              "open": "2026-05-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-19T20:00:00.000Z",
+              "date": "2026-05-19",
+              "earlyClose": false,
+              "open": "2026-05-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-20T20:00:00.000Z",
+              "date": "2026-05-20",
+              "earlyClose": false,
+              "open": "2026-05-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-21T20:00:00.000Z",
+              "date": "2026-05-21",
+              "earlyClose": false,
+              "open": "2026-05-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-22T20:00:00.000Z",
+              "date": "2026-05-22",
+              "earlyClose": false,
+              "open": "2026-05-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-25T20:00:00.000Z",
+              "date": "2026-05-25",
+              "earlyClose": false,
+              "open": "2026-05-25T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-05-26T20:00:00.000Z",
+              "date": "2026-05-26",
+              "earlyClose": false,
+              "open": "2026-05-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-27T20:00:00.000Z",
+              "date": "2026-05-27",
+              "earlyClose": false,
+              "open": "2026-05-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-28T20:00:00.000Z",
+              "date": "2026-05-28",
+              "earlyClose": false,
+              "open": "2026-05-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-29T20:00:00.000Z",
+              "date": "2026-05-29",
+              "earlyClose": false,
+              "open": "2026-05-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-01T20:00:00.000Z",
+              "date": "2026-06-01",
+              "earlyClose": false,
+              "open": "2026-06-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-02T20:00:00.000Z",
+              "date": "2026-06-02",
+              "earlyClose": false,
+              "open": "2026-06-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-03T20:00:00.000Z",
+              "date": "2026-06-03",
+              "earlyClose": false,
+              "open": "2026-06-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-04T20:00:00.000Z",
+              "date": "2026-06-04",
+              "earlyClose": false,
+              "open": "2026-06-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-05T20:00:00.000Z",
+              "date": "2026-06-05",
+              "earlyClose": false,
+              "open": "2026-06-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-08T20:00:00.000Z",
+              "date": "2026-06-08",
+              "earlyClose": false,
+              "open": "2026-06-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-09T20:00:00.000Z",
+              "date": "2026-06-09",
+              "earlyClose": false,
+              "open": "2026-06-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-10T20:00:00.000Z",
+              "date": "2026-06-10",
+              "earlyClose": false,
+              "open": "2026-06-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-11T20:00:00.000Z",
+              "date": "2026-06-11",
+              "earlyClose": false,
+              "open": "2026-06-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-12T20:00:00.000Z",
+              "date": "2026-06-12",
+              "earlyClose": false,
+              "open": "2026-06-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-15T20:00:00.000Z",
+              "date": "2026-06-15",
+              "earlyClose": false,
+              "open": "2026-06-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-16T20:00:00.000Z",
+              "date": "2026-06-16",
+              "earlyClose": false,
+              "open": "2026-06-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-17T20:00:00.000Z",
+              "date": "2026-06-17",
+              "earlyClose": false,
+              "open": "2026-06-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-18T20:00:00.000Z",
+              "date": "2026-06-18",
+              "earlyClose": false,
+              "open": "2026-06-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-19T20:00:00.000Z",
+              "date": "2026-06-19",
+              "earlyClose": false,
+              "open": "2026-06-19T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-06-22T20:00:00.000Z",
+              "date": "2026-06-22",
+              "earlyClose": false,
+              "open": "2026-06-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-23T20:00:00.000Z",
+              "date": "2026-06-23",
+              "earlyClose": false,
+              "open": "2026-06-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-24T20:00:00.000Z",
+              "date": "2026-06-24",
+              "earlyClose": false,
+              "open": "2026-06-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-25T20:00:00.000Z",
+              "date": "2026-06-25",
+              "earlyClose": false,
+              "open": "2026-06-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-26T20:00:00.000Z",
+              "date": "2026-06-26",
+              "earlyClose": false,
+              "open": "2026-06-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-29T20:00:00.000Z",
+              "date": "2026-06-29",
+              "earlyClose": false,
+              "open": "2026-06-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-30T20:00:00.000Z",
+              "date": "2026-06-30",
+              "earlyClose": false,
+              "open": "2026-06-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-01T20:00:00.000Z",
+              "date": "2026-07-01",
+              "earlyClose": false,
+              "open": "2026-07-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-02T20:00:00.000Z",
+              "date": "2026-07-02",
+              "earlyClose": false,
+              "open": "2026-07-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-03T20:00:00.000Z",
+              "date": "2026-07-03",
+              "earlyClose": false,
+              "open": "2026-07-03T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-07-06T20:00:00.000Z",
+              "date": "2026-07-06",
+              "earlyClose": false,
+              "open": "2026-07-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-07T20:00:00.000Z",
+              "date": "2026-07-07",
+              "earlyClose": false,
+              "open": "2026-07-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-08T20:00:00.000Z",
+              "date": "2026-07-08",
+              "earlyClose": false,
+              "open": "2026-07-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-09T20:00:00.000Z",
+              "date": "2026-07-09",
+              "earlyClose": false,
+              "open": "2026-07-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-10T20:00:00.000Z",
+              "date": "2026-07-10",
+              "earlyClose": false,
+              "open": "2026-07-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-13T20:00:00.000Z",
+              "date": "2026-07-13",
+              "earlyClose": false,
+              "open": "2026-07-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-14T20:00:00.000Z",
+              "date": "2026-07-14",
+              "earlyClose": false,
+              "open": "2026-07-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-15T20:00:00.000Z",
+              "date": "2026-07-15",
+              "earlyClose": false,
+              "open": "2026-07-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-16T20:00:00.000Z",
+              "date": "2026-07-16",
+              "earlyClose": false,
+              "open": "2026-07-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-17T20:00:00.000Z",
+              "date": "2026-07-17",
+              "earlyClose": false,
+              "open": "2026-07-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-20T20:00:00.000Z",
+              "date": "2026-07-20",
+              "earlyClose": false,
+              "open": "2026-07-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-21T20:00:00.000Z",
+              "date": "2026-07-21",
+              "earlyClose": false,
+              "open": "2026-07-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-22T20:00:00.000Z",
+              "date": "2026-07-22",
+              "earlyClose": false,
+              "open": "2026-07-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-23T20:00:00.000Z",
+              "date": "2026-07-23",
+              "earlyClose": false,
+              "open": "2026-07-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-24T20:00:00.000Z",
+              "date": "2026-07-24",
+              "earlyClose": false,
+              "open": "2026-07-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-27T20:00:00.000Z",
+              "date": "2026-07-27",
+              "earlyClose": false,
+              "open": "2026-07-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-28T20:00:00.000Z",
+              "date": "2026-07-28",
+              "earlyClose": false,
+              "open": "2026-07-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-29T20:00:00.000Z",
+              "date": "2026-07-29",
+              "earlyClose": false,
+              "open": "2026-07-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-30T20:00:00.000Z",
+              "date": "2026-07-30",
+              "earlyClose": false,
+              "open": "2026-07-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-31T20:00:00.000Z",
+              "date": "2026-07-31",
+              "earlyClose": false,
+              "open": "2026-07-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-03T20:00:00.000Z",
+              "date": "2026-08-03",
+              "earlyClose": false,
+              "open": "2026-08-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-04T20:00:00.000Z",
+              "date": "2026-08-04",
+              "earlyClose": false,
+              "open": "2026-08-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-05T20:00:00.000Z",
+              "date": "2026-08-05",
+              "earlyClose": false,
+              "open": "2026-08-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-06T20:00:00.000Z",
+              "date": "2026-08-06",
+              "earlyClose": false,
+              "open": "2026-08-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-07T20:00:00.000Z",
+              "date": "2026-08-07",
+              "earlyClose": false,
+              "open": "2026-08-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-10T20:00:00.000Z",
+              "date": "2026-08-10",
+              "earlyClose": false,
+              "open": "2026-08-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-11T20:00:00.000Z",
+              "date": "2026-08-11",
+              "earlyClose": false,
+              "open": "2026-08-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-12T20:00:00.000Z",
+              "date": "2026-08-12",
+              "earlyClose": false,
+              "open": "2026-08-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-13T20:00:00.000Z",
+              "date": "2026-08-13",
+              "earlyClose": false,
+              "open": "2026-08-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-14T20:00:00.000Z",
+              "date": "2026-08-14",
+              "earlyClose": false,
+              "open": "2026-08-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-17T20:00:00.000Z",
+              "date": "2026-08-17",
+              "earlyClose": false,
+              "open": "2026-08-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-18T20:00:00.000Z",
+              "date": "2026-08-18",
+              "earlyClose": false,
+              "open": "2026-08-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-19T20:00:00.000Z",
+              "date": "2026-08-19",
+              "earlyClose": false,
+              "open": "2026-08-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-20T20:00:00.000Z",
+              "date": "2026-08-20",
+              "earlyClose": false,
+              "open": "2026-08-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-21T20:00:00.000Z",
+              "date": "2026-08-21",
+              "earlyClose": false,
+              "open": "2026-08-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-24T20:00:00.000Z",
+              "date": "2026-08-24",
+              "earlyClose": false,
+              "open": "2026-08-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-25T20:00:00.000Z",
+              "date": "2026-08-25",
+              "earlyClose": false,
+              "open": "2026-08-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-26T20:00:00.000Z",
+              "date": "2026-08-26",
+              "earlyClose": false,
+              "open": "2026-08-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-27T20:00:00.000Z",
+              "date": "2026-08-27",
+              "earlyClose": false,
+              "open": "2026-08-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-28T20:00:00.000Z",
+              "date": "2026-08-28",
+              "earlyClose": false,
+              "open": "2026-08-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-31T20:00:00.000Z",
+              "date": "2026-08-31",
+              "earlyClose": false,
+              "open": "2026-08-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-01T20:00:00.000Z",
+              "date": "2026-09-01",
+              "earlyClose": false,
+              "open": "2026-09-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-02T20:00:00.000Z",
+              "date": "2026-09-02",
+              "earlyClose": false,
+              "open": "2026-09-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-03T20:00:00.000Z",
+              "date": "2026-09-03",
+              "earlyClose": false,
+              "open": "2026-09-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-04T20:00:00.000Z",
+              "date": "2026-09-04",
+              "earlyClose": false,
+              "open": "2026-09-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-07T20:00:00.000Z",
+              "date": "2026-09-07",
+              "earlyClose": false,
+              "open": "2026-09-07T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-09-08T20:00:00.000Z",
+              "date": "2026-09-08",
+              "earlyClose": false,
+              "open": "2026-09-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-09T20:00:00.000Z",
+              "date": "2026-09-09",
+              "earlyClose": false,
+              "open": "2026-09-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-10T20:00:00.000Z",
+              "date": "2026-09-10",
+              "earlyClose": false,
+              "open": "2026-09-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-11T20:00:00.000Z",
+              "date": "2026-09-11",
+              "earlyClose": false,
+              "open": "2026-09-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-14T20:00:00.000Z",
+              "date": "2026-09-14",
+              "earlyClose": false,
+              "open": "2026-09-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-15T20:00:00.000Z",
+              "date": "2026-09-15",
+              "earlyClose": false,
+              "open": "2026-09-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-16T20:00:00.000Z",
+              "date": "2026-09-16",
+              "earlyClose": false,
+              "open": "2026-09-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-17T20:00:00.000Z",
+              "date": "2026-09-17",
+              "earlyClose": false,
+              "open": "2026-09-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-18T20:00:00.000Z",
+              "date": "2026-09-18",
+              "earlyClose": false,
+              "open": "2026-09-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-21T20:00:00.000Z",
+              "date": "2026-09-21",
+              "earlyClose": false,
+              "open": "2026-09-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-22T20:00:00.000Z",
+              "date": "2026-09-22",
+              "earlyClose": false,
+              "open": "2026-09-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-23T20:00:00.000Z",
+              "date": "2026-09-23",
+              "earlyClose": false,
+              "open": "2026-09-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-24T20:00:00.000Z",
+              "date": "2026-09-24",
+              "earlyClose": false,
+              "open": "2026-09-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-25T20:00:00.000Z",
+              "date": "2026-09-25",
+              "earlyClose": false,
+              "open": "2026-09-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-28T20:00:00.000Z",
+              "date": "2026-09-28",
+              "earlyClose": false,
+              "open": "2026-09-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-29T20:00:00.000Z",
+              "date": "2026-09-29",
+              "earlyClose": false,
+              "open": "2026-09-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-30T20:00:00.000Z",
+              "date": "2026-09-30",
+              "earlyClose": false,
+              "open": "2026-09-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-01T20:00:00.000Z",
+              "date": "2026-10-01",
+              "earlyClose": false,
+              "open": "2026-10-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-02T20:00:00.000Z",
+              "date": "2026-10-02",
+              "earlyClose": false,
+              "open": "2026-10-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-05T20:00:00.000Z",
+              "date": "2026-10-05",
+              "earlyClose": false,
+              "open": "2026-10-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-06T20:00:00.000Z",
+              "date": "2026-10-06",
+              "earlyClose": false,
+              "open": "2026-10-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-07T20:00:00.000Z",
+              "date": "2026-10-07",
+              "earlyClose": false,
+              "open": "2026-10-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-08T20:00:00.000Z",
+              "date": "2026-10-08",
+              "earlyClose": false,
+              "open": "2026-10-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-09T20:00:00.000Z",
+              "date": "2026-10-09",
+              "earlyClose": false,
+              "open": "2026-10-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-12T20:00:00.000Z",
+              "date": "2026-10-12",
+              "earlyClose": false,
+              "open": "2026-10-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-13T20:00:00.000Z",
+              "date": "2026-10-13",
+              "earlyClose": false,
+              "open": "2026-10-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-14T20:00:00.000Z",
+              "date": "2026-10-14",
+              "earlyClose": false,
+              "open": "2026-10-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-15T20:00:00.000Z",
+              "date": "2026-10-15",
+              "earlyClose": false,
+              "open": "2026-10-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-16T20:00:00.000Z",
+              "date": "2026-10-16",
+              "earlyClose": false,
+              "open": "2026-10-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-19T20:00:00.000Z",
+              "date": "2026-10-19",
+              "earlyClose": false,
+              "open": "2026-10-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-20T20:00:00.000Z",
+              "date": "2026-10-20",
+              "earlyClose": false,
+              "open": "2026-10-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-21T20:00:00.000Z",
+              "date": "2026-10-21",
+              "earlyClose": false,
+              "open": "2026-10-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-22T20:00:00.000Z",
+              "date": "2026-10-22",
+              "earlyClose": false,
+              "open": "2026-10-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-23T20:00:00.000Z",
+              "date": "2026-10-23",
+              "earlyClose": false,
+              "open": "2026-10-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-26T20:00:00.000Z",
+              "date": "2026-10-26",
+              "earlyClose": false,
+              "open": "2026-10-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-27T20:00:00.000Z",
+              "date": "2026-10-27",
+              "earlyClose": false,
+              "open": "2026-10-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-28T20:00:00.000Z",
+              "date": "2026-10-28",
+              "earlyClose": false,
+              "open": "2026-10-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-29T20:00:00.000Z",
+              "date": "2026-10-29",
+              "earlyClose": false,
+              "open": "2026-10-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-30T20:00:00.000Z",
+              "date": "2026-10-30",
+              "earlyClose": false,
+              "open": "2026-10-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-02T21:00:00.000Z",
+              "date": "2026-11-02",
+              "earlyClose": false,
+              "open": "2026-11-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-03T21:00:00.000Z",
+              "date": "2026-11-03",
+              "earlyClose": false,
+              "open": "2026-11-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-04T21:00:00.000Z",
+              "date": "2026-11-04",
+              "earlyClose": false,
+              "open": "2026-11-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-05T21:00:00.000Z",
+              "date": "2026-11-05",
+              "earlyClose": false,
+              "open": "2026-11-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-06T21:00:00.000Z",
+              "date": "2026-11-06",
+              "earlyClose": false,
+              "open": "2026-11-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-09T21:00:00.000Z",
+              "date": "2026-11-09",
+              "earlyClose": false,
+              "open": "2026-11-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-10T21:00:00.000Z",
+              "date": "2026-11-10",
+              "earlyClose": false,
+              "open": "2026-11-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-11T21:00:00.000Z",
+              "date": "2026-11-11",
+              "earlyClose": false,
+              "open": "2026-11-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-12T21:00:00.000Z",
+              "date": "2026-11-12",
+              "earlyClose": false,
+              "open": "2026-11-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-13T21:00:00.000Z",
+              "date": "2026-11-13",
+              "earlyClose": false,
+              "open": "2026-11-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-16T21:00:00.000Z",
+              "date": "2026-11-16",
+              "earlyClose": false,
+              "open": "2026-11-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-17T21:00:00.000Z",
+              "date": "2026-11-17",
+              "earlyClose": false,
+              "open": "2026-11-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-18T21:00:00.000Z",
+              "date": "2026-11-18",
+              "earlyClose": false,
+              "open": "2026-11-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-19T21:00:00.000Z",
+              "date": "2026-11-19",
+              "earlyClose": false,
+              "open": "2026-11-19T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-20T21:00:00.000Z",
+              "date": "2026-11-20",
+              "earlyClose": false,
+              "open": "2026-11-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-23T21:00:00.000Z",
+              "date": "2026-11-23",
+              "earlyClose": false,
+              "open": "2026-11-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-24T21:00:00.000Z",
+              "date": "2026-11-24",
+              "earlyClose": false,
+              "open": "2026-11-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-25T21:00:00.000Z",
+              "date": "2026-11-25",
+              "earlyClose": false,
+              "open": "2026-11-25T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-26T21:00:00.000Z",
+              "date": "2026-11-26",
+              "earlyClose": false,
+              "open": "2026-11-26T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-11-27T18:00:00.000Z",
+              "date": "2026-11-27",
+              "earlyClose": true,
+              "open": "2026-11-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-30T21:00:00.000Z",
+              "date": "2026-11-30",
+              "earlyClose": false,
+              "open": "2026-11-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-01T21:00:00.000Z",
+              "date": "2026-12-01",
+              "earlyClose": false,
+              "open": "2026-12-01T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-02T21:00:00.000Z",
+              "date": "2026-12-02",
+              "earlyClose": false,
+              "open": "2026-12-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-03T21:00:00.000Z",
+              "date": "2026-12-03",
+              "earlyClose": false,
+              "open": "2026-12-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-04T21:00:00.000Z",
+              "date": "2026-12-04",
+              "earlyClose": false,
+              "open": "2026-12-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-07T21:00:00.000Z",
+              "date": "2026-12-07",
+              "earlyClose": false,
+              "open": "2026-12-07T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-08T21:00:00.000Z",
+              "date": "2026-12-08",
+              "earlyClose": false,
+              "open": "2026-12-08T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-09T21:00:00.000Z",
+              "date": "2026-12-09",
+              "earlyClose": false,
+              "open": "2026-12-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-10T21:00:00.000Z",
+              "date": "2026-12-10",
+              "earlyClose": false,
+              "open": "2026-12-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-11T21:00:00.000Z",
+              "date": "2026-12-11",
+              "earlyClose": false,
+              "open": "2026-12-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-14T21:00:00.000Z",
+              "date": "2026-12-14",
+              "earlyClose": false,
+              "open": "2026-12-14T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-15T21:00:00.000Z",
+              "date": "2026-12-15",
+              "earlyClose": false,
+              "open": "2026-12-15T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-16T21:00:00.000Z",
+              "date": "2026-12-16",
+              "earlyClose": false,
+              "open": "2026-12-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-17T21:00:00.000Z",
+              "date": "2026-12-17",
+              "earlyClose": false,
+              "open": "2026-12-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-18T21:00:00.000Z",
+              "date": "2026-12-18",
+              "earlyClose": false,
+              "open": "2026-12-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-21T21:00:00.000Z",
+              "date": "2026-12-21",
+              "earlyClose": false,
+              "open": "2026-12-21T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-22T21:00:00.000Z",
+              "date": "2026-12-22",
+              "earlyClose": false,
+              "open": "2026-12-22T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-23T21:00:00.000Z",
+              "date": "2026-12-23",
+              "earlyClose": false,
+              "open": "2026-12-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-24T18:00:00.000Z",
+              "date": "2026-12-24",
+              "earlyClose": true,
+              "open": "2026-12-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-25T21:00:00.000Z",
+              "date": "2026-12-25",
+              "earlyClose": false,
+              "open": "2026-12-25T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-12-28T21:00:00.000Z",
+              "date": "2026-12-28",
+              "earlyClose": false,
+              "open": "2026-12-28T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-29T21:00:00.000Z",
+              "date": "2026-12-29",
+              "earlyClose": false,
+              "open": "2026-12-29T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-30T21:00:00.000Z",
+              "date": "2026-12-30",
+              "earlyClose": false,
+              "open": "2026-12-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-31T21:00:00.000Z",
+              "date": "2026-12-31",
+              "earlyClose": false,
+              "open": "2026-12-31T14:30:00.000Z",
+              "status": "open"
+            }
+          ],
+          "timezone": "America/New_York",
+          "version": "us-equities-2026-reference-v1"
+        },
+        "commission": "0.000000",
+        "currency": "USD",
+        "cutoffMinutes": 30,
+        "drawdownAttentionBps": 1500,
+        "endsAt": "2027-01-01T01:00:00.000Z",
+        "evidenceMode": "observed",
+        "execution": "next_regular_open",
+        "initialCapital": "100000.000000",
+        "instruments": [
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "AAPL",
+            "sector": "Technology",
+            "symbol": "AAPL",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "MSFT",
+            "sector": "Technology",
+            "symbol": "MSFT",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "GOOGL",
+            "sector": "Communication Services",
+            "symbol": "GOOGL",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "AMZN",
+            "sector": "Consumer Discretionary",
+            "symbol": "AMZN",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "JPM",
+            "sector": "Financials",
+            "symbol": "JPM",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "JNJ",
+            "sector": "Health Care",
+            "symbol": "JNJ",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "XOM",
+            "sector": "Energy",
+            "symbol": "XOM",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "WMT",
+            "sector": "Consumer Staples",
+            "symbol": "WMT",
+            "venue": "XNAS"
+          }
+        ],
+        "leverage": false,
+        "longOnly": true,
+        "marketPolicy": {
+          "acquisitionCost": "0",
+          "adjustment": "raw",
+          "feed": "yfinance",
+          "id": "source_observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+          "provider": "yahoo"
+        },
+        "maxMarkAgeSeconds": 259200,
+        "maxOpeningWaitSeconds": 36000,
+        "methodology": "inv-real-open-v1",
+        "observedPolicy": {
+          "basis": "same_session_unadjusted_chart",
+          "initialSession": "2026-10-14",
+          "maxOrdersPerSession": 2,
+          "maxOrdersPerWeek": 6,
+          "minimumCashBps": 500
+        },
+        "positionLimitBps": 1500,
+        "publicationPolicy": "owner-reported-personal-publication-v1",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "sectorLimitBps": 3500,
+        "slippageBps": 10,
+        "startsAt": "2026-10-13T20:25:26.543Z",
+        "universeVersion": "owner-selected-v1",
+        "version": "observed-paper-v1"
+      },
+      "digest": "8d9b60ac580eeb39d1cf10cedd4f50fc03566f8d347947c5a252560225c9cb63",
+      "envelope": {
+        "aiProfile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "audience": "private_paper",
+        "executionPolicy": {
+          "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+          "existingCreditsApproved": true,
+          "maxConcurrent": 1,
+          "maxCycle": 7,
+          "maxDay": 8,
+          "maxDurationMs": 300000,
+          "maxRolling24h": 8,
+          "maxRun": 16,
+          "maxWorker": 12,
+          "mode": "credit_approved_finite_hq",
+          "providerRetriesAccepted": true,
+          "uncertainRetries": 0
+        },
+        "expiresAt": "2026-10-15T23:40:00.000Z",
+        "groupId": "group_ca1cb37d-0e89-4e95-9d81-31a2ae6fd479",
+        "maxExecutions": 16,
+        "maxOrders": 12,
+        "maxProposals": 24,
+        "maxResearch": 0,
+        "participants": [
+          {
+            "name": "Atlas",
+            "responsibility": "Develop research and alternatives, synthesize conclusions and submit scoped paper decisions.",
+            "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+          },
+          {
+            "name": "Maya",
+            "responsibility": "Independently challenge the exact thesis and paper proposal, evidence, downside and invalidation conditions.",
+            "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+          }
+        ],
+        "proposers": [
+          "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+        ],
+        "publicationChannelId": "",
+        "reviewers": [
+          "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+        ],
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "submitters": [
+          "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+        ],
+        "turnLimits": {
+          "inputTokens": 0,
+          "maxCostMicros": 0,
+          "outputTokens": 0
+        }
+      },
+      "group": {
+        "constraints": "Paper only. No real orders, outside outreach, paid data or new spend authority. Use only authorized evidence actually known before cutoff; respect concentration, cash, drawdown and finite activity limits. Provide public-safe summaries without private transcripts.\nOwner-requested new decision using retained research. Today uses a prospective regular CLOSE, with proposal, independent review and order before 2026-10-14T19:30:00.000Z. No backdated opening. Original missing usage and four attempts retained. HOLD is valid. No fresh research collection.",
+        "desiredOutput": "Genuine research, independent challenge, a reasoned decision and public-designated summaries. Preserve dissent, uncertainty, losses and attribution; no predetermined trade.",
+        "evidence": [
+          {
+            "content": "{\"amendment\":{\"cutoffAt\":\"2026-10-14T19:30:00.000Z\",\"expiresAt\":\"2026-10-14T23:30:00.000Z\",\"id\":\"late_close_ec44b7bf-1654-4f4b-a21d-2909fdfd7271\",\"ownerReceiptHash\":\"adbcc5136604bba1eddf54c52a5c114efa20241b9ee0fd8efc10f94561a3a208\",\"session\":\"2026-10-14\"},\"maxAdditional\":7,\"maxAdditionalToday\":4,\"method\":\"inv-real-close-recovery-v1\",\"notice\":\"Read all exported evidence before deciding. Begin from the earlier discussion, but author a new decision now. Use paper_propose, request independent peer review of the exact proposal, then paper_submit if approved. Rejection or HOLD is valid. Never treat historical contributions as newly generated.\",\"originalFourAttemptsRetained\":true,\"usageGap\":{\"complete\":false,\"cost\":\"unavailable\",\"executionId\":\"execution_ec78843c-0b56-4343-9d38-a6ba223867be\"}}",
+            "sha256": "bd9d710080f9d84b433be1266355eecc58b201e67c1f7a3643172dae924e50c9",
+            "title": "Prospective close recovery mandate"
+          },
+          {
+            "content": "{\"content\":{\"columns\":[\"session\",\"open\",\"high\",\"low\",\"close\",\"volume\",\"complete\"],\"evidence\":[{\"bars\":[[\"2026-10-09\",\"331.70001220703125\",\"338.6099853515625\",\"330.70001220703125\",\"336.6400146484375\",\"37881200\",true],[\"2026-10-12\",\"338.2200012207031\",\"342.6300048828125\",\"337.6000061035156\",\"340.9700012207031\",\"25900600\",true],[\"2026-10-13\",\"344.6700134277344\",\"348.1499938964844\",\"340.739990234375\",\"341.2699890136719\",\"38946900\",true]],\"hash\":\"f5ecbd80838daa7654486ce78f94d4e4bfee1fcc28939e7f2b035f9d9d9919e3\",\"id\":\"observed_evidence_34a687c9ba337e20ac029a2f640a60c00e71903284e26d4bd7a7ff9612a37c5d\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:45:09.349Z\",\"symbol\":\"AAPL\"},{\"bars\":[[\"2026-10-09\",\"528.239990234375\",\"537.219970703125\",\"526.239990234375\",\"535.0700073242188\",\"18500600\",true],[\"2026-10-12\",\"537.530029296875\",\"542.739990234375\",\"535.7000122070312\",\"541.1500244140625\",\"18314900\",true],[\"2026-10-13\",\"544.6400146484375\",\"551.1500244140625\",\"543.0599975585938\",\"543.4500122070312\",\"23824500\",true]],\"hash\":\"c84ef3b315fd0ce17cf84e765c66e08059f896c4698ed56f5e3b017827ac5a70\",\"id\":\"observed_evidence_05374aa12a2ac2721f08f5c9f861b675967547e30a87bdf5a6700b9e5b895cbc\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:45:19.867Z\",\"symbol\":\"MSFT\"},{\"bars\":[[\"2026-10-09\",\"351.3999938964844\",\"354.70001220703125\",\"350.30999755859375\",\"351.6600036621094\",\"17281500\",true],[\"2026-10-12\",\"351.8599853515625\",\"356.5\",\"350.5\",\"352.7200012207031\",\"19076400\",true],[\"2026-10-13\",\"356.2300109863281\",\"358.5799865722656\",\"351.6000061035156\",\"353.7799987792969\",\"23148200\",true]],\"hash\":\"e97ea310e4c53a8de620559c33d713a6018c8a410894c7efc8b152d7a1743870\",\"id\":\"observed_evidence_92c397c50395b05087dc3597f4a2747a4eb7fd5df0abd0429dc747b261a387e4\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:45:30.210Z\",\"symbol\":\"GOOGL\"},{\"bars\":[[\"2026-10-09\",\"256.5\",\"262.79998779296875\",\"256\",\"262.42999267578125\",\"34770000\",true],[\"2026-10-12\",\"262.5\",\"263.70001220703125\",\"259.2699890136719\",\"259.5299987792969\",\"26577900\",true],[\"2026-10-13\",\"259.44000244140625\",\"262.8399963378906\",\"258.4200134277344\",\"258.5799865722656\",\"25227400\",true]],\"hash\":\"3f4960ede47fc6ed43d63f2094e8165915a23655b186f7cab4b636d4edb6dc88\",\"id\":\"observed_evidence_4b51a90830dacafdf9ac3f4f07fbf31c4e405efdbe2125f0d23c3b5f6bae9ac7\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:45:40.702Z\",\"symbol\":\"AMZN\"},{\"bars\":[[\"2026-10-09\",\"331.20001220703125\",\"333.5400085449219\",\"330.5799865722656\",\"332.989990234375\",\"5052000\",true],[\"2026-10-12\",\"334.29998779296875\",\"336.3399963378906\",\"333.54998779296875\",\"334.29998779296875\",\"5680400\",true],[\"2026-10-13\",\"339.9700012207031\",\"344.3599853515625\",\"331.1700134277344\",\"331.42999267578125\",\"13753800\",true]],\"hash\":\"841acbfc35eac9482bfbd11e321b972d2ba7bd668822f60126f702db88ad571c\",\"id\":\"observed_evidence_e437a151f950f5851dcfdf5928843b8ffe7c10398352bc6d45112e6bb35ca444\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:45:51.232Z\",\"symbol\":\"JPM\"},{\"bars\":[[\"2026-10-09\",\"255.08999633789062\",\"261.6099853515625\",\"254.99000549316406\",\"261.44000244140625\",\"5726000\",true],[\"2026-10-12\",\"261.6000061035156\",\"264.3900146484375\",\"260.3699951171875\",\"263.7300109863281\",\"5902500\",true],[\"2026-10-13\",\"254.55999755859375\",\"256.17999267578125\",\"245.1699981689453\",\"248.61000061035156\",\"16620900\",true]],\"hash\":\"34d8a503b6b28f58bfc6076309d7a89f190b7f1bc2c2287c84f63c5f0ce8a737\",\"id\":\"observed_evidence_3da126094ba3f29d1f04811bdd81221706238a968c731c402bf242f65a9496c2\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:46:02.090Z\",\"symbol\":\"JNJ\"},{\"bars\":[[\"2026-10-09\",\"167.8699951171875\",\"170.2899932861328\",\"167.82000732421875\",\"168.94000244140625\",\"8083600\",true],[\"2026-10-12\",\"171.00999450683594\",\"172.5500030517578\",\"171.00999450683594\",\"172.14999389648438\",\"8811000\",true],[\"2026-10-13\",\"173.4499969482422\",\"174.88999938964844\",\"172.64999389648438\",\"174.0800018310547\",\"11505200\",true]],\"hash\":\"e1a440674b43c0ea4d2f28759125f30349ee1c0e2a73f50b1427b1aeecbe921d\",\"id\":\"observed_evidence_6588e0b1e1a6d9eed42c5f5c3c195ac42fc1983a885873ff3ed0be6e6521f798\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:46:12.870Z\",\"symbol\":\"XOM\"},{\"bars\":[[\"2026-10-09\",\"110\",\"111.51000213623047\",\"109.93000030517578\",\"111.3499984741211\",\"11845700\",true],[\"2026-10-12\",\"111.5\",\"113.13999938964844\",\"111.30999755859375\",\"113.08000183105469\",\"13942700\",true],[\"2026-10-13\",\"114.20999908447266\",\"114.83000183105469\",\"112.20999908447266\",\"112.27999877929688\",\"17673100\",true]],\"hash\":\"c1f56d12200d67c690f5c8e0c4b3632ea4306d3992e06b04a4d6bba7ff79d9f6\",\"id\":\"observed_evidence_268da9b31bd6775559cc8c0d7f4c3d7073e2b81200e6f7c1ec88c54db193f032\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:46:23.720Z\",\"symbol\":\"WMT\"},{\"bars\":[[\"2026-10-09\",\"776.239990234375\",\"779.4199829101562\",\"775.1400146484375\",\"778.5700073242188\",\"22624500\",true],[\"2026-10-12\",\"778.780029296875\",\"779.4000244140625\",\"777.0499877929688\",\"778.0999755859375\",\"18685000\",true],[\"2026-10-13\",\"777.3400268554688\",\"778.75\",\"775.9500122070312\",\"778.010009765625\",\"25787100\",true]],\"hash\":\"bcc26929b5f439b7b775b9982bf379f417a22576a8f35ca17e33a3b25fec4d0e\",\"id\":\"observed_evidence_b76ea4bc540d4d9a28d51a20e9fe5256d196f6baa38bd514e38c0597351c6ce3\",\"missing\":[],\"retrievedAt\":\"2026-10-14T11:46:34.145Z\",\"symbol\":\"SPY\"}],\"mode\":\"observed\",\"notice\":\"Trusted gateway excerpt: latest three daily rows per instrument. Full ten-day normalized evidence and original response hashes retained privately. Historical availability and split basis remain unqualified for execution. This is research context, not an executable quote.\",\"providerAvailableAt\":null,\"session\":\"2026-10-14\"},\"contentEncoding\":\"canonical_json\",\"historicalSource\":{\"contentHash\":\"ab65fd4af7a4c37945fb7d5b454b10eedabcc0ee3a8fd5afa081efa208ad2976\",\"createdAt\":\"2026-10-14T11:46:34.435Z\",\"executionId\":null,\"groupId\":\"group_15dd6047-a91e-40eb-8be0-c7395e371ef2\",\"id\":\"gateway_cycle_9474261f558cd9b1a664c1d0170931371133756540470a60fe2db71a29dfdfe5\",\"kind\":\"retained_gateway\",\"workerId\":null}}",
+            "sha256": "402df0942f17b94dbdb6903b57d39e1a481c1feda0803755caa5a8185706d093",
+            "title": "Retained retained_gateway gateway_cycle_9474261f558cd9b1a664c1d0170931371133756540470a60fe2db71a29dfdfe5"
+          },
+          {
+            "content": "{\"content\":\"Atlas opening view: The owner mandate is a long-only, no-leverage paper experiment benchmarked to SPY, not a requirement to trade. The gateway supplied only three completed daily bars per name through 2026-10-13, retrieved 2026-10-14 11:45\u201311:46 UTC; provider availability time is unknown, and these bars are research context rather than executable quotes. The immutable book currently has $100,000 cash, no positions, no prior decisions or losses, and a zero-return initial SPY comparator. I favor HOLD for this initial decision unless a stronger, testable security-specific thesis emerges before cutoff. BUY alternatives: a small JNJ or AAPL starter would diversify away from cash, and both rose across the displayed three closes (JNJ 168.94\u2192174.08; AAPL 336.64\u2192341.27), but three sessions of price action alone are not an expected-return case versus SPY, especially with next-open gap/slippage risk. A JPM dip-buy is less compelling after its 263.73\u2192248.61 close decline on Oct 13; the cause is not established here. SELL is not currently executable as a portfolio thesis because there are no holdings; shorting is outside the long-only mandate. HOLD preserves optionality and the 5% minimum cash constraint but risks SPY outperforming idle cash. Assumption: the supplied bars are on comparable raw-price basis; we have not established corporate-action or fundamental drivers. Horizon: reassess at the next authorized session with new pre-cutoff evidence and ledger/benchmark updates. Invalidation: substantive timely evidence of an attractive risk-adjusted thesis relative to SPY, plus a trusted price observation and compliant position sizing, would change this stance; a deteriorating evidence-quality check strengthens HOLD. Any later BUY should cap one position at 15%, sector at 35%, retain at least 5% cash, and respect two orders/session and six/week. Public-safe summary: 'Initial paper portfolio remains in cash while short price history alone does not justify single-stock risk; comparison to SPY begins from the same starting capital. No trade or publication is implied.' Question for Maya: does any particular candidate have a defensible edge over SPY from this evidence, or should we require more than three bars before taking first risk?\",\"historicalSource\":{\"contentHash\":\"9cd130ee9fce75bf344ca6328d37842efc5b03967ac454ea13685f6b03f70acf\",\"createdAt\":\"2026-10-14T12:00:35.816Z\",\"executionId\":\"execution_377ea290-34b1-4dad-84df-d062237ef578\",\"groupId\":\"group_15dd6047-a91e-40eb-8be0-c7395e371ef2\",\"id\":\"cmessage_89bbb726-26bb-40eb-96f8-03ecb18833c1\",\"kind\":\"opening\",\"workerId\":\"worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1\"}}",
+            "sha256": "40ef51677f0b5b6f541f2556094950c841aabf522ea5c399b6ac0748d681b515",
+            "title": "Retained opening cmessage_89bbb726-26bb-40eb-96f8-03ecb18833c1"
+          },
+          {
+            "content": "{\"content\":\"My independent view is HOLD for this opening paper decision. The three completed daily bars through Oct 13 are a narrow price snapshot, not evidence of an expected risk-adjusted edge over SPY or an executable next-open quote; provider availability time and split basis remain unqualified. The portfolio starts entirely in cash with no holdings or decision history, so SELL has no long position to reduce and shorting is prohibited. BUYing a small starter in AAPL, JNJ, or another permitted name could reduce cash drag if SPY rises, but adds idiosyncratic and next-open gap risk without a demonstrated catalyst or valuation case. JPM's Oct 12-to-13 fall (263.73 to 248.61) is not itself a dip-buy thesis. I agree with Atlas's HOLD conclusion but correct one factual attribution in cmessage_89bbb726-26bb-40eb-96f8-03ecb18833c1: the gateway shows JNJ at 331.43 on Oct 13, XOM at 174.08, and WMT at 112.28; the 168.94\u2192174.08 rise belongs to XOM, not JNJ. This matters before any security-specific proposal. SPY's displayed closes are 778.57, 778.10, 778.01; these three bars do not establish future relative returns. Assumption: the gateway's symbol mappings and complete-bar flags are correct, but historical availability and adjustment comparability are not established. Horizon: revisit next authorized decision window after a fresh pre-cutoff evidence and ledger check. Risks of HOLD: cash may lag SPY materially; risks of BUY: concentration, unverified thesis, gap/slippage, and benchmark underperformance. Invalidation of HOLD: timely security-specific evidence supporting a testable advantage over SPY, verified symbol/price basis and trusted order observation, with compliant 15% position, 35% sector, 5% cash and activity limits. Public-safe summary: 'The paper portfolio remains in cash pending stronger evidence; short historical price moves do not establish a stock-selection edge over SPY. No paper trade, real order, or publication is implied.' Question: can the next proposal explicitly reconcile symbol-to-bar mapping and price basis before sizing any BUY?\",\"historicalSource\":{\"contentHash\":\"ffa55dbbea653072a79d6403c0dbfa6747c215515544075400c9bef418cf815d\",\"createdAt\":\"2026-10-14T12:01:09.085Z\",\"executionId\":\"execution_e3ed1125-119b-48ee-9b3a-74f2d6e8b9d3\",\"groupId\":\"group_15dd6047-a91e-40eb-8be0-c7395e371ef2\",\"id\":\"cmessage_c6a478cb-35c5-4f0e-8f9f-47ffdd5dae72\",\"kind\":\"opening\",\"workerId\":\"worker_85bebccd-fb82-48c3-abfa-bc62117f8746\"}}",
+            "sha256": "f70f95c6a1bd8f57a51357c0e6678793a63aab87178fae31e09f345f8a72914d",
+            "title": "Retained opening cmessage_c6a478cb-35c5-4f0e-8f9f-47ffdd5dae72"
+          },
+          {
+            "content": "{\"content\":\"Material issue is source mapping. I re-read the complete gateway excerpt: its labeled JNJ rows show 168.94\u2192174.08, XOM rows show 111.35\u2192112.28, while the rows labeled JPM show 332.99\u2192331.43. My opening's JNJ attribution matches the excerpt labels, but Maya's correction appears to follow a different mapping. More importantly, the excerpt's apparent label/price pattern warrants verification before any security-specific BUY; do not treat either mapping as execution-ready. I retain provisional HOLD: three bars and unknown provider availability/split basis cannot establish an edge over SPY; no holdings permit SELL. Maya's challenge usefully raises a genuine data-integrity concern, not a resolved factual correction. Public-safe conclusion should disclose that source mapping needs reconciliation.\",\"historicalSource\":{\"contentHash\":\"09cdf48326a12c20f5a4664b613b11eddbf8886af925e11c98b3ac091604f332\",\"createdAt\":\"2026-10-14T12:01:38.607Z\",\"executionId\":\"execution_f141db7a-40fa-439c-88e1-376c965456c3\",\"groupId\":\"group_15dd6047-a91e-40eb-8be0-c7395e371ef2\",\"id\":\"cmessage_6651a528-26c6-4391-8f1f-ddaf0dd4590e\",\"kind\":\"facilitate\",\"workerId\":\"worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1\"}}",
+            "sha256": "b36dd13d93f69ded9732433ec1285540d1d264912ccb5c832b1178c7609d2bb7",
+            "title": "Retained facilitate cmessage_6651a528-26c6-4391-8f1f-ddaf0dd4590e"
+          },
+          {
+            "content": "{\"content\":\"I retract my purported factual correction in cmessage_c6a478cb-35c5-4f0e-8f9f-47ffdd5dae72. I misread the sequential JSON entries and shifted their symbol labels. The gateway explicitly labels JNJ 168.94\u2192174.08, XOM 111.35\u2192112.28, JPM 332.99\u2192331.43, and WMT 248.61 on Oct 13. Thus Atlas's JNJ attribution in cmessage_89bbb726-26bb-40eb-96f8-03ecb18833c1 was right under the source labels, while both Atlas and I wrongly called the 263.73\u2192248.61 decline JPM: it is labeled WMT. I appreciate Atlas's reconciliation in cmessage_6651a528-26c6-4391-8f1f-ddaf0dd4590e. A suspicion that a quoted price resembles another company's economic identity is not evidence of a mislabeled provider record; without independent authorized verification, we should not remap any rows or claim a proven feed defect. My HOLD view remains, now for the properly stated reasons: only three bars, no demonstrated stock-specific edge over SPY, unknown provider availability and split basis, and no holdings to SELL. A BUY could outperform cash but carries unsupported single-name and next-open risks. Before changing to BUY, require a fresh trusted pre-cutoff observation, security-specific thesis and basis check, and compliant sizing; mapping concerns should be treated as unresolved verification questions rather than established errors. Horizon: next authorized window. Public-safe summary: 'The initial paper book stays in cash while short historical price data and unresolved price-basis questions are insufficient to justify a single-stock position; no trade is implied.'\",\"historicalSource\":{\"contentHash\":\"b8d37dfd0ab6dcb3f0f711f6af83e2b9fca344266d268520df4a86c8c5fd8ab7\",\"createdAt\":\"2026-10-14T12:02:05.373Z\",\"executionId\":\"execution_ec78843c-0b56-4343-9d38-a6ba223867be\",\"groupId\":\"group_15dd6047-a91e-40eb-8be0-c7395e371ef2\",\"id\":\"cmessage_a17fe7cf-d829-416f-ac0f-ff3100ade205\",\"kind\":\"response\",\"workerId\":\"worker_85bebccd-fb82-48c3-abfa-bc62117f8746\"}}",
+            "sha256": "087431375e7aa0ba2f377586e70e4d01bd25d8fdd44c1f60ed8921218c165fae",
+            "title": "Retained response cmessage_a17fe7cf-d829-416f-ac0f-ff3100ade205"
+          }
+        ],
+        "topic": "Manage a persistent personal real-market paper portfolio. Compare evidence-backed BUY, SELL and HOLD choices with SPY and learn from the unchanged history."
+      },
+      "notice": "Only this fresh context and reviewed experiment responsibilities. No private mission/history export. Separate exact publication consent is still required.",
+      "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc"
+    },
+    "preparedHead": "f48f93d85667917f9022ededcf5dc1e7bee793bf00f22fd147d9a7b846e22478",
+    "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+    "loop": {
+      "configuration": {
+        "allowedDirections": [
+          "BUY",
+          "SELL"
+        ],
+        "authorization": {
+          "authors": [
+            "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+          ],
+          "expiresAt": "2027-01-01T01:00:00.000Z",
+          "fixtureOperator": "observed-paper-owner",
+          "maxOrders": 10000,
+          "reviewers": [
+            "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+          ]
+        },
+        "benchmark": {
+          "convention": "raw_prices_explicit_dividends_next_open_reinvestment",
+          "instrument": {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "SPY",
+            "sector": "Benchmark",
+            "symbol": "SPY",
+            "venue": "ARCX"
+          }
+        },
+        "calendar": {
+          "holidays": [
+            "2026-01-01",
+            "2026-01-19",
+            "2026-02-16",
+            "2026-04-03",
+            "2026-05-25",
+            "2026-06-19",
+            "2026-07-03",
+            "2026-09-07",
+            "2026-11-26",
+            "2026-12-25"
+          ],
+          "sessions": [
+            {
+              "close": "2026-01-01T21:00:00.000Z",
+              "date": "2026-01-01",
+              "earlyClose": false,
+              "open": "2026-01-01T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-01-02T21:00:00.000Z",
+              "date": "2026-01-02",
+              "earlyClose": false,
+              "open": "2026-01-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-05T21:00:00.000Z",
+              "date": "2026-01-05",
+              "earlyClose": false,
+              "open": "2026-01-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-06T21:00:00.000Z",
+              "date": "2026-01-06",
+              "earlyClose": false,
+              "open": "2026-01-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-07T21:00:00.000Z",
+              "date": "2026-01-07",
+              "earlyClose": false,
+              "open": "2026-01-07T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-08T21:00:00.000Z",
+              "date": "2026-01-08",
+              "earlyClose": false,
+              "open": "2026-01-08T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-09T21:00:00.000Z",
+              "date": "2026-01-09",
+              "earlyClose": false,
+              "open": "2026-01-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-12T21:00:00.000Z",
+              "date": "2026-01-12",
+              "earlyClose": false,
+              "open": "2026-01-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-13T21:00:00.000Z",
+              "date": "2026-01-13",
+              "earlyClose": false,
+              "open": "2026-01-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-14T21:00:00.000Z",
+              "date": "2026-01-14",
+              "earlyClose": false,
+              "open": "2026-01-14T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-15T21:00:00.000Z",
+              "date": "2026-01-15",
+              "earlyClose": false,
+              "open": "2026-01-15T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-16T21:00:00.000Z",
+              "date": "2026-01-16",
+              "earlyClose": false,
+              "open": "2026-01-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-19T21:00:00.000Z",
+              "date": "2026-01-19",
+              "earlyClose": false,
+              "open": "2026-01-19T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-01-20T21:00:00.000Z",
+              "date": "2026-01-20",
+              "earlyClose": false,
+              "open": "2026-01-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-21T21:00:00.000Z",
+              "date": "2026-01-21",
+              "earlyClose": false,
+              "open": "2026-01-21T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-22T21:00:00.000Z",
+              "date": "2026-01-22",
+              "earlyClose": false,
+              "open": "2026-01-22T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-23T21:00:00.000Z",
+              "date": "2026-01-23",
+              "earlyClose": false,
+              "open": "2026-01-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-26T21:00:00.000Z",
+              "date": "2026-01-26",
+              "earlyClose": false,
+              "open": "2026-01-26T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-27T21:00:00.000Z",
+              "date": "2026-01-27",
+              "earlyClose": false,
+              "open": "2026-01-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-28T21:00:00.000Z",
+              "date": "2026-01-28",
+              "earlyClose": false,
+              "open": "2026-01-28T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-29T21:00:00.000Z",
+              "date": "2026-01-29",
+              "earlyClose": false,
+              "open": "2026-01-29T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-01-30T21:00:00.000Z",
+              "date": "2026-01-30",
+              "earlyClose": false,
+              "open": "2026-01-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-02T21:00:00.000Z",
+              "date": "2026-02-02",
+              "earlyClose": false,
+              "open": "2026-02-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-03T21:00:00.000Z",
+              "date": "2026-02-03",
+              "earlyClose": false,
+              "open": "2026-02-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-04T21:00:00.000Z",
+              "date": "2026-02-04",
+              "earlyClose": false,
+              "open": "2026-02-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-05T21:00:00.000Z",
+              "date": "2026-02-05",
+              "earlyClose": false,
+              "open": "2026-02-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-06T21:00:00.000Z",
+              "date": "2026-02-06",
+              "earlyClose": false,
+              "open": "2026-02-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-09T21:00:00.000Z",
+              "date": "2026-02-09",
+              "earlyClose": false,
+              "open": "2026-02-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-10T21:00:00.000Z",
+              "date": "2026-02-10",
+              "earlyClose": false,
+              "open": "2026-02-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-11T21:00:00.000Z",
+              "date": "2026-02-11",
+              "earlyClose": false,
+              "open": "2026-02-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-12T21:00:00.000Z",
+              "date": "2026-02-12",
+              "earlyClose": false,
+              "open": "2026-02-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-13T21:00:00.000Z",
+              "date": "2026-02-13",
+              "earlyClose": false,
+              "open": "2026-02-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-16T21:00:00.000Z",
+              "date": "2026-02-16",
+              "earlyClose": false,
+              "open": "2026-02-16T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-02-17T21:00:00.000Z",
+              "date": "2026-02-17",
+              "earlyClose": false,
+              "open": "2026-02-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-18T21:00:00.000Z",
+              "date": "2026-02-18",
+              "earlyClose": false,
+              "open": "2026-02-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-19T21:00:00.000Z",
+              "date": "2026-02-19",
+              "earlyClose": false,
+              "open": "2026-02-19T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-20T21:00:00.000Z",
+              "date": "2026-02-20",
+              "earlyClose": false,
+              "open": "2026-02-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-23T21:00:00.000Z",
+              "date": "2026-02-23",
+              "earlyClose": false,
+              "open": "2026-02-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-24T21:00:00.000Z",
+              "date": "2026-02-24",
+              "earlyClose": false,
+              "open": "2026-02-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-25T21:00:00.000Z",
+              "date": "2026-02-25",
+              "earlyClose": false,
+              "open": "2026-02-25T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-26T21:00:00.000Z",
+              "date": "2026-02-26",
+              "earlyClose": false,
+              "open": "2026-02-26T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-02-27T21:00:00.000Z",
+              "date": "2026-02-27",
+              "earlyClose": false,
+              "open": "2026-02-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-02T21:00:00.000Z",
+              "date": "2026-03-02",
+              "earlyClose": false,
+              "open": "2026-03-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-03T21:00:00.000Z",
+              "date": "2026-03-03",
+              "earlyClose": false,
+              "open": "2026-03-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-04T21:00:00.000Z",
+              "date": "2026-03-04",
+              "earlyClose": false,
+              "open": "2026-03-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-05T21:00:00.000Z",
+              "date": "2026-03-05",
+              "earlyClose": false,
+              "open": "2026-03-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-06T21:00:00.000Z",
+              "date": "2026-03-06",
+              "earlyClose": false,
+              "open": "2026-03-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-09T20:00:00.000Z",
+              "date": "2026-03-09",
+              "earlyClose": false,
+              "open": "2026-03-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-10T20:00:00.000Z",
+              "date": "2026-03-10",
+              "earlyClose": false,
+              "open": "2026-03-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-11T20:00:00.000Z",
+              "date": "2026-03-11",
+              "earlyClose": false,
+              "open": "2026-03-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-12T20:00:00.000Z",
+              "date": "2026-03-12",
+              "earlyClose": false,
+              "open": "2026-03-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-13T20:00:00.000Z",
+              "date": "2026-03-13",
+              "earlyClose": false,
+              "open": "2026-03-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-16T20:00:00.000Z",
+              "date": "2026-03-16",
+              "earlyClose": false,
+              "open": "2026-03-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-17T20:00:00.000Z",
+              "date": "2026-03-17",
+              "earlyClose": false,
+              "open": "2026-03-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-18T20:00:00.000Z",
+              "date": "2026-03-18",
+              "earlyClose": false,
+              "open": "2026-03-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-19T20:00:00.000Z",
+              "date": "2026-03-19",
+              "earlyClose": false,
+              "open": "2026-03-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-20T20:00:00.000Z",
+              "date": "2026-03-20",
+              "earlyClose": false,
+              "open": "2026-03-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-23T20:00:00.000Z",
+              "date": "2026-03-23",
+              "earlyClose": false,
+              "open": "2026-03-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-24T20:00:00.000Z",
+              "date": "2026-03-24",
+              "earlyClose": false,
+              "open": "2026-03-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-25T20:00:00.000Z",
+              "date": "2026-03-25",
+              "earlyClose": false,
+              "open": "2026-03-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-26T20:00:00.000Z",
+              "date": "2026-03-26",
+              "earlyClose": false,
+              "open": "2026-03-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-27T20:00:00.000Z",
+              "date": "2026-03-27",
+              "earlyClose": false,
+              "open": "2026-03-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-30T20:00:00.000Z",
+              "date": "2026-03-30",
+              "earlyClose": false,
+              "open": "2026-03-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-03-31T20:00:00.000Z",
+              "date": "2026-03-31",
+              "earlyClose": false,
+              "open": "2026-03-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-01T20:00:00.000Z",
+              "date": "2026-04-01",
+              "earlyClose": false,
+              "open": "2026-04-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-02T20:00:00.000Z",
+              "date": "2026-04-02",
+              "earlyClose": false,
+              "open": "2026-04-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-03T20:00:00.000Z",
+              "date": "2026-04-03",
+              "earlyClose": false,
+              "open": "2026-04-03T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-04-06T20:00:00.000Z",
+              "date": "2026-04-06",
+              "earlyClose": false,
+              "open": "2026-04-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-07T20:00:00.000Z",
+              "date": "2026-04-07",
+              "earlyClose": false,
+              "open": "2026-04-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-08T20:00:00.000Z",
+              "date": "2026-04-08",
+              "earlyClose": false,
+              "open": "2026-04-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-09T20:00:00.000Z",
+              "date": "2026-04-09",
+              "earlyClose": false,
+              "open": "2026-04-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-10T20:00:00.000Z",
+              "date": "2026-04-10",
+              "earlyClose": false,
+              "open": "2026-04-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-13T20:00:00.000Z",
+              "date": "2026-04-13",
+              "earlyClose": false,
+              "open": "2026-04-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-14T20:00:00.000Z",
+              "date": "2026-04-14",
+              "earlyClose": false,
+              "open": "2026-04-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-15T20:00:00.000Z",
+              "date": "2026-04-15",
+              "earlyClose": false,
+              "open": "2026-04-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-16T20:00:00.000Z",
+              "date": "2026-04-16",
+              "earlyClose": false,
+              "open": "2026-04-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-17T20:00:00.000Z",
+              "date": "2026-04-17",
+              "earlyClose": false,
+              "open": "2026-04-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-20T20:00:00.000Z",
+              "date": "2026-04-20",
+              "earlyClose": false,
+              "open": "2026-04-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-21T20:00:00.000Z",
+              "date": "2026-04-21",
+              "earlyClose": false,
+              "open": "2026-04-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-22T20:00:00.000Z",
+              "date": "2026-04-22",
+              "earlyClose": false,
+              "open": "2026-04-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-23T20:00:00.000Z",
+              "date": "2026-04-23",
+              "earlyClose": false,
+              "open": "2026-04-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-24T20:00:00.000Z",
+              "date": "2026-04-24",
+              "earlyClose": false,
+              "open": "2026-04-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-27T20:00:00.000Z",
+              "date": "2026-04-27",
+              "earlyClose": false,
+              "open": "2026-04-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-28T20:00:00.000Z",
+              "date": "2026-04-28",
+              "earlyClose": false,
+              "open": "2026-04-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-29T20:00:00.000Z",
+              "date": "2026-04-29",
+              "earlyClose": false,
+              "open": "2026-04-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-04-30T20:00:00.000Z",
+              "date": "2026-04-30",
+              "earlyClose": false,
+              "open": "2026-04-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-01T20:00:00.000Z",
+              "date": "2026-05-01",
+              "earlyClose": false,
+              "open": "2026-05-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-04T20:00:00.000Z",
+              "date": "2026-05-04",
+              "earlyClose": false,
+              "open": "2026-05-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-05T20:00:00.000Z",
+              "date": "2026-05-05",
+              "earlyClose": false,
+              "open": "2026-05-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-06T20:00:00.000Z",
+              "date": "2026-05-06",
+              "earlyClose": false,
+              "open": "2026-05-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-07T20:00:00.000Z",
+              "date": "2026-05-07",
+              "earlyClose": false,
+              "open": "2026-05-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-08T20:00:00.000Z",
+              "date": "2026-05-08",
+              "earlyClose": false,
+              "open": "2026-05-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-11T20:00:00.000Z",
+              "date": "2026-05-11",
+              "earlyClose": false,
+              "open": "2026-05-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-12T20:00:00.000Z",
+              "date": "2026-05-12",
+              "earlyClose": false,
+              "open": "2026-05-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-13T20:00:00.000Z",
+              "date": "2026-05-13",
+              "earlyClose": false,
+              "open": "2026-05-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-14T20:00:00.000Z",
+              "date": "2026-05-14",
+              "earlyClose": false,
+              "open": "2026-05-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-15T20:00:00.000Z",
+              "date": "2026-05-15",
+              "earlyClose": false,
+              "open": "2026-05-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-18T20:00:00.000Z",
+              "date": "2026-05-18",
+              "earlyClose": false,
+              "open": "2026-05-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-19T20:00:00.000Z",
+              "date": "2026-05-19",
+              "earlyClose": false,
+              "open": "2026-05-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-20T20:00:00.000Z",
+              "date": "2026-05-20",
+              "earlyClose": false,
+              "open": "2026-05-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-21T20:00:00.000Z",
+              "date": "2026-05-21",
+              "earlyClose": false,
+              "open": "2026-05-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-22T20:00:00.000Z",
+              "date": "2026-05-22",
+              "earlyClose": false,
+              "open": "2026-05-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-25T20:00:00.000Z",
+              "date": "2026-05-25",
+              "earlyClose": false,
+              "open": "2026-05-25T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-05-26T20:00:00.000Z",
+              "date": "2026-05-26",
+              "earlyClose": false,
+              "open": "2026-05-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-27T20:00:00.000Z",
+              "date": "2026-05-27",
+              "earlyClose": false,
+              "open": "2026-05-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-28T20:00:00.000Z",
+              "date": "2026-05-28",
+              "earlyClose": false,
+              "open": "2026-05-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-05-29T20:00:00.000Z",
+              "date": "2026-05-29",
+              "earlyClose": false,
+              "open": "2026-05-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-01T20:00:00.000Z",
+              "date": "2026-06-01",
+              "earlyClose": false,
+              "open": "2026-06-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-02T20:00:00.000Z",
+              "date": "2026-06-02",
+              "earlyClose": false,
+              "open": "2026-06-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-03T20:00:00.000Z",
+              "date": "2026-06-03",
+              "earlyClose": false,
+              "open": "2026-06-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-04T20:00:00.000Z",
+              "date": "2026-06-04",
+              "earlyClose": false,
+              "open": "2026-06-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-05T20:00:00.000Z",
+              "date": "2026-06-05",
+              "earlyClose": false,
+              "open": "2026-06-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-08T20:00:00.000Z",
+              "date": "2026-06-08",
+              "earlyClose": false,
+              "open": "2026-06-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-09T20:00:00.000Z",
+              "date": "2026-06-09",
+              "earlyClose": false,
+              "open": "2026-06-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-10T20:00:00.000Z",
+              "date": "2026-06-10",
+              "earlyClose": false,
+              "open": "2026-06-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-11T20:00:00.000Z",
+              "date": "2026-06-11",
+              "earlyClose": false,
+              "open": "2026-06-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-12T20:00:00.000Z",
+              "date": "2026-06-12",
+              "earlyClose": false,
+              "open": "2026-06-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-15T20:00:00.000Z",
+              "date": "2026-06-15",
+              "earlyClose": false,
+              "open": "2026-06-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-16T20:00:00.000Z",
+              "date": "2026-06-16",
+              "earlyClose": false,
+              "open": "2026-06-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-17T20:00:00.000Z",
+              "date": "2026-06-17",
+              "earlyClose": false,
+              "open": "2026-06-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-18T20:00:00.000Z",
+              "date": "2026-06-18",
+              "earlyClose": false,
+              "open": "2026-06-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-19T20:00:00.000Z",
+              "date": "2026-06-19",
+              "earlyClose": false,
+              "open": "2026-06-19T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-06-22T20:00:00.000Z",
+              "date": "2026-06-22",
+              "earlyClose": false,
+              "open": "2026-06-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-23T20:00:00.000Z",
+              "date": "2026-06-23",
+              "earlyClose": false,
+              "open": "2026-06-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-24T20:00:00.000Z",
+              "date": "2026-06-24",
+              "earlyClose": false,
+              "open": "2026-06-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-25T20:00:00.000Z",
+              "date": "2026-06-25",
+              "earlyClose": false,
+              "open": "2026-06-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-26T20:00:00.000Z",
+              "date": "2026-06-26",
+              "earlyClose": false,
+              "open": "2026-06-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-29T20:00:00.000Z",
+              "date": "2026-06-29",
+              "earlyClose": false,
+              "open": "2026-06-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-06-30T20:00:00.000Z",
+              "date": "2026-06-30",
+              "earlyClose": false,
+              "open": "2026-06-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-01T20:00:00.000Z",
+              "date": "2026-07-01",
+              "earlyClose": false,
+              "open": "2026-07-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-02T20:00:00.000Z",
+              "date": "2026-07-02",
+              "earlyClose": false,
+              "open": "2026-07-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-03T20:00:00.000Z",
+              "date": "2026-07-03",
+              "earlyClose": false,
+              "open": "2026-07-03T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-07-06T20:00:00.000Z",
+              "date": "2026-07-06",
+              "earlyClose": false,
+              "open": "2026-07-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-07T20:00:00.000Z",
+              "date": "2026-07-07",
+              "earlyClose": false,
+              "open": "2026-07-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-08T20:00:00.000Z",
+              "date": "2026-07-08",
+              "earlyClose": false,
+              "open": "2026-07-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-09T20:00:00.000Z",
+              "date": "2026-07-09",
+              "earlyClose": false,
+              "open": "2026-07-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-10T20:00:00.000Z",
+              "date": "2026-07-10",
+              "earlyClose": false,
+              "open": "2026-07-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-13T20:00:00.000Z",
+              "date": "2026-07-13",
+              "earlyClose": false,
+              "open": "2026-07-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-14T20:00:00.000Z",
+              "date": "2026-07-14",
+              "earlyClose": false,
+              "open": "2026-07-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-15T20:00:00.000Z",
+              "date": "2026-07-15",
+              "earlyClose": false,
+              "open": "2026-07-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-16T20:00:00.000Z",
+              "date": "2026-07-16",
+              "earlyClose": false,
+              "open": "2026-07-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-17T20:00:00.000Z",
+              "date": "2026-07-17",
+              "earlyClose": false,
+              "open": "2026-07-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-20T20:00:00.000Z",
+              "date": "2026-07-20",
+              "earlyClose": false,
+              "open": "2026-07-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-21T20:00:00.000Z",
+              "date": "2026-07-21",
+              "earlyClose": false,
+              "open": "2026-07-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-22T20:00:00.000Z",
+              "date": "2026-07-22",
+              "earlyClose": false,
+              "open": "2026-07-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-23T20:00:00.000Z",
+              "date": "2026-07-23",
+              "earlyClose": false,
+              "open": "2026-07-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-24T20:00:00.000Z",
+              "date": "2026-07-24",
+              "earlyClose": false,
+              "open": "2026-07-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-27T20:00:00.000Z",
+              "date": "2026-07-27",
+              "earlyClose": false,
+              "open": "2026-07-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-28T20:00:00.000Z",
+              "date": "2026-07-28",
+              "earlyClose": false,
+              "open": "2026-07-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-29T20:00:00.000Z",
+              "date": "2026-07-29",
+              "earlyClose": false,
+              "open": "2026-07-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-30T20:00:00.000Z",
+              "date": "2026-07-30",
+              "earlyClose": false,
+              "open": "2026-07-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-07-31T20:00:00.000Z",
+              "date": "2026-07-31",
+              "earlyClose": false,
+              "open": "2026-07-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-03T20:00:00.000Z",
+              "date": "2026-08-03",
+              "earlyClose": false,
+              "open": "2026-08-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-04T20:00:00.000Z",
+              "date": "2026-08-04",
+              "earlyClose": false,
+              "open": "2026-08-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-05T20:00:00.000Z",
+              "date": "2026-08-05",
+              "earlyClose": false,
+              "open": "2026-08-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-06T20:00:00.000Z",
+              "date": "2026-08-06",
+              "earlyClose": false,
+              "open": "2026-08-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-07T20:00:00.000Z",
+              "date": "2026-08-07",
+              "earlyClose": false,
+              "open": "2026-08-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-10T20:00:00.000Z",
+              "date": "2026-08-10",
+              "earlyClose": false,
+              "open": "2026-08-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-11T20:00:00.000Z",
+              "date": "2026-08-11",
+              "earlyClose": false,
+              "open": "2026-08-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-12T20:00:00.000Z",
+              "date": "2026-08-12",
+              "earlyClose": false,
+              "open": "2026-08-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-13T20:00:00.000Z",
+              "date": "2026-08-13",
+              "earlyClose": false,
+              "open": "2026-08-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-14T20:00:00.000Z",
+              "date": "2026-08-14",
+              "earlyClose": false,
+              "open": "2026-08-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-17T20:00:00.000Z",
+              "date": "2026-08-17",
+              "earlyClose": false,
+              "open": "2026-08-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-18T20:00:00.000Z",
+              "date": "2026-08-18",
+              "earlyClose": false,
+              "open": "2026-08-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-19T20:00:00.000Z",
+              "date": "2026-08-19",
+              "earlyClose": false,
+              "open": "2026-08-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-20T20:00:00.000Z",
+              "date": "2026-08-20",
+              "earlyClose": false,
+              "open": "2026-08-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-21T20:00:00.000Z",
+              "date": "2026-08-21",
+              "earlyClose": false,
+              "open": "2026-08-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-24T20:00:00.000Z",
+              "date": "2026-08-24",
+              "earlyClose": false,
+              "open": "2026-08-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-25T20:00:00.000Z",
+              "date": "2026-08-25",
+              "earlyClose": false,
+              "open": "2026-08-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-26T20:00:00.000Z",
+              "date": "2026-08-26",
+              "earlyClose": false,
+              "open": "2026-08-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-27T20:00:00.000Z",
+              "date": "2026-08-27",
+              "earlyClose": false,
+              "open": "2026-08-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-28T20:00:00.000Z",
+              "date": "2026-08-28",
+              "earlyClose": false,
+              "open": "2026-08-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-08-31T20:00:00.000Z",
+              "date": "2026-08-31",
+              "earlyClose": false,
+              "open": "2026-08-31T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-01T20:00:00.000Z",
+              "date": "2026-09-01",
+              "earlyClose": false,
+              "open": "2026-09-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-02T20:00:00.000Z",
+              "date": "2026-09-02",
+              "earlyClose": false,
+              "open": "2026-09-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-03T20:00:00.000Z",
+              "date": "2026-09-03",
+              "earlyClose": false,
+              "open": "2026-09-03T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-04T20:00:00.000Z",
+              "date": "2026-09-04",
+              "earlyClose": false,
+              "open": "2026-09-04T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-07T20:00:00.000Z",
+              "date": "2026-09-07",
+              "earlyClose": false,
+              "open": "2026-09-07T13:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-09-08T20:00:00.000Z",
+              "date": "2026-09-08",
+              "earlyClose": false,
+              "open": "2026-09-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-09T20:00:00.000Z",
+              "date": "2026-09-09",
+              "earlyClose": false,
+              "open": "2026-09-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-10T20:00:00.000Z",
+              "date": "2026-09-10",
+              "earlyClose": false,
+              "open": "2026-09-10T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-11T20:00:00.000Z",
+              "date": "2026-09-11",
+              "earlyClose": false,
+              "open": "2026-09-11T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-14T20:00:00.000Z",
+              "date": "2026-09-14",
+              "earlyClose": false,
+              "open": "2026-09-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-15T20:00:00.000Z",
+              "date": "2026-09-15",
+              "earlyClose": false,
+              "open": "2026-09-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-16T20:00:00.000Z",
+              "date": "2026-09-16",
+              "earlyClose": false,
+              "open": "2026-09-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-17T20:00:00.000Z",
+              "date": "2026-09-17",
+              "earlyClose": false,
+              "open": "2026-09-17T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-18T20:00:00.000Z",
+              "date": "2026-09-18",
+              "earlyClose": false,
+              "open": "2026-09-18T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-21T20:00:00.000Z",
+              "date": "2026-09-21",
+              "earlyClose": false,
+              "open": "2026-09-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-22T20:00:00.000Z",
+              "date": "2026-09-22",
+              "earlyClose": false,
+              "open": "2026-09-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-23T20:00:00.000Z",
+              "date": "2026-09-23",
+              "earlyClose": false,
+              "open": "2026-09-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-24T20:00:00.000Z",
+              "date": "2026-09-24",
+              "earlyClose": false,
+              "open": "2026-09-24T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-25T20:00:00.000Z",
+              "date": "2026-09-25",
+              "earlyClose": false,
+              "open": "2026-09-25T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-28T20:00:00.000Z",
+              "date": "2026-09-28",
+              "earlyClose": false,
+              "open": "2026-09-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-29T20:00:00.000Z",
+              "date": "2026-09-29",
+              "earlyClose": false,
+              "open": "2026-09-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-09-30T20:00:00.000Z",
+              "date": "2026-09-30",
+              "earlyClose": false,
+              "open": "2026-09-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-01T20:00:00.000Z",
+              "date": "2026-10-01",
+              "earlyClose": false,
+              "open": "2026-10-01T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-02T20:00:00.000Z",
+              "date": "2026-10-02",
+              "earlyClose": false,
+              "open": "2026-10-02T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-05T20:00:00.000Z",
+              "date": "2026-10-05",
+              "earlyClose": false,
+              "open": "2026-10-05T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-06T20:00:00.000Z",
+              "date": "2026-10-06",
+              "earlyClose": false,
+              "open": "2026-10-06T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-07T20:00:00.000Z",
+              "date": "2026-10-07",
+              "earlyClose": false,
+              "open": "2026-10-07T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-08T20:00:00.000Z",
+              "date": "2026-10-08",
+              "earlyClose": false,
+              "open": "2026-10-08T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-09T20:00:00.000Z",
+              "date": "2026-10-09",
+              "earlyClose": false,
+              "open": "2026-10-09T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-12T20:00:00.000Z",
+              "date": "2026-10-12",
+              "earlyClose": false,
+              "open": "2026-10-12T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-13T20:00:00.000Z",
+              "date": "2026-10-13",
+              "earlyClose": false,
+              "open": "2026-10-13T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-14T20:00:00.000Z",
+              "date": "2026-10-14",
+              "earlyClose": false,
+              "open": "2026-10-14T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-15T20:00:00.000Z",
+              "date": "2026-10-15",
+              "earlyClose": false,
+              "open": "2026-10-15T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-16T20:00:00.000Z",
+              "date": "2026-10-16",
+              "earlyClose": false,
+              "open": "2026-10-16T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-19T20:00:00.000Z",
+              "date": "2026-10-19",
+              "earlyClose": false,
+              "open": "2026-10-19T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-20T20:00:00.000Z",
+              "date": "2026-10-20",
+              "earlyClose": false,
+              "open": "2026-10-20T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-21T20:00:00.000Z",
+              "date": "2026-10-21",
+              "earlyClose": false,
+              "open": "2026-10-21T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-22T20:00:00.000Z",
+              "date": "2026-10-22",
+              "earlyClose": false,
+              "open": "2026-10-22T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-23T20:00:00.000Z",
+              "date": "2026-10-23",
+              "earlyClose": false,
+              "open": "2026-10-23T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-26T20:00:00.000Z",
+              "date": "2026-10-26",
+              "earlyClose": false,
+              "open": "2026-10-26T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-27T20:00:00.000Z",
+              "date": "2026-10-27",
+              "earlyClose": false,
+              "open": "2026-10-27T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-28T20:00:00.000Z",
+              "date": "2026-10-28",
+              "earlyClose": false,
+              "open": "2026-10-28T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-29T20:00:00.000Z",
+              "date": "2026-10-29",
+              "earlyClose": false,
+              "open": "2026-10-29T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-10-30T20:00:00.000Z",
+              "date": "2026-10-30",
+              "earlyClose": false,
+              "open": "2026-10-30T13:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-02T21:00:00.000Z",
+              "date": "2026-11-02",
+              "earlyClose": false,
+              "open": "2026-11-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-03T21:00:00.000Z",
+              "date": "2026-11-03",
+              "earlyClose": false,
+              "open": "2026-11-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-04T21:00:00.000Z",
+              "date": "2026-11-04",
+              "earlyClose": false,
+              "open": "2026-11-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-05T21:00:00.000Z",
+              "date": "2026-11-05",
+              "earlyClose": false,
+              "open": "2026-11-05T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-06T21:00:00.000Z",
+              "date": "2026-11-06",
+              "earlyClose": false,
+              "open": "2026-11-06T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-09T21:00:00.000Z",
+              "date": "2026-11-09",
+              "earlyClose": false,
+              "open": "2026-11-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-10T21:00:00.000Z",
+              "date": "2026-11-10",
+              "earlyClose": false,
+              "open": "2026-11-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-11T21:00:00.000Z",
+              "date": "2026-11-11",
+              "earlyClose": false,
+              "open": "2026-11-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-12T21:00:00.000Z",
+              "date": "2026-11-12",
+              "earlyClose": false,
+              "open": "2026-11-12T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-13T21:00:00.000Z",
+              "date": "2026-11-13",
+              "earlyClose": false,
+              "open": "2026-11-13T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-16T21:00:00.000Z",
+              "date": "2026-11-16",
+              "earlyClose": false,
+              "open": "2026-11-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-17T21:00:00.000Z",
+              "date": "2026-11-17",
+              "earlyClose": false,
+              "open": "2026-11-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-18T21:00:00.000Z",
+              "date": "2026-11-18",
+              "earlyClose": false,
+              "open": "2026-11-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-19T21:00:00.000Z",
+              "date": "2026-11-19",
+              "earlyClose": false,
+              "open": "2026-11-19T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-20T21:00:00.000Z",
+              "date": "2026-11-20",
+              "earlyClose": false,
+              "open": "2026-11-20T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-23T21:00:00.000Z",
+              "date": "2026-11-23",
+              "earlyClose": false,
+              "open": "2026-11-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-24T21:00:00.000Z",
+              "date": "2026-11-24",
+              "earlyClose": false,
+              "open": "2026-11-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-25T21:00:00.000Z",
+              "date": "2026-11-25",
+              "earlyClose": false,
+              "open": "2026-11-25T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-26T21:00:00.000Z",
+              "date": "2026-11-26",
+              "earlyClose": false,
+              "open": "2026-11-26T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-11-27T18:00:00.000Z",
+              "date": "2026-11-27",
+              "earlyClose": true,
+              "open": "2026-11-27T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-11-30T21:00:00.000Z",
+              "date": "2026-11-30",
+              "earlyClose": false,
+              "open": "2026-11-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-01T21:00:00.000Z",
+              "date": "2026-12-01",
+              "earlyClose": false,
+              "open": "2026-12-01T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-02T21:00:00.000Z",
+              "date": "2026-12-02",
+              "earlyClose": false,
+              "open": "2026-12-02T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-03T21:00:00.000Z",
+              "date": "2026-12-03",
+              "earlyClose": false,
+              "open": "2026-12-03T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-04T21:00:00.000Z",
+              "date": "2026-12-04",
+              "earlyClose": false,
+              "open": "2026-12-04T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-07T21:00:00.000Z",
+              "date": "2026-12-07",
+              "earlyClose": false,
+              "open": "2026-12-07T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-08T21:00:00.000Z",
+              "date": "2026-12-08",
+              "earlyClose": false,
+              "open": "2026-12-08T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-09T21:00:00.000Z",
+              "date": "2026-12-09",
+              "earlyClose": false,
+              "open": "2026-12-09T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-10T21:00:00.000Z",
+              "date": "2026-12-10",
+              "earlyClose": false,
+              "open": "2026-12-10T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-11T21:00:00.000Z",
+              "date": "2026-12-11",
+              "earlyClose": false,
+              "open": "2026-12-11T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-14T21:00:00.000Z",
+              "date": "2026-12-14",
+              "earlyClose": false,
+              "open": "2026-12-14T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-15T21:00:00.000Z",
+              "date": "2026-12-15",
+              "earlyClose": false,
+              "open": "2026-12-15T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-16T21:00:00.000Z",
+              "date": "2026-12-16",
+              "earlyClose": false,
+              "open": "2026-12-16T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-17T21:00:00.000Z",
+              "date": "2026-12-17",
+              "earlyClose": false,
+              "open": "2026-12-17T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-18T21:00:00.000Z",
+              "date": "2026-12-18",
+              "earlyClose": false,
+              "open": "2026-12-18T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-21T21:00:00.000Z",
+              "date": "2026-12-21",
+              "earlyClose": false,
+              "open": "2026-12-21T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-22T21:00:00.000Z",
+              "date": "2026-12-22",
+              "earlyClose": false,
+              "open": "2026-12-22T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-23T21:00:00.000Z",
+              "date": "2026-12-23",
+              "earlyClose": false,
+              "open": "2026-12-23T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-24T18:00:00.000Z",
+              "date": "2026-12-24",
+              "earlyClose": true,
+              "open": "2026-12-24T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-25T21:00:00.000Z",
+              "date": "2026-12-25",
+              "earlyClose": false,
+              "open": "2026-12-25T14:30:00.000Z",
+              "status": "closed"
+            },
+            {
+              "close": "2026-12-28T21:00:00.000Z",
+              "date": "2026-12-28",
+              "earlyClose": false,
+              "open": "2026-12-28T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-29T21:00:00.000Z",
+              "date": "2026-12-29",
+              "earlyClose": false,
+              "open": "2026-12-29T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-30T21:00:00.000Z",
+              "date": "2026-12-30",
+              "earlyClose": false,
+              "open": "2026-12-30T14:30:00.000Z",
+              "status": "open"
+            },
+            {
+              "close": "2026-12-31T21:00:00.000Z",
+              "date": "2026-12-31",
+              "earlyClose": false,
+              "open": "2026-12-31T14:30:00.000Z",
+              "status": "open"
+            }
+          ],
+          "timezone": "America/New_York",
+          "version": "us-equities-2026-reference-v1"
+        },
+        "commission": "0.000000",
+        "currency": "USD",
+        "cutoffMinutes": 30,
+        "drawdownAttentionBps": 1500,
+        "endsAt": "2027-01-01T01:00:00.000Z",
+        "evidenceMode": "observed",
+        "execution": "next_regular_open",
+        "initialCapital": "100000.000000",
+        "instruments": [
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "AAPL",
+            "sector": "Technology",
+            "symbol": "AAPL",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "MSFT",
+            "sector": "Technology",
+            "symbol": "MSFT",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "GOOGL",
+            "sector": "Communication Services",
+            "symbol": "GOOGL",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "AMZN",
+            "sector": "Consumer Discretionary",
+            "symbol": "AMZN",
+            "venue": "XNAS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "JPM",
+            "sector": "Financials",
+            "symbol": "JPM",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "JNJ",
+            "sector": "Health Care",
+            "symbol": "JNJ",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "XOM",
+            "sector": "Energy",
+            "symbol": "XOM",
+            "venue": "XNYS"
+          },
+          {
+            "classificationSource": "owner-selected sector classification; review before changing universe",
+            "currency": "USD",
+            "id": "WMT",
+            "sector": "Consumer Staples",
+            "symbol": "WMT",
+            "venue": "XNAS"
+          }
+        ],
+        "leverage": false,
+        "longOnly": true,
+        "marketPolicy": {
+          "acquisitionCost": "0",
+          "adjustment": "raw",
+          "feed": "yfinance",
+          "id": "source_observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+          "provider": "yahoo"
+        },
+        "maxMarkAgeSeconds": 259200,
+        "maxOpeningWaitSeconds": 36000,
+        "methodology": "inv-real-open-v1",
+        "observedPolicy": {
+          "basis": "same_session_unadjusted_chart",
+          "initialSession": "2026-10-14",
+          "maxOrdersPerSession": 2,
+          "maxOrdersPerWeek": 6,
+          "minimumCashBps": 500
+        },
+        "positionLimitBps": 1500,
+        "publicationPolicy": "owner-reported-personal-publication-v1",
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "sectorLimitBps": 3500,
+        "slippageBps": 10,
+        "startsAt": "2026-10-13T20:25:26.543Z",
+        "universeVersion": "owner-selected-v1",
+        "version": "observed-paper-v1"
+      },
+      "derivedCycleReservation": {
+        "inputTokens": 0,
+        "maxCostMicros": 0,
+        "outputTokens": 0
+      },
+      "digest": "e68c9593948247e5416c8054c543027c29f183878fc1ed2e7f7fb51e2c0f482c",
+      "envelope": {
+        "dailyLimits": {
+          "inputTokens": 0,
+          "maxCostMicros": 0,
+          "outputTokens": 0
+        },
+        "maxCycleExecutions": 7,
+        "maxDailyExecutions": 8,
+        "maxRunExecutions": 16,
+        "maxStageAttempts": 3,
+        "researchMinutes": 60,
+        "retrySeconds": 60,
+        "runLimits": {
+          "inputTokens": 0,
+          "maxCostMicros": 0,
+          "outputTokens": 0
+        },
+        "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+        "sessions": [
+          "2026-10-14",
+          "2026-10-15"
+        ]
+      },
+      "loopId": "6a8ca917-3dec-414e-ad33-a31eea6cb194",
+      "notice": "Explicit start admits due work within separately approved finite authority. Budget days use America/New_York. Reservations never refund; missing measured usage is unknown. Stop prevents future scheduled work; publication remains separately scoped.",
+      "plan": [
+        {
+          "collect_close": "2026-10-14T20:05:00.000Z",
+          "collect_research": "2026-10-14T16:51:08.000Z",
+          "cutoff": "2026-10-14T19:30:00.000Z",
+          "expire": "2026-10-14T23:30:00.000Z",
+          "mark": "2026-10-14T20:25:00.000Z",
+          "markEnd": "2026-10-15T23:39:59.999Z",
+          "open": "2026-10-14T20:20:00.000Z",
+          "research": "2026-10-14T17:06:08.000Z",
+          "session": "2026-10-14"
+        },
+        {
+          "collect_close": "2026-10-15T20:05:00.000Z",
+          "collect_research": "2026-10-15T11:45:00.000Z",
+          "cutoff": "2026-10-15T13:00:00.000Z",
+          "expire": "2026-10-15T23:30:00.000Z",
+          "mark": "2026-10-15T20:25:00.000Z",
+          "markEnd": "2026-10-15T23:39:59.999Z",
+          "open": "2026-10-15T20:20:00.000Z",
+          "research": "2026-10-15T12:00:00.000Z",
+          "session": "2026-10-15"
+        }
+      ],
+      "team": {
+        "aiProfile": {
+          "cliVersion": "0.157.0",
+          "model": "gpt-6-sol",
+          "reasoningEffort": "low",
+          "serviceTier": "default"
+        },
+        "audience": "private_paper",
+        "executionPolicy": {
+          "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+          "existingCreditsApproved": true,
+          "maxConcurrent": 1,
+          "maxCycle": 7,
+          "maxDay": 8,
+          "maxDurationMs": 300000,
+          "maxRolling24h": 8,
+          "maxRun": 16,
+          "maxWorker": 12,
+          "mode": "credit_approved_finite_hq",
+          "providerRetriesAccepted": true,
+          "uncertainRetries": 0
+        },
+        "expiresAt": "2026-10-15T23:40:00.000Z",
+        "groupId": "group_ca1cb37d-0e89-4e95-9d81-31a2ae6fd479",
+        "maxExecutions": 16,
+        "maxOrders": 12,
+        "maxProposals": 24,
+        "maxResearch": 0,
+        "participants": [
+          {
+            "name": "Atlas",
+            "responsibility": "Develop research and alternatives, synthesize conclusions and submit scoped paper decisions.",
+            "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+          },
+          {
+            "name": "Maya",
+            "responsibility": "Independently challenge the exact thesis and paper proposal, evidence, downside and invalidation conditions.",
+            "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+          }
+        ],
+        "proposers": [
+          "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+        ],
+        "publicationChannelId": "",
+        "reviewers": [
+          "worker_85bebccd-fb82-48c3-abfa-bc62117f8746"
+        ],
+        "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+        "submitters": [
+          "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1"
+        ],
+        "turnLimits": {
+          "inputTokens": 0,
+          "maxCostMicros": 0,
+          "outputTokens": 0
+        }
+      }
+    },
+    "recovery": {
+      "amendment": {
+        "cutoffAt": "2026-10-14T19:30:00.000Z",
+        "expiresAt": "2026-10-14T23:30:00.000Z",
+        "id": "late_close_ec44b7bf-1654-4f4b-a21d-2909fdfd7271",
+        "ownerReceiptHash": "adbcc5136604bba1eddf54c52a5c114efa20241b9ee0fd8efc10f94561a3a208",
+        "session": "2026-10-14"
+      },
+      "checkpointDigest": "21b5ee787411c99acc0d987444b54c4420d12ad5e54e8a563449d07bdee84983",
+      "executionId": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "localUsageHash": "132d5c832b903aa14c48b6454fa857d36cf01dda03cccb70147a41856c18d14e",
+      "maxAdditional": 7,
+      "oldAuthorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+      "oldGroupId": "group_15dd6047-a91e-40eb-8be0-c7395e371ef2",
+      "oldScopeId": "35226635-d0dc-4d6e-8c51-f90e7efb3894",
+      "portfolioHead": "5adc5273ad618c69b66c2e9cb015aa3050cad81a83748bf159fe41b196ada4d9",
+      "researchAt": "2026-10-14T17:06:08.000Z",
+      "reservationHash": "e04ccc85db6abcc31d43c970f5300705dd563e7bf8ec7ba928105020687d15ac",
+      "retainedEvidenceHash": "420417b4240bc8ce08db593838f5bbb2e9299da4bc40c62338a4421edfac0184"
+    }
+  },
+  "approved": {
+    "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+    "runId": "observed_f78ef11e-88dd-45fe-ba47-ac6694ed184f",
+    "groupId": "group_ca1cb37d-0e89-4e95-9d81-31a2ae6fd479",
+    "scopeId": "68ab0223-32b5-4a02-a7aa-a70ee9bc20dc",
+    "previewDigest": "77b9491c155d56747a410316708f1e636eb71c49adfed099d85e3acd3c781ac9",
+    "configurationHash": "6325475ddff642609f324a90b2053c7161e9c8a9acb9206147edb2722ae71a7e",
+    "scopeDigest": "8d9b60ac580eeb39d1cf10cedd4f50fc03566f8d347947c5a252560225c9cb63",
+    "loopDigest": "e68c9593948247e5416c8054c543027c29f183878fc1ed2e7f7fb51e2c0f482c",
+    "participants": [
+      {
+        "workerId": "worker_c5d3c228-ef9f-4b20-b951-2ac9dab48ac1",
+        "responsibility": "Develop research and alternatives, synthesize conclusions and submit scoped paper decisions."
+      },
+      {
+        "workerId": "worker_85bebccd-fb82-48c3-abfa-bc62117f8746",
+        "responsibility": "Independently challenge the exact thesis and paper proposal, evidence, downside and invalidation conditions."
+      }
+    ],
+    "profile": {
+      "cliVersion": "0.157.0",
+      "model": "gpt-6-sol",
+      "reasoningEffort": "low",
+      "serviceTier": "default"
+    },
+    "expiresAt": "2026-10-15T23:40:00.000Z",
+    "policy": {
+      "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a",
+      "existingCreditsApproved": true,
+      "maxConcurrent": 1,
+      "maxCycle": 7,
+      "maxDay": 8,
+      "maxDurationMs": 300000,
+      "maxRolling24h": 8,
+      "maxRun": 16,
+      "maxWorker": 12,
+      "mode": "credit_approved_finite_hq",
+      "providerRetriesAccepted": true,
+      "uncertainRetries": 0
+    },
+    "recovery": {
+      "oldAuthorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb",
+      "executionId": "execution_ec78843c-0b56-4343-9d38-a6ba223867be",
+      "reservationHash": "e04ccc85db6abcc31d43c970f5300705dd563e7bf8ec7ba928105020687d15ac",
+      "checkpointDigest": "21b5ee787411c99acc0d987444b54c4420d12ad5e54e8a563449d07bdee84983",
+      "localUsageHash": "132d5c832b903aa14c48b6454fa857d36cf01dda03cccb70147a41856c18d14e",
+      "retainedEvidenceHash": "420417b4240bc8ce08db593838f5bbb2e9299da4bc40c62338a4421edfac0184",
+      "portfolioHead": "5adc5273ad618c69b66c2e9cb015aa3050cad81a83748bf159fe41b196ada4d9",
+      "maxAdditional": 7
+    },
+    "approval": {
+      "ownerId": "human",
+      "receiptHash": "b1f36c163c1ed423cc29a381512fcae06e2cc52fa9577ce06e84efb4b220ef7e",
+      "approvedAt": "2026-10-14T16:56:17.247Z"
+    }
+  },
+  "approvedMatchesIndependentJournal": true,
+  "releasePreparationDigestMatches": true,
+  "journalSuffix": [
+    {
+      "sequence": 58,
+      "at": "2026-10-14T16:55:34.566Z",
+      "kind": "hold",
+      "previous": "2662178a3eb09f3984a5505b8e9d431a38dd2aa54486165596a3d170d0eb2bd8",
+      "digest": "21b5ee787411c99acc0d987444b54c4420d12ad5e54e8a563449d07bdee84983",
+      "payloadSHA256": "1465c56ee60bbbf1240608b5420b0227f4f0f1ab1a956049534f8d787424aed9",
+      "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb"
+    },
+    {
+      "sequence": 59,
+      "at": "2026-10-14T16:56:17.247Z",
+      "kind": "stop",
+      "previous": "21b5ee787411c99acc0d987444b54c4420d12ad5e54e8a563449d07bdee84983",
+      "digest": "71945fefc5a8af557769636df66d1c1eb01074b8005fc9b70224571f2618f377",
+      "payloadSHA256": "1c14ed6d659dce65da14d555762f2a7438d80647357363373d2f46236780f301",
+      "authorityId": "observed_415ad15f-ecda-4c53-8a41-4b22eee02acb"
+    },
+    {
+      "sequence": 60,
+      "at": "2026-10-14T16:56:17.247Z",
+      "kind": "approve",
+      "previous": "71945fefc5a8af557769636df66d1c1eb01074b8005fc9b70224571f2618f377",
+      "digest": "87e0d9a9a0868322f4d8c2b6cad513e8b1c050aa6af2ca92fc389018206ba968",
+      "payloadSHA256": "c65c8aaa5782bef6377ba429300bb6693ea86437103bffa3221cce2acc8ba53c",
+      "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a"
+    },
+    {
+      "sequence": 61,
+      "at": "2026-10-14T16:56:17.247Z",
+      "kind": "attest",
+      "previous": "87e0d9a9a0868322f4d8c2b6cad513e8b1c050aa6af2ca92fc389018206ba968",
+      "digest": "a8e66c412b08fd52ec9bf93fdf4c0967406d799b3caca747cd84674a1108b9d6",
+      "payloadSHA256": "f5090655089894931e21d31d273e71ecf0ff5031f34f9e3ae3f23d6f698ba5cb",
+      "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a"
+    },
+    {
+      "sequence": 62,
+      "at": "2026-10-14T16:56:35.580Z",
+      "kind": "hold",
+      "previous": "a8e66c412b08fd52ec9bf93fdf4c0967406d799b3caca747cd84674a1108b9d6",
+      "digest": "e98f2a0c192c00013bfac45ec6e714c37ea70b188385f00f0b84f75f98889326",
+      "payloadSHA256": "8e0df546e58b5013db4cfcda533df77e7b0c71274be9c74050c2690419f618d8",
+      "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a"
+    },
+    {
+      "sequence": 63,
+      "at": "2026-10-14T16:56:35.909Z",
+      "kind": "resume",
+      "previous": "e98f2a0c192c00013bfac45ec6e714c37ea70b188385f00f0b84f75f98889326",
+      "digest": "8bd4ba882e53d2ccf5aeaf640de6a0da0a5246502c544fa46a0a199ad4158f3a",
+      "payloadSHA256": "3b6b9b4fc82e31c5fa9932f30e17e08c96629bad4ce114a7fb87bf649db440e1",
+      "authorityId": "observed_recovery_ce449d62-bc45-416a-af72-6e1a06bd100a"
+    }
+  ],
+  "noCredentialExport": true
+}
