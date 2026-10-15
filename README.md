@@ -1,5 +1,7 @@
 # BotSquad
 
+**Owner-authorized Trade rerun, October 15:** The owner explicitly authorized a new call allowance and rerun. [Decision 053](docs/decisions/decision_053_owner_observed_renewal.md) preserves the ten historical attempts and two settled incomplete records while granting seven additional calls in a new scope. Its authored six-turn workflow, approval crash recovery and prospective October 16 schedule pass locally. Deployment and genuine rerun evidence are tracked in the [renewal record](docs/validation/investment/OWNER-RENEWAL-20261015.md); this source statement does not itself claim live activation.
+
 **Investment incident, October 15:** The rolling-start fix succeeded, and Atlas
 created a genuine HOLD proposal. Maya's review hit a trusted timestamp mismatch;
 the adapter mislabeled that rejection as an approval request. The
