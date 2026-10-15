@@ -17,3 +17,5 @@ Restart before/after independent approval restores only the exact eligible prepa
 See [renewal and live evidence](../validation/investment/OWNER-RENEWAL-20261015.md) and [Decision054](decision_054_observed_source_continuation.md).
 
 Repeated authority reads compare every current journal row and custody byte with a fully verified replay before reusing it. File identity, SQLite integrity and all authority-root canonical paths are still checked on each read; cache misses retain the final custody read after replay. Returned state is deeply cloned, and a transaction never installs its partially applied state as a replay cache. No clock, expiry, capacity or current hold decision is cached. This avoids repeated canonical parsing while preserving corruption and independent-write detection.
+
+Pure UTC timestamp validation retains a bounded1,024-entry primitive-string-to-number cache. Invalid inputs are never cached, and the unchanged format/calendar round-trip checks run on misses. No current clock, expiry decision or mutable object is retained.

@@ -62,3 +62,7 @@ Decision055 adds explicit schemas and bounded correction of pure input-validatio
 ## 22:24 UTC Linux timing repair
 
 PR105 candidate4da4615 passed264 local regressions and the full local workflow. Linux97focused passed, but the full workflow exceeded the unchanged60-second final-stage limit at call17. Profiling measured8.30seconds in journal replay over67.18seconds locally. Exact full-input replay memoization retains all live checks, reads custody after replay, and returns clones; source review cleared it. Six new snapshot negatives pass; repeat whole Linux workflow remains required. Revised ETA: another20–35minutes including deployment and genuine execution.
+
+## 22:40 UTC performance validation
+
+The second isolated Linux workflow improved to 335.46 seconds but missed the original 60-second fresh-stage bound after all six new turns completed. A bounded memo of pure validated UTC strings removes the next measured repeated cost; clock and expiry decisions remain live. Both specialists cleared the source. Local authority/simulator checks and the complete workflow pass (57.66 seconds, fresh stage 10.915 seconds). A third exact-source Linux run precedes deployment. Revised best-effort ETA: another 15–25 minutes, depending on Linux validation and genuine provider responses.
