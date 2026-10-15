@@ -100,6 +100,7 @@ else if(m.method==='turn/start'){
  if(mode==='native'){send({method:'item/started',params:{threadId:thread.id,turnId:'pilot-turn',item:{type:'commandExecution'}}});return;}
  if(mode==='approval'){send({id:'approval',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'pilot-turn'}});return;}
  if(mode==='tool'){send({id:'bad',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'research_search',callId:'bad',arguments:{query:'denied'}}});return;}
+ if(mode==='tool-rejected'){send({id:'rejected',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'read_discussion',callId:'rejected',arguments:{}}});return;}
  if(['maya-review','final-atlas-review'].includes(mode)){
   const context=JSON.parse(p.input[0].text.slice(p.input[0].text.indexOf('\\n')+1));
   if(context.shared_evidence.length!==(mode==='final-atlas-review'?3:2)||context.owner_interjections.length!==0)throw Error('Wrong Maya context');

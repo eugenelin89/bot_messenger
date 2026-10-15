@@ -289,7 +289,7 @@ export class CodexRuntime implements RuntimeAdapter {
     let starting = false; let toolCalls = 0; let stopping=false;
     const pendingEvents: RpcMessage[] = [];
     const pendingRequests: RpcMessage[] = [];
-    let finalText = ''; let approvalDenied = false; let finished = false; let interruptTimer: NodeJS.Timeout | undefined;
+    let finalText = ''; let approvalDenied = false; let toolFailure: string | undefined; let finished = false; let interruptTimer: NodeJS.Timeout | undefined;
     let completing=false;let providerSettled=false;
     const pendingTools=new Set<Promise<void>>();
     const toolController=new AbortController();
@@ -310,7 +310,7 @@ export class CodexRuntime implements RuntimeAdapter {
         void rpc.request('turn/interrupt', { threadId, turnId }, 5000).catch(() => {});
       }
       if (!interruptTimer) interruptTimer = setTimeout(() => {
-        finish({ status: approvalDenied ? 'awaiting_approval' : 'interrupted', error: 'Runtime stopped; inspect retained evidence before retry' }); rpc.close();
+        finish({ status: approvalDenied ? 'awaiting_approval' : toolFailure ? 'failed' : 'interrupted', error: toolFailure ?? 'Runtime stopped; inspect retained evidence before retry' }); rpc.close();
       }, 6000);
     };
     const researchGuard=input.investment?.purpose==='private_research'?setInterval(()=>{try{finiteResearchEnvironment(this.finiteHQ?.permit);}catch{interrupt();}},500):undefined;
@@ -370,7 +370,9 @@ export class CodexRuntime implements RuntimeAdapter {
         }
       } catch (error) {
         try {
-          if(bounded){approvalDenied=true;interrupt();}
+          // A rejected callback is not a request for human permission. Keep the
+          // bounded stop/settlement fence, but retain the actual failure reason.
+          if(bounded){toolFailure=`Runtime tool callback rejected: ${error instanceof Error ? error.message : 'Tool rejected'}`;interrupt();}
           input.event('tool_rejected', { reason: error instanceof Error ? error.message : 'Tool rejected' });
           rpc.send({ id: message.id, result: { contentItems: [{ type: 'inputText', text: error instanceof Error ? error.message : 'Tool rejected' }], success: false } });
         } catch { finish({status:'failed',error:'Runtime callback authority revoked'}); rpc.close(); }
@@ -414,6 +416,7 @@ export class CodexRuntime implements RuntimeAdapter {
         const turn = p.turn as { id: string; status: string; error?: { message: string } };
         if (turn.id !== turnId) return;
         if (approvalDenied) finish({ status: 'awaiting_approval', settled:true, error: 'Runtime requested an unavailable approval. No permissions granted.' });
+        else if (toolFailure) finish({status:'failed',settled:true,error:toolFailure});
         else if (bounded&&stopping) finish({status:'interrupted',settled:true,providerTurnCompleted:turn.status==='completed',error:'Local pilot stop preceded provider settlement'});
         else if (turn.status === 'completed') finish({ status: 'completed', settled:true, providerTurnCompleted:true, summary: ask?undefined:finalText });
         else if (turn.status === 'interrupted') finish({ status: 'interrupted', settled:true, error: 'Codex confirmed turn interruption' });

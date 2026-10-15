@@ -1,5 +1,12 @@
 # BotSquad
 
+**Investment incident, October 15:** The rolling-start fix succeeded, and Atlas
+created a genuine HOLD proposal. Maya's review hit a trusted timestamp mismatch;
+the adapter mislabeled that rejection as an approval request. The
+[review-clock repair](docs/validation/investment/REVIEW-CLOCK-20261015.md) records
+the fix and tests. Live operation remains held: the second incomplete invocation,
+one remaining family call and elapsed cutoff prohibit ordinary resume.
+
 **Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
 
 **Historical ASK-LAUNCH checkpoint, October 14:** PR 89 deployed HQ `5691504`/schema 29 and the closed Ask receiver `6a194f0`; later investment releases supersede that HQ commit. The separate protected API route passed authored Linux validation, but genuine Ask answers remain unverified. Ask is now owner-paused; no spending decision is currently sought. See [launch evidence](docs/validation/ASK_LAUNCH.md) and [runbook](docs/operations/ASK-LAUNCH.md).

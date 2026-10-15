@@ -12,6 +12,20 @@ test('even an exact existing finite binding is denied before CLI startup because
  assert.equal(f.methods().length,0);
  assert.equal(f.authority.journal.state(f.x.execution.execution_id)!.state,'reserved');
 });
+for(const mode of ['tool-rejected','approval'])test('finite callback failure and actual approval retain distinct causes: '+mode,async t=>{
+ const f=finiteTransport(mode);t.after(f.close);t.mock.timers.enable({apis:['Date'],now:Date.parse(f.clock.now())});
+ const events:string[]=[];const event=f.input.event;f.input.event=(type,detail)=>{events.push(type);event(type,detail);};
+ f.input.callTool=()=>{throw Error('Paper review rejected: review_mismatch');};
+ const result=await f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy);
+ assert.equal(result.status,mode==='approval'?'awaiting_approval':'failed');assert.equal(result.settled,true);
+ assert.equal(events.includes('runtime_approval_required'),mode==='approval');
+ if(mode==='tool-rejected')assert.match(result.error!,/Paper review rejected: review_mismatch/);
+ assert.equal(result.providerTurnCompleted,undefined);assert.equal(f.methods().filter(m=>m==='turn/start').length,1);
+ assert.ok(f.methods().includes('turn/interrupt'));f.company.finish(f.x.execution.execution_id,result);
+ assert.equal(f.company.claimWorkNext(),undefined);assert.equal(f.company.investmentLoop.get(f.result.loop.loopId).state,'blocked');
+ assert.equal(f.authority.journal.state(f.x.execution.execution_id)!.state,'settled');
+ assert.notEqual(f.company.aiUsage.records({executionId:f.x.execution.execution_id})[0]!.completeness,'complete');
+});
 for(const mode of ['success','startup-snapshot','before-admission','multiple-identical'])test('finite fake Codex exact account and one-use transmission: '+mode,async t=>{const f=finiteTransport(mode);t.after(f.close);t.mock.timers.enable({apis:['Date'],now:Date.parse(f.clock.now())});const result=await f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy);assert.equal(result.status,'completed');assert.equal(result.settled,true);assert.equal(f.methods().filter(m=>m==='turn/start').length,1);assert.equal(f.authority.journal.state(f.x.execution.execution_id)!.state,'transmitted');f.company.finish(f.x.execution.execution_id,result);assert.equal(f.authority.journal.state(f.x.execution.execution_id)!.state,'settled');assert.equal(f.company.aiUsage.records({executionId:f.x.execution.execution_id})[0]!.completeness,'complete');await assert.rejects(()=>f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy));assert.equal(f.methods().filter(m=>m==='turn/start').length,1);});
 for(const mode of ['identity-change','wrong-model','wrong-provider','api-key-change','backend-change','routing-change','notification-storm','unsafe-skills'])test('finite fake Codex denies '+mode+' before provider transmission',async t=>{const f=finiteTransport(mode);t.after(f.close);t.mock.timers.enable({apis:['Date'],now:Date.parse(f.clock.now())});await assert.rejects(()=>f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy));assert.equal(f.methods().includes('turn/start'),false);assert.equal(f.authority.journal.counts(f.policy.authorityId,f.clock.now()).run,1);});
 test('no-op admission callback cannot transmit a finite provider turn',async t=>{const f=finiteTransport();t.after(f.close);t.mock.timers.enable({apis:['Date'],now:Date.parse(f.clock.now())});f.input.admitSubscription=()=>{};await assert.rejects(()=>f.runtime.runFiniteHQInvestment!(f.input,new AbortController().signal,f.policy),/consumed|uncertain|admission/);assert.equal(f.methods().includes('turn/start'),false);assert.equal(f.authority.journal.state(f.x.execution.execution_id)!.state,'reserved');});

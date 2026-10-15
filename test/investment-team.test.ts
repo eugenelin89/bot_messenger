@@ -18,6 +18,26 @@ test('exact independent HOLD review and submission require delivered evidence an
  f.call(b,'read_group_record',{record_id:f.evidence.evidence_id,offset:0});f.call(b,'paper_read_proposal',{proposalId:saved.proposal.proposal_id});const reviewInput={proposalId:saved.proposal.proposal_id,proposalHash:saved.proposal.proposal_hash,disposition:'approve',rationale:'Waiting is consistent with the stated uncertainty; retain opportunity-cost risk',dissent:[],evidenceIds:[]};assert.throws(()=>f.call(b,'paper_review',reviewInput),/not settled/);f.contribute(a);f.finish(a);f.call(b,'read_discussion',{});const reviewed=f.call(b,'paper_review',reviewInput) as {review:PaperReview};f.contribute(b);f.finish(b);
  const final=f.claim();f.call(final,'paper_read_proposal',{proposalId:saved.proposal.proposal_id});f.company.conversations.event(final.context,'runtime_turn_starting',{context_chars:1});const result=f.call(final,'paper_submit',{proposalId:saved.proposal.proposal_id,reviewId:reviewed.review.review_id,proposalHash:saved.proposal.proposal_hash});assert.equal(result.outcome.status,'hold');assert.equal(f.sim.inspect(f.config.runId).ordersUsed,0);assert.equal(f.store.all('SELECT * FROM investment_team_submissions').length,1);
 });
+test('independent review commits with an advancing real-world clock',t=>{
+ const f=teamFixture();t.after(()=>f.close());f.grant();f.control('start');const [a,b]=f.pair();
+ f.call(a,'read_group_record',{record_id:f.evidence.evidence_id,offset:0});
+ const p=f.call(a,'paper_propose',f.proposal).proposal;f.contribute(a);f.finish(a);
+ f.call(b,'read_discussion',{});f.call(b,'read_group_record',{record_id:f.evidence.evidence_id,offset:0});f.call(b,'paper_read_proposal',{proposalId:p.proposal_id});
+ let now=Date.parse(f.clock.now());f.company.mandates.clock={now:()=>++now};
+ const input={proposalId:p.proposal_id,proposalHash:p.proposal_hash,disposition:'approve',rationale:'Independent review under an advancing clock',dissent:[],evidenceIds:[]},callId=randomUUID();
+ const saved=f.call(b,'paper_review',input,callId),r=saved.review;
+ const journal=f.sim.journal(f.config.runId).find(j=>j.command.type==='review')!;
+ assert.notEqual(journal.outcome.status,'rejected');assert.equal(journal.command.type,'review');
+ if(journal.command.type==='review')assert.equal(journal.command.review.reviewedAt,journal.recordedAt);
+ assert.equal(r.created_at,journal.recordedAt);assert.equal(f.store.all('SELECT * FROM investment_team_reviews').length,1);
+ const before=f.sim.journal(f.config.runId),receipts=f.store.all('SELECT * FROM tool_receipts');
+ assert.deepEqual(f.call(b,'paper_review',input,callId),JSON.parse(JSON.stringify(saved)));assert.deepEqual(f.sim.journal(f.config.runId),before);assert.deepEqual(f.store.all('SELECT * FROM tool_receipts'),receipts);
+ if(journal.command.type==='review'){
+  f.clock.set(new Date(now+1000).toISOString());
+  const rejected=f.sim.execute(f.config.runId,{type:'review',review:{...journal.command.review,id:randomUUID(),reviewedAt:new Date(now-1000).toISOString()}},randomUUID());
+  assert.equal(rejected.outcome.reason,'review_mismatch');
+ }
+});
 test('owner preview binds the reviewed evidence checkpoint and the run cannot acquire a second scope',async t=>{
  const f=teamFixture();t.after(()=>f.close());const p=f.preview();f.company.discussions.note({group_id:f.group.group_id,kind:'note',body:'A newly added constraint',receipt_key:randomUUID()});assert.throws(()=>f.company.investmentTeam.consent({scopeId:p.scopeId,digest:p.digest}),/context changed/);const renewed=f.preview();assert.notEqual(renewed.digest,p.digest);assert.throws(()=>f.company.investmentTeam.consent({scopeId:p.scopeId,digest:p.digest}),/digest/);f.company.investmentTeam.consent({scopeId:renewed.scopeId,digest:renewed.digest});assert.throws(()=>f.preview(),/immutable investment scope/);
 });
