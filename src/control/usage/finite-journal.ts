@@ -59,6 +59,7 @@ function validateEnvelope(e:FiniteEnvelope){
 /** Event history and independent custody must agree exactly. A partial cross-file commit stays stopped. */
 export class FiniteJournal {
  private readonly db:DatabaseSync;private readonly inode:number;
+ private verified?:{rows:string;custody:string;state:State};
  constructor(readonly path:string,readonly custodyPath:string){
   privatePath(dirname(path));privatePath(dirname(custodyPath));this.inode=privatePath(path,true).ino;privatePath(custodyPath,true);
   this.db=new DatabaseSync(path);this.db.exec('PRAGMA busy_timeout=5000; PRAGMA synchronous=FULL');
@@ -71,6 +72,13 @@ export class FiniteJournal {
   this.present();requireThat(this.db.prepare('PRAGMA integrity_check').get()?.integrity_check==='ok','Finite authority corrupt');
   const rows=this.db.prepare('SELECT * FROM events ORDER BY sequence').all() as unknown as Entry[];
   requireThat(rows.length>0,'Finite authority incomplete');
+  // Re-read every row and the independent custody on every call. Only byte-identical,
+  // fully verified input may reuse replay work; never trust just a head, mtime or version.
+  const serialized=JSON.stringify(rows);
+  if(this.verified?.rows===serialized){
+   for(const e of this.verified.state.authorities.values())requireThat(realpathSync(e.root)===e.root,'Exact canonical HQ identity required');
+   if(this.verified.custody===readFileSync(this.custodyPath,'utf8'))return structuredClone(this.verified.state);
+  }
   const state:State={modelContinuations:new Map(),sourceContinuations:new Map(),recoveryHolds:new Set(),providerUntil:null,providerBlocked:false,collections:new Map(),receipts:new Map(),revisions:new Map(),other:new Map(),authorities:new Map(),attestations:new Map(),reservations:new Map(),holds:new Map(),stopped:new Set(),observed:new Map(),head:null!};
   let previous:string|null=null,last=0,epoch='';
   for(const row of rows){const {digest,...body}=row;requireThat(row.sequence===++last&&row.previous===previous&&hash(body)===digest&&validTime(row.at)&&(!state.head||row.at>=state.head.at),'Finite authority history discontinuity');
@@ -104,7 +112,8 @@ export class FiniteJournal {
     default:throw new Error('Unknown finite authority event');
    }
   }
-  const custody=JSON.parse(readFileSync(this.custodyPath,'utf8')) as Custody;requireThat(canonical(custody)===canonical(state.head),'Finite authority/custody mismatch: offline reconciliation required');return state;
+  const custodyText=readFileSync(this.custodyPath,'utf8'),custody=JSON.parse(custodyText) as Custody;requireThat(canonical(custody)===canonical(state.head),'Finite authority/custody mismatch: offline reconciliation required');
+  this.verified={rows:serialized,custody:custodyText,state};return structuredClone(state);
  }
  private append(state:State,kind:string,payload:unknown,at:string){const body={sequence:state.head.sequence+1,epoch:state.head.epoch,at,kind,payload:canonical(payload),previous:state.head.digest};const digest=hash(body);this.db.prepare('INSERT INTO events VALUES (?,?,?,?,?,?,?)').run(body.sequence,body.epoch,at,kind,body.payload,body.previous,digest);state.head={epoch:body.epoch,sequence:body.sequence,digest,at};}
  private custody(head:Custody){const tmp=this.custodyPath+'.'+randomUUID();const fd=openSync(tmp,'wx',0o600);try{writeFileSync(fd,canonical(head));fsyncSync(fd);}finally{closeSync(fd);}renameSync(tmp,this.custodyPath);syncDir(dirname(this.custodyPath));}

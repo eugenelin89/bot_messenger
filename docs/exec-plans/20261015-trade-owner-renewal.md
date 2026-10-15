@@ -57,3 +57,8 @@ The additional repair records one exact owner-authorized continuation under the 
 PR104 deployed at 21:41 UTC with preserved history. Remaining WMT/SPY collection completed at 21:43:48 UTC. Atlas completed a formal HOLD proposal at 21:46:10; Maya committed an approving review at 21:46:42, then supplied answer prose in an ID-only `answers` list. Provider settlement was known, but interruption left a failed execution/incomplete usage and no submitted decision. The exact rejected payload was inspected privately; generated IDs themselves were valid lengths.
 
 Decision055 adds explicit schemas and bounded correction of pure input-validation errors, plus one exact owner-authorized model continuation. It retains the failure and original review as unusable history, grants eight additional attempts separately (total15, two spent), reuses the source packet and starts fresh opening requests. No status rewrite, source replay, refund or failed-review publication is permitted. Independent security/recovery review and real close/reopen tests are required before deployment. The first twelve correction/authority tests pass; full workflow and broader validation remain in progress.
+
+
+## 22:24 UTC Linux timing repair
+
+PR105 candidate4da4615 passed264 local regressions and the full local workflow. Linux97focused passed, but the full workflow exceeded the unchanged60-second final-stage limit at call17. Profiling measured8.30seconds in journal replay over67.18seconds locally. Exact full-input replay memoization retains all live checks, reads custody after replay, and returns clones; source review cleared it. Six new snapshot negatives pass; repeat whole Linux workflow remains required. Revised ETA: another20–35minutes including deployment and genuine execution.
