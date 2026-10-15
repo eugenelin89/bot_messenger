@@ -1,0 +1,53 @@
+/** Authored independent-custody tests; no model calls or production authority. */
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdirSync,mkdtempSync,rmSync,realpathSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {DatabaseSync} from 'node:sqlite';
+import {FiniteJournal,type FiniteEnvelope,type FiniteReservation} from '../src/control/usage/finite-journal.js';
+import {hash} from '../src/domain/investment/identity.js';
+
+function fixture(t:test.TestContext){
+ const root=realpathSync(mkdtempSync(join(tmpdir(),'owner-renewal-')));mkdirSync(join(root,'a'),{mode:0o700});mkdirSync(join(root,'b'),{mode:0o700});
+ const start='2026-10-14T14:00:00.000Z',at='2026-10-15T20:10:00.000Z',j=FiniteJournal.createFixture(join(root,'a','journal'),join(root,'b','custody'),start);t.after(()=>{j.close();rmSync(root,{recursive:true,force:true});});
+ const account={accountFingerprint:hash('account'),routingFingerprint:hash('route')},policy={mode:'credit_approved_finite_hq' as const,authorityId:'original',maxRun:16,maxRolling24h:8,maxWorker:12,maxCycle:7,maxDay:8,maxDurationMs:300000,maxConcurrent:1 as const,uncertainRetries:0 as const,existingCreditsApproved:true as const,providerRetriesAccepted:true as const};
+ const e:FiniteEnvelope={authorityId:'original',hqId:'hq',root,runId:'run',groupId:'original-group',scopeId:'original-scope',previewDigest:hash('preview'),configurationHash:hash('config'),sourceHash:hash('source'),calendarHash:hash('calendar'),occurrencesHash:hash('occurrences'),scopeDigest:hash('scope'),loopDigest:hash('loop'),participants:[{workerId:'atlas',responsibility:'allocate'},{workerId:'maya',responsibility:'review'}],proposers:['atlas'],reviewers:['maya'],submitters:['atlas'],profile:{model:'fake',reasoningEffort:'low',serviceTier:'default',cliVersion:'0.157.0'},...account,expiresAt:'2026-10-15T23:40:00.000Z',research:{requestHashes:[hash('spent'),hash('unused')],retainUntil:'2027-01-01T00:00:00.000Z'},purpose:'observed_paper',evidenceMode:'synthetic_fixture',methodology:'inv-real-open-v1',paperOperations:['paper_inspect','paper_propose','paper_read_proposal','paper_review','paper_submit'],policy,approval:{ownerId:'human',receiptHash:hash('original-owner'),approvedAt:start}};
+ const reload={authorityId:e.authorityId,runId:e.runId,accountFingerprint:e.accountFingerprint,ownerId:'human',confirmedAt:'2026-10-11T14:00:00.000Z',reloadOff:true as const,evidenceHash:hash('authentic-confirmation')};j.approve(e,reload,start);
+ const reservation=(id:string,authorityId:string,when:string):FiniteReservation=>({authorityId,executionId:id,requestId:'q-'+id,workerId:'atlas',runId:e.runId,scopeId:authorityId+'-scope',occurrenceId:authorityId+'-'+when.slice(0,10),generation:1,sessionId:'s-'+id,providerGeneration:1,conversationId:'c',day:when.slice(0,10),reservedAt:when,deadline:new Date(Date.parse(when)+300000).toISOString(),scopeDigest:e.scopeDigest,profile:e.profile});
+ const source=j.reserveCollection('original',hash('spent'),start);j.settleCollection(source,'ok',true,start);
+ for(let i=0;i<4;i++){j.reserve(reservation('old'+i,'original',start),start);j.settle('old'+i,'completed',true,i!==3,start);}
+ const p=j.recoveryPreview('original','old3',start),recovery:FiniteEnvelope={...e,authorityId:'recovery',scopeId:'recovery-scope',groupId:'recovery-group',policy:{...policy,authorityId:'recovery'},research:{...e.research!,requestHashes:[hash('unused')]},recovery:{oldAuthorityId:'original',executionId:'old3',reservationHash:p.reservationHash,checkpointDigest:p.checkpointDigest,localUsageHash:hash('gap1'),retainedEvidenceHash:hash('retained'),portfolioHead:hash('head'),maxAdditional:7}};
+ j.approveRecovery(recovery,{...reload,authorityId:'recovery'},account,start);
+ for(let i=0;i<6;i++){const when=i<3?start:at;j.reserve(reservation('prior'+i,'recovery',when),when);j.settle('prior'+i,i===5?'awaiting_approval':'completed',true,i!==5,when);}
+ const preview=j.renewalPreview('recovery',['old3','prior5'],at),{reload:_,...binding}=preview;
+ const next:FiniteEnvelope={...e,authorityId:'renewed',scopeId:'renewed-scope',groupId:'renewed-group',expiresAt:'2026-10-16T23:40:00.000Z',policy:{...policy,authorityId:'renewed',maxRun:7,maxRolling24h:7,maxWorker:7,maxCycle:7,maxDay:7},research:{...e.research!,requestHashes:[hash('fresh-research'),hash('fresh-close')]},approval:{ownerId:'human',receiptHash:hash('renewal-release'),approvedAt:at},renewal:{...binding,exceptions:binding.exceptions.map(x=>({...x,localUsageHash:hash('local-'+x.executionId)})),portfolioHead:hash('current-head'),ownerReceiptHash:hash('explicit-owner-seven-new-calls'),maxAdditional:7,session:'2026-10-16',collectAt:'2026-10-15T20:15:00.000Z',researchAt:'2026-10-15T20:20:00.000Z'}};
+ const attestation={...reload,authorityId:'renewed'},approve=(n=next)=>j.approveRenewal(n,attestation,account,at),records=()=>{const db=new DatabaseSync(j.path,{readOnly:true});try{return db.prepare('SELECT * FROM events ORDER BY sequence').all();}finally{db.close();}};
+ return {j,e,next,at,account,attestation,approve,reservation,records};
+}
+
+test('seven additional calls preserve ten historical attempts and both gaps; raw rolling exceeds old cap truthfully',t=>{
+ const f=fixture(t),prefix=f.records(),baseline=f.next.renewal!.baseline.map(x=>f.j.state(x.executionId));f.approve();
+ assert.equal(f.j.counts('renewed',f.at).run,0);assert.equal(f.j.counts('renewed',f.at).lifetimeRun,10);assert.equal(f.j.counts('renewed',f.at).rawRolling,3);assert.equal(f.j.counts('renewed',f.at).rolling,0);assert.equal(f.j.rollingCapacityAt('renewed',6,f.at),f.at);
+ for(let i=0;i<7;i++){f.j.reserve(f.reservation('fresh'+i,'renewed',f.at),f.at);f.j.settle('fresh'+i,'completed',true,true,f.at);}
+ assert.equal(f.j.counts('renewed',f.at).run,7);assert.equal(f.j.counts('renewed',f.at).lifetimeRun,17);assert.equal(f.j.counts('renewed',f.at).rawRolling,10);assert.equal(f.j.counts('renewed',f.at).rolling,7);assert.throws(()=>f.j.reserve(f.reservation('eighth','renewed',f.at),f.at),/exhausted/);
+ assert.deepEqual(f.next.renewal!.baseline.map(x=>f.j.state(x.executionId)),baseline);assert.deepEqual(f.records().slice(0,prefix.length),prefix);assert.equal(f.j.counts('original',f.at).stopped,true);assert.equal(f.j.counts('recovery',f.at).stopped,true);assert.equal(f.j.counts('renewed',f.at).reloadConfirmedAt,f.attestation.confirmedAt);
+ assert.throws(()=>f.j.reserveOther({executionId:'other',reservedAt:f.at},f.at),/held/);assert.throws(()=>f.j.reserveCollection('renewed',hash('spent'),f.at),/approved|spent/);
+});
+test('duplicate approval across journal instances grants once; changed receipt and second successor fail',t=>{
+ const f=fixture(t);f.approve();const rows=f.records(),second=new FiniteJournal(f.j.path,f.j.custodyPath);try{assert.deepEqual(second.approveRenewal(f.next,f.attestation,f.account,f.at),f.next);}finally{second.close();}assert.deepEqual(f.records(),rows);
+ assert.throws(()=>f.approve({...f.next,approval:{...f.next.approval,receiptHash:hash('conflict')}}),/conflict/);assert.throws(()=>f.approve({...f.next,authorityId:'second',scopeId:'second',policy:{...f.next.policy,authorityId:'second'}}));assert.equal(f.j.counts('renewed',f.at).run,0);
+});
+for(const change of ['checkpoint','baseline','exception-status','exception-hash','lineage','spent-source','account','reload','expired-start','capacity'] as const)test('renewal rejects '+change,t=>{
+ const f=fixture(t),n=structuredClone(f.next);if(change==='checkpoint')n.renewal!.checkpointDigest=hash('wrong');if(change==='baseline')n.renewal!.baseline.pop();if(change==='exception-status')n.renewal!.exceptions[1]!.status='completed';if(change==='exception-hash')n.renewal!.exceptions[1]!.reservationHash=hash('wrong');if(change==='lineage')n.renewal!.predecessorIds=['recovery','unknown'];if(change==='spent-source')n.research!.requestHashes.push(hash('spent'));if(change==='expired-start')n.renewal!.collectAt=f.at;if(change==='capacity')n.policy.maxRun=8;
+ assert.throws(()=>f.j.approveRenewal(n,change==='reload'?{...f.attestation,confirmedAt:f.at}:f.attestation,change==='account'?{...f.account,accountFingerprint:hash('wrong')}:f.account,f.at));assert.equal(f.j.hasAuthority('renewed'),false);assert.equal(f.j.counts('recovery',f.at).run,10);
+});
+for(const mode of ['gap','unknown','active'] as const)test('new '+mode+' cannot resume or restore',t=>{
+ const f=fixture(t);f.approve();f.j.reserve(f.reservation('new-failure','renewed',f.at),f.at);if(mode!=='active')f.j.settle('new-failure','completed',mode!=='unknown',false,f.at);
+ const local=[...f.next.renewal!.baseline.map(x=>f.j.state(x.executionId)!),f.j.state('new-failure')!].map(x=>({executionId:x.executionId,status:x.status??'running',settled:x.state==='settled',complete:!!x.complete}));f.j.recover(local,f.at);assert.throws(()=>f.j.restoreObserved('renewed',f.at));assert.throws(()=>f.j.ownerControl('renewed','resume','resume',hash('resume'),f.j.counts('renewed',f.at).controlRevision,f.at));assert.equal(f.j.counts('renewed',f.at).run,1);
+});
+test('idle restart restores only approved baseline and preserves consumed capacity',t=>{
+ const f=fixture(t);f.approve();f.j.reserve(f.reservation('success','renewed',f.at),f.at);f.j.settle('success','completed',true,true,f.at);const local=[...f.next.renewal!.baseline.map(x=>f.j.state(x.executionId)!),f.j.state('success')!].map(x=>({executionId:x.executionId,status:x.status!,settled:true,complete:!!x.complete}));f.j.recover(local,f.at);f.j.restoreObserved('renewed',f.at);assert.equal(f.j.counts('renewed',f.at).hold,null);assert.equal(f.j.counts('renewed',f.at).run,1);assert.equal(f.j.counts('renewed',f.at).lifetimeRun,11);
+});
+test('custody failure after approval commit fences all subsequent reads and grants',t=>{const f=fixture(t);(f.j as unknown as {custody:()=>void}).custody=()=>{throw Error('authored power loss');};assert.throws(()=>f.approve(),/power loss/);assert.throws(()=>f.j.check('renewed',f.at),/custody mismatch/);assert.throws(()=>f.approve(),/custody mismatch/);});
+test('changed baseline settlement and third old gap invalidate renewal',t=>{const f=fixture(t);f.j.settle('prior0','completed',true,false,f.at);assert.throws(()=>f.approve(),/two settled/);assert.equal(f.j.hasAuthority('renewed'),false);});

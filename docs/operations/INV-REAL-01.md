@@ -1,8 +1,15 @@
 # Persistent observed paper investment — operation and morning handoff
 
+**October 15 owner renewal:** The owner has now explicitly authorized fixing Trade, resetting its allowed calls and rerunning. [Decision 053](../decisions/decision_053_owner_observed_renewal.md) is a separate seven-call allowance with all historical usage retained. Use the [renewal evidence](../validation/investment/OWNER-RENEWAL-20261015.md) for current activation state. Preparation withdraws predecessor local scope capability but leaves the book paused; independent approval retires both previous authorities before activation of the fresh scope. The earlier code correction alone did not grant this authority.
+
+The owner API sequence is `observed/renewal/preview`, ordinary `observed/consent`, `observed/renewal/release`, then `observed/renewal/activate`, under `/api/investment-run/` and the existing local owner session. Consent returns the exact release digest. Release verifies the current predecessor's live account and preserves the original reload-OFF evidence. Select the returned successor authority through the existing trusted service runtime selector, complete the publication restart handoff, then activate before the frozen collection time. Inspect the new scope's allowance and raw/lifetime totals separately. If preparation or activation becomes stale, it stays held; never edit timestamps, refund reservations or synthesize a fresh receipt. There is no automatic recovery of an approved grant whose collection start was missed.
+
 **October 15 incident:** Research started at 12:01 UTC and Atlas created a HOLD
 proposal. Maya's review failed on a trusted-clock mismatch and was mislabeled as
-an approval request. The loop is blocked with 10/11 family calls consumed, a second
+an approval request. PR 102 fixes both defects and is deployed at `139a1c5`.
+HQ readiness and preservation verification passed at 17:25 UTC; publication
+restart reconciled, no new model or market requests occurred, and all historical
+financial/execution/usage records remain intact. The loop is blocked with 10/11 family calls consumed, a second
 incomplete invocation and no committed review/submission. The decision cutoff has
 elapsed. See the [repair and recovery boundary](../validation/investment/REVIEW-CLOCK-20261015.md)
 before acting on the historical readiness statements below. No new authority or

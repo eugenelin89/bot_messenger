@@ -153,6 +153,9 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       else if(path==='/api/investment-run/research/collect'){json(200,await company.privateResearch.collect(body));}
       else if(path==='/api/investment-run/research/consent'){json(201,company.privateResearch.consent(body));}
       else if(path==='/api/investment-run/observed/recovery/preview'){json(201,company.observedInvestment.previewRecovery(body));}
+      else if(path==='/api/investment-run/observed/renewal/preview'){json(201,company.observedInvestment.previewRenewal(body));}
+      else if(path==='/api/investment-run/observed/renewal/release'){json(200,await company.finiteHQ.releaseObservedRenewal(body));}
+      else if(path==='/api/investment-run/observed/renewal/activate'){const a=strictObject(body,['scopeId','receiptId']);json(200,company.observedInvestment.activateRenewal(textField(a,'scopeId',100),textField(a,'receiptId',100)));company.changed();}
       else if(path==='/api/investment-run/observed/recovery/consent'){json(201,company.observedInvestment.consentRecovery(body));}
       else if(path==='/api/investment-run/observed/recovery/revise'){json(201,company.observedInvestment.reviseRecovery(body));}
       else if(path==='/api/investment-run/observed/recovery/release'){json(200,await company.finiteHQ.releaseObservedRecovery(body));}

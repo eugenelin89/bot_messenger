@@ -21,12 +21,29 @@
       "fail": 4,
       "skipped": 4
     },
-    "remainingKnownFailure": "One financial publication-health test also fails unchanged baseline"
+    "remainingKnownFailure": "One financial publication-health test also fails unchanged baseline",
+    "linuxFocused": {
+      "pass": 6,
+      "fail": 0
+    }
   },
   "review": {
     "recovery": "no blocker",
     "security": "no blocker"
   },
   "productionRecovery": "held; no new authority, usage changes or replay",
-  "privateEvidence": "Retained locally outside public repository"
+  "privateEvidence": "Retained locally outside public repository",
+  "deployment": {
+    "pullRequest": 102,
+    "commit": "139a1c537d759e4c88edbc628fab14bd1d4e6a51",
+    "verifiedAt": "2026-10-15T17:25:25.070305+00:00",
+    "runtime": "ready",
+    "financialHistoryPreserved": true,
+    "executionsAndUsagePreserved": true,
+    "consumptionPreserved": true,
+    "publicationReconciled": true,
+    "newModelOrMarketRequests": 0,
+    "startupIssue": "Tracked source permissions corrected before recovery; private configuration/data unchanged",
+    "genuineFixedReviewExecuted": false
+  }
 }
