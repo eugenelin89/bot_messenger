@@ -16,6 +16,15 @@ test('future calendar cycles do not poll models; complete first cycle waits over
 test('missed research windows are retained without catch-up or backdating',t=>{
  const f=loopFixture();t.after(f.close);const p=f.start(),research=f.occurrences(p.loopId).filter(o=>o.stage==='research');f.clock.set(new Date(Date.parse(research[1]!.expires_at)+1).toISOString());f.loop.tick();assert.ok(f.occurrences(p.loopId).filter(o=>o.stage==='research').every(o=>o.state==='missed'));assert.equal(f.store.all('SELECT * FROM investment_loop_requests').length,0);assert.equal(f.runtime.calls.length,0);
 });
+test('review timestamp does not bypass a cutoff crossed during live admission',t=>{
+ const f=loopFixture();t.after(f.close);const l=f.start(),o=f.occurrences(l.loopId).find(o=>o.stage==='research')!;f.at(o);f.loop.tick();const [a,b]=f.pair();
+ f.call(a,'read_group_record',{record_id:f.evidence.evidence_id,offset:0});const p=f.call(a,'paper_propose',f.proposal).proposal;f.contribute(a);f.measured(a);
+ f.call(b,'read_discussion',{});f.call(b,'read_group_record',{record_id:f.evidence.evidence_id,offset:0});f.call(b,'paper_read_proposal',{proposalId:p.proposal_id});
+ const journal=f.sim.journal(f.config.runId),receipts=f.store.all('SELECT * FROM tool_receipts'),admit=f.loop.admitCommand.bind(f.loop);
+ t.mock.method(f.loop,'admitCommand',(scopeId:Parameters<typeof admit>[0],command:Parameters<typeof admit>[1])=>{if(command.type==='review')f.clock.set(o.expires_at);return admit(scopeId,command);});
+ assert.throws(()=>f.call(b,'paper_review',{proposalId:p.proposal_id,proposalHash:p.proposal_hash,disposition:'approve',rationale:'Review crosses cutoff',dissent:[],evidenceIds:[]}),/current research occurrence/);
+ assert.deepEqual(f.sim.journal(f.config.runId),journal);assert.deepEqual(f.store.all('SELECT * FROM tool_receipts'),receipts);assert.equal(f.store.all('SELECT * FROM investment_team_reviews').length,0);
+});
 test('late queued claims and callbacks remain bound to the expired occurrence',t=>{
  const f=loopFixture();t.after(f.close);const p=f.start(),o=f.occurrences(p.loopId).find(o=>o.stage==='research')!;f.at(o);f.loop.tick();const c=f.claim();f.clock.set(o.expires_at);assert.throws(()=>f.call(c,'paper_inspect',{}),/window|deadline/);assert.equal(f.company.claimWorkNext(),undefined);f.loop.tick();assert.equal(f.occurrences(p.loopId).find(x=>x.occurrence_id===o.occurrence_id)?.state,'missed');assert.equal(f.store.all('SELECT * FROM investment_loop_executions').length,1);
 });

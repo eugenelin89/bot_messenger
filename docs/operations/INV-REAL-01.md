@@ -1,5 +1,13 @@
 # Persistent observed paper investment — operation and morning handoff
 
+**October 15 incident:** Research started at 12:01 UTC and Atlas created a HOLD
+proposal. Maya's review failed on a trusted-clock mismatch and was mislabeled as
+an approval request. The loop is blocked with 10/11 family calls consumed, a second
+incomplete invocation and no committed review/submission. The decision cutoff has
+elapsed. See the [repair and recovery boundary](../validation/investment/REVIEW-CLOCK-20261015.md)
+before acting on the historical readiness statements below. No new authority or
+ordinary resume is authorized by the code correction.
+
 **Final October 14 audit checkpoint,20:27 UTC:** HQ `0fabbbac0a1bb8e180556bcbe837076ca341f9c3`/schema 29/PID 872875 is ready after owner-approved guarded deployment. Eighteen source requests/seven model turns retained; close accounting/valuation/publication complete, head 16 preserved, portfolio $100,000 cash/no orders/no formal decision. Benchmark 129.925815SPYunits +0.000178 cash, public source 9/journal 1. Four model calls remain for the unchanged October 15 schedule; genuine decision acceptance and later renewal are unproven/blocked as detailed in the [authoritative audit](../audits/2026-10-14/SYSTEM-STATUS.md). Ask remains paused. No replacement chat automation.
 
 

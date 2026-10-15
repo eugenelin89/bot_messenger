@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-15",
+  "incident": "Review and journal sampled separate clocks; callback failure was mislabeled approval",
+  "changes": [
+    "single trusted review/journal timestamp",
+    "distinct bounded callback failure reporting"
+  ],
+  "tests": {
+    "build": "pass",
+    "contracts": "pass",
+    "teamLoopBoundaries": {
+      "pass": 49,
+      "fail": 0
+    },
+    "httpBoundaries": {
+      "pass": 2,
+      "fail": 0
+    },
+    "broadInitial": {
+      "pass": 198,
+      "fail": 4,
+      "skipped": 4
+    },
+    "remainingKnownFailure": "One financial publication-health test also fails unchanged baseline"
+  },
+  "review": {
+    "recovery": "no blocker",
+    "security": "no blocker"
+  },
+  "productionRecovery": "held; no new authority, usage changes or replay",
+  "privateEvidence": "Retained locally outside public repository"
+}
