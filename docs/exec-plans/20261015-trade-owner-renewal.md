@@ -66,3 +66,7 @@ PR105 candidate4da4615 passed264 local regressions and the full local workflow. 
 ## 22:40 UTC performance validation
 
 The second isolated Linux workflow improved to 335.46 seconds but missed the original 60-second fresh-stage bound after all six new turns completed. A bounded memo of pure validated UTC strings removes the next measured repeated cost; clock and expiry decisions remain live. Both specialists cleared the source. Local authority/simulator checks and the complete workflow pass (57.66 seconds, fresh stage 10.915 seconds). A third exact-source Linux run precedes deployment. Revised best-effort ETA: another 15–25 minutes, depending on Linux validation and genuine provider responses.
+
+## 22:49 UTC harness timeout diagnosis
+
+All 91 Linux focused cases passed. The full workflow again completed all 18 turns before its harness wait expired, with no domain rejection. Inspection confirmed that the 60-second wall-clock wait is unrelated to the unchanged one-hour research window. Give only the six-turn continuation completion wait 120 seconds while preserving every completion/publication assertion and all production bounds. Repeat the full workflow on exact source; no further speculative runtime optimization. Revised ETA: 15–25 minutes including validation, deployment and genuine model responses.
