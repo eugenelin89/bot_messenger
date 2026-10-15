@@ -9,7 +9,7 @@ import { PublicationService } from '../src/control/publication/service.js';
 import { verifySignedRequest, type SignedMessage } from '../scripts/investment-contracts/signatures.js';
 import { canonicalJson, parseJson, sha256, validate } from '../scripts/investment-contracts/schema.js';
 import type { EventBatch, PublicationReceipt, Problem } from '../contracts/investment/v1/types.js';
-import type { PublicationTransport, WireResponse } from '../src/control/publication/transport.js';
+import { ServiceKeyRing, type PublicationTransport, type WireResponse } from '../src/control/publication/transport.js';
 import type { Job } from '../src/domain/publication/types.js';
 function oracle(f:ReturnType<typeof publicationFixture>) {
  const calls:SignedMessage[]=[],receipts=new Map<string,PublicationReceipt>(),nonces=new Set<string>();let behavior:(m:SignedMessage)=>Promise<WireResponse>|WireResponse=normal;
@@ -150,4 +150,23 @@ for(const scenario of ['success','lost-response','watermark-drift','changed-spen
  const again=f.configured(o.transport);await again.reconcileCleanRestart(directory,[f.dir],targetSha,files);assert.equal(again.health(channelId).restoreRequired,false);
  assert.equal(f.store.get<{n:number}>('SELECT count(*) n FROM investment_public_attempts')!.n,before+4);
  unlinkSync(join(directory,'checkpoint.json'));assert.throws(()=>prepareCleanRestart(f.store,directory,[f.dir],channelId,files,targetSha,f.clock.now()));
+});
+
+for(const scenario of ['success','expired-grant','expired-key','scope-denied','insufficient-attempts'] as const)test(`clean restart uses renewed grant and rotated key: ${scenario}`,async t=>{
+ const f=publicationFixture();t.after(f.cleanup);const o=oracle(f),s=f.configured(o.transport),{channelId}=stage(f,s);
+ while(s.health(channelId).pending)await s.deliver({channelId});
+ const jobs=f.store.all('SELECT * FROM investment_public_jobs'),attempts=f.store.all('SELECT * FROM investment_public_attempts'),oldGrant=f.store.get<{id:string}>('SELECT id FROM investment_public_grants')!.id;
+ s.control({channelId,action:'rotate',keyId:'rotated-key',generation:null});
+ stage(f,s,{...f.envelope,expiresAt:'2026-03-11T00:00:00.000Z',...(scenario==='insufficient-attempts'?{maxAttempts:1}:{}),...(scenario==='scope-denied'?{eventTypes:['run.status']}: {})});
+ const newGrant=f.store.get<{id:string}>("SELECT id FROM investment_public_grants WHERE state='active'")!.id;assert.notEqual(newGrant,oldGrant);
+ assert.deepEqual(f.store.all('SELECT * FROM investment_public_jobs'),jobs);assert.deepEqual(f.store.all('SELECT * FROM investment_public_attempts'),attempts);
+ const base=realpathSync(mkdtempSync(join(tmpdir(),'publication-renewal-'))),directory=join(base,'checkpoint');mkdirSync(directory,{mode:0o700});t.after(()=>rmSync(base,{recursive:true,force:true}));
+ const files:CleanRestartFiles={publicationConfig:join(base,'publication.json'),finiteAuthority:join(base,'finite.json'),finiteCheckpoint:join(base,'finite-head.json')};for(const p of Object.values(files))writeFileSync(p,'authored noncredential fixture',{mode:0o600});
+ if(scenario==='expired-grant')f.clock.set('2026-03-11T00:00:00.000Z');
+ const target='b'.repeat(40);prepareCleanRestart(f.store,directory,[f.dir],channelId,files,target,f.clock.now());
+ const restarted=f.configured(o.transport,scenario==='expired-key'?{keys:new ServiceKeyRing(new Map())}:{}),calls=o.calls.length;
+ if(scenario!=='success'){await assert.rejects(restarted.reconcileCleanRestart(directory,[f.dir],target,files));assert.equal(o.calls.length,calls);assert.deepEqual(f.store.all('SELECT * FROM investment_public_attempts'),attempts);assert.equal(restarted.health(channelId).restoreRequired,true);return;}
+ await restarted.reconcileCleanRestart(directory,[f.dir],target,files);assert.equal(restarted.health(channelId).restoreRequired,false);assert.equal(o.calls.length,calls+2);assert.deepEqual(f.store.all('SELECT * FROM investment_public_jobs'),jobs);
+ assert.deepEqual(f.store.all('SELECT * FROM investment_public_attempts LIMIT ?',attempts.length),attempts);
+ const reads=f.store.all<{grant_id:string;key_id:string;operation:string}>("SELECT grant_id,key_id,operation FROM investment_public_attempts WHERE grant_id=?",newGrant);assert.deepEqual(reads.map(r=>[r.grant_id,r.key_id,r.operation]),[[newGrant,'rotated-key','clean_receipt'],[newGrant,'rotated-key','clean_status']]);
 });
