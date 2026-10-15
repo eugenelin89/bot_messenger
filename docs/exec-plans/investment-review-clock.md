@@ -1,8 +1,10 @@
 # Execution Plan — recurring investment review pause
 
-**Status:** Active  
+**Status:** Repair merged and deployed; retained investment run remains held
+
 **Owner:** Current repair chat, sole writer  
-**Branch:** `fix/investment-review-clock`  
+**Branch:** `fix/investment-review-clock` (PR 102 merged); deployment receipt on `fix/investment-review-clock-receipt`
+
 **Worktree:** `bot_messenger-review-clock`  
 **Started:** 2026-10-15  
 **Initial ETA:** 20–40 minutes; revise after reproduction and recovery review.
@@ -48,8 +50,22 @@ on the audit baseline. Finite tool rejection/approval scenarios pass. Independen
 recovery and security reviewers found no source authority bypass; requested
 cutoff, replay and raw timestamp rejection tests pass.
 
-## Remaining work
+## Deployment and closure
 
-Reviewed source delivery, isolated Linux validation, guarded deployment preserving
-the blocked run, final operational receipt. New finite recovery is outside the
-retained authorization; no budget or telemetry exception is silently expanded.
+After explicit owner approval, PR 102 merged and deployed at
+`139a1c537d759e4c88edbc628fab14bd1d4e6a51`. Linux build/contracts and six focused
+tests passed. The first startup failed before finite/publication recovery because
+the deployment script's private umask made checked-out source unreadable by the
+service user. Restored standard modes on tracked public source only; private
+configuration/data stayed private. Corrected the local deployment script's
+checkout umask and cleared the systemd failed-start counter.
+
+At 17:25:25 UTC, runtime/database/dispatcher were ready. The stopped backup
+comparison preserved all financial history, execution/usage records and consumed
+allowance. Only expected publication/worker metadata changed; finite custody
+appended exactly one recovery hold. Publication custody completed against the
+approved merge. No new model/source requests occurred. Raw receipts stay private.
+
+New finite recovery is outside the retained authorization; no budget or telemetry
+exception is silently expanded. The source/deployment work is complete within the
+original 20–40 minute estimate; a prospective run needs separate bounded authority.

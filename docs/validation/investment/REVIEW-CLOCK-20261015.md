@@ -65,5 +65,27 @@ one-use successor mechanism is insufficient. Ask remains owner-paused.
 
 ## Delivery
 
-Source validation and controlled deployment are in progress. The live loop remains
-blocked; do not describe this code correction as resumed investment operation.
+The owner explicitly approved merging and deploying
+[PR 102](https://github.com/eugenelin89/bot_messenger/pull/102). The merge
+`139a1c537d759e4c88edbc628fab14bd1d4e6a51` is deployed. Isolated Linux build,
+contract checks and six focused tests passed before installation.
+
+The initial startup failed while reading checked-out source: the deployment
+script's private umask produced source files unreadable by the service account.
+The failure happened before finite/publication recovery; finite event count and
+the unclaimed publication permit were unchanged. Standard permissions were
+restored only on tracked public source, the script's checkout umask was corrected,
+and the failed-start counter was cleared. Private configuration/data permissions
+were unchanged.
+
+At 17:25:25 UTC, health reported the exact merge and ready runtime, database and
+dispatcher. Comparison with the stopped backup confirmed 180 unchanged tables;
+the other five contained only permitted worker timestamp and publication changes.
+All financial history, executions, usage and spent calls were preserved. Finite
+custody appended exactly one recovery hold; publication custody completed against
+the approved merge. No model or market requests were made. Raw receipts and
+deployment scripts remain private outside this public repository.
+
+The live loop remains blocked. Genuine model review/submission under this fix has
+not run; fixture and Linux tests do not establish that acceptance. This deployment
+repairs the defects and does not resume or renew investment authority.

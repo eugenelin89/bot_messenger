@@ -2,7 +2,10 @@
 
 **October 15 incident:** Research started at 12:01 UTC and Atlas created a HOLD
 proposal. Maya's review failed on a trusted-clock mismatch and was mislabeled as
-an approval request. The loop is blocked with 10/11 family calls consumed, a second
+an approval request. PR 102 fixes both defects and is deployed at `139a1c5`.
+HQ readiness and preservation verification passed at 17:25 UTC; publication
+restart reconciled, no new model or market requests occurred, and all historical
+financial/execution/usage records remain intact. The loop is blocked with 10/11 family calls consumed, a second
 incomplete invocation and no committed review/submission. The decision cutoff has
 elapsed. See the [repair and recovery boundary](../validation/investment/REVIEW-CLOCK-20261015.md)
 before acting on the historical readiness statements below. No new authority or
