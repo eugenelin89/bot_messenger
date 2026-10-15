@@ -280,8 +280,10 @@ export class PublicationService {
     const reserved=this.db.transaction(()=>{
       const c=this.channel(permit.channelId);ensure(this.restartFences.get(c.id)===c.generation&&c.generation===permit.generation
         &&c.reconciled_generation===c.generation&&c.publisher_instance!==this.instance,'publication_clean_restart_required');
-      const j=this.jobs(c).filter(j=>j.kind==='batch').at(-1);ensure(j?.receipt,'publication_restore_anchor_required');
-      const e=this.authority(c,j),attempts=this.db.all<{attempted_at:string}>('SELECT attempted_at FROM investment_public_attempts WHERE grant_id=?',j.grant_id);
+      const anchor=this.jobs(c).filter(j=>j.kind==='batch').at(-1);ensure(anchor?.receipt,'publication_restore_anchor_required');
+      // The current grant authorizes these new reads; the delivered anchor keeps its original grant and receipt.
+      const g=this.db.get<Grant>("SELECT * FROM investment_public_grants WHERE channel_id=? AND state='active' ORDER BY rowid DESC LIMIT 1",c.id);ensure(g,'publication_grant_inactive');
+      const j={...anchor,grant_id:g.id},e=this.authority(c,j),attempts=this.db.all<{attempted_at:string}>('SELECT attempted_at FROM investment_public_attempts WHERE grant_id=?',g.id);
       ensure(attempts.length+2<=e.maxAttempts&&attempts.filter(a=>time(a.attempted_at)>time(this.clock.now())-60000).length+2<=e.writesPerMinute,'publication_budget_exhausted');
       const attemptId=opaque(),at=this.clock.now();
       for(const [suffix,operation] of [['','clean_receipt'],['-status','clean_status']] as const)this.db.run('INSERT INTO investment_public_attempts VALUES (?,?,?,?,?,?,?,?,?)',attemptId+suffix,j.id,c.id,j.grant_id,operation,c.generation,c.key_id,at,0);

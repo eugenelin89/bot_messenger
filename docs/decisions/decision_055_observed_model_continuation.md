@@ -1,6 +1,6 @@
 # Decision 055 — Correctable discussion input and owner model continuation
 
-Status: Accepted for implementation, October 15, 2026. Live completion requires separate receipts.
+Status: Accepted and deployed, October 15, 2026. Genuine continuation completed and published; see the linked evidence.
 
 The owner authorized fixing and rerunning Trade with all required allowance. After Decision054 source collection succeeded, Atlas completed a HOLD proposal and Maya committed an approving paper review. Maya then supplied an answer sentence in `submit_contribution.answers`, which accepts question IDs only. The bounded adapter interrupted the turn on that argument rejection. The provider confirmed settlement, but the execution remained failed with incomplete usage. Submission correctly refused that producing execution.
 
@@ -18,4 +18,4 @@ See [renewal and live evidence](../validation/investment/OWNER-RENEWAL-20261015.
 
 Repeated authority reads compare every current journal row and custody byte with a fully verified replay before reusing it. File identity, SQLite integrity and all authority-root canonical paths are still checked on each read; cache misses retain the final custody read after replay. Returned state is deeply cloned, and a transaction never installs its partially applied state as a replay cache. No clock, expiry, capacity or current hold decision is cached. This avoids repeated canonical parsing while preserving corruption and independent-write detection.
 
-Pure UTC timestamp validation retains a bounded1,024-entry primitive-string-to-number cache. Invalid inputs are never cached, and the unchanged format/calendar round-trip checks run on misses. No current clock, expiry decision or mutable object is retained.
+Pure UTC timestamp validation retains a bounded 1,024-entry primitive-string-to-number cache. Invalid inputs are never cached, and the unchanged format/calendar round-trip checks run on misses. No current clock, expiry decision or mutable object is retained.

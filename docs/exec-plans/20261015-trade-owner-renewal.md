@@ -2,11 +2,11 @@
 
 **Status:** Active  
 **Owner:** /root; read-only recovery_review and security_review  
-**Branch:** codex/trade-rerun-outcome
+**Branch:** codex/trade-live-completion
 **Worktree:** bot_messenger-review-clock  
 **Started:** 2026-10-15 20:02 UTC  
 **Initial ETA:** 20–40 minutes, conditional on existing controls  
-**Current ETA:** At 21:50 UTC, another 45–75 minutes for the newly discovered input failure and audited continuation.
+**Current ETA:** At 23:10 UTC, genuine research and publication are complete; allow another 10–20 minutes for the discovered publication-expiry alignment and final records.
 
 ## Objective
 
@@ -36,7 +36,7 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Validate/deploy Decision055 and observe the actual rerun through a fresh completed proposal, review, submission and public projection. PR104 source continuation is deployed and its collection succeeded. The genuine model run revealed the separate malformed-answer failure below.
+Align the existing publisher key/scope/grant expiry with the already-authorized October 16 schedule, verify retained state after the required configuration reload, and publish final completion evidence. Genuine proposal, completed review, submission and public readback are complete.
 
 ## 20:29 UTC checkpoint
 
@@ -70,3 +70,11 @@ The second isolated Linux workflow improved to 335.46 seconds but missed the ori
 ## 22:49 UTC harness timeout diagnosis
 
 All 91 Linux focused cases passed. The full workflow again completed all 18 turns before its harness wait expired, with no domain rejection. Inspection confirmed that the 60-second wall-clock wait is unrelated to the unchanged one-hour research window. Give only the six-turn continuation completion wait 120 seconds while preserving every completion/publication assertion and all production bounds. Repeat the full workflow on exact source; no further speculative runtime optimization. Revised ETA: 15–25 minutes including validation, deployment and genuine model responses.
+
+## 22:59 UTC deployed and activated
+
+The final exact-source Linux workflow passed in 315.19 seconds; its fresh stage took 63.045 seconds and reached signed publication. PR 105 merged and deployed as `c7ba113`, schema 31, with stopped-state preservation and healthy publication reconciliation. Owner controls activated generation 4 at 22:59:07 UTC; fresh research is due at 23:01:43 UTC. Remaining work is genuine proposal, completed independent review, submission, public readback and final documentation. No additional approval is pending.
+
+## 23:20 UTC publication renewal repair
+
+The genuine six-turn research completed at 23:05:58 and decision revision2 was accepted publicly at 23:07:34. Publication authority expires before tomorrow's accounting. Receiver renewal requires a fresh key ID; its existing CLI supports same-generation overlapping keys. Decision056 adds one protected additional key and repairs clean restart to authorize new receipt reads under the current grant, preserving old delivered jobs. All43 focused local configuration/recovery tests pass. A fresh private key was generated only on HQ; public registration metadata was sent to the website owner. Independent reviews and Linux publication regressions precede the coordinated cutover. No new model/source run is needed.
