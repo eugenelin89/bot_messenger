@@ -2,11 +2,11 @@
 
 **Status:** Active  
 **Owner:** /root; read-only recovery_review and security_review  
-**Branch:** codex/trade-owner-renewal  
+**Branch:** codex/trade-rerun-outcome
 **Worktree:** bot_messenger-review-clock  
 **Started:** 2026-10-15 20:02 UTC  
 **Initial ETA:** 20–40 minutes, conditional on existing controls  
-**Current ETA:** 60–90 minutes; a new bounded authority path is required.
+**Current ETA:** At 21:50 UTC, another 45–75 minutes for the newly discovered input failure and audited continuation.
 
 ## Objective
 
@@ -36,7 +36,7 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Complete and validate the source-continuation repair described below; deploy it and observe the actual rerun through proposal, review, submission and public projection. The allowance repair was deployed, but actual source collection found a new blocker.
+Validate/deploy Decision055 and observe the actual rerun through a fresh completed proposal, review, submission and public projection. PR104 source continuation is deployed and its collection succeeded. The genuine model run revealed the separate malformed-answer failure below.
 
 ## 20:29 UTC checkpoint
 
@@ -51,3 +51,22 @@ All 137 broader local regressions and 74 focused Linux tests passed, plus the fu
 The new scope collected six valid responses, then XOM returned `financial_ohlc_order`. Its source reservation is known settled; no model calls were made and all seven new calls remain unused. WMT/SPY were never attempted. Raw response bodies were discarded by design, so the rejected values cannot be reconstructed from retained evidence. The original collection window expired; ordinary Resume cannot replay it.
 
 The additional repair records one exact owner-authorized continuation under the same independent authority. It binds the failed outcome, six normalized observations, two unused requests, original schedule hash, portfolio head and new future collection/research starts. Original attempts remain retained; XOM is explicitly missing and cannot be ordered in this cycle. No budget, normalization or fill qualification is relaxed. A distinct independent event makes older binaries fail closed; migration30 adds only an empty immutable preparation table. Both cross-database crash windows, stale inputs and duplicate controls require validation. Revised ETA at 21:13: another 30–60 minutes, subject to actual provider outcomes.
+
+## 21:47 UTC genuine model failure and continuation
+
+PR104 deployed at 21:41 UTC with preserved history. Remaining WMT/SPY collection completed at 21:43:48 UTC. Atlas completed a formal HOLD proposal at 21:46:10; Maya committed an approving review at 21:46:42, then supplied answer prose in an ID-only `answers` list. Provider settlement was known, but interruption left a failed execution/incomplete usage and no submitted decision. The exact rejected payload was inspected privately; generated IDs themselves were valid lengths.
+
+Decision055 adds explicit schemas and bounded correction of pure input-validation errors, plus one exact owner-authorized model continuation. It retains the failure and original review as unusable history, grants eight additional attempts separately (total15, two spent), reuses the source packet and starts fresh opening requests. No status rewrite, source replay, refund or failed-review publication is permitted. Independent security/recovery review and real close/reopen tests are required before deployment. The first twelve correction/authority tests pass; full workflow and broader validation remain in progress.
+
+
+## 22:24 UTC Linux timing repair
+
+PR105 candidate4da4615 passed264 local regressions and the full local workflow. Linux97focused passed, but the full workflow exceeded the unchanged60-second final-stage limit at call17. Profiling measured8.30seconds in journal replay over67.18seconds locally. Exact full-input replay memoization retains all live checks, reads custody after replay, and returns clones; source review cleared it. Six new snapshot negatives pass; repeat whole Linux workflow remains required. Revised ETA: another20–35minutes including deployment and genuine execution.
+
+## 22:40 UTC performance validation
+
+The second isolated Linux workflow improved to 335.46 seconds but missed the original 60-second fresh-stage bound after all six new turns completed. A bounded memo of pure validated UTC strings removes the next measured repeated cost; clock and expiry decisions remain live. Both specialists cleared the source. Local authority/simulator checks and the complete workflow pass (57.66 seconds, fresh stage 10.915 seconds). A third exact-source Linux run precedes deployment. Revised best-effort ETA: another 15–25 minutes, depending on Linux validation and genuine provider responses.
+
+## 22:49 UTC harness timeout diagnosis
+
+All 91 Linux focused cases passed. The full workflow again completed all 18 turns before its harness wait expired, with no domain rejection. Inspection confirmed that the 60-second wall-clock wait is unrelated to the unchanged one-hour research window. Give only the six-turn continuation completion wait 120 seconds while preserving every completion/publication assertion and all production bounds. Repeat the full workflow on exact source; no further speculative runtime optimization. Revised ETA: 15–25 minutes including validation, deployment and genuine model responses.

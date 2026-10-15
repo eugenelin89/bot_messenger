@@ -931,3 +931,14 @@ HQ must prove its own content purge/restore/authority; website acknowledgment ca
 Pinned receiver interoperability passed 16 authored HTTPS requests in INV-PERF-01; no public
 admission or provider calls occurred. Continue the next content-store packet from that evidence.
 Production installation and released strict shared-apex ingress remain website-owned.
+
+
+## October 15 model-input continuation
+
+Decision055 handles the verified settled contribution-input failure after PR104 collection. This is an explicit owner control, not ordinary Resume. Current schema31 source must be deployed and the blocked run quiescent. Use the authenticated local owner API in this order:
+
+1. `POST /api/investment-run/observed/model-continuation/prepare` with `scopeId`, the exact failed `executionId`, future `researchAt`, `ownerReceiptHash`, and unique `receiptId`.
+2. `POST /api/investment-run/observed/model-continuation/release` with that `scopeId`, returned `digest`, and a new `receiptId`. This independently journals the exact acknowledgment and eight additional attempts.
+3. `POST /api/investment-run/observed/model-continuation/activate` with `scopeId` and a new `receiptId`. The start must still be in the future; duplicate controls return their original receipt without restoring capacity or clearing newer holds.
+
+The original seven-call envelope stays frozen. Two consumed calls plus thirteen available calls make a cumulative ceiling of fifteen. Other count ceilings receive the same eight-attempt addition; expiry, one-hour research duration, model/account, concurrency, source authority and financial windows remain unchanged. No source request is repeated. Original failures and the review produced by the failed turn remain visible but cannot authorize submission. Fresh proposal and independent review must complete. The runtime now gives bounded corrective feedback for malformed identifier lists; authority failures, unknown settlement and exhausted correction attempts still stop. See the [validation record](../validation/investment/OWNER-RENEWAL-20261015.md) for actual operational completion.

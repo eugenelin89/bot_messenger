@@ -22,9 +22,13 @@ export const hash = (value: unknown): string => createHash('sha256').update(cano
 export const identity = (kind: string, ...parts: unknown[]): string => `${kind}_${hash(parts).slice(0, 40)}`;
 export function id(value: string): void { ensure(typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/.test(value) && !Object.hasOwn(Object.prototype,value), 'invalid_id'); }
 export function integer(value: number, min: number, max: number): void { ensure(Number.isSafeInteger(value) && value >= min && value <= max, 'invalid_integer'); }
+// Pure validation result only. No current time, expiry decision or mutable input is cached.
+const validatedTimes=new Map<string,number>();
 export function time(value: string): number {
+  if(typeof value==='string'){const known=validatedTimes.get(value);if(known!==undefined)return known;}
   ensure(typeof value === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{3})?Z$/.test(value), 'invalid_time');
-  const n = Date.parse(value); ensure(Number.isFinite(n) && new Date(n).toISOString().replace('.000Z', 'Z') === value.replace('.000Z', 'Z'), 'invalid_time'); return n;
+  const n = Date.parse(value); ensure(Number.isFinite(n) && new Date(n).toISOString().replace('.000Z', 'Z') === value.replace('.000Z', 'Z'), 'invalid_time');
+  if(validatedTimes.size>=1024)validatedTimes.delete(validatedTimes.keys().next().value!);validatedTimes.set(value,n);return n;
 }
 export function date(value: string): void { ensure(/^\d{4}-\d\d-\d\d$/.test(value), 'invalid_date'); time(`${value}T00:00:00Z`); }
 export function exact(value: object, keys: string[]): void { ensure(value !== null && typeof value === 'object' && Object.keys(value).length === keys.length && keys.every(k => Object.hasOwn(value, k)), 'invalid_fields'); }

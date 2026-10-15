@@ -1,4 +1,5 @@
 import type {Observation} from '../domain/mandates.js';
+import {validateIdentifierList} from '../domain/tool-input.js';
 import type {BusinessEvidence} from '../domain/business.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {Company,ExecutionContext,TaskInput} from './company.js';
@@ -171,7 +172,11 @@ export class Discussions {
     this.checkInvestmentCycleStart(groupId);
     this.db.run("UPDATE working_groups SET state='active',started_at=coalesce(started_at,?),deadline=?,error=NULL,updated_at=? WHERE group_id=?",this.company.investmentLoop.now(),occurrence.expires_at,this.company.investmentLoop.now(),groupId);
     this.db.run('UPDATE discussion_turns SET advanced=1 WHERE group_id=?',groupId);
-    if(g.state==='draft')this.openings(this.group(groupId));else this.enqueue(this.group(groupId),g.facilitator_id,'facilitate','A new finite calendar occurrence is due. Read original earlier decisions and current outcome/observation context, identify intervening evidence, and choose useful peer challenge or synthesis. Retain uncertainty; HOLD is valid. Earlier usage remains consumed.');
+    const continuation=this.company.finiteHQ.modelContinuation(loop.scope_id);
+    if(continuation?.replacement.occurrence_id===occurrenceId){
+      this.audit('owner_model_continuation_started',g,{digest:hash(continuation),superseded_turns:continuation.supersededTurns,failed_execution_id:continuation.failed.executionId,notice:'Prior turn status and output retained; progression marker advanced for fresh opening requests'});
+      for(const w of this.members(g))this.enqueue(this.group(groupId),w.worker_id,'opening','The owner authorized a fresh decision cycle using the retained gateway packet. Prior failed execution and review remain historical and unusable for submission. The proposer must create a fresh proposal: use a new decision ID or increment the existing revision. The independent reviewer must read and review that exact fresh proposal in this new turn. Compare alternatives; no conclusion is prescribed. Use exact IDs in reference and answers lists; answer prose belongs in body. All previous usage remains consumed.');
+    }else if(g.state==='draft')this.openings(this.group(groupId));else this.enqueue(this.group(groupId),g.facilitator_id,'facilitate','A new finite calendar occurrence is due. Read original earlier decisions and current outcome/observation context, identify intervening evidence, and choose useful peer challenge or synthesis. Retain uncertainty; HOLD is valid. Earlier usage remains consumed.');
   }
   private openings(g:WorkingGroup){for(const w of this.members(g))this.enqueue(g,w.worker_id,'opening','Give your own perspective, compare practical alternatives against the charter and supplied evidence. State assumptions, risks and a useful question. No invented disagreement or approval.');}
   authorize(r:ReplyRequest){const g=this.forConversation(r.conversation_id);if(!g)return;
@@ -280,6 +285,13 @@ export class Discussions {
       if(old){requireThat(old.request_hash===digest,'Tool replay payload mismatch');return JSON.parse(old.result);}
       requireThat(!t.output,'Turn contribution already committed; end this execution');
       requireThat(this.db.get<{n:number}>('SELECT count(*) n FROM tool_receipts WHERE execution_id=?',context.executionId)!.n<L.toolCalls,'Discussion tool budget exhausted');
+      // Verified execution, scope, call identity and replay checks precede this pure validation.
+      // The transaction has made no changes; only these identifier-shape errors may be corrected.
+      if(['submit_contribution','submit_synthesis'].includes(name)){
+        const a=strictObject(input,name==='submit_contribution'?['body','contribution_ids','evidence_ids','questions','answers']:['recommendation','alternatives','supporting_findings','challenges_addressed','dissent_and_risks','missing_evidence_and_confidence','next_actions_and_approvals','contribution_ids','evidence_ids']);
+        validateIdentifierList(a.contribution_ids,'contribution_ids',24);validateIdentifierList(a.evidence_ids,'evidence_ids',32);
+        if(name==='submit_contribution')validateIdentifierList(a.answers,'answers',8);
+      }
       let result:unknown;
       if(this.company.investmentTeam.isTool(name)){result=this.company.investmentTeam.call(context,name,input);}
       else if(name==='read_discussion'){strictObject(input,[]);this.db.run('INSERT INTO discussion_retrieval_usage VALUES (?,0,1) ON CONFLICT(execution_id) DO UPDATE SET refreshes=refreshes+1',context.executionId);result=this.context(context);}

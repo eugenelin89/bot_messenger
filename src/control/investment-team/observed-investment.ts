@@ -1,3 +1,4 @@
+import {prepareModelContinuation,activateModelContinuation} from './observed-model-continuation.js';
 import {prepareSourceContinuation,activateSourceContinuation} from './observed-source-continuation.js';
 import {previewObservedRecovery,consentObservedRecovery,activateObservedRecovery,reviseObservedRecovery,effectiveRecoverySaved,type ObservedRecovery} from './observed-recovery.js';
 import {assertRenewalQuiescent,assertRenewalRetained,activateObservedRenewal} from './observed-renewal.js';
@@ -34,6 +35,8 @@ interface Evidence {evidence_id:string;content:string;content_hash:string;qualif
 /** One persistent book, renewed finite scopes, the existing HQ scheduler and the reviewed gateway. */
 export class ObservedInvestment {
  constructor(readonly company:Company){}
+ prepareModelContinuation(input:unknown){return prepareModelContinuation(this.company,input);}
+ activateModelContinuation(scopeId:string,receiptId:string){return activateModelContinuation(this.company,scopeId,receiptId);}
  prepareSourceContinuation(input:unknown){return prepareSourceContinuation(this.company,input);}
  activateSourceContinuation(scopeId:string,receiptId:string){return activateSourceContinuation(this.company,scopeId,receiptId);}
  previewRecovery(input:unknown){return previewObservedRecovery(this.company,input);}

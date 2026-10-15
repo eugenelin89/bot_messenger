@@ -25,6 +25,12 @@ const send=x=>console.log(JSON.stringify(x)),log=m=>appendFileSync(trace,JSON.st
 const notify=()=>send({method:'account/updated',params:{authMode:'chatgpt',planType:'pro'}});
 const thread={id:'pilot-thread',cwd,name:'Owned fixture thread',status:{type:'notLoaded'}},account={account:{type:mode==='api-key'?'apiKey':'chatgpt',planType:'pro',email:mode==='missing-account-id'?null:'fixture@example.invalid'},requiresOpenaiAuth:true,workspaceRouting:{chatgptAccountId:mode==='missing-account-id'?null:'fixture-account',backendOrigin:mode==='foreign-backend'?'https://untrusted.invalid':'https://chatgpt.com',accountRoutingOverride:'NO_CONSTRAINT'}};
 createInterface({input:process.stdin}).on('line',line=>{const m=JSON.parse(line),p=m.params??{};log(m);
+if(mode.startsWith('input-correction')&&typeof m.id==='string'&&m.id.startsWith('correct-')){
+ const n=Number(m.id.slice(8));
+ if(mode==='input-correction-exhausted'&&n<3){send({id:'correct-'+(n+1),method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',tool:'submit_contribution',callId:'correct-'+(n+1),arguments:{body:'Authored invalid answer test',contribution_ids:[],evidence_ids:[],questions:[],answers:['q'.repeat(101)]}}});return;}
+ if(mode==='input-correction'&&n===1){send({id:'correct-2',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',tool:'submit_contribution',callId:'correct-2',arguments:{body:'Authored corrected contribution',contribution_ids:[],evidence_ids:[],questions:[],answers:[]}}});return;}
+ if(mode==='input-correction'&&n===2){if(m.result?.success!==true)throw Error('Corrected input rejected');send({method:'turn/completed',params:{threadId:thread.id,turn:{id:'pilot-turn',status:'completed'}}});}return;
+}
 if(['maya-review','final-atlas-review'].includes(mode)&&typeof m.id==='string'&&m.id.startsWith('maya-read-')){
  const i=Number(m.id.slice(10)),v=JSON.parse(m.result?.contentItems?.[0]?.text??'null'),e=expectedEvidence[i];
  if(m.result?.success!==true||v.content!==e.content||v.next_offset!==null||v.metadata.source_id!==e.source_id)throw Error('Incomplete or unauthenticated historical tool delivery');
@@ -100,6 +106,7 @@ else if(m.method==='turn/start'){
  if(mode==='native'){send({method:'item/started',params:{threadId:thread.id,turnId:'pilot-turn',item:{type:'commandExecution'}}});return;}
  if(mode==='approval'){send({id:'approval',method:'item/commandExecution/requestApproval',params:{threadId:thread.id,turnId:'pilot-turn'}});return;}
  if(mode==='tool'){send({id:'bad',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'research_search',callId:'bad',arguments:{query:'denied'}}});return;}
+ if(mode.startsWith('input-correction')){send({id:'correct-1',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'submit_contribution',callId:'correct-1',arguments:{body:'Authored invalid answer test',contribution_ids:[],evidence_ids:[],questions:[],answers:['q'.repeat(101)]}}});return;}
  if(mode==='tool-rejected'){send({id:'rejected',method:'item/tool/call',params:{threadId:thread.id,turnId:'pilot-turn',namespace:null,tool:'read_discussion',callId:'rejected',arguments:{}}});return;}
  if(['maya-review','final-atlas-review'].includes(mode)){
   const context=JSON.parse(p.input[0].text.slice(p.input[0].text.indexOf('\\n')+1));
