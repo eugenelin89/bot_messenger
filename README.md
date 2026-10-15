@@ -1,14 +1,8 @@
 # BotSquad
 
-**Owner-authorized Trade rerun, October 15:** The owner explicitly authorized a new call allowance and rerun. [Decision 053](docs/decisions/decision_053_owner_observed_renewal.md) preserves the ten historical attempts and two settled incomplete records while granting seven additional calls in a new scope. Its authored six-turn workflow, approval crash recovery and prospective October 16 schedule pass locally. Deployment and genuine rerun evidence are tracked in the [renewal record](docs/validation/investment/OWNER-RENEWAL-20261015.md); this source statement does not itself claim live activation.
+**Owner-authorized Trade rerun, October 15:** PR103 deployed the [seven-call renewal](docs/decisions/decision_053_owner_observed_renewal.md), preserving ten historical attempts and both settled incomplete usage records. The new collection retained six valid responses, then XOM failed OHLC validation before any model calls. All seven calls remain unused. The [source-continuation repair](docs/decisions/decision_054_observed_source_continuation.md) is under validation: retain successes, disclose XOM as unavailable, and fetch only WMT/SPY under the same grant. Genuine completion remains pending; consult the [current evidence](docs/validation/investment/OWNER-RENEWAL-20261015.md). The prospective paper execution target remains October 16 OPEN.
 
-**Investment incident, October 15:** The rolling-start fix succeeded, and Atlas
-created a genuine HOLD proposal. Maya's review hit a trusted timestamp mismatch;
-the adapter mislabeled that rejection as an approval request. The
-[review-clock repair](docs/validation/investment/REVIEW-CLOCK-20261015.md) was merged
-in PR 102 and deployed at `139a1c5`; HQ was verified ready at 17:25 UTC with
-financial history, usage and spent calls preserved. Live investment operation remains held: the second incomplete invocation,
-one remaining family call and elapsed cutoff prohibit ordinary resume.
+**Earlier investment incident, October 15:** [PR102](docs/validation/investment/REVIEW-CLOCK-20261015.md) repaired review timestamp mismatch and error classification. The later owner renewal superseded the exhausted previous scope; historical proposals, consumption and failures remain retained.
 
 **Owner pause — October 13, 2026, 11:08 p.m. Vancouver:** Ask development and activation are paused until explicit owner resume. Public admission remains disabled. No API spending was approved; do not seek or infer it while paused. Preserve the installed code and evidence. Investment continues under its existing authority and schedule.
 

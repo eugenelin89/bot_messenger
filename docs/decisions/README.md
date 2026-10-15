@@ -205,3 +205,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 
 - [Decision052 — Retained research and prospective close recovery](decision_052_retained_research_close_recovery.md): explicit owner request for today's new decision and paper trade, one exact historical-usage exception, preserved consumption and prospective regular CLOSE; technical release evidence required. ASK stays paused.
 - [Decision053 — Owner-authorized observed renewal](decision_053_owner_observed_renewal.md): seven additional attempts after two exactly retained settled gaps, independent admission baseline and prospective next-session research; old consumption remains visible and no uncertain outcome is waived.
+
+- [Decision054 — Observed source continuation](decision_054_observed_source_continuation.md): one exact known OHLC research failure, retained successes, unspent requests and two future starts under the same allowance, with explicit missingness and no affected-instrument order.

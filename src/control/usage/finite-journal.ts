@@ -7,6 +7,7 @@ import {userInfo} from 'node:os';
 import {requireThat} from '../../domain/model.js';
 import {canonical,hash} from '../../domain/investment/identity.js';
 import {executionPolicy,finiteProfile,type FiniteAIProfile,type FiniteHQPolicy} from '../../domain/usage/policy.js';
+import type {SourceContinuation,SourceContinuationApproval} from '../../domain/investment-loop/source-continuation.js';
 
 export interface TelemetryRecovery {
  oldAuthorityId:string;executionId:string;reservationHash:string;checkpointDigest:string;
@@ -36,7 +37,7 @@ export interface ReservationState extends FiniteReservation {state:'reserved'|'a
 interface OtherReservation {executionId:string;reservedAt:string;state:"active"|"settled"|"unknown";status?:string}
 interface OwnerReceipt {receiptId:string;requestHash:string;authorityId:string;action:string;confirmedAt:string;controlRevision:number;reloadHash?:string}
 interface CollectionReservation {authorityId:string;requestHash:string;state:'reserved'|'settled'|'unknown';at:string;status?:string;settledAt?:string;wireAt?:string}
-interface State {recoveryHolds:Set<string>;providerUntil:string|null;providerBlocked:boolean;collections:Map<string,CollectionReservation>;receipts:Map<string,OwnerReceipt>;revisions:Map<string,number>;other:Map<string,OtherReservation>;authorities:Map<string,FiniteEnvelope>;attestations:Map<string,ReloadAttestation>;reservations:Map<string,ReservationState>;holds:Map<string,string>;stopped:Set<string>;observed:Map<string,{executionId:string;reservedAt:string}>;head:Custody}
+interface State {sourceContinuations:Map<string,SourceContinuationApproval>;recoveryHolds:Set<string>;providerUntil:string|null;providerBlocked:boolean;collections:Map<string,CollectionReservation>;receipts:Map<string,OwnerReceipt>;revisions:Map<string,number>;other:Map<string,OtherReservation>;authorities:Map<string,FiniteEnvelope>;attestations:Map<string,ReloadAttestation>;reservations:Map<string,ReservationState>;holds:Map<string,string>;stopped:Set<string>;observed:Map<string,{executionId:string;reservedAt:string}>;head:Custody}
 const hex=(v:string)=>/^[a-f0-9]{64}$/.test(v);
 const validTime=(s:string)=>Number.isFinite(Date.parse(s))&&new Date(s).toISOString()===s;
 const uid=()=>process.getuid?.();
@@ -69,12 +70,13 @@ export class FiniteJournal {
   this.present();requireThat(this.db.prepare('PRAGMA integrity_check').get()?.integrity_check==='ok','Finite authority corrupt');
   const rows=this.db.prepare('SELECT * FROM events ORDER BY sequence').all() as unknown as Entry[];
   requireThat(rows.length>0,'Finite authority incomplete');
-  const state:State={recoveryHolds:new Set(),providerUntil:null,providerBlocked:false,collections:new Map(),receipts:new Map(),revisions:new Map(),other:new Map(),authorities:new Map(),attestations:new Map(),reservations:new Map(),holds:new Map(),stopped:new Set(),observed:new Map(),head:null!};
+  const state:State={sourceContinuations:new Map(),recoveryHolds:new Set(),providerUntil:null,providerBlocked:false,collections:new Map(),receipts:new Map(),revisions:new Map(),other:new Map(),authorities:new Map(),attestations:new Map(),reservations:new Map(),holds:new Map(),stopped:new Set(),observed:new Map(),head:null!};
   let previous:string|null=null,last=0,epoch='';
   for(const row of rows){const {digest,...body}=row;requireThat(row.sequence===++last&&row.previous===previous&&hash(body)===digest&&validTime(row.at)&&(!state.head||row.at>=state.head.at),'Finite authority history discontinuity');
    if(last===1){requireThat(row.kind==='genesis','Finite authority genesis missing');epoch=row.epoch;}requireThat(row.epoch===epoch,'Finite authority epoch changed');previous=digest;state.head={epoch,sequence:last,digest,at:row.at};
    const p=JSON.parse(row.payload);
    switch(row.kind){
+    case 'source_continuation':requireThat(p.digest===hash(p.input)&&state.authorities.has(p.input.authorityId)&&!state.sourceContinuations.has(p.input.authorityId),'Invalid source continuation history');state.sourceContinuations.set(p.input.authorityId,p);break;
     case 'collection_reserve':requireThat(!state.collections.has(p.id),'Collection cannot replay');state.collections.set(p.id,p);break;
     case 'collection_settle':{const r=state.collections.get(p.id);requireThat(r?.state==='reserved','Collection already settled');r.state=p.known?'settled':'unknown';r.status=p.status;r.settledAt=row.at;if(p.retryAt)state.providerUntil=state.providerUntil&&state.providerUntil>p.retryAt?state.providerUntil:p.retryAt;if(p.blocked)state.providerBlocked=true;break;}
     case 'collection_wire':{const r=state.collections.get(p.id);requireThat(r?.state==='reserved'&&!r.wireAt,'Collection wire already consumed');r.wireAt=row.at;break;}
@@ -187,6 +189,32 @@ export class FiniteJournal {
  reserveCollection(authorityId:string,requestHash:string,at:string){return this.tx(at,(s,add)=>{this.providerReady(s,at);const e=this.current(s,authorityId,at);requireThat([...s.other.values(),...s.reservations.values()].every(r=>r.state==='settled'),'Investment fence occupied');requireThat(['private_research','observed_paper'].includes(e.purpose??'')&&e.research?.requestHashes.includes(requestHash),'Collection not explicitly approved');requireThat(![...s.collections.values()].some(r=>r.state!=='settled'),'Research collection unresolved');const id=hash([authorityId,requestHash]),family=this.family(s,e);requireThat(!s.collections.has(id)&&![...s.collections.values()].some(r=>family.has(r.authorityId)&&r.requestHash===requestHash),'Collection allowance permanently spent');const last=[...s.collections.values()].at(-1);requireThat(!last||Date.parse(at)-Date.parse(last.settledAt??last.at)>=5000,'Provider-wide collection interval');add('collection_reserve',{id,authorityId,requestHash,state:'reserved',at});return id;});}
  settleCollection(id:string,status:string,known:boolean,at:string,retryAt:string|null=null,blocked=false){this.tx(at,(s,add)=>{const r=s.collections.get(id);requireThat(r?.state==='reserved','Collection already consumed');requireThat(retryAt===null||validTime(retryAt)&&retryAt>=at,'Invalid provider circuit deadline');add('collection_settle',{id,status,known,retryAt,blocked});if(!known||status!=='ok')add('hold',{authorityId:r.authorityId,reason:'Collection failed or uncertain; no automatic retry'});});}
  collection(id:string){return this.read().collections.get(id);}
+ sourceContinuation(id:string){return this.read().sourceContinuations.get(id);}
+ private sourceContinuationState(s:State,id:string,at:string){
+  const e=this.current(s,id,at,true);this.providerReady(s,at);this.collectionFence(s);
+  requireThat(e.renewal&&e.purpose==='observed_paper'&&!s.sourceContinuations.has(id)&&s.holds.has(id),'One held observed renewal required');
+  requireThat(![...s.reservations.values()].some(r=>r.authorityId===id)&&[...s.other.values()].every(r=>r.state==='settled')&&this.settledObservedHistory(s,e,at),'Source continuation requires untouched model allowance and settled history');
+  const collections=[...s.collections.entries()].filter(([,r])=>r.authorityId===id).map(([reservationId,r])=>({reservationId,...r}));
+  requireThat(collections.filter(r=>r.status==='unavailable').length===1&&collections.every(r=>r.state==='settled'&&['ok','unavailable'].includes(r.status??'')),'Exactly one known unavailable research request required');
+  return {envelope:e,checkpointDigest:s.head.digest,controlRevision:s.revisions.get(id)??0,collections};
+ }
+ sourceContinuationPreview(id:string,at:string){return this.sourceContinuationState(this.read(),id,at);}
+ approveSourceContinuation(p:SourceContinuation,receiptId:string,requestHash:string,at:string){return this.tx(at,(s,add)=>{
+  const old=s.sourceContinuations.get(p.authorityId);if(old){requireThat(old.digest===hash(p)&&old.receiptId===receiptId&&old.requestHash===requestHash,'Source continuation receipt conflict');return old;}
+  const current=this.sourceContinuationState(s,p.authorityId,at),e=current.envelope;
+  requireThat(hash(e)===p.envelopeHash&&e.scopeId===p.scopeId&&e.renewal!.session===p.session&&e.occurrencesHash===p.baseOccurrencesHash,'Source continuation original authority changed');
+  requireThat([p.envelopeHash,p.checkpointDigest,p.portfolioHead,p.ownerReceiptHash,p.baseOccurrencesHash,p.effectiveOccurrencesHash,p.failed.reservationHash,p.failed.resultHash,requestHash].every(hex)&&receiptId.length>0&&receiptId.length<=100,'Exact continuation hashes and receipt required');
+  const checkpoint=this.db.prepare('SELECT sequence FROM events WHERE digest=?').get(p.checkpointDigest) as {sequence:number}|undefined;requireThat(checkpoint,'Source continuation checkpoint missing');
+  const suffix=this.db.prepare('SELECT * FROM events WHERE sequence>? ORDER BY sequence').all(checkpoint.sequence) as unknown as Entry[];
+  requireThat(suffix.every(r=>r.kind==='hold'&&canonical(JSON.parse(r.payload))===canonical({authorityId:p.authorityId,cause:'recovery',reason:'Recovery requires exact owner resume of eligible future work'}))&&(suffix.length>0||current.controlRevision===p.controlRevision),'Source continuation checkpoint changed');
+  requireThat(p.failed.reason==='financial_ohlc_order'&&p.retained.length>=1&&p.remaining.length>=1&&p.retained.length+p.remaining.length+1<=9,'Exact research quality limitation required');
+  const keys=[p.failed.requestHash,...p.retained.map(r=>r.requestHash),...p.remaining.map(r=>r.requestHash)];requireThat(new Set(keys).size===keys.length&&keys.every(k=>hex(k)&&e.research!.requestHashes.includes(k)),'Continuation requests changed');
+  const failed=s.collections.get(p.failed.reservationId);requireThat(failed?.authorityId===e.authorityId&&failed.requestHash===p.failed.requestHash&&failed.state==='settled'&&failed.status==='unavailable'&&hash(failed)===p.failed.reservationHash,'Exact known unavailable source settlement required');
+  for(const r of p.retained){const x=s.collections.get(r.reservationId);requireThat(x?.authorityId===e.authorityId&&x.requestHash===r.requestHash&&x.status==='ok'&&x.state==='settled'&&hash(x)===r.reservationHash&&[r.evidenceHash,r.contentHash].every(hex),'Retained source settlement changed');}
+  requireThat(current.collections.length===p.retained.length+1&&p.remaining.every(r=>![...s.collections.values()].some(x=>x.requestHash===r.requestHash)),'Continuation cannot replay or omit another collection');
+  const [collect,research]=p.replacements;requireThat(p.replacements.length===2&&p.replacedIds.length===2&&new Set(p.replacedIds).size===2&&collect?.stage==='collect_research'&&research?.stage==='research'&&collect.loop_id===p.loopId&&research.loop_id===p.loopId&&collect.session===p.session&&research.session===p.session&&collect.plan_revision===research.plan_revision&&collect.plan_revision>1&&collect.generation===p.generation&&research.generation===p.generation&&p.replacements.every(o=>o.state==='pending'&&o.attempts===0&&validTime(o.due_at)&&validTime(o.expires_at)&&o.due_at>at&&o.expires_at<=e.expiresAt)&&collect.expires_at===research.due_at&&Date.parse(collect.due_at)<=Date.parse(at)+7200000&&Date.parse(research.due_at)>=Date.parse(collect.due_at)+120000&&Date.parse(research.due_at)<=Date.parse(collect.due_at)+900000&&research.due_at<research.expires_at,'Future exact continuation window required');
+  const approval:SourceContinuationApproval={input:p,digest:hash(p),receiptId,requestHash,approvedAt:at,approvedCheckpoint:s.head.digest};add('source_continuation',approval);add('resume',{authorityId:e.authorityId});return approval;
+ });}
  /** A durable absent wire marker proves this process did not transmit. The attempt
   * remains consumed and its authority held; unavailable journal evidence never clears it. */
  failCollection(id:string,at:string){this.tx(at,(s,add)=>{const r=s.collections.get(id);requireThat(r?.state==='reserved','Collection already consumed');const known=!r.wireAt;add('collection_settle',{id,status:known?'local_cancelled':'unknown',known,retryAt:null,blocked:false});add('hold',{authorityId:r.authorityId,reason:'Collection failed or uncertain; no automatic retry'});});}

@@ -1,3 +1,4 @@
+import {continuationOccurrences,localSourceContinuation} from '../investment-team/observed-source-continuation.js';
 import {randomUUID} from 'node:crypto';
 import type {Company} from '../company.js';
 import {requireThat,strictObject,textField} from '../../domain/model.js';
@@ -37,7 +38,8 @@ export class InvestmentLoop {
  private sim(l:Loop){const c=this.configuration(l);return new FixtureSimulator(this.db,{now:()=>this.now()},c.authorization.fixtureOperator);}
  private market(l:Loop){return this.company.investmentTeam.market(this.scope(l));}
  private rawMarket(l:Loop){return new MarketFixtureSimulator(new MarketStore(this.db),{now:()=>this.now()},this.configuration(l).authorization.fixtureOperator);}
- occurrences(l:Loop){return this.db.all<Occurrence>('SELECT * FROM investment_loop_occurrences WHERE loop_id=? AND plan_revision=? ORDER BY due_at,stage',l.loop_id,l.plan_revision);}
+ occurrences(l:Loop):Occurrence[]{const p=this.company.finiteHQ.sourceContinuation(l.scope_id);return p?continuationOccurrences(this.company,p):this.baseOccurrences(l);}
+ baseOccurrences(l:Loop){return this.db.all<Occurrence>('SELECT * FROM investment_loop_occurrences WHERE loop_id=? AND plan_revision=? ORDER BY due_at,stage',l.loop_id,l.plan_revision);}
  private running(l:Loop){return this.db.get<Occurrence>("SELECT * FROM investment_loop_occurrences WHERE loop_id=? AND stage='research' AND state='running'",l.loop_id);}
  private session(l:Loop,date:string){const s=this.configuration(l).calendar.sessions.find(s=>s.date===date&&s.status==='open');requireThat(s,'Session outside frozen calendar');return s;}
  private limits(value:unknown):TurnLimits {const a=strictObject(value,['inputTokens','outputTokens','maxCostMicros']);return {inputTokens:amount(a.inputTokens,1,4000000),outputTokens:amount(a.outputTokens,1,640000),maxCostMicros:amount(a.maxCostMicros,0,400000000)};}
@@ -161,6 +163,7 @@ export class InvestmentLoop {
    requireThat(l.state!=='stopped'&&(l.state!=='finished'||action==='stop'&&this.observed(l))&&(l.state!=='draft'||this.research(l)||action==='stop'&&this.observed(l)),'Start or inspect the loop first');const state=action==='pause'||this.observed(l)?'paused':'ended';result=sim?.execute(s.run_id,{type:'control',state},`loop_owner_${receiptId}`);this.cancelModel(l,`Investment run ${action}`);if(action==='stop')this.db.run("UPDATE working_groups SET state='stopped',deadline=NULL WHERE group_id=? AND state!='completed'",s.group_id);this.db.run('UPDATE investment_loops SET state=?,generation=generation+1,reason=?,updated_at=? WHERE loop_id=?',action==='pause'?'paused':'stopped',`Owner ${action}`,this.now(),loopId);
    this.db.run("UPDATE investment_loop_occurrences SET state='cancelled',reason=?,retry_at=NULL,updated_at=? WHERE loop_id=? AND (state='running' OR (?='stop' AND state='pending'))",`Owner ${action}`,this.now(),loopId,action);
   }else if(action==='resume'){
+   const continuation=localSourceContinuation(this.company,l.scope_id);requireThat(!continuation||this.db.get('SELECT 1 FROM observed_investment_receipts WHERE request_hash=?',hash({scopeId:l.scope_id,action:'activate_source_continuation'})),'Prepared source continuation requires exact atomic activation');
    requireThat(l.state==='paused'||l.state==='blocked','Only held loops can resume');if(this.company.finiteHQ.policy(l.scope_id))requireThat(a.digest===l.digest,'Exact frozen finite run digest required for resume');requireThat(this.occurrences(l).some(o=>o.state==='pending'&&o.stage!='expire'&&time(o.due_at)>time(this.now())),'No eligible future work remains; ended cycles cannot be replayed');this.authority(l,true);requireThat(!this.company.discussions.activeExecutions(s.group_id).length,'Active model work has not settled');if(this.research(l))this.company.privateResearch.health(l.scope_id);else this.company.investmentTeam.requireNewRisk(this.scope(l));
    result=sim?.execute(s.run_id,{type:'control',state:'active'},`loop_owner_${receiptId}`);requireThat(this.research(l)||result&& (result as Journal).outcome.status==='active','Run could not resume');
    this.db.run("UPDATE investment_loop_occurrences SET state='missed',reason='Window elapsed during hold; never replayed',retry_at=NULL,updated_at=? WHERE loop_id=? AND state='pending' AND stage!='expire' AND due_at<=?",this.now(),loopId,this.now());this.db.run("UPDATE investment_loops SET state='active',generation=generation+1,reason=NULL,updated_at=? WHERE loop_id=?",this.now(),loopId);

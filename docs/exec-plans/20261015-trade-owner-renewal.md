@@ -36,8 +36,18 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Implementation, tests, independent diff review, deployment and actual rerun. No production mutation has been made yet.
+Complete and validate the source-continuation repair described below; deploy it and observe the actual rerun through proposal, review, submission and public projection. The allowance repair was deployed, but actual source collection found a new blocker.
 
 ## 20:29 UTC checkpoint
 
 Eighteen journal tests and the full nine-instrument renewal workflow passed locally. The workflow completed six new model-fixture turns, proposal/review/submission and public projection, with true close/reopen after independent approval. Both independent reviewers cleared the final source. Broader regressions and Linux validation remain in progress. The owner further authorized all required allowance to finish today’s run; the initial seven-call tranche is sufficient in the authored workflow, and any needed further allowance remains within that instruction but must be explicitly journaled.
+
+## 21:05 UTC checkpoint
+
+All 137 broader local regressions and 74 focused Linux tests passed, plus the full Linux renewal workflow. Automatic approval review required explicit public-publication authorization; the owner granted it. PR103 merged and deployed at `ac4a51a`, with preservation and health verification. Seven new calls were approved, predecessor authorities retired, and the new scope activated at 21:02 UTC. Public status is active. Collection starts at 21:06 and research at 21:10 UTC. Revised ETA from the 20:59 authorization: 20–30 minutes, depending on actual model responses. The user asked for tail-able logs; a private read-only audit/stage follower is available alongside the systemd journal.
+
+## 21:07 UTC source failure and continuation
+
+The new scope collected six valid responses, then XOM returned `financial_ohlc_order`. Its source reservation is known settled; no model calls were made and all seven new calls remain unused. WMT/SPY were never attempted. Raw response bodies were discarded by design, so the rejected values cannot be reconstructed from retained evidence. The original collection window expired; ordinary Resume cannot replay it.
+
+The additional repair records one exact owner-authorized continuation under the same independent authority. It binds the failed outcome, six normalized observations, two unused requests, original schedule hash, portfolio head and new future collection/research starts. Original attempts remain retained; XOM is explicitly missing and cannot be ordered in this cycle. No budget, normalization or fill qualification is relaxed. A distinct independent event makes older binaries fail closed; migration30 adds only an empty immutable preparation table. Both cross-database crash windows, stale inputs and duplicate controls require validation. Revised ETA at 21:13: another 30–60 minutes, subject to actual provider outcomes.

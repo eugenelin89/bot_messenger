@@ -67,6 +67,7 @@ export function removeEmptyAskMigration(db:import('node:sqlite').DatabaseSync){
 
 /** Disposable schema26 fixture only; no populated Ask content identity may be discarded. */
 export function removeEmptyAskContentMigration(db:import('node:sqlite').DatabaseSync){
+ if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=30').get()){assert.equal(db.prepare('SELECT count(*) n FROM observed_source_continuations').get()!.n,0);db.exec('DROP TABLE observed_source_continuations;DELETE FROM schema_migrations WHERE version=30');}
  if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=29').get()){
   for(const table of ['ask_wire_attempts','ask_wire_operations','ask_claim_epochs','ask_claim_custody','ask_coordination']){
    if(db.prepare(`SELECT count(*) n FROM ${table}`).get()!.n)throw Error('Populated Ask coordination fixture cannot be downgraded');
