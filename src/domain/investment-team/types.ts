@@ -18,3 +18,6 @@ export interface PaperNarrative { publicSummary?:PublicPaperSummary; rationale:s
 export interface PaperProposal {proposal_id:string;scope_id:string;decision_id:string;revision:number;worker_id:string;execution_id:string;proposal_hash:string;simulator_hash:string;command:string;narrative:string;provenance:string;created_at:string}
 export interface PaperReview {review_id:string;scope_id:string;proposal_id:string;worker_id:string;execution_id:string;proposal_hash:string;simulator_hash:string;disposition:'approve'|'reject';rationale:string;dissent:string;evidence:string;created_at:string}
 export interface PaperInput extends PaperNarrative {decisionId:string;revision:number;action:Proposal['action'];marketObservationIds:string[];order:Proposal['orders'][number]|null}
+
+export function publicPaperRationale(s:PublicPaperSummary){return `${s.thesis}\nFacts: ${s.facts.join('; ')}\nAssumptions: ${s.assumptions.join('; ')}\nHorizon: ${s.horizon}\nPosition-change reason: ${s.changeReason}`;}
+export function sourceResearchLimitation(instrumentId:string){return `\nResearch limitation: ${instrumentId} daily price data failed OHLC validation and was unavailable for this decision. No replacement price was fabricated; orders for that instrument were disabled for this cycle.`;}
