@@ -207,3 +207,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision053 — Owner-authorized observed renewal](decision_053_owner_observed_renewal.md): seven additional attempts after two exactly retained settled gaps, independent admission baseline and prospective next-session research; old consumption remains visible and no uncertain outcome is waived.
 
 - [Decision054 — Observed source continuation](decision_054_observed_source_continuation.md): one exact known OHLC research failure, retained successes, unspent requests and two future starts under the same allowance, with explicit missingness and no affected-instrument order.
+
+- [Decision055 — Observed model continuation](decision_055_observed_model_continuation.md): bounded same-turn input correction and one owner-authorized fresh decision after a retained settled failure, with cumulative allowance and completed-only publication.

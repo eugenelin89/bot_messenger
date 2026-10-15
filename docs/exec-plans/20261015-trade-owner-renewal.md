@@ -2,11 +2,11 @@
 
 **Status:** Active  
 **Owner:** /root; read-only recovery_review and security_review  
-**Branch:** codex/trade-owner-renewal  
+**Branch:** codex/trade-rerun-outcome
 **Worktree:** bot_messenger-review-clock  
 **Started:** 2026-10-15 20:02 UTC  
 **Initial ETA:** 20–40 minutes, conditional on existing controls  
-**Current ETA:** 60–90 minutes; a new bounded authority path is required.
+**Current ETA:** At 21:50 UTC, another 45–75 minutes for the newly discovered input failure and audited continuation.
 
 ## Objective
 
@@ -36,7 +36,7 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Complete and validate the source-continuation repair described below; deploy it and observe the actual rerun through proposal, review, submission and public projection. The allowance repair was deployed, but actual source collection found a new blocker.
+Validate/deploy Decision055 and observe the actual rerun through a fresh completed proposal, review, submission and public projection. PR104 source continuation is deployed and its collection succeeded. The genuine model run revealed the separate malformed-answer failure below.
 
 ## 20:29 UTC checkpoint
 
@@ -51,3 +51,9 @@ All 137 broader local regressions and 74 focused Linux tests passed, plus the fu
 The new scope collected six valid responses, then XOM returned `financial_ohlc_order`. Its source reservation is known settled; no model calls were made and all seven new calls remain unused. WMT/SPY were never attempted. Raw response bodies were discarded by design, so the rejected values cannot be reconstructed from retained evidence. The original collection window expired; ordinary Resume cannot replay it.
 
 The additional repair records one exact owner-authorized continuation under the same independent authority. It binds the failed outcome, six normalized observations, two unused requests, original schedule hash, portfolio head and new future collection/research starts. Original attempts remain retained; XOM is explicitly missing and cannot be ordered in this cycle. No budget, normalization or fill qualification is relaxed. A distinct independent event makes older binaries fail closed; migration30 adds only an empty immutable preparation table. Both cross-database crash windows, stale inputs and duplicate controls require validation. Revised ETA at 21:13: another 30–60 minutes, subject to actual provider outcomes.
+
+## 21:47 UTC genuine model failure and continuation
+
+PR104 deployed at 21:41 UTC with preserved history. Remaining WMT/SPY collection completed at 21:43:48 UTC. Atlas completed a formal HOLD proposal at 21:46:10; Maya committed an approving review at 21:46:42, then supplied answer prose in an ID-only `answers` list. Provider settlement was known, but interruption left a failed execution/incomplete usage and no submitted decision. The exact rejected payload was inspected privately; generated IDs themselves were valid lengths.
+
+Decision055 adds explicit schemas and bounded correction of pure input-validation errors, plus one exact owner-authorized model continuation. It retains the failure and original review as unusable history, grants eight additional attempts separately (total15, two spent), reuses the source packet and starts fresh opening requests. No status rewrite, source replay, refund or failed-review publication is permitted. Independent security/recovery review and real close/reopen tests are required before deployment. The first twelve correction/authority tests pass; full workflow and broader validation remain in progress.

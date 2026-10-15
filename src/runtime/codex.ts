@@ -16,6 +16,7 @@ import { resolveAIProfile, type RuntimeCatalog, type RuntimeModel } from '../dom
 import { execFileSync } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { requireThat } from '../domain/model.js';
+import {CorrectableToolInputError} from '../domain/tool-input.js';
 import { AppServerRpc, type RpcMessage } from './rpc.js';
 import type { RuntimeAdapter, RuntimeInput, RuntimeResult } from './adapter.js';
 import { CONVERSATION_LIMITS } from '../domain/conversations.js';
@@ -286,7 +287,7 @@ export class CodexRuntime implements RuntimeAdapter {
     const isolated=bounded?await this.isolateSkills(input.worker.workspace_path,Date.parse(input.localDeadline!),signal,ask?.grant.id??(this.creditPilot?.pilotId??this.finiteHQ?.authorityId),!!ask):undefined;
     const rpc = this.connect(input.worker.workspace_path,bounded,isolated?.skills,ask?creditEnvironment():undefined);
     let threadId: string | undefined; let turnId: string | undefined;
-    let starting = false; let toolCalls = 0; let stopping=false;
+    let starting = false; let toolCalls = 0; let stopping=false;let inputCorrections=0;
     const pendingEvents: RpcMessage[] = [];
     const pendingRequests: RpcMessage[] = [];
     let finalText = ''; let approvalDenied = false; let toolFailure: string | undefined; let finished = false; let interruptTimer: NodeJS.Timeout | undefined;
@@ -337,6 +338,7 @@ export class CodexRuntime implements RuntimeAdapter {
     const timeout = setTimeout(() => { if(bounded){interrupt();return;}finish({ status: 'failed', error: 'Bounded runtime deadline exceeded; inspect evidence before retry' }); rpc.close(); }, bounded?Math.max(1,Date.parse(input.localDeadline!)-Date.now()):this.timeoutMs);
     rpc.on('closed', (error: Error) => finish({ status: signal.aborted ? 'interrupted' : 'failed', error: error.message }));
     const handleRequest = async (message: RpcMessage) => {
+      let correctable:CorrectableToolInputError|undefined;
       try {
         const p = message.params ?? {};
         if (starting && !turnId && !finished) { requireThat(pendingRequests.length < 64,'Runtime request buffer exceeded');pendingRequests.push(message);return; }
@@ -352,7 +354,8 @@ export class CodexRuntime implements RuntimeAdapter {
           requireThat(p.threadId === threadId && p.turnId === turnId && !!turnId, 'Runtime tool identity mismatch');
           requireThat((p.namespace === null || p.namespace === undefined) && typeof p.tool === 'string' && input.tools.some(t => t.name === p.tool), 'Tool is outside granted surface');
           requireThat(typeof p.callId === 'string', 'Missing runtime call ID');
-          const value = await input.callTool(p.callId, p.tool, p.arguments,toolController.signal);
+          let value:unknown;
+          try{value=await input.callTool(p.callId,p.tool,p.arguments,toolController.signal);}catch(error){if(error instanceof CorrectableToolInputError)correctable=error;throw error;}
           live();
           rpc.send({ id: message.id, result: { contentItems: [{ type: 'inputText', text: JSON.stringify(value) }], success: true } });
         } else {
@@ -370,6 +373,12 @@ export class CodexRuntime implements RuntimeAdapter {
         }
       } catch (error) {
         try {
+          if(correctable&&correctable===error&&inputCorrections<2){
+            live();requireThat(!completing,'Runtime turn is completing');
+            // The event hook rechecks the current trusted execution before returning correction feedback.
+            input.event('tool_input_correction',{code:correctable.code,field:correctable.field,maximum:correctable.maximum,attempt:++inputCorrections});
+            live();rpc.send({id:message.id,result:{contentItems:[{type:'inputText',text:correctable.message}],success:false}});return;
+          }
           // A rejected callback is not a request for human permission. Keep the
           // bounded stop/settlement fence, but retain the actual failure reason.
           if(bounded){toolFailure=`Runtime tool callback rejected: ${error instanceof Error ? error.message : 'Tool rejected'}`;interrupt();}
