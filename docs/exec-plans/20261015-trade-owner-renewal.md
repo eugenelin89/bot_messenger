@@ -1,12 +1,12 @@
 # Execution Plan — Trade owner-authorized renewal
 
-**Status:** Active  
+**Status:** Genuine rerun complete; receiver renewal awaiting explicit approval
 **Owner:** /root; read-only recovery_review and security_review  
-**Branch:** codex/trade-live-completion
+**Branch:** codex/trade-publication-completion
 **Worktree:** bot_messenger-review-clock  
 **Started:** 2026-10-15 20:02 UTC  
 **Initial ETA:** 20–40 minutes, conditional on existing controls  
-**Current ETA:** At 23:10 UTC, genuine research and publication are complete; allow another 10–20 minutes for the discovered publication-expiry alignment and final records.
+**Current ETA:** At 23:29 UTC, genuine research/publication and HQ repair deployment are complete. Receiver renewal needs explicit approval after automatic review rejection; estimate 10–15 minutes after approval for cutover and retained-state verification.
 
 ## Objective
 
@@ -36,7 +36,7 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Align the existing publisher key/scope/grant expiry with the already-authorized October 16 schedule, verify retained state after the required configuration reload, and publish final completion evidence. Genuine proposal, completed review, submission and public readback are complete.
+Obtain the requested specific receiver approval, then register the prepared key/scope and renew the HQ grant through October 16 at 23:40 UTC. Verify a new-key heartbeat and restart under the new grant. Genuine proposal, completed review, submission, public readback and actual HQ repair restart are complete. The old publication expiry remains October 15 at 23:40 UTC.
 
 ## 20:29 UTC checkpoint
 
@@ -77,4 +77,9 @@ The final exact-source Linux workflow passed in 315.19 seconds; its fresh stage 
 
 ## 23:20 UTC publication renewal repair
 
-The genuine six-turn research completed at 23:05:58 and decision revision2 was accepted publicly at 23:07:34. Publication authority expires before tomorrow's accounting. Receiver renewal requires a fresh key ID; its existing CLI supports same-generation overlapping keys. Decision056 adds one protected additional key and repairs clean restart to authorize new receipt reads under the current grant, preserving old delivered jobs. All43 focused local configuration/recovery tests pass. A fresh private key was generated only on HQ; public registration metadata was sent to the website owner. Independent reviews and Linux publication regressions precede the coordinated cutover. No new model/source run is needed.
+The genuine six-turn research completed at 23:05:58 and decision revision2 was accepted publicly at 23:07:34. Publication authority expires before tomorrow's accounting. Receiver renewal requires a fresh key ID; its existing CLI supports same-generation overlapping keys. Decision 056 adds one protected additional key and repairs clean restart to authorize new receipt reads under the current grant, preserving old delivered jobs. All43 focused local configuration/recovery tests pass. A fresh private key was generated only on HQ; public registration metadata was sent to the website owner. Independent reviews and Linux publication regressions precede the coordinated cutover. No new model/source run is needed.
+
+
+## 23:29 UTC verified HQ deployment; receiver approval remains
+
+PR 106 passed 79 local and 79 Linux checks plus both independent reviews, then merged and deployed as `dccf209`. The website receiver cutover was rejected by automatic approval review before any receiver mutation. The exact interruption/backup/permission-extension question is pending with the human. HQ was brought back up against the unchanged receiver;181 tables stayed identical, finite recovery added only hold/resume, publication reconciliation completed, and all completed research/usage/source history was preserved. Fresh verification confirms activegeneration 4,complete research,seven remaining calls. Neither receiver registration nor HQ key rotation/new grant was executed. The prepared public packet and protected new key remain ready; no rejected action was retried by another route.

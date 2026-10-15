@@ -1,6 +1,6 @@
 # Decision 056 — Publication renewal and clean restart
 
-Date: 2026-10-15. Status: accepted; source validated, deployment pending.
+Date: 2026-10-15. Status: accepted; PR 106 deployed at `dccf209`, actual clean restart verified. Receiver renewal awaits specific approval after automatic review rejection.
 
 The genuine Trade rerun completed and published its reviewed HOLD decision. Its next accounting stages are on October 16, but the existing publisher key and grant expire October 15 at 23:40 UTC. The owner authorized the repairs and allowances needed to finish the run.
 
