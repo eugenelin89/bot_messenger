@@ -563,6 +563,18 @@ verify health/listener/build/preservation. Do not run full bootstrap merely to d
 its provisioning and OS-package operations require their own justified scope. No worker
 roster, new grant, pause reset, or demonstration belongs in production deployment.
 
+For a reviewed **static UI/documentation-only release**, a service restart is unnecessary:
+the HTTP server reads the public assets from disk for each request. Verify that `src/`,
+contracts, dependencies and executable runtime configuration are identical to both the
+accepted baseline and the running backend. Take an online SQLite backup, verify its
+integrity, retain the previous public assets and deployment receipt in a protected backup,
+and record table hashes/counts and permissions. Advance only a clean checkout to the exact
+accepted merge commit, preserve the adapter environment, and update the source receipt.
+Compare served asset hashes to that commit, recheck retained state and health, and confirm
+the same process ID and running backend identity. Do not pause schedules or run migrations
+for an asset-only change. Report the source/assets commit separately from the intentionally
+unchanged backend commit; a health commit captured at startup is not the new asset version.
+
 Prompt 08 isolated scripts are explicitly restricted to validation roots and loopback
 ports; their manifests distinguish trusted roster setup, real model output and deliberate
 fault injection. Preserve failed attempts and all unknown-outcome fences. Stop temporary
