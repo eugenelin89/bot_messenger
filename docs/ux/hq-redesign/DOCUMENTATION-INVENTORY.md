@@ -1,6 +1,6 @@
 # Documentation inventory
 
-Search scope: README, current operations/tutorials/guides/product documentation, UI help and demo automation; historical validation/audits/decisions/frozen packets classified separately. Asymmetri’s authorized owner is updating website-hosted HQ guidance and retaining its release receipt; counterpart status is recorded in DOCUMENTATION-VALIDATION.md.
+Search scope: README, current operations/tutorials/guides/product documentation, UI help and demo automation; historical validation/audits/decisions/frozen packets classified separately. Asymmetri’s authorized owner updated and deployed website-hosted HQ guidance and retained its release receipt; counterpart status is recorded in DOCUMENTATION-VALIDATION.md.
 
 | Authoritative source | Old references / required update | Status |
 | --- | --- | --- |
@@ -34,3 +34,9 @@ to Activity → Work sessions → Usage & cost. Investment experiment architectu
 design prose retain precise entity names (Executive channel as a backend channel is valid);
 no current old-tab instruction remained in the reviewed experiment documents. Historical
 milestones, decision packets, audits and original StudyPlan media are preserved.
+
+The public [Using BotSquad HQ guide](https://asymmetri.co/botsquad/trade/hq-guide) is
+synchronized and deployed. Its existing article/content definitions, guide layout, testing
+and asset documentation are updated; five current captures and seven historical captures
+are separately labelled. Website source e9b5ab1 and build identity, final browser/image checks
+and exact receiver/Ask preservation are recorded in RELEASE-REPORT.md and its evidence.

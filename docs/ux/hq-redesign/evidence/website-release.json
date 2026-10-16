@@ -1,0 +1,31 @@
+{
+  "url": "https://asymmetri.co/botsquad/trade/hq-guide",
+  "deployedSource": "e9b5ab1a4c8397d6ac0d484e69d489298a614d06",
+  "implementation": "b6e50af506a221163b53a46d18e2a5800294aaa5",
+  "receiptCommit": "52bab1b477ac9a55f50bd271ab72c913262ac3e6",
+  "activatedAt": "2026-10-16T07:58:47Z",
+  "buildId": "rrTJaSzqUzeWpt2fGqrCH",
+  "artifactSha256": "0acd7e4d9edfed2d0d4910320fdf3e6726946395931e17352531e474839e68b0",
+  "sourceHashes": 274,
+  "regressionsPassed": 22,
+  "candidateRoutesPassed": 12,
+  "liveWidths": [
+    320,
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "guideSections": 20,
+  "figures": 12,
+  "currentSampleFigures": 5,
+  "historicalFigures": 7,
+  "receiverTablesUnchanged": 15,
+  "ask": "closed and empty; unchanged",
+  "hqRestarted": false,
+  "websiteServiceRestarted": true,
+  "limitations": "Four pre-existing unrelated IPv6 TLS failures and four fallback certificate fingerprints match baseline. Existing tutorial-reader lint warning unchanged.",
+  "sourceReceipt": "Asymmetri docs/BOTSQUAD_HQ_UX01_2026-10-16.md",
+  "parentIndependentReadback": "website-readback.json"
+}

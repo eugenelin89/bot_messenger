@@ -1,0 +1,23 @@
+{
+  "url": "https://asymmetri.co/botsquad/trade/hq-guide",
+  "errors": [],
+  "screens": [
+    {
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "horizontalOverflow": false
+    }
+  ],
+  "images": {
+    "home-1440.png": "4ca2734ddd5b4b766b4a46f3fcb9eac7c4ca5f65ff86f6cbb72fb7866de82b5a",
+    "new-task-1440.png": "4312a2a0949112271b7c80f52bfe9c6bfd4611c07fc94dcedde0eb4a76a95582",
+    "saved-result-1440.png": "8e8a298e7dc81376008d64cf18ffbce87a20aea5fe1729e61caff096db4cf0c3",
+    "task-result-1440.png": "e467021e9c146099410b6d3a7471eb38785d81e9a7f0fa3aecd0348dcd92ef13",
+    "employee-390.png": "1ff7cb41e00f2a5a6513be098622001659d1a5eed9909b597ee384fe4ac33903"
+  },
+  "title": "Using BotSquad HQ",
+  "passed": true
+}
