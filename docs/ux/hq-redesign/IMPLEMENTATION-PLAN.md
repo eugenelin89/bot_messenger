@@ -31,5 +31,7 @@ No backend change is planned. A verified static-only fast-forward may avoid rest
 - Existing startup/draft/reconnect/exact-approval behavior passes the complete browser gate.
   Backend code, contracts, package dependencies and financial runtime behavior are unchanged.
 
-The source is locally accepted for release once the full integration gate and guarded
-production verification complete. Publication of this plan alone is not a deployment receipt.
+The final UI is deployed and accepted through the 83-test browser gate, independent review,
+exact served hashes and production preservation/readback. The broad backend test limitation
+is recorded separately; no policy was relaxed to make a fixture pass. See the
+[release report](RELEASE-REPORT.md) for exact source, tests and website completion.

@@ -47,7 +47,7 @@ completed browser screenshot is not genuine employee or investment performance e
   computed colors/backgrounds. Decorative icons are excluded. The fixture does not populate
   every legacy state and does not establish non-text/placeholder/focus-ring conformance.
 - Home/Tasks reflow at 320,390,768,1440px, desktop/mobile workflows, and 200% text scaling
-  at768px. Existing complex tables scroll within panels. Reduced-motion CSS and preference
+  at 768px. Existing complex tables scroll within panels. Reduced-motion CSS and preference
   are checked. Human screen-reader and broader cross-browser checks remain unperformed.
 - No browser page errors in passing suites; navigation/profile assertions require no
   unintended writes, model calls or automatic catalog/eligibility probes.
