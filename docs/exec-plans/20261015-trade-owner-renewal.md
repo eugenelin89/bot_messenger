@@ -1,12 +1,12 @@
 # Execution Plan — Trade owner-authorized renewal
 
-**Status:** Genuine rerun complete; receiver renewal awaiting explicit approval
+**Status:** Complete — genuine rerun, publication renewal and restart verified
 **Owner:** /root; read-only recovery_review and security_review  
-**Branch:** codex/trade-publication-completion
+**Branch:** codex/trade-renewal-applied
 **Worktree:** bot_messenger-review-clock  
 **Started:** 2026-10-15 20:02 UTC  
 **Initial ETA:** 20–40 minutes, conditional on existing controls  
-**Current ETA:** At 23:29 UTC, genuine research/publication and HQ repair deployment are complete. Receiver renewal needs explicit approval after automatic review rejection; estimate 10–15 minutes after approval for cutover and retained-state verification.
+**Current ETA:** Completed this approval turn in about 10 minutes. The original overall estimate grew because genuine source/model failures required separate repairs, Linux validation exposed a harness timeout, and receiver renewal required a specific approval.
 
 ## Objective
 
@@ -36,7 +36,7 @@ Focused unit and integration tests; TypeScript build; relevant finite authority/
 
 ## Remaining work
 
-Obtain the requested specific receiver approval, then register the prepared key/scope and renew the HQ grant through October 16 at 23:40 UTC. Verify a new-key heartbeat and restart under the new grant. Genuine proposal, completed review, submission, public readback and actual HQ repair restart are complete. The old publication expiry remains October 15 at 23:40 UTC.
+None for the approved rerun and publication renewal. The October 16 market/accounting stages remain on their preserved future schedule; their execution is outside this completed research/renewal acceptance.
 
 ## 20:29 UTC checkpoint
 
@@ -83,3 +83,13 @@ The genuine six-turn research completed at 23:05:58 and decision revision2 was a
 ## 23:29 UTC verified HQ deployment; receiver approval remains
 
 PR 106 passed 79 local and 79 Linux checks plus both independent reviews, then merged and deployed as `dccf209`. The website receiver cutover was rejected by automatic approval review before any receiver mutation. The exact interruption/backup/permission-extension question is pending with the human. HQ was brought back up against the unchanged receiver;181 tables stayed identical, finite recovery added only hold/resume, publication reconciliation completed, and all completed research/usage/source history was preserved. Fresh verification confirms activegeneration 4,complete research,seven remaining calls. Neither receiver registration nor HQ key rotation/new grant was executed. The prepared public packet and protected new key remain ready; no rejected action was retried by another route.
+
+
+## October 16, 05:20 UTC — explicit receiver approval
+
+The human approved the exact receiver backup, interruption and renewal through October 16 at 23:40 UTC (4:40 p.m. Vancouver). The original key/grant have expired; HQ remains running with the replacement key already loaded. Fresh inspection confirms active generation 4, completed research, 18 lifetime calls and no pending publication. Supported owner pause stopped publication without stopping HQ. A consistent pre-renewal backup was saved before the pause, and the website owner received the fresh drained signal. Next: receiver registration/readback, supported HQ rotate and new consent, new-key heartbeat, clean restart verification and final evidence. Best-effort ETA is 10–15 minutes from this approval turn.
+
+
+## October 16, 05:25 UTC — renewal and restart complete
+
+The receiver backup/registration succeeded after exact human approval. Supported HQ rotation and consent activated the replacement key and new grant through October 16 at 23:40 UTC. A new-key heartbeat was accepted at 05:24:29 UTC. Actual clean restart reconciled the unchanged old batch using the current grant/key; 182 tables remained identical and finite recovery added only hold/resume. Full-cutover comparison preserved all old public jobs/receipts/attempts, financial/source/model history and seven remaining calls. Public decision readback passed. No code change or additional model/market execution was needed in this approval turn. Final records replace the former pending-approval status.
