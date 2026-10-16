@@ -1,3 +1,4 @@
+import {go,aiSettings} from './hq-navigation.mjs';
 // Explicit browser regression: npm run build && node --test test/demo-ui.browser.mjs
 // Uses only a fresh local test fixture; never the development HQ.
 import {test} from 'node:test';
@@ -13,7 +14,7 @@ test('live updates preserve the approval being inspected and expanded exact scop
  await new Promise(r=>http.server.listen(0,'127.0.0.1',r));
  const browser=await chromium.launch({channel:'chrome',headless:true});const context=await browser.newContext();
  t.after(async()=>{await context.close();await browser.close();await http.close();await f.close();});
- const page=await context.newPage();await page.goto(`http://127.0.0.1:${http.server.address().port}`);await page.locator('[data-tab=approvals]').click();
+ const page=await context.newPage();await page.goto(`http://127.0.0.1:${http.server.address().port}`);await go(page,'approvals');
  const approval=f.company.infrastructure.approvals()[0];const button=page.locator(`[data-approval="${approval.approval_id}"][data-decision=approve]`);
  const article=page.locator('#view article').first();await article.locator('summary').click();
  const original=await button.elementHandle();

@@ -1,3 +1,4 @@
+import {go,aiSettings} from './hq-navigation.mjs';
 // Actual browser pairing controls; test client uses HTTP only. No private key enters browser/server.
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,7 +17,7 @@ test('real Devices UI creates, fingerprints, confirms, denies and revokes an ind
   const browser=await chromium.launch({channel:'chrome',headless:true});const context=await browser.newContext();
   const dir=realpathSync(mkdtempSync(join(tmpdir(),'botsquad-client-key-')));
   t.after(async()=>{await context.close();await browser.close();await http.close();await f.close();for(const file of ['device.pem','identity.json'])try{unlinkSync(join(dir,file));}catch{}rmdirSync(dir);});
-  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(base);await page.locator('[data-tab=devices]').click();
+  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(base);await go(page,'devices');
   await page.locator('#create-pairing').waitFor();assert.equal(await page.locator('[data-device-scope="state:read"]').isChecked(),true);
   assert.equal(await page.locator('[data-device-scope="objectives:create"]').isChecked(),false);
   await page.locator('[data-device-scope="messages:send"]').check();

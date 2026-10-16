@@ -1,11 +1,11 @@
 # Learn by doing: ask your team to reason together
 
-This tutorial describes the Prompt 08 UI. Check the
+This tutorial describes current HQ navigation for the bounded working-group workflow introduced in Prompt 08. Check the
 [acceptance report](../validation/PROMPT_08_VALIDATION.md) for delivery status.
 Use the trusted private browser connection to your HQ. Choose a hypothetical internal
 question while learning; a discussion gives employees no implementation authority.
 
-1. Open **Working Groups → New working group**. Enter a problem such as “Compare guided
+1. Open **Team → Discussions → New working group**. Enter a problem such as “Compare guided
    setup, an interactive example and contextual help for a small offline tool.” Specify
    the desired recommendation and constraints: one engineer-week, privacy, accessibility,
    no implementation or publication.
@@ -35,7 +35,7 @@ question while learning; a discussion gives employees no implementation authorit
    Atlas** creates a normal Task. Start with a harmless internal assessment.
 
 Research is optional. A group works from supplied material with no grants. For public
-research, open an eligible worker's **Capabilities & research**, explicitly enable Public
+research, open an eligible worker's **Permissions & research**, explicitly enable Public
 Research with the working-group checkbox, and permit research in the group charter.
 Existing Task/conversation grants do not expand automatically. To extend an existing
 grant, revoke it and explicitly grant again with that option. Engineers/reviewers do not

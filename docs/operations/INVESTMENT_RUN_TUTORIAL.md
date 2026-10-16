@@ -1,12 +1,41 @@
-# Investment run controls — source-only operator guide
+# Investment workspace and retained run controls
 
-This guide describes the implemented private owner interface. It is not an activation instruction for retained HQ state. Current Codex investment model dispatch is held in both policies: strict token/cost enforcement is unavailable, and subscription included-only/retry guarantees are unverified. See [Decision036](../decisions/decision_036_subscription_activity_usage.md). Source permissions, genuine employee acceptance and deployment gates remain in [readiness](INVESTMENT_READINESS.md).
+Open **Projects → Investment** in the private HQ. The linked routes are **Portfolio & work**,
+**Team permissions**, and **Publication**. Merely opening them does not collect data,
+run an employee, approve a decision, trade, publish, or activate Ask. Ask remains paused.
+
+## Read the portfolio and work
+
+1. Read the **Latest portfolio valuation** and its actual quality/as-of time. A complete
+   valuation is a recorded calculation; partial or blocked data is not a complete price set.
+2. Read **Formal decisions** from the committed ledger. Research proposals and independent
+   reviews are listed separately; the decision table shows its exact matching independent review
+   as approved, rejected, missing or mixed. A committed record alone does not prove an
+   approved or executed trade. A discussion or completed response is not a decision.
+3. Read **Paper orders** and their individual status/session/reason. A HOLD decision can
+   have no order. These are simulated orders, not real trades.
+4. Read **Operations held** for portfolio restrictions, and the schedule's own reason for
+   research/scheduling blocks. Absence in one section does not prove every operation is clear.
+5. Read **Research and discussion** under the retained schedule for work records and usage.
+   **Schedule state** describes the schedule, not whether an employee is currently running.
+6. Read **Future schedule** for the next pending occurrence. A future timestamp is not
+   proof that it ran or will meet all admission/permission requirements. Expand original
+   schedule records for the exact stage and evidence.
+
+Existing pause/stop/resume, reload confirmation, scoped authority, publication previews
+and consent retain their distinct meanings. **Other research and legacy setup tools** opens
+private synthetic setup, private historical research and legacy finite planning. Do not
+use a setup form to continue an exhausted authority. The current operational source is
+[INV-REAL-01](INV-REAL-01.md); the sections below preserve earlier source workflows and
+closed Decision037 history, not reusable activation permission. Original run records stay
+unchanged. [UX verification](../ux/hq-redesign/USABILITY-VALIDATION.md) separates fixtures
+from retained live evidence.
 
 ## Prepare an isolated authorized run
 
 Use a separately approved frozen paper configuration and fresh approved investment team. Preserve existing workers and global roles. The team needs the same run's publication channel and independently approved source/participant permissions. Team consent, loop start and public publication consent are distinct. A draft and page load create no model work.
 
-Open **Investment run** from private HQ. Select the **Approved team** and explicit exchange session dates from the frozen calendar. Include the initial frozen benchmark opening. Enter the research window, maximum turns per cycle/New York day/whole run, deterministic attempt count and retry interval. For strict mode, enter input/output tokens and maximum model cost for each day and the whole run; zero cost is a hard ceiling. For a team explicitly approved in subscription activity mode, these monetary/token fields are omitted; choose limits no higher than8/rolling24h,24/run and15minutes, while investment concurrency remains1 and global2. Existing cycle/day counts may be lower. This selection does not overcome the displayed runtime block.
+Open **Projects → Investment → Other research and legacy setup tools**. Select the **Approved team** and explicit exchange session dates from the frozen calendar. Include the initial frozen benchmark opening. Enter the research window, maximum turns per cycle/New York day/whole run, deterministic attempt count and retry interval. For strict mode, enter input/output tokens and maximum model cost for each day and the whole run; zero cost is a hard ceiling. For a team explicitly approved in subscription activity mode, these monetary/token fields are omitted; choose limits no higher than8/rolling24h,24/run and15minutes, while investment concurrency remains1 and global2. Existing cycle/day counts may be lower. This selection does not overcome the displayed runtime block.
 
 Choose **Preview schedule and limits**. Review exact research/cutoff/open/expiry/mark timestamps, immutable run/team configuration and derived cycle reservation. Check the explicit approval checkbox, then start the displayed plan. Editing any input invalidates the visible consent; a stale response cannot start a changed plan. After start, limits are immutable. Start itself does not force a model call before a due window or overcome a missing bounded adapter.
 
@@ -115,7 +144,7 @@ were activated. A new readiness task requires separate owner authorization.
 
 ## Private finite HQ setup — source workflow only
 
-HQ-READY-02 extends **Investment run** with a private synthetic setup form. Select existing
+HQ-READY-02 extends **Projects → Investment → Other research and legacy setup tools** with a private synthetic setup form. Select existing
 employees and their scoped responsibilities, a mandate/output/constraints, two future synthetic
 session dates, capital/fees/risks, finite turn ceilings and an explicit scoped model/reasoning
 profile. The fixture universe is SYNTHA/SYNTHB with SYNETF benchmark; these are invented assets.

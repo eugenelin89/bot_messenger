@@ -45,7 +45,7 @@ const chatDrafts = new Map(); let renderedChatConversation = null;
 let conversationList = {items:[]}, conversationListWorker = null, selectedConversation = null, conversationDetail = null, conversationWorker = '', chatDraft = '', chatSending = false, chatReceipt = null;
 let attentionVersion = -1;
 let attentionState = null, attentionPending = false, attentionFocus = null;
-let state, token, activeTab = 'conversation', draft = '', loading = null, refreshAgain = false, submitting = false;
+let state, token, activeTab = 'home', draft = '', loading = null, refreshAgain = false, submitting = false;
 // An absent snapshot is loading, never an empty company. Keep the last snapshot on failure.
 let phase = 'booting', connection = 'connecting', loadError = null;
 let sessionNeeded = true, connectionVersion = 0, defaultDraftLoaded = false, refreshController;
@@ -55,11 +55,15 @@ const canMutate = () => phase === 'ready' && !!state && !!token && !sessionNeede
 function syncControls() {
   $('#pause').disabled = !canMutate();
   $('#initialize').disabled = !canMutate();
+  $('#new-task').disabled = !canMutate();
+  $('#inspect-stale').hidden = phase==='ready';
   for (const controls of document.querySelectorAll('.load-controls')) controls.disabled = !canMutate();
 }
 function loadingView(message) { return `<div class="panel empty" role="status"><strong>${escape(message)}</strong>Your selected section will appear when its data is available.</div>`; }
 function renderReadiness() {
+  renderNavigation();
   const title = titles[activeTab];
+  document.title = `BotSquad HQ · ${title[0]}`;
   const attentionStale = attentionState && (phase !== 'ready' || attentionVersion !== connectionVersion || auxiliaryErrors.has('attention'));
   $('#attention-count').textContent = attentionState ? `${attentionState.total > 9 ? '9+' : attentionState.total}${attentionStale ? '*' : ''}` : auxiliaryErrors.has('attention') ? '?' : '…';
   $('#attention-count').title = attentionStale ? 'Last loaded count; refresh unavailable' : attentionState ? `${attentionState.total} need attention` : 'Owner attention has not loaded';
@@ -87,16 +91,210 @@ let deviceState = null;
 let deviceScopes = new Set(['state:read']);
 function updateView(html) {
   if (html === renderedView) return;
-  const expanded = new Set([...document.querySelectorAll('#view details[open][data-disclosure]')].map(element => element.dataset.disclosure));
+  const expanded = new Set([...document.querySelectorAll('#view details[open]')].map(disclosureKey));
   $('#view').innerHTML = activeTab === 'attention' ? html : `<fieldset class="load-controls" aria-label="Selected section">${html}</fieldset>`;
-  for (const element of document.querySelectorAll('#view details[data-disclosure]')) element.open = expanded.has(element.dataset.disclosure);
+  for (const element of document.querySelectorAll('#view details')) element.open = expanded.has(disclosureKey(element));
   renderedView = html;
 }
 const worker = id => state.workers.find(w => w.worker_id === id);
 const groups=workingGroups({request,refresh,render,inspect,showError,escape,linkedText,safeLink,status,worker,workerAvatar,workerIdentity,fallbackAvatar,isActive:()=>activeTab==='groups'});
 const computers=computerSessions({request,refresh,render,inspect,showError,escape,status,workerIdentity,workers:()=>state?.workers??[]});
-const mandates=companyOperations({request,refresh,render,inspect,showError,escape,status,workerIdentity,workers:()=>state?.workers??[],openGroup:async id=>{activeTab='groups';await groups.select(id);},isActive:()=>activeTab==='mandates'});
-const titles = { attention:['Attention','Does anything need you right now?','Current owner decisions and unresolved work, with links to their controls.'], computers:['Computer Sessions','Bounded browser work','Exact owner policies, private evidence and protected fixture approvals.'], mandates:['Company Mandates','An ongoing company objective','Bounded internal work, labelled evidence and durable reviews.'], groups:['Working Groups','Reason together','Bounded discussions, shared evidence and recommendations. Implementation requires a separate assignment.'], direct:['Conversations','Talk with your team','Request a bounded reply or leave a passive message. Conversations remain separate from assignments.'], devices: ['Devices / Remote Clients', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects & repositories', 'Software projects, with evidence', 'Explicit scopes. Revision rounds. Tested integration.'], conversation: ['Executive channel', 'The executive channel', 'Give Atlas a direction. Follow the work from assignment to evidence.'], organization: ['Organization', 'A team with clear ownership', 'Persistent identities. Bounded authority. Runtime on demand.'], tasks: ['Tasks', 'Work, with evidence', 'Explicit assignments and their outcomes, from first attempt to final result.'], executions: ['Executions', 'Every attempt, accounted for', 'Runtime starts, resumes, interruptions and failures.'], audit: ['Audit history', 'The record of what happened', 'Durable events recorded by the control plane.'] };
+const mandates=companyOperations({request,refresh,render,inspect,showError,escape,status,workerIdentity,workers:()=>state?.workers??[],openGroup:async id=>{selectTab('groups');await groups.select(id);},isActive:()=>activeTab==='mandates'});
+const titles = { home:['Home','Your team at a glance','See what is happening, review results, and decide what comes next.'], activity:['Activity','What happened recently','Meaningful milestones from your team’s recorded work.'], settings:['Settings','Your preferences and controls','Manage permissions, connected devices and advanced operations.'], attention:['Needs your attention','Does anything need you right now?','Current owner decisions and unresolved work, with links to their controls.'], computers:['Browser work','Browser work','Exact owner policies, private evidence and protected fixture approvals.'], mandates:['Ongoing goals','Ongoing goals and schedules','Bounded internal work, labelled evidence and durable reviews.'], groups:['Discussions','Reason together','Bounded discussions, shared evidence and recommendations. Implementation requires a separate assignment.'], direct:['Conversations','Talk with your team','Request a bounded reply or leave a passive message. Conversations remain separate from assignments.'], devices: ['Devices', 'Your paired devices', 'Confirm each device. Choose its capabilities. Revoke access at any time.'], approvals: ['Approvals', 'Review protected host changes', 'Exact scope. One trusted decision. Durable receipts.'], infrastructure: ['Infrastructure', 'Worker identities & access', 'Nix coordinates. The human approves. Bounded host operations enforce the change.'], products: ['Projects', 'Organize your projects', 'Software projects, ongoing goals and your investment workspace.'], conversation: ['Team updates', 'The company conversation', 'Read team messages and leave a note. Use New task to assign work.'], organization: ['Team', 'Meet your AI team', 'See each employee’s responsibilities, assignments and recent work.'], tasks: ['Tasks', 'Your tasks', 'Follow assignments from the original request to the finished result.'], executions: ['Work sessions', 'Work sessions', 'One session is one attempt. A finished session does not always mean a finished task.'], audit: ['Advanced audit', 'The record of what happened', 'Durable events recorded by the control plane.'] };
+// UX-01: presentation over existing authoritative records; no new work authority.
+const sections = {
+  home: [['home','Overview']],
+  tasks: [['tasks','All tasks'],['attention','Needs your attention'],['computers','Browser work']],
+  organization: [['organization','Employees'],['direct','Conversations'],['groups','Discussions']],
+  activity: [['activity','Recent activity'],['conversation','Team updates'],['executions','Work sessions'],['audit','Advanced audit']],
+  products: [['products','Software projects'],['mandates','Ongoing goals']],
+  settings: [['settings','Overview'],['approvals','Approvals'],['infrastructure','Infrastructure'],['devices','Devices']],
+};
+let reflectedTab = null, taskQuery = '', taskFilter = 'all', activityFilter = 'all', newTaskDraft = '', newTaskSending = false, taskLimit = 40, activityLimit = 40, inspectedTaskId = null, inspectedTaskFingerprint = '', inspectedWorkerId = null, inspectedWorkerFingerprint = '';
+function disclosureKey(e) { return e.dataset.disclosure || e.id || e.querySelector('summary')?.textContent; }
+function rememberFocus() {
+  const e=document.activeElement;if(!e||e===document.body)return null;
+  const root=e.closest('#inspect,#view,#workers,#section-nav,.rail'),scope=root?(root.id?'#'+root.id:'.rail'):null;
+  const saved={element:e,id:e.id,tag:e.tagName,scope,attributes:[...e.attributes].filter(a=>a.name.startsWith('data-')||a.name==='name').map(a=>[a.name,a.value]),text:e.textContent,selection:typeof e.selectionStart==='number'?[e.selectionStart,e.selectionEnd]:null};
+  saved.ordinal=[...(root||document).querySelectorAll(saved.tag)].filter(n=>focusMatch(n,saved)).indexOf(e);return saved;
+}
+function focusMatch(e,saved) { return saved.attributes.length?saved.attributes.every(([k,v])=>e.getAttribute(k)===v):e.textContent===saved.text; }
+function restoreFocus(saved,fallback=false) {
+  if(!saved)return;const root=saved.scope?document.querySelector(saved.scope):document;
+  const matches=[...(root||document).querySelectorAll(saved.tag)].filter(e=>focusMatch(e,saved));
+  const target=saved.element.isConnected?saved.element:saved.id?document.getElementById(saved.id):matches[saved.ordinal]||matches[0];
+  if(!target||target.closest('[hidden]')||(target.closest('dialog')&&!target.closest('dialog').open)) { if(fallback)($('#inspect').open?$('#inspect-title'):$('#heading')).focus({preventScroll:true});return; }
+  if(document.activeElement!==target)target.focus({preventScroll:true});if(saved.selection&&target.setSelectionRange)target.setSelectionRange(...saved.selection);
+}
+function parentSection(tab) { return Object.keys(sections).find(k=>sections[k].some(([id])=>id===tab)) || 'home'; }
+function locationTab() { const name=location.hash.slice(1).split('/')[0]; return Object.hasOwn(titles,name) ? name : 'home'; }
+function renderNavigation() {
+  const parent=parentSection(activeTab);
+  document.querySelectorAll('.rail [data-tab]').forEach(b=>b.classList.toggle('active-section',b.dataset.tab===parent));
+  const html=sections[parent].map(([id,label])=>`<button class="section-link ${id===activeTab?'current-section':''}" ${id===parent?'data-go':'data-tab'}="${id}" ${id===activeTab?'aria-current="page"':''}>${label}</button>`).join('')+(parent==='products'?'<a class="section-link" href="/investment-run">Investment ↗</a>':'');
+  if ($('#section-nav').innerHTML !== html && reflectedTab !== activeTab) $('#section-nav').innerHTML=html;
+  $('#section-nav').hidden=parent==='home';
+  if(reflectedTab!==activeTab){reflectedTab=activeTab;if(locationTab()!==activeTab)history.replaceState(null,'',`#${activeTab}`);}
+  wireNavigation($('#section-nav'));
+}
+function selectTab(tab,push=true) { activeTab=tab; if(push&&location.hash!==`#${tab}`)history.pushState(null,'',`#${tab}`); }
+function navigate(tab,{focus=true,push=true}={}) {
+  if(!Object.hasOwn(titles,tab))return;
+  if($('#inspect').open)$('#inspect').close();
+  attentionFocus=null; selectTab(tab,push);
+  render();
+  if(focus)$('#heading').focus({preventScroll:true});
+  $('#announcer').textContent=titles[tab][0];
+  if(state&&(auxiliaryLoads[tab]||tab==='attention'))void refresh();
+}
+function readLocation() { if(location.hash==='#main-content'){ $('#main-content').focus(); return; } navigate(locationTab(),{push:false}); }
+function wireNavigation(root) {
+  root.querySelectorAll('[data-tab],[data-go]').forEach(b=>b.onclick=()=>navigate(b.dataset.tab||b.dataset.go));
+  root.querySelectorAll('[data-new-task]').forEach(b=>b.onclick=openNewTask);
+  root.querySelectorAll('[data-help]').forEach(b=>b.onclick=showHelp);
+}
+function attentionFresh() { return !!attentionState && phase==='ready' && attentionVersion===connectionVersion && !auxiliaryErrors.has('attention'); }
+function employeeState(w) {
+  if(!w.enabled)return 'Retired';
+  if(state.executions.some(e=>e.worker_id===w.worker_id&&e.status==='running'))return 'Working now';
+  return {idle:'No session running',queued:'Work queued',blocked:'Waiting',failed:'Needs review',awaiting_approval:'Approval pending',working:'Work recorded'}[w.status] || 'Status unknown';
+}
+function taskState(t) {
+  if(t.blocking_reason==='waiting_children')return 'Waiting for related tasks';
+  if(t.blocking_reason==='waiting_integration')return 'Waiting for project integration';
+  return {queued:'Waiting to start',working:'In progress',completed:'Completed',blocked:'Waiting · review reason',failed:'Could not finish',cancelled:'Cancelled',awaiting_approval:'Waiting for approval'}[t.status]||t.status;
+}
+function taskStatus(t) { return `<span class="status ${escape(t.status)}">${escape(taskState(t))}</span>`; }
+function taskNext(t) {
+  if(t.status==='completed')return 'Review the outcome and any saved results below.';
+  if(t.status==='cancelled')return 'This task is closed. Its history and any saved results remain available.';
+  if(t.blocking_reason==='waiting_children')return 'The coordinator is waiting for related assignments. Follow their progress below; no new assignment is needed.';
+  if(t.blocking_reason==='waiting_integration')return 'The project is waiting for integration. Open the project to review its checks and approval state.';
+  if(t.status==='queued')return state.paused?'Starting queued work is paused. Review all waiting work before resuming in Settings.':'Waiting for an eligible employee work session. Existing permissions and capacity still apply.';
+  if(t.status==='working')return 'Follow the recorded activity below. No completion time or percentage is available.';
+  if(t.status==='awaiting_approval')return 'Review the exact pending request in Needs your attention. Approving this task does not grant unrelated permissions.';
+  return 'Read the recorded reason and prior work before retrying. Needs your attention links to any required owner action.';
+}
+function taskCard(t,{compact=false}={}) {
+  const children=state.tasks.filter(c=>c.parent_task_id===t.task_id);
+  return `<article class="panel task-card" data-task-card="${escape(t.task_id)}"><header><button class="employee-link task-ownership" data-worker="${escape(t.assignee_worker_id)}">${workerIdentity(worker(t.assignee_worker_id))}</button>${taskStatus(t)}</header><h3><button class="title-link" data-task="${escape(t.task_id)}">${escape(t.objective)}</button></h3>${t.parent_task_id?`<p class="related-label">Related assignment · <button class="text-link" data-task="${escape(t.parent_task_id)}">Open parent task</button></p>`:''}${!compact&&t.result_summary?`<p class="task-summary"><strong>${t.status==='completed'?'Outcome':'Latest update'}:</strong> ${escape(t.result_summary.slice(0,320))}${t.result_summary.length>320?'…':''}</p>`:''}${!compact&&t.blocking_reason&&!['waiting_children','waiting_integration'].includes(t.blocking_reason)?`<p class="problem-reason">Recorded reason: ${escape(t.blocking_reason)}</p>`:''}<small>Last task update ${messageTime(t.updated_at)}${children.length?` · ${children.length} related assignment${children.length===1?'':'s'}`:''}</small><div class="card-actions"><button class="button secondary small" data-task="${escape(t.task_id)}">Open task</button>${t.status==='completed'?artifactLinks(t.task_id):''}</div></article>`;
+}
+function renderHome() {
+  const current=state.tasks.filter(t=>!['completed','cancelled','failed'].includes(t.status));
+  const roots=current.filter(t=>!t.parent_task_id||!current.some(p=>p.task_id===t.parent_task_id));
+  const completed=state.tasks.filter(t=>t.status==='completed'&&!t.parent_task_id).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+  const otherCompleted=completed.length?completed:state.tasks.filter(t=>t.status==='completed').sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+  const running=state.executions.filter(e=>e.status==='running');
+  const attention=attentionFresh()?attentionState.items.slice(0,3):[];
+  return `<section class="home-intro"><div><h2>What would you like your team to do?</h2><p>Describe an outcome. Atlas coordinates the work, and you can follow every assignment.</p></div><button class="button primary" data-new-task>New task</button></section>
+  <div class="home-columns"><section aria-labelledby="current-work-title"><div class="section-heading"><h2 id="current-work-title">Current work</h2><button class="text-link" data-go="tasks">All tasks</button></div>${running.length?`<p class="running-note">${running.length} work session${running.length===1?' is':'s are'} running now.</p>`:'<p class="muted">No employee work session is running in the loaded records.</p>'}${roots.slice(0,4).map(t=>taskCard(t,{compact:true})).join('')||'<div class="panel empty"><strong>No tasks are running or waiting.</strong>Start a new task when you have something for your team.</div>'}${roots.length>4?`<p>${roots.length-4} more active assignments in <button class="text-link" data-go="tasks">Tasks</button>.</p>`:''}${running.filter(e=>e.origin!=='task').map(e=>`<div class="panel task-card">${workerIdentity(worker(e.worker_id))}<p>${escape(e.group_id?'Discussion in progress':e.origin==='public_question'?'Recorded public-question work session':'Team work session in progress')}</p><button class="text-link" data-go="executions">View work session</button></div>`).join('')}</section>
+  <section aria-labelledby="attention-title"><div class="section-heading"><h2 id="attention-title">Needs your attention</h2><button class="text-link" data-go="attention">View all</button></div><div class="panel attention-summary">${!attentionFresh()?`<h3>${attentionState?'Attention needs refreshing':'Checking what needs you…'}</h3><p>${auxiliaryErrors.has('attention')?'Could not check owner actions. Open the attention view and retry.':'The current count is not verified yet.'}</p>`:!attentionState.total?'<h3>Nothing needs your attention.</h3><p>There are no recorded owner actions to take right now.</p>':attention.map(item=>`<article><h3>${escape(item.title)}</h3><p>${escape(item.summary)}</p><button class="button secondary small" data-attention="${escape(item.attention_id)}">${escape(item.owner_action)}</button></article>`).join('')}${attentionFresh()&&attentionState.total>3?`<p>${attentionState.total-3} more owner actions. <button class="text-link" data-go="attention">View all</button></p>`:''}</div><div class="panel home-investment"><h3>Investment workspace</h3><p>Paper portfolio, research, decisions and future schedules have their own records. They are separate from these task counts.</p><a href="/investment-run">Open Investment →</a></div></section></div>
+  <section aria-labelledby="recent-work-title"><div class="section-heading"><h2 id="recent-work-title">Recently completed</h2><button class="text-link" data-go="tasks">All tasks and results</button></div><div class="result-grid">${otherCompleted.slice(0,4).map(t=>taskCard(t)).join('')||'<div class="panel empty"><strong>No completed tasks yet.</strong>Finished assignments and saved results will appear here.</div>'}</div></section>
+  <section aria-labelledby="home-team-title"><div class="section-heading"><h2 id="home-team-title">Your AI team</h2><button class="text-link" data-go="organization">Meet the team</button></div><div class="team-grid">${state.workers.filter(w=>w.enabled).map(w=>`<button class="panel employee-card" data-worker="${escape(w.worker_id)}">${workerAvatar(w,{size:'large'})}<span><strong>${escape(w.display_name)}</strong><small>${escape(w.title)}</small><small>${escape(employeeState(w))}</small></span></button>`).join('')||'<p>Atlas will be set up when you start your first task.</p>'}</div></section>`;
+}
+function openNewTask() {
+  if(!canMutate()||newTaskSending)return;
+  inspect('New task',`<form id="new-task-form" class="profile-form"><label for="new-task-objective">What would you like done?</label><textarea id="new-task-objective" required maxlength="8000" placeholder="Describe the result you want, with any useful context or limits.">${escape(newTaskDraft)}</textarea><p>Atlas will coordinate this task. You will see who is responsible and follow progress in Tasks.</p>${state.paused?'<p class="pause-banner">Starting queued work is paused. Your task will wait until you explicitly resume queued work in Settings.</p>':''}<details><summary>Permissions and advanced options</summary><p>This task uses existing approved tools and limits. It does not authorize spending, external accounts, outreach, publishing, browser control or arbitrary network/shell access. Public research requires an existing permission.</p><p>Software repository objectives belong in Projects. Employee model settings are available under Team → employee → AI settings. You do not need them for this task.</p></details><p id="task-submit-error" role="alert" hidden></p><button class="button primary" type="submit">Start task</button><p class="muted">Starting a task requests real AI work when the team is able to run it. No extra approval is added here.</p></form>`);
+  $('#new-task-objective').focus();
+  $('#new-task-objective').oninput=e=>{newTaskDraft=e.target.value;};
+  const version=researchView;
+  $('#new-task-form').onsubmit=async e=>{
+    e.preventDefault();if(newTaskSending||!canMutate())return;
+    const objective=$('#new-task-objective').value.trim();if(!objective)return;
+    newTaskDraft=objective;newTaskSending=true;const submit=e.target.querySelector('button[type=submit]');submit.disabled=true;
+    try{
+      const result=await request('objectives',{objective});newTaskDraft='';
+      await refresh();
+      $('#announcer').textContent='Task created. Follow it in Tasks.';
+      if(version===researchView&&$('#inspect').open){
+        selectTab('tasks');render();
+        if(state.tasks.some(t=>t.task_id===result.task_id))inspectTask(result.task_id);
+        else inspect('Task created',`<p>Your task was created, but its details could not be refreshed yet. Do not submit it again.</p><p>Open Tasks and retry loading headquarters to follow it.</p><a class="button secondary" href="#tasks" data-go="tasks">Open Tasks</a><details><summary>Task reference</summary><code>${escape(result.task_id)}</code></details>`);
+      }
+    }catch(error){
+      if(version===researchView&&$('#inspect').open){
+        $('#task-submit-error').hidden=false;
+        $('#task-submit-error').textContent=`We could not confirm whether your task was created. Check Tasks before submitting again. ${error.message}`;
+        const check=document.createElement('button');check.type='button';check.className='button secondary';check.textContent='Check Tasks';check.onclick=()=>navigate('tasks');$('#task-submit-error').after(check);
+        // No automatic or immediate repeat: this endpoint has no idempotency receipt.
+      }else showError(error);
+    }finally{newTaskSending=false;}
+  };
+}
+function renderSettings() {
+  const cards=[['approvals','Approvals','Review exact infrastructure and repository publication requests. Other approvals stay with their originating workflow.'],['organization','Employee permissions and AI settings','Open an employee profile for research/document permissions, model settings and usage.'],['devices','Connected devices','Pair a client, review its identity and access, or revoke it.'],['infrastructure','Infrastructure','Inspect Nix, host operations and employee system identities.'],['computers','Browser work','Review browser task permissions and exact session policies.'],['mandates','Ongoing goals','Manage bounded goals, schedules and their protected business actions.']];
+  return `<section class="panel task-card"><h2>Starting queued work</h2><p>${state.paused?'Paused. Queued tasks and replies are waiting.':'Enabled. Eligible queued tasks and replies can start.'} Active work sessions continue when you pause new work.</p><p>Review <button class="text-link" data-go="tasks">waiting tasks</button> and <button class="text-link" data-go="executions">active sessions</button> before changing this company-wide setting.</p><p>The control below these settings applies to the whole team. Investment schedules have separate controls in Investment.</p></section><div class="settings-grid">${cards.map(([tab,title,body])=>`<section class="panel task-card"><h3>${title}</h3><p>${body}</p><button class="button secondary" data-go="${tab}">Open ${title}</button></section>`).join('')}</div><section class="panel task-card"><h3>Ask BotSquad is paused</h3><p>The public question service remains paused under the owner’s instruction.</p><a href="/investment-publication">Investment publication controls</a></section>`;
+}
+function showHelp() {
+  inspect('Your first task with BotSquad',`<div class="help-guide"><p>BotSquad is your private workspace for a team of AI employees. Atlas coordinates tasks; each employee keeps a name, role and work history.</p><ol><li><strong>Look at Home.</strong> Current work shows unfinished assignments. Needs your attention lists actual owner actions. Recently completed opens finished tasks and results.</li><li><strong>Choose New task.</strong> Describe the result you want. For a first exercise, use the short request below.</li><li><strong>Choose Start task.</strong> The returned task shows its assignee, actual status and recorded activity. If work is paused, review the queue before resuming in Settings.</li><li><strong>Follow the work.</strong> Team shows employee responsibilities. Related assignments appear with their parent. Team → Conversations is for discussion; a message does not create a task.</li><li><strong>Review the outcome.</strong> Open Results and files when the task is completed. A finished work session alone is not a finished task.</li></ol><blockquote>Read this text and summarize it in three plain-English bullet points: “BotSquad keeps tasks, messages and results. Atlas coordinates assignments. The owner reviews outcomes and controls permissions.” Use only the text in this request. Do not browse, change software or publish anything.</blockquote><p>For a problem, open Needs your attention and inspect its reason before retrying. A lost response may still have created a task; check Tasks before submitting again.</p><details><summary>Where are advanced tools?</summary><p>Activity → Work sessions and Advanced audit retain original execution records. Task details retain IDs, logs and attempts. Team profiles have Permissions and AI settings. Settings contains infrastructure, exact approvals and device access. Projects contains software projects, ongoing goals and Investment.</p></details><button class="button primary" data-new-task>New task</button></div>`);
+}
+function wireTaskFilters() {
+  if($('#task-search'))$('#task-search').oninput=e=>{taskQuery=e.target.value;taskLimit=40;render();};
+  if($('#task-filter'))$('#task-filter').onchange=e=>{taskFilter=e.target.value;taskLimit=40;render();};
+  if($('#more-tasks'))$('#more-tasks').onclick=()=>{taskLimit+=40;render();};
+  if($('#activity-filter'))$('#activity-filter').onchange=e=>{activityFilter=e.target.value;activityLimit=40;render();};
+  if($('#more-activity'))$('#more-activity').onclick=()=>{activityLimit+=40;render();};
+}
+function renderTasks() {
+  const tasks=state.tasks.filter(t=>{
+    const matches=taskFilter==='all'||(taskFilter==='open'?!['completed','cancelled'].includes(t.status):t.status===taskFilter);
+    const text=[t.objective,t.result_summary,worker(t.assignee_worker_id)?.display_name].join(' ').toLowerCase();
+    return matches&&text.includes(taskQuery.toLowerCase());
+  }).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+  return `<section class="panel task-toolbar"><div><label for="task-search">Find a task or employee</label><input id="task-search" type="search" value="${escape(taskQuery)}" placeholder="Search tasks, results or names"></div><div><label for="task-filter">Show</label><select id="task-filter">${[['all','All tasks'],['open','Unfinished and needs review'],['completed','Completed'],['failed','Could not finish'],['cancelled','Cancelled']].map(([id,label])=>`<option value="${id}" ${taskFilter===id?'selected':''}>${label}</option>`).join('')}</select></div><button class="button primary" data-new-task>New task</button></section><p class="muted">${tasks.length} matching task${tasks.length===1?'':'s'}. Related assignments are labelled with their parent.</p><div class="card-list">${tasks.slice(0,taskLimit).map(t=>taskCard(t)).join('')||`<div class="panel empty"><strong>${state.tasks.length?'No matching tasks.':'Your first task starts here.'}</strong>${state.tasks.length?'Try another search or status.':'Choose New task and describe what you want done.'}</div>`}</div>${tasks.length>taskLimit?'<button id="more-tasks" class="button secondary">Show more tasks</button>':''}`;
+}
+function renderOrganization() {
+  const node=w=>`<div class="org-node">${workerAvatar(w)}<div><strong>${escape(w.display_name)} — ${escape(w.title)}</strong><small>${escape(employeeState(w))}</small></div><button class="text-link" data-worker="${escape(w.worker_id)}">Open profile</button></div>${state.workers.some(c=>c.manager_worker_id===w.worker_id)?`<div class="org-children">${state.workers.filter(c=>c.manager_worker_id===w.worker_id).map(node).join('')}</div>`:''}`;
+  return `<div class="team-profile-grid">${state.workers.map(w=>{
+    const current=state.tasks.filter(t=>t.assignee_worker_id===w.worker_id&&!['completed','cancelled'].includes(t.status));
+    return `<article class="panel task-card"><header>${workerIdentity(w,{size:'large'})}<span class="status">${escape(employeeState(w))}</span></header><h3>${escape(w.title)}</h3><p>${escape(w.mission)}</p><h4>Current assignments</h4>${current.length?current.slice(0,3).map(t=>`<p><button class="text-link" data-task="${escape(t.task_id)}">${escape(t.objective)}</button><small>${escape(taskState(t))}</small></p>`).join(''):'<p class="muted">No unfinished task assigned. Conversations and scheduled work have separate records.</p>'}<div class="card-actions"><button class="button secondary" data-worker="${escape(w.worker_id)}">Open profile</button><button class="text-link" data-chat-worker="${escape(w.worker_id)}">Conversations</button></div></article>`;
+  }).join('')||'<div class="panel empty"><strong>Meet Atlas with your first task.</strong>Your team will appear here with its responsibilities and work.</div>'}</div><details class="panel hierarchy-panel" data-disclosure="team-hierarchy"><summary>Reporting hierarchy</summary><p>Reporting lines govern responsibility and assignment authority. Employees can discuss work across these lines within their permissions.</p><div class="org-tree"><div class="org-node">${fallbackAvatar('Human')}<strong>Human owner</strong></div><div class="org-children">${state.workers.filter(w=>!w.manager_worker_id).map(node).join('')}</div></div></details>`;
+}
+function workerFingerprint(id) { return JSON.stringify([worker(id),state.tasks.filter(t=>t.assignee_worker_id===id),state.executions.filter(e=>e.worker_id===id),state.artifacts,phase]); }
+function inspectWorker(id,updating=false) {
+  const focused=updating?rememberFocus():null,scroll=$('#inspect').scrollTop,opened=new Set([...document.querySelectorAll('#inspect details[open]')].map(disclosureKey));
+  const w=worker(id);if(!w)return;
+  const current=state.tasks.filter(t=>t.assignee_worker_id===id&&!['completed','cancelled'].includes(t.status));
+  const completed=state.tasks.filter(t=>t.assignee_worker_id===id&&t.status==='completed').sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+  const active=state.executions.filter(e=>e.worker_id===id&&e.status==='running');
+  inspect(`${w.display_name} — ${w.title}`,`<div class="profile-intro">${workerAvatar(w,{size:'large'})}<div><p>${escape(w.mission)}</p><span class="status">${escape(employeeState(w))}</span></div></div><p>${w.manager_worker_id?`Reports to ${escape(worker(w.manager_worker_id)?.display_name||'recorded manager')}.`:'Reports to the human owner.'} This employee’s identity and history persist across individual AI work sessions.</p><div class="card-actions"><button class="button primary" data-chat-worker="${escape(id)}">Open conversations</button><button class="button secondary" data-research-worker="${escape(id)}">Permissions & research</button><button class="button secondary" data-worker-usage="${escape(id)}">AI usage and cost</button></div><h3>Working now</h3>${active.map(e=>`<p>${escape(sessionDescription(e))} <button class="text-link" data-execution="${escape(e.execution_id)}">Open work session</button></p>`).join('')||'<p>No work session running in the loaded records. This does not guarantee availability for a new assignment.</p>'}<h3>Current assignments</h3>${current.map(t=>taskCard(t,{compact:true})).join('')||'<p>No unfinished task assigned.</p>'}<h3>Recent completed work</h3>${completed.slice(0,5).map(t=>taskCard(t)).join('')||'<p>No completed tasks recorded for this employee.</p>'}<details><summary>Advanced employee details</summary>${details({employee_id:w.worker_id,role:w.role,status:w.status,lifecycle:w.lifecycle,enabled:!!w.enabled,manager:w.manager_worker_id})}<button class="button secondary" data-ai-settings="${escape(id)}">AI settings</button><p>Model, reasoning, priority, human lock, system identity and provider thread details. Changes affect future work sessions.</p></details>`,updating);
+  inspectedWorkerId=id;inspectedWorkerFingerprint=workerFingerprint(id);
+  if(updating){for(const d of document.querySelectorAll('#inspect details'))d.open=opened.has(disclosureKey(d));$('#inspect').scrollTop=scroll;restoreFocus(focused);}
+}
+function sessionDescription(e) {
+  if(e.origin==='task')return `Task work session${state.tasks.find(t=>t.task_id===e.task_id)?': '+state.tasks.find(t=>t.task_id===e.task_id).objective:''}`;
+  if(e.group_id)return 'Discussion work session';
+  if(e.origin==='public_question')return 'Recorded public-question work session';
+  return 'Team work session (conversation or ongoing goal)';
+}
+function inspectExecution(id) {
+  const e=state.executions.find(e=>e.execution_id===id);if(!e)return;
+  inspect('Work session details',`<p>${escape(sessionDescription(e))}</p><p>${workerIdentity(worker(e.worker_id))} ${status(e.status)}</p><p>A completed session is one finished attempt; check the task or originating workflow for the final outcome.</p>${e.task_id?`<button class="button secondary" data-task="${escape(e.task_id)}">Open task</button>`:''}<button class="button secondary" data-usage="${escape(id)}">Usage & cost</button>${e.status==='running'&&state.supportsInterrupt?`<button class="button danger" data-interrupt="${escape(id)}">Interrupt this session</button>`:''}<h3>Original execution record</h3>${details(e)}`);
+}
+const milestoneLabels = {
+  task_assigned:'Task assigned',task_claimed:'Employee started task work',artifact_submitted:'Result saved',child_result_received:'Related assignment returned',manager_followup_queued:'Coordinator follow-up queued',retry_requested:'Inspected retry requested',execution_started:'Work session started',execution_completed:'Work session finished',execution_failed:'Work session could not finish',execution_interrupted:'Work session interrupted',execution_awaiting_approval:'Work session waiting for approval',execution_recovered:'Work session recovered for inspection',
+  conversation_created:'Conversation created',conversation_message:'Conversation message recorded',conversation_queued:'Reply requested',conversation_execution_started:'Team work session started',conversation_execution_finished:'Team work session finished',conversation_state:'Conversation state changed',
+  discussion_created:'Discussion drafted',discussion_owner_start:'Discussion started',discussion_contribution:'Discussion contribution saved',discussion_completed:'Discussion recommendation saved',discussion_blocked:'Discussion needs review',discussion_assignment_submitted:'Discussion recommendation assigned as a task',
+  dispatch_paused:'Starting queued work paused',dispatch_resumed:'Starting queued work resumed',worker_provisioned:'Employee joined the team',worker_retired:'Employee retired',ceo_initialized:'Atlas joined the team',
+};
+function eventDetail(e) { try{return JSON.parse(e.detail);}catch{return {};} }
+function milestone(e) {
+  if(e.type==='task_transition'){const d=eventDetail(e);return Object.hasOwn({queued:1,working:1,completed:1,blocked:1,failed:1,cancelled:1,awaiting_approval:1},d.to)?`Task: ${taskState({status:d.to,blocking_reason:d.reason})}`:'Task state changed';}
+  return milestoneLabels[e.type] || null;
+}
+function timeline(events) {
+  return `<ol class="timeline">${events.map(e=>`<li><div><strong>${escape(milestone(e)||'Other recorded event')}</strong><small>${messageTime(e.created_at)}${e.worker_id?` · ${escape(worker(e.worker_id)?.display_name||'Recorded employee')}`:''}</small></div><button class="text-link" data-event="${escape(e.event_id)}">Evidence</button></li>`).join('')}</ol>`;
+}
+function renderActivity() {
+  // Low-level tool/configuration/heartbeat records remain in Advanced audit.
+  const events=state.audit.filter(e=>milestone(e)&&(activityFilter==='all'||(activityFilter==='tasks'?!!e.task_id:!e.task_id))).slice().reverse();
+  return `<section class="panel task-toolbar"><div><label for="activity-filter">Activity to show</label><select id="activity-filter">${[['all','All milestones'],['tasks','Task milestones'],['team','Other team milestones']].map(([id,label])=>`<option value="${id}" ${activityFilter===id?'selected':''}>${label}</option>`).join('')}</select></div><p>Recorded assignments, state changes, results and discussions. Each milestone opens its original evidence.</p></section><section class="panel task-card">${events.length?timeline(events.slice(0,activityLimit)):'<div class="empty"><strong>No milestones yet.</strong>Recorded work will appear here.</div>'}${events.length>activityLimit?'<button class="button secondary" id="more-activity">Show earlier milestones</button>':''}</section><p class="muted">This is a selected view of recorded events. <button class="text-link" data-go="audit">Advanced audit</button> contains all original event types, including technical and unrecognized records. <button class="text-link" data-go="conversation">Team updates</button> contains company messages. Investment has its own <a href="/investment-run">research and portfolio history</a>.</p>`;
+}
+function inspectEvent(id) {
+  const e=state.audit.find(e=>e.event_id===id);if(!e)return;
+  inspect(milestone(e)||'Recorded event',`<p>${messageTime(e.created_at)}</p>${e.task_id?`<button class="button secondary" data-task="${escape(e.task_id)}">Open related task</button>`:''}${e.execution_id?`<button class="button secondary" data-execution="${escape(e.execution_id)}">Open work session</button>`:''}<h3>Original event evidence</h3>${details(e)}`);
+}
+
 async function loadConversations(signal) {
   const filter=conversationWorker, requestedConversation=selectedConversation;
   const list=await request(`conversations${filter ? `?worker_id=${encodeURIComponent(filter)}` : ''}`, undefined, signal);
@@ -106,7 +304,7 @@ async function loadConversations(signal) {
 
 }
 async function openWorkerConversations(workerId) {
-  $('#inspect').close(); conversationWorker=workerId; selectedConversation=null; conversationDetail=null; chatDraft=''; chatReceipt=null; activeTab='direct';
+  $('#inspect').close(); conversationWorker=workerId; selectedConversation=null; conversationDetail=null; chatDraft=''; chatReceipt=null; selectTab('direct');
   render(); await refresh();
 }
 function renderDirect() {
@@ -156,7 +354,7 @@ const principalAvatar = id => {
   return p?.type === 'bot' ? workerAvatar(state.workers.find(w => w.principal_id === id)) : fallbackAvatar(p?.display_name ?? 'Unknown');
 };
 const artifacts = taskId => state.artifacts.filter(a => a.task_id === taskId);
-function showError(error) { $('#error').textContent = error.message; $('#error').hidden = false; }
+function showError(error) { const target = $('#inspect').open ? $('#inspect-error') : $('#error'); target.textContent = error.message; target.hidden = false; }
 async function request(path, data, signal) {
   // All browser writes share this prerequisite, including module/inspector forms.
   if (data !== undefined && !canMutate()) throw new RequestError('Wait for headquarters to finish loading before making changes.');
@@ -227,10 +425,13 @@ async function refreshLoop() {
   } while (refreshAgain);
 }
 function render() {
+  const focused = rememberFocus();
+  renderNavigation();
   renderReadiness();
   if (!state) {
     updateView(loadingView(loadError ? 'Company state unavailable' : activeTab === 'attention' ? 'Loading owner attention…' : 'Loading company state…'));
     syncControls();
+    restoreFocus(focused);
     return;
   }
   groups.capture();
@@ -242,19 +443,21 @@ function render() {
   const messages = $('.messages'); const wasAtBottom = !messages || messages.scrollHeight - messages.scrollTop - messages.clientHeight < 80; const scroll = messages?.scrollTop;
   const atlas = state.workers.find(w => w.role === 'ceo');
   $('#initialize').hidden = !!atlas;
-  $('#pause').textContent = state.paused ? 'Resume dispatch' : 'Pause new dispatch';
+  $('#pause').textContent = state.paused ? 'Resume queued work' : 'Pause new work';
+  $('#global-controls').hidden = activeTab !== 'settings';
   $('#pause-banner').hidden = !state.paused;
   $('#approval-count').textContent = state.infrastructure.approvals.filter(a => a.status === 'pending').length + (state.project_approvals ?? []).filter(a => a.status === 'pending').length;
   $('#worker-count').textContent = state.workers.length;
-  $('#task-count').textContent = state.tasks.filter(t => !['completed', 'cancelled'].includes(t.status)).length;
-  $('#workers').innerHTML = state.workers.length ? state.workers.map(w => `<button class="worker-button" data-worker="${escape(w.worker_id)}">${workerAvatar(w)}<span>${escape(w.display_name)}<small>${escape(w.title)}</small></span><span class="dot ${escape(w.status)}" title="${escape(w.status)}"></span></button>`).join('') : '<p class="muted">Initialize Atlas to begin.</p>';
+  $('#task-count').textContent = state.tasks.filter(t => !['completed','cancelled','failed'].includes(t.status)).length;
+  $('#task-count').title = 'Unfinished tasks, including related assignments';
+  $('#workers').innerHTML = state.workers.length ? state.workers.map(w => `<button class="worker-button" data-worker="${escape(w.worker_id)}">${workerAvatar(w)}<span>${escape(w.display_name)}<small>${escape(w.title)}</small></span><span class="worker-state">${escape(employeeState(w))}</span></button>`).join('') : '<p class="muted">Start a task to meet Atlas, your team coordinator.</p>';
   const active = state.executions.filter(e => e.status === 'running').length;
-  $('#metrics').innerHTML = [['Team members', state.workers.length, 'persistent identities'], ['Active now', active, 'executions'], ['Queued tasks', state.tasks.filter(t => t.status === 'queued').length, 'assignments'], ['Evidence saved', state.artifacts.length+(state.group_synthesis_count??0), (state.group_synthesis_count??0)?'Task + group results':'artifacts']].map(([label, value, note]) => `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value}<small>${note}</small></div></div>`).join('');
+  $('#metrics').hidden = activeTab !== 'home';
+  $('#metrics').innerHTML = [['Running now', active, 'work sessions'], ['Active or waiting tasks', state.tasks.filter(t => !['completed','cancelled','failed'].includes(t.status)).length, 'including related work'], ['Completed tasks', state.tasks.filter(t => t.status === 'completed').length, 'recorded outcomes'], ['Needs you', attentionFresh() ? attentionState.total : '—', attentionFresh() ? 'owner actions' : 'not yet verified']].map(([label, value, note]) => `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value}</div><small>${note}</small></div>`).join('');
   // Working Groups already distinguishes its unloaded roster and disables creation.
   const waiting = activeTab !== 'groups' && auxiliaryLoads[activeTab] && !auxiliaryLoaded.has(activeTab);
-  updateView(waiting ? loadingView(auxiliaryErrors.has(activeTab) ? `${titles[activeTab][0]} unavailable` : `Loading ${titles[activeTab][0]}…`) : ({ attention:renderAttention, computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
-  $('#context-panel').innerHTML = `<div class="panel"><div class="panel-title">The engineering workflow <span>05</span></div><div class="context-content"><div class="tiny-label">FROM DIRECTION TO EVIDENCE</div>${['Human gives Atlas a goal', 'Maya specifies the product', 'Turing assigns Linus & Ada', 'Grace reviews and requests revisions', 'Full recipes gate queued integration', 'Atlas reports the evidence'].map((s, i) => `<div class="flow-step"><span>${i + 1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Runtime & authority</div><div class="context-content"><h3>Codex · event-driven</h3><p>Workers run for assignments or explicit conversation reply requests. Task results can wake their manager. Passive messages never invoke a model.</p><p>Engineering uses assigned private clones on Linux, development worktrees, and confined tests. Public research and company documents require separate standing permissions. Computer Use requires a specialized operator, explicit Task and exact owner-approved session policy.</p><span class="status ${state.paused ? 'blocked' : 'completed'}">${state.paused ? 'New dispatch paused' : 'Dispatch enabled'}</span></div></div><p class="context-note">Use <strong>Assign objective</strong> for a Task or <strong>Send &amp; request reply</strong> for one conversation turn. Passive messages remain communication.<br><br>Pause stops new dispatch. Interrupt stops an active execution. Neither removes history.</p>`;
-  if(activeTab==='groups')$('#context-panel').innerHTML=`<div class="panel"><div class="panel-title">A bounded discussion <span>08</span></div><div class="context-content">${['Owner reviews charter and audience','Explicit start invokes the team','Employees contribute and respond','Facilitator chooses useful follow-ups','Draft synthesis gets one review','Owner reads the recommendation'].map((s,i)=>`<div class="flow-step"><span>${i+1}</span>${s}</div>`).join('')}</div></div><div class="panel"><div class="panel-title">Scope and authority</div><div class="context-content"><p>Only the group transcript and selected evidence packet are shared. Each employee speaks through their own execution.</p><p>Membership grants no research, implementation or approval powers. Public research needs an explicit individual grant and charter permission.</p><p>A saved recommendation becomes a Task only after a separate owner preview and submission.</p><span class="status ${state.paused?'blocked':'completed'}">${state.paused?'HQ dispatch paused':'HQ dispatch enabled'}</span></div></div>`;
+  updateView(waiting ? loadingView(auxiliaryErrors.has(activeTab) ? `${titles[activeTab][0]} unavailable` : `Loading ${titles[activeTab][0]}…`) : ({ home:renderHome, activity:renderActivity, settings:renderSettings, attention:renderAttention, computers:computers.render, mandates:mandates.render, groups:groups.render, direct:renderDirect, devices: renderDevices, conversation: renderConversation, organization: renderOrganization, products: renderProducts, tasks: renderTasks, executions: renderExecutions, audit: renderAudit, approvals: renderApprovals, infrastructure: renderInfrastructure })[activeTab]());
+  $('#context-panel').hidden = true;
   if ($('#objective')) { $('#objective').value = draft; if (selection) { $('#objective').focus(); $('#objective').setSelectionRange(...selection); } }
   document.querySelectorAll('#compose button').forEach(button => { button.disabled = submitting; });
   if ($('.messages')) $('.messages').scrollTop = wasAtBottom ? $('.messages').scrollHeight : scroll ?? 0;
@@ -264,6 +467,9 @@ function render() {
   wireView();
   focusAttentionSource();
   syncControls();
+  restoreFocus(focused);
+  if(inspectedTaskId&&$('#inspect').open&&taskFingerprint(inspectedTaskId)!==inspectedTaskFingerprint)inspectTask(inspectedTaskId,true);
+  if(inspectedWorkerId&&$('#inspect').open&&workerFingerprint(inspectedWorkerId)!==inspectedWorkerFingerprint)inspectWorker(inspectedWorkerId,true);
 }
 function renderConversation() {
   return `<div class="panel"><div class="panel-title"># executive <span>${state.messages.length} messages · durable history</span></div><div class="messages">${state.messages.length ? state.messages.map(m => {
@@ -271,17 +477,10 @@ function renderConversation() {
     return `<article class="message">${principalAvatar(m.sender_principal_id)}<div class="message-main"><div class="message-meta"><strong>${escape(name)}</strong><span class="message-role">${escape(p?.type ?? '')}</span>${messageTime(m.created_at)}</div><div class="message-body">${linkedText(m.body)}</div>${m.related_task_id ? `<button class="task-link" data-task="${escape(m.related_task_id)}">↗ Task ${short(m.related_task_id)}</button>` : ''}</div></article>`;
   }).join('') : '<div class="empty"><strong>A direction is all it takes.</strong>Initialize Atlas, then assign your first company objective.</div>'}</div><form class="composer" id="compose"><label for="objective">TO ATLAS · CEO</label><div class="objective-presets"><button type="button" class="task-link" id="preset-product">Build SquadStatus</button><button type="button" class="task-link" id="preset-research">Research coordination risks</button></div><textarea id="objective" maxlength="8000" required placeholder="What should the company work on?"></textarea><div class="composer-footer"><small>Assigning an objective starts real Codex work.</small><div class="composer-actions"><button type="button" id="send-message" class="button secondary">Send message only</button><button class="button primary" type="submit">Assign objective ↗</button></div></div></form></div>`;
 }
-function renderOrganization() {
-  const node = w => `<div class="org-node">${workerAvatar(w)}<div><strong>${escape(w.display_name)} — ${escape(w.title)}</strong><small>${escape(w.lifecycle)} · ${w.enabled ? 'enabled' : 'retired'}</small></div><button class="task-link" data-worker="${escape(w.worker_id)}">Inspect</button><button class="task-link" data-chat-worker="${escape(w.worker_id)}">Conversations</button><button class="task-link" data-research-worker="${escape(w.worker_id)}">Capabilities</button>${status(w.status)}</div>${state.workers.some(c => c.manager_worker_id === w.worker_id) ? `<div class="org-children">${state.workers.filter(c => c.manager_worker_id === w.worker_id).map(node).join('')}</div>` : ''}`;
-  return `<div class="panel"><div class="panel-title">Reporting hierarchy <span>Authority enforced by the control plane</span></div><div class="org-tree"><div class="org-node">${fallbackAvatar('Human')}<div><strong>Human owner</strong><small>Company objective & authority</small></div></div><div class="org-children">${state.workers.filter(w => !w.manager_worker_id).map(node).join('') || '<p class="muted">Atlas has not been initialized.</p>'}</div></div></div>`;
-}
 function artifactLinks(taskId) { return artifacts(taskId).map(a => `<button class="artifact-link" data-artifact="${escape(a.artifact_id)}">▧ ${escape(a.description)}</button>`).join(''); }
-function renderTasks() {
-  return state.tasks.length ? `<div class="card-list">${[...state.tasks].reverse().map(t => `<article class="panel task-card"><header><div class="task-ownership"><strong>Assignee: ${workerIdentity(worker(t.assignee_worker_id), {size:'normal'})}</strong><small>${short(t.task_id)} · Requested by ${escape(principal(t.requester)?.display_name ?? 'Unknown')}</small></div>${status(t.status)}</header><h3>${escape(t.objective)}</h3>${t.blocking_reason ? `<p>${escape(t.blocking_reason)}</p>` : ''}${t.result_summary ? `<p>${escape(t.result_summary.slice(0, 350))}${t.result_summary.length > 350 ? '…' : ''}</p>` : ''}<div class="card-actions"><button class="button secondary small" data-task="${escape(t.task_id)}">Inspect task</button>${artifactLinks(t.task_id)}</div></article>`).join('')}</div>` : '<div class="panel empty"><strong>No assignments yet.</strong>Send an explicit objective from the executive channel.</div>';
-}
 function renderExecutions() {
   const running = state.executions.filter(e => e.status === 'running');
-  return `${running.length ? `<div class="concurrency-banner">${running.length} running together · ${running.map(e => escape(worker(e.worker_id)?.display_name)).join(' + ')}</div>` : ''}<div class="panel"><div class="panel-title">Execution history <span>${state.executions.length} attempts</span></div><div class="table-wrap"><table><thead><tr><th>EXECUTION / ORIGIN</th><th>WORKER</th><th>RUNTIME STATE / AI PROFILE</th><th>START / END</th><th>ACTION</th></tr></thead><tbody>${[...state.executions].reverse().map(e => `<tr><td>${short(e.execution_id)}<small>${e.origin === 'conversation' ? `${e.group_id?'Working group · '+escape(e.discussion_kind):'Conversation reply'} · ${short(e.request_id)}` : `<button class="task-link" data-task="${escape(e.task_id)}">${short(e.task_id)}</button>`}</small></td><td>${workerIdentity(worker(e.worker_id))}</td><td>${status(e.status)}<small>${escape(e.model ?? e.provenance_status ?? 'legacy / unknown')} · ${escape(e.reasoning_effort ?? 'unknown')}<br>${escape(e.execution_priority ?? 'unknown')} · ${escape(e.runtime_version ?? 'unknown')}</small>${e.error || e.interruption_reason ? `<small>${escape(e.error ?? e.interruption_reason)}</small>` : ''}</td><td>${time(e.started_at)}<small>${time(e.finished_at)}</small></td><td><button class="button secondary small" data-usage="${escape(e.execution_id)}">Usage & cost</button>${e.status === 'running' && state.supportsInterrupt ? `<button class="button danger small" data-interrupt="${escape(e.execution_id)}">Interrupt</button>` : '—'}</td></tr>`).join('')}</tbody></table></div>${!state.executions.length ? '<div class="empty">No runtime executions. Idle workers consume no model calls.</div>' : ''}</div>`;
+  return `${running.length ? `<div class="concurrency-banner">${running.length} running together · ${running.map(e => escape(worker(e.worker_id)?.display_name)).join(' + ')}</div>` : ''}<div class="panel"><div class="panel-title">Work session history <span>${state.executions.length} attempts</span></div><div class="table-wrap"><table><thead><tr><th>EXECUTION / ORIGIN</th><th>WORKER</th><th>RUNTIME STATE / AI PROFILE</th><th>START / END</th><th>ACTION</th></tr></thead><tbody>${[...state.executions].reverse().map(e => `<tr><td>${short(e.execution_id)}<small>${e.origin === 'task' ? `<button class="task-link" data-task="${escape(e.task_id)}">Open task</button>` : escape(sessionDescription(e))}</small></td><td>${workerIdentity(worker(e.worker_id))}</td><td>${status(e.status)}<small>${escape(e.model ?? e.provenance_status ?? 'legacy / unknown')} · ${escape(e.reasoning_effort ?? 'unknown')}<br>${escape(e.execution_priority ?? 'unknown')} · ${escape(e.runtime_version ?? 'unknown')}</small>${e.error || e.interruption_reason ? `<small>${escape(e.error ?? e.interruption_reason)}</small>` : ''}</td><td>${messageTime(e.started_at)}<small>${e.finished_at?messageTime(e.finished_at):'Not finished'}</small></td><td><button class="button secondary small" data-execution="${escape(e.execution_id)}">Original details</button><button class="button secondary small" data-usage="${escape(e.execution_id)}">Usage & cost</button>${e.status === 'running' && state.supportsInterrupt ? `<button class="button danger small" data-interrupt="${escape(e.execution_id)}">Interrupt</button>` : '—'}</td></tr>`).join('')}</tbody></table></div>${!state.executions.length ? '<div class="empty">No runtime executions. Idle workers consume no model calls.</div>' : ''}</div>`;
 }
 const managedPath = path => path?.includes('/products/') ? `products/${path.split('/products/')[1]}` : 'Managed workspace';
 function renderProducts() {
@@ -316,11 +515,12 @@ function renderInfrastructure() {
   return `<div class="panel task-card"><h3>${state.infrastructure.isolated ? 'Linux worker isolation' : 'Development backend — simulated identities'}</h3><p>Codex authentication remains central. Worker Unix accounts receive no credentials or privileged socket access.</p><div class="card-actions">${!nix ? '<button id="initialize-nix" class="button primary">Initialize Nix</button>' : ''}<button id="host-health" class="button secondary">Check provisioner health</button><button id="reconcile-host" class="button secondary">Reconcile interrupted operations</button></div><p id="host-health-result"></p></div>${state.infrastructure.identities.map(i => { const w = worker(i.worker_id); return `<article class="panel task-card"><header><strong>${workerIdentity(w)} — ${escape(w.title)}</strong>${status(i.state)}</header>${details({ worker_id: i.worker_id, unix_username: i.unix_username, uid: i.uid, gid: i.gid, home: i.home_path ? 'Private managed home' : null, backend: i.backend, project_access: state.infrastructure.projects.filter(p => p.worker_id === i.worker_id).map(p => ({ allocation_id: p.allocation_id, state: p.state })) })}<div class="card-actions">${nix && w.role !== 'devops' && i.state === 'unprovisioned' && w.enabled ? `<button class="button secondary" data-infra-worker="${escape(i.worker_id)}" data-infra-type="create_worker_identity">Ask Nix to provision</button>` : ''}${i.state === 'ready' && w.enabled && !['ceo','cto','devops'].includes(w.role) ? `<button class="button danger" data-infra-worker="${escape(i.worker_id)}" data-infra-type="disable_worker_identity">Ask Nix to retire worker</button>` : ''}</div></article>`; }).join('')}<div class="panel task-card"><h3>Infrastructure tasks</h3>${state.infrastructure.tasks.map(i => `<p><button class="task-link" data-task="${escape(i.task_id)}">${escape(i.operation_type)} · ${escape(worker(i.target_worker_id)?.display_name)}</button> ${status(state.tasks.find(t => t.task_id === i.task_id).status)}</p>`).join('') || '<p class="muted">No infrastructure tasks.</p>'}</div>`;
 }
 function renderAudit() {
-  return `<div class="panel"><div class="panel-title">Append-only event history <span>${state.audit.length} events</span></div>${[...state.audit].reverse().map(e => `<div class="audit-row"><span class="audit-marker">◇</span><div><strong>${escape(e.type.replaceAll('_', ' '))}</strong><p>${escape(principal(e.actor_principal_id)?.display_name)}${e.worker_id ? ` · ${escape(worker(e.worker_id)?.display_name)}` : ''}${e.task_id ? ` · task ${short(e.task_id)}` : ''}</p><p>${escape(e.detail)}</p></div><time title="${escape(e.created_at)}">${time(e.created_at)}</time></div>`).join('') || '<div class="empty">Company lifecycle events will appear here.</div>'}</div>`;
+  return `<div class="panel"><div class="panel-title">Append-only event history <span>${state.audit.length} events</span></div>${[...state.audit].reverse().map(e => `<div class="audit-row"><span class="audit-marker" aria-hidden="true">◇</span><div><strong>${escape(e.type.replaceAll('_', ' '))}</strong><p>${escape(principal(e.actor_principal_id)?.display_name)}${e.worker_id ? ` · ${escape(worker(e.worker_id)?.display_name)}` : ''}${e.task_id ? ` · task ${short(e.task_id)}` : ''}</p><p>${escape(e.detail)}</p></div><time title="${escape(e.created_at)}">${time(e.created_at)}</time></div>`).join('') || '<div class="empty">Company lifecycle events will appear here.</div>'}</div>`;
 }
 function details(object) { return `<dl class="inspect-grid">${Object.entries(object).map(([k, v]) => `<dt>${escape(k.replaceAll('_', ' '))}</dt><dd>${escape(v && typeof v === 'object' ? JSON.stringify(v, null, 2) : v ?? '—')}</dd>`).join('')}</dl>`; }
-function inspect(title, html) { researchView++; $('#inspect-title').textContent = title; $('#inspect-content').innerHTML = `<fieldset class="load-controls" aria-label="Inspector details">${html}</fieldset>`; if (!$('#inspect').open) $('#inspect').showModal(); wireActions($('#inspect')); syncControls(); }
-function inspectTask(id) {
+let inspectorInvoker = null;
+function inspect(title, html, retainFocus=false) { inspectedWorkerId=null; inspectedTaskId=null; if (!$('#inspect').open) inspectorInvoker = rememberFocus(); researchView++; $('#inspect-error').hidden = true; $('#inspect-title').textContent = title; $('#inspect-content').innerHTML = `<fieldset class="load-controls" aria-label="Inspector details">${html}</fieldset>`; if (!$('#inspect').open) $('#inspect').showModal(); wireActions($('#inspect')); wireNavigation($('#inspect')); syncControls(); if(!retainFocus)$('#inspect-title').focus(); }
+function inspectTask(id, updating=false) {
   const t = state.tasks.find(t => t.task_id === id); if (!t) return;
   const parent = state.tasks.find(p => p.task_id === t.parent_task_id);
   const retryEligible = ['blocked', 'failed', 'awaiting_approval'].includes(t.status) && t.blocking_reason !== 'waiting_children';
@@ -331,11 +531,16 @@ function inspectTask(id) {
     : parent && ((parent.dispatch_reason === 'child_results' && parent.blocking_reason !== 'waiting_children') || ['completed', 'failed', 'cancelled'].includes(parent.status)) ? 'This result has been handed back to the manager. Assign a new objective for further work.'
     : state.tasks.some(child => child.parent_task_id === id && !['completed', 'failed', 'cancelled'].includes(child.status)) ? 'Resolve the child assignment before retrying this task.' : '';
   const retryControls = !retryEligible ? '' : retryLimit ? `<p class="muted">${escape(retryLimit)}</p>` : `<label class="check-review"><input type="checkbox" id="reviewed"> I inspected prior attempts, artifacts and child tasks. Retry the existing assignment without granting new authority.</label><button class="button primary" id="retry" data-id="${escape(id)}" disabled>Retry inspected task</button>`;
-  inspect(`Task ${short(id)}`, `${details(t)}<h3>Artifacts</h3>${artifactLinks(id) || '<p class="muted">No artifacts recorded.</p>'}<h3>Execution attempts</h3>${state.executions.filter(e => e.task_id === id).map(e => `<pre>${escape(JSON.stringify(e, null, 2))}</pre>`).join('') || '<p class="muted">No execution attempts.</p>'}${retryControls}${['queued', 'blocked', 'failed', 'awaiting_approval'].includes(t.status) ? `<button class="button danger" data-cancel="${escape(id)}">Cancel task</button>` : ''}`);
+  const attempts=state.executions.filter(e=>e.task_id===id), children=state.tasks.filter(c=>c.parent_task_id===id), events=state.audit.filter(e=>e.task_id===id&&milestone(e));
+  const focused=updating?rememberFocus():null, scroll=$('#inspect').scrollTop;
+  const opened=updating?new Set([...document.querySelectorAll('#inspect details[open]')].map(disclosureKey)):new Set();
+  inspect('Task details', `<div class="task-detail-lead"><p class="request-label">What you asked for</p><h3>${escape(t.objective)}</h3><div class="card-actions"><button class="employee-link task-ownership" data-worker="${escape(t.assignee_worker_id)}">${workerIdentity(worker(t.assignee_worker_id),{size:'large'})}</button>${taskStatus(t)}</div><p>Requested by ${escape(principal(t.requester)?.display_name||'Recorded requester')} · ${messageTime(t.created_at)}</p></div><section class="next-step"><h3>${['failed','blocked','awaiting_approval'].includes(t.status)&&!['waiting_children','waiting_integration'].includes(t.blocking_reason)?'What needs checking':'What happens next'}</h3><p>${escape(taskNext(t))}</p>${t.blocking_reason?`<p><strong>Recorded reason:</strong> ${escape(t.blocking_reason)}</p>`:''}<button class="text-link" data-go="attention">Needs your attention</button>${t.blocking_reason==='waiting_integration'?'<button class="text-link" data-go="products">Open Projects</button>':''}</section><section class="task-results"><h3>Results and files</h3>${t.result_summary?`<h4>${t.status==='completed'?'Recorded outcome':'Latest work update · task not completed'}</h4><p class="message-body">${linkedText(t.result_summary)}</p>`:'<p>No outcome recorded yet.</p>'}${artifactLinks(id)||'<p class="muted">No saved file for this task. Related assignments may have their own results below.</p>'}</section><section><h3>Recorded progress</h3><p class="muted">Actual milestones only. No estimated percentage or invented stages.</p>${timeline(events.slice(-30))}${!events.length?'<p>No milestones recorded yet.</p>':''}${events.length>30?'<p>Showing the latest 30 milestones. All original events remain in Advanced audit.</p>':''}</section><section><h3>Related assignments</h3>${parent?`<p><button class="text-link" data-task="${escape(parent.task_id)}">Parent task: ${escape(parent.objective)}</button></p>`:''}${children.map(c=>taskCard(c,{compact:true})).join('')||(!parent?'<p>No related assignments yet.</p>':'')}</section><details data-disclosure="task-technical"><summary>Advanced details · original records and work sessions</summary><h3>Task record</h3>${details(t)}<h3>Execution attempts</h3>${attempts.map(e=>`<button class="text-link" data-execution="${escape(e.execution_id)}">${escape(e.status)} · ${escape(e.execution_id)}</button><pre>${escape(JSON.stringify(e,null,2))}</pre>`).join('')||'<p>No work session recorded.</p>'}<h3>Acceptance and permissions</h3><p>${escape(t.acceptance_criteria)}</p><p>${escape(t.constraints)}</p></details><section class="task-recovery">${retryControls}${['queued','blocked','failed','awaiting_approval'].includes(t.status)?`<button class="button danger" data-cancel="${escape(id)}">Cancel task</button>`:''}</section>`,updating);
+  inspectedTaskId=id;inspectedTaskFingerprint=taskFingerprint(id);
+  if(updating){for(const d of document.querySelectorAll('#inspect details'))d.open=opened.has(disclosureKey(d));$('#inspect').scrollTop=scroll;restoreFocus(focused);}
   if ($('#reviewed')) $('#reviewed').onchange = () => { $('#retry').disabled = !$('#reviewed').checked; };
   if ($('#retry')) $('#retry').onclick = async () => { try { await mutate('retry', { task_id: id, inspected: $('#reviewed').checked }); $('#inspect').close(); } catch {} };
 }
-async function inspectWorker(id) {
+async function inspectWorkerSettings(id) {
   const w = worker(id);
   const portraitHeader = `<p class="worker-profile">${workerIdentity(w, {size:'large'})}</p>`;
   const binding = state.bindings.find(r => r.worker_id === id);
@@ -348,7 +553,7 @@ async function inspectWorker(id) {
   const option = (value, label, selected) => `<option value="${escape(value)}"${selected ? ' selected' : ''}>${escape(label)}</option>`;
   const models = [option('', `Inherit (${catalog.defaultModel})`, w.ai_model === null), ...catalog.models.map(m => option(m.model, m.displayName, m.model === w.ai_model))];
   if (w.ai_model && !catalog.models.some(m => m.model === w.ai_model)) models.push(option(w.ai_model, `${w.ai_model} — unavailable`, true));
-  inspect(`${w.display_name} — ${w.title}`, portraitHeader + `<button class="button primary" data-chat-worker="${escape(id)}">Open conversations</button><button class="button secondary" data-research-worker="${escape(id)}">Capabilities & research</button><form id="ai-profile" class="profile-form"><label>Model<select id="ai-model">${models.join('')}</select></label><label>Reasoning effort<select id="ai-reasoning"></select></label><label>Execution priority<select id="ai-priority">${['low','normal','high','critical'].map(p => option(p, p, p === w.execution_priority)).join('')}</select></label><label class="check-review"><input id="ai-lock" type="checkbox" ${w.ai_profile_locked ? 'checked' : ''}> Human lock</label><p class="muted">Changes apply to future executions. The human can always edit a locked profile. Manager profile changes are not enabled in this milestone.</p><button class="button primary" type="submit">Save AI profile</button><p id="profile-error" role="alert"></p></form><button class="button secondary" data-worker-usage="${escape(id)}">AI usage and cost</button><h3>Current worker</h3>${details({ unix_identity:state.infrastructure.identities.find(i => i.worker_id === id), state:w.status, role:w.role, model:w.ai_model ?? 'inherit', reasoning:w.reasoning_effort ?? 'inherit', priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? 'Not run', last_effective_reasoning:last?.reasoning_effort ?? 'Not run', runtime:last?.runtime_version ?? catalog.version, thread_name:binding?.thread_name ?? 'Not named', runtime_binding:binding?.runtime_reference ?? 'Not started' })}`);
+  inspect(`${w.display_name} — ${w.title}`, portraitHeader + `<button class="button primary" data-chat-worker="${escape(id)}">Open conversations</button><button class="button secondary" data-research-worker="${escape(id)}">Permissions & research</button><form id="ai-profile" class="profile-form"><label>Model<select id="ai-model">${models.join('')}</select></label><label>Reasoning effort<select id="ai-reasoning"></select></label><label>Execution priority<select id="ai-priority">${['low','normal','high','critical'].map(p => option(p, p, p === w.execution_priority)).join('')}</select></label><label class="check-review"><input id="ai-lock" type="checkbox" ${w.ai_profile_locked ? 'checked' : ''}> Human lock</label><p class="muted">Changes apply to future executions. The human can always edit a locked profile. Manager profile changes are not enabled in this milestone.</p><button class="button primary" type="submit">Save AI profile</button><p id="profile-error" role="alert"></p></form><button class="button secondary" data-worker-usage="${escape(id)}">AI usage and cost</button><h3>Current worker</h3>${details({ unix_identity:state.infrastructure.identities.find(i => i.worker_id === id), state:w.status, role:w.role, model:w.ai_model ?? 'inherit', reasoning:w.reasoning_effort ?? 'inherit', priority:w.execution_priority, human_lock:!!w.ai_profile_locked, last_effective_model:last?.model ?? 'Not run', last_effective_reasoning:last?.reasoning_effort ?? 'Not run', runtime:last?.runtime_version ?? catalog.version, thread_name:binding?.thread_name ?? 'Not named', runtime_binding:binding?.runtime_reference ?? 'Not started' })}`);
   const reasons = (selected = '') => {
     const model = catalog.models.find(m => m.model === ($('#ai-model').value || catalog.defaultModel));
     const efforts = model?.supportedReasoningEfforts ?? [];
@@ -361,7 +566,11 @@ async function inspectWorker(id) {
     catch (error) { $('#profile-error').textContent = error.message; button.disabled = false; }
   };
 }
+function taskFingerprint(id) { return JSON.stringify([state.tasks.find(t=>t.task_id===id),state.executions.filter(e=>e.task_id===id),artifacts(id),state.tasks.filter(t=>t.parent_task_id===id),state.audit.filter(e=>e.task_id===id).length,state.paused]); }
 function wireActions(root) {
+  root.querySelectorAll('[data-ai-settings]').forEach(b=>b.onclick=()=>void inspectWorkerSettings(b.dataset.aiSettings));
+  root.querySelectorAll('[data-execution]').forEach(b=>b.onclick=()=>inspectExecution(b.dataset.execution));
+  root.querySelectorAll('[data-event]').forEach(b=>b.onclick=()=>inspectEvent(b.dataset.event));
   wireProjectActions(root);
   root.querySelectorAll('[data-research-worker]').forEach(b=>b.onclick=()=>void inspectResearch(b.dataset.researchWorker));
   root.querySelectorAll('[data-research-operation]').forEach(b=>b.onclick=()=>void inspectResearchOperation(b.dataset.researchOperation).catch(showError));
@@ -378,20 +587,24 @@ function wireActions(root) {
     inspect('Engineering evidence', `<pre>${escape(JSON.stringify(display, null, 2))}</pre>`);
   });
   root.querySelectorAll('[data-artifact]').forEach(b => b.onclick = async () => {
+    const artifact=state.artifacts.find(a=>a.artifact_id===b.dataset.artifact);if(!artifact)return;
+    inspect('Loading result','<p role="status">Loading the saved result…</p>');const version=researchView;
     try {
       const response = await fetch(`/api/artifacts/${encodeURIComponent(b.dataset.artifact)}`);
       if (!response.ok) throw new Error((await response.json()).error ?? 'Could not read artifact');
-      const content = await response.text(); const artifact = state.artifacts.find(a => a.artifact_id === b.dataset.artifact);
-      inspect(artifact.description, `${details(artifact)}<h3>Report</h3><pre>${linkedText(content)}</pre>`);
-    } catch (error) { showError(error); }
+      const content = await response.text();if(version!==researchView||!$('#inspect').open)return;
+      inspect(artifact.description, `<h3>Saved result</h3><pre class="result-content">${linkedText(content)}</pre><details><summary>Advanced file details</summary>${details(artifact)}</details>`);
+    } catch (error) { if(version===researchView&&$('#inspect').open)showError(error); }
   });
   root.querySelectorAll('[data-worker]').forEach(b => b.onclick = () => void inspectWorker(b.dataset.worker));
   root.querySelectorAll('[data-task]').forEach(b => b.onclick = () => inspectTask(b.dataset.task));
-  root.querySelectorAll('[data-usage],[data-worker-usage]').forEach(b=>b.onclick=async()=>{try{const data=await getUsage(b.dataset.usage?{executionId:b.dataset.usage}:{workerId:b.dataset.workerUsage});inspect('AI usage and cost',usageHTML(data));}catch(e){showError(e);}});
+  root.querySelectorAll('[data-usage],[data-worker-usage]').forEach(b=>b.onclick=async()=>{inspect('Loading usage','<p role="status">Loading recorded AI usage…</p>');const version=researchView;try{const data=await getUsage(b.dataset.usage?{executionId:b.dataset.usage}:{workerId:b.dataset.workerUsage});if(version!==researchView||!$('#inspect').open)return;inspect('AI usage and cost',usageHTML(data));}catch(e){if(version===researchView&&$('#inspect').open)showError(e);}});
   root.querySelectorAll('[data-interrupt]').forEach(b => b.onclick = async () => { b.disabled = true; try { await mutate('interrupt', { execution_id: b.dataset.interrupt }); } catch { b.disabled = false; } });
   root.querySelectorAll('[data-cancel]').forEach(b => b.onclick = async () => { try { await mutate('cancel', { task_id: b.dataset.cancel }); $('#inspect').close(); } catch {} });
 }
 function wireView() {
+  wireNavigation(document);
+  wireTaskFilters();
   document.querySelectorAll('[data-attention]').forEach(b => b.onclick = () => { const item=attentionState?.items.find(i=>i.attention_id===b.dataset.attention); if(item) void openAttentionSource(item); });
   if($('#refresh-attention')) $('#refresh-attention').onclick=()=>void refresh();
   wireActions(document);
@@ -400,7 +613,7 @@ function wireView() {
   groups.wire();
   mandates.wire();
   computers.wire();
-  if ($('#initialize-nix')) $('#initialize-nix').onclick = async () => { try { await mutate('initialize-nix', {}); activeTab = 'approvals'; render(); } catch {} };
+  if ($('#initialize-nix')) $('#initialize-nix').onclick = async () => { try { await mutate('initialize-nix', {}); selectTab('approvals'); render(); } catch {} };
   if ($('#host-health')) $('#host-health').onclick = async () => { try { const result = await request('infrastructure/health', {}); $('#host-health-result').textContent = JSON.stringify(result); } catch (error) { showError(error); } };
   if ($('#reconcile-host')) $('#reconcile-host').onclick = async () => { try { await mutate('infrastructure/reconcile', {}); } catch {} };
   if ($('#compose')) {
@@ -417,9 +630,13 @@ function wireView() {
     $('#send-message').onclick = () => void submit('messages');
   }
 }
-document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => { attentionFocus = null; activeTab = button.dataset.tab; render(); if (state && (auxiliaryLoads[activeTab] || activeTab === 'attention')) void refresh(); });
+wireNavigation(document);
+window.addEventListener('hashchange', readLocation);
+window.addEventListener('popstate', readLocation);
+$('#help').onclick = showHelp;
+$('#new-task').onclick = openNewTask;
 $('#close-inspect').onclick = () => $('#inspect').close();
-$('#inspect').addEventListener('close', () => { researchView++; });
+$('#inspect').addEventListener('close', () => { researchView++; inspectedTaskId=null; restoreFocus(inspectorInvoker, true); });
 $('#initialize').onclick = async () => { try { await mutate('initialize', {}); } catch {} };
 $('#pause').onclick = async () => { if (!canMutate()) return; try { await mutate('pause', { paused: !state.paused }); } catch {} };
 $('#retry-load').onclick = () => { sessionNeeded = true; void refresh(); };
@@ -438,6 +655,7 @@ events.onerror = () => {
   refreshController?.abort();
   render();
 };
+activeTab = locationTab();
 render();
 void refresh();
 
@@ -557,7 +775,7 @@ function renderAttention() {
 async function openAttentionSource(item) {
   attentionFocus=item;
   if(item.destination==='investment-run'){window.location.assign('/investment-run');return;}
-  activeTab=item.destination==='research'?'organization':item.destination;
+  selectTab(item.destination==='research'?'organization':item.destination);
   if(item.destination==='tasks') { attentionFocus=null; render(); inspectTask(item.destination_record_id); return; }
   if(item.destination==='executions') { attentionFocus=null; render(); const e=state.executions.find(e=>e.execution_id===item.detail_record_id); if(e)inspect('Execution evidence',details(e)); return; }
   if(item.destination==='research') { attentionFocus=null; render(); try { await inspectResearchOperation(item.destination_record_id); } catch(e) {showError(e);} return; }

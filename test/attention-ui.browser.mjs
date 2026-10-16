@@ -1,3 +1,4 @@
+import {go,aiSettings} from './hq-navigation.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {join} from 'node:path';
@@ -19,7 +20,7 @@ async function setup(t,{viewport=wide,seed=()=>{},realEvents=false,expectedWrite
  const counts=()=>['executions','computer_sessions','external_actions','business_attempts'].map(name=>f.store.get(`SELECT count(*) n FROM ${name}`).n);const before=counts();
  t.after(async()=>{for(const r of releases)r.resolve();await page.close();await browser.close();await http.close();assert.deepEqual(counts(),before,'navigation creates no work');assert.equal(f.runtime.calls.length,0);await f.close();rmSync(f.dir,{recursive:true,force:true});assert.deepEqual(errors,[]);assert.deepEqual(writes,expectedWrites);});
  const open=()=>page.goto(`http://127.0.0.1:${http.server.address().port}`,{waitUntil:'domcontentloaded'});
- const attention=async()=>{await page.locator('[data-tab=attention]').click();};
+ const attention=async()=>{await go(page,'attention');};
  const loaded=async count=>{await page.waitForFunction(n=>document.querySelector('#attention-count').textContent===String(n),count);};
  return {f,page,open,attention,loaded,hold,signal};
 }
@@ -46,7 +47,7 @@ test('auxiliary Attention error preserves company state and recovers without fal
  const {page,open,attention,loaded,hold}=await setup(t,{seed:f=>task(f)});const boot=await hold('state');let failing=true;await page.route('**/api/attention',r=>failing?r.fulfill({status:503,json:{error:'Fixture outage'}}):r.continue());await open();await boot.entered;await attention();boot.release();await page.waitForFunction(()=>document.querySelector('#attention-count').textContent==='?');await page.locator('#load-status[role=alert]').waitFor();assert.match(await page.locator('#view').textContent(),/Owner attention unavailable/);assert.match(await page.locator('#workers').textContent(),/Atlas/);failing=false;await page.locator('#retry-load').click();await loaded(1);await page.locator('.attention-item').waitFor();
 });
 test('reconnect retains last Attention, aborts stale read and preserves final navigation',async t=>{
- const {f,page,open,attention,loaded,hold,signal}=await setup(t,{seed:f=>task(f)});await open();await loaded(1);await attention();await page.locator('.attention-item').waitFor();const old=await hold('attention');await signal('changed');await old.entered;const cancelled=page.waitForEvent('requestfailed',r=>new URL(r.url()).pathname==='/api/attention');await signal('error');await cancelled;assert.equal(await page.locator('#attention-count').textContent(),'1*');assert.equal(await page.locator('.attention-item').count(),1);assert.match(await page.locator('#view').textContent(),/last loaded attention/);const id=f.store.get("SELECT task_id FROM tasks WHERE status='blocked'").task_id;f.company.cancel(id);await signal('ready');await loaded(0);old.release();await page.locator('[data-tab=tasks]').click();await attention();await page.locator('[data-tab=mandates]').click();await page.locator('#new-mandate').waitFor();assert.equal(await page.locator('[data-tab=mandates]').getAttribute('aria-current'),'page');
+ const {f,page,open,attention,loaded,hold,signal}=await setup(t,{seed:f=>task(f)});await open();await loaded(1);await attention();await page.locator('.attention-item').waitFor();const old=await hold('attention');await signal('changed');await old.entered;const cancelled=page.waitForEvent('requestfailed',r=>new URL(r.url()).pathname==='/api/attention');await signal('error');await cancelled;assert.equal(await page.locator('#attention-count').textContent(),'1*');assert.equal(await page.locator('.attention-item').count(),1);assert.match(await page.locator('#view').textContent(),/last loaded attention/);const id=f.store.get("SELECT task_id FROM tasks WHERE status='blocked'").task_id;f.company.cancel(id);await signal('ready');await loaded(0);old.release();await go(page,'tasks');await attention();await go(page,'mandates');await page.locator('#new-mandate').waitFor();assert.equal(await page.locator('[data-tab=mandates]').getAttribute('aria-current'),'page');
 });
 test('Computer, group, mandate, publication and device items select existing source surfaces',async t=>{
  let s,g,m,d,p;const {page,open,attention,loaded}=await setup(t,{seed:f=>{s=computer(f);g=group(f);m=mandate(f);d=device(f);p=publication(f);f.store.run("UPDATE working_groups SET state='blocked' WHERE group_id=?",g.group_id);f.store.run("UPDATE mandates SET status='blocked' WHERE mandate_id=?",m.mandate_id);}});await open();await loaded(5);await attention();
@@ -57,7 +58,7 @@ test('Computer, group, mandate, publication and device items select existing sou
  await page.getByRole('button',{name:'Review device identity'}).click();await page.locator(`[data-device="${d.d.device_id}"]`).waitFor();assert.equal(await page.locator(`[data-device="${d.d.device_id}"]`).evaluate(e=>e===document.activeElement),true);
 });
 test('business item opens exact existing action inspector, late load cannot steal navigation',async t=>{
- const f=await business(),a=f.propose();f.wait(a);const {page,open,attention,loaded,hold}=await setup(t,{given:f});await open();await loaded(1);await attention();const wait=await hold(`mandates/${f.m.mandate_id}`);await page.getByRole('button',{name:'Review exact action'}).click();await wait.entered;await page.locator('[data-tab=tasks]').click();wait.release();await page.locator('[data-tab=attention]').click();await page.getByRole('button',{name:'Review exact action'}).click();await page.getByText('Review exact external action',{exact:true}).waitFor();assert.match(await page.locator('#inspect-content').textContent(),new RegExp(a.mandate_id));
+ const f=await business(),a=f.propose();f.wait(a);const {page,open,attention,loaded,hold}=await setup(t,{given:f});await open();await loaded(1);await attention();const wait=await hold(`mandates/${f.m.mandate_id}`);await page.getByRole('button',{name:'Review exact action'}).click();await wait.entered;await go(page,'tasks');wait.release();await go(page,'attention');await page.getByRole('button',{name:'Review exact action'}).click();await page.getByText('Review exact external action',{exact:true}).waitFor();assert.match(await page.locator('#inspect-content').textContent(),new RegExp(a.mandate_id));
 });
 
 

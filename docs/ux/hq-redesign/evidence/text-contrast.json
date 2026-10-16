@@ -1,0 +1,97 @@
+{
+  "method": "Computed text/background colors in labelled disposable sample; not an accessibility certification",
+  "samples": 863,
+  "failures": 0,
+  "views": [
+    {
+      "label": "home",
+      "checked": 70,
+      "fail": []
+    },
+    {
+      "label": "tasks",
+      "checked": 43,
+      "fail": []
+    },
+    {
+      "label": "organization",
+      "checked": 43,
+      "fail": []
+    },
+    {
+      "label": "activity",
+      "checked": 55,
+      "fail": []
+    },
+    {
+      "label": "conversation",
+      "checked": 47,
+      "fail": []
+    },
+    {
+      "label": "executions",
+      "checked": 42,
+      "fail": []
+    },
+    {
+      "label": "products",
+      "checked": 38,
+      "fail": []
+    },
+    {
+      "label": "mandates",
+      "checked": 35,
+      "fail": []
+    },
+    {
+      "label": "groups",
+      "checked": 36,
+      "fail": []
+    },
+    {
+      "label": "direct",
+      "checked": 35,
+      "fail": []
+    },
+    {
+      "label": "approvals",
+      "checked": 35,
+      "fail": []
+    },
+    {
+      "label": "infrastructure",
+      "checked": 58,
+      "fail": []
+    },
+    {
+      "label": "devices",
+      "checked": 36,
+      "fail": []
+    },
+    {
+      "label": "computers",
+      "checked": 35,
+      "fail": []
+    },
+    {
+      "label": "audit",
+      "checked": 56,
+      "fail": []
+    },
+    {
+      "label": "settings",
+      "checked": 62,
+      "fail": []
+    },
+    {
+      "label": "employee-profile",
+      "checked": 77,
+      "fail": []
+    },
+    {
+      "label": "help",
+      "checked": 60,
+      "fail": []
+    }
+  ]
+}

@@ -75,6 +75,12 @@ assets, decorative accessibility and initials fallback preserve identity/authori
 [Validation](../validation/PERSONAL_OPERATOR_STABILIZATION_04.md) records exact merged
 deployment, desktop/narrow acceptance and retained production state. Nix has no portrait.
 
+**UX-01 HQ redesign:** six destinations, a beginner Home, ordinary task entry,
+results-first task details, immediate employee profiles, contextual advanced controls and
+synchronized tutorials. See [design and preservation](../ux/hq-redesign/INFORMATION-ARCHITECTURE.md)
+and the [release report](../ux/hq-redesign/RELEASE-REPORT.md) for exact source, validation
+and deployment status. This does not activate Ask or change runtime/investment authority.
+
 **Next candidates:** clearer loading/status/error presentation beyond startup; simpler
 common operator flows; credential lifecycle/rotation/revocation UX; backup/update/health
 maintenance UX; possible easier remote/mobile access later if demonstrated friction warrants it.

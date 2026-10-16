@@ -7,15 +7,14 @@ exact boundaries.
 
 ## Enable permission once
 
-Open the private HQ through its normal SSH tunnel. Select **Atlas**, then
-**Capabilities & research**. Check that the worker is eligible, company policy is enabled
+Open the private HQ through its normal SSH tunnel. Open **Team → Employees → Atlas → Open profile**, then
+**Permissions & research**. Check that the worker is eligible, company policy is enabled
 and the provider is configured. Choose **Confirm & enable Public Research**. Do the
 same for **Scout**, or another eligible researcher who will receive delegated work.
 
 In the retained HQ checked on October 1, Atlas and Maya are present; Scout is not.
 Maya can use granted research in her direct conversation, but the existing delegated
-research Task workflow requires a researcher. If you want Scout, first use **Assign
-objective** to ask Atlas to hire a persistent researcher named Scout, return after hiring,
+research Task workflow requires a researcher. If you want Scout, first use **New task → Start task** to ask Atlas to hire a persistent researcher named Scout, return after hiring,
 and perform no research or delegation yet. Once Scout appears, confirm Scout's Public
 Research permission here, then assign the research objective below. This setup uses
 the existing hiring boundary; it does not give Atlas grant authority.
@@ -50,7 +49,7 @@ rather than supply a plausible answer from memory.
 
 ## Inspect the sources
 
-Follow the HTTPS links in the reply. In the worker's **Capabilities & research** view,
+Follow the HTTPS links in the reply. In the worker's **Permissions & research** view,
 select a recent research operation. The inspector shows the request, outcome, grant,
 provider, actual source URL, retrieval time, freshness status and retained excerpt/hash.
 A search snippet is not a full page read; a generated provider summary is labeled
@@ -60,7 +59,7 @@ when a context is replaced or HQ restarts.
 
 ## Assign useful research
 
-In the **Executive channel**, use **Assign objective** for work such as:
+Choose **New task**, enter your request, then **Start task** for work such as:
 
 > Research the public onboarding, documentation and support approaches of three
 > software products relevant to a small software team. Delegate to Scout. Identify
@@ -69,7 +68,7 @@ In the **Executive channel**, use **Assign objective** for work such as:
 > contact anyone, sign up, publish or change anything.
 
 Atlas can assign Scout a bounded research Task, receive the saved report, and evaluate
-its conclusions. The team chooses the products, queries and recommendations. A grant
+its conclusions. Follow **Tasks → Open task → Results and files** to read the outcome and saved report. The team chooses the products, queries and recommendations. A grant
 to Atlas alone does not authorize Scout; enable each eligible worker explicitly.
 
 ## Revoke permission and understand limits
@@ -94,7 +93,7 @@ another source within the remaining budget.
 
 ## Research inside a working group
 
-In **Capabilities & research**, explicitly include working-group discussions when granting
+In **Permissions & research**, explicitly include working-group discussions when granting
 Public Research to an eligible worker. Old Task/direct grants remain as originally issued;
 revoke and replace one if you intend to extend it. The group's charter must also permit
 research. Other participants can read explicitly shared source excerpts without receiving

@@ -1,7 +1,7 @@
 # Conversations and context continuity
 
 Prompt 07 introduces direct conversations independent of Tasks. The browser's
-**Conversations** tab and each worker's **Open conversations** action select a worker
+**Team → Conversations** view and each worker's **Open conversations** action select a worker
 and a durable transcript. Multiple conversations can involve the same worker.
 The owner has administrative oversight of all transcripts; privacy means isolation
 from unrelated workers and unauthorized clients, not secrecy from the owner.

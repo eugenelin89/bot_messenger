@@ -39,7 +39,13 @@ export class BrowserDriver {
     await action();const response=await pending;await response.finished();
     assert.ok(response.ok(),`UI operation ${path} rejected: ${response.status()} ${response.ok()?'':await response.text()}`);
   }
-  async tab(tab:string) { await this.closeInspector();await this.page.locator(`[data-tab="${tab}"]`).click(); }
+  async tab(tab:string) {
+    await this.closeInspector();
+    const parents:Record<string,string>={attention:'tasks',computers:'tasks',direct:'organization',groups:'organization',conversation:'activity',executions:'activity',audit:'activity',mandates:'products',approvals:'settings',infrastructure:'settings',devices:'settings'};
+    const parent=parents[tab]??tab;
+    await this.page.locator(`.rail [data-tab="${parent}"]`).click();
+    if(parent!==tab)await this.page.locator(`#section-nav [data-tab="${tab}"]`).click();
+  }
   async closeInspector() {
     if(await this.page.locator('#inspect').evaluate(e=>(e as HTMLDialogElement).open)) {
       await this.page.locator('#close-inspect').click();
@@ -59,7 +65,7 @@ export class BrowserDriver {
   }
   async selectProject(){await this.tab('products');await this.page.locator(`[data-select-project="${this.scope.projectId}"]`).click();}
   async pause() {
-    if(!(await this.state()).paused) {await this.closeInspector();await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,true);}
+    if(!(await this.state()).paused) {await this.tab('settings');await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,true);}
   }
   async step(step:Action) {
     switch(step) {
@@ -115,7 +121,7 @@ export class BrowserDriver {
         await this.capture('03-objective-assigned','Assigned the natural-language StudyPlan goal to Atlas through Assign objective.','operator_action',{task_id:this.scope.objectiveId,project_id:this.scope.projectId,repository_id:this.scope.repositoryId});break;
       }
       case 'resume_dispatch': {
-        await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,false);
+        await this.tab('settings');await this.uiMutation('pause',()=>this.page.locator('#pause').click());assert.equal((await this.state()).paused,false);
         await this.capture('03b-dispatch','Resumed dispatch through the HQ control. BotSquad now owns planning and execution.');break;
       }
       case 'observe_workflow': await this.observe();break;

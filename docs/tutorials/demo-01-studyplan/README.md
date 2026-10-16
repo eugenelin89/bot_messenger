@@ -1,5 +1,13 @@
 # StudyPlan — Demo Operator 01
 
+> **Historical interface:** this preserves the original genuine StudyPlan demonstration,
+> including its screenshots, transcript and video. Its old navigation is not the current
+> HQ layout. Use [Your First Task with BotSquad](../first-assignment.md) for the released
+> UX-01 interface and [the old-to-new map](../../ux/hq-redesign/FEATURE-PRESERVATION.md)
+> to locate advanced project controls. The Demo Operator source now uses contextual
+> navigation when a separately authorized new demonstration is run.
+
+
 **Result:** Demo Operator 01 passed and produced a truthful recorded tutorial.
 
 The clearly labeled **BotSquad Demo Operator** used the real web UI on the existing

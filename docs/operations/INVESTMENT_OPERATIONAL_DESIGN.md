@@ -285,7 +285,7 @@ shorts, real brokerage, taxes or actual settlement claim is introduced.
 
 ## 6. Normal HQ owner and employee workflow — proposed
 
-Use existing **Investment team**, **Investment run**, **Executions → Usage & cost**, worker
+Use existing **Investment team**, **Investment run**, **Activity → Work sessions → Usage & cost**, worker
 inspectors and **Owner Attention**. No additional operational dashboard or service is needed.
 
 1. Owner enters a broad or specific mandate/charter and chooses eligible existing employees,

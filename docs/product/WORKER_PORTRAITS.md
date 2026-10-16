@@ -1,5 +1,8 @@
 # Worker portraits
 
+UX-01 preserves the same portrait mapping and local assets on Home, Tasks, Team profiles, messages and work sessions. Team profiles now show responsibilities and assignments before optional advanced AI settings.
+
+
 The portraits are fictional illustrated AI-worker characters, not photographs of human
 employees. They are cosmetic display metadata; `worker_id` and existing principal records
 remain identity and authority. No schema field, API v1 contract or runtime behavior changed.

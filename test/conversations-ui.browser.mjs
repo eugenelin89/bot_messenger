@@ -1,3 +1,4 @@
+import {go} from './hq-navigation.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {join} from 'node:path';
@@ -31,7 +32,7 @@ test('browser direct conversations preserve drafts by recipient, show passive/qu
   await page.locator('#chat-body').fill('Explain a concurrency tradeoff.');await page.getByRole('button',{name:'Send & request reply',exact:true}).click();
   await page.locator('.conversation-request .status.queued').waitFor();assert.equal(f.runtime.calls.length,0);
   assert.match(await page.locator('#view').innerText(),/dispatch is paused/);
-  await page.locator('#pause').click();await page.locator('.conversation-request .status.completed').waitFor();
+  await go(page,'settings');await page.locator('#pause').click();await go(page,'direct');await page.locator('.conversation-request .status.completed').waitFor();
   assert.equal(f.runtime.calls.length,1);assert.equal(f.company.snapshot().tasks[0].task_id,task.task_id);
   await page.getByRole('button',{name:'Replace Scout’s context',exact:true}).click();
   await page.locator('#chat-body').fill('Continue this discussion after context replacement.');await page.getByRole('button',{name:'Send & request reply',exact:true}).click();

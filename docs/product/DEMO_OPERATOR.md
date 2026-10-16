@@ -1,5 +1,8 @@
 # BotSquad Demo Operator and Guided Tutorials
 
+UX-01 navigation: the driver selects the primary section before its contextual destination. The retained StudyPlan media shows its historical interface; current beginner captures and exercise are in [Your First Task with BotSquad](../tutorials/first-assignment.md). A new demonstration remains an explicitly authorized real-work operation, not a prerequisite for viewing this guide.
+
+
 **Status:** Implemented; Demo 01 passed on the existing Ubuntu development HQ
 **Updated:** 2026-10-07
 

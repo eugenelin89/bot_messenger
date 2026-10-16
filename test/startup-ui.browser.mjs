@@ -1,3 +1,4 @@
+import {go,aiSettings} from './hq-navigation.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {join} from 'node:path';
@@ -61,14 +62,14 @@ for(const viewport of viewports)test(`historical undefined-state race: all early
   const state=await hold('state');await open();await state.entered;
   // The old renderer throws on the first state.workers access here.
   for(const tab of tabs){
-    await page.locator(`[data-tab=${tab}]`).click();
+    await go(page,tab);
     assert.deepEqual(errors,[]);
     await selected(tab);
     assert.match(await page.locator('#view').textContent(),/Loading company state/);
     assert.equal(await page.locator('#pause').isDisabled(),true);
     assert.equal(await page.locator('#initialize').isDisabled(),true);
   }
-  await page.locator('[data-tab=mandates]').click();
+  await go(page,'mandates');
   if(process.env.BOTSQUAD_STARTUP_SCREENSHOTS){
     mkdirSync(process.env.BOTSQUAD_STARTUP_SCREENSHOTS,{recursive:true});
     await page.screenshot({path:join(process.env.BOTSQUAD_STARTUP_SCREENSHOTS,`loading-${viewport.width}.png`)});
@@ -89,9 +90,9 @@ for(const path of ['session','state'])for(const recovery of ['ready','retry'])te
   assert.match(await page.locator('#view').textContent(),/Company state unavailable/);
   assert.match(await page.locator('#load-message').textContent(),/Controlled startup outage/);
   if(narrow&&process.env.BOTSQUAD_STARTUP_SCREENSHOTS)await page.screenshot({path:join(process.env.BOTSQUAD_STARTUP_SCREENSHOTS,'error-390.png')});
-  await page.locator('[data-tab=organization]').click();await selected('organization');
+  await go(page,'organization');await selected('organization');
   if(recovery==='ready')await signal('ready');else await page.locator('#retry-load').click();
-  await page.locator('.org-node').first().waitFor();await selected('organization');
+  await page.locator('.team-profile-grid').waitFor();await selected('organization');
   assert.equal(await page.locator('#load-status').isHidden(),true);
   assert.equal(await page.locator('#pause').isEnabled(),true);
   if(recovery==='ready')assert.equal(await page.evaluate(()=>window.hqEvents.length),1);
@@ -110,26 +111,26 @@ test('boot controls cannot send writes while session or state is unavailable',as
   await attempt();session.release();await state.entered;await attempt();
   // Finish this boot-control check before exercising session renewal. The reconnect
   // case below separately requires cancellation and recovery before releasing its read.
-  state.release();await page.locator('#compose').waitFor();
+  state.release();await go(page,'conversation');await page.locator('#compose').waitFor();
   await signal('ready');await page.getByText('Connected to headquarters',{exact:true}).waitFor();
   assert.equal(await page.locator('#initialize').isEnabled(),true);
-  assert.match(await page.locator('#workers').textContent(),/Initialize Atlas/);
+  assert.match(await page.locator('#workers').textContent(),/Start a task/);
 });
 
 test('normal startup uses real SSE and loaded empty state is distinct from boot',async t=>{
   const {page,open,selected}=await setup(t,{realEvents:true,empty:true});
   await open();await page.getByText('Connected to headquarters',{exact:true}).waitFor();
   assert.equal(await page.locator('#initialize').isEnabled(),true);
-  await page.locator('[data-tab=tasks]').click();await selected('tasks');
-  assert.match(await page.locator('#view').textContent(),/No assignments yet/);
+  await go(page,'tasks');await selected('tasks');
+  assert.match(await page.locator('#view').textContent(),/Your first task starts here/);
   assert.equal(await page.locator('#view').getAttribute('aria-busy'),'false');
 });
 
 test('reconnect retains state, tab and draft; a stale response cannot declare readiness',async t=>{
   const {page,open,hold,signal,selected,f}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
   await page.locator('#objective').fill('Retained owner draft');
-  await page.locator('[data-tab=organization]').click();
+  await go(page,'organization');
   const old=await hold('state');await signal('changed');await old.entered;
   const cancelled=page.waitForEvent('requestfailed',r=>new URL(r.url()).pathname==='/api/state');
   await signal('error');await cancelled;await selected('organization');
@@ -141,16 +142,16 @@ test('reconnect retains state, tab and draft; a stale response cannot declare re
   assert.equal(await page.locator('#pause').isDisabled(),true);
   // A trusted fixture change provides observable fresh data without UI mutation.
   f.store.run("UPDATE workers SET title='Freshly fetched CEO' WHERE role='ceo'");
-  renewed.release();await page.getByText('Atlas — Freshly fetched CEO',{exact:true}).waitFor();await selected('organization');
+  renewed.release();await page.getByRole('heading',{name:'Freshly fetched CEO',exact:true}).waitFor();await selected('organization');
   old.release(); // The obsolete request must not hold recovery hostage or overwrite it.
-  await page.locator('[data-tab=conversation]').click();
+  await go(page,'conversation');
   assert.equal(await page.locator('#objective').inputValue(),'Retained owner draft');
 });
 
 test('failed refresh retains prior state and disables writes until retry succeeds',async t=>{
   const {page,open,signal,selected}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  await page.locator('[data-tab=organization]').click();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  await go(page,'organization');
   await page.route('**/api/state',r=>r.fulfill({status:503,json:{error:'Controlled refetch outage'}}),{times:1});
   await signal('changed');await page.locator('#load-status[role=alert]').waitFor();
   assert.match(await page.locator('#view').textContent(),/Atlas/);await selected('organization');
@@ -161,23 +162,23 @@ test('failed refresh retains prior state and disables writes until retry succeed
 
 for(const [tab,path,marker] of [['direct','conversations','#conversation-worker'],['groups','groups','#new-group'],['mandates','mandates','#new-mandate'],['computers','computers','#computer-operator'],['devices','devices','#create-pairing']])test(`first ${tab} auxiliary load is explicit and recovers independently`,async t=>{
   const {page,open,hold,signal,selected}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  const auxiliary=await hold(path);await page.locator(`[data-tab=${tab}]`).click();await auxiliary.entered;
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  const auxiliary=await hold(path);await go(page,tab);await auxiliary.entered;
   assert.match(await page.locator('#view').textContent(),/Loading/);
   if(tab==='groups')assert.equal(await page.locator(marker).isDisabled(),true);
   else assert.equal(await page.locator(marker).count(),0);
   // Switch away while this view is still pending; no late response may change intent.
-  await page.locator('[data-tab=tasks]').click();auxiliary.release();
-  await page.locator('[data-tab=audit]').click();await selected('audit');
-  await page.locator(`[data-tab=${tab}]`).click();await page.locator(marker).waitFor();await selected(tab);
+  await go(page,'tasks');auxiliary.release();
+  await go(page,'audit');await selected('audit');
+  await go(page,tab);await page.locator(marker).waitFor();await selected(tab);
 });
 
 test('auxiliary failure remains visible without converting company state to empty',async t=>{
   const {page,open,signal,selected}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
   await page.route('**/api/computers',r=>r.fulfill({status:503,json:{error:'Controlled section outage'}}),{times:1});
-  await page.locator('[data-tab=computers]').click();await page.locator('#load-status[role=alert]').waitFor();
-  assert.match(await page.locator('#view').textContent(),/Computer Sessions unavailable/);
+  await go(page,'computers');await page.locator('#load-status[role=alert]').waitFor();
+  assert.match(await page.locator('#view').textContent(),/Browser work unavailable/);
   assert.match(await page.locator('#workers').textContent(),/Atlas/);
   await page.locator('#retry-load').click();await page.locator('#computer-operator').waitFor();
   assert.match(await page.locator('#view').textContent(),/No ComputerSessions/);await selected('computers');
@@ -185,11 +186,11 @@ test('auxiliary failure remains visible without converting company state to empt
 
 test('changed events and rapid tab switches coalesce state requests',async t=>{
   const {page,open,hold,signal,selected}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
   let stateRequests=0;page.on('request',r=>{if(new URL(r.url()).pathname==='/api/state')stateRequests++;});
   const state=await hold('state');await signal('changed');await state.entered;
   for(const tab of ['devices','direct','groups','computers','mandates']){
-    await page.locator(`[data-tab=${tab}]`).click();await signal('changed');
+    await go(page,tab);await signal('changed');
   }
   assert.equal(stateRequests,1,'only one snapshot request may be in flight');
   state.release();await page.locator('#new-mandate').waitFor();await selected('mandates');
@@ -200,19 +201,19 @@ test('changed events and rapid tab switches coalesce state requests',async t=>{
 
 test('closed worker inspector cannot be reopened by late discovery',async t=>{
   const {page,open,hold,signal}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  const runtime=await hold('runtime');await page.locator('#workers [data-worker]').click();await runtime.entered;
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  const runtime=await hold('runtime');await page.locator('#workers [data-worker]').click();await aiSettings(page);await runtime.entered;
   await page.locator('#close-inspect').click();
   const response=page.waitForResponse('**/api/runtime');runtime.release();await response;
   // Use another DOM interaction as a browser event-loop barrier.
-  await page.locator('[data-tab=tasks]').click();
+  await go(page,'tasks');
   assert.equal(await page.locator('#inspect').evaluate(d=>d.open),false);
 });
 
 test('inspector draft and submit recover after an intercepted write fails during disconnect',async t=>{
   const {page,open,signal}=await setup(t,{expectedWrites:['POST /api/worker-profile']});
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  await page.locator('#workers [data-worker]').click();await page.locator('#ai-profile').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  await page.locator('#workers [data-worker]').click();await aiSettings(page);await page.locator('#ai-profile').waitFor();
   await page.locator('#ai-priority').selectOption('low');
   const entered=deferred(),release=deferred();
   // This test intentionally creates a browser request, but never transmits it to HQ.
@@ -232,13 +233,13 @@ test('inspector draft and submit recover after an intercepted write fails during
 
 test('late failed worker discovery cannot replace a newer inspector',async t=>{
   const {page,open,signal}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
   const entered=deferred(),release=deferred();
   await page.route('**/api/runtime',async route=>{entered.resolve();await release.promise;await route.fulfill({status:503,json:{error:'Old inspector failure'}});},{times:1});
   t.after(()=>release.resolve());
-  await page.locator('#workers [data-worker]').click();await entered.promise;
+  await page.locator('#workers [data-worker]').click();await aiSettings(page);await entered.promise;
   await page.locator('#close-inspect').click();
-  await page.locator('#workers [data-worker]').click();await page.locator('#ai-profile').waitFor();
+  await page.locator('#workers [data-worker]').click();await aiSettings(page);await page.locator('#ai-profile').waitFor();
   await page.locator('#ai-priority').selectOption('low');
   const response=page.waitForResponse(r=>r.url().endsWith('/api/runtime')&&r.status()===503);
   release.resolve();await response;
@@ -251,8 +252,8 @@ test('late conversation index cannot overwrite a changed worker filter',async t=
   const {page,open,signal,f}=await setup(t);
   const worker=f.company.snapshot().workers[0];
   f.company.conversations.open({worker_id:worker.worker_id,purpose:'Current filtered conversation'});
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  await page.locator('[data-tab=direct]').click();await page.locator('#conversation-worker').waitFor();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  await go(page,'direct');await page.locator('#conversation-worker').waitFor();
   const entered=deferred(),release=deferred();
   await page.route('**/api/conversations',async route=>{
     const response=await route.fetch();entered.resolve();await release.promise;
@@ -269,8 +270,8 @@ test('late conversation index cannot overwrite a changed worker filter',async t=
 
 test('stream interruption reports reconnecting even when a state request failed first',async t=>{
   const {page,open,signal,selected}=await setup(t);
-  await open();await signal('ready');await page.locator('#compose').waitFor();
-  await page.locator('[data-tab=organization]').click();
+  await open();await signal('ready');await go(page,'conversation');await page.locator('#compose').waitFor();
+  await go(page,'organization');
   await page.route('**/api/state',route=>route.abort('connectionfailed'),{times:1});
   await signal('changed');await page.locator('#load-status[role=alert]').waitFor();
   assert.equal(await page.locator('#connection').textContent(),'Could not refresh headquarters');
