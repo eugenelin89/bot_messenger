@@ -2,7 +2,7 @@
 
 Use the private HQ through its existing SSH tunnel. Production deployment initially
 creates **zero Computer Operators, ComputerSessions and Computer Use grants**. Opening
-**Computer Sessions** only reads state. [Architecture and limits](../architecture/COMPUTER_USE.md)
+**Tasks → Browser work** only reads state. [Architecture and limits](../architecture/COMPUTER_USE.md)
 and [acceptance evidence](../validation/PROMPT_10_VALIDATION.md) define the supported contract.
 
 ## Prepare the host and an operator
@@ -14,7 +14,7 @@ GNOME/KDE, X server, VNC or workstation access. Treat host installation as admin
 workers never run the installer. For an existing HQ, use this narrow installer rather than
 rerunning unrelated host upgrades. Production has no loopback fixture exception by default.
 
-Open **Computer Sessions → Create Computer Operator**, enter a name and save. This
+Open **Tasks → Browser work → Create Computer Operator**, enter a name and save. This
 owner-only operation creates a persistent worker with bounded browser, internal-message
 and report capabilities. It creates no grant or browser. Atlas cannot grant this profile
 through hiring or a mandate. Existing eight-worker and manager-child limits still apply.

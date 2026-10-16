@@ -20,7 +20,7 @@ test('browser grants public and knowledge separately, runs bounded research, ins
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const dir=join(process.cwd(),'.validation','we01-browser');mkdirSync(dir,{recursive:true});
   await page.goto(`http://127.0.0.1:${http.server.address().port}`);await page.getByText('Connected to headquarters',{exact:true}).waitFor();
-  const capabilities=async()=>{await page.locator(`[data-worker="${atlas.worker_id}"]`).first().click();await page.getByRole('button',{name:'Capabilities & research',exact:true}).click();await page.locator('#grant-public, [data-revoke-research]').first().waitFor();};
+  const capabilities=async()=>{await page.locator(`[data-worker="${atlas.worker_id}"]`).first().click();await page.getByRole('button',{name:'Permissions & research',exact:true}).click();await page.locator('#grant-public, [data-revoke-research]').first().waitFor();};
   await capabilities();await page.locator('#grant-public').click();await page.getByRole('button',{name:'Revoke Public Research',exact:true}).waitFor();
   assert.equal(f.store.get('SELECT count(*) n FROM standing_grants').n,1);
   await page.locator('#grant-knowledge input[value="README.md"]').check();await page.getByRole('button',{name:'Confirm selected document access',exact:true}).click();await page.getByRole('button',{name:'Revoke Company Knowledge',exact:true}).waitFor();

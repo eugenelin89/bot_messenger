@@ -139,7 +139,7 @@ delegated tasks through the organization
 ~~~
 
 The Web UI and Client API also support a message-only operation. That creates a durable
-message in the Executive channel but does not assign work, wake Atlas, or cause an
+message in Activity → Team updates but does not assign work, wake Atlas, or cause an
 automatic reply. Separately, the Conversations UI opens direct human-to-Maya,
 human-to-Linus or other eligible worker sessions. Requesting a reply queues only that
 worker; sending a passive message creates no execution. The owner administers and can
@@ -199,9 +199,9 @@ peer reply and one initiating-worker continuation, then stop. Each step releases
 the chain cannot recursively extend. Peer answers and continuations remain discoverable
 in the peer transcript. They do not complete Tasks or wake task managers.
 
-Operators can inspect those interactions through the Executive channel, linked Tasks,
-Audit history and Executions. Audit records are the precise source for assignment and
-result-return events; Executions show when workers actually ran and where work overlapped.
+Operators can inspect those interactions through Activity → Team updates, linked Tasks,
+Activity → Advanced audit and Activity → Work sessions. Audit records are the precise source for assignment and
+result-return events; Work sessions show when workers actually ran and where work overlapped.
 
 ## Collaborative deliberation
 

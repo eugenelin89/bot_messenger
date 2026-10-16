@@ -2,17 +2,19 @@
 
 Start with a small job and learn the interface as you use it.
 
-## Start here: your first assignment
+## Start here: your first task
 
-[Your first BotSquad assignment](first-assignment.md) walks you through asking Atlas and Scout for a short written explanation of BotSquad. It introduces each concept at the moment you encounter it: AI workers, objectives, tasks, child tasks, saved reports (artifacts), and work sessions (executions).
-
-The exercise is reading and writing only. It does not ask the team to change software, install anything, or publish externally. The guide includes a ready-to-paste assignment, what to look for while work runs, and how to check the finished result.
+[Your First Task with BotSquad](first-assignment.md) takes you from Home through
+**New task → Start task → Open task → Results and files**, using a three-point summary
+of supplied text. It introduces employees, progress, problems, conversations and advanced
+views as you encounter them. The current screenshots use clearly labelled safe sample data.
+No web research, software change or publication is required by the exercise.
 
 Open BotSquad before starting. For connection instructions, see [Open the BotSquad UI](../operations/ACCESS_AND_OPERATIONS.md#open-the-botsquad-ui).
 
 ## Explore a software-building example
 
-[StudyPlan demo](demo-01-studyplan/README.md) records the more involved UI-driven software-project demonstration. Read the first-assignment tutorial before exploring this example if the interface and terminology are new to you.
+[StudyPlan demo](demo-01-studyplan/README.md) preserves a historical interface and the more involved UI-driven software-project demonstration. Read the first-assignment tutorial before exploring this example if the interface and terminology are new to you.
 
 ## More documentation
 

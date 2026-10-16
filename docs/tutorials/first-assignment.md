@@ -1,165 +1,85 @@
-# Your first BotSquad assignment
+# Your First Task with BotSquad
 
-*Give the team a small job, watch it work, and read the answer.*
+Give your AI team a small job, follow its progress, and check the answer.
 
-For this exercise, you will ask BotSquad to **prepare a short explanation of what it can do**. You will meet the team and learn the controls as you use them.
+Open your private HQ using [the connection instructions](../operations/ACCESS_AND_OPERATIONS.md#open-the-botsquad-ui). BotSquad HQ is where you assign work and review your team's results. An **AI employee** is a persistent named team member with a responsibility. Atlas coordinates ordinary tasks; other employees may receive related assignments.
 
-Start with BotSquad already open in your browser. Need help getting there? Follow [Open the BotSquad UI](../operations/ACCESS_AND_OPERATIONS.md#open-the-botsquad-ui), then return here.
+## 1. Start on Home
 
-The button names below follow the current repository interface. Your installed version may look slightly different. This is an instructional walkthrough, not a record of a completed run on your server.
+Home answers four questions: what is being worked on, what needs your attention, what finished, and who is on your team. A running **work session** means an employee is working now. An unfinished task may be waiting. Those counts measure different things.
 
-## 1. Meet Atlas: the person you give the job to
+![Home with current work, an owner action, a completed sample task and the team](../ux/hq-redesign/screenshots/home-1440.png)
 
-Look for **Atlas** in the team list.
+*Actual HQ capture with isolated, explicitly authored sample records. The failure and results shown here are synthetic; they are not live investment or employee-performance evidence.*
 
-Atlas is an **AI worker** — a named AI team member with a particular responsibility. BotSquad also calls these workers *bots*.
+The navigation has six destinations: **Home, Tasks, Team, Activity, Projects, Settings**. On a phone they appear above the page. Each destination has a smaller row of related views. **Needs you** in the header opens items requiring owner action. Ordinary waiting does not automatically require intervention.
 
-Atlas's responsibility is to coordinate the team. His title, **CEO**, means chief executive officer. For now, think of him as **your team manager: you tell him what you need, and he organizes the work**.
+If the team is paused, the page says so. You can still create a queued task. Before using **Settings → Resume queued work**, review other waiting tasks: resuming applies to the team, not just this exercise. You do not need to initialize Atlas separately; starting a task sets up the coordinator if necessary.
 
-When Atlas is already listed, there is nothing to set up. When you see **Initialize Atlas** instead, click it. Here, "initialize" simply means setting up that first team member.
+## 2. Tell the team what you want
 
-### Before continuing: is the team paused?
-
-Find the button that says either **Pause new dispatch** or **Resume dispatch**.
-
-*Dispatch* means **starting work that is waiting**.
-
-When the button says **Pause new dispatch**, starting work is enabled. Leave it alone.
-
-When it says **Resume dispatch**, starting work is paused. Before resuming, open **Tasks**, which is the list of assigned jobs, and check for older work waiting to start. **Resuming applies to the whole team, not just this tutorial.** Resume only when you are comfortable letting that waiting work start.
-
-## 2. Open the place where you give instructions
-
-Click **Executive channel**.
-
-Despite the formal name, this is simply **the main place where you give Atlas instructions and read updates about the team's work**.
-
-Find the text box labelled:
-
-> **TO ATLAS · CEO**
-
-Inside it, you should see:
-
-> What should the company work on?
-
-This is where you describe the result you want. BotSquad calls that an **objective**.
-
-For example, "Prepare a short explanation of BotSquad" is an objective. You are describing what should be accomplished, rather than clicking through every action yourself.
-
-## 3. Give Atlas a small, clear objective
-
-For this exercise, we will ask Atlas to involve **Scout**.
-
-Scout is the team's research worker. Think of the arrangement this way: **Atlas organizes the job; Scout reads and gathers information; Atlas reviews the findings and reports back.** This research workflow is supported by BotSquad.
-
-Paste this into the text box:
+Choose **New task** in the header or Home. In **What would you like done?**, paste:
 
 ```text
-Atlas, please ask Scout to read the BotSquad documents
-that the team is allowed to access.
-
-Have Scout prepare a short beginner's guide covering:
-1. What BotSquad can do today.
-2. What is still planned for the future.
-3. One simple example of how I could use it.
-
-Review Scout's findings and give me a final answer
-in plain English, under 300 words.
-
-This is a reading-and-writing exercise only.
-Do not change the software, install anything, or
-publish anything externally. You may save the
-written report with the assignment.
+Read this text and summarize it in three plain-English bullet points: “BotSquad keeps tasks, messages and results. Atlas coordinates assignments. The owner reviews outcomes and controls permissions.” Use only the text in this request. Do not browse, change software or publish anything.
 ```
 
-We are deliberately keeping the job small. It has a clear subject, a clear finished result, and clear limits.
+![New task with the supplied-text exercise and Start task button](../ux/hq-redesign/screenshots/new-task-1440.png)
 
-Now click **Assign objective ↗**.
+Choose **Start task** once. This requests real AI work under existing limits. No web research, document grants, software changes or publication are needed for this exercise. An existing runtime/account must be able to run work; the form does not create permission or funding. Advanced options explain those boundaries; no model or provider selection is needed here.
 
-### What did that button do?
+The task opens with your request and responsible employee. Atlas may do the work or create related assignments. The UI reports what actually happened; it does not promise a particular team or sequence.
 
-You have turned your instruction into a **task**.
+If confirmation is lost, the form keeps your text and asks you to **Check Tasks** before trying again. If creation is confirmed but loading fails, it says **Task created** and provides **Open Tasks**. Find the existing task or retry loading HQ instead of submitting a duplicate.
 
-A task is **a recorded job**. BotSquad keeps track of who is responsible for it, its progress, and its result.
+## 3. Follow progress and the employee
 
-The nearby **Send message only** button does something different: it leaves a note without starting a task. For this exercise, you want **Assign objective ↗**.
+Open **Tasks → All tasks**, find your description, and choose **Open task**. You can search by task text or employee name and filter completed or unfinished tasks.
 
-## 4. Watch Atlas pass the work to Scout
+The task shows **What you asked for**, the responsible employee, **What happens next** (or **What needs checking**), **Results and files**, **Recorded progress**, and **Related assignments**. Progress is based on recorded events, with dates and times. A completed work session does not necessarily finish the whole task.
 
-Stay in **Executive channel** and look for new messages.
+| Status | Meaning / next action |
+| --- | --- |
+| Waiting to start | Queued; check the pause banner and existing eligibility/capacity. |
+| In progress | The task is being worked on; read recorded activity. |
+| Waiting for related tasks | Follow the related assignments; do not create another copy. |
+| Waiting for approval | Open Needs you and review the exact request and scope. |
+| Could not finish / Waiting · review reason | Read the reason and prior results before any retry. |
+| Completed | The task is recorded as finished; read and evaluate its answer. |
+| Cancelled | Closed; its history remains available. |
 
-The expected sequence is:
+Choose the employee's name on the task, or **Team → Employees → Open profile**. Their profile shows their role, responsibilities, current assignments, recent completed work and recorded status. **No session running** does not promise that the employee is eligible or has nothing waiting.
 
-**You give Atlas the job → Atlas asks Scout to research → Scout returns findings → Atlas reports back.**
+![Atlas responsibilities, status and profile controls on a phone](../ux/hq-redesign/screenshots/employee-390.png)
 
-The actual messages may use different wording. You are looking for evidence that the work was assigned, carried out, and returned — not a particular script. The Executive channel is intended to show readable progress and handoff messages.
+*Phone capture from the same isolated sample exercise. No provider discovery is performed merely by opening a profile.*
 
-A message saying "I will get started" is an acknowledgement, not the finished result.
+## 4. Read and check the result
 
-### Now open Tasks
+When the original task says **Completed**, open **Results and files**. Read the **Recorded outcome**. If a report was saved, select its title to open it. A saved file is optional; a readable recorded outcome may be the whole deliverable. Related assignments may have their own files.
 
-Click **Tasks** to see the jobs rather than just the conversation.
+![Completed sample task with recorded outcome and saved result](../ux/hq-redesign/screenshots/task-result-1440.png)
 
-You should look for your original assignment to Atlas and, if delegation has happened, a smaller assignment to Scout.
+![Saved three-point sample result](../ux/hq-redesign/screenshots/saved-result-1440.png)
 
-That smaller assignment is called a **child task**: a job created as part of a larger job. Two related tasks do not necessarily mean your request was submitted twice. Atlas can be responsible for the overall answer while Scout is responsible for the research.
+*These are genuine browser captures of a disposable backend using an explicitly fake runtime. The response is authored for repeatable UI testing, not a claim of genuine AI execution. Your employee's wording and whether it saves a separate file may differ.*
 
-Click **Inspect task** on your assignment. "Inspect" simply means **open its details**.
+Finish the exercise only after the task is completed **and** you can read three sensible points grounded in the supplied text. A label alone does not prove the answer is useful.
 
-You can now see the recorded assignment, its result when available, and information about the work performed. A task marked **queued** is waiting to start; **completed** means it has been recorded as finished. If it is **blocked**, read the blocking reason rather than immediately submitting the same request again. For example, Atlas may be waiting for Scout's child task to finish; waiting for another worker is not automatically a failure.
+## 5. Find conversations and activity when useful
 
-## 5. Find and read the finished answer
+**Team → Conversations** opens direct employee conversations. **Open conversations** in a profile takes you there too. **Send passive message** saves context without requesting a reply; **Send & request reply** requests bounded AI work. Neither is the same as creating a task.
 
-Return to **Executive channel** and look for Atlas's final response.
+**Team → Discussions** contains working groups. Their recommendations do not automatically become tasks or formal investment decisions. [Learn about discussions](working-groups.md) separately.
 
-Then open **Tasks → Inspect task** on your original assignment to check its result.
+**Activity → Recent activity** shows meaningful team milestones. **Team updates** retains the shared company messages and original assignment composer. **Work sessions** shows individual execution attempts and usage. **Advanced audit** retains every loaded original audit event. Task **Advanced details** exposes original identities, acceptance criteria, constraints and attempts. These are optional troubleshooting views.
 
-You may see a section called **Artifacts**.
+## If something needs you
 
-An **artifact** is simply **a saved piece of work** — for example, the written report Scout produced. The message might summarize the result, while the artifact contains the saved report.
+Open **Needs you**, read the explanation, and follow its source action. Review the exact request before approving. Permission, infrastructure, publication and business controls retain their original separate scopes; text in a task cannot grant authority.
 
-Click the report's title or artifact button to open it. Check Scout's child task too if the report is not attached to Atlas's task. The task inspector provides links to artifacts associated with that particular task.
+If work fails, open the task and examine its reason, recorded progress, prior attempts, related work and saved results. **Retry inspected task** is offered only where the existing task policy permits it and requires acknowledging that review. Unknown provider outcomes can remain blocked. Do not repeatedly resubmit to make something happen.
 
-**You have completed the exercise when the original assignment is marked completed and you can read the requested explanation.**
+If HQ disconnects, the connection indicator and loading banner explain that its records are stale. Mutating controls stay disabled until recovery. Use **Retry loading** to refresh. See [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md) for service problems.
 
-Read the answer as well as checking its status. Does it distinguish existing features from future plans? Is it understandable? A "completed" label is not a substitute for checking the work.
-
-## 6. Take one optional look behind the scenes
-
-Now that you have seen the result, click **Executions**.
-
-An **execution** is **one recorded attempt by an AI worker to do some work**. Think of it as a work session.
-
-Here is how that differs from a task:
-
-> **Task:** "Prepare my beginner's guide."
->
-> **Execution:** "Atlas worked on that assignment on this occasion."
-
-Atlas might work once to delegate the research, then work again after Scout finishes. Those would be separate executions contributing to the same overall task. The Executions screen records worker activity, including attempts that finish, fail, or are interrupted.
-
-You do not need to monitor this screen for every assignment. It becomes useful when you wonder, **"Who actually worked on this?"** or **"Why hasn't my answer arrived?"**
-
-## If the answer does not arrive
-
-If nothing starts, check that you clicked **Assign objective ↗**, not **Send message only**, and check whether starting work is paused. Remember that resuming can start other waiting work too.
-
-If a task fails or reports a blocking reason, open **Inspect task** and **Executions** to read the details and check for any existing result before retrying. Do not repeatedly submit the same request to try to make it start.
-
-For connection or service problems, see [Access and Operations](../operations/ACCESS_AND_OPERATIONS.md). This tutorial does not require changing the software, provisioning engineering access, or publishing anything externally.
-
-## What you just learned by doing
-
-You gave **Atlas**, your AI team manager, an **objective**. Clicking **Assign objective** created a tracked **task**. Scout could receive a smaller **child task**. Their work happened through **executions**, and a saved report could appear as an **artifact**.
-
-For everyday use, the path is simpler than all those names:
-
-**Tell Atlas what you need → follow the progress → read and check the result.**
-
----
-
-### Documentation references
-
-This guide covers only the task-based research workflow. Direct conversations, working groups, mandates/scheduling, bounded Computer Use and supervised business operations have separate tutorials and acceptance records; see the [milestone index](../../prompts/milestones/README.md). Interface labels and behaviour are based on the [web UI source](../../public/app.js), [current repository overview](../../README.md), and [operator guide](../operations/ACCESS_AND_OPERATIONS.md). The source reference at the time of writing was commit `542a867dcd3d7e61fff2be7d47425f4f11af8ec2` (Prompt 07-era interface).
-
-[Back to tutorials](README.md)
+[Back to tutorials](README.md) · [Validation and evidence limits](../ux/hq-redesign/USABILITY-VALIDATION.md) · [Current terminology](../ux/hq-redesign/TERMINOLOGY.md)

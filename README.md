@@ -107,13 +107,20 @@ owner Attention and worker portraits. See the [stabilization index](prompts/stab
 SSH-tunnel browser remains the preferred operator path; native iOS and multi-company/federation
 remain deferred under Decision 026.
 
-Use the worker inspector or **Conversations** tab to open a direct conversation.
+The UX-01 interface opens on **Home** with current work, owner attention, completed
+results and the team. Use **New task → Start task** for ordinary work and **Tasks → Open
+task** to follow it. The six destinations are Home, Tasks, Team, Activity, Projects and
+Settings. [Your First Task with BotSquad](docs/tutorials/first-assignment.md) is the current
+beginner guide; [UX audit and feature map](docs/ux/hq-redesign/UX-AUDIT.md) and
+[release evidence](docs/ux/hq-redesign/RELEASE-REPORT.md) describe the redesign.
+
+Use the worker inspector or **Team → Conversations** to open a direct conversation.
 **Request reply** queues bounded model work; **Passive message** only records context.
 The owner can inspect peer exchanges, stop queued work and interrupt active replies.
 See [Prompt 07 acceptance](docs/validation/prompt-07-conversations-continuity.md) and
 [conversation controls and continuity](docs/architecture/CONVERSATIONS_AND_CONTINUITY.md).
 
-Prompt 08 adds **Working Groups**: create a charter, select participants
+Prompt 08 adds **Team → Discussions**: create a charter, select participants
 or explicitly let Atlas organize, share selected material, then start. Owner interjections
 remain visible alongside attributable worker responses and immutable synthesis versions.
 Research requires a separate discussion-mode opt-in for each eligible researcher. A saved
@@ -400,7 +407,7 @@ See [Prompt 03 Ubuntu validation](docs/validation/prompt-03-ubuntu.md).
 
 ## Start a software Project
 
-In **Projects & repositories**, create a Project and configure its instructions and
+In **Projects → Software projects**, create a Project and configure its instructions and
 trusted policy. Add named focused and full Node recipes with literal test paths. Create
 a minimal repository, import a Git bundle, or register a public GitHub HTTPS repository;
 choose its actual default branch. Repositories live under managed storage, never an

@@ -64,15 +64,34 @@ The UI is running on the Ubuntu server even though the browser URL looks local.
 
 Do not open TCP 4310 to the public Internet.
 
+## Find your way around HQ
+
+HQ opens on **Home**. Use **New task → Start task** for an ordinary assignment and
+**Tasks → Open task → Results and files** to follow it. Begin with
+[Your First Task with BotSquad](../tutorials/first-assignment.md).
+
+- **Tasks:** all tasks, Needs your attention, Browser work.
+- **Team:** employee profiles, Conversations, Discussions.
+- **Activity:** recent milestones, Team updates, Work sessions, Advanced audit.
+- **Projects:** software projects, Ongoing goals, Investment.
+- **Settings:** approvals, infrastructure, devices, and the global Pause new work /
+  Resume queued work control. Resuming affects all eligible queued work.
+
+Open an employee's profile to read assignments and responsibilities. Expand **Advanced
+employee details → AI settings** for model, reasoning, priority and human lock; **Permissions
+& research** manages existing research/document grants. Opening a profile does not probe
+runtime eligibility. Task Advanced details and Activity's advanced views preserve IDs,
+provider evidence and audit records. Browser Back/Forward restores navigation destinations.
+
 ## Follow bot interaction
 
-Use **Company Mandates** for an ongoing strategic outcome and its bounded review schedule;
+Use **Projects → Ongoing goals** for an ongoing strategic outcome and its bounded review schedule;
 see [the operating-loop tutorial](COMPANY_OPERATING_LOOP_TUTORIAL.md). **Conversations**
 support private direct replies and bounded peer questions; passive messages do not dispatch.
-**Working Groups** support deliberation and shared evidence. A group synthesis remains a
+**Team → Discussions** support deliberation and shared evidence. A group synthesis remains a
 recommendation; a separate owner assignment or authorized mandate operation creates a Task.
 
-Use **Executive channel**, **Tasks** and **Executions** to follow an executable assignment.
+Use **Activity → Team updates**, **Tasks** and **Activity → Work sessions** to follow an executable assignment.
 Task links expose its acceptance criteria, result, artifact and attempts; audit history records
 precise assignment, child-result, approval and integration transitions. Actual Task assignment
 is restricted to a manager's eligible direct reports and existing workflow capabilities.
@@ -207,7 +226,7 @@ After login, rerun the preflight and health check.
 
 The UI separates:
 
-- **Pause new dispatch** — prevents new queued work from starting;
+- **Pause new work** — prevents new queued work from starting;
 - **Interrupt** — stops a currently running supported Codex turn.
 
 These are not equivalent.
@@ -419,7 +438,7 @@ Run the real-model scenarios only when you intentionally want to consume Codex u
 
 ## Software Projects and trusted repository operations
 
-In Projects & repositories, create a Project, configure instructions/policy, and register
+In Projects → Software projects, create a Project, configure instructions/policy, and register
 one or more repositories. New local repositories start with README; imports accept a Git
 bundle up to 4 MiB, or a normalized public GitHub HTTPS URL. Choose the actual default
 branch. Host paths, credentials in URLs, submodules, symlinks, LFS and unsafe Git metadata
@@ -498,7 +517,7 @@ as a second authenticated HQ. Preserve the owner's pause state during deployment
 
 ## Public Research and Company Knowledge standing permissions
 
-Use the private browser worker inspector → **Capabilities & research**. Public Research
+Use the private browser worker inspector → **Permissions & research**. Public Research
 and selected Company Knowledge documents require separate explicit confirmations. Revoke
 from the same view. The [learn-by-doing tutorial](PUBLIC_RESEARCH_TUTORIAL.md) explains
 questions, delegated reports, source inspection and revocation. Do not edit SQL for normal
@@ -527,7 +546,7 @@ limitations and opaque-provider boundaries are recorded in
 
 ## Working groups and scoped application updates
 
-Use **Working Groups** to create a draft, explicitly start it, interject, pause future
+Use **Team → Discussions** to create a draft, explicitly start it, interject, pause future
 turns, interrupt active work, stop without summarizing, or authorize one more bounded
 round. The wall-clock deadline continues while paused. **Finish with current evidence**
 authorizes one final synthesis after active work settles. A blocked incomplete group can

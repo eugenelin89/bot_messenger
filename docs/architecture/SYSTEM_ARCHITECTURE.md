@@ -150,7 +150,7 @@ manager's direct subordinate and then applies the supported research/product rol
 stage restrictions. Child completion is the dependable orchestration signal: durable
 wake records queue manager follow-up after required children become terminal.
 
-The existing human message endpoint posts to the Executive channel without dispatch.
+The existing human message endpoint posts to the Executive channel (Activity → Team updates in HQ) without dispatch.
 Explicit objectives enter through Atlas. Prompt 07 adds a separate first-class direct
 Conversation with participant-scoped history and explicit bounded reply requests.
 Executions have checked task/conversation ownership; both share the same two-slot

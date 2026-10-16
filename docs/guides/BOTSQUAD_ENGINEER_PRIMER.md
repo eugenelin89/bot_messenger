@@ -1,5 +1,8 @@
 # BotSquad Engineer Primer — From Demo Operator to Prompt 05
 
+Current UI: Home → New task starts ordinary assignments; Tasks → Open task shows progress/results; Team exposes profiles/conversations/discussions; Activity holds team updates, work sessions and advanced audit; Projects contains software, ongoing goals and Investment; Settings contains approvals/infrastructure/devices. Technical entity names in this architecture primer remain exact. See [the current tutorial](../tutorials/first-assignment.md).
+
+
 **Purpose:** Explain, in plain engineering language, what BotSquad is, how its major pieces fit together, why the Demo Operator idea matters, and what Prompt 05 is changing.
 
 **Context:** This document summarizes the design discussion that began with the question:

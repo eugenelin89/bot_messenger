@@ -5,6 +5,8 @@ local browser over the existing SSH tunnel. Paired Client API v1 devices cannot 
 approve this operation. The [validation record](../validation/PROMPT_11_VALIDATION.md) states
 whether the real pilot is complete; fixture demonstrations are visibly SIMULATED.
 
+Current HQ entry: **Projects → Ongoing goals**. Open the relevant mandate to inspect its business action and review the exact preview. **Needs you** links to an action that requires owner approval; the approval remains attached to that action. Navigation does not grant authority.
+
 ## Prepare a source without activating work
 
 1. Review an existing owner-controlled repository, its branch workflow and automation. Choose

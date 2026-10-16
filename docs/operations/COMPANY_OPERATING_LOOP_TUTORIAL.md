@@ -7,7 +7,7 @@ does. See [limits and recovery](../architecture/COMPANY_OPERATING_LOOP.md) and t
 
 ## 1. Create a passive mandate
 
-Open the private HQ browser through the established SSH tunnel. Select **Mandates**, then
+Open the private HQ browser through the established SSH tunnel. Select **Projects → Ongoing goals**, then
 **New mandate**. Use a clearly fictional objective, for example:
 
 > Improve the sustainable success of this SIMULATED small software product. Decide useful

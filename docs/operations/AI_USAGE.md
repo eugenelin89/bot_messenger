@@ -1,6 +1,6 @@
 # Private AI usage and reference cost
 
-Open **Executions → Usage & cost**, a worker's **AI usage and cost** inspector, **Investment team**, or **Investment run**. Reports show the worker/activity, provider/model, execution/request/thread/turn, start/finish, duration, status, token categories, completeness, original pricing source/version, and unknown reasons. Worker, activity, occurrence, New York calendar day, rolling24h and run aggregates share the same records. The rolling admission window is exactly24h and independent of calendar days.
+Open **Activity → Work sessions → Usage & cost**, a worker's **AI usage and cost** inspector, **Investment team**, or **Investment run**. Reports show the worker/activity, provider/model, execution/request/thread/turn, start/finish, duration, status, token categories, completeness, original pricing source/version, and unknown reasons. Worker, activity, occurrence, New York calendar day, rolling24h and run aggregates share the same records. The rolling admission window is exactly24h and independent of calendar days.
 
 The browser endpoint is `GET /api/usage` with optional `executionId`, `workerId`, `runId` and `cycleId` filters. It uses the existing private local owner boundary, Host/Origin checks and device-token denial. It is not a public investment or device-v1 endpoint. No external analytics/scripts are loaded. Source links open only on owner selection. Usage and cost never enter public publication contracts or portfolio accounts.
 

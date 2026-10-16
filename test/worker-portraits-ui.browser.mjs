@@ -1,3 +1,4 @@
+import {go,aiSettings} from './hq-navigation.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -62,7 +63,7 @@ async function setup(t,{viewport={width:1440,height:1100},custom=false,failed=fa
  const url=`http://127.0.0.1:${http.server.address().port}`;
  t.after(async()=>{await browser.close();assert.deepEqual(errors,[]);assert.deepEqual(writes,[]);assert.deepEqual(external,[]);assert.equal(f.runtime.calls.length,0);});
  await page.goto(url);await page.waitForFunction(()=>document.querySelector('#connection').textContent==='Connected to headquarters');await page.waitForFunction(()=>/^\d+$/.test(document.querySelector('#attention-count').textContent));
- return {f,page,...data};
+ await go(page,'conversation');return {f,page,...data};
 }
 async function portrait(container,name){await container.waitFor({state:'attached'});const img=container.locator('img.worker-portrait');assert.equal(await img.count(),1);assert.equal(await img.getAttribute('src'),path(name));assert.equal(await img.getAttribute('alt'),'');assert.equal(await img.locator('..').getAttribute('aria-hidden'),'true');await img.evaluate(i=>i.decode());assert.match(await container.textContent(),new RegExp(name));}
 const message=(page,text)=>page.locator('.message').filter({has:page.locator('.message-body',{hasText:text})});
@@ -72,18 +73,18 @@ for(const viewport of [{width:1440,height:1100},{width:390,height:844}])test(`co
  await portrait(message(page,'Nix executive contribution'),'Nix');
  await portrait(message(page,'Atlas executive contribution'),'Atlas');await portrait(message(page,'Turing executive contribution'),'Turing');
  const human=page.locator('.message').filter({has:page.locator('.message-meta strong',{hasText:'Human'})});assert.ok(await human.count());assert.equal(await human.locator('img').count(),0);
- await page.locator('[data-tab=tasks]').click();const card=page.locator('.task-card').filter({hasText:'Task assigned to Linus by Turing'});await portrait(card,'Linus');assert.match(await card.textContent(),/Assignee:.*Linus.*Requested by Turing/s);assert.match(await card.textContent(),new RegExp(d.task.task_id.split('_')[1].slice(0,8)));
+ await go(page,'tasks');const card=page.locator('.task-card').filter({hasText:'Task assigned to Linus by Turing'});await portrait(card,'Linus');assert.match(await card.locator('.task-ownership').textContent(),/Linus/);assert.equal(await card.getAttribute('data-task-card'),d.task.task_id);await card.locator('[data-task]').first().click();assert.match(await page.locator('#inspect').textContent(),/Requested by.*Turing/s);await page.locator('#close-inspect').click();
  await portrait(page.locator('.task-card').filter({has:page.locator(`[data-task="${d.nixTask.task_id}"]`)}),'Nix');
- await page.locator('[data-tab=executions]').click();for(const row of await page.locator('tbody tr').all()){const name=(await row.locator('td').nth(1).textContent()).replace(/^(AT|SC|TU|NI)/,'');await portrait(row.locator('td').nth(1),name.trim());}
- await page.locator('[data-tab=organization]').click();for(const name of names)await portrait(page.locator('.org-node').filter({has:page.locator('strong',{hasText:new RegExp('^'+name+' —')})}),name);
+ await go(page,'executions');for(const row of await page.locator('tbody tr').all()){const name=(await row.locator('td').nth(1).textContent()).replace(/^(AT|SC|TU|NI)/,'');await portrait(row.locator('td').nth(1),name.trim());}
+ await go(page,'organization');await page.getByText('Reporting hierarchy',{exact:true}).click();for(const name of names)await portrait(page.locator('.org-node').filter({has:page.locator('strong',{hasText:new RegExp('^'+name+' —')})}),name);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Organization overflow');
- await page.locator(`#view [data-worker="${d.nix.worker_id}"]`).click();await page.locator('#ai-profile').waitFor();await portrait(page.locator('.worker-profile'),'Nix');await page.locator('#close-inspect').click();
- await page.locator('[data-tab=direct]').click();await page.locator(`[data-conversation="${d.direct.conversation_id}"]`).click();await portrait(message(page,'Nix direct contribution'),'Nix');assert.equal(await message(page,'Human direct contribution').locator('img').count(),0);
+ await page.locator(`#view [data-worker="${d.nix.worker_id}"]`).first().click();await aiSettings(page);await page.locator('#ai-profile').waitFor();await portrait(page.locator('.worker-profile'),'Nix');await page.locator('#close-inspect').click();
+ await go(page,'direct');await page.locator(`[data-conversation="${d.direct.conversation_id}"]`).click();await portrait(message(page,'Nix direct contribution'),'Nix');assert.equal(await message(page,'Human direct contribution').locator('img').count(),0);
  await page.locator(`[data-conversation="${d.peer.conversation_id}"]`).click();await portrait(message(page,'Nix peer question'),'Nix');await portrait(message(page,'Atlas peer answer'),'Atlas');
- await page.locator('[data-tab=groups]').click();await page.locator(`[data-group="${d.group.group_id}"]`).click();await portrait(message(page,'Atlas group contribution'),'Atlas');await portrait(message(page,'Nix group contribution'),'Nix');assert.equal(await message(page,'Owner group interjection').locator('img').count(),0);
+ await go(page,'groups');await page.locator(`[data-group="${d.group.group_id}"]`).click();await portrait(message(page,'Atlas group contribution'),'Atlas');await portrait(message(page,'Nix group contribution'),'Nix');assert.equal(await message(page,'Owner group interjection').locator('img').count(),0);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Group overflow');
  const images=page.locator('img.worker-portrait');for(const img of await images.all())assert.equal(await img.evaluate(i=>i.complete&&i.naturalWidth===384),true);
- const dir=process.env.BOTSQUAD_PORTRAIT_SCREENSHOTS;if(dir){mkdirSync(dir,{recursive:true});await page.screenshot({path:join(dir,`groups-${viewport.width}.png`),fullPage:true});await page.locator('[data-tab=tasks]').click();await page.screenshot({path:join(dir,`tasks-${viewport.width}.png`),fullPage:true});}
+ const dir=process.env.BOTSQUAD_PORTRAIT_SCREENSHOTS;if(dir){mkdirSync(dir,{recursive:true});await page.screenshot({path:join(dir,`groups-${viewport.width}.png`),fullPage:true});await go(page,'tasks');await page.screenshot({path:join(dir,`tasks-${viewport.width}.png`),fullPage:true});}
 });
 test('custom names are escaped, exact mapping never follows role, humans/System/operators keep fallback',async t=>{
  const {page}=await setup(t,{custom:true});
@@ -95,6 +96,6 @@ test('custom names are escaped, exact mapping never follows role, humans/System/
 test('image failure reveals initials and never changes readiness, Attention or creates model work',async t=>{
  const {page,nix}=await setup(t,{failed:true});const attention=await page.locator('#attention-count').textContent();
  await page.waitForFunction(()=>document.querySelectorAll('img.worker-portrait').length===0);assert.equal(await page.locator('#workers .avatar').first().textContent(),'AT');assert.equal(await page.locator(`#workers [data-worker="${nix.worker_id}"] .avatar`).textContent(),'NI');
- await page.locator('[data-tab=tasks]').click();await page.waitForFunction(()=>document.querySelectorAll('img.worker-portrait').length===0);assert.match(await page.locator('.task-ownership').filter({hasText:'Linus'}).textContent(),/LI.*Linus/);
+ await go(page,'tasks');await page.waitForFunction(()=>document.querySelectorAll('img.worker-portrait').length===0);assert.match(await page.locator('.task-ownership').filter({hasText:'Linus'}).textContent(),/LI.*Linus/);
  assert.equal(await page.locator('#pause').isEnabled(),true);assert.equal(await page.locator('#attention-count').textContent(),attention);assert.equal(await page.locator('#load-status').isVisible(),false);
 });
