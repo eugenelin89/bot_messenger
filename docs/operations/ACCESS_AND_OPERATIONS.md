@@ -568,7 +568,9 @@ the HTTP server reads the public assets from disk for each request. Verify that 
 contracts, dependencies and executable runtime configuration are identical to both the
 accepted baseline and the running backend. Take an online SQLite backup, verify its
 integrity, retain the previous public assets and deployment receipt in a protected backup,
-and record table hashes/counts and permissions. Advance only a clean checkout to the exact
+and record table hashes/counts and permissions. Keep the restrictive backup umask local to
+backup creation; restore the normal checkout umask before Git writes so public assets stay
+readable by the service. Advance only a clean checkout to the exact
 accepted merge commit, preserve the adapter environment, and update the source receipt.
 Compare served asset hashes to that commit, recheck retained state and health, and confirm
 the same process ID and running backend identity. Do not pause schedules or run migrations

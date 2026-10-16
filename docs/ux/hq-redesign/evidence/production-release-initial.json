@@ -1,0 +1,33 @@
+{
+  "source": "4c0ec5db81b428b0880b467247e1a33b4c5c45ba",
+  "previousSource": "7341ff09dc2e58e6ab8aab66c80e590cde58b2c1",
+  "backend": "dccf20909706dcc8e0731906d29c596a2ad48cbf",
+  "pid": "905617",
+  "health": {
+    "alive": true,
+    "database": true,
+    "dispatcher": true,
+    "runtime": "ready",
+    "version": "0.1.0",
+    "commit": "dccf20909706dcc8e0731906d29c596a2ad48cbf"
+  },
+  "backup": "/var/backups/botsquad/ux01-20261016T073738Z",
+  "backupIntegrity": "ok",
+  "tables": 188,
+  "changedTables": {},
+  "permissionsPreserved": true,
+  "servedAssets": {
+    "public/app.js": "d28345e4f8ca79825ee06ad74dc4d013bdf8a475d572519d8e5e3ccb00649c15",
+    "public/index.html": "fd93d784f5d95708b263c60415b61a81b96a505b85f2c4a2057baed1aaa38951",
+    "public/investment-run.html": "bad9b1010abddbbfd99edada193c4311a621a03915b3ea03b82376d793567e2f",
+    "public/investment-run.js": "b7d97b3463365a6e5c6d090b6cbc5d6018992ab36ad51cea3d2ac2a20520c640",
+    "public/investment-team.html": "eb4eaa5502ff43b826e1e9ededf3747061220946f4479094d3a9734c3bef1102",
+    "public/observed-investment.js": "cc1b593dd9e92a60d08312aa3501cf3870d9dd6df2b5fac4ffb26a9336d862c5",
+    "public/publication.html": "d3ddeb4cc48312c3886d9eb7386f48b7a7b458e6833a81d78880e6ebf5930d04",
+    "public/styles.css": "ae1549d3adb2a5ab76133d33cf525d4803ee72eb025327bf0795c799655642e1"
+  },
+  "restarted": false,
+  "pausedOrAuthorityChanged": false,
+  "deploymentRepair": "Backup umask initially made new tracked assets600; restored Git file modes before acceptance; no backend restart.",
+  "at": "2026-10-16T07:39Z"
+}

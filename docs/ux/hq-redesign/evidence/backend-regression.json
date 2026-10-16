@@ -1,0 +1,16 @@
+{
+  "source": "5fb197d7a4496bc874ceed545dc0ee7196895e7d",
+  "backendUnchangedFrom": "7341ff09dc2e58e6ab8aab66c80e590cde58b2c1",
+  "environment": "macOS, Node24.10.0; canonical TMPDIR=/private/tmp; restored ignored Python3.12.12/yfinance1.7.0 adapter",
+  "initialCompleteRun": {"tests":2358,"passed":2330,"failed":20,"skipped":8,"durationMs":1363541},
+  "correctedEnvironmentRerun": {"files":["observed-investment.test.js","observed-late-close.test.js"],"passed":33,"failed":0,"clearsInitialFailures":18,"durationMs":525320},
+  "isolatedWatchdogRerun": {"files":["yahoo-history.test.js"],"passed":86,"failed":0,"clearsInitialFailures":1,"durationMs":48540},
+  "remainingFailure": {
+    "test":"publication-blocked second-cycle BUY does not erase an admitted risk-reducing SELL",
+    "error":"Publication health blocks new paper risk",
+    "baselineReproduction":"Same failure on an untouched git archive of7341ff09dc2e58e6ab8aab66c80e590cde58b2c1",
+    "review":"Wall-time fixture crosses Friday-to-Monday; undelivered publication jobs exceed one-day freshness before intended revoke assertion. Production policy and test unchanged."
+  },
+  "skips":"Six pinned standalone receiver fixtures not configured; one Linux-only filesystem recipe on macOS; one standalone simulator receiver fixture not configured.",
+  "conclusion":"All changed-surface browser tests pass. Broad backend suite is not fully green: one independently reproduced baseline failure remains; initial adapter and watchdog failures are resolved in explicit reruns. No live provider or market evidence claimed."
+}
