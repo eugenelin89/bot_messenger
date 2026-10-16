@@ -102,3 +102,12 @@ dialog{max-width:860px;width:calc(100% - 32px);max-height:90dvh;padding:26px;bor
 body{color:#243449}.breadcrumb span{color:#56677d}.audit-marker{color:#42668f}
 
 .task-card header{color:#465971}
+/* Home is a scan of work; full requests and outcomes remain in Task details. */
+[aria-labelledby="current-work-title"] .title-link,
+[aria-labelledby="recent-work-title"] .title-link,
+[aria-labelledby="recent-work-title"] .task-summary {
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;
+  line-height: 1.5;
+  -webkit-line-clamp: 4;
+}
+[aria-labelledby="recent-work-title"] .task-summary { -webkit-line-clamp: 3; }

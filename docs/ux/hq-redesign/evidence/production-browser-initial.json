@@ -1,0 +1,153 @@
+{
+  "source": "4c0ec5db81b428b0880b467247e1a33b4c5c45ba",
+  "evidence": "Live released HQ; read-only retained records. No newly submitted task, model call or grant.",
+  "screens": [
+    {
+      "width": 1440,
+      "tab": "activity"
+    },
+    {
+      "width": 1440,
+      "tab": "attention"
+    },
+    {
+      "width": 1440,
+      "tab": "computers"
+    },
+    {
+      "width": 1440,
+      "tab": "direct"
+    },
+    {
+      "width": 1440,
+      "tab": "groups"
+    },
+    {
+      "width": 1440,
+      "tab": "conversation"
+    },
+    {
+      "width": 1440,
+      "tab": "executions"
+    },
+    {
+      "width": 1440,
+      "tab": "audit"
+    },
+    {
+      "width": 1440,
+      "tab": "products"
+    },
+    {
+      "width": 1440,
+      "tab": "mandates"
+    },
+    {
+      "width": 1440,
+      "tab": "settings"
+    },
+    {
+      "width": 1440,
+      "tab": "approvals"
+    },
+    {
+      "width": 1440,
+      "tab": "infrastructure"
+    },
+    {
+      "width": 1440,
+      "tab": "devices"
+    },
+    {
+      "width": 1440,
+      "route": "/investment-run"
+    },
+    {
+      "width": 1440,
+      "route": "/investment-team"
+    },
+    {
+      "width": 1440,
+      "route": "/investment-publication"
+    },
+    {
+      "width": 390,
+      "tab": "activity"
+    },
+    {
+      "width": 390,
+      "tab": "attention"
+    },
+    {
+      "width": 390,
+      "tab": "computers"
+    },
+    {
+      "width": 390,
+      "tab": "direct"
+    },
+    {
+      "width": 390,
+      "tab": "groups"
+    },
+    {
+      "width": 390,
+      "tab": "conversation"
+    },
+    {
+      "width": 390,
+      "tab": "executions"
+    },
+    {
+      "width": 390,
+      "tab": "audit"
+    },
+    {
+      "width": 390,
+      "tab": "products"
+    },
+    {
+      "width": 390,
+      "tab": "mandates"
+    },
+    {
+      "width": 390,
+      "tab": "settings"
+    },
+    {
+      "width": 390,
+      "tab": "approvals"
+    },
+    {
+      "width": 390,
+      "tab": "infrastructure"
+    },
+    {
+      "width": 390,
+      "tab": "devices"
+    },
+    {
+      "width": 390,
+      "route": "/investment-run"
+    },
+    {
+      "width": 390,
+      "route": "/investment-team"
+    },
+    {
+      "width": 390,
+      "route": "/investment-publication"
+    }
+  ],
+  "errors": [],
+  "writes": [],
+  "runtimeReads": [],
+  "retained": {
+    "employees": 8,
+    "tasks": 48,
+    "completedTasks": 30,
+    "artifacts": 12,
+    "paused": false
+  },
+  "passed": true
+}

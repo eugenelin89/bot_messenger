@@ -12,7 +12,7 @@ calls. The live audit independently found eight employees, 30 completed Tasks, 1
 results, two actionable blocked items and all three Investment pages reachable. Those dated
 aggregates are retained evidence, not a claim of newly generated results.
 
-The implemented browser gate passes **82/82** on local installed Chrome with Node24.10.0.
+The implemented browser gate passes **83/83** on local installed Chrome with Node24.10.0.
 Each fixture uses disposable state. The tutorial test invokes the actual objective endpoint,
 dispatcher, task lifecycle and artifact storage with an explicitly **fake runtime** supplying
 the documented three-point result. No external provider or market service is called. A

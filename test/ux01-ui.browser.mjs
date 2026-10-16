@@ -97,3 +97,11 @@ test('Task refresh restores the focused employee button inside its dialog, not d
  let task,work;const {f,page}=await setup(t,{seed:f=>{task=f.company.assignObjective({objective:'Sample task focus',acceptance_criteria:'A result',constraints:'Fixture'});work=f.company.claimNext();}});
  await page.locator(`[data-task="${task.task_id}"]`).first().click();await page.locator('#inspect .task-detail-lead [data-worker]').focus();f.company.finish(work.execution.execution_id,{status:'completed',settled:true,summary:'Sample result for focus verification'});await page.locator('#inspect .status.completed').waitFor();assert.equal(await page.locator('#inspect .task-detail-lead [data-worker]').evaluate(e=>e===document.activeElement),true);
 });
+
+test('Long retained requests stay compact on Home and remain complete in Task details',async t=>{
+ const objective='Review the complete retained project evidence and explain the outcome. '.repeat(18),outcome='This is a retained outcome with supporting context. '.repeat(12);
+ const {page}=await setup(t,{width:390,seed:f=>{f.company.assignObjective({objective,acceptance_criteria:'Preserve the full request',constraints:'Synthetic long-record regression'});const work=f.company.claimNext();f.company.finish(work.execution.execution_id,{status:'completed',settled:true,summary:outcome});}});
+ const title=page.locator('[aria-labelledby="recent-work-title"] .title-link'),summary=page.locator('[aria-labelledby="recent-work-title"] .task-summary');
+ for(const [element,lines] of [[title,4],[summary,3]]){const measured=await element.evaluate(e=>({height:e.getBoundingClientRect().height,lineHeight:parseFloat(getComputedStyle(e).lineHeight),clamp:getComputedStyle(e).webkitLineClamp,display:getComputedStyle(e).display,padding:parseFloat(getComputedStyle(e).paddingTop)+parseFloat(getComputedStyle(e).paddingBottom)}));assert.ok(measured.height<=measured.lineHeight*lines+measured.padding+1,JSON.stringify(measured));}
+ await title.click();await page.getByRole('dialog',{name:'Task details'}).waitFor();assert.equal((await page.locator('.task-detail-lead h3').innerText()).trim(),objective.trim());assert.equal((await page.locator('.task-results .message-body').innerText()).trim(),outcome.trim());
+});
