@@ -30,7 +30,7 @@ export async function collectPrivateResearch(company:Company,scopeId:string,requ
   const result=await gateway.collect(c.source.policy.id,request,'collection_'+hash([custody.reservationId,request]),AbortSignal.any([custody.signal,...(signal?[signal]:[])]));
   custody.check();
   const evidenceId=result.observationId?service.admit(scopeId,store,result.observationId):null;
-  company.finiteHQ.settleCollection(custody.reservationId,result.status,result.status!=='unknown',result.retryAt,result.reason==='yahoo_access_blocked');settled=true;
+  company.finiteHQ.settleCollection(custody.reservationId,result.status,result.status!=='unknown',result.retryAt,result.reason==='yahoo_access_blocked',result.reason);settled=true;
   return {reservationId:custody.reservationId,status:result.status,reason:result.reason,evidenceId};
  }finally {
   try{if(!settled)company.finiteHQ.failCollection(custody.reservationId);}finally{custody.close();db?.close();}

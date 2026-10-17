@@ -39,6 +39,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
   protected sourceLimitations(){return ['Invented synthetic fixture; no real employee deliberation or observed price is claimed.'];}
   protected rosterKind(){return 'fixture_roster';}
   protected validateRoster(c:Configuration){ensure(this.participants.length>0&&this.participants.every(p=>c.authorization.authors.includes(p)||c.authorization.reviewers.includes(p)),'publication_roster_source');}
+  protected afterJournal(_ctx:ProjectionContext,_material:Material,_emit:ProjectionEmit):void{}
   protected extra(_ctx:ProjectionContext,_material:Material,_emit:ProjectionEmit):void{}
   protected contentRights(material:Material){for(const content of material.contents){ensure(this.readArtifact&&hash({source:hashBytes(this.readArtifact(content.origin.id,Number(content.origin.version))),derivative:hashBytes(content.bytes)})===content.origin.hash,'publication_artifact_source_mismatch');}}
   get participants(){return Object.keys(this.description.workers);}
@@ -154,6 +155,7 @@ export abstract class SimulatorProjectionSource implements PublicationSource {
       if(a.version===1)emit('artifact.registered',{artifactId,title:a.title,author:actor,status:'awaiting_publication',reason:null,relationships:[]},`artifact:${a.id}:registration`,a.approvedAt,source,actor);
       emit('artifact.published',{artifactId,version:a.version,title:a.title,author:actor,createdAt:a.createdAt,publishedAt:a.approvedAt,contentType:a.contentType,sizeBytes:a.bytes.length,sha256:checked.sha256,relationships:[],sources:[],rights:'owner_authored',limitations:a.limitations,supersedes:previous?{kind:'artifact',id:artifactId,version:previous,relation:'supersedes'}:null,derivative:true},`artifact:${a.id}:${a.version}`,a.approvedAt,source,actor);
     }
+    this.afterJournal(ctx,material,emit);
     material.events.sort((a,b)=>BigInt(a.event.sourceSequence)<BigInt(b.event.sourceSequence)?-1:1);
     return material;
   }
