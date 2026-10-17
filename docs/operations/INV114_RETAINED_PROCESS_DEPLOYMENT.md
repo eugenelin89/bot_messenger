@@ -1,16 +1,19 @@
 # INV-114 guarded operational plan
 
-This is an unexecuted plan. INV-114 authorizes source, review, tests and normal PR
-integration only. It authorizes no deployment, production setup, authority, source
+The deployment and activation steps below are unexecuted. INV-114 authorizes source,
+review, tests and normal PR integration only. It authorizes no deployment, production setup, authority, source
 collection, model turn, trade, publication change or genuine trial.
 
 ## Isolated Ubuntu validation request
 
-This additional request is separate from deployment. Automatic approval review
-rejected the initial private source export; nothing was transferred. Proposed scope:
+This test-only request is separate from deployment. Automatic approval review
+initially rejected the private source export; nothing was transferred then. The owner
+subsequently explicitly approved isolated validation of `c4580e0`. Its outcome is
+recorded in the validation report; deployment remains unauthorized. Approved scope:
 
 > Copy only the exact reviewed INV-114 commit's source, tests, adapters, scripts,
-> contracts, public assets and build manifests to an owner-private temporary directory
+> contracts, public assets, build manifests and the five static reference documents
+> required by `Company` to an owner-private temporary directory
 > on the existing `botsquad` Ubuntu host. Exclude credentials, production databases,
 > custody, workspace data, attachments and unrelated documentation. Build and run the
 > finite-owner-renewal, finite-telemetry-recovery, finite-HQ-migration, inert-setup,
@@ -22,8 +25,9 @@ rejected the initial private source export; nothing was transferred. Proposed sc
 > permissions; do not restart, deploy, approve or activate anything. Coordinate timing
 > with the existing recovery coordinator.
 
-Before transfer, bind this request to the final merged SHA and inspect its archive
-manifest. Stop if isolated execution would need additional access or dependencies.
+Before transfer, bind this request to the exact reviewed source SHA and inspect its
+archive manifest. Confirm the final merged runtime/test source is identical, or repeat
+relevant validation for changes. Stop if isolation needs additional access or dependencies.
 The browser fixture uses the system temporary directory; Linux browser execution
 requires an already available approved browser, otherwise report it unperformed.
 
@@ -58,7 +62,7 @@ reason to terminate it automatically.
    only documented recovery hold/resume and lifecycle receipts. Verify no new process
    rows, approvals, requests, reservations or public permissions were created. Verify
    the legacy scope remains the selected scope with its original finite limits and
-   future occurrences. Inspect HQ without submitting the form.
+   retained occurrences. Inspect HQ without submitting the form.
 6. Report installed SHA and genuine readback separately from source tests. If custody
    mismatches or effects are unknown, leave dispatch fenced and report the exact
    exception. Never restore an older Company/journal/custody to erase consumption.

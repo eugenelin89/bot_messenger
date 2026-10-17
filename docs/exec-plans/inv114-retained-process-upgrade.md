@@ -1,6 +1,6 @@
 # INV-114 — retained portfolio research-process upgrade
 
-Status: source validated; normal PR integration. Owner: parent Codex, sole writer.
+Status: source implementation and validation complete; integration tracked by PR116. Owner: parent Codex, sole writer.
 Branch: `codex/inv114-retained-process-upgrade`.
 Worktree: `bot_messenger-investment-mandate`.
 Started October 17, 2026. Initial estimate: 2–4 hours.
@@ -70,11 +70,14 @@ Implementation and read-only audit are complete. TypeScript, 128 boundary tests,
 185 broader regressions, three legacy recovery scenarios, six existing browser
 checks and two documentation checks pass. The retained-process Company fixture
 and its final rebuilt publication-race/browser run passed end to end. All four
-specialists cleared source integration; integrate the reviewed PR.
+specialists cleared source integration. PR116 carries the reviewed source.
 
-Ubuntu source transfer was rejected by automatic approval review; nothing was sent.
-The exact export/test request is prepared in the guarded plan. Linux is a future
-operational gate and is not claimed by local tests. No deployment is authorized.
+Ubuntu transfer was initially rejected; the owner then explicitly approved isolated
+validation only. Its build and 113 targeted checks passed. The full retained-process
+fixture passed in 615.2s after a separately reviewed test-only timeout adjustment;
+history collection took 78.4s. Missing-reference-document and 60s observer failures
+remain recorded. Production source did not change for either fixture repair.
+No source validation work remains. No deployment or activation is authorized.
 Guarded deployment and a genuine future session remain separately owner-authorized
 milestones. October 22 is a proposal only; objective, evaluation dates, primary sources
 and numeric model limits remain owner choices.

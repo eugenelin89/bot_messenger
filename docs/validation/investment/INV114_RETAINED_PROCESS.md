@@ -2,6 +2,7 @@
 
 Date: October 17, 2026. Source branch: `codex/inv114-retained-process-upgrade`.
 Base: `3f777c727e0b37415d2ccbe873de8575c7fbbff7` (merged PRs #113–115).
+Source integration: [PR116](https://github.com/eugenelin89/bot_messenger/pull/116).
 
 ## Delivery boundaries
 
@@ -56,7 +57,9 @@ No authored result establishes genuine worker reasoning or live source availabil
 | Legacy draft/source/model recovery scenarios | 3 passed, 0 failed, 0 skipped; 143.6s |
 | New retained-process real-HQ browser at 390/1440 | passed in final full fixture; no JavaScript errors or horizontal overflow |
 | Documentation links and final diff checks | 2 passed; `git diff --check` clean |
-| Ubuntu isolated execution | not run; explicit source-transfer approval required |
+| Ubuntu Node 24.21 build and targeted boundaries | build passed; 113 passed, 0 failed, 0 skipped |
+| Ubuntu retained-process Company/Dispatcher fixture | 1 passed, 0 failed, 0 skipped; 615.2s; history collection 78.4s |
+| Ubuntu browser | not run; desktop/mobile browser evidence above is local |
 
 The full fixture constructs the original/recovery/renewal/source/model-continuation
 chain with three real authored incomplete receipts. It denies preparation while legacy
@@ -118,16 +121,41 @@ read-only; the parent remained sole writer. Material findings fixed include lega
 process downgrade/omission, activation requiring the exact local approval receipt,
 held lost-response finalization, complete failed-attempt recovery, and an HQ reload
 losing the original approval UUID. Architecture, security, recovery and acceptance reviews cleared source integration
-with the final fixture, documentation and diff receipts. Linux is a separately
-authorized future deployment gate. Reviewers did not perform production operations.
+with the final local fixture, documentation and diff receipts. Subsequent Ubuntu
+validation was separately owner-authorized. Reviewers did not perform production operations.
 
 ## Remaining operational gates
 
-Automatic approval review rejected copying a private source/test bundle to the existing
-BotSquad host for isolated Ubuntu tests because that source export was not explicitly
-authorized. Nothing was copied or staged. Local Docker/Podman is unavailable. This is
-an unperformed OS-specific validation gate, not evidence of a Linux pass or an excuse
-to deploy. The exact bounded request is in the guarded plan.
+Automatic approval review initially rejected the private source/test export; nothing
+was copied then. The owner subsequently explicitly approved isolated validation of
+`c4580e0331a2cb1eb18a26feebfd6d55ba8a9a85` only. The reviewed source and required
+five Company reference documents were exported, with inspected manifests and SHA256
+checks, to `/tmp/botsquad-inv114-c4580e0-20261017` on the existing Ubuntu host.
+
+Execution used `nobody`, an empty environment, fresh temporary HOME/data, installed
+Node 24.21 and existing dependencies read-only, nice 10, a 512 MiB Node heap, concurrency 1
+and a separate network namespace with loopback only. No live endpoint was reachable.
+The existing recovery coordinator confirmed no competing recovery operation. The
+initial run passed compilation but Company fixtures failed because the first archive
+omitted its five reference documents. Those exact same-commit dependencies were added;
+all failed logs were retained, and no assertions or production source were changed.
+
+The target suite passed 113 tests. The full retained fixture reached the approved
+process with 18 historical authored attempts, then its 60-second collection observer
+expired while 120-day/nine-instrument collection was still running, with no application
+error. That failed run lasted 462.6s; its preceding model continuation took 75.5s.
+The acceptance reviewer approved increasing only this fixture observer to 180s and
+its overall timeout to 900s, with an elapsed-collection diagnostic. Production source,
+assertions, business clocks, runtime deadlines and budgets remain unchanged.
+Fixture commit: `541f1c4dd13fe19dbfcf1ad925ccde567d20c5e4`; its local rerun passed in 90.6s.
+The final Ubuntu retained-process fixture passed: 1 test, 0 failures, 0 skips;
+615.2s overall, 78.4s history collection, 75.3s legacy model continuation. The full
+24-attempt authored chain, reviewed HOLD and final preservation assertions passed.
+Ubuntu logs are retained in the stage's `logs/` directory, including initial failed
+attempts; local copies are in `/private/tmp/inv114-ubuntu-logs/`. Production remained
+active with the original PID 926485 before and after, without service or selector writes.
+These are authored fixture results on the deployment OS, not genuine worker,
+market, account or operational activation evidence.
 
 After source integration, use the separate
 [deployment and owner-decision plan](../../operations/INV114_RETAINED_PROCESS_DEPLOYMENT.md).
