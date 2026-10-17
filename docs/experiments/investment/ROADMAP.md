@@ -1,3 +1,5 @@
+> October17 source update: [Decision057](../../decisions/decision_057_investment_objectives_research.md) implements optional HQ objectives, bounded primary research, accountable cash review and matched evaluation. [Owner guide](../../operations/INVESTMENT_OBJECTIVES_AND_RESEARCH.md). Deployment, genuine worker acceptance and new public derivatives remain separate; historical operational evidence below is preserved.
+
 # Investment showcase — prompt-by-prompt build roadmap
 
 **Version:** 1.8 | **Updated:** 2026-10-13 | [Design guide](README.md)

@@ -133,7 +133,7 @@ def main():
             raise GatewayStop("python_research_profile")
         start = datetime.strptime(r["start"], "%Y-%m-%d").replace(tzinfo=ZoneInfo("America/New_York"))
         end = datetime.strptime(r["end"], "%Y-%m-%d").replace(tzinfo=ZoneInfo("America/New_York"))
-        if not 0 < (end - start).days <= 32:
+        if not 0 < (end - start).days <= (181 if OBSERVED_PAPER_DIRECT else 32):
             raise GatewayStop("python_research_range")
         DIRECT_URL = "https://query1.finance.yahoo.com/v8/finance/chart/" + symbol
         DIRECT_PARAMS = dict(period1=int(start.timestamp()), period2=int(end.timestamp()), interval="1d",

@@ -211,3 +211,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision055 — Observed model continuation](decision_055_observed_model_continuation.md): bounded same-turn input correction and one owner-authorized fresh decision after a retained settled failure, with cumulative allowance and completed-only publication.
 
 - [Decision056 — Publication renewal and clean restart](decision_056_publication_key_renewal.md): bounded protected key overlap and current-grant authorization for new reconciliation reads, preserving historical receipts and spend.
+
+- [Decision057 — Investment objectives and bounded research](decision_057_investment_objectives_research.md): opt-in HQ process policy, exact primary evidence, session-based cash review, honest matched evaluation and separate publication hold; source-only.

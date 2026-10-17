@@ -826,3 +826,28 @@ Historical untyped/failure holds and every consumed or uncertain effect remain c
 
 
 [Decision055](../decisions/decision_055_observed_model_continuation.md) distinguishes typed, pre-mutation identifier validation from authority/runtime failures. The adapter permits two same-turn corrections after rechecking current execution authority. One independently approved model continuation can acknowledge the exact settled failed turn for admission only, add eight cumulative attempts, and overlay one future research occurrence. Schema31 retains the immutable preparation; a durable activation receipt and fresh proposal/review executions precede submission. Failed artifacts and original usage remain unusable and unchanged.
+
+
+## Investment objectives and evidence (Decision057)
+
+The existing observed setup accepts an optional `investment-process-v1` policy.
+Its finite envelope discriminator pins three additional paper tools while legacy
+scopes retain their exact tool list and hashes. Trusted collection occurrences acquire
+30–180 calendar days of gateway chart history and exact owner-reviewed primary pages.
+Page requests use independent finite reservations and the existing protected static
+reader with pre-DNS/wire/commit scope checks, no redirects and no replay. Worker
+requests are bounded internal obligations, never dynamic URL authority.
+
+Schema32 adds immutable evidence, missing requests and per-execution strategy-review
+attempts. Complete paged delivery is required for citations. Reviewed current-session
+submissions with complete settled usage define eligible cash streaks; a due review
+uses already approved turns or requests one future owner-approved review session.
+Failed attempts and old policies remain intact. Worker request summaries are bounded;
+owner history retains all originals and decision-linked resolutions.
+
+Matched common closing marks, zero-interest cash, gaps and sampled exposure accompany
+the existing costs/drawdown ledger. Evaluation periods cannot exceed the book calendar.
+Process-enabled books cannot project or deliver new public derivatives until separately
+reviewed; source permissions cover private retention/processing only. No contracts or
+Asymmetri runtime are changed. See [Decision057](../decisions/decision_057_investment_objectives_research.md)
+and the [owner guide](../operations/INVESTMENT_OBJECTIVES_AND_RESEARCH.md).
