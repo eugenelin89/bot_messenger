@@ -1,8 +1,11 @@
 # Investment objectives and research in HQ
 
-Source capability: `investment-process-v1`, schema 32. This guide does not assert that
-the installed HQ has this source. [Validation](../validation/investment/INVESTMENT_PROCESS.md)
-separates source/browser evidence from deployment and genuine worker acceptance.
+Private HQ installed `investment-process-v1`, schema 32, on October 17, 2026 at
+commit `addbb83ee7e8a3d15490903f4b0caf2b39febad4`. Independent preservation checks
+and the deployed unsubmitted objective form passed. [Validation](../validation/investment/INVESTMENT_PROCESS.md#october-17-deployment-follow-up)
+separates installation from genuine worker acceptance. The retained production book
+still requires the [historical-gap upgrade](#retained-books-with-acknowledged-usage-gaps)
+before it can Save and activate this new process.
 
 ## Exact owner action
 
@@ -55,7 +58,7 @@ Save and independent ordinary approval both require complete predecessor receipt
 The existing recovery/successor mechanism preserves the old tool envelope and cannot
 add the new investment-process tools. Expiry does not remove this restriction.
 
-This applies to the retained production book inspected on October17. Its objective
+This applies to the retained production book inspected on October 17. Its objective
 form can be drafted and previewed, but **the new process cannot yet be saved and
 activated on that book through the supported normal route**. A running legacy scope
 also prevents a competing renewal until it finishes or is explicitly stopped and
@@ -179,10 +182,11 @@ The following is a planning proposal, not a saved preview, grant or scheduled ru
 | Company evidence | No primary-page permission selected. Owner must choose exact company/regulator URLs, permission receipts, expiry and numeric request limits; absence or refusal must be reported as a research gap. |
 | Objective and evaluation | Owner selects objective, optional aspirational target and evaluation dates within the frozen 2026 calendar. Compare common complete closing marks against SPY and zero-interest cash. One session cannot establish a full-period result. |
 | All-cash review | Propose three eligible all-cash decision sessions; no mandatory purchase or automatic extension. |
+| Existing available allowance | The separate October 17 recovery approved 24 legacy turns across October 19–21, at most 8 per session/day/rolling 24 hours, expiring October 21 23:40 UTC. None were consumed during deployment/recovery. They cannot fund the October 22 process proposal or expand its tools. |
 | Model allowance | **Zero turns currently authorized for this new process.** No new numeric ceiling selected. Legacy allowances are scope-bound and cannot be transferred. Owner must select and independently approve the exact model/account, finite limits and required current attestations. |
 | Public output | No new process-derived publication; retain the whole-book producer hold until separate source-rights and Asymmetri review. Ask remains paused. |
 
-If October22 is no longer eligible when the upgrade is ready, prepare a new future
+If October 22 is no longer eligible when the upgrade is ready, prepare a new future
 date for explicit review; never replay the missed session. Even after the upgrade,
 review the exact preview, Save the inert setup, separately approve its independent
 finite envelope and then use the existing activation control. Accept the team's real
