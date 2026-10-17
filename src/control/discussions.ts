@@ -269,6 +269,7 @@ export class Discussions {
     for(const source of c)requireThat(this.db.get('SELECT 1 FROM discussion_contributions WHERE group_id=? AND message_id=? AND revision<=?',g.group_id,source,t.seen_revision!),'Contribution is outside the delivered group checkpoint');
     if(this.company.privateResearch.forGroup(g.group_id)){this.company.privateResearch.references(context,c,e,t.kind);return {contributions:c,evidence:e};}
     for(const source of e){
+      const investment=this.company.investmentTeam.forGroup(g.group_id);if(investment&&this.company.observedInvestment.process.enabled(investment.scope_id)&&this.db.get('SELECT 1 FROM investment_process_evidence WHERE evidence_id=?',source)){this.company.observedInvestment.process.citation(context,investment.scope_id,source);continue;}
       const packet=this.db.get<GroupEvidence>('SELECT * FROM group_evidence WHERE group_id=? AND evidence_id=? AND revision<=?',g.group_id,source,t.seen_evidence_revision!);requireThat(packet,'Evidence is outside the delivered shared packet. Refresh read_discussion after a batch of exports or new shared sources before citing new IDs.');
       // Catalog metadata is not evidence content. A citation must have a trusted receipt
       // for delivery of this exact exported excerpt to this execution, not another worker/turn.
@@ -337,7 +338,7 @@ export class Discussions {
         for(const answer of answers)this.db.run('UPDATE discussion_questions SET answered_by=? WHERE question_id=? AND answered_by IS NULL',message,answer);
       }
       const serialized=JSON.stringify(result);
-      if(name==='read_group_record'||name==='read_group_history'){const used=this.db.get<{record_chars:number}>('SELECT record_chars FROM discussion_retrieval_usage WHERE execution_id=?',context.executionId)?.record_chars??0;requireThat(used+serialized.length<=L.retrievalChars,'Group retrieval budget exhausted');this.db.run('INSERT INTO discussion_retrieval_usage VALUES (?,?,0) ON CONFLICT(execution_id) DO UPDATE SET record_chars=excluded.record_chars',context.executionId,used+serialized.length);}
+      if(name==='read_group_record'||name==='read_group_history'||name==='paper_read_evidence'){const used=this.db.get<{record_chars:number}>('SELECT record_chars FROM discussion_retrieval_usage WHERE execution_id=?',context.executionId)?.record_chars??0;requireThat(used+serialized.length<=L.retrievalChars,'Group retrieval budget exhausted');this.db.run('INSERT INTO discussion_retrieval_usage VALUES (?,?,0) ON CONFLICT(execution_id) DO UPDATE SET record_chars=excluded.record_chars',context.executionId,used+serialized.length);}
       this.db.run('INSERT INTO tool_receipts VALUES (?,?,?,?)',context.executionId,callId,digest,serialized);return result;
     });
   }

@@ -67,6 +67,7 @@ export function removeEmptyAskMigration(db:import('node:sqlite').DatabaseSync){
 
 /** Disposable schema26 fixture only; no populated Ask content identity may be discarded. */
 export function removeEmptyAskContentMigration(db:import('node:sqlite').DatabaseSync){
+ if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=32').get()){for(const table of ['investment_strategy_reviews','investment_evidence_requests','investment_process_evidence']){assert.equal(db.prepare('SELECT count(*) n FROM '+table).get()!.n,0);db.exec('DROP TABLE '+table);}db.exec('DELETE FROM schema_migrations WHERE version=32');}
  if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=31').get()){assert.equal(db.prepare('SELECT count(*) n FROM observed_model_continuations').get()!.n,0);db.exec('DROP TABLE observed_model_continuations;DELETE FROM schema_migrations WHERE version=31');}
  if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=30').get()){assert.equal(db.prepare('SELECT count(*) n FROM observed_source_continuations').get()!.n,0);db.exec('DROP TABLE observed_source_continuations;DELETE FROM schema_migrations WHERE version=30');}
  if(db.prepare('SELECT 1 FROM schema_migrations WHERE version=29').get()){
