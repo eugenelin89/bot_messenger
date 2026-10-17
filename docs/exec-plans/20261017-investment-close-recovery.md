@@ -52,3 +52,27 @@ Investigation, exact recovery design, implementation, independent review, Linux 
 - Future fatal collection failures now pause the portfolio lifecycle. Public operating snapshots append fixed status/next-review information, with separate standing-summary permission and preview hash binding.
 - Coordinated with AA - Improve investment research workflow, per verified owner instruction there. PR113 merged03acc675; integrated06e5860. This chat owns the sole production window. Other chat does independent read-only verification and provides test-only inert setup probe.
 - Initial focused results: 53 independent journal tests, 27 legacy observed workflow tests pass. Expanded combined tests and recovery/security review remain in progress. No production mutations yet. Current estimate remains within original1–3h range; expect another60–90m for Linux validation and guarded operations.
+
+## Ubuntu validation checkpoint
+
+- Candidate94a7fb5: schema31→32 applied twice to a live read-only copy; all187
+  existing application tables retain every rowid and field. New3tables empty,
+  all6immutable/retained triggers present.
+- Initial combined Ubuntu run deliberately stopped after845.3s:82passed,2failed,
+  10cancelled remaining file tasks,4external-receiver fixtures skipped. Cash and
+  trade process cases failed only at the60s fixture observer (`until`); the blocked
+  case passed176.96s. Original log is retained in the isolated stage.
+- An active disposable fixture showed third-session research progressing, prior
+  executions complete, no errors or hold, and88.7%CPU. Unchanged cash locally passed
+ 38.44s. Full retained evidence is materially slower on this Ubuntu host.
+- Test-only Linux observer deadlines become180s for process cases and the new
+  five-session successor, with per-stage/failure diagnostics for process cases.
+  Production deadlines, budgets, clocks, retries and functional assertions are
+  unchanged. No60sLinux performance claim. Targeted Ubuntu reruns must pass.
+- Final deployment scripts include stopped/quiescent backups, exact artifact and
+  verifier hashes, stale-SHA fenced startup, unchanged old custody, generation2
+  receipt/current-watermark reconciliation and a new private restart directory.
+  Fresh keys stay private on HQ. Independent recovery/security reviews found no
+  remaining code blocker; operational proof is still pending.
+- Revised remaining estimate30–45minutes for focused Ubuntu validation and guarded
+  operations. Production remains unchanged at this checkpoint.
