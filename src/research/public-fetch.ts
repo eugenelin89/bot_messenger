@@ -52,29 +52,32 @@ export function extractPage(body: string, type: string) {
   return {title:title.slice(0,300),content:text.slice(0,L.sourceChars),omissions:text.length>L.sourceChars?`Only first ${L.sourceChars} extracted characters retained.`:'Bounded static text extraction; scripts, images and interactive content are not read.'};
 }
 // Dependencies are trusted construction/test injection, never worker-supplied arguments.
-export async function fetchPublic(value: string, signal: AbortSignal, dependencies: {lookup?:typeof lookup;request?:typeof request}={}): Promise<PublicSource> {
+export interface PublicFetchControls {denyRedirects?:boolean;beforeDns?:()=>void;beforeWire?:()=>void;received?:()=>void}
+export async function fetchPublic(value: string, signal: AbortSignal, dependencies: {lookup?:typeof lookup;request?:typeof request}={},controls:PublicFetchControls={}): Promise<PublicSource> {
   const combined=AbortSignal.any([signal,AbortSignal.timeout(L.fetchTimeoutMs)]);
   const abort=()=>fail(signal.aborted?'cancelled':'source_timeout',signal.aborted?'Lookup cancelled.':'Public source timed out.');
   let url=publicUrl(value);
   for(let redirects=0;redirects<=L.redirects;redirects++) {
     if(combined.aborted)abort();
+    controls.beforeDns?.();
     const addresses=await Promise.race([resolvePublic(url,dependencies.lookup),new Promise<never>((_,reject)=>combined.addEventListener('abort',()=>reject(new ResearchFailure('source_timeout','DNS lookup timed out.')),{once:true}))]);
     if(combined.aborted)abort();
     const response=await new Promise<{status:number;location?:string;type:string;body:string}>((resolve,reject)=>{
+      controls.beforeWire?.();
       const req=(dependencies.request??request)(url,{method:'GET',agent:false,signal:combined,rejectUnauthorized:true,
         headers:{'User-Agent':'BotSquad/0.1 public-information reader','Accept':'text/html, text/plain, application/json;q=0.8, application/xml;q=0.8','Accept-Encoding':'identity'},
         // Socket connects only to the validated answer. TLS still validates the original hostname.
         lookup:(_hostname,options,callback)=>{const a=addresses[0]!;if(options.all)callback(null,addresses);else callback(null,a.address,a.family);},
       },res=>{
         const status=res.statusCode??0;const type=String(res.headers['content-type']??'').toLowerCase();
-        if(status>=300&&status<400){res.destroy();resolve({status,location:res.headers.location,type,body:''});return;}
-        if(status!==200){res.destroy();reject(new ResearchFailure(status===429?'source_rate_limit':'source_http_error',`Public source returned HTTP ${status}.`));return;}
-        if(res.headers['content-encoding']&&res.headers['content-encoding']!=='identity'){res.destroy();reject(new ResearchFailure('source_encoding','Compressed response refused; no decompression performed.'));return;}
-        if(!/^(?:text\/(?:html|plain|xml)|application\/(?:json|xml|xhtml\+xml))(?:;|$)/.test(type)){res.destroy();reject(new ResearchFailure('source_type','Only static text, HTML, XML and JSON sources are supported.'));return;}
-        if(Number(res.headers['content-length']??0)>L.bytes){res.destroy();reject(new ResearchFailure('source_too_large','Public source exceeds the one MiB response limit.'));return;}
+        if(status>=300&&status<400){res.destroy();controls.received?.();if(controls.denyRedirects){reject(new ResearchFailure('source_redirect','Approved investment URL redirected; owner must review the exact destination.'));return;}resolve({status,location:res.headers.location,type,body:''});return;}
+        if(status!==200){res.destroy();controls.received?.();reject(new ResearchFailure(status===429?'source_rate_limit':'source_http_error',`Public source returned HTTP ${status}.`));return;}
+        if(res.headers['content-encoding']&&res.headers['content-encoding']!=='identity'){controls.received?.();res.destroy();reject(new ResearchFailure('source_encoding','Compressed response refused; no decompression performed.'));return;}
+        if(!/^(?:text\/(?:html|plain|xml)|application\/(?:json|xml|xhtml\+xml))(?:;|$)/.test(type)){controls.received?.();res.destroy();reject(new ResearchFailure('source_type','Only static text, HTML, XML and JSON sources are supported.'));return;}
+        if(Number(res.headers['content-length']??0)>L.bytes){controls.received?.();res.destroy();reject(new ResearchFailure('source_too_large','Public source exceeds the one MiB response limit.'));return;}
         const chunks:Buffer[]=[];let bytes=0;
-        res.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>L.bytes){res.destroy(new ResearchFailure('source_too_large','Public source exceeds the one MiB response limit.'));return;}chunks.push(chunk);});
-        res.on('error',reject);res.on('end',()=>resolve({status,type,body:Buffer.concat(chunks).toString('utf8')}));
+        res.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>L.bytes){controls.received?.();res.destroy(new ResearchFailure('source_too_large','Public source exceeds the one MiB response limit.'));return;}chunks.push(chunk);});
+        res.on('error',reject);res.on('end',()=>{controls.received?.();resolve({status,type,body:Buffer.concat(chunks).toString('utf8')});});
       });req.on('error',reject);req.end();
     }).catch(error=>{if(combined.aborted)abort();if(error instanceof ResearchFailure)throw error;return fail('source_unavailable','Public source could not be reached or TLS validation failed.');});
     if(response.status>=300&&response.status<400){if(redirects===L.redirects||!response.location)fail('source_redirect','Public source redirect limit or missing location.');url=publicUrl(new URL(response.location!,url).href);continue;}
