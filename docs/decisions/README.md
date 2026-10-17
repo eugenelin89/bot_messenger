@@ -213,3 +213,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision056 — Publication renewal and clean restart](decision_056_publication_key_renewal.md): bounded protected key overlap and current-grant authorization for new reconciliation reads, preserving historical receipts and spend.
 
 - [Decision057 — Investment objectives and bounded research](decision_057_investment_objectives_research.md): opt-in HQ process policy, exact primary evidence, session-based cash review, honest matched evaluation and separate publication hold; source-only.
+
+- [Decision058 — Missed close accounting and finite successors](decision_058_observed_close_and_successor.md) — bounded recovery, explicit successors and truthful operating publication.
