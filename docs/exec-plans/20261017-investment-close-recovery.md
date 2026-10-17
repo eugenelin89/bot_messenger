@@ -43,3 +43,12 @@ Private operation evidence lives outside Git under outputs/investment-close-reco
 ## Remaining work
 
 Investigation, exact recovery design, implementation, independent review, Linux validation, coordinated renewal/deployment, genuine recovery and next-session readiness.
+
+## October 17 implementation checkpoint
+
+- Recovery uses retained qualified closes only, appends missing benchmark values as null, and adds no calls/fills. Snapshot/checkpoint changes fail; a simulated interruption after the first valuation rolls the entire local transaction back.
+- Distinct `bounded_successor_v1` supports one to three future sessions at eight attempts/session, max24; preserves raw rolling consumption and only carries independently acknowledged gaps. No new exceptions. Process-enabled books are excluded.
+- New scopes can omit exactly settled `financial_ohlc_order` packets after durable receipt; no replay. Unknown outcomes and newer holds block. Review found and fixed owner-pause-before-settlement and previous-close/current-research disclosure races.
+- Future fatal collection failures now pause the portfolio lifecycle. Public operating snapshots append fixed status/next-review information, with separate standing-summary permission and preview hash binding.
+- Coordinated with AA - Improve investment research workflow, per verified owner instruction there. PR113 merged03acc675; integrated06e5860. This chat owns the sole production window. Other chat does independent read-only verification and provides test-only inert setup probe.
+- Initial focused results: 53 independent journal tests, 27 legacy observed workflow tests pass. Expanded combined tests and recovery/security review remain in progress. No production mutations yet. Current estimate remains within original1–3h range; expect another60–90m for Linux validation and guarded operations.
