@@ -155,6 +155,8 @@ export function createHttpServer(company: Company, dispatcher: Dispatcher, publi
       else if(path==='/api/investment-run/observed/recovery/preview'){json(201,company.observedInvestment.previewRecovery(body));}
       else if(path==='/api/investment-run/observed/close-recovery/preview'){const a=strictObject(body,['scopeId']);json(200,company.observedInvestment.previewCloseRecovery(textField(a,'scopeId',100)));}
       else if(path==='/api/investment-run/observed/close-recovery/commit'){json(200,company.observedInvestment.recoverCloses(body));}
+      else if(path==='/api/investment-run/observed/process-upgrade/preview'){json(201,company.observedInvestment.previewProcessUpgrade(body));}
+      else if(path==='/api/investment-run/observed/process-upgrade/release'){json(200,await company.finiteHQ.releaseObservedRenewal(body,true));}
       else if(path==='/api/investment-run/observed/successor/preview'){json(201,company.observedInvestment.previewSuccessor(body));}
       else if(path==='/api/investment-run/observed/renewal/preview'){json(201,company.observedInvestment.previewRenewal(body));}
       else if(path==='/api/investment-run/observed/renewal/release'){json(200,await company.finiteHQ.releaseObservedRenewal(body));}

@@ -851,3 +851,17 @@ Process-enabled books cannot project or deliver new public derivatives until sep
 reviewed; source permissions cover private retention/processing only. No contracts or
 Asymmetri runtime are changed. See [Decision057](../decisions/decision_057_investment_objectives_research.md)
 and the [owner guide](../operations/INVESTMENT_OBJECTIVES_AND_RESEARCH.md).
+
+
+## Retained process authority (Decision059)
+
+The observed-renewal lifecycle has explicit retained-process upgrade and descendant
+variants. Dedicated independent approval events enforce one upgrade per book and
+carry exactly the three previously acknowledged gaps; ordinary and legacy approvals
+remain strict. Previews bind all local usage and independent reservation/envelope/
+collection hashes, custody, portfolio head, full policy and exact future requests.
+Saving stays inert and adds the existing whole-book publication hold. An immutable
+local request supports exact approval retry after reload; independent approval plus
+exact local finalization precedes separate atomic activation. No schema initializer,
+new scheduler, history rewrite, rolling refund or source-omission privilege is added.
+See [Decision059](../decisions/decision_059_retained_investment_process_upgrade.md).

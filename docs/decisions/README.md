@@ -215,3 +215,5 @@ Public activation gates remain explicit; contract 1.0 and Decision 029 are uncha
 - [Decision057 — Investment objectives and bounded research](decision_057_investment_objectives_research.md): opt-in HQ process policy, exact primary evidence, session-based cash review, honest matched evaluation and separate publication hold; source-only.
 
 - [Decision058 — Missed close accounting and finite successors](decision_058_observed_close_and_successor.md) — bounded recovery, explicit successors and truthful operating publication.
+
+- [Decision059 — Retained investment process upgrade](decision_059_retained_investment_process_upgrade.md): one independent append-only tool transition, exact historical gaps and descendant lineage, inert HQ setup and separate approval/activation; source-only.
