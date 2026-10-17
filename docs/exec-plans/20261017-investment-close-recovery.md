@@ -1,6 +1,6 @@
 # October 17 investment close recovery and continuity
 
-**Status:** Active  
+**Status:** Completed — deployed and independently verified October 17
 **Owner:** Review this morning’s run, sole writer; read-only security/recovery reviewers  
 **Branch:** codex/investment-close-recovery-20261017  
 **Worktree:** bot_messenger-close-recovery  
@@ -40,9 +40,13 @@ No direct SQL edits to bypass holds, no refunds of consumed attempts, no blind r
 
 Private operation evidence lives outside Git under outputs/investment-close-recovery-20261017. Source acceptance remains separate from actual provider results. Focused regressions precede live activation; restart and predecessor-table preservation are required. Track findings and material ETA changes here.
 
-## Remaining work
+## Completion
 
-Investigation, exact recovery design, implementation, independent review, Linux validation, coordinated renewal/deployment, genuine recovery and next-session readiness.
+Source, Linux validation, deployment, bounded publication renewal, actual close
+recovery, clean restart and future-session activation are complete. See
+[the operational receipt](../validation/investment/CLOSE_RECOVERY_20261017.md).
+The scheduled October 19–21 employee decisions remain future work, not acceptance
+already performed. No process-policy upgrade or forced return target was activated.
 
 ## October 17 implementation checkpoint
 
@@ -76,3 +80,31 @@ Investigation, exact recovery design, implementation, independent review, Linux 
   remaining code blocker; operational proof is still pending.
 - Revised remaining estimate30–45minutes for focused Ubuntu validation and guarded
   operations. Production remains unchanged at this checkpoint.
+
+## Final operational checkpoint
+
+- PR114 merged and deployed as `addbb83ee7e8a3d15490903f4b0caf2b39febad4`.
+  The merged tree exactly matches validated candidate `c862c38`.
+- Final Ubuntu runs passed: 78 regression tests (one external-receiver skip),
+  both process cases, and all five focused observed/recovery cases. The legacy
+  full-universe renewal took 962.97 seconds; successor took 355.93 seconds.
+  Five actual-receiver fixtures passed separately on macOS. Initial timeout and
+  deliberately cancelled test receipts remain retained and explicitly qualified.
+- Fenced startup at 16:53 UTC preserved all existing rows except routine worker
+  timestamps and the schema32 migration row. Independent verification confirmed
+  all 793 built/public files and zero model, source or publication attempts added.
+- Owner recovery appended October 15–16 valuations at 16:55:25 UTC on October 17.
+  Cash/equity remain USD100,000; October15 benchmark is 100275.442078 from retained
+  qualified data, and October16 benchmark remains null/partial.
+- Publisher generation2 is reconciled and delivered. A new private restart permit
+  completed on the exact deployed SHA; the old custody was preserved. The final
+  restart at 16:56:39 UTC added only the expected finite hold/resume events.
+- October19–21 legacy sessions are active, with 21 future occurrences at zero
+  attempts and a total limit of24 model attempts (8/session/day/rolling24hours).
+  Next collection is October19 11:45 UTC and research12:00 UTC (04:45/05:00 PDT).
+- Independent final proof at16:59 UTC confirmed unchanged source/model usage,
+  preserved audit prefixes, no process policy/rows, and disabled Ask. Public UI
+  shows the current publication, next review and recovered valuations. Its stale
+  market-data badge remains truthful because October16 has no benchmark mark.
+- The original ETA increased because realistic retained-evidence fixtures were
+  substantially slower on Ubuntu. No production deadline or budget was relaxed.
