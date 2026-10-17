@@ -5,12 +5,16 @@ commit `addbb83ee7e8a3d15490903f4b0caf2b39febad4`. Independent preservation chec
 and the deployed unsubmitted objective form passed. [Validation](../validation/investment/INVESTMENT_PROCESS.md#october-17-deployment-follow-up)
 separates installation from genuine worker acceptance. The retained production book
 still requires the [historical-gap upgrade](#retained-books-with-acknowledged-usage-gaps)
-before it can Save and activate this new process.
+before it can Save and activate this new process. INV-114 implements that separate
+path in source; deployment and operational activation remain unperformed. See the
+[guarded deployment and approval plan](INV114_RETAINED_PROCESS_DEPLOYMENT.md).
 
 ## Exact owner action
 
 Open **Investment run** (`/investment-run`) and select the existing book's
-**Revise objective and prepare a new finite scope** button. For a new book, open
+**Prepare retained-portfolio process upgrade or renewal** button after the separately
+authorized INV-114 deployment. Books without acknowledged gaps can use
+**Revise objective and prepare a new finite scope**. For a new book, open
 **Create or renew a persistent portfolio**. Keep **Use the investment process for
 this new finite scope** selected.
 
@@ -58,21 +62,35 @@ Save and independent ordinary approval both require complete predecessor receipt
 The existing recovery/successor mechanism preserves the old tool envelope and cannot
 add the new investment-process tools. Expiry does not remove this restriction.
 
-This applies to the retained production book inspected on October 17. Its objective
-form can be drafted and previewed, but **the new process cannot yet be saved and
-activated on that book through the supported normal route**. A running legacy scope
-also prevents a competing renewal until it finishes or is explicitly stopped and
-settled. Do not stop that scope, erase acknowledged gaps, create a replacement book,
-or reset capital merely to make setup succeed.
+This applies to the retained production book inspected on October17. INV-114 adds a
+separate supported source path; it is not yet deployed. The process form leaves the
+objective, evaluation dates, primary URLs and numeric model limits for the owner,
+with 120-day history and three eligible all-cash sessions proposed. Existing employees,
+model profile, book, risk limits and retained source policy stay bound.
 
-The required next implementation is a separately reviewed, one-use process upgrade
-that binds the unchanged portfolio head, independent custody checkpoint, predecessor
-authorities and already acknowledged exception hashes to the exact new process
-envelope. Preparation must remain inert, reject unknown settlement/new gaps/changed
-custody/duplicate transitions, preserve every spent allowance, and disclose the
-whole-book publication hold. New source permissions, numeric model limits, independent
-approval and activation still require the owner's explicit future selection. This
-limitation is separate from installing the private HQ interface.
+**Prepare retained-portfolio process upgrade or renewal** requires the latest
+independently expired/retired predecessor, no future or running predecessor work,
+a paused book and no pending orders. It cannot interrupt October19–21. Preview and
+Save derive the exact three exceptions from independent history, check unchanged local
+usage, and bind current custody, portfolio head, full policy and future requests.
+Unresolved publication sends or receipt obligations on this book also block setup;
+reconcile them before installing the publication hold. Queued unsent jobs stay held.
+They do not consume the one-use upgrade. Saving places the whole book under the
+existing publication hold; all previous public records remain retained.
+
+After reviewing the frozen envelope, **Approve this exact finite process transition**
+performs fresh account/routing verification and consumes the upgrade once in the
+independent journal. It leaves the scope inactive. **Activate this approved process
+schedule** is a separate owner action and requires the approved runtime selector and
+current future windows. Later process renewals need fresh explicit allowances and
+retain the original upgrade/gap lineage. Legacy allowance is never transferred.
+
+A preapproval custody change invalidates the saved draft. Explicitly stop only that
+unapproved draft and prepare a fresh preview; old records remain intact. If independent
+approval commits but local finalization or its response is lost, reload HQ and retry
+the retained exact request. It finishes once without new authority or clearing later
+holds. Unknown provider effects or a custody mismatch stay blocked; no automatic
+repair or re-creation of the portfolio is provided.
 
 ## Which choices need explicit confirmation?
 
@@ -158,19 +176,12 @@ advanced private details.
 ## Bounded next request and unactivated trial proposal
 
 Private deployment and genuine acceptance are separate. No genuine process trial is
-authorized by installing this source. For the retained production book, the next
-bounded request is:
-
-> Implement and independently review a one-use, append-only process upgrade for the
-> existing retained paper book. Preserve all decisions, benchmark amendments, failed
-> attempts, consumed allowances and the three previously acknowledged incomplete
-> receipts. Bind the transition to the exact current custody checkpoint, portfolio
-> head, predecessor authorities and exception hashes. Allow only the explicitly
-> reviewed process tools and source policy; retain US$0 incremental market-data
-> spending. Do not approve, activate, collect research, call models, change account or
-> reload settings, or grant publication authority. Present the exact future sessions,
-> numeric limits, source permissions and frozen envelope for separate owner approval.
-
+authorized by installing this source. After source validation, the next bounded owner
+request is the deployment-only request in the
+[guarded operational plan](INV114_RETAINED_PROCESS_DEPLOYMENT.md). It preserves the
+existing October19–21 operations and grants no setup, upgrade, runtime or publication
+authority. The owner then supplies the missing choices below and separately approves
+Save, the independent frozen process envelope and activation.
 The following is a planning proposal, not a saved preview, grant or scheduled run:
 
 | Item | Proposed scope / still required |
