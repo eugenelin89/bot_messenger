@@ -46,6 +46,31 @@ failed or uncertain work must be inspected under its ordinary stop/recovery work
 Use the existing independent finite-authority approval and HQ start controls only
 for the exact reviewed scope. Do not edit databases, timestamps or spent reservations.
 
+### Retained books with acknowledged usage gaps
+
+A book recovered through a special finite-authority exception may still contain
+incomplete historical usage receipts. That history remains incomplete even when a
+later bounded legacy session was separately approved and completed. Normal setup
+Save and independent ordinary approval both require complete predecessor receipts.
+The existing recovery/successor mechanism preserves the old tool envelope and cannot
+add the new investment-process tools. Expiry does not remove this restriction.
+
+This applies to the retained production book inspected on October17. Its objective
+form can be drafted and previewed, but **the new process cannot yet be saved and
+activated on that book through the supported normal route**. A running legacy scope
+also prevents a competing renewal until it finishes or is explicitly stopped and
+settled. Do not stop that scope, erase acknowledged gaps, create a replacement book,
+or reset capital merely to make setup succeed.
+
+The required next implementation is a separately reviewed, one-use process upgrade
+that binds the unchanged portfolio head, independent custody checkpoint, predecessor
+authorities and already acknowledged exception hashes to the exact new process
+envelope. Preparation must remain inert, reject unknown settlement/new gaps/changed
+custody/duplicate transitions, preserve every spent allowance, and disclose the
+whole-book publication hold. New source permissions, numeric model limits, independent
+approval and activation still require the owner's explicit future selection. This
+limitation is separate from installing the private HQ interface.
+
 ## Which choices need explicit confirmation?
 
 | Choice | Owner confirmation and effect |
@@ -127,24 +152,42 @@ risk. Never treat partial coverage or different methods as comparable full-perio
 results. Original decisions, source records, failed attempts and valuations remain in
 advanced private details.
 
-## Bounded operational request still needed
+## Bounded next request and unactivated trial proposal
 
-No genuine trial was performed for this source packet. After reviewing the source,
-the owner may authorize this exact next step (fill the bracketed values from the HQ
-preview; do not invent consent or dates):
+Private deployment and genuine acceptance are separate. No genuine process trial is
+authorized by installing this source. For the retained production book, the next
+bounded request is:
 
-> Deploy reviewed commit [SHA] to the existing private BotSquad HQ with a preserved
-> pre-migration backup and unchanged runtime/Ask authority. Inspect current custody
-> and unresolved attempts first. Prepare one future eligible session [date] on book
-> [run ID] using preview [digest], existing risk/cost rules, SPY and cash, threshold 3,
-> 120 calendar days of history, and only [exact reviewed primary URLs/permission
-> receipts]. Keep incremental market-data cost US$0. Use only the specifically
-> approved account/model and finite turn limits shown in that preview, with reload
-> OFF and no automatic extension. Approve that exact independent envelope separately
-> before activation. Retain all attempts; stop on missing authority, exhausted budget
-> or uncertain outcomes. Accept the team's real HOLD/BUY/SELL/blocked conclusion.
-> Do not prescribe a trade or publish new derivatives. Return source/collection,
-> employee decision, independent review, settlement and accounting receipts.
+> Implement and independently review a one-use, append-only process upgrade for the
+> existing retained paper book. Preserve all decisions, benchmark amendments, failed
+> attempts, consumed allowances and the three previously acknowledged incomplete
+> receipts. Bind the transition to the exact current custody checkpoint, portfolio
+> head, predecessor authorities and exception hashes. Allow only the explicitly
+> reviewed process tools and source policy; retain US$0 incremental market-data
+> spending. Do not approve, activate, collect research, call models, change account or
+> reload settings, or grant publication authority. Present the exact future sessions,
+> numeric limits, source permissions and frozen envelope for separate owner approval.
+
+The following is a planning proposal, not a saved preview, grant or scheduled run:
+
+| Item | Proposed scope / still required |
+| --- | --- |
+| Book | Existing retained portfolio; preserve capital, history, risk, costs, employees and universe. No replacement book. |
+| Session | October 22, 2026, after the separately coordinated October 19–21 legacy sessions. Recheck their actual settlement and available future windows before preparing. |
+| Times | Under the existing 60-minute research window and 30-minute cutoff: collection 11:45 UTC, research 12:00, cutoff 13:00, regular open 13:30 and close 20:00. The exact preview must also show close collection, delayed-open processing, valuation and expiry. |
+| Research | Propose 120 calendar days of bounded Yahoo daily history for AAPL, MSFT, GOOGL, AMZN, JPM, JNJ, XOM, WMT and SPY, under retained source permission and a separately approved exact request envelope. Research bars are not executable quotes. |
+| Company evidence | No primary-page permission selected. Owner must choose exact company/regulator URLs, permission receipts, expiry and numeric request limits; absence or refusal must be reported as a research gap. |
+| Objective and evaluation | Owner selects objective, optional aspirational target and evaluation dates within the frozen 2026 calendar. Compare common complete closing marks against SPY and zero-interest cash. One session cannot establish a full-period result. |
+| All-cash review | Propose three eligible all-cash decision sessions; no mandatory purchase or automatic extension. |
+| Model allowance | **Zero turns currently authorized for this new process.** No new numeric ceiling selected. Legacy allowances are scope-bound and cannot be transferred. Owner must select and independently approve the exact model/account, finite limits and required current attestations. |
+| Public output | No new process-derived publication; retain the whole-book producer hold until separate source-rights and Asymmetri review. Ask remains paused. |
+
+If October22 is no longer eligible when the upgrade is ready, prepare a new future
+date for explicit review; never replay the missed session. Even after the upgrade,
+review the exact preview, Save the inert setup, separately approve its independent
+finite envelope and then use the existing activation control. Accept the team's real
+HOLD, BUY, SELL or blocked conclusion without prescribing a trade. Retain collection,
+decision, independent review, settlement and accounting receipts.
 
 The source does not supply genuine access, rights, account or reload attestations for
 the owner. Publication remains held pending the [separate handoff](INVESTMENT_PROCESS_ASYMMETRI_HANDOFF.md).
